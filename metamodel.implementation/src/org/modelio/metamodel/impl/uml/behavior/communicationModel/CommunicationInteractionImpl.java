@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("005a3822-c4bf-1fd8-97fe-001ec947cd2a")
 public class CommunicationInteractionImpl extends BehaviorImpl implements CommunicationInteraction {
-    @objid ("0fc106c4-0cb8-4e87-9891-4f5d19ad17f2")
+    @objid ("2c0f8a85-e2a2-42c3-a99f-85e7cb14adb2")
     @Override
     public EList<CommunicationNode> getOwned() {
         return new SmList<>(this, CommunicationInteractionData.Metadata.OwnedDep());
     }
 
-    @objid ("543dde52-b8b9-4153-adc6-2bdf9c2d12cc")
+    @objid ("b69316d8-a9b8-4ac6-b21b-1b04083061c6")
     @Override
     public <T extends CommunicationNode> List<T> getOwned(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,21 +63,21 @@ public class CommunicationInteractionImpl extends BehaviorImpl implements Commun
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e9dab95a-00d2-4e99-84b7-59b489bd4940")
+    @objid ("aca6dfed-0d76-46a6-a537-de5afc229d29")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("542873e4-fc83-4e2c-991a-2c1d9b714c48")
+    @objid ("0ec76a00-dfdd-4ee9-a9e0-fc85b9df5d48")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("e3e3f5f8-4a8b-4e22-8b7a-f823c6af9a24")
+    @objid ("d459d6e6-b1be-457f-a3c3-ec0f82215b31")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCommunicationInteraction(this);

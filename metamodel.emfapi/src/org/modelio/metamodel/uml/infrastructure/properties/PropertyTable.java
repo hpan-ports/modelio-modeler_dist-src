@@ -70,34 +70,34 @@ public interface PropertyTable extends Element {
     @objid ("5652fdb3-2826-11e2-bf07-001ec947ccaf")
     Properties toProperties() throws IllegalStateException;
 
-    @objid ("5f8d2705-d82c-46ca-9d89-a9c31d6047a3")
+    @objid ("ae814cd4-12f0-49a1-8947-f5819bf89069")
     String getName();
 
-    @objid ("a64b14a8-6159-4ed7-8c01-17ffbb3a64ac")
+    @objid ("39e920be-304f-40bf-9b76-0b736a35446d")
     void setName(String value);
 
-    @objid ("d790f5d9-a118-471b-b544-cef5bd27287d")
+    @objid ("7c58dd68-6e17-4afe-8803-ed4941e708d7")
     String getContent();
 
-    @objid ("142b0b64-b2e0-46ef-a8e3-9ad37e7de95f")
+    @objid ("d934cef9-3392-44a0-b88e-d2fdbae9268a")
     void setContent(String value);
 
-    @objid ("6a9b1079-02a4-4753-9a32-4164052cdca3")
+    @objid ("3c9bf617-32ed-48b0-8e48-55be35ea85d0")
     ModelElement getOwner();
 
-    @objid ("0b821166-8666-4e39-a919-1d7267e51a20")
+    @objid ("e2671ffd-0e1c-4372-aea0-6af31bb725a1")
     void setOwner(ModelElement value);
 
-    @objid ("9e788e21-f97d-42e3-b633-d64bcd27fbeb")
+    @objid ("bfbb8314-0111-4e55-ae03-bdf9d67531e9")
     MatrixValueDefinition getOwnerValDef();
 
-    @objid ("e19fe89d-f097-47e8-adcd-610182d14f75")
+    @objid ("dd10b450-5d07-4180-b40c-2aabc7bc472b")
     void setOwnerValDef(MatrixValueDefinition value);
 
-    @objid ("4fb0a3b1-69c0-4c0b-a620-bedadd9ed620")
+    @objid ("1caf8bf0-6460-42fc-98bc-0f19d71f95eb")
     QueryDefinition getOwnerQuery();
 
-    @objid ("2385fdef-c13a-449e-8c64-47dee38dd7de")
+    @objid ("8eba7733-00ae-4871-96fd-4a6b671582ef")
     void setOwnerQuery(QueryDefinition value);
 
 }

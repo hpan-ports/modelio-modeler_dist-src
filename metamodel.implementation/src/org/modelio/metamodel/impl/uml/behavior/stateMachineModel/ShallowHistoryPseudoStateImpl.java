@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00531808-c4bf-1fd8-97fe-001ec947cd2a")
 public class ShallowHistoryPseudoStateImpl extends AbstractPseudoStateImpl implements ShallowHistoryPseudoState {
-    @objid ("030ef47e-5388-4b91-a41d-d0d1e4467727")
+    @objid ("ce896350-75ba-4c34-839c-9fdc6ac3c2c2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("fcab9727-00a3-46e8-b21a-b2cf445175eb")
+    @objid ("3e517763-e7e4-4e31-bf09-2c16e3c494ac")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("d5670676-303c-49d3-ae2c-9a902207f769")
+    @objid ("06188a75-0ab0-4074-a551-0fa6e2fe2041")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitShallowHistoryPseudoState(this);

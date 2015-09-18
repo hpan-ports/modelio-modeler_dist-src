@@ -26,7 +26,7 @@ import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("8c7aafa7-0e8e-4c8a-9a62-11efe471ed36")
 public class EActivityPartition extends ENamedElement {
@@ -34,7 +34,7 @@ public class EActivityPartition extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createActivityPartition();
+                        .createActivityPartition();
     }
 
     @objid ("844d836c-2035-45a3-b275-ba7525d05e11")

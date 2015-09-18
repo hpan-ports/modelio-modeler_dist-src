@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("002a65de-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CallAction extends ActivityAction {
-    @objid ("8cb06a5b-eac7-4053-a8e2-53597a6fa861")
+    @objid ("02a8ced3-fb6d-4695-ae83-20ecb4fc3b2c")
     boolean isIsSynchronous();
 
-    @objid ("a44cbc98-f57c-4645-a45c-3fb0cd9d40d1")
+    @objid ("965b757e-6a8e-43d9-9085-77589cd318b9")
     void setIsSynchronous(boolean value);
 
 }

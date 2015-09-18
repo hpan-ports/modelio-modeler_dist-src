@@ -83,7 +83,7 @@ public class DefragIndexesHandler implements IRunnableWithProgress {
 
     @objid ("ec4c626f-aa28-4184-8039-9c0d1ccac26d")
     @Override
-    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+    public void run(IProgressMonitor monitor) throws InterruptedException, InvocationTargetException {
         try {
             this.repo.getMaintenance().compressIndexes(new ModelioProgressAdapter(monitor));
         } catch (FileSystemException e) {

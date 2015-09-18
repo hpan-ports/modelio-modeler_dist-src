@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002014c6-c4bf-1fd8-97fe-001ec947cd2a")
 public class BehavioralFeatureImpl extends FeatureImpl implements BehavioralFeature {
-    @objid ("2abf6fb9-5fc6-42af-8265-48391f179a67")
+    @objid ("dd4ce2ac-8f4c-4394-962a-01be5500f65a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7712c050-0c43-423a-ab37-977277569061")
+    @objid ("137b8849-26cd-4f56-b1cb-5b56b6f81c91")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("314b4843-9457-4a05-9cc6-625b74fcca31")
+    @objid ("ef29e96a-d958-412e-9902-e37575010b29")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBehavioralFeature(this);

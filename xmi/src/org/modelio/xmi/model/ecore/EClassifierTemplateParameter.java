@@ -29,10 +29,8 @@ import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.reverse.PartialImportMap;
-import org.modelio.xmi.reverse.TotalImportMap;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("91361f3c-fce3-4cd8-9317-d7818ab0b38d")
 public class EClassifierTemplateParameter extends EElement {
@@ -75,8 +73,6 @@ public class EClassifierTemplateParameter extends EElement {
                     .getMappedElement(this.ecoreElement.getOwner().getOwner());
             objCollaboration.getTemplate().add((TemplateParameter) objingElt);
         } else {
-            PartialImportMap.getInstance().remove(this.ecoreElement);
-            TotalImportMap.getInstance().remove(this.ecoreElement);
             objingElt.delete();
         }
     }

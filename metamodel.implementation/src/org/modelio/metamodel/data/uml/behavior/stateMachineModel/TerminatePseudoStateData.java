@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0055823c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=TerminatePseudoState.class, factory=TerminatePseudoStateData.Metadata.ObjectFactory.class)
 public class TerminatePseudoStateData extends AbstractPseudoStateData {
-    @objid ("99b78db7-ff41-40af-8519-503aee31fdf5")
+    @objid ("daef6e90-8e5a-4b73-a8b6-47538f15f2ad")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("007e38d0-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("d7419db9-dfe7-4b1b-b1ea-6be2f7c82c30")
+        @objid ("0dd6917a-bbc1-4409-b96e-4543388189da")
         private static SmClass smClass = null;
 
-        @objid ("20b464b3-5064-4b11-a32a-aa827ba989ca")
+        @objid ("bafa4d05-1a33-467b-a3bd-e0cfe6bf47a9")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(TerminatePseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("a1fff26c-2dde-40d7-b95d-0a756f3ece38")
+        @objid ("4ee5cdab-8cff-40a3-9fd6-21e5e3fa8b20")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class TerminatePseudoStateData extends AbstractPseudoStateData {
 
         @objid ("007e8ca4-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("a1380460-92b3-490c-b61e-272a14c6d8e0")
+            @objid ("13966aa1-9fae-48d0-870a-7ec87235c994")
             public ISmObjectData createData() {
                 return new TerminatePseudoStateData();
             }
 
-            @objid ("3cc337e7-4931-46fe-828a-2b0c951e8d3b")
+            @objid ("686be806-6e28-4884-bfa6-803282a600b0")
             public SmObjectImpl createImpl() {
                 return new TerminatePseudoStateImpl();
             }

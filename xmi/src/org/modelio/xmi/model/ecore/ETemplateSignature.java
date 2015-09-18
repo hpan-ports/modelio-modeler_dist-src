@@ -29,9 +29,9 @@ import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("c564792d-5160-424c-bb5a-53ca0befb1a6")
 public class ETemplateSignature extends EElement {

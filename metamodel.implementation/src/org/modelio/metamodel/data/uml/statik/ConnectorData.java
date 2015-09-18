@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("83b26800-924c-4c83-b588-26b199d89d79")
 @SmaMetaClass(mmClass=Connector.class, factory=ConnectorData.Metadata.ObjectFactory.class)
 public class ConnectorData extends LinkData {
-    @objid ("a2d3f74b-f74e-4a3b-844c-611b5c3d3a87")
+    @objid ("3e862d2c-8c36-423d-a896-132c0799a1f4")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("08b3d3f4-aa75-4b25-9b20-148b992d0173")
     public static class Metadata {
-        @objid ("97c24043-7bbd-484a-b3e9-7172f121d22d")
+        @objid ("494aa424-863a-40d1-a599-7e7ec81c875d")
         private static SmClass smClass = null;
 
-        @objid ("08811d92-c7cc-4503-8424-4e86567e9375")
+        @objid ("a8dba588-bbfa-4037-9080-333cc14ed05b")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ConnectorData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("137a933b-b6fe-4f3d-806b-de4a9844b459")
+        @objid ("f94241de-359b-42d8-9c3c-d91fc4aeef7c")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ConnectorData extends LinkData {
 
         @objid ("c7c3d260-7c0e-4c05-8e48-e1fead0968ac")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("72b112df-9b1d-4bfa-9709-e648ba398b40")
+            @objid ("e8524839-1293-41e0-842c-1e6321969f3e")
             public ISmObjectData createData() {
                 return new ConnectorData();
             }
 
-            @objid ("7d96f31a-1c51-4f85-b3a3-03bc1881382b")
+            @objid ("cc76f716-804c-4a28-b696-871088e50bfa")
             public SmObjectImpl createImpl() {
                 return new ConnectorImpl();
             }

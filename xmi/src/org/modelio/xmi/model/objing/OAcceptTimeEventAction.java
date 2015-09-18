@@ -24,7 +24,7 @@ package org.modelio.xmi.model.objing;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptTimeEventAction;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("5c308ba5-6dba-4ef1-b326-5717bd1f1b46")

@@ -44,25 +44,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0096da48-c4be-1fd8-97fe-001ec947cd2a")
 public class ArtifactImpl extends ClassifierImpl implements Artifact {
-    @objid ("670259b0-6ea9-4951-850b-bf6f4c4f3ae3")
+    @objid ("fd347c2f-b047-4b8d-82a0-74670374e428")
     @Override
     public String getFileName() {
         return (String) getAttVal(ArtifactData.Metadata.FileNameAtt());
     }
 
-    @objid ("c219385d-9bad-4814-8e76-9bbfcbce8617")
+    @objid ("11af860f-4181-4e06-b6eb-98a51dc6e30c")
     @Override
     public void setFileName(String value) {
         setAttVal(ArtifactData.Metadata.FileNameAtt(), value);
     }
 
-    @objid ("1a3e74ba-4737-4bd0-b1ef-64c8fdfbd6d0")
+    @objid ("4b0cbe28-cf56-46d5-b9cd-1c358925aa92")
     @Override
     public EList<Manifestation> getUtilized() {
         return new SmList<>(this, ArtifactData.Metadata.UtilizedDep());
     }
 
-    @objid ("6e56fee7-b0cf-4333-ac7f-20293904d014")
+    @objid ("623ef5dc-7c4d-4240-8da1-3b2abb25af42")
     @Override
     public <T extends Manifestation> List<T> getUtilized(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -75,13 +75,13 @@ public class ArtifactImpl extends ClassifierImpl implements Artifact {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("27d16be0-3f49-4ac9-9999-605ed775c8b7")
+    @objid ("0159737e-8801-4e65-8326-98fbaad2903c")
     @Override
     public EList<Node> getDeploymentLocation() {
         return new SmList<>(this, ArtifactData.Metadata.DeploymentLocationDep());
     }
 
-    @objid ("eb775f60-5fc9-47b7-9ca1-ce795cfcc924")
+    @objid ("ce2a251b-6666-44b9-90ff-a96ce49bd5a7")
     @Override
     public <T extends Node> List<T> getDeploymentLocation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,21 +94,21 @@ public class ArtifactImpl extends ClassifierImpl implements Artifact {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("572ef954-ac0a-4ad3-afd8-057e3bd2f810")
+    @objid ("62f640ae-25f8-48d3-990f-46480bab0e80")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bfbb1cdd-96c3-45a8-8ac5-b1367dbfa7d7")
+    @objid ("6113e118-1b9e-47fb-9e97-066367413cc5")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("92721f33-3fd8-4a1c-a6b6-cfcd4ef1abf0")
+    @objid ("85c286f3-813c-4253-be62-821497497fb5")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitArtifact(this);

@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("c469b8a6-17c2-4568-b3ee-39110eb6291b")
 @SmaMetaClass(mmClass=AnalystElement.class, factory=AnalystElementData.Metadata.ObjectFactory.class)
 public abstract class AnalystElementData extends AnalystItemData {
-    @objid ("cd540ba1-5060-4db5-9aef-1ea6198894d3")
+    @objid ("2ad6bf0b-6437-422c-8a7c-23ac9377cbce")
     @SmaMetaAttribute(metaName="Version", type=Integer.class, smAttributeClass=Metadata.VersionSmAttribute.class)
      Object mVersion = 0;
 
-    @objid ("d22c4fa6-b65a-47b1-abd7-79e5bf6f5c79")
+    @objid ("2d8cd162-8ac0-4862-96e1-09b9a2f3b4d8")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("35ee7ca1-df47-49be-a357-598ee4c4efd2")
     public static class Metadata {
-        @objid ("8cd68471-6a85-4e6d-bc9d-43bda57655c1")
+        @objid ("21f4b6fa-42e2-4541-a3cc-75958668daff")
         private static SmClass smClass = null;
 
-        @objid ("4467c74b-ffc2-4a80-897a-a0d35686ddc7")
+        @objid ("7733dba6-a076-4807-ad24-3dd64aae0b0e")
         private static SmAttribute VersionAtt = null;
 
-        @objid ("47fe18a5-8a24-45f2-aa96-548d9f017f22")
+        @objid ("af03329e-705d-4378-b3c2-5685d3a78297")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(AnalystElementData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("27235fb8-9690-4080-b123-a470907bf980")
+        @objid ("6ab75564-e41e-41a8-9961-e1db2c2c7cc2")
         public static SmAttribute VersionAtt() {
             if (VersionAtt == null) {
             	VersionAtt = classof().getAttributeDef("Version");
@@ -73,13 +73,13 @@ public abstract class AnalystElementData extends AnalystItemData {
             return VersionAtt;
         }
 
-        @objid ("1e2c8450-c1a0-48f8-91c5-795527e2745b")
+        @objid ("42378503-0182-4b63-9ce1-38ee3db23c7a")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("0221b992-f575-40fd-9fcf-da01c224e70d")
+        @objid ("87349b33-322d-4595-a5bb-2fb36c8663bd")
         public static SmAttribute getVersionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return VersionAtt;
@@ -87,12 +87,12 @@ public abstract class AnalystElementData extends AnalystItemData {
 
         @objid ("10a7b11d-a7cb-4dfa-be29-d2f8c7d0664f")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("0a0a0aff-5905-4bfb-a60c-03a1cc667c42")
+            @objid ("e6e250a8-cfb2-4ac8-9ef3-ad78d7160436")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("0f1a7226-824e-4717-a57d-963378ddd292")
+            @objid ("62e16130-f500-41ed-9187-3da28d065551")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -101,12 +101,12 @@ public abstract class AnalystElementData extends AnalystItemData {
 
         @objid ("ddf3e6b1-a5ae-4d61-a56f-9f24fc09be38")
         public static class VersionSmAttribute extends SmAttribute {
-            @objid ("78356e9f-9374-42ec-be30-da06f9f372b7")
+            @objid ("c3f31117-dca0-4147-8492-6bdf14f93ea9")
             public Object getValue(ISmObjectData data) {
                 return ((AnalystElementData) data).mVersion;
             }
 
-            @objid ("79ce5b5e-86b9-4ac1-9b1c-7ca9d8a51616")
+            @objid ("f91fb5a0-ab1c-4b61-a9b5-5678bf1f5a05")
             public void setValue(ISmObjectData data, Object value) {
                 ((AnalystElementData) data).mVersion = value;
             }

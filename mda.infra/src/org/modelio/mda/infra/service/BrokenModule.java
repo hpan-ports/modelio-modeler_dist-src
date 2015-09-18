@@ -21,20 +21,17 @@
 
 package org.modelio.mda.infra.service;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import javax.script.ScriptEngine;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.api.diagram.ContributorCategory;
 import org.modelio.api.diagram.IDiagramCustomizer;
-import org.modelio.api.diagram.tools.IAttachedBoxCommand;
-import org.modelio.api.diagram.tools.IBoxCommand;
-import org.modelio.api.diagram.tools.ILinkCommand;
-import org.modelio.api.diagram.tools.IMultiLinkCommand;
+import org.modelio.api.diagram.tools.IDiagramTool;
 import org.modelio.api.model.IModelingSession;
-import org.modelio.api.module.DefaultModuleSession;
 import org.modelio.api.module.ILicenseInfos.Status;
 import org.modelio.api.module.IModule;
 import org.modelio.api.module.IModuleAPIConfiguration;
@@ -43,24 +40,18 @@ import org.modelio.api.module.IModuleUserConfiguration;
 import org.modelio.api.module.IParameterEditionModel;
 import org.modelio.api.module.IPeerModule;
 import org.modelio.api.module.LicenseInfos;
+import org.modelio.api.module.ModuleException;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
 import org.modelio.api.module.contrib.WizardContribution;
-import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
-import org.modelio.api.module.diagrams.DiagramToolDescriptor;
-import org.modelio.api.module.paramEdition.DefaultParametersEditionModel;
-import org.modelio.api.module.propertiesPage.IModulePropertyPage;
+import org.modelio.api.module.propertiesPage.IModulePropertyPanel;
 import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
-import org.modelio.gproject.ramc.core.model.IModelComponent;
-import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
+import org.modelio.gproject.module.GModule;
+import org.modelio.mda.infra.plugin.MdaInfra;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.mda.ModuleComponent;
-import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
-import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.vbasic.version.Version;
-import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * This class is instantiated when a module is incomplete:
@@ -70,7 +61,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * </ul>
  */
 @objid ("55ed822f-2f2d-11e2-8f16-002564c97630")
-public class BrokenModule implements IModule {
+public class BrokenModule implements IRTModule {
     @objid ("8d85794d-2f2d-11e2-8f16-002564c97630")
     private String moduleName;
 
@@ -90,30 +81,34 @@ public class BrokenModule implements IModule {
     private Version moduleVersion;
 
     /**
-     * Instantiate a fake module.
-     * the module configuration
-     * @param modelingSession a modeling session.
-     * @param moduleName the module name
-     * @param moduleVersion the module version
-     * @param moduleUserConfiguration the user version of the module configuration
-     * @param moduleApiConfiguration the api version of the module configuration
+     * Broken cause.
      */
-    @objid ("8d799291-2f2d-11e2-8f16-002564c97630")
-    public BrokenModule(final IModelingSession modelingSession, final String moduleName, Version moduleVersion, final IModuleUserConfiguration moduleUserConfiguration, final IModuleAPIConfiguration moduleApiConfiguration) {
-        this.moduleName = moduleName;
-        this.moduleVersion = moduleVersion;
-        this.moduleConfiguration = moduleUserConfiguration;
-        this.moduleSession = new DefaultModuleSession(this);
-        this.peerModule = new BrokenPeerModule(moduleName, moduleVersion, moduleApiConfiguration);
-    }
+    @objid ("428811bb-6fe4-40fc-a0a8-cffb893f24c6")
+    private ModuleException cause;
+
+    @objid ("e811795f-aece-446c-a648-ae3dcc48c450")
+    private GModule gmodule;
 
     /**
-     * Get the configuration associated to this module.
-     * 
-     * Jxbv2Module configuration provide access to module parameter and resource paths
-     * @see IModuleUserConfiguration
-     * @return the module configuration.
+     * Instantiate a fake module. the module configuration
+     * @param modelingSession a modeling session.
+     * @param gmodule the GModule
+     * @param moduleUserConfiguration the user version of the module configuration
+     * @param moduleApiConfiguration the api version of the module configuration
+     * @param cause the cause of the module failure.
      */
+    @objid ("8d799291-2f2d-11e2-8f16-002564c97630")
+    public BrokenModule(final IModelingSession modelingSession, GModule gmodule, final IModuleUserConfiguration moduleUserConfiguration, final IModuleAPIConfiguration moduleApiConfiguration, ModuleException cause) {
+        this.gmodule = gmodule;
+        this.moduleName = gmodule.getName();
+        this.moduleVersion = gmodule.getVersion();
+        this.moduleConfiguration = moduleUserConfiguration;
+        this.moduleSession = new BrokenModuleSession(this);
+        this.peerModule = new BrokenPeerModule(this.moduleName, this.moduleVersion, moduleApiConfiguration);
+        
+        this.cause = cause;
+    }
+
     @objid ("8d79929d-2f2d-11e2-8f16-002564c97630")
     @Override
     public IModuleUserConfiguration getConfiguration() {
@@ -121,90 +116,41 @@ public class BrokenModule implements IModule {
     }
 
     /**
-     * Used to return the module description.
-     * @return The module description
+     * Build a description from the module name, version and failure cause.
      */
     @objid ("8d7bf3cb-2f2d-11e2-8f16-002564c97630")
     @Override
     public String getDescription() {
-        return "Broken module: " + this.moduleName + " " + this.moduleVersion;
+        final StringWriter sw = new StringWriter();
+        final PrintWriter sb = new PrintWriter(sw);
+        
+        String scause = this.cause.getLocalizedMessage(); 
+        sb.println(MdaInfra.I18N.getMessage("BrokenModule.desc", this.moduleName, this.moduleVersion, scause));
+        
+        if (this.cause != null) {
+            sb.println(MdaInfra.I18N.getMessage("BrokenModule.cause"));
+            sb.println();
+            this.cause.printStackTrace(sb);
+        }
+        return sw.toString();
     }
 
-    /**
-     * Get the image provided by the module for a given stereotype. The module should return an image if the stereotype
-     * is provided by itself, null in the other case. The image life cycle must be handled by the module.
-     * @param stereotype a stereotype
-     * @param type the image type
-     * @return the stereotype image, or null if the module provides none.
-     */
-    @objid ("8d7bf3d1-2f2d-11e2-8f16-002564c97630")
-    @Override
-    public Image getImage(Stereotype stereotype, ImageType type) {
-        return null;
-    }
-
-    /**
-     * Get the Jython scripting engine configured for having access to all the module classes and the public classes of
-     * all required modules.
-     * 
-     * The following variables are already bound:
-     * <ul>
-     * <li>SESSION : the MDA modeling session</li>
-     * <li> {@link IModule} MODULE : this module</li>
-     * <li> {@link ClassLoader} CLASSLOADER : the class loader of the module</li>
-     * </ul>
-     * @see <a href="http://www.jython.org" > The Jython project homepage</a>
-     * @return The Jython scripting engine.
-     */
-    @objid ("8d7bf3d9-2f2d-11e2-8f16-002564c97630")
-    @Override
-    public ScriptEngine getJythonEngine() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Get the module label that is displayed in dialog boxes and other GUIU parts.
-     * @return The module label.
-     */
     @objid ("8d7bf3de-2f2d-11e2-8f16-002564c97630")
     @Override
     public String getLabel() {
         return this.getName();
     }
 
-    /**
-     * Always returns null.
-     * @return <code>null</code>.
-     */
     @objid ("8d7bf3e4-2f2d-11e2-8f16-002564c97630")
     @Override
     public ModuleComponent getModel() {
         return null;
     }
 
-    /**
-     * Used to return the module name.
-     * <p>
-     * <p>
-     * The module name corresponds to the name of the module, as defined in the <i>MDA Designer<i> tool.
-     * @return The module name
-     */
     @objid ("8d7bf3ea-2f2d-11e2-8f16-002564c97630")
     @Override
     public String getName() {
         return this.moduleName;
-    }
-
-    /**
-     * Get the parameters model as it must be shown in the module parameters edition dialog.
-     * @return The parameters edition model.
-     */
-    @objid ("8d7bf3f0-2f2d-11e2-8f16-002564c97630")
-    @Override
-    public IParameterEditionModel getParametersEditionModel() {
-        if (this.parameterEditionModel == null)
-            this.parameterEditionModel = new DefaultParametersEditionModel(this);
-        return this.parameterEditionModel;
     }
 
     /**
@@ -222,13 +168,10 @@ public class BrokenModule implements IModule {
     /**
      * Returns the session that is connected to the module.
      * <p>
-     * <p>
      * The developer can:
-     * <p>
-     * 
      * <ul>
      * <li>return <code>this</code> and redefine all the operations directly in the module definition.</li>
-     * <li>return an new instance of IModuleSession and implement all the needed operations.</li>
+     * <li>return an instance of IModuleSession and implement all the needed operations.</li>
      * </ul>
      * @see IModuleSession
      * @return the session that is connected to the module
@@ -239,111 +182,34 @@ public class BrokenModule implements IModule {
         return this.moduleSession;
     }
 
-    /**
-     * Used to return the module version.
-     * @return The module version
-     */
     @objid ("8d7e5527-2f2d-11e2-8f16-002564c97630")
     @Override
     public Version getVersion() {
         return this.moduleVersion;
     }
 
-    /**
-     * Method automatically called just after the creation of the module.
-     * <p>
-     * <p>
-     * 
-     * The module is automatically instantiated at the beginning of the mda lifecycle and the constructor implementation
-     * is not accessible to the module developer.
-     * <p>
-     * <p>
-     * 
-     * The <code>init</code> method allows the developer to execute the desired initialization code at this step. For
-     * example, this is the perfect place to register any IViewpoint this module provides.
-     * <p>
-     * <p>
-     * 
-     * This method should never be called by the developer because it is already invoked by the tool.
-     */
     @objid ("8d7e552d-2f2d-11e2-8f16-002564c97630")
     @Override
     public void init() {
         // Nothing to do.
     }
 
-    /**
-     * Returns the minimum Modelio version that authorize the Jxbv2Module to be activated.
-     * @return The minimum Modelio version
-     */
-    @objid ("8d7e5531-2f2d-11e2-8f16-002564c97630")
-    @Override
-    public Version getRequiredModelioVersion() {
-        return new Version("0.0.0");
-    }
-
-    /**
-     * Returns the collection of {@link IModuleAction} associated with passed location.
-     * @param location the location for which actions are to be returned.
-     * @return the collection of {@link IModuleAction} associated with passed location.
-     */
     @objid ("8d7e5537-2f2d-11e2-8f16-002564c97630")
     @Override
     public Collection<IModuleAction> getModuleActions(ActionLocation location) {
         return Collections.emptyList();
     }
 
-    /**
-     * Register a module action for the contextual popupmenu(s) of the application.
-     * @param location The action insertion point in the popupmenu (see {@link ActionLocation})
-     * @param action Action to store
-     */
     @objid ("8d7e5540-2f2d-11e2-8f16-002564c97630")
     @Override
     public void registerAction(ActionLocation location, IModuleAction action) {
-        // Do nothing.
+        throw new UnsupportedOperationException(getDownError());
     }
 
-    /**
-     * Returns the collection of {@link IModuleAction} associated with passed location.
-     * @param location the location for which actions are to be returned.
-     * @return the collection of {@link IModuleAction} associated with passed location.
-     */
     @objid ("8d7e5546-2f2d-11e2-8f16-002564c97630")
     @Override
     public List<IModuleAction> getActions(ActionLocation location) {
         return Collections.emptyList();
-    }
-
-    /**
-     * Returns the modeling session this module is loaded into.
-     * @return the modeling session this module is loaded into.
-     */
-    @objid ("8d7e554f-2f2d-11e2-8f16-002564c97630")
-    @Override
-    public IModelingSession getModelingSession() {
-        return null;
-    }
-
-    /**
-     * Return the defined property pages
-     * @return The collection of property pages
-     */
-    @objid ("8d7e5555-2f2d-11e2-8f16-002564c97630")
-    @Override
-    public Collection<IModulePropertyPage> getPropertyPages() {
-        return Collections.emptyList();
-    }
-
-    /**
-     * Get the ModelComponent contributor associated to this module.
-     * @see IModelComponentContributor
-     * @return the module configuration.
-     */
-    @objid ("8d7e555d-2f2d-11e2-8f16-002564c97630")
-    @Override
-    public IModelComponentContributor getModelComponentContributor(IModelComponent mc) {
-        return null;
     }
 
     /**
@@ -364,24 +230,12 @@ public class BrokenModule implements IModule {
      * @param runtimeState the new runtime state of this module.
      */
     @objid ("8d7e5569-2f2d-11e2-8f16-002564c97630")
+    @Override
     public void setState(final ModuleRuntimeState runtimeState) {
-        throw new UnsupportedOperationException(this.moduleName + ": runtime state of this moduel cannot be changed since it is incompatible with this version of Modelio");
+        throw new UnsupportedOperationException(this.moduleName
+                + ": runtime state of this module cannot be changed since it is broken.",getDownError());
     }
 
-    /**
-     * Method automatically called just before the disposal of the module.
-     * <p>
-     * <p>
-     * 
-     * 
-     * The <code>uninit</code> method allows the developer to execute the desired un-initialization code at this step.
-     * For example, if IViewpoints have been registered in the {@link #init()} method, this method is the perfect place
-     * to remove them.
-     * <p>
-     * <p>
-     * 
-     * This method should never be called by the developer because it is already invoked by the tool.
-     */
     @objid ("8d7e556e-2f2d-11e2-8f16-002564c97630")
     @Override
     public void uninit() {
@@ -390,18 +244,8 @@ public class BrokenModule implements IModule {
 
     @objid ("8d7e5572-2f2d-11e2-8f16-002564c97630")
     @Override
-    public final Image getModuleImage() {
+    public Image getModuleImage() {
         return null;
-    }
-
-    /**
-     * Get the path to the image representing the module.
-     * @return a path relative to the module's resource path.
-     */
-    @objid ("8d7e5577-2f2d-11e2-8f16-002564c97630")
-    @Override
-    public String getModuleImagePath() {
-        return "";
     }
 
     @objid ("b20e07ea-7964-4246-a269-910f0462ac91")
@@ -418,59 +262,17 @@ public class BrokenModule implements IModule {
 
     @objid ("96162d4e-16cf-425d-b203-d71f36e60b2e")
     @Override
-    public void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, IBoxCommand handler) {
-        // not defined for broken modules
-    }
-
-    @objid ("97dbb3ee-ef6e-4629-8dc3-73ed08bbe155")
-    @Override
-    public void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, IAttachedBoxCommand handler) {
-        // not defined for broken modules
-    }
-
-    @objid ("7c0f74f6-a833-4f6c-b4c6-1717adb68856")
-    @Override
-    public void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, ILinkCommand handler) {
-        // not defined for broken modules
-    }
-
-    @objid ("401707a0-2bd2-49bd-891a-7f543d713490")
-    @Override
-    public void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, IMultiLinkCommand handler) {
-        // not defined for broken modules
+    public void registerCustomizedTool(String id, IDiagramTool diagramCommand) {
+        throw new UnsupportedOperationException(getDownError());
     }
 
     @objid ("48c7c719-127e-4366-b4a1-8866388d2250")
     @Override
     public void registerDiagramCustomization(Stereotype stereotype, Class<? extends AbstractDiagram> baseDiagramClass, IDiagramCustomizer customizer) {
-        // not defined for broken modules
+        throw new UnsupportedOperationException(getDownError());
     }
 
     @objid ("e818050b-7c1b-4404-8ed6-587e11bc6959")
-    @Override
-    public String getLabel(Stereotype stereotype) {
-        return stereotype.getName();
-    }
-
-    @objid ("cc99f6fb-c14f-4490-9b28-c52f9698ecfd")
-    @Override
-    public String getLabel(TagType tagType) {
-        return tagType.getName();
-    }
-
-    @objid ("d6d18047-a011-431a-b245-51ab91e15ce6")
-    @Override
-    public String getLabel(NoteType noteType) {
-        return noteType.getName();
-    }
-
-    @objid ("61fe653f-9afb-4792-b5ec-a6436c40a3f3")
-    @Override
-    public String getLabel(ExternDocumentType docType) {
-        return docType.getName();
-    }
-
-    @objid ("0cf8586b-c716-4295-998e-43cfd7ca108c")
     @Override
     public String getLabel(String key) {
         return key;
@@ -485,7 +287,7 @@ public class BrokenModule implements IModule {
     @objid ("58ff62c5-fc6c-49ab-9058-5bd45e585968")
     @Override
     public <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs) {
-        return null;
+        throw new UnsupportedOperationException(getDownError());
     }
 
     @objid ("e1f84c7a-f9cc-408e-90a8-c3d6dafa1615")
@@ -497,13 +299,43 @@ public class BrokenModule implements IModule {
     @objid ("5c5026e7-eb82-4da1-b2c7-c02d0eafa0da")
     @Override
     public void registerDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
-        // Nothing to do
+        throw new UnsupportedOperationException(getDownError());
     }
 
     @objid ("60192a53-93ae-4d38-8df9-708fe7510b81")
     @Override
     public void unregisterDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
-        // Nothing to do
+        throw new UnsupportedOperationException(getDownError());
+    }
+
+    @objid ("42807927-83ff-4a84-8a81-42cc89019595")
+    @Override
+    public Collection<IModulePropertyPanel> getPropertyPanels() {
+        return Collections.emptyList();
+    }
+
+    @objid ("b4601bec-fed4-4a4b-b423-96c15ea352a5")
+    @Override
+    public IModule getIModule() {
+        return new BrokenIModule(this);
+    }
+
+    @objid ("e8d39e41-54e4-491d-af38-54c3be6bee47")
+    @Override
+    public String getModuleImagePath() {
+        return null;
+    }
+
+    @objid ("de21128b-1225-4e82-bbfd-d00c0b30673f")
+    @Override
+    public ModuleException getDownError() {
+        return this.cause;
+    }
+
+    @objid ("be3d4111-cd80-4f82-aa52-120829547814")
+    @Override
+    public GModule getGModule() {
+        return this.gmodule;
     }
 
 }

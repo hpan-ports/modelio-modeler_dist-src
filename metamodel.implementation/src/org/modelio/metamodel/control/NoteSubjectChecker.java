@@ -23,6 +23,7 @@ package org.modelio.metamodel.control;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
+import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -55,9 +56,10 @@ public class NoteSubjectChecker extends AbstractDependencyTypeChecker {
     private static SmClass getBaseClass(MetaclassReference classRef, Stereotype ste) {
         if (ste != null) {
             return SmClass.getClass(ste.getBaseClassName());
-        } else {
+        } else if (classRef != null) {
             return SmClass.getClass(classRef.getReferencedClassName());
         }
+        return SmClass.getClass(ModelElement.class);
     }
 
     @objid ("02fcbabd-f027-11e1-8bdc-002564c97630")

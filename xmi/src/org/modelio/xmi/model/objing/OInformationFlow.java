@@ -31,7 +31,7 @@ import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("62154cad-ecea-42b6-a4d5-3274cb7ba67d")
 public class OInformationFlow extends OModelElement implements IOElement {

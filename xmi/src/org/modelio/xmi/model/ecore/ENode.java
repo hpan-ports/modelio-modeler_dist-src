@@ -27,7 +27,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.Node;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("84c1f37a-41d8-4ec0-b87f-b977cdb92979")
 public class ENode extends ENamedElement {
@@ -35,7 +35,7 @@ public class ENode extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createNode();
+                        .createNode();
     }
 
     @objid ("7183726e-68d8-4d7c-abf9-fc9cd393029d")

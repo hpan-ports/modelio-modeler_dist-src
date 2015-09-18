@@ -33,34 +33,34 @@ import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 
 @objid ("8a02f9a1-ae38-48d8-8f92-04ce8b6edc5c")
 public interface MatrixDefinition extends ModelElement {
-    @objid ("6df2ee44-0507-4019-bf2c-a8108a032bba")
+    @objid ("f925f4fd-8908-4c57-9046-3dd349ca9da9")
     QueryDefinition getLinesDefinition();
 
-    @objid ("4e6b18ed-401c-4d44-9ffe-7deb691f4aea")
+    @objid ("391c6c61-cea1-4ed3-b66c-5c8af0d3a3f2")
     void setLinesDefinition(QueryDefinition value);
 
-    @objid ("66af4a35-257e-49b7-ace8-0e34e97e51d6")
+    @objid ("e5154fb1-386f-43c7-b320-a0cc7e06c684")
     QueryDefinition getColumnsDefinition();
 
-    @objid ("22a55363-a970-4193-8d59-fbbebe8a8ce0")
+    @objid ("c44fb8e0-590b-4607-b14d-ef706e7723a4")
     void setColumnsDefinition(QueryDefinition value);
 
-    @objid ("66c6280b-8d62-4052-a002-633df518828d")
+    @objid ("b6c63b5c-1eb3-415b-956c-601d16209d37")
     MatrixValueDefinition getValuesDefinition();
 
-    @objid ("db5bdf37-1ced-4d56-b527-cd39a8353905")
+    @objid ("41fbd249-b9e7-435c-8091-2e6c77e1c211")
     void setValuesDefinition(MatrixValueDefinition value);
 
-    @objid ("98d8be3f-d97a-4a55-be4c-64d79a591dcc")
+    @objid ("3c17df5f-11a0-4282-8931-dbc3050fcb76")
     QueryDefinition getDepthDefinition();
 
-    @objid ("0ed30aa3-45dc-4348-8a79-2a8b0335086c")
+    @objid ("ef04165f-d7c6-41e5-889f-ddc64b0c74f3")
     void setDepthDefinition(QueryDefinition value);
 
-    @objid ("5206aba2-a4ab-4dd7-b245-974cb0875558")
+    @objid ("0d4b48e6-39b3-4387-b7f2-b6da021382bc")
     ModelElement getOwner();
 
-    @objid ("ec8d044b-8fea-4cc6-bcde-947d76c9c652")
+    @objid ("776d84cd-d586-4b3a-a956-313b0b05f227")
     void setOwner(ModelElement value);
 
 }

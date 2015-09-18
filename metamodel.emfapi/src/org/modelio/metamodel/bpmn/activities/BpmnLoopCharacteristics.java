@@ -32,10 +32,10 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("007ff738-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnLoopCharacteristics extends BpmnBaseElement {
-    @objid ("0fb616f4-a200-4c3e-88ee-51a86d872c51")
+    @objid ("8c143667-637f-4314-807a-2e454001fb68")
     BpmnActivity getOwnerActivity();
 
-    @objid ("f9940a89-25ad-4869-9cc8-1b402f4c2b75")
+    @objid ("6a4de953-7835-44a8-955d-b26433891f1b")
     void setOwnerActivity(BpmnActivity value);
 
 }

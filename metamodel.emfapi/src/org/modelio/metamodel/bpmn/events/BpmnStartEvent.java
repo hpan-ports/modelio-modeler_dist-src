@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00924686-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnStartEvent extends BpmnCatchEvent {
-    @objid ("8ca6b437-5948-4163-82f4-ff14753d4b9a")
+    @objid ("8aa9f207-419a-4d18-94a6-690fcbc5cc47")
     boolean isIsInterrupting();
 
-    @objid ("e55b8949-5ea6-42e6-a4aa-409d404bd31f")
+    @objid ("cde35837-c77e-4b3b-9976-e5703065da22")
     void setIsInterrupting(boolean value);
 
 }

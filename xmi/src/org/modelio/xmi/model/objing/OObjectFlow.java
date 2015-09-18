@@ -27,8 +27,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectFlow;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("f102c72a-cd06-4493-88ab-221201389476")

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ui
 Bundle-SymbolicName: org.modelio.app.project.ui;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Bundle-Localization: plugin
 Bundle-Activator: org.modelio.app.project.ui.plugin.AppProjectUi
 Bundle-ActivationPolicy: lazy
@@ -44,7 +44,7 @@ Require-Bundle: org.modelio.core.project,
  org.modelio.core.project.data
 Bundle-ClassPath: res/,
  .
-Export-Package: org.modelio.app.project.ui.auth,
+Export-Package: 
  org.modelio.app.project.ui.plugin,
  org.modelio.app.project.ui.saveproject
 Import-Package: javax.annotation;version="1.1.0",

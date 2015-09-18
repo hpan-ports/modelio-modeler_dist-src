@@ -27,8 +27,8 @@ import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.behavior.activityModel.OpaqueAction;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("969a1246-f194-4152-b59b-4f06a39c5fae")
 public class EReadSelfAction extends EActivityNode {

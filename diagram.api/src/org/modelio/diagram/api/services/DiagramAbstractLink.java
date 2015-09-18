@@ -146,7 +146,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
      */
     @objid ("8fb92ab3-249d-45a9-a0dd-c3461c867301")
     @Override
-    public void setPath(ILinkPath linkPath) throws InvalidSourcePointException, InvalidPointsPathException, InvalidDestinationPointException {
+    public void setPath(ILinkPath linkPath) throws InvalidSourcePointException, InvalidDestinationPointException, InvalidPointsPathException {
         final List<Point> points = new ArrayList<>(linkPath.getPoints());
         if (points.size() < 2) {
             throw new InvalidPointsPathException("You must have at least a source and a destination point");

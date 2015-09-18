@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00886378-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnCancelEventDefinition.class, factory=BpmnCancelEventDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnCancelEventDefinitionData extends BpmnEventDefinitionData {
-    @objid ("31acc384-dfad-4991-bc38-923d8f2839c1")
+    @objid ("b3dfbfc0-116f-4d07-9e41-3ffc33f27344")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0028ea1a-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("cc3db43b-d21c-4430-82ca-7a490bb367fe")
+        @objid ("a6aa311c-d99a-4db5-8c94-8603dd8c69c4")
         private static SmClass smClass = null;
 
-        @objid ("468ad92a-93c7-4f2a-959f-4a5872b941e9")
+        @objid ("12646dba-dc8b-43dc-a321-7ba3e70c20e7")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnCancelEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("a2168b98-d74d-49bc-b34f-975ad0db562e")
+        @objid ("73dab644-09d7-4b78-b5a9-7725e0764a62")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BpmnCancelEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("00292b74-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("72ea98ad-e3a7-4d89-9ea0-046c9a899888")
+            @objid ("ac8ae10b-eca4-4587-a9ce-2b722526ca70")
             public ISmObjectData createData() {
                 return new BpmnCancelEventDefinitionData();
             }
 
-            @objid ("17e29968-7a36-43a1-ab9c-00c5afc981ca")
+            @objid ("c870402c-d6c5-4fa3-adb4-154e9a565c10")
             public SmObjectImpl createImpl() {
                 return new BpmnCancelEventDefinitionImpl();
             }

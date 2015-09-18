@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0029668e-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActivityParameterNodeImpl extends ObjectNodeImpl implements ActivityParameterNode {
-    @objid ("d70c9453-4916-43fd-837a-162cf8a1bb99")
+    @objid ("dc9bce1a-a5ce-4d6d-a30e-449199bb846e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("29455ba4-1a0e-4f70-9cb1-85f28269f8e3")
+    @objid ("b9b71346-9de8-4209-bca1-d5ab92d82098")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("3dde4ec4-c864-475f-ac68-d3203404234a")
+    @objid ("9f2b6d58-d5ff-4686-a8e3-9c4e694bae4b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityParameterNode(this);

@@ -26,7 +26,7 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("063db966-f3ac-47ed-808c-890108247b18")
 public class ERegion extends ENamedElement {

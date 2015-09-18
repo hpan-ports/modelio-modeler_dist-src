@@ -37,52 +37,52 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("005b08f6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CommunicationMessage extends ModelElement {
-    @objid ("55534d0a-6700-4712-859b-f63c3b1af82b")
+    @objid ("4ee8c735-4c7c-4696-9b8b-5e606d5f4bd1")
     String getArgument();
 
-    @objid ("5c83c3e2-47da-4b90-80cf-fe0283454d8d")
+    @objid ("7fcfd156-9a90-4a31-b575-ca6b60895ccb")
     void setArgument(String value);
 
-    @objid ("b641e8c0-ac0e-4daa-96fa-c7e22a1d48de")
+    @objid ("973fd913-ea54-4419-be78-f6e0dd16978b")
     String getSequence();
 
-    @objid ("543eadf0-b93d-4b11-b6b0-70f3c2ef62be")
+    @objid ("1bac7e18-e18a-4531-8564-24b7234b4440")
     void setSequence(String value);
 
-    @objid ("0b81cbac-f736-4a39-b5a0-6a3e30d22ec3")
+    @objid ("c8bb866c-eb67-4d4e-b37c-32a26eb9c5d3")
     MessageSort getSortOfMessage();
 
-    @objid ("0705e61d-3d33-4c0e-9de9-4230947fd32d")
+    @objid ("7fd252ed-3891-49d1-8255-31a257c10ca8")
     void setSortOfMessage(MessageSort value);
 
-    @objid ("d663487a-c8b4-45d2-99e9-7111d1019209")
+    @objid ("866cb2ea-4dd7-495a-922f-083cdaa1542f")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("61ecfec7-4915-4016-8746-2d2aeca872e5")
+    @objid ("10e81ef0-bf3a-47aa-878d-d7466b4347f6")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
-    @objid ("2f843656-fb8c-4c7e-8710-adfa412d7a6a")
+    @objid ("9300fc94-9924-456a-a7db-9842257884c7")
     CommunicationChannel getChannel();
 
-    @objid ("3ba68ce6-c468-4014-af60-d49904989d91")
+    @objid ("69044d57-a888-4c95-9895-4b08bba8acb3")
     void setChannel(CommunicationChannel value);
 
-    @objid ("a5bc0216-5555-471b-90ea-7e8c8a23652d")
+    @objid ("e81b00e6-ab3b-4b41-92f6-5daf48f3c127")
     CommunicationChannel getInvertedChannel();
 
-    @objid ("fdd9b118-0538-4376-abdc-985d39baac61")
+    @objid ("a7edf913-36ff-4056-8f8d-a2f383874eb1")
     void setInvertedChannel(CommunicationChannel value);
 
-    @objid ("849608cb-0967-4ed1-849d-b2fd4abe93b4")
+    @objid ("99bf8cce-b8d0-488c-8234-055d482900a9")
     Operation getInvoked();
 
-    @objid ("fc16c444-18ed-4bad-a4c5-6a185b197a02")
+    @objid ("3335a57b-2981-4d96-ba92-dde7fc7daf71")
     void setInvoked(Operation value);
 
-    @objid ("b81f2fc0-a6a2-4b2b-97b6-894188b5c2a4")
+    @objid ("caf3d384-2dba-4512-8b29-0aee1cbf04d4")
     Signal getSignalSignature();
 
-    @objid ("620866be-ab1f-4df8-8dc9-ab55bcc76e40")
+    @objid ("96ea61de-1aff-45ee-9333-b6db07b058db")
     void setSignalSignature(Signal value);
 
 }

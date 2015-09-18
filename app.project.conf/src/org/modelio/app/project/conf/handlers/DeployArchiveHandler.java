@@ -139,7 +139,7 @@ public class DeployArchiveHandler {
 
         @objid ("33e251e7-ac9a-4c1e-93d1-260139896671")
         @Override
-        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+        public void run(IProgressMonitor monitor) throws InterruptedException, InvocationTargetException {
             SubProgress mon = ModelioProgressAdapter.convert(monitor, AppProjectConf.I18N.getString("DeployArchiveHandler.AddModulesProgressTitle"), this.modules.size()*3);
             int i = 0;
             for (String module : this.modules) {

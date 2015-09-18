@@ -52,25 +52,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000bf81a-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class GeneralClassImpl extends ClassifierImpl implements GeneralClass {
-    @objid ("3d74e538-0dcf-42b6-a4b1-d98cd5de32da")
+    @objid ("11765226-861e-4e4e-a111-734b9ec48b8c")
     @Override
     public boolean isIsElementary() {
         return (Boolean) getAttVal(GeneralClassData.Metadata.IsElementaryAtt());
     }
 
-    @objid ("183872ae-e1bb-4aeb-adbd-2a16462debe5")
+    @objid ("994b3472-3d65-4f69-8fdf-460297487be4")
     @Override
     public void setIsElementary(boolean value) {
         setAttVal(GeneralClassData.Metadata.IsElementaryAtt(), value);
     }
 
-    @objid ("a9bc8b30-d556-4f0b-b7c0-5305ea8f0b6e")
+    @objid ("9d656b84-0369-43b2-9e20-87768b54e065")
     @Override
     public EList<BpmnInterface> getBpmnInterfaceRefs() {
         return new SmList<>(this, GeneralClassData.Metadata.BpmnInterfaceRefsDep());
     }
 
-    @objid ("5d23a9c6-baf4-4cc4-83fc-78497d3af32e")
+    @objid ("d26b9b39-99db-4275-aa6e-daceedcba322")
     @Override
     public <T extends BpmnInterface> List<T> getBpmnInterfaceRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -83,13 +83,13 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e32695ed-c463-4ead-972d-38a550b27512")
+    @objid ("428710d9-6ca6-4313-9593-de0551fc60e5")
     @Override
     public EList<Parameter> getOccurence() {
         return new SmList<>(this, GeneralClassData.Metadata.OccurenceDep());
     }
 
-    @objid ("6871b520-cf4a-41bd-9072-f7f83251f1d6")
+    @objid ("c240def9-d81f-481d-9817-c39cb3d3f633")
     @Override
     public <T extends Parameter> List<T> getOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -102,25 +102,25 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("77bfe2db-753f-47a2-8421-b40c55bff961")
+    @objid ("1bc729be-3515-4487-b106-7e2874371a2d")
     @Override
     public ExceptionHandler getExceptionInput() {
         return (ExceptionHandler) getDepVal(GeneralClassData.Metadata.ExceptionInputDep());
     }
 
-    @objid ("95713d56-fa7a-4fa4-89db-86f9dd737087")
+    @objid ("a522d938-6319-4623-974d-ce9fae24e3b1")
     @Override
     public void setExceptionInput(ExceptionHandler value) {
         appendDepVal(GeneralClassData.Metadata.ExceptionInputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("51ed32f8-cddb-4598-8464-79a17a1d9144")
+    @objid ("830cce7e-2111-4cdf-8962-c2908d6d8792")
     @Override
     public EList<Attribute> getObject() {
         return new SmList<>(this, GeneralClassData.Metadata.ObjectDep());
     }
 
-    @objid ("5c584df8-cab9-48d1-aa98-b42f0acdb2c2")
+    @objid ("2af6ff92-de1c-4bb2-bb72-a7a851fdd5b4")
     @Override
     public <T extends Attribute> List<T> getObject(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -133,13 +133,13 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b166ad11-95f5-4caf-9ba0-c5e5837d850e")
+    @objid ("4312c66a-92cd-42b1-97ff-0d43167589c9")
     @Override
     public EList<BpmnMessage> getBpmnMessageRefs() {
         return new SmList<>(this, GeneralClassData.Metadata.BpmnMessageRefsDep());
     }
 
-    @objid ("565e3804-a37c-48e1-870c-cd6196d9d7d8")
+    @objid ("094b977b-ee42-407b-a391-f6e5e71de393")
     @Override
     public <T extends BpmnMessage> List<T> getBpmnMessageRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -152,13 +152,13 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e5c1136b-1491-4930-bbfa-5ba0c15fbb45")
+    @objid ("c6a11ddc-5ebd-4510-afc2-23f6a5b2be55")
     @Override
     public EList<Signal> getSRepresentation() {
         return new SmList<>(this, GeneralClassData.Metadata.SRepresentationDep());
     }
 
-    @objid ("70f5042a-14fa-4fc0-a4f8-f085389510af")
+    @objid ("11f2461a-1980-4737-8f8b-3da95eaf46f3")
     @Override
     public <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -171,13 +171,13 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("43b04434-29fb-4f2d-80aa-938d833e384b")
+    @objid ("8e03ec82-e8d9-47fe-b936-cd027f0a0878")
     @Override
     public EList<BpmnItemDefinition> getBpmnItemDefinitionRefs() {
         return new SmList<>(this, GeneralClassData.Metadata.BpmnItemDefinitionRefsDep());
     }
 
-    @objid ("0cfbc477-c5a8-438b-b059-90a0243a72e3")
+    @objid ("ae24e79f-49aa-4dd3-8a6e-feaf547785e3")
     @Override
     public <T extends BpmnItemDefinition> List<T> getBpmnItemDefinitionRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -190,13 +190,13 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ea8e3310-c2f9-4688-af39-b0d2a89575d7")
+    @objid ("47b5f107-384d-4766-b49f-a3deb8746e78")
     @Override
     public EList<ObjectNode> getOccurenceObjectNode() {
         return new SmList<>(this, GeneralClassData.Metadata.OccurenceObjectNodeDep());
     }
 
-    @objid ("64b724e1-9c03-4989-b7aa-e630fc00a342")
+    @objid ("dbde88f1-cad6-4442-a26c-e54295871285")
     @Override
     public <T extends ObjectNode> List<T> getOccurenceObjectNode(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -209,13 +209,13 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("97428d7f-0f4d-41ef-a591-e7efb8e146e9")
+    @objid ("8844a9f2-ef0b-4065-9493-ae8066ca0fd7")
     @Override
     public EList<BpmnItemAwareElement> getBpmnItemAwareRefs() {
         return new SmList<>(this, GeneralClassData.Metadata.BpmnItemAwareRefsDep());
     }
 
-    @objid ("41d98fc1-0db1-4b54-9d82-57d88c04e82b")
+    @objid ("b6139655-c1ad-45b5-93ac-41c7d917bfd0")
     @Override
     public <T extends BpmnItemAwareElement> List<T> getBpmnItemAwareRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -228,13 +228,13 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ca8c4911-9dee-4017-b1e5-8455eb3e7d9b")
+    @objid ("76149ce6-dce5-4301-a098-9c78635d7101")
     @Override
     public EList<ModuleParameter> getOccurenceConfigParam() {
         return new SmList<>(this, GeneralClassData.Metadata.OccurenceConfigParamDep());
     }
 
-    @objid ("ffae5895-5ff0-4d45-a6a2-db292e353a25")
+    @objid ("d0cedd6c-a337-4366-9960-0d58ed09523a")
     @Override
     public <T extends ModuleParameter> List<T> getOccurenceConfigParam(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -247,21 +247,21 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("080e9651-d315-4356-a106-41b67c932750")
+    @objid ("4cc024c0-9b89-42d5-86fc-f5a6a9be30f6")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("e7f4660d-0599-4fa4-a0d9-5f0ca4ddbc1e")
+    @objid ("770d812e-988a-4d98-8c7e-4ec251ba02a6")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("50e3b848-0e4e-4419-a63d-eab012ccaa8b")
+    @objid ("4c4377ae-8a53-4ac8-b0b4-8f0ec879f431")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGeneralClass(this);

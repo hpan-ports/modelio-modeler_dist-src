@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00258b22-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AcceptTimeEventAction extends ActivityAction {
-    @objid ("bdfce959-e9cd-41f3-8e36-efd31dad63c7")
+    @objid ("187f6443-0065-488f-a16e-a0180f8529cb")
     String getTimeExpresion();
 
-    @objid ("89db7e54-388e-4b2f-aca5-1e0d5b5801a2")
+    @objid ("22dfd972-59ab-4f66-8c98-3e7842217b7c")
     void setTimeExpresion(String value);
 
 }

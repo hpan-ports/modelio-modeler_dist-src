@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0082028a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnScriptTask extends BpmnTask {
-    @objid ("1f709eab-caa7-48ef-8016-76dd06638a5c")
+    @objid ("fd076afa-f79e-4752-973d-7bc428cd294f")
     String getScriptLanguage();
 
-    @objid ("70c01897-d615-4f29-bb64-362326fe5b26")
+    @objid ("7c603b6b-9f9b-4279-897a-00ce40c986d4")
     void setScriptLanguage(String value);
 
-    @objid ("8b9d4481-8424-44c6-97a3-4740084757fd")
+    @objid ("a64efa1f-f375-4c04-879c-83af7abceb1c")
     String getScript();
 
-    @objid ("5793fdda-dbd1-4f4b-abbd-e9fef98d1b78")
+    @objid ("55a0ed31-c7a1-41d6-91ed-ca031d684076")
     void setScript(String value);
 
 }

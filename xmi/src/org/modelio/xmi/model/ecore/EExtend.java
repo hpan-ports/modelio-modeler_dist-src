@@ -30,7 +30,7 @@ import org.modelio.metamodel.uml.behavior.usecaseModel.UseCaseDependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 /**
  * This class manages the import of Ecore Named org.eclipse.uml2.uml.Element
@@ -45,7 +45,7 @@ public class EExtend extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                 .createUseCaseDependency();
+                         .createUseCaseDependency();
     }
 
     /**

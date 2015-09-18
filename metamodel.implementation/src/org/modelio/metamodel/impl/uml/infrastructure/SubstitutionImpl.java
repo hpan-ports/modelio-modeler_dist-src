@@ -42,31 +42,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008e0fa8-c4be-1fd8-97fe-001ec947cd2a")
 public class SubstitutionImpl extends ModelElementImpl implements Substitution {
-    @objid ("b06ec165-7496-446d-a173-09157c895e53")
+    @objid ("f24338de-ae74-4b2f-90c5-42eaa0bd464a")
     @Override
     public Classifier getContract() {
         return (Classifier) getDepVal(SubstitutionData.Metadata.ContractDep());
     }
 
-    @objid ("7b4dfe99-3b40-4b3e-a6fc-3af3502143b6")
+    @objid ("c622dd81-cdf7-4392-9478-1026ff1ce82e")
     @Override
     public void setContract(Classifier value) {
         appendDepVal(SubstitutionData.Metadata.ContractDep(), (SmObjectImpl)value);
     }
 
-    @objid ("06ac6b95-b7e7-4a91-bdea-d2b263ed1572")
+    @objid ("e7e84e1f-d5ad-4e16-bb54-8e83ef551ad3")
     @Override
     public Classifier getSubstitutingClassifier() {
         return (Classifier) getDepVal(SubstitutionData.Metadata.SubstitutingClassifierDep());
     }
 
-    @objid ("cf86f487-419a-4a0b-ae99-642120dde893")
+    @objid ("425a24af-15ec-44e2-b55c-9d21a8d63285")
     @Override
     public void setSubstitutingClassifier(Classifier value) {
         appendDepVal(SubstitutionData.Metadata.SubstitutingClassifierDep(), (SmObjectImpl)value);
     }
 
-    @objid ("69c7b2c9-91c5-4ec8-ac4a-e770a9b812ce")
+    @objid ("98f5fc14-77c7-4a8e-a25b-9d2bb5d5c3c6")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -76,7 +76,7 @@ public class SubstitutionImpl extends ModelElementImpl implements Substitution {
         return super.getCompositionOwner();
     }
 
-    @objid ("ca81eb6f-80ef-45c1-8c3f-b8fb839c1e05")
+    @objid ("3c57232e-1f27-4f71-a512-0662d6fa8fea")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -86,7 +86,7 @@ public class SubstitutionImpl extends ModelElementImpl implements Substitution {
         return super.getCompositionRelation();
     }
 
-    @objid ("c6dcceb3-3023-4594-8481-2aff2f624d7b")
+    @objid ("96ad5e84-6e46-424d-82f3-71bfc82cd35c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitSubstitution(this);

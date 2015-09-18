@@ -133,7 +133,7 @@ public class CachedUriFile {
      * @throws java.io.IOException in case of other I/O errors.
      */
     @objid ("0ea06b7d-32d8-40cc-a100-2b0502fc1312")
-    private String readLocalStamp() throws IOException, FileSystemException {
+    private String readLocalStamp() throws FileSystemException, IOException {
         if (! Files.isRegularFile(this.destFile))
             return null;
         

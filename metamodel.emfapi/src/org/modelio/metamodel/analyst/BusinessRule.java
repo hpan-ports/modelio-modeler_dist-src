@@ -32,34 +32,34 @@ import org.modelio.metamodel.analyst.BusinessRuleContainer;
 
 @objid ("5a95b6be-0c64-44a2-a18c-e3ca290c5245")
 public interface BusinessRule extends AnalystElement {
-    @objid ("56610330-c6cd-45cd-8ad2-5fb09bf9e188")
+    @objid ("3606f41b-c306-4af6-8a2d-4883cde87d28")
     EList<BusinessRule> getSubRule();
 
-    @objid ("6da14e04-66a0-4727-b187-8adf70793750")
+    @objid ("4469548a-7df2-4b13-b5e3-66da1ff3cd1f")
     <T extends BusinessRule> List<T> getSubRule(java.lang.Class<T> filterClass);
 
-    @objid ("554000cf-f170-4f48-82d0-c0358d4044d9")
+    @objid ("23a43b50-509f-4a4e-a91c-984bde4ddb3e")
     BusinessRuleContainer getOwnerContainer();
 
-    @objid ("0059f4b7-bc99-4634-b0ae-3cdb6552098e")
+    @objid ("51e40f44-226b-41c0-81c8-a3c6662c681c")
     void setOwnerContainer(BusinessRuleContainer value);
 
-    @objid ("4ba86332-e323-4962-b468-4a9e8731b5ba")
+    @objid ("487e0f0d-37d4-4f09-bead-058f0dda9371")
     BusinessRule getParentRule();
 
-    @objid ("b7998bc4-1274-4ec4-abc0-3a4a5bfc2bbd")
+    @objid ("db809a24-29af-4382-a78a-73bd14108824")
     void setParentRule(BusinessRule value);
 
-    @objid ("64ab6b97-e56b-4db5-8cf7-cb7d5cf1b194")
+    @objid ("0ccbd46d-fc1b-4612-a0f8-10a893ce8029")
     BusinessRule getLastRuleVersion();
 
-    @objid ("12422455-6fbc-4661-8b4f-1827c898a9e7")
+    @objid ("cf045874-4e9c-4d49-a22d-d8f759b2ae03")
     void setLastRuleVersion(BusinessRule value);
 
-    @objid ("31b287e7-2196-412a-bfc3-dec70a41d06f")
+    @objid ("ae34706e-0295-4ef1-abfe-1873ec99339c")
     EList<BusinessRule> getArchivedRuleVersion();
 
-    @objid ("cd898477-ba80-45da-bafd-38ec177e7319")
+    @objid ("4c6b63dc-2d7f-4e13-8ff7-844a2ad7a414")
     <T extends BusinessRule> List<T> getArchivedRuleVersion(java.lang.Class<T> filterClass);
 
 }

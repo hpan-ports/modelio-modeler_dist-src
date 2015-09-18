@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.infrastructure.Constraint;
 
 @objid ("0043d1ea-c4bf-1fd8-97fe-001ec947cd2a")
 public interface DurationConstraint extends Constraint {
-    @objid ("30776667-22e4-42ce-9e80-36f4cac90b35")
+    @objid ("53335b79-e3f6-4796-b3f6-b7a78dd731c8")
     String getDurationMin();
 
-    @objid ("fb3487bb-ae26-41d3-86ce-d1830f747dd6")
+    @objid ("bf44a6a3-3122-43ea-a0d8-3bb82c1830f1")
     void setDurationMin(String value);
 
-    @objid ("33648862-3c10-4e17-9ffc-1f46dd1800bb")
+    @objid ("58149e44-7d84-40cf-b5e2-b748fb3348ed")
     String getDurationMax();
 
-    @objid ("45c069f2-1023-4b5f-bd26-d70776077a6a")
+    @objid ("b823f2ea-f9f1-4fb0-b319-dbebeda0860d")
     void setDurationMax(String value);
 
 }

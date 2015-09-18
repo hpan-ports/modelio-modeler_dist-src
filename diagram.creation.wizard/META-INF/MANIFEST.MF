@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Diagram Creation Wizard
 Bundle-SymbolicName: org.modelio.diagram.creation.wizard;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Bundle-Activator: org.modelio.diagram.creation.wizard.plugin.DiagramCreationWizard
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: modelio.org
 Bundle-Localization: plugin

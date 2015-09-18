@@ -42,57 +42,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003cae42-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class PinImpl extends ObjectNodeImpl implements Pin {
-    @objid ("c04af8ec-fd3d-4770-9e1f-935bf5bbdc29")
+    @objid ("198e0a42-6db5-464f-9892-1e02397d9cb3")
     @Override
     public boolean isIsControl() {
         return (Boolean) getAttVal(PinData.Metadata.IsControlAtt());
     }
 
-    @objid ("2da37939-1f2f-4c6a-b03c-331825e13470")
+    @objid ("ef5e0bbe-1a1f-4b06-94b9-e8f9233a019f")
     @Override
     public void setIsControl(boolean value) {
         setAttVal(PinData.Metadata.IsControlAtt(), value);
     }
 
-    @objid ("1bfe5a90-5ddb-4baf-987c-1fd9f4128fb8")
+    @objid ("dd47a3fc-adfb-4a23-bd80-c18861f00c24")
     @Override
     public boolean isIsExpansion() {
         return (Boolean) getAttVal(PinData.Metadata.IsExpansionAtt());
     }
 
-    @objid ("d8248465-e539-4749-94aa-7522d1e29ea6")
+    @objid ("1872b630-47de-458c-b1b3-dcd17bf26399")
     @Override
     public void setIsExpansion(boolean value) {
         setAttVal(PinData.Metadata.IsExpansionAtt(), value);
     }
 
-    @objid ("ca39d5f7-45b1-4611-8ef6-08a3d687c558")
+    @objid ("470889db-c6cb-4970-ab7d-bb7ff17b0dd9")
     @Override
     public Parameter getMatched() {
         return (Parameter) getDepVal(PinData.Metadata.MatchedDep());
     }
 
-    @objid ("aa25fb05-0500-42e8-8196-fe77a05bc4ff")
+    @objid ("d94fa948-5da7-4611-9544-845644813749")
     @Override
     public void setMatched(Parameter value) {
         appendDepVal(PinData.Metadata.MatchedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("56e734e2-5651-45eb-a4f1-3fd9707e7786")
+    @objid ("266ef559-5d03-4018-8278-5d8b933ec106")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("6c935b50-4cdd-4c6e-8abd-b6c5b7ff21fa")
+    @objid ("c5114b72-1e1f-46f7-8a67-68ea30cb5260")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("1581949f-7ad1-488c-b252-865b933c0b00")
+    @objid ("df4b576a-3b4e-4533-8fa1-669be019033e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPin(this);

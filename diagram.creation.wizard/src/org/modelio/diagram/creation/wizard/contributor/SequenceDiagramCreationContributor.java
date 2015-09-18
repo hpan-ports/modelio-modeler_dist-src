@@ -29,7 +29,7 @@ import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 @objid ("79d8d35b-64bc-42db-854c-6b7c35780f67")
-public class SequenceDiagramCreationContributor extends AbstractDiagramCreationContributor {
+public class SequenceDiagramCreationContributor extends AbstractUMLDiagramCreationContributor {
     @objid ("12f39b07-a757-4ee0-9bae-73262df4b563")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
@@ -92,6 +92,48 @@ public class SequenceDiagramCreationContributor extends AbstractDiagramCreationC
         allowedMetaclasses.add(Metamodel.getMClass(Operation.class));
         allowedMetaclasses.add(Metamodel.getMClass(Interaction.class));
         return allowedMetaclasses;
+    }
+
+    @objid ("e3242862-3cf8-4bcf-8eef-298e48b902e7")
+    @Override
+    public String getDetails() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Sequence.Details");
+    }
+
+    @objid ("1505abf0-1641-4bb7-a249-ab12604413ec")
+    @Override
+    public Image getIcon() {
+        return MetamodelImageService.getIcon(Metamodel.getMClass(SequenceDiagram.class));
+    }
+
+    @objid ("ac91be33-f780-4054-afaa-2215114374e9")
+    @Override
+    public String getInformation() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Sequence.Information");
+    }
+
+    @objid ("75552bd2-a6e9-4327-86ad-319fac17dbf4")
+    @Override
+    public String getLabel() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Sequence.Name");
+    }
+
+    @objid ("cc092d46-1a87-471a-8bc6-595a4470a621")
+    private Collaboration checkLocalCollaboration(final IModelFactory modelFactory, final Interaction interaction) {
+        Collaboration locals = null;
+        // Look for an existing local Collaboration
+        for (Collaboration collab : interaction.getOwnedCollaboration()) {
+            locals = collab;
+            break;
+        }
+        
+        if (locals == null) {
+            // Create the local Collaboration
+            locals = modelFactory.createCollaboration();
+            interaction.getOwnedCollaboration().add(locals);
+            locals.setName("locals");
+        }
+        return locals;
     }
 
     @objid ("63f7df8b-7e7e-4873-8630-53a76c37912d")
@@ -178,48 +220,6 @@ public class SequenceDiagramCreationContributor extends AbstractDiagramCreationC
             }
         }
         return diagram;
-    }
-
-    @objid ("75552bd2-a6e9-4327-86ad-319fac17dbf4")
-    @Override
-    public String getLabel() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Sequence.Name");
-    }
-
-    @objid ("1505abf0-1641-4bb7-a249-ab12604413ec")
-    @Override
-    public Image getIcon() {
-        return MetamodelImageService.getIcon(Metamodel.getMClass(SequenceDiagram.class));
-    }
-
-    @objid ("ac91be33-f780-4054-afaa-2215114374e9")
-    @Override
-    public String getInformation() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Sequence.Information");
-    }
-
-    @objid ("e3242862-3cf8-4bcf-8eef-298e48b902e7")
-    @Override
-    public String getDetails() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Sequence.Details");
-    }
-
-    @objid ("cc092d46-1a87-471a-8bc6-595a4470a621")
-    private Collaboration checkLocalCollaboration(final IModelFactory modelFactory, final Interaction interaction) {
-        Collaboration locals = null;
-        // Look for an existing local Collaboration
-        for (Collaboration collab : interaction.getOwnedCollaboration()) {
-            locals = collab;
-            break;
-        }
-        
-        if (locals == null) {
-            // Create the local Collaboration
-            locals = modelFactory.createCollaboration();
-            interaction.getOwnedCollaboration().add(locals);
-            locals.setName("locals");
-        }
-        return locals;
     }
 
 }

@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0043f6ca-c4bf-1fd8-97fe-001ec947cd2a")
 public class DurationConstraintImpl extends ConstraintImpl implements DurationConstraint {
-    @objid ("a9e4b646-5b23-4642-8be2-24250d61370c")
+    @objid ("04c8119a-e45d-4308-a4f7-5a3fa7b4baa0")
     @Override
     public String getDurationMin() {
         return (String) getAttVal(DurationConstraintData.Metadata.DurationMinAtt());
     }
 
-    @objid ("8ef35feb-e168-4eed-99bf-f3c0a47fc97b")
+    @objid ("95cee7aa-6433-4d5e-93bf-b9b461f519a8")
     @Override
     public void setDurationMin(String value) {
         setAttVal(DurationConstraintData.Metadata.DurationMinAtt(), value);
     }
 
-    @objid ("443be045-ef2a-492a-b684-2c9df422c14d")
+    @objid ("dd028a2b-5295-43f0-8825-ea6d81b0d100")
     @Override
     public String getDurationMax() {
         return (String) getAttVal(DurationConstraintData.Metadata.DurationMaxAtt());
     }
 
-    @objid ("d30a0e7e-67d7-4d0e-8321-fa16b156fa6d")
+    @objid ("a616fb02-5b3d-477c-86f8-3880ea30636b")
     @Override
     public void setDurationMax(String value) {
         setAttVal(DurationConstraintData.Metadata.DurationMaxAtt(), value);
     }
 
-    @objid ("145bea11-0194-4e7f-9987-6448c0177a4c")
+    @objid ("76066658-11b7-4052-9cc9-ae2f4e6e3b2b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("412d6991-fc3d-42c6-b1e8-30d696eae984")
+    @objid ("910c5726-ab7e-4f8b-94c0-3eec2af8adc1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("159dfdfe-cbf3-4168-a8cb-a046d6a530ef")
+    @objid ("4eb8be7f-f3e3-48b2-b2ce-deb650ada734")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDurationConstraint(this);

@@ -43,37 +43,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002d81b0-c4bf-1fd8-97fe-001ec947cd2a")
 public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements ConditionalNode {
-    @objid ("7fce2640-f3ee-480b-860c-4ca292d4da54")
+    @objid ("b3c4678c-b2f6-4252-ba71-f33f6655b712")
     @Override
     public boolean isIsDeterminate() {
         return (Boolean) getAttVal(ConditionalNodeData.Metadata.IsDeterminateAtt());
     }
 
-    @objid ("7ab80180-1c68-4c4d-9708-87a4254b6148")
+    @objid ("5b570955-9570-49e6-946b-905672bf2aab")
     @Override
     public void setIsDeterminate(boolean value) {
         setAttVal(ConditionalNodeData.Metadata.IsDeterminateAtt(), value);
     }
 
-    @objid ("dac82e28-beb1-4388-a57a-26209ea0e381")
+    @objid ("b5c95e83-02e1-435b-8438-e1f6e074e883")
     @Override
     public boolean isIsAssured() {
         return (Boolean) getAttVal(ConditionalNodeData.Metadata.IsAssuredAtt());
     }
 
-    @objid ("17e38775-30ae-44ba-9352-88ccdfa93f47")
+    @objid ("2704441c-56fe-4167-882a-b03b03f10a37")
     @Override
     public void setIsAssured(boolean value) {
         setAttVal(ConditionalNodeData.Metadata.IsAssuredAtt(), value);
     }
 
-    @objid ("170ec8a9-3e9c-4610-963c-f35e40d4a680")
+    @objid ("6fea3ece-1ea1-4967-8e18-420dadfbdee3")
     @Override
     public EList<Clause> getOwnedClause() {
         return new SmList<>(this, ConditionalNodeData.Metadata.OwnedClauseDep());
     }
 
-    @objid ("c3835018-a7aa-4552-a37c-6a0924067b4f")
+    @objid ("71d6a51e-c7cc-44f1-a5ab-0c34509e7927")
     @Override
     public <T extends Clause> List<T> getOwnedClause(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -86,21 +86,21 @@ public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements C
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("efea2a24-0757-41d7-ac4c-0280c5118d8f")
+    @objid ("87729e40-508f-4108-8aaa-cf3115ec9a4d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("497301f8-59a8-4e77-960c-c0565d38b5af")
+    @objid ("965b5111-021e-44fa-8d78-ec90c88d8c75")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("028be81c-5845-4c56-8eaa-bedbb3060aea")
+    @objid ("59d5ec9c-0090-40b0-978b-1e71e9fbfa68")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitConditionalNode(this);

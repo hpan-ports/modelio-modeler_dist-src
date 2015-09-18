@@ -28,8 +28,8 @@ import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleTagTypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
 

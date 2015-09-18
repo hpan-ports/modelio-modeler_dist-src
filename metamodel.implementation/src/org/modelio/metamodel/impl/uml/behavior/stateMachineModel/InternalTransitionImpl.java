@@ -42,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00517a98-c4bf-1fd8-97fe-001ec947cd2a")
 public class InternalTransitionImpl extends TransitionImpl implements InternalTransition {
-    @objid ("7efc6002-0108-4b47-b16c-1ab0b5a6c95a")
+    @objid ("2b70813c-528b-43c2-b445-2dae28267852")
     @Override
     public State getSComposed() {
         return (State) getDepVal(InternalTransitionData.Metadata.SComposedDep());
     }
 
-    @objid ("c15dc2b4-4993-4ffd-bba5-b8ae3ec0917f")
+    @objid ("b639b5e9-58c5-4249-8a04-58651b1866b2")
     @Override
     public void setSComposed(State value) {
         appendDepVal(InternalTransitionData.Metadata.SComposedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9f64624f-771d-460d-bede-dc98669ad9e9")
+    @objid ("0d6b1a6f-eeb2-42fc-9ac0-3570970320e3")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -64,7 +64,7 @@ public class InternalTransitionImpl extends TransitionImpl implements InternalTr
         return super.getCompositionOwner();
     }
 
-    @objid ("895e9952-ad95-43d4-a8f6-9caaf1aa1119")
+    @objid ("65eeeac8-1650-41f6-8107-643c782bcec9")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -74,7 +74,7 @@ public class InternalTransitionImpl extends TransitionImpl implements InternalTr
         return super.getCompositionRelation();
     }
 
-    @objid ("87709170-2c3c-4ecb-876c-bd4ec7e377fa")
+    @objid ("288a2921-4b13-41d1-b89a-64b0752b1286")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInternalTransition(this);

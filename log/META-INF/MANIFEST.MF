@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Log
 Bundle-SymbolicName: org.modelio.log;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Bundle-Vendor: modelio.org
 Require-Bundle: org.eclipse.osgi
 Bundle-Activator: org.modelio.log.plugin.Log

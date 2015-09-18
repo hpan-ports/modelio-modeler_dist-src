@@ -290,8 +290,13 @@ public class DiagramViewEditPart extends GmNodeEditPart {
      */
     @objid ("8145ffa6-1dec-11e2-8cad-001ec947c8cc")
     private static final class InnerEditPartViewer extends AbstractEditPartViewer {
+        @objid ("5ae80939-7f6c-4e3d-bd1a-35769d8b47af")
+        private EditPartViewer outerViewer;
+
         @objid ("8145ffab-1dec-11e2-8cad-001ec947c8cc")
         public InnerEditPartViewer(final EditPartViewer viewer) {
+            this.outerViewer = viewer;
+            
             // Take the same edit domain and edit part factory.
             setEditDomain(viewer.getEditDomain());
             setEditPartFactory(viewer.getEditPartFactory());
@@ -341,6 +346,27 @@ public class DiagramViewEditPart extends GmNodeEditPart {
         @Override
         public Control createControl(final Composite parent) {
             return null;
+        }
+
+        @objid ("b637feef-648a-4132-aec8-56375cbc5c0e")
+        @Override
+        public Control getControl() {
+            if (this.outerViewer != null)
+                return this.outerViewer.getControl();
+            else
+                return null;
+        }
+
+        @objid ("1032ba8f-b84c-48d9-a14f-413d9e6f5ba7")
+        @Override
+        protected void hookControl() {
+            // do nothing, it does not own the control!
+        }
+
+        @objid ("32276476-e6b8-40c1-82ce-60c1429caf26")
+        @Override
+        protected void unhookControl() {
+            // do nothing, it does not own the control!
         }
 
     }

@@ -42,31 +42,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00314c5a-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExpansionNodeImpl extends ObjectNodeImpl implements ExpansionNode {
-    @objid ("f0af4eae-e6b4-40da-9ff6-c3e1efcf1a67")
+    @objid ("ed8fbcb7-35b4-4d6c-a907-aeebe535f2a1")
     @Override
     public ExpansionRegion getRegionAsOutput() {
         return (ExpansionRegion) getDepVal(ExpansionNodeData.Metadata.RegionAsOutputDep());
     }
 
-    @objid ("5735c400-4777-494e-8004-927a2c675ecb")
+    @objid ("98871920-a96e-48c0-bb52-a9d829b18398")
     @Override
     public void setRegionAsOutput(ExpansionRegion value) {
         appendDepVal(ExpansionNodeData.Metadata.RegionAsOutputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a7cacb9c-fe98-4132-b458-16201debdd39")
+    @objid ("48e6e549-7f1b-4aaa-904e-0df8b562c354")
     @Override
     public ExpansionRegion getRegionAsInput() {
         return (ExpansionRegion) getDepVal(ExpansionNodeData.Metadata.RegionAsInputDep());
     }
 
-    @objid ("1537528a-42f0-4ac9-918d-3c79b0f83007")
+    @objid ("acf58de9-664c-4a5d-bdd6-31e58b10dd3c")
     @Override
     public void setRegionAsInput(ExpansionRegion value) {
         appendDepVal(ExpansionNodeData.Metadata.RegionAsInputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0e7707f7-70c3-47d7-9c17-c09adab07a9e")
+    @objid ("ba430860-15b2-4e1d-bd73-b677d806990d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -79,7 +79,7 @@ public class ExpansionNodeImpl extends ObjectNodeImpl implements ExpansionNode {
         return super.getCompositionOwner();
     }
 
-    @objid ("180f20ac-880e-41eb-8757-372e69c187e5")
+    @objid ("8a3b1e7e-a5df-410b-ac11-bc3b0fe3c711")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -92,7 +92,7 @@ public class ExpansionNodeImpl extends ObjectNodeImpl implements ExpansionNode {
         return super.getCompositionRelation();
     }
 
-    @objid ("c6c481d8-d9e9-4a4d-8952-7ffb6182210f")
+    @objid ("eca0aa96-aa85-41f1-b69d-48a06514b1cb")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExpansionNode(this);

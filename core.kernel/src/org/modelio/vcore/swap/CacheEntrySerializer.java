@@ -79,7 +79,7 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
 
     @objid ("dcbe878b-493b-11e2-91c9-001ec947ccaf")
     @Override
-    public org.modelio.vcore.swap.JdbmSwap.CacheEntry deserialize(SerializerInput in) throws IOException, ClassNotFoundException {
+    public org.modelio.vcore.swap.JdbmSwap.CacheEntry deserialize(SerializerInput in) throws ClassNotFoundException, IOException {
         JdbmSwap.CacheEntry ret = new JdbmSwap.CacheEntry();
         
         ret.metaId = in.readInt();

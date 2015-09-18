@@ -53,6 +53,9 @@ public class EditionManager {
     @objid ("ab47560d-2a77-11e2-9fb9-bc305ba4815c")
     private static final String URI_SEPARATOR = "/";
 
+    @objid ("1e2ad6af-efea-4653-8299-076a13317c92")
+    private static final String DEFAULT_CHARSET_NAME = "UTF-8"; // $NON-NLS-1$
+
     @objid ("7b46fed5-2a77-11e2-9fb9-bc305ba4815c")
     private static EditionManager instance;
 
@@ -98,8 +101,24 @@ public class EditionManager {
         }
     }
 
+    /**
+     * Open an editor with a default UTF-8 charset.
+     */
     @objid ("7b48856f-2a77-11e2-9fb9-bc305ba4815c")
     public IMDATextEditor openEditor(final ModelElement modelElement, final File file, final EditorType editorTypeID, final boolean readonly) {
+        return openEditor(modelElement, file, editorTypeID, readonly, DEFAULT_CHARSET_NAME);
+    }
+
+    @objid ("7b48857b-2a77-11e2-9fb9-bc305ba4815c")
+    public void activateEditor(final IMDATextEditor editor) {
+        if (editor instanceof MDATextEditor) {
+            MDATextEditor mdaEditor = (MDATextEditor) editor;
+            mdaEditor.getEditor().setOnTop(true);
+        }
+    }
+
+    @objid ("8e642877-7cca-4cb7-a9d1-e1a14e104c14")
+    public IMDATextEditor openEditor(final ModelElement modelElement, final File file, final EditorType editorTypeID, final boolean readonly, String charsetName) {
         MInputPart inputPart = null;
         
         String partid = null;
@@ -120,7 +139,7 @@ public class EditionManager {
         
         MPart shownPart = this.inputservice.showInputPart(partid, file.getAbsolutePath(), PartState.ACTIVATE);
         
-        if (modelElement != null) {            
+        if (modelElement != null) {
             shownPart.setLabel(modelElement.getName());
         }
         shownPart.setTooltip(file.getAbsolutePath());
@@ -129,26 +148,19 @@ public class EditionManager {
             inputPart = (MInputPart)shownPart;
         } else if (shownPart instanceof MPlaceholder) {
             inputPart = (MInputPart) ((MPlaceholder)shownPart).getRef();
-        } 
+        }
         
         if (inputPart != null && inputPart.getObject() != null) {
             IDocumentEditor editor = (IDocumentEditor) inputPart.getObject();
             IDocumentInput input = editor.getDocumentInput();
             editor.setReadonlyMode(readonly);
-            
+            input.setCharsetName(charsetName);
+        
             MDATextEditor proxy = new MDATextEditor(input, inputPart);
             proxy.setElement(modelElement);
             return proxy;
         }
         return null;
-    }
-
-    @objid ("7b48857b-2a77-11e2-9fb9-bc305ba4815c")
-    public void activateEditor(final IMDATextEditor editor) {
-        if (editor instanceof MDATextEditor) {
-            MDATextEditor mdaEditor = (MDATextEditor) editor;
-            mdaEditor.getEditor().setOnTop(true);
-        }
     }
 
 }

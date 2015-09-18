@@ -27,8 +27,8 @@ import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.behavior.activityModel.OpaqueAction;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("21c137cc-3eda-4255-8637-3227e9524b74")
 public class ECreateLinkAction extends EActivityNode {

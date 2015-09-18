@@ -30,6 +30,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.tools.AbstractTool;
@@ -38,6 +39,7 @@ import org.eclipse.gef.tools.ToolUtilities;
 import org.eclipse.swt.graphics.Cursor;
 import org.modelio.diagram.elements.core.commands.DefaultReparentElementCommand;
 import org.modelio.diagram.elements.core.link.GmLinkEditPart;
+import org.modelio.diagram.elements.core.requests.NavigationRequest;
 import org.modelio.ui.gef.SharedCursors2;
 
 /**
@@ -165,6 +167,38 @@ public class GmNodeDragTracker extends DragEditPartsTracker {
             }
         }
         return null;
+    }
+
+    /**
+     * fire a Modelio navigation event on &lt;ctrl>+&lt;alt>+click.
+     */
+    @objid ("5b195262-1f05-4cf8-857d-a50b9dfd38a4")
+    @Override
+    protected boolean handleButtonDown(int button) {
+        if (button == 1) {
+            final Input currentInput = getCurrentInput();
+            
+            if (currentInput.isControlKeyDown() && currentInput.isAltKeyDown()) {
+                performNavigation();
+                return true;
+            }
+        }
+        return super.handleButtonDown(button);
+    }
+
+    /**
+     * Creates a {@link NavigationRequest} and sends it to the source edit part
+     * via {@link EditPart#performRequest(Request)}.
+     * <p>
+     * Uses are to fire a Modelio navigation on
+     * the selected item to select it in the browser.
+     */
+    @objid ("f3732501-f95e-4f73-9309-07e0db426695")
+    protected void performNavigation() {
+        NavigationRequest request = new NavigationRequest();
+        request.setLocation(getLocation());
+        //request.setModifiers(getCurrentInput().getModifiers());
+        getSourceEditPart().performRequest(request);
     }
 
 }

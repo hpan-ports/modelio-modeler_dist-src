@@ -33,16 +33,16 @@ import org.modelio.metamodel.uml.statik.Binding;
 
 @objid ("00068bc8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ConnectorEnd extends LinkEnd {
-    @objid ("9bf1b7b7-d74c-471f-8b26-ce56a5ea61f7")
+    @objid ("e97d7726-a61c-49b2-a868-2ad1e7e1a503")
     EList<Binding> getRepresentation();
 
-    @objid ("306bbb97-1f38-459c-a24c-3825166e8baf")
+    @objid ("53d706da-303d-4828-b59f-9db150a73dfa")
     <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("98631124-c37b-48e3-a171-3e26f2d006c2")
+    @objid ("2fbd745b-48fc-4813-89a5-c861631044ce")
     ModelElement getRepresentedFeature();
 
-    @objid ("01f111d7-5c2b-4add-98ba-05f14e270e30")
+    @objid ("b745c226-1236-4624-ab17-450785c95916")
     void setRepresentedFeature(ModelElement value);
 
 }

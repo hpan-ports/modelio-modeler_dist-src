@@ -69,9 +69,9 @@ public class CreatePseudoStateHandler extends CreateElementHandler {
     @objid ("4e4e5945-ccde-11e1-97e5-001ec947c8cc")
     private boolean isAllowed(String metaclass) {
         return !((Metamodel.getMClass(EntryPointPseudoState.class).getName().equals(metaclass)) 
-                || (Metamodel.getMClass(ExitPointPseudoState.class).getName().equals(metaclass))
-                || (Metamodel.getMClass(ShallowHistoryPseudoState.class).getName().equals(metaclass)) 
-                || (Metamodel.getMClass(DeepHistoryPseudoState.class).getName().equals(metaclass)));
+                                || (Metamodel.getMClass(ExitPointPseudoState.class).getName().equals(metaclass))
+                                || (Metamodel.getMClass(ShallowHistoryPseudoState.class).getName().equals(metaclass)) 
+                                || (Metamodel.getMClass(DeepHistoryPseudoState.class).getName().equals(metaclass)));
     }
 
     @objid ("4e4e594a-ccde-11e1-97e5-001ec947c8cc")

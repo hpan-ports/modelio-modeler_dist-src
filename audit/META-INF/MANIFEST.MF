@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Audit
 Bundle-SymbolicName: org.modelio.audit;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Bundle-Activator: org.modelio.audit.plugin.Audit
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
@@ -35,12 +35,13 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.core.services,
  org.modelio.core.utils
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.modelio.audit.plugin,
- org.modelio.audit.preferences,
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.modelio.audit.engine.core,
+  org.modelio.audit.preferences,
  org.modelio.audit.preferences.model,
  org.modelio.audit.preferences.ui,
- org.modelio.audit.service
+ org.modelio.audit.service,
+ org.modelio.audit.view
 Bundle-Vendor: Modeliosoft
 Bundle-ClassPath: res/,
  .,

@@ -27,8 +27,8 @@ import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.behavior.activityModel.OpaqueAction;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("14fa172e-bbed-480a-b646-85492afd591c")
 public class EReadIsClassifiedObjectAction extends EActivityNode {

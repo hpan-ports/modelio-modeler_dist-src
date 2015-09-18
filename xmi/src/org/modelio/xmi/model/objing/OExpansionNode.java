@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.ExpansionNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ExpansionRegion;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("c2058076-5bc7-427f-b65f-6e005d08851b")
 public class OExpansionNode extends OObjectNode implements IOElement {

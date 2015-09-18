@@ -48,16 +48,18 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.modelio.diagram.elements.core.figures.LinkFigure;
 import org.modelio.diagram.elements.core.figures.geometry.PointListUtilities;
+import org.modelio.diagram.elements.core.requests.NavigationRequest;
 
 /**
  * Specialized <code>SelectEditPartTracker</code> that allows for a request action to be taken on a
- * <code>Connection</code> shapes anywhere along the extent of the line. Depending on whether the user clicks on a bend
+ * <code>Connection</code> shapes anywhere along the extent of the line.
+ * <p>
+ * Depending on whether the user clicks on a bend
  * point along a line or on the line itself, this is interpreted as either a
- * <code>RequestConstants.REQ_MOVE_BENDPOINT</code> request or a <code>RequestConstants.REQ_CREATE_BENDPOINT</code>
- * request respectively.
+ * <code>RequestConstants.REQ_MOVE_BENDPOINT</code> request
+ * or a <code>RequestConstants.REQ_CREATE_BENDPOINT</code> request respectively.
  * 
  * @author cma
- * @canBeSeenBy %partners
  */
 @objid ("806aa75e-1dec-11e2-8cad-001ec947c8cc")
 public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
@@ -67,11 +69,11 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     @objid ("806aa762-1dec-11e2-8cad-001ec947c8cc")
     private final int MODIFIER_NO_SNAPPING;
 
-    @objid ("806aa768-1dec-11e2-8cad-001ec947c8cc")
-    private int index = -1;
-
     @objid ("806aa76a-1dec-11e2-8cad-001ec947c8cc")
     private boolean bSourceFeedback = false;
+
+    @objid ("806aa768-1dec-11e2-8cad-001ec947c8cc")
+    private int index = -1;
 
     @objid ("9067f6f7-1e83-11e2-8cad-001ec947c8cc")
     private String type;
@@ -79,14 +81,14 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     @objid ("806aa771-1dec-11e2-8cad-001ec947c8cc")
     private Collection<Object> exclusionSet;
 
-    @objid ("65198029-1e83-11e2-8cad-001ec947c8cc")
-    private Request sourceRequest;
+    @objid ("651be283-1e83-11e2-8cad-001ec947c8cc")
+    private Point originalLocation = null;
 
     @objid ("6519802b-1e83-11e2-8cad-001ec947c8cc")
     private PrecisionRectangle sourceRectangle;
 
-    @objid ("651be283-1e83-11e2-8cad-001ec947c8cc")
-    private Point originalLocation = null;
+    @objid ("65198029-1e83-11e2-8cad-001ec947c8cc")
+    private Request sourceRequest;
 
     /**
      * Initialize the tracker.
@@ -110,24 +112,6 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         }
         this.sourceRequest = null;
         super.deactivate();
-    }
-
-    /**
-     * Method setIndex. Sets the current line segment index based on the location the user clicked on the connection.
-     * @param i int representing the line segment index in the connection.
-     */
-    @objid ("806aa77d-1dec-11e2-8cad-001ec947c8cc")
-    protected final void setIndex(int i) {
-        this.index = i;
-    }
-
-    /**
-     * Sets the type of request that will be created for the drag operation.
-     * @param type the <code>String</code> that represents the type of request.
-     */
-    @objid ("806aa781-1dec-11e2-8cad-001ec947c8cc")
-    protected final void setType(String type) {
-        this.type = type;
     }
 
     @objid ("806aa785-1dec-11e2-8cad-001ec947c8cc")
@@ -176,12 +160,6 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         }
     }
 
-    @objid ("806d09a3-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected final String getCommandName() {
-        return getType();
-    }
-
     @objid ("806d09a8-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected final Command getCommand() {
@@ -198,10 +176,43 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         }
     }
 
+    @objid ("806d09a3-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected final String getCommandName() {
+        return getType();
+    }
+
+    /**
+     * @return the <code>LinkFigure</code> that is referenced by the connection edit part.
+     */
+    @objid ("806d09e5-1dec-11e2-8cad-001ec947c8cc")
+    protected final LinkFigure getConnection() {
+        return (LinkFigure) getConnectionEditPart().getFigure();
+    }
+
+    /**
+     * Method getConnectionEditPart.
+     * @return ConnectionEditPart
+     */
+    @objid ("806d09de-1dec-11e2-8cad-001ec947c8cc")
+    protected final ConnectionEditPart getConnectionEditPart() {
+        return (ConnectionEditPart) getSourceEditPart();
+    }
+
     @objid ("806d09ae-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected String getDebugName() {
         return "Bendpoint Handle Tracker " + getCommandName(); //$NON-NLS-1$
+    }
+
+    @objid ("806f6c18-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected final Collection<?> getExclusionSet() {
+        if (this.exclusionSet == null) {
+            this.exclusionSet = new ArrayList<>();
+            this.exclusionSet.add(getConnection());
+        }
+        return this.exclusionSet;
     }
 
     /**
@@ -211,6 +222,12 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     @objid ("806d09b3-1dec-11e2-8cad-001ec947c8cc")
     protected final int getIndex() {
         return this.index;
+    }
+
+    @objid ("806f6c11-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected final Request getTargetRequest() {
+        return getSourceRequest();
     }
 
     /**
@@ -225,6 +242,9 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     @objid ("806d09bd-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected final boolean handleButtonDown(int button) {
+        if (isNavigateEvent(button))
+            return handleNavigationEvent();
+            
         if (!super.handleButtonDown(button))
             return false;
         
@@ -241,14 +261,15 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
                    connection.getTargetDecoration().containsPoint(p)) {
             handleButtonDownOnTarget(button);
         } else {
+            // look for a bend point
             final Dimension size = new Dimension(9, 9);
             connection.translateToRelative(size);
         
             for (int i = 0; i < points.size(); i++) {
                 final Point ptCenter = points.getPoint(i);
-                final Rectangle rect = new Rectangle(ptCenter.x - size.width / 2, ptCenter.y -
-                                                                                  size.height /
-                                                                                  2, size.width, size.height);
+                final Rectangle rect = new Rectangle(ptCenter.x - size.width / 2, 
+                        ptCenter.y - size.height / 2, 
+                        size.width, size.height);
         
                 if (rect.contains(p)) {
                     if (i == 0)
@@ -261,14 +282,54 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
             }
         
             if (getIndex() == -1) {
-                setIndex(PointListUtilities.findNearestLineSegIndexOfPoint(connection.getPoints(),
-                                                                           new Point(p.x, p.y)));
-        
-                setIndex(getIndex() - 1);
-                setType(RequestConstants.REQ_CREATE_BENDPOINT);
+                // Mouse is not on a bendpoint, look for a segment
+                final int segmentIndex = PointListUtilities.findNearestLineSegIndexOfPoint(
+                        connection.getPoints(),
+                        new Point(p.x, p.y));
+                handleButtonDownOnSegment(button, segmentIndex);
             }
         }
         return true;
+    }
+
+    /**
+     * Handle mouse button down on the given connection point.
+     * @param button the mouse button
+     * @param pointIndex the index of the point in the point list
+     * @param points the connection points list.
+     */
+    @objid ("806f6bfc-1dec-11e2-8cad-001ec947c8cc")
+    protected void handleButtonDownOnBendpoint(final int button, final int pointIndex, final PointList points) {
+        if (pointIndex == 0) {
+            setType(RequestConstants.REQ_RECONNECT_SOURCE);
+            setIndex(pointIndex);
+        } else if (pointIndex == points.size() - 1) {
+            setType(RequestConstants.REQ_RECONNECT_TARGET);
+            setIndex(pointIndex);
+        } else {
+            setType(RequestConstants.REQ_MOVE_BENDPOINT);
+            setIndex(pointIndex - 1);
+        }
+    }
+
+    /**
+     * Handle mouse button down on the source end point.
+     * @param button the mouse button.
+     */
+    @objid ("806f6c07-1dec-11e2-8cad-001ec947c8cc")
+    protected void handleButtonDownOnSource(final int button) {
+        setType(RequestConstants.REQ_RECONNECT_SOURCE);
+        setIndex(0);
+    }
+
+    /**
+     * Handle mouse button down on the target end point.
+     * @param button the mouse button.
+     */
+    @objid ("806f6c0c-1dec-11e2-8cad-001ec947c8cc")
+    protected void handleButtonDownOnTarget(final int button) {
+        setType(RequestConstants.REQ_RECONNECT_TARGET);
+        setIndex(0);
     }
 
     @objid ("806d09c3-1dec-11e2-8cad-001ec947c8cc")
@@ -308,6 +369,24 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         this.originalLocation = null;
         this.sourceRectangle = null;
         return stateTransition(STATE_DRAG, STATE_DRAG_IN_PROGRESS);
+    }
+
+    /**
+     * Sets the current line segment index based on the location the user clicked on the connection.
+     * @param i int representing the line segment index in the connection.
+     */
+    @objid ("806aa77d-1dec-11e2-8cad-001ec947c8cc")
+    protected final void setIndex(int i) {
+        this.index = i;
+    }
+
+    /**
+     * Sets the type of request that will be created for the drag operation.
+     * @param type the <code>String</code> that represents the type of request.
+     */
+    @objid ("806aa781-1dec-11e2-8cad-001ec947c8cc")
+    protected final void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -398,23 +477,6 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     }
 
     /**
-     * Method getConnectionEditPart.
-     * @return ConnectionEditPart
-     */
-    @objid ("806d09de-1dec-11e2-8cad-001ec947c8cc")
-    protected final ConnectionEditPart getConnectionEditPart() {
-        return (ConnectionEditPart) getSourceEditPart();
-    }
-
-    /**
-     * @return the <code>LinkFigure</code> that is referenced by the connection edit part.
-     */
-    @objid ("806d09e5-1dec-11e2-8cad-001ec947c8cc")
-    protected final LinkFigure getConnection() {
-        return (LinkFigure) getConnectionEditPart().getFigure();
-    }
-
-    /**
      * Method getSourceRequest.
      * @return Request
      */
@@ -454,60 +516,24 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         setShowingFeedback(true);
     }
 
-    /**
-     * Handle mouse button down on the given connection point.
-     * @param button the mouse button
-     * @param pointIndex the index of the point in the point list
-     * @param points the connection points list.
-     */
-    @objid ("806f6bfc-1dec-11e2-8cad-001ec947c8cc")
-    protected void handleButtonDownOnBendpoint(final int button, final int pointIndex, final PointList points) {
-        if (pointIndex == 0) {
-            setType(RequestConstants.REQ_RECONNECT_SOURCE);
-            setIndex(pointIndex);
-        } else if (pointIndex == points.size() - 1) {
-            setType(RequestConstants.REQ_RECONNECT_TARGET);
-            setIndex(pointIndex);
-        } else {
-            setType(RequestConstants.REQ_MOVE_BENDPOINT);
-            setIndex(pointIndex - 1);
-        }
+    @objid ("6f4beb00-277d-4085-a5d0-140acc64043e")
+    private boolean handleNavigationEvent() {
+        NavigationRequest request = new NavigationRequest();
+        request.setLocation(getLocation());
+        getSourceEditPart().performRequest(request);
+        return true;
     }
 
-    /**
-     * Handle mouse button down on the source end point.
-     * @param button the mouse button.
-     */
-    @objid ("806f6c07-1dec-11e2-8cad-001ec947c8cc")
-    protected void handleButtonDownOnSource(final int button) {
-        setType(RequestConstants.REQ_RECONNECT_SOURCE);
-        setIndex(0);
+    @objid ("f209e2f8-1d92-41e4-979e-f7e3db52d3e3")
+    private boolean isNavigateEvent(int button) {
+        final Input currentInput = getCurrentInput();
+        return button==1 && currentInput.isControlKeyDown() && currentInput.isAltKeyDown();
     }
 
-    /**
-     * Handle mouse button down on the target end point.
-     * @param button the mouse button.
-     */
-    @objid ("806f6c0c-1dec-11e2-8cad-001ec947c8cc")
-    protected void handleButtonDownOnTarget(final int button) {
-        setType(RequestConstants.REQ_RECONNECT_TARGET);
-        setIndex(0);
-    }
-
-    @objid ("806f6c11-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected final Request getTargetRequest() {
-        return getSourceRequest();
-    }
-
-    @objid ("806f6c18-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected final Collection<?> getExclusionSet() {
-        if (this.exclusionSet == null) {
-            this.exclusionSet = new ArrayList<>();
-            this.exclusionSet.add(getConnection());
-        }
-        return this.exclusionSet;
+    @objid ("a920dd5b-2479-458e-9722-34ba2f211467")
+    protected void handleButtonDownOnSegment(int button, int segmentIndex) {
+        setIndex(segmentIndex - 1);
+        setType(RequestConstants.REQ_CREATE_BENDPOINT);
     }
 
 }

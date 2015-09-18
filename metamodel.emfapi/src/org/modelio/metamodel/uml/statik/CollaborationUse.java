@@ -36,28 +36,28 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("00047d6a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CollaborationUse extends ModelElement {
-    @objid ("7e8a50f9-04dd-4702-ada6-d0aca7a71e82")
+    @objid ("79fec5bd-1887-4a61-8e9c-967fbbd0d973")
     Collaboration getType();
 
-    @objid ("d8d0858a-ec76-4b54-ab54-a7246ef410c1")
+    @objid ("7e087b4d-3a4c-4cdc-94da-7630a343f5e5")
     void setType(Collaboration value);
 
-    @objid ("31a3e059-6bce-449a-ad43-be59a47aeec4")
+    @objid ("f10665c8-e8ff-4d16-b522-57d8938fadea")
     NameSpace getNRepresented();
 
-    @objid ("29e1b6b6-34ee-484e-908f-54d1c52967ef")
+    @objid ("f5d92f5d-f6da-4c49-9388-7c16c78cfa1a")
     void setNRepresented(NameSpace value);
 
-    @objid ("9402a51e-fbb3-4d99-be80-5cf0295c47b4")
+    @objid ("2fe85e6b-3ac4-4c8b-b002-6ad26943a6fa")
     Operation getORepresented();
 
-    @objid ("9f923f3d-beb0-4ca6-9436-72709fe61740")
+    @objid ("7fdf945a-add8-4629-9151-27128390234e")
     void setORepresented(Operation value);
 
-    @objid ("7c91adef-48c3-408b-87e5-cef1761b4057")
+    @objid ("10db6e61-953c-4d00-98b0-9003f4de8b9e")
     EList<Binding> getRoleBinding();
 
-    @objid ("bcc64777-9ef2-471a-b073-94c61f815602")
+    @objid ("f2fe4a3f-eb8b-41b5-91e5-17e4c5217997")
     <T extends Binding> List<T> getRoleBinding(java.lang.Class<T> filterClass);
 
 }

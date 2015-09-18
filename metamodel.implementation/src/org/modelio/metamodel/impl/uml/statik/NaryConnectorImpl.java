@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00060c52-c4bf-1fd8-97fe-001ec947cd2a")
 public class NaryConnectorImpl extends NaryLinkImpl implements NaryConnector {
-    @objid ("789cc15c-83e1-4b99-a7d8-eaa8ab56d381")
+    @objid ("f3caeb96-5649-4b4d-a0fe-bb8e0e9000f9")
     @Override
     public EList<Binding> getRepresentation() {
         return new SmList<>(this, NaryConnectorData.Metadata.RepresentationDep());
     }
 
-    @objid ("fd18f46e-d613-4440-bc42-11859cdf0feb")
+    @objid ("532427ef-9a98-47fa-b045-461563c5d74e")
     @Override
     public <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,33 +63,33 @@ public class NaryConnectorImpl extends NaryLinkImpl implements NaryConnector {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a0e0e1d4-78f6-4107-8738-fcbcd3127985")
+    @objid ("80cc2fb9-c897-412f-9a80-807fa9b5855e")
     @Override
     public ModelElement getRepresentedFeature() {
         return (ModelElement) getDepVal(NaryConnectorData.Metadata.RepresentedFeatureDep());
     }
 
-    @objid ("da8e32fe-65f6-441e-969b-5ff63f4f1ff4")
+    @objid ("3fc5420e-597a-4684-81b6-372ff2d899f2")
     @Override
     public void setRepresentedFeature(ModelElement value) {
         appendDepVal(NaryConnectorData.Metadata.RepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("85a8092d-af2a-4cdd-9e6b-ef01376b43c1")
+    @objid ("ac89db1a-d39c-4954-9db6-d0d159683f86")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("6be12493-ad9a-4d6e-9974-d67e6d84f1de")
+    @objid ("1fe400e3-ac80-463c-914a-5667640ffcd5")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c1441e2e-7407-4615-b568-d95590d98acf")
+    @objid ("fbfc1fa6-ab33-4e8d-9084-84d09134b8df")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryConnector(this);

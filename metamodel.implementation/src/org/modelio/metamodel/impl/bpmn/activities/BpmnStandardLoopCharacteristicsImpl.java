@@ -41,57 +41,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0083ce8a-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnStandardLoopCharacteristicsImpl extends BpmnLoopCharacteristicsImpl implements BpmnStandardLoopCharacteristics {
-    @objid ("0dea1906-673c-43f9-94fa-119889334508")
+    @objid ("3311be0d-7638-4dd6-9ee8-1a810a1ea146")
     @Override
     public boolean isTestBefore() {
         return (Boolean) getAttVal(BpmnStandardLoopCharacteristicsData.Metadata.TestBeforeAtt());
     }
 
-    @objid ("3cc0523a-b971-450e-b685-74c4e513f9b2")
+    @objid ("ee8e961a-4450-42fc-8cb0-e1eafc002c7b")
     @Override
     public void setTestBefore(boolean value) {
         setAttVal(BpmnStandardLoopCharacteristicsData.Metadata.TestBeforeAtt(), value);
     }
 
-    @objid ("083ef39d-594a-4149-98a5-7eac74ad198c")
+    @objid ("4950cf1d-2d9a-459b-b244-c34594b8535b")
     @Override
     public String getLoopCondition() {
         return (String) getAttVal(BpmnStandardLoopCharacteristicsData.Metadata.LoopConditionAtt());
     }
 
-    @objid ("098be0cf-4158-44d7-bbd0-93cc8f377295")
+    @objid ("12253ac8-45d0-491f-b39c-d338cee243de")
     @Override
     public void setLoopCondition(String value) {
         setAttVal(BpmnStandardLoopCharacteristicsData.Metadata.LoopConditionAtt(), value);
     }
 
-    @objid ("2dbbc533-b123-4b2f-864d-4a8037b47fcb")
+    @objid ("42afca6c-75ac-483d-bc6e-30109990b432")
     @Override
     public String getLoopMaximum() {
         return (String) getAttVal(BpmnStandardLoopCharacteristicsData.Metadata.LoopMaximumAtt());
     }
 
-    @objid ("bd599c6b-433a-4a1e-9803-1deefbee23f7")
+    @objid ("27c51067-d337-4f8a-bae8-0728eccbd1d1")
     @Override
     public void setLoopMaximum(String value) {
         setAttVal(BpmnStandardLoopCharacteristicsData.Metadata.LoopMaximumAtt(), value);
     }
 
-    @objid ("74d8af88-ad8e-47eb-8628-54beed5f400e")
+    @objid ("c7b09daf-e7b9-4221-b683-0fe490ac5fe2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("66562d2e-26f9-4feb-bdf1-56d03c332234")
+    @objid ("6812ad90-8fbf-4873-9a0a-a4026d5f0171")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("ceaee91a-de76-4524-80af-c50bfd9ee5f7")
+    @objid ("b09fd7be-0663-495c-91c7-4e81043127bb")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnStandardLoopCharacteristics(this);

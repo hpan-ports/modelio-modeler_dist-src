@@ -60,49 +60,49 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
             return null;
     }
 
-    @objid ("bd4d5245-c870-47de-b8a2-b0d03e0fe614")
+    @objid ("a59ced31-48b7-4c5d-b5de-0f2968bf0c0d")
     @Override
     public boolean isIsHidden() {
         return (Boolean) getAttVal(NoteTypeData.Metadata.IsHiddenAtt());
     }
 
-    @objid ("dfee18c4-073b-4299-b10e-b6aac0e82eb3")
+    @objid ("690ba456-0331-4850-8eb9-96b72bed336b")
     @Override
     public void setIsHidden(boolean value) {
         setAttVal(NoteTypeData.Metadata.IsHiddenAtt(), value);
     }
 
-    @objid ("362698d4-c72c-4727-a2f0-4165edf31d5f")
+    @objid ("be970477-9b55-42ec-b09f-957c7182fdbf")
     @Override
     public String getLabelKey() {
         return (String) getAttVal(NoteTypeData.Metadata.LabelKeyAtt());
     }
 
-    @objid ("4b5c3c4b-0f25-4e47-bb63-c154182d3b0b")
+    @objid ("8061c620-d2a0-4cfa-978f-1e9cd2de1573")
     @Override
     public void setLabelKey(String value) {
         setAttVal(NoteTypeData.Metadata.LabelKeyAtt(), value);
     }
 
-    @objid ("641dc762-b199-426b-9f6c-e888a8cc7f57")
+    @objid ("b0509461-d426-4ed0-91d7-d4e802ea586a")
     @Override
     public String getMimeType() {
         return (String) getAttVal(NoteTypeData.Metadata.MimeTypeAtt());
     }
 
-    @objid ("d93b3b40-44c5-4335-b5fd-40056ef79e88")
+    @objid ("f3347f5b-56ec-4c28-8a09-5e1dea9e18e7")
     @Override
     public void setMimeType(String value) {
         setAttVal(NoteTypeData.Metadata.MimeTypeAtt(), value);
     }
 
-    @objid ("a3e090cd-b7f3-4cfa-b767-ca5e3a51a430")
+    @objid ("e5097c67-d356-40d7-a2bc-9be6b42acd02")
     @Override
     public EList<Note> getElement() {
         return new SmList<>(this, NoteTypeData.Metadata.ElementDep());
     }
 
-    @objid ("c2c20282-5aa4-4e7d-a7eb-aa7b0c5de095")
+    @objid ("d5458b3b-dc03-403c-a0be-fab42ed725c7")
     @Override
     public <T extends Note> List<T> getElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -115,31 +115,31 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a5990ee2-9a28-4a5d-b31e-e874121547c3")
+    @objid ("ba395ad9-7ee6-4765-b86b-3dadfecb0d92")
     @Override
     public Stereotype getOwnerStereotype() {
         return (Stereotype) getDepVal(NoteTypeData.Metadata.OwnerStereotypeDep());
     }
 
-    @objid ("e817f661-4b92-485f-b6e4-2d58cdfa67b2")
+    @objid ("125a2b38-b234-44b2-9181-ec12dc400e5a")
     @Override
     public void setOwnerStereotype(Stereotype value) {
         appendDepVal(NoteTypeData.Metadata.OwnerStereotypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fec6e818-5ec2-4b46-9dc1-435e1007bc81")
+    @objid ("6c037993-11e2-405c-8d22-57d3686af8c2")
     @Override
     public MetaclassReference getOwnerReference() {
         return (MetaclassReference) getDepVal(NoteTypeData.Metadata.OwnerReferenceDep());
     }
 
-    @objid ("2224780b-462f-4a86-aec1-49aadcabd06e")
+    @objid ("a545cee8-968d-4ddb-abc8-9f323bf0aa83")
     @Override
     public void setOwnerReference(MetaclassReference value) {
         appendDepVal(NoteTypeData.Metadata.OwnerReferenceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("62c1e8f0-3359-4376-9acf-8607e41f4986")
+    @objid ("ea9eb5ea-b265-4dcd-a993-5e05a0a6ebc4")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -152,7 +152,7 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         return super.getCompositionOwner();
     }
 
-    @objid ("a5ca399d-c4ce-4c4a-ac11-bbcac49021c4")
+    @objid ("7dd939f5-3d2b-4ff8-af0c-5cea7fe5dc55")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -165,7 +165,7 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         return super.getCompositionRelation();
     }
 
-    @objid ("4030451d-93ed-4b2a-9b91-8c3ea7cc986c")
+    @objid ("ede3ad49-b761-4862-91b4-ad7725fb7230")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNoteType(this);

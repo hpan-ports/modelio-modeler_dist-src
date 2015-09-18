@@ -43,6 +43,7 @@
   <imports xsi:type="commands:Command" xmi:id="_0hNmQM9WEeKk9eLXstrZSw" elementId="org.modelio.app.ui.command.createstereotype"/>
   <imports xsi:type="commands:Command" xmi:id="_-o9TENmuEeKBPfbWkDzT6w" elementId="org.modelio.app.ui.command.create.state.entryexitpoint"/>
   <imports xsi:type="commands:Command" xmi:id="_vmGtIByEEeOKmunD3rzg2A" elementId="org.modelio.app.ui.command.openrelateddiagram"/>
+  <imports xsi:type="commands:Command" xmi:id="_Yh1lIHr0EeShLO3VXu_qAA" elementId="org.modelio.app.ui.command.openproperties"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_n0-ZEJtIEeGkc791dEOVVA" featurename="sharedElements" parentElementId="org.modelio.app.ui.trimmed">
     <elements xsi:type="basic:Part" xmi:id="_uUVnMJteEeGL952goZh6VA" elementId="org.modelio.browser.part" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.views.BrowserView" label="%Model.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/explorer.png" tooltip="%Model.tooltip" bindingContexts="_cxcd0DIwEeKZiaivSH_IWA" closeable="true">
       <handlers xmi:id="_W1TH4MnXEeGuzpOnFbEy2Q" elementId="org.modelio.model.browser.handler.create.state.statemachinesubstate" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.handlers.state.CreateStateMachineSubStateHandler" command="_pZMWUMnWEeGuzpOnFbEy2Q"/>
@@ -81,6 +82,7 @@
       <handlers xmi:id="_pUPisMevEeKe79u-4HAzzA" elementId="org.modelio.model.browser.handler.createsibling" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.handlers.CreateSiblingElementHandler" command="_8pyF4D-5EeKYDuxvZV8bnA"/>
       <handlers xmi:id="_nO2ccO1fEeKI3J_Ppjd_yQ" elementId="org.modelio.model.browser.handler.openrelated_diagram" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.handlers.OpenRelatedDiagramHandler" command="_vmGtIByEEeOKmunD3rzg2A"/>
       <handlers xmi:id="_yFwyMD8mEeSaCoBH7JpGYw" elementId="model.browser.handler.migratefragment" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.handlers.fragment.MigratefragmentHandler" command="_sVfcsD8mEeSaCoBH7JpGYw"/>
+      <handlers xmi:id="_QCgy8Hr1EeShLO3VXu_qAA" elementId="org.modelio.model.browser.handler.openproperties" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.handlers.EditPropertiesHandler" command="_Yh1lIHr0EeShLO3VXu_qAA"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_ddZMANATEeGJuKvxQtgCUw" elementId="model.browser.popupmenu.0" label="">
         <tags>popup:org.modelio.popupmenu.cms</tags>
         <children xsi:type="menu:Menu" xmi:id="_STbYgNAUEeGJuKvxQtgCUw" elementId="org.modelio.model.browser.menu.createelement" label="%CreateElementMenu.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/uml.png">
@@ -125,6 +127,9 @@
         <children xsi:type="menu:MenuSeparator" xmi:id="_nlxAoEU3EeK0D9nRHZj9jw" elementId="model.browser.popupmenu.0.menuseparator.4"/>
         <children xsi:type="menu:DirectMenuItem" xmi:id="_7PiMQPHXEeGDvYH1eZ-kcw" elementId="model.browser.directtoolitem.1" label="%OpenNewBrowser.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/explorer.png" tooltip="%OpenNewBrowser.tooltip" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.handlers.OpenNewBrowserHandler"/>
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_RBZWENdWEeK1QOP0kMMjeA" elementId="org.modelio.model.browser.menu.module" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.context.ModuleCommandsForModelBrowser"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_tBxNAHr0EeShLO3VXu_qAA" elementId="model.browser.handledmenuitem.openpropertiesname" label="%OpenProperties.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/openproperties.png" tooltip="%OpenProperties.tooltip" command="_Yh1lIHr0EeShLO3VXu_qAA">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_07diEJvuEeS1_P5MDjmJZw" coreExpressionId="app.project.ui.expression.isMObject"/>
+        </children>
       </menus>
       <menus xmi:id="_YoJmgD_AEeKYDuxvZV8bnA" elementId="org.modelio.model.browser.viewmenu">
         <tags>ViewMenu</tags>

@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("002813ba-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityGroup extends ModelElement {
-    @objid ("8b60d93b-4eb4-483e-89a3-597aacc6421a")
+    @objid ("d58b051d-ad24-46f4-b1cc-a7de090e67d4")
     Activity getInActivity();
 
-    @objid ("00aa835c-384e-4c2d-a8fe-37d469a52825")
+    @objid ("567fb092-1f17-461d-9828-0a84e5bb8569")
     void setInActivity(Activity value);
 
 }

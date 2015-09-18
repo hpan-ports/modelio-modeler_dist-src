@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.CallOperationAction;
 import org.modelio.metamodel.uml.statik.Operation;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("e58f9067-c0b6-4ca8-9a7c-0f3fe5e745ca")

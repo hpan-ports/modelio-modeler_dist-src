@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Api
 Bundle-SymbolicName: org.modelio.api;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Require-Bundle: org.modelio.core.kernel,
  org.modelio.core.utils,
  org.modelio.metamodel.emfapi,
@@ -17,7 +17,8 @@ Require-Bundle: org.modelio.core.kernel,
  org.eclipse.gef,
  org.modelio.core.project,
  org.eclipse.help.base;bundle-version="4.0.0",
- org.modelio.core.help
+ org.modelio.core.help,
+ org.modelio.ui
 Export-Package: org.modelio.api,
  org.modelio.api.app,
  org.modelio.api.app.navigation,
@@ -40,7 +41,6 @@ Export-Package: org.modelio.api,
  org.modelio.api.module,
  org.modelio.api.module.commands,
  org.modelio.api.module.contrib,
- org.modelio.api.module.diagrams,
  org.modelio.api.module.paramEdition,
  org.modelio.api.module.propertiesPage,
  org.modelio.api.module.script,
@@ -49,6 +49,6 @@ Export-Package: org.modelio.api,
  org.modelio.api.ui.dnd,
  org.modelio.api.ui.text
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: res/,
  .

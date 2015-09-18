@@ -28,8 +28,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.GeneralClass;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("8ae1f1ee-7a0c-46c3-bcf6-b6eaa13c9016")
 public class ECentralBufferNode extends EActivityNode {
@@ -49,7 +49,7 @@ public class ECentralBufferNode extends EActivityNode {
             .createCentralBufferNode();
         }
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-        .createCentralBufferNode();
+                .createCentralBufferNode();
     }
 
     @objid ("2dfe851b-a74a-4204-9057-0033c6051c76")

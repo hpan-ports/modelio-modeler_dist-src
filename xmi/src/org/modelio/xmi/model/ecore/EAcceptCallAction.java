@@ -23,7 +23,7 @@ package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("cd33ec80-9db4-447d-9a03-38f1a80bde7a")
 public class EAcceptCallAction extends EAcceptEventAction {
@@ -31,7 +31,7 @@ public class EAcceptCallAction extends EAcceptEventAction {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createAcceptCallEventAction();
+                        .createAcceptCallEventAction();
     }
 
     @objid ("599fb3ae-685c-4ffc-9e6a-d516860a197e")

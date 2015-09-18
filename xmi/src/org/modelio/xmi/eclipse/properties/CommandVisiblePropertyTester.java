@@ -48,8 +48,9 @@ public class CommandVisiblePropertyTester extends PropertyTester {
     @objid ("2d82bfce-dce7-43e8-9850-fdd9d1669c35")
     @Override
     public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
-        if (! (receiver instanceof ISelection))
+        if (! (receiver instanceof ISelection)){
             return false;
+        }
         
         List<MObject> selectedElements = SelectionHelper.getElements((ISelection)receiver);
         

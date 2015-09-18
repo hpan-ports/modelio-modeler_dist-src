@@ -25,8 +25,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("05beb6c2-9ca2-4495-a535-bd4719439190")
 public class EFeature extends ENamedElement {

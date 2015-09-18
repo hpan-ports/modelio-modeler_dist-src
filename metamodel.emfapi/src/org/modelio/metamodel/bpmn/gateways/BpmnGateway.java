@@ -32,10 +32,10 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
 
 @objid ("0000e402-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnGateway extends BpmnFlowNode {
-    @objid ("edb789f2-2a22-4425-87d0-7c3aa512d888")
+    @objid ("3c28a98f-a3e5-49ce-9ac3-606802189465")
     BpmnGatewayDirection getGatewayDirection();
 
-    @objid ("0ff6a810-d387-4038-801d-092096cf4de5")
+    @objid ("c78d2b60-6b84-4dec-8196-f98b5e3b5e14")
     void setGatewayDirection(BpmnGatewayDirection value);
 
 }

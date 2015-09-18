@@ -27,10 +27,8 @@ import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
-import org.modelio.xmi.reverse.PartialImportMap;
-import org.modelio.xmi.reverse.TotalImportMap;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("9b93fb70-8e60-4274-99c6-bb78998bf7d7")
 public class EConstraint extends ENamedElement {
@@ -105,8 +103,6 @@ public class EConstraint extends ENamedElement {
         }
         
         if (!attached){
-            PartialImportMap.getInstance().remove(this.ecoreElement);
-            TotalImportMap.getInstance().remove(this.ecoreElement);
             constraint.delete();
         }
     }

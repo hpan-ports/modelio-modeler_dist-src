@@ -46,25 +46,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008caa50-c4be-1fd8-97fe-001ec947cd2a")
 public class ProfileImpl extends PackageImpl implements Profile {
-    @objid ("0ac8622f-a64c-4c26-880d-dfc405974140")
+    @objid ("8f7deb8f-f951-4d3d-bc99-4222d8a86ccd")
     @Override
     public String getJCode() {
         return (String) getAttVal(ProfileData.Metadata.JCodeAtt());
     }
 
-    @objid ("b50dba06-1038-4c83-9a6e-eaa1c2e3ef78")
+    @objid ("d22f47d1-c46d-4d19-b4bb-8c24b20e7e0a")
     @Override
     public void setJCode(String value) {
         setAttVal(ProfileData.Metadata.JCodeAtt(), value);
     }
 
-    @objid ("6cc8a98f-c87e-4bde-9622-35034b8429dc")
+    @objid ("383c81ac-fcf0-41a1-8041-d15f29d7611b")
     @Override
     public EList<Stereotype> getDefinedStereotype() {
         return new SmList<>(this, ProfileData.Metadata.DefinedStereotypeDep());
     }
 
-    @objid ("d9c75cb5-df60-48ef-ab50-0bec042f2ab5")
+    @objid ("719566c2-0900-4480-ae10-499dc15bf8e5")
     @Override
     public <T extends Stereotype> List<T> getDefinedStereotype(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -77,25 +77,25 @@ public class ProfileImpl extends PackageImpl implements Profile {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("860ec0c1-7560-4e89-b8e6-b622dccb638d")
+    @objid ("b94abba8-d2bf-4b7e-b1bf-961fc43f3215")
     @Override
     public ModuleComponent getOwnerModule() {
         return (ModuleComponent) getDepVal(ProfileData.Metadata.OwnerModuleDep());
     }
 
-    @objid ("1b446931-29ce-4a60-90b7-095d206e37d0")
+    @objid ("2b4a478d-38ae-4a82-9376-f7954996c222")
     @Override
     public void setOwnerModule(ModuleComponent value) {
         appendDepVal(ProfileData.Metadata.OwnerModuleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("19ebeaac-d7ea-4ec3-aa08-742aabd4a3c4")
+    @objid ("ba67ebd3-faa8-4e64-a885-8a74334854d5")
     @Override
     public EList<MetaclassReference> getOwnedReference() {
         return new SmList<>(this, ProfileData.Metadata.OwnedReferenceDep());
     }
 
-    @objid ("6ef733b6-7c87-4b2a-88f0-41b1cc055448")
+    @objid ("04d00cdc-c7b5-4baf-8865-90fdaeb4bca8")
     @Override
     public <T extends MetaclassReference> List<T> getOwnedReference(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -108,7 +108,7 @@ public class ProfileImpl extends PackageImpl implements Profile {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("16af6a8a-9f17-4c60-bb94-c8ea91853d6e")
+    @objid ("b177656a-0276-42d1-b9bc-fbe4edd00089")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -118,7 +118,7 @@ public class ProfileImpl extends PackageImpl implements Profile {
         return super.getCompositionOwner();
     }
 
-    @objid ("b8550a4c-fdf0-415f-893f-17e185fd01b6")
+    @objid ("5ce01972-fac6-474d-bbf3-7dc8daa4069b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -128,7 +128,7 @@ public class ProfileImpl extends PackageImpl implements Profile {
         return super.getCompositionRelation();
     }
 
-    @objid ("a8e347c2-cc7e-42e9-9c45-e5968fe5f1cf")
+    @objid ("b9c7f4de-35c0-4109-9e57-9220263840f2")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitProfile(this);

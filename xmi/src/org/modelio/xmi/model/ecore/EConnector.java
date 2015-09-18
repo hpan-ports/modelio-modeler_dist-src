@@ -26,7 +26,7 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("9e7af896-b577-4e20-9b60-de945c16069c")
 public class EConnector extends EFeature {

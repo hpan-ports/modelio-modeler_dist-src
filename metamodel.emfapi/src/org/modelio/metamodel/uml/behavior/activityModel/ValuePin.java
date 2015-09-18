@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("003ed672-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ValuePin extends InputPin {
-    @objid ("e501dc15-76aa-4ffa-831e-16803fc713ea")
+    @objid ("810bff78-f38a-44ae-8366-dfe2f6d5f936")
     String getValue();
 
-    @objid ("b293fe53-0af1-405f-aa34-5d71f029a6ae")
+    @objid ("849d17b3-39ab-41b3-bf8b-c185db52bf29")
     void setValue(String value);
 
 }

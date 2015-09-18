@@ -71,6 +71,21 @@ public class AuditEntryDialog extends ModelioDialog {
     @objid ("2646c25b-46bf-478d-8ab9-ea1a1ee3fa08")
     private static final String HREF_BASE = "org.modelio.documentation.vaudit/html/Modeler_audit_rules_";
 
+    @objid ("9156e51f-1ac6-4ab7-9a76-427633c56ccd")
+    private URL ruleUrl;
+
+    /**
+     * The main composite of the dialog box
+     */
+    @objid ("a6cadd15-096c-49ac-a663-556517ce780b")
+    private Composite area = null;
+
+    @objid ("1dab28e8-348b-4ca5-a6a6-df5e88e18b7e")
+    private Image selectImage;
+
+    @objid ("906816ca-90e9-4dc2-bb80-c7c85e99708f")
+    private Browser browser;
+
     /**
      * The audit entry that is displayed.
      */
@@ -85,21 +100,6 @@ public class AuditEntryDialog extends ModelioDialog {
 
     @objid ("a0895edb-2968-451c-8e03-9051f74b7c32")
     private IModelioNavigationService navigationService;
-
-    @objid ("98204211-05a9-4cd6-aa6f-f56380b1a9a3")
-    private URL ruleUrl;
-
-    /**
-     * The main composite of the dialog box
-     */
-    @objid ("0c33c0ae-3977-483a-a560-90ef52b0b46b")
-    private Composite area = null;
-
-    @objid ("74ad6b91-3569-4c69-8c4c-50a09cd0df51")
-    private Image selectImage;
-
-    @objid ("73ade37f-eae1-4acf-a590-4d50ac29c3a6")
-    private Browser browser;
 
     /**
      * Create an AuditEntryDialog instance.

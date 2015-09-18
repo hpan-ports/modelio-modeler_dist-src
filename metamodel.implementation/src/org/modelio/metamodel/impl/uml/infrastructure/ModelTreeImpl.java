@@ -42,25 +42,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0089574c-c4be-1fd8-97fe-001ec947cd2a")
 public abstract class ModelTreeImpl extends ModelElementImpl implements ModelTree {
-    @objid ("3600f7c9-83bd-4ba1-9ca0-953c58b85727")
+    @objid ("2689cfb6-4920-4bd5-94e9-e23cfc48ba05")
     @Override
     public ModelTree getOwner() {
         return (ModelTree) getDepVal(ModelTreeData.Metadata.OwnerDep());
     }
 
-    @objid ("82a5d8ff-5010-43b4-9e6f-80b2a1cc5784")
+    @objid ("18b8eca7-330b-42e7-b41e-e426975996f6")
     @Override
     public void setOwner(ModelTree value) {
         appendDepVal(ModelTreeData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("589c049e-3023-43b7-ad65-6fad4b9f4dc4")
+    @objid ("96009b63-8853-497a-b34c-83f83a80028c")
     @Override
     public EList<ModelTree> getOwnedElement() {
         return new SmList<>(this, ModelTreeData.Metadata.OwnedElementDep());
     }
 
-    @objid ("30a5d244-95d8-4049-8c54-227dc9d67f23")
+    @objid ("6d9fc43d-9f7c-4acb-8791-a0ae59ce0a16")
     @Override
     public <T extends ModelTree> List<T> getOwnedElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -73,7 +73,7 @@ public abstract class ModelTreeImpl extends ModelElementImpl implements ModelTre
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("610d6379-50f3-4693-be8c-8b0541448451")
+    @objid ("3fc476d2-ad43-4e4e-b330-59e0639d2a42")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -83,7 +83,7 @@ public abstract class ModelTreeImpl extends ModelElementImpl implements ModelTre
         return super.getCompositionOwner();
     }
 
-    @objid ("44040cc9-d9b2-4247-b23a-b2fd11c3420f")
+    @objid ("696ce8d0-d14b-4f72-bff3-de7d5527c22d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -93,7 +93,7 @@ public abstract class ModelTreeImpl extends ModelElementImpl implements ModelTre
         return super.getCompositionRelation();
     }
 
-    @objid ("14bfaac3-70d8-4767-abe9-f15887ef1e34")
+    @objid ("bdf166e4-05a8-4f94-94fc-ea16ea55fe5c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitModelTree(this);

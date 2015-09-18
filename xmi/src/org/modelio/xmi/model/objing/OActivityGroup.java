@@ -26,7 +26,7 @@ import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityGroup;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("80a79102-55c2-4b91-9bca-2fae8d2cdbe1")

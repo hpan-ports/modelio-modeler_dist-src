@@ -18,7 +18,7 @@ import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 @objid ("39851f12-62b1-432e-ba8a-9047d482fbbd")
-public class ClassDiagramCreationContributor extends AbstractDiagramCreationContributor {
+public class ClassDiagramCreationContributor extends AbstractUMLDiagramCreationContributor {
     @objid ("feff20f2-74f8-4bf1-85c3-afc12bbf0e71")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
@@ -46,10 +46,10 @@ public class ClassDiagramCreationContributor extends AbstractDiagramCreationCont
         return allowedMetaclasses;
     }
 
-    @objid ("416af298-7e52-4174-9db1-73fb872270a4")
+    @objid ("460a1706-3d68-431e-b5f3-412931c6d926")
     @Override
-    public String getLabel() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Class.Name");
+    public String getDetails() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Class.Details");
     }
 
     @objid ("4f423b2f-a1dd-4703-b042-c56c9fbfec73")
@@ -64,10 +64,10 @@ public class ClassDiagramCreationContributor extends AbstractDiagramCreationCont
         return DiagramCreationWizard.I18N.getString("CreationWizard.Class.Information");
     }
 
-    @objid ("460a1706-3d68-431e-b5f3-412931c6d926")
+    @objid ("416af298-7e52-4174-9db1-73fb872270a4")
     @Override
-    public String getDetails() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Class.Details");
+    public String getLabel() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Class.Name");
     }
 
 }

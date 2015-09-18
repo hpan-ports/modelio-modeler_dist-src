@@ -23,7 +23,7 @@ package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("d5dcc612-916d-41bc-b7a4-8630453a9a2a")
 public class EInitialNode extends EActivityNode {
@@ -31,7 +31,7 @@ public class EInitialNode extends EActivityNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createInitialNode();
+                        .createInitialNode();
     }
 
     @objid ("2f893b1d-1869-4a82-91f9-0d3e3f2a024a")

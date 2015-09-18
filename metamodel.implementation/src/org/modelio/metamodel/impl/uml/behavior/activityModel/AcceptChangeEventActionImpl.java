@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0024ba8a-c4bf-1fd8-97fe-001ec947cd2a")
 public class AcceptChangeEventActionImpl extends ActivityActionImpl implements AcceptChangeEventAction {
-    @objid ("58c82c26-576f-4798-a8b3-3b530c7f2f95")
+    @objid ("b0f50686-1f1f-49be-beec-fc2b17aec9d5")
     @Override
     public String getChangeExpresion() {
         return (String) getAttVal(AcceptChangeEventActionData.Metadata.ChangeExpresionAtt());
     }
 
-    @objid ("06f40289-27d5-4b3c-ad2e-acbeb1b9f8e3")
+    @objid ("28ace36e-dbcb-44e6-a1e8-0149a68860d8")
     @Override
     public void setChangeExpresion(String value) {
         setAttVal(AcceptChangeEventActionData.Metadata.ChangeExpresionAtt(), value);
     }
 
-    @objid ("c1fb8a22-5613-4aa5-9fe3-a74b3c2315be")
+    @objid ("30e15aa5-caba-452a-ae73-2074a3b6fdea")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("3a0a0c45-db7d-4024-87f7-4b2bafa466f3")
+    @objid ("370f4116-75e4-4f7c-9db0-33774a47f2a2")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("771e7e5c-d503-49c3-9d4a-fa4082c098a0")
+    @objid ("a1541610-262a-4b0f-819e-ca3a593bb992")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAcceptChangeEventAction(this);

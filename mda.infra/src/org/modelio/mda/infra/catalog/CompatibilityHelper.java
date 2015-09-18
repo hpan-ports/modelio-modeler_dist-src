@@ -26,8 +26,14 @@ import org.modelio.app.core.ModelioEnv;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.vbasic.version.Version;
 
+/**
+ * Service class that tells whether a module is compatible with this Modelio version.
+ */
 @objid ("2deedf3d-1f3a-45ef-84f1-438c035ff6f3")
 public class CompatibilityHelper {
+    @objid ("ab483fe3-14b9-4004-ac55-97660d38d215")
+    private static final Version MIN_MODELIO_VERSION = new Version("3.3.00.9022");
+
     @objid ("c8581fd0-7510-44b9-b35b-c6364ff382eb")
     public static boolean isCompatible(CompatibilityLevel level) {
         return (level != CompatibilityLevel.MODELIO_TOO_OLD && level != CompatibilityLevel.MODULE_TOO_OLD);
@@ -43,6 +49,9 @@ public class CompatibilityHelper {
     @objid ("2f742ca4-6789-4d67-869e-52f512cefda2")
     public static CompatibilityLevel getCompatibilityLevel(Version modelioVersion, Version moduleBinaryVersion) {
         if (moduleBinaryVersion == null)
+            return CompatibilityLevel.MODULE_TOO_OLD;
+        
+        if (moduleBinaryVersion.isOlderThan(MIN_MODELIO_VERSION))
             return CompatibilityLevel.MODULE_TOO_OLD;
         
         int moV = modelioVersion.getMajorVersion();

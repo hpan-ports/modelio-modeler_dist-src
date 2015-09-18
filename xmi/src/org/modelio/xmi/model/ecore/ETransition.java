@@ -30,9 +30,9 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateVertex;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("2a96027b-2671-4eef-91d7-706bec1323c4")
 public class ETransition extends ENamedElement {
@@ -48,7 +48,7 @@ public class ETransition extends ENamedElement {
         if (this.isInternalTransition)
             return ReverseProperties.getInstance().getMModelServices().getModelFactory().createInternalTransition();
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createTransition();
+                        .createTransition();
     }
 
     @objid ("4dd69ba2-0f10-44f4-8e4a-bf31c0b67df2")

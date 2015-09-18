@@ -67,82 +67,82 @@ public interface LinkEnd extends ModelElement {
     @objid ("6d12e031-ad22-449a-9171-6a88d4158b48")
     boolean isNavigable();
 
-    @objid ("280030fc-d216-4c1e-a9ac-8bd4e58e4b3a")
+    @objid ("d449d7b6-3358-4002-989b-af002a48476a")
     boolean isIsOrdered();
 
-    @objid ("8633b055-d7be-4397-b880-3ccb4555eb60")
+    @objid ("e1e0ad51-824c-4846-8056-d5a43246d60d")
     void setIsOrdered(boolean value);
 
-    @objid ("13b4b0ee-0eb4-489f-b462-696d0a3c7a52")
+    @objid ("2c26e34a-e057-46db-ad48-2b28f64abdb2")
     boolean isIsUnique();
 
-    @objid ("34ee0a30-f9ec-437e-89a3-66cc2bfa6756")
+    @objid ("1e0093c1-fe95-4e2f-8c16-18f3c27dd613")
     void setIsUnique(boolean value);
 
-    @objid ("59314741-24e6-4d99-a219-d6872dae530f")
+    @objid ("e823261e-27b7-4b9e-864b-9e01c4d2dbe6")
     String getMultiplicityMax();
 
-    @objid ("820c83ab-18cb-4542-9f3a-7e4536c7c680")
+    @objid ("fbf4254c-cb75-4a0a-a959-160d166b8249")
     void setMultiplicityMax(String value);
 
-    @objid ("36080606-2d64-44c0-90e7-a526d9d7db92")
+    @objid ("913f2d85-68b1-425e-ba6b-62392add31f3")
     String getMultiplicityMin();
 
-    @objid ("595a8853-778f-4d3c-8959-a4b575d53a55")
+    @objid ("a5e67b60-27fd-4309-a7d9-f306d29f7ff3")
     void setMultiplicityMin(String value);
 
-    @objid ("45c09e8a-dc59-4e27-b9c7-6a20a1d4e671")
+    @objid ("f1dd2aef-dc30-4e75-86b1-7a62cf79a32a")
     Link getLink();
 
-    @objid ("be3be83c-cf9e-467a-a0b9-68628b19bb2e")
+    @objid ("24720acc-6779-47b0-a10a-16be7d553a28")
     void setLink(Link value);
 
-    @objid ("3be8ef0b-ae64-418c-91db-8e2b026e9f61")
+    @objid ("886d9790-efbd-4202-b3c4-026335a7486d")
     Instance getTarget();
 
-    @objid ("d53d8b85-e301-47c8-8fa4-4dafad9e0d38")
+    @objid ("fdee5838-66b5-4828-8196-a8788883b377")
     void setTarget(Instance value);
 
-    @objid ("bfaf49b8-a745-4344-a719-35feece9f231")
+    @objid ("eb88637c-4cd3-477f-9e39-09af6ae26d6a")
     LinkEnd getOppositeOwner();
 
-    @objid ("c6739a85-faa0-4ced-b91a-031b8fe7790c")
+    @objid ("8ba3673d-b027-4920-83d4-8a036241131d")
     void setOppositeOwner(LinkEnd value);
 
-    @objid ("4c7d6f88-13da-4000-ae70-9fe33fd3ab0c")
+    @objid ("f5a0207c-861f-46bc-a3f9-ca10b7b894df")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("a20d715c-1120-47bf-ac37-2ed0303ff940")
+    @objid ("4458e1bf-add9-41aa-b350-b407a7475486")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
-    @objid ("598d7ee5-e93e-4bc6-adf4-1d25fe170a23")
+    @objid ("7aee61f5-f9f6-4877-a949-711cece058b9")
     AssociationEnd getModel();
 
-    @objid ("c744d53d-b1dc-4ffb-b615-abffba916228")
+    @objid ("a75999e6-b00f-45ff-8334-2eb1eef5cebf")
     void setModel(AssociationEnd value);
 
-    @objid ("79e6dd3a-7c44-4fb6-a952-45310e0f3a06")
+    @objid ("8e87e4c1-e855-41d9-b120-2d1e94d6b9aa")
     RequiredInterface getConsumer();
 
-    @objid ("5cc748d8-5abd-4c88-8e78-fcd6d76cca6b")
+    @objid ("4c6e260c-ab73-46a8-8260-4aceb66738e2")
     void setConsumer(RequiredInterface value);
 
-    @objid ("c4fac2fd-7233-4dab-a17e-16b9b21da22b")
+    @objid ("1ad56c91-5503-4e1b-8478-e0ecb557f61d")
     LinkEnd getOpposite();
 
-    @objid ("7197bed9-47bd-42d0-96d3-d112e42e5dbb")
+    @objid ("44dd5da7-871d-4e94-9452-224027116449")
     void setOpposite(LinkEnd value);
 
-    @objid ("99ad7e41-e9b1-420c-8c5c-72ab310ef9c2")
+    @objid ("c6b81ff2-5466-4ce2-8384-a6d3c0b30c40")
     Instance getSource();
 
-    @objid ("a90faa60-9f57-4bfb-ac73-fea155def3e7")
+    @objid ("51e454f2-b197-4ecf-993e-9c22097fd3f9")
     void setSource(Instance value);
 
-    @objid ("4c5c745f-c2e8-4f47-a8b5-2cafd1de0547")
+    @objid ("f202b566-33f7-488c-96b4-321493527282")
     ProvidedInterface getProvider();
 
-    @objid ("482bbc3d-1e7b-4daf-a59c-ed9b1a74ccbd")
+    @objid ("6984ef85-7138-4785-a465-c9f2c54c5c87")
     void setProvider(ProvidedInterface value);
 
 }

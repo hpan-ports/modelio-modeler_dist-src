@@ -65,7 +65,7 @@ public interface ILoadHelper {
      * @throws org.modelio.vstore.exml.common.model.IllegalReferenceException if 'id' or 'pid' is not a legal reference
      */
     @objid ("679e4b68-2e7b-11e2-8aaa-001ec947ccaf")
-    SmObjectImpl getRefObject(IModelLoader modelLoader, ObjId id, ObjId pid) throws IllegalReferenceException, DuplicateObjectException;
+    SmObjectImpl getRefObject(IModelLoader modelLoader, ObjId id, ObjId pid) throws DuplicateObjectException, IllegalReferenceException;
 
     /**
      * Creates a stub CMS node object that will be loaded later.

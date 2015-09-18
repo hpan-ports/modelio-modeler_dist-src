@@ -64,18 +64,17 @@ class StringAdapterModifier implements ICellModifier, KeyListener {
     }
 
     @objid ("8dcc12f0-c068-11e1-8c0a-002564c97630")
-    @SuppressWarnings("unchecked")
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.keyCode == SWT.F2) {
             ISelection selection = this.dialog.getContentTable().getSelection();
-            
+        
             if (selection instanceof IStructuredSelection) {
                 List<Object> selectedObjects = ((IStructuredSelection) selection).toList();
-            
+        
                 if (selectedObjects.size() == 1) {
                     Object selectedObject = selectedObjects.get(0);
-                
+        
                     this.dialog.getContentTable().editElement(selectedObject,0);
                 }
             }
@@ -88,9 +87,9 @@ class StringAdapterModifier implements ICellModifier, KeyListener {
         if (element instanceof TableItem) {
             TableItem item = (TableItem)element;
             Object data = item.getData();
-            
+        
             final int index = this.dialog.getContent().indexOf(data);
-            this.dialog.getContent().add(index, (String) value);
+            this.dialog.getContent().set(index, (String) value);
             this.dialog.refresh();
         }
     }

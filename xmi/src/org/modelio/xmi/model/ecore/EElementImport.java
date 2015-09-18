@@ -30,8 +30,8 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 /**

@@ -28,9 +28,9 @@ import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
+import org.modelio.xmi.reverse.ReverseProperties;
+import org.modelio.xmi.util.EcorePrimitiveTypeMapper;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("6d173106-3cea-4371-8c5c-ea9d451a8193")
 public class EPrimitiveType extends ENamedElement {
@@ -40,8 +40,8 @@ public class EPrimitiveType extends ENamedElement {
     @objid ("c99212e7-ec16-4070-93de-dd74ab4625c0")
     @Override
     public Element createObjingElt() {
-        if (PrimitiveTypeMapper.isPredefinedType(this.ecoreElement)) {
-            return PrimitiveTypeMapper.getPredefinedType(this.ecoreElement);
+        if (EcorePrimitiveTypeMapper.isPredefinedType(this.ecoreElement)) {
+            return EcorePrimitiveTypeMapper.getPredefinedType(this.ecoreElement);
         }
         return ReverseProperties.getInstance().getMModelServices().getModelFactory().createDataType();
     }
@@ -55,7 +55,7 @@ public class EPrimitiveType extends ENamedElement {
     @objid ("afa84d8e-4259-45d2-8f56-659653530dff")
     @Override
     public void attach(Element objingElt) {
-        if (!PrimitiveTypeMapper.isPredefinedType(this.ecoreElement)){
+        if (!EcorePrimitiveTypeMapper.isPredefinedType(this.ecoreElement)){
             ReverseProperties revProp = ReverseProperties.getInstance();
         
             // we get the owner
@@ -77,7 +77,7 @@ public class EPrimitiveType extends ENamedElement {
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        if (!PrimitiveTypeMapper.isPredefinedType(this.ecoreElement)){
+        if (!EcorePrimitiveTypeMapper.isPredefinedType(this.ecoreElement)){
             if (objingElt instanceof GeneralClass){
                 setVisibility((GeneralClass)objingElt);
             }

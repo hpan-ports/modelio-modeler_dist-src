@@ -35,11 +35,9 @@ import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
-import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
-import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
+import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -98,6 +96,8 @@ public class PropertyView {
     private Composite parentComposite;
 
     @objid ("f60bed7a-0c12-4103-af97-3637ba7fb13f")
+    @Inject
+    @Optional
      EMenuService menuService;
 
     @objid ("250993c0-d688-4063-bac7-ee55d9cf381f")
@@ -133,8 +133,7 @@ public class PropertyView {
      */
     @objid ("8fb871cf-c068-11e1-8c0a-002564c97630")
     @PostConstruct
-    public void createControls(IProjectService aProjectService, @Optional IMModelServices modelServices, @Optional IActivationService modelioActivationService, IModelioPickingService modelioPickingService, Composite parent, @Optional
-@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Optional EMenuService theMenuService, @Optional MPart propertyPart) {
+    public void createControls(IProjectService aProjectService, @Optional IMModelServices modelServices, @Optional IActivationService modelioActivationService, IModelioPickingService modelioPickingService, Composite parent, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Optional EMenuService theMenuService, @Optional MPart propertyPart) {
         this.parentComposite = parent;
         
         // Sometimes, the view is instantiated only after the project is opened
@@ -165,9 +164,7 @@ public class PropertyView {
         
                     @Override
                     public void run() {
-                        MPopupMenu popupMenu = PropertyView.this.menuService.registerContextMenu(PropertyView.this.view.getTreeViewer().getTree(), POPUPID);
-                        MMenu menu = MMenuFactory.INSTANCE.createMenu();
-                        popupMenu.getChildren().add(menu);
+                        PropertyView.this.menuService.registerContextMenu(PropertyView.this.view.getTreeViewer().getTree(), POPUPID);
                     }
                 });
                 configurePanelByPreferences();
@@ -332,6 +329,18 @@ public class PropertyView {
             MDirectMenuItem fragmentsMenuItem = (MDirectMenuItem) this.eModelService.find(MENUITEM_SHOW_HIDDEN, hideMenu);
             fragmentsMenuItem.setSelected(this.configurator.areHiddenMdaElementsDisplayed());
         }
+    }
+
+    @objid ("93d2c6e4-7ce6-4d3b-9bf5-f4af115ddf64")
+    EMenuService getMenuService() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.menuService;
+    }
+
+    @objid ("2a7d4c79-c514-4a90-ab94-ded4e76ddbc6")
+    void setMenuService(EMenuService value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        this.menuService = value;
     }
 
     /**

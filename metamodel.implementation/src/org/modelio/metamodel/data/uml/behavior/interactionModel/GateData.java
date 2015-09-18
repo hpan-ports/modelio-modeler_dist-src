@@ -47,57 +47,57 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00459ffc-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Gate.class, factory=GateData.Metadata.ObjectFactory.class)
 public class GateData extends MessageEndData {
-    @objid ("c2aca373-83f0-44e4-8999-ce79b832f191")
+    @objid ("e6b38959-8967-4a62-b26a-0a09e7078baf")
     @SmaMetaAssociation(metaName="OwnerUse", typeDataClass=InteractionUseData.class, min=0, max=1, smAssociationClass=Metadata.OwnerUseSmDependency.class)
      SmObjectImpl mOwnerUse;
 
-    @objid ("44e47a32-0952-491a-9201-35b4192aec51")
+    @objid ("f44750b4-0a1a-4f9a-9d70-12b1ee6eef88")
     @SmaMetaAssociation(metaName="Actual", typeDataClass=GateData.class, min=0, max=-1, smAssociationClass=Metadata.ActualSmDependency.class)
      List<SmObjectImpl> mActual = null;
 
-    @objid ("9278c0eb-69cb-496c-bb1e-327b1a13505a")
+    @objid ("4a592cde-e8c4-49f2-a460-4c4287fffd94")
     @SmaMetaAssociation(metaName="OwnerInteraction", typeDataClass=InteractionData.class, min=0, max=1, smAssociationClass=Metadata.OwnerInteractionSmDependency.class)
      SmObjectImpl mOwnerInteraction;
 
-    @objid ("6d0c07e4-bf62-4bea-97e2-1a55639e20e4")
+    @objid ("cb93b041-4fc4-4a81-a942-7bc8682b551b")
     @SmaMetaAssociation(metaName="OwnerFragment", typeDataClass=CombinedFragmentData.class, min=0, max=1, smAssociationClass=Metadata.OwnerFragmentSmDependency.class)
      SmObjectImpl mOwnerFragment;
 
-    @objid ("4004313d-65d5-4e7f-b900-a8bbff96edfd")
+    @objid ("a32c74e6-c152-4af8-b7fa-5a6c7f2e6d2c")
     @SmaMetaAssociation(metaName="Formal", typeDataClass=GateData.class, min=0, max=1, smAssociationClass=Metadata.FormalSmDependency.class, partof = true)
      SmObjectImpl mFormal;
 
-    @objid ("47b95d62-e72c-436d-bf72-2a96b8a48a66")
+    @objid ("b1b96be3-8225-4ab0-9bb8-223be0d8df67")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0084f6de-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("c8e7d2b6-3a48-4ed1-89be-0cd2e2d6eb09")
+        @objid ("ab298736-7a0a-4d00-8f03-79c727c2d176")
         private static SmClass smClass = null;
 
-        @objid ("f3a9cf67-8963-46c8-84d4-c71ebb64ee6f")
+        @objid ("1b26d94e-d6cc-416c-a7b2-0c5719b96bbb")
         private static SmDependency OwnerUseDep = null;
 
-        @objid ("852a9082-89fe-48cd-bcf4-f179708c8aba")
+        @objid ("5f2a81c8-9777-444e-8fdf-01e489d800cb")
         private static SmDependency ActualDep = null;
 
-        @objid ("1897d97b-2ee1-48bd-b856-04fd5189aca7")
+        @objid ("6597d570-7272-4183-9b01-21f8889e4e51")
         private static SmDependency OwnerInteractionDep = null;
 
-        @objid ("670f580a-db13-4a30-aa05-ded3869b3835")
+        @objid ("13dddbc8-955c-4a1d-b46b-913f0b6c9c2d")
         private static SmDependency OwnerFragmentDep = null;
 
-        @objid ("b890afb8-1bfe-40b0-a8bf-7e4fbef0858a")
+        @objid ("c039d313-3b32-4062-925a-a5d6bbe6675e")
         private static SmDependency FormalDep = null;
 
-        @objid ("c2cdfb84-0e8a-46df-8b61-d19f9003d4f2")
+        @objid ("d8bb1552-6fa9-4298-8f07-fa1423e86b64")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(GateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("a11f52cc-1d69-47e2-a87a-a31fbf5b3659")
+        @objid ("b043065a-f1ef-4e8f-a1e1-6bd1ef5f976b")
         public static SmDependency OwnerUseDep() {
             if (OwnerUseDep == null) {
             	OwnerUseDep = classof().getDependencyDef("OwnerUse");
@@ -105,7 +105,7 @@ public class GateData extends MessageEndData {
             return OwnerUseDep;
         }
 
-        @objid ("9884fe5a-fecf-4716-a01e-0f91b517eb66")
+        @objid ("c3934c81-e19c-43c0-a2ba-336ff7945dc6")
         public static SmDependency ActualDep() {
             if (ActualDep == null) {
             	ActualDep = classof().getDependencyDef("Actual");
@@ -113,7 +113,7 @@ public class GateData extends MessageEndData {
             return ActualDep;
         }
 
-        @objid ("ab50a2b7-2595-4a65-a5e5-e51e25cefacb")
+        @objid ("78cb9066-f9bf-4c30-aeaf-a6a12cb40634")
         public static SmDependency OwnerInteractionDep() {
             if (OwnerInteractionDep == null) {
             	OwnerInteractionDep = classof().getDependencyDef("OwnerInteraction");
@@ -121,7 +121,7 @@ public class GateData extends MessageEndData {
             return OwnerInteractionDep;
         }
 
-        @objid ("1c0261f1-07c8-46c9-b212-368bf0e9e45c")
+        @objid ("6dc9cb0c-bdda-417f-ab80-cde2e54a3bbc")
         public static SmDependency OwnerFragmentDep() {
             if (OwnerFragmentDep == null) {
             	OwnerFragmentDep = classof().getDependencyDef("OwnerFragment");
@@ -129,7 +129,7 @@ public class GateData extends MessageEndData {
             return OwnerFragmentDep;
         }
 
-        @objid ("56d3feab-3e3b-446a-b417-84873c70afda")
+        @objid ("2ea6b60f-f344-453b-980b-2380a2831047")
         public static SmDependency FormalDep() {
             if (FormalDep == null) {
             	FormalDep = classof().getDependencyDef("Formal");
@@ -137,50 +137,50 @@ public class GateData extends MessageEndData {
             return FormalDep;
         }
 
-        @objid ("7de65540-4981-4c92-8819-d4424a692475")
-        public static SmDependency getOwnerInteractionDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerInteractionDep;
-        }
-
-        @objid ("9d0e2be4-2917-4004-b7d2-52d97f978ff6")
+        @objid ("e9290024-5802-4b2e-9a5b-6583ad84bc60")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("1e1da286-3811-44ae-a476-a94cc7875f0b")
-        public static SmDependency getFormalDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return FormalDep;
-        }
-
-        @objid ("b3c86dfe-ac28-4832-8022-ed901420d77a")
+        @objid ("c8779e70-f171-4d26-ac40-34801c5df461")
         public static SmDependency getOwnerFragmentDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerFragmentDep;
         }
 
-        @objid ("f1c8a52e-615e-4c5a-9606-1944fb208480")
-        public static SmDependency getActualDep() {
+        @objid ("35adf6b8-8dff-49f0-b3e8-1c10302193d8")
+        public static SmDependency getOwnerInteractionDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return ActualDep;
+            return OwnerInteractionDep;
         }
 
-        @objid ("66242953-629c-47cc-b2ed-1ca98275d60d")
+        @objid ("7ae80b0b-9a91-498f-9658-6ab0aad1e6ca")
+        public static SmDependency getFormalDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return FormalDep;
+        }
+
+        @objid ("f40e4d3b-0c7f-4470-9722-e02d1d62bedb")
         public static SmDependency getOwnerUseDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerUseDep;
         }
 
+        @objid ("92bd1607-0e72-4adc-820a-99c3b2d8fc05")
+        public static SmDependency getActualDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ActualDep;
+        }
+
         @objid ("008537fc-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("4faa8240-2e7c-4286-ae33-6bebd9e49395")
+            @objid ("6b0e6b8d-97b5-47b1-b654-c7c547f1c4aa")
             public ISmObjectData createData() {
                 return new GateData();
             }
 
-            @objid ("fe22fa14-0c3d-4626-bb33-9ce89f570874")
+            @objid ("a22d8f07-1549-440a-8e9a-ebf54328ee25")
             public SmObjectImpl createImpl() {
                 return new GateImpl();
             }
@@ -189,18 +189,18 @@ public class GateData extends MessageEndData {
 
         @objid ("00859b0c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnerFragmentSmDependency extends SmSingleDependency {
-            @objid ("5649d7c9-e258-4f9e-a3ab-ee3838176cda")
+            @objid ("5d6abdcf-fc7a-48dd-9195-3bf55862a413")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GateData) data).mOwnerFragment;
             }
 
-            @objid ("57e81639-017a-40af-8db4-96d4d0478e1b")
+            @objid ("da8c3c2d-fa09-4b8a-b326-42b1d5ef4694")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GateData) data).mOwnerFragment = value;
             }
 
-            @objid ("2c009293-fb07-4573-89cf-14554e385055")
+            @objid ("b2fb693d-8d09-4025-bdc1-81f342ae8609")
             @Override
             public SmDependency getSymetric() {
                 return CombinedFragmentData.Metadata.FragmentGateDep();
@@ -210,18 +210,18 @@ public class GateData extends MessageEndData {
 
         @objid ("00860f7e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class FormalSmDependency extends SmSingleDependency {
-            @objid ("d32e1e5d-a70f-451d-a857-e54f2c153283")
+            @objid ("b452d17a-7149-4e31-9b0e-1e5d20967297")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GateData) data).mFormal;
             }
 
-            @objid ("c14df1ec-8164-45c2-94c0-a36eca85f25f")
+            @objid ("aae51871-10a4-4240-b85c-c67ec85a07d4")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GateData) data).mFormal = value;
             }
 
-            @objid ("42b4c576-ea72-4f93-b9ff-ca28d51405ca")
+            @objid ("ec364c9d-6f0d-47d7-a96d-e334332205e4")
             @Override
             public SmDependency getSymetric() {
                 return GateData.Metadata.ActualDep();
@@ -231,20 +231,20 @@ public class GateData extends MessageEndData {
 
         @objid ("00868620-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ActualSmDependency extends SmMultipleDependency {
-            @objid ("64a7ef4f-22fb-4f9a-af9f-86887e3703e5")
+            @objid ("9cd2d3e4-e33b-4928-bafe-52ced568a07b")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((GateData)data).mActual != null)? ((GateData)data).mActual:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("38bbede7-09a9-477e-a221-2a243665efdf")
+            @objid ("6781a0a1-d6c5-49ed-993b-07cd2fbee7ac")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((GateData) data).mActual = new ArrayList<>(initialCapacity);
                 return ((GateData) data).mActual;
             }
 
-            @objid ("c21fbed8-4051-4af3-bf55-ae6ec94aa7d1")
+            @objid ("08a873c9-0ddb-4751-a6ab-25206b6c1db5")
             @Override
             public SmDependency getSymetric() {
                 return GateData.Metadata.FormalDep();
@@ -254,18 +254,18 @@ public class GateData extends MessageEndData {
 
         @objid ("0086e99e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnerInteractionSmDependency extends SmSingleDependency {
-            @objid ("dcdb1a69-9562-4cd7-9ca6-08ff8b35e548")
+            @objid ("3735a6c0-9c32-4021-8be2-096ce887ae70")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GateData) data).mOwnerInteraction;
             }
 
-            @objid ("44307434-68d1-4882-8cf8-59022a9e3e83")
+            @objid ("e9580524-af4a-498b-9af9-35e875059d12")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GateData) data).mOwnerInteraction = value;
             }
 
-            @objid ("44c52e7e-8e6b-48ea-a846-cf9aab41536b")
+            @objid ("c0edf70d-a8b8-4477-a3da-29db8a848ee6")
             @Override
             public SmDependency getSymetric() {
                 return InteractionData.Metadata.FormalGateDep();
@@ -275,18 +275,18 @@ public class GateData extends MessageEndData {
 
         @objid ("00875f8c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnerUseSmDependency extends SmSingleDependency {
-            @objid ("e7672e4f-2039-4d91-ab67-dd1855ebb34e")
+            @objid ("c3f75283-c7ea-41d1-8091-37ec59f8eb16")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GateData) data).mOwnerUse;
             }
 
-            @objid ("46e1fa85-79eb-4c1a-8376-3c0fd11bd645")
+            @objid ("02274f1c-5670-4f0f-a537-5a051a52a156")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GateData) data).mOwnerUse = value;
             }
 
-            @objid ("6d32d910-0bc4-4a5d-99ec-cdbc443c9d88")
+            @objid ("8e16c072-dd19-42a8-9456-3e156f5d01b1")
             @Override
             public SmDependency getSymetric() {
                 return InteractionUseData.Metadata.ActualGateDep();

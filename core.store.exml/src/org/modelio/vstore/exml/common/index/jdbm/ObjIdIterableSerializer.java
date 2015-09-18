@@ -53,7 +53,7 @@ class ObjIdIterableSerializer implements Serializer<Iterable<ObjId>> {
 
     @objid ("d59e23da-6231-11e1-b31a-001ec947ccaf")
     @Override
-    public Iterable<ObjId> deserialize(final SerializerInput in) throws IOException, ClassNotFoundException {
+    public Iterable<ObjId> deserialize(final SerializerInput in) throws ClassNotFoundException, IOException {
         return ObjIdCollectionSerializer.instance.deserialize(in);
     }
 

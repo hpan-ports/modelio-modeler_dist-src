@@ -45,37 +45,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0026b060-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ActivityActionImpl extends ActivityNodeImpl implements ActivityAction {
-    @objid ("43e0b122-79e0-418c-8873-42ae910fe11f")
+    @objid ("b3dfe331-f3c7-4967-8390-c10a73f9dc86")
     @Override
     public boolean isIsMultipleInstance() {
         return (Boolean) getAttVal(ActivityActionData.Metadata.IsMultipleInstanceAtt());
     }
 
-    @objid ("20ad55e1-6f17-424b-b07f-e7b7f2e02542")
+    @objid ("41c9cbff-1589-4312-b433-4d40ab6f0f84")
     @Override
     public void setIsMultipleInstance(boolean value) {
         setAttVal(ActivityActionData.Metadata.IsMultipleInstanceAtt(), value);
     }
 
-    @objid ("2364f308-b027-4563-b646-1a4eccdb873a")
+    @objid ("b745d521-b56d-4481-a06e-3e74a637f3cf")
     @Override
     public boolean isIsCompensation() {
         return (Boolean) getAttVal(ActivityActionData.Metadata.IsCompensationAtt());
     }
 
-    @objid ("d7a84351-ea8f-431e-baad-89889105d3ab")
+    @objid ("340fb3b0-b9dd-4065-be61-1918a4dcc53f")
     @Override
     public void setIsCompensation(boolean value) {
         setAttVal(ActivityActionData.Metadata.IsCompensationAtt(), value);
     }
 
-    @objid ("ca72a2ac-4048-472c-aae7-8b3b261ce11b")
+    @objid ("b0b3e4f4-4408-4ace-b7ff-f9b34c7e7625")
     @Override
     public EList<OutputPin> getOutput() {
         return new SmList<>(this, ActivityActionData.Metadata.OutputDep());
     }
 
-    @objid ("2b273afd-6112-4aa0-817a-919af946bb9e")
+    @objid ("4f8fe607-5f99-4fea-8c22-7e50279b351f")
     @Override
     public <T extends OutputPin> List<T> getOutput(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -88,13 +88,13 @@ public abstract class ActivityActionImpl extends ActivityNodeImpl implements Act
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d8d071ec-f377-470c-9bd7-9fc4ff3324f3")
+    @objid ("81512b65-a663-451a-bf8a-2d608712ad97")
     @Override
     public EList<InputPin> getInput() {
         return new SmList<>(this, ActivityActionData.Metadata.InputDep());
     }
 
-    @objid ("7ccbd123-306f-4c33-9dd4-49ca9a78acc0")
+    @objid ("264b27de-5084-4ae3-9ff5-a7b204935d0e")
     @Override
     public <T extends InputPin> List<T> getInput(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -107,13 +107,13 @@ public abstract class ActivityActionImpl extends ActivityNodeImpl implements Act
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("aa292a76-1891-4679-b1e7-02ecb2aa1143")
+    @objid ("930d4ea9-da79-4067-bcec-68e0115c293f")
     @Override
     public EList<ExceptionHandler> getHandler() {
         return new SmList<>(this, ActivityActionData.Metadata.HandlerDep());
     }
 
-    @objid ("aa2d395b-20bb-45a8-aece-f29da53beea3")
+    @objid ("f1ad479c-62c1-4589-a58e-813d4ff92971")
     @Override
     public <T extends ExceptionHandler> List<T> getHandler(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -126,21 +126,21 @@ public abstract class ActivityActionImpl extends ActivityNodeImpl implements Act
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("98a72151-71b4-4484-8f3b-28b865370288")
+    @objid ("092b3345-0fbe-4333-8db4-e68473fc2c8f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("252c4951-9f78-464a-806f-8161ecf25b2f")
+    @objid ("ef5cc8b5-3424-47e4-b392-cf39b3784ed0")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("6bcbe9aa-26cb-4ed8-b759-9021288a5b52")
+    @objid ("041ddb4c-ae89-4933-98bf-c492b5ee9120")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityAction(this);

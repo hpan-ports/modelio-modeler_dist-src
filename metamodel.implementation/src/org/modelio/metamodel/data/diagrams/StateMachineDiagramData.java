@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00705882-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=StateMachineDiagram.class, factory=StateMachineDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class StateMachineDiagramData extends BehaviorDiagramData {
-    @objid ("81999de3-ba68-4540-85db-981fa81e220d")
+    @objid ("a5046fa4-fff8-4f17-ba58-429dc23deec5")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008f440e-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("74c2b57e-984e-4b79-96bd-5c2156d699fe")
+        @objid ("e10b0ae6-86db-4ac9-b94d-6a691f054b3c")
         private static SmClass smClass = null;
 
-        @objid ("5327d203-af17-4748-be00-0e70d07db014")
+        @objid ("0816b082-a794-486f-ab19-0deac36f5f5c")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(StateMachineDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("cb49e95c-b8d7-4df8-909c-8ee7f966bff8")
+        @objid ("fce28b2d-dcff-41a8-9558-aad11c19221e")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class StateMachineDiagramData extends BehaviorDiagramData {
 
         @objid ("008f84f0-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("c9154a23-a972-4089-9943-9b5f5316edc4")
+            @objid ("9d630c26-4ce7-47af-bfbc-af19a880c053")
             public ISmObjectData createData() {
                 return new StateMachineDiagramData();
             }
 
-            @objid ("7d294ff8-a39d-4b8c-9462-373b7b39900d")
+            @objid ("151a4282-4fb8-417b-9d6c-3682c42abff4")
             public SmObjectImpl createImpl() {
                 return new StateMachineDiagramImpl();
             }

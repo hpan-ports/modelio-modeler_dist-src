@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008f16f0-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnIntermediateCatchEvent.class, factory=BpmnIntermediateCatchEventData.Metadata.ObjectFactory.class)
 public class BpmnIntermediateCatchEventData extends BpmnCatchEventData {
-    @objid ("5c7127dc-c204-468c-939e-51f3a9ec307a")
+    @objid ("95e1d79d-b5fd-4e41-b1e9-abe793370350")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0010ad74-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("e587bb96-9c55-4526-8de0-76fba7779ee4")
+        @objid ("ac0c4f6b-00a9-45a8-ac54-408919e1d560")
         private static SmClass smClass = null;
 
-        @objid ("bebd4f87-244b-4757-b565-8ab5b5e95198")
+        @objid ("1c9a9352-da48-4fcd-bde4-5e6cf36de684")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnIntermediateCatchEventData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("1af86f1e-2680-4ca9-9451-df2346ee3bfe")
+        @objid ("90d5bbf1-2021-46a2-a9ff-f025dd571754")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BpmnIntermediateCatchEventData extends BpmnCatchEventData {
 
         @objid ("0010ece4-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("39dc1c6d-67e7-433e-b88c-9962132ed330")
+            @objid ("f7580ea2-dcf0-4baf-9e99-54d012cdad33")
             public ISmObjectData createData() {
                 return new BpmnIntermediateCatchEventData();
             }
 
-            @objid ("d5c59c4d-9293-4858-86ab-d6a7527028d2")
+            @objid ("3d455035-1579-4c7a-95f2-e72ed6b3c089")
             public SmObjectImpl createImpl() {
                 return new BpmnIntermediateCatchEventImpl();
             }

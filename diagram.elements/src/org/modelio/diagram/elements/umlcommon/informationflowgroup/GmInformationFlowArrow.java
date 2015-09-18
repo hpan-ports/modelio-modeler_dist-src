@@ -94,7 +94,8 @@ public final class GmInformationFlowArrow extends GmNoStyleSimpleNode {
     public final boolean isVisible() {
         final StyleKey styleKey = getStyleKey(MetaKey.SHOWINFORMATIONFLOWS);
         if (styleKey != null) {
-            if (getStyle().getProperty(styleKey)) {
+            boolean property = getStyle().getProperty(styleKey);
+            if (property) {
                 final MObject related = getRelatedElement();
                 if (related != null && related.isValid()) {
                     return !getRealizedInformationFlows().isEmpty();

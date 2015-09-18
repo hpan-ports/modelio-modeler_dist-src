@@ -26,8 +26,8 @@ import org.modelio.metamodel.uml.behavior.usecaseModel.ExtensionPoint;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("7b5534d8-28e9-4f0c-8260-0f7e48a2e912")
 public class EExtensionPoint extends ENamedElement {
@@ -38,7 +38,7 @@ public class EExtensionPoint extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createExtensionPoint();
+                        .createExtensionPoint();
     }
 
     @objid ("8350fdb9-5b91-4bff-9545-2c999b37aaa9")

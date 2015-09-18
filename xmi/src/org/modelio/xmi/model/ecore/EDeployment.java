@@ -29,9 +29,9 @@ import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("b3b7c823-6857-4231-9af8-58b42da2b277")
 public class EDeployment extends EDependency {

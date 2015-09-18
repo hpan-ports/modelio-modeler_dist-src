@@ -53,13 +53,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0053a458-c4bf-1fd8-97fe-001ec947cd2a")
 public class StateImpl extends StateVertexImpl implements State {
-    @objid ("a7eb211e-a07f-4e39-94ed-2d6171579fd9")
+    @objid ("d6ee3d53-e6cf-4513-aea1-9c3a8dd4918c")
     @Override
     public EList<ExitPointPseudoState> getExitPoint() {
         return new SmList<>(this, StateData.Metadata.ExitPointDep());
     }
 
-    @objid ("af3076ca-a046-4138-b686-c8c5e31be31d")
+    @objid ("0e6fabb5-b97b-4051-aaed-18337a147f9e")
     @Override
     public <T extends ExitPointPseudoState> List<T> getExitPoint(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -72,13 +72,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("918226fd-61d1-4b7b-94bf-4a8559997dad")
+    @objid ("6e830bf9-3dfd-493e-8b50-2f9bde49edb6")
     @Override
     public EList<BpmnDataState> getBpmnDataStateRefs() {
         return new SmList<>(this, StateData.Metadata.BpmnDataStateRefsDep());
     }
 
-    @objid ("f8320440-0cc6-4113-acf3-1a96e99835c3")
+    @objid ("e1de7833-aa8e-4641-b833-d6021914aadb")
     @Override
     public <T extends BpmnDataState> List<T> getBpmnDataStateRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -91,13 +91,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cd0eefec-f3b9-4bae-954d-d83ef34d9e97")
+    @objid ("b12b9f7b-abc6-4134-80f9-1cdee58685c3")
     @Override
     public EList<Event> getDeffered() {
         return new SmList<>(this, StateData.Metadata.DefferedDep());
     }
 
-    @objid ("3f1550c2-8d6f-428e-8ed6-3efe769df326")
+    @objid ("d38da2d4-de91-4291-b142-a102756ac7f5")
     @Override
     public <T extends Event> List<T> getDeffered(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -110,13 +110,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("76ced5f7-3484-4ee3-a582-1a9c23f1cce3")
+    @objid ("fe7e181b-34eb-429a-8dbe-3a69bb05c12d")
     @Override
     public EList<InternalTransition> getInternal() {
         return new SmList<>(this, StateData.Metadata.InternalDep());
     }
 
-    @objid ("c9c3260a-3939-48e1-a731-05e16fb9bbd2")
+    @objid ("1ebec3e2-79a9-4b4c-a74b-6725881f2657")
     @Override
     public <T extends InternalTransition> List<T> getInternal(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -129,13 +129,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f655c222-286e-422e-b4b0-76ec40478d1c")
+    @objid ("d1683864-2841-4356-98b9-7edd8625e4cc")
     @Override
     public EList<EntryPointPseudoState> getEntryPoint() {
         return new SmList<>(this, StateData.Metadata.EntryPointDep());
     }
 
-    @objid ("68102604-9103-4adc-88d9-f69ef9f4766b")
+    @objid ("2e948c2f-6dfd-492c-9fa4-f9fb91fff301")
     @Override
     public <T extends EntryPointPseudoState> List<T> getEntryPoint(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -148,13 +148,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("546cf271-620c-4e8a-9130-004e6858e5a9")
+    @objid ("fdb7eda8-8922-4ec9-bc88-4931f684aead")
     @Override
     public EList<Region> getOwnedRegion() {
         return new SmList<>(this, StateData.Metadata.OwnedRegionDep());
     }
 
-    @objid ("017db38b-ebe7-4c2f-989f-6889b6e823f2")
+    @objid ("9728dd2a-cd22-41a1-adc4-733c7eba7442")
     @Override
     public <T extends Region> List<T> getOwnedRegion(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -167,13 +167,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6d9c1a8e-fd5d-47bc-bfbc-96b2a5661833")
+    @objid ("4a48efc7-3e21-49a9-bbb7-1b7a6a9878e8")
     @Override
     public EList<BpmnMessage> getRequiredStateOfBpmnMessage() {
         return new SmList<>(this, StateData.Metadata.RequiredStateOfBpmnMessageDep());
     }
 
-    @objid ("31654805-ab3e-4be2-a4f1-3585510fabcf")
+    @objid ("42442888-b273-4c25-8912-43f7e53574ea")
     @Override
     public <T extends BpmnMessage> List<T> getRequiredStateOfBpmnMessage(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -186,13 +186,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("3ac533a2-eccc-4ee2-89c4-f8faa30c139c")
+    @objid ("60b76f20-437b-4899-be20-4469e38035a2")
     @Override
     public EList<ObjectNode> getRequiredStateOf() {
         return new SmList<>(this, StateData.Metadata.RequiredStateOfDep());
     }
 
-    @objid ("6af37d4b-ca5e-4db4-8c66-5a022dc8e3c0")
+    @objid ("20d054f5-dc7a-42fd-aedf-283fcd4908c4")
     @Override
     public <T extends ObjectNode> List<T> getRequiredStateOf(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -205,13 +205,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a4bedfc4-3702-464e-931d-d00a0c1d67ed")
+    @objid ("58c10257-071f-4274-ad4d-b808f4ec2edf")
     @Override
     public EList<ConnectionPointReference> getConnection() {
         return new SmList<>(this, StateData.Metadata.ConnectionDep());
     }
 
-    @objid ("e961c0c4-aec2-41b7-b82c-99a45a455522")
+    @objid ("3aad7fc9-01dc-43f5-addc-23990d51b674")
     @Override
     public <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -224,25 +224,25 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("38194b50-8cae-4e3b-a9d5-17bf6a3b30d6")
+    @objid ("57f9aa71-8ca0-409d-a62b-0457a89e9837")
     @Override
     public StateMachine getSubMachine() {
         return (StateMachine) getDepVal(StateData.Metadata.SubMachineDep());
     }
 
-    @objid ("d1018c0f-3d96-412d-bd04-3732dee27d3d")
+    @objid ("04533aef-a849-4134-9050-cdd917b5b847")
     @Override
     public void setSubMachine(StateMachine value) {
         appendDepVal(StateData.Metadata.SubMachineDep(), (SmObjectImpl)value);
     }
 
-    @objid ("24ef5849-4451-4186-95b4-f8b5bf77c9a5")
+    @objid ("bdaf7cf0-21ae-4fb9-9fbf-a94e5289113e")
     @Override
     public EList<BpmnItemAwareElement> getRequiredStateOfBpmnItem() {
         return new SmList<>(this, StateData.Metadata.RequiredStateOfBpmnItemDep());
     }
 
-    @objid ("504e1a21-259a-4e25-b2b1-7748229a7529")
+    @objid ("5e0feb7e-8a0a-4c79-b0fc-257caaed1006")
     @Override
     public <T extends BpmnItemAwareElement> List<T> getRequiredStateOfBpmnItem(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -255,21 +255,21 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("fb91a72d-f7a8-4717-94aa-e19057ee6729")
+    @objid ("f373625a-3758-436b-83f3-bd7afe5c6121")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("66519d38-e7a0-4c61-8fb4-b9c98a326045")
+    @objid ("2eb92ad2-3d90-4d2a-a1cd-00233a593fe8")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("39e1a61a-21b1-4d20-bd48-9b5303bb7afa")
+    @objid ("bd3c6451-103e-4802-b033-1aba91fe44cd")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitState(this);

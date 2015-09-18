@@ -64,7 +64,6 @@ public class MsgDlg {
 static {
         String language;
         try {
-            // language = Modelio.getInstance().getContext().getLanguage();
             language = Locale.getDefault().getLanguage();
             if (!("fr".equalsIgnoreCase(language))) {
                 language = "us";

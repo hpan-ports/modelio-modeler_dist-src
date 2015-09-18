@@ -27,7 +27,7 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.EntryPointPseudoStat
 import org.modelio.metamodel.uml.behavior.stateMachineModel.ExitPointPseudoState;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("2c4d0e08-4ea5-4c9a-be3b-d6e7a0a29ed2")
 public class EConnectionPointReference extends ENamedElement {

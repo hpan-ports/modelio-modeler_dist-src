@@ -21,7 +21,8 @@
 
 package org.modelio.vbasic.xml;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -89,8 +90,11 @@ public class IndentingXMLStreamWriter extends DelegatingXMLStreamWriter {
     @objid ("7856cd16-3010-11e2-8359-001ec947ccaf")
     private Object state = SEEN_NOTHING;
 
+    /**
+     * stack of states
+     */
     @objid ("7856cd17-3010-11e2-8359-001ec947ccaf")
-    private Stack<Object> stateStack = new Stack<>();
+    private Deque<Object> stateStack = new ArrayDeque<>();
 
     /**
      * Construct an indenting XML writer.
@@ -142,9 +146,9 @@ public class IndentingXMLStreamWriter extends DelegatingXMLStreamWriter {
 
     /**
      * Print indentation for the current level.
-     * @exception org.xml.sax.SAXException If there is an error
      * writing the indentation characters, or if a filter
      * further down the chain raises an exception.
+     * @exception XMLStreamException If there is an error
      */
     @objid ("7856cd2a-3010-11e2-8359-001ec947ccaf")
     private void doIndent() throws XMLStreamException {

@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("3d3e7fe2-486d-4d0f-b2ca-d1bc83a1705d")
 public class EMessageOccurrenceSpecification extends EOccurrenceSpecification {

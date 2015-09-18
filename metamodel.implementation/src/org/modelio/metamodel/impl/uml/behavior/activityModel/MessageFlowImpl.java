@@ -42,31 +42,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00381364-c4bf-1fd8-97fe-001ec947cd2a")
 public class MessageFlowImpl extends ActivityEdgeImpl implements MessageFlow {
-    @objid ("421429bd-4670-4720-9945-997da58e932a")
+    @objid ("dd7ee74c-d532-4578-8ca3-7a29d36ffa81")
     @Override
     public ActivityPartition getTargetPartition() {
         return (ActivityPartition) getDepVal(MessageFlowData.Metadata.TargetPartitionDep());
     }
 
-    @objid ("921bdb59-5892-41b2-abf7-49f23f11606f")
+    @objid ("9301ed36-799d-4a92-99ca-74af5c7ae640")
     @Override
     public void setTargetPartition(ActivityPartition value) {
         appendDepVal(MessageFlowData.Metadata.TargetPartitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3c0250d1-5a3d-4111-b048-05abc5b24379")
+    @objid ("895bd692-fbcb-4574-a079-069533e3e77e")
     @Override
     public ActivityPartition getSourcePartition() {
         return (ActivityPartition) getDepVal(MessageFlowData.Metadata.SourcePartitionDep());
     }
 
-    @objid ("8ed739d0-a181-4770-885f-4d117a9bb27f")
+    @objid ("db4df072-3dc5-4f25-8a53-47251f137a5f")
     @Override
     public void setSourcePartition(ActivityPartition value) {
         appendDepVal(MessageFlowData.Metadata.SourcePartitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c7951f06-4b60-4d38-a36d-5b362967ce05")
+    @objid ("8b827f82-9de7-4c1f-b999-39a07a91687c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -76,7 +76,7 @@ public class MessageFlowImpl extends ActivityEdgeImpl implements MessageFlow {
         return super.getCompositionOwner();
     }
 
-    @objid ("9cc92290-c501-46f7-8701-47df0314c4f2")
+    @objid ("89749f29-ce8f-4e48-9f86-365c86228e0b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -86,7 +86,7 @@ public class MessageFlowImpl extends ActivityEdgeImpl implements MessageFlow {
         return super.getCompositionRelation();
     }
 
-    @objid ("3d5ee157-4b24-46e0-b8d5-629f03a0dfe5")
+    @objid ("33332fdf-7580-4e14-8dcb-7e6160d57910")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitMessageFlow(this);

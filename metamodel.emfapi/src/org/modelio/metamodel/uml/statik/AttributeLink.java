@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.statik.Instance;
 
 @objid ("009893c4-c4be-1fd8-97fe-001ec947cd2a")
 public interface AttributeLink extends ModelElement {
-    @objid ("77b6df25-fa92-4bb2-84a6-91aade6d1492")
+    @objid ("9330ce9a-4c4a-4dbc-ad1f-367f8086514f")
     String getValue();
 
-    @objid ("89885c74-52b2-4c90-9885-b8f30f58523b")
+    @objid ("b42ef897-6b0c-468e-97c3-d384f0cf4e1c")
     void setValue(String value);
 
-    @objid ("225f77e4-efcd-400a-9235-9e3cf35d0246")
+    @objid ("0ad8bd51-79df-41cd-8d23-f3ea87946f1d")
     Instance getAttributed();
 
-    @objid ("08e0a5da-5610-4747-b017-75b125107de2")
+    @objid ("da0b80b7-9825-449c-bd5f-312216ee8208")
     void setAttributed(Instance value);
 
-    @objid ("150938a9-1038-44c4-a2c6-4a86b24276ff")
+    @objid ("ac396bdf-cb91-46c8-aa21-5aec525107c9")
     Attribute getBase();
 
-    @objid ("dc5677b7-062c-44b9-990c-5c4ec567591c")
+    @objid ("0367bf76-457e-4a27-a0a1-3f20dd1ab72b")
     void setBase(Attribute value);
 
 }

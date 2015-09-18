@@ -46,61 +46,61 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0030ab7e-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExceptionHandlerImpl extends ModelElementImpl implements ExceptionHandler {
-    @objid ("71429c68-7b9b-4cea-afc3-9b958257e9b0")
+    @objid ("a3aa3e4e-8ab9-4dec-a7c5-4bd54786de69")
     @Override
     public String getGuard() {
         return (String) getAttVal(ExceptionHandlerData.Metadata.GuardAtt());
     }
 
-    @objid ("54a60b26-a0ee-4506-91d4-4af6ecaf068b")
+    @objid ("bb7aec46-6e63-4d44-9e48-9b062ec54d77")
     @Override
     public void setGuard(String value) {
         setAttVal(ExceptionHandlerData.Metadata.GuardAtt(), value);
     }
 
-    @objid ("a90a15a4-e366-40c8-a0bc-e23c9a8d9732")
+    @objid ("b4ab2538-5069-480e-9850-f35e4207323f")
     @Override
     public String getWeight() {
         return (String) getAttVal(ExceptionHandlerData.Metadata.WeightAtt());
     }
 
-    @objid ("accaf99e-f9cf-48d1-be9e-07cdfca5a2a0")
+    @objid ("b5f2180d-b7aa-4277-9994-6e6f27824024")
     @Override
     public void setWeight(String value) {
         setAttVal(ExceptionHandlerData.Metadata.WeightAtt(), value);
     }
 
-    @objid ("5523c00c-8ace-40b0-a07f-7e6898d48233")
+    @objid ("8bb8da7d-c975-4801-b972-af16b51c57d5")
     @Override
     public ActivityAction getProtectedNode() {
         return (ActivityAction) getDepVal(ExceptionHandlerData.Metadata.ProtectedNodeDep());
     }
 
-    @objid ("55fb6531-3cb8-4eab-8bdb-fd6a36047766")
+    @objid ("e4f0b67f-8e63-46c8-91c2-5ed760676038")
     @Override
     public void setProtectedNode(ActivityAction value) {
         appendDepVal(ExceptionHandlerData.Metadata.ProtectedNodeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a85a2c3c-314c-45e0-ad54-7091e4a93a10")
+    @objid ("3c2bce65-23cf-476d-bbe3-bdb5694732f3")
     @Override
     public InputPin getExceptionInput() {
         return (InputPin) getDepVal(ExceptionHandlerData.Metadata.ExceptionInputDep());
     }
 
-    @objid ("ad8b4703-6a7b-41f7-8eb3-de038a3861eb")
+    @objid ("8378c16a-1d02-4c39-a4c0-fbb140315232")
     @Override
     public void setExceptionInput(InputPin value) {
         appendDepVal(ExceptionHandlerData.Metadata.ExceptionInputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("51b642ab-5d44-4937-9834-9c6a4ab6043a")
+    @objid ("1a83ba33-8c00-48c3-a6eb-1512697d87d2")
     @Override
     public EList<GeneralClass> getExceptionType() {
         return new SmList<>(this, ExceptionHandlerData.Metadata.ExceptionTypeDep());
     }
 
-    @objid ("bc83f8a4-19af-4746-a9b6-005ca435b4ab")
+    @objid ("b623925a-79b0-43fc-bc2b-4a7e0f177993")
     @Override
     public <T extends GeneralClass> List<T> getExceptionType(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -113,7 +113,7 @@ public class ExceptionHandlerImpl extends ModelElementImpl implements ExceptionH
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2ccd03ea-7c52-4f5d-b076-7a104e4f0f48")
+    @objid ("80cc7843-0ce6-43fe-b2a1-87bd51d2d81c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -123,7 +123,7 @@ public class ExceptionHandlerImpl extends ModelElementImpl implements ExceptionH
         return super.getCompositionOwner();
     }
 
-    @objid ("766b2164-bcfa-4941-8700-299ec1178348")
+    @objid ("9f40e699-9b3d-4b4f-9fa1-41b199a38ed3")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -133,7 +133,7 @@ public class ExceptionHandlerImpl extends ModelElementImpl implements ExceptionH
         return super.getCompositionRelation();
     }
 
-    @objid ("125038e6-eae1-494a-8dd9-8c9d18ed783a")
+    @objid ("ec530e28-126e-474d-8225-836b17007fb5")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExceptionHandler(this);

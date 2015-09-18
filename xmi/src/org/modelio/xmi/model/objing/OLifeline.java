@@ -27,8 +27,8 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Instance;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("d825e0f5-dbf1-420a-b91a-cb40617c6dd4")

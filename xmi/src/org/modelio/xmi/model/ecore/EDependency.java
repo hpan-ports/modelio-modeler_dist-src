@@ -45,9 +45,9 @@ import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("b49fce4d-2101-4013-8b3e-e6dcfb12bb10")
 public class EDependency extends ENamedElement {

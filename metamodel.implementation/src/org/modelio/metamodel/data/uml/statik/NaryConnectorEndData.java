@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00789d08-17e8-10a1-88a0-001ec947cd2a")
 @SmaMetaClass(mmClass=NaryConnectorEnd.class, factory=NaryConnectorEndData.Metadata.ObjectFactory.class)
 public class NaryConnectorEndData extends NaryLinkEndData {
-    @objid ("eab69247-c2c5-440a-bb2f-0da0dbac1215")
+    @objid ("be013895-187b-418c-bbe7-14ced4bd3544")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00362608-17f3-10a1-88a0-001ec947cd2a")
     public static class Metadata {
-        @objid ("feea0ed7-678b-41d5-a7af-736091f38240")
+        @objid ("5b26b66f-af07-4cd9-af29-eee611959c96")
         private static SmClass smClass = null;
 
-        @objid ("326218e1-8106-4b19-a021-aa427b2d82b3")
+        @objid ("45e10ac4-ef60-44aa-874d-5f58cbffe97a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(NaryConnectorEndData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("43d25fea-759b-430c-9cc5-c0fccf69dbd2")
+        @objid ("1da3eb72-0fd1-4811-b4af-769ac25ce2de")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class NaryConnectorEndData extends NaryLinkEndData {
 
         @objid ("003669ba-17f3-10a1-88a0-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("451f60c6-fe63-4b81-bde1-a56379c03cff")
+            @objid ("976899e2-772a-4501-80d6-5cdf70546c12")
             public ISmObjectData createData() {
                 return new NaryConnectorEndData();
             }
 
-            @objid ("a2874fc8-b845-4821-8634-7941b8a992a4")
+            @objid ("4f5f11cd-920f-4192-a0c7-cce619f5ef14")
             public SmObjectImpl createImpl() {
                 return new NaryConnectorEndImpl();
             }

@@ -26,8 +26,8 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.XMILogs;
@@ -94,21 +94,21 @@ public class OTemplateParameter extends ONameSpace {
         
         if (ecoreOwner instanceof org.eclipse.uml2.uml.TemplateableElement){
         
-            org.eclipse.uml2.uml.TemplateSignature signature = ((org.eclipse.uml2.uml.TemplateableElement) ecoreOwner).getOwnedTemplateSignature();
+            org.eclipse.uml2.uml.TemplateSignature templSignature = ((org.eclipse.uml2.uml.TemplateableElement) ecoreOwner).getOwnedTemplateSignature();
         
             try{
-                if (signature == null){
-                    signature = UMLFactory.eINSTANCE.createTemplateSignature();              
+                if (templSignature == null){
+                    templSignature = UMLFactory.eINSTANCE.createTemplateSignature();              
                 }
                 
-                signature.getOwnedElements();
-                signature.getOwnedParameters().add((org.eclipse.uml2.uml.TemplateParameter) ecoreElt);
-                ((org.eclipse.uml2.uml.TemplateableElement) ecoreOwner).setOwnedTemplateSignature(signature);
+                templSignature.getOwnedElements();
+                templSignature.getOwnedParameters().add((org.eclipse.uml2.uml.TemplateParameter) ecoreElt);
+                ((org.eclipse.uml2.uml.TemplateableElement) ecoreOwner).setOwnedTemplateSignature(templSignature);
             
         
             }catch(IllegalArgumentException e){     
                 ecoreElt.destroy();
-                signature.destroy();
+                templSignature.destroy();
             }
         
         }else if ((ecoreOwner instanceof org.eclipse.uml2.uml.RedefinableTemplateSignature) && (ecoreElt instanceof org.eclipse.uml2.uml.TemplateParameter)){

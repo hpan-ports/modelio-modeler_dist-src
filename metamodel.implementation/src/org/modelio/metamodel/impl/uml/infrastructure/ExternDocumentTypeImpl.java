@@ -60,73 +60,73 @@ public class ExternDocumentTypeImpl extends ModelElementImpl implements ExternDo
             return null;
     }
 
-    @objid ("ab44c276-b562-4ee5-baf2-b203a16e34f6")
+    @objid ("df227b8f-5913-4713-91c0-260cf93c538c")
     @Override
     public boolean isIsHidden() {
         return (Boolean) getAttVal(ExternDocumentTypeData.Metadata.IsHiddenAtt());
     }
 
-    @objid ("f64a9156-2539-4514-b83c-57ac34835639")
+    @objid ("ba3dee64-152f-4539-be5e-928a000644cd")
     @Override
     public void setIsHidden(boolean value) {
         setAttVal(ExternDocumentTypeData.Metadata.IsHiddenAtt(), value);
     }
 
-    @objid ("6258eb3f-4bfe-49c2-aafe-554310e370d7")
+    @objid ("e767099d-3018-43f4-9116-f1a17c39001a")
     @Override
     public String getLabelKey() {
         return (String) getAttVal(ExternDocumentTypeData.Metadata.LabelKeyAtt());
     }
 
-    @objid ("11f9e36c-02b7-4f23-a228-3814a827d986")
+    @objid ("407b1795-b191-4274-87f1-07eb35d2773c")
     @Override
     public void setLabelKey(String value) {
         setAttVal(ExternDocumentTypeData.Metadata.LabelKeyAtt(), value);
     }
 
-    @objid ("5a466d93-4729-4c8b-916d-497a39acd767")
+    @objid ("023d0761-d855-4e99-bac1-ad3d9d833ace")
     @Override
     public String getIcon() {
         return (String) getAttVal(ExternDocumentTypeData.Metadata.IconAtt());
     }
 
-    @objid ("34d6b34e-05e7-4f5e-8dd8-26440bbf3f46")
+    @objid ("d7e961fa-5d5d-455d-b631-96b1604e0c25")
     @Override
     public void setIcon(String value) {
         setAttVal(ExternDocumentTypeData.Metadata.IconAtt(), value);
     }
 
-    @objid ("a86b300a-3e69-41c2-a502-e0015d20d082")
+    @objid ("b749fe37-5dfa-40a8-a76e-8a13302e9628")
     @Override
     public String getImage() {
         return (String) getAttVal(ExternDocumentTypeData.Metadata.ImageAtt());
     }
 
-    @objid ("ce5e6740-776f-4d37-8321-4b79c4e861cc")
+    @objid ("611ec389-115e-4c0f-b5be-ce3a07de4e86")
     @Override
     public void setImage(String value) {
         setAttVal(ExternDocumentTypeData.Metadata.ImageAtt(), value);
     }
 
-    @objid ("5729b26c-f370-4abd-8688-2e80979c23f3")
+    @objid ("845d467b-55a9-435c-bd03-45d2fdd52c79")
     @Override
     public Stereotype getOwnerStereotype() {
         return (Stereotype) getDepVal(ExternDocumentTypeData.Metadata.OwnerStereotypeDep());
     }
 
-    @objid ("a95f9289-4d7a-4bc9-b14f-046a9b62fb3e")
+    @objid ("75e275cc-129a-474c-86f8-752677b00c06")
     @Override
     public void setOwnerStereotype(Stereotype value) {
         appendDepVal(ExternDocumentTypeData.Metadata.OwnerStereotypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8a9e8c5a-fe1f-4e1c-833b-850745ac1809")
+    @objid ("0d6ad41f-06d9-4f65-ad5b-af03a2ddb04b")
     @Override
     public EList<ExternDocument> getTypedDoc() {
         return new SmList<>(this, ExternDocumentTypeData.Metadata.TypedDocDep());
     }
 
-    @objid ("3d02bdd4-d18d-4801-859a-884d947d21ca")
+    @objid ("96ae0458-c5fb-4eb0-89f8-818f50c6270c")
     @Override
     public <T extends ExternDocument> List<T> getTypedDoc(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -139,19 +139,19 @@ public class ExternDocumentTypeImpl extends ModelElementImpl implements ExternDo
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f2e5c379-c8ab-4d16-aef5-fa64fea7f62a")
+    @objid ("55b19a98-525c-4a5c-b206-8cf95d87fd8d")
     @Override
     public MetaclassReference getOwnerReference() {
         return (MetaclassReference) getDepVal(ExternDocumentTypeData.Metadata.OwnerReferenceDep());
     }
 
-    @objid ("b9a7d799-17f3-4f17-acf6-522e62ae5329")
+    @objid ("32332298-9c19-4ce5-9162-e222a48d78e8")
     @Override
     public void setOwnerReference(MetaclassReference value) {
         appendDepVal(ExternDocumentTypeData.Metadata.OwnerReferenceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("022c2f90-9673-4079-8ba4-088fc29c0634")
+    @objid ("aa12e505-041e-42f1-9798-554f2151fd32")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -164,7 +164,7 @@ public class ExternDocumentTypeImpl extends ModelElementImpl implements ExternDo
         return super.getCompositionOwner();
     }
 
-    @objid ("03762d97-16a2-4f1c-8f6c-928d4794431c")
+    @objid ("9ef2e8b6-0b40-4d57-b79e-e1dd56cef601")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -177,7 +177,7 @@ public class ExternDocumentTypeImpl extends ModelElementImpl implements ExternDo
         return super.getCompositionRelation();
     }
 
-    @objid ("930f3158-1691-4055-8cb3-c6cdc58ef851")
+    @objid ("d2073d45-fbe9-4fdb-822b-a557aa715965")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExternDocumentType(this);

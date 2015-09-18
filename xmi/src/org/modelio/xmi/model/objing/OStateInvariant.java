@@ -26,8 +26,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.metamodel.uml.behavior.interactionModel.StateInvariant;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("ebf912bf-2e19-4f99-8511-6875b4372f03")

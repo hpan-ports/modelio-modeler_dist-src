@@ -5,5 +5,11 @@
    		 id="modelContribution">
       <fragment uri="e4model/notes.e4xmi"></fragment> 
    </extension>
+   <extension point="org.modelio.edition.dialogs.panels">
+      <panel class="org.modelio.edition.notes.panelprovider.NotesPanelProvider"
+             id="edition.notes.panel1"
+             label="%Notes.label">
+      </panel>
+   </extension>
 
 </plugin>

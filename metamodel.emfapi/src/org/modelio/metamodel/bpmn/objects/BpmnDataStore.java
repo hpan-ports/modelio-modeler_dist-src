@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0003e1c0-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnDataStore extends BpmnItemAwareElement {
-    @objid ("6c8b9556-5726-4af8-b859-47bc8598c34f")
+    @objid ("23b43c18-a0b3-4611-ab8c-c9025bb09187")
     int getCapacity();
 
-    @objid ("6124ac20-ba3c-40cb-a73c-2b2f880386eb")
+    @objid ("16d583bd-a174-40c5-8a3d-4524095c5919")
     void setCapacity(int value);
 
-    @objid ("ffd6c1ef-f9b3-49f5-9dfa-bd21eb45a87b")
+    @objid ("0f7da332-b3aa-4f99-8979-1e8750589023")
     boolean isIsUnlimited();
 
-    @objid ("81cb2c25-edb9-4c98-9774-67a986a181d1")
+    @objid ("e0337d6d-92f5-48d8-a696-50976465ab1d")
     void setIsUnlimited(boolean value);
 
 }

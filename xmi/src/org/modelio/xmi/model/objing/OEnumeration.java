@@ -25,8 +25,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Enumeration;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("bfa780aa-9d83-4aca-8349-d58615c6bb5f")

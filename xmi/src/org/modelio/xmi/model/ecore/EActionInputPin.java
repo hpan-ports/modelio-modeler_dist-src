@@ -27,8 +27,8 @@ import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.behavior.activityModel.InputPin;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("d7d9e743-f6ec-441a-a288-f3cb80f4e356")
 public class EActionInputPin extends EInputPin {

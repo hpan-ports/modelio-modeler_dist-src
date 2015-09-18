@@ -34,9 +34,9 @@ import org.modelio.xmi.gui.report.ReportManager;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.reverse.ImportServices;
 import org.modelio.xmi.reverse.PartialImportMap;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.reverse.TotalImportMap;
 import org.modelio.xmi.util.AbortProcessException;
-import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 /**

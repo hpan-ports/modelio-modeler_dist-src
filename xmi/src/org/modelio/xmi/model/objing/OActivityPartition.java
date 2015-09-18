@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("2dbf7f92-6fed-44af-b222-6b183ced1c4e")
 public class OActivityPartition extends OActivityGroup {

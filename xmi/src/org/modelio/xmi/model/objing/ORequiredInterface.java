@@ -28,7 +28,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("9a1a4ab5-c20a-45da-9278-c5b0d7265dcf")

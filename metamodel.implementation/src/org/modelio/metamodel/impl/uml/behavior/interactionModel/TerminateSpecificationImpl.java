@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004c46e0-c4bf-1fd8-97fe-001ec947cd2a")
 public class TerminateSpecificationImpl extends ExecutionOccurenceSpecificationImpl implements TerminateSpecification {
-    @objid ("84cc4209-69dc-4a61-8d72-59c5c72a4d6b")
+    @objid ("16fcfd74-4012-4e95-8eb1-01fa2cadd0a9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d496dc8f-f07a-438a-80a2-159df5cec83b")
+    @objid ("c6451d0c-5a37-44f9-9449-d3fc80366565")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("6422691d-0486-4161-8351-883db3352853")
+    @objid ("92cabcea-a626-4d52-8844-1e5717fe3190")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTerminateSpecification(this);

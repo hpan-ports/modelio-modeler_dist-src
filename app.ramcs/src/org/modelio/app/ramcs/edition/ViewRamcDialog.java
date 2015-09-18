@@ -52,6 +52,7 @@ import org.modelio.api.module.IModule;
 import org.modelio.app.ramcs.plugin.AppRamcs;
 import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.core.ui.images.BasicModelElementLabelProvider;
+import org.modelio.edition.html.htmleditor.HtmlComposer;
 import org.modelio.gproject.ramc.core.model.ModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor.ExportedFileEntry;
 import org.modelio.ui.UIColor;
@@ -76,7 +77,7 @@ public class ViewRamcDialog extends ModelioDialog {
     protected Text ramcVersionText = null;
 
     @objid ("5f838844-20bc-4cbd-b17a-8073582447ef")
-    protected Text ramcDescriptionText = null;
+    protected HtmlComposer ramcDescriptionText = null;
 
     @objid ("0a914c0f-aafc-4213-a457-457eaaa7d2b4")
     protected TableViewer dependenciesTable = null;
@@ -158,8 +159,11 @@ public class ViewRamcDialog extends ModelioDialog {
         Point parentLocation = this.getShell().getParent().getLocation();
         
         this.getShell().setLocation(parentLocation.x + 300, parentLocation.y + 200);
-        this.getShell().setSize(500, 600);
-        this.getShell().setMinimumSize(500, 550);
+        this.getShell().setSize(800, 700);
+        this.getShell().setMinimumSize(800, 700);
+        
+        this.ramcDescriptionText.setEditable(false);
+        this.ramcDescriptionText.setEnabled(false);
     }
 
     @objid ("e4886bcd-fa2d-47f8-a0d4-86061afe19b8")
@@ -219,9 +223,9 @@ public class ViewRamcDialog extends ModelioDialog {
         ramcDescriptionLabel.setLayoutData(descriptionGD);
         
         // Text
-        this.ramcDescriptionText = new Text(area, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+        this.ramcDescriptionText = new HtmlComposer(area, SWT.BORDER | SWT.MULTI);
         this.ramcDescriptionText.setEditable(false);
-        this.ramcDescriptionText.setToolTipText(AppRamcs.I18N.getString("EditRamcDialog.RamcDescription.tooltip"));
+        //this.ramcDescriptionText.setToolTipText(AppRamcs.I18N.getString("EditRamcDialog.RamcDescription.tooltip"));
         
         this.ramcDescriptionText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         this.ramcDescriptionText.setForeground(UIColor.EDITOR_ROTEXT_FG);
@@ -303,7 +307,7 @@ public class ViewRamcDialog extends ModelioDialog {
             this.ramcVersionText.setText(ramcVersion.getMajorVersion() + "." + ramcVersion.getMinorVersion() + "." + buildVersion);
         }
         
-        this.ramcDescriptionText.setText(this.dataModel.getDescription());
+        this.ramcDescriptionText.setHtml(this.dataModel.getDescription());
         this.dependenciesTable.setInput(this.dataModel.getRequiredModelComponents());
         this.manifestationsTable.setInput(this.dataModel.getExportedElements());
         this.ramcFilesList.setInput(this.dataModel.getExportedFiles());
@@ -318,7 +322,7 @@ public class ViewRamcDialog extends ModelioDialog {
 
     @objid ("9deb24f5-c423-4df8-b275-0db953eaf6c6")
     public String getDescription() {
-        return this.ramcDescriptionText.getText();
+        return this.ramcDescriptionText.getHtml();
     }
 
     @objid ("f5ccd16e-a5aa-4efd-a8af-22bb18d5ede3")
@@ -359,7 +363,7 @@ public class ViewRamcDialog extends ModelioDialog {
         gdTable.heightHint = 100;
         this.manifestationsTable.getTable().setLayoutData(gdTable);
         this.manifestationsTable.getTable()
-                .setToolTipText(AppRamcs.I18N.getString("EditRamcDialog.RamcManifestationLabel.tooltip"));
+        .setToolTipText(AppRamcs.I18N.getString("EditRamcDialog.RamcManifestationLabel.tooltip"));
         
         // Drop indicator
         Label target = new Label(parent, SWT.NONE);
@@ -433,7 +437,7 @@ public class ViewRamcDialog extends ModelioDialog {
                 ((ExportedFileEntry) element).setExportPath((String)value);
                 this.getViewer().refresh();
             }
-            
+        
         });
         
         this.ramcFilesList.getTable().setForeground(UIColor.EDITOR_ROTEXT_FG);

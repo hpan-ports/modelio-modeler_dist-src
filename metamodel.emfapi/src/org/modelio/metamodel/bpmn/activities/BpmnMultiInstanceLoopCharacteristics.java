@@ -36,52 +36,52 @@ import org.modelio.metamodel.bpmn.objects.BpmnDataOutput;
 
 @objid ("0080f732-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnMultiInstanceLoopCharacteristics extends BpmnLoopCharacteristics {
-    @objid ("2c3ffc0a-0934-4e09-9011-3bed630e3142")
+    @objid ("1aa30465-932f-4a5f-92df-bd9f7ca24654")
     boolean isIsSequencial();
 
-    @objid ("5dd0160d-b96c-4042-a44c-fc4b72b302ae")
+    @objid ("b97d7e54-51df-47b0-9d2f-cb9d9483bdec")
     void setIsSequencial(boolean value);
 
-    @objid ("6edbcb1a-2a28-4cc6-a588-0472a1a8936c")
+    @objid ("f7ea6994-5599-43b8-b546-45630127604f")
     MultiInstanceBehavior getBehavior();
 
-    @objid ("4998c7f4-93de-4e29-b790-c26f407af6c0")
+    @objid ("116dba1f-bfe7-46c4-9881-0a34a3236d36")
     void setBehavior(MultiInstanceBehavior value);
 
-    @objid ("271e4459-4b93-4624-aad8-03229c9e05c7")
+    @objid ("e13b2f6d-ae45-4864-b191-ca1450a5b036")
     String getLoopCardinality();
 
-    @objid ("b6fab7fb-6968-4181-b5be-580ab3b62779")
+    @objid ("aae774ab-dede-4e98-abf9-681412d008b5")
     void setLoopCardinality(String value);
 
-    @objid ("aac1c9e7-4d91-4b8c-8be0-e944d02ac8b9")
+    @objid ("77c551f2-8e42-481f-81de-ec228c1ed5da")
     String getCompletionCondition();
 
-    @objid ("163893e0-969b-4a24-ad33-e7f553a6661a")
+    @objid ("708973e5-ebd6-4d80-8afa-93f4ecbbb868")
     void setCompletionCondition(String value);
 
-    @objid ("7115a3c1-21dd-4cb5-aa90-09013f464299")
+    @objid ("d8edcdac-f5af-4857-863d-cce643ad1647")
     BpmnDataInput getLoopDataInput();
 
-    @objid ("7b419dcf-8dd6-4b7d-85e6-c1fd769f7c27")
+    @objid ("a06fef86-bdf3-4ff8-be8c-32c518354371")
     void setLoopDataInput(BpmnDataInput value);
 
-    @objid ("4c688bc6-950f-43d7-a07c-d049ec550ae1")
+    @objid ("c5019ac9-2150-4892-920e-68291d78ebd8")
     BpmnDataOutput getLoopDataOutputRef();
 
-    @objid ("32b91b44-db2a-4314-a361-141f7104938d")
+    @objid ("a7129df0-f80c-427e-b57c-219ce074c8aa")
     void setLoopDataOutputRef(BpmnDataOutput value);
 
-    @objid ("7e2e08f5-9be7-438d-ad5a-bf90eb903c1e")
+    @objid ("bae5a818-fdbb-4000-af6b-306f4448bf1a")
     BpmnEventDefinition getCompletionEventRef();
 
-    @objid ("8e1f162d-9aba-49f1-b978-935b11649fcc")
+    @objid ("a5d82a16-fd32-46a4-8892-b51fb82950db")
     void setCompletionEventRef(BpmnEventDefinition value);
 
-    @objid ("64abb2be-c864-47a3-bd49-684e4644eea7")
+    @objid ("070d0a94-e7d5-49b7-ac59-08907bdf48c5")
     EList<BpmnComplexBehaviorDefinition> getComplexBehaviorDefinition();
 
-    @objid ("7ee26999-38f4-4bec-8139-73f9e037e9ea")
+    @objid ("07a2429d-5c72-4248-8e5a-c83b91f39a34")
     <T extends BpmnComplexBehaviorDefinition> List<T> getComplexBehaviorDefinition(java.lang.Class<T> filterClass);
 
 }

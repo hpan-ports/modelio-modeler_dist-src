@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 
 @objid ("003df874-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StructuredActivityNode extends ActivityAction {
-    @objid ("40a6af52-9257-46d3-b04d-63d6be9a2fc0")
+    @objid ("221e0cac-b0ba-474f-a977-d562b0b0f109")
     boolean isMustIsolate();
 
-    @objid ("b327daff-cf64-4f04-a878-497e565f38eb")
+    @objid ("a57467b8-35d9-494b-a6aa-e4567ef5cd5d")
     void setMustIsolate(boolean value);
 
-    @objid ("e2582b75-4b4a-41e8-bd57-c876ce72e320")
+    @objid ("12a29d99-d7f5-493f-accc-28c6525853af")
     EList<ActivityNode> getBody();
 
-    @objid ("2990b453-9a16-4c31-b9d8-df9e3d1f8526")
+    @objid ("13c3d010-52f2-4930-a5e8-1ca7a1403ada")
     <T extends ActivityNode> List<T> getBody(java.lang.Class<T> filterClass);
 
 }

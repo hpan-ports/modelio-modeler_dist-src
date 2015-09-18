@@ -43,45 +43,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("009101a4-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnMessageEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnMessageEventDefinition {
-    @objid ("5f3f7279-8d60-40ad-9629-752f04e0fad4")
+    @objid ("a8948b23-2252-4ca2-bd6e-1d9f14087d7b")
     @Override
     public BpmnMessage getMessageRef() {
         return (BpmnMessage) getDepVal(BpmnMessageEventDefinitionData.Metadata.MessageRefDep());
     }
 
-    @objid ("b130a6a8-e324-4563-ab65-dc8491712cfb")
+    @objid ("87d5f237-6965-42b0-9b74-91086f08bcec")
     @Override
     public void setMessageRef(BpmnMessage value) {
         appendDepVal(BpmnMessageEventDefinitionData.Metadata.MessageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("06b1fc19-cfcb-412f-af51-2415069a6138")
+    @objid ("8418f154-d320-49c1-82b9-8ff3e3b0083c")
     @Override
     public BpmnOperation getOperationRef() {
         return (BpmnOperation) getDepVal(BpmnMessageEventDefinitionData.Metadata.OperationRefDep());
     }
 
-    @objid ("e7be066d-3d02-4b2d-a8ab-77823cfe399b")
+    @objid ("6b7834fe-bee9-4e73-ad73-1a5b33236825")
     @Override
     public void setOperationRef(BpmnOperation value) {
         appendDepVal(BpmnMessageEventDefinitionData.Metadata.OperationRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7506c167-2d88-40ed-af7c-f47024e10fbe")
+    @objid ("3c13cb8a-34fe-4793-8d4a-b02db0000c3e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("1ddcd066-abbd-4be6-848d-5fb8985673c3")
+    @objid ("13272fd3-2230-4935-a265-e8ba443b259c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("fd674ee2-0945-4a62-9e97-d96a8449f193")
+    @objid ("8f60c377-c38d-46e7-b695-0e02c528ae9f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnMessageEventDefinition(this);

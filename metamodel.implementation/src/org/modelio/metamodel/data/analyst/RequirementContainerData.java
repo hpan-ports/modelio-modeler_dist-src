@@ -46,50 +46,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("3ae27d60-636c-4129-aaed-34265d379087")
 @SmaMetaClass(mmClass=RequirementContainer.class, factory=RequirementContainerData.Metadata.ObjectFactory.class, cmsnode=true)
 public class RequirementContainerData extends AnalystContainerData {
-    @objid ("6b33ee7c-dae6-4948-8816-3fb73a108edc")
+    @objid ("8f9d653a-01c0-4e29-a0ce-157939cfaeeb")
     @SmaMetaAssociation(metaName="OwnedRequirement", typeDataClass=RequirementData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedRequirementSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedRequirement = null;
 
-    @objid ("a2263516-c630-4a16-b33c-aebfe79f80b7")
+    @objid ("6d50a400-d35f-48e9-bccf-81d49c6f8a13")
     @SmaMetaAssociation(metaName="OwnerContainer", typeDataClass=RequirementContainerData.class, min=0, max=1, smAssociationClass=Metadata.OwnerContainerSmDependency.class)
      SmObjectImpl mOwnerContainer;
 
-    @objid ("44110b2c-5beb-4e50-acb8-3484f2cdbfbf")
+    @objid ("3f31255d-92ef-40d3-a8ac-121c50ad3ba4")
     @SmaMetaAssociation(metaName="OwnedContainer", typeDataClass=RequirementContainerData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedContainerSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedContainer = null;
 
-    @objid ("6a8c577d-913e-4279-91ac-a7395303f1be")
+    @objid ("42f0c00e-cb9e-46a6-98a1-a12f354066c6")
     @SmaMetaAssociation(metaName="OwnerProject", typeDataClass=AnalystProjectData.class, min=0, max=1, smAssociationClass=Metadata.OwnerProjectSmDependency.class)
      SmObjectImpl mOwnerProject;
 
-    @objid ("317fecb5-7c0c-4a05-80b3-a546826edb56")
+    @objid ("bef87fc6-4457-4cbc-a151-00925821b8f8")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("528dce26-56e4-47cd-93e2-650a832a447b")
     public static class Metadata {
-        @objid ("e4c6052e-2b52-4ce5-9225-048a7634269e")
+        @objid ("f64c2d9b-dd38-4de6-bc24-f58f1990bcb1")
         private static SmClass smClass = null;
 
-        @objid ("f3625afa-7e53-481d-8644-abf482d2201b")
+        @objid ("f138c387-a679-4d40-8383-fb1ac04a6c12")
         private static SmDependency OwnedRequirementDep = null;
 
-        @objid ("d8b65f63-52d2-48dd-8d25-40a8e04c492a")
+        @objid ("b75d9d4d-1101-44c1-b3aa-a0c65aa2cd8f")
         private static SmDependency OwnerContainerDep = null;
 
-        @objid ("a7a13646-6783-4e93-bf4f-64424a6e5f25")
+        @objid ("439b0353-df0d-4c0e-a954-2c2c085cb786")
         private static SmDependency OwnedContainerDep = null;
 
-        @objid ("21cca018-8779-4722-a342-865b4142f1f5")
+        @objid ("2f4febdc-51f4-4849-bfbf-46484540dd31")
         private static SmDependency OwnerProjectDep = null;
 
-        @objid ("7aa65353-392a-4228-aa24-98602a80ac4c")
+        @objid ("f2f72786-ea33-4c55-b03e-475f281a35eb")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(RequirementContainerData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("00e314d6-e09f-487d-b8c8-8d08ac0cc044")
+        @objid ("18987c44-c2b8-4485-94cd-faf0fd84dbe8")
         public static SmDependency OwnedRequirementDep() {
             if (OwnedRequirementDep == null) {
             	OwnedRequirementDep = classof().getDependencyDef("OwnedRequirement");
@@ -97,7 +97,7 @@ public class RequirementContainerData extends AnalystContainerData {
             return OwnedRequirementDep;
         }
 
-        @objid ("432bb82f-9aa0-46cc-9191-7943156ea260")
+        @objid ("933be9ea-0ea0-40a3-9779-3584be325a8a")
         public static SmDependency OwnerContainerDep() {
             if (OwnerContainerDep == null) {
             	OwnerContainerDep = classof().getDependencyDef("OwnerContainer");
@@ -105,7 +105,7 @@ public class RequirementContainerData extends AnalystContainerData {
             return OwnerContainerDep;
         }
 
-        @objid ("f809b5f1-12c8-412d-8450-a0604f0160e2")
+        @objid ("6b859e94-730e-439c-a8f0-ebaee95ee68f")
         public static SmDependency OwnedContainerDep() {
             if (OwnedContainerDep == null) {
             	OwnedContainerDep = classof().getDependencyDef("OwnedContainer");
@@ -113,7 +113,7 @@ public class RequirementContainerData extends AnalystContainerData {
             return OwnedContainerDep;
         }
 
-        @objid ("a7f43d3d-2bbe-4420-900c-6730ed2397ff")
+        @objid ("c8eaf57b-5a5b-437c-80fc-461fda14b49c")
         public static SmDependency OwnerProjectDep() {
             if (OwnerProjectDep == null) {
             	OwnerProjectDep = classof().getDependencyDef("OwnerProject");
@@ -121,44 +121,44 @@ public class RequirementContainerData extends AnalystContainerData {
             return OwnerProjectDep;
         }
 
-        @objid ("3aa03df5-0cc3-4a24-9ca7-8c6f86f5f7ea")
-        public static SmDependency getOwnerContainerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerContainerDep;
-        }
-
-        @objid ("e772aa49-3869-41a5-9a9a-c60fdb10ba3b")
-        public static SmDependency getOwnedRequirementDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedRequirementDep;
-        }
-
-        @objid ("789e3626-e9eb-4055-809a-fb33331ff44a")
-        public static SmDependency getOwnedContainerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedContainerDep;
-        }
-
-        @objid ("d6a1efe2-0084-4d31-b4cf-108bec6b1b2d")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("9eb95ecd-70b1-423a-841f-8f200f75a53c")
+        @objid ("189c4099-996c-4aad-8e6f-90554aff909f")
         public static SmDependency getOwnerProjectDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerProjectDep;
         }
 
+        @objid ("970b918e-5461-4f50-a51c-97f27f8ad9ed")
+        public static SmDependency getOwnerContainerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerContainerDep;
+        }
+
+        @objid ("b4822bcc-72c2-4a9c-a188-90780c015179")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("6a10fd08-06a4-449b-95c8-4902530ed4a8")
+        public static SmDependency getOwnedContainerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnedContainerDep;
+        }
+
+        @objid ("a1d2d865-c286-4bd2-aa29-23c2a21bbb63")
+        public static SmDependency getOwnedRequirementDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnedRequirementDep;
+        }
+
         @objid ("07ce1ca0-a488-42bb-a7cf-4eeb4f1ff33e")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("c74e3db7-f94c-4fd6-ada7-db5147b7d99f")
+            @objid ("bcfa5569-62e8-4056-8c3d-ae7b43d5c054")
             public ISmObjectData createData() {
                 return new RequirementContainerData();
             }
 
-            @objid ("6db07b4c-6fdc-46ad-a742-8d9b4dfa4924")
+            @objid ("36fbf420-b462-4d7d-a1c5-c798cae4be5d")
             public SmObjectImpl createImpl() {
                 return new RequirementContainerImpl();
             }
@@ -167,20 +167,20 @@ public class RequirementContainerData extends AnalystContainerData {
 
         @objid ("f1c82696-4fcd-4b1b-b5c0-d18f2f74a598")
         public static class OwnedRequirementSmDependency extends SmMultipleDependency {
-            @objid ("d1879a45-7e5d-476e-a447-f50e30bcc2e1")
+            @objid ("7a3f7923-9e60-4214-be20-6d69cbae532b")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((RequirementContainerData)data).mOwnedRequirement != null)? ((RequirementContainerData)data).mOwnedRequirement:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("314c5605-6876-433d-b4c0-bc34da769c29")
+            @objid ("cff7943b-b995-4908-82bb-f8b97b6bc4a1")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((RequirementContainerData) data).mOwnedRequirement = new ArrayList<>(initialCapacity);
                 return ((RequirementContainerData) data).mOwnedRequirement;
             }
 
-            @objid ("8af945f3-3a23-424e-9768-11b785453864")
+            @objid ("5c080b53-ca1a-43dd-ab8b-c92e09d98426")
             @Override
             public SmDependency getSymetric() {
                 return RequirementData.Metadata.OwnerContainerDep();
@@ -190,18 +190,18 @@ public class RequirementContainerData extends AnalystContainerData {
 
         @objid ("c5897d15-00b0-4e45-bb22-aebcb970058a")
         public static class OwnerContainerSmDependency extends SmSingleDependency {
-            @objid ("adc8ebfa-4f21-4aae-972f-def1079f5278")
+            @objid ("013fad75-b193-4ea0-a84c-a4dd940dafab")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((RequirementContainerData) data).mOwnerContainer;
             }
 
-            @objid ("dc1a4f06-5c34-4c93-b183-876657782791")
+            @objid ("bcb1c0f1-63c6-41c4-91c9-28e28c1e27a9")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((RequirementContainerData) data).mOwnerContainer = value;
             }
 
-            @objid ("4152b208-a811-463a-8170-badea1e8f815")
+            @objid ("5ac2f79b-b348-4758-828a-05f14e2fa4d5")
             @Override
             public SmDependency getSymetric() {
                 return RequirementContainerData.Metadata.OwnedContainerDep();
@@ -211,20 +211,20 @@ public class RequirementContainerData extends AnalystContainerData {
 
         @objid ("330d97fb-2196-4371-91a5-ab6af7e69c7a")
         public static class OwnedContainerSmDependency extends SmMultipleDependency {
-            @objid ("cfa4642c-9abf-4cab-b154-ad5220748a7d")
+            @objid ("b5f9213f-b1f3-409b-94a4-72adb0f2cbe2")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((RequirementContainerData)data).mOwnedContainer != null)? ((RequirementContainerData)data).mOwnedContainer:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("392b297b-1d59-484b-b17e-82504d26cb02")
+            @objid ("d2491ed5-b566-40f8-91ae-b1d829217865")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((RequirementContainerData) data).mOwnedContainer = new ArrayList<>(initialCapacity);
                 return ((RequirementContainerData) data).mOwnedContainer;
             }
 
-            @objid ("2ac64380-cbf1-47ba-8bc4-61b48f29c26e")
+            @objid ("cf247f67-0149-4588-bf9e-b12230676d68")
             @Override
             public SmDependency getSymetric() {
                 return RequirementContainerData.Metadata.OwnerContainerDep();
@@ -234,18 +234,18 @@ public class RequirementContainerData extends AnalystContainerData {
 
         @objid ("42ad14b7-d56e-4447-9f4e-e75140745b73")
         public static class OwnerProjectSmDependency extends SmSingleDependency {
-            @objid ("4d91b6e5-5d26-4684-bd69-e73474d54ea7")
+            @objid ("ad2b3f24-57fe-4fa2-959d-266ab0ac2522")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((RequirementContainerData) data).mOwnerProject;
             }
 
-            @objid ("75fc9c23-d1e6-4b84-86af-ad7e426dbe4d")
+            @objid ("23e3d771-a878-404e-bd76-ddfa8f0b0e04")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((RequirementContainerData) data).mOwnerProject = value;
             }
 
-            @objid ("d227f0f6-8002-4605-be05-199c94c5189a")
+            @objid ("4936e4bc-0a72-4ea9-a838-add46226b6c9")
             @Override
             public SmDependency getSymetric() {
                 return AnalystProjectData.Metadata.RequirementRootDep();

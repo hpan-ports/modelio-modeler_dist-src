@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00710426-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=StaticDiagram.class, factory=StaticDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class StaticDiagramData extends AbstractDiagramData {
-    @objid ("6eb31ad2-1e12-4442-825d-fd0a6c75794a")
+    @objid ("6a3b7677-8352-4317-bf27-64f18e31ff84")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008d3560-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("c347b09a-cec2-4edd-97ec-ec8e14fd1276")
+        @objid ("36cfc515-abe5-4912-a7f3-45205a41f42c")
         private static SmClass smClass = null;
 
-        @objid ("aca11569-41e3-4b41-93a4-6cd124d78e8b")
+        @objid ("9b10a1d0-1537-41ca-a7a4-cceb01cf9a94")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(StaticDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4f2c0d9e-1900-4ed7-bf2a-9314980be215")
+        @objid ("6a3361ca-d7b6-4192-ba0e-e10eebe2dfd8")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class StaticDiagramData extends AbstractDiagramData {
 
         @objid ("008d746c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("8cbb0a2d-535d-4318-bd0b-a8f7f900f01f")
+            @objid ("fd66e5e1-8600-4850-bac2-178d5a6c5d59")
             public ISmObjectData createData() {
                 return new StaticDiagramData();
             }
 
-            @objid ("6f1275ba-0498-470e-a4b3-2f73d3cbd1ed")
+            @objid ("daebe39c-f900-4925-b455-9d79ceea86ca")
             public SmObjectImpl createImpl() {
                 return new StaticDiagramImpl();
             }

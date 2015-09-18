@@ -46,43 +46,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("003580cc-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=InputPin.class, factory=InputPinData.Metadata.ObjectFactory.class)
 public class InputPinData extends PinData {
-    @objid ("1e9eaba7-9c9b-4c11-b4f5-f841028d7595")
+    @objid ("333c3325-0b92-44f0-a1cc-10fdb1ad4a13")
     @SmaMetaAttribute(metaName="IsSelf", type=Boolean.class, smAttributeClass=Metadata.IsSelfSmAttribute.class)
      Object mIsSelf = false;
 
-    @objid ("1723bda3-a0c5-441a-8db2-7305ec99bf89")
+    @objid ("5ff07adc-57d6-48d4-8fea-b9ffb01554ab")
     @SmaMetaAssociation(metaName="Handler", typeDataClass=ExceptionHandlerData.class, min=0, max=-1, smAssociationClass=Metadata.HandlerSmDependency.class, istodelete = true)
      List<SmObjectImpl> mHandler = null;
 
-    @objid ("9d768ef5-42c5-4410-87ee-cde3f046bdf6")
+    @objid ("7fbea01a-8f87-4424-86bd-315d62b3ee99")
     @SmaMetaAssociation(metaName="Inputing", typeDataClass=ActivityActionData.class, min=0, max=1, smAssociationClass=Metadata.InputingSmDependency.class)
      SmObjectImpl mInputing;
 
-    @objid ("99b57865-a24a-4526-985e-bd4a94c8fff6")
+    @objid ("2be98bb5-47b3-4291-b0e0-71958508f9ee")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00668f32-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("90e4c29e-0057-45ba-8674-c90b2ac8fe73")
+        @objid ("1871380c-e59d-487c-b0a7-bae6ff3c50de")
         private static SmClass smClass = null;
 
-        @objid ("fab82587-ffa8-4a7c-928d-031e00f5d4ba")
+        @objid ("09b851d5-4c21-402c-9176-e7b1d476d6a2")
         private static SmAttribute IsSelfAtt = null;
 
-        @objid ("63250ef9-f1b7-41d2-a659-3da793682db2")
+        @objid ("ae98bb52-41bf-4934-be56-462c07f40162")
         private static SmDependency HandlerDep = null;
 
-        @objid ("7102c5f1-a9eb-4a56-be77-3e413b7a02c5")
+        @objid ("afd684f7-deff-4d71-901e-3c3cd1c3c813")
         private static SmDependency InputingDep = null;
 
-        @objid ("07c901b1-9494-4c56-af04-103ea7f3af07")
+        @objid ("188a6200-c5ee-44d3-83f2-c76acb6376e5")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(InputPinData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("2e0b5cf6-efff-4867-941d-d1d016b736eb")
+        @objid ("de190b28-e089-4b17-8d8e-cb7ed99c545c")
         public static SmAttribute IsSelfAtt() {
             if (IsSelfAtt == null) {
             	IsSelfAtt = classof().getAttributeDef("IsSelf");
@@ -90,7 +90,7 @@ public class InputPinData extends PinData {
             return IsSelfAtt;
         }
 
-        @objid ("ee6fe0d7-52a9-4762-8055-1eace0546e92")
+        @objid ("becf8253-6018-4dac-84f8-e0704b62ede3")
         public static SmDependency HandlerDep() {
             if (HandlerDep == null) {
             	HandlerDep = classof().getDependencyDef("Handler");
@@ -98,7 +98,7 @@ public class InputPinData extends PinData {
             return HandlerDep;
         }
 
-        @objid ("12eec9b5-6285-48d7-9117-04c79133ce1b")
+        @objid ("c0388015-2a01-49ba-815a-eb5ef71afd10")
         public static SmDependency InputingDep() {
             if (InputingDep == null) {
             	InputingDep = classof().getDependencyDef("Inputing");
@@ -106,25 +106,25 @@ public class InputPinData extends PinData {
             return InputingDep;
         }
 
-        @objid ("3111850c-46ee-4321-8acf-c90d43ee1c77")
+        @objid ("46802348-903c-4c17-afcb-4f8b8b32e22b")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("4594a803-6278-4659-916f-f257acd0ea3c")
-        public static SmAttribute getIsSelfAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsSelfAtt;
-        }
-
-        @objid ("833c8b54-d5fd-45bc-846a-2a5d4798ed4f")
+        @objid ("0ae64e0d-1dd2-49e6-8b7d-6563737c8aca")
         public static SmDependency getHandlerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return HandlerDep;
         }
 
-        @objid ("184ad7db-f4db-43b1-8ecc-f5990edc48a4")
+        @objid ("e7976231-03d6-4708-9a66-fb318d2b739d")
+        public static SmAttribute getIsSelfAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsSelfAtt;
+        }
+
+        @objid ("a2dd129d-e5c7-4a21-a0f7-b8c71d4ab0d8")
         public static SmDependency getInputingDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return InputingDep;
@@ -132,12 +132,12 @@ public class InputPinData extends PinData {
 
         @objid ("0066d0d2-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("3e51f1d9-5443-48e3-bce1-a47f78e5a7a6")
+            @objid ("9ab81bee-f525-4127-a65e-c19725192ae8")
             public ISmObjectData createData() {
                 return new InputPinData();
             }
 
-            @objid ("2055e7cc-bf43-47a0-a52c-3338cbae2f6f")
+            @objid ("52af3425-5e83-467f-86e5-f1fde688656f")
             public SmObjectImpl createImpl() {
                 return new InputPinImpl();
             }
@@ -146,12 +146,12 @@ public class InputPinData extends PinData {
 
         @objid ("00673324-c4c2-1fd8-97fe-001ec947cd2a")
         public static class IsSelfSmAttribute extends SmAttribute {
-            @objid ("bbf4b68c-63b8-4734-b99b-f3f20f3dc880")
+            @objid ("6e526427-dae2-4ef7-aec4-35f657887975")
             public Object getValue(ISmObjectData data) {
                 return ((InputPinData) data).mIsSelf;
             }
 
-            @objid ("40a2d046-c931-46b8-a888-69277a179fc8")
+            @objid ("25ded4fa-9115-4d13-9bca-3e8f974d6ce1")
             public void setValue(ISmObjectData data, Object value) {
                 ((InputPinData) data).mIsSelf = value;
             }
@@ -160,18 +160,18 @@ public class InputPinData extends PinData {
 
         @objid ("006795da-c4c2-1fd8-97fe-001ec947cd2a")
         public static class InputingSmDependency extends SmSingleDependency {
-            @objid ("d55861ac-a0c1-49c3-be98-2ca3680d0e27")
+            @objid ("374c8168-f9e5-48c0-b7a7-8e5b68f10f20")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((InputPinData) data).mInputing;
             }
 
-            @objid ("9e558b1d-aa30-4e0c-9fcf-aa4312db083c")
+            @objid ("f12b31e0-f1ab-434f-a87d-114ca678defb")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((InputPinData) data).mInputing = value;
             }
 
-            @objid ("b5e4e4b4-cc76-4c90-a2c3-2649c37b24b1")
+            @objid ("11eed8f4-af6e-4a3f-b87c-db443bbed5c2")
             @Override
             public SmDependency getSymetric() {
                 return ActivityActionData.Metadata.InputDep();
@@ -181,20 +181,20 @@ public class InputPinData extends PinData {
 
         @objid ("00681136-c4c2-1fd8-97fe-001ec947cd2a")
         public static class HandlerSmDependency extends SmMultipleDependency {
-            @objid ("89ec8500-a3e5-4524-9fa8-364e6d135279")
+            @objid ("50550c24-d8de-4c38-9e75-d379205793fc")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((InputPinData)data).mHandler != null)? ((InputPinData)data).mHandler:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("a77109bc-eab0-45f5-8000-97140f35a6de")
+            @objid ("d5d67d0f-04e3-4463-a4c7-ab608df03e2e")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((InputPinData) data).mHandler = new ArrayList<>(initialCapacity);
                 return ((InputPinData) data).mHandler;
             }
 
-            @objid ("e74dd7bb-0ba0-45f0-a870-5fed69313a45")
+            @objid ("ee1012bd-d953-48ab-b0d3-3be2f9a7ea9e")
             @Override
             public SmDependency getSymetric() {
                 return ExceptionHandlerData.Metadata.ExceptionInputDep();

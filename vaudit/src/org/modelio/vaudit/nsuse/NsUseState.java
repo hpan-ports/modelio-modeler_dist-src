@@ -26,7 +26,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.GProperties;
@@ -39,9 +38,9 @@ import org.modelio.vcore.session.api.repository.IRepository;
  * Used to store the namespace uses repository state.
  * <ul>
  * <li> {@value #FRAGMENTS_KEY} : tells which fragments namespace uses were computed for.<br>
- * Stored a flag as a blob in the namespace use repository.
+ * Stored as a GProject project property.
  * <li> {@value #INITIALIZED_KEY} : to test the namespace use repository has not been deleted.<br>
- * Stored as aGProject project property.
+ * Stored as a blob in the namespace use repository.
  * </ul>
  */
 @objid ("9faa423a-f463-4242-a523-6179c7636545")
@@ -64,6 +63,9 @@ class NsUseState {
         this.nsUseRepo = nsUseRepo;
     }
 
+    /**
+     * @return <i>true</i> if namespace uses are initialized.
+     */
     @objid ("fb802aa3-0dfe-43b0-b92e-3880f5f2ad64")
     public boolean isInitialized() {
         try {
@@ -75,6 +77,9 @@ class NsUseState {
         }
     }
 
+    /**
+     * Record namespace uses as initialized.
+     */
     @objid ("c83e2e71-082c-4a16-aecd-ed993f7e91ff")
     public void setInitialized() {
         try (OutputStream os = this.nsUseRepo.writeBlob(new BlobInfo(INITIALIZED_KEY, "Namespace uses initialized"));){
@@ -85,15 +90,26 @@ class NsUseState {
         }
     }
 
+    /**
+     * Get the handled fragment names.
+     * Tells which fragments namespace uses were computed for.
+     * <p>
+     * The returned list is a copy and may be freely modified.
+     * @return the handled fragment names.
+     */
     @objid ("ecfda989-f736-4133-acd0-baa4707aebcd")
     public Collection<String> getHandledFragments() {
         String fragmentsString = this.projProps.getValue(FRAGMENTS_KEY, "");
         if (fragmentsString == null || fragmentsString.isEmpty())
-            return Collections.emptyList();
+            return new ArrayList<>(1); // return empty list with 1 as capacity
         else
             return new ArrayList<>(Arrays.asList(fragmentsString.split(";")));
     }
 
+    /**
+     * Set the recorded fragment names.
+     * @param fragments the fragment names.
+     */
     @objid ("3fd9f238-ab11-4f02-9751-f73309e39f46")
     public void setHandledFragments(Collection<String> fragments) {
         StringBuilder s = new StringBuilder(fragments.size() * 10);

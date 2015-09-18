@@ -31,22 +31,22 @@ import org.modelio.metamodel.bpmn.activities.AdHocOrdering;
 
 @objid ("007df21c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnAdHocSubProcess extends BpmnSubProcess {
-    @objid ("6e952c40-3023-4fd9-9a55-054e2c6d8fa1")
+    @objid ("7b560316-5540-4af6-bebc-843f67dab286")
     AdHocOrdering getOrdering();
 
-    @objid ("1f95be79-1b4a-4dc0-b167-29e5a0915c39")
+    @objid ("389c32c9-8e9e-48c9-b28a-7acaaabc97db")
     void setOrdering(AdHocOrdering value);
 
-    @objid ("1292fcfe-9e77-41c9-9de5-396b201b0445")
+    @objid ("aab1aae7-b6c0-49af-b863-6c8082c828ed")
     boolean isCancelRemainingInstances();
 
-    @objid ("beaa867c-28df-4533-bd70-4471b9769ef8")
+    @objid ("b56249eb-16ab-4bed-a4e4-bf5de939de1f")
     void setCancelRemainingInstances(boolean value);
 
-    @objid ("38372bb2-cd1f-4897-a135-8082c35c8da7")
+    @objid ("48d5574b-117b-4057-a5fc-85ee44c055cf")
     String getCompletionCondition();
 
-    @objid ("1f8fb25f-2b17-4033-bf79-3ed90d92893f")
+    @objid ("30d3f766-bc6b-4dcb-84d8-10859946b922")
     void setCompletionCondition(String value);
 
 }

@@ -2,11 +2,11 @@
 <feature
       id="org.modelio.model.edition.feature"
       label="Model Browser"
-      version="3.2.1.qualifier"
+      version="3.3.0.qualifier"
       provider-name="modelio.org">
 
    <copyright>
-      Copyright 2014 Modeliosoft
+      Copyright 2015 Modeliosoft
 
 This file is part of Modelio.
 Modelio is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
    </copyright>
 
    <license url="">
-      Copyright 2014 Modeliosoft
+      Copyright 2015 Modeliosoft
 
 This file is part of Modelio.
 Modelio is free software: you can redistribute it and/or modify
@@ -135,6 +135,27 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          download-size="34"
          install-size="66"
          version="1.0.0.201302061436"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.edition.html"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="true"/>
+
+   <plugin
+         id="org.modelio.edition.dialogs"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.edition.views"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>

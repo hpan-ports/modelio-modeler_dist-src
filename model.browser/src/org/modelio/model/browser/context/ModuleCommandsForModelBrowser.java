@@ -35,8 +35,8 @@ import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
-import org.modelio.api.module.IModule;
 import org.modelio.app.core.events.ModelioEventTopics;
+import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.module.browser.commands.ModulePopupManager;
 
 /**
@@ -57,7 +57,7 @@ class ModuleCommandsForModelBrowser {
 
 // FIXME we should not have a module list in here, but somehow access the module registry...
     @objid ("04561d81-e7bf-4292-9418-b15a2b01313f")
-    private List<IModule> startedModules = new ArrayList<>();
+    private List<IRTModule> startedModules = new ArrayList<>();
 
     @objid ("176a38bc-c344-490b-a29a-baa6280479a6")
     @Execute
@@ -70,9 +70,9 @@ class ModuleCommandsForModelBrowser {
     @objid ("0ce3c88c-fdc9-48ec-80ab-691cc2e77a85")
     @Inject
     @Optional
-    static void onModuleStarted(@EventTopic(ModelioEventTopics.MODULE_STARTED) final IModule module) {
+    static void onModuleStarted(@EventTopic(ModelioEventTopics.MODULE_STARTED) final IRTModule module) {
         // Make sure there is no old module with the same ID, to avoid duplicated popups...
-        for (IModule oldModule : new ArrayList<>(INSTANCE.startedModules)) {
+        for (IRTModule oldModule : new ArrayList<>(INSTANCE.startedModules)) {
             if (oldModule.getName().equals(module.getName())) {
                 INSTANCE.startedModules.remove(oldModule);
             }
@@ -83,7 +83,7 @@ class ModuleCommandsForModelBrowser {
     @objid ("e95f5ced-f00c-4df3-9e78-645fa4f8a7c6")
     @Inject
     @Optional
-    static void onModuleStopped(@EventTopic(ModelioEventTopics.MODULE_STOPPED) final IModule module) {
+    static void onModuleStopped(@EventTopic(ModelioEventTopics.MODULE_STOPPED) final IRTModule module) {
         INSTANCE.startedModules.remove(module);
     }
 
@@ -91,7 +91,7 @@ class ModuleCommandsForModelBrowser {
     @AboutToShow
     public static void aboutToShow(List<MMenuElement> items) {
         if (browserView != null) {
-            for (IModule module : INSTANCE.startedModules) {
+            for (IRTModule module : INSTANCE.startedModules) {
                 MMenuElement item = ModulePopupManager.createMenu(module, browserView);
                 if (item != null) {
                     items.add(item);
@@ -112,7 +112,7 @@ class ModuleCommandsForModelBrowser {
             }
         
             // Cleanip commands & handlers
-            for (IModule module : INSTANCE.startedModules) {
+            for (IRTModule module : INSTANCE.startedModules) {
                 ModulePopupManager.removeMenu(module, browserView);
             }
         }

@@ -97,13 +97,13 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
     @objid ("67e6c5f5-995f-4cb8-9b21-0337980af059")
     @Override
     public Control createContentArea(Composite parent) {
-        Composite compo = new Composite(parent, SWT.NONE);
-        GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
+        final Composite compo = new Composite(parent, SWT.NONE);
+        final GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
         layoutData.minimumHeight = 150;
         compo.setLayoutData(layoutData);
         compo.setLayout(new GridLayout(2, false));
         
-        Composite leftComposite = new Composite(compo, SWT.NONE);
+        final Composite leftComposite = new Composite(compo, SWT.NONE);
         leftComposite.setLayout(new GridLayout(1, false));
         leftComposite.setLayoutData(new GridData(SWT.BEGINNING, SWT.FILL, false, true));
         
@@ -113,7 +113,7 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
         moduleTable.setHeaderVisible(true);
         moduleTable.setLayoutData(new GridData(SWT.BEGINNING, SWT.FILL, false, true));
         
-        // Create the columns 
+        // Create the columns
         createColumns(moduleTableViewer);
         
         // Set the ContentProvider
@@ -122,9 +122,9 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
         moduleTableViewer.setInput(this.modulesToUpdate);
         
         for (int i = 0 ; i < moduleTable.getColumnCount(); i++) {
-            TableColumn col = moduleTable.getColumn(i);
+            final TableColumn col = moduleTable.getColumn(i);
             col.pack();
-            
+        
             // The column with an icon isn't resized well after pack, we need to add the image width
             if (i == 4) {
                 final int width = col.getWidth();
@@ -133,16 +133,16 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
         }
         
         moduleTableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-            
+        
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
-                ISelection selection = event.getSelection();
+                final ISelection selection = event.getSelection();
                 if (selection instanceof IStructuredSelection) {
-                    IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+                    final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
                     if (structuredSelection.size() == 1) {
-                        Object obj = structuredSelection.getFirstElement();
-                        if (obj instanceof ModuleUpdateDescriptor) {                            
-                            String url = ((ModuleUpdateDescriptor) obj).getLink();
+                        final Object obj = structuredSelection.getFirstElement();
+                        if (obj instanceof ModuleUpdateDescriptor) {
+                            final String url = ((ModuleUpdateDescriptor) obj).getLink();
                             ModuleUpdateBrowserDialog.this.browser.setUrl(url);
                         }
                     }
@@ -150,23 +150,23 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
             }
         });
         
-        Composite buttonComposite = new Composite(leftComposite, SWT.NONE);
+        final Composite buttonComposite = new Composite(leftComposite, SWT.NONE);
         buttonComposite.setLayoutData(new GridData(SWT.END, SWT.END, false, false));
         buttonComposite.setLayout(new GridLayout(2, false));
         
         // Select all button
-        Button selectAllButton = new Button(buttonComposite, SWT.PUSH);
+        final Button selectAllButton = new Button(buttonComposite, SWT.PUSH);
         selectAllButton.setText(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.SelectAll"));
         selectAllButton.addSelectionListener(new SelectionListener() {
-            
+        
             @Override
             public void widgetSelected(SelectionEvent e) {
-                for (ModuleUpdateDescriptor moduleDescriptor : ModuleUpdateBrowserDialog.this.modulesToUpdate) {
+                for (final ModuleUpdateDescriptor moduleDescriptor : ModuleUpdateBrowserDialog.this.modulesToUpdate) {
                     moduleDescriptor.setToUpdate(true);
                 }
                 moduleTableViewer.setInput(ModuleUpdateBrowserDialog.this.modulesToUpdate);
             }
-            
+        
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 //
@@ -175,18 +175,18 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
         selectAllButton.setLayoutData(new GridData());
         
         // Unselect all button
-        Button unselectAllButton = new Button(buttonComposite, SWT.PUSH);
+        final Button unselectAllButton = new Button(buttonComposite, SWT.PUSH);
         unselectAllButton.setText(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.UnselectAll"));
         unselectAllButton.addSelectionListener(new SelectionListener() {
-            
+        
             @Override
             public void widgetSelected(SelectionEvent e) {
-                for (ModuleUpdateDescriptor moduleDescriptor : ModuleUpdateBrowserDialog.this.modulesToUpdate) {
+                for (final ModuleUpdateDescriptor moduleDescriptor : ModuleUpdateBrowserDialog.this.modulesToUpdate) {
                     moduleDescriptor.setToUpdate(false);
                 }
                 moduleTableViewer.setInput(ModuleUpdateBrowserDialog.this.modulesToUpdate);
             }
-            
+        
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 //
@@ -210,28 +210,28 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
     public void addButtonsInButtonBar(Composite parent) {
         this.updateButton = createButton(parent, OK, MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.Update"), true);
         this.updateButton.addSelectionListener(new SelectionListener() {
-            
+        
             @Override
             public void widgetSelected(SelectionEvent evt) {
-                IRunnableWithProgress runnable = new IRunnableWithProgress() {
+                final IRunnableWithProgress runnable = new IRunnableWithProgress() {
         
                     @Override
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                        List<ModuleUpdateDescriptor> selectedModules = new ArrayList<>();
-                        for (ModuleUpdateDescriptor descriptor : ModuleUpdateBrowserDialog.this.modulesToUpdate) {
+                        final List<ModuleUpdateDescriptor> selectedModules = new ArrayList<>();
+                        for (final ModuleUpdateDescriptor descriptor : ModuleUpdateBrowserDialog.this.modulesToUpdate) {
                             if (descriptor.isToUpdate()) {
                                 selectedModules.add(descriptor);
                             }
                         }
-                        int modulesToUpdateSum = selectedModules.size();
+                        final int modulesToUpdateSum = selectedModules.size();
                         monitor.beginTask(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.UpdateProgressTitle"), modulesToUpdateSum*5);
                         for (int i=0; i<modulesToUpdateSum; i++) {
                             if (monitor.isCanceled()) {
                                 break;  // if monitor is canceled
                             }
-                            ModuleUpdateDescriptor desc = selectedModules.get(i);
+                            final ModuleUpdateDescriptor desc = selectedModules.get(i);
                             //Keys {0}:counter {1}:sum of modules {2}:module file name
-                            monitor.subTask(MdaInfra.I18N.getMessage("ModuleUpdateBrowserDialog.UpdateModulesProgressSubTask", String.valueOf(i+1), String.valueOf(modulesToUpdateSum), desc.getName()));                            
+                            monitor.subTask(MdaInfra.I18N.getMessage("ModuleUpdateBrowserDialog.UpdateModulesProgressSubTask", String.valueOf(i+1), String.valueOf(modulesToUpdateSum), desc.getName()));
                             monitor.worked(1);
         
                             try (UriPathAccess pathAccess = new UriPathAccess(URIUtil.fromString(desc.getDownloadLink()), null)) {
@@ -248,15 +248,15 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
                             monitor.worked(1);
                         }
                         monitor.done();
-                    }                    
+                    }
                 };
                 try {
                     ModuleUpdateBrowserDialog.this.progressService.run(true, true, runnable);
                 } catch (InvocationTargetException | InterruptedException e) {
                     MdaInfra.LOG.debug(e);
-                }          
+                }
             }
-            
+        
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // Nothing to do
@@ -271,13 +271,16 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
     public void init() {
         getShell().setText(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.ShellTitle")); //$NON-NLS-1$);
         setTitle(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.Title")); //$NON-NLS-1$
-        setMessage(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.Message")); //$NON-NLS-1$
+        
+        
+        final String configuredUpdateSite = ModuleUpdateChecker.getConfiguredUpdateSite();
+        setMessage(MdaInfra.I18N.getMessage("ModuleUpdateBrowserDialog.Message", configuredUpdateSite)); //$NON-NLS-1$
         
         // Position and resize dialog shell
-        int width = 1100;
-        int height = 800;
+        final int width = 1100;
+        final int height = 800;
         
-        Rectangle refBounds = this.getShell().getParent().getBounds();
+        final Rectangle refBounds = this.getShell().getParent().getBounds();
         this.getShell().setMinimumSize(width, height);
         this.getShell().layout(true);
         
@@ -287,27 +290,27 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
 
     @objid ("62d741c0-d6b5-490c-ad81-08ce978d89f9")
     private void createColumns(final TableViewer tableViewer) {
-        TableViewerColumn nameCol = new TableViewerColumn(tableViewer, SWT.NONE);
+        final TableViewerColumn nameCol = new TableViewerColumn(tableViewer, SWT.NONE);
         nameCol.getColumn().setText(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.column.ModuleName"));
         nameCol.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(Object element) {
-                ModuleUpdateDescriptor mud = (ModuleUpdateDescriptor) element;
+                final ModuleUpdateDescriptor mud = (ModuleUpdateDescriptor) element;
                 return mud.getName();
             }
-            
+        
             @Override
             public Image getImage(Object element) {
                 return MdaInfra.getImageDescriptor("icons/module.png").createImage();
             }
         });
         
-        TableViewerColumn oldVersionCol = new TableViewerColumn(tableViewer, SWT.NONE);
+        final TableViewerColumn oldVersionCol = new TableViewerColumn(tableViewer, SWT.NONE);
         oldVersionCol.getColumn().setText(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.column.CurrentVersion"));
         oldVersionCol.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(Object element) {
-                ModuleUpdateDescriptor mud = (ModuleUpdateDescriptor) element;
+                final ModuleUpdateDescriptor mud = (ModuleUpdateDescriptor) element;
                 if (mud.getCurrentVersion().equals("")) {
                     return MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.NotInstalled");
                 }
@@ -315,17 +318,17 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
             }
         });
         
-        TableViewerColumn newVersionCol = new TableViewerColumn(tableViewer, SWT.NONE);
+        final TableViewerColumn newVersionCol = new TableViewerColumn(tableViewer, SWT.NONE);
         newVersionCol.getColumn().setText(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.column.NewVersion"));
         newVersionCol.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(Object element) {
-                ModuleUpdateDescriptor mud = (ModuleUpdateDescriptor) element;
+                final ModuleUpdateDescriptor mud = (ModuleUpdateDescriptor) element;
                 return mud.getNewVersion();
             }
-        });      
+        });
         
-        TableViewerColumn updateCol = new TableViewerColumn(tableViewer, SWT.NONE);
+        final TableViewerColumn updateCol = new TableViewerColumn(tableViewer, SWT.NONE);
         updateCol.getColumn().setText(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.column.SelectInstall"));
         updateCol.setLabelProvider(new ColumnLabelProvider() {
             @Override
@@ -337,7 +340,7 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
             public Image getImage(Object element) {
                 if (((ModuleUpdateDescriptor) element).isToUpdate()) {
                     return CHECKED;
-                } 
+                }
                 return UNCHECKED;
             }
         });

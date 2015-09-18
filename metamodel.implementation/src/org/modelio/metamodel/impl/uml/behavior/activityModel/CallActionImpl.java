@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002a9180-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class CallActionImpl extends ActivityActionImpl implements CallAction {
-    @objid ("e6791e28-d96d-458d-aaec-fd1795197940")
+    @objid ("fdb77600-3e6f-4afc-b4df-13963b8ab697")
     @Override
     public boolean isIsSynchronous() {
         return (Boolean) getAttVal(CallActionData.Metadata.IsSynchronousAtt());
     }
 
-    @objid ("32b34b97-a79c-4df6-ae06-bdaa62689ddb")
+    @objid ("df5d4fcb-63e0-496f-b5f4-a19490a00b67")
     @Override
     public void setIsSynchronous(boolean value) {
         setAttVal(CallActionData.Metadata.IsSynchronousAtt(), value);
     }
 
-    @objid ("a418a72c-226e-4e30-a390-0924af577b29")
+    @objid ("6191eb2c-10bd-49ea-8e5e-e182a874403f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("a8ee27c8-4c29-47bb-9d09-bd5ca3acb131")
+    @objid ("e3ac630f-bcda-44a6-9130-26f9d3c72de3")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("8e3e2e59-829e-4424-825a-9fc651feecf5")
+    @objid ("79587e03-e399-4623-b217-e1bb22bad32e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCallAction(this);

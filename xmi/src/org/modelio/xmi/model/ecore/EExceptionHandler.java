@@ -27,7 +27,7 @@ import org.modelio.metamodel.uml.behavior.activityModel.ExceptionHandler;
 import org.modelio.metamodel.uml.behavior.activityModel.InputPin;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.GeneralClass;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("70823320-f38e-4ad4-84e4-85fc56cdb6ca")
 public class EExceptionHandler extends EElement {

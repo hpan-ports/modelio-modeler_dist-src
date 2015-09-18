@@ -33,16 +33,16 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 
 @objid ("000ee2e6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InterfaceRealization extends ModelElement {
-    @objid ("44bedafd-1373-40cc-a094-dd1e35dd8952")
+    @objid ("ac9e1a23-7891-426b-9161-8b4053e26206")
     Interface getImplemented();
 
-    @objid ("bf9fd598-2d56-45c7-bb2c-464a184ed1fe")
+    @objid ("9222a115-9a3e-4326-82f7-b0696a7c2d49")
     void setImplemented(Interface value);
 
-    @objid ("1e1df1de-7858-4d94-b1e0-816b4165d327")
+    @objid ("3891ec61-6fb3-43eb-aa6f-e548af8b19f3")
     NameSpace getImplementer();
 
-    @objid ("82b5c6ef-8e10-400d-a41a-9cf7d2680c1f")
+    @objid ("ffa4dd8f-4cb9-4a04-b243-4be87fcef3f6")
     void setImplementer(NameSpace value);
 
 }

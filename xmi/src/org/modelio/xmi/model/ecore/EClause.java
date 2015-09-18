@@ -26,8 +26,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.Clause;
 import org.modelio.metamodel.uml.behavior.activityModel.ConditionalNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("0433955f-d458-4051-b3aa-36ad210aff2d")
 public class EClause extends EElement {
@@ -38,7 +38,7 @@ public class EClause extends EElement {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createClause();
+                        .createClause();
     }
 
     @objid ("91c20ce3-1463-47b8-be92-ed9b046244fd")

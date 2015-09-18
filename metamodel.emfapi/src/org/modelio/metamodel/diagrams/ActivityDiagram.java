@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0067c92e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityDiagram extends BehaviorDiagram {
-    @objid ("f98acf1f-8669-4d31-97cd-3beca1661ab5")
+    @objid ("d56e8037-9846-421b-b57a-5db2556aa6c9")
     boolean isIsVertical();
 
-    @objid ("5b047cda-95e0-405b-8e2d-a6879020e60f")
+    @objid ("f89748b9-0e1e-4dd9-97c1-be570714a035")
     void setIsVertical(boolean value);
 
 }

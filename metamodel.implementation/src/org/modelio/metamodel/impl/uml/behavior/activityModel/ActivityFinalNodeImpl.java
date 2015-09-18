@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0027b7ee-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActivityFinalNodeImpl extends FinalNodeImpl implements ActivityFinalNode {
-    @objid ("5a41313f-40f0-4d2b-815b-d9bee53e098c")
+    @objid ("c409b328-f647-4377-9c07-eaf529ca7305")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("32c74f52-19da-4a49-b3d2-2cde38f82eb3")
+    @objid ("96cd355c-0ff8-4931-ae44-eba9f6e4349c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c34e93e7-83cb-4100-9702-3eb25fe152c4")
+    @objid ("dad50b04-20d6-4271-bc6f-35372d1f7326")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityFinalNode(this);

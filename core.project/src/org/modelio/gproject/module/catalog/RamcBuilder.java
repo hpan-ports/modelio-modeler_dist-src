@@ -82,11 +82,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
  */
 @objid ("156a6e31-0c96-11e2-b501-002564c97630")
 class RamcBuilder {
+    @objid ("072a479f-9fa5-4e5a-bbc9-645da488cf86")
+    private Jxbv2Module loadedModule;
+
     @objid ("a9855352-3530-428d-bc78-5e6d190c0a0a")
     private Map<String, PropertyType> propertyTypeCache = new HashMap<>();
 
-    @objid ("072a479f-9fa5-4e5a-bbc9-645da488cf86")
-    private Jxbv2Module loadedModule;
+    /**
+     * @param loadedModule the module JAXB model
+     */
+    @objid ("8e8bdc7f-7d4f-4d31-a8a4-57292f9848e7")
+    RamcBuilder(Jxbv2Module loadedModule) {
+        this.loadedModule = loadedModule;
+    }
 
     /**
      * Helper method creating a model component in several steps:
@@ -96,8 +104,6 @@ class RamcBuilder {
      * <li>package the model component containing this module</li>
      * <li>close the temporary project and delete it.</li>
      * </ol>
-     * @param loadedModule
-     * the jaxb module to create the {@link ModuleComponent} from.
      * @param ramcPath the path to package the ramc into.
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
      * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
@@ -111,10 +117,10 @@ class RamcBuilder {
         Path tempDirectory = Files.createTempDirectory("ModelioCatalog");
         
         ProjectDescriptor projectDescriptor = GProjectCreator.buildEmptyProject(this.loadedModule.getId(), tempDirectory);
-        GProject gproject = GProjectFactory.openProject(projectDescriptor, null, null, mon.newChild(10));
+        GProject gproject = GProjectFactory.openProject(projectDescriptor, null, null, null, mon.newChild(10));
         
         try {
-            Artifact artifact = createRamcModel(gproject, this.loadedModule, mon.newChild(10));
+            Artifact artifact = createRamcModel(gproject, mon.newChild(10));
             // Run packaging
             RamcPackager packager = new RamcPackager(gproject, artifact, ramcPath);
             // For module static-model ramcs do not export the artifact
@@ -136,100 +142,6 @@ class RamcBuilder {
         }
     }
 
-    @objid ("6b4a6f4b-99aa-4e43-b1c7-e96f31534596")
-    private Artifact createRamcModel(GProject gproject, Jxbv2Module loadedModule, IModelioProgress monitor) throws IOException {
-        ICoreSession session = gproject.getSession();
-        
-        // Create a temporary memory repository
-        IRepository repo = new MemoryRepository();
-        session.getRepositorySupport().connectRepository(repo, new BasicAccessManager(), monitor);
-        
-        // Configure a dedicated model factory in the repository
-        ModelFactory modelfactory = new ModelFactory(session, repo);
-        
-        // Create the RAMC model
-        try (ITransaction t = session.getTransactionSupport().createTransaction("Init " + loadedModule.getId() + " module RAMC")) {
-            // Create a project to model the ramc
-            GenericFactory gf = session.getModel().getGenericFactory();
-            Project ramcProject = gf.create(Project.class, repo);
-            Package ramcProjectRoot = gf.create(Package.class, repo);
-            ramcProject.setModel(ramcProjectRoot);
-        
-            // Create the module itself
-            ModuleComponent module = modelfactory.createModule(loadedModule);
-        
-            // First create the propertyTypes
-            if (loadedModule.getPropertyTypes() != null) {
-                for (Jxbv2PropertyType loadedPropertyType : loadedModule.getPropertyTypes().getPropertyType()) {
-                    modelfactory.createPropertyType(module, loadedPropertyType);
-                }
-            }
-        
-            // For performance reasons set up a cache of all known property types
-            for (PropertyType pType : session.getModel().findByClass(PropertyType.class)) {
-                this.propertyTypeCache.put(pType.getName(), pType);
-            }
-        
-            // Import Profiles, Stereotypes, TagTypes and so on.
-            for (Jxbv2Profile loadedProfile : loadedModule.getProfiles().getProfile()) {
-                createProfile(modelfactory, module, loadedProfile);
-            }
-        
-            // Import parameters
-            for (org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Parameters.Jxbv2Parameter loadedParam : loadedModule
-                    .getParameters().getParameter()) {
-                modelfactory.createConfigParam(loadedParam, module);
-            }
-        
-            // Post processing
-            // Establish inheritance links between stereotypes
-            for (Jxbv2Profile loadedProfile : loadedModule.getProfiles().getProfile()) {
-                for (Jxbv2Stereotype loadedStereotype : loadedProfile.getStereotype()) {
-                    if (loadedStereotype.getOwnerStereotype() != null) {
-                        Stereotype current = session.getModel().findById(Stereotype.class,
-                                UUID.fromString(loadedStereotype.getUid()));
-                        Collection<Stereotype> owners = session.getModel().findByAtt(Stereotype.class, "Name",
-                                loadedStereotype.getOwnerStereotype());
-                        if (current != null && owners.size() > 0) {
-                            current.setParent(owners.iterator().next());
-                        }
-                    }
-                }
-            }
-        
-            // Define RAMC packaging.
-            // Generate the RAMC Artifact
-            Artifact ramcArtifact = gf.create(Artifact.class, ramcProjectRoot);
-            ramcProjectRoot.getOwnedElement().add(ramcArtifact);
-            ramcArtifact.setName(loadedModule.getId());
-        
-            ModelComponent ramcFact = new ModelComponent(ramcArtifact);
-            ramcFact.setRamcName(loadedModule.getId());
-            ramcFact.setRamcVersion(new Version(loadedModule.getVersion()));
-            ramcFact.getExportedElements().add(module);
-            ramcFact.updateArtifact();
-        
-            t.commit();
-        
-            return ramcArtifact;
-        
-        }
-    }
-
-    @objid ("fa6406a5-03d1-4875-ae65-d18110d36136")
-    private Profile createProfile(ModelFactory modelfactory, ModuleComponent module, Jxbv2Profile loadedProfile) {
-        Profile profile = modelfactory.createProfile(loadedProfile, module);
-        
-        for (Jxbv2Stereotype loadedStereotype : loadedProfile.getStereotype()) {
-            createStereotype(modelfactory, profile, loadedStereotype);
-        }
-        
-        for (Jxbv2MetaclassReference loadedRef : loadedProfile.getMetaclassReference()) {
-            createMetaclassReference(modelfactory, profile, loadedRef);
-        }
-        return profile;
-    }
-
     @objid ("a2ff7b65-45ed-4732-ad44-ce82cb54afe2")
     private MetaclassReference createMetaclassReference(ModelFactory modelfactory, Profile profile, Jxbv2MetaclassReference loadedRef) {
         MetaclassReference mcRef = modelfactory.createMetaClassReference(loadedRef, profile);
@@ -249,6 +161,109 @@ class RamcBuilder {
             }
         }
         return mcRef;
+    }
+
+    @objid ("fa6406a5-03d1-4875-ae65-d18110d36136")
+    private Profile createProfile(ModelFactory modelfactory, ModuleComponent module, Jxbv2Profile loadedProfile) {
+        Profile profile = modelfactory.createProfile(loadedProfile, module);
+        
+        for (Jxbv2Stereotype loadedStereotype : loadedProfile.getStereotype()) {
+            createStereotype(modelfactory, profile, loadedStereotype);
+        }
+        
+        for (Jxbv2MetaclassReference loadedRef : loadedProfile.getMetaclassReference()) {
+            createMetaclassReference(modelfactory, profile, loadedRef);
+        }
+        return profile;
+    }
+
+    @objid ("6b4a6f4b-99aa-4e43-b1c7-e96f31534596")
+    private Artifact createRamcModel(GProject gproject, IModelioProgress monitor) throws IOException {
+        ICoreSession session = gproject.getSession();
+        
+        // Create a temporary memory repository
+        IRepository repo = new MemoryRepository();
+        session.getRepositorySupport().connectRepository(repo, new BasicAccessManager(), monitor);
+        
+        // Configure a dedicated model factory in the repository
+        ModelFactory modelfactory = new ModelFactory(session, repo);
+        
+        // Create the RAMC model
+        try (ITransaction t = session.getTransactionSupport().createTransaction("Init " + this.loadedModule.getId() + " module RAMC")) {
+            // Create a project to model the ramc
+            GenericFactory gf = session.getModel().getGenericFactory();
+            Project ramcProject = gf.create(Project.class, repo);
+            Package ramcProjectRoot = gf.create(Package.class, repo);
+            ramcProject.setModel(ramcProjectRoot);
+        
+            // Create the module itself
+            ModuleComponent module = modelfactory.createModule(this.loadedModule);
+        
+            // First create the propertyTypes
+            if (this.loadedModule.getPropertyTypes() != null) {
+                for (Jxbv2PropertyType loadedPropertyType : this.loadedModule.getPropertyTypes().getPropertyType()) {
+                    modelfactory.createPropertyType(module, loadedPropertyType);
+                }
+            }
+        
+            // For performance reasons set up a cache of all known property types
+            for (PropertyType pType : session.getModel().findByClass(PropertyType.class)) {
+                this.propertyTypeCache.put(pType.getName(), pType);
+            }
+        
+            // Import Profiles, Stereotypes, TagTypes and so on.
+            if(this.loadedModule.getProfiles() != null){
+                for (Jxbv2Profile loadedProfile : this.loadedModule.getProfiles().getProfile()) {
+                    createProfile(modelfactory, module, loadedProfile);
+                }
+            }
+               
+        
+            // Import parameters
+            if(this.loadedModule.getParameters() != null){
+                for (org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Parameters.Jxbv2Parameter loadedParam : this.loadedModule
+                        .getParameters().getParameter()) {
+                    modelfactory.createConfigParam(loadedParam, module);
+                }
+            }
+               
+        
+            // Post processing
+            // Establish inheritance links between stereotypes
+            if(this.loadedModule.getProfiles() != null){
+                  for (Jxbv2Profile loadedProfile : this.loadedModule.getProfiles().getProfile()) {
+                      for (Jxbv2Stereotype loadedStereotype : loadedProfile.getStereotype()) {
+                          if (loadedStereotype.getOwnerStereotype() != null) {
+                              Stereotype current = session.getModel().findById(Stereotype.class,
+                                      UUID.fromString(loadedStereotype.getUid()));
+                              Collection<Stereotype> owners = session.getModel().findByAtt(Stereotype.class, "Name",
+                                      loadedStereotype.getOwnerStereotype());
+                              if (current != null && owners.size() > 0) {
+                                  current.setParent(owners.iterator().next());
+                              }
+                          }
+                      }
+                  }
+            }
+          
+        
+            // Define RAMC packaging.
+            // Generate the RAMC Artifact
+            Artifact ramcArtifact = gf.create(Artifact.class, ramcProjectRoot);
+            ramcProjectRoot.getOwnedElement().add(ramcArtifact);
+            ramcArtifact.setName(this.loadedModule.getId());
+        
+            ModelComponent ramcFact = new ModelComponent(ramcArtifact);
+            ramcFact.setRamcName(this.loadedModule.getId());
+            ramcFact.setRamcVersion(new Version(this.loadedModule.getVersion()));
+            ramcFact.getExportedElements().add(module);
+            ramcFact.updateArtifact();
+        
+            t.commit();
+        
+            return ramcArtifact;
+        
+        }
     }
 
     @objid ("560948bf-7c0d-490c-a1d3-2fc8ec0456d8")
@@ -277,16 +292,12 @@ class RamcBuilder {
         return stereotype;
     }
 
-    @objid ("8e8bdc7f-7d4f-4d31-a8a4-57292f9848e7")
-    RamcBuilder(Jxbv2Module loadedModule) {
-        this.loadedModule = loadedModule;
-    }
-
     @objid ("6e1a628d-abf4-4bcf-af5d-4971fcd09032")
     private void createTableType(ModelFactory modelfactory, Stereotype stereotype, Jxbv2PropertyTableDefinition loadedTableType) {
         PropertyTableDefinition tableType = modelfactory.createTableType(loadedTableType, stereotype);
         
         for (Jxbv2PropertyDefinition loadedPropertyDefinition : loadedTableType.getPropertyDefinition()) {
+            @SuppressWarnings("synthetic-access")
             PropertyType pType = (PropertyType) modelfactory.model.getObjectReference(SmClass.getClass(PropertyType.class),
                     UUID.fromString(loadedPropertyDefinition.getTypeRef().getId()), "");
             modelfactory.createPropertyDefinition(loadedPropertyDefinition, tableType, pType);
@@ -395,6 +406,12 @@ class RamcBuilder {
             
             if (jaxbelement.getIsHidden() != null) {
                 element.setIsHidden(jaxbelement.getIsHidden().equals("true"));
+            }
+            
+            if (jaxbelement.getMimeType() != null) {
+                element.setMimeType(jaxbelement.getMimeType());
+            } else {
+                element.setMimeType("text/plain");
             }
             
             element.setLabelKey(jaxbelement.getLabel() != null ? jaxbelement.getLabel() : jaxbelement.getName());

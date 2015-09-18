@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002f5058-c4bf-1fd8-97fe-001ec947cd2a")
 public class DataStoreNodeImpl extends CentralBufferNodeImpl implements DataStoreNode {
-    @objid ("aed8a0f9-b4a1-42c5-b8fd-b65cb19e2dbc")
+    @objid ("f745e2de-18e0-49a6-96c7-8e1c8fbbe1b8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("cce10214-1739-4cab-864e-e54885862433")
+    @objid ("03ffc9e7-b22d-4a97-b633-ea40f9345b95")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("a8674cc2-a2b0-4bf6-9897-6a1753d93ecc")
+    @objid ("8a72d371-533e-4f64-94ae-a8f52e860ada")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDataStoreNode(this);

@@ -26,7 +26,7 @@ import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.metamodel.uml.behavior.interactionModel.PartDecomposition;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("97890962-4f23-471e-ab25-7e6807cc24d7")
 public class EPartDecomposition extends EInteractionUse {
@@ -34,7 +34,7 @@ public class EPartDecomposition extends EInteractionUse {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createPartDecomposition();
+                        .createPartDecomposition();
     }
 
     @objid ("c47d7fdf-5d13-473c-bc03-0f3652e57f6f")

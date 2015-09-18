@@ -26,8 +26,8 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.data.project.DescriptorWriter;
 import org.modelio.gproject.data.project.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptorWriter;
 
 /**
  * Builds a new empty project in a directory.
@@ -60,7 +60,7 @@ public class GProjectCreator {
         }
         
         ProjectDescriptor desc = ProjectDescriptor.createEmpty(projectName, projectPath);
-        new DescriptorWriter().write(desc, confFilePath);
+        new ProjectDescriptorWriter().write(desc, confFilePath);
         return desc;
     }
 

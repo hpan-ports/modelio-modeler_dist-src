@@ -55,7 +55,7 @@ public class DiagonalLayout {
     private int _contentgH;
 
     @objid ("7cc87054-6807-491c-a326-21b26538fc36")
-    public void layout(final IDiagramHandle dh, final List<IDiagramNode> contentDgs) throws InvalidSourcePointException, InvalidPointsPathException, InvalidDestinationPointException {
+    public void layout(final IDiagramHandle dh, final List<IDiagramNode> contentDgs) throws InvalidSourcePointException, InvalidDestinationPointException, InvalidPointsPathException {
         // sort elements according to their NSU
         // - elements with more out links should be first
         // - elements with more in links should be last

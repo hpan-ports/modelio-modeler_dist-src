@@ -48,22 +48,22 @@ public class DataTypeData extends GeneralClassData {
         this.mIsElementary = Boolean.TRUE;
     }
 
-    @objid ("7d408576-d56e-4871-aae8-0abf802dc182")
+    @objid ("ae6ecbe5-bf66-4aa1-8f4e-fce0e8a8e71a")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00113e10-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("a2725284-3ccd-4d11-8b0d-cd3953e8f732")
+        @objid ("81747ba8-684d-43cd-b882-438edd75b490")
         private static SmClass smClass = null;
 
-        @objid ("ff8c4177-204e-4d9b-b3a5-3fd197a7942a")
+        @objid ("056df79a-b23b-4a69-b06c-5bea3d8c37a0")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DataTypeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("fd3f27bb-b3e7-41aa-85e2-7cacfdc8c2ed")
+        @objid ("19df7fdf-8463-4780-bbe0-f62fd5b7fda0")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -71,12 +71,12 @@ public class DataTypeData extends GeneralClassData {
 
         @objid ("00117eac-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ce9d3bf2-9fc1-4592-91f7-dce6949f3413")
+            @objid ("2b3bc609-070d-49aa-8c42-96c0a578291c")
             public ISmObjectData createData() {
                 return new DataTypeData();
             }
 
-            @objid ("2d8344ad-469b-4254-ba14-be19c575a30a")
+            @objid ("bc0adb0b-e9de-405d-afb8-1e79599cb71b")
             public SmObjectImpl createImpl() {
                 return new DataTypeImpl();
             }

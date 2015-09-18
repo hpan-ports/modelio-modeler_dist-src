@@ -24,11 +24,11 @@ package org.modelio.xmi.model.objing.profile;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Property;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.generation.ProfileExportVisitorImpl;
 import org.modelio.xmi.generation.TotalExportMap;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.util.EcoreUMLTypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 
 @objid ("338905f6-6268-46db-b414-98f455073a11")
 public class PExportNoteType implements IExportProfileElement {
@@ -57,10 +57,11 @@ public class PExportNoteType implements IExportProfileElement {
         }
         
         String name = this.objingElt.getName();
+        EcoreUMLTypes ecoreUMLTypes = GenerationProperties.getInstance().getEcoreUMLTypes();
         
-        Property attr  = stereotype.getOwnedAttribute(name,  PrimitiveTypeMapper.getString());
+        Property attr  = stereotype.getOwnedAttribute(name,  ecoreUMLTypes.getString());
         if (attr == null)
-            attr = stereotype.createOwnedAttribute(name,  PrimitiveTypeMapper.getString());
+            attr = stereotype.createOwnedAttribute(name,  ecoreUMLTypes.getString());
         
         attr.setLower(1);
         attr.setUpper(1);

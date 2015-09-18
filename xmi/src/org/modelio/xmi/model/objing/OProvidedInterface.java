@@ -28,7 +28,7 @@ import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("af4d387f-d847-4bdd-a57b-666369650bc0")

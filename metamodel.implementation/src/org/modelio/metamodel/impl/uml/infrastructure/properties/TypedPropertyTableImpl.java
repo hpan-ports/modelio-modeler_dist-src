@@ -60,33 +60,33 @@ public class TypedPropertyTableImpl extends PropertyTableImpl implements TypedPr
         setProperty(prop.getName(), value);
     }
 
-    @objid ("a42f6900-35d5-43fe-9983-d19b02d22239")
+    @objid ("f275f41d-5cf3-4aa4-93ec-af1743ef1052")
     @Override
     public PropertyTableDefinition getType() {
         return (PropertyTableDefinition) getDepVal(TypedPropertyTableData.Metadata.TypeDep());
     }
 
-    @objid ("ed07d8e0-1732-4804-b509-9973d54dc4d3")
+    @objid ("227ea85d-b18c-45be-9a5d-fdd8bf553949")
     @Override
     public void setType(PropertyTableDefinition value) {
         appendDepVal(TypedPropertyTableData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a55c5ba3-d978-4f67-a02a-03f9d6a8fcfe")
+    @objid ("927c760b-ecf2-422d-b67e-13d4d5b6df0a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("740eca3f-582b-4ee5-b72c-1acca9a7711c")
+    @objid ("832803f7-ad85-4fa7-bf63-a0c40548a5d1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("cf2a651d-f0e9-4437-b2f3-edaa632f8126")
+    @objid ("4e25667c-19f4-44b3-94e1-5b19ff786e89")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTypedPropertyTable(this);

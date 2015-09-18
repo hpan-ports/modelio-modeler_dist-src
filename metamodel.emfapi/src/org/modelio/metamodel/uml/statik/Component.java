@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.statik.ComponentRealization;
 
 @objid ("000509f6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Component extends Class {
-    @objid ("2d291c6b-f556-459a-9b2e-30cbca5b67e3")
+    @objid ("3afbbc25-fda4-4ce7-a1e7-48ad6ab67af5")
     EList<ComponentRealization> getRealization();
 
-    @objid ("83be8ec9-64af-4828-a2d4-1c66f061b662")
+    @objid ("e196b801-8660-4aab-a57f-a90f0774fe3c")
     <T extends ComponentRealization> List<T> getRealization(java.lang.Class<T> filterClass);
 
 }

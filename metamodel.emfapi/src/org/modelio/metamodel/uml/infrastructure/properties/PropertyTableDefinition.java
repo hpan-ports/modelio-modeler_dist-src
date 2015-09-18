@@ -37,34 +37,34 @@ import org.modelio.metamodel.uml.infrastructure.properties.TypedPropertyTable;
 
 @objid ("00669770-ec87-1098-b22e-001ec947cd2a")
 public interface PropertyTableDefinition extends ModelElement {
-    @objid ("e3de3d95-4fe9-41e5-b791-1bd9bbc5822c")
+    @objid ("cd2e4efe-87b8-4589-b232-89ff5e375790")
     PropertyContainer getOwner();
 
-    @objid ("8c73b176-8496-4056-9144-6d23d4d53833")
+    @objid ("e4d9ea45-4421-4a30-aba0-3b4f2294c50b")
     void setOwner(PropertyContainer value);
 
-    @objid ("4c552e58-2671-4d4f-b0b8-703f03d1ab9c")
+    @objid ("9f119a85-73d1-4ded-a1ac-ebd59d789202")
     EList<TypedPropertyTable> getTypedTable();
 
-    @objid ("03a73b11-d9d1-4af9-8b7d-a8d062c31579")
+    @objid ("67cb13b9-3c0c-41de-a9d3-31328dc3de29")
     <T extends TypedPropertyTable> List<T> getTypedTable(java.lang.Class<T> filterClass);
 
-    @objid ("d1caec71-b8e5-44fa-8785-3a7831648690")
+    @objid ("e49e399c-a395-47c1-8598-4483e91bd76c")
     MetaclassReference getOwnerReference();
 
-    @objid ("198887ca-0159-4cce-a34f-be4961ebc21c")
+    @objid ("add542ff-66c8-441c-8e05-9faab9bf3c20")
     void setOwnerReference(MetaclassReference value);
 
-    @objid ("e67fa7ba-c328-4af9-a94c-2b722104b985")
+    @objid ("2b48a436-e0b1-4404-a726-8cd4a7a01eea")
     Stereotype getOwnerStereotype();
 
-    @objid ("25a530b7-17fb-4a61-a483-30454bbed9f9")
+    @objid ("218e44c7-075d-4c63-a279-df635f24487a")
     void setOwnerStereotype(Stereotype value);
 
-    @objid ("f7bf73e2-5840-4887-a0ae-b1ca48fa84f1")
+    @objid ("453e327d-d482-4c88-960d-ee5d6a6fbb56")
     EList<PropertyDefinition> getOwned();
 
-    @objid ("b2e1c94e-e5e6-433c-b2ef-63526cd16aa8")
+    @objid ("700c1390-657e-48d5-86e2-9d92e823f044")
     <T extends PropertyDefinition> List<T> getOwned(java.lang.Class<T> filterClass);
 
 }

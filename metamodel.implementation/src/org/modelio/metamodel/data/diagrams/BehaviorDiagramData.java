@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0069fdac-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BehaviorDiagram.class, factory=BehaviorDiagramData.Metadata.ObjectFactory.class)
 public abstract class BehaviorDiagramData extends AbstractDiagramData {
-    @objid ("44b349cc-cb5c-483e-8fb7-c97a32859f36")
+    @objid ("ad4e355f-96b4-483a-bad7-ca11eab2ad98")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000b34c0-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("826b1fb5-c3fc-4d57-8d4f-c2a0d9401b2a")
+        @objid ("58ce96b7-1495-4225-809f-ff8fe21c845d")
         private static SmClass smClass = null;
 
-        @objid ("9f218452-e8e3-4aad-a531-297a068d7ed0")
+        @objid ("09048c1f-eff9-4fe4-a017-f70623d631e4")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BehaviorDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("2d044387-8dbc-457c-a63a-0ca043580c78")
+        @objid ("1d0a7dc9-3d03-442f-bb43-794f2e09d618")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public abstract class BehaviorDiagramData extends AbstractDiagramData {
 
         @objid ("000b8c68-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("99ef3b86-61c3-4b9c-a1d4-7a106035fee1")
+            @objid ("0bb81c9c-95cc-4bbf-9af5-de7b08818f72")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("d1cddf37-47da-48b0-a895-9c77661a4293")
+            @objid ("0336d031-8edc-47e3-9641-89120fa1f996")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }

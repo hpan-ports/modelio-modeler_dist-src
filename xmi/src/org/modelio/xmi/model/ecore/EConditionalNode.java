@@ -24,7 +24,7 @@ package org.modelio.xmi.model.ecore;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.ConditionalNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("b1034bc6-e702-4181-a204-95add2c6905f")
 public class EConditionalNode extends EStructuredActivityNode {
@@ -35,7 +35,7 @@ public class EConditionalNode extends EStructuredActivityNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createConditionalNode();
+                        .createConditionalNode();
     }
 
     @objid ("0835a3c8-60e6-48df-ad26-f7cc7058452a")

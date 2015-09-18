@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyTable;
 
 @objid ("6ae11939-6513-44a4-b535-1daf76e27f63")
 public interface MatrixValueDefinition extends Element {
-    @objid ("b13bd44e-a94b-429c-999e-0567b7c36ffa")
+    @objid ("3058aabb-03d2-493e-9572-43e6efc5330d")
     ExternProcessor getProcessor();
 
-    @objid ("7038a321-bf63-4ef2-a53f-c8e8436d7a55")
+    @objid ("cb360ae0-ce8a-4d43-8875-2f9048fb3378")
     void setProcessor(ExternProcessor value);
 
-    @objid ("b1d31e89-9b36-49fe-9775-2e08aa9204ca")
+    @objid ("f58594b0-9f99-4fc3-87bf-94354f038650")
     PropertyTable getParameters();
 
-    @objid ("5ac7b5e7-9256-4559-ace8-86c1f4587e76")
+    @objid ("285d1990-6479-4b58-8f2d-ae228e4541c1")
     void setParameters(PropertyTable value);
 
-    @objid ("7ad0bd59-b6a2-4e32-a08d-886ca53c9b62")
+    @objid ("b6d54dbe-23d9-44bb-afe5-bdd639bfd923")
     MatrixDefinition getMatrix();
 
-    @objid ("acce4758-2227-4c60-98b6-e8c0f769bc9e")
+    @objid ("b8348eae-4b5f-4286-ab4e-6d4a0b8102c8")
     void setMatrix(MatrixDefinition value);
 
 }

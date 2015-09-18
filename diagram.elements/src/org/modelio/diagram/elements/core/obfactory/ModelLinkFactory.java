@@ -138,7 +138,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
      * @throws java.lang.ClassCastException if one of the source, destination or owner element is a bad class for the link.
      */
     @objid ("80ab06bf-1dec-11e2-8cad-001ec947c8cc")
-    public MObject createLink(final String metaclass, final MObject source, final MObject target, final MObject owner) throws IllegalArgumentException, ClassCastException {
+    public MObject createLink(final String metaclass, final MObject source, final MObject target, final MObject owner) throws ClassCastException, IllegalArgumentException {
         IModelFactory modelFactory = this.modelServices.getModelFactory();
         final MObject ret = modelFactory.createElement(metaclass);
         return (MObject) ret.accept(new ImplVisitor(modelFactory, source, target, owner));

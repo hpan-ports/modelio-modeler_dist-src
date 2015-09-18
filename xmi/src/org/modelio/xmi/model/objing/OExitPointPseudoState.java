@@ -26,7 +26,7 @@ import org.eclipse.uml2.uml.Pseudostate;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.ExitPointPseudoState;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("72c66371-aa77-4a4b-8062-5445faa4d4f8")

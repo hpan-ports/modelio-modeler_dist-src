@@ -28,10 +28,10 @@ import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
+import org.modelio.xmi.util.EcorePrimitiveTypeMapper;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
-import org.modelio.xmi.util.ReverseProperties;
 
 /**
  * This class manages the import of  Ecore org.eclipse.uml2.uml.DataType
@@ -45,8 +45,8 @@ public class EDataType extends ENamedElement {
     @objid ("f9c62d64-20b0-4b6c-8850-d520edacffba")
     @Override
     public Element createObjingElt() {
-        if (PrimitiveTypeMapper.isPredefinedType(this.ecoreElement)) {
-            return PrimitiveTypeMapper.getPredefinedType(this.ecoreElement);
+        if (EcorePrimitiveTypeMapper.isPredefinedType(this.ecoreElement)) {
+            return EcorePrimitiveTypeMapper.getPredefinedType(this.ecoreElement);
               }
         return ReverseProperties.getInstance().getMModelServices().getModelFactory().createDataType();
     }
@@ -84,7 +84,7 @@ public class EDataType extends ENamedElement {
     @objid ("5b5546ff-ec80-4e5f-afec-16dc57c3cdd3")
     @Override
     public void setProperties(Element objingElt) {
-        if (!(PrimitiveTypeMapper.isPredefinedType(this.ecoreElement))) {
+        if (!(EcorePrimitiveTypeMapper.isPredefinedType(this.ecoreElement))) {
             super.setProperties(objingElt);
             if (!(this.ecoreElement instanceof org.eclipse.uml2.uml.PrimitiveType)) {
                 setVisibility((GeneralClass) objingElt);

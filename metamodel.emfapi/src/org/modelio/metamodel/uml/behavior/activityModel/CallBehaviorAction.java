@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 
 @objid ("002af378-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CallBehaviorAction extends CallAction {
-    @objid ("4cd92829-b079-4c67-87c7-4f479111bcc0")
+    @objid ("26aaf259-fd56-49d5-bdbf-5cf7870894d0")
     Behavior getCalled();
 
-    @objid ("49b20412-1a8b-4940-8e3a-d3cdae7f0270")
+    @objid ("b597c3c2-ea4e-45cf-8a4d-a8c1d82ce7b5")
     void setCalled(Behavior value);
 
 }

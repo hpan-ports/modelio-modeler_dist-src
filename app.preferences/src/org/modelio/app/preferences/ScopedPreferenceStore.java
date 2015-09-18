@@ -93,7 +93,7 @@ public class ScopedPreferenceStore extends EventManager implements IPreferenceSt
      * methods will search. This context is also used in the search.
      */
     @objid ("067040b6-516a-4624-b036-289dfcca3210")
-    private IScopeContext defaultContext = new DefaultScope();
+    private IScopeContext defaultContext = DefaultScope.INSTANCE;
 
     /**
      * The nodeQualifer is the string used to look up the node in the contexts.
@@ -741,12 +741,12 @@ public class ScopedPreferenceStore extends EventManager implements IPreferenceSt
     @Override
     public void setValue(String name, double value) {
         double oldValue = getDouble(name);
-        if (oldValue == value) {
+        if (Double.doubleToRawLongBits(oldValue) == Double.doubleToRawLongBits(value)) {
             return;
         }
         try {
             silentRunning = true;// Turn off updates from the store
-            if (getDefaultDouble(name) == value) {
+            if (Double.doubleToRawLongBits(getDefaultDouble(name)) == Double.doubleToRawLongBits(value)) {
                 getStorePreferences().remove(name);
             } else {
                 getStorePreferences().putDouble(name, value);
@@ -769,12 +769,12 @@ public class ScopedPreferenceStore extends EventManager implements IPreferenceSt
     @Override
     public void setValue(String name, float value) {
         float oldValue = getFloat(name);
-        if (oldValue == value) {
+        if (Float.floatToRawIntBits(oldValue) == Float.floatToRawIntBits(value)) {
             return;
         }
         try {
             silentRunning = true;// Turn off updates from the store
-            if (getDefaultFloat(name) == value) {
+            if (Float.floatToRawIntBits(getDefaultFloat(name)) == Float.floatToRawIntBits(value)) {
                 getStorePreferences().remove(name);
             } else {
                 getStorePreferences().putFloat(name, value);

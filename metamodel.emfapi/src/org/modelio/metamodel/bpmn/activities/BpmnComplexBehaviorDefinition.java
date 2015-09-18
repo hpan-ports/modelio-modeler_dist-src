@@ -33,22 +33,22 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("007f7bdc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnComplexBehaviorDefinition extends BpmnBaseElement {
-    @objid ("01c73e02-82c6-4198-be5d-3f3a659d25f0")
+    @objid ("fe73ecd3-cbe7-4c87-a91a-ff97cefff206")
     String getCondition();
 
-    @objid ("9c202dcc-0029-4e37-89e4-39b3cf098b1c")
+    @objid ("daac5734-9d0a-4322-b48c-356738e3fe3f")
     void setCondition(String value);
 
-    @objid ("4d22cc53-023a-4179-8c1c-53133c0fdc2a")
+    @objid ("dc6083db-c693-4a0e-96d6-bce2b2ba7970")
     BpmnMultiInstanceLoopCharacteristics getOwner();
 
-    @objid ("36be173c-b3a6-4de0-b891-28588e843cf7")
+    @objid ("fde98f5f-701c-4cac-bcd3-fbf62b34ae04")
     void setOwner(BpmnMultiInstanceLoopCharacteristics value);
 
-    @objid ("9969d510-7d6c-4550-8f26-288ccc0f49f4")
+    @objid ("41160426-48e0-4c0b-a0d5-5b9bd7d38763")
     BpmnImplicitThrowEvent getEvent();
 
-    @objid ("31ee75c6-7b95-4a4c-9aff-761195ab56b7")
+    @objid ("a368c405-049a-46b4-88bd-7c350a4a8f50")
     void setEvent(BpmnImplicitThrowEvent value);
 
 }

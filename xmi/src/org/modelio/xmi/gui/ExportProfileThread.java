@@ -28,12 +28,12 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.xmi.api.FormatExport;
 import org.modelio.xmi.generation.ExportServices;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.generation.PartialExportMap;
 import org.modelio.xmi.generation.TotalExportMap;
 import org.modelio.xmi.gui.report.ReportManager;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbortProcessException;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.XMIFileUtils;
 import org.modelio.xmi.util.XMILogs;
 
@@ -65,11 +65,10 @@ public class ExportProfileThread extends AbstractXMIThread implements IRunnableW
     public void run(IProgressMonitor localMonitor) {
         String errorMessage = "";
         Resource resource = null;
+        GenerationProperties genProp = GenerationProperties.getInstance();
+        
         try {
         
-            GenerationProperties genProp = GenerationProperties.getInstance();
-        
-            
             genProp.setReportModel(ReportManager.getNewReport());
             this.progressBar.setNumberElement(this.service.countModelTrees((genProp.getSelectedPackage())) * 2);
             this.progressBar.setLabel(Xmi.I18N.getString("progressBar.content.export.XMIFileInit"));
@@ -78,9 +77,9 @@ public class ExportProfileThread extends AbstractXMIThread implements IRunnableW
             this.error =  this.service.createEcoreProfile(resource, this.progressBar);
         
             if (!this.error){
-                FormatExport versionExport = GenerationProperties.getInstance().getExportVersion();
+                FormatExport versionExport = genProp.getExportVersion();
                 if (!versionExport.equals(FormatExport.EMF300)){
-                    XMIFileUtils.changeToUML(GenerationProperties.getInstance().getFilePath());
+                    XMIFileUtils.changeToUML(genProp.getFilePath(), genProp.getTempFolder());
                 }  
             }
             this.progressBar.addFinalValue();

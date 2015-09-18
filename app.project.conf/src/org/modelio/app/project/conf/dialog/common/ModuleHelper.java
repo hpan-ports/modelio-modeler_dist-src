@@ -28,6 +28,7 @@ import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.gproject.module.GModule;
 import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.mda.ModuleComponent;
 
@@ -64,7 +65,7 @@ public class ModuleHelper {
     @objid ("a7365adb-33f6-11e2-a514-002564c97630")
     public static String getLabel(Object element, IModuleService moduleService) {
         if (element instanceof GModule) {
-            IModule iModule = moduleService.getIModule(((GModule) element).getModuleElement());
+            IRTModule iModule = moduleService.getIRTModule(((GModule) element).getModuleElement());
             if (iModule != null) { 
                 return iModule.getLabel();
             }

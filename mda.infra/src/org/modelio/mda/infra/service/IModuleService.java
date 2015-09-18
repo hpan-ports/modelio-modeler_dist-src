@@ -24,7 +24,6 @@ package org.modelio.mda.infra.service;
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.IPeerModule;
 import org.modelio.api.module.ModuleException;
 import org.modelio.app.core.IModelioService;
@@ -80,7 +79,7 @@ public interface IModuleService extends IModelioService {
     /**
      * Installs, load and start the module contained in the given file in the
      * given project. This method adds (or update) a module in
-     * the given GProject, then load and start the corresponding {@link IModule}.
+     * the given GProject, then load and start the corresponding {@link IRTModule}.
      * @param gProject the project to install the module into.
      * @param moduleFilePath the path to the file of the module.
      * @throws org.modelio.api.module.ModuleException if an error occurred while trying to install the module.
@@ -107,8 +106,8 @@ public interface IModuleService extends IModelioService {
     void deactivateModule(GModule module) throws ModuleException;
 
     /**
-     * Returns the ModuleRegistry which contains the list of all loaded IModule
-     * and the list of all started IModule.
+     * Returns the ModuleRegistry which contains the list of all loaded IRTModule
+     * and the list of all started IRTModule.
      * @return the {@link IModuleRegistry}
      */
     @objid ("2bb8a12f-f1ed-11e1-af52-001ec947c8cc")
@@ -123,11 +122,21 @@ public interface IModuleService extends IModelioService {
     void removeModule(GModule module) throws ModuleException;
 
     /**
-     * Returns the started IModule corresponding to the passed ModuleComponent or <code>null</code> if none is found.
-     * @param moduleComponent the ModuleComponent to search a started IModule for.
-     * @return the started IModule corresponding to the passed ModuleComponent or <code>null</code> if none is found.
+     * Returns the started IRTModule matching the passed ModuleComponent or <code>null</code> if none is found.
+     * @param moduleComponent the ModuleComponent to search a started IRTModule for.
+     * @return the started IRTModule matching the passed ModuleComponent or <code>null</code> if none is found.
+     * @deprecated use {@link #getIRTModule(GModule)}
      */
     @objid ("61ca78e5-186b-11e2-92d2-001ec947c8cc")
-    IModule getIModule(ModuleComponent moduleComponent);
+    @Deprecated
+    IRTModule getIRTModule(ModuleComponent moduleComponent);
+
+    /**
+     * Returns the started IRTModule matching the passed GModule or <code>null</code> if none is found.
+     * @param gModule the GModule to search a started IRTModule for.
+     * @return the started IRTModule matching to the passed GModule or <code>null</code> if none is found.
+     */
+    @objid ("78c50f93-2f53-4afe-8323-e712eba3907c")
+    IRTModule getIRTModule(GModule gModule);
 
 }

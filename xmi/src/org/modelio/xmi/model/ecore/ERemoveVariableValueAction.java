@@ -27,8 +27,8 @@ import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.behavior.activityModel.OpaqueAction;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("1e9b0044-1ffa-4ae6-8ad5-f353e0380458")
 public class ERemoveVariableValueAction extends EActivityNode {

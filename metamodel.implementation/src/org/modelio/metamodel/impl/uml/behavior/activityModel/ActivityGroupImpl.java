@@ -43,19 +43,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00283d2c-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ActivityGroupImpl extends ModelElementImpl implements ActivityGroup {
-    @objid ("36dc2c78-cd65-4d11-a4e7-1441074de2f4")
+    @objid ("715ff6f4-196f-43e9-92a5-4fff6286cb3e")
     @Override
     public Activity getInActivity() {
         return (Activity) getDepVal(ActivityGroupData.Metadata.InActivityDep());
     }
 
-    @objid ("6239d91c-c156-4815-bf51-be4824076574")
+    @objid ("202edbc0-3b35-4a40-9435-ed00d495a9ef")
     @Override
     public void setInActivity(Activity value) {
         appendDepVal(ActivityGroupData.Metadata.InActivityDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1678bdd3-8300-4ff1-9d48-f70fb15d2026")
+    @objid ("069dd189-979b-4f53-b9d7-56697e04dc10")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -65,7 +65,7 @@ public abstract class ActivityGroupImpl extends ModelElementImpl implements Acti
         return super.getCompositionOwner();
     }
 
-    @objid ("76c9d2ed-c28c-4aaf-a164-6f79d77cdf68")
+    @objid ("f1d8f807-86e3-4ab4-b406-7cfe3fc08fe1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -75,7 +75,7 @@ public abstract class ActivityGroupImpl extends ModelElementImpl implements Acti
         return super.getCompositionRelation();
     }
 
-    @objid ("8bc7bb1a-88fb-4fba-88b4-fd41f07d748e")
+    @objid ("8372c29c-e63c-48b7-9b94-e11d9e5c4b57")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityGroup(this);

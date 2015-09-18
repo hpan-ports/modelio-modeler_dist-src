@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00205526-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BehavioralFeature.class, factory=BehavioralFeatureData.Metadata.ObjectFactory.class)
 public class BehavioralFeatureData extends FeatureData {
-    @objid ("df9adfd2-bf45-4af8-8fb7-98a50951a040")
+    @objid ("d7757e5e-fb8f-41b9-ab7b-9985a8f930fa")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00578b86-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("09e3f852-f29b-4768-ac88-1437d1d6515d")
+        @objid ("7a7249d1-11b0-455e-b0b5-1beaa35a324e")
         private static SmClass smClass = null;
 
-        @objid ("0554bdf0-f42e-4ffd-a329-02d29d6665e9")
+        @objid ("0c2c6f90-2710-48df-a799-12a37eee384d")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BehavioralFeatureData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("8b25e666-8aa8-4645-8d51-29e290c6ecb6")
+        @objid ("68238742-994d-4d6d-bb45-2a204aa54769")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BehavioralFeatureData extends FeatureData {
 
         @objid ("005895ee-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("5af7fb1a-3cd9-4e2e-b41d-2b4e9fb5a6ac")
+            @objid ("c981add8-d106-42f6-b1b5-c349f18427a8")
             public ISmObjectData createData() {
                 return new BehavioralFeatureData();
             }
 
-            @objid ("da609b87-1525-4cdf-9410-2b5c5ec1907f")
+            @objid ("f6f1617e-31ff-477e-b36e-c52e38602735")
             public SmObjectImpl createImpl() {
                 return new BehavioralFeatureImpl();
             }

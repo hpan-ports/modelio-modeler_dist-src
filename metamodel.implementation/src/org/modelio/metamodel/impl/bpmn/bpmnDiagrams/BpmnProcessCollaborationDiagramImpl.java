@@ -42,21 +42,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000c1d7c-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnProcessCollaborationDiagramImpl extends BehaviorDiagramImpl implements BpmnProcessCollaborationDiagram {
-    @objid ("7b0a4f59-ba03-4ef8-b77c-f87d4b8bb9e3")
+    @objid ("015b849a-6c5a-41b5-8ca8-048da349d849")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("f6da7775-62c7-47ca-aa6b-9eaddef6cd7e")
+    @objid ("887b0909-30aa-411a-a79c-12eb24e1a2aa")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("4dbcff22-61ef-458c-8a77-93961ed57d84")
+    @objid ("a16ff150-07d3-42c8-b476-6970145141df")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnProcessCollaborationDiagram(this);

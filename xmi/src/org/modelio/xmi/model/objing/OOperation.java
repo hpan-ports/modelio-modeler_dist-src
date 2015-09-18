@@ -35,8 +35,8 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.NotFoundException;
 

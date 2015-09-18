@@ -57,8 +57,7 @@ public abstract class AbstractCreateElementHandler {
 
     @objid ("9ec61c0b-ccde-11e1-97e5-001ec947c8cc")
     @CanExecute
-    public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Named("metaclass") final String metaclassName, @Named("dependency") final String dependencyName, @Optional
-@Named("stereotype") final String stereotypeName) {
+    public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Named("metaclass") final String metaclassName, @Named("dependency") final String dependencyName, @Optional @Named("stereotype") final String stereotypeName) {
         // Sanity checks
         if (this.projectService.getSession() == null) {
             return false;
@@ -97,8 +96,7 @@ public abstract class AbstractCreateElementHandler {
 
     @objid ("0065e154-9025-1006-9c1d-001ec947cd2a")
     @Execute
-    public final void execute(final MPart part, @Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Named("metaclass") final String metaclassName, @Named("dependency") final String dependencyName, @Optional
-@Named("stereotype") final String stereotypeName) {
+    public final void execute(final MPart part, @Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Named("metaclass") final String metaclassName, @Named("dependency") final String dependencyName, @Optional @Named("stereotype") final String stereotypeName) {
         // Sanity checks
         if (this.projectService.getSession() == null) {
             return;

@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00965cf8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnTimerEventDefinition extends BpmnEventDefinition {
-    @objid ("9a27865c-5b53-4f48-bb26-53e6340866b7")
+    @objid ("7a3f7544-1247-4b77-9514-0cdb210c3ea8")
     String getTimeCycle();
 
-    @objid ("c4a9ef0c-8280-44ea-8853-b5e1936b0806")
+    @objid ("25fb1756-3309-40d2-8453-63da980590a9")
     void setTimeCycle(String value);
 
-    @objid ("2f21248c-a631-48cb-bfe8-72f91b337075")
+    @objid ("a334c78e-9058-4229-bed4-07425f9b4cf6")
     String getTimeD();
 
-    @objid ("8f2d2c56-b66b-450b-a814-65e68a03e7d5")
+    @objid ("3fbb34b3-3be6-40d1-ac9d-2e873c64f958")
     void setTimeD(String value);
 
 }

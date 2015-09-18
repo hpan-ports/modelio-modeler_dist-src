@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 
 @objid ("004fc78e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExitPointPseudoState extends AbstractPseudoState {
-    @objid ("033ecf88-1af7-4a04-b76d-45d6bbede6a7")
+    @objid ("00670025-4345-4894-a9a8-d99539e8998e")
     State getExitOf();
 
-    @objid ("c668f97b-4df0-44dc-8564-da756fabacd0")
+    @objid ("a8315ea6-c777-4d12-80b0-3811628a478d")
     void setExitOf(State value);
 
-    @objid ("c2d7d323-d914-41b6-9b95-c64857660a31")
+    @objid ("eddab16f-5fa1-4275-a892-8cf0baad2004")
     EList<ConnectionPointReference> getConnection();
 
-    @objid ("da2e0d0b-9190-48fd-80ea-a4d2b4a43a4b")
+    @objid ("bd820d11-a809-4a19-adc5-13714a644a9a")
     <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass);
 
-    @objid ("cb2a4e4c-8eaf-45aa-ad94-5a4c902ab133")
+    @objid ("cd29b56c-ed53-4cc9-98cc-0aeb843a6f9d")
     StateMachine getExitOfMachine();
 
-    @objid ("ed9efaf0-8521-4994-96d8-10f545251e64")
+    @objid ("a17f6006-3b6a-4260-929d-9f050b5f1c60")
     void setExitOfMachine(StateMachine value);
 
 }

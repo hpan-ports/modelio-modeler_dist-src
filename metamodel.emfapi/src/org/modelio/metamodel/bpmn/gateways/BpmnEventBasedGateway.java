@@ -31,16 +31,16 @@ import org.modelio.metamodel.bpmn.gateways.BpmnEventBasedGatewayType;
 
 @objid ("0097e370-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnEventBasedGateway extends BpmnGateway {
-    @objid ("cdd70f70-397a-4148-ae72-f125baf6c826")
+    @objid ("92c67550-3d2e-4799-b3b1-ce1c28d48b6e")
     boolean isInstanciate();
 
-    @objid ("9ac8b5e0-373e-4804-a5d1-cb9f16254d14")
+    @objid ("50f6a652-39cf-4272-b254-2e95f4b85fb4")
     void setInstanciate(boolean value);
 
-    @objid ("af413038-6ecc-4085-b372-b7601ba3bb38")
+    @objid ("63b68b87-e8db-4702-9137-2bd1162167fd")
     BpmnEventBasedGatewayType getEventGatewayType();
 
-    @objid ("33d0ca78-f146-4b61-a61f-e971481126b8")
+    @objid ("ec482da3-0a32-43a4-b6b0-356480de64c1")
     void setEventGatewayType(BpmnEventBasedGatewayType value);
 
 }

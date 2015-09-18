@@ -44,25 +44,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0031ed18-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExpansionRegionImpl extends StructuredActivityNodeImpl implements ExpansionRegion {
-    @objid ("4ff7ac09-8559-4d67-8079-3875b3f7bb65")
+    @objid ("e8a4d0d7-43f1-4ab0-8a11-fd6d65f07869")
     @Override
     public ExpansionKind getMode() {
         return (ExpansionKind) getAttVal(ExpansionRegionData.Metadata.ModeAtt());
     }
 
-    @objid ("06b51d8b-51a8-4104-a879-330270ea8721")
+    @objid ("38d82a7d-cb0c-43ac-95f3-8da90328c0c0")
     @Override
     public void setMode(ExpansionKind value) {
         setAttVal(ExpansionRegionData.Metadata.ModeAtt(), value);
     }
 
-    @objid ("ebe0cb2a-806c-4b2d-bae5-60c6bea9f2be")
+    @objid ("11a1e7a6-1406-47cd-aaaf-caade243dec8")
     @Override
     public EList<ExpansionNode> getOutputElement() {
         return new SmList<>(this, ExpansionRegionData.Metadata.OutputElementDep());
     }
 
-    @objid ("fdcd9b73-b97b-4c0a-81e8-7f91f67d3890")
+    @objid ("87614f5b-592a-43ce-8934-0a903fa2ccbe")
     @Override
     public <T extends ExpansionNode> List<T> getOutputElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -75,13 +75,13 @@ public class ExpansionRegionImpl extends StructuredActivityNodeImpl implements E
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2755c0f2-d14d-4eeb-b666-211074c2573c")
+    @objid ("05bcbb25-f3b2-4cdf-9fed-ce691ecaf801")
     @Override
     public EList<ExpansionNode> getInputElement() {
         return new SmList<>(this, ExpansionRegionData.Metadata.InputElementDep());
     }
 
-    @objid ("ce4c09d5-4334-452b-b293-7358625ef2dd")
+    @objid ("ecde4add-54ea-44b2-8e1a-fc2554fb33d4")
     @Override
     public <T extends ExpansionNode> List<T> getInputElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,21 +94,21 @@ public class ExpansionRegionImpl extends StructuredActivityNodeImpl implements E
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9f902a1d-eb4d-47cf-a34c-45f4da5daa2c")
+    @objid ("68c49aff-6797-4cd1-854b-ec2932975378")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("e48f0698-a9f8-4ae7-b9c7-7534e838244e")
+    @objid ("b0b8344c-4bd8-419a-9ad5-f27a1f268259")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("89bec8a9-c7e0-4550-9915-f7e501450c66")
+    @objid ("72b22a05-63da-47da-a12d-7493fe3952f3")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExpansionRegion(this);

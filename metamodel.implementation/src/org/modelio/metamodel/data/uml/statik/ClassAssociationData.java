@@ -47,43 +47,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("000325f0-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ClassAssociation.class, factory=ClassAssociationData.Metadata.ObjectFactory.class)
 public class ClassAssociationData extends ModelElementData {
-    @objid ("d25f5387-d558-40a3-9038-0caf92805dda")
+    @objid ("e1bb8d47-915c-4512-a211-3d3ff3644a08")
     @SmaMetaAssociation(metaName="NaryAssociationPart", typeDataClass=NaryAssociationData.class, min=0, max=1, smAssociationClass=Metadata.NaryAssociationPartSmDependency.class)
      SmObjectImpl mNaryAssociationPart;
 
-    @objid ("1f870dcf-132f-4955-a398-2dddfd982ec0")
+    @objid ("2bb71de5-7cf0-4667-a6a8-d537cbf67fa6")
     @SmaMetaAssociation(metaName="ClassPart", typeDataClass=ClassData.class, min=1, max=1, smAssociationClass=Metadata.ClassPartSmDependency.class, partof = true)
      SmObjectImpl mClassPart;
 
-    @objid ("78a15440-9f25-4820-8de8-086ef5724caa")
+    @objid ("4e78c434-b307-4f16-9762-954c17eda1a0")
     @SmaMetaAssociation(metaName="AssociationPart", typeDataClass=AssociationData.class, min=0, max=1, smAssociationClass=Metadata.AssociationPartSmDependency.class)
      SmObjectImpl mAssociationPart;
 
-    @objid ("09f19e11-daa1-4e79-b6d8-6b789f5aa60a")
+    @objid ("3495f5af-c929-4797-b2af-a67b9b125d6b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00420cde-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("78e9ab98-f840-4bef-98f5-2b4ca39aa0be")
+        @objid ("f360c329-af91-45e0-a15e-855f66135791")
         private static SmClass smClass = null;
 
-        @objid ("1173d665-f565-4d40-9405-26ac79d96c48")
+        @objid ("9411ba81-a789-4f8b-8963-0a29d7cf39ef")
         private static SmDependency NaryAssociationPartDep = null;
 
-        @objid ("9de2d1aa-e775-426f-b94c-25b62442b1cd")
+        @objid ("e6b7a43a-434a-4434-ac30-6310e05543c2")
         private static SmDependency ClassPartDep = null;
 
-        @objid ("e216b786-19ca-4830-99ae-a5dfd32bfaec")
+        @objid ("dd7ae6f1-1f06-4a73-9477-4b5986fd2eb1")
         private static SmDependency AssociationPartDep = null;
 
-        @objid ("452d0d76-1e5a-442b-b8fc-4383be8cdf3e")
+        @objid ("4301dc9a-420f-464c-aba0-189ca3fa2c34")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ClassAssociationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("612cff3c-480d-4e4f-a9fb-be4401ba24dd")
+        @objid ("6fcdea96-cf50-49e5-95c1-45328e979813")
         public static SmDependency NaryAssociationPartDep() {
             if (NaryAssociationPartDep == null) {
             	NaryAssociationPartDep = classof().getDependencyDef("NaryAssociationPart");
@@ -91,7 +91,7 @@ public class ClassAssociationData extends ModelElementData {
             return NaryAssociationPartDep;
         }
 
-        @objid ("8fba02a7-946b-4a69-ad8e-8e754a299c49")
+        @objid ("cf064d6b-0fea-41a0-9aee-e1c2619b5bac")
         public static SmDependency ClassPartDep() {
             if (ClassPartDep == null) {
             	ClassPartDep = classof().getDependencyDef("ClassPart");
@@ -99,7 +99,7 @@ public class ClassAssociationData extends ModelElementData {
             return ClassPartDep;
         }
 
-        @objid ("ca2f3ef9-ffb0-41af-95dc-7c4e12adca27")
+        @objid ("b877a084-d0f3-4458-bc83-c04bedf751b8")
         public static SmDependency AssociationPartDep() {
             if (AssociationPartDep == null) {
             	AssociationPartDep = classof().getDependencyDef("AssociationPart");
@@ -107,25 +107,25 @@ public class ClassAssociationData extends ModelElementData {
             return AssociationPartDep;
         }
 
-        @objid ("e7609043-f303-4cd9-ae4c-0c256636dde9")
-        public static SmDependency getAssociationPartDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return AssociationPartDep;
-        }
-
-        @objid ("fb7a5602-93cb-4f83-9ae8-180d793354d4")
+        @objid ("bcba09f6-e07d-4ee3-82bd-958f4cf38805")
         public static SmDependency getClassPartDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ClassPartDep;
         }
 
-        @objid ("e6b07fc9-7966-4c8e-ab1b-0ca186262808")
+        @objid ("e1ae26bf-f76e-4c6a-8bb4-8acc4f5a1b9c")
         public static SmDependency getNaryAssociationPartDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return NaryAssociationPartDep;
         }
 
-        @objid ("ff228149-5f25-4bd4-a482-eddf995d1996")
+        @objid ("5c7ce87c-070b-42b4-8270-5588a2d41714")
+        public static SmDependency getAssociationPartDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return AssociationPartDep;
+        }
+
+        @objid ("74ef69d1-55a0-4d9a-80ac-e7c4d67938d9")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -133,12 +133,12 @@ public class ClassAssociationData extends ModelElementData {
 
         @objid ("00425194-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("1f589689-f2f9-42f4-9ec6-94ace37a8b11")
+            @objid ("1c4226b9-8b9e-44e5-9aa2-bd6ce17ab39a")
             public ISmObjectData createData() {
                 return new ClassAssociationData();
             }
 
-            @objid ("3ccabb6b-4885-41af-8c5c-fbd06179e540")
+            @objid ("a9fb3509-a810-4d9e-b626-a4d3e262181f")
             public SmObjectImpl createImpl() {
                 return new ClassAssociationImpl();
             }
@@ -147,18 +147,18 @@ public class ClassAssociationData extends ModelElementData {
 
         @objid ("0042b580-c4c3-1fd8-97fe-001ec947cd2a")
         public static class AssociationPartSmDependency extends SmSingleDependency {
-            @objid ("b843b16b-47c3-4312-b036-b0e3ced0d8dc")
+            @objid ("3a89ba8e-40e1-42c2-a53f-0be408b07260")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ClassAssociationData) data).mAssociationPart;
             }
 
-            @objid ("36193990-633d-48c6-86e9-8af04d97e41b")
+            @objid ("988da9ff-e35e-4102-b841-ed728b65bfeb")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ClassAssociationData) data).mAssociationPart = value;
             }
 
-            @objid ("09ab91bb-fb0f-4674-90d3-2d56b84109e3")
+            @objid ("da231db5-5693-4977-95e0-b5ee2cb8166f")
             @Override
             public SmDependency getSymetric() {
                 return AssociationData.Metadata.LinkToClassDep();
@@ -168,18 +168,18 @@ public class ClassAssociationData extends ModelElementData {
 
         @objid ("004318ea-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ClassPartSmDependency extends SmSingleDependency {
-            @objid ("1822535f-06d7-465d-a085-6638cf229104")
+            @objid ("b6f20258-c2ee-41c8-8045-afad738db03c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ClassAssociationData) data).mClassPart;
             }
 
-            @objid ("cf57eb58-944b-412a-bd04-5bec576aa514")
+            @objid ("b15dda93-48a4-4977-8a22-ebf22de01f6b")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ClassAssociationData) data).mClassPart = value;
             }
 
-            @objid ("2feab7d9-f734-46e3-95b6-2bb075c43338")
+            @objid ("579728b2-841b-45fc-8646-dfc2393cc0d0")
             @Override
             public SmDependency getSymetric() {
                 return ClassData.Metadata.LinkToAssociationDep();
@@ -189,18 +189,18 @@ public class ClassAssociationData extends ModelElementData {
 
         @objid ("004391bc-c4c3-1fd8-97fe-001ec947cd2a")
         public static class NaryAssociationPartSmDependency extends SmSingleDependency {
-            @objid ("116d1a32-f47a-423f-b333-c08ead71b8fe")
+            @objid ("968ac57e-d1a0-4f81-bccc-5137db914b94")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ClassAssociationData) data).mNaryAssociationPart;
             }
 
-            @objid ("4e9f51b6-86e9-4b8b-9c32-f968b875ac6a")
+            @objid ("2c78131e-5ba1-4dd2-ab3c-3d25af076227")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ClassAssociationData) data).mNaryAssociationPart = value;
             }
 
-            @objid ("73c7e4b3-e647-42b2-80ac-47df98d4d69e")
+            @objid ("8705a345-aec2-4ec6-8e00-3f4a1811496f")
             @Override
             public SmDependency getSymetric() {
                 return NaryAssociationData.Metadata.LinkToClassDep();

@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0039f63e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface OpaqueAction extends ActivityAction {
-    @objid ("c615a365-e4d3-4763-aaa6-1073de5d1c08")
+    @objid ("d03d6957-3fd2-4867-a7b0-b9af6ee746e3")
     String getBody();
 
-    @objid ("bd6f18c6-00b7-4e9b-8e29-11ce928ff38d")
+    @objid ("0fc41d19-07b1-4b6c-8e64-16aac4076674")
     void setBody(String value);
 
 }

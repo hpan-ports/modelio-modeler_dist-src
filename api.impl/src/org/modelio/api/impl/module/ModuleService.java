@@ -7,6 +7,7 @@ import org.modelio.api.module.IModule;
 import org.modelio.api.module.IModuleService;
 import org.modelio.api.module.IPeerModule;
 import org.modelio.mda.infra.service.IModuleRegistry;
+import org.modelio.mda.infra.service.IRTModule;
 
 /**
  * Implementation of IModuleService, using the {@link IModuleRegistry} to get started modules.
@@ -25,7 +26,7 @@ public class ModuleService implements IModuleService {
     @Override
     public Collection<IPeerModule> getAllPeerModules() {
         Collection<IPeerModule> ret = new ArrayList<>();
-        for (IModule module : this.moduleRegistry.getStartedModules()) {
+        for (IRTModule module : this.moduleRegistry.getStartedModules()) {
             ret.add(module.getPeerModule());
         }
         return ret;
@@ -34,7 +35,7 @@ public class ModuleService implements IModuleService {
     @objid ("6bdecc4e-6c7f-48ce-83e9-e6db0e07ab2a")
     @Override
     public <T extends IPeerModule> T getPeerModule(final Class<T> peerClass) {
-        for (IModule module : this.moduleRegistry.getStartedModules()) {
+        for (IRTModule module : this.moduleRegistry.getStartedModules()) {
             IPeerModule peerModule = module.getPeerModule();
             if (peerClass.isAssignableFrom(peerModule.getClass())) {
                 return peerClass.cast(peerModule);
@@ -46,7 +47,7 @@ public class ModuleService implements IModuleService {
     @objid ("5fac7393-13a8-4db2-9283-d1d4fc78a07b")
     @Override
     public IPeerModule getPeerModule(String moduleName) {
-        for (IModule module : this.moduleRegistry.getStartedModules()) {
+        for (IRTModule module : this.moduleRegistry.getStartedModules()) {
             if (module.getName().equals(moduleName)) {
                 return module.getPeerModule();
             }

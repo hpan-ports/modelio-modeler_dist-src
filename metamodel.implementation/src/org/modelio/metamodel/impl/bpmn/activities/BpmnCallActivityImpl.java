@@ -45,69 +45,69 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007f281c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnCallActivityImpl extends BpmnActivityImpl implements BpmnCallActivity {
-    @objid ("97ab6cfa-1c6b-4f4d-86ba-33d1b54fc3eb")
+    @objid ("32e2a691-414c-4f09-94fc-3c46058ede36")
     @Override
     public BpmnTask getCalledGlobalTask() {
         return (BpmnTask) getDepVal(BpmnCallActivityData.Metadata.CalledGlobalTaskDep());
     }
 
-    @objid ("915144ef-5417-419b-8195-987090184fd2")
+    @objid ("8eea8bea-d433-4308-80e1-88456d77bcd0")
     @Override
     public void setCalledGlobalTask(BpmnTask value) {
         appendDepVal(BpmnCallActivityData.Metadata.CalledGlobalTaskDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a0bf196e-ff2d-4bb2-88e6-516de81ca731")
+    @objid ("843bfbca-732d-409d-8c8b-d6e011d4075a")
     @Override
     public BpmnProcess getCalledProcess() {
         return (BpmnProcess) getDepVal(BpmnCallActivityData.Metadata.CalledProcessDep());
     }
 
-    @objid ("affe5808-f1f8-4be8-87fb-58542e865aa0")
+    @objid ("9016a099-1a50-4825-af37-4f6cf92555fc")
     @Override
     public void setCalledProcess(BpmnProcess value) {
         appendDepVal(BpmnCallActivityData.Metadata.CalledProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0528743e-f5f1-458c-82a6-b5d422613952")
+    @objid ("8844be9f-149a-48c6-b40e-eb5b825b3d44")
     @Override
     public Operation getCalledOperation() {
         return (Operation) getDepVal(BpmnCallActivityData.Metadata.CalledOperationDep());
     }
 
-    @objid ("39c537b9-3752-49e3-a1eb-daa2a82b0942")
+    @objid ("cdfa529b-6d40-40f5-aefe-6ed3e7c3a89d")
     @Override
     public void setCalledOperation(Operation value) {
         appendDepVal(BpmnCallActivityData.Metadata.CalledOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d78e4e08-e4e5-453a-8a6c-af3e50d6cfed")
+    @objid ("cb13ae5b-bf94-4b82-bb68-814ac6522034")
     @Override
     public Behavior getCalledBehavior() {
         return (Behavior) getDepVal(BpmnCallActivityData.Metadata.CalledBehaviorDep());
     }
 
-    @objid ("b6218233-2197-4c0b-9f44-3278ce30efcc")
+    @objid ("8b34b6ce-a578-4fe4-b7f3-da68dd12ae4f")
     @Override
     public void setCalledBehavior(Behavior value) {
         appendDepVal(BpmnCallActivityData.Metadata.CalledBehaviorDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0fbf1448-0094-438e-8f93-b443eb777911")
+    @objid ("08a16b08-952f-4722-874b-1539fcfb96a1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("47a61023-3121-4ac2-8eaf-f200ff4787e4")
+    @objid ("e21cd264-00f2-4d59-bbb3-d19d0a6a73cd")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("151319ab-aa38-43c5-b35b-47785c32ac90")
+    @objid ("329fab7c-f4d0-41ff-aa2b-2516fe7d76e1")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnCallActivity(this);

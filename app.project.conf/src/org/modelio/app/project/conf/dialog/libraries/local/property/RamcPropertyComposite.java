@@ -20,7 +20,7 @@
                                     
 
 /**
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.libraries.local.property;
 
@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.app.project.conf.dialog.ProjectModel;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
+import org.modelio.edition.html.htmleditor.HtmlComposer;
 import org.modelio.gproject.data.ramc.IModelComponentInfos.ExportedFile;
 import org.modelio.gproject.data.ramc.IModelComponentInfos;
 import org.modelio.ui.UIColor;
@@ -75,7 +76,7 @@ public class RamcPropertyComposite extends Composite {
     protected Text ramcVersionText = null;
 
     @objid ("dde9523d-04c7-4beb-821c-af3ee8d6ff0f")
-    protected Text ramcVersionHistoryText = null;
+    protected HtmlComposer ramcVersionHistoryText = null;
 
     @objid ("f314d1c1-3921-4549-8923-dcc6b7811bc1")
     private TableViewer ramcDependenciesList = null;
@@ -108,7 +109,9 @@ public class RamcPropertyComposite extends Composite {
         GridLayout mainAreaLayout = new GridLayout(2, false);
         this.setLayout(mainAreaLayout);
         createControls();
-        if (this.fragmentInfos != null) refresh();
+        if (this.fragmentInfos != null) {
+            refresh();
+        }
     }
 
     @objid ("7710d5ba-8ca0-4b8c-85f6-56c2cc761612")
@@ -165,7 +168,7 @@ public class RamcPropertyComposite extends Composite {
         this.ramcVersionHistoryLabel = new Label(area, SWT.NONE);
         this.ramcVersionHistoryLabel.setText(AppProjectConf.I18N.getString("RamcPropertyDialog.RamcVersionHistory"));
         
-        this.ramcVersionHistoryText = new Text(area, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+        this.ramcVersionHistoryText = new HtmlComposer(area, SWT.BORDER | SWT.MULTI);
         this.ramcVersionHistoryText.setEditable(false);
         
         this.ramcVersionHistoryText.setForeground(UIColor.EDITOR_ROTEXT_FG);
@@ -186,7 +189,7 @@ public class RamcPropertyComposite extends Composite {
         this.ramcDependenciesLabel.setText(AppProjectConf.I18N.getString("RamcPropertyDialog.RamcDependencies"));
         
         this.initDependenciesListViewer(area);
-                       
+        
         final GridData gd_ramcDependenciesLabel = new GridData(SWT.LEFT, SWT.UP, false, false, 1, 1);
         this.ramcDependenciesLabel.setLayoutData(gd_ramcDependenciesLabel);
     }
@@ -242,13 +245,15 @@ public class RamcPropertyComposite extends Composite {
         } else {
             String buildVersion = String.format("%02d", ramcVersion.getBuildVersion());
             this.ramcVersionText.setText(ramcVersion.getMajorVersion() +
-                                         "." +
-                                         ramcVersion.getMinorVersion() +
-                                         "." +
-                                         buildVersion);
+                    "." +
+                    ramcVersion.getMinorVersion() +
+                    "." +
+                    buildVersion);
         }
         
-        this.ramcVersionHistoryText.setText(this.fragmentInfos.getDescription());
+        this.ramcVersionHistoryText.setEditable(false);
+        this.ramcVersionHistoryText.setEnabled(false);
+        this.ramcVersionHistoryText.setHtml(this.fragmentInfos.getDescription());
         this.ramcDependenciesList.setInput(this.fragmentInfos.getRequiredModelComponents());
         this.ramcContributingModulesList.setInput(this.fragmentInfos.getContributingModules());
         this.ramcFilesList.setInput(getRamcExportedFiles());
@@ -275,7 +280,7 @@ public class RamcPropertyComposite extends Composite {
         this.ramcContributingModulesLabel.setText(AppProjectConf.I18N.getString("RamcPropertyDialog.RamcContributingModules"));
         
         this.initContributingModulesListViewer(area);
-                       
+        
         final GridData gd_ramcContributingModulesLabel = new GridData(SWT.LEFT, SWT.UP, false, false, 1, 1);
         this.ramcContributingModulesLabel.setLayoutData(gd_ramcContributingModulesLabel);
     }

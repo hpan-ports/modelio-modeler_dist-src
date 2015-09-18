@@ -31,22 +31,22 @@ import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 
 @objid ("008e8d34-c4be-1fd8-97fe-001ec947cd2a")
 public interface TagParameter extends Element {
-    @objid ("e83c8005-d061-4700-8723-f82a75db4b1b")
+    @objid ("c6163420-6049-412a-b71f-b670ff85fc39")
     String getValue();
 
-    @objid ("36a7450d-5510-4762-bf8d-d56e4d4b7b56")
+    @objid ("c343e143-c58f-4173-8593-c9f048bd4bb9")
     void setValue(String value);
 
-    @objid ("ab7b0e57-9569-481d-801d-293024871253")
+    @objid ("a5b5b835-36b2-46c2-a100-76a6dcb96b2d")
     TaggedValue getAnnoted();
 
-    @objid ("56696b11-30e8-481c-9558-42def720e887")
+    @objid ("93322be3-23ba-4455-af10-932d4f42c5cc")
     void setAnnoted(TaggedValue value);
 
-    @objid ("87b26100-1571-4f74-8365-702f211498cf")
+    @objid ("e850cd80-85df-40e2-ba64-82ef6d897132")
     TaggedValue getQualified();
 
-    @objid ("664471f2-bb8a-4e16-821c-56cb3fdfa937")
+    @objid ("7c3a6a27-c52f-45d6-ae7f-fdb047f8e0c3")
     void setQualified(TaggedValue value);
 
 }

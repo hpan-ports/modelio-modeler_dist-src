@@ -306,7 +306,7 @@ public class SerializedRepository implements IRepository {
     }
 
     @objid ("0071110a-fd1a-1f27-a7da-001ec947cd2a")
-    void load(final SmObjectImpl obj) throws IOException, DuplicateObjectException {
+    void load(final SmObjectImpl obj) throws DuplicateObjectException, IOException {
         Path f = getFile(obj.getClassOf(), obj.getUuid());
         if (!Files.isRegularFile(f)) {
             return;

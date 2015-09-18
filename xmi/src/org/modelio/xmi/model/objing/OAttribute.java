@@ -36,12 +36,12 @@ import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.KindOfAccess;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.util.ModelioPrimitiveTypeMapper;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.StringConverter;
 import org.modelio.xmi.util.XMILogs;
 
@@ -386,8 +386,8 @@ public class OAttribute extends OFeature {
         // Getting type of the Attribute:
         GeneralClass objingType = this.objingElement.getType();
         if (objingType != null) {
-            if (PrimitiveTypeMapper.isPredefinedType(objingType)) {
-                 PrimitiveTypeMapper.setEcorePredefinedType(ecoreProp, (DataType) objingType);
+            if (ModelioPrimitiveTypeMapper.isPredefinedType(objingType)) {
+                ModelioPrimitiveTypeMapper.setEcorePredefinedType(ecoreProp, (DataType) objingType);
             } else {
                 GenerationProperties genProp = GenerationProperties.getInstance();
                 

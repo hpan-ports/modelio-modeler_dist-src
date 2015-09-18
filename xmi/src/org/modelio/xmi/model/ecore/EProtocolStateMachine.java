@@ -23,7 +23,7 @@ package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("603c2e8c-f558-4f9c-862e-18692a0e8974")
 public class EProtocolStateMachine extends EStateMachine {
@@ -31,7 +31,7 @@ public class EProtocolStateMachine extends EStateMachine {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createStateMachine();
+                        .createStateMachine();
     }
 
     @objid ("ff0831a5-b408-4788-a1ed-4b5d65c55898")

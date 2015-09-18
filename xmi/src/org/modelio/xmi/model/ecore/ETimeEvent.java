@@ -26,7 +26,7 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("50c15a1d-a07c-45de-9343-64cf62432269")
 public class ETimeEvent extends ENamedElement {

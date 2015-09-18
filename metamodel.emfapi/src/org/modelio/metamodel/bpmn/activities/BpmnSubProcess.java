@@ -34,28 +34,28 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
 
 @objid ("00843028-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnSubProcess extends BpmnActivity {
-    @objid ("dcf76919-ec55-4d77-ba89-5704eed87d3e")
+    @objid ("f17259b7-69ba-4d35-98cc-502a52ab219b")
     boolean isTriggeredByEvent();
 
-    @objid ("e6d4e845-d2fb-4ea6-ad98-77722f9d35bb")
+    @objid ("a347f13b-73e2-4bf9-8171-c8ab29ad80a9")
     void setTriggeredByEvent(boolean value);
 
-    @objid ("b12c877f-f9e3-40bf-997c-e6209e8937db")
+    @objid ("29885955-862e-4c65-950c-25a344724959")
     EList<BpmnArtifact> getArtifact();
 
-    @objid ("46c1d5bc-b311-4d3c-8167-4a43de3ab226")
+    @objid ("404f9a14-5a94-424c-b1af-0cca6a532490")
     <T extends BpmnArtifact> List<T> getArtifact(java.lang.Class<T> filterClass);
 
-    @objid ("ec6cf17a-8d3c-414b-8635-482e1ec5f45a")
+    @objid ("34fc7dc2-72cc-4611-a525-c7c0e6419134")
     EList<BpmnFlowElement> getFlowElement();
 
-    @objid ("228a8807-376d-42b2-ab13-159721544c03")
+    @objid ("ae0dfdda-429b-45c3-927a-14a3306e6a13")
     <T extends BpmnFlowElement> List<T> getFlowElement(java.lang.Class<T> filterClass);
 
-    @objid ("5c4fdced-30d9-4681-b21d-af3512ac8ea8")
+    @objid ("116a2930-4071-49a2-8b9c-42730907fead")
     EList<BpmnLaneSet> getLaneSet();
 
-    @objid ("bbe572b1-5188-4233-807c-9f7538737e4f")
+    @objid ("4835dfc7-2326-4b1a-8b7a-c411ea3651ce")
     <T extends BpmnLaneSet> List<T> getLaneSet(java.lang.Class<T> filterClass);
 
 }

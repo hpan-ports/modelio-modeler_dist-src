@@ -25,8 +25,8 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.model.IModelingSession;
 import org.modelio.script.engine.plugin.ScriptEnginePlugin;
+import org.python.core.Options;
 
 /**
  * Factory to use to get a {@link IScriptRunner}.
@@ -74,6 +74,9 @@ public class ScriptRunnerFactory {
         switch (scriptingLanguage) {
         case "python":
         case "jython":
+            // Needed to load Jython 2.7-b3 engine.
+            Options.importSite = false;
+        
             ScriptEngine engine = this.scriptEngineManager.getEngineByName("jython");
         
             return (engine != null) ? new PythonRunner(engine) : null;

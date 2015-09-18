@@ -67,7 +67,7 @@ public class ProjectInfosView {
     @objid ("0070fbd4-9092-105c-84ef-001ec947cd2a")
     @Inject
     @Optional
-    public MApplication application;
+    private MApplication application;
 
     @objid ("00711ed4-9092-105c-84ef-001ec947cd2a")
     @Inject
@@ -77,7 +77,7 @@ public class ProjectInfosView {
     @objid ("0071415c-9092-105c-84ef-001ec947cd2a")
     @Inject
     @Optional
-    public EPartService partService;
+    private EPartService partService;
 
     /**
      * The project adapter to the project that is currently being displayed by
@@ -113,7 +113,7 @@ public class ProjectInfosView {
 
     /**
      * Workspace tree selection always comes as ProjectDescriptor.
-     * @param selectedProject the project selected in the workspace browser
+     * @param selection the project selected in the workspace browser
      */
     @objid ("00076606-ef92-1fc5-854f-001ec947cd2a")
     @Optional
@@ -170,7 +170,8 @@ public class ProjectInfosView {
                     view.setContributionURI("bundleclass://org.modelio.app.project.ui/org.modelio.app.project.ui.views.infos.ProjectPageView");
                     view.setLabel(entry.name);
                     view.setCloseable(false);
-                    stack.getChildren().add(view);
+                    // add the tab before the default "Information" tab
+                    stack.getChildren().add(stack.getChildren().size() - 1, view);
                     this.partService.showPart(view, PartState.VISIBLE);
                     ((ProjectPageView) view.getObject()).setUrl(entry.url);
                 }

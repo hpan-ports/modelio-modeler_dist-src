@@ -32,22 +32,22 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("00772770-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnAssociation extends BpmnArtifact {
-    @objid ("e9969ef0-2335-42e6-a31d-012d69c3ec05")
+    @objid ("8cf5b933-bf09-480f-ba4a-3fd53efc42a9")
     BpmnAssociationDirection getAssociationDirection();
 
-    @objid ("9d77a92a-7f47-4b50-8838-dff2fc0252e4")
+    @objid ("b9bcecdf-5a86-4359-8d6f-412c8f4613a8")
     void setAssociationDirection(BpmnAssociationDirection value);
 
-    @objid ("392dee37-b000-4a87-8719-9d58a0f9dda2")
+    @objid ("f073da67-ef5d-45e1-89d5-35b904ece689")
     BpmnBaseElement getTargetRef();
 
-    @objid ("cb188292-4601-43bf-b9d5-e07129e33619")
+    @objid ("51d50cf4-ce99-4271-8114-4325c1367e56")
     void setTargetRef(BpmnBaseElement value);
 
-    @objid ("b8d4de90-a298-4058-a897-6e667003b1e0")
+    @objid ("9a3b4aaf-5bda-49c5-a1eb-80ddbeb9e99b")
     BpmnBaseElement getSourceRef();
 
-    @objid ("393e05b1-cb14-4a9b-a660-2da1ddfc859e")
+    @objid ("64e06ca5-3f6f-4b17-8253-8b0a0159bc48")
     void setSourceRef(BpmnBaseElement value);
 
 }

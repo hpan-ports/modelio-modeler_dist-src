@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("009813cc-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnEventBasedGatewayImpl extends BpmnGatewayImpl implements BpmnEventBasedGateway {
-    @objid ("501ac22a-3260-48bc-b1cc-37848a9d5272")
+    @objid ("a390cf36-dc0a-4ab3-bbc9-5f0c4b643eae")
     @Override
     public boolean isInstanciate() {
         return (Boolean) getAttVal(BpmnEventBasedGatewayData.Metadata.InstanciateAtt());
     }
 
-    @objid ("ea1b8c49-9b0a-4090-8bcb-9c4744f28639")
+    @objid ("f1ebed1e-5175-4abe-99b5-6a58cafb8d68")
     @Override
     public void setInstanciate(boolean value) {
         setAttVal(BpmnEventBasedGatewayData.Metadata.InstanciateAtt(), value);
     }
 
-    @objid ("4f853428-c021-4f4b-8f51-48816bc97542")
+    @objid ("8ea85334-7ade-43fb-afb7-8e01f27eba2d")
     @Override
     public BpmnEventBasedGatewayType getEventGatewayType() {
         return (BpmnEventBasedGatewayType) getAttVal(BpmnEventBasedGatewayData.Metadata.EventGatewayTypeAtt());
     }
 
-    @objid ("373f4166-aadb-4e48-8454-a69b1779056d")
+    @objid ("c3607a05-be1e-40c4-b93d-29c4fd709e11")
     @Override
     public void setEventGatewayType(BpmnEventBasedGatewayType value) {
         setAttVal(BpmnEventBasedGatewayData.Metadata.EventGatewayTypeAtt(), value);
     }
 
-    @objid ("01e35d97-cac7-4655-827c-be5563d62358")
+    @objid ("ece22eac-85ce-47eb-a356-3f215cbf0c5d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("03d12e55-e906-4bfc-a2ee-6363a38f821b")
+    @objid ("6c2150e2-6740-4244-a896-543b1f44ec30")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("1785283c-1952-4bed-b410-8bd3f6d9e07c")
+    @objid ("81026c28-6449-455b-b17c-c4e3e8858a34")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnEventBasedGateway(this);

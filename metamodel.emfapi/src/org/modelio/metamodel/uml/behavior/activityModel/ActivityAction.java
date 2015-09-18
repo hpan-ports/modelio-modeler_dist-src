@@ -34,34 +34,34 @@ import org.modelio.metamodel.uml.behavior.activityModel.OutputPin;
 
 @objid ("002688d8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityAction extends ActivityNode {
-    @objid ("d1e3ac4b-8ef6-4fa3-82c5-86a8a40e2de7")
+    @objid ("e9bea070-012b-4e1d-9416-0ec3aa0b6573")
     boolean isIsMultipleInstance();
 
-    @objid ("2ce1c63d-573b-487c-850d-fcde761dd146")
+    @objid ("15bc603b-9cea-42ca-a4f2-a8e91f380d40")
     void setIsMultipleInstance(boolean value);
 
-    @objid ("1a74e3a0-2444-4836-ae22-285361534b4e")
+    @objid ("9effc5de-33b1-4df3-99c1-8aad26e400d6")
     boolean isIsCompensation();
 
-    @objid ("690e08a9-6db2-4b54-81bf-64ddc78fbffa")
+    @objid ("01c7a2ad-978d-4679-a39f-82e91d955fcd")
     void setIsCompensation(boolean value);
 
-    @objid ("332768e3-c785-4675-bbd3-3242971bf9aa")
+    @objid ("909b9c3c-3c6e-4d3e-84e0-92984669a1e2")
     EList<OutputPin> getOutput();
 
-    @objid ("6080408c-812e-43ee-9358-68bc73fd5156")
+    @objid ("57a56525-e047-4e22-96e3-39b50458bf1d")
     <T extends OutputPin> List<T> getOutput(java.lang.Class<T> filterClass);
 
-    @objid ("fbc18abd-fb27-49d2-ad9e-7355acc33fe1")
+    @objid ("e33c64d7-265a-4196-b48b-c84fdadce9bd")
     EList<InputPin> getInput();
 
-    @objid ("5376e689-1443-4ba6-8b3a-3ab1cee7d3ef")
+    @objid ("38065dbc-935e-406f-89c1-4c4fa4f62bd2")
     <T extends InputPin> List<T> getInput(java.lang.Class<T> filterClass);
 
-    @objid ("a636dba6-399f-4b89-8bd8-2796b638ee36")
+    @objid ("8dd42120-159f-4a41-8230-145efffd3ddc")
     EList<ExceptionHandler> getHandler();
 
-    @objid ("73153f93-a37d-4ce0-81e5-1d12bc3d4de1")
+    @objid ("25d50f9d-dede-4fe8-bb1d-a1ca02e97840")
     <T extends ExceptionHandler> List<T> getHandler(java.lang.Class<T> filterClass);
 
 }

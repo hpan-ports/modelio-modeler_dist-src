@@ -37,20 +37,20 @@ import org.modelio.audit.engine.core.IRule;
 
 @objid ("6c0b5510-231d-4939-9c54-5140e1b0efd6")
 public class AuditPlan implements IAuditPlan {
-    @objid ("babe9213-ea4a-482d-b0d4-10907fddd266")
-    private Map<String, ArrayList<IRule>> createRules = new HashMap<>();
-
-    @objid ("c62e6db8-276b-4f59-84a8-2e03b78f921e")
-    private Map<String, ArrayList<IRule>> updateRules = new HashMap<>();
-
-    @objid ("57024f50-7fed-47ec-b80b-66b0b429ae19")
-    private Map<String, ArrayList<IRule>> moveRules = new HashMap<>();
-
-    @objid ("5342baed-0686-42a8-b899-e4997248e476")
-    private Map<String, ArrayList<IRule>> deleteRules = new HashMap<>();
-
     @objid ("4f9230f5-fc5e-48cc-86c6-a2eda37c1afd")
     private Map<String, IRule> unspecifiedRule = new HashMap<>();
+
+    @objid ("0cc81ec0-4fca-4859-b869-daef03791496")
+    private Map<String, ArrayList<IRule>> createRules = new HashMap<>();
+
+    @objid ("289982f3-0722-42f8-8eb9-d36f454492f2")
+    private Map<String, ArrayList<IRule>> updateRules = new HashMap<>();
+
+    @objid ("56ace0f2-c351-4f00-9d68-0e3faaa4e0d0")
+    private Map<String, ArrayList<IRule>> moveRules = new HashMap<>();
+
+    @objid ("8a94cb65-0a10-42d9-b678-93473e7f146f")
+    private Map<String, ArrayList<IRule>> deleteRules = new HashMap<>();
 
     @objid ("758101c6-377b-471b-9956-0ba4366323b4")
     @Override

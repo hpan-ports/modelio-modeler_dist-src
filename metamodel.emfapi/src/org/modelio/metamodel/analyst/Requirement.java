@@ -32,34 +32,34 @@ import org.modelio.metamodel.analyst.RequirementContainer;
 
 @objid ("2a1baa12-05dd-4955-bc67-2839831d9bb9")
 public interface Requirement extends AnalystElement {
-    @objid ("25438924-f141-4259-b5e9-913c5969e3d5")
+    @objid ("93ef46ce-ba2d-44e0-9362-e1c64ca37b8e")
     EList<Requirement> getSubRequirement();
 
-    @objid ("a4bfd9df-9522-4121-b835-d4b2ee659ed0")
+    @objid ("d9a077c7-1ef5-406a-9847-09b6c3e1c69c")
     <T extends Requirement> List<T> getSubRequirement(java.lang.Class<T> filterClass);
 
-    @objid ("b1bfd6e5-02e4-43f1-90c2-8bbf82dc79ed")
+    @objid ("a132eaba-20fb-49e1-b014-d9cca0bf7ec4")
     RequirementContainer getOwnerContainer();
 
-    @objid ("92c1328a-7748-4d30-aba2-f920bcd0ca5b")
+    @objid ("44758141-5809-4031-bc8f-bb970a4bec45")
     void setOwnerContainer(RequirementContainer value);
 
-    @objid ("ef3e4427-e20f-4e23-8392-679ded1c4eee")
+    @objid ("66ece3a2-0139-4388-aacc-f58dd132aa2f")
     Requirement getParentRequirement();
 
-    @objid ("68343a5b-9124-4243-bb96-790ca93ead84")
+    @objid ("c737cd83-4827-48e8-b49e-c1f21706268e")
     void setParentRequirement(Requirement value);
 
-    @objid ("e49caf1b-4989-4ed6-ac2f-6f42e9f6b6ed")
+    @objid ("e6c81b0a-3093-4689-8f61-2076080c060f")
     EList<Requirement> getArchivedRequirementVersion();
 
-    @objid ("d0af6771-35dd-4b33-8c5f-b0be82e9ed20")
+    @objid ("d8948b8d-ee98-469c-b00a-89438d07b142")
     <T extends Requirement> List<T> getArchivedRequirementVersion(java.lang.Class<T> filterClass);
 
-    @objid ("9d93c209-5e04-4e3b-93a5-b26edea55cea")
+    @objid ("0c12c15e-e619-4087-80c1-d819343bfb65")
     Requirement getLastRequirementVersion();
 
-    @objid ("d1d209b2-bb60-4700-b9c3-8f063dc101de")
+    @objid ("233a6943-628e-443f-96f0-5004eb5780f6")
     void setLastRequirementVersion(Requirement value);
 
 }

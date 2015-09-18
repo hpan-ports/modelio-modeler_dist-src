@@ -42,8 +42,8 @@ public class RTDocument extends Document {
     @Override
     public void replace(int offset, int length, String text) throws BadLocationException {
         if (length > 0) {
-            ITypedRegion[] typedRegions = computePartitioning(offset, length);
-            for (ITypedRegion typedRegion : typedRegions) {
+            final ITypedRegion[] typedRegions = computePartitioning(offset, length);
+            for (final ITypedRegion typedRegion : typedRegions) {
                 if (!isWritablePartition(typedRegion)) {
                     return;
                 }
@@ -54,16 +54,17 @@ public class RTDocument extends Document {
             // setCurrentPartionner(replacePartitionner);
             super.replace(offset, length, text);
             // setCurrentPartionner(stdPartitionner);
-        } else
+        } else {
             Display.getDefault().beep();
+        }
     }
 
     @objid ("7b6a6590-2a77-11e2-9fb9-bc305ba4815c")
     @Override
     public void replace(int offset, int length, String text, long timestamp) throws BadLocationException {
         if (length > 0) {
-            ITypedRegion[] typedRegions = computePartitioning(offset, length);
-            for (ITypedRegion typedRegion : typedRegions) {
+            final ITypedRegion[] typedRegions = computePartitioning(offset, length);
+            for (final ITypedRegion typedRegion : typedRegions) {
                 if (!isWritablePartition(typedRegion)) {
                     return;
                 }
@@ -74,15 +75,16 @@ public class RTDocument extends Document {
             // setCurrentPartionner(replacePartitionner);
             super.replace(offset, length, text, timestamp);
             // setCurrentPartionner(stdPartitionner);
-        } else
+        } else {
             Display.getDefault().beep();
+        }
     }
 
     @objid ("7b6a6597-2a77-11e2-9fb9-bc305ba4815c")
     protected boolean isWritablePosition(int offset) {
         try {
             return isWritablePartition(this.getPartition(offset));
-        } catch (BadLocationException e) {
+        } catch (final BadLocationException e) {
             e.printStackTrace();
             return true;
         }
@@ -90,7 +92,7 @@ public class RTDocument extends Document {
 
     @objid ("7b6a659b-2a77-11e2-9fb9-bc305ba4815c")
     protected boolean isWritablePartition(ITypedRegion r) {
-        return (r.getType() != "_OBJINGID");
+        return ! "_OBJINGID".equals(r.getType());
     }
 
     /**

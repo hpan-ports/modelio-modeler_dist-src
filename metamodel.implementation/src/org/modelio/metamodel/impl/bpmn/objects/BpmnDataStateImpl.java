@@ -44,31 +44,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00087bf4-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnDataStateImpl extends BpmnBaseElementImpl implements BpmnDataState {
-    @objid ("20946d46-922f-47da-ac77-0699b0cd0a00")
+    @objid ("cba66877-bea8-42d6-9cbb-1177f4d9b7c1")
     @Override
     public BpmnItemAwareElement getItem() {
         return (BpmnItemAwareElement) getDepVal(BpmnDataStateData.Metadata.ItemDep());
     }
 
-    @objid ("7e2c44c2-0f1d-4a85-96b2-ea1c7c5a6d12")
+    @objid ("508ed418-41b9-4f6c-b0ce-f749092ddd05")
     @Override
     public void setItem(BpmnItemAwareElement value) {
         appendDepVal(BpmnDataStateData.Metadata.ItemDep(), (SmObjectImpl)value);
     }
 
-    @objid ("29303335-2384-4824-9cba-228cd67f4ad0")
+    @objid ("6b6ef0de-6a1d-489b-8762-2db9041262d1")
     @Override
     public State getUmlState() {
         return (State) getDepVal(BpmnDataStateData.Metadata.UmlStateDep());
     }
 
-    @objid ("e6179c9e-623a-4c99-ac87-7ff91d1820c2")
+    @objid ("1ab16ca4-ec87-457f-a632-05fbd6b70c54")
     @Override
     public void setUmlState(State value) {
         appendDepVal(BpmnDataStateData.Metadata.UmlStateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4b157705-bb64-44ce-8698-ac4398a67a87")
+    @objid ("ea7e6d1a-6573-44ec-9428-78d7bf3823f8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -78,7 +78,7 @@ public class BpmnDataStateImpl extends BpmnBaseElementImpl implements BpmnDataSt
         return super.getCompositionOwner();
     }
 
-    @objid ("b8e84fac-5b65-4528-a566-58404a1abb5b")
+    @objid ("0b9e0bc9-1b80-4961-a353-d328750d9ed7")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -88,7 +88,7 @@ public class BpmnDataStateImpl extends BpmnBaseElementImpl implements BpmnDataSt
         return super.getCompositionRelation();
     }
 
-    @objid ("59276aa1-cd1e-4eb7-9dcf-7405a7137cba")
+    @objid ("3f94b096-6ab8-4a7e-9a44-d15c6a6debac")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnDataState(this);

@@ -30,8 +30,8 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("76c0c65a-b9c5-4154-bf7d-b9e9a63fcf8d")
 public class EExecutionEvent extends ENamedElement {

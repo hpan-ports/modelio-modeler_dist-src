@@ -26,8 +26,8 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.InternalTransition;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.XMILogs;
 
@@ -38,7 +38,7 @@ import org.modelio.xmi.util.XMILogs;
 @objid ("8a8f2b8c-c363-4f84-b418-d76134d7679c")
 public class OInternalTransition extends OTransition {
     @objid ("62ebbc0f-52ec-452c-93fd-46a6fb8b42dd")
-    private org.eclipse.uml2.uml.OpaqueBehavior ecoreBehavior = null;
+    private org.eclipse.uml2.uml.OpaqueBehavior ecoreOpaqueBehavior = null;
 
     @objid ("c92e497a-3025-42cc-ad6a-8961d599b30a")
     @Override
@@ -84,26 +84,26 @@ public class OInternalTransition extends OTransition {
                
         if (received != null) {
             if  (received.equals("Entry")){
-                ecoreState.setEntry(this.ecoreBehavior);               
+                ecoreState.setEntry(this.ecoreOpaqueBehavior);               
             }else if  (received.equals("Exit")){
-                ecoreState.setExit(this.ecoreBehavior);
+                ecoreState.setExit(this.ecoreOpaqueBehavior);
             }else {
-                ecoreState.setDoActivity(this.ecoreBehavior);
+                ecoreState.setDoActivity(this.ecoreOpaqueBehavior);
             }
         }else{
-            this.ecoreBehavior.destroy();
+            this.ecoreOpaqueBehavior.destroy();
         }
     }
 
     @objid ("3a7d26d8-1237-4082-8aed-01f7b2ee6695")
     private void setAdditionalValues() {
         InternalTransition internalTransition = (InternalTransition) getObjingElement();
-        if (this.ecoreBehavior != null){
+        if (this.ecoreOpaqueBehavior != null){
             if (internalTransition.getEffect() != null)
-                ObjingEAnnotation.setEffect(this.ecoreBehavior, internalTransition.getEffect());
+                ObjingEAnnotation.setEffect(this.ecoreOpaqueBehavior, internalTransition.getEffect());
         
             if (internalTransition.getPostCondition() != null)
-                ObjingEAnnotation.setPostCondition(this.ecoreBehavior, internalTransition.getPostCondition());
+                ObjingEAnnotation.setPostCondition(this.ecoreOpaqueBehavior, internalTransition.getPostCondition());
         
         }else{
             String message = Xmi.I18N.getMessage("logFile.warning.export.internalTransitionHaveNotBehavior", 
@@ -119,8 +119,8 @@ public class OInternalTransition extends OTransition {
         String effect = transition.getEffect();
         if ((effect != null) && (!effect.equals(""))){
             // String Case
-            this.ecoreBehavior = UMLFactory.eINSTANCE.createOpaqueBehavior();
-            this.ecoreBehavior.getBodies().add(effect);
+            this.ecoreOpaqueBehavior = UMLFactory.eINSTANCE.createOpaqueBehavior();
+            this.ecoreOpaqueBehavior.getBodies().add(effect);
         }else{
         
             //Behavior Case
@@ -131,8 +131,8 @@ public class OInternalTransition extends OTransition {
         
                 if ((ecoreBehavior != null) && (ecoreBehavior instanceof org.eclipse.uml2.uml. Behavior)){
         
-                    this.ecoreBehavior = UMLFactory.eINSTANCE.createOpaqueBehavior();
-                    this.ecoreBehavior.getRedefinedBehaviors().add((org.eclipse.uml2.uml.Behavior)ecoreBehavior);
+                    this.ecoreOpaqueBehavior = UMLFactory.eINSTANCE.createOpaqueBehavior();
+                    this.ecoreOpaqueBehavior.getRedefinedBehaviors().add((org.eclipse.uml2.uml.Behavior)ecoreBehavior);
                 }
         
             }
@@ -147,8 +147,8 @@ public class OInternalTransition extends OTransition {
         if (objingOperation != null) {
             Object effect = GenerationProperties.getInstance().getMappedElement(objingOperation);
             if (effect instanceof org.eclipse.uml2.uml. BehavioralFeature){                
-                this.ecoreBehavior = UMLFactory.eINSTANCE.createOpaqueBehavior();                
-                this.ecoreBehavior.setSpecification((org.eclipse.uml2.uml.BehavioralFeature) effect);
+                this.ecoreOpaqueBehavior = UMLFactory.eINSTANCE.createOpaqueBehavior();                
+                this.ecoreOpaqueBehavior.setSpecification((org.eclipse.uml2.uml.BehavioralFeature) effect);
             }
         }
     }

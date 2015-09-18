@@ -31,8 +31,8 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Parameter;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("eb0142f7-a3cf-4823-8b0f-5757b54b0d06")
 public class EActivityParameterNode extends EActivityNode {

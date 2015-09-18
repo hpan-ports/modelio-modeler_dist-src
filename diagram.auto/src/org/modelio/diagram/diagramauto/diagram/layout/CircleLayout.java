@@ -39,7 +39,7 @@ import org.modelio.api.diagram.InvalidSourcePointException;
 @objid ("578596b5-501f-4968-a428-7d1157e48096")
 public class CircleLayout {
     @objid ("2b58ff6a-0dbf-473e-aeb9-16c335ef1da1")
-    public void layout(final IDiagramHandle dh, final List<IDiagramNode> contentDgs) throws InvalidSourcePointException, InvalidPointsPathException, InvalidDestinationPointException {
+    public void layout(final IDiagramHandle dh, final List<IDiagramNode> contentDgs) throws InvalidSourcePointException, InvalidDestinationPointException, InvalidPointsPathException {
         int maxWidth = 0;
         int maxHeight = 0;
         

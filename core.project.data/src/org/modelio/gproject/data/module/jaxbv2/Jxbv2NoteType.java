@@ -44,6 +44,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  * &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  * &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" />
+ * &lt;attribute name="mime-type" type="{http://www.w3.org/2001/XMLSchema}string" default="text/plain" />
  * &lt;attribute name="is-hidden" type="{http://www.w3.org/2001/XMLSchema}string" />
  * &lt;attribute name="uid" type="{http://www.w3.org/2001/XMLSchema}string" />
  * &lt;/restriction>
@@ -70,6 +71,10 @@ public class Jxbv2NoteType {
     @objid ("b2f4de30-6315-438d-8500-f26a5464d966")
     @XmlAttribute(name = "uid")
     protected String uid;
+
+    @objid ("7bf983ef-dbfd-431f-b67e-2605c2858141")
+    @XmlAttribute(name = "mime-type")
+    protected String mimeType;
 
     /**
      * Gets the value of the name property.
@@ -153,6 +158,31 @@ public class Jxbv2NoteType {
     @objid ("6bad6339-d84e-4690-aafd-75a08dccdd3b")
     public void setUid(String value) {
         this.uid = value;
+    }
+
+    /**
+     * Gets the value of the mimeType property.
+     * @return
+     * possible object is
+     * {@link String }
+     */
+    @objid ("1486052f-f515-4915-a64c-793fb0300105")
+    public String getMimeType() {
+        if (this.mimeType == null) {
+            return "text/plain";
+        } else {
+            return this.mimeType;
+        }
+    }
+
+    /**
+     * Sets the value of the mimeType property.
+     * @param value allowed object is
+     * {@link String }
+     */
+    @objid ("e163cd3c-7bf8-43f6-bf7b-9d0c0c1dd523")
+    public void setMimeType(String value) {
+        this.mimeType = value;
     }
 
 }

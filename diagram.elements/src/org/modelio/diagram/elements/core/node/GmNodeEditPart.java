@@ -42,6 +42,9 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.LocationRequest;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.modelio.app.core.activation.IActivationService;
+import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.diagram.elements.core.commands.FitToMinSizeCommand;
 import org.modelio.diagram.elements.core.figures.IBrushOptionsSupport;
 import org.modelio.diagram.elements.core.figures.IPenOptionsSupport;
@@ -54,6 +57,7 @@ import org.modelio.diagram.elements.core.policies.DefaultDeleteNodeEditPolicy;
 import org.modelio.diagram.elements.core.policies.DefaultElementDropEditPolicy;
 import org.modelio.diagram.elements.core.policies.DelegatingDirectEditionEditPolicy;
 import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
+import org.modelio.diagram.elements.core.requests.NavigationRequest;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey.FillMode;
@@ -110,7 +114,7 @@ public abstract class GmNodeEditPart extends AbstractGraphicalEditPart implement
      * Returns an object which is an instance of the given class associated with this object. Returns <code>null</code>
      * if no such object can be found.
      * <p>
-     * Extends {@link AbstractGraphicalEditPart#getAdapter(Class)} to support {@link Element}, {@link IGmObject},
+     * Extends {@link AbstractGraphicalEditPart#getAdapter(Class)} to support {@link MObject}, {@link IGmObject},
      * {@link GmModel} and their subclasses.
      * @see IAdaptable#getAdapter(Class)
      * @param adapter the adapter class to look up
@@ -123,15 +127,17 @@ public abstract class GmNodeEditPart extends AbstractGraphicalEditPart implement
         final Object model = getModel();
         
         // Support IGmObject, GmModel and its subclasses
-        if (adapter.isInstance(model))
+        if (adapter.isInstance(model)) {
             return model;
+        }
         
         // Support ObElement & subclasses
         if (model instanceof GmModel) {
             final GmModel gmModel = (GmModel) model;
             final MObject obElement = gmModel.getRelatedElement();
-            if (adapter.isInstance(obElement))
+            if (adapter.isInstance(obElement)) {
                 return obElement;
+            }
         }
         return super.getAdapter(adapter);
     }
@@ -194,7 +200,22 @@ public abstract class GmNodeEditPart extends AbstractGraphicalEditPart implement
     @objid ("80932f5b-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void performRequest(Request req) {
-        if (RequestConstants.REQ_DIRECT_EDIT.equals(req.getType())) {
+        if (NavigationRequest.TYPE == req.getType()) {
+            final GmNodeModel gm = (GmNodeModel) getModel();
+            final MObject relatedEl = gm.getRelatedElement();
+        
+            IModelioNavigationService service = gm.getDiagram().getModelManager().getNavigationService();
+            service.fireNavigate(relatedEl);
+        
+            getViewer().setSelection(new StructuredSelection(this));
+        } else if (RequestConstants.REQ_OPEN.equals(req.getType())) {
+            final GmNodeModel gm = (GmNodeModel) getModel();
+            final MObject relatedEl = gm.getRelatedElement();
+        
+            IActivationService service = gm.getDiagram().getModelManager().getActivationService();
+            service.activateMObject(relatedEl);
+        
+        } else if (RequestConstants.REQ_DIRECT_EDIT.equals(req.getType())) {
             if (req instanceof LocationRequest) {
                 // Give the request to the child where the request is located
                 final Point reqLocation = ((LocationRequest) req).getLocation();
@@ -203,7 +224,7 @@ public abstract class GmNodeEditPart extends AbstractGraphicalEditPart implement
         
                     final GraphicalEditPart childEditPart = (GraphicalEditPart) childEditPartObj;
                     if (childEditPart.understandsRequest(req) &&
-                        containsAbsolutePoint(childEditPart, reqLocation)) {
+                            containsAbsolutePoint(childEditPart, reqLocation)) {
                         childEditPart.performRequest(req);
                     }
         
@@ -266,8 +287,9 @@ public abstract class GmNodeEditPart extends AbstractGraphicalEditPart implement
         // Set the initial representation mode
         GmNodeModel gmAbstractObject = (GmNodeModel) model;
         this.initialRepMode = gmAbstractObject.getRepresentationMode();
-        if (this.initialRepMode == null)
+        if (this.initialRepMode == null) {
             throw new IllegalStateException("No initial representation mode on" + gmAbstractObject);
+        }
     }
 
     @objid ("80932f6f-1dec-11e2-8cad-001ec947c8cc")
@@ -321,10 +343,11 @@ public abstract class GmNodeEditPart extends AbstractGraphicalEditPart implement
     @objid ("809591a0-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected List<?> getModelTargetConnections() {
-        if (getModel() instanceof GmNodeModel)
+        if (getModel() instanceof GmNodeModel) {
             return ((GmNodeModel) getModel()).getEndingLinks();
-        else
+        } else {
             return Collections.emptyList();
+        }
     }
 
     /**
@@ -342,14 +365,18 @@ public abstract class GmNodeEditPart extends AbstractGraphicalEditPart implement
         // Set pen properties where applicable
         if (aFigure instanceof IPenOptionsSupport) {
             final IPenOptionsSupport pen = (IPenOptionsSupport) aFigure;
-            if (gmModel.getStyleKey(MetaKey.FONT) != null)
+            if (gmModel.getStyleKey(MetaKey.FONT) != null) {
                 pen.setTextFont(style.getFont(gmModel.getStyleKey(MetaKey.FONT)));
-            if (gmModel.getStyleKey(MetaKey.TEXTCOLOR) != null)
+            }
+            if (gmModel.getStyleKey(MetaKey.TEXTCOLOR) != null) {
                 pen.setTextColor(style.getColor(gmModel.getStyleKey(MetaKey.TEXTCOLOR)));
-            if (gmModel.getStyleKey(MetaKey.LINECOLOR) != null)
+            }
+            if (gmModel.getStyleKey(MetaKey.LINECOLOR) != null) {
                 pen.setLineColor(style.getColor(gmModel.getStyleKey(MetaKey.LINECOLOR)));
-            if (gmModel.getStyleKey(MetaKey.LINEWIDTH) != null)
+            }
+            if (gmModel.getStyleKey(MetaKey.LINEWIDTH) != null) {
                 pen.setLineWidth(style.getInteger(gmModel.getStyleKey(MetaKey.LINEWIDTH)));
+            }
             if (gmModel.getStyleKey(MetaKey.LINEPATTERN) != null) {
                 LinePattern linePattern = style.getProperty(gmModel.getStyleKey(MetaKey.LINEPATTERN));
                 pen.setLinePattern(linePattern);
@@ -360,20 +387,23 @@ public abstract class GmNodeEditPart extends AbstractGraphicalEditPart implement
         if (aFigure instanceof IBrushOptionsSupport) {
             final IBrushOptionsSupport brush = (IBrushOptionsSupport) aFigure;
         
-            if (gmModel.getStyleKey(MetaKey.FILLCOLOR) != null)
+            if (gmModel.getStyleKey(MetaKey.FILLCOLOR) != null) {
                 brush.setFillColor(style.getColor(gmModel.getStyleKey(MetaKey.FILLCOLOR)));
+            }
         
             if (gmModel.getStyleKey(MetaKey.FILLMODE) != null) {
                 switch ((FillMode) style.getProperty(gmModel.getStyleKey(MetaKey.FILLMODE))) {
-                    case GRADIENT:
-                        brush.setUseGradient(true);
-                        break;
-                    case SOLID:
-                        brush.setUseGradient(false);
-                        break;
-                    case TRANSPARENT:
-                        brush.setFillColor(null);
-                        break;
+                case SOLID:
+                    brush.setUseGradient(false);
+                    break;
+                case TRANSPARENT:
+                    brush.setFillColor(null);
+                    break;
+                case GRADIENT:
+                    brush.setUseGradient(true);
+                    break;
+                default:
+                    break;
                 }
             }
         }
@@ -416,8 +446,8 @@ public abstract class GmNodeEditPart extends AbstractGraphicalEditPart implement
                 }
         
                 final EditPart newEditPart = (EditPart) parentEditPart.getViewer()
-                                                                      .getEditPartRegistry()
-                                                                      .get(gmModel);
+                        .getEditPartRegistry()
+                        .get(gmModel);
                 autoSizeNode(newEditPart);
             } else if (parentLink != null) {
                 final IGmLocator constraint = parentLink.getLayoutContraint(gmModel);
@@ -452,7 +482,7 @@ public abstract class GmNodeEditPart extends AbstractGraphicalEditPart implement
         if (editPart != null) {
             final GraphicalEditPart graphicEditPart = (GraphicalEditPart) editPart;
         
-            // Force layout so that child figures on Port container have valid bounds needed by 
+            // Force layout so that child figures on Port container have valid bounds needed by
             // XYLayoutEditPolicy.getConstraintFor(ChangeBoundsRequest , GraphicalEditPart ) .
             graphicEditPart.refresh();
             graphicEditPart.getFigure().getUpdateManager().performValidation();

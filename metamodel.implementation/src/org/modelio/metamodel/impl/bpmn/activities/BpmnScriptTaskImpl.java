@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00822bd4-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnScriptTaskImpl extends BpmnTaskImpl implements BpmnScriptTask {
-    @objid ("d20f0633-8a3c-4b53-8f64-b51b5936f17c")
+    @objid ("2d89ea7e-fb0b-4a2b-9acf-55b1eaf358f2")
     @Override
     public String getScriptLanguage() {
         return (String) getAttVal(BpmnScriptTaskData.Metadata.ScriptLanguageAtt());
     }
 
-    @objid ("9e918ab7-39ef-47db-a330-9ca7c441a14c")
+    @objid ("b72dda88-6832-47ad-98f7-3f4dcc4043ca")
     @Override
     public void setScriptLanguage(String value) {
         setAttVal(BpmnScriptTaskData.Metadata.ScriptLanguageAtt(), value);
     }
 
-    @objid ("e5090c2f-8cc1-4f9b-b766-c95cf025e557")
+    @objid ("c7e7aa98-dca3-4f64-b84e-20d0b660dba3")
     @Override
     public String getScript() {
         return (String) getAttVal(BpmnScriptTaskData.Metadata.ScriptAtt());
     }
 
-    @objid ("9462f933-c6c0-4a18-80e7-c731c7b39ec4")
+    @objid ("5e9b0ae8-4f41-411d-a29e-5b0afbb5e7a5")
     @Override
     public void setScript(String value) {
         setAttVal(BpmnScriptTaskData.Metadata.ScriptAtt(), value);
     }
 
-    @objid ("cbc6b538-f4c1-4a2b-8693-c7687e11656f")
+    @objid ("33a84c75-c513-4b66-9b3e-65d4b54e2408")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("3a2342b7-7d97-4c96-a88d-5cab760992fa")
+    @objid ("be4d0cfe-64ad-4336-a82d-a7d892fd9a39")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("065761c3-4f18-4a1a-baf0-6a668a9e4c14")
+    @objid ("f160a029-a37f-4151-9996-ea1a8379d2b4")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnScriptTask(this);

@@ -25,6 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
+import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmClass;
@@ -56,9 +57,10 @@ public class ExternDocumentSubjectChecker extends AbstractDependencyTypeChecker 
     private static SmClass getBaseClass(MetaclassReference classRef, Stereotype ste) {
         if (ste != null) {
             return SmClass.getClass(ste.getBaseClassName());
-        } else {
+        } else if (classRef != null) {
             return SmClass.getClass(classRef.getReferencedClassName());
         }
+        return SmClass.getClass(ModelElement.class);
     }
 
     @objid ("02f51983-f027-11e1-8bdc-002564c97630")

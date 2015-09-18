@@ -151,7 +151,7 @@ public class DiagramElementLayerDG extends DiagramAbstractNode implements IDiagr
 
     @objid ("961d27df-0e79-4b3f-bac6-d3c2f2721add")
     @Override
-    public void moveToLayer(IDiagramLayer newLayer) throws IllegalArgumentException, UnsupportedOperationException {
+    public void moveToLayer(IDiagramLayer newLayer) throws UnsupportedOperationException, IllegalArgumentException {
         throw new UnsupportedOperationException("Layers cannot be moved.");
     }
 

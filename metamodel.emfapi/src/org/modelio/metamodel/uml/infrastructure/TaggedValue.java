@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.infrastructure.TagType;
 
 @objid ("0090006a-c4be-1fd8-97fe-001ec947cd2a")
 public interface TaggedValue extends ModelElement {
-    @objid ("aba1b2e9-c9d5-4ca5-8f50-e55e19524322")
+    @objid ("36e2abed-3651-41de-8c11-6dfc75c7388f")
     ModelElement getAnnoted();
 
-    @objid ("bfe4d0c7-baef-49ec-af86-77964ed62d8d")
+    @objid ("e8363f25-6aac-4a4b-80d1-358e492a23fc")
     void setAnnoted(ModelElement value);
 
-    @objid ("d118c11c-9025-4181-8b2e-59bcffeda2de")
+    @objid ("e3712474-87b2-4b9d-bc53-1203689abebc")
     EList<TagParameter> getActual();
 
-    @objid ("e5e63fe4-49fd-47a8-8ba2-45c15f8ebcc6")
+    @objid ("a405746a-f6e8-4e7f-bb57-cfb78d8a377b")
     <T extends TagParameter> List<T> getActual(java.lang.Class<T> filterClass);
 
-    @objid ("dc3c1d2d-0532-4aa7-8865-cdd2f8f4a526")
+    @objid ("4e0d1bdf-1b03-43d1-b38d-dd85c5caf116")
     TagParameter getQualifier();
 
-    @objid ("5ac6de8d-b8ed-4cf6-b0bf-c43044c85a7f")
+    @objid ("8fed5b19-5a39-4f4e-a12a-26d5cae4b983")
     void setQualifier(TagParameter value);
 
-    @objid ("df3fc4a3-c1ef-4b19-a0dc-360bdd6effca")
+    @objid ("6a315a51-ed77-4613-a41c-1d1d273982ec")
     TagType getDefinition();
 
-    @objid ("7c329c0f-8feb-4470-b6e5-d976a8e787dc")
+    @objid ("2d0c974e-d15b-4685-8a31-ee3c80fa8e9c")
     void setDefinition(TagType value);
 
 }

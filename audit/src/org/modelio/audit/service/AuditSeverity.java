@@ -53,7 +53,7 @@ public enum AuditSeverity {
     @objid ("91ec66b9-2fc2-41c2-94ac-58bdd432f062")
     private String identifier;
 
-    @objid ("0303caa2-f1df-44e3-94e4-8d19e9ed5eab")
+    @objid ("6b2f1909-1dfd-4250-bbec-c643f97613e3")
     private Image image;
 
     @objid ("ad9fdb86-b7ec-4df0-823b-f154bec40c13")

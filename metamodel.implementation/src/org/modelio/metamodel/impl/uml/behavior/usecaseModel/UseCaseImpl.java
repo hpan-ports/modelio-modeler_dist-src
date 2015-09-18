@@ -45,13 +45,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0058abf6-c4bf-1fd8-97fe-001ec947cd2a")
 public class UseCaseImpl extends GeneralClassImpl implements UseCase {
-    @objid ("04d8d0ee-268c-4bb7-b09b-4afadbb3bc2c")
+    @objid ("ca60713c-7f2d-41e4-a04b-6675b77b8f4e")
     @Override
     public EList<UseCaseDependency> getUsed() {
         return new SmList<>(this, UseCaseData.Metadata.UsedDep());
     }
 
-    @objid ("d496ae01-8fa0-4ae6-b211-dd3c0ce9f371")
+    @objid ("afa316e4-1800-4f16-93ec-3c680ce65324")
     @Override
     public <T extends UseCaseDependency> List<T> getUsed(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -64,13 +64,13 @@ public class UseCaseImpl extends GeneralClassImpl implements UseCase {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("309a2d1a-7313-4938-b6d0-71da75f5d130")
+    @objid ("25f21c2c-94d9-4970-a646-bf68d5c0320d")
     @Override
     public EList<ExtensionPoint> getOwnedExtension() {
         return new SmList<>(this, UseCaseData.Metadata.OwnedExtensionDep());
     }
 
-    @objid ("a942c337-0d0d-41bc-acea-bf2b5924cea4")
+    @objid ("b1f1f456-c56a-4db5-b1fe-2798474996e6")
     @Override
     public <T extends ExtensionPoint> List<T> getOwnedExtension(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -83,13 +83,13 @@ public class UseCaseImpl extends GeneralClassImpl implements UseCase {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("23a17b6d-b400-4a50-bbc5-0d50486074c9")
+    @objid ("e87c95af-3642-4757-88e9-8b2c12d60393")
     @Override
     public EList<UseCaseDependency> getUser() {
         return new SmList<>(this, UseCaseData.Metadata.UserDep());
     }
 
-    @objid ("f5238514-dbc4-49fb-976e-d023bc18796c")
+    @objid ("90c1fff8-c5d9-40e9-adde-3547f5752d1e")
     @Override
     public <T extends UseCaseDependency> List<T> getUser(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -102,21 +102,21 @@ public class UseCaseImpl extends GeneralClassImpl implements UseCase {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("3ee76a76-54ac-404c-a4e4-f391f4720848")
+    @objid ("2fcc482d-b58c-4d52-9f44-d156aed2c195")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("12384027-b9a2-40ca-8b13-35b931f6d75b")
+    @objid ("2247b3ca-c66f-4bc2-b0b5-7b9398e7c3c3")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("4195f546-a9d5-4032-baf4-1b2be5962b39")
+    @objid ("961da9f4-f63b-4021-a37d-6aa514dbaf1f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitUseCase(this);

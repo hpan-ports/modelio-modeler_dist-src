@@ -45,7 +45,7 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0009fc7c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Enumeration.class, factory=EnumerationData.Metadata.ObjectFactory.class)
 public class EnumerationData extends GeneralClassData {
-    @objid ("79410900-3a27-41c2-9414-f18fca90ed10")
+    @objid ("c96150ed-9cda-48ce-97aa-d0cd8ab9cc77")
     @SmaMetaAssociation(metaName="Value", typeDataClass=EnumerationLiteralData.class, min=0, max=-1, smAssociationClass=Metadata.ValueSmDependency.class, component = true)
      List<SmObjectImpl> mValue = null;
 
@@ -54,25 +54,25 @@ public class EnumerationData extends GeneralClassData {
         this.mIsElementary = Boolean.TRUE;
     }
 
-    @objid ("9c96b8f8-9e49-400e-a556-5cb5513a8962")
+    @objid ("6cff75d5-f149-479f-95b2-674d8fd23d0a")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00933492-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("2bd1870c-9d74-4c13-bb18-a4b168afdaa9")
+        @objid ("ecdba9c6-df6a-445d-88ce-95678b73607a")
         private static SmClass smClass = null;
 
-        @objid ("cad3c596-4dec-4ae0-8d3e-a97210510220")
+        @objid ("ecf31fe5-3831-4992-a01a-9f787a6370c0")
         private static SmDependency ValueDep = null;
 
-        @objid ("cd570bce-5416-4360-86d9-363e81719375")
+        @objid ("29966279-6b81-47cd-a737-8f1f9376476f")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(EnumerationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("d8e4ba6f-03fb-4bef-8b08-b5e518e9c9ca")
+        @objid ("209a45ad-7dbf-4b9d-ab2f-2da13805bc76")
         public static SmDependency ValueDep() {
             if (ValueDep == null) {
             	ValueDep = classof().getDependencyDef("Value");
@@ -80,13 +80,13 @@ public class EnumerationData extends GeneralClassData {
             return ValueDep;
         }
 
-        @objid ("703c43ae-9352-47f2-a68f-011261d7d8b7")
+        @objid ("22782ac0-cff8-45fc-ae2d-76c4609c25ac")
         public static SmDependency getValueDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ValueDep;
         }
 
-        @objid ("711271e2-5fc9-4155-bc2a-cb75ac2c22e9")
+        @objid ("d972b5c4-bc81-45e3-8e96-f1d5c62b766c")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -94,12 +94,12 @@ public class EnumerationData extends GeneralClassData {
 
         @objid ("00937592-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("96cf9af1-11b1-4b67-be90-7c7edd5c8344")
+            @objid ("da6d2779-881f-464a-b79f-b073de70cdb1")
             public ISmObjectData createData() {
                 return new EnumerationData();
             }
 
-            @objid ("6c6541cb-ea0e-4099-83e1-d35d82d48ca8")
+            @objid ("6678db42-8c04-48e7-a121-2a12c41a4527")
             public SmObjectImpl createImpl() {
                 return new EnumerationImpl();
             }
@@ -108,20 +108,20 @@ public class EnumerationData extends GeneralClassData {
 
         @objid ("0093d9d8-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ValueSmDependency extends SmMultipleDependency {
-            @objid ("393b04e5-13bb-4c62-b403-f52bd7a0d1c4")
+            @objid ("1e102b19-eea6-4140-9230-103da93920da")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((EnumerationData)data).mValue != null)? ((EnumerationData)data).mValue:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("358578fe-bcf2-457b-9a15-c3ebc69a3063")
+            @objid ("bee86a11-83f9-4cbc-9dee-b7c518c41fcd")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((EnumerationData) data).mValue = new ArrayList<>(initialCapacity);
                 return ((EnumerationData) data).mValue;
             }
 
-            @objid ("dc775ea0-bc6f-4683-86e3-75c3130ba3e5")
+            @objid ("7ed66eb1-e7ba-42c3-b0cd-e2312d3b3985")
             @Override
             public SmDependency getSymetric() {
                 return EnumerationLiteralData.Metadata.ValuatedDep();

@@ -19,17 +19,35 @@
  */  
                                     
 
+/*
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
 package org.modelio.xmi.model.objing.profile;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Property;
 import org.modelio.metamodel.uml.infrastructure.TagType;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.generation.ProfileExportVisitorImpl;
 import org.modelio.xmi.generation.TotalExportMap;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.util.EcoreUMLTypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.ProfileUtils;
 import org.modelio.xmi.util.StringConverter;
 
@@ -62,19 +80,19 @@ public class PExportAttribut implements IExportProfileElement {
         
         Property attr = null;
         String name = ProfileUtils.getTagTypeName(this.objingElt);
-        
+        EcoreUMLTypes ecoreUMLTypes = GenerationProperties.getInstance().getEcoreUMLTypes();
         
         if (this.objingElt.getParamNumber().equals("0")){
-            attr = stereotype.getOwnedAttribute(name,  PrimitiveTypeMapper.getBoolean());
+            attr = stereotype.getOwnedAttribute(name,  ecoreUMLTypes.getBoolean());
             if (attr == null)
-                attr = stereotype.createOwnedAttribute(name,  PrimitiveTypeMapper.getBoolean());
+                attr = stereotype.createOwnedAttribute(name,  ecoreUMLTypes.getBoolean());
             attr.setLower(1);
             attr.setUpper(1);
         }else{
         
-            attr = stereotype.getOwnedAttribute(name,  PrimitiveTypeMapper.getString());
+            attr = stereotype.getOwnedAttribute(name,  ecoreUMLTypes.getString());
             if (attr == null)
-                attr = stereotype.createOwnedAttribute(name,  PrimitiveTypeMapper.getString());
+                attr = stereotype.createOwnedAttribute(name,  ecoreUMLTypes.getString());
         
             attr.setLower(0);
         

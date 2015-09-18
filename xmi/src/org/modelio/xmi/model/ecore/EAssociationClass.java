@@ -33,11 +33,9 @@ import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.Node;
-import org.modelio.xmi.reverse.PartialImportMap;
-import org.modelio.xmi.reverse.TotalImportMap;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("91845636-03bd-4f15-8387-62afd67cde77")
 public class EAssociationClass extends ENamedElement {
@@ -164,9 +162,6 @@ public class EAssociationClass extends ENamedElement {
 
     @objid ("c77d95a2-dfa8-45f6-b599-2c71e77960ff")
     private void deleteElements() {
-        PartialImportMap.getInstance().remove((getEcoreElement()));
-        TotalImportMap.getInstance().remove((getEcoreElement()));
-        
         if (this.objingClass != null)
             this.objingClass.delete();
         

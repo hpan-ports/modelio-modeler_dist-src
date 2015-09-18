@@ -33,22 +33,22 @@ import org.modelio.metamodel.bpmn.resources.BpmnResourceRole;
 
 @objid ("0079b594-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnFlowNode extends BpmnFlowElement {
-    @objid ("94156ac1-940f-4ac0-bfee-c0abb9567f26")
+    @objid ("07ea701c-f29c-4114-8780-76cf426e308e")
     EList<BpmnSequenceFlow> getOutgoing();
 
-    @objid ("e6e264e3-85e7-41da-be8d-d55302407e50")
+    @objid ("74915e35-8eec-4c86-8974-eb44514e4557")
     <T extends BpmnSequenceFlow> List<T> getOutgoing(java.lang.Class<T> filterClass);
 
-    @objid ("8255d0fe-424d-4f64-9de4-0719e32e82c6")
+    @objid ("dcbf82e6-83b2-4d1e-8155-40cc1a3f06ec")
     EList<BpmnResourceRole> getResource();
 
-    @objid ("75d51733-6e45-4105-a162-71229da28995")
+    @objid ("9b918c64-e66b-4338-8eb4-978c22935220")
     <T extends BpmnResourceRole> List<T> getResource(java.lang.Class<T> filterClass);
 
-    @objid ("30e92959-3c81-4290-8cb5-dab969a0bcf0")
+    @objid ("07d34283-32fe-498b-aec3-7cef5e758dca")
     EList<BpmnSequenceFlow> getIncoming();
 
-    @objid ("daca27d2-e749-495e-b406-2dbe06e9b049")
+    @objid ("a5fa5ef1-2c27-42de-a526-d8d6391544cc")
     <T extends BpmnSequenceFlow> List<T> getIncoming(java.lang.Class<T> filterClass);
 
 }

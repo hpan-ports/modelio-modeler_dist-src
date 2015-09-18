@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0044efbc-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExecutionSpecificationImpl extends InteractionFragmentImpl implements ExecutionSpecification {
-    @objid ("28269e9a-88ec-4e65-a28f-119448089a88")
+    @objid ("c6517bea-224a-4d5f-be28-689f48d49bbf")
     @Override
     public ExecutionOccurenceSpecification getFinish() {
         return (ExecutionOccurenceSpecification) getDepVal(ExecutionSpecificationData.Metadata.FinishDep());
     }
 
-    @objid ("8ec1531d-e008-46ac-b93e-b1d755e32e7d")
+    @objid ("15f15a5f-62d6-40c3-82aa-09bd8ed5d7d8")
     @Override
     public void setFinish(ExecutionOccurenceSpecification value) {
         appendDepVal(ExecutionSpecificationData.Metadata.FinishDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0dfe5582-2ae3-4d1a-ae79-cc4dfd7a5e00")
+    @objid ("932423d5-1c61-4b1d-bd43-5a0faa2dcf5a")
     @Override
     public ExecutionOccurenceSpecification getStart() {
         return (ExecutionOccurenceSpecification) getDepVal(ExecutionSpecificationData.Metadata.StartDep());
     }
 
-    @objid ("d90c3071-c3ef-43ea-84ce-ab09b4dc40b8")
+    @objid ("dca13a8f-0d37-4f1c-a4ea-b41b9ebc8863")
     @Override
     public void setStart(ExecutionOccurenceSpecification value) {
         appendDepVal(ExecutionSpecificationData.Metadata.StartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("851d5f7a-913f-4133-8c3a-ab7caf6b95f2")
+    @objid ("6a50038d-c808-4fb4-8b50-b784796745ac")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("23bebc99-2d23-41f7-937a-9ed496ed9035")
+    @objid ("4bea17d8-e394-481a-847f-be2c21785c6f")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("6ba28b35-82b5-46e0-b236-8f0afd576dee")
+    @objid ("679ff790-1645-4657-a3c4-d8b0d84124a8")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExecutionSpecification(this);

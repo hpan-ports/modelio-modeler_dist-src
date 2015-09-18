@@ -23,7 +23,7 @@ package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("7a54a601-cdb4-45aa-8df4-38f518524197")
 public class EBehaviorExecutionSpecification extends EExecutionSpecification {
@@ -31,7 +31,7 @@ public class EBehaviorExecutionSpecification extends EExecutionSpecification {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createExecutionSpecification();
+                        .createExecutionSpecification();
     }
 
     @objid ("2dda147b-34f4-44e3-a400-8cba95d473ef")

@@ -283,7 +283,7 @@ public class StrUtil {
             return ""; //$NON-NLS-1$
         }
         return getPlainText(str)
-                .replaceAll(REGEXP_INVALID_FILENAME_CHARS, " ").trim(); //$NON-NLS-1$
+                        .replaceAll(REGEXP_INVALID_FILENAME_CHARS, " ").trim(); //$NON-NLS-1$
     }
 
     /**
@@ -305,7 +305,7 @@ public class StrUtil {
         
         // else default to Linux
         return path
-                .replaceAll(REGEXP_INVALID_PUBLISHED_PATH_CHARS_LINUX, "").equals(path); //$NON-NLS-1$
+                        .replaceAll(REGEXP_INVALID_PUBLISHED_PATH_CHARS_LINUX, "").equals(path); //$NON-NLS-1$
     }
 
     /**

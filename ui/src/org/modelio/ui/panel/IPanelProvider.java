@@ -73,4 +73,11 @@ public interface IPanelProvider {
     @objid ("a0ad69d9-c677-11e1-8f21-002564c97630")
     void setInput(Object input);
 
+    /**
+     * This method is called when the panel is to be disposed.
+     * Implementors should redefine this method to dispose or close active resources that they have instantiated/run.
+     */
+    @objid ("cd48774a-28cd-4aa9-8dab-153b57c19c7c")
+    void dispose();
+
 }

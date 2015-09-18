@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 
 @objid ("00482c5e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InteractionUse extends InteractionFragment {
-    @objid ("94774764-859f-44ef-8573-0c574f752090")
+    @objid ("f88e3280-678f-4217-b429-ba7a077f2ac1")
     int getEndLineNumber();
 
-    @objid ("5b0e8711-8e04-47d3-ae34-56c202b45df2")
+    @objid ("6a9513c5-2a36-4f2c-b337-b4333b9b4eb9")
     void setEndLineNumber(int value);
 
-    @objid ("2f41c2e8-f3d6-492c-92f7-a52228ee78eb")
+    @objid ("127033ba-eee0-4f4c-9e0c-71bf83271312")
     EList<Gate> getActualGate();
 
-    @objid ("a4576be8-8f42-4cb5-8c2e-f0b768f37508")
+    @objid ("08524c95-4a8c-4080-9547-9d0ad7d10d50")
     <T extends Gate> List<T> getActualGate(java.lang.Class<T> filterClass);
 
-    @objid ("12881451-5a14-4bc8-ae9c-8249d1ade95a")
+    @objid ("18a5c863-da24-4b3f-b38b-4f3cd055be03")
     Interaction getRefersTo();
 
-    @objid ("93b8c59d-0071-4a9d-8e33-05b3c96886b5")
+    @objid ("df96d824-df67-42bc-90f1-f630c654e2fd")
     void setRefersTo(Interaction value);
 
 }

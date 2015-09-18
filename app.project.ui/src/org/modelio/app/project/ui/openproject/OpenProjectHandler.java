@@ -23,7 +23,9 @@ package org.modelio.app.project.ui.openproject;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
 import java.nio.file.AccessDeniedException;
+import java.nio.file.FileSystemException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -40,10 +42,11 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.api.module.ModuleException;
 import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.app.project.ui.auth.AuthDataDialog;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
+import org.modelio.core.ui.auth.AuthDataDialog;
 import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.InheritedAuthData;
 import org.modelio.gproject.data.project.ModuleDescriptor;
 import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.fragment.FragmentAuthenticationException;
@@ -52,10 +55,13 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
 import org.modelio.gproject.gproject.GProjectFactory;
 import org.modelio.gproject.module.GModule;
+import org.modelio.gproject.module.ModuleSorter;
 import org.modelio.mda.infra.service.IModuleService;
 import org.modelio.ui.progress.IModelioProgressService;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.auth.NoneAuthData;
+import org.modelio.vbasic.auth.UserPasswordAuthData;
+import org.modelio.vbasic.collections.TopologicalSorter.CyclicDependencyException;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
 
@@ -64,19 +70,30 @@ import org.modelio.vbasic.progress.IModelioProgress;
  */
 @objid ("0044ac32-cc35-1ff2-a7f4-001ec947cd2a")
 public class OpenProjectHandler {
-    @objid ("52a322d6-6d3f-4338-b86c-1641c73deb20")
-    @Inject
-    @Optional
-     IProjectService projectService;
-
     @objid ("f3f5681b-ade9-42e4-a0ce-455fde687a0e")
     @Inject
     @Optional
      IModuleService moduleService;
 
+    @objid ("00470518-cc35-1ff2-a7f4-001ec947cd2a")
+    @CanExecute
+    boolean canExecute(final IProjectService projectService, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+        if (selection == null || projectService.getOpenedProject() != null) {
+            return false;
+        }
+        List<ProjectDescriptor> projects = getSelectedElements(selection);
+        if (projects.size() != 1) {
+            return false;
+        }
+        
+        if (projects.get(0).getLockInfo() != null)
+            return false;
+        return true;
+    }
+
     @objid ("00470482-cc35-1ff2-a7f4-001ec947cd2a")
     @Execute
-    void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, final IModelioProgressService progressService) {
+    void execute(IProjectService projectService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, final IModelioProgressService progressService) {
         final ProjectDescriptor projectToOpen = getSelectedElements(selection).get(0);
         if (projectToOpen == null) {
             return;
@@ -90,7 +107,7 @@ public class OpenProjectHandler {
             return;
         }
         
-        assert (this.projectService.getOpenedProject() == null);
+        assert (projectService.getOpenedProject() == null);
         AppProjectUi.LOG.info("Opening project '%s' ", projectToOpen.getName());
         
         boolean more = true;
@@ -100,10 +117,10 @@ public class OpenProjectHandler {
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     try {
-                        OpenProjectHandler.this.projectService.openProject(projectToOpen, effectiveAuthData, monitor);
+                        projectService.openProject(projectToOpen, effectiveAuthData, monitor);
         
                         // Check again that authentication data is complete, if not => prompt user
-                        checkOpenProjectAuth(OpenProjectHandler.this.projectService.getOpenedProject());
+                        checkOpenProjectAuth(projectService.getOpenedProject());
         
                     } catch (IOException | GProjectAuthenticationException e) {
                         throw new InvocationTargetException(e, e.getLocalizedMessage());
@@ -139,9 +156,10 @@ public class OpenProjectHandler {
                 } catch (GProjectAuthenticationException cause) {
                     AppProjectUi.LOG.info(cause.getLocalizedMessage());
                     String label = AppProjectUi.I18N.getMessage("OpenProjectHandler.Auth.ProjectLabel", projectToOpen.getName());
-                    authData = promptAuthentication(shell, effectiveAuthData, label);
-                    more = true;
+                    authData = promptAuthentication(shell, effectiveAuthData, label, cause.getLocalizedMessage());
+                    more = (authData != null);
                 } catch (IOException cause) {
+                    AppProjectUi.LOG.error(FileUtils.getLocalizedMessage(cause));
                     AppProjectUi.LOG.debug(e);
                     MessageDialog.openError(shell, AppProjectUi.I18N.getString("Error"), FileUtils.getLocalizedMessage(cause));
                     more = false;
@@ -157,57 +175,27 @@ public class OpenProjectHandler {
         }
     }
 
-    @objid ("00470518-cc35-1ff2-a7f4-001ec947cd2a")
-    @CanExecute
-    boolean canExecute(final IProjectService projectService, @Optional
-@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
-        if (selection == null || projectService.getOpenedProject() != null) {
-            return false;
-        }
-        List<ProjectDescriptor> projects = getSelectedElements(selection);
-        if (projects.size() != 1) {
-            return false;
-        }
-        
-        if (projects.get(0).getLockInfo() != null)
-            return false;
-        return true;
-    }
-
-    /**
-     * @param parent a SWT shell
-     * @param authData the authentication to complete
-     * @param name the project or fragment name to authenticate.
-     * @return the authentication data or null to abort.
-     */
-    @objid ("7161b2f6-c45d-4826-9441-df4c7fc50d80")
-    private IAuthData promptAuthentication(Shell parent, IAuthData authData, String name) {
-        AuthDataDialog dlg = new AuthDataDialog(parent, authData, name);
-        dlg.setBlockOnOpen(true);
-        int ret = dlg.open();
-        switch (ret) {
-        case 0:
-            return dlg.getAuthData();
-        default:
-            return null;
-        }
-    }
-
     @objid ("384b0ca0-9855-4902-bc4a-44b058677c75")
     private IAuthData checkPartAuth(final Shell shell, IAuthData authToCheck, String name) {
         IAuthData authData = authToCheck;
         
         if (authData == null || !authData.isComplete()) {
             if (authData == null)
-                authData = new NoneAuthData();
+                authData = new UserPasswordAuthData();
         
             do {
-                authData = promptAuthentication(shell, authData, name);
+                authData = promptAuthentication(shell, authData, name, null);
             } while (authData != null && !authData.isComplete());
         }
         return authData;
     }
 
+    /**
+     * Check authentication data on the project and all fragments before the project is opened.
+     * @param shell a SWT shell
+     * @param projectToOpen a project descriptor
+     * @return the project authentication data on success, <i>null</i> if the user aborts open.
+     */
     @objid ("ad0a56c0-7178-456b-8463-3f8f3e50a6ab")
     private IAuthData checkProjectAuth(final Shell shell, final ProjectDescriptor projectToOpen) {
         String label = AppProjectUi.I18N.getMessage("OpenProjectHandler.Auth.ProjectLabel", projectToOpen.getName());
@@ -216,7 +204,7 @@ public class OpenProjectHandler {
         
         for (FragmentDescriptor f : projectToOpen.getFragments()) {
             IAuthData authData = f.getAuthDescriptor().getData();
-            if (authData != null) {
+            if (needsAuthPrompt(authData, f.getUri())) {
                 label = AppProjectUi.I18N.getMessage("OpenProjectHandler.Auth.FragmentLabel", f.getId());
                 IAuthData newAuthData = checkPartAuth(shell, authData, label);
                 if (newAuthData == null)
@@ -228,7 +216,7 @@ public class OpenProjectHandler {
         
         for (ModuleDescriptor f : projectToOpen.getModules()) {
             IAuthData authData = f.getAuthDescriptor().getData();
-            if (authData != null) {
+            if (needsAuthPrompt(authData, f.getArchiveLocation())) {
                 label = AppProjectUi.I18N.getMessage("OpenProjectHandler.Auth.ModuleLabel", f.getName(), f.getVersion().toString());
                 IAuthData newAuthData = checkPartAuth(shell, authData, label);
                 if (newAuthData == null)
@@ -238,6 +226,93 @@ public class OpenProjectHandler {
             }
         }
         return projAuthData;
+    }
+
+    /**
+     * Check authentication status on the project and all its fragments.
+     * <p>
+     * Ask the user for authentication data if needed and possible.
+     * Try to mount again fragments after the user changed authentication data.
+     * @param shell a SWT shell
+     * @param openedProject the opened project
+     */
+    @objid ("5ef276f9-7d08-4baf-9c93-89a096fac7b3")
+    private void doCheckOpenProjectAuth(Shell shell, GProject openedProject) {
+        String label;
+        
+        for (IProjectFragment f : openedProject.getFragments()) {
+            while (needsAuth(f)) {
+                IAuthData authData = f.getAuthConfiguration().getAuthData();
+                if (authData == null)
+                    authData = new NoneAuthData();
+        
+                label = AppProjectUi.I18N.getMessage("OpenProjectHandler.Auth.FragmentLabel", f.getId());
+        
+                IAuthData newAuthData = promptAuthentication(shell, authData, label, getError(f));
+                
+                // Check for user abort
+                if (newAuthData == null)
+                    break; 
+                
+                if (authData != newAuthData)
+                    f.getAuthConfiguration().setAuthData(newAuthData);
+                
+                IModelioProgress aMonitor = null; //TODO
+                f.mount(openedProject, aMonitor);
+            }
+        }
+        
+        
+        List<GModule> sortedModules = openedProject.getModules();
+        try {
+            sortedModules = ModuleSorter.sortModules(sortedModules);
+        } catch (CyclicDependencyException e) {
+            AppProjectUi.LOG.warning(e.toString());
+            AppProjectUi.LOG.debug (e);
+        }
+        
+        for (GModule f : sortedModules) {
+            IAuthData authData = f.getAuthData().getAuthData();
+            while (needsAuthPrompt(f)) {
+                label = AppProjectUi.I18N.getMessage("OpenProjectHandler.Auth.ModuleLabel", f.getName(), f.getVersion().toString());
+                IAuthData newAuthData = promptAuthentication(shell, authData, label, getError(f));
+        
+                // Check for user abort
+                if (newAuthData == null)
+                    break;
+                
+                if (authData != newAuthData)
+                    f.getAuthData().setAuthData(newAuthData);
+             
+                try {
+                    this.moduleService.activateModule(f);
+                } catch (ModuleException e) {
+                    // ignore
+                }
+            }
+        }
+    }
+
+    @objid ("8a5d51f9-24e8-4959-a478-d895a849e593")
+    private static String getError(GModule f) {
+        IProjectFragment moduleFrag = f.getModelFragment();
+        Throwable downError = moduleFrag!= null ? moduleFrag.getDownError() : null;
+        return getErrorMessage(downError);
+    }
+
+    @objid ("5cbc64de-2cfa-458d-8c6d-164f6b0cbf9a")
+    private static String getError(IProjectFragment f) {
+        return getErrorMessage(f.getDownError());
+    }
+
+    @objid ("82fd3377-f3b9-450e-a7c9-d8aac938521d")
+    private static String getErrorMessage(final Throwable e) {
+        if (e == null)
+            return null;
+        else if (e instanceof IOException)
+            return FileUtils.getLocalizedMessage((FileSystemException) e);
+        else
+            return e.getLocalizedMessage();
     }
 
     @objid ("0e09003a-88a6-403e-88c8-92584d18c49b")
@@ -254,52 +329,32 @@ public class OpenProjectHandler {
         return selectedElements;
     }
 
-    @objid ("5ef276f9-7d08-4baf-9c93-89a096fac7b3")
-    private void doCheckOpenProjectAuth(Shell shell, GProject openedProject) {
-        String label;
-        
-        for (IProjectFragment f : openedProject.getFragments()) {
-            while (needsAuth(f)) {
-                IAuthData authData = f.getAuthConfiguration().getAuthData();
-                if (authData == null)
-                    authData = new NoneAuthData();
-        
-                label = AppProjectUi.I18N.getMessage("OpenProjectHandler.Auth.FragmentLabel", f.getId());
-        
-                IAuthData newAuthData = promptAuthentication(shell, authData, label);
-                
-                if (newAuthData == null)
-                    break;
-                if (authData != newAuthData)
-                    f.getAuthConfiguration().setAuthData(newAuthData);
-                
-                IModelioProgress aMonitor = null; //TODO
-                f.mount(openedProject, aMonitor);
-            }
-        }
-        
-        for (GModule f : openedProject.getModules()) {
-            IAuthData authData = f.getAuthData().getAuthData();
-            while (needsAuth(f)) {
-                label = AppProjectUi.I18N.getMessage("OpenProjectHandler.Auth.ModuleLabel", f.getName(), f.getVersion().toString());
-                IAuthData newAuthData = promptAuthentication(shell, authData, label);
-                if (newAuthData == null)
-                    break;
-                if (authData != newAuthData)
-                    f.getAuthData().setAuthData(newAuthData);
-             
-                try {
-                    this.moduleService.activateModule(f);
-                } catch (ModuleException e) {
-                    // ignore
-                }
-            }
-        }
+    /**
+     * A fragment needs authentication prompting if it is down
+     * with a {@link FragmentAuthenticationException} or a {@link AccessDeniedException}.
+     * @param f the module to check
+     * @return true if authentication needs to be prompted
+     */
+    @objid ("4588b5fc-47d4-41d9-b185-892929816229")
+    private boolean needsAuth(IProjectFragment f) {
+        Throwable downError = f.getDownError();
+        if (downError instanceof FragmentAuthenticationException || downError instanceof AccessDeniedException)
+            return (f.getAuthConfiguration().getScope() != DefinitionScope.SHARED &&
+                    ! InheritedAuthData.SCHEME_ID.equals(f.getAuthConfiguration().getSchemeId()));
+        else
+            return false;
     }
 
+    /**
+     * A module needs authentication prompting if its model component fragment is down
+     * with a {@link FragmentAuthenticationException} or a {@link AccessDeniedException}.
+     * @param f the module to check
+     * @return true if authentication needs to be prompted
+     */
     @objid ("41451476-d25e-478b-abff-d6c9699fe875")
-    private boolean needsAuth(GModule f) {
-        if (f.getAuthData().getScope() == DefinitionScope.SHARED) 
+    private boolean needsAuthPrompt(GModule f) {
+        if (f.getAuthData().getScope() == DefinitionScope.SHARED 
+                || InheritedAuthData.SCHEME_ID.equals(f.getAuthData().getSchemeId())) 
             return false;
         
         IProjectFragment moduleFrag = f.getModelFragment();
@@ -307,13 +362,42 @@ public class OpenProjectHandler {
         return downError instanceof FragmentAuthenticationException || downError instanceof AccessDeniedException;
     }
 
-    @objid ("4588b5fc-47d4-41d9-b185-892929816229")
-    private boolean needsAuth(IProjectFragment f) {
-        Throwable downError = f.getDownError();
-        if (downError instanceof FragmentAuthenticationException || downError instanceof AccessDeniedException)
-            return (f.getAuthConfiguration().getScope() != DefinitionScope.SHARED);
-        else
+    @objid ("469a1cea-08a6-4fe6-9abe-4a3f5f3691cc")
+    private boolean needsAuthPrompt(IAuthData authData, URI uri) {
+        if (authData != null )
             return false;
+        
+        final String scheme = uri.getScheme();
+        
+        if (scheme==null || scheme.isEmpty())
+            return false; // relative path : no auth
+        if (scheme.startsWith("svn"))
+            return true; // svn, svn+http, svn+*** : auth needed
+        if (scheme.equals("file"))
+            return false; // file : no auth
+        
+        // all other cases : auth needed
+        return true;
+    }
+
+    /**
+     * @param parent a SWT shell
+     * @param authData the authentication to complete
+     * @param name the project or fragment name to authenticate.
+     * @return the authentication data or null to abort.
+     */
+    @objid ("7161b2f6-c45d-4826-9441-df4c7fc50d80")
+    private IAuthData promptAuthentication(Shell parent, IAuthData authData, String name, String errorMessage) {
+        AuthDataDialog dlg = new AuthDataDialog(parent, authData, name);
+        dlg.setBlockOnOpen(true);
+        dlg.setErrorMessage(errorMessage);
+        int ret = dlg.open();
+        switch (ret) {
+        case 0:
+            return dlg.getAuthData();
+        default:
+            return null;
+        }
     }
 
 }

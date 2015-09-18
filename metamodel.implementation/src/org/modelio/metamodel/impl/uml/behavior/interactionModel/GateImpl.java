@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00456c76-c4bf-1fd8-97fe-001ec947cd2a")
 public class GateImpl extends MessageEndImpl implements Gate {
-    @objid ("44dc8d4d-2c4a-4f33-9066-c79fb7e58113")
+    @objid ("02360142-9209-454b-bd7a-dfbac72fa755")
     @Override
     public InteractionUse getOwnerUse() {
         return (InteractionUse) getDepVal(GateData.Metadata.OwnerUseDep());
     }
 
-    @objid ("264249b2-59b4-4ebe-9e36-13b0ac52ed98")
+    @objid ("0d8969c1-cdd0-43e8-be43-2902c2839c09")
     @Override
     public void setOwnerUse(InteractionUse value) {
         appendDepVal(GateData.Metadata.OwnerUseDep(), (SmObjectImpl)value);
     }
 
-    @objid ("978cffe0-e1b7-4a9a-aae3-2eb9e4bdddfc")
+    @objid ("1b408836-8ec6-4ee3-958f-16d7c39a6335")
     @Override
     public EList<Gate> getActual() {
         return new SmList<>(this, GateData.Metadata.ActualDep());
     }
 
-    @objid ("c90005a9-e649-4c46-92fb-e97c4c00331b")
+    @objid ("2698a224-d0d5-4c64-bf64-64321cf775da")
     @Override
     public <T extends Gate> List<T> getActual(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,43 +76,43 @@ public class GateImpl extends MessageEndImpl implements Gate {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9746aaed-5c39-41d3-b3b1-db4c249fc2ed")
+    @objid ("0be3024b-6601-475f-9c33-ededf01ea40d")
     @Override
     public Interaction getOwnerInteraction() {
         return (Interaction) getDepVal(GateData.Metadata.OwnerInteractionDep());
     }
 
-    @objid ("b156da5d-ff16-4228-bbe4-72ea45b2f64f")
+    @objid ("cad8252a-482e-4f70-b767-b185f1c4a00e")
     @Override
     public void setOwnerInteraction(Interaction value) {
         appendDepVal(GateData.Metadata.OwnerInteractionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1ae982b9-dd48-4a31-a2c3-fdf2b6b413d7")
+    @objid ("b8976979-d2af-4e2e-86ed-10bd1f167436")
     @Override
     public CombinedFragment getOwnerFragment() {
         return (CombinedFragment) getDepVal(GateData.Metadata.OwnerFragmentDep());
     }
 
-    @objid ("e6c7453d-bf10-4f74-bc7f-ec69b5c9e8a6")
+    @objid ("06c3abaf-c00d-4ea3-be8b-ba10c238e78a")
     @Override
     public void setOwnerFragment(CombinedFragment value) {
         appendDepVal(GateData.Metadata.OwnerFragmentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0e3a8d6b-6b7a-4fa7-bec9-b6ed53656f88")
+    @objid ("8ede00cc-efad-4211-8a73-9d09586511cd")
     @Override
     public Gate getFormal() {
         return (Gate) getDepVal(GateData.Metadata.FormalDep());
     }
 
-    @objid ("4d6fbae1-77ef-4eae-8811-39aceb5822c9")
+    @objid ("52a83480-bdce-40ee-afdc-d19b7a249962")
     @Override
     public void setFormal(Gate value) {
         appendDepVal(GateData.Metadata.FormalDep(), (SmObjectImpl)value);
     }
 
-    @objid ("42fe0def-e384-4eb5-8368-55dbcce94c25")
+    @objid ("8e9510b5-2939-47be-a157-cd131789da49")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -128,7 +128,7 @@ public class GateImpl extends MessageEndImpl implements Gate {
         return super.getCompositionOwner();
     }
 
-    @objid ("e19a9421-9a71-4bbb-9046-846129386cca")
+    @objid ("049d7f46-439a-4bac-8f51-39360de5c863")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -144,7 +144,7 @@ public class GateImpl extends MessageEndImpl implements Gate {
         return super.getCompositionRelation();
     }
 
-    @objid ("17df45bf-bd60-4897-84b8-da61804b19a7")
+    @objid ("f6fcf01e-99cc-452c-b0f7-0a8490639de6")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGate(this);

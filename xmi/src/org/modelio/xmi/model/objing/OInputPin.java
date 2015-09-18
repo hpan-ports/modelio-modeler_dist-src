@@ -30,10 +30,10 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
 import org.modelio.metamodel.uml.behavior.activityModel.InputPin;
 import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.AttachInputPinToOwnerVisitor;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 
 @objid ("7c4d5f92-4131-483d-8df6-7855ff25d3e3")

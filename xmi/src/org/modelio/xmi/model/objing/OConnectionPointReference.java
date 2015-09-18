@@ -29,7 +29,7 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.EntryPointPseudoStat
 import org.modelio.metamodel.uml.behavior.stateMachineModel.ExitPointPseudoState;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("ccbf7129-c052-4005-96b4-9e3f6b7eb0c5")

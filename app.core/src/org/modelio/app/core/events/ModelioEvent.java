@@ -150,6 +150,13 @@ public enum ModelioEvent {
      */
     EDIT_ELEMENT (ModelioEventTopics.EDIT_ELEMENT),
     /**
+     * EDIT_PROPERTIES: is fired whenever the edition of the properties of an element is requested. Properties are edited in a
+     * specific dialog.
+     * 
+     * Event data: MObject - the element whose properties are to be edited
+     */
+    EDIT_PROPERTIES (ModelioEventTopics.EDIT_PROPERTIES),
+    /**
      * NAVIGATE_ELEMENT: is fired to request a particular element to be selected by those views which can/accept to do it
      * 
      * Event data: A List of MObject

@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00726384-c4bf-1fd8-97fe-001ec947cd2a")
 public class ObjectDiagramImpl extends StaticDiagramImpl implements ObjectDiagram {
-    @objid ("334b9123-2991-45b4-8d15-cd1d6e53204c")
+    @objid ("6761905c-0a70-491e-aed4-958a53c47130")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("a6694a35-6426-44ea-a6ef-8afd90a4e42e")
+    @objid ("2886b4b1-479f-4696-9c19-4fda182410ae")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b1ff5d31-64aa-4e6f-a507-496ca61e6209")
+    @objid ("c25848a4-dd40-4787-9a96-17bd331f2ffa")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitObjectDiagram(this);

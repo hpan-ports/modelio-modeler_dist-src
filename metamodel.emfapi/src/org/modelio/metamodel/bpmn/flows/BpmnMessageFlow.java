@@ -33,28 +33,28 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("007c58ee-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnMessageFlow extends BpmnBaseElement {
-    @objid ("ffea21cc-455e-4142-b1ca-c7dcfd2bba22")
+    @objid ("b11256c6-c6bf-41a2-91f3-c3d748421c7a")
     BpmnMessage getMessageRef();
 
-    @objid ("7afcb0ec-ef1e-4a50-b2fd-a9c2dffa55c4")
+    @objid ("0481515b-462b-49c4-8e56-718a99a21ef0")
     void setMessageRef(BpmnMessage value);
 
-    @objid ("f8cb7d84-dc06-4c22-9aca-6764e2919263")
+    @objid ("028ed7e9-775e-4002-9537-c431f5bacce5")
     BpmnBaseElement getSourceRef();
 
-    @objid ("ed76e239-82d6-4965-bc19-be6a88863779")
+    @objid ("d3327f31-d517-463d-bd9f-05d1f1d69a8a")
     void setSourceRef(BpmnBaseElement value);
 
-    @objid ("ce699582-7b6a-4652-9aaf-c76f3b59410d")
+    @objid ("699a5134-fa4a-4a5d-ae93-2c883a607e3e")
     BpmnBaseElement getTargetRef();
 
-    @objid ("8e573cd1-6171-4a5d-b3bb-e1d1ff834b53")
+    @objid ("214f0797-b95c-4bf1-a8fb-16cf093b69b5")
     void setTargetRef(BpmnBaseElement value);
 
-    @objid ("a14185bf-1498-43a7-907c-9144997f8851")
+    @objid ("7b6f4819-f0f2-4e96-86dc-1481b7cd5fc1")
     BpmnCollaboration getCollaboration();
 
-    @objid ("132ae888-52cf-4a6e-beea-940d358046a4")
+    @objid ("c3942f47-cade-4c74-8c1b-d6a19bd31314")
     void setCollaboration(BpmnCollaboration value);
 
 }

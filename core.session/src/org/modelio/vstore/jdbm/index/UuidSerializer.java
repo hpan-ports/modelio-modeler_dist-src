@@ -50,7 +50,7 @@ public final class UuidSerializer implements Serializer<UUID> {
 
     @objid ("af243438-aeff-4e51-8bf6-a93783551a60")
     @Override
-    public UUID deserialize(final SerializerInput in) throws ClassNotFoundException, IOException {
+    public UUID deserialize(final SerializerInput in) throws IOException, ClassNotFoundException {
         //return UUID.fromString(in.readUTF());
         
         long most = in.readLong();

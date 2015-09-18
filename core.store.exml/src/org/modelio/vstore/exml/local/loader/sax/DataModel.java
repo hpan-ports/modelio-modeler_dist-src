@@ -140,7 +140,7 @@ class DataModel implements ExmlTags {
     }
 
     @objid ("2af9f4ac-3faf-11e2-87cb-001ec947ccaf")
-    void addDepId(final ObjId refid) throws IllegalReferenceException, DuplicateObjectException {
+    void addDepId(final ObjId refid) throws DuplicateObjectException, IllegalReferenceException {
         if (refid != null) {
             SmObjectImpl obj = this.loadHelper.getObject(refid);
             if (obj == null)

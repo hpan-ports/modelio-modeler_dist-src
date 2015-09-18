@@ -23,7 +23,7 @@ package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("1c6f510b-538c-434f-9900-55c6718a61ed")
 public class EDataStoreNode extends ECentralBufferNode {
@@ -31,7 +31,7 @@ public class EDataStoreNode extends ECentralBufferNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createDataStoreNode();
+                        .createDataStoreNode();
     }
 
     @objid ("cd3039e1-b696-4f3a-8a55-8a3bdcda7261")

@@ -53,13 +53,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00039a6c-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier {
-    @objid ("82f03d12-4a2d-4a55-9da5-949a5debd6e9")
+    @objid ("d5c35045-8ee3-4503-8d88-0f60f315a613")
     @Override
     public EList<Operation> getOwnedOperation() {
         return new SmList<>(this, ClassifierData.Metadata.OwnedOperationDep());
     }
 
-    @objid ("972edabb-2926-4e39-bd03-ce10bbb70297")
+    @objid ("44e2c95e-95f1-4ad3-9e62-d61417afd9a9")
     @Override
     public <T extends Operation> List<T> getOwnedOperation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -72,13 +72,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("eec95abb-9c2e-4762-a103-6326cd9990f8")
+    @objid ("e8cbe387-18c9-4cbe-80cf-c4532caf2f1d")
     @Override
     public EList<InformationItem> getRepresentation() {
         return new SmList<>(this, ClassifierData.Metadata.RepresentationDep());
     }
 
-    @objid ("f351bfa5-55f3-42f4-8079-01d94e65e63b")
+    @objid ("e310ca09-f651-4fea-b601-cd2c46d3fe15")
     @Override
     public <T extends InformationItem> List<T> getRepresentation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -91,13 +91,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("fc1cf0b6-2909-419c-bb20-19213f0ef39a")
+    @objid ("6f75218a-77b1-4a93-b566-e0ad99d8b96b")
     @Override
     public EList<Substitution> getSubstitued() {
         return new SmList<>(this, ClassifierData.Metadata.SubstituedDep());
     }
 
-    @objid ("c3388f9b-df21-4e03-994d-fa078cd4af44")
+    @objid ("31e37a2a-ea16-41b1-a251-d6cafbef02fe")
     @Override
     public <T extends Substitution> List<T> getSubstitued(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -110,13 +110,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a38bdb9a-2d37-42a0-85ed-ff842bdc48bd")
+    @objid ("975b577a-0a22-46dd-8e86-4c0b0bbad284")
     @Override
     public EList<Attribute> getOwnedAttribute() {
         return new SmList<>(this, ClassifierData.Metadata.OwnedAttributeDep());
     }
 
-    @objid ("05cfba23-edb9-4925-a67b-88a1e8e1b217")
+    @objid ("deaa28e0-6c34-4291-96e0-da145e44a027")
     @Override
     public <T extends Attribute> List<T> getOwnedAttribute(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -129,13 +129,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("764956b2-90c7-485e-a4d7-9fd584445f07")
+    @objid ("23a44df6-2c7d-46d7-a572-9e27d0583ba4")
     @Override
     public EList<NaryAssociationEnd> getOwnedNaryEnd() {
         return new SmList<>(this, ClassifierData.Metadata.OwnedNaryEndDep());
     }
 
-    @objid ("bdc44b2e-9259-49df-95b0-f40cb753e6db")
+    @objid ("1e351006-6083-45fa-ae37-0e85fe8f3aee")
     @Override
     public <T extends NaryAssociationEnd> List<T> getOwnedNaryEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -148,13 +148,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("08d57e13-d443-4aee-be78-d8d9d9ac17fb")
+    @objid ("7e82e227-dfb1-4c82-8564-8113fa9ade14")
     @Override
     public EList<InformationFlow> getConveyer() {
         return new SmList<>(this, ClassifierData.Metadata.ConveyerDep());
     }
 
-    @objid ("749e173a-d33c-40ac-9dd4-79e347558b7a")
+    @objid ("34073cec-7fa3-4550-8863-00c1a8b883b5")
     @Override
     public <T extends InformationFlow> List<T> getConveyer(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -167,13 +167,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e5ce8104-5ac6-4cff-aa82-6245f5553a98")
+    @objid ("9fed56ae-0ad0-4abe-8e6b-40795915d0e5")
     @Override
     public EList<Substitution> getSubstitutingSubstitution() {
         return new SmList<>(this, ClassifierData.Metadata.SubstitutingSubstitutionDep());
     }
 
-    @objid ("611f883f-0dd4-43cc-9463-55d4699f5e72")
+    @objid ("90d68e7d-e6f7-4f96-9d2a-f3b7d6fd324a")
     @Override
     public <T extends Substitution> List<T> getSubstitutingSubstitution(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -186,13 +186,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f664479e-09cd-46de-b70a-7074818bfe17")
+    @objid ("ec9a91bb-4959-42c5-aadd-9d002372eae2")
     @Override
     public EList<AssociationEnd> getTargetingEnd() {
         return new SmList<>(this, ClassifierData.Metadata.TargetingEndDep());
     }
 
-    @objid ("8d753f1f-5847-4671-aa9c-c5913cbcdcee")
+    @objid ("ba9b6d06-e448-41ed-baa6-641cfb9bd7d3")
     @Override
     public <T extends AssociationEnd> List<T> getTargetingEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -205,13 +205,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f4e7022b-ee89-43db-ae8b-ec92dd768c82")
+    @objid ("07e58907-0ab1-4f34-8d68-c171693e30b6")
     @Override
     public EList<AssociationEnd> getOwnedEnd() {
         return new SmList<>(this, ClassifierData.Metadata.OwnedEndDep());
     }
 
-    @objid ("356d71f7-1b9f-4142-a9cd-5baddf3af486")
+    @objid ("5d24a17b-ebe3-4b5f-95bd-3d70558a9910")
     @Override
     public <T extends AssociationEnd> List<T> getOwnedEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -224,13 +224,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("98d2d4cf-ed07-4eed-b7fb-1cae11b777d0")
+    @objid ("f5ddd973-20ea-4b95-82bd-478e72147f96")
     @Override
     public EList<BpmnParticipant> getBpmnRepresents() {
         return new SmList<>(this, ClassifierData.Metadata.BpmnRepresentsDep());
     }
 
-    @objid ("78a0a7e6-7ed7-40be-9681-34df8e9b3d6f")
+    @objid ("872f7fce-2d8e-4be1-9737-0bb8df7bdce3")
     @Override
     public <T extends BpmnParticipant> List<T> getBpmnRepresents(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -243,13 +243,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("382dc5bb-0dc4-4b4d-af75-49a826aa16b7")
+    @objid ("40292851-e68b-4fa7-8a6e-e741a45b9e3d")
     @Override
     public EList<RaisedException> getThrowing() {
         return new SmList<>(this, ClassifierData.Metadata.ThrowingDep());
     }
 
-    @objid ("d2ab6d28-6cc0-440b-ab84-fe7ed8940019")
+    @objid ("57f640e0-573f-485b-9428-2109b970f104")
     @Override
     public <T extends RaisedException> List<T> getThrowing(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -262,13 +262,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2e5d5d2a-8c4f-4872-af25-220d477c1890")
+    @objid ("999d43e5-3bbe-470d-a0ef-3d3bc569a779")
     @Override
     public EList<BindableInstance> getInternalStructure() {
         return new SmList<>(this, ClassifierData.Metadata.InternalStructureDep());
     }
 
-    @objid ("ada2c440-647e-4439-a3b7-010f6def2a14")
+    @objid ("63c5a24e-a4cd-4f30-b6b1-2a24e3db28f8")
     @Override
     public <T extends BindableInstance> List<T> getInternalStructure(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -281,13 +281,13 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("34fbf0dc-77c8-47cb-b095-6730ac23b795")
+    @objid ("200aa388-1939-4c81-be5c-13c8efc36ce2")
     @Override
     public EList<ComponentRealization> getRealizedComponent() {
         return new SmList<>(this, ClassifierData.Metadata.RealizedComponentDep());
     }
 
-    @objid ("1126b169-fd32-4b28-b395-7124997dceab")
+    @objid ("d66d5244-3fcf-4a32-b6ce-19b8c377083b")
     @Override
     public <T extends ComponentRealization> List<T> getRealizedComponent(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -300,21 +300,21 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c22eb642-ee0a-421f-8fd7-876397bf59cd")
+    @objid ("f6130364-a521-4583-8b27-fd20d13a9ab5")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0e70e2a0-2b69-408b-8bd8-339a36e5b35f")
+    @objid ("f1f584a8-fe87-4e04-8689-defd8d1fe335")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("a655d8f9-62d2-4200-a211-ffdfcb6a4b32")
+    @objid ("1daa6f39-44fd-4ba0-a952-707d0c3044b8")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitClassifier(this);

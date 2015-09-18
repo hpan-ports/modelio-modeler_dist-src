@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpe
 
 @objid ("0044c988-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExecutionSpecification extends InteractionFragment {
-    @objid ("e398e813-de21-4ea1-b557-1557389014c3")
+    @objid ("3928411b-1e6a-422c-8497-51f91ef18dbe")
     ExecutionOccurenceSpecification getFinish();
 
-    @objid ("90773d21-b01a-466e-9811-713f59eaa1e1")
+    @objid ("123331fe-5337-4373-8a71-d444a102840e")
     void setFinish(ExecutionOccurenceSpecification value);
 
-    @objid ("36d0d960-03e6-4794-8862-1512bee8863d")
+    @objid ("d08b1f53-a281-40e7-8421-98e8efc6ce0b")
     ExecutionOccurenceSpecification getStart();
 
-    @objid ("078ae026-f039-4297-9ac2-9edc8942be2d")
+    @objid ("7f862efd-5606-409b-80c8-67bd1e7d75c1")
     void setStart(ExecutionOccurenceSpecification value);
 
 }

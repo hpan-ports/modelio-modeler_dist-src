@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.statik.EnumerationLiteral;
 
 @objid ("000981a2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Enumeration extends GeneralClass {
-    @objid ("8370f768-7df8-4c97-b439-c0310cca3ba0")
+    @objid ("97eebed6-f736-49e8-a3b3-8dc8e5f490c3")
     EList<EnumerationLiteral> getValue();
 
-    @objid ("fb1bef3a-ac30-4c15-b0b0-53242d445cde")
+    @objid ("7ff39b97-d642-4494-8740-d86898396dc4")
     <T extends EnumerationLiteral> List<T> getValue(java.lang.Class<T> filterClass);
 
 }

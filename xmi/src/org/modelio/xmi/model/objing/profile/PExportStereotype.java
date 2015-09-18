@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.generation.ProfileExportVisitorImpl;
 import org.modelio.xmi.generation.TotalExportMap;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ProfileUtils;
 

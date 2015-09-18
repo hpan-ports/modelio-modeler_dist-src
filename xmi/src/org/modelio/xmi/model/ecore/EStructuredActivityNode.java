@@ -24,7 +24,7 @@ package org.modelio.xmi.model.ecore;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.StructuredActivityNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("a2ce9455-4ae1-4594-ba1b-032ac5b88ab6")
 public class EStructuredActivityNode extends EActivityNode {
@@ -35,7 +35,7 @@ public class EStructuredActivityNode extends EActivityNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createStructuredActivityNode();
+                        .createStructuredActivityNode();
     }
 
     @objid ("adb50113-62fe-4d42-ad2f-5de6cad1ad16")

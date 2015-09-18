@@ -38,52 +38,52 @@ public interface TagType extends ModelElement {
     @objid ("1bb2d0a1-acf1-4d78-85d4-08a7d74e0427")
     ModuleComponent getModule();
 
-    @objid ("086c1ea7-0a7a-4bbf-9f2e-ee680bf468d5")
+    @objid ("cd009a77-963b-4535-b23b-f2c2ac049ad0")
     String getParamNumber();
 
-    @objid ("178aba5b-2f1f-4f14-8e69-4fbb0c57688c")
+    @objid ("81bf55c0-3208-4fae-92ff-fb3b128044fb")
     void setParamNumber(String value);
 
-    @objid ("fe1f9fb8-266d-444d-90b0-c999a47b8e38")
+    @objid ("06e92692-b457-44c6-bc01-7b627623a7b5")
     boolean isIsQualified();
 
-    @objid ("6234961e-ec10-41e5-8ed5-0b3e98d9ec5e")
+    @objid ("424aeccf-f0db-4a6c-98ee-af976719e269")
     void setIsQualified(boolean value);
 
-    @objid ("8af6a703-3f5a-4701-b7ab-40dc5ebba881")
+    @objid ("e63d8d4c-25a9-449b-b19c-d38aa1b6ee98")
     boolean isBelongToPrototype();
 
-    @objid ("13e248e6-76ac-4d45-8c31-f2ff25047fed")
+    @objid ("36d8f459-66fc-48e8-a74a-bdbe8fde53f1")
     void setBelongToPrototype(boolean value);
 
-    @objid ("808de5af-6af3-4d16-8fbd-99d83c669690")
+    @objid ("105900d0-f6eb-4bf6-81a4-c1e3ed5c7565")
     boolean isIsHidden();
 
-    @objid ("90913fc6-6a4d-4e58-bc15-403f8173451c")
+    @objid ("3a38851c-fded-4949-bda2-f7cc1836b6e7")
     void setIsHidden(boolean value);
 
-    @objid ("c1d3a6d4-f0bf-4bbc-9d05-72f8b6a7d450")
+    @objid ("a0cc622d-5286-4b9f-b6c9-1b4f3f408628")
     String getLabelKey();
 
-    @objid ("658f7810-e453-4a52-9efb-1f92bc1786a3")
+    @objid ("3e2888b9-faa9-4490-a8f6-99e63e85f5d5")
     void setLabelKey(String value);
 
-    @objid ("dd585e20-84fe-43c4-bfe7-617113a9d9d3")
+    @objid ("1e06f203-537e-4ec4-9468-a7ab8064a79f")
     EList<TaggedValue> getTagOccurence();
 
-    @objid ("9e4d53e7-d7a4-4e00-878a-44fee1392b52")
+    @objid ("72613109-f68f-4c89-87c5-f3c19f1f1e03")
     <T extends TaggedValue> List<T> getTagOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("7e3658d3-678f-4613-afa2-882e3160157a")
+    @objid ("6ff790be-cc85-4b34-a4c6-a4338afb9ca5")
     Stereotype getOwnerStereotype();
 
-    @objid ("7cbece3b-b8e5-4b11-9b42-4384136192a8")
+    @objid ("0743c15d-3316-4570-9d32-a16dc76c571a")
     void setOwnerStereotype(Stereotype value);
 
-    @objid ("c368dda7-b2b2-40e2-98b0-5d443425971f")
+    @objid ("4a4d1703-cd34-4c22-86de-3946647659d1")
     MetaclassReference getOwnerReference();
 
-    @objid ("b7d78c63-1d05-4eb5-8dea-bbc04979536c")
+    @objid ("8277b397-4ec0-422d-b093-ceb935af1180")
     void setOwnerReference(MetaclassReference value);
 
 }

@@ -45,37 +45,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00263040-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActivityImpl extends BehaviorImpl implements Activity {
-    @objid ("2eb250db-222f-4956-b1a1-3e827c938e02")
+    @objid ("1d3b4dc5-a84b-4522-ad9c-e2d9c77e5385")
     @Override
     public boolean isIsSingleExecution() {
         return (Boolean) getAttVal(ActivityData.Metadata.IsSingleExecutionAtt());
     }
 
-    @objid ("0c2937b6-ba2b-43ca-bb58-fc86f49d9367")
+    @objid ("531bf044-9b12-41e8-8060-a7e9fea529ca")
     @Override
     public void setIsSingleExecution(boolean value) {
         setAttVal(ActivityData.Metadata.IsSingleExecutionAtt(), value);
     }
 
-    @objid ("2562a2de-7aa5-4669-8f08-58d9725656f3")
+    @objid ("bd918676-3e6f-4000-adbd-624368e783d4")
     @Override
     public boolean isIsReadOnly() {
         return (Boolean) getAttVal(ActivityData.Metadata.IsReadOnlyAtt());
     }
 
-    @objid ("550e406c-9597-4c59-b395-785af9444e8e")
+    @objid ("e6488c7f-b8f8-423c-939d-ab218b1f17c4")
     @Override
     public void setIsReadOnly(boolean value) {
         setAttVal(ActivityData.Metadata.IsReadOnlyAtt(), value);
     }
 
-    @objid ("60fce3a7-785f-4698-adb2-7bbfe61ae256")
+    @objid ("49d4668e-bc82-4c5d-b926-4f160aa43072")
     @Override
     public EList<ActivityGroup> getOwnedGroup() {
         return new SmList<>(this, ActivityData.Metadata.OwnedGroupDep());
     }
 
-    @objid ("ffaa4d04-b4a0-4fd4-b0d0-86b49a3f0f37")
+    @objid ("63329d59-655a-489f-a0f5-41583a550e30")
     @Override
     public <T extends ActivityGroup> List<T> getOwnedGroup(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -88,13 +88,13 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("fb158262-12fb-4041-88f5-9a97950fb82f")
+    @objid ("9a2debc3-e5f6-40bc-b662-eb6d5a900543")
     @Override
     public EList<ActivityNode> getOwnedNode() {
         return new SmList<>(this, ActivityData.Metadata.OwnedNodeDep());
     }
 
-    @objid ("2fefa627-effc-4e62-99b7-652e1b1e5934")
+    @objid ("83c8af5e-30cc-446d-97f1-863374c00da2")
     @Override
     public <T extends ActivityNode> List<T> getOwnedNode(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -107,21 +107,21 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2cb1f72d-8d7a-4865-b2e0-2b0336095e5c")
+    @objid ("da010570-3aa6-4f76-86eb-c8aa263b0e55")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0272a96f-c68e-4f13-9ed5-9ea718828b0e")
+    @objid ("2dcc07eb-3b10-4723-8dce-f8560ae51689")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c83b1f63-2951-4d29-bd6d-1a3b8d331928")
+    @objid ("83886185-a713-407f-ad56-da1421f7b47a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivity(this);

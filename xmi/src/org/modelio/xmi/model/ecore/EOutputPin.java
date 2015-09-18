@@ -29,7 +29,7 @@ import org.modelio.metamodel.uml.behavior.activityModel.OutputPin;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.GeneralClass;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("bd8cad09-829a-4450-a166-810d875ea6ce")
@@ -41,7 +41,7 @@ public class EOutputPin extends EPin {
     @Override
     public Element createObjingElt() {
         return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createOutputPin();
+                        .createOutputPin();
     }
 
     @objid ("262c60ac-aedf-4f7d-9ee1-7b565ea44506")

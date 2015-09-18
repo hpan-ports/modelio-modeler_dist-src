@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0055514a-c4bf-1fd8-97fe-001ec947cd2a")
 public class TerminatePseudoStateImpl extends AbstractPseudoStateImpl implements TerminatePseudoState {
-    @objid ("5207275a-3670-45fb-85dd-7a2137894638")
+    @objid ("78fe9a22-3888-45b1-98df-790c722055f1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("58cb0dbe-a3eb-4f07-a6f5-500cc47d0f10")
+    @objid ("3ab4be99-0ef1-4efa-88ad-82df359fddd7")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("568c5180-a2ed-46f0-a82e-1613fdf66b64")
+    @objid ("eed016db-30bb-4d8e-91b2-3c1636cfaa73")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTerminatePseudoState(this);

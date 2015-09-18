@@ -42,33 +42,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0001d7d6-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnInclusiveGatewayImpl extends BpmnGatewayImpl implements BpmnInclusiveGateway {
-    @objid ("84d6bdb7-70d3-4750-8a50-294aa1a5d028")
+    @objid ("0dd3927b-2504-45d4-bdef-af6552caecb9")
     @Override
     public BpmnSequenceFlow getDefaultFlow() {
         return (BpmnSequenceFlow) getDepVal(BpmnInclusiveGatewayData.Metadata.DefaultFlowDep());
     }
 
-    @objid ("94e242ba-1dd1-44b1-b02b-11c8bb919a24")
+    @objid ("356c5028-c250-4b8e-bfee-dcb5211adbd3")
     @Override
     public void setDefaultFlow(BpmnSequenceFlow value) {
         appendDepVal(BpmnInclusiveGatewayData.Metadata.DefaultFlowDep(), (SmObjectImpl)value);
     }
 
-    @objid ("25f7f764-71cd-485a-9c5b-3d0d7a827a46")
+    @objid ("0c4a6bca-300b-4f25-9c8d-7948a659a070")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2a5eced2-a37c-4aeb-8e7a-d88663886a89")
+    @objid ("7c257b67-470b-4d39-82f3-763bddc34590")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("af437be6-d3b1-4a41-a6a2-651bf85db25c")
+    @objid ("52024cd4-ffce-45a7-b01c-e1b9a5b1a9da")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnInclusiveGateway(this);

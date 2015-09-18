@@ -31,22 +31,22 @@ import org.modelio.metamodel.uml.statik.ClassAssociation;
 
 @objid ("0002155c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Class extends GeneralClass {
-    @objid ("83a2ef8f-204c-4232-b43a-392b615db6d0")
+    @objid ("c83a19f7-43d5-4be8-a809-b1f433f288ce")
     boolean isIsActive();
 
-    @objid ("6d9ddfd9-6e96-41f8-9f45-8f8f0c47e80c")
+    @objid ("73de84df-4359-46eb-853b-acb326a70486")
     void setIsActive(boolean value);
 
-    @objid ("ddcedc4e-ab36-4851-aa83-53001d8b4669")
+    @objid ("5b360997-9f7c-4fe1-9f0d-bf7c9755cb3c")
     boolean isIsMain();
 
-    @objid ("38d589a1-6d71-4635-b8e9-22b099deb087")
+    @objid ("b431fe3c-ef94-4e04-b2f3-b1f28647106c")
     void setIsMain(boolean value);
 
-    @objid ("e854c3ae-7f3f-44c0-b05b-6d005992faab")
+    @objid ("b8763d21-e776-410a-bcc4-9448a0e15bac")
     ClassAssociation getLinkToAssociation();
 
-    @objid ("7cd054f5-f652-45ea-9be1-939c76b85906")
+    @objid ("a422cf34-2796-4e5d-90a6-d458c3d44ced")
     void setLinkToAssociation(ClassAssociation value);
 
 }

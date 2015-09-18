@@ -43,19 +43,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008a372a-ec8f-1098-b22e-001ec947cd2a")
 public class AnalystPropertyTableImpl extends TypedPropertyTableImpl implements AnalystPropertyTable {
-    @objid ("8ccc6be4-b014-4205-9166-9131bc53fd5c")
+    @objid ("fab5e8a4-9d4f-453c-a648-28917b842c08")
     @Override
     public AnalystItem getAnalystOwner() {
         return (AnalystItem) getDepVal(AnalystPropertyTableData.Metadata.AnalystOwnerDep());
     }
 
-    @objid ("9fb50d1a-f69c-4652-aa84-000e82c6db50")
+    @objid ("06bec1ce-d19f-4ccf-a7d9-f66c3272a52b")
     @Override
     public void setAnalystOwner(AnalystItem value) {
         appendDepVal(AnalystPropertyTableData.Metadata.AnalystOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4e333a02-b52c-409d-a027-e6d212ef751e")
+    @objid ("76d41b5c-9543-49e9-a74d-816d90cfcc1e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -65,7 +65,7 @@ public class AnalystPropertyTableImpl extends TypedPropertyTableImpl implements 
         return super.getCompositionOwner();
     }
 
-    @objid ("86726d21-513e-4712-8355-547eec2de240")
+    @objid ("dca14d90-a5c0-4705-a0d1-29d656adf2e9")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -75,7 +75,7 @@ public class AnalystPropertyTableImpl extends TypedPropertyTableImpl implements 
         return super.getCompositionRelation();
     }
 
-    @objid ("5a634747-8bbd-43e5-a7ee-ad0176a95ed0")
+    @objid ("c98e9a57-de59-463b-ba89-e29954af6e25")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAnalystPropertyTable(this);

@@ -31,7 +31,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.modelio.api.diagram.IDiagramGraphic;
 import org.modelio.api.diagram.IDiagramLink.LinkRouterKind;
-import org.modelio.api.diagram.tools.IAttachedBoxCommand;
+import org.modelio.api.diagram.tools.IAttachedBoxTool;
 import org.modelio.diagram.api.dg.DGFactory;
 import org.modelio.diagram.api.dg.LinkPath;
 import org.modelio.diagram.api.services.DiagramHandle;
@@ -50,7 +50,7 @@ public class AttachedBoxTool extends LinkedNodeCreationTool {
     protected GmModel sourceGm;
 
     @objid ("18d8de3b-54c8-497c-8d07-f12c10d699fc")
-    protected IAttachedBoxCommand attachedBoxCommand;
+    protected IAttachedBoxTool attachedBoxCommand;
 
     @objid ("048943c9-1e9a-4284-b8c2-2f90ec3e611e")
     private DiagramHandle diagramHandle = null;
@@ -58,7 +58,7 @@ public class AttachedBoxTool extends LinkedNodeCreationTool {
     /**
      * PropertyDefinition name for the actual handler on the module side.
      */
-    @objid ("cee639bf-cba3-492b-848d-dc1bb0a03c01")
+    @objid ("0848519b-2289-46e9-a5f7-0ef7a47f5090")
     public static final Object PROPERTY_HANDLER = "handler";
 
     /**
@@ -123,8 +123,8 @@ public class AttachedBoxTool extends LinkedNodeCreationTool {
     @Override
     protected void applyProperty(final Object key, final Object value) {
         if (PROPERTY_HANDLER.equals(key)) {
-            if (value instanceof IAttachedBoxCommand) {
-                this.attachedBoxCommand = (IAttachedBoxCommand) value;
+            if (value instanceof IAttachedBoxTool) {
+                this.attachedBoxCommand = (IAttachedBoxTool) value;
             }
             return;
         }

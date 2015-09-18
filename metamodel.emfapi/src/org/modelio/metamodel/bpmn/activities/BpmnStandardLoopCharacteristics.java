@@ -30,22 +30,22 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00839f78-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnStandardLoopCharacteristics extends BpmnLoopCharacteristics {
-    @objid ("e671a565-11cc-4b00-adb4-b9ccf4468c34")
+    @objid ("f946ef6c-833c-422e-b34c-001560739642")
     boolean isTestBefore();
 
-    @objid ("2c9ce418-4982-4809-a56f-a6fa80376245")
+    @objid ("77916b70-a79e-46ee-b3be-ee76b6a80846")
     void setTestBefore(boolean value);
 
-    @objid ("6bc0977a-40f6-459e-b498-cc4f59b24cc5")
+    @objid ("1496e64d-4a41-4ea7-a5a8-f002ec6aa075")
     String getLoopCondition();
 
-    @objid ("91f79511-14a1-41e8-ba23-a87b1570c788")
+    @objid ("d7192093-27ee-4d6e-9f18-55d383662669")
     void setLoopCondition(String value);
 
-    @objid ("f70d0235-0442-43df-99f8-844e6ee0232a")
+    @objid ("6d73ca68-e093-4ebe-a081-b96617f04d1c")
     String getLoopMaximum();
 
-    @objid ("f3790ced-0eff-480f-9651-17696105d894")
+    @objid ("49e3aae8-b2d0-4c33-a322-a310863132b2")
     void setLoopMaximum(String value);
 
 }

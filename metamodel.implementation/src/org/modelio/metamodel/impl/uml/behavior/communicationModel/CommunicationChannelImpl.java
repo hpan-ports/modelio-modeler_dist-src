@@ -47,13 +47,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("3d66beff-bc9e-42aa-84dd-28f34e3a9a10")
 public class CommunicationChannelImpl extends ModelElementImpl implements CommunicationChannel {
-    @objid ("015508fb-c250-4dd1-a38b-a99e209a5737")
+    @objid ("c02c99d5-2303-4814-b7e2-c76627bffeb9")
     @Override
     public EList<CommunicationMessage> getStartToEndMessage() {
         return new SmList<>(this, CommunicationChannelData.Metadata.StartToEndMessageDep());
     }
 
-    @objid ("1dcd1ba3-8feb-49b1-b2af-f760bed0c552")
+    @objid ("5b8eba79-8ce5-4823-9bdd-4a51f896fa5d")
     @Override
     public <T extends CommunicationMessage> List<T> getStartToEndMessage(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -66,49 +66,49 @@ public class CommunicationChannelImpl extends ModelElementImpl implements Commun
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("dc657ab9-02d0-49a7-b29b-675ae925ce5f")
+    @objid ("b30549b4-a9d8-4c7c-a239-1344f6002093")
     @Override
     public Link getChannel() {
         return (Link) getDepVal(CommunicationChannelData.Metadata.ChannelDep());
     }
 
-    @objid ("1905dec6-dd03-415e-bcc3-ef88df013a58")
+    @objid ("621221cd-a48f-4989-8545-56e56d2edaba")
     @Override
     public void setChannel(Link value) {
         appendDepVal(CommunicationChannelData.Metadata.ChannelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3fda1ed6-d4cd-4b09-a152-4f65dfa2660b")
+    @objid ("e8925de8-79e3-48af-86e9-a1942ebf1882")
     @Override
     public CommunicationNode getStart() {
         return (CommunicationNode) getDepVal(CommunicationChannelData.Metadata.StartDep());
     }
 
-    @objid ("974f066e-f0ff-4558-ba06-68bc34605954")
+    @objid ("43d7c503-b384-4561-891c-f7f10751f556")
     @Override
     public void setStart(CommunicationNode value) {
         appendDepVal(CommunicationChannelData.Metadata.StartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("cb3de03b-ec83-4c7a-a78a-e115b3e3674f")
+    @objid ("19cd47dc-917e-4f19-9b75-33f09b555a26")
     @Override
     public NaryLink getNaryChannel() {
         return (NaryLink) getDepVal(CommunicationChannelData.Metadata.NaryChannelDep());
     }
 
-    @objid ("7f3e2e77-2eba-42aa-bdc5-287374e940d3")
+    @objid ("a3b98283-6582-4379-a413-70456822aad2")
     @Override
     public void setNaryChannel(NaryLink value) {
         appendDepVal(CommunicationChannelData.Metadata.NaryChannelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1e296c3b-8946-47ef-827d-019616029371")
+    @objid ("cd16fe5e-4a49-42cb-8a47-859aedabf448")
     @Override
     public EList<CommunicationMessage> getEndToStartMessage() {
         return new SmList<>(this, CommunicationChannelData.Metadata.EndToStartMessageDep());
     }
 
-    @objid ("e25590c2-fba4-46f1-ab5a-f17d5ac2fc8a")
+    @objid ("8ca61bc9-329f-4fea-a8cd-3bfea4c10ae6")
     @Override
     public <T extends CommunicationMessage> List<T> getEndToStartMessage(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -121,19 +121,19 @@ public class CommunicationChannelImpl extends ModelElementImpl implements Commun
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ab390f70-e8f9-4378-93ed-c67e8e438fc6")
+    @objid ("6fbadd60-34c8-4945-ab60-f18f87601ded")
     @Override
     public CommunicationNode getEnd() {
         return (CommunicationNode) getDepVal(CommunicationChannelData.Metadata.EndDep());
     }
 
-    @objid ("e73810eb-e785-46fa-8d8c-c212f7360195")
+    @objid ("8101ff7d-b099-4fb2-a304-c13fae5f55ca")
     @Override
     public void setEnd(CommunicationNode value) {
         appendDepVal(CommunicationChannelData.Metadata.EndDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1b92c9de-aa99-430f-b8af-1a039a459f6e")
+    @objid ("6145306e-ec0e-4a01-b3ff-999d6d237c8b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -143,7 +143,7 @@ public class CommunicationChannelImpl extends ModelElementImpl implements Commun
         return super.getCompositionOwner();
     }
 
-    @objid ("0b594e2a-c3ed-4180-b48e-0c484f31bbf4")
+    @objid ("937098ed-d9d5-4cdc-a85a-0a51b75a5439")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -153,7 +153,7 @@ public class CommunicationChannelImpl extends ModelElementImpl implements Commun
         return super.getCompositionRelation();
     }
 
-    @objid ("73bbe6f2-2764-4a96-a4a4-792b58d80225")
+    @objid ("ebb370a7-81e3-4b6a-9ce5-2e787f42b6ab")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCommunicationChannel(this);

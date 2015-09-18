@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
 
 @objid ("003aad54-c4bf-1fd8-97fe-001ec947cd2a")
 public interface OutputPin extends Pin {
-    @objid ("0cf20a15-3bbb-4849-b620-eac141f41a03")
+    @objid ("b3f8186b-74da-4fee-a544-aa93afc8f488")
     ActivityAction getOutputing();
 
-    @objid ("5a0987a0-f677-4d72-b593-15ac6c2d0c42")
+    @objid ("72080306-40e5-456a-9366-006b5f605e5b")
     void setOutputing(ActivityAction value);
 
 }

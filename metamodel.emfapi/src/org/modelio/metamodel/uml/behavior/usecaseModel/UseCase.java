@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 
 @objid ("00588716-c4bf-1fd8-97fe-001ec947cd2a")
 public interface UseCase extends GeneralClass {
-    @objid ("df9b1614-579a-400b-90a5-f53e0f0cc035")
+    @objid ("5dd4764a-50a2-406e-9c63-d2a3153bc194")
     EList<UseCaseDependency> getUsed();
 
-    @objid ("7e8f79ac-4b3c-46b1-855f-2d78230b079b")
+    @objid ("ad421931-aeb0-4c42-be1e-34b2f207832d")
     <T extends UseCaseDependency> List<T> getUsed(java.lang.Class<T> filterClass);
 
-    @objid ("56ff6998-c765-478b-bd26-b4bf67f51406")
+    @objid ("de381e14-252f-41f1-8be9-b489dde8bf4d")
     EList<ExtensionPoint> getOwnedExtension();
 
-    @objid ("dc5e947f-ba7f-4bfa-bdfe-df01895c168f")
+    @objid ("fcce935b-838c-4a61-aeba-aa1da96c9dd4")
     <T extends ExtensionPoint> List<T> getOwnedExtension(java.lang.Class<T> filterClass);
 
-    @objid ("319d4138-e760-422d-b1d0-c69dacf279b7")
+    @objid ("98348ac7-f97f-4113-bb1b-4ccebb42c7ca")
     EList<UseCaseDependency> getUser();
 
-    @objid ("d36c28a3-88a1-4049-a951-782e8c7d3d7a")
+    @objid ("a1ebc43b-1ca1-47cb-bb77-4714ba83831e")
     <T extends UseCaseDependency> List<T> getUser(java.lang.Class<T> filterClass);
 
 }

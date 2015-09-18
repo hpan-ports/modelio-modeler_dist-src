@@ -175,7 +175,7 @@ public class ExmlIndex {
      * @throws org.modelio.vstore.exml.common.index.IndexOutdatedException if the indexes are out of date.
      */
     @objid ("6905f779-4b8b-11e2-91c9-001ec947ccaf")
-    public void checkUptodate() throws IndexOutdatedException, IOException {
+    public void checkUptodate() throws IOException, IndexOutdatedException {
         try {
             // Check index is here
             if (this.cmsNodeIndex.isEmpty())

@@ -33,16 +33,16 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("001a6e72-c4bf-1fd8-97fe-001ec947cd2a")
 public interface RaisedException extends ModelElement {
-    @objid ("41d241bc-016c-4cf1-aef3-e48bdf380626")
+    @objid ("304b7f51-429c-4efc-aebb-fd24309af2d7")
     Classifier getThrownType();
 
-    @objid ("89f967ff-4333-4b13-9843-ea2edc2feeec")
+    @objid ("b3c00961-dfd2-4c32-8535-2eb0574e357e")
     void setThrownType(Classifier value);
 
-    @objid ("d17b417f-c9fc-4c73-905e-38dcf11c2c8b")
+    @objid ("45715d13-af97-459a-b5c9-3dcfe908a208")
     Operation getThrower();
 
-    @objid ("4a59a993-255c-4507-beee-df5a71c64015")
+    @objid ("43a1ca48-38bb-4ad5-a5d3-9e26bdf48655")
     void setThrower(Operation value);
 
 }

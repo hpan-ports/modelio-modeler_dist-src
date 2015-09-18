@@ -31,7 +31,7 @@ import org.modelio.vbasic.auth.IAuthData;
  * Authentication configuration for GProject, IProjectFragment and GModule.
  * <p>
  * Contains authentication data and a definition scope.
- * The authentication data may be null, meaning the project authentication data should be used.
+ * The authentication data may be null, meaning the authentication is missing and should be asked to the user.
  */
 @objid ("9240828a-516f-4eb6-b2e3-65f14e407ec7")
 public class GAuthConf {
@@ -102,7 +102,10 @@ public class GAuthConf {
     }
 
     /**
-     * @return the authentication data.
+     * Get the authentication data.
+     * <p>
+     * <i>null</i> means authentication must be asked to the user.
+     * @return the authentication data or <i>null</i>.
      */
     @objid ("7d657f60-3600-4114-a0f8-8efa77a5be84")
     public IAuthData getAuthData() {
@@ -212,6 +215,19 @@ public class GAuthConf {
             }
         }
         return false;
+    }
+
+    /**
+     * Get the authentication scheme id for convenience.
+     * <p>
+     * Returns <i>null</i> if there is no authentication data.
+     * @return the authentication data scheme id.
+     */
+    @objid ("04c3e7ee-c36a-48f2-9c77-1ca68aa3f040")
+    public String getSchemeId() {
+        if (this.authData == null)
+            return null;
+        return this.authData.getSchemeId();
     }
 
 }

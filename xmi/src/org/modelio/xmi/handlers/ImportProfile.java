@@ -37,7 +37,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MStatus;
 import org.modelio.xmi.gui.SwtWizardImportProfile;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 /**
  * Handler of the  XMI "ImportProfile" command.
@@ -77,8 +77,8 @@ public class ImportProfile {
     @objid ("1dcff0dd-1e37-4488-9c5e-817165e57385")
     public static boolean isVisible(List<MObject> selectedElements) {
         return ((! selectedElements.isEmpty())
-                && (selectedElements.size() == 1)
-                     && (selectedElements.get(0) instanceof ModuleComponent));
+                        && (selectedElements.size() == 1)
+                             && (selectedElements.get(0) instanceof ModuleComponent));
     }
 
 }

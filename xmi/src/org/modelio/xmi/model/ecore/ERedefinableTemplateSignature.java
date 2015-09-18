@@ -29,10 +29,8 @@ import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.reverse.PartialImportMap;
-import org.modelio.xmi.reverse.TotalImportMap;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("dab4929e-436e-4325-aa65-5066ee60e1c0")
 public class ERedefinableTemplateSignature extends ENamedElement {
@@ -83,8 +81,6 @@ public class ERedefinableTemplateSignature extends ENamedElement {
             if (objingOwner instanceof Classifier)
                 ((Operation) objingElt).setOwner((Classifier) objingOwner);
             else {
-                PartialImportMap.getInstance().remove(this.ecoreElement);
-                TotalImportMap.getInstance().remove(this.ecoreElement);
                 objingElt.delete();
             }
         }

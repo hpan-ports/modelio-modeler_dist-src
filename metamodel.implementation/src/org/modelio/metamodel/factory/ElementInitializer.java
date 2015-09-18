@@ -146,6 +146,9 @@ public class ElementInitializer implements IElementInitializer {
     @objid ("59e9e4d9-cc4f-4007-abf2-da46b28cc8a0")
     @SuppressWarnings("synthetic-access")
     private class ElementInitializerVisitor extends DefaultModelVisitor {
+        @objid ("f349c179-c8d5-4daf-ae55-a4f5a68d906f")
+        private static final String DEFAULT_MIMETYPE = "text/plain";
+
         @objid ("3e38257c-b736-4c18-9bfe-dbcf73f95b3e")
         private IModelFactory modelFactory;
 
@@ -266,6 +269,15 @@ public class ElementInitializer implements IElementInitializer {
                 theNote.setModel(this.geometry.getDescriptionNoteType());
             }
             return super.visitNote(theNote);
+        }
+
+        @objid ("4fc3d1fb-9dc1-4d44-b878-52969828332f")
+        @Override
+        public Object visitNoteType(NoteType theNoteType) {
+            if (theNoteType.getMimeType().isEmpty()) {
+                theNoteType.setMimeType(ElementInitializerVisitor.DEFAULT_MIMETYPE);
+            }
+            return super.visitNoteType(theNoteType);
         }
 
         @objid ("5208b6b9-65f0-4993-9f71-1b0b15e744d1")

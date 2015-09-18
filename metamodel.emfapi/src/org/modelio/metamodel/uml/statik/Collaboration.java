@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("0003f692-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Collaboration extends NameSpace {
-    @objid ("f8e2b79a-f128-4125-b45a-bcf5e6874d17")
+    @objid ("b8f43560-2e27-4938-be6f-7bef046e7a9d")
     boolean isIsConcurrent();
 
-    @objid ("9ccccf47-3e05-4ba1-bd95-63133f10ab03")
+    @objid ("b2c389c2-0346-435b-a361-5d2129b99981")
     void setIsConcurrent(boolean value);
 
-    @objid ("187816fa-b66f-4463-ac00-d8f560094b8e")
+    @objid ("fee50aa0-2386-4b48-a79b-b94ad3ded0a1")
     Operation getORepresented();
 
-    @objid ("8a2c14c9-0545-467a-9a82-8ee0b341a495")
+    @objid ("90ce0b99-17fb-49c3-b63d-8ba08dafa8b1")
     void setORepresented(Operation value);
 
-    @objid ("441d21e1-2d46-4c6a-b46a-62b7b945a38e")
+    @objid ("20497c27-5020-487a-ae90-5041b902ec03")
     Behavior getBRepresented();
 
-    @objid ("79f4c6f3-f29d-4992-9e0b-164ec169013f")
+    @objid ("a4b888a5-1870-4c37-a408-c188ed98127c")
     void setBRepresented(Behavior value);
 
-    @objid ("8e177c27-0d2a-46f6-8ba4-aeeb906402f0")
+    @objid ("80dabab4-1f42-43c6-bbb5-3880d6ce3486")
     EList<CollaborationUse> getOccurrence();
 
-    @objid ("f1c0e207-5f0a-40ad-ac76-e94a99e645b1")
+    @objid ("1e7d63d6-94a3-4c5c-9b34-50125c2cd648")
     <T extends CollaborationUse> List<T> getOccurrence(java.lang.Class<T> filterClass);
 
 }

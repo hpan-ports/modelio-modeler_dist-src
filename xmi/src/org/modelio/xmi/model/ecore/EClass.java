@@ -29,10 +29,8 @@ import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
-import org.modelio.xmi.reverse.PartialImportMap;
-import org.modelio.xmi.reverse.TotalImportMap;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("308f5273-ede3-4257-bb0f-8aa076213166")
 public class EClass extends ENamedElement {
@@ -64,7 +62,7 @@ public class EClass extends ENamedElement {
         
                 Object objingOwner =  revProp.getMappedElement(ecoreOwner);
                 if (objingOwner instanceof Profile) {
-                        objingClass.setOwner(ReverseProperties.getInstance().getExternalPackage());  
+                    objingClass.setOwner(ReverseProperties.getInstance().getExternalPackage());  
                 } else if (objingOwner instanceof Node) {
                     //rule R44
                     objingClass.setOwner(ReverseProperties.getInstance().getExternalPackage()); 
@@ -85,10 +83,12 @@ public class EClass extends ENamedElement {
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        if (ReverseProperties.getInstance().isRoundtripEnabled() && ObjingEAnnotation.isDestroy(getEcoreElement())){
-            deleteElement(objingElt);
-        }else{
+        if (ReverseProperties.getInstance().isRoundtripEnabled() 
+                && ObjingEAnnotation.isDestroy(getEcoreElement())){
         
+            objingElt.delete();
+        
+        }else{
         
             if (!this.isDeleted && objingElt instanceof Classifier) {
                 ReverseProperties revProp = ReverseProperties.getInstance();
@@ -132,14 +132,6 @@ public class EClass extends ENamedElement {
     @objid ("341ba5b0-379b-45aa-9f48-94406343ae58")
     private void setPrimitiveEAnnotation(Class objingElt) {
         objingElt.setIsElementary(ObjingEAnnotation.isPrimitive( getEcoreElement()));
-    }
-
-    @objid ("a765f018-c3cf-4190-b238-4021241ecf58")
-    private void deleteElement(Element objingElt) {
-        PartialImportMap.getInstance().remove(getEcoreElement());
-        TotalImportMap.getInstance().remove(getEcoreElement());
-        objingElt.delete();
-        this.isDeleted = true;
     }
 
     @objid ("0c11f958-e3d6-4c87-a405-90e7be412cd3")

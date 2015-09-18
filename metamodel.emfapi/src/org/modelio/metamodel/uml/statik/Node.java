@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.statik.Artifact;
 
 @objid ("0012fb88-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Node extends Classifier {
-    @objid ("4a99820c-f853-451a-844c-1c16b83a1c4e")
+    @objid ("6fcb3746-66cc-4f69-81c8-8899e85dddd9")
     EList<Artifact> getResident();
 
-    @objid ("891db547-575c-48ec-83f4-d578b8a61c2d")
+    @objid ("d519e83d-0780-4d31-88f2-70dd32c689ac")
     <T extends Artifact> List<T> getResident(java.lang.Class<T> filterClass);
 
 }

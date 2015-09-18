@@ -723,7 +723,7 @@ public class JdbmRepository implements IRepository {
     }
 
     @objid ("88d00449-1b6f-4af0-a720-f3f21b4c0133")
-    private void loadObj(SmObjectImpl obj, IModelLoader loader) throws IOException, IOError, InternalError, DuplicateObjectException {
+    private void loadObj(SmObjectImpl obj, IModelLoader loader) throws IOException, DuplicateObjectException, InternalError, IOError {
         boolean ok = false;
         try {
             byte[] bdata = this.dbContent.get(obj.getUuid());

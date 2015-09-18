@@ -26,7 +26,7 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("24e5cedc-b302-4fc2-80db-e1502a837ead")
@@ -38,7 +38,7 @@ public class EState extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-        .createState();
+                .createState();
     }
 
     @objid ("9bfe93e2-7acf-45b5-9cac-e04d35788b08")

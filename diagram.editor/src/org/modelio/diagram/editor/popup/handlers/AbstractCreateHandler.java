@@ -71,9 +71,7 @@ public abstract class AbstractCreateHandler {
 
     @objid ("6686496c-33f7-11e2-95fe-001ec947c8cc")
     @Execute
-    public Object execute(@Named("metaclass") String metaclass, @Optional
-@Named("dependency") String dependency, @Optional
-@Named("stereotype") String stereotype, IProjectService projectService, @Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection) throws ExecutionException {
+    public Object execute(@Named("metaclass") String metaclass, @Optional @Named("dependency") String dependency, @Optional @Named("stereotype") String stereotype, IProjectService projectService, @Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection) throws ExecutionException {
         // Get the value of the parameters:
         this.metaclass = metaclass;
         this.dependency = dependency;

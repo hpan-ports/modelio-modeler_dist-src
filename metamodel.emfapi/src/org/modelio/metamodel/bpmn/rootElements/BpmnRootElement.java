@@ -31,10 +31,10 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBehavior;
 
 @objid ("007ab098-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnRootElement extends BpmnBaseElement {
-    @objid ("4cb0759f-0c53-4e2d-85c3-e8ef29dfd0d5")
+    @objid ("c949d88b-dc2d-4135-8d4b-7af7c6ad6403")
     BpmnBehavior getOwner();
 
-    @objid ("95db6966-1f21-46d0-a702-c55dd3ed6988")
+    @objid ("fb671aaa-3e0c-4525-8da9-5e243e891313")
     void setOwner(BpmnBehavior value);
 
 }

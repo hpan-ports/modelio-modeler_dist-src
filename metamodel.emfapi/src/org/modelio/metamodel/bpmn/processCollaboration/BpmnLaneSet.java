@@ -35,28 +35,28 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("0074fd92-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnLaneSet extends BpmnBaseElement {
-    @objid ("ac577771-b37d-46c4-a3fe-78244f1d57a9")
+    @objid ("1d0dc0b4-d084-4b2f-99d9-5f236da29578")
     EList<BpmnLane> getLane();
 
-    @objid ("ca80f80a-8bae-4a7e-a472-1df32f9daefe")
+    @objid ("3dbc2819-cea9-449b-9fda-a5f2a51cf077")
     <T extends BpmnLane> List<T> getLane(java.lang.Class<T> filterClass);
 
-    @objid ("dffc5168-710b-4ff0-85e0-3cf534c0330c")
+    @objid ("f74966c5-6443-4fb1-96c4-ca47967792b2")
     BpmnProcess getProcess();
 
-    @objid ("01b5a1b3-1140-4a5a-9bb6-2e3c65b36176")
+    @objid ("065f358c-04ea-44d4-a6fb-137a60ad8426")
     void setProcess(BpmnProcess value);
 
-    @objid ("4a06963c-3fd6-4429-99fe-acccbc5c02fa")
+    @objid ("add3b5fa-77e2-4fa7-86c3-f08762d106f7")
     BpmnLane getParentLane();
 
-    @objid ("38a54e8a-3936-478b-bd94-8387edad6ced")
+    @objid ("902247d9-decc-4408-898c-b854f734b2f9")
     void setParentLane(BpmnLane value);
 
-    @objid ("2da9bd23-7cff-4732-8432-60b9109374ec")
+    @objid ("ad56535e-db6d-4e48-9b32-3be17aae4c15")
     BpmnSubProcess getSubProcess();
 
-    @objid ("de06842e-877d-4523-a180-ea6e56730c2c")
+    @objid ("5423e19d-540a-4e05-be9a-1b929103c913")
     void setSubProcess(BpmnSubProcess value);
 
 }

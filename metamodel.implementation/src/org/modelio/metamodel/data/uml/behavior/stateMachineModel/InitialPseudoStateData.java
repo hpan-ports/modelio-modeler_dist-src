@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00512192-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=InitialPseudoState.class, factory=InitialPseudoStateData.Metadata.ObjectFactory.class)
 public class InitialPseudoStateData extends AbstractPseudoStateData {
-    @objid ("91360bcd-d3ad-4d59-b2eb-7c898349c417")
+    @objid ("5c6b447f-b842-4a1a-9350-fb9ab5290ec6")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0005be8c-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("26796a12-1661-406a-b6d6-ac92e9b6a12d")
+        @objid ("1b6bc0b7-3280-4680-94e8-e61c2fb83816")
         private static SmClass smClass = null;
 
-        @objid ("c4dfd0d3-e929-4555-957f-436233e50fe0")
+        @objid ("70b73d92-b316-4202-89ef-180dfe48cd88")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(InitialPseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("694edb6a-4bd8-460b-ba23-9d886d11525e")
+        @objid ("eb0d619f-6d9c-41e9-8e81-d5840479b310")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class InitialPseudoStateData extends AbstractPseudoStateData {
 
         @objid ("00061166-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("6cfe716b-c4df-4881-b77c-cbf58d011991")
+            @objid ("52bd6e36-2dca-4ec7-858b-8fda58a38db1")
             public ISmObjectData createData() {
                 return new InitialPseudoStateData();
             }
 
-            @objid ("ed15652d-a7e0-4138-9ea7-e17545e2d60e")
+            @objid ("783768fd-4dde-4dd5-811e-047298fda4d5")
             public SmObjectImpl createImpl() {
                 return new InitialPseudoStateImpl();
             }

@@ -45,29 +45,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00804c1a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnLoopCharacteristics.class, factory=BpmnLoopCharacteristicsData.Metadata.ObjectFactory.class)
 public abstract class BpmnLoopCharacteristicsData extends BpmnBaseElementData {
-    @objid ("1824176e-9dc7-4a7c-8b66-8db10dc5f094")
+    @objid ("8106e210-f0a0-4005-8b74-d2db91ea7bda")
     @SmaMetaAssociation(metaName="OwnerActivity", typeDataClass=BpmnActivityData.class, min=1, max=1, smAssociationClass=Metadata.OwnerActivitySmDependency.class)
      SmObjectImpl mOwnerActivity;
 
-    @objid ("cffc3b18-6697-4492-83fe-b2965608a316")
+    @objid ("8f170677-7d30-4ac2-99a9-47ab6bf54602")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00448e1e-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("f9a0067d-a267-4147-8ec9-be3f216926ef")
+        @objid ("a6ec4c62-9823-4462-9e1e-15b774403b22")
         private static SmClass smClass = null;
 
-        @objid ("714cfba7-b24b-4a27-9972-5ea944504e17")
+        @objid ("6abf85f3-532c-4579-b9cf-05b8a967ace6")
         private static SmDependency OwnerActivityDep = null;
 
-        @objid ("3c337b48-715d-43f9-b721-ca92603dbbd1")
+        @objid ("292eaa93-8eb5-4ee8-9d6f-dee043adb5ae")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnLoopCharacteristicsData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("508ed8f1-c0ad-448c-a656-3ff26eceb204")
+        @objid ("1158e99d-4dd2-4b3f-8a66-7c633f17ea29")
         public static SmDependency OwnerActivityDep() {
             if (OwnerActivityDep == null) {
             	OwnerActivityDep = classof().getDependencyDef("OwnerActivity");
@@ -75,26 +75,26 @@ public abstract class BpmnLoopCharacteristicsData extends BpmnBaseElementData {
             return OwnerActivityDep;
         }
 
-        @objid ("41eb648b-b4c7-443f-9796-a1241a0f6003")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("98d3d2d8-54e8-434b-977e-bc6a73f9257e")
+        @objid ("eea86f7d-f97e-4403-9055-da9ac0e08dd7")
         public static SmDependency getOwnerActivityDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerActivityDep;
         }
 
+        @objid ("22da9b56-f125-422f-989f-cdd36aaf3c72")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("0044cfd2-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ca4829ac-3eff-413a-83bb-445dab805aac")
+            @objid ("0e53e508-3697-4d02-99e3-b824a7305e4d")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("bd9bd237-a7b5-42e5-86ce-a1a2f16171ac")
+            @objid ("3fa9a5f8-d3d5-47c8-b6dd-1790843bae06")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -103,18 +103,18 @@ public abstract class BpmnLoopCharacteristicsData extends BpmnBaseElementData {
 
         @objid ("004531e8-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OwnerActivitySmDependency extends SmSingleDependency {
-            @objid ("81d32439-1b50-47c6-8b9b-50742df950a4")
+            @objid ("846bdc44-ae58-41b9-9a34-41b5da5a4feb")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnLoopCharacteristicsData) data).mOwnerActivity;
             }
 
-            @objid ("96db0abc-ddba-4f8d-a05c-0af5766fe3a7")
+            @objid ("6d56c883-3b70-4602-90e4-e8825ba03cb6")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnLoopCharacteristicsData) data).mOwnerActivity = value;
             }
 
-            @objid ("5c087e76-c13a-4afc-8edf-1a233c2aeac6")
+            @objid ("e408c50a-e084-4a01-b3ff-ece4857f60e5")
             @Override
             public SmDependency getSymetric() {
                 return BpmnActivityData.Metadata.LoopCharacteristicsDep();

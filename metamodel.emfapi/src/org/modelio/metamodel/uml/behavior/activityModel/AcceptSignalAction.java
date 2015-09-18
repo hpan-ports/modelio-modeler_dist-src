@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 
 @objid ("00250f30-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AcceptSignalAction extends ActivityAction {
-    @objid ("73abfa3d-e668-404e-bb42-5117d56aa711")
+    @objid ("57a05d77-2283-4640-b945-e8adbb5149ce")
     EList<Signal> getAccepted();
 
-    @objid ("4c1ed5b0-daff-47cb-95bd-095fcdcb31aa")
+    @objid ("72090ea9-01ee-4af3-a424-a43504b26aed")
     <T extends Signal> List<T> getAccepted(java.lang.Class<T> filterClass);
 
 }

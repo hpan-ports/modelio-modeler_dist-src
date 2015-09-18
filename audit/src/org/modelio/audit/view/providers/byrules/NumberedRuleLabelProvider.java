@@ -31,7 +31,7 @@ import org.modelio.audit.view.model.AuditRuleModel;
 
 @objid ("26c1dcc6-372e-4dd1-9ba6-5e30022e34e6")
 public class NumberedRuleLabelProvider extends StyledCellLabelProvider {
-    @objid ("09191e0e-d200-4494-b1e9-b7f6bd0d7a9a")
+    @objid ("406472a6-5999-4ab8-a156-c10278e18f50")
     private final SimpleDateFormat formatter = new SimpleDateFormat("H:mm:ss");
 
     @objid ("aedd5f98-f5e3-49fc-a8a0-836ed317e076")

@@ -46,13 +46,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00630880-c4bf-1fd8-97fe-001ec947cd2a")
 public class PropertyContainerImpl extends ModelElementImpl implements PropertyContainer {
-    @objid ("73f3ec01-fe2b-4c65-a42a-f4dcc3c35058")
+    @objid ("88be7597-f46e-41b2-bbe4-6babcb8f92f9")
     @Override
     public EList<PropertyTableDefinition> getDefinedTable() {
         return new SmList<>(this, PropertyContainerData.Metadata.DefinedTableDep());
     }
 
-    @objid ("08c12e2d-f6b4-4033-add5-be5523d54939")
+    @objid ("92640656-b5cb-49bf-b4d6-daa16d057ead")
     @Override
     public <T extends PropertyTableDefinition> List<T> getDefinedTable(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -65,25 +65,25 @@ public class PropertyContainerImpl extends ModelElementImpl implements PropertyC
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("47119060-1d5b-4d2e-9d8d-9dd392596c27")
+    @objid ("4fdbc74b-9ae6-404f-b81a-500e3d2c4303")
     @Override
     public AnalystProject getOwnerProject() {
         return (AnalystProject) getDepVal(PropertyContainerData.Metadata.OwnerProjectDep());
     }
 
-    @objid ("9c084362-4969-47d5-9301-46c327d2dc06")
+    @objid ("4ac3b438-9387-44c4-b092-d331be6ddb5f")
     @Override
     public void setOwnerProject(AnalystProject value) {
         appendDepVal(PropertyContainerData.Metadata.OwnerProjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c338f2af-e0ff-412f-ba03-a92100a68a19")
+    @objid ("395fe602-adcc-48c9-bb7f-cebbe76239b4")
     @Override
     public EList<PropertyType> getDefinedType() {
         return new SmList<>(this, PropertyContainerData.Metadata.DefinedTypeDep());
     }
 
-    @objid ("373524ca-265d-437d-813e-68f459890fd5")
+    @objid ("4dabba17-c527-41b7-88b2-bdb040c1abbf")
     @Override
     public <T extends PropertyType> List<T> getDefinedType(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -96,7 +96,7 @@ public class PropertyContainerImpl extends ModelElementImpl implements PropertyC
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1b8613c8-62cd-4243-ad53-f35d3ffb78fe")
+    @objid ("1b50cd3d-9c1b-4121-bf44-51a8b1382418")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -106,7 +106,7 @@ public class PropertyContainerImpl extends ModelElementImpl implements PropertyC
         return super.getCompositionOwner();
     }
 
-    @objid ("6d58af2d-4f27-4d19-afc5-beef7b1e3672")
+    @objid ("d7687ff1-c6eb-4917-bc77-1ab6bad03708")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -116,7 +116,7 @@ public class PropertyContainerImpl extends ModelElementImpl implements PropertyC
         return super.getCompositionRelation();
     }
 
-    @objid ("fe58f800-3290-458f-aad9-9dd84d0f3504")
+    @objid ("eb2b95e7-c3c2-427a-b7b2-7da5c2487200")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPropertyContainer(this);

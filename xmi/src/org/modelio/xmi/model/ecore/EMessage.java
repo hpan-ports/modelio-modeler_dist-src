@@ -29,8 +29,8 @@ import org.modelio.metamodel.uml.behavior.interactionModel.MessageSort;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("b878cf00-e2ba-4505-badc-bb44f242bb5a")
 public class EMessage extends ENamedElement {
@@ -38,7 +38,7 @@ public class EMessage extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createMessage();
+                        .createMessage();
     }
 
     @objid ("b1b41ab9-dfa8-4789-bea6-4206027f5ba8")

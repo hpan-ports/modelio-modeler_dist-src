@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Core ui services
 Bundle-SymbolicName: org.modelio.core.ui
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Bundle-Activator: org.modelio.core.ui.plugin.CoreUi
 Bundle-Vendor: modelio.org
 Require-Bundle: org.eclipse.core.runtime,
@@ -26,7 +26,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.modelio.core.help,
  org.modelio.core.project.data,
  org.eclipse.nebula.widgets.nattable.core,
- org.eclipse.nebula.widgets.cdatetime
+ org.eclipse.nebula.widgets.cdatetime,
+ org.eclipse.ui.forms,
+ org.modelio.edition.html,
+ org.eclipse.core.expressions
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: res/,
  .
@@ -36,6 +39,8 @@ Export-Package: org.modelio.core.ui,
  org.modelio.core.ui.dialog,
  org.modelio.core.ui.dnd,
  org.modelio.core.ui.elementChooser,
+ org.modelio.core.ui.form.fields,
+ org.modelio.core.ui.form.models,
  org.modelio.core.ui.images,
  org.modelio.core.ui.ktable,
  org.modelio.core.ui.ktable.types,

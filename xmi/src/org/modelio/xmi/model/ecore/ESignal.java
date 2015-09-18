@@ -31,8 +31,8 @@ import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Parameter;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("9581dee9-a6d9-484e-9b6f-c8f3f08a8f23")
 public class ESignal extends ENamedElement {
@@ -43,7 +43,7 @@ public class ESignal extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-        .createSignal();
+                .createSignal();
     }
 
     @objid ("c7ebad8d-b052-4684-9aa6-0a5e32aecd70")

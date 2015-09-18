@@ -36,12 +36,10 @@ import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.metamodel.uml.statik.PassingMode;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.reverse.PartialImportMap;
-import org.modelio.xmi.reverse.TotalImportMap;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 /**
@@ -88,8 +86,6 @@ public class EParameter extends ENamedElement {
                 if ((owner != null) && (owner instanceof Behavior))
                     ((Behavior) owner).getParameter().add((BehaviorParameter)objingElt);
                 else{ 
-                    PartialImportMap.getInstance().remove(ecoreElement);
-                    TotalImportMap.getInstance().remove(ecoreElement);
                     objingElt.delete();
                 }
         
@@ -145,8 +141,6 @@ public class EParameter extends ENamedElement {
                         break;
                     }
                 } else {
-                    PartialImportMap.getInstance().remove(ecoreElement);
-                    TotalImportMap.getInstance().remove(ecoreElement);
                     objingElt.delete();
                 }
             }

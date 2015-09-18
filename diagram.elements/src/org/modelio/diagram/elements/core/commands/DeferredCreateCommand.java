@@ -84,8 +84,12 @@ public class DeferredCreateCommand extends Command {
             gmTarget.setVisible(true);
         
         final EditPart p = (EditPart) this.editPartRegistry.get(gmTarget);
-        if (p != null)
-            p.getTargetEditPart(this.req).getCommand(this.req).execute();
+        if (p != null) {
+            final EditPart targetEditPart = p.getTargetEditPart(this.req);
+            if (targetEditPart != null) {
+                targetEditPart.getCommand(this.req).execute();
+            }
+        }
     }
 
     /**

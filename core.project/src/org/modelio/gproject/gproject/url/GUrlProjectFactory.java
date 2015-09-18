@@ -58,7 +58,7 @@ public class GUrlProjectFactory extends GRemoteProjectFactory {
 
     @objid ("9540f2aa-501c-4710-b893-0982c35d32e1")
     @Override
-    public InputSource readRemoteDescriptor(ProjectDescriptor projectDescriptor, IAuthData authData, IModelioProgress monitor) throws GProjectAuthenticationException, IOException {
+    public InputSource readRemoteDescriptor(ProjectDescriptor projectDescriptor, IAuthData authData, IModelioProgress monitor) throws IOException, GProjectAuthenticationException {
         URI remoteUri = UriUtils.asDirectoryUri(getRemoteDirUri(projectDescriptor));
         URI remoteConfUri =  remoteUri.resolve(REMOTE_PROJECT_CONF);
         

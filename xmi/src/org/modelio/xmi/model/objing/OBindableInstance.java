@@ -32,9 +32,9 @@ import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.XMILogs;
 

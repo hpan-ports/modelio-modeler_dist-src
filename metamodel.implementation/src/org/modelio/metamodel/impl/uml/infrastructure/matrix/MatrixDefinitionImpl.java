@@ -45,67 +45,67 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("ce758e96-007e-4b95-9c1f-1964de5db680")
 public class MatrixDefinitionImpl extends ModelElementImpl implements MatrixDefinition {
-    @objid ("de91f04d-db61-4db4-b24b-71bc7b1dc327")
+    @objid ("121aa6cb-bb58-4352-ae32-b7c002f2e855")
     @Override
     public QueryDefinition getLinesDefinition() {
         return (QueryDefinition) getDepVal(MatrixDefinitionData.Metadata.LinesDefinitionDep());
     }
 
-    @objid ("49672c97-6776-4bbd-833b-0dd33311eadc")
+    @objid ("dea99665-6806-4e09-85c2-b5a1d436b6c3")
     @Override
     public void setLinesDefinition(QueryDefinition value) {
         appendDepVal(MatrixDefinitionData.Metadata.LinesDefinitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a0ed79b1-fa3e-46b8-9bd2-737555d8737e")
+    @objid ("dfc389a3-cf13-4e85-8b52-65cd2cfb8765")
     @Override
     public QueryDefinition getColumnsDefinition() {
         return (QueryDefinition) getDepVal(MatrixDefinitionData.Metadata.ColumnsDefinitionDep());
     }
 
-    @objid ("62ecb45e-e417-4ec2-9e42-8a5b1124f57a")
+    @objid ("fc49dad1-cbe9-49a4-ac72-396a2c6ba983")
     @Override
     public void setColumnsDefinition(QueryDefinition value) {
         appendDepVal(MatrixDefinitionData.Metadata.ColumnsDefinitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("98f6cf76-73ba-4822-9c03-bf161ad39fda")
+    @objid ("c0fc6df5-d12c-48af-9167-3eec168d47f8")
     @Override
     public MatrixValueDefinition getValuesDefinition() {
         return (MatrixValueDefinition) getDepVal(MatrixDefinitionData.Metadata.ValuesDefinitionDep());
     }
 
-    @objid ("018c4ec1-341a-47c5-826c-bd2696606869")
+    @objid ("7f473e5c-8bf0-438d-8e27-c298e7c726c7")
     @Override
     public void setValuesDefinition(MatrixValueDefinition value) {
         appendDepVal(MatrixDefinitionData.Metadata.ValuesDefinitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4e60e81b-9828-464d-9f95-85e363a2e56a")
+    @objid ("5f76b031-3d27-44fc-b293-c38f98f2017e")
     @Override
     public QueryDefinition getDepthDefinition() {
         return (QueryDefinition) getDepVal(MatrixDefinitionData.Metadata.DepthDefinitionDep());
     }
 
-    @objid ("5a534b46-c796-49c2-a7f9-5ca4607fc598")
+    @objid ("c83c527d-84ec-4ffe-bc72-51a68403632a")
     @Override
     public void setDepthDefinition(QueryDefinition value) {
         appendDepVal(MatrixDefinitionData.Metadata.DepthDefinitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c78eefe7-2de4-4024-bf51-d60e7b9e11f3")
+    @objid ("1b957c46-a729-4c99-9914-9f6002ed9dc4")
     @Override
     public ModelElement getOwner() {
         return (ModelElement) getDepVal(MatrixDefinitionData.Metadata.OwnerDep());
     }
 
-    @objid ("ca351839-bc31-4f0d-a8bf-f1d5ddd6885b")
+    @objid ("420fe3e7-27ed-49e7-a3f0-92b98e918a41")
     @Override
     public void setOwner(ModelElement value) {
         appendDepVal(MatrixDefinitionData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6df9b5d4-1134-4c20-b3e0-0cce4b916361")
+    @objid ("7f36a246-32cd-4988-9ba7-83d444f7cd11")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -115,7 +115,7 @@ public class MatrixDefinitionImpl extends ModelElementImpl implements MatrixDefi
         return super.getCompositionOwner();
     }
 
-    @objid ("931bc102-771f-4490-9ab9-456a4640d4b3")
+    @objid ("3dd7713c-fbd0-4e4c-b0f2-4fef4d746373")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -125,7 +125,7 @@ public class MatrixDefinitionImpl extends ModelElementImpl implements MatrixDefi
         return super.getCompositionRelation();
     }
 
-    @objid ("83309c7d-b8d0-42d3-97ac-8a40c4e19c1f")
+    @objid ("7bd30912-32b0-4118-95be-8244427d853f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitMatrixDefinition(this);

@@ -28,8 +28,8 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.Collaboration;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("d0e19d3b-1f9b-40a9-a7bf-aaf20a585675")
 public class ECollaboration extends ENamedElement {
@@ -40,7 +40,7 @@ public class ECollaboration extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-        .createCollaboration();
+                .createCollaboration();
     }
 
     @objid ("36d076fa-8276-4756-97a9-0c31ed67c57c")

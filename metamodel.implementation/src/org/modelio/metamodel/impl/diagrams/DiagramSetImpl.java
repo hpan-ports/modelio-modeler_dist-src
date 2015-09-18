@@ -45,13 +45,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("006e3d9a-c4bf-1fd8-97fe-001ec947cd2a")
 public class DiagramSetImpl extends ModelElementImpl implements DiagramSet {
-    @objid ("9aaf2db6-5dd6-42ac-a169-d7c6a53567c7")
+    @objid ("8fc7bf03-b7a3-4393-892e-76805ef28abd")
     @Override
     public EList<DiagramSet> getSub() {
         return new SmList<>(this, DiagramSetData.Metadata.SubDep());
     }
 
-    @objid ("9e85bb5f-a693-486e-9d87-0bf964df2c1a")
+    @objid ("bbcd22d7-c35a-4877-89b4-c83e5e7bb3ef")
     @Override
     public <T extends DiagramSet> List<T> getSub(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -64,25 +64,25 @@ public class DiagramSetImpl extends ModelElementImpl implements DiagramSet {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("01296eb8-5647-416b-af6c-829e5608e197")
+    @objid ("61d1151e-0433-4085-989a-28dc810d3ad3")
     @Override
     public DiagramSet getParent() {
         return (DiagramSet) getDepVal(DiagramSetData.Metadata.ParentDep());
     }
 
-    @objid ("257c3eef-ff17-4651-b500-d580c5ee3001")
+    @objid ("4a026f3c-bfcf-4062-89a0-95cbc6172fbe")
     @Override
     public void setParent(DiagramSet value) {
         appendDepVal(DiagramSetData.Metadata.ParentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a77bb093-542d-4416-9ed3-56ccdd30c964")
+    @objid ("2668ff83-6075-456b-889c-a7a067747c81")
     @Override
     public EList<AbstractDiagram> getReferencedDiagram() {
         return new SmList<>(this, DiagramSetData.Metadata.ReferencedDiagramDep());
     }
 
-    @objid ("ab545574-8d50-4c2f-9651-a304adaa52ee")
+    @objid ("7a336e9a-ff2f-4cc8-9e08-2238b96aa0d2")
     @Override
     public <T extends AbstractDiagram> List<T> getReferencedDiagram(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -95,19 +95,19 @@ public class DiagramSetImpl extends ModelElementImpl implements DiagramSet {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6197f125-5155-4ae0-881c-bee87fe1c15c")
+    @objid ("132dd3a8-2991-4511-8633-436d6c104078")
     @Override
     public Project getOwner() {
         return (Project) getDepVal(DiagramSetData.Metadata.OwnerDep());
     }
 
-    @objid ("48db7845-8595-4172-87d1-c83f90a36d12")
+    @objid ("8ce410d6-9d56-43a4-a314-33a8f02c329e")
     @Override
     public void setOwner(Project value) {
         appendDepVal(DiagramSetData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("17126b41-6f12-4ab4-8006-d158bc943c32")
+    @objid ("d31edfdc-5e84-4d75-8b85-b8b973f76355")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -120,7 +120,7 @@ public class DiagramSetImpl extends ModelElementImpl implements DiagramSet {
         return super.getCompositionOwner();
     }
 
-    @objid ("11784c6b-f8cb-4316-b46a-728554bd6718")
+    @objid ("bc855ae7-3709-46b3-b415-b1ce8f1d51c5")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -133,7 +133,7 @@ public class DiagramSetImpl extends ModelElementImpl implements DiagramSet {
         return super.getCompositionRelation();
     }
 
-    @objid ("d223ebd7-8e8f-4446-9ee6-431104d5ad52")
+    @objid ("6fab4129-c89e-4cae-a19f-7c5f57e25f15")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDiagramSet(this);

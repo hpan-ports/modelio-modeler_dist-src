@@ -27,7 +27,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.ModuleException;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.GModule;
@@ -38,41 +37,41 @@ import org.modelio.vbasic.collections.TopologicalSorter.CyclicDependencyExceptio
 import org.modelio.vbasic.version.Version;
 
 /**
- * Helper class to convert {@link GModule} into {@link IModule} or a name into a {@link GModule}, get the list of weak dependencies, etc.
+ * Helper class to convert {@link GModule} into {@link IRTModule} or a name into a {@link GModule}, get the list of weak dependencies, etc.
  */
 @objid ("2f013d2a-0233-11e2-9fca-001ec947c8cc")
 class ModuleResolutionHelper {
     /**
-     * Returns the list of <strong>activated</strong> IModule that the passed module has weak dependencies on.
+     * Returns the list of <strong>activated</strong> IRTModule that the passed module has weak dependencies on.
      * @param gModule the module for which to get weak dependencies.
      * @param gProject the project to search into.
      * @param moduleService the module service
-     * @return the list of IModule that the passed module has weak dependencies on.
+     * @return the list of IRTModule that the passed module has weak dependencies on.
      */
     @objid ("c413849f-4503-4f56-aa96-714c01c47e45")
-    static List<IModule> getGModuleActivatedWeakDependenciesIModules(GModule gModule, GProject gProject, ModuleService moduleService) {
+    static List<IRTModule> getGModuleActivatedWeakDependenciesIModules(GModule gModule, GProject gProject, ModuleService moduleService) {
         return getModuleHandleActivatedWeakDependenciesIModules(gModule.getModuleHandle(), gProject, moduleService);
     }
 
     /**
-     * Returns the list of <strong>activated</strong> IModule that the passed module handle has weak dependencies on.
+     * Returns the list of <strong>activated</strong> IRTModule that the passed module handle has weak dependencies on.
      * @param iModuleHandle the module handle for which to get weak dependencies.
      * @param gProject the project to search into.
      * @param moduleService the module service
-     * @return the list of IModule that the passed module has weak dependencies on.
+     * @return the list of IRTModule that the passed module has weak dependencies on.
      */
     @objid ("b8a9cc6c-9543-4876-a936-144fef5d8adc")
-    static List<IModule> getModuleHandleActivatedWeakDependenciesIModules(IModuleHandle iModuleHandle, GProject gProject, ModuleService moduleService) {
-        List<IModule> activatedWeakDependencies = new ArrayList<>();
+    static List<IRTModule> getModuleHandleActivatedWeakDependenciesIModules(IModuleHandle iModuleHandle, GProject gProject, ModuleService moduleService) {
+        List<IRTModule> activatedWeakDependencies = new ArrayList<>();
         // Read the list from administrative informations
         for (ModuleId moduleId : iModuleHandle.getWeakDependencies()) {
             // Search the corresponding GModule
             GModule module = getGModuleByName(gProject, moduleId.getName());
             if (module != null) {
                 // If Version compatible and activated, look for the loaded
-                // IModule and add it to the list.
+                // IRTModule and add it to the list.
                 if (isVersionCompatible(module.getVersion(), moduleId.getVersion()) && module.isActivated()) {
-                    final IModule weakRequiredModule = moduleService.getModuleRegistry().getLoadedModule(module.getModuleElement());
+                    final IRTModule weakRequiredModule = moduleService.getModuleRegistry().getLoadedModule(module);
                     if (weakRequiredModule != null) {
                         activatedWeakDependencies.add(weakRequiredModule);
                     }
@@ -97,38 +96,38 @@ class ModuleResolutionHelper {
     }
 
     /**
-     * Returns the list of mandatory IModule required by the passed module.
+     * Returns the list of mandatory IRTModule required by the passed module.
      * @param iModule the module for which to get mandatory dependencies.
      * @param moduleService the module service.
-     * @return the list of mandatory IModule required by the passed module.
+     * @return the list of mandatory IRTModule required by the passed module.
      */
     @objid ("a3030846-6bdf-4892-ad0f-d7f71370d2b6")
-    static List<IModule> getIModuleDependsOnIModules(IModule iModule, GProject gProject, ModuleService moduleService) {
+    static List<IRTModule> getIModuleDependsOnIModules(IRTModule iModule, GProject gProject, ModuleService moduleService) {
         final GModule gModule = getGModuleByName(gProject, iModule.getName());
         final IModuleHandle moduleHandle = gModule != null ? gModule.getModuleHandle() : null;
         return getModuleComponentDependsOnIModules(moduleHandle, gProject, moduleService);
     }
 
     /**
-     * Returns the list of mandatory IModule required by the passed module.
+     * Returns the list of mandatory IRTModule required by the passed module.
      * @param gModule the module for which to get mandatory dependencies.
      * @param moduleService the module service.
-     * @return the list of mandatory IModule required by the passed module.
+     * @return the list of mandatory IRTModule required by the passed module.
      */
     @objid ("1584670b-1b9a-474c-bdb0-eddd9676123b")
-    static List<IModule> getGModuleDependsOnIModules(GModule gModule, GProject gProject, ModuleService moduleService) {
+    static List<IRTModule> getGModuleDependsOnIModules(GModule gModule, GProject gProject, ModuleService moduleService) {
         return getModuleComponentDependsOnIModules(gModule.getModuleHandle(), gProject, moduleService);
     }
 
     /**
-     * Returns the list of mandatory IModule required by the passed module component.
+     * Returns the list of mandatory IRTModule required by the passed module component.
      * @param moduleHandle the module handle for which to get mandatory dependencies.
      * @param moduleService the module service.
-     * @return the list of mandatory IModule required by the passed module.
+     * @return the list of mandatory IRTModule required by the passed module.
      */
     @objid ("d9197889-0783-4321-bd54-444b76893e42")
-    static List<IModule> getModuleComponentDependsOnIModules(IModuleHandle moduleHandle, GProject gProject, ModuleService moduleService) {
-        List<IModule> dependsOn = new ArrayList<>();
+    static List<IRTModule> getModuleComponentDependsOnIModules(IModuleHandle moduleHandle, GProject gProject, ModuleService moduleService) {
+        List<IRTModule> dependsOn = new ArrayList<>();
         // Read the list directly from the ModelComponent.
         if (moduleHandle != null) {
          // Read the list from administrative informations
@@ -138,7 +137,7 @@ class ModuleResolutionHelper {
                 if (module != null) {
                     // If Version compatible and activated, add it to the list.
                     if (isVersionCompatible(module.getVersion(), moduleId.getVersion())) {
-                        dependsOn.add(moduleService.getIModule(module.getModuleElement()));
+                        dependsOn.add(moduleService.getIRTModule(module.getModuleElement()));
                     }
                 }
             }
@@ -295,25 +294,25 @@ class ModuleResolutionHelper {
     }
 
     /**
-     * Returns the list of all loaded {@link IModule} in the project that have a dependency
+     * Returns the list of all loaded {@link IRTModule} in the project that have a dependency
      * (direct or not, strong or weak) on the passed module.
      * <p>
      * The returned list is topologically sorted by installation order.
      * @param iModule the module for which dependents are searched.
      * @param gProject the project to search into.
      * @param moduleService the modules service.
-     * @return the list of {@link IModule} in the project that have a dependency (direct or not, strong or weak) on the passed module.
+     * @return the list of {@link IRTModule} in the project that have a dependency (direct or not, strong or weak) on the passed module.
      * @throws org.modelio.api.module.ModuleException in case of cyclic module dependency.
      */
     @objid ("b96097d6-0aa5-4dfb-9259-5cf5a83768dc")
-    public static List<IModule> getIModuleDependentIModules(IModule iModule, GProject gProject, ModuleService moduleService) throws ModuleException {
-        List<IModule> ret = new ArrayList<>();
+    public static List<IRTModule> getIModuleDependentIModules(IRTModule iModule, GProject gProject, ModuleService moduleService) throws ModuleException {
+        List<IRTModule> ret = new ArrayList<>();
         
         GModule gModule = ModuleResolutionHelper.getGModuleByName(gProject, iModule.getName());
         
         List<GModule> dependentGModules = getModuleHandleDependentGModules(gModule.getModuleHandle(), gProject);
         for (GModule dependentGModule : dependentGModules) {
-            IModule dependentLoadedModule = moduleService.getModuleRegistry().getLoadedModule(dependentGModule.getModuleElement());
+            IRTModule dependentLoadedModule = moduleService.getModuleRegistry().getLoadedModule(dependentGModule);
             if (dependentLoadedModule != null) {
                 ret.add(dependentLoadedModule);
             }

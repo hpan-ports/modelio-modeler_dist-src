@@ -28,6 +28,7 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.generation.TotalExportMap;
 import org.modelio.xmi.plugin.Xmi;
 
@@ -95,13 +96,15 @@ public class SysMLProfileUtils {
     private static void addRequirementStereotype(final org.eclipse.uml2.uml.Profile sysMLProfile) {
         org.eclipse.uml2.uml.Stereotype stereotype = sysMLProfile.createOwnedStereotype("Requirement", false); 
                
+        EcoreUMLTypes ecoreUMLTypes = GenerationProperties.getInstance().getEcoreUMLTypes();
+        
         ProfileUtils.addReference(stereotype, "Class");        
         
-        Property text = stereotype.createOwnedAttribute("Text", PrimitiveTypeMapper.getString());
+        Property text = stereotype.createOwnedAttribute("Text", ecoreUMLTypes.getString());
         text.setLower(1);
         text.setUpper(1);
         
-        Property id = stereotype.createOwnedAttribute("Id",  PrimitiveTypeMapper.getString());
+        Property id = stereotype.createOwnedAttribute("Id",  ecoreUMLTypes.getString());
         id.setLower(1);
         id.setUpper(1);
     }

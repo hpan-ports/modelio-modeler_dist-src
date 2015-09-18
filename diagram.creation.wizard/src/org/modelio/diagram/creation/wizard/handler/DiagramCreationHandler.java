@@ -16,7 +16,7 @@ import org.modelio.app.core.IModelioService;
 import org.modelio.app.core.events.ModelioEvent;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.diagram.creation.wizard.contributor.AbstractDiagramCreationContributor;
+import org.modelio.diagram.creation.wizard.contributor.AbstractUMLDiagramCreationContributor;
 import org.modelio.diagram.creation.wizard.diagramcreation.DiagramContributorManager;
 import org.modelio.diagram.creation.wizard.diagramcreation.DiagramWizardDialog;
 import org.modelio.diagram.creation.wizard.diagramcreation.DiagramWizardModel;
@@ -56,8 +56,7 @@ public class DiagramCreationHandler {
      */
     @objid ("aa773628-c456-4c2f-8d24-2bd8e6fd0899")
     @Execute
-    public Object execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Optional
-@Named("contributor") final String contributorName) {
+    public Object execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Optional @Named("contributor") final String contributorName) {
         ModelElement selectedElement = getSelectedElement(selection);
         
         if (this.dialog == null || this.dialog.getShell() == null) {
@@ -65,9 +64,9 @@ public class DiagramCreationHandler {
             IDiagramWizardContributor selectedContributor = null;
             DiagramContributorManager contributorManager = DiagramContributorManager.getInstance();
             for (IDiagramWizardContributor contributor : contributorManager.getAllContributorsList()) {
-                if (contributor instanceof AbstractDiagramCreationContributor) {                
-                    ((AbstractDiagramCreationContributor)contributor).setProjectService(this.projectService);
-                    ((AbstractDiagramCreationContributor)contributor).setModelService(this.mmServices);
+                if (contributor instanceof AbstractUMLDiagramCreationContributor) {
+                    ((AbstractUMLDiagramCreationContributor) contributor).setProjectService(this.projectService);
+                    ((AbstractUMLDiagramCreationContributor) contributor).setModelService(this.mmServices);
                 }
                 if (contributor.getClass().getSimpleName().equals(contributorName)) {
                     selectedContributor = contributor;
@@ -80,9 +79,8 @@ public class DiagramCreationHandler {
                 dataModel.setContext(selectedElement);
                 dataModel.setShowInvalidDiagram(false);
         
-                this.dialog = new DiagramWizardDialog(Display.getDefault().getActiveShell(),
-                        contributorManager,
-                        dataModel, this.projectService, this.mmServices, this.pickingService);
+                this.dialog = new DiagramWizardDialog(Display.getDefault().getActiveShell(), contributorManager, dataModel,
+                        this.projectService, this.mmServices, this.pickingService);
                 this.dialog.open();
                 resultModel = this.dialog.getResultModel();
                 if (resultModel != null) {
@@ -99,7 +97,8 @@ public class DiagramCreationHandler {
                 ICoreSession session = this.projectService.getSession();
         
                 try (ITransaction t = session.getTransactionSupport().createTransaction("Create diagram");) {
-                    AbstractDiagram diagram = selectedContributor.actionPerformed(resultModel.getContext(), resultModel.getName(), resultModel.getDescription());
+                    AbstractDiagram diagram = selectedContributor.actionPerformed(resultModel.getContext(), resultModel.getName(),
+                            resultModel.getDescription());
         
                     t.commit();
                     if (diagram != null) {
@@ -131,8 +130,7 @@ public class DiagramCreationHandler {
 
     @objid ("3a2dad2c-f22a-444d-84ae-5020b1749e4f")
     @CanExecute
-    public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Optional
-@Named("contributor") final String contributorName) {
+    public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Optional @Named("contributor") final String contributorName) {
         // Sanity checks
         if (this.projectService.getSession() == null) {
             return false;

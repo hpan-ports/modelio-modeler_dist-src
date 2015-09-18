@@ -44,22 +44,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("000c5094-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnProcessCollaborationDiagram.class, factory=BpmnProcessCollaborationDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class BpmnProcessCollaborationDiagramData extends BehaviorDiagramData {
-    @objid ("8d567b1b-eeb6-49d8-a152-a51d4079c9b1")
+    @objid ("5ca11d2c-ad7d-4013-a17b-ed2238aaec63")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0082bd6a-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("52675af2-2eff-4b64-9ccb-fbc5e5f01ea4")
+        @objid ("8083457f-2d45-4ba5-90af-f44674e48a10")
         private static SmClass smClass = null;
 
-        @objid ("d7c3e96d-bf33-4f28-bfab-7863eb492a3e")
+        @objid ("8bb94b81-44e9-457f-8380-549edbb22901")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnProcessCollaborationDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("9a6f17a6-0a79-4544-a78a-80791a32973c")
+        @objid ("bd079036-3e9f-4245-978e-696d5370463d")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -67,12 +67,12 @@ public class BpmnProcessCollaborationDiagramData extends BehaviorDiagramData {
 
         @objid ("0082fe9c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("209be306-0266-4bef-8025-4975bcd110f1")
+            @objid ("31ed32f4-d3dd-4c6e-99ba-1cc9171a22dc")
             public ISmObjectData createData() {
                 return new BpmnProcessCollaborationDiagramData();
             }
 
-            @objid ("38315ee4-59c6-40e6-96e9-e5db03930351")
+            @objid ("57eb5625-8bd2-41ab-b658-d8fc4a026fda")
             public SmObjectImpl createImpl() {
                 return new BpmnProcessCollaborationDiagramImpl();
             }

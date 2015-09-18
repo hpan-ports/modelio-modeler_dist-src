@@ -23,8 +23,8 @@ package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("5adff1b3-6055-4371-83cd-c9bd6c1fe10f")
 public class EAssociation extends ENamedElement {

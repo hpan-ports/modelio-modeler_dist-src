@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("009533e6-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnTerminateEventDefinition.class, factory=BpmnTerminateEventDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnTerminateEventDefinitionData extends BpmnEventDefinitionData {
-    @objid ("e9d53b53-7dca-42b4-ba7b-77cb634494b6")
+    @objid ("36fb19ea-7801-4580-aca7-276c66b3e232")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0056fcd4-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("174e9e54-eb52-4660-b01a-afc7086f6a66")
+        @objid ("2894e221-0559-4c92-86e5-8899b5f49341")
         private static SmClass smClass = null;
 
-        @objid ("aa5031cd-59f6-4b04-a81e-b7ff72d4257e")
+        @objid ("fd9aae6f-542e-434c-bbea-ee1faabf4fb7")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnTerminateEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("dc545912-ee7b-42b0-816c-be83fbe76857")
+        @objid ("3d05be22-cb39-4d7c-84b4-c97ce93cfdbe")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BpmnTerminateEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("00573c76-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e3dbc433-6a93-47e7-b9ac-365e84b111c9")
+            @objid ("552404c5-6108-40dc-bc6f-54006e4657e4")
             public ISmObjectData createData() {
                 return new BpmnTerminateEventDefinitionData();
             }
 
-            @objid ("600502fd-078c-4b7f-8253-3987d41713b4")
+            @objid ("f8d95909-51a9-41c7-8936-bbba49f3898a")
             public SmObjectImpl createImpl() {
                 return new BpmnTerminateEventDefinitionImpl();
             }

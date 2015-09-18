@@ -30,7 +30,7 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.CreationTool;
 import org.modelio.api.diagram.IDiagramGraphic;
-import org.modelio.api.diagram.tools.IBoxCommand;
+import org.modelio.api.diagram.tools.IBoxTool;
 import org.modelio.diagram.api.dg.DGFactory;
 import org.modelio.diagram.api.services.DiagramHandle;
 import org.modelio.diagram.editor.IDiagramEditor;
@@ -44,16 +44,16 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
 @objid ("e35d9ce6-a6df-4360-ab71-aff5ca805b4d")
 public class BoxTool extends CreationTool {
     @objid ("99af540c-14a1-4cc0-809c-f5b420c961e6")
-    private IBoxCommand boxCommand;
+    private IBoxTool boxCommand;
+
+    @objid ("942d8d3c-c405-4052-ae03-316c0eeb7f99")
+    private DiagramHandle diagramHandle = null;
 
     /**
      * PropertyDefinition name for the actual handler on the module side.
      */
-    @objid ("8ab560e5-f384-48f0-afcb-78efcd547239")
+    @objid ("86f5152f-8711-48d9-b7a5-5c03a659fd8c")
     public static final Object PROPERTY_HANDLER = "handler";
-
-    @objid ("942d8d3c-c405-4052-ae03-316c0eeb7f99")
-    private DiagramHandle diagramHandle = null;
 
     /**
      * C'tor, used by platform to instantiate the tool by reflexion.
@@ -112,8 +112,8 @@ public class BoxTool extends CreationTool {
     @Override
     protected void applyProperty(final Object key, final Object value) {
         if (PROPERTY_HANDLER.equals(key)) {
-            if (value instanceof IBoxCommand) {
-                this.boxCommand = (IBoxCommand) value;
+            if (value instanceof IBoxTool) {
+                this.boxCommand = (IBoxTool) value;
             }
             return;
         }

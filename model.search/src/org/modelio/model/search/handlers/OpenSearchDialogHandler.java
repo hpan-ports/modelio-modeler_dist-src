@@ -26,7 +26,7 @@ import org.modelio.vcore.session.api.ICoreSession;
 public class OpenSearchDialogHandler {
     @objid ("000f47fe-c59e-10ab-8258-001ec947cd2a")
     @Execute
-    public void execute(final IEclipseContext context, final IProjectService projectService, final IModelioNavigationService navigationService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell) throws InvocationTargetException, InterruptedException {
+    public void execute(final IEclipseContext context, final IProjectService projectService, final IModelioNavigationService navigationService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell) throws InterruptedException, InvocationTargetException {
         final GProject project = projectService.getOpenedProject();
         if (project == null) {
             return;

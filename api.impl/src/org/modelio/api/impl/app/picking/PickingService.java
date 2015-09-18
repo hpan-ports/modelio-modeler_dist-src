@@ -59,6 +59,7 @@ public class PickingService implements IPickingService {
             PickingSessionProxy sessionProxy = (PickingSessionProxy) session;
             if (sessionProxy.getSession() != null)
                 this.modelioPickin.stopPicking(sessionProxy.getSession());
+            PickingService.currentSession = null;
         }
     }
 

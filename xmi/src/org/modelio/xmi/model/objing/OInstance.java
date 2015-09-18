@@ -38,11 +38,11 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.util.ModelioPrimitiveTypeMapper;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.StringConverter;
 import org.modelio.xmi.util.XMILogs;
 
@@ -51,7 +51,7 @@ import org.modelio.xmi.util.XMILogs;
  * @author ebrosse
  */
 @objid ("b23f9e0a-4246-4328-ab70-4ac3244dfc0d")
-public class OInstance extends OModelElement implements IOElement {
+public class OInstance extends OModelElement {
     @objid ("4b9ac946-ccbf-4564-a3f0-5edaa89fa44e")
     private Instance objingElement = null;
 
@@ -59,6 +59,7 @@ public class OInstance extends OModelElement implements IOElement {
     private MObject root = null;
 
     @objid ("e8538978-5a72-4e7d-87a0-6aee43ed02c0")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         if (! (this.objingElement instanceof BindableInstance)){
             if (this.objingElement.getCompositionOwner() instanceof Package)
@@ -109,7 +110,7 @@ public class OInstance extends OModelElement implements IOElement {
         if (ecoreElt instanceof InstanceSpecification){
             setInstanceSpecificationProperties((InstanceSpecification)ecoreElt);
         }else if (ecoreElt instanceof Property){
-            setName((org.eclipse.uml2.uml.NamedElement) ecoreElt);
+            super.setProperties(ecoreElt);
             setBase((Property) ecoreElt);
             setMin((Property) ecoreElt);
             setMax((Property) ecoreElt);
@@ -118,13 +119,6 @@ public class OInstance extends OModelElement implements IOElement {
             setEAnnotationName((org.eclipse.uml2.uml.Slot)ecoreElt);
             setValue((org.eclipse.uml2.uml.Slot) ecoreElt);
         }
-    }
-
-    @objid ("e965c29c-daaa-438d-a63d-9b7b80453500")
-    private void setName(InstanceSpecification specification) {
-        String eltName = this.objingElement.getName();
-        if (AbstractObjingModelNavigation.isNotNullOrEmpty(eltName))
-            specification.setName(eltName);
     }
 
     @objid ("35eca0e5-c66a-40b7-9d0f-24f327c070f5")
@@ -139,7 +133,7 @@ public class OInstance extends OModelElement implements IOElement {
             if (ecoreRepresented instanceof org.eclipse.uml2.uml.Classifier) {
                 ecoreElement.getClassifiers().add( (org.eclipse.uml2.uml.Classifier)ecoreRepresented);
             }else if ((objingRepresented instanceof GeneralClass) 
-                    && (PrimitiveTypeMapper.isPredefinedType((GeneralClass)objingRepresented))
+                    && (ModelioPrimitiveTypeMapper.isPredefinedType((GeneralClass)objingRepresented))
                     && genProp.isRoundtripEnabled()){
                 ObjingEAnnotation.setType(ecoreElement, objingRepresented.getName());
             }else{
@@ -173,7 +167,7 @@ public class OInstance extends OModelElement implements IOElement {
     private void setValue(org.eclipse.uml2.uml.Element ecoreElt) {
         String value = this.objingElement.getValue();
         if ((value != null ) && (!value.equals(""))){
-            NameSpace base  = ((Instance) this.objingElement).getBase();
+            NameSpace base  = this.objingElement.getBase();
             if (ecoreElt instanceof InstanceSpecification){
                 InstanceSpecification spec = (InstanceSpecification) ecoreElt;
                 addValueSpecification(base, this.objingElement.getValue(), spec);
@@ -198,17 +192,15 @@ public class OInstance extends OModelElement implements IOElement {
                 if (temp instanceof org.eclipse.uml2.uml.Type)
                     type =  (org.eclipse.uml2.uml.Type) temp;
             }
-        
-        
-        
-            if (type != null){
+                
+            if ((objType != null) && (type != null)){
                  org.eclipse.uml2.uml.ValueSpecification result = null;
         
                 IUMLTypes umlTypes = Modelio.getInstance()
                         .getModelingSession().getModel().getUmlTypes();
                 // primitive type ==> LiteralSpecification
         
-                if(objType.equals(umlTypes.getINTEGER())){
+                if (objType.equals(umlTypes.getINTEGER())){
                     org.eclipse.uml2.uml.LiteralInteger literalInteger = UMLFactory.eINSTANCE.createLiteralInteger();
                     result = spec.createSpecification(null, type, literalInteger.eClass());
                     try{
@@ -356,15 +348,15 @@ public class OInstance extends OModelElement implements IOElement {
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                 org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
-                ownerIsPkg.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
+                ownerIsPkg.getPackagedElements().add(ecoreElt);
         
             } else if (ecoreOwner instanceof org.eclipse.uml2.uml.Component) {
                 org.eclipse.uml2.uml.Component ownerIsCmpnt = (org.eclipse.uml2.uml.Component) ecoreOwner;
-                ownerIsCmpnt.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
+                ownerIsCmpnt.getPackagedElements().add(ecoreElt);
             } else if (objingOwner instanceof ModelTree) {
                 org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) genProp.getMappedElement(
                         AbstractObjingModelNavigation.getNearestPackage((ModelTree) objingOwner));
-                ownerIsPkg.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
+                ownerIsPkg.getPackagedElements().add(ecoreElt);
         
                 if (!(objingOwner.equals(ownerIsPkg))){
                     XMILogs logs = XMILogs.getInstance();
@@ -393,8 +385,7 @@ public class OInstance extends OModelElement implements IOElement {
     private void setInstanceSpecificationProperties(InstanceSpecification ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        setName((InstanceSpecification)ecoreElt);
-        setClassifier((InstanceSpecification)ecoreElt);
+        setClassifier(ecoreElt);
         
         if (genProp.isRoundtripEnabled()){
             setIsConstant(ecoreElt);
@@ -671,7 +662,7 @@ public class OInstance extends OModelElement implements IOElement {
                 type =  (org.eclipse.uml2.uml.Type) temp;
         }
         
-        if (type != null){
+        if ((objType != null) && (type != null)){
              org.eclipse.uml2.uml.ValueSpecification result = null;
         
             IUMLTypes umlTypes = Modelio.getInstance()

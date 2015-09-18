@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
 
 @objid ("00366bf4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InterruptibleActivityRegion extends ActivityGroup {
-    @objid ("77701cd5-8ae2-4811-96a3-b560f678460f")
+    @objid ("5818238c-5eae-4e9c-819e-5776bf9f3901")
     EList<ActivityEdge> getInterruptingEdge();
 
-    @objid ("048cd456-0888-40a9-98e9-9a0d23eb30d1")
+    @objid ("c4a96235-42e6-4a5f-a074-cab8f53dbb4d")
     <T extends ActivityEdge> List<T> getInterruptingEdge(java.lang.Class<T> filterClass);
 
 }

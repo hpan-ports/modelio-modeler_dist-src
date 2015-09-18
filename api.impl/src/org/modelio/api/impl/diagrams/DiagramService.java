@@ -14,10 +14,10 @@ import org.modelio.api.diagram.IDiagramHandle;
 import org.modelio.api.diagram.IDiagramService;
 import org.modelio.api.diagram.autodiagram.IAutoDiagramFactory;
 import org.modelio.api.diagram.style.IStyleHandle;
-import org.modelio.api.diagram.tools.IAttachedBoxCommand;
-import org.modelio.api.diagram.tools.IBoxCommand;
-import org.modelio.api.diagram.tools.ILinkCommand;
-import org.modelio.api.diagram.tools.IMultiLinkCommand;
+import org.modelio.api.diagram.tools.IAttachedBoxTool;
+import org.modelio.api.diagram.tools.IBoxTool;
+import org.modelio.api.diagram.tools.ILinkTool;
+import org.modelio.api.diagram.tools.IMultiLinkTool;
 import org.modelio.api.impl.plugin.ApiImpl;
 import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
 import org.modelio.app.project.core.services.IProjectService;
@@ -124,7 +124,7 @@ public class DiagramService implements IDiagramService {
 
     @objid ("44495430-822a-489b-b9db-73cc479da9bc")
     @Override
-    public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IBoxCommand handler) {
+    public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IBoxTool handler) {
         ModelioCreationContext context = new ModelioCreationContext(metaclass.getName(), dependency,stereotype);
         ToolEntry toolentry = new BoxToolEntry(handler.getLabel(),
                                                handler.getTooltip(),
@@ -138,7 +138,7 @@ public class DiagramService implements IDiagramService {
 
     @objid ("fa62b9f3-6337-4d22-86f2-9f9ba8609924")
     @Override
-    public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IAttachedBoxCommand handler) {
+    public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IAttachedBoxTool handler) {
         ModelioCreationContext context = new ModelioCreationContext(metaclass.getName(),dependency,stereotype);
         ToolEntry toolEntry = new AttacherBoxToolEntry(handler.getLabel(),
                                                        handler.getTooltip(),
@@ -152,7 +152,7 @@ public class DiagramService implements IDiagramService {
 
     @objid ("0b119cd3-c21d-490d-8b8a-74108e7ca749")
     @Override
-    public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final ILinkCommand handler) {
+    public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final ILinkTool handler) {
         ModelioLinkCreationContext context = new ModelioLinkCreationContext(metaclass.getName(), stereotype);
         
         // Create and register tool entry
@@ -168,7 +168,7 @@ public class DiagramService implements IDiagramService {
 
     @objid ("ee9cae64-147a-4719-962c-6fec284027b7")
     @Override
-    public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IMultiLinkCommand handler) {
+    public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IMultiLinkTool handler) {
         ModelioLinkCreationContext context = new ModelioLinkCreationContext(metaclass.getName(),stereotype);
         
         // Create and register tool entry

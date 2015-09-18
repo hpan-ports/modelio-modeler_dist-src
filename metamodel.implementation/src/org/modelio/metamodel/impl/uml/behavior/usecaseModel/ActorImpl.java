@@ -42,21 +42,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00583680-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActorImpl extends GeneralClassImpl implements Actor {
-    @objid ("7ffa580f-a290-44c1-b0ad-7e232224cb77")
+    @objid ("828a3448-5950-4889-b61d-0368c09fa2f6")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("4f162efe-4a20-4dc0-bdfe-501643bec365")
+    @objid ("86829c20-9709-4ff8-8f66-8fcf8f2d29c5")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("95580045-d217-4f22-bdcc-7ae0509f1ba2")
+    @objid ("38f8d8d4-16c3-4b01-a4b3-7a54be15bc7d")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActor(this);

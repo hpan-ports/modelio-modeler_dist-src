@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.informationFlow.DataFlow;
 import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("01f85212-338d-4c60-90d0-4e646cdd7969")
 public class ODataFlow extends OModelElement implements IOElement {

@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("003f561a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ValuePin.class, factory=ValuePinData.Metadata.ObjectFactory.class)
 public class ValuePinData extends InputPinData {
-    @objid ("0453c543-5d71-49bd-babc-90f7f369373b")
+    @objid ("6d584717-0c19-454e-928c-311c5fbe8d62")
     @SmaMetaAttribute(metaName="Value", type=String.class, smAttributeClass=Metadata.ValueSmAttribute.class)
      Object mValue = "";
 
-    @objid ("d599db14-10eb-4d0f-bdcc-38e37c39005c")
+    @objid ("3bab0351-0b30-4129-994c-1e611cf5b23b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0012639e-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("3b80685f-9037-42d1-b136-2f5fe350f283")
+        @objid ("fba875cb-adeb-4cb6-bf7d-1c368cdacbf2")
         private static SmClass smClass = null;
 
-        @objid ("27b3ef07-100a-4adb-848e-2f3183a512a0")
+        @objid ("d9d64b6a-54ab-4b29-8742-25eee6de91fd")
         private static SmAttribute ValueAtt = null;
 
-        @objid ("3edcae50-b6c6-4ab3-8674-acdb363ce366")
+        @objid ("bb07fffb-012c-4fbe-8e20-5a7ca6629f39")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ValuePinData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("74e3e44f-6bc2-4665-af7f-dfd74ec23d60")
+        @objid ("3f0f49ff-75b3-4d65-b205-67f0fc92c2ec")
         public static SmAttribute ValueAtt() {
             if (ValueAtt == null) {
             	ValueAtt = classof().getAttributeDef("Value");
@@ -73,13 +73,13 @@ public class ValuePinData extends InputPinData {
             return ValueAtt;
         }
 
-        @objid ("2bacd2b5-f6d4-47d9-9a14-3544b5326941")
+        @objid ("d4879977-ad08-4a16-afd1-b5216a4ad1bb")
         public static SmAttribute getValueAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ValueAtt;
         }
 
-        @objid ("2bc663db-69ee-434c-b8a1-3c6019250be1")
+        @objid ("39b6c5a3-2415-46cb-8ee5-5e4189a700f2")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -87,12 +87,12 @@ public class ValuePinData extends InputPinData {
 
         @objid ("0012a5ac-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("1416999d-4943-4697-82f1-50519fee97ee")
+            @objid ("56274ef0-3407-4a92-ab24-13dba4ad1e68")
             public ISmObjectData createData() {
                 return new ValuePinData();
             }
 
-            @objid ("12b1cce2-02a7-4d53-97f0-129ebef1de76")
+            @objid ("190978c6-7e59-46c6-9d6e-857a8cd620a4")
             public SmObjectImpl createImpl() {
                 return new ValuePinImpl();
             }
@@ -101,12 +101,12 @@ public class ValuePinData extends InputPinData {
 
         @objid ("0013061e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ValueSmAttribute extends SmAttribute {
-            @objid ("20d791b7-f505-4515-9ec8-e0db24d4fc8f")
+            @objid ("bc17c6cc-fe6a-4e50-9b6a-5d305c1a75c1")
             public Object getValue(ISmObjectData data) {
                 return ((ValuePinData) data).mValue;
             }
 
-            @objid ("bd51a5b9-271e-4ea1-821d-6cc262737e33")
+            @objid ("c9f39637-8411-487c-8625-0858367c08f2")
             public void setValue(ISmObjectData data, Object value) {
                 ((ValuePinData) data).mValue = value;
             }

@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("008be606-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnEscalationEventDefinition extends BpmnEventDefinition {
-    @objid ("d3bc5ca4-e99c-454e-a6db-75f1f2804b21")
+    @objid ("5c377773-ea45-4e01-82af-25e439d62a32")
     String getEscalationCode();
 
-    @objid ("169b3c87-adab-4fdd-90ac-195be66c5877")
+    @objid ("50f20fcf-b34a-4407-92c2-0b9a49bf0de6")
     void setEscalationCode(String value);
 
 }

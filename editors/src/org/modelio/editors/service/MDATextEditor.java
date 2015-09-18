@@ -82,7 +82,7 @@ public class MDATextEditor implements IMDATextEditor, IEditorListener {
     @objid ("7b4b92c4-2a77-11e2-9fb9-bc305ba4815c")
     @Override
     public void setReadonlyMode(boolean readOnly) {
-        IDocumentEditor editor = (IDocumentEditor)this.editorPart.getObject();    
+        IDocumentEditor editor = (IDocumentEditor)this.editorPart.getObject();
         editor.setReadonlyMode(readOnly);
     }
 
@@ -113,7 +113,7 @@ public class MDATextEditor implements IMDATextEditor, IEditorListener {
     @Override
     public void documentSaved(File file) {
         if (this.listener != null) {
-            this.listener.documentSaved(this, element, file);
+            this.listener.documentSaved(this, this.element, file);
         }
     }
 
@@ -134,6 +134,12 @@ public class MDATextEditor implements IMDATextEditor, IEditorListener {
     @objid ("6ee238f8-3007-11e2-a3ce-bc305ba4815c")
     protected void setType(EditorType type) {
         this.type = type;
+    }
+
+    @objid ("45086418-e24c-448c-80c3-024dbc8b08c4")
+    @Override
+    public void setCharsetName(String charsetName) {
+        this.oInput.setCharsetName(charsetName);
     }
 
 }

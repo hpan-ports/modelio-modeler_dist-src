@@ -26,8 +26,8 @@ import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("4932eaa7-ea5a-4c43-a5e6-a34c3a3dae6b")
 public class EProtocolTransition extends ETransition {
@@ -44,7 +44,7 @@ public class EProtocolTransition extends ETransition {
             return ReverseProperties.getInstance().getMModelServices().getModelFactory()
             .createInternalTransition();
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-        .createTransition();
+                .createTransition();
     }
 
     @objid ("5fed398d-4ddf-4256-8a78-306e5be46cb1")

@@ -25,6 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.services.EContextService;
 import org.modelio.app.core.activation.IActivationService;
+import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.elements.core.obfactory.IModelLinkFactory;
 import org.modelio.diagram.elements.core.obfactory.ModelLinkFactory;
@@ -58,10 +59,12 @@ public class ModelManager {
     @objid ("79b94beb-a3cd-4099-bc70-2c3d9dd32ef9")
     private final IActivationService activationService;
 
+    @objid ("b0b221c9-534f-4cf4-8173-7277a586be5f")
+    private final IModelioNavigationService navigationService;
+
     /**
      * Create a model manager.
-     * @param session a modeling session.
-     * @param modelServices the model services for the session.
+     * @param context the Eclipse 4 context
      */
     @objid ("80874372-1dec-11e2-8cad-001ec947c8cc")
     public ModelManager(IEclipseContext context) {
@@ -69,6 +72,7 @@ public class ModelManager {
         this.modelServices = context.get(IMModelServices.class);
         this.contextService = context.get(EContextService.class);
         this.activationService = context.get(IActivationService.class);
+        this.navigationService = context.get(IModelioNavigationService.class);
         
         this.modelLinkFactory = new ModelLinkFactory(this.modelServices);
     }
@@ -116,7 +120,7 @@ public class ModelManager {
     }
 
     /**
-     * Get the model services.
+     * Get the Modelio model services.
      * @return the model services.
      */
     @objid ("78b5a580-598c-11e2-8539-00137282c51b")
@@ -124,14 +128,28 @@ public class ModelManager {
         return this.modelServices;
     }
 
+    /**
+     * @return the E4 context service.
+     */
     @objid ("7f2d7c50-bec3-4126-b425-e2cb58866454")
     public EContextService getContextService() {
         return this.contextService;
     }
 
+    /**
+     * @return the Modelio activation service.
+     */
     @objid ("227c2c9f-6f33-4516-bcc9-ab88159c61c1")
     public IActivationService getActivationService() {
         return this.activationService;
+    }
+
+    /**
+     * @return the Modelio navigation service
+     */
+    @objid ("2e5c9d82-50ca-43c7-8a89-b39870fccb4b")
+    public IModelioNavigationService getNavigationService() {
+        return this.navigationService;
     }
 
 }

@@ -41,10 +41,10 @@ public interface PropertyEnumerationLitteral extends ModelElement {
     @objid ("3f7c4c9d-6307-4688-9ae7-6d02f373cc0f")
     int compareTo(PropertyEnumerationLitteral l);
 
-    @objid ("51ea6e4f-d016-4748-87f1-c775ce0435c3")
+    @objid ("0a5c99ec-6f59-4b91-bb2b-88fe625dc25b")
     EnumeratedPropertyType getOwner();
 
-    @objid ("71b1858f-6e4f-4c80-96db-3f7de2a9fc9f")
+    @objid ("77520d6d-c73b-4940-a16c-489f7d6f7a91")
     void setOwner(EnumeratedPropertyType value);
 
 }

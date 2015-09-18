@@ -27,15 +27,13 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 
 @objid ("5239dc77-9628-4c39-bcc2-596bb58d6a21")
 public class ORequirement extends OElement implements IOElement {
-    @objid ("8ee0a227-ba94-46c7-9c4d-f508ec9e440a")
-    private GenerationProperties genProp = GenerationProperties.getInstance();
-
     @objid ("5a22a2b3-d28b-44e2-bbca-4f3b77f13276")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return  UMLFactory.eINSTANCE.createClass();
     }
@@ -46,21 +44,24 @@ public class ORequirement extends OElement implements IOElement {
     }
 
     @objid ("ce91cfe3-75be-49cd-aa85-2d431baff034")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
+        GenerationProperties genProp = GenerationProperties.getInstance();
+        
         if (ecoreElt != null){
-            GenerationProperties genProp = GenerationProperties.getInstance();
-            if (isRequirementPart()){
-                genProp.getEcoreModel().getPackagedElements().remove((PackageableElement)ecoreElt);
-                ( (org.eclipse.uml2.uml.Class)genProp.getMappedElement(getRequirementOwner())).getNestedClassifiers().add( (org.eclipse.uml2.uml.Class) ecoreElt);
+             if (isRequirementPart()){
+                genProp.getEcoreModel().getPackagedElements().remove(ecoreElt);
+                ( (org.eclipse.uml2.uml.Class) genProp.getMappedElement(getRequirementOwner())).getNestedClassifiers().add( (org.eclipse.uml2.uml.Class) ecoreElt);
             }else
                 genProp.getEcoreModel().getPackagedElements().add((PackageableElement)ecoreElt);
         }
     }
 
     @objid ("fcfb50a5-2e03-420a-b511-48b60481481b")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         if (ecoreElt != null){
-            genProp.addSysMLExported((Requirement) getObjingElement());
+            GenerationProperties.getInstance().addSysMLExported((Requirement) getObjingElement());
             ( (org.eclipse.uml2.uml.Class)ecoreElt).setName(((Requirement)getObjingElement()).getName());
             ( (org.eclipse.uml2.uml.Class)ecoreElt).setVisibility(org.eclipse.uml2.uml.VisibilityKind.PUBLIC_LITERAL);
             ( (org.eclipse.uml2.uml.Class)ecoreElt).setIsAbstract(false);

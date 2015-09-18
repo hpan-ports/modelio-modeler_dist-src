@@ -32,22 +32,28 @@ import org.modelio.metamodel.uml.infrastructure.NoteType;
 
 @objid ("0089d1ea-c4be-1fd8-97fe-001ec947cd2a")
 public interface Note extends ModelElement {
-    @objid ("1d06b5b2-fbb0-4a29-890d-6d136793715c")
+    @objid ("0bac4736-748e-4c97-a0d0-2cb08106f50d")
     String getContent();
 
-    @objid ("5de2187a-762f-4b8e-b4b5-b8c9d93aea2d")
+    @objid ("85534326-6681-455b-8178-85ee579ff014")
     void setContent(String value);
 
-    @objid ("1fc1deba-a4d9-48b6-996a-bb47e3b05c39")
+    @objid ("324d4ce5-13a0-4f0d-9aed-ad036fb4bdad")
+    String getMimeType();
+
+    @objid ("9c16bf70-050e-4e98-b347-a30f9e43554b")
+    void setMimeType(String value);
+
+    @objid ("4c8f934f-c073-44cb-aa66-944e81d79d5b")
     NoteType getModel();
 
-    @objid ("93f1d9e8-8a7b-48a1-8e45-52bc56a5a5c9")
+    @objid ("723d8812-b627-473a-818e-0a36a041a86d")
     void setModel(NoteType value);
 
-    @objid ("67b2accd-e005-494a-8371-d4dc913bff00")
+    @objid ("513d062f-2154-4ebe-ae34-1b629a2811e7")
     ModelElement getSubject();
 
-    @objid ("fdf619ca-ddac-4cd6-a1ad-e7810d34a29e")
+    @objid ("340672f9-4d7d-40a4-bfe1-acc18c997b97")
     void setSubject(ModelElement value);
 
 }

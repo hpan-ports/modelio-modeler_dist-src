@@ -63,7 +63,7 @@ public class SslManager {
      * Password to check integrity of certificates database.
      */
     @objid ("414875ad-140b-4e08-b256-c2f0cc3f33a7")
-     static final char[] password = "modelio".toCharArray();
+    private static final char[] password = "modelio".toCharArray();
 
     @objid ("387add16-f5a5-4482-a088-f721910eb512")
     private static final SslManager instance = new SslManager();
@@ -291,6 +291,7 @@ public class SslManager {
          * @throws java.io.IOException in case of failure
          */
         @objid ("56424e26-3f62-47b6-8a17-b38ab47d5829")
+        @SuppressWarnings("synthetic-access")
         void init(Path aStoreFile) throws IOException {
             try {
                 this.persistentTrustStore = KeyStore.getInstance(KeyStore.getDefaultType());
@@ -341,6 +342,7 @@ public class SslManager {
          * @throws java.security.KeyStoreException in case of failure.
          */
         @objid ("1ad7a2f9-d72f-4a3f-a7d0-b7e5edbd1bac")
+        @SuppressWarnings("synthetic-access")
         public void save() throws KeyStoreException {
             if (this.trustStoreFile!= null) {
                 try (OutputStream os = new BufferedOutputStream(Files.newOutputStream(this.trustStoreFile))) {

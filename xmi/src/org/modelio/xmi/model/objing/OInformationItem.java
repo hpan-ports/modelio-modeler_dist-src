@@ -26,9 +26,9 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.informationFlow.InformationItem;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Classifier;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.XMILogs;
 

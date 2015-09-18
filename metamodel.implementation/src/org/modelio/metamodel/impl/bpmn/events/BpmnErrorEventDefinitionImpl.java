@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008b71e4-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnErrorEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnErrorEventDefinition {
-    @objid ("5c55bc94-83eb-4d24-ab8d-7bf95b75eace")
+    @objid ("3c6bb677-2747-47ad-85c5-ce116d570118")
     @Override
     public String getErrorCode() {
         return (String) getAttVal(BpmnErrorEventDefinitionData.Metadata.ErrorCodeAtt());
     }
 
-    @objid ("fecd7939-f6e4-4f1e-8db2-ce8a233325da")
+    @objid ("6f310e32-f671-45a4-a523-bb69076983d5")
     @Override
     public void setErrorCode(String value) {
         setAttVal(BpmnErrorEventDefinitionData.Metadata.ErrorCodeAtt(), value);
     }
 
-    @objid ("40908398-ac3b-4d83-a59d-d4be2671f177")
+    @objid ("055863e0-d910-4fc7-824f-884feb254edf")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("37c17ea6-cc72-48d4-a2d7-bfe35afeac58")
+    @objid ("76dece8d-8060-4589-8e2d-c01935efa0fd")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("daded436-c691-418f-afd2-076a8d18c75e")
+    @objid ("e4062351-7e1e-4402-842d-6bf358dc5317")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnErrorEventDefinition(this);

@@ -46,37 +46,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00749e92-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnLaneImpl extends BpmnBaseElementImpl implements BpmnLane {
-    @objid ("5e2d0445-0f93-49bb-a3a0-4d9445a46d85")
+    @objid ("61d09166-2e6d-4234-979d-cd003a3aaf2b")
     @Override
     public BpmnLaneSet getChildLaneSet() {
         return (BpmnLaneSet) getDepVal(BpmnLaneData.Metadata.ChildLaneSetDep());
     }
 
-    @objid ("9442cddb-b0f9-468c-93ea-a01e97b97aa1")
+    @objid ("2db1da2e-2566-40ea-836f-4e6e645dd355")
     @Override
     public void setChildLaneSet(BpmnLaneSet value) {
         appendDepVal(BpmnLaneData.Metadata.ChildLaneSetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("53369256-0689-49a0-8d5e-f47f22f69471")
+    @objid ("143a336b-1f5b-411a-82e4-bba7d57be19c")
     @Override
     public ModelElement getPartitionElement() {
         return (ModelElement) getDepVal(BpmnLaneData.Metadata.PartitionElementDep());
     }
 
-    @objid ("f36ec3f0-826a-45c6-99ee-67623782cc9d")
+    @objid ("1c83eac6-1d37-4760-8b55-40b91b25ae49")
     @Override
     public void setPartitionElement(ModelElement value) {
         appendDepVal(BpmnLaneData.Metadata.PartitionElementDep(), (SmObjectImpl)value);
     }
 
-    @objid ("027bac6c-a21f-43ca-8000-dec961c2adcd")
+    @objid ("effb9a65-5d34-4fdd-b8b3-4866e82bff26")
     @Override
     public EList<BpmnFlowElement> getFlowElementRef() {
         return new SmList<>(this, BpmnLaneData.Metadata.FlowElementRefDep());
     }
 
-    @objid ("8d8eeb36-97a9-4e3b-8dbb-0232ae93fc37")
+    @objid ("17a53dd3-7402-4cbf-8059-6511e7af35d6")
     @Override
     public <T extends BpmnFlowElement> List<T> getFlowElementRef(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -89,19 +89,19 @@ public class BpmnLaneImpl extends BpmnBaseElementImpl implements BpmnLane {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("80f434f5-d48a-4d3a-a541-59a324d7740f")
+    @objid ("88bc72b3-344a-4ebf-b80b-e44063b93dae")
     @Override
     public BpmnLaneSet getLaneSet() {
         return (BpmnLaneSet) getDepVal(BpmnLaneData.Metadata.LaneSetDep());
     }
 
-    @objid ("980d047f-c6c6-47d3-8658-80c2744e4e66")
+    @objid ("64871efd-5d53-4b8a-a15d-c9c638512347")
     @Override
     public void setLaneSet(BpmnLaneSet value) {
         appendDepVal(BpmnLaneData.Metadata.LaneSetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("77a2281a-a127-4bce-a4b1-46abccd246e8")
+    @objid ("ea1e108a-957b-48d8-82bc-0dea05d96d2a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -111,7 +111,7 @@ public class BpmnLaneImpl extends BpmnBaseElementImpl implements BpmnLane {
         return super.getCompositionOwner();
     }
 
-    @objid ("3d9b68b2-e3a9-45b2-a5e3-c8fcc5294301")
+    @objid ("6bcde5ce-781f-411b-8659-c5b4882e822b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -121,7 +121,7 @@ public class BpmnLaneImpl extends BpmnBaseElementImpl implements BpmnLane {
         return super.getCompositionRelation();
     }
 
-    @objid ("549ca68d-5029-4469-92e2-5ff9ee051da4")
+    @objid ("ca5db68c-4bcf-4592-b3e9-40826749abd6")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnLane(this);

@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00849680-c4be-1fd8-97fe-001ec947cd2a")
 public interface Abstraction extends Dependency {
-    @objid ("701e1ee8-08f3-4171-9866-fb58cee01fb8")
+    @objid ("750e63da-2411-49cd-a6bf-c6e02c96a333")
     String getMapping();
 
-    @objid ("7eabef6b-cbf2-45a2-abae-303270577321")
+    @objid ("a1c47467-8470-44bb-87b5-bda7098d0611")
     void setMapping(String value);
 
 }

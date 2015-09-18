@@ -33,16 +33,16 @@ import org.modelio.metamodel.uml.statik.Binding;
 
 @objid ("0005d2fa-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NaryConnector extends NaryLink {
-    @objid ("17b02104-bb52-458f-ad64-c50c6d4a209c")
+    @objid ("6c4a3ed3-8cd4-495c-8b0e-b30dca16d2b1")
     EList<Binding> getRepresentation();
 
-    @objid ("b39f7e02-ba74-4ed0-b5ee-9624c6a99f33")
+    @objid ("01dd6e16-bfa8-4da6-b24d-843a393c07ca")
     <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("92e4cb4f-512f-4391-8f08-25e2247dcd91")
+    @objid ("20c0a369-fa4c-4b71-a7a7-cd17a9796fd4")
     ModelElement getRepresentedFeature();
 
-    @objid ("eb4c4213-8e6c-4f97-8d63-ac3b36991601")
+    @objid ("65f5e079-1e5c-469f-91f0-74a352487d69")
     void setRepresentedFeature(ModelElement value);
 
 }

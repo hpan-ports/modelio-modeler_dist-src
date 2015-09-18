@@ -33,28 +33,28 @@ import org.modelio.metamodel.analyst.Requirement;
 
 @objid ("0ba1c716-f645-446a-a591-f70aa2d0071d")
 public interface RequirementContainer extends AnalystContainer {
-    @objid ("a4b4d7d6-b138-4396-96a7-2c6249ed282c")
+    @objid ("6527f97e-e43f-4e6d-82f0-e5abceda5b16")
     EList<Requirement> getOwnedRequirement();
 
-    @objid ("f9c70f03-044f-4842-a854-a0d58cfb3f1a")
+    @objid ("e1f7309a-9482-439a-b930-a79400cb4eab")
     <T extends Requirement> List<T> getOwnedRequirement(java.lang.Class<T> filterClass);
 
-    @objid ("ca4dc09e-1ddc-4825-85a8-a68fddf09972")
+    @objid ("abf76185-d654-4acf-b12e-39b895559ff9")
     RequirementContainer getOwnerContainer();
 
-    @objid ("c96a3a22-ffee-403d-98c8-602ed349601b")
+    @objid ("896dd5ce-e735-4819-b2f4-72ac846f0022")
     void setOwnerContainer(RequirementContainer value);
 
-    @objid ("199816e7-7525-4244-a41a-10163ba464f5")
+    @objid ("0ab2e916-0eb8-4801-aaac-b282559f5fe7")
     EList<RequirementContainer> getOwnedContainer();
 
-    @objid ("3f0f0b25-5dce-4cd7-a6d5-a75aa0798d59")
+    @objid ("686a3916-532c-4134-816c-f693d7f221fc")
     <T extends RequirementContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass);
 
-    @objid ("cd316196-7816-405e-b0d2-9e8770765ecc")
+    @objid ("d4a52311-10cc-43b6-98da-e83eb3b7fae4")
     AnalystProject getOwnerProject();
 
-    @objid ("7ce8c956-b089-4b20-808b-ac51fdae8786")
+    @objid ("651f656b-3aba-4f55-a664-687281521c84")
     void setOwnerProject(AnalystProject value);
 
 }

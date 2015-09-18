@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.statik.NaryAssociation;
 
 @objid ("0002bc78-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ClassAssociation extends ModelElement {
-    @objid ("5e50240a-6cf6-4dce-bba0-f8c5981d1c7a")
+    @objid ("5ff883c8-95d4-4f5d-b1a5-7a627476d4e3")
     NaryAssociation getNaryAssociationPart();
 
-    @objid ("f27bc7be-3bd9-4e7a-aa75-7020627aa85c")
+    @objid ("81044038-3940-4c1a-b3ae-831f6b67546d")
     void setNaryAssociationPart(NaryAssociation value);
 
-    @objid ("6ae0a927-8a5c-4966-97dd-b4d0f8f92924")
+    @objid ("3cb78b23-7765-45c3-b39f-04a841ea2667")
     Class getClassPart();
 
-    @objid ("48f3605c-dbdb-48c1-8cdc-ba4dbe1de742")
+    @objid ("d2dd283f-b030-4ea0-bf61-e72c66ae5adf")
     void setClassPart(Class value);
 
-    @objid ("b50a33b9-4c2c-4b2c-8137-62b389098522")
+    @objid ("e0ef7207-86f8-434f-8d4f-2fca4238fbb5")
     Association getAssociationPart();
 
-    @objid ("9427f79f-f1f6-48a5-b501-17417155be26")
+    @objid ("4b0507ec-f0e3-480d-a8ab-f508740c7f6b")
     void setAssociationPart(Association value);
 
 }

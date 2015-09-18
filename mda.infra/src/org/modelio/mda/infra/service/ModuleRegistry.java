@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.module.IModule;
+import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.ModuleId;
 import org.modelio.metamodel.mda.ModuleComponent;
 
@@ -37,10 +37,10 @@ import org.modelio.metamodel.mda.ModuleComponent;
 @objid ("07dbe9c3-edc0-11e1-88ee-001ec947c8cc")
 class ModuleRegistry implements IModuleRegistry {
     @objid ("1e65d837-edc3-11e1-88ee-001ec947c8cc")
-    private Map<ModuleComponent, IModule> loadedModules = new HashMap<>();
+    private Map<GModule, IRTModule> loadedModules = new HashMap<>();
 
     @objid ("1e683a92-edc3-11e1-88ee-001ec947c8cc")
-    private Map<ModuleComponent, IModule> startedModules = new HashMap<>();
+    private Map<GModule, IRTModule> startedModules = new HashMap<>();
 
     /**
      * Get the started modules.
@@ -48,20 +48,20 @@ class ModuleRegistry implements IModuleRegistry {
      */
     @objid ("1e683a96-edc3-11e1-88ee-001ec947c8cc")
     @Override
-    public Collection<IModule> getStartedModules() {
+    public Collection<IRTModule> getStartedModules() {
         return this.startedModules.values();
     }
 
     /**
-     * Get the started {@link IModule} corresponding to the given
+     * Get the started {@link IRTModule} corresponding to the given
      * {@link ModuleComponent}.
      * @param model the module model.
      * @return the matching started module or <i>null</i> if no started module
-     * matches the <i>IModule</i>
+     * matches the <i>IRTModule</i>
      */
     @objid ("1e683a9e-edc3-11e1-88ee-001ec947c8cc")
     @Override
-    public IModule getStartedModule(ModuleComponent model) {
+    public IRTModule getStartedModule(GModule model) {
         return this.startedModules.get(model);
     }
 
@@ -71,8 +71,8 @@ class ModuleRegistry implements IModuleRegistry {
      */
     @objid ("1e683aa5-edc3-11e1-88ee-001ec947c8cc")
     @Override
-    public void addStartedModule(IModule module) {
-        final ModuleComponent model = module.getModel();
+    public void addStartedModule(IRTModule module) {
+        final GModule model = module.getGModule();
         if (model != null) {
             this.startedModules.put(model, module);
         }
@@ -84,8 +84,8 @@ class ModuleRegistry implements IModuleRegistry {
      */
     @objid ("1e6a9ceb-edc3-11e1-88ee-001ec947c8cc")
     @Override
-    public void removeStartedModule(IModule module) {
-        this.startedModules.remove(module.getModel());
+    public void removeStartedModule(IRTModule module) {
+        this.startedModules.remove(module.getGModule());
     }
 
     /**
@@ -94,23 +94,23 @@ class ModuleRegistry implements IModuleRegistry {
      */
     @objid ("1e6a9cf0-edc3-11e1-88ee-001ec947c8cc")
     @Override
-    public void addLoadedModule(IModule module) {
-        final ModuleComponent model = module.getModel();
+    public void addLoadedModule(IRTModule module) {
+        final GModule model = module.getGModule();
         if (model != null) {
             this.loadedModules.put(model, module);
         }
     }
 
     /**
-     * Get the loaded {@link IModule} corresponding to the given
+     * Get the loaded {@link IRTModule} corresponding to the given
      * {@link ModuleComponent}.
      * @param model the module model.
      * @return the matching loaded module or <i>null</i> if no loaded module
-     * matches the <i>IModule</i>
+     * matches the <i>IRTModule</i>
      */
     @objid ("1e6a9cf5-edc3-11e1-88ee-001ec947c8cc")
     @Override
-    public IModule getLoadedModule(ModuleComponent model) {
+    public IRTModule getLoadedModule(GModule model) {
         return this.loadedModules.get(model);
     }
 
@@ -120,8 +120,8 @@ class ModuleRegistry implements IModuleRegistry {
      */
     @objid ("1e6a9cfc-edc3-11e1-88ee-001ec947c8cc")
     @Override
-    public void removeLoadedModule(IModule module) {
-        this.loadedModules.remove(module.getModel());
+    public void removeLoadedModule(IRTModule module) {
+        this.loadedModules.remove(module.getGModule());
     }
 
     /**
@@ -130,12 +130,12 @@ class ModuleRegistry implements IModuleRegistry {
      */
     @objid ("1e6a9d01-edc3-11e1-88ee-001ec947c8cc")
     @Override
-    public Collection<IModule> getLoadedModules() {
+    public Collection<IRTModule> getLoadedModules() {
         return this.loadedModules.values();
     }
 
     /**
-     * Get the loaded {@link IModule} which name correspond to the given
+     * Get the loaded {@link IRTModule} which name correspond to the given
      * {@link ModuleId} name and which version is newer or equal to the given
      * version.
      * @param moduleId the Id of the searched module.
@@ -144,8 +144,8 @@ class ModuleRegistry implements IModuleRegistry {
      */
     @objid ("bc47fc61-f37d-11e1-9458-001ec947c8cc")
     @Override
-    public IModule getLoadedModule(ModuleId moduleId) {
-        for (IModule module : this.loadedModules.values()) {
+    public IRTModule getLoadedModule(ModuleId moduleId) {
+        for (IRTModule module : this.loadedModules.values()) {
             if (module.getName().equals(moduleId.getName())) {
                 if (module.getVersion().equals(moduleId.getVersion())
                         || module.getVersion().isNewerThan(moduleId.getVersion())) {
@@ -157,7 +157,7 @@ class ModuleRegistry implements IModuleRegistry {
     }
 
     /**
-     * Get the started {@link IModule} which name correspond to the given
+     * Get the started {@link IRTModule} which name correspond to the given
      * {@link ModuleId} name and which version is newer or equal to the given
      * version.
      * @param moduleId the Id of the searched module.
@@ -166,8 +166,8 @@ class ModuleRegistry implements IModuleRegistry {
      */
     @objid ("bc47fc67-f37d-11e1-9458-001ec947c8cc")
     @Override
-    public IModule getStartedModule(ModuleId moduleId) {
-        for (IModule module : this.startedModules.values()) {
+    public IRTModule getStartedModule(ModuleId moduleId) {
+        for (IRTModule module : this.startedModules.values()) {
             if (module.getName().equals(moduleId.getName())) {
                 if (module.getVersion().equals(moduleId.getVersion())
                         || module.getVersion().isNewerThan(moduleId.getVersion())) {

@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.statik.Classifier;
 
 @objid ("008dd736-c4be-1fd8-97fe-001ec947cd2a")
 public interface Substitution extends ModelElement {
-    @objid ("cd0558ea-9e86-46e1-bbdb-6d380c286e26")
+    @objid ("27a38e2f-cd9f-4505-b349-1be8c418eb08")
     Classifier getContract();
 
-    @objid ("284aa14a-b40d-4822-9a80-eb6484dec095")
+    @objid ("37d8a18e-a44c-4c9e-89d6-49dcd2cdfd4b")
     void setContract(Classifier value);
 
-    @objid ("4e8b74d6-07b2-44e3-9a87-34861a0b2172")
+    @objid ("d48ea88f-1549-48c1-a0cf-f7cda1f2a6ab")
     Classifier getSubstitutingClassifier();
 
-    @objid ("636f3c73-6fa6-464e-ac92-0ad55c166ba0")
+    @objid ("fd9025c2-4359-4a85-a517-8521309f723a")
     void setSubstitutingClassifier(Classifier value);
 
 }

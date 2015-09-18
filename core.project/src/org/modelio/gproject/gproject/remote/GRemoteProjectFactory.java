@@ -67,7 +67,7 @@ public abstract class GRemoteProjectFactory implements IProjectFactory {
     public final ProjectDescriptor getRemoteDescriptor(ProjectDescriptor localDescriptor, IAuthData authData, IModelioProgress monitor) throws GProjectAuthenticationException, IOException {
         InputSource is = readRemoteDescriptor(localDescriptor, authData, monitor);
         try {
-            ProjectDescriptor newServerDesc = new ProjectDescriptorReader().read(is, DefinitionScope.SHARED);
+            ProjectDescriptor newServerDesc = new ProjectDescriptorReader().read(is, null);
             return newServerDesc;
         } catch (IOException e) {
             // Enriches the exception with the descriptor content if possible.
@@ -84,7 +84,7 @@ public abstract class GRemoteProjectFactory implements IProjectFactory {
     }
 
     @objid ("151079c2-d162-4f44-a4f9-f3226ee7955c")
-    protected void completeDescriptor(ProjectDescriptor projectDescriptor, IAuthData authData, IModelioProgress aProgress) throws GProjectAuthenticationException, IOException {
+    protected void completeDescriptor(ProjectDescriptor projectDescriptor, IAuthData authData, IModelioProgress aProgress) throws IOException, GProjectAuthenticationException {
         boolean complete = true;
         for (FragmentDescriptor  fd: projectDescriptor.getFragments()) {
             if (! fd.isValid()) {
@@ -96,7 +96,7 @@ public abstract class GRemoteProjectFactory implements IProjectFactory {
         if (! complete){
             InputSource is = readRemoteDescriptor(projectDescriptor, authData, aProgress);
             
-            ProjectDescriptor newServerDesc = new ProjectDescriptorReader().read(is, DefinitionScope.SHARED);
+            ProjectDescriptor newServerDesc = new ProjectDescriptorReader().read(is, null);
             DescriptorServices.removeSharedPart(projectDescriptor);
             DescriptorServices.merge(newServerDesc, projectDescriptor);
             projectDescriptor.cleanup();

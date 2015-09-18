@@ -43,13 +43,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00133dc8-c4bf-1fd8-97fe-001ec947cd2a")
 public class NodeImpl extends ClassifierImpl implements Node {
-    @objid ("6514d5e7-f021-4757-b6fc-29b530c8c36d")
+    @objid ("3d45cac9-a62a-40c9-bd76-668e49373cd1")
     @Override
     public EList<Artifact> getResident() {
         return new SmList<>(this, NodeData.Metadata.ResidentDep());
     }
 
-    @objid ("70688b73-ae16-4389-8ad8-6faec7640c97")
+    @objid ("3baf5ec8-8eb9-4fec-8b55-f6170d206a83")
     @Override
     public <T extends Artifact> List<T> getResident(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -62,21 +62,21 @@ public class NodeImpl extends ClassifierImpl implements Node {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("08cc5a03-5ebd-4e21-9c1a-9a9f7fca74f4")
+    @objid ("20012365-ce78-4352-a5fc-5c54b68b38d6")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7cc75212-c85e-44e0-a1dd-069b05a7cef3")
+    @objid ("c9bb14f6-96de-4584-97ca-d6b8b1703b41")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("cd8fedc4-e47c-44c6-a04b-19365cb2fa16")
+    @objid ("a6813113-3fd8-4b89-971d-c04047bdc2b9")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNode(this);

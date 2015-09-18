@@ -49,10 +49,10 @@ import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolControl;
+import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
@@ -625,8 +625,7 @@ public class LinkEditorView implements CommandStackListener {
      */
     @objid ("d4aed2ab-5efd-11e2-a8be-00137282c51b")
     @PostConstruct
-    void postConstruct(Composite composite, MPart part, IProjectService theProjectService, @Optional
-@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+    void postConstruct(Composite composite, MPart part, IProjectService theProjectService, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         this.projectService = theProjectService;
         
         // Create the MPart
@@ -689,8 +688,7 @@ public class LinkEditorView implements CommandStackListener {
     @objid ("6578dfde-33f7-11e2-95fe-001ec947c8cc")
     @Inject
     @Optional
-    void onPickingStop(@SuppressWarnings("unused")
-@EventTopic(ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
+    void onPickingStop(@SuppressWarnings("unused") @EventTopic(ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
         Display.getDefault().asyncExec(new Runnable() {
         

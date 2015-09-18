@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("006fd556-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=SequenceDiagram.class, factory=SequenceDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class SequenceDiagramData extends BehaviorDiagramData {
-    @objid ("fd801885-2ab1-49da-ab1a-f3140040dd49")
+    @objid ("d522b073-f64b-4533-a13a-e66591cc0865")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0011cd94-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("783f8735-d7c1-4b59-8a0d-ee18c635daf3")
+        @objid ("fdf8688e-68ef-484d-9220-6c6ff9be824a")
         private static SmClass smClass = null;
 
-        @objid ("eca29b8c-a034-4c21-a7a7-07ddb467357f")
+        @objid ("d4c72d0f-7401-4bff-841f-c2dc7eb76591")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(SequenceDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("5fc9df48-a66b-42f2-8079-99750ed395dd")
+        @objid ("51266479-5dba-4089-a927-a3eb63d25f03")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class SequenceDiagramData extends BehaviorDiagramData {
 
         @objid ("00120c28-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("bee01b7f-766a-4473-ad09-5997f66ec0ea")
+            @objid ("9b7935c4-a5f7-481a-978c-1f5218100cc1")
             public ISmObjectData createData() {
                 return new SequenceDiagramData();
             }
 
-            @objid ("fe957545-7952-4d49-96f9-270202ccf35c")
+            @objid ("c181f8a6-1fc4-4de6-a8b3-7d1fe8ab7c69")
             public SmObjectImpl createImpl() {
                 return new SequenceDiagramImpl();
             }

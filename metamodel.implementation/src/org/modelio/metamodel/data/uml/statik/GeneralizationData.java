@@ -45,43 +45,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("000cfae4-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Generalization.class, factory=GeneralizationData.Metadata.ObjectFactory.class)
 public class GeneralizationData extends ModelElementData {
-    @objid ("e7fbc0f1-c043-4399-b5af-e642adaf45b5")
+    @objid ("484ac3b6-69cd-4f07-9ff1-4749f2f4a5f3")
     @SmaMetaAttribute(metaName="Discriminator", type=String.class, smAttributeClass=Metadata.DiscriminatorSmAttribute.class)
      Object mDiscriminator = "";
 
-    @objid ("24c4d877-882f-44f9-9dc2-e1cb705bce1a")
+    @objid ("06fe678c-c29a-4987-88fa-c3e0f28c61ed")
     @SmaMetaAssociation(metaName="SuperType", typeDataClass=NameSpaceData.class, min=1, max=1, smAssociationClass=Metadata.SuperTypeSmDependency.class, partof = true)
      SmObjectImpl mSuperType;
 
-    @objid ("bd9cca57-7ce6-4e25-9857-ea513de38047")
+    @objid ("913b4b03-d9a1-43b5-a41d-5f7a47e5c735")
     @SmaMetaAssociation(metaName="SubType", typeDataClass=NameSpaceData.class, min=1, max=1, smAssociationClass=Metadata.SubTypeSmDependency.class)
      SmObjectImpl mSubType;
 
-    @objid ("848a4b0a-accd-4caa-a0d9-98032cf6ef3e")
+    @objid ("7212c38a-4807-42b2-a53a-1ae2683cc37a")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("003cd9da-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("01ee1536-18ed-490a-a5f1-3126dd855a3f")
+        @objid ("b56c4ffe-7f0e-42fa-b4ca-8ab59f974fbf")
         private static SmClass smClass = null;
 
-        @objid ("e5f46d2e-2bd8-4e3d-aafb-f725f011822b")
+        @objid ("0358978c-908e-4b29-a6a0-509c1320cfba")
         private static SmAttribute DiscriminatorAtt = null;
 
-        @objid ("1288dcb5-2d2b-4635-b475-d0bef207c57c")
+        @objid ("1d48589d-cc8a-4748-afe1-3b784b2b8c34")
         private static SmDependency SuperTypeDep = null;
 
-        @objid ("5d06885e-8e0b-4f81-b082-f91c0c64a13f")
+        @objid ("e9cff68b-531a-47cd-a8b0-b123f0b0c573")
         private static SmDependency SubTypeDep = null;
 
-        @objid ("70e675ea-89c1-44d4-8181-c55de4001305")
+        @objid ("ac376612-1400-4e84-8930-4e0d8bf0634e")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(GeneralizationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("85f4cff2-ea40-42f6-aa2b-62a86ce4a2fd")
+        @objid ("c382e3cf-24f4-4b10-9ca2-b455cd0f54da")
         public static SmAttribute DiscriminatorAtt() {
             if (DiscriminatorAtt == null) {
             	DiscriminatorAtt = classof().getAttributeDef("Discriminator");
@@ -89,7 +89,7 @@ public class GeneralizationData extends ModelElementData {
             return DiscriminatorAtt;
         }
 
-        @objid ("7d9fe2c4-bbb6-4499-acbc-145fcf9fb842")
+        @objid ("4527895d-365b-42e1-b793-2decff25d947")
         public static SmDependency SuperTypeDep() {
             if (SuperTypeDep == null) {
             	SuperTypeDep = classof().getDependencyDef("SuperType");
@@ -97,7 +97,7 @@ public class GeneralizationData extends ModelElementData {
             return SuperTypeDep;
         }
 
-        @objid ("6a3e69c9-72b3-4499-9e40-a5f66ab81b6e")
+        @objid ("78ab87fd-d8ce-4c14-9886-a02328cf2ece")
         public static SmDependency SubTypeDep() {
             if (SubTypeDep == null) {
             	SubTypeDep = classof().getDependencyDef("SubType");
@@ -105,38 +105,38 @@ public class GeneralizationData extends ModelElementData {
             return SubTypeDep;
         }
 
-        @objid ("f3a2b59c-3992-4e90-b2cd-321db01cd748")
-        public static SmDependency getSubTypeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SubTypeDep;
-        }
-
-        @objid ("689e23f1-1923-408a-afee-f132e0ef769f")
-        public static SmAttribute getDiscriminatorAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DiscriminatorAtt;
-        }
-
-        @objid ("813f5fa9-39c5-420b-ac4f-aa1a91da4fd4")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("aaf01953-e429-441c-b6e1-8fced1909739")
+        @objid ("bb24be1d-bd4a-42d2-98e4-0aa3d7493701")
         public static SmDependency getSuperTypeDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SuperTypeDep;
         }
 
+        @objid ("af92a860-8422-4989-9039-d38f8be8f1f7")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("58cb8219-2bd6-4c8b-8031-07b8e081dec3")
+        public static SmDependency getSubTypeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SubTypeDep;
+        }
+
+        @objid ("1582d2c6-634b-4a0a-b0cc-d521e2e57cde")
+        public static SmAttribute getDiscriminatorAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DiscriminatorAtt;
+        }
+
         @objid ("003d264c-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e9097527-3e51-483d-a7fa-5024f02acb12")
+            @objid ("12eff715-893a-438e-86a1-2da33b5c2260")
             public ISmObjectData createData() {
                 return new GeneralizationData();
             }
 
-            @objid ("5e5e6b68-919d-445e-8298-1cbf0dc3829b")
+            @objid ("479f5569-5029-4ba3-a551-00de6d9d9586")
             public SmObjectImpl createImpl() {
                 return new GeneralizationImpl();
             }
@@ -145,12 +145,12 @@ public class GeneralizationData extends ModelElementData {
 
         @objid ("003d9316-c4c2-1fd8-97fe-001ec947cd2a")
         public static class DiscriminatorSmAttribute extends SmAttribute {
-            @objid ("dc02adc0-c943-48ad-808b-80433d912fe5")
+            @objid ("e599efc2-1cbe-4f23-9adb-df7d143f0f1d")
             public Object getValue(ISmObjectData data) {
                 return ((GeneralizationData) data).mDiscriminator;
             }
 
-            @objid ("cfde55be-27be-4b4e-a9ae-3c61a24ac50f")
+            @objid ("06d6f362-8db1-400b-9564-4a038ba393e7")
             public void setValue(ISmObjectData data, Object value) {
                 ((GeneralizationData) data).mDiscriminator = value;
             }
@@ -159,18 +159,18 @@ public class GeneralizationData extends ModelElementData {
 
         @objid ("003e00c6-c4c2-1fd8-97fe-001ec947cd2a")
         public static class SubTypeSmDependency extends SmSingleDependency {
-            @objid ("a2e4316c-62f8-4c47-9c57-a7879a38c766")
+            @objid ("a3fcf6c2-5c0b-41d3-ad76-2cad58421257")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GeneralizationData) data).mSubType;
             }
 
-            @objid ("ba815796-9a6b-4787-96eb-21a4b34691c5")
+            @objid ("60fa9443-89fd-4a2b-8ff0-59925a2bf1e2")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GeneralizationData) data).mSubType = value;
             }
 
-            @objid ("15855f6c-d4f3-461e-9a0a-80174dcca604")
+            @objid ("00a82893-5e82-4646-a6c0-af62ecabf471")
             @Override
             public SmDependency getSymetric() {
                 return NameSpaceData.Metadata.ParentDep();
@@ -180,18 +180,18 @@ public class GeneralizationData extends ModelElementData {
 
         @objid ("003e81c2-c4c2-1fd8-97fe-001ec947cd2a")
         public static class SuperTypeSmDependency extends SmSingleDependency {
-            @objid ("66c0851b-6565-4c61-9b9d-4ad432eca6be")
+            @objid ("ba66b8c1-6ca8-4583-b3d4-bc3ddcdaf48c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GeneralizationData) data).mSuperType;
             }
 
-            @objid ("996e41fa-f6bf-4150-b52f-c5c8e3f9244a")
+            @objid ("3dd2a33d-f09d-44c0-b22d-5ae7a7d5b72e")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GeneralizationData) data).mSuperType = value;
             }
 
-            @objid ("ec6c081e-f71d-4c83-abaa-7378f1576179")
+            @objid ("a5226d3a-44c3-4a9c-a212-98abf104ca16")
             @Override
             public SmDependency getSymetric() {
                 return NameSpaceData.Metadata.SpecializationDep();

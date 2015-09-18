@@ -28,7 +28,7 @@ import org.modelio.metamodel.uml.statik.InterfaceRealization;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("3b1b7af7-4297-4594-a3f9-da6d2d40cc9e")
 public class EInterfaceRealization extends ENamedElement {

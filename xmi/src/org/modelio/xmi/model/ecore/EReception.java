@@ -30,10 +30,8 @@ import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.reverse.PartialImportMap;
-import org.modelio.xmi.reverse.TotalImportMap;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("76672489-f872-456a-8b03-95d3eb23180a")
 public class EReception extends EBehavioralFeature {
@@ -68,11 +66,8 @@ public class EReception extends EBehavioralFeature {
                 .getMappedElement(ecoreOwner);
         
         if ((objingOwner instanceof Classifier)  && !(objingOwner instanceof Enumeration))
-            ((Operation) objingElt).setOwner((Classifier) objingOwner);
-        
+            ((Operation) objingElt).setOwner((Classifier) objingOwner);     
         else {
-            PartialImportMap.getInstance().remove(ecoreElement);
-            TotalImportMap.getInstance().remove(ecoreElement);
             objingElt.delete();
         }
     }

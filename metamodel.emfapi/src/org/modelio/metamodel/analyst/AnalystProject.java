@@ -38,40 +38,40 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0061ba52-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AnalystProject extends ModelElement {
-    @objid ("9e573ce6-9911-48d6-8263-eae998ced074")
+    @objid ("2ae5b2b8-5625-46b3-8ec3-6ef0da3eea84")
     PropertyContainer getPropertyRoot();
 
-    @objid ("a34aa1a1-3995-48ef-8bf6-a9afb1de9527")
+    @objid ("6468ae42-2814-4ecd-a4f2-c2b829ac5108")
     void setPropertyRoot(PropertyContainer value);
 
-    @objid ("d495ba7e-75e6-41a7-bcc1-2c1052f55838")
+    @objid ("0f00ff25-e03b-4671-9d14-aeec3fcc4c2a")
     EList<GoalContainer> getGoalRoot();
 
-    @objid ("d94dd23b-b33c-4648-a144-41bb7b2c159d")
+    @objid ("bdf4b7cf-e6a4-49ef-afc8-db2a79925f84")
     <T extends GoalContainer> List<T> getGoalRoot(java.lang.Class<T> filterClass);
 
-    @objid ("91eb7447-049d-42c1-9ba5-1f45517f3ecf")
+    @objid ("7e05fac8-e727-45a7-a600-0c07f72e3d84")
     EList<BusinessRuleContainer> getBusinessRuleRoot();
 
-    @objid ("8410c920-529c-4d93-87be-5b1aaab56121")
+    @objid ("d0ea8dcf-14fc-411f-9d39-e8d5dcc23388")
     <T extends BusinessRuleContainer> List<T> getBusinessRuleRoot(java.lang.Class<T> filterClass);
 
-    @objid ("71098e86-51b1-4ada-acdf-d4faa6430144")
+    @objid ("8f20b8fa-3e1e-4ac4-ade9-7776a8b6efbe")
     EList<Dictionary> getDictionaryRoot();
 
-    @objid ("250945b1-6360-442c-a780-31f39bb7e721")
+    @objid ("ab6bdc30-c88b-4166-94db-99557c328f86")
     <T extends Dictionary> List<T> getDictionaryRoot(java.lang.Class<T> filterClass);
 
-    @objid ("8a534c45-7ac4-4592-b8c5-9184e717d211")
+    @objid ("f5ec33bb-2511-49d9-8889-65141f96913d")
     EList<RequirementContainer> getRequirementRoot();
 
-    @objid ("b7e63a08-0a3b-458e-862a-e01e7770382d")
+    @objid ("5fa5c78a-d702-4f61-9ac9-a2de94cf12b0")
     <T extends RequirementContainer> List<T> getRequirementRoot(java.lang.Class<T> filterClass);
 
-    @objid ("e3c14e2b-b721-4848-b325-7cedc5785509")
+    @objid ("3849dba5-6d6a-45e5-af9e-b81d2c04938a")
     EList<GenericAnalystContainer> getGenericRoot();
 
-    @objid ("892783a3-09d6-48da-929c-0ad9654c4511")
+    @objid ("8f38fe5c-2870-4517-830e-31b724784e59")
     <T extends GenericAnalystContainer> List<T> getGenericRoot(java.lang.Class<T> filterClass);
 
 }

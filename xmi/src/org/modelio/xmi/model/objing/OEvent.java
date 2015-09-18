@@ -29,10 +29,9 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.EventType;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 
 @objid ("81806c76-d9a2-4ce0-85de-683203b9b685")
 public class OEvent extends OModelElement {
@@ -118,7 +117,8 @@ public class OEvent extends OModelElement {
         String changeValue = this.objingElement.getExpression();
         if ((changeValue != null) && (!changeValue.equals(""))){
             org.eclipse.uml2.uml.LiteralString literalString = UMLFactory.eINSTANCE.createLiteralString();
-             org.eclipse.uml2.uml.ValueSpecification ecoreValue = ecoreElt.createChangeExpression("",PrimitiveTypeMapper.getString(), literalString.eClass());
+             org.eclipse.uml2.uml.ValueSpecification ecoreValue = ecoreElt.createChangeExpression("",
+                     GenerationProperties.getInstance().getEcoreUMLTypes().getString(), literalString.eClass());
             ((org.eclipse.uml2.uml.LiteralString)ecoreValue).setValue(changeValue);
         }
     }
@@ -127,7 +127,8 @@ public class OEvent extends OModelElement {
     private void setTimeProperties(org.eclipse.uml2.uml.TimeEvent ecoreElt) {
         String timeValue = this.objingElement.getExpression();
         if ((timeValue != null)&& (!timeValue.equals(""))){
-            org.eclipse.uml2.uml.TimeExpression ecoreValue = ecoreElt.createWhen("",  PrimitiveTypeMapper.getString());
+            org.eclipse.uml2.uml.TimeExpression ecoreValue = ecoreElt.createWhen("",  
+                    GenerationProperties.getInstance().getEcoreUMLTypes().getString());
             org.eclipse.uml2.uml.LiteralString value = UMLFactory.eINSTANCE.createLiteralString();
             value.setValue(timeValue);
             ecoreValue.setExpr(value);

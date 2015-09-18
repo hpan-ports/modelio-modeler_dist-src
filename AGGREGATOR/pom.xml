@@ -15,12 +15,11 @@
 	<parent>
 		<groupId>org.modelio</groupId>
 		<artifactId>modelio</artifactId>
-		<version>3.2.1-SNAPSHOT</version>
+		<version>3.3.0-SNAPSHOT</version>
 	</parent>
 	
 	<groupId>org.modelio</groupId>
 	<artifactId>aggregator</artifactId>
-	<version>3.2.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
 	<modules>
@@ -55,8 +54,10 @@
 		<module>../core.ui</module>
 		<module>../core.help</module>
 		<module>../diagram.browser</module>
+		<module>../edition.dialogs</module>
 		<module>../edition.notes</module>
 		<module>../edition.html</module>
+		<module>../edition.views</module>
 		<module>../editors</module>
 		<module>../log</module>
 		<module>../mda.infra</module>
@@ -108,7 +109,6 @@
 		<module>../org.modelio.linkeditor.feature</module>
 		<module>../org.modelio.mda.feature</module>
 		<module>../org.modelio.model.edition.feature</module>
-		<module>../org.modelio.resources.feature</module>
 		<module>../org.modelio.platform.feature</module>
 		<module>../org.modelio.documentation.feature</module>
 		<module>../org.modelio.script.feature</module>

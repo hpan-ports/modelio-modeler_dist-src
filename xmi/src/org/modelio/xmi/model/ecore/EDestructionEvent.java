@@ -29,8 +29,8 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("a74c1765-9fae-4e20-9aa1-ace01f164cec")
 public class EDestructionEvent extends ENamedElement {

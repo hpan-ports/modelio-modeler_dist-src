@@ -171,7 +171,7 @@ public class XmlDiagramReader implements IDiagramReader {
      * @throws java.lang.NullPointerException if <tt>enumType</tt> is null
      */
     @objid ("cb79d322-186f-11e2-92d2-001ec947c8cc")
-    private <T extends  Enum<T>> T convertToEnum(String enumType, String val) throws IllegalArgumentException, ClassNotFoundException, NullPointerException {
+    private <T extends  Enum<T>> T convertToEnum(String enumType, String val) throws NullPointerException, IllegalArgumentException, ClassNotFoundException {
         return XmlDiagramReader.convertToEnum(this.instanceFactory.getEnumClass(enumType), val);
     }
 
@@ -187,7 +187,7 @@ public class XmlDiagramReader implements IDiagramReader {
      */
     @objid ("cb79d32c-186f-11e2-92d2-001ec947c8cc")
     @SuppressWarnings("unchecked")
-    private static <T extends  Enum<T>> T convertToEnum(Class<?> enumType, String val) throws IllegalArgumentException, NullPointerException {
+    private static <T extends  Enum<T>> T convertToEnum(Class<?> enumType, String val) throws NullPointerException, IllegalArgumentException {
         if (val == null)
             return null;
         return Enum.valueOf((Class<T>)enumType, val);

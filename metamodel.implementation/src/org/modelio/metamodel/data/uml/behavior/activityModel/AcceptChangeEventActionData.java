@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0024e258-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=AcceptChangeEventAction.class, factory=AcceptChangeEventActionData.Metadata.ObjectFactory.class)
 public class AcceptChangeEventActionData extends ActivityActionData {
-    @objid ("b7500de3-9d75-4e3e-a9b9-e91d9727e5a2")
+    @objid ("028cbdfd-02da-410a-87c5-0025705bc59a")
     @SmaMetaAttribute(metaName="ChangeExpresion", type=String.class, smAttributeClass=Metadata.ChangeExpresionSmAttribute.class)
      Object mChangeExpresion = "";
 
-    @objid ("70094174-2e86-44d3-be87-2d0bdd12abe7")
+    @objid ("d1b3f565-bfa0-424f-88fb-d37ee5f4c107")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001765b0-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("b2496822-4089-45e9-98ce-28e6cbd369c8")
+        @objid ("fe4a6597-d65c-438b-9316-7651213639fb")
         private static SmClass smClass = null;
 
-        @objid ("59bef425-623f-434c-848f-c2efe34d4327")
+        @objid ("a25a9621-6503-48a3-8bd0-c63095858aca")
         private static SmAttribute ChangeExpresionAtt = null;
 
-        @objid ("018adefe-7c82-4faa-b77f-95d42a79cda3")
+        @objid ("458c6396-72e0-4097-85bb-fc35439f82ea")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(AcceptChangeEventActionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("a8b19081-defc-4856-97eb-09b758e6962b")
+        @objid ("4dc2f0c5-dbe1-421c-977e-e6e0cc2c0439")
         public static SmAttribute ChangeExpresionAtt() {
             if (ChangeExpresionAtt == null) {
             	ChangeExpresionAtt = classof().getAttributeDef("ChangeExpresion");
@@ -73,13 +73,13 @@ public class AcceptChangeEventActionData extends ActivityActionData {
             return ChangeExpresionAtt;
         }
 
-        @objid ("cbcae6c5-1f73-4067-b6ee-892849bb803a")
+        @objid ("5a885914-52a9-4e3c-b527-238a196f7390")
         public static SmAttribute getChangeExpresionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ChangeExpresionAtt;
         }
 
-        @objid ("c3292be1-af8b-4fe5-98f6-59fbc443c468")
+        @objid ("d41aea83-300c-4ca9-ac1e-0263ce1f8a0c")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -87,12 +87,12 @@ public class AcceptChangeEventActionData extends ActivityActionData {
 
         @objid ("0017a908-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("fe54ae7f-027f-41cd-9b50-c9b9d91aa1ac")
+            @objid ("1cf9f5de-fed9-4bf5-a405-a32de657817d")
             public ISmObjectData createData() {
                 return new AcceptChangeEventActionData();
             }
 
-            @objid ("bd1c05ed-f295-46ca-866b-f8841351a1b9")
+            @objid ("388eed09-9b2f-4378-ac35-673e3fa973d1")
             public SmObjectImpl createImpl() {
                 return new AcceptChangeEventActionImpl();
             }
@@ -101,12 +101,12 @@ public class AcceptChangeEventActionData extends ActivityActionData {
 
         @objid ("00180c9a-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ChangeExpresionSmAttribute extends SmAttribute {
-            @objid ("583ae429-db68-440d-89fc-c832b39a2b83")
+            @objid ("0f89fdab-43ff-467f-befb-1bc587db361c")
             public Object getValue(ISmObjectData data) {
                 return ((AcceptChangeEventActionData) data).mChangeExpresion;
             }
 
-            @objid ("ed1da4e2-c7bc-428f-b5f3-6a88752cbe81")
+            @objid ("912978dd-35e1-47a0-89d8-193839ad5fb3")
             public void setValue(ISmObjectData data, Object value) {
                 ((AcceptChangeEventActionData) data).mChangeExpresion = value;
             }

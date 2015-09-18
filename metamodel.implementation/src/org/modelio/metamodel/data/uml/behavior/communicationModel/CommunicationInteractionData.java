@@ -46,29 +46,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("005a6928-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=CommunicationInteraction.class, factory=CommunicationInteractionData.Metadata.ObjectFactory.class, cmsnode=true)
 public class CommunicationInteractionData extends BehaviorData {
-    @objid ("e0b395b9-9a74-4a7f-9e33-cd67350777d5")
+    @objid ("bb5e74f5-c3c0-4879-9b6b-a1ad32159faf")
     @SmaMetaAssociation(metaName="Owned", typeDataClass=CommunicationNodeData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedSmDependency.class, component = true)
      List<SmObjectImpl> mOwned = null;
 
-    @objid ("c889d930-b687-43c7-b131-67a8d5368afc")
+    @objid ("20544c43-ec0e-41ef-affc-9a40066cd395")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001108b4-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("5db094d3-edf4-460a-a443-b1bd90ab8bd8")
+        @objid ("b74090b5-f235-4f26-8aeb-f1d3904f2fbd")
         private static SmClass smClass = null;
 
-        @objid ("c68424b8-2f5a-45e1-b775-7357e08dce73")
+        @objid ("8a090690-7f61-4b7f-b651-bf1b4596c163")
         private static SmDependency OwnedDep = null;
 
-        @objid ("3889a1f3-be5b-4799-aed0-76b824ad598b")
+        @objid ("0c15d817-d5ed-40b5-86d3-75df26fff406")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(CommunicationInteractionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("41bbc4c2-6122-4e3a-8fb5-7f7821eff74e")
+        @objid ("2ffa336e-890b-4fd1-b4b6-24d915bad660")
         public static SmDependency OwnedDep() {
             if (OwnedDep == null) {
             	OwnedDep = classof().getDependencyDef("Owned");
@@ -76,13 +76,13 @@ public class CommunicationInteractionData extends BehaviorData {
             return OwnedDep;
         }
 
-        @objid ("c4a5f0ba-23dc-472d-8527-b8ddbadb9dc3")
+        @objid ("90b0d3cf-5cdc-461a-a032-0e503cc2a033")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("7aec53eb-935c-483f-8ad8-eaf1d8001826")
+        @objid ("cffceafe-9428-43b8-8ce6-f413c3af685b")
         public static SmDependency getOwnedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnedDep;
@@ -90,12 +90,12 @@ public class CommunicationInteractionData extends BehaviorData {
 
         @objid ("00114ad6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("fc5ea761-0d97-475f-bec1-2df3c460e44b")
+            @objid ("f7af150f-2d52-4058-8b3f-a143894a5ac3")
             public ISmObjectData createData() {
                 return new CommunicationInteractionData();
             }
 
-            @objid ("0391a0ab-072d-4e35-9a3c-b744057a5aba")
+            @objid ("15b88416-8b10-49ad-96b6-d2c9ca7fe879")
             public SmObjectImpl createImpl() {
                 return new CommunicationInteractionImpl();
             }
@@ -104,20 +104,20 @@ public class CommunicationInteractionData extends BehaviorData {
 
         @objid ("0011ad6e-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OwnedSmDependency extends SmMultipleDependency {
-            @objid ("6ed9e97c-57d0-4d66-888e-17fa23b57b21")
+            @objid ("6995c95f-448f-4a4e-b135-00a7e16b87db")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((CommunicationInteractionData)data).mOwned != null)? ((CommunicationInteractionData)data).mOwned:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("45eb5e36-0b9d-469c-9172-0d9ee07edfb8")
+            @objid ("c8af658d-1329-4f8a-9cb1-f55ae81f2b23")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((CommunicationInteractionData) data).mOwned = new ArrayList<>(initialCapacity);
                 return ((CommunicationInteractionData) data).mOwned;
             }
 
-            @objid ("6c9fef90-ef64-4a57-be5b-3a44dce0a609")
+            @objid ("2ddd067a-48f1-458e-9f48-20a9b81a08cb")
             @Override
             public SmDependency getSymetric() {
                 return CommunicationNodeData.Metadata.OwnerDep();

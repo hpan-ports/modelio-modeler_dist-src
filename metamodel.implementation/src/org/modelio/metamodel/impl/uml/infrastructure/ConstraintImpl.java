@@ -83,49 +83,49 @@ public class ConstraintImpl extends ModelElementImpl implements Constraint {
         super.afterEraseDepVal(dep, value);
     }
 
-    @objid ("3794a28b-179c-4904-88da-7c1c4708b176")
+    @objid ("a99dc2da-5078-449d-8dfd-86a26879a43f")
     @Override
     public String getBaseClass() {
         return (String) getAttVal(ConstraintData.Metadata.BaseClassAtt());
     }
 
-    @objid ("cfd0b6c3-6b8c-43ce-bdf1-80dd249e36bb")
+    @objid ("3c2df05e-277b-4302-a51d-ef82424bb9c6")
     @Override
     public void setBaseClass(String value) {
         setAttVal(ConstraintData.Metadata.BaseClassAtt(), value);
     }
 
-    @objid ("7db92708-c6cb-4beb-9f1c-7b3de02d9580")
+    @objid ("2ebec903-b1e3-4a0c-9611-1211c0a3ac4e")
     @Override
     public String getBody() {
         return (String) getAttVal(ConstraintData.Metadata.BodyAtt());
     }
 
-    @objid ("f92558d5-7885-439b-8e52-120a3e8c71b7")
+    @objid ("1d5d8fef-4f7b-450d-82bc-42b16a8001f1")
     @Override
     public void setBody(String value) {
         setAttVal(ConstraintData.Metadata.BodyAtt(), value);
     }
 
-    @objid ("6f122f54-a3d1-4edb-bf53-fcd54da45634")
+    @objid ("3eee60f2-37f1-42ff-8bbf-a33937f75896")
     @Override
     public String getLanguage() {
         return (String) getAttVal(ConstraintData.Metadata.LanguageAtt());
     }
 
-    @objid ("d49477b3-95f3-451a-a144-4f0189641bf0")
+    @objid ("fc0a7c3b-9852-427b-a7f2-1e25cb047365")
     @Override
     public void setLanguage(String value) {
         setAttVal(ConstraintData.Metadata.LanguageAtt(), value);
     }
 
-    @objid ("6e96e077-3e78-4d18-a77e-91c701c439a3")
+    @objid ("bdb506c0-6bf8-4dd2-9539-a4e54ab5cf2b")
     @Override
     public EList<ModelElement> getConstrainedElement() {
         return new SmList<>(this, ConstraintData.Metadata.ConstrainedElementDep());
     }
 
-    @objid ("c1955e63-ba5c-46be-8891-3cc6cfed9e6c")
+    @objid ("854173f9-e40a-4e82-b518-6dc0658f34e7")
     @Override
     public <T extends ModelElement> List<T> getConstrainedElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -138,7 +138,7 @@ public class ConstraintImpl extends ModelElementImpl implements Constraint {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("851f75f7-57c4-4777-b761-a30c6781f3a8")
+    @objid ("d57c04e8-6f42-4502-8cf1-1efd9af6d228")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitConstraint(this);

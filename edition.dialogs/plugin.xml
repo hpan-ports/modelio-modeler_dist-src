@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point
+          id="org.modelio.edition.dialogs.panels" 
+          name="EditionDialogsPanels" 
+          schema="schema/org.modelio.edition.dialogs.panels.exsd"/>
+
+
+<extension id="org.modelio.edition.dialogs.initializer"  
+           point="org.eclipse.e4.workbench.model">
+           <fragment uri="e4model/fragment.e4xmi"></fragment>
+           <processor beforefragment="false" class="org.modelio.edition.dialogs.EditionDialogsInitializer">
+      </processor>
+   </extension>
+   
+</plugin>

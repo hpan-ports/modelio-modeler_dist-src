@@ -120,8 +120,9 @@ public class LifeCycleManager {
         
         // -mdebug on command line forces log level to help development and
         // debugging
-        if (this.cmdLineData.isDebug())
+        if (this.cmdLineData.isDebug()) {
             PluginLogger.logLevel = LogService.LOG_DEBUG;
+        }
         
         // Set up the ModelioEnv instance, this also create the modelio runtime
         // directories if needed
@@ -157,14 +158,15 @@ public class LifeCycleManager {
         
         // END EXPERIMENTAL STUFF
         
-         // Loading metamodel
+        // Loading metamodel
         AppUi.LOG.info("Loading metamodel...");
-        if (this.splash != null)
+        if (this.splash != null) {
             this.splash.showMessage(AppUi.I18N.getString("Splash.metamodel"));
+        }
         MetamodelLoader.Load();
         AppUi.LOG.info("Metamodel loaded, version  : '%s'", Metamodel.VERSION);
         
-        // Initialize catalog from mdastore if the local catalog directory does not contain any entry
+        // Initialize catalog from module store if the local catalog directory does not contain any entry
         final FileModuleStore catalog = new FileModuleStore(modelioEnv.getModuleCatalogPath());
         boolean emptyCatalog;
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(modelioEnv.getModuleCatalogPath(), new DirectoryStream.Filter<Path>() {
@@ -186,8 +188,9 @@ public class LifeCycleManager {
             deliverMdaStoreModules(catalog);
         }
         
-        if (this.splash != null)
+        if (this.splash != null) {
             this.splash.showMessage(AppUi.I18N.getString("Splash.services"));
+        }
         
         // Create and Register the ModelioEventService instance
         final ModelioEventService modelioEventService = new ModelioEventService(context);
@@ -279,7 +282,7 @@ public class LifeCycleManager {
         final IEventBroker eventBroker = context.get(IEventBroker.class);
         if (eventBroker != null) {
             EventHandler eventHandler = new EventHandler() {
-                
+        
                 @SuppressWarnings("synthetic-access")
                 @Override
                 public void handleEvent(Event arg0) {
@@ -294,7 +297,7 @@ public class LifeCycleManager {
                     eventBroker.post("BATCH", LifeCycleManager.this.cmdLineData);
                 }
             };
-            
+        
             eventBroker.subscribe(UIEvents.UILifeCycle.APP_STARTUP_COMPLETE, eventHandler);
         }
     }
@@ -316,8 +319,8 @@ public class LifeCycleManager {
     @objid ("61c57b6e-4aac-477f-b313-244e7115779a")
     private void deliverMdaStoreModules(FileModuleStore catalog) {
         Location location = Platform.getInstallLocation();
-        Path mdaStore = new File(location.getURL().getFile()).toPath().resolve("mdastore");
-        try (DirectoryStream<Path> ds = Files.newDirectoryStream(mdaStore, "*.jmdac")) {
+        Path moduleStore = new File(location.getURL().getFile()).toPath().resolve("modules");
+        try (DirectoryStream<Path> ds = Files.newDirectoryStream(moduleStore, "*.jmdac")) {
             for (Path jmdacPath : ds) {
                 // Iterate over the paths in the directory and print
                 // filenames

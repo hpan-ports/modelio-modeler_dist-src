@@ -24,12 +24,10 @@ package org.modelio.edition.notes.handlers.copy;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.Transfer;
@@ -39,8 +37,8 @@ import org.modelio.core.ui.copy.PasteElementObject.PasteType;
 import org.modelio.core.ui.copy.PasteElementObject;
 import org.modelio.core.ui.copy.PasteElementTransfer;
 import org.modelio.core.ui.copy.TransferItem;
+import org.modelio.edition.notes.panelprovider.NotesPanelProvider;
 import org.modelio.edition.notes.plugin.EditionNotes;
-import org.modelio.edition.notes.view.NotesPanelProvider;
 import org.modelio.edition.notes.view.NotesView;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -65,7 +63,7 @@ public class PasteAnnotationHandler {
      */
     @objid ("604025a2-ef00-4d64-b9a9-4e97bb7ee6b7")
     @CanExecute
-    public final boolean canExecute(@Named(IServiceConstants.ACTIVE_PART) final MPart part, Display currentDisplay) {
+    public final boolean canExecute(final MPart part, Display currentDisplay) {
         if (!(part.getObject() instanceof NotesView)) {
             return false;
         }
@@ -80,6 +78,11 @@ public class PasteAnnotationHandler {
             return false;
         }
         
+        // Check focus
+        if (!notesPanel.getTreeViewer().getControl().isFocusControl()) {
+            return false;
+        }
+        
         ModelElement destElement = notesPanel.getInput();
         if (destElement == null || !destElement.getStatus().isModifiable()) { // cannot paste to the unmodifiable element
             return false;
@@ -91,7 +94,7 @@ public class PasteAnnotationHandler {
         if (pastedObject == null) {
             return false;
         }
-            
+        
         final ICoreSession session = this.projectService.getSession();
         
         final List<TransferItem> items = pastedObject.getTransferedItems();
@@ -100,7 +103,7 @@ public class PasteAnnotationHandler {
         for (MObject pasted : pastedElements) {
             switch(pastedObject.getPasteType()) {
             case CUT:
-                if (!MTools.getAuthTool().canAddTo(pasted, destElement)) {                    
+                if (!MTools.getAuthTool().canAddTo(pasted, destElement)) {
                     return false;
                 }
                 if (!MTools.getMetaTool().canCompose(destElement, pasted, null)) {
@@ -109,7 +112,7 @@ public class PasteAnnotationHandler {
                 break;
             case COPY:
             default:
-                if (!MTools.getAuthTool().canAdd(destElement, pasted.getMClass().getName()))  {                    
+                if (!MTools.getAuthTool().canAdd(destElement, pasted.getMClass().getName()))  {
                     return false;
                 }
                 if (!MTools.getMetaTool().canCompose(destElement, pasted, null)) {
@@ -128,18 +131,17 @@ public class PasteAnnotationHandler {
      */
     @objid ("be2f6280-9d4f-4e3e-b24f-877ff3dec5e2")
     @Execute
-    public final void execute(@Named(IServiceConstants.ACTIVE_PART) final MPart part, Display currentDisplay) {
+    public final void execute(final MPart part, Display currentDisplay) {
         ICoreSession session = this.projectService.getSession();
         
         NotesPanelProvider notesPanel = ((NotesView) part.getObject()).getNotesPanel();
-        
         final MObject targetElement = notesPanel.getInput();
         
         Clipboard clipboard = new Clipboard(currentDisplay);
         final PasteElementObject pastedObject = (PasteElementObject) clipboard.getContents(PasteElementTransfer.getInstance());
         
         final List<TransferItem> items = pastedObject.getTransferedItems();
-        final List<MObject> pastedElements = getElementsToCopy(items, session);       
+        final List<MObject> pastedElements = getElementsToCopy(items, session);
         
         for (MObject element : pastedElements) {
             if (!canBeParentOf(targetElement, element)) {
@@ -153,8 +155,10 @@ public class PasteAnnotationHandler {
         
                 if (pastedElements.size() > 0) {
                     copyResult.addAll(MTools.getModelTool().copyElements(pastedElements, targetElement));
-                }        
+                }
                 transaction.commit();
+                notesPanel.setInput(targetElement);
+                notesPanel.setSelected((ModelElement)copyResult.get(0));
             } catch (Exception e) {
                 // Should catch InvalidModelManipulationException to display a popup box, but it
                 // is not a RuntimeException.
@@ -178,6 +182,9 @@ public class PasteAnnotationHandler {
                 }
         
                 transaction.commit();
+                notesPanel.setInput(targetElement);
+                notesPanel.setSelected((ModelElement)pastedElements.get(0));
+        
         
                 // Keep the elements in the clipboard, but as a copy
                 pastedObject.setPasteType(PasteType.COPY);

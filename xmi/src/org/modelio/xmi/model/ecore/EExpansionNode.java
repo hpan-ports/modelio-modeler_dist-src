@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.ExpansionNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ExpansionRegion;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("268ee9bb-3fc4-4463-b384-3f3bf1468d8e")
 public class EExpansionNode extends ENamedElement {

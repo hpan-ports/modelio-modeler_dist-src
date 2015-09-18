@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("8f4fb54f-c068-11e1-8c0a-002564c97630")
 public class NotePropertyModel extends AbstractPropertyModel<Note> {
     @objid ("a790b148-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"Note", "NoteType"};
+    private static final String[] PROPERTIES = new String[] {"Note", "NoteType", "MimeType"};
 
     @objid ("8f4fb557-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -64,11 +64,11 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
             public boolean accept(final MObject element) {
                 // TODO implement filter
                 return true;
-        //                try {
-        //                    return element != null && element.equals(ModelProperty.getInstance().getModelingSession().getModel().getMetamodelExtensions().getNoteType(context.getClass(), element.getName()));
-        //                } catch (NoteTypeNotFoundException e) {
-        //                    return false;
-        //                }
+                //                try {
+                //                    return element != null && element.equals(ModelProperty.getInstance().getModelingSession().getModel().getMetamodelExtensions().getNoteType(context.getClass(), element.getName()));
+                //                } catch (NoteTypeNotFoundException e) {
+                //                    return false;
+                //                }
             }
         });
     }
@@ -101,19 +101,21 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
     @Override
     public IPropertyType getTypeAt(final int row, final int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return this.labelStringType;
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return this.labelStringType;
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return this.labelStringType;
-                    case 1:
-                        return this.noteType;
-                    default:
-                        return null;
-                }
+            case 1:
+                return this.noteType;
+            case 2:
+                return this.labelStringType;
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -125,19 +127,21 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
     @Override
     public Object getValueAt(final int row, final int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return NotePropertyModel.PROPERTIES[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getModel();
-                    default:
-                        return null;
-                }
+        case 0: // col 0 is the property key
+            return NotePropertyModel.PROPERTIES[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getModel();
+            case 2:
+                return this.theEditedElement.getMimeType() != null && !this.theEditedElement.getMimeType().isEmpty() ? this.theEditedElement.getMimeType() : this.theEditedElement.getModel().getMimeType();
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -149,21 +153,32 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setModel((NoteType) value);
                 return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setModel((NoteType) value);
-                        return;
-                    default:
-                        return;
-                }
+            case 2:
+                return; // Mime type cannot be modified
             default:
                 return;
+            }
+        default:
+            return;
         }
+    }
+
+    @objid ("98998320-08dc-4a9d-b476-7e76799c13bc")
+    @Override
+    public boolean isEditable(int row, int col) {
+        if (row == 2) {
+            return false;
+        }
+        return super.isEditable(row, col);
     }
 
 }

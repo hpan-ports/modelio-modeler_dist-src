@@ -44,43 +44,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004e6c5e-c4bf-1fd8-97fe-001ec947cd2a")
 public class ConnectionPointReferenceImpl extends StateVertexImpl implements ConnectionPointReference {
-    @objid ("2ff70853-482f-464a-a55f-e8c2f1025350")
+    @objid ("2a86c711-2ebd-4629-bbfd-51381a482ab5")
     @Override
     public ExitPointPseudoState getExit() {
         return (ExitPointPseudoState) getDepVal(ConnectionPointReferenceData.Metadata.ExitDep());
     }
 
-    @objid ("c1793519-01c6-452c-b1b1-f13e49b420fc")
+    @objid ("0ce43035-46a7-4f64-afb6-115369c7c6cb")
     @Override
     public void setExit(ExitPointPseudoState value) {
         appendDepVal(ConnectionPointReferenceData.Metadata.ExitDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fa3cc36c-2bd9-4b72-9782-b7ffddbcd611")
+    @objid ("d4e80a8e-df24-47fb-9281-789eae42d8d3")
     @Override
     public EntryPointPseudoState getEntry() {
         return (EntryPointPseudoState) getDepVal(ConnectionPointReferenceData.Metadata.EntryDep());
     }
 
-    @objid ("d5a22a17-4e80-48e3-a6d5-59194bb08017")
+    @objid ("345994c7-84e4-4735-9447-60922bea9227")
     @Override
     public void setEntry(EntryPointPseudoState value) {
         appendDepVal(ConnectionPointReferenceData.Metadata.EntryDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6d5e4849-cf1f-47d9-b7ea-8c3e422b2e21")
+    @objid ("c6c9dc4c-d230-4727-9b34-de8fd14f2a51")
     @Override
     public State getOwnerState() {
         return (State) getDepVal(ConnectionPointReferenceData.Metadata.OwnerStateDep());
     }
 
-    @objid ("77c1684f-62f9-4993-a872-84f1cfbe721b")
+    @objid ("ac63b3f5-7488-4f07-9231-647651a17633")
     @Override
     public void setOwnerState(State value) {
         appendDepVal(ConnectionPointReferenceData.Metadata.OwnerStateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bbc8d3b4-fe3c-44cc-b5d5-93436bc2fb59")
+    @objid ("3b067770-c651-40fe-9ca2-8cf3cb80d498")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -90,7 +90,7 @@ public class ConnectionPointReferenceImpl extends StateVertexImpl implements Con
         return super.getCompositionOwner();
     }
 
-    @objid ("5f0daa11-d009-4753-ac69-11cabf4b1412")
+    @objid ("e74352fe-a945-4ca6-8ffc-80432fb12d38")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -100,7 +100,7 @@ public class ConnectionPointReferenceImpl extends StateVertexImpl implements Con
         return super.getCompositionRelation();
     }
 
-    @objid ("dfc2822e-86f1-411e-8f11-5fddc79339b2")
+    @objid ("a557622c-9f3f-4229-bc06-43044242c635")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitConnectionPointReference(this);

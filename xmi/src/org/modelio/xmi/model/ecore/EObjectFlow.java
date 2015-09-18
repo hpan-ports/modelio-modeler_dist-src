@@ -26,8 +26,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectFlow;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectFlowEffectKind;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("35fafa7a-4e79-40f1-8fa6-534716976069")
 public class EObjectFlow extends EActivityEdge {

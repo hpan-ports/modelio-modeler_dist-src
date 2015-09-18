@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.LoopNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("0d7be69c-5916-4b86-afa9-3f254f783ae5")
 public class ELoopNode extends EStructuredActivityNode {
@@ -36,7 +36,7 @@ public class ELoopNode extends EStructuredActivityNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-        .createLoopNode();
+                .createLoopNode();
     }
 
     @objid ("6dbcad6b-ed7a-4a21-b683-18a99cd4a178")

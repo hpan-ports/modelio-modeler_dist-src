@@ -45,57 +45,57 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("4da7b9f3-596c-4989-b28e-a35e40d48073")
 @SmaMetaClass(mmClass=BusinessRule.class, factory=BusinessRuleData.Metadata.ObjectFactory.class, cmsnode=true)
 public class BusinessRuleData extends AnalystElementData {
-    @objid ("765b2a36-1788-429e-b716-3ad655ff4ff5")
+    @objid ("53f6c590-2e04-4bd1-8645-12b0afbf795e")
     @SmaMetaAssociation(metaName="SubRule", typeDataClass=BusinessRuleData.class, min=0, max=-1, smAssociationClass=Metadata.SubRuleSmDependency.class, component = true)
      List<SmObjectImpl> mSubRule = null;
 
-    @objid ("24a7be2d-025c-4348-8286-1460903a9880")
+    @objid ("c419d41a-f285-4301-a937-8b79ce120183")
     @SmaMetaAssociation(metaName="OwnerContainer", typeDataClass=BusinessRuleContainerData.class, min=0, max=1, smAssociationClass=Metadata.OwnerContainerSmDependency.class)
      SmObjectImpl mOwnerContainer;
 
-    @objid ("2edb35d3-6239-457c-ac7c-9299e969a9c1")
+    @objid ("2bfdb3f4-0519-4727-a556-eca5ad2fc590")
     @SmaMetaAssociation(metaName="ParentRule", typeDataClass=BusinessRuleData.class, min=0, max=1, smAssociationClass=Metadata.ParentRuleSmDependency.class)
      SmObjectImpl mParentRule;
 
-    @objid ("227e18e6-79ba-4927-8cca-0e0fa003010e")
+    @objid ("23c3301b-bdb7-4a57-8d1d-582f484867a7")
     @SmaMetaAssociation(metaName="LastRuleVersion", typeDataClass=BusinessRuleData.class, min=0, max=1, smAssociationClass=Metadata.LastRuleVersionSmDependency.class)
      SmObjectImpl mLastRuleVersion;
 
-    @objid ("17d66d33-220b-4803-a1d4-3cc00449c35c")
+    @objid ("d832e6b1-674a-42ed-92e7-cdb0ca98d574")
     @SmaMetaAssociation(metaName="ArchivedRuleVersion", typeDataClass=BusinessRuleData.class, min=0, max=-1, smAssociationClass=Metadata.ArchivedRuleVersionSmDependency.class, component = true)
      List<SmObjectImpl> mArchivedRuleVersion = null;
 
-    @objid ("7b6a33bb-b6ab-4421-91cf-22b50aa89ae7")
+    @objid ("aa5d67a2-1a5d-4025-8e49-83348c38a386")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("785300db-57ee-4e9e-8380-59b5550f902c")
     public static class Metadata {
-        @objid ("10bda137-c434-4c7b-80f1-d06b5476803c")
+        @objid ("5942ea97-2614-4a3a-b5c2-838cec1d52d1")
         private static SmClass smClass = null;
 
-        @objid ("a8d8982c-cc6a-48bc-a35c-812781726c22")
+        @objid ("4421c633-737d-4c37-aca0-c343761b87ab")
         private static SmDependency SubRuleDep = null;
 
-        @objid ("13bc43b0-8872-461f-8a1f-0e456d7e0545")
+        @objid ("75c7ad51-ee84-4641-90f1-44fa319997e8")
         private static SmDependency OwnerContainerDep = null;
 
-        @objid ("1d677f0e-2e15-452b-9910-9ba9f9929463")
+        @objid ("5b41b162-6515-4902-91f9-068be873c784")
         private static SmDependency ParentRuleDep = null;
 
-        @objid ("8ce5a1ac-6b63-472b-97c4-facca5a5d1df")
+        @objid ("fecc34f3-3550-4ab3-a6b4-750b94780166")
         private static SmDependency LastRuleVersionDep = null;
 
-        @objid ("f649e5c3-7815-4cbd-9058-5f0641ffab2a")
+        @objid ("e81c0c95-42bf-44d9-9bbf-74e3fed176a0")
         private static SmDependency ArchivedRuleVersionDep = null;
 
-        @objid ("9683c3ae-8394-408a-9909-70e84351852b")
+        @objid ("6ac7c1b2-8558-4798-80a0-6fd76e9934aa")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BusinessRuleData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f3f22917-e2ca-4647-baf7-72d3b3884e59")
+        @objid ("c1ab5474-e131-4540-aff8-bff818627fe8")
         public static SmDependency SubRuleDep() {
             if (SubRuleDep == null) {
             	SubRuleDep = classof().getDependencyDef("SubRule");
@@ -103,7 +103,7 @@ public class BusinessRuleData extends AnalystElementData {
             return SubRuleDep;
         }
 
-        @objid ("f47f3aa4-2e7d-4310-994a-ae83166828c1")
+        @objid ("4929889d-549a-49b7-9dcd-36c08e82c9e1")
         public static SmDependency OwnerContainerDep() {
             if (OwnerContainerDep == null) {
             	OwnerContainerDep = classof().getDependencyDef("OwnerContainer");
@@ -111,7 +111,7 @@ public class BusinessRuleData extends AnalystElementData {
             return OwnerContainerDep;
         }
 
-        @objid ("4fbd5cc7-735e-4407-9593-4d39dff25749")
+        @objid ("d3109175-0473-40ce-9168-0c34edc25c54")
         public static SmDependency ParentRuleDep() {
             if (ParentRuleDep == null) {
             	ParentRuleDep = classof().getDependencyDef("ParentRule");
@@ -119,7 +119,7 @@ public class BusinessRuleData extends AnalystElementData {
             return ParentRuleDep;
         }
 
-        @objid ("7162a28c-03f2-4ea8-9bad-80cef169fc88")
+        @objid ("d294cb78-2ad9-4925-b10a-fe41e86bd2d6")
         public static SmDependency LastRuleVersionDep() {
             if (LastRuleVersionDep == null) {
             	LastRuleVersionDep = classof().getDependencyDef("LastRuleVersion");
@@ -127,7 +127,7 @@ public class BusinessRuleData extends AnalystElementData {
             return LastRuleVersionDep;
         }
 
-        @objid ("7f987ecc-d2aa-4cf8-88a6-f7c6425a599a")
+        @objid ("2e03ada1-8509-480d-aac8-9c18e877d238")
         public static SmDependency ArchivedRuleVersionDep() {
             if (ArchivedRuleVersionDep == null) {
             	ArchivedRuleVersionDep = classof().getDependencyDef("ArchivedRuleVersion");
@@ -135,50 +135,50 @@ public class BusinessRuleData extends AnalystElementData {
             return ArchivedRuleVersionDep;
         }
 
-        @objid ("5fa203e3-f00f-4489-8b64-561d66bc93a8")
-        public static SmDependency getLastRuleVersionDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LastRuleVersionDep;
-        }
-
-        @objid ("94f2c49d-bef2-41df-b3eb-33f0772c82a3")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("9cebb6a6-7d3e-4bbd-a0e1-2722e1a89b23")
-        public static SmDependency getSubRuleDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SubRuleDep;
-        }
-
-        @objid ("4f70b63d-8498-47bc-b62f-cb6b6ec024d3")
+        @objid ("b8476d4e-d83c-4420-b895-c1ffd2d64822")
         public static SmDependency getParentRuleDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ParentRuleDep;
         }
 
-        @objid ("0606a929-5b7c-4ec3-92bc-d90c4f8e644d")
+        @objid ("3157be25-e64e-45ed-9c28-be953ab22043")
         public static SmDependency getArchivedRuleVersionDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ArchivedRuleVersionDep;
         }
 
-        @objid ("288081da-5760-4d4d-b44a-48c257aaf2f1")
+        @objid ("6d1b653d-b7f6-45c2-b5db-49126cb11d2e")
         public static SmDependency getOwnerContainerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerContainerDep;
         }
 
+        @objid ("83dd9497-8c42-4522-89d5-d6f7e43d95be")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("9fe307b0-5445-4168-8568-3af72ca78ce1")
+        public static SmDependency getSubRuleDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SubRuleDep;
+        }
+
+        @objid ("9d8cacec-d89e-4654-96a5-8110641be19c")
+        public static SmDependency getLastRuleVersionDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LastRuleVersionDep;
+        }
+
         @objid ("89f134e8-1104-4a8f-8f98-c2c2fc658691")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("5c21b77a-58cd-46c9-847a-2d1d84aad728")
+            @objid ("3e5cce93-a575-4d1b-b264-1b304a357ecf")
             public ISmObjectData createData() {
                 return new BusinessRuleData();
             }
 
-            @objid ("447fec86-675f-4465-97b0-a78f5f5b5da1")
+            @objid ("48ebd71a-5c06-4612-838c-18855a8574a7")
             public SmObjectImpl createImpl() {
                 return new BusinessRuleImpl();
             }
@@ -187,18 +187,18 @@ public class BusinessRuleData extends AnalystElementData {
 
         @objid ("415085fe-8305-48ba-823b-cfe61e2be578")
         public static class OwnerContainerSmDependency extends SmSingleDependency {
-            @objid ("5907b835-d49f-4736-a679-317b34508e65")
+            @objid ("f1a4fe2b-3672-4d58-b381-62e542a9f554")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BusinessRuleData) data).mOwnerContainer;
             }
 
-            @objid ("4c7f9a4b-e715-443d-b5e0-3ef344cf2ac0")
+            @objid ("3d26b5fa-5f09-4923-be7c-ef017c9925cd")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BusinessRuleData) data).mOwnerContainer = value;
             }
 
-            @objid ("d6d2be84-f28e-47eb-9349-8cff762bd27d")
+            @objid ("37535ced-e491-4a6a-8501-e267a52b628d")
             @Override
             public SmDependency getSymetric() {
                 return BusinessRuleContainerData.Metadata.OwnedRuleDep();
@@ -208,18 +208,18 @@ public class BusinessRuleData extends AnalystElementData {
 
         @objid ("3405a99c-020c-4223-8372-bc73f519d55a")
         public static class ParentRuleSmDependency extends SmSingleDependency {
-            @objid ("587bddc7-e4cb-4ae5-8c6f-0554e81f23a3")
+            @objid ("58c05258-825e-44b2-8e37-c7d39a4f7ddd")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BusinessRuleData) data).mParentRule;
             }
 
-            @objid ("ec0fcc9a-0c85-4ba4-a812-3505951e1bbb")
+            @objid ("0b6f8cdf-438e-4f30-ac24-1880d168f74f")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BusinessRuleData) data).mParentRule = value;
             }
 
-            @objid ("624dfad5-a145-45de-880c-c61946fc59d5")
+            @objid ("00848b73-09c1-46e3-9052-e9f714f7c276")
             @Override
             public SmDependency getSymetric() {
                 return BusinessRuleData.Metadata.SubRuleDep();
@@ -229,20 +229,20 @@ public class BusinessRuleData extends AnalystElementData {
 
         @objid ("8e4029b8-e2ad-418a-90b7-315612b06ca9")
         public static class SubRuleSmDependency extends SmMultipleDependency {
-            @objid ("656273c4-d639-4371-b2d7-a61a9b7bd2b1")
+            @objid ("eb815c3a-4286-4b59-b10d-f44a18a16e47")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BusinessRuleData)data).mSubRule != null)? ((BusinessRuleData)data).mSubRule:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b6fcd90d-08c2-4fbe-a425-e2070f55cb2e")
+            @objid ("6b846dc2-51c4-4b0a-b763-1796b562af5a")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BusinessRuleData) data).mSubRule = new ArrayList<>(initialCapacity);
                 return ((BusinessRuleData) data).mSubRule;
             }
 
-            @objid ("bdd1a132-9501-4081-8445-7c6a1e5d3777")
+            @objid ("fdea2a24-b014-458b-8081-c18a0b5d0a2e")
             @Override
             public SmDependency getSymetric() {
                 return BusinessRuleData.Metadata.ParentRuleDep();
@@ -252,18 +252,18 @@ public class BusinessRuleData extends AnalystElementData {
 
         @objid ("26ffe0fa-f31b-47dd-bb85-368e627f5526")
         public static class LastRuleVersionSmDependency extends SmSingleDependency {
-            @objid ("4ca3787f-e491-4ef3-b770-dec1c9cce7ce")
+            @objid ("a748e0e4-8c7a-46ed-b339-bff1a8953fef")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BusinessRuleData) data).mLastRuleVersion;
             }
 
-            @objid ("25adab6d-e09f-40ab-87a4-74f4dadeb40a")
+            @objid ("8ef85332-e780-406a-9741-2a3d51807edf")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BusinessRuleData) data).mLastRuleVersion = value;
             }
 
-            @objid ("bbe8b57d-cf31-4907-b566-8aa0c29a8a87")
+            @objid ("3d40fe96-7ed2-40ec-9896-f069881f223e")
             @Override
             public SmDependency getSymetric() {
                 return BusinessRuleData.Metadata.ArchivedRuleVersionDep();
@@ -273,20 +273,20 @@ public class BusinessRuleData extends AnalystElementData {
 
         @objid ("d272e18f-a535-4f50-b622-5d7b4bf7659a")
         public static class ArchivedRuleVersionSmDependency extends SmMultipleDependency {
-            @objid ("dbfeb791-5c55-44d9-b914-a97843041a6c")
+            @objid ("4f14dc4a-f3da-46d5-9b30-b1840e13f1a4")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BusinessRuleData)data).mArchivedRuleVersion != null)? ((BusinessRuleData)data).mArchivedRuleVersion:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("ddd7e497-153f-4276-92d5-c15379126e20")
+            @objid ("3d457828-63c8-433c-872c-9043e92fb211")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BusinessRuleData) data).mArchivedRuleVersion = new ArrayList<>(initialCapacity);
                 return ((BusinessRuleData) data).mArchivedRuleVersion;
             }
 
-            @objid ("74234a37-3de7-489b-bdf6-c99f8fd37f8c")
+            @objid ("d17aece4-ddac-45b9-9594-d203a3c2e76d")
             @Override
             public SmDependency getSymetric() {
                 return BusinessRuleData.Metadata.LastRuleVersionDep();

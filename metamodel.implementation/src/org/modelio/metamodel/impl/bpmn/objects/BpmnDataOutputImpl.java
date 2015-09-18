@@ -45,55 +45,55 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0005e9a2-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnDataOutputImpl extends BpmnItemAwareElementImpl implements BpmnDataOutput {
-    @objid ("377b6dd0-55e8-4f27-b087-8d7a5543ad73")
+    @objid ("fd656b71-7c46-4098-8069-a3c586c0be0a")
     @Override
     public Parameter getRepresentedParameter() {
         return (Parameter) getDepVal(BpmnDataOutputData.Metadata.RepresentedParameterDep());
     }
 
-    @objid ("0d44eb49-af71-4a1c-b664-a4e7d6199057")
+    @objid ("bf194e09-dae6-4268-ae4d-bd18d135c52a")
     @Override
     public void setRepresentedParameter(Parameter value) {
         appendDepVal(BpmnDataOutputData.Metadata.RepresentedParameterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("85f6f484-11d3-4d14-8a85-8f667a1b07b7")
+    @objid ("b6538bf5-e9e2-481a-b11c-96a243d68033")
     @Override
     public BpmnActivity getOwnerActivity() {
         return (BpmnActivity) getDepVal(BpmnDataOutputData.Metadata.OwnerActivityDep());
     }
 
-    @objid ("cd9e3f7a-95d7-4816-b04c-47f172f8de83")
+    @objid ("ef5a51c6-0283-4583-b7c8-852e0679bc54")
     @Override
     public void setOwnerActivity(BpmnActivity value) {
         appendDepVal(BpmnDataOutputData.Metadata.OwnerActivityDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a6f5d88b-14f3-42de-a642-cb2f086e43e5")
+    @objid ("93895899-b6e9-4544-82fd-1884f2e184a7")
     @Override
     public BpmnCatchEvent getCatched() {
         return (BpmnCatchEvent) getDepVal(BpmnDataOutputData.Metadata.CatchedDep());
     }
 
-    @objid ("b9bd32d9-4ef1-4daa-b1c6-4de22a2f0669")
+    @objid ("d47a4289-0d39-491d-aef2-2a47cecbd271")
     @Override
     public void setCatched(BpmnCatchEvent value) {
         appendDepVal(BpmnDataOutputData.Metadata.CatchedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("329087b5-2502-467e-8ffe-0d61391969da")
+    @objid ("a5a8fe6b-7bec-4f68-92fd-1c71dcb7dc2c")
     @Override
     public BpmnMultiInstanceLoopCharacteristics getOwnerLoopCharacteristics() {
         return (BpmnMultiInstanceLoopCharacteristics) getDepVal(BpmnDataOutputData.Metadata.OwnerLoopCharacteristicsDep());
     }
 
-    @objid ("e86bdf3b-029c-457e-a128-ce3f55030385")
+    @objid ("5386da65-da84-4feb-9df8-54a0c0e8fd5b")
     @Override
     public void setOwnerLoopCharacteristics(BpmnMultiInstanceLoopCharacteristics value) {
         appendDepVal(BpmnDataOutputData.Metadata.OwnerLoopCharacteristicsDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0750f299-399d-41a7-a547-0234f3d378d3")
+    @objid ("9807394e-1707-45c9-a772-29e008c24877")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -109,7 +109,7 @@ public class BpmnDataOutputImpl extends BpmnItemAwareElementImpl implements Bpmn
         return super.getCompositionOwner();
     }
 
-    @objid ("7b7743b5-9eef-4c44-8026-1543a2efe3ea")
+    @objid ("da239e7d-ffaf-4fb7-9ff8-81ab95e91877")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -125,7 +125,7 @@ public class BpmnDataOutputImpl extends BpmnItemAwareElementImpl implements Bpmn
         return super.getCompositionRelation();
     }
 
-    @objid ("b01d44ce-7264-4aa5-9c61-97819ea3ec29")
+    @objid ("66de4bf8-235b-4411-a7b0-1ccedc0e841e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnDataOutput(this);

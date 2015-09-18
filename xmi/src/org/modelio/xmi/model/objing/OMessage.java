@@ -31,8 +31,8 @@ import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("ab225be5-a4cd-494b-be75-789b588b3018")
 public class OMessage extends OModelElement {

@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0092bf4e-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnStartEvent.class, factory=BpmnStartEventData.Metadata.ObjectFactory.class)
 public class BpmnStartEventData extends BpmnCatchEventData {
-    @objid ("4d6734f1-70e6-453e-9029-62fdbdd6391f")
+    @objid ("befe2640-c6df-4547-a53a-c14b6ef33e87")
     @SmaMetaAttribute(metaName="IsInterrupting", type=Boolean.class, smAttributeClass=Metadata.IsInterruptingSmAttribute.class)
      Object mIsInterrupting = false;
 
-    @objid ("ca4d8768-d8a3-458a-b0a3-7737b04a03e3")
+    @objid ("d25e323f-628d-4d09-b31b-18a79b541bbe")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000835fe-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("3c449616-77bf-4907-8640-f182a077e1dc")
+        @objid ("09b44771-a1f5-4bed-82e8-61fd3f7fc1d8")
         private static SmClass smClass = null;
 
-        @objid ("697c510e-5a4c-4459-aacb-56e33a465317")
+        @objid ("27afb5a4-1e70-408f-8443-8a2c449705aa")
         private static SmAttribute IsInterruptingAtt = null;
 
-        @objid ("25080536-2a35-4e0b-9505-f30cf0ae517a")
+        @objid ("bacf99f3-a478-4d0a-910e-bea272852a66")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnStartEventData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("095cae0e-689b-46a7-beaa-e938ee47ce29")
+        @objid ("ec02efba-b188-4fb4-84ac-49c701774d32")
         public static SmAttribute IsInterruptingAtt() {
             if (IsInterruptingAtt == null) {
             	IsInterruptingAtt = classof().getAttributeDef("IsInterrupting");
@@ -73,26 +73,26 @@ public class BpmnStartEventData extends BpmnCatchEventData {
             return IsInterruptingAtt;
         }
 
-        @objid ("8121bf6c-58ef-4106-bcb0-20e71e1d1e8f")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("d7e3da6a-d004-49e8-91de-2ee1b72eae19")
+        @objid ("e197220f-6d74-4a56-83ca-261bf4188f3a")
         public static SmAttribute getIsInterruptingAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsInterruptingAtt;
         }
 
+        @objid ("60e2aedf-1751-4c6a-85d2-4e930d6719bb")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("000876d6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("2c342a13-6010-47eb-b0ee-fc7d04141229")
+            @objid ("f6ee74ab-60b4-4722-8732-32a04542b68c")
             public ISmObjectData createData() {
                 return new BpmnStartEventData();
             }
 
-            @objid ("0bb3e859-87b2-4eee-9075-2ef302fd74fb")
+            @objid ("c2251017-4d05-4647-a34b-ee868af566f7")
             public SmObjectImpl createImpl() {
                 return new BpmnStartEventImpl();
             }
@@ -101,12 +101,12 @@ public class BpmnStartEventData extends BpmnCatchEventData {
 
         @objid ("0008d810-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IsInterruptingSmAttribute extends SmAttribute {
-            @objid ("a9aeab12-1687-4100-8c52-e1815746213e")
+            @objid ("a16a44d4-c4bb-41b0-9b11-21c9c94042d9")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnStartEventData) data).mIsInterrupting;
             }
 
-            @objid ("9146f29c-8a37-4b3e-9432-bdcad0b7a5f0")
+            @objid ("08eb3068-975f-4541-922f-5d0cebfacada")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnStartEventData) data).mIsInterrupting = value;
             }

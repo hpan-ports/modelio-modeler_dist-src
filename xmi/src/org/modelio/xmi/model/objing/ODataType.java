@@ -27,11 +27,11 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.util.ModelioPrimitiveTypeMapper;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 
 /**
  * This class manages the export of Modelio IDatatype
@@ -51,8 +51,8 @@ public class ODataType extends ONameSpace {
             return null;
         }
         
-        if (PrimitiveTypeMapper.isPredefinedType(this.objingElement)){
-            return  PrimitiveTypeMapper.getEcoreType(this.objingElement);
+        if (ModelioPrimitiveTypeMapper.isPredefinedType(this.objingElement)){
+            return  ModelioPrimitiveTypeMapper.getEcoreType(this.objingElement);
         }else if (this.objingElement.isIsElementary())
             return UMLFactory.eINSTANCE.createPrimitiveType();
         else

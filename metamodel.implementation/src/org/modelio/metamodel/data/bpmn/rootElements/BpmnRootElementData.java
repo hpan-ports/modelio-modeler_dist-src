@@ -44,29 +44,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("007b00b6-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnRootElement.class, factory=BpmnRootElementData.Metadata.ObjectFactory.class)
 public abstract class BpmnRootElementData extends BpmnBaseElementData {
-    @objid ("dcbcbe87-7c28-44ac-94a1-b698dc10aee2")
+    @objid ("e204a072-d8dc-455d-8333-ea98e81b8b59")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=BpmnBehaviorData.class, min=0, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("a15d44dc-e986-4acc-ad3f-241b78442bef")
+    @objid ("7c670742-25e5-4163-816b-82aa0f8a9fc0")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001b9b6c-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("cc217ca2-6866-4c45-b0a2-40b0fff45755")
+        @objid ("800c056a-3df4-436e-9f65-4dae407ac573")
         private static SmClass smClass = null;
 
-        @objid ("ca8112a9-bffa-414c-9fa5-1c18cb97fcb2")
+        @objid ("263fd8cc-b17c-4a22-a185-86edff004bf3")
         private static SmDependency OwnerDep = null;
 
-        @objid ("5581d1db-49e6-47dd-ab67-62f078374ec1")
+        @objid ("cc13195d-8f72-4e8e-a2c6-423d229b373f")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnRootElementData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("8b9c46db-8774-4ea8-9775-b9f34130ead0")
+        @objid ("38198fff-9886-428f-99a6-04972485b4ce")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -74,26 +74,26 @@ public abstract class BpmnRootElementData extends BpmnBaseElementData {
             return OwnerDep;
         }
 
-        @objid ("85e5cd4c-9640-41fd-9c05-331e0e85a02a")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("85dd2f43-36ad-4531-a197-a195d3c85585")
+        @objid ("d664cfcd-cf62-4268-9878-748b9db41806")
         public static SmDependency getOwnerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerDep;
         }
 
+        @objid ("7a94ba8b-3e96-4797-9928-2b4fe4537bd8")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("001be7c0-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("14bc5a28-c534-45da-878c-6db7eb31dd87")
+            @objid ("39924504-d673-4be8-8d97-d7c9ed3507e0")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("0ee1efee-9058-424c-ac4c-803a410e3d31")
+            @objid ("8512f491-9a5b-4068-9b69-a8442fd4e540")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -102,18 +102,18 @@ public abstract class BpmnRootElementData extends BpmnBaseElementData {
 
         @objid ("001c4f26-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("bf04f493-9fad-4a1d-b702-ad60e3c5366d")
+            @objid ("e93495ed-3036-4468-a64f-533ac1d0b4ff")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnRootElementData) data).mOwner;
             }
 
-            @objid ("99883df5-d9a6-4fbd-965c-ee7f636258cb")
+            @objid ("9502bed0-8dd0-4cd5-8cbc-ec5325a22c0d")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnRootElementData) data).mOwner = value;
             }
 
-            @objid ("0d7d1886-eef0-4f89-8731-3254595fcb79")
+            @objid ("e34a691a-9856-4542-9e54-c6f93d95e7ce")
             @Override
             public SmDependency getSymetric() {
                 return BpmnBehaviorData.Metadata.RootElementDep();

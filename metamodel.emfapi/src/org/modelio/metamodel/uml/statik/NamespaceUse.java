@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 
 @objid ("0012264a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NamespaceUse extends Element {
-    @objid ("b8062200-c24d-4e43-829b-41e90a19671a")
+    @objid ("cd9e259f-5317-4cc6-8ef4-2ba371acd592")
     NameSpace getUser();
 
-    @objid ("11abbbb0-9574-44a4-9a27-3faba5dc2e4b")
+    @objid ("2ae3fa5d-b58a-406c-a6d3-6663aab128b2")
     void setUser(NameSpace value);
 
-    @objid ("95e76a56-a637-490f-9211-41f6995e4851")
+    @objid ("1083590e-d703-454e-a69f-8ac13c5a1ff0")
     NameSpace getUsed();
 
-    @objid ("7182be0b-3e0f-4a8f-a31e-4ee2f1d941e1")
+    @objid ("fa56391b-0303-4973-81a6-768dca9d2528")
     void setUsed(NameSpace value);
 
-    @objid ("f39c9d60-75e6-4757-8ac2-60a08742a9d2")
+    @objid ("dbbf205f-b940-4322-af89-06c405412b46")
     EList<Element> getCause();
 
-    @objid ("c766f8f9-d89a-4d97-90b0-0a92c76ce8f3")
+    @objid ("18b4be9b-d4fe-4a2f-a39d-5ab6a36ad265")
     <T extends Element> List<T> getCause(java.lang.Class<T> filterClass);
 
 }

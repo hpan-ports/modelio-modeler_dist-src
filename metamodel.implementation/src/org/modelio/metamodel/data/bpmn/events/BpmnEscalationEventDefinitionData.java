@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008c5122-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnEscalationEventDefinition.class, factory=BpmnEscalationEventDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnEscalationEventDefinitionData extends BpmnEventDefinitionData {
-    @objid ("50d1756b-e9d2-4c42-95c7-520e9679d493")
+    @objid ("eb9ed391-3abc-496d-bc4e-a2b3fd27fd56")
     @SmaMetaAttribute(metaName="EscalationCode", type=String.class, smAttributeClass=Metadata.EscalationCodeSmAttribute.class)
      Object mEscalationCode = "";
 
-    @objid ("f8bf26bb-2949-4765-b3a5-2b9946e1a188")
+    @objid ("47968f40-30bd-4ed9-98a0-889e715a426f")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000c0f80-c4c6-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("01e7b19b-01ba-4d9c-8ff7-93233db29afd")
+        @objid ("4c795e79-27db-4044-8ad6-5114476f26e4")
         private static SmClass smClass = null;
 
-        @objid ("86e0856f-b4fd-4e3d-86c3-2117b3fa22fa")
+        @objid ("c4005c9a-cd4c-4a01-bd16-6f6321bb85db")
         private static SmAttribute EscalationCodeAtt = null;
 
-        @objid ("da525cbf-c44b-492f-aa83-7c218f9e538d")
+        @objid ("1e3c744e-ffaa-482c-b6df-7f3ce846c926")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnEscalationEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("ac6d0a5a-1ad5-4cdc-934f-21b823217d49")
+        @objid ("b8c0b900-314a-419f-951e-edc3aad0a08b")
         public static SmAttribute EscalationCodeAtt() {
             if (EscalationCodeAtt == null) {
             	EscalationCodeAtt = classof().getAttributeDef("EscalationCode");
@@ -73,26 +73,26 @@ public class BpmnEscalationEventDefinitionData extends BpmnEventDefinitionData {
             return EscalationCodeAtt;
         }
 
-        @objid ("1ba70b32-ab06-4025-af72-56c524746f66")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("e67c4b4e-787f-44fa-9122-d31416ad0eef")
+        @objid ("bc2763b0-708c-48d4-99c4-82ab7369bb9d")
         public static SmAttribute getEscalationCodeAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return EscalationCodeAtt;
         }
 
+        @objid ("9dbb2e56-ca17-44f6-9db5-d82111a3e934")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("000c5026-c4c6-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("3a066e9d-0b72-4156-84f7-7c0e053028f6")
+            @objid ("cb9ef216-482e-452e-8a69-0c313c27bb80")
             public ISmObjectData createData() {
                 return new BpmnEscalationEventDefinitionData();
             }
 
-            @objid ("33bb59b5-edb3-47cd-a499-7c73909eb8d7")
+            @objid ("b9e70f49-efd6-423c-913d-847ba9aac620")
             public SmObjectImpl createImpl() {
                 return new BpmnEscalationEventDefinitionImpl();
             }
@@ -101,12 +101,12 @@ public class BpmnEscalationEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("000cb07a-c4c6-1fd8-97fe-001ec947cd2a")
         public static class EscalationCodeSmAttribute extends SmAttribute {
-            @objid ("8c6c2a82-8f0b-455c-b37c-44b1d2bee5a1")
+            @objid ("fb69c927-b8f9-4a94-8c49-6d2b544b2c03")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnEscalationEventDefinitionData) data).mEscalationCode;
             }
 
-            @objid ("3ef1da37-866c-4bf5-8541-fef0aac7f3a5")
+            @objid ("5742be4b-bf77-4f12-8ac0-937713758bd6")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnEscalationEventDefinitionData) data).mEscalationCode = value;
             }

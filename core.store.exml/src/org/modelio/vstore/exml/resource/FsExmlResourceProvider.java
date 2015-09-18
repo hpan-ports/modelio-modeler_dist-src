@@ -63,7 +63,7 @@ public class FsExmlResourceProvider extends LocalExmlResourceProvider {
      * @throws java.io.IOException in case of failure
      */
     @objid ("cf2a52ae-03e4-11e2-b5bf-001ec947ccaf")
-    public FsExmlResourceProvider(Path distantPath, Path runtimePath) throws IllegalArgumentException, IOException {
+    public FsExmlResourceProvider(Path distantPath, Path runtimePath) throws IOException, IllegalArgumentException {
         super(distantPath, runtimePath);
         
         if (runtimePath == null) {

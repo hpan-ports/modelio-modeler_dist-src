@@ -48,50 +48,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008ce3b2-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Profile.class, factory=ProfileData.Metadata.ObjectFactory.class, cmsnode=true)
 public class ProfileData extends PackageData {
-    @objid ("eb2e97b8-225e-4522-b570-7af643a5db42")
+    @objid ("bbfde183-7994-47a8-8a67-3faf84a6781a")
     @SmaMetaAttribute(metaName="JCode", type=String.class, smAttributeClass=Metadata.JCodeSmAttribute.class)
      Object mJCode = "";
 
-    @objid ("d88dd112-6345-426f-99e1-422960f943de")
+    @objid ("f3f6d80e-3100-4812-ab45-9ab54cf61be8")
     @SmaMetaAssociation(metaName="DefinedStereotype", typeDataClass=StereotypeData.class, min=0, max=-1, smAssociationClass=Metadata.DefinedStereotypeSmDependency.class, component = true)
      List<SmObjectImpl> mDefinedStereotype = null;
 
-    @objid ("2eb9d048-5a58-4cf3-837d-ee63ef096353")
+    @objid ("847ed458-2739-43f5-b378-27ca598b2924")
     @SmaMetaAssociation(metaName="OwnerModule", typeDataClass=ModuleComponentData.class, min=0, max=1, smAssociationClass=Metadata.OwnerModuleSmDependency.class)
      SmObjectImpl mOwnerModule;
 
-    @objid ("797492a9-ff8f-4a08-a9c9-1367cee30c41")
+    @objid ("fd4cf8b7-7855-42d6-99e2-4c130b3b7d93")
     @SmaMetaAssociation(metaName="OwnedReference", typeDataClass=MetaclassReferenceData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedReferenceSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedReference = null;
 
-    @objid ("8ed2b8c9-e1a9-4445-ade2-82244fe6d8c7")
+    @objid ("5a597452-2123-4955-9727-fcd19a7b0973")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0073c670-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("43d6fd8c-b190-4a47-adf5-fcf2635be68c")
+        @objid ("627ce911-68e7-4044-8139-c44b5b299306")
         private static SmClass smClass = null;
 
-        @objid ("0eb67164-6b48-4d5b-b575-94fc46073100")
+        @objid ("17292ee0-71e1-4051-973d-63a4533f8936")
         private static SmAttribute JCodeAtt = null;
 
-        @objid ("4d5dcf58-e3be-46fe-94de-e87759fc9caf")
+        @objid ("2528c9d4-b4d5-4582-8eb6-944764702d64")
         private static SmDependency DefinedStereotypeDep = null;
 
-        @objid ("43d14197-126e-497d-9658-a66900ecea57")
+        @objid ("c19157a1-bca8-43b3-bbb1-f4daa238c06a")
         private static SmDependency OwnerModuleDep = null;
 
-        @objid ("966728d3-1896-44c6-adf7-cd7520454d1d")
+        @objid ("b74aa902-03c2-4f8a-a3ac-25266b3e8948")
         private static SmDependency OwnedReferenceDep = null;
 
-        @objid ("822fca7c-15f5-4835-8499-ade8254d44bb")
+        @objid ("658927b2-38c3-47fc-beb5-5b958fb09545")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ProfileData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("0e7e1c25-570d-49b3-a614-fcc07868b330")
+        @objid ("306ea37b-d0fe-417f-8972-ca7e587e6a26")
         public static SmAttribute JCodeAtt() {
             if (JCodeAtt == null) {
             	JCodeAtt = classof().getAttributeDef("JCode");
@@ -99,7 +99,7 @@ public class ProfileData extends PackageData {
             return JCodeAtt;
         }
 
-        @objid ("8e3a9cd3-94d4-41bc-a03c-88a4fe543598")
+        @objid ("8c67b2db-1590-47d0-b873-c5f0e5bde9f6")
         public static SmDependency DefinedStereotypeDep() {
             if (DefinedStereotypeDep == null) {
             	DefinedStereotypeDep = classof().getDependencyDef("DefinedStereotype");
@@ -107,7 +107,7 @@ public class ProfileData extends PackageData {
             return DefinedStereotypeDep;
         }
 
-        @objid ("b83a98f9-7b37-486a-bfc4-9e152cdf987f")
+        @objid ("462b9c83-5672-4baf-9be7-3f958c94a744")
         public static SmDependency OwnerModuleDep() {
             if (OwnerModuleDep == null) {
             	OwnerModuleDep = classof().getDependencyDef("OwnerModule");
@@ -115,7 +115,7 @@ public class ProfileData extends PackageData {
             return OwnerModuleDep;
         }
 
-        @objid ("1dad74e2-efda-4f95-89fa-b251f8c83d92")
+        @objid ("ea81b439-f666-4595-8af6-ae82c65b74d3")
         public static SmDependency OwnedReferenceDep() {
             if (OwnedReferenceDep == null) {
             	OwnedReferenceDep = classof().getDependencyDef("OwnedReference");
@@ -123,44 +123,44 @@ public class ProfileData extends PackageData {
             return OwnedReferenceDep;
         }
 
-        @objid ("31157f55-d188-4407-a9d8-e9ad7a4e394f")
-        public static SmDependency getOwnerModuleDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerModuleDep;
-        }
-
-        @objid ("057e7087-16ae-4e97-afda-38fe2fb99f6f")
+        @objid ("78ddb8ab-32b2-4d72-b161-a692fca63931")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("49ccb2c4-1fe8-44d3-8d06-6a8d8db46fd8")
+        @objid ("7f5a4d01-4b36-4c2b-b9c5-71b27b72747f")
         public static SmAttribute getJCodeAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return JCodeAtt;
         }
 
-        @objid ("1605242d-d637-476c-a2fc-8af83926c25d")
-        public static SmDependency getOwnedReferenceDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedReferenceDep;
-        }
-
-        @objid ("7a9af581-a8de-464a-be87-06f0d90ab56a")
+        @objid ("8a3de73e-66c4-4be5-9c51-9f10f3c14a72")
         public static SmDependency getDefinedStereotypeDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DefinedStereotypeDep;
         }
 
+        @objid ("a80a3b01-323d-4227-be0f-e94fee587e76")
+        public static SmDependency getOwnedReferenceDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnedReferenceDep;
+        }
+
+        @objid ("14235d82-a0eb-40f2-b58a-c97b54d5629a")
+        public static SmDependency getOwnerModuleDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerModuleDep;
+        }
+
         @objid ("007407ac-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("0e87bfba-4c76-47e4-b934-04d12a4cabee")
+            @objid ("f1598833-e925-4732-80b5-4ec9c99a551d")
             public ISmObjectData createData() {
                 return new ProfileData();
             }
 
-            @objid ("0cf28a5a-1519-4a99-a239-5f683c97e9f5")
+            @objid ("195ff654-228b-4458-919f-1a6363c72755")
             public SmObjectImpl createImpl() {
                 return new ProfileImpl();
             }
@@ -169,12 +169,12 @@ public class ProfileData extends PackageData {
 
         @objid ("00746896-c4c2-1fd8-97fe-001ec947cd2a")
         public static class JCodeSmAttribute extends SmAttribute {
-            @objid ("75d4ff48-55ed-4574-af44-67a2bcb34b66")
+            @objid ("89401fba-465f-41cc-9f56-55606be6b465")
             public Object getValue(ISmObjectData data) {
                 return ((ProfileData) data).mJCode;
             }
 
-            @objid ("f4efb1a5-ed53-4cce-ab57-64ca2b80ea5f")
+            @objid ("1cfc2233-7526-4b69-a121-ff3ff6f783ac")
             public void setValue(ISmObjectData data, Object value) {
                 ((ProfileData) data).mJCode = value;
             }
@@ -183,18 +183,18 @@ public class ProfileData extends PackageData {
 
         @objid ("0074cb38-c4c2-1fd8-97fe-001ec947cd2a")
         public static class OwnerModuleSmDependency extends SmSingleDependency {
-            @objid ("320847c9-c698-409c-ad5d-0c66a64cce53")
+            @objid ("5b5b7b11-ddef-46c5-9308-0c6aec8c75b1")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ProfileData) data).mOwnerModule;
             }
 
-            @objid ("f23d4074-dd19-4b41-9b61-5fe79825a7b4")
+            @objid ("c4093573-19e4-4142-a294-a624238062d5")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ProfileData) data).mOwnerModule = value;
             }
 
-            @objid ("484dd1b2-2a68-4ee2-b247-4995991559ab")
+            @objid ("0704efa9-d40b-4796-b60f-42d54ad0f6e1")
             @Override
             public SmDependency getSymetric() {
                 return ModuleComponentData.Metadata.OwnedProfileDep();
@@ -204,20 +204,20 @@ public class ProfileData extends PackageData {
 
         @objid ("00753f96-c4c2-1fd8-97fe-001ec947cd2a")
         public static class DefinedStereotypeSmDependency extends SmMultipleDependency {
-            @objid ("9c407d4e-3ad5-4134-92c8-74d300a69d8e")
+            @objid ("aafd6dab-8103-4f40-a0d1-96ff7da3d5a0")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ProfileData)data).mDefinedStereotype != null)? ((ProfileData)data).mDefinedStereotype:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b8a9bb34-4ad7-47b4-86d1-621ac079fb02")
+            @objid ("d055e0d3-5834-45b0-879b-26b75cf66fc4")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ProfileData) data).mDefinedStereotype = new ArrayList<>(initialCapacity);
                 return ((ProfileData) data).mDefinedStereotype;
             }
 
-            @objid ("f6b757b0-ec0f-45e5-a6b6-ec52014aa995")
+            @objid ("8a9a5027-31a5-4f82-9761-5026cae66850")
             @Override
             public SmDependency getSymetric() {
                 return StereotypeData.Metadata.OwnerDep();
@@ -227,20 +227,20 @@ public class ProfileData extends PackageData {
 
         @objid ("0075a2e2-c4c2-1fd8-97fe-001ec947cd2a")
         public static class OwnedReferenceSmDependency extends SmMultipleDependency {
-            @objid ("b30ffc38-7e2d-4c1e-936b-1aff83017f67")
+            @objid ("e803955f-74e1-43b0-91a1-573269bb24ee")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ProfileData)data).mOwnedReference != null)? ((ProfileData)data).mOwnedReference:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("230184f8-d0e7-4d06-ab70-f62efdf76706")
+            @objid ("de5f34f9-b32e-4631-a270-44d9583f2d2c")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ProfileData) data).mOwnedReference = new ArrayList<>(initialCapacity);
                 return ((ProfileData) data).mOwnedReference;
             }
 
-            @objid ("8eb244d8-7611-446c-bedb-f7666eabf66c")
+            @objid ("20de3401-b053-4b21-bc53-cdcafe02756a")
             @Override
             public SmDependency getSymetric() {
                 return MetaclassReferenceData.Metadata.OwnerProfileDep();

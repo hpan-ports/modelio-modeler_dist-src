@@ -34,18 +34,23 @@ class NativeConnection implements XConnection {
 
     @objid ("3c386232-2c62-4659-948e-a8edc4f704ae")
     public native void connect(final NativeService aNativeService) throws com.sun.star.io.IOException;
+;
 
     @objid ("bb746f1b-3675-44d9-8f59-093d1e0b0d5a")
-    public native int read(final byte[][] aReadBytes, final int nBytesToRead) throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
+    public native int read(final byte[][] aReadBytes, final int nBytesToRead) throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+;
 
     @objid ("0d15416c-c683-44c0-accc-50245cb60076")
-    public native void write(final byte[] aData) throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
+    public native void write(final byte[] aData) throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+;
 
     @objid ("b90f7e14-7e4d-4ab4-b0fe-d46f54a4c5ba")
-    public native void flush() throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
+    public native void flush() throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+;
 
     @objid ("7400fe19-b9cf-479a-a694-c02aa1c73b17")
-    public native void close() throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
+    public native void close() throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+;
 
     @objid ("cc2669b9-aaba-4bc1-9b6b-0070ac294e32")
     public synchronized String getDescription() throws com.sun.star.uno.RuntimeException {

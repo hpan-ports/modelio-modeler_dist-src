@@ -48,7 +48,10 @@ import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.graphics.Color;
+import org.modelio.app.core.activation.IActivationService;
+import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.common.portcontainer.SatelliteDragTrackerProvider;
@@ -79,6 +82,7 @@ import org.modelio.diagram.elements.core.policies.DefaultBendpointEditPolicy;
 import org.modelio.diagram.elements.core.policies.DefaultDeleteLinkEditPolicy;
 import org.modelio.diagram.elements.core.policies.DelegatingDirectEditionEditPolicy;
 import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
+import org.modelio.diagram.elements.core.requests.NavigationRequest;
 import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointRequest;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPolicy;
 import org.modelio.diagram.styles.core.IStyle;
@@ -90,10 +94,12 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
- * Basic edit part for GmLinks. A GmLinkEditPart: <br/>
- * <li>extends AbsbractConnectionEditPart => to have a link behavior</li><br/>
- * <li>implements NodeEditPart => to be usable as a source or a target of another link</li><br/>
- * <li>implements PropertyChangeListener => for update and refreshing from model or style change</li><br/>
+ * Base edit part implementation for {@link GmLink}.
+ * <p>
+ * A <code>GmLinkEditPart</code>: <br/>
+ * <li>extends {@link AbstractConnectionEditPart} => to have a link behavior</li>
+ * <li>implements {@link IAnchorModelProvider} => to be usable as a source or a target of other links</li>
+ * <li>implements {@link PropertyChangeListener} => for update and refreshing from model or style change</li>
  */
 @objid ("80199771-1dec-11e2-8cad-001ec947c8cc")
 public class GmLinkEditPart extends AbstractConnectionEditPart implements PropertyChangeListener, IAnchorModelProvider {
@@ -155,15 +161,17 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         final Object model = getModel();
         
         // Support IGmObject, GmModel and its subclasses
-        if (adapter.isInstance(model))
+        if (adapter.isInstance(model)) {
             return model;
+        }
         
         // Support MObject & subclasses
         if (model instanceof GmModel) {
             final GmModel gmModel = (GmModel) model;
             final MObject obElement = gmModel.getRelatedElement();
-            if (adapter.isInstance(obElement))
+            if (adapter.isInstance(obElement)) {
                 return obElement;
+            }
         }
         return super.getAdapter(adapter);
     }
@@ -197,7 +205,7 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
     @objid ("801bf9c3-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(final Request request) {
-        //TODO Temporary fake implementation: try to return the anchor of 'this' origin anchoring point 
+        //TODO Temporary fake implementation: try to return the anchor of 'this' origin anchoring point
         //final GmLink gmlink = (GmLink) getModel();
         //ConnectionAnchor anchor = this.getConnectionFigure().getSourceAnchor();
         return new LinkAnchor(getConnectionFigure(), new GmFractionalConnectionLocator(0.5, 0, 0));
@@ -214,7 +222,7 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
     @objid ("801bf9d9-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(final Request request) {
-        //TODO Temporary fake implementation: try to return the anchor of 'this' origin anchoring point 
+        //TODO Temporary fake implementation: try to return the anchor of 'this' origin anchoring point
         //final GmLink gmlink = (GmLink) getModel();
         return new LinkAnchor(getConnectionFigure(), new GmFractionalConnectionLocator(0.5, 0, 0));
     }
@@ -227,7 +235,22 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
     @objid ("801bf9e4-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void performRequest(final Request req) {
-        if (RequestConstants.REQ_DIRECT_EDIT.equals(req.getType())) {
+        if (NavigationRequest.TYPE == req.getType()) {
+            final GmModel gm = (GmModel) getModel();
+            final MObject relatedEl = gm.getRelatedElement();
+        
+            IModelioNavigationService service = gm.getDiagram().getModelManager().getNavigationService();
+            service.fireNavigate(relatedEl);
+        
+            getViewer().setSelection(new StructuredSelection(this));
+        } else if (RequestConstants.REQ_OPEN.equals(req.getType())) {
+            final GmModel gm = (GmModel) getModel();
+            final MObject relatedEl = gm.getRelatedElement();
+        
+            IActivationService service = gm.getDiagram().getModelManager().getActivationService();
+            service.activateMObject(relatedEl);
+        }
+        else if (RequestConstants.REQ_DIRECT_EDIT.equals(req.getType())) {
             if (req instanceof LocationRequest) {
                 // Give the request to the child where the request is located
                 final Point reqLocation = ((LocationRequest) req).getLocation();
@@ -236,7 +259,7 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         
                     final GraphicalEditPart childEditPart = (GraphicalEditPart) childEditPartObj;
                     if (childEditPart.understandsRequest(req) &&
-                        containsAbsolutePoint(childEditPart, reqLocation)) {
+                            containsAbsolutePoint(childEditPart, reqLocation)) {
                         childEditPart.performRequest(req);
                     }
         
@@ -327,8 +350,8 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         final GmLink gmlink = (GmLink) getModel();
         final IGmObject childModel = (IGmObject) childEditPart.getModel();
         final Locator constraint = LocatorFactory.getInstance()
-                                                 .getLocator(connection,
-                                                             gmlink.getLayoutContraint(childModel));
+                .getLocator(connection,
+                        gmlink.getLayoutContraint(childModel));
         
         this.figure.setConstraint(childFigure, constraint);
     }
@@ -343,11 +366,12 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DelegatingDirectEditionEditPolicy());
         installEditPolicy("rake", new CreateRakeLinkEditPolicy());
         
-        if (getRoutingMode().routingStyle != null)
+        if (getRoutingMode().routingStyle != null) {
             updateBendPointEditPolicies(getRoutingMode());
+        }
         
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
-                          new LinkedNodeStartCreationEditPolicy());
+                new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
     }
 
@@ -382,11 +406,12 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
     @SuppressWarnings("unchecked")
     @Override
     protected List<Object> getModelSourceConnections() {
-        if (getModel() instanceof IGmLinkable)
+        if (getModel() instanceof IGmLinkable) {
             // ugly cast...
             return (List<Object>) (Object) (((IGmLinkable) getModel()).getStartingLinks());
-        else
+        } else {
             return Collections.emptyList();
+        }
     }
 
     /**
@@ -401,11 +426,12 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
     @SuppressWarnings("unchecked")
     @Override
     protected List<Object> getModelTargetConnections() {
-        if (getModel() instanceof IGmLinkable)
+        if (getModel() instanceof IGmLinkable) {
             // ugly cast...
             return (List<Object>) (Object) (((IGmLinkable) getModel()).getEndingLinks());
-        else
+        } else {
             return Collections.emptyList();
+        }
     }
 
     /**
@@ -431,12 +457,15 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         LinePattern lineStyle = LinePattern.LINE_SOLID;
         Color lineColor = null;
         
-        if (model.getStyleKey(MetaKey.LINECOLOR) != null)
+        if (model.getStyleKey(MetaKey.LINECOLOR) != null) {
             lineColor = style.getColor(model.getStyleKey(MetaKey.LINECOLOR));
-        if (model.getStyleKey(MetaKey.LINEWIDTH) != null)
+        }
+        if (model.getStyleKey(MetaKey.LINEWIDTH) != null) {
             lineWidth = style.getInteger(model.getStyleKey(MetaKey.LINEWIDTH));
-        if (model.getStyleKey(MetaKey.LINEPATTERN) != null)
+        }
+        if (model.getStyleKey(MetaKey.LINEPATTERN) != null) {
             lineStyle = style.getProperty(model.getStyleKey(MetaKey.LINEPATTERN));
+        }
         
         // Source decoration
         RotatableDecoration decoration = connection.getSourceDecoration();
@@ -472,14 +501,18 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         // Set pen properties where applicable
         if (aFigure instanceof IPenOptionsSupport) {
             IPenOptionsSupport pen = (IPenOptionsSupport) aFigure;
-            if (gmModel.getStyleKey(MetaKey.FONT) != null)
+            if (gmModel.getStyleKey(MetaKey.FONT) != null) {
                 pen.setTextFont(style.getFont(gmModel.getStyleKey(MetaKey.FONT)));
-            if (gmModel.getStyleKey(MetaKey.TEXTCOLOR) != null)
+            }
+            if (gmModel.getStyleKey(MetaKey.TEXTCOLOR) != null) {
                 pen.setTextColor(style.getColor(gmModel.getStyleKey(MetaKey.TEXTCOLOR)));
-            if (gmModel.getStyleKey(MetaKey.LINECOLOR) != null)
+            }
+            if (gmModel.getStyleKey(MetaKey.LINECOLOR) != null) {
                 pen.setLineColor(style.getColor(gmModel.getStyleKey(MetaKey.LINECOLOR)));
-            if (gmModel.getStyleKey(MetaKey.LINEWIDTH) != null)
+            }
+            if (gmModel.getStyleKey(MetaKey.LINEWIDTH) != null) {
                 pen.setLineWidth(style.getInteger(gmModel.getStyleKey(MetaKey.LINEWIDTH)));
+            }
             if (gmModel.getStyleKey(MetaKey.LINEPATTERN) != null) {
                 LinePattern pattern = style.getProperty(gmModel.getStyleKey(MetaKey.LINEPATTERN));
                 pen.setLinePattern(pattern);
@@ -496,13 +529,15 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         
                 // Line corner radius
                 final StyleKey radiusStyleKey = gmModel.getStyleKey(MetaKey.LINERADIUS);
-                if (radiusStyleKey != null)
+                if (radiusStyleKey != null) {
                     roundedLinkFigure.setRadius(style.getInteger(radiusStyleKey));
+                }
         
                 // Enable bridges on segment crossings
                 final StyleKey bridgeStyleKey = gmModel.getStyleKey(MetaKey.DRAWLINEBRIDGES);
-                if (bridgeStyleKey != null)
+                if (bridgeStyleKey != null) {
                     roundedLinkFigure.setBridgesEnabled(style.getBoolean(bridgeStyleKey));
+                }
             }
         }
         
@@ -526,8 +561,9 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
             final IGmObject childNode = (IGmObject) childPart.getModel();
             final IGmLocator gmLoc = gmLink.getLayoutContraint(childNode);
             final Locator loc = LocatorFactory.getInstance().getLocator(conn, gmLoc);
-            if (loc != null)
+            if (loc != null) {
                 conn.setConstraint(childPart.getFigure(), loc);
+            }
         }
     }
 
@@ -545,8 +581,9 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         IFigure childFigure = ((GraphicalEditPart) child).getFigure();
         LayoutManager layout = childFigure.getParent().getLayoutManager();
         Object constraint = null;
-        if (layout != null)
+        if (layout != null) {
             constraint = layout.getConstraint(childFigure);
+        }
         
         //super.reorderChild(child, index);
         // Copy of AbstractEditPart#reorderChild(EditPart, int)
@@ -556,8 +593,9 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         lchildren.add(index, child);
         addChildVisual(child, index);
         
-        if (constraint != null)
+        if (constraint != null) {
             setLayoutConstraint(child, childFigure, constraint);
+        }
     }
 
     /**
@@ -571,7 +609,7 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
     protected final void swapEnd(MObject newEndElement, ReconnectRequest request) {
         // Search all gm representing the new target
         List<GmModel> models = ((GmLink) this.getModel()).getDiagram()
-                                                         .getAllGMRelatedTo(new MRef(newEndElement));
+                .getAllGMRelatedTo(new MRef(newEndElement));
         // This boolean will be used to note that the searched End was found
         // unmasked at least once.
         boolean foundUnmaskedEnd = false;
@@ -676,12 +714,12 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
                 newPath.setRouterKind(styleRouter);
         
                 IConnectionHelper oldHelper = ConnectionHelperFactory.createFromSerializedData(oldRouter,
-                                                                                               gmLink.getPath()
-                                                                                                     .getPathData(),
-                                                                                               connectionFigure);
+                        gmLink.getPath()
+                        .getPathData(),
+                        connectionFigure);
                 IConnectionHelper newHelper = ConnectionHelperFactory.convert(oldHelper,
-                                                                              styleRouter,
-                                                                              connectionFigure);
+                        styleRouter,
+                        connectionFigure);
         
                 newPath.setPathData(GmPathDataExtractor.extractDataModel(newHelper));
         
@@ -689,7 +727,7 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
                     newPath.setSourceRake(null);
                     newPath.setTargetRake(null);
                 }
-                
+        
                 gmLink.setLayoutData(newPath);
             }
         }
@@ -720,15 +758,17 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         }
         dropRequest.setLocation(dropPoint);
         GmCompositeNode gmCompositeForUnmasking = ((GmLink) this.getModel()).getDiagram()
-                                                                            .getCompositeFor(newEndElement.getClass());
+                .getCompositeFor(newEndElement.getClass());
         EditPart compositeEditPartForUnmasking = (EditPart) getViewer().getEditPartRegistry()
-                                                                       .get(gmCompositeForUnmasking);
-        if (compositeEditPartForUnmasking == null)
+                .get(gmCompositeForUnmasking);
+        if (compositeEditPartForUnmasking == null) {
             return;
+        }
         compositeEditPartForUnmasking = compositeEditPartForUnmasking.getTargetEditPart(dropRequest);
         Command command = compositeEditPartForUnmasking.getCommand(dropRequest);
-        if (command == null || !command.canExecute())
+        if (command == null || !command.canExecute()) {
             return;
+        }
         command.execute();
     }
 
@@ -741,19 +781,20 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         
         if (mode.rake) {
             installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new RakeLinkEditPolicy());
-        } else
+        } else {
             switch (mode.routingStyle) {
-                case DIRECT:
-                    break;
-                case BENDPOINT:
-                    installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new DefaultBendpointEditPolicy());
-                    break;
-                case ORTHOGONAL:
-                    installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new OrthoBendpointEditPolicy());
-                    break;
-                default:
-                    throw new IllegalStateException(getRoutingMode() + " routing mode not supported");
+            case DIRECT:
+                break;
+            case BENDPOINT:
+                installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new DefaultBendpointEditPolicy());
+                break;
+            case ORTHOGONAL:
+                installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new OrthoBendpointEditPolicy());
+                break;
+            default:
+                throw new IllegalStateException(getRoutingMode() + " routing mode not supported");
             }
+        }
     }
 
     /**
@@ -771,19 +812,20 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         final RoutingMode oldRoutingMode = getRoutingMode();
         // Change connection router if the rake mode changes or there is no rake and the style changes
         if (oldRoutingMode.rake != newRoutingMode.rake ||
-            (!newRoutingMode.rake && oldRoutingMode.routingStyle != newRoutingMode.routingStyle)) {
+                (!newRoutingMode.rake && oldRoutingMode.routingStyle != newRoutingMode.routingStyle)) {
             // Set the connection router
-            if (newRoutingMode.rake)
+            if (newRoutingMode.rake) {
                 cnx.setConnectionRouter(rakeRouter);
-            else
+            } else {
                 cnx.setConnectionRouter(getConnectionRouterRegistry().get(newRoutingMode.routingStyle));
+            }
         
             // Set the new constraint
             IConnectionHelper helper = ConnectionHelperFactory.createFromSerializedData(newRoutingMode.routingStyle,
-                                                                                        this.getLinkModel()
-                                                                                            .getPath()
-                                                                                            .getPathData(),
-                                                                                        cnx);
+                    this.getLinkModel()
+                    .getPath()
+                    .getPathData(),
+                    cnx);
             cnx.setRoutingConstraint(helper.getRoutingConstraint());
         
             // Update edit policy
@@ -793,10 +835,10 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         
         } else {
             IConnectionHelper helper = ConnectionHelperFactory.createFromSerializedData(newRoutingMode.routingStyle,
-                                                                                        this.getLinkModel()
-                                                                                            .getPath()
-                                                                                            .getPathData(),
-                                                                                        cnx);
+                    this.getLinkModel()
+                    .getPath()
+                    .getPathData(),
+                    cnx);
             cnx.setRoutingConstraint(helper.getRoutingConstraint());
         }
     }

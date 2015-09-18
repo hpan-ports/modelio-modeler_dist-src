@@ -28,8 +28,8 @@ import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.Manifestation;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("a4f17f41-b31d-4830-82b8-26d01ceb3d6c")
 public class EManifestation extends ENamedElement {

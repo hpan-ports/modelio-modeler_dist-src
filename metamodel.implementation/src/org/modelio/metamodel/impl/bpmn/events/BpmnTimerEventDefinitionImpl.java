@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00969aa6-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnTimerEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnTimerEventDefinition {
-    @objid ("4e8e06d1-6c05-4829-bd80-d0fdabfda08d")
+    @objid ("575033cb-4061-453d-b987-0f44bd839eca")
     @Override
     public String getTimeCycle() {
         return (String) getAttVal(BpmnTimerEventDefinitionData.Metadata.TimeCycleAtt());
     }
 
-    @objid ("11872f1a-e647-4f83-93fe-aec44dc9fa02")
+    @objid ("c376e7ae-8d5c-4919-b33f-fafab99f5626")
     @Override
     public void setTimeCycle(String value) {
         setAttVal(BpmnTimerEventDefinitionData.Metadata.TimeCycleAtt(), value);
     }
 
-    @objid ("831fef76-6b62-464c-917b-cf951484fe40")
+    @objid ("0a576c35-676b-43ba-9ef6-e29080e0810a")
     @Override
     public String getTimeD() {
         return (String) getAttVal(BpmnTimerEventDefinitionData.Metadata.TimeDAtt());
     }
 
-    @objid ("5b777286-da59-4290-b3f3-22ebfce74eb6")
+    @objid ("ed75bfd2-87d1-4cbf-b439-cbb0a1d4314e")
     @Override
     public void setTimeD(String value) {
         setAttVal(BpmnTimerEventDefinitionData.Metadata.TimeDAtt(), value);
     }
 
-    @objid ("c170a987-7599-4ed7-99d5-86279fc9dd82")
+    @objid ("fb2d08a9-d919-4249-b23d-fe982f03d3d1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("cba41320-8062-426b-8de9-1764f771dd48")
+    @objid ("b092bb36-edbe-4712-95a1-9373aab2fa01")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("6279ae1d-e0b7-42d6-b298-40f95b8f3393")
+    @objid ("54adf576-cb18-4bca-aa6f-80a21d3c8a98")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnTimerEventDefinition(this);

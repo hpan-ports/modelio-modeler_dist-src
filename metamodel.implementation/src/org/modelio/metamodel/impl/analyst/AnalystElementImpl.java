@@ -59,33 +59,33 @@ public abstract class AnalystElementImpl extends AnalystItemImpl implements Anal
         }
     }
 
-    @objid ("d857d74b-1ef6-4ff3-aa0b-ce983bece8aa")
+    @objid ("bc41a5be-3b70-44ec-a24a-60c20c63893c")
     @Override
     public int getVersion() {
         return (Integer) getAttVal(AnalystElementData.Metadata.VersionAtt());
     }
 
-    @objid ("6b18d718-950d-4474-b5ee-be5b2de4cfbb")
+    @objid ("1311d59d-d9c3-4e18-8bf6-4551a5c55c7f")
     @Override
     public void setVersion(int value) {
         setAttVal(AnalystElementData.Metadata.VersionAtt(), value);
     }
 
-    @objid ("a7b7f6a7-9e85-4f53-802b-0167d7c5d761")
+    @objid ("5252ac94-73ad-44cb-8682-8ef31f202882")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("3867af7c-c86d-4572-951a-c024a0c126c8")
+    @objid ("98c0b24b-b357-4018-9e22-1bf27a73ff04")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("72dc4494-a6f9-4317-afd4-75da9acc2389")
+    @objid ("80e1d867-bda7-4014-ace6-60e3c47975d7")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAnalystElement(this);

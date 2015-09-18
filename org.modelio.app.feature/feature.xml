@@ -2,11 +2,11 @@
 <feature
       id="org.modelio.app.feature"
       label="Application"
-      version="3.2.1.qualifier"
+      version="3.3.0.qualifier"
       provider-name="Modelio">
 
    <copyright>
-      Copyright 2014 Modeliosoft
+      Copyright 2015 Modeliosoft
 
 This file is part of Modelio.
 Modelio is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
    </copyright>
 
    <license url="">
-      Copyright 2014 Modeliosoft
+      Copyright 2015 Modeliosoft
 
 This file is part of Modelio.
 Modelio is free software: you can redistribute it and/or modify
@@ -70,31 +70,42 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
       <import plugin="org.modelio.mda.infra"/>
       <import plugin="org.modelio.script.engine"/>
       <import plugin="org.eclipse.ui.workbench"/>
-      <import plugin="org.eclipse.e4.core.di.extensions"/>
+      <import plugin="org.modelio.metamodel.implementation"/>
       <import plugin="org.eclipse.ui.forms"/>
+      <import plugin="org.eclipse.e4.core.di.extensions"/>
       <import plugin="org.eclipse.e4.core.commands"/>
       <import plugin="org.eclipse.e4.ui.workbench.swt"/>
-      <import plugin="org.modelio.metamodel.implementation"/>
+      <import plugin="org.eclipse.core.expressions"/>
       <import plugin="org.modelio.core.help" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.help"/>
       <import plugin="org.eclipse.help.base"/>
       <import plugin="org.eclipse.e4.ui.css.swt"/>
       <import plugin="org.eclipse.e4.ui.css.core"/>
       <import plugin="org.eclipse.e4.ui.css.swt.theme"/>
-      <import plugin="org.modelio.model.browser"/>
-      <import plugin="org.modelio.model.search.engine" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.swt"/>
-      <import plugin="org.eclipse.osgi"/>
       <import plugin="org.eclipse.nebula.widgets.tablecombo"/>
+      <import plugin="org.modelio.model.browser"/>
+      <import plugin="org.eclipse.swt"/>
+      <import plugin="org.eclipse.equinox.common"/>
+      <import plugin="org.eclipse.osgi"/>
       <import plugin="org.eclipse.e4.core.di.extensions" version="0.11.100" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore" version="2.9.0" match="greaterOrEqual"/>
-      <import plugin="org.modelio.core.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.expressions"/>
       <import plugin="org.eclipse.core.commands"/>
       <import plugin="org.modelio.metamodel.implementation" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.modelio.app.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.equinox.common"/>
       <import plugin="org.eclipse.draw2d"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.modelio.core.project.data"/>
+      <import plugin="org.modelio.core.store.exml"/>
+      <import plugin="org.eclipse.ui.net" version="1.2.200" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.net" version="1.2.200" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.nebula.jface.cdatetime"/>
+      <import plugin="org.eclipse.nebula.widgets.cdatetime"/>
+      <import plugin="org.eclipse.nebula.widgets.datechooser"/>
+      <import plugin="org.eclipse.nebula.widgets.nattable.core"/>
+      <import plugin="org.modelio.editors.richnote"/>
+      <import plugin="org.modelio.edition.html"/>
+      <import plugin="org.eclipse.ui.workbench" version="3.105.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.help.base" version="4.0.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
@@ -279,7 +290,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
+         
    <plugin
          id="org.eclipse.nebula.jface.cdatetime"
          download-size="0"

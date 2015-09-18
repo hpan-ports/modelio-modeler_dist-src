@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperand;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 /**

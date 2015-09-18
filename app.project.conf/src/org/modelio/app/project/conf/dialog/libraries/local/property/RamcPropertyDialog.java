@@ -62,9 +62,9 @@ public class RamcPropertyDialog extends ModelioDialog {
     @Override
     public void addButtonsInButtonBar(Composite parent) {
         this.closeButton = this.createButton(parent,
-                                              IDialogConstants.CANCEL_ID,
-                                              AppProjectConf.I18N.getString("RamcPropertyDialog.Close"),
-                                              true);
+                IDialogConstants.CANCEL_ID,
+                AppProjectConf.I18N.getString("RamcPropertyDialog.Close"),
+                true);
     }
 
     @objid ("965579fc-5106-414f-931b-8ac45f16c2db")
@@ -83,7 +83,7 @@ public class RamcPropertyDialog extends ModelioDialog {
     public void init() {
         this.setLogoImage(null);
         
-        // Put the AppProjectConf.I18N in the banner area                
+        // Put the AppProjectConf.I18N in the banner area
         this.getShell().setText(AppProjectConf.I18N.getString("RamcPropertyDialog.ViewRamcDialogTitle"));
         this.setTitle(AppProjectConf.I18N.getString("RamcPropertyDialog.ViewRamcDialogTitle"));
         this.setMessage(AppProjectConf.I18N.getString("RamcPropertyDialog.ViewRamcMessage"));
@@ -91,7 +91,7 @@ public class RamcPropertyDialog extends ModelioDialog {
         Point parentLocation = this.getShell().getParent().getLocation();
         
         this.getShell().setLocation(parentLocation.x + 300, parentLocation.y + 200);
-        this.getShell().setSize(500, 580);
+        this.getShell().setSize(600, 800);
         this.getShell().setMinimumSize(500, 550);
     }
 

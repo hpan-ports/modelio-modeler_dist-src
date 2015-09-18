@@ -101,50 +101,53 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
     @Override
     public Object getValueAt(int row, int col) {
         LoopType type = LoopType.getType(this.theEditedElement);
-        if (col == 0) // col 0 is the property key
+        if (col == 0) {
             return this.properties.get(row);
+        }
         
         // else
         if (col == 1) // col 1 is the property value
         {
-            if (row == 0)
-            return "Value";
-            else if (row == 1)
-            return this.theEditedElement.getName();
-            else if (row == 2)
-            return this.theEditedElement.isIsForCompensation() ? Boolean.TRUE : Boolean.FALSE;
-            else if (row == 3)
-            return this.theEditedElement.getStartQuantity();
-            else if (row == 4)
-            return this.theEditedElement.getCompletionQuantity();
-            else if (row == 5)
-            return this.theEditedElement.isTriggeredByEvent() ? Boolean.TRUE : Boolean.FALSE;
-            else if (row == 6)
-                    return this.theEditedElement.getProtocol();
-            else if (row == 7)
-                    return this.theEditedElement.getMethod();
-            else if (row == 8)
-            return LoopType.getType(this.theEditedElement);
-            else if (row > 8) {
-            if (type == LoopType.Standard) {
-                BpmnStandardLoopCharacteristics caracteristic = (BpmnStandardLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
-                if (row == 9)
-                return caracteristic.isTestBefore() ? Boolean.TRUE : Boolean.FALSE;
-                else if (row == 10)
-                return caracteristic.getLoopCondition();
-                else if (row == 11)
-                return caracteristic.getLoopMaximum();
-            } else if (type == LoopType.MultiInstanceParallel || type == LoopType.MultiInstanceSequential) {
-                BpmnMultiInstanceLoopCharacteristics caracteristic = (BpmnMultiInstanceLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
-                if (row == 9)
-                return caracteristic.getBehavior();
-                else if (row == 10)
-                return caracteristic.getLoopCardinality();
-                else if (row == 11)
-                return caracteristic.getCompletionCondition();
-                else if (row == 12)
-                return caracteristic.getCompletionEventRef();
-            }
+            if (row == 0) {
+                return "Value";
+            } else if (row == 1) {
+                return this.theEditedElement.getName();
+            } else if (row == 2) {
+                return this.theEditedElement.isIsForCompensation() ? Boolean.TRUE : Boolean.FALSE;
+            } else if (row == 3) {
+                return this.theEditedElement.getStartQuantity();
+            } else if (row == 4) {
+                return this.theEditedElement.getCompletionQuantity();
+            } else if (row == 5) {
+                return this.theEditedElement.isTriggeredByEvent() ? Boolean.TRUE : Boolean.FALSE;
+            } else if (row == 6) {
+                return this.theEditedElement.getProtocol();
+            } else if (row == 7) {
+                return this.theEditedElement.getMethod();
+            } else if (row == 8) {
+                return LoopType.getType(this.theEditedElement);
+            } else if (row > 8) {
+                if (type == LoopType.Standard) {
+                    BpmnStandardLoopCharacteristics caracteristic = (BpmnStandardLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
+                    if (row == 9) {
+                        return caracteristic.isTestBefore() ? Boolean.TRUE : Boolean.FALSE;
+                    } else if (row == 10) {
+                        return caracteristic.getLoopCondition();
+                    } else if (row == 11) {
+                        return caracteristic.getLoopMaximum();
+                    }
+                } else if (type == LoopType.MultiInstanceParallel || type == LoopType.MultiInstanceSequential) {
+                    BpmnMultiInstanceLoopCharacteristics caracteristic = (BpmnMultiInstanceLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
+                    if (row == 9) {
+                        return caracteristic.getBehavior();
+                    } else if (row == 10) {
+                        return caracteristic.getLoopCardinality();
+                    } else if (row == 11) {
+                        return caracteristic.getCompletionCondition();
+                    } else if (row == 12) {
+                        return caracteristic.getCompletionEventRef();
+                    }
+                }
             }
         }
         return null;
@@ -164,48 +167,51 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         LoopType type = LoopType.getType(this.theEditedElement);
-        if (col == 0) // col 0 is the property key
+        if (col == 0) {
             return new StringType(false);
+        }
         
         // else
         if (col == 1) // col 1 is the property value
         {
-            if (row == 0)
-            return new StringType(false);
-            else if (row == 1)
-            return new StringType(true);
-            else if (row == 2)
-            return new BooleanType();
-            else if (row == 3)
-            return new StringType(true);
-            else if (row == 4)
-            return new StringType(true);
-            else if (row == 5)
-            return new BooleanType();
-            else if (row == 6)
-                    return new StringType(true);
-            else if (row == 7)
-             return new EnumType(TransactionMethod.class);
-            else if (row == 8)
-            return new EnumType(LoopType.class);
-            else if (row > 8) {
-            if (type == LoopType.Standard) {
-                if (row == 9)
+            if (row == 0) {
+                return new StringType(false);
+            } else if (row == 1) {
+                return new StringType(true);
+            } else if (row == 2) {
                 return new BooleanType();
-                else if (row == 10)
+            } else if (row == 3) {
                 return new StringType(true);
-                else if (row == 11)
+            } else if (row == 4) {
                 return new StringType(true);
-            } else if (type == LoopType.MultiInstanceParallel || type == LoopType.MultiInstanceSequential) {
-                if (row == 9)
-                return new EnumType(MultiInstanceBehavior.class);
-                else if (row == 10)
+            } else if (row == 5) {
+                return new BooleanType();
+            } else if (row == 6) {
                 return new StringType(true);
-                else if (row == 11)
-                return new StringType(true);
-                else if (row == 12)
-                return new SingleElementType(true, BpmnEventDefinition.class, CoreSession.getSession(this.theEditedElement));
-            }
+            } else if (row == 7) {
+                return new EnumType(TransactionMethod.class);
+            } else if (row == 8) {
+                return new EnumType(LoopType.class);
+            } else if (row > 8) {
+                if (type == LoopType.Standard) {
+                    if (row == 9) {
+                        return new BooleanType();
+                    } else if (row == 10) {
+                        return new StringType(true);
+                    } else if (row == 11) {
+                        return new StringType(true);
+                    }
+                } else if (type == LoopType.MultiInstanceParallel || type == LoopType.MultiInstanceSequential) {
+                    if (row == 9) {
+                        return new EnumType(MultiInstanceBehavior.class);
+                    } else if (row == 10) {
+                        return new StringType(true);
+                    } else if (row == 11) {
+                        return new StringType(true);
+                    } else if (row == 12) {
+                        return new SingleElementType(true, BpmnEventDefinition.class, CoreSession.getSession(this.theEditedElement));
+                    }
+                }
             }
         }
         return null;
@@ -223,51 +229,54 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
     @Override
     public void setValueAt(int row, int col, Object value) {
         LoopType type = LoopType.getType(this.theEditedElement);
-        if (col == 0) // col 0 is the property key
+        if (col == 0) {
             return;
+        }
         
         if (col == 1) // col 1 is the property value
         {
-            if (row == 0)
-            return;
-            else if (row == 1)
-            this.theEditedElement.setName((String) value);
-            else if (row == 2)
-            this.theEditedElement.setIsForCompensation((Boolean) value);
-            else if (row == 3)
-            this.theEditedElement.setStartQuantity(Integer.valueOf((String) value));
-            else if (row == 4)
-            this.theEditedElement.setCompletionQuantity(Integer.valueOf((String) value));
-            else if (row == 5)
-            this.theEditedElement.setTriggeredByEvent((Boolean) value);
-            else if (row == 6)
-                    this.theEditedElement.setProtocol((String) value);
-            else if (row == 7)
-                    this.theEditedElement.setMethod((TransactionMethod) value);        
-            else if (row == 8){
-            LoopType.setType(this.modelService, (LoopType)value, this.theEditedElement);
-            initPropertyModel();
+            if (row == 0) {
+                return;
+            } else if (row == 1) {
+                this.theEditedElement.setName((String) value);
+            } else if (row == 2) {
+                this.theEditedElement.setIsForCompensation((Boolean) value);
+            } else if (row == 3) {
+                this.theEditedElement.setStartQuantity(Integer.valueOf((String) value));
+            } else if (row == 4) {
+                this.theEditedElement.setCompletionQuantity(Integer.valueOf((String) value));
+            } else if (row == 5) {
+                this.theEditedElement.setTriggeredByEvent((Boolean) value);
+            } else if (row == 6) {
+                this.theEditedElement.setProtocol((String) value);
+            } else if (row == 7) {
+                this.theEditedElement.setMethod((TransactionMethod) value);
+            } else if (row == 8){
+                LoopType.setType(this.modelService, (LoopType)value, this.theEditedElement);
+                initPropertyModel();
             }
             else if (row > 8) {
-            if (type == LoopType.Standard) {
-                BpmnStandardLoopCharacteristics caracteristic = (BpmnStandardLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
-                if (row == 9)
-                caracteristic.setTestBefore((Boolean) value);
-                else if (row == 10)
-                caracteristic.setLoopCondition((String) value);
-                else if (row == 11)
-                caracteristic.setLoopMaximum((String) value);
-            } else if (type == LoopType.MultiInstanceParallel || type == LoopType.MultiInstanceSequential) {
-                BpmnMultiInstanceLoopCharacteristics caracteristic = (BpmnMultiInstanceLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
-                if (row == 9)
-                caracteristic.setBehavior((MultiInstanceBehavior) value);
-                else if (row == 10)
-                caracteristic.setLoopCardinality((String) value);
-                else if (row == 11)
-                caracteristic.setCompletionCondition((String) value);
-                else if (row == 12)
-                caracteristic.setCompletionEventRef((BpmnEventDefinition) value);
-            }
+                if (type == LoopType.Standard) {
+                    BpmnStandardLoopCharacteristics caracteristic = (BpmnStandardLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
+                    if (row == 9) {
+                        caracteristic.setTestBefore((Boolean) value);
+                    } else if (row == 10) {
+                        caracteristic.setLoopCondition((String) value);
+                    } else if (row == 11) {
+                        caracteristic.setLoopMaximum((String) value);
+                    }
+                } else if (type == LoopType.MultiInstanceParallel || type == LoopType.MultiInstanceSequential) {
+                    BpmnMultiInstanceLoopCharacteristics caracteristic = (BpmnMultiInstanceLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
+                    if (row == 9) {
+                        caracteristic.setBehavior((MultiInstanceBehavior) value);
+                    } else if (row == 10) {
+                        caracteristic.setLoopCardinality((String) value);
+                    } else if (row == 11) {
+                        caracteristic.setCompletionCondition((String) value);
+                    } else if (row == 12) {
+                        caracteristic.setCompletionEventRef((BpmnEventDefinition) value);
+                    }
+                }
             }
         }
     }
@@ -275,7 +284,7 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
     @objid ("8e663032-c068-11e1-8c0a-002564c97630")
     private void initPropertyModel() {
         this.properties.clear();
-        this.properties.add("SubProcess");
+        this.properties.add("Transaction");
         this.properties.add("Name");
         this.properties.add("ForCompensation");
         this.properties.add("StartQuantity");

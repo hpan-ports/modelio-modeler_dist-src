@@ -274,7 +274,6 @@ import org.eclipse.uml2.uml.WriteStructuralFeatureAction;
 import org.eclipse.uml2.uml.WriteVariableAction;
 import org.eclipse.uml2.uml.util.UMLSwitch;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("7ce8b001-ab1e-4c42-bcf6-91c226038bbe")
 public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {

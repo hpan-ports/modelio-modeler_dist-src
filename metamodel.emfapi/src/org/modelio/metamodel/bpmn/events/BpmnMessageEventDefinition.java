@@ -32,16 +32,16 @@ import org.modelio.metamodel.bpmn.flows.BpmnMessage;
 
 @objid ("0090c6e4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnMessageEventDefinition extends BpmnEventDefinition {
-    @objid ("85b23dfe-ebfc-471a-97d9-0584f1f6ae25")
+    @objid ("d267ecc5-3499-49bd-aaa2-aafa0e20ea91")
     BpmnMessage getMessageRef();
 
-    @objid ("a3e5c462-614e-40d0-a2f5-623288c939e1")
+    @objid ("f9583f4f-38fc-45dc-9c1b-334ab9f722b7")
     void setMessageRef(BpmnMessage value);
 
-    @objid ("9fde6cfa-22e1-43eb-b45d-c2d23b23a55f")
+    @objid ("597f3662-85e8-4622-84a7-450317cbd62a")
     BpmnOperation getOperationRef();
 
-    @objid ("93616c1a-b7f8-458e-a00c-d8fb7222c5b6")
+    @objid ("b641c528-9ab2-4f25-8e25-e2815faa75f8")
     void setOperationRef(BpmnOperation value);
 
 }

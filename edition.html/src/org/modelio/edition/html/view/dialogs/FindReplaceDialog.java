@@ -327,7 +327,7 @@ public class FindReplaceDialog extends BaseDialog {
     @objid ("6e69b41d-3097-4bfb-9f16-9f36787e12c0")
     public int getMatchDirection() {
         return this.searchForwardRadioButton.getSelection() ? FindReplaceAction.FORWARD_MATCH
-                : FindReplaceAction.BACKWARD_MATCH;
+                        : FindReplaceAction.BACKWARD_MATCH;
     }
 
     /**

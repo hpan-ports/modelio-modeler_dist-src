@@ -39,6 +39,9 @@ public class BpmnDataAssociationEditPart extends GmLinkEditPart {
         PolylineConnection connection = (PolylineConnection) super.createFigure();
         if (!((GmBpmnDataAssociation) getModel()).isLinkToSequenceFlow())
             connection.setTargetDecoration(getArrowDecoration());
+        
+        // Make sure the arrow has appropriate style
+        refreshFromStyle(connection, getModelStyle());
         return connection;
     }
 

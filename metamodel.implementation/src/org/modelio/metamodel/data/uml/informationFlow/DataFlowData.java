@@ -46,50 +46,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0064a956-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=DataFlow.class, factory=DataFlowData.Metadata.ObjectFactory.class)
 public class DataFlowData extends ModelElementData {
-    @objid ("148c0439-ea81-4e30-984e-fd55a632442b")
+    @objid ("e2fb23c2-ec8f-4e36-bdad-31d5e43cb48d")
     @SmaMetaAssociation(metaName="Destination", typeDataClass=NameSpaceData.class, min=0, max=1, smAssociationClass=Metadata.DestinationSmDependency.class, partof = true)
      SmObjectImpl mDestination;
 
-    @objid ("b894d8d9-7f0f-4a96-a425-87de5bf0289b")
+    @objid ("2a5f6305-23ae-4533-9f56-82bda805160a")
     @SmaMetaAssociation(metaName="Origin", typeDataClass=NameSpaceData.class, min=0, max=1, smAssociationClass=Metadata.OriginSmDependency.class)
      SmObjectImpl mOrigin;
 
-    @objid ("e1c103f4-b924-4ce2-a79a-8ef59413f96a")
+    @objid ("f3154108-51ab-422a-a770-272473796900")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=NameSpaceData.class, min=1, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("e865eb9f-0dbc-4f21-a48c-3ab3366b803b")
+    @objid ("241568a6-c683-458d-82d6-2bf9248b155a")
     @SmaMetaAssociation(metaName="SModel", typeDataClass=SignalData.class, min=0, max=1, smAssociationClass=Metadata.SModelSmDependency.class, partof = true)
      SmObjectImpl mSModel;
 
-    @objid ("cae2791b-ffa7-4b86-9613-f8fc26aab9fa")
+    @objid ("66ac0da5-7cbf-4eba-8221-ff32f1779230")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("006103dc-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("bdc157fb-eb1d-4b4c-adf0-556523da6e42")
+        @objid ("efc8ad3b-0e0f-4254-aabf-1ef1b775c566")
         private static SmClass smClass = null;
 
-        @objid ("1104c453-6fd7-4f65-853b-3edbb4f29645")
+        @objid ("5d1e49fe-abb6-4766-870b-03553a325868")
         private static SmDependency DestinationDep = null;
 
-        @objid ("64c9c986-7494-4354-bb35-dbc69f94acec")
+        @objid ("b7d0512d-1e8d-406a-99c4-b90d656993bb")
         private static SmDependency OriginDep = null;
 
-        @objid ("ae9dcf70-7028-4826-87a3-57401ff6b9aa")
+        @objid ("b919931b-c56c-4e5a-abb6-52bd7df7682f")
         private static SmDependency OwnerDep = null;
 
-        @objid ("07f31404-06a9-4744-846b-5e8def7ca9c4")
+        @objid ("164572c9-d396-46a2-a7e2-c820d38abf16")
         private static SmDependency SModelDep = null;
 
-        @objid ("2caf90bf-d195-4860-a17f-6964172e0a4e")
+        @objid ("6556a8d6-e2fa-4335-b62b-26ccd50d0388")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DataFlowData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("8f53e255-40f5-4d42-b165-0bfd420c0098")
+        @objid ("87b8b3f3-a214-4181-8ee2-13f3fb6ff3eb")
         public static SmDependency DestinationDep() {
             if (DestinationDep == null) {
             	DestinationDep = classof().getDependencyDef("Destination");
@@ -97,7 +97,7 @@ public class DataFlowData extends ModelElementData {
             return DestinationDep;
         }
 
-        @objid ("9b480976-2e88-432d-a7dd-8269dc407be7")
+        @objid ("b62fa1da-1759-47d8-82f9-5c6ec6309cdb")
         public static SmDependency OriginDep() {
             if (OriginDep == null) {
             	OriginDep = classof().getDependencyDef("Origin");
@@ -105,7 +105,7 @@ public class DataFlowData extends ModelElementData {
             return OriginDep;
         }
 
-        @objid ("0a1572ee-c122-4d70-90df-d04bb158cb49")
+        @objid ("3cd0ee76-15e5-457e-9bec-d96b1d86ff66")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -113,7 +113,7 @@ public class DataFlowData extends ModelElementData {
             return OwnerDep;
         }
 
-        @objid ("213e8462-80a9-4e55-9315-72b7d260c4b9")
+        @objid ("e4955224-5e80-4fea-8789-56932f60b810")
         public static SmDependency SModelDep() {
             if (SModelDep == null) {
             	SModelDep = classof().getDependencyDef("SModel");
@@ -121,44 +121,44 @@ public class DataFlowData extends ModelElementData {
             return SModelDep;
         }
 
-        @objid ("d260b63e-4c1c-4a16-9d45-0b123288a2a4")
-        public static SmDependency getDestinationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DestinationDep;
-        }
-
-        @objid ("c8d8ffb1-3bcf-43de-b519-2707fb374578")
-        public static SmDependency getSModelDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SModelDep;
-        }
-
-        @objid ("0c170f19-a841-4fd7-b78e-e1fa8f64bd89")
-        public static SmDependency getOriginDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OriginDep;
-        }
-
-        @objid ("4a3de9d1-c60a-4ccf-bdb3-337b71471e49")
+        @objid ("a8548c17-159c-493b-8e57-f75b9a96c514")
         public static SmDependency getOwnerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerDep;
         }
 
-        @objid ("4004fddb-0e25-488c-8b01-ebf75fdd4d5d")
+        @objid ("c05f6963-938f-4fb7-b991-70888102f7de")
+        public static SmDependency getSModelDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SModelDep;
+        }
+
+        @objid ("39e42cfa-f646-4c3e-97c5-6c475ad4c941")
+        public static SmDependency getDestinationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DestinationDep;
+        }
+
+        @objid ("e76d5d0f-af59-4e46-adbc-d4ed2138d3dc")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("21596dd9-f12e-4abe-9f1f-5b6d2bccec48")
+        public static SmDependency getOriginDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OriginDep;
+        }
+
         @objid ("00614504-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("c92f3a43-c11d-47b0-98b2-56cc715f4b68")
+            @objid ("046ffcaf-fd74-4679-9532-04a96c9b5425")
             public ISmObjectData createData() {
                 return new DataFlowData();
             }
 
-            @objid ("214a7a7b-064e-49f1-a124-45bc1d5e318a")
+            @objid ("29156c4f-a14a-490d-8276-966e2739af78")
             public SmObjectImpl createImpl() {
                 return new DataFlowImpl();
             }
@@ -167,18 +167,18 @@ public class DataFlowData extends ModelElementData {
 
         @objid ("0061a666-c4c5-1fd8-97fe-001ec947cd2a")
         public static class DestinationSmDependency extends SmSingleDependency {
-            @objid ("738cd7f9-b7d2-4774-a971-070f19203166")
+            @objid ("08733f7a-12ab-4c00-9687-69371d16e41f")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((DataFlowData) data).mDestination;
             }
 
-            @objid ("77097905-620a-4dc5-868e-2815fd9567be")
+            @objid ("695944f7-1efa-4d67-b2e3-24a003f23cd9")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((DataFlowData) data).mDestination = value;
             }
 
-            @objid ("4ba4df43-a671-49bc-8d4f-3edfdc19c9c2")
+            @objid ("953dc575-567d-4ae0-9358-53197c356df9")
             @Override
             public SmDependency getSymetric() {
                 return NameSpaceData.Metadata.ReceivedDep();
@@ -188,18 +188,18 @@ public class DataFlowData extends ModelElementData {
 
         @objid ("00621984-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OriginSmDependency extends SmSingleDependency {
-            @objid ("1e6f54f6-da9f-4807-9185-9dbbe7199117")
+            @objid ("d31cfa86-bd92-4183-af82-87f87751a8fb")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((DataFlowData) data).mOrigin;
             }
 
-            @objid ("2c0a1de6-c880-4adf-9ff8-b805a7cf35eb")
+            @objid ("f8c2ba89-3ed0-45f8-807b-60facd544834")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((DataFlowData) data).mOrigin = value;
             }
 
-            @objid ("c083e8da-82bd-4f6a-a501-b17f3d968c4b")
+            @objid ("7df75fd7-9686-42e2-859b-c99d57e423b0")
             @Override
             public SmDependency getSymetric() {
                 return NameSpaceData.Metadata.SentDep();
@@ -209,18 +209,18 @@ public class DataFlowData extends ModelElementData {
 
         @objid ("00628d88-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("feb6aa25-f093-40ce-866d-2cc98dd8af62")
+            @objid ("01647980-c35f-44f8-81b7-9ce33d7c375f")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((DataFlowData) data).mOwner;
             }
 
-            @objid ("cfaf7883-7092-4df6-bf60-705151a4acb9")
+            @objid ("24494aed-94ee-43e0-bca5-88fc2ab463d2")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((DataFlowData) data).mOwner = value;
             }
 
-            @objid ("02aa8d36-c0e7-4268-959e-9685ae3a3bcf")
+            @objid ("d2eea345-2a12-44a6-b97c-688b93578f2c")
             @Override
             public SmDependency getSymetric() {
                 return NameSpaceData.Metadata.OwnedDataFlowDep();
@@ -230,18 +230,18 @@ public class DataFlowData extends ModelElementData {
 
         @objid ("00630362-c4c5-1fd8-97fe-001ec947cd2a")
         public static class SModelSmDependency extends SmSingleDependency {
-            @objid ("082abae7-4465-4422-90f3-eeaad116ddcc")
+            @objid ("fad12d09-3560-4f3f-9eec-46eab86c8118")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((DataFlowData) data).mSModel;
             }
 
-            @objid ("3cf67144-8230-4579-9100-5f775ab19810")
+            @objid ("2025136b-7385-43cc-8fc6-71410aa54994")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((DataFlowData) data).mSModel = value;
             }
 
-            @objid ("7dce8ade-063b-49fb-a2e3-3fa28173f446")
+            @objid ("55607c68-2bfe-4e4d-ba83-4c82978c4322")
             @Override
             public SmDependency getSymetric() {
                 return SignalData.Metadata.DOccurenceDep();

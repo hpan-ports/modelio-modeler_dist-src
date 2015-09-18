@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.statik.Classifier;
 
 @objid ("0063e890-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InformationItem extends Classifier {
-    @objid ("d7a8f2a6-3426-4d40-aa7f-fc0ba9f0b734")
+    @objid ("b1324efd-9491-44db-9506-11ec7ca60ce7")
     EList<Classifier> getRepresented();
 
-    @objid ("a61c7591-a276-4026-862e-b7283c8c3be2")
+    @objid ("83e6eb36-3e27-4c8f-92f6-41cb2c32fe7b")
     <T extends Classifier> List<T> getRepresented(java.lang.Class<T> filterClass);
 
 }

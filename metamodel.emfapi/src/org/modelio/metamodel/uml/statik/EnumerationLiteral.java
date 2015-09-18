@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.statik.Enumeration;
 
 @objid ("000a43ee-c4bf-1fd8-97fe-001ec947cd2a")
 public interface EnumerationLiteral extends ModelElement {
-    @objid ("208540db-d576-4fb7-bde0-5db14ce322c8")
+    @objid ("90c049a8-4271-49ba-a04a-c7dcaac3325e")
     Enumeration getValuated();
 
-    @objid ("5b569524-c436-42bf-826c-1c51b92f8aac")
+    @objid ("95ba57d1-9b4f-4823-84d5-ff4508725e73")
     void setValuated(Enumeration value);
 
 }

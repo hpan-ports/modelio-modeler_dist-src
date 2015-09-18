@@ -26,7 +26,7 @@ import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Profile;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("14e37e62-cc25-4b1d-a45b-6ab4b617a013")
 public class EUseCase extends ENamedElement {
@@ -37,7 +37,7 @@ public class EUseCase extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createUseCase();
+                        .createUseCase();
     }
 
     @objid ("bc7d746d-be3f-4357-ac96-e231ca3fd29e")

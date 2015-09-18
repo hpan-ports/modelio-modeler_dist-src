@@ -47,50 +47,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("000879a6-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ElementImport.class, factory=ElementImportData.Metadata.ObjectFactory.class)
 public class ElementImportData extends ModelElementData {
-    @objid ("b6fb6a4c-9f33-4c7a-9849-b5edf9e463be")
+    @objid ("8126304a-8c2e-40c3-bff8-ec7c14686e5e")
     @SmaMetaAttribute(metaName="Visibility", type=VisibilityMode.class, smAttributeClass=Metadata.VisibilitySmAttribute.class)
      Object mVisibility = VisibilityMode.PRIVATE;
 
-    @objid ("21d8b23e-df28-4095-b5c4-fc2674afd620")
+    @objid ("5bd75e59-d812-45ea-85de-5c22e80e9f3f")
     @SmaMetaAssociation(metaName="ImportingNameSpace", typeDataClass=NameSpaceData.class, min=0, max=1, smAssociationClass=Metadata.ImportingNameSpaceSmDependency.class)
      SmObjectImpl mImportingNameSpace;
 
-    @objid ("27157f58-5592-4b29-9977-92f11b7074e7")
+    @objid ("5f3fa2d2-ec21-4954-b87a-35c72772d4be")
     @SmaMetaAssociation(metaName="ImportedElement", typeDataClass=NameSpaceData.class, min=1, max=1, smAssociationClass=Metadata.ImportedElementSmDependency.class, partof = true)
      SmObjectImpl mImportedElement;
 
-    @objid ("2cad3fde-4619-403c-acb1-b334012e71d1")
+    @objid ("bcfe173b-2f9b-4077-9632-24a27f15f343")
     @SmaMetaAssociation(metaName="ImportingOperation", typeDataClass=OperationData.class, min=0, max=1, smAssociationClass=Metadata.ImportingOperationSmDependency.class)
      SmObjectImpl mImportingOperation;
 
-    @objid ("2a667e08-90d5-47a7-b7e7-bd3ccf7ce44d")
+    @objid ("4e47a6bd-306c-4075-bc53-dfc567f2ff6e")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("003ff64c-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("4733c325-7b5f-48f1-b07f-47f949a5ef0c")
+        @objid ("f65ff4a7-1eba-4a01-a0cd-265a2643d7ea")
         private static SmClass smClass = null;
 
-        @objid ("d72964da-66c2-4f51-b982-411ca46d0b04")
+        @objid ("cefd6112-4585-4fc8-abeb-822edd04f7ee")
         private static SmAttribute VisibilityAtt = null;
 
-        @objid ("ee7e5d27-cc39-4c2f-a0af-b1b928609e86")
+        @objid ("aa3918a8-fc8e-407f-9f7c-a9554e3bec57")
         private static SmDependency ImportingNameSpaceDep = null;
 
-        @objid ("352859ce-4b99-45d7-ac75-aea421ac5a42")
+        @objid ("75732f6d-c0e4-4d35-bf0a-bcc1ee5d7906")
         private static SmDependency ImportedElementDep = null;
 
-        @objid ("36ce155b-cfa4-4b58-87c5-4f01bfc6a5e4")
+        @objid ("dcdf04c5-7762-4be7-8a0d-02dd4c19f0fe")
         private static SmDependency ImportingOperationDep = null;
 
-        @objid ("2ce2870f-7b78-49ee-bd53-a7e81b47ac90")
+        @objid ("90a6ec66-6e0d-438a-a58b-31119806c713")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ElementImportData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("78a7c4f2-8150-42ea-b87a-8497c76de395")
+        @objid ("5a9b729b-05c9-4069-9019-c2935f9f1bc9")
         public static SmAttribute VisibilityAtt() {
             if (VisibilityAtt == null) {
             	VisibilityAtt = classof().getAttributeDef("Visibility");
@@ -98,7 +98,7 @@ public class ElementImportData extends ModelElementData {
             return VisibilityAtt;
         }
 
-        @objid ("b368eb0a-7a31-4e22-bca5-969c92a1c9ac")
+        @objid ("4e47a44b-afeb-401a-8972-b68cf42e960c")
         public static SmDependency ImportingNameSpaceDep() {
             if (ImportingNameSpaceDep == null) {
             	ImportingNameSpaceDep = classof().getDependencyDef("ImportingNameSpace");
@@ -106,7 +106,7 @@ public class ElementImportData extends ModelElementData {
             return ImportingNameSpaceDep;
         }
 
-        @objid ("7ab113a5-eb6f-4fc0-bf12-a6f274a1de02")
+        @objid ("c053bece-5f1f-4bbd-b60d-e37783678215")
         public static SmDependency ImportedElementDep() {
             if (ImportedElementDep == null) {
             	ImportedElementDep = classof().getDependencyDef("ImportedElement");
@@ -114,7 +114,7 @@ public class ElementImportData extends ModelElementData {
             return ImportedElementDep;
         }
 
-        @objid ("7dc8c2c4-acb8-48fe-ab88-dc4abda8cd44")
+        @objid ("5336d820-d0eb-450e-b553-4a30fc39c366")
         public static SmDependency ImportingOperationDep() {
             if (ImportingOperationDep == null) {
             	ImportingOperationDep = classof().getDependencyDef("ImportingOperation");
@@ -122,44 +122,44 @@ public class ElementImportData extends ModelElementData {
             return ImportingOperationDep;
         }
 
-        @objid ("a0224a64-4963-4eae-b751-735f1dc5fb8a")
-        public static SmAttribute getVisibilityAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return VisibilityAtt;
-        }
-
-        @objid ("5d078242-45d6-412b-a5e8-14c65b356806")
-        public static SmDependency getImportingOperationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ImportingOperationDep;
-        }
-
-        @objid ("e491de18-36da-4874-8067-9fe431d385aa")
-        public static SmDependency getImportedElementDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ImportedElementDep;
-        }
-
-        @objid ("b13b2ddf-0e5b-4ad0-bc78-a01f03e873a2")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("55d980c8-241b-486e-b5cf-85ee271f01a2")
+        @objid ("9578ab50-944c-4ccc-8583-b50b48bb49fd")
         public static SmDependency getImportingNameSpaceDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ImportingNameSpaceDep;
         }
 
+        @objid ("b31e5f96-2ecf-4c37-b711-aba325a063ec")
+        public static SmDependency getImportingOperationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ImportingOperationDep;
+        }
+
+        @objid ("a195ef51-5cf3-40d7-b779-5abd8c0cb696")
+        public static SmDependency getImportedElementDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ImportedElementDep;
+        }
+
+        @objid ("7937d54f-6e0a-46d6-a332-86237a60381a")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("eb09d3e0-3937-4173-b233-cbda308f01b6")
+        public static SmAttribute getVisibilityAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return VisibilityAtt;
+        }
+
         @objid ("004036b6-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("896f2ebb-14df-4d2a-b6c9-2d19985a63b3")
+            @objid ("5e736a7b-0028-4f4e-8bf6-6ecbea171b54")
             public ISmObjectData createData() {
                 return new ElementImportData();
             }
 
-            @objid ("e4e8deb2-1393-4666-9114-8d938c300238")
+            @objid ("2dc7e515-f381-4b46-906f-4bf34a1190bc")
             public SmObjectImpl createImpl() {
                 return new ElementImportImpl();
             }
@@ -168,12 +168,12 @@ public class ElementImportData extends ModelElementData {
 
         @objid ("004096a6-c4c5-1fd8-97fe-001ec947cd2a")
         public static class VisibilitySmAttribute extends SmAttribute {
-            @objid ("749b36bb-f4ae-4e09-869d-01506ec2259b")
+            @objid ("f208f6cd-600d-4dc1-aa15-64f1e3740074")
             public Object getValue(ISmObjectData data) {
                 return ((ElementImportData) data).mVisibility;
             }
 
-            @objid ("7532a1e0-dae9-4980-b90a-ed3d86b94276")
+            @objid ("9ced3e3b-3704-4891-9880-0c3a5c5c921a")
             public void setValue(ISmObjectData data, Object value) {
                 ((ElementImportData) data).mVisibility = value;
             }
@@ -182,18 +182,18 @@ public class ElementImportData extends ModelElementData {
 
         @objid ("0040f88a-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ImportedElementSmDependency extends SmSingleDependency {
-            @objid ("73fad375-93fa-4ca8-834d-0eabd465f32f")
+            @objid ("2df45d22-2477-4280-9d18-1e7a8a5c2be4")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ElementImportData) data).mImportedElement;
             }
 
-            @objid ("321d2c48-bf9c-4ec6-8039-5f00535fdf9f")
+            @objid ("3cd5941a-415d-4f93-ac0e-59e1275b6fd7")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ElementImportData) data).mImportedElement = value;
             }
 
-            @objid ("6c915f36-2744-4c87-bac9-2b8345ddb364")
+            @objid ("796eb054-9dec-4b05-8f9b-f022b2dcc515")
             @Override
             public SmDependency getSymetric() {
                 return NameSpaceData.Metadata.ImportingDep();
@@ -203,18 +203,18 @@ public class ElementImportData extends ModelElementData {
 
         @objid ("00416cca-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ImportingNameSpaceSmDependency extends SmSingleDependency {
-            @objid ("be864012-f96f-494f-b0e5-e1cfa9946303")
+            @objid ("01dee7be-282b-42c6-a9a6-83285dd3a6e7")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ElementImportData) data).mImportingNameSpace;
             }
 
-            @objid ("8a5bdd74-c919-42cd-a65b-36e57181a8a2")
+            @objid ("0b104e3d-209e-499f-8521-aa099c00bd25")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ElementImportData) data).mImportingNameSpace = value;
             }
 
-            @objid ("c79e65c1-f13d-4be3-90c6-990c77067bc6")
+            @objid ("d2228936-4999-449e-a409-54745f747276")
             @Override
             public SmDependency getSymetric() {
                 return NameSpaceData.Metadata.OwnedImportDep();
@@ -224,18 +224,18 @@ public class ElementImportData extends ModelElementData {
 
         @objid ("0041e114-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ImportingOperationSmDependency extends SmSingleDependency {
-            @objid ("3ddbc881-4a5e-434c-9855-1ee4baa0d9ac")
+            @objid ("2d7315f7-5c2b-412e-8caa-a3f0b40d8024")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ElementImportData) data).mImportingOperation;
             }
 
-            @objid ("259461e0-657e-4fb8-b27f-1b79a1443ab7")
+            @objid ("b4818849-19d2-4cfd-85c9-6be61ad30915")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ElementImportData) data).mImportingOperation = value;
             }
 
-            @objid ("f3bf0f58-0774-4c2c-a2dc-4367d0852032")
+            @objid ("29e54e11-3915-46d2-bd6a-c4183e64938a")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.OwnedImportDep();

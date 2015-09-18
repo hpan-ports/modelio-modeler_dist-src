@@ -70,10 +70,12 @@ import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MStatus;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.generation.TotalExportMap;
 import org.modelio.xmi.model.objing.profile.PExportProfile;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.reverse.PartialImportMap;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.reverse.TotalImportMap;
 
 /**
@@ -88,7 +90,7 @@ public class ProfileUtils {
     @objid ("cce34204-ab16-40da-a9a6-073ccd43704b")
     private static String stereotypeIdSeparator = ";";
 
-    @objid ("e23d5adf-a46d-4631-adf1-fe24b6fe4da0")
+    @objid ("0e7767a9-a354-4d7e-a5b1-1b387339d9d3")
     private static ScopeChecker scopeChecker = new ScopeChecker(GenerationProperties
             .getInstance().getSelectedPackage());
 
@@ -975,7 +977,7 @@ public class ProfileUtils {
         
         String max = EcoreModelNavigation.getMultiplicityMax(ecoreElement);
         
-        if (PrimitiveTypeMapper.isBoolean(type) && (max.equals("1"))){
+        if (EcorePrimitiveTypeMapper.isBoolean(type) && (max.equals("1"))){
             attr.setParamNumber("0");
         }else{
             attr.setParamNumber(max);

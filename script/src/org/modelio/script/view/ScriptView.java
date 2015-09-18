@@ -42,11 +42,11 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.api.modelio.Modelio;
-import org.modelio.api.module.IModule;
 import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.script.IInputView;
 import org.modelio.script.engine.core.engine.IScriptRunner;
 import org.modelio.script.engine.core.engine.ScriptRunnerFactory;
@@ -290,7 +290,7 @@ public class ScriptView {
         this.jythonRunner.clearClassloader();
         this.jythonRunner.addClassLoader(this.jythonRunner.getEngine().getClass().getClassLoader());
         
-        for (IModule module : this.moduleService.getModuleRegistry().getStartedModules()) {
+        for (IRTModule module : this.moduleService.getModuleRegistry().getStartedModules()) {
             this.jythonRunner.addClassLoader(module.getClass().getClassLoader());
         }
         

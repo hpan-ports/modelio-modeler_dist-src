@@ -47,13 +47,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("001b9b4e-c4bf-1fd8-97fe-001ec947cd2a")
 public class RequiredInterfaceImpl extends ModelElementImpl implements RequiredInterface {
-    @objid ("f7b180e3-006c-42c2-b81c-7d2381236385")
+    @objid ("ff25117b-84d1-4666-8ebc-c9ba82faaed3")
     @Override
     public EList<Interface> getRequiredElement() {
         return new SmList<>(this, RequiredInterfaceData.Metadata.RequiredElementDep());
     }
 
-    @objid ("33de7701-70fb-434a-b6c7-1d1d691bc56b")
+    @objid ("baee673a-ebaf-4545-a318-29e9f3e91b0c")
     @Override
     public <T extends Interface> List<T> getRequiredElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -66,13 +66,13 @@ public class RequiredInterfaceImpl extends ModelElementImpl implements RequiredI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("28e4144d-fff5-48a5-a2f6-52501a1c7af3")
+    @objid ("040db0c3-3cd2-44dd-9a5b-9564027be0e2")
     @Override
     public EList<LinkEnd> getProvider() {
         return new SmList<>(this, RequiredInterfaceData.Metadata.ProviderDep());
     }
 
-    @objid ("2bd0e8e7-17da-431d-9b78-14499ee4d2f3")
+    @objid ("072e2aa7-17fd-4fd4-8946-e7e3729e168e")
     @Override
     public <T extends LinkEnd> List<T> getProvider(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -85,25 +85,25 @@ public class RequiredInterfaceImpl extends ModelElementImpl implements RequiredI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("0bd93062-3308-4f42-8069-acf1a9781881")
+    @objid ("021f3ef1-288d-43b2-81de-429f913b7e85")
     @Override
     public Port getRequiring() {
         return (Port) getDepVal(RequiredInterfaceData.Metadata.RequiringDep());
     }
 
-    @objid ("debb1f10-7f3b-460e-84b6-577dd28eea1d")
+    @objid ("aa19d47d-14fd-47d6-8fc7-f07e79bd688d")
     @Override
     public void setRequiring(Port value) {
         appendDepVal(RequiredInterfaceData.Metadata.RequiringDep(), (SmObjectImpl)value);
     }
 
-    @objid ("43db867e-c3dd-47b9-bafb-ce77b84e1912")
+    @objid ("be17b976-2e49-48b3-a98d-e9636eec3621")
     @Override
     public EList<NaryLinkEnd> getNaryProvider() {
         return new SmList<>(this, RequiredInterfaceData.Metadata.NaryProviderDep());
     }
 
-    @objid ("509e0829-1225-4a38-9cb0-98fa98fcef78")
+    @objid ("407b7fa3-823b-461e-94b0-c1474ba3c068")
     @Override
     public <T extends NaryLinkEnd> List<T> getNaryProvider(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -116,7 +116,7 @@ public class RequiredInterfaceImpl extends ModelElementImpl implements RequiredI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6e82de9c-e2fd-41d9-a62d-f83f71ba2f4a")
+    @objid ("bed35291-e77e-4dc9-8d3f-0628b926c9cd")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -126,7 +126,7 @@ public class RequiredInterfaceImpl extends ModelElementImpl implements RequiredI
         return super.getCompositionOwner();
     }
 
-    @objid ("5dec945a-d692-4e68-823a-0cd20cacf11e")
+    @objid ("9fc689ec-2e7c-477c-85d0-69424a4e7022")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -136,7 +136,7 @@ public class RequiredInterfaceImpl extends ModelElementImpl implements RequiredI
         return super.getCompositionRelation();
     }
 
-    @objid ("7afc87b5-46f6-4236-9bd4-ebc33dd3f92e")
+    @objid ("112e57e5-9e95-424d-aac9-2c61182369c8")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitRequiredInterface(this);

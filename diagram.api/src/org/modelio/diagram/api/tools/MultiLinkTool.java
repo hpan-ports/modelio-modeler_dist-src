@@ -33,7 +33,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.modelio.api.diagram.IDiagramGraphic;
 import org.modelio.api.diagram.IDiagramLink.LinkRouterKind;
 import org.modelio.api.diagram.ILinkPath;
-import org.modelio.api.diagram.tools.IMultiLinkCommand;
+import org.modelio.api.diagram.tools.IMultiLinkTool;
 import org.modelio.diagram.api.dg.DGFactory;
 import org.modelio.diagram.api.dg.LinkPath;
 import org.modelio.diagram.api.services.DiagramHandle;
@@ -50,16 +50,16 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
 @objid ("fcd8a20d-ff05-4064-a0ea-dbbe9f724c83")
 public class MultiLinkTool extends MultiPointCreationTool {
     @objid ("3969f8e1-217b-48c0-a29c-16fb518604e9")
-    protected IMultiLinkCommand multiLinkCommand;
+    protected IMultiLinkTool multiLinkCommand;
+
+    @objid ("da7536b7-0345-4c43-b06b-742a15d4bd9e")
+    private DiagramHandle diagramHandle = null;
 
     /**
      * PropertyDefinition name for the actual handler on the module side.
      */
-    @objid ("e42aa571-dddf-4d49-a67d-89b39c563d8e")
+    @objid ("07996a73-7108-40f1-a97b-b585d0d3edd8")
     public static final Object PROPERTY_HANDLER = "handler";
-
-    @objid ("da7536b7-0345-4c43-b06b-742a15d4bd9e")
-    private DiagramHandle diagramHandle = null;
 
     /**
      * C'tor, used by platform to instantiate the tool by reflexion.
@@ -140,8 +140,8 @@ public class MultiLinkTool extends MultiPointCreationTool {
     @Override
     protected void applyProperty(final Object key, final Object value) {
         if (PROPERTY_HANDLER.equals(key)) {
-            if (value instanceof IMultiLinkCommand) {
-                this.multiLinkCommand = (IMultiLinkCommand) value;
+            if (value instanceof IMultiLinkTool) {
+                this.multiLinkCommand = (IMultiLinkTool) value;
             }
             return;
         }

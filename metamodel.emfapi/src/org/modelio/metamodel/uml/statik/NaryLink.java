@@ -36,28 +36,28 @@ import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 
 @objid ("00223b3e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NaryLink extends ModelElement {
-    @objid ("1ea56f9b-104d-49c2-b373-a21ee055edaf")
+    @objid ("3aaf86e5-1968-46b9-a41a-8972cf3c01cf")
     EList<NaryLinkEnd> getNaryLinkEnd();
 
-    @objid ("28335039-0f33-4c99-a502-3c894f3577b5")
+    @objid ("31fc72d7-b4fc-40b1-b011-8789ec67b15c")
     <T extends NaryLinkEnd> List<T> getNaryLinkEnd(java.lang.Class<T> filterClass);
 
-    @objid ("9d20c19d-14cf-4567-abeb-4df0b4cd20e3")
+    @objid ("bf884ac0-122e-4c47-a845-f0bd732fd43a")
     NaryAssociation getModel();
 
-    @objid ("d9dc525e-9c3e-425b-bac7-53cea5837395")
+    @objid ("d8c1984b-7b46-4316-aaf4-cdd027a71627")
     void setModel(NaryAssociation value);
 
-    @objid ("009941cf-6768-4f09-97f2-96b7ec827e2f")
+    @objid ("b02638d5-8c5a-46fd-87c6-01c228c403ca")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("b3890a92-10f2-43f7-a6e1-acf54d4f6b8a")
+    @objid ("44a710b0-2960-4672-9601-47e4bca0e802")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
-    @objid ("6789a780-c664-4443-8fd6-d287f05b1092")
+    @objid ("0dc1142c-ee39-43ae-b2dc-cbf0cd879001")
     EList<CommunicationChannel> getSent();
 
-    @objid ("f2745744-bf1d-467e-b8d6-6320980a2fa5")
+    @objid ("523fc1fa-aabd-4455-bd90-ba4ce61ba562")
     <T extends CommunicationChannel> List<T> getSent(java.lang.Class<T> filterClass);
 
 }

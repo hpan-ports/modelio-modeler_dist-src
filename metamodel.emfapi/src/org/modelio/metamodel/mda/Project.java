@@ -33,28 +33,28 @@ import org.modelio.metamodel.uml.statik.Package;
 
 @objid ("006602e2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Project extends ModelElement {
-    @objid ("958c671f-b021-4824-8c4d-358ab8771a30")
+    @objid ("0871f1e3-5c52-4308-9661-dac9b9006e3c")
     String getProjectContext();
 
-    @objid ("04f8e58b-10cf-40b0-96fa-73252eed8ea2")
+    @objid ("face1ec1-84a9-4166-887c-3e33d5eb2bd8")
     void setProjectContext(String value);
 
-    @objid ("61d3c004-627a-497e-a23d-ccab50c1fef5")
+    @objid ("0e02cc67-fde6-4e17-9999-4871251394b8")
     String getProjectDescr();
 
-    @objid ("73825e76-6f24-477c-a9bc-1ff7e2f29135")
+    @objid ("50fa654d-2ee1-4710-8043-d429a5a69290")
     void setProjectDescr(String value);
 
-    @objid ("2f64dc01-18d6-4249-8519-a4fe8032fd2a")
+    @objid ("27566ca4-4a9a-45fa-a8d9-6583486a1893")
     DiagramSet getDiagramRoot();
 
-    @objid ("637de21e-6b49-4fde-8a71-0c5c37b9c6d2")
+    @objid ("5beeacdc-604c-41c6-af16-c5d7a70f47f6")
     void setDiagramRoot(DiagramSet value);
 
-    @objid ("82bd7ca7-aeeb-400d-8e62-d160aeda9d03")
+    @objid ("f64251cd-48bf-4120-9830-61e05e34f436")
     Package getModel();
 
-    @objid ("6c5021c2-a172-4403-b43f-871b61a87c82")
+    @objid ("8e094d2f-95cc-4b35-a9c6-8118c3829cb0")
     void setModel(Package value);
 
 }

@@ -43,19 +43,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000a7e90-c4bf-1fd8-97fe-001ec947cd2a")
 public class EnumerationLiteralImpl extends ModelElementImpl implements EnumerationLiteral {
-    @objid ("8074c43b-3dc1-45dd-a7eb-4aa27d11c7c6")
+    @objid ("b7682e7d-403c-4724-936a-1d268c0f9796")
     @Override
     public Enumeration getValuated() {
         return (Enumeration) getDepVal(EnumerationLiteralData.Metadata.ValuatedDep());
     }
 
-    @objid ("0d33e089-92c8-4c25-86bb-ce677de61c95")
+    @objid ("0ef01107-8ac7-4693-9b6f-a64cf70f6562")
     @Override
     public void setValuated(Enumeration value) {
         appendDepVal(EnumerationLiteralData.Metadata.ValuatedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c756b6fb-cfa1-4404-a471-a7810cbefdf8")
+    @objid ("d3d86c87-d47d-400c-8c0c-9d87da461c49")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -65,7 +65,7 @@ public class EnumerationLiteralImpl extends ModelElementImpl implements Enumerat
         return super.getCompositionOwner();
     }
 
-    @objid ("f40bd675-d68c-4883-9b89-6cc1b3254d8e")
+    @objid ("bad3664d-1de7-4027-aa3f-84ddff36f966")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -75,7 +75,7 @@ public class EnumerationLiteralImpl extends ModelElementImpl implements Enumerat
         return super.getCompositionRelation();
     }
 
-    @objid ("c591fc8a-d03b-44e0-b73e-e730f238ffa0")
+    @objid ("35c972b7-5dc2-4b94-a98d-0c5b68cf9b9f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitEnumerationLiteral(this);

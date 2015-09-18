@@ -143,13 +143,13 @@ public class UnoCaller<T> implements XCallback {
      * @throws java.lang.reflect.InvocationTargetException if the task thrown an exception, it is encapsulated in this exception.
      */
     @objid ("4053a2ed-cbf9-466a-abc7-7db2852d6c36")
-    public static <T> T call(final XComponentContext xContext, final Callable<T> r) throws InvocationTargetException, com.sun.star.uno.RuntimeException {
+    public static <T> T call(final XComponentContext xContext, final Callable<T> r) throws com.sun.star.uno.RuntimeException, InvocationTargetException {
         UnoCaller<T> aExecutor = new UnoCaller<T>(r);
         return GetCallback( xContext, aExecutor, true );
     }
 
     @objid ("5cd863d7-1ecf-4385-859d-827c72a7a54a")
-    private static <T> T GetCallback(final XComponentContext xContext, final UnoCaller<T> aExecutor, boolean refreshDisplay) throws InvocationTargetException, com.sun.star.uno.RuntimeException {
+    private static <T> T GetCallback(final XComponentContext xContext, final UnoCaller<T> aExecutor, boolean refreshDisplay) throws com.sun.star.uno.RuntimeException, InvocationTargetException {
         if ( aExecutor != null )
         {
             XMultiComponentFactory xFactory = xContext.getServiceManager();
@@ -258,7 +258,7 @@ public class UnoCaller<T> implements XCallback {
      * @throws java.lang.reflect.InvocationTargetException if the task thrown an exception, it is encapsulated in this exception.
      */
     @objid ("7e9f7fb6-e456-4870-bd73-a1fedc0a3344")
-    public static <T> T call(final XComponentContext xContext, final Callable<T> r, boolean refreshDisplay) throws InvocationTargetException, com.sun.star.uno.RuntimeException {
+    public static <T> T call(final XComponentContext xContext, final Callable<T> r, boolean refreshDisplay) throws com.sun.star.uno.RuntimeException, InvocationTargetException {
         UnoCaller<T> aExecutor = new UnoCaller<T>(r);
         return GetCallback( xContext, aExecutor, refreshDisplay);
     }

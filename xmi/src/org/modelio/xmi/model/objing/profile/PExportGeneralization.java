@@ -23,8 +23,8 @@ package org.modelio.xmi.model.objing.profile;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.generation.ProfileExportVisitorImpl;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ProfileUtils;
 
 @objid ("95d2454c-82bf-495d-90bc-dd4d2ec85f48")

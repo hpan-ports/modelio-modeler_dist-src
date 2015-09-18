@@ -32,8 +32,8 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.commands.IModuleAction;
+import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("19384840-120f-11e2-8b3b-001ec947c8cc")
@@ -42,13 +42,13 @@ public class ExecuteModuleActionHandler {
     private IModuleAction actionToExecute;
 
     @objid ("737ea389-120f-11e2-8b3b-001ec947c8cc")
-    private IModule module;
+    private IRTModule module;
 
     @objid ("19384844-120f-11e2-8b3b-001ec947c8cc")
     @Execute
     public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final ISelection selection) {
         List<MObject> selectedElements = convertSelection(selection);
-        this.actionToExecute.getCommand().actionPerformed(selectedElements, this.module);
+        this.actionToExecute.getHandler().actionPerformed(selectedElements, this.module.getIModule());
     }
 
     @objid ("19384845-120f-11e2-8b3b-001ec947c8cc")
@@ -80,7 +80,7 @@ public class ExecuteModuleActionHandler {
     }
 
     @objid ("737ea38a-120f-11e2-8b3b-001ec947c8cc")
-    public ExecuteModuleActionHandler(IModule module, IModuleAction actionToExecute) {
+    public ExecuteModuleActionHandler(IRTModule module, IModuleAction actionToExecute) {
         this.module = module;
         this.actionToExecute = actionToExecute;
     }

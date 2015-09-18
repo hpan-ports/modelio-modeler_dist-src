@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 
 @objid ("0026094e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Activity extends Behavior {
-    @objid ("a3a7f064-e3c9-42b7-abf9-660c8e71a0a9")
+    @objid ("a0c6481f-e350-44ea-8b72-857f72916891")
     boolean isIsSingleExecution();
 
-    @objid ("bbeced1e-f541-4aad-8187-d62c9f810704")
+    @objid ("15cd60d4-b3eb-4604-a158-9bafcf40a7a9")
     void setIsSingleExecution(boolean value);
 
-    @objid ("0da750d4-aa62-478b-87bc-0420ca2c5de8")
+    @objid ("76f09a0e-f4b1-469b-8826-2e4edcc8ae9f")
     boolean isIsReadOnly();
 
-    @objid ("2aca1198-5cba-46c6-b181-32f3abf55452")
+    @objid ("ce36f357-15f3-4b34-907c-9e0dabde59a3")
     void setIsReadOnly(boolean value);
 
-    @objid ("c76f0a88-a958-4ad4-81b0-198686ad6f02")
+    @objid ("899fc6f3-da76-4380-9259-616658d4281d")
     EList<ActivityGroup> getOwnedGroup();
 
-    @objid ("0f909f5c-d6be-4bf3-b26e-f0326f75675e")
+    @objid ("6c67bd53-c502-4d65-afa9-40d4dab02a0a")
     <T extends ActivityGroup> List<T> getOwnedGroup(java.lang.Class<T> filterClass);
 
-    @objid ("54963cea-2e73-43b4-935f-c6bd33590412")
+    @objid ("0dad78a4-e7a3-4d24-9d51-b0fffba912fd")
     EList<ActivityNode> getOwnedNode();
 
-    @objid ("6aaf7a1e-33c7-4a07-9a27-60aed073253e")
+    @objid ("6fed77ee-5e97-4324-bc06-70627e671613")
     <T extends ActivityNode> List<T> getOwnedNode(java.lang.Class<T> filterClass);
 
 }

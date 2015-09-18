@@ -36,28 +36,28 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 
 @objid ("004683fe-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Interaction extends Behavior {
-    @objid ("5e5bc5e6-7bf6-454c-89a2-1fa9ea894819")
+    @objid ("39cd649e-0ac1-4836-9d73-a0b6f34c2e8b")
     EList<Gate> getFormalGate();
 
-    @objid ("52dd298e-a99e-458c-8275-8b7409a0afcb")
+    @objid ("2cb03e7c-e0d3-44a4-a022-7eb1dd7fba00")
     <T extends Gate> List<T> getFormalGate(java.lang.Class<T> filterClass);
 
-    @objid ("e5c20087-4e67-4acf-b098-4a2749853dc2")
+    @objid ("ddd1f31c-582e-4764-88f8-f9ae70ea683d")
     EList<InteractionFragment> getFragment();
 
-    @objid ("60664096-94e4-4e7d-bee4-afa8bd2842d2")
+    @objid ("e3604248-b32c-495b-95ef-6d24318d2794")
     <T extends InteractionFragment> List<T> getFragment(java.lang.Class<T> filterClass);
 
-    @objid ("b0427da0-f2e5-4432-81d8-a51e375e27d3")
+    @objid ("82f388ec-b57d-469b-baa6-ea5051dfbd7f")
     EList<Lifeline> getOwnedLine();
 
-    @objid ("180af8c0-527e-45ea-91f9-9588aa5cb4df")
+    @objid ("a73aebed-135a-48e1-81b0-e80ecf8f2e7f")
     <T extends Lifeline> List<T> getOwnedLine(java.lang.Class<T> filterClass);
 
-    @objid ("1ef42405-383e-49e4-b36f-c184102beeaf")
+    @objid ("720e2459-9240-4afd-9052-30915c042680")
     EList<InteractionUse> getReferedUse();
 
-    @objid ("411a89e8-ae50-4685-b4b4-3f089f60553a")
+    @objid ("291c2605-e7a9-40a5-9377-eca251ed1115")
     <T extends InteractionUse> List<T> getReferedUse(java.lang.Class<T> filterClass);
 
 }

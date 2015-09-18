@@ -36,34 +36,34 @@ import org.modelio.metamodel.uml.statik.Instance;
 
 @objid ("0048b5b6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Lifeline extends ModelElement {
-    @objid ("74df436c-38dd-4899-9861-3c18a51fb9bd")
+    @objid ("42122170-ba74-439b-8cdb-ed171515c757")
     String getSelector();
 
-    @objid ("608bc37d-3b5e-41a0-a82b-5fc77fffdb8a")
+    @objid ("178162ba-3f6e-463e-8a16-1de0f9602794")
     void setSelector(String value);
 
-    @objid ("1dbaa825-9897-4cbc-bf5a-89383347b2b9")
+    @objid ("c1886632-fcf3-4d2d-923f-dcac6f1eaedd")
     EList<InteractionFragment> getCoveredBy();
 
-    @objid ("16ee8285-22ea-4d1e-8f1b-4ca1385382ae")
+    @objid ("b1e83812-8124-4052-a647-52439af11ec0")
     <T extends InteractionFragment> List<T> getCoveredBy(java.lang.Class<T> filterClass);
 
-    @objid ("a41b675d-7365-446c-8182-9c4bab65efb3")
+    @objid ("2c807595-872e-4ccf-9aca-a06140dbc813")
     PartDecomposition getDecomposedAs();
 
-    @objid ("f211449e-1a47-486d-ab2d-0f9a11a5d16e")
+    @objid ("77474e3e-991b-4754-aa64-4c4f1b7487d3")
     void setDecomposedAs(PartDecomposition value);
 
-    @objid ("ee6d58f1-8fca-4588-81bb-6216f5c9a4a9")
+    @objid ("3d2b26a0-9f07-4b4e-860d-5ca57df293a4")
     Interaction getOwner();
 
-    @objid ("d92ab1e5-bfef-43d9-87c8-0ddf34d73f88")
+    @objid ("e32b1112-d57c-417f-a7c8-9c08d367b829")
     void setOwner(Interaction value);
 
-    @objid ("4054642f-6827-40f1-a39e-b5113dae1ad8")
+    @objid ("502d494b-cd1b-43e3-b984-536f481714e6")
     Instance getRepresented();
 
-    @objid ("08482c27-bcb9-484b-8e25-7dc7363eaecb")
+    @objid ("927d39a0-bfa7-48c8-8fda-1cde519b27f9")
     void setRepresented(Instance value);
 
 }

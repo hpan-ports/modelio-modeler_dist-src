@@ -105,6 +105,7 @@ import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 import org.modelio.metamodel.visitors.DefaultModelVisitor;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 
 /**
  * This class checks if a given element is in the export scope
@@ -703,7 +704,7 @@ public class ScopeChecker {
         @objid ("861e253d-e385-4e8b-afe9-124ac4fb2627")
         @Override
         public Object visitDataType(final DataType eltToTest) {
-            if (PrimitiveTypeMapper.isPredefinedType(eltToTest))
+            if (ModelioPrimitiveTypeMapper.isPredefinedType(eltToTest))
                 setTheResult(false);
             else{
                 contains(eltToTest.getCompositionOwner());

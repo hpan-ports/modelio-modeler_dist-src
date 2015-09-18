@@ -31,10 +31,10 @@ import org.modelio.metamodel.bpmn.activities.BpmnComplexBehaviorDefinition;
 
 @objid ("008df234-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnImplicitThrowEvent extends BpmnThrowEvent {
-    @objid ("095f10f6-e831-411c-b225-ca2e849cce5b")
+    @objid ("49a1b79a-b2a6-4371-a4c7-25115a89b3db")
     BpmnComplexBehaviorDefinition getOwner();
 
-    @objid ("1c4ae21a-4035-4b4c-a938-c5cae26c1af2")
+    @objid ("28114bab-197b-49f1-a180-f0275f60f31f")
     void setOwner(BpmnComplexBehaviorDefinition value);
 
 }

@@ -28,8 +28,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.Clause;
 import org.modelio.metamodel.uml.behavior.activityModel.ConditionalNode;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
 

@@ -50,92 +50,92 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0004de90-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnDataAssociation.class, factory=BpmnDataAssociationData.Metadata.ObjectFactory.class)
 public class BpmnDataAssociationData extends BpmnBaseElementData {
-    @objid ("30339b4a-60e5-40e4-8555-f69127701bdb")
+    @objid ("4315fbcb-d36f-472d-99ef-c310001ce604")
     @SmaMetaAttribute(metaName="Assignment", type=String.class, smAttributeClass=Metadata.AssignmentSmAttribute.class)
      Object mAssignment = "";
 
-    @objid ("5c2c37d9-c701-4e4a-8e8c-b3ffa867f75f")
+    @objid ("f5622024-107e-4b29-b51c-4932ffedaf2d")
     @SmaMetaAttribute(metaName="Transfomation", type=String.class, smAttributeClass=Metadata.TransfomationSmAttribute.class)
      Object mTransfomation = "";
 
-    @objid ("86207453-1dfb-4d8d-a146-88247ba2f22f")
+    @objid ("86283dfc-f917-4d87-945a-512b7132688c")
     @SmaMetaAttribute(metaName="Language", type=String.class, smAttributeClass=Metadata.LanguageSmAttribute.class)
      Object mLanguage = "";
 
-    @objid ("ae99542b-2488-4d17-8bb2-a6f49a16b860")
+    @objid ("33de5707-bcc1-447a-9551-675aa9e86334")
     @SmaMetaAssociation(metaName="SourceRef", typeDataClass=BpmnItemAwareElementData.class, min=0, max=-1, smAssociationClass=Metadata.SourceRefSmDependency.class, partof = true)
      List<SmObjectImpl> mSourceRef = null;
 
-    @objid ("e7b1075d-2557-44ef-b284-71eed6ecd6e1")
+    @objid ("ee971068-d848-48b6-b8a3-5e1e7e822db1")
     @SmaMetaAssociation(metaName="TargetRef", typeDataClass=BpmnItemAwareElementData.class, min=0, max=1, smAssociationClass=Metadata.TargetRefSmDependency.class, partof = true)
      SmObjectImpl mTargetRef;
 
-    @objid ("07b01989-95e1-4fec-b5d7-b84590cbd551")
+    @objid ("0e431713-cc69-476d-96ac-489909a6e3cd")
     @SmaMetaAssociation(metaName="EndingActivity", typeDataClass=BpmnActivityData.class, min=0, max=1, smAssociationClass=Metadata.EndingActivitySmDependency.class)
      SmObjectImpl mEndingActivity;
 
-    @objid ("003107a7-09a1-48d3-9426-7cda45295a95")
+    @objid ("3b4a7ab2-62dd-4ec4-ae22-5b11ac558720")
     @SmaMetaAssociation(metaName="StartingActivity", typeDataClass=BpmnActivityData.class, min=0, max=1, smAssociationClass=Metadata.StartingActivitySmDependency.class)
      SmObjectImpl mStartingActivity;
 
-    @objid ("6ff319b3-7098-4a2e-b194-b146e665ad82")
+    @objid ("69c7a69b-9c83-4041-b331-1af2aeb4236e")
     @SmaMetaAssociation(metaName="StartingEvent", typeDataClass=BpmnThrowEventData.class, min=0, max=1, smAssociationClass=Metadata.StartingEventSmDependency.class)
      SmObjectImpl mStartingEvent;
 
-    @objid ("b7f4b885-2138-4eae-a615-6a8b7c2edd48")
+    @objid ("77515789-90e2-4e87-afeb-8ee6d6476412")
     @SmaMetaAssociation(metaName="VisualShortCut", typeDataClass=BpmnSequenceFlowDataAssociationData.class, min=0, max=-1, smAssociationClass=Metadata.VisualShortCutSmDependency.class)
      List<SmObjectImpl> mVisualShortCut = null;
 
-    @objid ("e22586fa-9cfb-43ee-8ae7-f26a1196cc68")
+    @objid ("894fe5e2-3a5c-4daa-9ca7-21ee15a64e17")
     @SmaMetaAssociation(metaName="EndingEvent", typeDataClass=BpmnCatchEventData.class, min=0, max=1, smAssociationClass=Metadata.EndingEventSmDependency.class)
      SmObjectImpl mEndingEvent;
 
-    @objid ("daa67c69-ef50-49ec-bab7-d380a25fdcd6")
+    @objid ("485e64f2-2de1-43a0-9e6c-d80b63f31ac7")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0071e6de-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("8557f7d7-9e55-40fd-9f02-604b9c72a6c4")
+        @objid ("6e36d4a6-717e-45ce-bbd9-98835855a90e")
         private static SmClass smClass = null;
 
-        @objid ("06ccf0ca-5608-4aac-a36e-fb4d1b521c93")
+        @objid ("4785c34f-bc40-4271-a5e7-654a03e22ba5")
         private static SmAttribute AssignmentAtt = null;
 
-        @objid ("a53002e7-8871-4083-a251-636878c5541e")
+        @objid ("eacaf6f7-2f52-4265-83ef-8af5a0c5f961")
         private static SmAttribute TransfomationAtt = null;
 
-        @objid ("5f27f641-5815-4032-82c4-f1454334ef1c")
+        @objid ("2c2dd073-d98d-428f-9c2a-4b2901025b7e")
         private static SmAttribute LanguageAtt = null;
 
-        @objid ("441ee1ac-c923-4a06-b5b9-2b8b9ffb1b9d")
+        @objid ("5dbfb812-586f-4daa-994e-771012fcf36f")
         private static SmDependency SourceRefDep = null;
 
-        @objid ("34a33fde-2bde-4c5a-86c0-d4937148162e")
+        @objid ("188ac8a4-865a-45ff-a885-6b5e2d56a258")
         private static SmDependency TargetRefDep = null;
 
-        @objid ("75f2077b-7a82-4027-aea7-f60c7769203b")
+        @objid ("8ec8a87b-cfb7-4648-aa59-75ad2f151da1")
         private static SmDependency EndingActivityDep = null;
 
-        @objid ("f662f02a-4d19-4b91-b456-a817bde6c784")
+        @objid ("eb0df046-4fcf-434f-9ca6-7adddbcab904")
         private static SmDependency StartingActivityDep = null;
 
-        @objid ("44578c45-d7ac-4f51-90d9-69114a878567")
+        @objid ("9ef015c4-73db-45d9-8051-1891e6ebde89")
         private static SmDependency StartingEventDep = null;
 
-        @objid ("ec41068a-70c2-4621-86b7-cedfa5130e61")
+        @objid ("1dc06dc9-2144-402a-95c1-184183879896")
         private static SmDependency VisualShortCutDep = null;
 
-        @objid ("8e619c39-4cf8-4837-8b67-d5c7111afa5e")
+        @objid ("57388360-25f7-4b59-a1c8-d795d3fc9407")
         private static SmDependency EndingEventDep = null;
 
-        @objid ("5ebd19de-416a-4d27-95fe-6373507c25b7")
+        @objid ("e1cce27a-05a6-408a-8745-e3dc25b55317")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnDataAssociationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f6e226dd-289a-4b04-995b-ea91e543cd48")
+        @objid ("b0d78c83-610b-42a3-a4ca-66a0e60f1b54")
         public static SmAttribute AssignmentAtt() {
             if (AssignmentAtt == null) {
             	AssignmentAtt = classof().getAttributeDef("Assignment");
@@ -143,7 +143,7 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
             return AssignmentAtt;
         }
 
-        @objid ("aa8622cd-8793-4095-920c-d34fc58b9d34")
+        @objid ("5f1c6baa-1183-4f59-ba66-47c88a4245a5")
         public static SmAttribute TransfomationAtt() {
             if (TransfomationAtt == null) {
             	TransfomationAtt = classof().getAttributeDef("Transfomation");
@@ -151,7 +151,7 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
             return TransfomationAtt;
         }
 
-        @objid ("8666e059-a842-48ad-8b44-6552d5c1a50c")
+        @objid ("26023b65-beb6-4588-8f62-e97fee343a40")
         public static SmAttribute LanguageAtt() {
             if (LanguageAtt == null) {
             	LanguageAtt = classof().getAttributeDef("Language");
@@ -159,7 +159,7 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
             return LanguageAtt;
         }
 
-        @objid ("50eda6a9-9d06-4b43-8ca4-0bcb74b8c98c")
+        @objid ("99034385-4e8e-4464-acb9-9cd650567b96")
         public static SmDependency SourceRefDep() {
             if (SourceRefDep == null) {
             	SourceRefDep = classof().getDependencyDef("SourceRef");
@@ -167,7 +167,7 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
             return SourceRefDep;
         }
 
-        @objid ("d7fffc62-d4d6-4954-8770-be89178319c9")
+        @objid ("7087a8fc-d2e8-4e13-ac45-460a17f089a2")
         public static SmDependency TargetRefDep() {
             if (TargetRefDep == null) {
             	TargetRefDep = classof().getDependencyDef("TargetRef");
@@ -175,7 +175,7 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
             return TargetRefDep;
         }
 
-        @objid ("6582ad26-c5c4-41e1-a066-ad526741aa31")
+        @objid ("cfbadd88-4364-4f6f-ab98-8e113d20755d")
         public static SmDependency EndingActivityDep() {
             if (EndingActivityDep == null) {
             	EndingActivityDep = classof().getDependencyDef("EndingActivity");
@@ -183,7 +183,7 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
             return EndingActivityDep;
         }
 
-        @objid ("7b3ddb87-f66e-40dc-be70-e3268b1f3aee")
+        @objid ("7fcd622e-72d0-4005-a13c-aace16b7ed96")
         public static SmDependency StartingActivityDep() {
             if (StartingActivityDep == null) {
             	StartingActivityDep = classof().getDependencyDef("StartingActivity");
@@ -191,7 +191,7 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
             return StartingActivityDep;
         }
 
-        @objid ("124a7d26-3bb6-42ec-9f5f-62087ff5f515")
+        @objid ("93a3463f-a5c0-4347-bebe-e2e83d8f346a")
         public static SmDependency StartingEventDep() {
             if (StartingEventDep == null) {
             	StartingEventDep = classof().getDependencyDef("StartingEvent");
@@ -199,7 +199,7 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
             return StartingEventDep;
         }
 
-        @objid ("76428def-30fe-4f17-b453-4ad15976b362")
+        @objid ("3c0bcdbf-3786-42ed-a3ff-3b53071caea9")
         public static SmDependency VisualShortCutDep() {
             if (VisualShortCutDep == null) {
             	VisualShortCutDep = classof().getDependencyDef("VisualShortCut");
@@ -207,7 +207,7 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
             return VisualShortCutDep;
         }
 
-        @objid ("b49b46b6-7c63-4deb-9bd0-4f47e3d5bd53")
+        @objid ("cc8dd4aa-cc1b-4399-a4ae-cdd06c833da5")
         public static SmDependency EndingEventDep() {
             if (EndingEventDep == null) {
             	EndingEventDep = classof().getDependencyDef("EndingEvent");
@@ -215,80 +215,80 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
             return EndingEventDep;
         }
 
-        @objid ("5718b212-681b-4a69-847d-3ec47a9d3cec")
-        public static SmDependency getVisualShortCutDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return VisualShortCutDep;
-        }
-
-        @objid ("9848aab7-fa46-402b-8335-3fa2eff72f22")
-        public static SmDependency getStartingActivityDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return StartingActivityDep;
-        }
-
-        @objid ("d12a45d2-34c5-4784-890a-c6324c71ad1b")
-        public static SmDependency getTargetRefDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TargetRefDep;
-        }
-
-        @objid ("542381fd-dee3-4364-95e2-f91c6e9289b7")
-        public static SmDependency getEndingEventDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return EndingEventDep;
-        }
-
-        @objid ("b0e26cfb-d1d9-4758-92d1-485b0b9b6aca")
-        public static SmAttribute getAssignmentAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return AssignmentAtt;
-        }
-
-        @objid ("1252e727-1bce-4e00-ac39-85bb2601ecf6")
+        @objid ("b017851e-e3bb-43d8-acba-2f2d106b94c7")
         public static SmDependency getSourceRefDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SourceRefDep;
         }
 
-        @objid ("ff01d271-7491-4ebd-9db0-e9da4ac42f41")
-        public static SmDependency getEndingActivityDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return EndingActivityDep;
-        }
-
-        @objid ("80c050bf-eebe-492e-8210-5aae4a01fb0f")
-        public static SmDependency getStartingEventDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return StartingEventDep;
-        }
-
-        @objid ("22f7cbf3-fb2e-4b0e-9479-65a5feb6f39a")
-        public static SmAttribute getLanguageAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LanguageAtt;
-        }
-
-        @objid ("0ab84e4d-4aa7-4dd1-a9f5-96f49246419d")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("25ecebef-6755-41ad-a6da-ce81b7c921f5")
+        @objid ("83f9ea85-e64f-4bd3-96c1-e2b82275fd59")
         public static SmAttribute getTransfomationAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return TransfomationAtt;
         }
 
+        @objid ("3688f029-989c-48fd-905c-4325ed6aa81a")
+        public static SmDependency getEndingActivityDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return EndingActivityDep;
+        }
+
+        @objid ("c96c700f-990b-45c2-990e-853435a090cf")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("650adb1c-fe1c-4e1f-9c76-e462b32fffa8")
+        public static SmDependency getStartingEventDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return StartingEventDep;
+        }
+
+        @objid ("81a62d95-1d2e-4101-b5b1-35f7dfd08a03")
+        public static SmDependency getEndingEventDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return EndingEventDep;
+        }
+
+        @objid ("2f075056-f75e-4ebd-84a0-aafd7d5046d7")
+        public static SmDependency getTargetRefDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TargetRefDep;
+        }
+
+        @objid ("2f513bb8-8893-41dc-8bf6-ce74d11c3c7b")
+        public static SmDependency getStartingActivityDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return StartingActivityDep;
+        }
+
+        @objid ("43e154c5-7d8b-4331-b2aa-b84bd0798bef")
+        public static SmAttribute getAssignmentAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return AssignmentAtt;
+        }
+
+        @objid ("c77d25f1-56c1-42a1-adbc-af2ea08783e2")
+        public static SmDependency getVisualShortCutDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return VisualShortCutDep;
+        }
+
+        @objid ("ea21316b-4c01-4fbe-b106-cfd5364d82d5")
+        public static SmAttribute getLanguageAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LanguageAtt;
+        }
+
         @objid ("00722784-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("4958ff4d-bf1a-4634-9a3e-72ee2250375a")
+            @objid ("f4a4ac55-6eb6-47e8-9e22-ad15c0bd2c17")
             public ISmObjectData createData() {
                 return new BpmnDataAssociationData();
             }
 
-            @objid ("d5e41251-7415-41b1-a6b5-e8f3d28a7264")
+            @objid ("c12a03a7-49c9-41d6-96b4-82c900dbc216")
             public SmObjectImpl createImpl() {
                 return new BpmnDataAssociationImpl();
             }
@@ -297,12 +297,12 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
 
         @objid ("00728d5a-c4c4-1fd8-97fe-001ec947cd2a")
         public static class AssignmentSmAttribute extends SmAttribute {
-            @objid ("30d084f7-026c-47eb-9efd-ea7cb94f3ec4")
+            @objid ("7d518e84-fa30-45f8-aced-29e5145792e5")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnDataAssociationData) data).mAssignment;
             }
 
-            @objid ("c6c95cb5-2122-4086-b744-d3a08ac531a9")
+            @objid ("cd6a72ab-0d98-47b2-99c1-cdac4cb56741")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnDataAssociationData) data).mAssignment = value;
             }
@@ -311,12 +311,12 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
 
         @objid ("0072ed90-c4c4-1fd8-97fe-001ec947cd2a")
         public static class TransfomationSmAttribute extends SmAttribute {
-            @objid ("c1249e89-ebc3-4d69-a1a5-dd839c149d8b")
+            @objid ("9689c350-5696-482a-9e16-399936615b69")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnDataAssociationData) data).mTransfomation;
             }
 
-            @objid ("baf6eff4-81f6-4e61-ac82-d4162c7c4e61")
+            @objid ("2780b2ed-f790-444f-b8e8-d6137c75fa0b")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnDataAssociationData) data).mTransfomation = value;
             }
@@ -325,12 +325,12 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
 
         @objid ("00734d62-c4c4-1fd8-97fe-001ec947cd2a")
         public static class LanguageSmAttribute extends SmAttribute {
-            @objid ("9396166c-0edb-4acb-9381-6b5e84c22ba2")
+            @objid ("0ae91e57-a5e8-49eb-a547-b37cc5ff97f2")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnDataAssociationData) data).mLanguage;
             }
 
-            @objid ("25fb99e2-26d5-4333-861e-112775b7b300")
+            @objid ("a8e7ce56-a6e0-464d-9e00-86b377c62c7e")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnDataAssociationData) data).mLanguage = value;
             }
@@ -339,20 +339,20 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
 
         @objid ("0073b0ea-c4c4-1fd8-97fe-001ec947cd2a")
         public static class SourceRefSmDependency extends SmMultipleDependency {
-            @objid ("8bd1901f-df22-4def-a6fc-eb395d10a72e")
+            @objid ("68b758db-9b57-4498-a87e-78181ce8838f")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnDataAssociationData)data).mSourceRef != null)? ((BpmnDataAssociationData)data).mSourceRef:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("e7839994-c6b3-49d1-91da-5a817015e9f5")
+            @objid ("bc7ba0c7-0880-44f0-a4e4-d94619ab49c1")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnDataAssociationData) data).mSourceRef = new ArrayList<>(initialCapacity);
                 return ((BpmnDataAssociationData) data).mSourceRef;
             }
 
-            @objid ("b18ab5a9-98fc-4c2a-9247-46f534ba60a4")
+            @objid ("02cda3fc-80e8-4952-adb1-c5c9cedd6d78")
             @Override
             public SmDependency getSymetric() {
                 return BpmnItemAwareElementData.Metadata.SourceOfDataAssociationDep();
@@ -362,18 +362,18 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
 
         @objid ("00741418-c4c4-1fd8-97fe-001ec947cd2a")
         public static class TargetRefSmDependency extends SmSingleDependency {
-            @objid ("7bd03311-ffcc-4c1d-b776-3b75bb0617cd")
+            @objid ("c9cd2fad-3eda-4f25-bef0-a864224278cc")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnDataAssociationData) data).mTargetRef;
             }
 
-            @objid ("8cb26ec1-902f-4cdc-94d5-1ab8bc3cb5fc")
+            @objid ("636c7cca-05ac-4442-a50b-3f0df21445de")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnDataAssociationData) data).mTargetRef = value;
             }
 
-            @objid ("90a8a086-86c8-411b-afc2-b14cb98db99c")
+            @objid ("c026718d-c35c-4b56-8f68-5a3ba23e807c")
             @Override
             public SmDependency getSymetric() {
                 return BpmnItemAwareElementData.Metadata.TargetOfDataAssociationDep();
@@ -383,20 +383,20 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
 
         @objid ("007488f8-c4c4-1fd8-97fe-001ec947cd2a")
         public static class VisualShortCutSmDependency extends SmMultipleDependency {
-            @objid ("794dbcda-c2a1-4653-940d-71130338aaeb")
+            @objid ("a698ec36-2038-4e7c-ab3b-283f55feab38")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnDataAssociationData)data).mVisualShortCut != null)? ((BpmnDataAssociationData)data).mVisualShortCut:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("c2b2cae8-2f6b-499f-855a-25acf146a151")
+            @objid ("5a1db230-3d43-4024-b2c6-394334d59373")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnDataAssociationData) data).mVisualShortCut = new ArrayList<>(initialCapacity);
                 return ((BpmnDataAssociationData) data).mVisualShortCut;
             }
 
-            @objid ("7859d798-4b2c-4833-a1cd-4f4d6fd53734")
+            @objid ("fb0575d6-33f8-4296-8a05-01d123fd8afa")
             @Override
             public SmDependency getSymetric() {
                 return BpmnSequenceFlowDataAssociationData.Metadata.DataAssociationDep();
@@ -406,18 +406,18 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
 
         @objid ("0074ed98-c4c4-1fd8-97fe-001ec947cd2a")
         public static class StartingActivitySmDependency extends SmSingleDependency {
-            @objid ("ea500d4c-8b85-4b0e-90a5-1592afcdf387")
+            @objid ("9d6db9f2-fb7a-4a8c-9609-db96484a7ea9")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnDataAssociationData) data).mStartingActivity;
             }
 
-            @objid ("38726043-d045-42cb-8c7e-1263148284a5")
+            @objid ("ffaf5c02-d510-4c07-9c5d-396b744e0c8b")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnDataAssociationData) data).mStartingActivity = value;
             }
 
-            @objid ("6c7a9b36-9a49-45a8-b6d1-68004e07eec1")
+            @objid ("d9412769-5223-4ec3-9aff-cdbdec3a8ed3")
             @Override
             public SmDependency getSymetric() {
                 return BpmnActivityData.Metadata.DataInputAssociationDep();
@@ -427,18 +427,18 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
 
         @objid ("007564c6-c4c4-1fd8-97fe-001ec947cd2a")
         public static class StartingEventSmDependency extends SmSingleDependency {
-            @objid ("bea09279-9709-4b4c-9bad-bf51837fd453")
+            @objid ("979bfeec-a4e7-463d-b5e9-9b5c169b3d3c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnDataAssociationData) data).mStartingEvent;
             }
 
-            @objid ("25e57347-7671-436b-8b40-1eed0d0e1eda")
+            @objid ("609bb89a-551f-48c3-8da8-2665a1f60ab3")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnDataAssociationData) data).mStartingEvent = value;
             }
 
-            @objid ("e558b4b7-46d5-4411-80e2-64d880b2236e")
+            @objid ("de731827-6e02-4595-9302-99f9b0fc8c98")
             @Override
             public SmDependency getSymetric() {
                 return BpmnThrowEventData.Metadata.DataInputAssociationDep();
@@ -448,18 +448,18 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
 
         @objid ("0075dc80-c4c4-1fd8-97fe-001ec947cd2a")
         public static class EndingActivitySmDependency extends SmSingleDependency {
-            @objid ("2144891d-d826-44bf-9558-d65d9a651ed3")
+            @objid ("04612830-6d8e-499d-8d8c-e33d2595afcf")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnDataAssociationData) data).mEndingActivity;
             }
 
-            @objid ("09164f72-5e86-4b2a-92d7-8902580a2889")
+            @objid ("d6ce6bb7-f786-4515-ab61-73d82de87ac7")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnDataAssociationData) data).mEndingActivity = value;
             }
 
-            @objid ("3699b92a-0e72-47aa-a6c2-febc5afa0da4")
+            @objid ("65c8cd8a-5e7d-46ba-adf5-8ebcd18f9caf")
             @Override
             public SmDependency getSymetric() {
                 return BpmnActivityData.Metadata.DataOutputAssociationDep();
@@ -469,18 +469,18 @@ public class BpmnDataAssociationData extends BpmnBaseElementData {
 
         @objid ("00765412-c4c4-1fd8-97fe-001ec947cd2a")
         public static class EndingEventSmDependency extends SmSingleDependency {
-            @objid ("e52164a6-c6fc-4cec-81fd-bed18298bf29")
+            @objid ("d5d70404-c142-4c8d-9849-692629d07ded")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnDataAssociationData) data).mEndingEvent;
             }
 
-            @objid ("a7992fb5-8e59-4235-8d0b-aed6919795d5")
+            @objid ("9b9be5b9-63d5-48a1-8208-223559a100a7")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnDataAssociationData) data).mEndingEvent = value;
             }
 
-            @objid ("4481a2fc-7dbd-40e0-8028-d28168c9e763")
+            @objid ("6ebce7da-7fae-4bba-be9e-1838c669817c")
             @Override
             public SmDependency getSymetric() {
                 return BpmnCatchEventData.Metadata.DataOutputAssociationDep();

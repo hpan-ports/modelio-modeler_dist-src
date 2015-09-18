@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0079db46-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnFlowNodeImpl extends BpmnFlowElementImpl implements BpmnFlowNode {
-    @objid ("ce1ad6c1-c318-48bb-80ae-34615259bf69")
+    @objid ("008a70ce-9f14-4632-9bcb-0caef8639d37")
     @Override
     public EList<BpmnSequenceFlow> getOutgoing() {
         return new SmList<>(this, BpmnFlowNodeData.Metadata.OutgoingDep());
     }
 
-    @objid ("632c07ef-0981-441e-a552-5fc9e106a839")
+    @objid ("e9b25ce5-a5e2-48bf-9005-8e2f8a366bff")
     @Override
     public <T extends BpmnSequenceFlow> List<T> getOutgoing(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,13 +63,13 @@ public abstract class BpmnFlowNodeImpl extends BpmnFlowElementImpl implements Bp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("87651bf9-d17b-4ab6-bef2-e3282f7854bb")
+    @objid ("b68acc92-3ab4-44be-9cca-2e4c28003237")
     @Override
     public EList<BpmnResourceRole> getResource() {
         return new SmList<>(this, BpmnFlowNodeData.Metadata.ResourceDep());
     }
 
-    @objid ("21c0bcb3-9b89-4a94-b7b4-fc54b5616bbb")
+    @objid ("cce6007c-907e-4598-afb5-019ac34f6cbe")
     @Override
     public <T extends BpmnResourceRole> List<T> getResource(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -82,13 +82,13 @@ public abstract class BpmnFlowNodeImpl extends BpmnFlowElementImpl implements Bp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b103288a-140a-4807-8d32-7a5a50fe2e68")
+    @objid ("f45daceb-854f-4847-bfd1-0073d970dc0b")
     @Override
     public EList<BpmnSequenceFlow> getIncoming() {
         return new SmList<>(this, BpmnFlowNodeData.Metadata.IncomingDep());
     }
 
-    @objid ("51e3175b-6419-43a6-b936-d914e23f1d70")
+    @objid ("3d2a9c3b-3843-4b55-9db5-690d43a527cb")
     @Override
     public <T extends BpmnSequenceFlow> List<T> getIncoming(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -101,21 +101,21 @@ public abstract class BpmnFlowNodeImpl extends BpmnFlowElementImpl implements Bp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b2987f70-5f1a-47d6-af73-3a95e4cbef35")
+    @objid ("f8ee4f45-70b0-4db4-94af-c680485f0c6b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7a5317d1-c31d-4707-993b-14777b44dad6")
+    @objid ("863c34c9-0d44-4b6e-86da-eb035f3fbc5c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("f1ddf942-1ae1-4497-9f81-729acaabb3d7")
+    @objid ("ace72725-3695-4552-86f7-5e7262b742bf")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnFlowNode(this);

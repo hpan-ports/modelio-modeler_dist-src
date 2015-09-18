@@ -39,7 +39,7 @@ import org.modelio.app.project.ui.plugin.AppProjectUi;
 public class SwitchWorkspaceHandler {
     @objid ("00456320-6b88-10b3-9941-001ec947cd2a")
     @Execute
-    public void execute(final IEclipseContext context, final IProjectService projectService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell) throws InvocationTargetException, InterruptedException {
+    public void execute(final IEclipseContext context, final IProjectService projectService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell) throws InterruptedException, InvocationTargetException {
         assert (projectService.getOpenedProject() == null);
         AppProjectUi.LOG.info("Switch workspace (current = '%s')", projectService.getWorkspace());
         

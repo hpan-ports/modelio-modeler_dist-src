@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 
 @objid ("003d3af6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface SendSignalAction extends ActivityAction {
-    @objid ("ac989d0f-bb34-4009-9e58-f51f8a215458")
+    @objid ("87e19b98-0574-46a1-b7c2-fb7680044970")
     Signal getSent();
 
-    @objid ("d450ce4b-477f-4043-8521-d8d263463f55")
+    @objid ("48ab0949-ed3b-43be-b3e3-2d08acebd739")
     void setSent(Signal value);
 
 }

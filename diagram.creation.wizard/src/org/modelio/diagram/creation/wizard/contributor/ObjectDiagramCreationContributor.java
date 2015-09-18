@@ -23,7 +23,7 @@ import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 @objid ("fd71ebee-f6e3-4978-909a-87d31a90a620")
-public class ObjectDiagramCreationContributor extends AbstractDiagramCreationContributor {
+public class ObjectDiagramCreationContributor extends AbstractUMLDiagramCreationContributor {
     @objid ("388c4d0e-63a6-4786-9784-d841a8c27d3e")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
@@ -58,19 +58,10 @@ public class ObjectDiagramCreationContributor extends AbstractDiagramCreationCon
         return allowedMetaclasses;
     }
 
-    @objid ("3ec7ed9e-7366-4dd8-8aab-582d8f40d1db")
-    private StaticDiagram createObjectDiagram(final IModelFactory modelFactory, final String diagramName, final ModelElement diagramContext) {
-        // Create the Object diagram
-        StaticDiagram diagram;
-        //TODO fix creation
-        diagram = modelFactory.createObjectDiagram(diagramName, diagramContext, null);
-        return diagram;
-    }
-
-    @objid ("6928ea38-4883-4c8f-8158-f639b6bc00c8")
+    @objid ("a8afe739-67fc-4c6b-9205-27c4b9badfad")
     @Override
-    public String getLabel() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Object.Name");
+    public String getDetails() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Object.Details");
     }
 
     @objid ("fecb5132-f07c-49ab-9cbd-8a2517782d50")
@@ -85,10 +76,19 @@ public class ObjectDiagramCreationContributor extends AbstractDiagramCreationCon
         return DiagramCreationWizard.I18N.getString("CreationWizard.Object.Information");
     }
 
-    @objid ("a8afe739-67fc-4c6b-9205-27c4b9badfad")
+    @objid ("6928ea38-4883-4c8f-8158-f639b6bc00c8")
     @Override
-    public String getDetails() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Object.Details");
+    public String getLabel() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Object.Name");
+    }
+
+    @objid ("3ec7ed9e-7366-4dd8-8aab-582d8f40d1db")
+    private StaticDiagram createObjectDiagram(final IModelFactory modelFactory, final String diagramName, final ModelElement diagramContext) {
+        // Create the Object diagram
+        StaticDiagram diagram;
+        //TODO fix creation
+        diagram = modelFactory.createObjectDiagram(diagramName, diagramContext, null);
+        return diagram;
     }
 
 }

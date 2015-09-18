@@ -37,58 +37,58 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 
 @objid ("0097ec08-c4be-1fd8-97fe-001ec947cd2a")
 public interface Attribute extends StructuralFeature {
-    @objid ("bb7c37cd-6c0c-4786-b2f3-4303bf122c05")
+    @objid ("cb713782-ac1d-4711-ae58-01984b0b700e")
     String getTypeConstraint();
 
-    @objid ("6fd8c953-74a9-4b91-bc3a-af54933ac422")
+    @objid ("44d80ef4-1abf-49c6-8643-4250bc6f1607")
     void setTypeConstraint(String value);
 
-    @objid ("b52c4276-1dfc-4d9e-8753-0cefb49a59f7")
+    @objid ("b2063ed1-3e64-445c-acc9-c08b694d75d6")
     String getValue();
 
-    @objid ("e9a77024-e0a2-48a1-97f0-75279dac2d9c")
+    @objid ("19f0a147-e90b-47f5-93c6-68b94eaa03d7")
     void setValue(String value);
 
-    @objid ("60b31e35-0f77-4f5f-8841-82a1f8461ee8")
+    @objid ("0527376e-da95-4c40-8a46-dc60aadef9c6")
     boolean isTargetIsClass();
 
-    @objid ("759bdf9a-c1a9-4237-ad5b-01cfff142d84")
+    @objid ("321a7cdb-8f9b-4360-8439-b57f42b1283d")
     void setTargetIsClass(boolean value);
 
-    @objid ("239c533e-46b6-4725-bbde-5d8b04974cff")
+    @objid ("54004820-7df0-4ef8-817c-02360d3926d4")
     GeneralClass getType();
 
-    @objid ("14c6f784-01c4-4803-9b35-bd3681a2538a")
+    @objid ("bd8e983e-65fd-45c0-952f-c4c574d4e5f2")
     void setType(GeneralClass value);
 
-    @objid ("bf284bae-effa-45e1-a749-420bc6adf948")
+    @objid ("a4fabce9-59a2-4a3b-bae4-c7ead75061d0")
     Classifier getOwner();
 
-    @objid ("f33e2380-f18c-45b2-ab67-1680f8466e46")
+    @objid ("4e5a81a9-f5a1-4865-a36f-c0c1541d4ab9")
     void setOwner(Classifier value);
 
-    @objid ("d9a2f969-ff5f-4998-a386-15ab9fe20cf9")
+    @objid ("edbc39e1-6af0-434e-b28c-1d5f28cba586")
     EList<AttributeLink> getOccurence();
 
-    @objid ("f8dff8e6-bc43-4d69-b628-34d78909817c")
+    @objid ("6d6de170-ba95-4ac7-bd28-884d0f749323")
     <T extends AttributeLink> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("345441bc-6248-42dc-b759-1255b2b8f00f")
+    @objid ("f67b58ee-f96c-4768-9c79-938b3f2605d5")
     EList<BpmnItemAwareElement> getRepresentingItem();
 
-    @objid ("2a9e792b-bfd7-45f0-ba84-cc58bf5619b8")
+    @objid ("19509ba9-a3cf-41ab-9e48-48818d8391f6")
     <T extends BpmnItemAwareElement> List<T> getRepresentingItem(java.lang.Class<T> filterClass);
 
-    @objid ("a244975f-e87d-49c9-9d01-a5d97a4d4f7d")
+    @objid ("99458a9d-58fc-472d-b8b3-858bbcd7e448")
     EList<ObjectNode> getRepresentingObjectNode();
 
-    @objid ("8db235b6-d4ea-4554-88de-e10c2a92225e")
+    @objid ("81c2e550-cf09-408a-aa76-c9394cd8b079")
     <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass);
 
-    @objid ("d9cc17c8-dd2a-4e62-9b83-482a3d24f5fb")
+    @objid ("4346dfad-3a38-486e-bea6-f46180973d31")
     AssociationEnd getQualified();
 
-    @objid ("f62bb6ea-050e-4303-80db-5a928aed0bd2")
+    @objid ("f44815f5-b4b1-42ec-af0b-bfde3e218a3c")
     void setQualified(AssociationEnd value);
 
 }

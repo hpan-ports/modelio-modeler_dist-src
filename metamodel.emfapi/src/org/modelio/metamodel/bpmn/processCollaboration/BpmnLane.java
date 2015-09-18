@@ -35,28 +35,28 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("00746c56-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnLane extends BpmnBaseElement {
-    @objid ("79a0a0f0-c5d3-4ef3-8099-40c3c28606a0")
+    @objid ("f693cbf1-d52d-45c4-8638-90756217e329")
     BpmnLaneSet getChildLaneSet();
 
-    @objid ("5fb90753-f116-4575-ae95-3081eb7ffe58")
+    @objid ("f8ab16a7-4cc7-488c-a171-4fd05b5a93d6")
     void setChildLaneSet(BpmnLaneSet value);
 
-    @objid ("5e536475-a3fa-4b9e-a5ac-9e065fd7cbe4")
+    @objid ("6bf9769e-f3dc-4832-9ccb-0e389b105207")
     ModelElement getPartitionElement();
 
-    @objid ("6acf6a47-6aab-4eca-8b78-848de5b68dde")
+    @objid ("95b869a1-425c-44af-aa36-586fa78cd70f")
     void setPartitionElement(ModelElement value);
 
-    @objid ("0f152402-8c23-4efd-a605-6418354f4bae")
+    @objid ("9fe866d8-1c5f-44fd-8117-3fdf36056490")
     EList<BpmnFlowElement> getFlowElementRef();
 
-    @objid ("9fc148fc-fe4b-4267-bf43-61c9dc9987b5")
+    @objid ("3d1b5519-2cb9-4813-96b7-fa298dfc9f74")
     <T extends BpmnFlowElement> List<T> getFlowElementRef(java.lang.Class<T> filterClass);
 
-    @objid ("0f7401fc-3b0c-4c48-b890-c9ab7dce7b31")
+    @objid ("76ffa3ce-2582-4b1c-aa88-a05a83ce8032")
     BpmnLaneSet getLaneSet();
 
-    @objid ("0f222276-3174-4b49-b067-3ec9dc764343")
+    @objid ("e8b575e1-db45-4959-b515-9e4ab78c0c37")
     void setLaneSet(BpmnLaneSet value);
 
 }

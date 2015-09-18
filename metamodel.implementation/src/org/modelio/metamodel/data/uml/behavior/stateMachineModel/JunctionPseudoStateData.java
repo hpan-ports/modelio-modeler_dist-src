@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0052b73c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=JunctionPseudoState.class, factory=JunctionPseudoStateData.Metadata.ObjectFactory.class)
 public class JunctionPseudoStateData extends AbstractPseudoStateData {
-    @objid ("74345bc3-28a8-44cb-8f13-191ee5e0433f")
+    @objid ("81c4e531-6508-49d8-9b4c-594f5395a7f4")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001ea3d4-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("4460c189-32a8-4d97-a6ee-9a6876de8db4")
+        @objid ("6b5aca70-5297-4aa9-be04-41d3e7928e46")
         private static SmClass smClass = null;
 
-        @objid ("948bdabe-3685-4cba-8ef4-06781375d38a")
+        @objid ("e6e93b15-9fe9-42c2-98c6-e8c1a55036f4")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(JunctionPseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("65679e11-4560-485c-87df-3ee0dc986fb9")
+        @objid ("3567425d-f0c0-43c7-9840-54f9730dba8b")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class JunctionPseudoStateData extends AbstractPseudoStateData {
 
         @objid ("001ee8da-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e092a2c3-7952-45ef-ae05-0c3634ce12b0")
+            @objid ("7c9f25cd-4f63-4c84-a457-ac96c377b696")
             public ISmObjectData createData() {
                 return new JunctionPseudoStateData();
             }
 
-            @objid ("0ef9075b-aac1-4bdf-9d71-ef1494c7038c")
+            @objid ("cb5c1d00-a129-471a-98d9-391020fd6b7d")
             public SmObjectImpl createImpl() {
                 return new JunctionPseudoStateImpl();
             }

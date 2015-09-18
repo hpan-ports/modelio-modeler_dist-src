@@ -27,9 +27,9 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.NameSpace;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ModelUtils;
-import org.modelio.xmi.util.ReverseProperties;
 
 /**
  * This class handles the import of Ecore Opaque org.eclipse.uml2.uml. Behavior

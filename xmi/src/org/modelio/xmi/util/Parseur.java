@@ -66,14 +66,13 @@ public class Parseur {
     public Parseur(File file) {
         //Chargement du document
         try{
-            factory = DocumentBuilderFactory.newInstance();
-            builder = factory.newDocumentBuilder();
-            doc = builder.parse(file);
-            this.nroot = doc.getDocumentElement();
+            this.factory = DocumentBuilderFactory.newInstance();
+            this.builder = this.factory.newDocumentBuilder();
+            this.doc = this.builder.parse(file);
+            this.nroot = this.doc.getDocumentElement();
             this.file = file;
-        }
-        catch(Exception e){
-            e.printStackTrace();
+        }catch(Exception e){
+            Xmi.LOG.debug(e);
         }
     }
 
@@ -138,8 +137,8 @@ public class Parseur {
         
         NodeList listeparcours = this.nroot.getElementsByTagName("node");
         
-        List<String> listId = new ArrayList<String>();
-        List<Element> toDelete = new ArrayList <Element>();
+        List<String> listId = new ArrayList<>();
+        List<Element> toDelete = new ArrayList <>();
         
         int nbparcours=listeparcours.getLength();
         for(int i = 0; i < nbparcours; i++){
@@ -195,7 +194,7 @@ public class Parseur {
         
         NodeList listeparcours = this.nroot.getElementsByTagName("ownedParameter");
         
-        List <Element> toDelete = new ArrayList <Element>();
+        List <Element> toDelete = new ArrayList <>();
         
         int nbparcours=listeparcours.getLength();
         for(int i = 0; i < nbparcours; i++){
@@ -219,7 +218,7 @@ public class Parseur {
         
         NodeList listeparcours = this.nroot.getElementsByTagName("annotatedElement");
         
-        List<String> listId = new ArrayList<String>();
+        List<String> listId = new ArrayList<>();
         
         int nbparcours = listeparcours.getLength();
         for(int i = 0; i < nbparcours; i++){
@@ -235,7 +234,7 @@ public class Parseur {
                 listId.remove(e.getAttribute("xmi:id"));
         }
         
-        List <Element> toDelete = new ArrayList <Element>();
+        List <Element> toDelete = new ArrayList <>();
         for(int i = 0; i < nbparcours; i++){
             Element e = (Element)listeparcours.item(i);
             if (e.hasAttribute("xmi:idref") && (listId.contains(e.getAttribute("xmi:idref"))))
@@ -249,18 +248,18 @@ public class Parseur {
 
     @objid ("272ca625-28ab-4936-a0b0-04f331d97d60")
     private List<Element> getAllElement() {
-        List <Element> result = new ArrayList <Element>();
+        List <Element> result = new ArrayList <>();
         NodeList nodeList = this.nroot.getChildNodes();
         
         int nbChild = nodeList.getLength();
         
-        List <Element> current = new ArrayList <Element>();
+        List <Element> current = new ArrayList <>();
         for(int i = 0; i < nbChild; i++){
             if (nodeList.item(i) instanceof Element)
                 current.add((Element)nodeList.item(i));
         }
         
-        List <Element> temp = new ArrayList <Element>();
+        List <Element> temp = new ArrayList <>();
         boolean haveChild = true;
         
         while(haveChild){
@@ -283,11 +282,11 @@ public class Parseur {
     private void ecrireDocument() {
         // on consid?re le document "doc" comme ?tant la source d'une 
         // transformation XML
-        Source source = new DOMSource(doc);
+        Source source = new DOMSource(this.doc);
         
         // le r?sultat de cette transformation sera un flux d'?criture dans
         // un fichier
-        Result resultat = new StreamResult(new File(file.getAbsolutePath() + "test"));
+        Result resultat = new StreamResult(new File(this.file.getAbsolutePath() + "test"));
         
         // cr?ation du transformateur XML
         Transformer transfo = null;
@@ -324,7 +323,7 @@ public class Parseur {
 
     @objid ("5be2deb7-1205-44af-a6bc-81e3e8424712")
     private List<Element> getAllChild(List<Element> old) {
-        List <Element> result = new ArrayList <Element>();
+        List <Element> result = new ArrayList <>();
         
         for (Element current : old){
             NodeList currentChild = current.getChildNodes();

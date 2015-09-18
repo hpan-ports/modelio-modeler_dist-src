@@ -45,13 +45,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000e545c-c4bf-1fd8-97fe-001ec947cd2a")
 public class InterfaceImpl extends GeneralClassImpl implements Interface {
-    @objid ("a45713d9-e8ee-42b2-9b47-ed1175e7752b")
+    @objid ("cd6c0c17-a45f-4f46-85cf-75fd0724b0ef")
     @Override
     public EList<RequiredInterface> getRequiring() {
         return new SmList<>(this, InterfaceData.Metadata.RequiringDep());
     }
 
-    @objid ("4ee54c04-f60b-46c1-b918-dad4f6bd69f0")
+    @objid ("c3c7bf3d-3b10-481e-82d2-99ef3ebf9827")
     @Override
     public <T extends RequiredInterface> List<T> getRequiring(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -64,13 +64,13 @@ public class InterfaceImpl extends GeneralClassImpl implements Interface {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8acb12ee-c140-4923-95c6-c2494c13f892")
+    @objid ("1a850342-2d28-4e93-af34-1d2bd366d981")
     @Override
     public EList<InterfaceRealization> getImplementedLink() {
         return new SmList<>(this, InterfaceData.Metadata.ImplementedLinkDep());
     }
 
-    @objid ("df595295-d023-4acd-bd0a-fbf1e6f2aa24")
+    @objid ("91c89d52-2261-43e0-83a0-9cfc3bb80672")
     @Override
     public <T extends InterfaceRealization> List<T> getImplementedLink(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -83,13 +83,13 @@ public class InterfaceImpl extends GeneralClassImpl implements Interface {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("5555f14d-06db-4844-8a81-8d4732b2d2a3")
+    @objid ("40cc6f67-70c1-459e-bfb3-204132ead227")
     @Override
     public EList<ProvidedInterface> getProviding() {
         return new SmList<>(this, InterfaceData.Metadata.ProvidingDep());
     }
 
-    @objid ("fa2e6077-0994-40bd-87e3-372d83337cdb")
+    @objid ("f39ef1a8-b3cc-4ce5-a4df-a7561c196205")
     @Override
     public <T extends ProvidedInterface> List<T> getProviding(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -102,21 +102,21 @@ public class InterfaceImpl extends GeneralClassImpl implements Interface {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("31260309-82af-41de-8f57-075ad041af78")
+    @objid ("1fa5a8b2-eb3d-404f-b9d1-cbb5e3b496f9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("8a1b2334-2b64-42ff-9d18-add9f18d291c")
+    @objid ("3389b42b-284d-4ad6-9812-ff24ce56983e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("abf58346-5699-4da5-93c1-826b44a66971")
+    @objid ("12582ec5-d8b2-48f2-af20-19f880582870")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInterface(this);

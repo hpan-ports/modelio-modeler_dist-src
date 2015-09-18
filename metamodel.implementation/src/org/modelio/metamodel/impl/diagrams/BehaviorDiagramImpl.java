@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0069c5b2-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BehaviorDiagramImpl extends AbstractDiagramImpl implements BehaviorDiagram {
-    @objid ("3d18ca31-3bdb-45ef-8105-336893ec63ea")
+    @objid ("d6bfdb9a-1771-45f6-8efa-2f4f78ca4e0f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("83a59997-1290-42e7-bc68-c862182e2800")
+    @objid ("e26c4167-9d9f-48db-b592-2514bed5824b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("28fd7f48-d9db-442c-be8f-082cc84c6762")
+    @objid ("6e1e35de-2204-45be-aeec-1a3ef0d7c020")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBehaviorDiagram(this);

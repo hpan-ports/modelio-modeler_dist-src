@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.statik.Artifact;
 
 @objid ("00108470-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Manifestation extends ModelElement {
-    @objid ("0ccd438c-1364-4b07-b04b-19908b1200c8")
+    @objid ("70ce19ca-ff13-4e32-b61a-74eb221d6354")
     ModelElement getUtilizedElement();
 
-    @objid ("7d6844c3-ef80-48f6-bbbd-c5b9ec1c12bf")
+    @objid ("b19ec04e-f9ed-4a49-91dc-7b292a57bf7c")
     void setUtilizedElement(ModelElement value);
 
-    @objid ("b3cef651-c5a1-4048-8daf-0a89d3db01fb")
+    @objid ("b6d15e93-b489-49a3-b103-27945ad5afff")
     Artifact getOwner();
 
-    @objid ("dbff9867-b000-4775-b325-7578a137e20d")
+    @objid ("b0caa1a4-0a10-42b3-8acb-5a7dd4b8c424")
     void setOwner(Artifact value);
 
 }

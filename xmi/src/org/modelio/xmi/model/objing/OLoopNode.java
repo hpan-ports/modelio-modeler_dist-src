@@ -27,8 +27,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.LoopNode;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("7bf5ab1e-9918-4613-8f66-81f0ba6cefa7")

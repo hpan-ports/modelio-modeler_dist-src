@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004e106a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ChoicePseudoState.class, factory=ChoicePseudoStateData.Metadata.ObjectFactory.class)
 public class ChoicePseudoStateData extends AbstractPseudoStateData {
-    @objid ("4f67ea17-9704-48df-83ea-bb40022ef995")
+    @objid ("e65cb236-4613-4123-ae22-0b3409702aee")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0077c680-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("97ade74a-c605-4e00-bb3d-01e5d9d131a7")
+        @objid ("f78ab4af-39ec-4807-8a79-1102be889bd6")
         private static SmClass smClass = null;
 
-        @objid ("836b4dbc-e50e-4882-a144-8d574dbf1cd7")
+        @objid ("9b7fcbd2-47e5-473f-9895-15f2292ffd84")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ChoicePseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("6444bbcb-c1c2-4de4-ab64-a967d13f524a")
+        @objid ("b51827a2-cecc-4c7a-89ba-ac04e3c65709")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ChoicePseudoStateData extends AbstractPseudoStateData {
 
         @objid ("00780834-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("abdc7394-6742-4642-9213-9c066660462a")
+            @objid ("6c57342d-d91c-4988-869b-1fac13351af8")
             public ISmObjectData createData() {
                 return new ChoicePseudoStateData();
             }
 
-            @objid ("df9fcb70-2712-40e3-b868-417a88c27247")
+            @objid ("a9173393-3af5-4e32-b1b0-dbc97c57428f")
             public SmObjectImpl createImpl() {
                 return new ChoicePseudoStateImpl();
             }

@@ -26,8 +26,8 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.ElementImport;
 import org.modelio.metamodel.uml.statik.NameSpace;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("41f10e59-7437-40f9-9d86-4728b40c14fd")

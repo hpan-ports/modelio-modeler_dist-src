@@ -44,55 +44,55 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0064a19a-ec87-1098-b22e-001ec947cd2a")
 public class PropertyDefinitionImpl extends ModelElementImpl implements PropertyDefinition {
-    @objid ("0a92fffd-86d3-4cf2-9a68-43aade1393ea")
+    @objid ("efba4a29-6a4f-4897-9acd-a71ea3afb054")
     @Override
     public boolean isIsEditable() {
         return (Boolean) getAttVal(PropertyDefinitionData.Metadata.IsEditableAtt());
     }
 
-    @objid ("f230d316-fc33-4940-aae1-07390abf7feb")
+    @objid ("882e61f7-d64f-4972-ba2f-67973ac657e1")
     @Override
     public void setIsEditable(boolean value) {
         setAttVal(PropertyDefinitionData.Metadata.IsEditableAtt(), value);
     }
 
-    @objid ("96b0d047-d35d-4d14-9e6f-87a82cff426b")
+    @objid ("4306e7c8-c164-425d-9032-e2fc98eedec9")
     @Override
     public String getDefaultValue() {
         return (String) getAttVal(PropertyDefinitionData.Metadata.DefaultValueAtt());
     }
 
-    @objid ("1861ac03-9128-4c4b-a648-777aa86897b4")
+    @objid ("04c115c9-7f15-41a1-b5d8-dcfa66c852f5")
     @Override
     public void setDefaultValue(String value) {
         setAttVal(PropertyDefinitionData.Metadata.DefaultValueAtt(), value);
     }
 
-    @objid ("774b4992-cb12-443f-a371-9de589aa2afe")
+    @objid ("769fa704-66b0-4784-959d-b32796d7c50b")
     @Override
     public PropertyType getType() {
         return (PropertyType) getDepVal(PropertyDefinitionData.Metadata.TypeDep());
     }
 
-    @objid ("14e4d8ba-2d32-4509-aabc-f5af2d2667ef")
+    @objid ("1912ddfe-9ac2-418a-b79e-977ec4cfdf0c")
     @Override
     public void setType(PropertyType value) {
         appendDepVal(PropertyDefinitionData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2a58b28b-e0d7-4d28-bf55-32cb823bce59")
+    @objid ("425a925c-fff9-4762-9ee2-1aec8dc3f2c1")
     @Override
     public PropertyTableDefinition getOwner() {
         return (PropertyTableDefinition) getDepVal(PropertyDefinitionData.Metadata.OwnerDep());
     }
 
-    @objid ("f3958b04-2799-458f-85cb-41a794c72fde")
+    @objid ("abf5af57-57b4-43b4-bf9e-48ea166678a2")
     @Override
     public void setOwner(PropertyTableDefinition value) {
         appendDepVal(PropertyDefinitionData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("024ab184-b6ce-45b9-a6bf-c50d9da35a7d")
+    @objid ("b10a09cf-c4ee-411f-b941-9a5bcb9fc993")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -102,7 +102,7 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
         return super.getCompositionOwner();
     }
 
-    @objid ("faac015a-3fea-4fe7-a903-b0e51344dd90")
+    @objid ("c81ad7a9-908d-4716-b184-4cae852deb5b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -112,7 +112,7 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
         return super.getCompositionRelation();
     }
 
-    @objid ("25d6ab34-2af3-4941-8b15-b564c4875847")
+    @objid ("7a2f1b58-7178-4d2a-8cd6-1da9714ed844")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPropertyDefinition(this);

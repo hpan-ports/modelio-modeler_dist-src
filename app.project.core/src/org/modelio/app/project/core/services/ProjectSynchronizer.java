@@ -22,31 +22,39 @@
 package org.modelio.app.project.core.services;
 
 import java.io.IOException;
+import java.net.URI;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.swt.widgets.Display;
 import org.modelio.api.module.ModuleException;
+import org.modelio.core.ui.auth.AuthDataDialog;
 import org.modelio.core.ui.progress.ModelioProgressAdapter;
-import org.modelio.gproject.data.project.AuthDescriptor;
 import org.modelio.gproject.data.project.ModuleDescriptor;
+import org.modelio.gproject.gproject.AuthResolver;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
 import org.modelio.gproject.gproject.GProjectConfigurer;
 import org.modelio.gproject.module.GModule;
 import org.modelio.mda.infra.service.IModuleService;
 import org.modelio.vbasic.auth.IAuthData;
+import org.modelio.vbasic.auth.UserPasswordAuthData;
+import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.net.UriPathAccess;
 import org.modelio.vbasic.progress.IModelioProgress;
 
 /**
- * Service class that synchronize a {@link GProject} against its remote configuration.
- * <p>
- * Installs, upgrade or remove modules and fragments when needed.
- * <p>
- * Usage:<ul>
- * <li> allocate with {@link #ProjectSynchronizer(GProject, IModuleService)}
- * <li> run with {@link #synchronize(IProgressMonitor)}
- * <li> if no exception, call {@link #getFailures()} to display potential problems (if any) to the user.
+ * <p>Service class that synchronize a {@link GProject} against its remote configuration.</p>
+ * 
+ * <p>Installs, upgrade or remove modules and fragments when needed.</p>
+ * 
+ * <p>Usage:</p>
+ * 
+ * <ul>
+ * <li>allocate with {@link #ProjectSynchronizer(GProject, IModuleService)}</li>
+ * <li>run with {@link #synchronize(IProgressMonitor)}</li>
+ * <li>if no exception, call {@link #getFailures()} to display potential problems (if any) to the user.</li>
  * </ul>
  */
 @objid ("7b94b9c5-be61-4e61-90e9-16be4c6e853d")
@@ -75,7 +83,7 @@ public class ProjectSynchronizer extends GProjectConfigurer {
      * @throws org.modelio.gproject.gproject.GProjectAuthenticationException in case of authentication failure
      */
     @objid ("ebef6208-8ac1-4509-ae96-78b8755d4e6f")
-    public boolean synchronize(IProgressMonitor monitor) throws GProjectAuthenticationException, IOException {
+    public boolean synchronize(IProgressMonitor monitor) throws IOException, GProjectAuthenticationException {
         ModelioProgressAdapter mon = new ModelioProgressAdapter(monitor);
         return synchronize(mon);
     }
@@ -83,8 +91,7 @@ public class ProjectSynchronizer extends GProjectConfigurer {
     @objid ("f1648aa4-b7c0-4707-b43e-22d73e12f03c")
     @Override
     protected void installModule(ModuleDescriptor fd, IModelioProgress mon) throws IOException {
-        AuthDescriptor authDesc = fd.getAuthDescriptor();
-        IAuthData authData = (authDesc != null)? authDesc.getData() : null;
+        IAuthData authData = new AuthResolver(getProject()).resolve(fd);
         try (UriPathAccess access = new UriPathAccess(fd.getArchiveLocation(),authData)){
             // Install the module as if the user asked for it
             Path archivePath = access.getPath();
@@ -94,7 +101,7 @@ public class ProjectSynchronizer extends GProjectConfigurer {
             reconfigureModule(findModule(fd.getName()), fd, mon);
             
         } catch (ModuleException e) {
-            throw new IOException(e);
+            throw new IOException(e.getLocalizedMessage(), e);
         }
     }
 
@@ -105,16 +112,15 @@ public class ProjectSynchronizer extends GProjectConfigurer {
         try {
             this.moduleService.removeModule(m);
         } catch (ModuleException e) {
-            throw new IOException(e);
+            throw new IOException(e.getLocalizedMessage(), e);
         }
     }
 
     @objid ("4fbda55c-3723-4084-9ae2-b2ab8d1f6463")
     @Override
     protected void upgradeModule(GModule m, ModuleDescriptor fd, IModelioProgress mon) throws IOException {
-        AuthDescriptor authDesc = fd.getAuthDescriptor();
-        IAuthData authData = (authDesc != null)? authDesc.getData() : null;
-        try (UriPathAccess access = new UriPathAccess(fd.getArchiveLocation(),authData)){
+        IAuthData authData = new AuthResolver(getProject()).resolve(fd);
+        try (UriPathAccess access = new UriPathAccess(fd.getArchiveLocation(), authData)){
             // Install the module as if the user asked for it
             // The module may change some parameters on upgrade, they won't be lost.
             Path archivePath = access.getPath();
@@ -125,7 +131,7 @@ public class ProjectSynchronizer extends GProjectConfigurer {
             reconfigureModule(findModule(fd.getName()), fd, mon);
             
         } catch (ModuleException e) {
-            throw new IOException(e);
+            throw new IOException(e.getLocalizedMessage(), e);
         }
     }
 
@@ -135,6 +141,21 @@ public class ProjectSynchronizer extends GProjectConfigurer {
             if (g.getName().equals(name))
                 return g;
         return null;
+    }
+
+    @objid ("052717f3-d042-4c0f-a3a8-2556514a84e2")
+    @Override
+    protected IAuthData handleAccessDeniedException(String toAuthenticate, URI uri, IAuthData badData, AccessDeniedException e) {
+        final IAuthData ret[] = new IAuthData[]{null} ;
+        
+        Display.getDefault().syncExec( () -> {
+            IAuthData initialData = badData!=null ? badData : new UserPasswordAuthData();
+            AuthDataDialog dlg = new AuthDataDialog(  Display.getCurrent().getActiveShell(), initialData, toAuthenticate+" @ "+uri.getHost());
+            dlg.setWarningMessage(FileUtils.getLocalizedMessage(e));
+            if (dlg.open() == 0)
+                ret[0] = dlg.getAuthData();
+        } );
+        return ret[0];
     }
 
 }

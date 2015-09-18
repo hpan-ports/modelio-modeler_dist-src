@@ -95,14 +95,8 @@ public class UrlFragment extends AbstractFragment {
         // Compute a local path to copy the index to.
         Path localPath = getRuntimeDirectory();
         
-        GAuthConf auth = getAuthConfiguration();
-                
-        // Use the project user & password if none defined
-        if (auth == null)
-            auth = getProject().getAuthConfiguration();
-        
         // instantiate the repository from the URL
-        UriExmlResourceProvider resProvider = new UriExmlResourceProvider(this.repoUrl, localPath, auth.getAuthData());
+        UriExmlResourceProvider resProvider = new UriExmlResourceProvider(this.repoUrl, localPath, getAuthData());
         resProvider.setName(getId());
         
         this.repository = new ExmlBase(resProvider);

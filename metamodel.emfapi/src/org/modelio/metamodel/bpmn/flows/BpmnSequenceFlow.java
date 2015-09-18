@@ -38,58 +38,58 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
 
 @objid ("007cd986-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnSequenceFlow extends BpmnFlowElement {
-    @objid ("50b76666-b544-4aea-b980-4d8a787b211b")
+    @objid ("53ba4257-f920-4abc-9c07-be325a2bc891")
     boolean isIsImmediate();
 
-    @objid ("3670326f-64f5-476e-b259-2184734f4622")
+    @objid ("4793525a-6102-4103-8b0a-a16bde1e46f7")
     void setIsImmediate(boolean value);
 
-    @objid ("503c08b2-b2fd-4d82-993b-0f870597b87f")
+    @objid ("8fb5a57f-576d-4169-89d9-a0dd826055ee")
     String getConditionExpression();
 
-    @objid ("51f6d8d4-9c02-4916-a836-124ebb7be9f0")
+    @objid ("b23d448a-f2ac-4e79-bc2f-b88a1b7be4a7")
     void setConditionExpression(String value);
 
-    @objid ("cc323067-328e-4bfb-88f3-7949bf6effe4")
+    @objid ("d8680625-1924-4ebf-98bd-06257c406f72")
     BpmnFlowNode getSourceRef();
 
-    @objid ("dfc0a632-6eb8-444f-9949-49d769139c63")
+    @objid ("75619a63-2739-4f87-8c4a-bdfba629b982")
     void setSourceRef(BpmnFlowNode value);
 
-    @objid ("7c376332-93e1-4457-af71-19a707e5d98e")
+    @objid ("73096c18-ec22-4267-8524-25eb6b19c91f")
     BpmnFlowNode getTargetRef();
 
-    @objid ("6484e2b9-4994-4203-a79b-18025f8544bf")
+    @objid ("f3e63ad0-bd0e-4d20-a89e-4a4f6529b52f")
     void setTargetRef(BpmnFlowNode value);
 
-    @objid ("363feddb-75d8-46a9-9028-433b90a3f215")
+    @objid ("2051612a-e747-4e6a-a08a-39265887e577")
     BpmnInclusiveGateway getDefaultOfInclusive();
 
-    @objid ("f5598ae3-b3f4-4a89-9980-920b8c7eca90")
+    @objid ("c527e014-e15b-4b43-8855-34b8efc423b0")
     void setDefaultOfInclusive(BpmnInclusiveGateway value);
 
-    @objid ("4ab5eb5f-c695-41e9-8ae3-3e96e84b2c74")
+    @objid ("6071e947-7002-46a1-a4ca-1d4531e8a0e4")
     BpmnActivity getDefaultFrom();
 
-    @objid ("06b9e380-eb6b-4d93-8b82-cb75297bf24d")
+    @objid ("5dcb7a77-3977-4f4c-b04c-f6c612d330b1")
     void setDefaultFrom(BpmnActivity value);
 
-    @objid ("1d24c5d5-cf7e-49a0-a87d-95b4d441b23c")
+    @objid ("e7574ed0-3391-4244-8f0c-ec49fb5384d7")
     BpmnExclusiveGateway getDefaultOfExclusive();
 
-    @objid ("3f2732b4-ea16-43d9-9945-b048ecf6aac8")
+    @objid ("d633159d-1254-4048-b7ee-e9ab218430bb")
     void setDefaultOfExclusive(BpmnExclusiveGateway value);
 
-    @objid ("e239a3bb-6e01-4456-91db-5255ad2a0ad4")
+    @objid ("c92d94dd-430e-4768-a8b8-0f7ce0ec9285")
     EList<BpmnSequenceFlowDataAssociation> getConnector();
 
-    @objid ("3d52865b-692c-465d-a85c-0d09caddccd5")
+    @objid ("38d3a2ad-3df0-48d6-b63e-8c9ccc2dca93")
     <T extends BpmnSequenceFlowDataAssociation> List<T> getConnector(java.lang.Class<T> filterClass);
 
-    @objid ("3460af1d-c408-4f93-aec0-31fadf5f5b79")
+    @objid ("953bbb94-452f-419b-bdd0-2bb5dffc502f")
     BpmnComplexGateway getDefaultOfComplex();
 
-    @objid ("ae057fcb-24ea-4566-8459-6dc9bba119b8")
+    @objid ("9269d1bf-1540-4279-8e13-f32187be64f1")
     void setDefaultOfComplex(BpmnComplexGateway value);
 
 }

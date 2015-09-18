@@ -51,19 +51,19 @@ public class PropertyEnumerationLitteralImpl extends ModelElementImpl implements
         return Integer.compare(literals.indexOf(l), literals.indexOf(this));
     }
 
-    @objid ("0d2be88f-1f02-4a40-a1af-d77112b0e793")
+    @objid ("3f719770-9e67-435b-bb41-4881dc7f5783")
     @Override
     public EnumeratedPropertyType getOwner() {
         return (EnumeratedPropertyType) getDepVal(PropertyEnumerationLitteralData.Metadata.OwnerDep());
     }
 
-    @objid ("9bc48c5e-bde2-473c-9aad-fa0fe49815c7")
+    @objid ("4fc3b993-3dfc-42b0-9572-04ebeff53792")
     @Override
     public void setOwner(EnumeratedPropertyType value) {
         appendDepVal(PropertyEnumerationLitteralData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4fc5f120-04ff-4385-82b4-7c286dc7fadd")
+    @objid ("fee71c6a-b48c-4522-bc0c-79f98ac752fa")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -73,7 +73,7 @@ public class PropertyEnumerationLitteralImpl extends ModelElementImpl implements
         return super.getCompositionOwner();
     }
 
-    @objid ("888f5195-e36d-4e30-9e23-f4e0c4a882a9")
+    @objid ("c0d8c0ec-a8af-4f2b-81b9-76e479d9f123")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -83,7 +83,7 @@ public class PropertyEnumerationLitteralImpl extends ModelElementImpl implements
         return super.getCompositionRelation();
     }
 
-    @objid ("933f37fc-8bc6-4e71-8430-edd9f5487bc2")
+    @objid ("0a80c9ee-27e0-453a-8be6-dec9ea75fe93")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPropertyEnumerationLitteral(this);

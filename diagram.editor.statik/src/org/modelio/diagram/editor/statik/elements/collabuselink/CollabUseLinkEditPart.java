@@ -52,6 +52,9 @@ public class CollabUseLinkEditPart extends GmLinkEditPart {
         arrow.setFill(false);
         connection.setTargetDecoration(arrow);
         
+        // Make sure the arrow has appropriate style
+        refreshFromStyle(connection, getModelStyle());
+        
         // Set style dependent properties
         return connection;
     }

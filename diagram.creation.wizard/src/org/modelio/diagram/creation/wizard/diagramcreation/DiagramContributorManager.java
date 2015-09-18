@@ -100,9 +100,6 @@ public class DiagramContributorManager {
             categoryContributors.remove(contributor);
             // Remove category from the list if it has no more contributors
             if (categoryContributors.size() == 0) {
-                if (category.getIcon() != null && !category.getIcon().isDisposed()) {
-                    category.getIcon().dispose();
-                }
                 this.contributors.remove(category);
             }
         }

@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0085963e-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnTransactionImpl extends BpmnSubProcessImpl implements BpmnTransaction {
-    @objid ("3995901d-3ea9-42c5-bb79-80d4b07fd4d3")
+    @objid ("ec5df7d5-d23b-4f1d-b0ef-f4751b9156b3")
     @Override
     public String getProtocol() {
         return (String) getAttVal(BpmnTransactionData.Metadata.ProtocolAtt());
     }
 
-    @objid ("95721fc0-a7f5-486b-bca3-987c3a6cb42c")
+    @objid ("0813e090-cb69-49b9-9fda-665d7d67f2ac")
     @Override
     public void setProtocol(String value) {
         setAttVal(BpmnTransactionData.Metadata.ProtocolAtt(), value);
     }
 
-    @objid ("a03aec67-a9e1-4c06-a8b0-53183ab88e73")
+    @objid ("c9fe5f11-a46c-48b2-8267-618627f37dc9")
     @Override
     public TransactionMethod getMethod() {
         return (TransactionMethod) getAttVal(BpmnTransactionData.Metadata.MethodAtt());
     }
 
-    @objid ("ec775f81-fd5f-4bfd-831f-2d9be974b5d5")
+    @objid ("8e8ff3c6-875d-49e1-a875-f3e741cbc02c")
     @Override
     public void setMethod(TransactionMethod value) {
         setAttVal(BpmnTransactionData.Metadata.MethodAtt(), value);
     }
 
-    @objid ("2ab66982-a2ef-4f63-8de5-0249e81ee11e")
+    @objid ("37a3b27f-aa2f-4af4-9782-aaacf60009ea")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("3ca13517-9317-4dd2-89bf-86e17ae8e68c")
+    @objid ("e49f4887-ba1f-4c42-ae40-ea8ce50698b0")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("0586d4ad-1e8e-423f-a0df-55fdd4fe1122")
+    @objid ("dd0db089-4710-40ae-939e-73557a319265")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnTransaction(this);

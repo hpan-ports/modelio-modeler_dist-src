@@ -161,7 +161,7 @@ public class ProjectCreator implements IProjectCreator {
      * @throws java.nio.file.FileSystemException in case of file system error
      */
     @objid ("3e9074cc-ba08-40be-ac20-9f2456c7e329")
-    private IModuleHandle getModelerModule(IModuleCatalog moduleCatalog, IModelioProgress monitor) throws IOException, FileSystemException {
+    private IModuleHandle getModelerModule(IModuleCatalog moduleCatalog, IModelioProgress monitor) throws FileSystemException, IOException {
         IModuleHandle modelerModule = moduleCatalog.findModule("ModelerModule", /*
                                                                                  * latest
                                                                                  * version

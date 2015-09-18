@@ -61,7 +61,6 @@ public class ScriptClassLoader extends URLClassLoader {
     public ScriptClassLoader() {
         super(new URL[0]);
         addContributingPluginClassLoaders();
-        // addModulesClassLoaders(moduleService);
     }
 
     @objid ("007225f4-c5d9-1069-96f6-001ec947cd2a")
@@ -106,7 +105,7 @@ public class ScriptClassLoader extends URLClassLoader {
     @objid ("0076debe-bf95-1069-96f6-001ec947cd2a")
     @Override
     public URL[] getURLs() {
-        LinkedList<URL> urls = new LinkedList<>();
+        List<URL> urls = new LinkedList<>();
         for (ClassLoader l : this.parents) {
             if (l instanceof URLClassLoader) {
                 for (URL u : ((URLClassLoader) l).getURLs()) {
@@ -147,7 +146,7 @@ public class ScriptClassLoader extends URLClassLoader {
                 }
             }
             return super.findClass(name);
-        } catch (Error e) {
+        } catch (Exception e) {
             ScriptEnginePlugin.LOG.debug(e.getClass().getSimpleName() + " while looking for a class. classpath=");
             for (URL url : getURLs()) {
                 ScriptEnginePlugin.LOG.debug(" - " + url.toString());

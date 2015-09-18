@@ -46,43 +46,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008909ea-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnCatchEvent.class, factory=BpmnCatchEventData.Metadata.ObjectFactory.class)
 public abstract class BpmnCatchEventData extends BpmnEventData {
-    @objid ("2945b43e-c6c9-4c39-92f4-5690b2c0d36c")
+    @objid ("1fbc93f8-dea1-4d33-b3a8-528922c1be30")
     @SmaMetaAttribute(metaName="ParallelMultiple", type=Boolean.class, smAttributeClass=Metadata.ParallelMultipleSmAttribute.class)
      Object mParallelMultiple = false;
 
-    @objid ("c3311149-8c25-4c9e-a418-55494472559a")
+    @objid ("6d7d9152-649f-488c-a75d-9dc063e9b5fc")
     @SmaMetaAssociation(metaName="DataOutputAssociation", typeDataClass=BpmnDataAssociationData.class, min=0, max=-1, smAssociationClass=Metadata.DataOutputAssociationSmDependency.class, component = true)
      List<SmObjectImpl> mDataOutputAssociation = null;
 
-    @objid ("14e4fe37-e83f-416b-99c0-2f84742b5bcd")
+    @objid ("be8ec097-ddbf-437a-af2f-a5bfb4b033ce")
     @SmaMetaAssociation(metaName="DataOutput", typeDataClass=BpmnDataOutputData.class, min=0, max=1, smAssociationClass=Metadata.DataOutputSmDependency.class, component = true)
      SmObjectImpl mDataOutput;
 
-    @objid ("1cdb3a9d-67d0-42c9-b555-77ae5151f079")
+    @objid ("073591cf-0216-477f-813a-d9ee896a7680")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("004f0dda-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("fe82342c-7343-44f7-a98d-d70c04abbe9f")
+        @objid ("1bff6441-3136-4204-9e12-c048ca068f17")
         private static SmClass smClass = null;
 
-        @objid ("3ffc93a8-c02d-42c6-8fba-3e7a3e1102db")
+        @objid ("2a3182dc-68e4-47d1-b213-949544606918")
         private static SmAttribute ParallelMultipleAtt = null;
 
-        @objid ("cb7519f1-3d6e-4d49-b056-edae70148967")
+        @objid ("4f62de75-987f-4ae6-b16d-f05f5f1bf2cd")
         private static SmDependency DataOutputAssociationDep = null;
 
-        @objid ("113671d9-4d1f-4880-a972-eea550d83500")
+        @objid ("81704358-4b0b-4ec8-b101-a05df4862b4a")
         private static SmDependency DataOutputDep = null;
 
-        @objid ("6ea855ac-c539-4737-a807-f07744f6e4d9")
+        @objid ("63bc1cba-981d-4a65-b2c4-b6e99840810a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnCatchEventData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("151a833a-b002-4b77-8761-bedaa5a32a5e")
+        @objid ("c602b1bf-fd4e-4cc4-af0e-036f71007918")
         public static SmAttribute ParallelMultipleAtt() {
             if (ParallelMultipleAtt == null) {
             	ParallelMultipleAtt = classof().getAttributeDef("ParallelMultiple");
@@ -90,7 +90,7 @@ public abstract class BpmnCatchEventData extends BpmnEventData {
             return ParallelMultipleAtt;
         }
 
-        @objid ("52a072d2-015c-4696-92e6-f755d390cf05")
+        @objid ("cac441dd-76a3-4c40-a6e1-7ba5d3ca94f3")
         public static SmDependency DataOutputAssociationDep() {
             if (DataOutputAssociationDep == null) {
             	DataOutputAssociationDep = classof().getDependencyDef("DataOutputAssociation");
@@ -98,7 +98,7 @@ public abstract class BpmnCatchEventData extends BpmnEventData {
             return DataOutputAssociationDep;
         }
 
-        @objid ("f9ee3100-5723-496f-94ff-2989ffe3a639")
+        @objid ("afb5ad23-2813-4223-86c4-0511d0f75afd")
         public static SmDependency DataOutputDep() {
             if (DataOutputDep == null) {
             	DataOutputDep = classof().getDependencyDef("DataOutput");
@@ -106,38 +106,38 @@ public abstract class BpmnCatchEventData extends BpmnEventData {
             return DataOutputDep;
         }
 
-        @objid ("0d0b073f-08fa-436e-a6b2-b1f9e38021c5")
+        @objid ("fea431e8-725a-456e-800d-17c1e826f968")
         public static SmDependency getDataOutputAssociationDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DataOutputAssociationDep;
         }
 
-        @objid ("88f30941-6145-4e37-8816-ef975bdb9028")
+        @objid ("5945c336-d862-4d00-b2b3-492d82cead5f")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("d76bb3d1-0352-4363-b182-9b4a865b089d")
-        public static SmDependency getDataOutputDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DataOutputDep;
-        }
-
-        @objid ("529b73d3-61b6-4904-9ed6-e3a5ef832ca6")
+        @objid ("45e40fcf-1db6-44fa-b27a-255abba026fd")
         public static SmAttribute getParallelMultipleAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ParallelMultipleAtt;
         }
 
+        @objid ("88cddae2-0548-45ef-a3f3-e79d86774aca")
+        public static SmDependency getDataOutputDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DataOutputDep;
+        }
+
         @objid ("004f598e-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("3e10559b-0bf3-4ca1-bbc2-7954481ff464")
+            @objid ("79b0e701-c069-4f13-add5-dfa31d1b6da5")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("56c314a5-5603-4deb-9855-57675c0c74c5")
+            @objid ("1343ecb9-803e-412b-b928-c6985e41c3ff")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -146,12 +146,12 @@ public abstract class BpmnCatchEventData extends BpmnEventData {
 
         @objid ("004fcbf8-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ParallelMultipleSmAttribute extends SmAttribute {
-            @objid ("a8d529e8-5e3d-4be6-b917-8631163725cf")
+            @objid ("19fdc8a1-89d6-422e-9d8c-d248e4080ff6")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnCatchEventData) data).mParallelMultiple;
             }
 
-            @objid ("22f1fa0d-ffcc-4c26-a6ae-228ba8ac25a9")
+            @objid ("3e044827-818e-4666-a103-bc4298cb10de")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnCatchEventData) data).mParallelMultiple = value;
             }
@@ -160,18 +160,18 @@ public abstract class BpmnCatchEventData extends BpmnEventData {
 
         @objid ("005032be-c4c2-1fd8-97fe-001ec947cd2a")
         public static class DataOutputSmDependency extends SmSingleDependency {
-            @objid ("f5d5254a-eaa4-48b5-8568-29a007bae5fa")
+            @objid ("11764ff3-abf9-4bcf-b825-edc7341ddbe2")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnCatchEventData) data).mDataOutput;
             }
 
-            @objid ("aa55e44f-c02d-4e05-83d9-346e3761ce4a")
+            @objid ("3e486d6b-3afe-4b89-b3b0-bd002e293186")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnCatchEventData) data).mDataOutput = value;
             }
 
-            @objid ("c730f432-6b73-4a5a-ab88-6feb26f7f560")
+            @objid ("331db158-88d3-4ce5-8f37-f249dbf0eadd")
             @Override
             public SmDependency getSymetric() {
                 return BpmnDataOutputData.Metadata.CatchedDep();
@@ -181,20 +181,20 @@ public abstract class BpmnCatchEventData extends BpmnEventData {
 
         @objid ("0050aa64-c4c2-1fd8-97fe-001ec947cd2a")
         public static class DataOutputAssociationSmDependency extends SmMultipleDependency {
-            @objid ("80fd2e05-96fd-473b-9ab9-5d8798361389")
+            @objid ("9fcfcb78-6ed6-4a7f-878f-b2c1a5914dc9")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnCatchEventData)data).mDataOutputAssociation != null)? ((BpmnCatchEventData)data).mDataOutputAssociation:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("e8419533-d01b-49a4-bcbb-ab23189591e7")
+            @objid ("7ecd8b78-7619-4125-a949-c5a0d8802784")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnCatchEventData) data).mDataOutputAssociation = new ArrayList<>(initialCapacity);
                 return ((BpmnCatchEventData) data).mDataOutputAssociation;
             }
 
-            @objid ("5fd88e7c-8931-4a4c-9d5f-7e7409d2c27b")
+            @objid ("291e6982-0efc-49f6-b341-183846c32610")
             @Override
             public SmDependency getSymetric() {
                 return BpmnDataAssociationData.Metadata.EndingEventDep();

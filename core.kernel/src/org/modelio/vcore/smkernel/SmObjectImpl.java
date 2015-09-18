@@ -958,20 +958,36 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         return allow != StatusState.FALSE && forbid != StatusState.TRUE;
     }
 
+    /**
+     * Dumps the object name, UUID and metaclass.
+     * <p>
+     * May dump flag strings:<ul>
+     * <li> <b>DEAD</b> : the object has no more data, the data is not in swap either. This object is not
+     * usable anymore and should not be used naymore
+     * <li> <b>Shell</b> : the object is an unresolved reference or its loading partially failed.
+     * {@link #isShell()} returns true.
+     * <li> <b>Deleted</b> : The object is deleted but still readable.
+     * {@link #isDeleted()} returns true.
+     * </ul>
+     * In case of exception loading the name the exception string is dumped instead of the name
+     * so that this method should never fail even for a broken object.
+     */
     @objid ("0052b26e-ee24-1076-aae0-001ec947cd2a")
     @Override
     public String toString() {
         final StringBuilder s = new StringBuilder(80);
-        String name;
         try {
-            name = getName();
-        } catch (Throwable e) {
-            name = e.toString();
+            s.append('\'');
+            s.append(getName());
+            s.append('\'');
+        } catch (Exception | LinkageError | StackOverflowError | OutOfMemoryError e) {
+            // Replace the name by the load failure cause
+            s.append('!');
+            s.append(e.toString());
+            s.append('!');
         }
         
-        s.append("'");
-        s.append(name);
-        s.append("' {");
+        s.append("{");
         s.append(this.uuid);
         s.append("} ");
         s.append(getMClass().getName());

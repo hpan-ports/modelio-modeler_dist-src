@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0002addc-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnParallelGateway.class, factory=BpmnParallelGatewayData.Metadata.ObjectFactory.class)
 public class BpmnParallelGatewayData extends BpmnGatewayData {
-    @objid ("fa4fe5cf-7469-4484-95e5-513eb086be41")
+    @objid ("d9f1a565-dd76-48ce-bee7-decfe855039e")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008aaca0-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("bf46b9ae-6a48-4024-b378-2172917f0408")
+        @objid ("1602c950-f16d-4963-8980-bcc3a20e2b1b")
         private static SmClass smClass = null;
 
-        @objid ("765afd68-dceb-4ff2-a6e3-931eab483324")
+        @objid ("e40a884c-eda3-49b1-af56-0c93e8da9b80")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnParallelGatewayData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("c3b0a63b-8f2b-4ffe-825c-21c2228fcf53")
+        @objid ("2bc50fb9-4ce2-4122-9a09-db2069121779")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BpmnParallelGatewayData extends BpmnGatewayData {
 
         @objid ("008afc46-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ab4c64d0-02a6-4a52-a704-31ec476a561f")
+            @objid ("5bf79bc8-967c-4302-ab1f-239f524bd64f")
             public ISmObjectData createData() {
                 return new BpmnParallelGatewayData();
             }
 
-            @objid ("cc55f0f2-a416-43c0-9749-ed70d5ce0814")
+            @objid ("3d9ab5d9-cba3-4ce8-aa5c-33a5b138ba19")
             public SmObjectImpl createImpl() {
                 return new BpmnParallelGatewayImpl();
             }

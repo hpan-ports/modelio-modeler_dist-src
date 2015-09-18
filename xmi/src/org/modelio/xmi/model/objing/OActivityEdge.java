@@ -31,8 +31,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.DecisionMergeNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ForkJoinNode;
 import org.modelio.metamodel.uml.behavior.activityModel.InterruptibleActivityRegion;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("b0e9e7eb-6719-4187-8206-69317f63105d")
 public class OActivityEdge extends OModelElement {

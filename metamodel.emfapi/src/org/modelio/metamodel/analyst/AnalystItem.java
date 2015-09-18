@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("ab041cd6-1250-48a8-9ddb-0a1064baf5c4")
 public interface AnalystItem extends ModelElement {
-    @objid ("4a05020f-b417-4701-9cdc-91add5254ea2")
+    @objid ("7027ad46-49f1-4af5-b9ca-5a8f4762f235")
     String getDefinition();
 
-    @objid ("b212520a-2ebf-4731-ad7a-cdf1dfdd3d78")
+    @objid ("f951cf96-3725-41ac-908d-849e2327af54")
     void setDefinition(String value);
 
-    @objid ("ca2a7896-25ce-43bc-b80d-75b69ba99d8a")
+    @objid ("d794cb20-0c84-41a9-9de7-f408f48b5da2")
     AnalystPropertyTable getAnalystProperties();
 
-    @objid ("0472b408-cdd1-4c36-89ce-15680596619a")
+    @objid ("6a4bec7a-32aa-4934-bac4-030252fed65a")
     void setAnalystProperties(AnalystPropertyTable value);
 
 }

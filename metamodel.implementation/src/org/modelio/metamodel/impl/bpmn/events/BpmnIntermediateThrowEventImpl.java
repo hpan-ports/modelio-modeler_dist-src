@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008f9364-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnIntermediateThrowEventImpl extends BpmnThrowEventImpl implements BpmnIntermediateThrowEvent {
-    @objid ("e496524c-805c-4ef4-867f-da703da36cfa")
+    @objid ("83959fc4-0b40-49e2-89ba-9e71807d30d8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("b7bda069-82b4-4451-9f18-ccfc5060383c")
+    @objid ("c8f397e1-bf4a-4b2d-95f4-b6fc05274e5c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("81ae8f69-5a66-4ac8-beda-652cb9a6df87")
+    @objid ("845f730e-7195-43af-a874-6d78731995a9")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnIntermediateThrowEvent(this);

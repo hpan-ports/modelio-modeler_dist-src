@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 
 @objid ("0062d8ba-c4bf-1fd8-97fe-001ec947cd2a")
 public interface PropertyContainer extends ModelElement {
-    @objid ("d30e85f5-c70a-4361-86d6-cb193a68a75b")
+    @objid ("f9a4b6c2-bdf3-44fd-bd79-680274f11334")
     EList<PropertyTableDefinition> getDefinedTable();
 
-    @objid ("a40589ea-ebea-4b47-b4bf-d322673b6cf1")
+    @objid ("1930c45a-3a2c-42c7-a19b-9ea9cd4f1abe")
     <T extends PropertyTableDefinition> List<T> getDefinedTable(java.lang.Class<T> filterClass);
 
-    @objid ("42f3beaf-3a40-4974-bdc5-89df0c3bef12")
+    @objid ("21206262-9ccd-4f33-b45a-a0cd39e8a211")
     AnalystProject getOwnerProject();
 
-    @objid ("852b8b4c-8190-4150-acc0-aa8ca12750bb")
+    @objid ("8ec259ed-e3a2-4120-a841-966f91d2dfd1")
     void setOwnerProject(AnalystProject value);
 
-    @objid ("af6b5a87-cf5b-4b6b-9a2e-79c89d2e9d7c")
+    @objid ("98abb481-944d-4664-b618-9cfcae4221d3")
     EList<PropertyType> getDefinedType();
 
-    @objid ("27524d48-cc2e-4cd2-bfa0-07d6b0882f6c")
+    @objid ("cfa1312e-b094-4853-a19d-4eb01c5d4371")
     <T extends PropertyType> List<T> getDefinedType(java.lang.Class<T> filterClass);
 
 }

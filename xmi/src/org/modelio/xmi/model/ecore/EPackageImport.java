@@ -30,9 +30,9 @@ import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.metamodel.uml.statik.PackageImport;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 /**

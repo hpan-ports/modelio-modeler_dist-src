@@ -29,7 +29,7 @@ import org.modelio.module.propertytab.ui.panel.treeview.TreeContentPanel;
 @objid ("c88c1da0-1eba-11e2-9382-bc305ba4815c")
 public class PropertyPanelFactory {
     @objid ("c88c1da1-1eba-11e2-9382-bc305ba4815c")
-    public static IModulePropertyPanel createStandardPanel(Composite parent, ModelElement element) {
+    public static IModulePropertyTreePanel createStandardPanel(Composite parent, ModelElement element) {
         return new TreeContentPanel(parent, element);
     }
 

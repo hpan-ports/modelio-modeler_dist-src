@@ -53,7 +53,7 @@ import org.osgi.service.prefs.BackingStoreException;
 @Singleton
 public class ModelioEnv {
     @objid ("003e9a0e-9277-103f-87fd-001ec947cd2a")
-    public static final String MODELIO_VERSION = "3.2.1";
+    public static final String MODELIO_VERSION = "3.3.0";
 
     @objid ("cc93fe4d-eaad-43f3-b511-732fe3711631")
     public static final String MODULE_PATH_PREFERENCE = "ModuleCatalog.LocalPath";

@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00976e68-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnComplexGatewayImpl extends BpmnGatewayImpl implements BpmnComplexGateway {
-    @objid ("8cf8418f-7df5-46e5-ad38-b7111f804870")
+    @objid ("71df79ac-0091-4908-8497-0d5322faeec5")
     @Override
     public String getActivationExpression() {
         return (String) getAttVal(BpmnComplexGatewayData.Metadata.ActivationExpressionAtt());
     }
 
-    @objid ("c4a0ef63-fb5e-41c5-a7e8-1490d3090804")
+    @objid ("95ce30c6-3af7-495b-ab49-ab994b7bc7e2")
     @Override
     public void setActivationExpression(String value) {
         setAttVal(BpmnComplexGatewayData.Metadata.ActivationExpressionAtt(), value);
     }
 
-    @objid ("1951d8f7-6e7e-4bc8-8cd0-75db1f49e444")
+    @objid ("d0481ffd-3b15-4412-a040-d660daca9e2d")
     @Override
     public BpmnSequenceFlow getDefaultFlow() {
         return (BpmnSequenceFlow) getDepVal(BpmnComplexGatewayData.Metadata.DefaultFlowDep());
     }
 
-    @objid ("336bb0ee-7078-424d-a0fa-e6894128a680")
+    @objid ("bb9ef7dc-f384-432d-a36d-6994b9b0af79")
     @Override
     public void setDefaultFlow(BpmnSequenceFlow value) {
         appendDepVal(BpmnComplexGatewayData.Metadata.DefaultFlowDep(), (SmObjectImpl)value);
     }
 
-    @objid ("94818768-e1d9-40e8-b63f-4dad6958f37b")
+    @objid ("6da277c9-37b7-4616-abfe-8a7e1e41bd5a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("1f59f091-ddba-46f0-8140-4fa0fe6ccb6c")
+    @objid ("4b3e1b73-1ed6-4cfd-b7c3-19ea95dd5720")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c978dbe6-a3c3-4e43-9a66-ce25827ecfa1")
+    @objid ("2e6f3daa-be9f-453e-8d29-ae59c0fe9421")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnComplexGateway(this);

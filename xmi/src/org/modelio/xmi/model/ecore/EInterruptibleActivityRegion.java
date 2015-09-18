@@ -26,8 +26,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
 import org.modelio.metamodel.uml.behavior.activityModel.InterruptibleActivityRegion;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("89078259-8a9f-48ca-b5bf-951975b12de1")
 public class EInterruptibleActivityRegion extends EElement {
@@ -38,7 +38,7 @@ public class EInterruptibleActivityRegion extends EElement {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createInterruptibleActivityRegion();
+                        .createInterruptibleActivityRegion();
     }
 
     @objid ("e4e7f45f-fe18-4ceb-a0bb-3ea23933a995")

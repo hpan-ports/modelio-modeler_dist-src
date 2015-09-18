@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0086182a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnUserTask extends BpmnTask {
-    @objid ("42f6499d-7c21-4564-9e80-152ffd3b4b4b")
+    @objid ("34af052b-4d0e-4a25-b874-f2334c23c118")
     String getImplementation();
 
-    @objid ("98ed32c2-c521-4498-b848-d201798dbf7a")
+    @objid ("5e649b00-c366-4487-bfa8-6ff02cd4d463")
     void setImplementation(String value);
 
 }

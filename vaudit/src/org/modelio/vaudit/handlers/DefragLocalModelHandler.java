@@ -48,8 +48,7 @@ public class DefragLocalModelHandler implements IRunnableWithProgress {
 
     @objid ("4676a59a-9772-4024-9897-957c67c17f44")
     @Execute
-    void execute(@Optional
-@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection sel, IModelioProgressService progressSvc, StatusReporter reporter) {
+    void execute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection sel, IModelioProgressService progressSvc, StatusReporter reporter) {
         IProjectFragment frag = (IProjectFragment) sel.iterator().next();
         this.project = GProject.getProject(frag.getRoots().iterator().next());
         
@@ -66,7 +65,7 @@ public class DefragLocalModelHandler implements IRunnableWithProgress {
 
     @objid ("b0ffee2e-0057-48d1-8f65-ed0bd7ba77e6")
     @Override
-    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+    public void run(IProgressMonitor monitor) throws InterruptedException, InvocationTargetException {
         JdbmRepository nsUseRepo = (JdbmRepository) this.project.getSession().getRepositorySupport().getRepository(IRepositorySupport.REPOSITORY_KEY_LOCAL);
         try {
             monitor.setTaskName(Vaudit.I18N.getString("DefragLocalModelHandler.task"));

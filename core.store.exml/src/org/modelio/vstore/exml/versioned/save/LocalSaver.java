@@ -49,7 +49,7 @@ class LocalSaver implements AutoCloseable, ExmlTags {
     private CloseableXMLStreamWriter closeableWriter;
 
     @objid ("4c07a269-1224-11e2-816a-001ec947ccaf")
-    public LocalSaver(OutputStream os) throws XMLStreamException, FactoryConfigurationError {
+    public LocalSaver(OutputStream os) throws FactoryConfigurationError, XMLStreamException {
         this.closeableWriter = new CloseableXMLStreamWriter(os, INDENT_FILES);
         this.out = this.closeableWriter.getW();
     }

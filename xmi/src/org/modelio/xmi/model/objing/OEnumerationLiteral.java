@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.EnumerationLiteral;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("f0a853bf-e1a1-4236-b547-f8bb222fa91c")
 public class OEnumerationLiteral extends OModelElement implements IOElement {
@@ -35,7 +35,7 @@ public class OEnumerationLiteral extends OModelElement implements IOElement {
     @objid ("7cda5be0-3200-4de5-a008-11a8d513e015")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE
-        .createEnumerationLiteral();
+                .createEnumerationLiteral();
     }
 
     @objid ("b9edea2a-3b05-403f-8c05-59951b05b7ad")

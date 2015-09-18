@@ -73,17 +73,16 @@ public abstract class GmAbstractDiagramView extends GmCompositeNode {
         this.obDiagram = el;
         
         final GmDiagramHeader header = new GmDiagramHeader(diagram, ref);
-        // header.setLayoutData(BorderLayout.TOP);
         addChild(header);
     }
 
     @objid ("81486247-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void finalize() throws Throwable {
-        super.finalize();
         if (this.viewedDiagram != null) {
             this.viewedDiagram.dispose();
         }
+        super.finalize();
     }
 
     @objid ("8148624a-1dec-11e2-8cad-001ec947c8cc")

@@ -34,12 +34,12 @@ import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
+import org.modelio.xmi.util.ModelioPrimitiveTypeMapper;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.StringConverter;
 import org.modelio.xmi.util.XMILogs;
 
@@ -121,6 +121,8 @@ public class OParameter extends OModelElement {
             break;
         case INOUT:
             ecoreElt.setDirection(org.eclipse.uml2.uml.ParameterDirectionKind.INOUT_LITERAL);
+            break;
+        default:
             break;
         }
         if (AbstractObjingModelNavigation.isReturnParameter(this.objingElement))
@@ -213,7 +215,7 @@ public class OParameter extends OModelElement {
         // element.
         if (!("".equals(objingDefaultValue))){
             if (objingType != null) {
-                if (PrimitiveTypeMapper.isPredefinedType(objingType)) {
+                if (ModelioPrimitiveTypeMapper.isPredefinedType(objingType)) {
         
                     DataType objingPredefinedType = (DataType) objingType;
         
@@ -310,8 +312,8 @@ public class OParameter extends OModelElement {
         // Getting type of the org.eclipse.uml2.uml.Parameter:
         GeneralClass objingType = this.objingElement.getType();
         if (objingType != null) {
-            if (PrimitiveTypeMapper.isPredefinedType(objingType)) {
-                 PrimitiveTypeMapper.setEcorePredefinedType(ecoreElt, (DataType) objingType);
+            if (ModelioPrimitiveTypeMapper.isPredefinedType(objingType)) {
+                ModelioPrimitiveTypeMapper.setEcorePredefinedType(ecoreElt, (DataType) objingType);
             } else {
         
                 if (objingType instanceof TemplateParameter) {

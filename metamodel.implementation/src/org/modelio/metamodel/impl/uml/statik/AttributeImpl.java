@@ -48,73 +48,73 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00981c78-c4be-1fd8-97fe-001ec947cd2a")
 public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
-    @objid ("e12813ff-59e3-41ab-aa55-18f27fb030d0")
+    @objid ("da1e12c4-2400-41df-aa32-849e6e3cb239")
     @Override
     public String getTypeConstraint() {
         return (String) getAttVal(AttributeData.Metadata.TypeConstraintAtt());
     }
 
-    @objid ("fac539c7-4379-4c2c-933b-452c36b920a9")
+    @objid ("0bf4f826-30ad-48e5-93d4-d2ac49aa0531")
     @Override
     public void setTypeConstraint(String value) {
         setAttVal(AttributeData.Metadata.TypeConstraintAtt(), value);
     }
 
-    @objid ("536c4f3e-9cde-4f61-b53d-815a2f88d8e5")
+    @objid ("86f7cf61-c1e0-4284-b0f5-051c00e228d3")
     @Override
     public String getValue() {
         return (String) getAttVal(AttributeData.Metadata.ValueAtt());
     }
 
-    @objid ("9598639b-3200-4eaf-b5e6-8025fb4602b9")
+    @objid ("69f30b78-7552-4495-a42b-cb33219e24ec")
     @Override
     public void setValue(String value) {
         setAttVal(AttributeData.Metadata.ValueAtt(), value);
     }
 
-    @objid ("f91f213f-08b8-4654-b290-6e7885cc4447")
+    @objid ("69b49df0-f978-46cc-a0a8-a4d3ee601cdd")
     @Override
     public boolean isTargetIsClass() {
         return (Boolean) getAttVal(AttributeData.Metadata.TargetIsClassAtt());
     }
 
-    @objid ("c816fc13-0c8f-4db7-a637-40bbc0d75728")
+    @objid ("1bd44a05-bab4-46b1-87a0-9565de3cba0e")
     @Override
     public void setTargetIsClass(boolean value) {
         setAttVal(AttributeData.Metadata.TargetIsClassAtt(), value);
     }
 
-    @objid ("edea8325-8de3-4f6c-8cc9-d1ad9b3fd61a")
+    @objid ("238fd923-7a04-4a14-8ca8-606581001c04")
     @Override
     public GeneralClass getType() {
         return (GeneralClass) getDepVal(AttributeData.Metadata.TypeDep());
     }
 
-    @objid ("82c47496-9c83-4b2d-837f-0f6df099ff41")
+    @objid ("4f179a41-aa40-44e1-8854-b46b8b9753d4")
     @Override
     public void setType(GeneralClass value) {
         appendDepVal(AttributeData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c513dd54-ea0a-47ac-9686-e47c0214e940")
+    @objid ("e4f69e4b-04a9-4365-848b-fb21958328b6")
     @Override
     public Classifier getOwner() {
         return (Classifier) getDepVal(AttributeData.Metadata.OwnerDep());
     }
 
-    @objid ("08bb639a-b685-4174-b0ee-265815905e10")
+    @objid ("b574f112-90ca-49ed-98a2-48e2a77e1071")
     @Override
     public void setOwner(Classifier value) {
         appendDepVal(AttributeData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4cccd659-2fe9-427b-ac50-2cc0c5a10ab9")
+    @objid ("f60c9c2e-0050-440c-93c1-f456a90788f3")
     @Override
     public EList<AttributeLink> getOccurence() {
         return new SmList<>(this, AttributeData.Metadata.OccurenceDep());
     }
 
-    @objid ("120e6ee3-489f-43eb-a090-8e5ab39dcf30")
+    @objid ("3b200625-b3ae-451e-bf34-2a4f885e1294")
     @Override
     public <T extends AttributeLink> List<T> getOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -127,13 +127,13 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2e5918a0-6828-4a6f-ad12-0b01d1ca35ad")
+    @objid ("f1300038-a78a-4e6d-a7af-5bd0d79f9bb5")
     @Override
     public EList<BpmnItemAwareElement> getRepresentingItem() {
         return new SmList<>(this, AttributeData.Metadata.RepresentingItemDep());
     }
 
-    @objid ("13e85bf7-4a11-4b91-ac29-543c3f93062d")
+    @objid ("f47e74f2-1d4a-4a85-974e-bca3e8f9eddf")
     @Override
     public <T extends BpmnItemAwareElement> List<T> getRepresentingItem(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -146,13 +146,13 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("fc680a57-6f0e-4a40-9450-6c5f0749910d")
+    @objid ("79c9702e-35f2-4478-8eda-3b60df18ce98")
     @Override
     public EList<ObjectNode> getRepresentingObjectNode() {
         return new SmList<>(this, AttributeData.Metadata.RepresentingObjectNodeDep());
     }
 
-    @objid ("2d74b188-fe29-483f-90ee-ea958acdabc0")
+    @objid ("74660996-e1c7-4675-bafe-96c6dd8462fe")
     @Override
     public <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -165,19 +165,19 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e9b4a1fc-5543-4709-a9a6-03b9a562636e")
+    @objid ("2fddfeb0-3905-4b6e-841b-83a927b11fc3")
     @Override
     public AssociationEnd getQualified() {
         return (AssociationEnd) getDepVal(AttributeData.Metadata.QualifiedDep());
     }
 
-    @objid ("0d54d47c-14c0-423c-b799-0b19ed2af929")
+    @objid ("5a5e21fc-252d-467e-939c-f9a2256dc2fb")
     @Override
     public void setQualified(AssociationEnd value) {
         appendDepVal(AttributeData.Metadata.QualifiedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bfafaf91-5f9f-45da-bd58-9a8aaa1c29ee")
+    @objid ("33776c03-054e-43ae-8713-ff1e3d77c16c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -190,7 +190,7 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         return super.getCompositionOwner();
     }
 
-    @objid ("12349b72-b710-4cac-aa39-9fcfbb7d1bf9")
+    @objid ("c3955fa3-b263-4bb8-a7ef-264f88ae9334")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -203,7 +203,7 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         return super.getCompositionRelation();
     }
 
-    @objid ("d06f57a1-7918-4029-b07a-4a2542eb5b05")
+    @objid ("5cdbea34-6f71-4dea-8259-d769ec1b14a8")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAttribute(this);

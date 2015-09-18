@@ -107,7 +107,7 @@ public final class pipeConnector implements XConnector {
      */
     @objid ("00fc90a0-f399-41a5-a23f-2cfe44b1cccb")
     @Override
-    public synchronized XConnection connect(final String connectionDescription) throws ConnectionSetupException, NoConnectException {
+    public synchronized XConnection connect(final String connectionDescription) throws NoConnectException, ConnectionSetupException {
         if (this.bConnected) {
             throw new ConnectionSetupException("alread connected");
         }

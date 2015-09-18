@@ -39,9 +39,11 @@ import javax.xml.bind.annotation.XmlType;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -440,7 +442,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * &lt;attribute name="class" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  * &lt;attribute name="binaryversion" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  * &lt;attribute name="version" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- * &lt;attribute name="schema-level" use="required" type="{http://www.w3.org/2001/XMLSchema}unsignedInt" default="2" />
+ * &lt;attribute name="schema-level" type="{http://www.w3.org/2001/XMLSchema}unsignedInt" default="2" />
  * &lt;attribute name="uid" type="{http://www.w3.org/2001/XMLSchema}string" />
  * &lt;attribute name="author" type="{http://www.w3.org/2001/XMLSchema}string" />
  * &lt;attribute name="image" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -452,15 +454,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  */
 @objid ("2cd07ed3-3f30-4865-9742-dfbfc32c1698")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "classPath",
-    "profiles",
-    "propertyTypes",
-    "parameters",
-    "gui",
-    "dependencies",
-    "resources"
-})
+@XmlType(name = "", propOrder = { "classPath", "profiles", "propertyTypes", "parameters", "gui", "dependencies", "resources" })
 @XmlRootElement(name = "Module")
 public class Jxbv2Module {
     @objid ("537dd283-0c60-4525-a5c8-814c7ba8b66f")
@@ -480,9 +474,9 @@ public class Jxbv2Module {
     protected String version;
 
     @objid ("2fe68c16-3846-4bb9-bd0c-9f05ef3518f3")
-    @XmlAttribute(name = "schema-level", required = true)
+    @XmlAttribute(name = "schema-level")
     @XmlSchemaType(name = "unsignedInt")
-    protected long schemaLevel;
+    protected Long schemaLevel;
 
     @objid ("f58525bd-2f4c-42d4-810c-df91cea3137d")
     @XmlAttribute(name = "uid")
@@ -530,9 +524,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the classPath property.
-     * @return
-     * possible object is
-     * {@link Jxbv2MultiPathes }
+     * @return possible object is {@link Jxbv2MultiPathes }
      */
     @objid ("ebc399e5-a1d1-43b7-b3d4-5481a4782deb")
     public Jxbv2MultiPathes getClassPath() {
@@ -541,8 +533,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the classPath property.
-     * @param value allowed object is
-     * {@link Jxbv2MultiPathes }
+     * @param value allowed object is {@link Jxbv2MultiPathes }
      */
     @objid ("961158b5-5382-4de9-9b25-e370ec7e2e6f")
     public void setClassPath(Jxbv2MultiPathes value) {
@@ -551,9 +542,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the profiles property.
-     * @return
-     * possible object is
-     * {@link Jxbv2Module.Jxbv2Profiles }
+     * @return possible object is {@link Jxbv2Module.Jxbv2Profiles }
      */
     @objid ("5d5b6a11-bd61-48ab-84ea-99fa1908939f")
     public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles getProfiles() {
@@ -562,8 +551,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the profiles property.
-     * @param value allowed object is
-     * {@link Jxbv2Module.Jxbv2Profiles }
+     * @param value allowed object is {@link Jxbv2Module.Jxbv2Profiles }
      */
     @objid ("2ea9c7a4-5ea2-4e60-b3a3-027180eb5f2a")
     public void setProfiles(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles value) {
@@ -572,9 +560,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the propertyTypes property.
-     * @return
-     * possible object is
-     * {@link Jxbv2Module.Jxbv2PropertyTypes }
+     * @return possible object is {@link Jxbv2Module.Jxbv2PropertyTypes }
      */
     @objid ("8d8f5104-956e-4176-b662-1d057c40f2ff")
     public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2PropertyTypes getPropertyTypes() {
@@ -583,8 +569,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the propertyTypes property.
-     * @param value allowed object is
-     * {@link Jxbv2Module.Jxbv2PropertyTypes }
+     * @param value allowed object is {@link Jxbv2Module.Jxbv2PropertyTypes }
      */
     @objid ("49f2754d-2d81-474d-93cc-403e4b306296")
     public void setPropertyTypes(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2PropertyTypes value) {
@@ -593,9 +578,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the parameters property.
-     * @return
-     * possible object is
-     * {@link Jxbv2Module.Jxbv2Parameters }
+     * @return possible object is {@link Jxbv2Module.Jxbv2Parameters }
      */
     @objid ("773b482e-bd15-476a-a224-bb4166d9fbc7")
     public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Parameters getParameters() {
@@ -604,8 +587,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the parameters property.
-     * @param value allowed object is
-     * {@link Jxbv2Module.Jxbv2Parameters }
+     * @param value allowed object is {@link Jxbv2Module.Jxbv2Parameters }
      */
     @objid ("f6805a11-d892-4c86-8c09-86a58f76ed2d")
     public void setParameters(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Parameters value) {
@@ -614,9 +596,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the gui property.
-     * @return
-     * possible object is
-     * {@link Jxbv2Module.Jxbv2Gui }
+     * @return possible object is {@link Jxbv2Module.Jxbv2Gui }
      */
     @objid ("0fe9909d-a369-46d0-8286-05ba9bee6b19")
     public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui getGui() {
@@ -625,8 +605,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the gui property.
-     * @param value allowed object is
-     * {@link Jxbv2Module.Jxbv2Gui }
+     * @param value allowed object is {@link Jxbv2Module.Jxbv2Gui }
      */
     @objid ("5d8f1772-bcb0-47e8-bc10-3271f2517efe")
     public void setGui(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui value) {
@@ -635,9 +614,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the dependencies property.
-     * @return
-     * possible object is
-     * {@link Jxbv2Module.Jxbv2Dependencies }
+     * @return possible object is {@link Jxbv2Module.Jxbv2Dependencies }
      */
     @objid ("fd44861d-0e30-4c2b-9753-53de6571e1b7")
     public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Dependencies getDependencies() {
@@ -646,8 +623,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the dependencies property.
-     * @param value allowed object is
-     * {@link Jxbv2Module.Jxbv2Dependencies }
+     * @param value allowed object is {@link Jxbv2Module.Jxbv2Dependencies }
      */
     @objid ("18e967a2-aa0b-48ab-a979-cc3a9794fd78")
     public void setDependencies(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Dependencies value) {
@@ -656,9 +632,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the resources property.
-     * @return
-     * possible object is
-     * {@link Jxbv2Module.Jxbv2Resources }
+     * @return possible object is {@link Jxbv2Module.Jxbv2Resources }
      */
     @objid ("267a63f3-0f98-4887-a9b2-da830d332b96")
     public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Resources getResources() {
@@ -667,8 +641,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the resources property.
-     * @param value allowed object is
-     * {@link Jxbv2Module.Jxbv2Resources }
+     * @param value allowed object is {@link Jxbv2Module.Jxbv2Resources }
      */
     @objid ("ae8ff95c-f201-4073-828d-9654cdb9bdde")
     public void setResources(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Resources value) {
@@ -677,9 +650,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the id property.
-     * @return
-     * possible object is
-     * {@link String }
+     * @return possible object is {@link String }
      */
     @objid ("3f07c605-32e4-4d21-8bb0-d892a18513f5")
     public String getId() {
@@ -688,8 +659,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the id property.
-     * @param value allowed object is
-     * {@link String }
+     * @param value allowed object is {@link String }
      */
     @objid ("4fd6dc08-98d2-40c7-bfc8-ba7372049739")
     public void setId(String value) {
@@ -698,9 +668,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the clazz property.
-     * @return
-     * possible object is
-     * {@link String }
+     * @return possible object is {@link String }
      */
     @objid ("96ba2cf9-ab2b-4881-8b9d-530da83c599d")
     public String getClazz() {
@@ -709,8 +677,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the clazz property.
-     * @param value allowed object is
-     * {@link String }
+     * @param value allowed object is {@link String }
      */
     @objid ("d39fa14b-9173-4fca-947d-c6069be67271")
     public void setClazz(String value) {
@@ -719,9 +686,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the binaryversion property.
-     * @return
-     * possible object is
-     * {@link String }
+     * @return possible object is {@link String }
      */
     @objid ("7c456dbc-d4dd-4e3e-919e-175f9ce582f0")
     public String getBinaryversion() {
@@ -730,8 +695,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the binaryversion property.
-     * @param value allowed object is
-     * {@link String }
+     * @param value allowed object is {@link String }
      */
     @objid ("e716b930-4a01-4d7b-9bda-bce1b15dccdd")
     public void setBinaryversion(String value) {
@@ -740,9 +704,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the version property.
-     * @return
-     * possible object is
-     * {@link String }
+     * @return possible object is {@link String }
      */
     @objid ("18a64666-b60c-46d6-8c67-993b0dc18483")
     public String getVersion() {
@@ -751,8 +713,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the version property.
-     * @param value allowed object is
-     * {@link String }
+     * @param value allowed object is {@link String }
      */
     @objid ("c97804a4-59b4-486d-8bdf-b7bbcfb705a0")
     public void setVersion(String value) {
@@ -761,25 +722,31 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the schemaLevel property.
+     * @return
+     * possible object is
+     * {@link Long }
      */
     @objid ("76b9bf25-d4ef-4d9d-a84f-62139c746fe3")
     public long getSchemaLevel() {
-        return this.schemaLevel;
+        if (this.schemaLevel == null) {
+            return  2L;
+        } else {
+            return this.schemaLevel;
+        }
     }
 
     /**
      * Sets the value of the schemaLevel property.
+     * @param value allowed object is {@link Long }
      */
     @objid ("dca9a920-2780-491a-b5d0-f3833b12c320")
-    public void setSchemaLevel(long value) {
+    public void setSchemaLevel(Long value) {
         this.schemaLevel = value;
     }
 
     /**
      * Gets the value of the uid property.
-     * @return
-     * possible object is
-     * {@link String }
+     * @return possible object is {@link String }
      */
     @objid ("00a5605a-161d-46c3-9063-a94c1c966117")
     public String getUid() {
@@ -788,8 +755,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the uid property.
-     * @param value allowed object is
-     * {@link String }
+     * @param value allowed object is {@link String }
      */
     @objid ("ba02a321-2b90-4801-b5c2-aa7571d71ddc")
     public void setUid(String value) {
@@ -798,9 +764,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the author property.
-     * @return
-     * possible object is
-     * {@link String }
+     * @return possible object is {@link String }
      */
     @objid ("f6f259cb-7bc8-4975-ac84-79d66c4eb169")
     public String getAuthor() {
@@ -809,8 +773,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the author property.
-     * @param value allowed object is
-     * {@link String }
+     * @param value allowed object is {@link String }
      */
     @objid ("8da30625-4733-4d09-b245-bd3c27899c49")
     public void setAuthor(String value) {
@@ -819,9 +782,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the image property.
-     * @return
-     * possible object is
-     * {@link String }
+     * @return possible object is {@link String }
      */
     @objid ("2859dbd7-46a9-4daf-9f98-21ae962b8ed6")
     public String getImage() {
@@ -830,8 +791,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the image property.
-     * @param value allowed object is
-     * {@link String }
+     * @param value allowed object is {@link String }
      */
     @objid ("b147212c-15ab-4fa8-abb7-781ece9e0d7b")
     public void setImage(String value) {
@@ -840,9 +800,7 @@ public class Jxbv2Module {
 
     /**
      * Gets the value of the url property.
-     * @return
-     * possible object is
-     * {@link String }
+     * @return possible object is {@link String }
      */
     @objid ("3f8d23e0-9a85-401c-834d-d02ac6254cec")
     public String getUrl() {
@@ -851,8 +809,7 @@ public class Jxbv2Module {
 
     /**
      * Sets the value of the url property.
-     * @param value allowed object is
-     * {@link String }
+     * @param value allowed object is {@link String }
      */
     @objid ("7e344c02-9c3e-403e-a72c-f2467951c819")
     public void setUrl(String value) {
@@ -860,9 +817,11 @@ public class Jxbv2Module {
     }
 
     /**
-     * <p>Java class for anonymous complex type.
+     * <p>
+     * Java class for anonymous complex type.
      * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * <p>
+     * The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -893,10 +852,7 @@ public class Jxbv2Module {
      */
     @objid ("d304d04f-5fcc-4b95-96df-a37c3fbd7b8f")
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "required",
-        "optional"
-    })
+    @XmlType(name = "", propOrder = { "required", "optional" })
     public static class Jxbv2Dependencies {
         @objid ("8388eca3-0a7e-447d-81d8-b2ccf010fcf5")
         @XmlElement(name = "Required")
@@ -910,21 +866,20 @@ public class Jxbv2Module {
          * Gets the value of the required property.
          * 
          * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the required property.
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the required
+         * property.
          * 
          * <p>
          * For example, to add a new item, do as follows:
+         * 
          * <pre>
          * getRequired().add(newItem);
          * </pre>
          * 
          * 
          * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link Jxbv2Module.Jxbv2Dependencies.Jxbv2Required }
+         * Objects of the following type(s) are allowed in the list {@link Jxbv2Module.Jxbv2Dependencies.Jxbv2Required }
          */
         @objid ("cfac51a4-40c9-41a5-af8a-818696982fb1")
         public List<org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Dependencies.Jxbv2Required> getRequired() {
@@ -938,21 +893,20 @@ public class Jxbv2Module {
          * Gets the value of the optional property.
          * 
          * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the optional property.
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the optional
+         * property.
          * 
          * <p>
          * For example, to add a new item, do as follows:
+         * 
          * <pre>
          * getOptional().add(newItem);
          * </pre>
          * 
          * 
          * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link Jxbv2Module.Jxbv2Dependencies.Jxbv2Optional }
+         * Objects of the following type(s) are allowed in the list {@link Jxbv2Module.Jxbv2Dependencies.Jxbv2Optional }
          */
         @objid ("0be4d4f0-6f91-4214-9d46-70c1398aa0bc")
         public List<org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Dependencies.Jxbv2Optional> getOptional() {
@@ -963,9 +917,11 @@ public class Jxbv2Module {
         }
 
         /**
-         * <p>Java class for anonymous complex type.
+         * <p>
+         * Java class for anonymous complex type.
          * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * <p>
+         * The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
          * &lt;complexType>
@@ -983,9 +939,11 @@ public class Jxbv2Module {
         }
 
         /**
-         * <p>Java class for anonymous complex type.
+         * <p>
+         * Java class for anonymous complex type.
          * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * <p>
+         * The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
          * &lt;complexType>
@@ -1005,9 +963,11 @@ public class Jxbv2Module {
     }
 
     /**
-     * <p>Java class for anonymous complex type.
+     * <p>
+     * Java class for anonymous complex type.
      * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * <p>
+     * The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -1152,13 +1112,7 @@ public class Jxbv2Module {
      */
     @objid ("59266f76-2516-4572-b2de-bef4f459d6f0")
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "commands",
-        "tools",
-        "contextualMenu",
-        "diagrams",
-        "views"
-    })
+    @XmlType(name = "", propOrder = { "commands", "tools", "contextualMenu", "diagrams", "views" })
     public static class Jxbv2Gui {
         @objid ("65544dac-0131-4522-a533-94fe944be167")
         @XmlElement(name = "Commands")
@@ -1182,9 +1136,7 @@ public class Jxbv2Module {
 
         /**
          * Gets the value of the commands property.
-         * @return
-         * possible object is
-         * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Commands }
+         * @return possible object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Commands }
          */
         @objid ("3e3bca8e-4f63-4587-bdca-dbb112c70cd2")
         public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Commands getCommands() {
@@ -1193,8 +1145,7 @@ public class Jxbv2Module {
 
         /**
          * Sets the value of the commands property.
-         * @param value allowed object is
-         * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Commands }
+         * @param value allowed object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Commands }
          */
         @objid ("286151cd-a72f-4942-a6b1-10114ffe2570")
         public void setCommands(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Commands value) {
@@ -1203,9 +1154,7 @@ public class Jxbv2Module {
 
         /**
          * Gets the value of the tools property.
-         * @return
-         * possible object is
-         * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Tools }
+         * @return possible object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Tools }
          */
         @objid ("3ca80cc8-323d-473b-a799-fb5f0a4b9ceb")
         public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Tools getTools() {
@@ -1214,8 +1163,7 @@ public class Jxbv2Module {
 
         /**
          * Sets the value of the tools property.
-         * @param value allowed object is
-         * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Tools }
+         * @param value allowed object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Tools }
          */
         @objid ("aa920288-38ac-4d22-bbe0-693e942d6b4e")
         public void setTools(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Tools value) {
@@ -1224,9 +1172,7 @@ public class Jxbv2Module {
 
         /**
          * Gets the value of the contextualMenu property.
-         * @return
-         * possible object is
-         * {@link Jxbv2Module.Jxbv2Gui.Jxbv2ContextualMenu }
+         * @return possible object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2ContextualMenu }
          */
         @objid ("a4873e42-5905-4a25-b6ff-83f4002bc480")
         public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2ContextualMenu getContextualMenu() {
@@ -1235,8 +1181,7 @@ public class Jxbv2Module {
 
         /**
          * Sets the value of the contextualMenu property.
-         * @param value allowed object is
-         * {@link Jxbv2Module.Jxbv2Gui.Jxbv2ContextualMenu }
+         * @param value allowed object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2ContextualMenu }
          */
         @objid ("cdfd62d3-5be6-4a39-ba25-de70033672e0")
         public void setContextualMenu(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2ContextualMenu value) {
@@ -1245,9 +1190,7 @@ public class Jxbv2Module {
 
         /**
          * Gets the value of the diagrams property.
-         * @return
-         * possible object is
-         * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams }
+         * @return possible object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams }
          */
         @objid ("3376cd3f-f8b4-4e74-bbc0-c56f508882fa")
         public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams getDiagrams() {
@@ -1256,8 +1199,7 @@ public class Jxbv2Module {
 
         /**
          * Sets the value of the diagrams property.
-         * @param value allowed object is
-         * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams }
+         * @param value allowed object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams }
          */
         @objid ("18e429d3-7425-466d-b115-606fbc7a0732")
         public void setDiagrams(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams value) {
@@ -1266,9 +1208,7 @@ public class Jxbv2Module {
 
         /**
          * Gets the value of the views property.
-         * @return
-         * possible object is
-         * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Views }
+         * @return possible object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Views }
          */
         @objid ("bca094da-e68c-4769-8b11-f268e7516c84")
         public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Views getViews() {
@@ -1277,8 +1217,7 @@ public class Jxbv2Module {
 
         /**
          * Sets the value of the views property.
-         * @param value allowed object is
-         * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Views }
+         * @param value allowed object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Views }
          */
         @objid ("a30b875b-dd87-4afa-8d4a-700876acde40")
         public void setViews(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Views value) {
@@ -1286,9 +1225,11 @@ public class Jxbv2Module {
         }
 
         /**
-         * <p>Java class for anonymous complex type.
+         * <p>
+         * Java class for anonymous complex type.
          * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * <p>
+         * The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
          * &lt;complexType>
@@ -1304,9 +1245,7 @@ public class Jxbv2Module {
          */
         @objid ("001ea32b-c7c2-4e88-8d26-17e82283992e")
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "command"
-        })
+        @XmlType(name = "", propOrder = { "command" })
         public static class Jxbv2Commands {
             @objid ("604e661b-dd81-49f4-b587-a06d26b4207b")
             @XmlElement(name = "Command")
@@ -1316,21 +1255,20 @@ public class Jxbv2Module {
              * Gets the value of the command property.
              * 
              * <p>
-             * This accessor method returns a reference to the live list,
-             * not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the command property.
+             * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
+             * command property.
              * 
              * <p>
              * For example, to add a new item, do as follows:
+             * 
              * <pre>
              * getCommand().add(newItem);
              * </pre>
              * 
              * 
              * <p>
-             * Objects of the following type(s) are allowed in the list
-             * {@link Jxbv2Command }
+             * Objects of the following type(s) are allowed in the list {@link Jxbv2Command }
              */
             @objid ("ec655888-4f80-465c-987d-bfab496700e6")
             public List<Jxbv2Command> getCommand() {
@@ -1343,9 +1281,11 @@ public class Jxbv2Module {
         }
 
         /**
-         * <p>Java class for anonymous complex type.
+         * <p>
+         * Java class for anonymous complex type.
          * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * <p>
+         * The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
          * &lt;complexType>
@@ -1368,9 +1308,7 @@ public class Jxbv2Module {
          */
         @objid ("b321be24-2180-44bd-a65a-094cf86154e7")
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "commandRef"
-        })
+        @XmlType(name = "", propOrder = { "commandRef" })
         public static class Jxbv2ContextualMenu {
             @objid ("5e1af69d-ca75-49df-9d99-2c48ca3249c9")
             @XmlElement(name = "CommandRef")
@@ -1380,13 +1318,13 @@ public class Jxbv2Module {
              * Gets the value of the commandRef property.
              * 
              * <p>
-             * This accessor method returns a reference to the live list,
-             * not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the commandRef property.
+             * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
+             * commandRef property.
              * 
              * <p>
              * For example, to add a new item, do as follows:
+             * 
              * <pre>
              * getCommandRef().add(newItem);
              * </pre>
@@ -1405,9 +1343,11 @@ public class Jxbv2Module {
             }
 
             /**
-             * <p>Java class for anonymous complex type.
+             * <p>
+             * Java class for anonymous complex type.
              * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
+             * <p>
+             * The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
              * &lt;complexType>
@@ -1427,9 +1367,11 @@ public class Jxbv2Module {
         }
 
         /**
-         * <p>Java class for anonymous complex type.
+         * <p>
+         * Java class for anonymous complex type.
          * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * <p>
+         * The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
          * &lt;complexType>
@@ -1492,9 +1434,7 @@ public class Jxbv2Module {
          */
         @objid ("793716ce-65cf-44a3-b29d-64678d35d6e2")
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "diagramType"
-        })
+        @XmlType(name = "", propOrder = { "diagramType" })
         public static class Jxbv2Diagrams {
             @objid ("3191b9f0-4a89-4338-9468-9c265a3ec4e7")
             @XmlElement(name = "DiagramType")
@@ -1504,21 +1444,20 @@ public class Jxbv2Module {
              * Gets the value of the diagramType property.
              * 
              * <p>
-             * This accessor method returns a reference to the live list,
-             * not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the diagramType property.
+             * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
+             * diagramType property.
              * 
              * <p>
              * For example, to add a new item, do as follows:
+             * 
              * <pre>
              * getDiagramType().add(newItem);
              * </pre>
              * 
              * 
              * <p>
-             * Objects of the following type(s) are allowed in the list
-             * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType }
+             * Objects of the following type(s) are allowed in the list {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType }
              */
             @objid ("01685687-b88f-4115-aee5-4aa76c302cb4")
             public List<org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType> getDiagramType() {
@@ -1529,9 +1468,11 @@ public class Jxbv2Module {
             }
 
             /**
-             * <p>Java class for anonymous complex type.
+             * <p>
+             * Java class for anonymous complex type.
              * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
+             * <p>
+             * The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
              * &lt;complexType>
@@ -1584,10 +1525,7 @@ public class Jxbv2Module {
              */
             @objid ("7aece06d-8970-4093-b51c-bc23866b7e1b")
             @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "palette",
-                "wizard"
-            })
+            @XmlType(name = "", propOrder = { "palette", "wizard", "handler" })
             public static class Jxbv2DiagramType {
                 @objid ("1acbe39a-b954-4a39-80c1-8b909e5fc82b")
                 @XmlAttribute(name = "base-diagram", required = true)
@@ -1605,11 +1543,13 @@ public class Jxbv2Module {
                 @XmlElement(name = "Wizard")
                 protected org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Wizard wizard;
 
+                @objid ("691eea4a-2e72-45de-b97d-431eb5287424")
+                @XmlElement(name = "Handler", required = true)
+                protected Jxbv2Handler handler;
+
                 /**
                  * Gets the value of the palette property.
-                 * @return
-                 * possible object is
-                 * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Palette }
+                 * @return possible object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Palette }
                  */
                 @objid ("f0ec1f1d-e6d3-4519-9f9a-222ac637da36")
                 public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Palette getPalette() {
@@ -1618,8 +1558,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the palette property.
-                 * @param value allowed object is
-                 * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Palette }
+                 * @param value allowed object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Palette }
                  */
                 @objid ("7326a833-35f4-4e07-8741-ef8f47bc6f4d")
                 public void setPalette(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Palette value) {
@@ -1628,9 +1567,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the wizard property.
-                 * @return
-                 * possible object is
-                 * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Wizard }
+                 * @return possible object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Wizard }
                  */
                 @objid ("ad6b1d5e-da42-47ce-83ec-af2e9b774ca3")
                 public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Wizard getWizard() {
@@ -1639,8 +1576,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the wizard property.
-                 * @param value allowed object is
-                 * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Wizard }
+                 * @param value allowed object is {@link Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Wizard }
                  */
                 @objid ("b5296efb-2c40-4ab6-8812-5a01e7aa30b8")
                 public void setWizard(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Wizard value) {
@@ -1649,9 +1585,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the baseDiagram property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("dad6be81-e7de-4866-83f9-26bd7e4576c6")
                 public String getBaseDiagram() {
@@ -1660,8 +1594,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the baseDiagram property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("abf85f01-2f22-48a7-9503-9b2273ad6a5e")
                 public void setBaseDiagram(String value) {
@@ -1670,9 +1603,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the stereotype property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("bae60d68-cab9-407d-88f7-22456815d839")
                 public String getStereotype() {
@@ -1681,8 +1612,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the stereotype property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("d379fd65-2d47-4fde-af94-fa9c1d813351")
                 public void setStereotype(String value) {
@@ -1690,9 +1620,29 @@ public class Jxbv2Module {
                 }
 
                 /**
-                 * <p>Java class for anonymous complex type.
+                 * Gets the value of the handler property.
+                 * @return possible object is {@link Handler }
+                 */
+                @objid ("64c592b2-b630-4866-b73b-d4ce2dedd53c")
+                public Jxbv2Handler getHandler() {
+                    return this.handler;
+                }
+
+                /**
+                 * Sets the value of the handler property.
+                 * @param value allowed object is {@link Handler }
+                 */
+                @objid ("53f07350-e0b7-432b-b435-d63a25e03707")
+                public void setHandler(Jxbv2Handler value) {
+                    this.handler = value;
+                }
+
+                /**
+                 * <p>
+                 * Java class for anonymous complex type.
                  * 
-                 * <p>The following schema fragment specifies the expected content contained within this class.
+                 * <p>
+                 * The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
                  * &lt;complexType>
@@ -1716,9 +1666,7 @@ public class Jxbv2Module {
                  */
                 @objid ("f75a6d3f-bd9e-4300-8bc8-a823baf34de0")
                 @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                    "toolRef"
-                })
+                @XmlType(name = "", propOrder = { "toolRef" })
                 public static class Jxbv2Palette {
                     @objid ("2a75698f-ca0b-4d2a-a0e0-f1847064adf4")
                     @XmlAttribute(name = "keepBasePalette")
@@ -1732,13 +1680,13 @@ public class Jxbv2Module {
                      * Gets the value of the toolRef property.
                      * 
                      * <p>
-                     * This accessor method returns a reference to the live list,
-                     * not a snapshot. Therefore any modification you make to the
-                     * returned list will be present inside the JAXB object.
-                     * This is why there is not a <CODE>set</CODE> method for the toolRef property.
+                     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you
+                     * make to the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE>
+                     * method for the toolRef property.
                      * 
                      * <p>
                      * For example, to add a new item, do as follows:
+                     * 
                      * <pre>
                      * getToolRef().add(newItem);
                      * </pre>
@@ -1758,9 +1706,7 @@ public class Jxbv2Module {
 
                     /**
                      * Gets the value of the keepBasePalette property.
-                     * @return
-                     * possible object is
-                     * {@link Boolean }
+                     * @return possible object is {@link Boolean }
                      */
                     @objid ("279ec773-081f-40f3-bccd-27cde18b7a48")
                     public Boolean isKeepBasePalette() {
@@ -1769,8 +1715,7 @@ public class Jxbv2Module {
 
                     /**
                      * Sets the value of the keepBasePalette property.
-                     * @param value allowed object is
-                     * {@link Boolean }
+                     * @param value allowed object is {@link Boolean }
                      */
                     @objid ("c3e22f01-c160-4f62-9ce6-374c599df712")
                     public void setKeepBasePalette(Boolean value) {
@@ -1778,9 +1723,11 @@ public class Jxbv2Module {
                     }
 
                     /**
-                     * <p>Java class for anonymous complex type.
+                     * <p>
+                     * Java class for anonymous complex type.
                      * 
-                     * <p>The following schema fragment specifies the expected content contained within this class.
+                     * <p>
+                     * The following schema fragment specifies the expected content contained within this class.
                      * 
                      * <pre>
                      * &lt;complexType>
@@ -1800,9 +1747,11 @@ public class Jxbv2Module {
                 }
 
                 /**
-                 * <p>Java class for anonymous complex type.
+                 * <p>
+                 * Java class for anonymous complex type.
                  * 
-                 * <p>The following schema fragment specifies the expected content contained within this class.
+                 * <p>
+                 * The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
                  * &lt;complexType>
@@ -1824,10 +1773,7 @@ public class Jxbv2Module {
                  */
                 @objid ("222a8258-c805-4f3e-8c73-203a388df3b1")
                 @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                    "scope",
-                    "handler"
-                })
+                @XmlType(name = "", propOrder = { "scope", "handler" })
                 public static class Jxbv2Wizard {
                     @objid ("69eb5258-97cd-4f10-b3d9-002cdeb11c94")
                     @XmlAttribute(name = "label", required = true)
@@ -1861,21 +1807,20 @@ public class Jxbv2Module {
                      * Gets the value of the scope property.
                      * 
                      * <p>
-                     * This accessor method returns a reference to the live list,
-                     * not a snapshot. Therefore any modification you make to the
-                     * returned list will be present inside the JAXB object.
-                     * This is why there is not a <CODE>set</CODE> method for the scope property.
+                     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you
+                     * make to the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE>
+                     * method for the scope property.
                      * 
                      * <p>
                      * For example, to add a new item, do as follows:
+                     * 
                      * <pre>
                      * getScope().add(newItem);
                      * </pre>
                      * 
                      * 
                      * <p>
-                     * Objects of the following type(s) are allowed in the list
-                     * {@link Jxbv2Scope }
+                     * Objects of the following type(s) are allowed in the list {@link Jxbv2Scope }
                      */
                     @objid ("6e6eb433-8834-4021-970e-f3a9cfeec7fe")
                     public List<Jxbv2Scope> getScope() {
@@ -1887,9 +1832,7 @@ public class Jxbv2Module {
 
                     /**
                      * Gets the value of the handler property.
-                     * @return
-                     * possible object is
-                     * {@link Jxbv2Handler }
+                     * @return possible object is {@link Jxbv2Handler }
                      */
                     @objid ("49846d01-5786-4955-a1af-1bfb903d06cc")
                     public Jxbv2Handler getHandler() {
@@ -1898,8 +1841,7 @@ public class Jxbv2Module {
 
                     /**
                      * Sets the value of the handler property.
-                     * @param value allowed object is
-                     * {@link Jxbv2Handler }
+                     * @param value allowed object is {@link Jxbv2Handler }
                      */
                     @objid ("c8017c82-4d1c-4273-b1ad-a4a61f77d3e7")
                     public void setHandler(Jxbv2Handler value) {
@@ -1908,9 +1850,7 @@ public class Jxbv2Module {
 
                     /**
                      * Gets the value of the label property.
-                     * @return
-                     * possible object is
-                     * {@link String }
+                     * @return possible object is {@link String }
                      */
                     @objid ("293fd124-bfd0-4a49-9151-6fe4da7dd21f")
                     public String getLabel() {
@@ -1919,8 +1859,7 @@ public class Jxbv2Module {
 
                     /**
                      * Sets the value of the label property.
-                     * @param value allowed object is
-                     * {@link String }
+                     * @param value allowed object is {@link String }
                      */
                     @objid ("dcf8ef98-9b8e-4077-81e5-321a2d822303")
                     public void setLabel(String value) {
@@ -1929,9 +1868,7 @@ public class Jxbv2Module {
 
                     /**
                      * Gets the value of the icon property.
-                     * @return
-                     * possible object is
-                     * {@link String }
+                     * @return possible object is {@link String }
                      */
                     @objid ("09e97f36-bd1b-495f-86c5-542a9ef15cf0")
                     public String getIcon() {
@@ -1940,8 +1877,7 @@ public class Jxbv2Module {
 
                     /**
                      * Sets the value of the icon property.
-                     * @param value allowed object is
-                     * {@link String }
+                     * @param value allowed object is {@link String }
                      */
                     @objid ("b7db95b4-6b48-442e-a5f4-f2a073cb82a0")
                     public void setIcon(String value) {
@@ -1950,9 +1886,7 @@ public class Jxbv2Module {
 
                     /**
                      * Gets the value of the information property.
-                     * @return
-                     * possible object is
-                     * {@link String }
+                     * @return possible object is {@link String }
                      */
                     @objid ("b521ab7f-180c-495d-8f46-c6b198912c77")
                     public String getInformation() {
@@ -1961,8 +1895,7 @@ public class Jxbv2Module {
 
                     /**
                      * Sets the value of the information property.
-                     * @param value allowed object is
-                     * {@link String }
+                     * @param value allowed object is {@link String }
                      */
                     @objid ("1cf2f470-cb56-4233-ae97-a7d77589cb8b")
                     public void setInformation(String value) {
@@ -1971,9 +1904,7 @@ public class Jxbv2Module {
 
                     /**
                      * Gets the value of the details property.
-                     * @return
-                     * possible object is
-                     * {@link String }
+                     * @return possible object is {@link String }
                      */
                     @objid ("17d1b589-714d-40a4-be05-e6e176ca96c3")
                     public String getDetails() {
@@ -1982,8 +1913,7 @@ public class Jxbv2Module {
 
                     /**
                      * Sets the value of the details property.
-                     * @param value allowed object is
-                     * {@link String }
+                     * @param value allowed object is {@link String }
                      */
                     @objid ("c1e7ab3d-54b6-4044-9d74-f93a8b2f6c33")
                     public void setDetails(String value) {
@@ -1992,9 +1922,7 @@ public class Jxbv2Module {
 
                     /**
                      * Gets the value of the helpUrl property.
-                     * @return
-                     * possible object is
-                     * {@link String }
+                     * @return possible object is {@link String }
                      */
                     @objid ("6fa7a5ce-de12-42e7-8c33-c913870581c3")
                     public String getHelpUrl() {
@@ -2003,8 +1931,7 @@ public class Jxbv2Module {
 
                     /**
                      * Sets the value of the helpUrl property.
-                     * @param value allowed object is
-                     * {@link String }
+                     * @param value allowed object is {@link String }
                      */
                     @objid ("25038634-9edb-4d82-93bc-8a3c7c898b2a")
                     public void setHelpUrl(String value) {
@@ -2018,9 +1945,11 @@ public class Jxbv2Module {
         }
 
         /**
-         * <p>Java class for anonymous complex type.
+         * <p>
+         * Java class for anonymous complex type.
          * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * <p>
+         * The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
          * &lt;complexType>
@@ -2036,9 +1965,7 @@ public class Jxbv2Module {
          */
         @objid ("7692772d-a3fd-4a20-aac1-5e6992a5f63f")
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "tool"
-        })
+        @XmlType(name = "", propOrder = { "tool" })
         public static class Jxbv2Tools {
             @objid ("01a7cebe-4298-4306-8152-f37a2c73393d")
             @XmlElement(name = "Tool")
@@ -2048,21 +1975,20 @@ public class Jxbv2Module {
              * Gets the value of the tool property.
              * 
              * <p>
-             * This accessor method returns a reference to the live list,
-             * not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the tool property.
+             * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the tool
+             * property.
              * 
              * <p>
              * For example, to add a new item, do as follows:
+             * 
              * <pre>
              * getTool().add(newItem);
              * </pre>
              * 
              * 
              * <p>
-             * Objects of the following type(s) are allowed in the list
-             * {@link Jxbv2Tool }
+             * Objects of the following type(s) are allowed in the list {@link Jxbv2Tool }
              */
             @objid ("731edb2c-7941-4416-ab1d-7d7553c8111c")
             public List<Jxbv2Tool> getTool() {
@@ -2075,9 +2001,11 @@ public class Jxbv2Module {
         }
 
         /**
-         * <p>Java class for anonymous complex type.
+         * <p>
+         * Java class for anonymous complex type.
          * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * <p>
+         * The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
          * &lt;complexType>
@@ -2114,9 +2042,7 @@ public class Jxbv2Module {
          */
         @objid ("d714d90d-117e-40d2-9100-f2cd86453141")
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "propertyPage"
-        })
+        @XmlType(name = "", propOrder = { "propertyPage" })
         public static class Jxbv2Views {
             @objid ("9ca7c73a-7452-42c5-9505-372c58568545")
             @XmlElement(name = "PropertyPage")
@@ -2126,21 +2052,20 @@ public class Jxbv2Module {
              * Gets the value of the propertyPage property.
              * 
              * <p>
-             * This accessor method returns a reference to the live list,
-             * not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the propertyPage property.
+             * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
+             * propertyPage property.
              * 
              * <p>
              * For example, to add a new item, do as follows:
+             * 
              * <pre>
              * getPropertyPage().add(newItem);
              * </pre>
              * 
              * 
              * <p>
-             * Objects of the following type(s) are allowed in the list
-             * {@link Jxbv2Module.Jxbv2Gui.Jxbv2Views.Jxbv2PropertyPage }
+             * Objects of the following type(s) are allowed in the list {@link Jxbv2Module.Jxbv2Gui.Jxbv2Views.Jxbv2PropertyPage }
              */
             @objid ("14912217-bcfc-407b-a474-ebc198a635a1")
             public List<org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Views.Jxbv2PropertyPage> getPropertyPage() {
@@ -2151,9 +2076,11 @@ public class Jxbv2Module {
             }
 
             /**
-             * <p>Java class for anonymous complex type.
+             * <p>
+             * Java class for anonymous complex type.
              * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
+             * <p>
+             * The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
              * &lt;complexType>
@@ -2180,9 +2107,7 @@ public class Jxbv2Module {
              */
             @objid ("5be877e2-8475-4810-8624-98ac1a219788")
             @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "commandRef"
-            })
+            @XmlType(name = "", propOrder = { "commandRef" })
             public static class Jxbv2PropertyPage {
                 @objid ("a66f74a3-2fcb-45c0-a31d-8dedfe53929c")
                 @XmlAttribute(name = "id", required = true)
@@ -2208,13 +2133,13 @@ public class Jxbv2Module {
                  * Gets the value of the commandRef property.
                  * 
                  * <p>
-                 * This accessor method returns a reference to the live list,
-                 * not a snapshot. Therefore any modification you make to the
-                 * returned list will be present inside the JAXB object.
-                 * This is why there is not a <CODE>set</CODE> method for the commandRef property.
+                 * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to
+                 * the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for
+                 * the commandRef property.
                  * 
                  * <p>
                  * For example, to add a new item, do as follows:
+                 * 
                  * <pre>
                  * getCommandRef().add(newItem);
                  * </pre>
@@ -2234,9 +2159,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the id property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("00ee2280-c3be-4b0b-9c7d-bbdbdea26d5b")
                 public String getId() {
@@ -2245,8 +2168,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the id property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("31fa88d3-ccb6-4b18-b41b-d4373dc5988d")
                 public void setId(String value) {
@@ -2255,9 +2177,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the clazz property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("117d6a42-a166-4099-9f94-775f845785b6")
                 public String getClazz() {
@@ -2266,8 +2186,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the clazz property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("787f70d9-c430-4624-98bb-80296134f6c8")
                 public void setClazz(String value) {
@@ -2276,9 +2195,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the label property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("9663903c-b8a9-427c-a067-51bec937877f")
                 public String getLabel() {
@@ -2287,8 +2204,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the label property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("cf18d6ad-7647-4be7-929e-bbbb3ddf66fc")
                 public void setLabel(String value) {
@@ -2297,9 +2213,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the image property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("3239c277-8767-42e1-9525-d0e905e65fbf")
                 public String getImage() {
@@ -2308,8 +2222,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the image property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("fb37c398-bcaa-4175-867a-ec69e96326f7")
                 public void setImage(String value) {
@@ -2317,9 +2230,11 @@ public class Jxbv2Module {
                 }
 
                 /**
-                 * <p>Java class for anonymous complex type.
+                 * <p>
+                 * Java class for anonymous complex type.
                  * 
-                 * <p>The following schema fragment specifies the expected content contained within this class.
+                 * <p>
+                 * The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
                  * &lt;complexType>
@@ -2343,9 +2258,11 @@ public class Jxbv2Module {
     }
 
     /**
-     * <p>Java class for anonymous complex type.
+     * <p>
+     * Java class for anonymous complex type.
      * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * <p>
+     * The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -2391,9 +2308,7 @@ public class Jxbv2Module {
      */
     @objid ("5e91941d-f3bd-48ac-9a0e-0238ee90b7dd")
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "parameter"
-    })
+    @XmlType(name = "", propOrder = { "parameter" })
     public static class Jxbv2Parameters {
         @objid ("43ddedbd-5d06-4565-889a-7e6eae68da7d")
         @XmlElement(name = "Parameter")
@@ -2403,21 +2318,20 @@ public class Jxbv2Module {
          * Gets the value of the parameter property.
          * 
          * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the parameter property.
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
+         * parameter property.
          * 
          * <p>
          * For example, to add a new item, do as follows:
+         * 
          * <pre>
          * getParameter().add(newItem);
          * </pre>
          * 
          * 
          * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link Jxbv2Module.Jxbv2Parameters.Jxbv2Parameter }
+         * Objects of the following type(s) are allowed in the list {@link Jxbv2Module.Jxbv2Parameters.Jxbv2Parameter }
          */
         @objid ("97218480-3dfe-4a69-bcc5-c8b37718e535")
         public List<org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Parameters.Jxbv2Parameter> getParameter() {
@@ -2428,9 +2342,11 @@ public class Jxbv2Module {
         }
 
         /**
-         * <p>Java class for anonymous complex type.
+         * <p>
+         * Java class for anonymous complex type.
          * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * <p>
+         * The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
          * &lt;complexType>
@@ -2466,10 +2382,7 @@ public class Jxbv2Module {
          */
         @objid ("cc4761e9-cebf-44e9-82de-648c71fd467e")
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "enumeration",
-            "description"
-        })
+        @XmlType(name = "", propOrder = { "enumeration", "description" })
         public static class Jxbv2Parameter {
             @objid ("767c7c3d-b395-4758-9e33-e4e01acff78b")
             @XmlElement(name = "Description")
@@ -2505,9 +2418,7 @@ public class Jxbv2Module {
 
             /**
              * Gets the value of the enumeration property.
-             * @return
-             * possible object is
-             * {@link Jxbv2Enumeration }
+             * @return possible object is {@link Jxbv2Enumeration }
              */
             @objid ("d4dd4bc3-db4b-49fe-a71f-9e3c0a2b1b62")
             public Jxbv2Enumeration getEnumeration() {
@@ -2516,8 +2427,7 @@ public class Jxbv2Module {
 
             /**
              * Sets the value of the enumeration property.
-             * @param value allowed object is
-             * {@link Jxbv2Enumeration }
+             * @param value allowed object is {@link Jxbv2Enumeration }
              */
             @objid ("fa4a0e64-4033-4081-91e9-c175b8231a3c")
             public void setEnumeration(Jxbv2Enumeration value) {
@@ -2526,9 +2436,7 @@ public class Jxbv2Module {
 
             /**
              * Gets the value of the description property.
-             * @return
-             * possible object is
-             * {@link String }
+             * @return possible object is {@link String }
              */
             @objid ("706f2be9-6599-4b51-895f-29390225d21b")
             public String getDescription() {
@@ -2537,8 +2445,7 @@ public class Jxbv2Module {
 
             /**
              * Sets the value of the description property.
-             * @param value allowed object is
-             * {@link String }
+             * @param value allowed object is {@link String }
              */
             @objid ("2da7ad75-3271-40eb-945d-fdb8434b466c")
             public void setDescription(String value) {
@@ -2547,9 +2454,7 @@ public class Jxbv2Module {
 
             /**
              * Gets the value of the id property.
-             * @return
-             * possible object is
-             * {@link String }
+             * @return possible object is {@link String }
              */
             @objid ("ba678cd3-b87e-4432-9150-487d0a7ea3e1")
             public String getId() {
@@ -2558,8 +2463,7 @@ public class Jxbv2Module {
 
             /**
              * Sets the value of the id property.
-             * @param value allowed object is
-             * {@link String }
+             * @param value allowed object is {@link String }
              */
             @objid ("ac911dcc-a103-46d0-9d9a-21b9258472fd")
             public void setId(String value) {
@@ -2568,9 +2472,7 @@ public class Jxbv2Module {
 
             /**
              * Gets the value of the group property.
-             * @return
-             * possible object is
-             * {@link String }
+             * @return possible object is {@link String }
              */
             @objid ("7c5a24ad-85fd-46b9-bd48-0b4643e92d94")
             public String getGroup() {
@@ -2579,8 +2481,7 @@ public class Jxbv2Module {
 
             /**
              * Sets the value of the group property.
-             * @param value allowed object is
-             * {@link String }
+             * @param value allowed object is {@link String }
              */
             @objid ("c3bc1931-dfa0-4b48-8665-6007e7b9328e")
             public void setGroup(String value) {
@@ -2589,9 +2490,7 @@ public class Jxbv2Module {
 
             /**
              * Gets the value of the uid property.
-             * @return
-             * possible object is
-             * {@link String }
+             * @return possible object is {@link String }
              */
             @objid ("26f9fd1a-d410-4c42-b78b-fa7183aef8df")
             public String getUid() {
@@ -2600,8 +2499,7 @@ public class Jxbv2Module {
 
             /**
              * Sets the value of the uid property.
-             * @param value allowed object is
-             * {@link String }
+             * @param value allowed object is {@link String }
              */
             @objid ("db1fbf92-cf1a-4f65-a11d-0ba806564442")
             public void setUid(String value) {
@@ -2610,9 +2508,7 @@ public class Jxbv2Module {
 
             /**
              * Gets the value of the type property.
-             * @return
-             * possible object is
-             * {@link String }
+             * @return possible object is {@link String }
              */
             @objid ("1d71d976-c1d1-4f82-912f-e39663c479c2")
             public String getType() {
@@ -2621,8 +2517,7 @@ public class Jxbv2Module {
 
             /**
              * Sets the value of the type property.
-             * @param value allowed object is
-             * {@link String }
+             * @param value allowed object is {@link String }
              */
             @objid ("08d20cd6-468b-43c7-b149-80f98c3fcce8")
             public void setType(String value) {
@@ -2631,9 +2526,7 @@ public class Jxbv2Module {
 
             /**
              * Gets the value of the defaultValue property.
-             * @return
-             * possible object is
-             * {@link String }
+             * @return possible object is {@link String }
              */
             @objid ("a7408944-1559-4bff-9d81-c4f571c60561")
             public String getDefaultValue() {
@@ -2642,8 +2535,7 @@ public class Jxbv2Module {
 
             /**
              * Sets the value of the defaultValue property.
-             * @param value allowed object is
-             * {@link String }
+             * @param value allowed object is {@link String }
              */
             @objid ("2f3f2e93-8293-42cc-99b6-4489e868b871")
             public void setDefaultValue(String value) {
@@ -2652,9 +2544,7 @@ public class Jxbv2Module {
 
             /**
              * Gets the value of the label property.
-             * @return
-             * possible object is
-             * {@link String }
+             * @return possible object is {@link String }
              */
             @objid ("aace14c7-c769-4b06-850a-10d21b33a247")
             public String getLabel() {
@@ -2663,8 +2553,7 @@ public class Jxbv2Module {
 
             /**
              * Sets the value of the label property.
-             * @param value allowed object is
-             * {@link String }
+             * @param value allowed object is {@link String }
              */
             @objid ("18b14550-918a-454c-b645-e1e86293505a")
             public void setLabel(String value) {
@@ -2676,9 +2565,11 @@ public class Jxbv2Module {
     }
 
     /**
-     * <p>Java class for anonymous complex type.
+     * <p>
+     * Java class for anonymous complex type.
      * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * <p>
+     * The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -2820,9 +2711,7 @@ public class Jxbv2Module {
      */
     @objid ("de63257d-c3a5-45d6-953c-538a33bbbfe7")
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "profile"
-    })
+    @XmlType(name = "", propOrder = { "profile" })
     public static class Jxbv2Profiles {
         @objid ("eda4109e-1f48-42a1-a8fd-d7320fc6c198")
         @XmlElement(name = "Profile")
@@ -2832,21 +2721,20 @@ public class Jxbv2Module {
          * Gets the value of the profile property.
          * 
          * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the profile property.
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the profile
+         * property.
          * 
          * <p>
          * For example, to add a new item, do as follows:
+         * 
          * <pre>
          * getProfile().add(newItem);
          * </pre>
          * 
          * 
          * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile }
+         * Objects of the following type(s) are allowed in the list {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile }
          */
         @objid ("705ad83f-e91d-4df4-95fc-5ee133a0d8a2")
         public List<org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile> getProfile() {
@@ -2857,9 +2745,11 @@ public class Jxbv2Module {
         }
 
         /**
-         * <p>Java class for anonymous complex type.
+         * <p>
+         * Java class for anonymous complex type.
          * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * <p>
+         * The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
          * &lt;complexType>
@@ -2991,10 +2881,7 @@ public class Jxbv2Module {
          */
         @objid ("c169d7d6-ab5a-4896-96d7-fa3c376b0f86")
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "stereotype",
-            "metaclassReference"
-        })
+        @XmlType(name = "", propOrder = { "stereotype", "metaclassReference" })
         public static class Jxbv2Profile {
             @objid ("307c6006-c7a6-42fc-b4d7-03d121ccdd6d")
             @XmlAttribute(name = "uid")
@@ -3016,13 +2903,13 @@ public class Jxbv2Module {
              * Gets the value of the stereotype property.
              * 
              * <p>
-             * This accessor method returns a reference to the live list,
-             * not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the stereotype property.
+             * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
+             * stereotype property.
              * 
              * <p>
              * For example, to add a new item, do as follows:
+             * 
              * <pre>
              * getStereotype().add(newItem);
              * </pre>
@@ -3044,13 +2931,13 @@ public class Jxbv2Module {
              * Gets the value of the metaclassReference property.
              * 
              * <p>
-             * This accessor method returns a reference to the live list,
-             * not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the metaclassReference property.
+             * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
+             * metaclassReference property.
              * 
              * <p>
              * For example, to add a new item, do as follows:
+             * 
              * <pre>
              * getMetaclassReference().add(newItem);
              * </pre>
@@ -3070,9 +2957,7 @@ public class Jxbv2Module {
 
             /**
              * Gets the value of the uid property.
-             * @return
-             * possible object is
-             * {@link String }
+             * @return possible object is {@link String }
              */
             @objid ("cbe69ceb-0fce-4594-ae0a-59905f3ad991")
             public String getUid() {
@@ -3081,8 +2966,7 @@ public class Jxbv2Module {
 
             /**
              * Sets the value of the uid property.
-             * @param value allowed object is
-             * {@link String }
+             * @param value allowed object is {@link String }
              */
             @objid ("ec2d88c1-7976-4657-a67a-489480c30800")
             public void setUid(String value) {
@@ -3091,9 +2975,7 @@ public class Jxbv2Module {
 
             /**
              * Gets the value of the id property.
-             * @return
-             * possible object is
-             * {@link String }
+             * @return possible object is {@link String }
              */
             @objid ("7f43adc8-4598-4238-8b62-2ef61bc9d639")
             public String getId() {
@@ -3102,8 +2984,7 @@ public class Jxbv2Module {
 
             /**
              * Sets the value of the id property.
-             * @param value allowed object is
-             * {@link String }
+             * @param value allowed object is {@link String }
              */
             @objid ("6393d7ea-1011-484d-99bb-d48b194be1d2")
             public void setId(String value) {
@@ -3111,9 +2992,11 @@ public class Jxbv2Module {
             }
 
             /**
-             * <p>Java class for anonymous complex type.
+             * <p>
+             * Java class for anonymous complex type.
              * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
+             * <p>
+             * The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
              * &lt;complexType>
@@ -3163,11 +3046,7 @@ public class Jxbv2Module {
              */
             @objid ("71db6e4a-b903-4536-b36b-46f0f8f66178")
             @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "tagTypes",
-                "noteTypes",
-                "externDocumentTypes"
-            })
+            @XmlType(name = "", propOrder = { "tagTypes", "noteTypes", "externDocumentTypes" })
             public static class Jxbv2MetaclassReference {
                 @objid ("e1078f37-2b38-433c-adab-ac3a61492439")
                 @XmlAttribute(name = "uid")
@@ -3191,9 +3070,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the tagTypes property.
-                 * @return
-                 * possible object is
-                 * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2MetaclassReference.Jxbv2TagTypes }
+                 * @return possible object is {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2MetaclassReference.Jxbv2TagTypes }
                  */
                 @objid ("c24c3b4a-79b0-4cbe-a322-b462833aa78c")
                 public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2MetaclassReference.Jxbv2TagTypes getTagTypes() {
@@ -3202,8 +3079,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the tagTypes property.
-                 * @param value allowed object is
-                 * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2MetaclassReference.Jxbv2TagTypes }
+                 * @param value allowed object is {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2MetaclassReference.Jxbv2TagTypes }
                  */
                 @objid ("c286a6ca-66d8-4463-bc72-1612cb183b53")
                 public void setTagTypes(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2MetaclassReference.Jxbv2TagTypes value) {
@@ -3212,9 +3088,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the noteTypes property.
-                 * @return
-                 * possible object is
-                 * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2MetaclassReference.Jxbv2NoteTypes }
+                 * @return possible object is {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2MetaclassReference.Jxbv2NoteTypes }
                  */
                 @objid ("e6b2c8a8-eef3-45ee-b185-bebb5caa72d7")
                 public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2MetaclassReference.Jxbv2NoteTypes getNoteTypes() {
@@ -3233,8 +3107,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the externDocumentTypes property.
-                 * @return
-                 * possible object is
+                 * @return possible object is
                  * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2MetaclassReference.Jxbv2ExternDocumentTypes }
                  */
                 @objid ("5da4b77c-552a-4848-8eea-020ef920e604")
@@ -3254,9 +3127,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the uid property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("3929595e-bddf-4d35-8523-c2a9f197650f")
                 public String getUid() {
@@ -3265,8 +3136,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the uid property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("e508ca67-558f-4c07-badb-f364df490378")
                 public void setUid(String value) {
@@ -3275,9 +3145,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the metaclass property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("0dcce346-ad3d-4d67-81d0-aca93bee5fbc")
                 public String getMetaclass() {
@@ -3286,8 +3154,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the metaclass property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("63c47334-7a27-44db-8cfc-13aca3230c8f")
                 public void setMetaclass(String value) {
@@ -3295,9 +3162,11 @@ public class Jxbv2Module {
                 }
 
                 /**
-                 * <p>Java class for anonymous complex type.
+                 * <p>
+                 * Java class for anonymous complex type.
                  * 
-                 * <p>The following schema fragment specifies the expected content contained within this class.
+                 * <p>
+                 * The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
                  * &lt;complexType>
@@ -3313,9 +3182,7 @@ public class Jxbv2Module {
                  */
                 @objid ("a6996830-180f-4855-932e-8a36efa7efff")
                 @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                    "externDocumentType"
-                })
+                @XmlType(name = "", propOrder = { "externDocumentType" })
                 public static class Jxbv2ExternDocumentTypes {
                     @objid ("20f96772-f807-40af-ab99-217623b1f185")
                     @XmlElement(name = "ExternDocumentType")
@@ -3325,21 +3192,20 @@ public class Jxbv2Module {
                      * Gets the value of the externDocumentType property.
                      * 
                      * <p>
-                     * This accessor method returns a reference to the live list,
-                     * not a snapshot. Therefore any modification you make to the
-                     * returned list will be present inside the JAXB object.
-                     * This is why there is not a <CODE>set</CODE> method for the externDocumentType property.
+                     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you
+                     * make to the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE>
+                     * method for the externDocumentType property.
                      * 
                      * <p>
                      * For example, to add a new item, do as follows:
+                     * 
                      * <pre>
                      * getExternDocumentType().add(newItem);
                      * </pre>
                      * 
                      * 
                      * <p>
-                     * Objects of the following type(s) are allowed in the list
-                     * {@link Jxbv2ExternDocumentType }
+                     * Objects of the following type(s) are allowed in the list {@link Jxbv2ExternDocumentType }
                      */
                     @objid ("e21268b7-c8e9-41dc-b25f-770a4ad0a37f")
                     public List<Jxbv2ExternDocumentType> getExternDocumentType() {
@@ -3352,9 +3218,11 @@ public class Jxbv2Module {
                 }
 
                 /**
-                 * <p>Java class for anonymous complex type.
+                 * <p>
+                 * Java class for anonymous complex type.
                  * 
-                 * <p>The following schema fragment specifies the expected content contained within this class.
+                 * <p>
+                 * The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
                  * &lt;complexType>
@@ -3370,9 +3238,7 @@ public class Jxbv2Module {
                  */
                 @objid ("5af2424f-f965-476a-a829-4c374bd6fe38")
                 @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                    "noteType"
-                })
+                @XmlType(name = "", propOrder = { "noteType" })
                 public static class Jxbv2NoteTypes {
                     @objid ("9cd837b4-1987-40eb-bf0e-5d67a62cf40a")
                     @XmlElement(name = "NoteType")
@@ -3382,21 +3248,20 @@ public class Jxbv2Module {
                      * Gets the value of the noteType property.
                      * 
                      * <p>
-                     * This accessor method returns a reference to the live list,
-                     * not a snapshot. Therefore any modification you make to the
-                     * returned list will be present inside the JAXB object.
-                     * This is why there is not a <CODE>set</CODE> method for the noteType property.
+                     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you
+                     * make to the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE>
+                     * method for the noteType property.
                      * 
                      * <p>
                      * For example, to add a new item, do as follows:
+                     * 
                      * <pre>
                      * getNoteType().add(newItem);
                      * </pre>
                      * 
                      * 
                      * <p>
-                     * Objects of the following type(s) are allowed in the list
-                     * {@link Jxbv2NoteType }
+                     * Objects of the following type(s) are allowed in the list {@link Jxbv2NoteType }
                      */
                     @objid ("52f03e05-c22f-47c3-8292-4393bd8caeb6")
                     public List<Jxbv2NoteType> getNoteType() {
@@ -3409,9 +3274,11 @@ public class Jxbv2Module {
                 }
 
                 /**
-                 * <p>Java class for anonymous complex type.
+                 * <p>
+                 * Java class for anonymous complex type.
                  * 
-                 * <p>The following schema fragment specifies the expected content contained within this class.
+                 * <p>
+                 * The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
                  * &lt;complexType>
@@ -3427,9 +3294,7 @@ public class Jxbv2Module {
                  */
                 @objid ("5b9a6ce3-e465-4bb2-88c8-784a79b8efc2")
                 @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                    "tagType"
-                })
+                @XmlType(name = "", propOrder = { "tagType" })
                 public static class Jxbv2TagTypes {
                     @objid ("4d3fe3a6-0427-4135-a6bb-6d75056c9b3f")
                     @XmlElement(name = "TagType")
@@ -3439,21 +3304,20 @@ public class Jxbv2Module {
                      * Gets the value of the tagType property.
                      * 
                      * <p>
-                     * This accessor method returns a reference to the live list,
-                     * not a snapshot. Therefore any modification you make to the
-                     * returned list will be present inside the JAXB object.
-                     * This is why there is not a <CODE>set</CODE> method for the tagType property.
+                     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you
+                     * make to the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE>
+                     * method for the tagType property.
                      * 
                      * <p>
                      * For example, to add a new item, do as follows:
+                     * 
                      * <pre>
                      * getTagType().add(newItem);
                      * </pre>
                      * 
                      * 
                      * <p>
-                     * Objects of the following type(s) are allowed in the list
-                     * {@link Jxbv2TagType }
+                     * Objects of the following type(s) are allowed in the list {@link Jxbv2TagType }
                      */
                     @objid ("e42913ea-9479-41e5-9bfc-65e248a5638d")
                     public List<Jxbv2TagType> getTagType() {
@@ -3468,9 +3332,11 @@ public class Jxbv2Module {
             }
 
             /**
-             * <p>Java class for anonymous complex type.
+             * <p>
+             * Java class for anonymous complex type.
              * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
+             * <p>
+             * The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
              * &lt;complexType>
@@ -3545,14 +3411,7 @@ public class Jxbv2Module {
              */
             @objid ("d4f4d1e6-a77f-4386-8202-6d0021d80d96")
             @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "icon",
-                "image",
-                "propertyTable",
-                "tagTypes",
-                "noteTypes",
-                "externDocumentTypes"
-            })
+            @XmlType(name = "", propOrder = { "icon", "image", "propertyTable", "tagTypes", "noteTypes", "externDocumentTypes" })
             public static class Jxbv2Stereotype {
                 @objid ("d5dab181-6f45-45a8-b0a6-7756d02f643b")
                 @XmlAttribute(name = "name", required = true)
@@ -3604,9 +3463,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the icon property.
-                 * @return
-                 * possible object is
-                 * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Icon }
+                 * @return possible object is {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Icon }
                  */
                 @objid ("5a28a1e0-bfc8-4d48-88ae-d2f1f9a2d524")
                 public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Icon getIcon() {
@@ -3615,8 +3472,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the icon property.
-                 * @param value allowed object is
-                 * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Icon }
+                 * @param value allowed object is {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Icon }
                  */
                 @objid ("e92bdf32-6445-47ba-8b88-9cd0a0061c06")
                 public void setIcon(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Icon value) {
@@ -3625,9 +3481,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the image property.
-                 * @return
-                 * possible object is
-                 * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Image }
+                 * @return possible object is {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Image }
                  */
                 @objid ("2e804c47-724a-4def-aaf2-4b98d5395c2d")
                 public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Image getImage() {
@@ -3636,8 +3490,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the image property.
-                 * @param value allowed object is
-                 * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Image }
+                 * @param value allowed object is {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Image }
                  */
                 @objid ("ebeb5021-e234-4d04-ae27-77ec1ed81cb2")
                 public void setImage(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2Image value) {
@@ -3646,9 +3499,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the propertyTable property.
-                 * @return
-                 * possible object is
-                 * {@link Jxbv2PropertyTableDefinition }
+                 * @return possible object is {@link Jxbv2PropertyTableDefinition }
                  */
                 @objid ("f2c4e74b-a64b-4348-a1c1-02a808316d85")
                 public Jxbv2PropertyTableDefinition getPropertyTable() {
@@ -3657,8 +3508,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the propertyTable property.
-                 * @param value allowed object is
-                 * {@link Jxbv2PropertyTableDefinition }
+                 * @param value allowed object is {@link Jxbv2PropertyTableDefinition }
                  */
                 @objid ("0f1fa218-0852-4e02-9175-b198a07eb453")
                 public void setPropertyTable(Jxbv2PropertyTableDefinition value) {
@@ -3667,9 +3517,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the tagTypes property.
-                 * @return
-                 * possible object is
-                 * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2TagTypes }
+                 * @return possible object is {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2TagTypes }
                  */
                 @objid ("d3d74fa0-5461-4402-86a8-8a7ef317982a")
                 public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2TagTypes getTagTypes() {
@@ -3678,8 +3526,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the tagTypes property.
-                 * @param value allowed object is
-                 * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2TagTypes }
+                 * @param value allowed object is {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2TagTypes }
                  */
                 @objid ("f87277fa-2ec6-45f3-b5b4-3ada6e66d068")
                 public void setTagTypes(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2TagTypes value) {
@@ -3688,9 +3535,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the noteTypes property.
-                 * @return
-                 * possible object is
-                 * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2NoteTypes }
+                 * @return possible object is {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2NoteTypes }
                  */
                 @objid ("0b87fc7a-61e0-46f8-b27e-4b88a1bc66e7")
                 public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2NoteTypes getNoteTypes() {
@@ -3699,8 +3544,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the noteTypes property.
-                 * @param value allowed object is
-                 * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2NoteTypes }
+                 * @param value allowed object is {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2NoteTypes }
                  */
                 @objid ("f3fd522c-91f2-4071-a0c4-df37c557897e")
                 public void setNoteTypes(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2NoteTypes value) {
@@ -3709,8 +3553,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the externDocumentTypes property.
-                 * @return
-                 * possible object is
+                 * @return possible object is
                  * {@link Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype.Jxbv2ExternDocumentTypes }
                  */
                 @objid ("4602ea34-0826-47e2-aee5-a935aed438fd")
@@ -3730,9 +3573,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the name property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("2be21bd5-d8dd-4352-9df4-ad9733dd4257")
                 public String getName() {
@@ -3741,8 +3582,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the name property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("411d810f-1942-4499-88aa-323cc891c535")
                 public void setName(String value) {
@@ -3751,9 +3591,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the metaclass property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("5b028ff6-6349-4e36-a89d-93c2f11862f7")
                 public String getMetaclass() {
@@ -3762,8 +3600,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the metaclass property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("e7cb24a7-1308-4a34-8657-f32b3f7ec24d")
                 public void setMetaclass(String value) {
@@ -3772,9 +3609,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the ownerStereotype property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("53cb6bb1-5782-4254-bf06-86a6d8dd7abd")
                 public String getOwnerStereotype() {
@@ -3783,8 +3618,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the ownerStereotype property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("e983256c-0ffb-4d95-ae1a-e1fa4ac88a1e")
                 public void setOwnerStereotype(String value) {
@@ -3793,9 +3627,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the isHidden property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("d509fb29-70f5-4962-af72-c0e7c567c3e9")
                 public String getIsHidden() {
@@ -3804,8 +3636,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the isHidden property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("77238813-02dc-4467-a5dc-3643f4e39ed0")
                 public void setIsHidden(String value) {
@@ -3814,9 +3645,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the label property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("71a934cf-ce42-466e-8056-4e080018be15")
                 public String getLabel() {
@@ -3825,8 +3654,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the label property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("ddc311a7-c8e0-4bc3-9265-4188fb859d0b")
                 public void setLabel(String value) {
@@ -3835,9 +3663,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the uid property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("10170639-10ae-4767-950f-d406ddb9349b")
                 public String getUid() {
@@ -3846,8 +3672,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the uid property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("b0e3a3b4-ffb9-49e4-8288-66624bed4393")
                 public void setUid(String value) {
@@ -3855,9 +3680,11 @@ public class Jxbv2Module {
                 }
 
                 /**
-                 * <p>Java class for anonymous complex type.
+                 * <p>
+                 * Java class for anonymous complex type.
                  * 
-                 * <p>The following schema fragment specifies the expected content contained within this class.
+                 * <p>
+                 * The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
                  * &lt;complexType>
@@ -3873,9 +3700,7 @@ public class Jxbv2Module {
                  */
                 @objid ("b8e2b4c5-3540-4940-b604-5a408e202b74")
                 @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                    "externDocumentType"
-                })
+                @XmlType(name = "", propOrder = { "externDocumentType" })
                 public static class Jxbv2ExternDocumentTypes {
                     @objid ("dd70cc1a-4228-4e74-b27e-f72ca80ce007")
                     @XmlElement(name = "ExternDocumentType")
@@ -3885,21 +3710,20 @@ public class Jxbv2Module {
                      * Gets the value of the externDocumentType property.
                      * 
                      * <p>
-                     * This accessor method returns a reference to the live list,
-                     * not a snapshot. Therefore any modification you make to the
-                     * returned list will be present inside the JAXB object.
-                     * This is why there is not a <CODE>set</CODE> method for the externDocumentType property.
+                     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you
+                     * make to the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE>
+                     * method for the externDocumentType property.
                      * 
                      * <p>
                      * For example, to add a new item, do as follows:
+                     * 
                      * <pre>
                      * getExternDocumentType().add(newItem);
                      * </pre>
                      * 
                      * 
                      * <p>
-                     * Objects of the following type(s) are allowed in the list
-                     * {@link Jxbv2ExternDocumentType }
+                     * Objects of the following type(s) are allowed in the list {@link Jxbv2ExternDocumentType }
                      */
                     @objid ("fc3bfe89-7d4c-4c01-8c0d-d01e09098864")
                     public List<Jxbv2ExternDocumentType> getExternDocumentType() {
@@ -3912,9 +3736,11 @@ public class Jxbv2Module {
                 }
 
                 /**
-                 * <p>Java class for anonymous complex type.
+                 * <p>
+                 * Java class for anonymous complex type.
                  * 
-                 * <p>The following schema fragment specifies the expected content contained within this class.
+                 * <p>
+                 * The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
                  * &lt;complexType>
@@ -3936,9 +3762,7 @@ public class Jxbv2Module {
 
                     /**
                      * Gets the value of the path property.
-                     * @return
-                     * possible object is
-                     * {@link String }
+                     * @return possible object is {@link String }
                      */
                     @objid ("8b6714a9-0234-4f24-9a00-9eb2166812f3")
                     public String getPath() {
@@ -3947,8 +3771,7 @@ public class Jxbv2Module {
 
                     /**
                      * Sets the value of the path property.
-                     * @param value allowed object is
-                     * {@link String }
+                     * @param value allowed object is {@link String }
                      */
                     @objid ("8ed72e90-0f9f-4774-a4da-362ef14467b0")
                     public void setPath(String value) {
@@ -3958,9 +3781,11 @@ public class Jxbv2Module {
                 }
 
                 /**
-                 * <p>Java class for anonymous complex type.
+                 * <p>
+                 * Java class for anonymous complex type.
                  * 
-                 * <p>The following schema fragment specifies the expected content contained within this class.
+                 * <p>
+                 * The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
                  * &lt;complexType>
@@ -3982,9 +3807,7 @@ public class Jxbv2Module {
 
                     /**
                      * Gets the value of the path property.
-                     * @return
-                     * possible object is
-                     * {@link String }
+                     * @return possible object is {@link String }
                      */
                     @objid ("225ad0e3-c399-4af1-9b37-996b8cc53ad5")
                     public String getPath() {
@@ -3993,8 +3816,7 @@ public class Jxbv2Module {
 
                     /**
                      * Sets the value of the path property.
-                     * @param value allowed object is
-                     * {@link String }
+                     * @param value allowed object is {@link String }
                      */
                     @objid ("93344058-2d3d-4273-ab93-e9a61d4a252d")
                     public void setPath(String value) {
@@ -4004,9 +3826,11 @@ public class Jxbv2Module {
                 }
 
                 /**
-                 * <p>Java class for anonymous complex type.
+                 * <p>
+                 * Java class for anonymous complex type.
                  * 
-                 * <p>The following schema fragment specifies the expected content contained within this class.
+                 * <p>
+                 * The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
                  * &lt;complexType>
@@ -4022,9 +3846,7 @@ public class Jxbv2Module {
                  */
                 @objid ("61ded4f1-783b-43d1-8459-449be6337e8b")
                 @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                    "noteType"
-                })
+                @XmlType(name = "", propOrder = { "noteType" })
                 public static class Jxbv2NoteTypes {
                     @objid ("8951208a-abe2-4af4-ae8f-a2e9cd207534")
                     @XmlElement(name = "NoteType")
@@ -4034,21 +3856,20 @@ public class Jxbv2Module {
                      * Gets the value of the noteType property.
                      * 
                      * <p>
-                     * This accessor method returns a reference to the live list,
-                     * not a snapshot. Therefore any modification you make to the
-                     * returned list will be present inside the JAXB object.
-                     * This is why there is not a <CODE>set</CODE> method for the noteType property.
+                     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you
+                     * make to the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE>
+                     * method for the noteType property.
                      * 
                      * <p>
                      * For example, to add a new item, do as follows:
+                     * 
                      * <pre>
                      * getNoteType().add(newItem);
                      * </pre>
                      * 
                      * 
                      * <p>
-                     * Objects of the following type(s) are allowed in the list
-                     * {@link Jxbv2NoteType }
+                     * Objects of the following type(s) are allowed in the list {@link Jxbv2NoteType }
                      */
                     @objid ("9f74e6f4-e8cf-470a-b790-ce20f70e7dc4")
                     public List<Jxbv2NoteType> getNoteType() {
@@ -4061,9 +3882,11 @@ public class Jxbv2Module {
                 }
 
                 /**
-                 * <p>Java class for anonymous complex type.
+                 * <p>
+                 * Java class for anonymous complex type.
                  * 
-                 * <p>The following schema fragment specifies the expected content contained within this class.
+                 * <p>
+                 * The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
                  * &lt;complexType>
@@ -4079,9 +3902,7 @@ public class Jxbv2Module {
                  */
                 @objid ("c29d18d3-78b1-4905-ae63-1b7613183a21")
                 @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                    "tagType"
-                })
+                @XmlType(name = "", propOrder = { "tagType" })
                 public static class Jxbv2TagTypes {
                     @objid ("ac6e68ac-09e7-4223-ac29-4dd4233ce174")
                     @XmlElement(name = "TagType")
@@ -4091,21 +3912,20 @@ public class Jxbv2Module {
                      * Gets the value of the tagType property.
                      * 
                      * <p>
-                     * This accessor method returns a reference to the live list,
-                     * not a snapshot. Therefore any modification you make to the
-                     * returned list will be present inside the JAXB object.
-                     * This is why there is not a <CODE>set</CODE> method for the tagType property.
+                     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you
+                     * make to the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE>
+                     * method for the tagType property.
                      * 
                      * <p>
                      * For example, to add a new item, do as follows:
+                     * 
                      * <pre>
                      * getTagType().add(newItem);
                      * </pre>
                      * 
                      * 
                      * <p>
-                     * Objects of the following type(s) are allowed in the list
-                     * {@link Jxbv2TagType }
+                     * Objects of the following type(s) are allowed in the list {@link Jxbv2TagType }
                      */
                     @objid ("7e4621ea-3b53-4937-9d6b-af223c7a1f04")
                     public List<Jxbv2TagType> getTagType() {
@@ -4124,9 +3944,11 @@ public class Jxbv2Module {
     }
 
     /**
-     * <p>Java class for anonymous complex type.
+     * <p>
+     * Java class for anonymous complex type.
      * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * <p>
+     * The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -4142,9 +3964,7 @@ public class Jxbv2Module {
      */
     @objid ("65e47d1a-5308-4881-a884-f0db719c6448")
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "propertyType"
-    })
+    @XmlType(name = "", propOrder = { "propertyType" })
     public static class Jxbv2PropertyTypes {
         @objid ("9d8c4c6b-34ba-4187-b784-e0bc23f88f5a")
         @XmlElement(name = "PropertyType")
@@ -4154,21 +3974,20 @@ public class Jxbv2Module {
          * Gets the value of the propertyType property.
          * 
          * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the propertyType property.
+         * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
+         * propertyType property.
          * 
          * <p>
          * For example, to add a new item, do as follows:
+         * 
          * <pre>
          * getPropertyType().add(newItem);
          * </pre>
          * 
          * 
          * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link Jxbv2PropertyType }
+         * Objects of the following type(s) are allowed in the list {@link Jxbv2PropertyType }
          */
         @objid ("06d04d5f-a2e1-4733-974a-e2745fa3dece")
         public List<Jxbv2PropertyType> getPropertyType() {
@@ -4181,9 +4000,11 @@ public class Jxbv2Module {
     }
 
     /**
-     * <p>Java class for anonymous complex type.
+     * <p>
+     * Java class for anonymous complex type.
      * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * <p>
+     * The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -4219,10 +4040,7 @@ public class Jxbv2Module {
      */
     @objid ("6ce909d3-700d-4ecc-863a-845fdfae5c54")
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "styles",
-        "docFiles"
-    })
+    @XmlType(name = "", propOrder = { "styles", "docFiles" })
     public static class Jxbv2Resources {
         @objid ("cde4c128-695c-46d6-aefc-2e678c000f05")
         @XmlElement(name = "Styles")
@@ -4234,9 +4052,7 @@ public class Jxbv2Module {
 
         /**
          * Gets the value of the styles property.
-         * @return
-         * possible object is
-         * {@link Jxbv2Module.Jxbv2Resources.Jxbv2Styles }
+         * @return possible object is {@link Jxbv2Module.Jxbv2Resources.Jxbv2Styles }
          */
         @objid ("3293e14a-696c-4a2a-a092-a9c9aa89441b")
         public org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Resources.Jxbv2Styles getStyles() {
@@ -4245,8 +4061,7 @@ public class Jxbv2Module {
 
         /**
          * Sets the value of the styles property.
-         * @param value allowed object is
-         * {@link Jxbv2Module.Jxbv2Resources.Jxbv2Styles }
+         * @param value allowed object is {@link Jxbv2Module.Jxbv2Resources.Jxbv2Styles }
          */
         @objid ("ad5178ad-492d-4022-b12f-ad4631f2ae54")
         public void setStyles(org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Resources.Jxbv2Styles value) {
@@ -4255,9 +4070,7 @@ public class Jxbv2Module {
 
         /**
          * Gets the value of the docFiles property.
-         * @return
-         * possible object is
-         * {@link Jxbv2MultiPathes }
+         * @return possible object is {@link Jxbv2MultiPathes }
          */
         @objid ("19786d94-aea1-4d0f-a51b-2eb86ed54281")
         public Jxbv2MultiPathes getDocFiles() {
@@ -4266,8 +4079,7 @@ public class Jxbv2Module {
 
         /**
          * Sets the value of the docFiles property.
-         * @param value allowed object is
-         * {@link Jxbv2MultiPathes }
+         * @param value allowed object is {@link Jxbv2MultiPathes }
          */
         @objid ("f3cffef9-c0a7-4eda-b1b0-b9cb59402fe5")
         public void setDocFiles(Jxbv2MultiPathes value) {
@@ -4275,9 +4087,11 @@ public class Jxbv2Module {
         }
 
         /**
-         * <p>Java class for anonymous complex type.
+         * <p>
+         * Java class for anonymous complex type.
          * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
+         * <p>
+         * The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
          * &lt;complexType>
@@ -4302,9 +4116,7 @@ public class Jxbv2Module {
          */
         @objid ("90d042af-529e-4257-b511-47fe0c8ac028")
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "style"
-        })
+        @XmlType(name = "", propOrder = { "style" })
         public static class Jxbv2Styles {
             @objid ("6d3ac25f-4796-4c42-a7e8-2ab751999262")
             @XmlElement(name = "Style")
@@ -4314,21 +4126,20 @@ public class Jxbv2Module {
              * Gets the value of the style property.
              * 
              * <p>
-             * This accessor method returns a reference to the live list,
-             * not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the style property.
+             * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
+             * style property.
              * 
              * <p>
              * For example, to add a new item, do as follows:
+             * 
              * <pre>
              * getStyle().add(newItem);
              * </pre>
              * 
              * 
              * <p>
-             * Objects of the following type(s) are allowed in the list
-             * {@link Jxbv2Module.Jxbv2Resources.Jxbv2Styles.Jxbv2Style }
+             * Objects of the following type(s) are allowed in the list {@link Jxbv2Module.Jxbv2Resources.Jxbv2Styles.Jxbv2Style }
              */
             @objid ("34a73390-662c-428f-8f28-a6d6bdbaf446")
             public List<org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Resources.Jxbv2Styles.Jxbv2Style> getStyle() {
@@ -4339,9 +4150,11 @@ public class Jxbv2Module {
             }
 
             /**
-             * <p>Java class for anonymous complex type.
+             * <p>
+             * Java class for anonymous complex type.
              * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
+             * <p>
+             * The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
              * &lt;complexType>
@@ -4368,9 +4181,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the id property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("a94fa316-f4a7-4bf4-ab72-8791d2773461")
                 public String getId() {
@@ -4379,8 +4190,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the id property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("10d1f957-8c99-4f1f-beda-adb0dcf05026")
                 public void setId(String value) {
@@ -4389,9 +4199,7 @@ public class Jxbv2Module {
 
                 /**
                  * Gets the value of the path property.
-                 * @return
-                 * possible object is
-                 * {@link String }
+                 * @return possible object is {@link String }
                  */
                 @objid ("b080bfc0-eec9-4fdc-820c-2fe346d68bb5")
                 public String getPath() {
@@ -4400,8 +4208,7 @@ public class Jxbv2Module {
 
                 /**
                  * Sets the value of the path property.
-                 * @param value allowed object is
-                 * {@link String }
+                 * @param value allowed object is {@link String }
                  */
                 @objid ("7bc84ceb-f051-46a6-aebf-a9fc8b704b97")
                 public void setPath(String value) {

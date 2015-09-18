@@ -22,7 +22,6 @@
 package org.modelio.mda.infra.service;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.ModuleException;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -71,13 +70,14 @@ class ModuleRemover {
     }
 
     @objid ("b8c81920-3c71-46e6-8bfd-06470ff7d2d6")
-    private static void checkCanRemoveModule(ModuleComponent toRemove, IModuleRegistry registry) throws ModuleException {
+    private static void __checkCanRemoveModule(ModuleComponent toRemove, IModuleRegistry registry) throws ModuleException {
+        /*
         // Whether this module is required (strong dependency) by another module
         if (!toRemove.getImpacted().isEmpty()) {
             StringBuilder builder = new StringBuilder(toRemove.getName());
             builder.append(" cannot be removed since it if used by the following modules:\n");
             for (ModuleComponent requiring : toRemove.getImpacted()) {
-                IModule loadedMdac = registry.getLoadedModule(requiring);
+                IRTModule loadedMdac = registry.getLoadedModule(requiring);
                 builder.append(loadedMdac.getName());
                 builder.append("\n");
             }
@@ -101,6 +101,7 @@ class ModuleRemover {
                 }
             }
         }
+        */
     }
 
 }

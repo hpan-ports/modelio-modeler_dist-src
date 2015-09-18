@@ -46,36 +46,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("000f6478-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=InterfaceRealization.class, factory=InterfaceRealizationData.Metadata.ObjectFactory.class)
 public class InterfaceRealizationData extends ModelElementData {
-    @objid ("6013cbae-26a1-471f-a9b1-76dc252c3af2")
+    @objid ("068eb225-0a69-44f2-b45b-74c2b77d12fb")
     @SmaMetaAssociation(metaName="Implemented", typeDataClass=InterfaceData.class, min=1, max=1, smAssociationClass=Metadata.ImplementedSmDependency.class, partof = true)
      SmObjectImpl mImplemented;
 
-    @objid ("515457d0-97a3-4739-9a9a-74eb3192f2b7")
+    @objid ("a419497b-2d82-4f9c-90c0-29ca1fee89b6")
     @SmaMetaAssociation(metaName="Implementer", typeDataClass=NameSpaceData.class, min=0, max=1, smAssociationClass=Metadata.ImplementerSmDependency.class)
      SmObjectImpl mImplementer;
 
-    @objid ("f756b059-b7af-4e5d-9d69-45c6ede112f8")
+    @objid ("0221412c-e105-45be-861e-807e292b10ed")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("003ebae8-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("ec23a7a3-02f4-4f62-aea3-f47d7528f81c")
+        @objid ("be73fc41-e470-4524-88ca-5d494ce01db5")
         private static SmClass smClass = null;
 
-        @objid ("f5a1e8fc-c004-4651-b08b-ab9b1111a413")
+        @objid ("d4a1908c-9ed8-4231-9452-213b9118c3c2")
         private static SmDependency ImplementedDep = null;
 
-        @objid ("d70a8dac-b82d-450d-a0b2-9860468f3d75")
+        @objid ("a5760adb-ea62-4ff8-9f8f-cf28548ed5ce")
         private static SmDependency ImplementerDep = null;
 
-        @objid ("8eab12d9-2dd5-49a5-b540-519ea004d18e")
+        @objid ("52dc5833-2bd2-4a58-bfb5-164a00bfa831")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(InterfaceRealizationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("e8d05bc2-3809-4875-89f1-d0234c4ab75c")
+        @objid ("08aae9da-be2a-4d07-9364-3f12e93974a9")
         public static SmDependency ImplementedDep() {
             if (ImplementedDep == null) {
             	ImplementedDep = classof().getDependencyDef("Implemented");
@@ -83,7 +83,7 @@ public class InterfaceRealizationData extends ModelElementData {
             return ImplementedDep;
         }
 
-        @objid ("2f0f00ae-a76a-4048-8238-bca15541729f")
+        @objid ("dc9640c6-03d2-4734-a39d-5729d08a35d3")
         public static SmDependency ImplementerDep() {
             if (ImplementerDep == null) {
             	ImplementerDep = classof().getDependencyDef("Implementer");
@@ -91,32 +91,32 @@ public class InterfaceRealizationData extends ModelElementData {
             return ImplementerDep;
         }
 
-        @objid ("27402a04-a4e3-433c-adea-023cf2c06e14")
-        public static SmDependency getImplementerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ImplementerDep;
-        }
-
-        @objid ("f4849fd8-79ed-47da-80e7-1d01a538c515")
-        public static SmDependency getImplementedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ImplementedDep;
-        }
-
-        @objid ("184a0949-7d5d-4265-aa1d-35bb1d336816")
+        @objid ("1ba0b076-57dd-4e32-97aa-68a5ec8e2c0d")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("f10b8b5c-10a7-4785-8610-f814d3ec11b1")
+        public static SmDependency getImplementedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ImplementedDep;
+        }
+
+        @objid ("7c03704e-7e18-45b2-9f46-6fac2c43e28c")
+        public static SmDependency getImplementerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ImplementerDep;
+        }
+
         @objid ("003efb02-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("9280fbc1-f7da-4ca3-84b3-67735c64145b")
+            @objid ("2037ea11-c778-4bed-bfe5-99d9f6c64d03")
             public ISmObjectData createData() {
                 return new InterfaceRealizationData();
             }
 
-            @objid ("a7799f15-1c5b-4d79-89fe-74c88671e8f3")
+            @objid ("049db4ba-7ab4-43db-8654-358c90c16294")
             public SmObjectImpl createImpl() {
                 return new InterfaceRealizationImpl();
             }
@@ -125,18 +125,18 @@ public class InterfaceRealizationData extends ModelElementData {
 
         @objid ("003f5c50-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ImplementerSmDependency extends SmSingleDependency {
-            @objid ("7c7b0925-f57e-402c-a02e-691e705ffc25")
+            @objid ("dbfa9193-bf56-4482-9497-723837626e97")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((InterfaceRealizationData) data).mImplementer;
             }
 
-            @objid ("127e3fc3-e23b-463b-a19b-300ef36c423f")
+            @objid ("a479d21c-0b45-4fa3-916d-1e6ec34a8f61")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((InterfaceRealizationData) data).mImplementer = value;
             }
 
-            @objid ("ef4b8b30-081f-4feb-9aa3-fc015a9e31e8")
+            @objid ("5534b4e8-0f29-46b3-9d44-07beddd7b994")
             @Override
             public SmDependency getSymetric() {
                 return NameSpaceData.Metadata.RealizedDep();
@@ -146,18 +146,18 @@ public class InterfaceRealizationData extends ModelElementData {
 
         @objid ("003fd00e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ImplementedSmDependency extends SmSingleDependency {
-            @objid ("3d875433-9f21-4666-860e-fcbeec6c1055")
+            @objid ("c57f577c-5374-4432-b85e-9d37c54a30c1")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((InterfaceRealizationData) data).mImplemented;
             }
 
-            @objid ("94ff9bd4-442b-42e3-b8da-f20218736b04")
+            @objid ("549c89ef-8d3f-49b0-a419-b286940b1c83")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((InterfaceRealizationData) data).mImplemented = value;
             }
 
-            @objid ("ed7c6836-e8fb-461f-b5a6-dd6057d2b6ac")
+            @objid ("188a8e58-bda0-4c86-a6ad-d69ac06757c2")
             @Override
             public SmDependency getSymetric() {
                 return InterfaceData.Metadata.ImplementedLinkDep();

@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0054944e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StateVertex extends ModelElement {
-    @objid ("2d67aee5-463f-4335-bd8f-48c992fd0cf4")
+    @objid ("2510e610-d5bd-46b5-bfe4-22755e6ed92b")
     EList<Transition> getOutGoing();
 
-    @objid ("18a6c62f-a6d8-4fda-bdcd-9975b34015d3")
+    @objid ("52e9aa1c-4ce2-4a6a-b6a3-3f375a602477")
     <T extends Transition> List<T> getOutGoing(java.lang.Class<T> filterClass);
 
-    @objid ("67d4baba-0b09-478d-baf0-4db9d848ade5")
+    @objid ("bc740e21-37fe-4a4e-9f79-614811d6cb5c")
     EList<Transition> getIncoming();
 
-    @objid ("73c0cb0f-53fd-4da0-ade3-3b785c6e25f0")
+    @objid ("02bc8eae-bf73-43b1-a1d5-f375400f687e")
     <T extends Transition> List<T> getIncoming(java.lang.Class<T> filterClass);
 
-    @objid ("353ce245-f7f9-47ba-99df-124191782902")
+    @objid ("b1a3c2ec-d867-4dbf-a7e2-71751725e73b")
     Region getParent();
 
-    @objid ("d45daf14-456c-497d-9149-fe9731ae13ae")
+    @objid ("81bb0b68-f57a-439a-8abd-a1f462c6811d")
     void setParent(Region value);
 
 }

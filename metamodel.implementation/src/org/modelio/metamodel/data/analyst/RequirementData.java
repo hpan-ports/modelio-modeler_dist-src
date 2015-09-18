@@ -45,57 +45,57 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("cdb4e302-697f-4730-9228-27f71f3c6d4d")
 @SmaMetaClass(mmClass=Requirement.class, factory=RequirementData.Metadata.ObjectFactory.class, cmsnode=true)
 public class RequirementData extends AnalystElementData {
-    @objid ("d43f77ba-e2eb-4b33-b44c-58d025c3c34e")
+    @objid ("540bd0ad-ff3f-400f-9702-603284a901c4")
     @SmaMetaAssociation(metaName="SubRequirement", typeDataClass=RequirementData.class, min=0, max=-1, smAssociationClass=Metadata.SubRequirementSmDependency.class, component = true)
      List<SmObjectImpl> mSubRequirement = null;
 
-    @objid ("8ff5f460-21e0-4625-b770-f0ea6ffaaefa")
+    @objid ("80044697-5a8a-4f55-80dd-4887a8cd05f3")
     @SmaMetaAssociation(metaName="OwnerContainer", typeDataClass=RequirementContainerData.class, min=0, max=1, smAssociationClass=Metadata.OwnerContainerSmDependency.class)
      SmObjectImpl mOwnerContainer;
 
-    @objid ("168444be-feab-49c6-b829-25fe6c0832db")
+    @objid ("6edd3e1e-5d11-4822-80c1-964c3ee39230")
     @SmaMetaAssociation(metaName="ParentRequirement", typeDataClass=RequirementData.class, min=0, max=1, smAssociationClass=Metadata.ParentRequirementSmDependency.class)
      SmObjectImpl mParentRequirement;
 
-    @objid ("bc02def1-b1bd-44ee-b510-9c2a4095b7b1")
+    @objid ("d916565d-3e8a-4b08-96a2-31a23bf8e05e")
     @SmaMetaAssociation(metaName="ArchivedRequirementVersion", typeDataClass=RequirementData.class, min=0, max=-1, smAssociationClass=Metadata.ArchivedRequirementVersionSmDependency.class, component = true)
      List<SmObjectImpl> mArchivedRequirementVersion = null;
 
-    @objid ("8abd144e-8fee-4961-b73f-857a81c87b26")
+    @objid ("2a66de84-5898-449f-8791-33f157b10caf")
     @SmaMetaAssociation(metaName="LastRequirementVersion", typeDataClass=RequirementData.class, min=0, max=1, smAssociationClass=Metadata.LastRequirementVersionSmDependency.class)
      SmObjectImpl mLastRequirementVersion;
 
-    @objid ("6b45af04-15a7-4327-9c89-395799745602")
+    @objid ("6c97ad89-8655-48b1-9d7a-3624696468b3")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("59115fc6-ae77-4d6e-8459-548c5891e205")
     public static class Metadata {
-        @objid ("0c809abf-84c5-4baa-8ad0-8fd4c8d16e07")
+        @objid ("6d358280-21c8-4c19-b3fc-46b9c5468373")
         private static SmClass smClass = null;
 
-        @objid ("9888d9d8-2db3-4c4e-9946-4db653770b83")
+        @objid ("0a002777-9884-4b80-af4c-c68729046544")
         private static SmDependency SubRequirementDep = null;
 
-        @objid ("5d925b13-a60d-49a5-a9ad-61a9c0cfa5c3")
+        @objid ("661836a3-7930-4a99-8c47-9dfc638bf6fb")
         private static SmDependency OwnerContainerDep = null;
 
-        @objid ("92610031-2fcb-4f61-a689-1940a17cdf44")
+        @objid ("380e903b-9c0c-44aa-a5bf-4deff3dba4c7")
         private static SmDependency ParentRequirementDep = null;
 
-        @objid ("46a00756-3fe6-4c27-a8d0-564a964303d2")
+        @objid ("ed0c6259-7bcb-45d4-bab1-ad545a2d80fa")
         private static SmDependency ArchivedRequirementVersionDep = null;
 
-        @objid ("ba973588-edf9-4510-90a7-cfb8c0a5b3b0")
+        @objid ("9a86a583-1407-4864-8cba-b0c3ffbd7125")
         private static SmDependency LastRequirementVersionDep = null;
 
-        @objid ("88f0670a-ff1c-492d-aadb-f41d183ae937")
+        @objid ("822b2c07-54f4-4c2e-9ed5-dbcdf906a279")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(RequirementData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("1c9acb9b-6712-4058-b3ca-b9afa9313acc")
+        @objid ("aff188cc-92b2-4840-a994-eb4ba7f64540")
         public static SmDependency SubRequirementDep() {
             if (SubRequirementDep == null) {
             	SubRequirementDep = classof().getDependencyDef("SubRequirement");
@@ -103,7 +103,7 @@ public class RequirementData extends AnalystElementData {
             return SubRequirementDep;
         }
 
-        @objid ("b55b5294-7647-476b-9e9d-1e18b30aaf4a")
+        @objid ("bb4a37d7-ce49-44ed-a032-2cb6edf8ee5e")
         public static SmDependency OwnerContainerDep() {
             if (OwnerContainerDep == null) {
             	OwnerContainerDep = classof().getDependencyDef("OwnerContainer");
@@ -111,7 +111,7 @@ public class RequirementData extends AnalystElementData {
             return OwnerContainerDep;
         }
 
-        @objid ("823522ad-ef00-458e-a43a-010f1d6cefa3")
+        @objid ("ff038a3e-d45b-4d68-923f-8b0c164ffad4")
         public static SmDependency ParentRequirementDep() {
             if (ParentRequirementDep == null) {
             	ParentRequirementDep = classof().getDependencyDef("ParentRequirement");
@@ -119,7 +119,7 @@ public class RequirementData extends AnalystElementData {
             return ParentRequirementDep;
         }
 
-        @objid ("b0c258dc-9a88-4530-86e7-45c702c5d49b")
+        @objid ("8420c906-e538-4ae6-bd50-feca14daebb6")
         public static SmDependency ArchivedRequirementVersionDep() {
             if (ArchivedRequirementVersionDep == null) {
             	ArchivedRequirementVersionDep = classof().getDependencyDef("ArchivedRequirementVersion");
@@ -127,7 +127,7 @@ public class RequirementData extends AnalystElementData {
             return ArchivedRequirementVersionDep;
         }
 
-        @objid ("7763082c-9e3d-45a0-9001-eebb1d0eb1dd")
+        @objid ("80b10490-acaa-4e24-a764-6772ea97dbb5")
         public static SmDependency LastRequirementVersionDep() {
             if (LastRequirementVersionDep == null) {
             	LastRequirementVersionDep = classof().getDependencyDef("LastRequirementVersion");
@@ -135,50 +135,50 @@ public class RequirementData extends AnalystElementData {
             return LastRequirementVersionDep;
         }
 
-        @objid ("1b56b84f-6900-4416-b72d-41a451b12b49")
-        public static SmDependency getOwnerContainerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerContainerDep;
-        }
-
-        @objid ("242fae2e-898d-4594-9996-92a3f82eb6a2")
+        @objid ("ac99f491-3e81-4d67-bf81-d407e309dddd")
         public static SmDependency getLastRequirementVersionDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return LastRequirementVersionDep;
         }
 
-        @objid ("739c61f1-79e9-4ce2-97d5-968689c23ba2")
+        @objid ("65d9ad61-e5e2-4e0c-8f74-f6ad2db531d8")
         public static SmDependency getParentRequirementDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ParentRequirementDep;
         }
 
-        @objid ("f5031215-29bc-47c7-a9a0-1945f9e92b56")
+        @objid ("6cb8bdc8-dbca-4eb1-b2fe-1c6986888286")
         public static SmDependency getArchivedRequirementVersionDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ArchivedRequirementVersionDep;
         }
 
-        @objid ("d88b09c0-cc9f-4dab-a056-efa8b420b813")
-        public static SmDependency getSubRequirementDep() {
+        @objid ("29104769-d46f-4fd5-b362-963b87912cfa")
+        public static SmDependency getOwnerContainerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return SubRequirementDep;
+            return OwnerContainerDep;
         }
 
-        @objid ("b8984298-c304-4650-a2d0-f395c0f04018")
+        @objid ("ab6a0b18-4f26-4d68-a6cf-c4796f40ed33")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("a1a500d9-1655-47e7-97a1-a707ad492c36")
+        public static SmDependency getSubRequirementDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SubRequirementDep;
+        }
+
         @objid ("8fb3c95f-267c-4e60-a366-5d23f93059b6")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("cef9eba4-6649-473d-84f8-5c7bb727241d")
+            @objid ("ad0e33a9-aced-49da-8acb-0a1f5190960a")
             public ISmObjectData createData() {
                 return new RequirementData();
             }
 
-            @objid ("9556ea60-530c-470f-bc76-6e483dd49c65")
+            @objid ("e74cf77c-ecf5-40a4-8907-544524b75ee8")
             public SmObjectImpl createImpl() {
                 return new RequirementImpl();
             }
@@ -187,18 +187,18 @@ public class RequirementData extends AnalystElementData {
 
         @objid ("0b16d465-8e0b-4917-97aa-728cfbd9e4db")
         public static class OwnerContainerSmDependency extends SmSingleDependency {
-            @objid ("899e053f-666e-4020-a686-170dbdc5374f")
+            @objid ("d527b9e9-cb6f-4384-b186-5c4f10a92fe2")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((RequirementData) data).mOwnerContainer;
             }
 
-            @objid ("a3b0a8c0-baea-499b-919e-2b3b0a22daaf")
+            @objid ("f0f5a91c-6ece-4c45-b360-f417f77c29c1")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((RequirementData) data).mOwnerContainer = value;
             }
 
-            @objid ("9f3f898d-788e-4e60-9daf-6d5be5a101d7")
+            @objid ("02041bec-1d5a-48ad-bb76-11cd9cf52a81")
             @Override
             public SmDependency getSymetric() {
                 return RequirementContainerData.Metadata.OwnedRequirementDep();
@@ -208,20 +208,20 @@ public class RequirementData extends AnalystElementData {
 
         @objid ("015ad436-44bb-4f76-adac-305c1e5dad32")
         public static class SubRequirementSmDependency extends SmMultipleDependency {
-            @objid ("2bafddf9-5670-45df-bc59-c1988a97a279")
+            @objid ("1d17237b-8e35-41fb-98b4-fb71e745835a")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((RequirementData)data).mSubRequirement != null)? ((RequirementData)data).mSubRequirement:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("06dd5aca-7371-4ed7-965f-faf0f59da14d")
+            @objid ("986ab312-3316-4a07-8383-2df4575fe8da")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((RequirementData) data).mSubRequirement = new ArrayList<>(initialCapacity);
                 return ((RequirementData) data).mSubRequirement;
             }
 
-            @objid ("ef711099-2ef6-4ddf-9c67-3a335e08ced9")
+            @objid ("9f62714b-bc63-4b42-a5a8-f35e6fdfcffa")
             @Override
             public SmDependency getSymetric() {
                 return RequirementData.Metadata.ParentRequirementDep();
@@ -231,18 +231,18 @@ public class RequirementData extends AnalystElementData {
 
         @objid ("1248b591-50dc-48a8-a038-f96a5e89a40a")
         public static class ParentRequirementSmDependency extends SmSingleDependency {
-            @objid ("bb8fa34d-f4de-4aa0-9f81-d85d49ede4a0")
+            @objid ("ac41c9d7-73a1-4a24-b1cc-a60c8accbe00")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((RequirementData) data).mParentRequirement;
             }
 
-            @objid ("a70bbfdb-21e2-4eab-97a0-e1197654454c")
+            @objid ("317a8f17-0794-4cab-b776-c4fb0d5377b7")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((RequirementData) data).mParentRequirement = value;
             }
 
-            @objid ("5a4d1991-7215-45a5-bf59-d874e17a763b")
+            @objid ("100a34d7-f40f-4e3f-a2bd-e1ecd4093014")
             @Override
             public SmDependency getSymetric() {
                 return RequirementData.Metadata.SubRequirementDep();
@@ -252,20 +252,20 @@ public class RequirementData extends AnalystElementData {
 
         @objid ("bfc5dc7f-ce0c-4cee-8b52-566b87a02aac")
         public static class ArchivedRequirementVersionSmDependency extends SmMultipleDependency {
-            @objid ("946fc498-91c0-4d82-b092-6035237a18d8")
+            @objid ("ae3027ff-96f5-4875-b37e-07c2f94ac984")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((RequirementData)data).mArchivedRequirementVersion != null)? ((RequirementData)data).mArchivedRequirementVersion:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("8c09400b-1e65-4c72-988e-6a0df42db97b")
+            @objid ("5f1c1c42-c59f-45f6-8f0d-7c29d5c7b69d")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((RequirementData) data).mArchivedRequirementVersion = new ArrayList<>(initialCapacity);
                 return ((RequirementData) data).mArchivedRequirementVersion;
             }
 
-            @objid ("f08a51df-e3ba-46b8-ba7b-0d9fea8a1c77")
+            @objid ("97201017-c1f2-4f94-84d1-766424c89b6f")
             @Override
             public SmDependency getSymetric() {
                 return RequirementData.Metadata.LastRequirementVersionDep();
@@ -275,18 +275,18 @@ public class RequirementData extends AnalystElementData {
 
         @objid ("a8f74006-3f14-4d0c-93c0-8acb2dcda313")
         public static class LastRequirementVersionSmDependency extends SmSingleDependency {
-            @objid ("6cc94dd7-d484-42f0-b7fc-27e0ec211ab6")
+            @objid ("eb4fa10c-c21c-4f21-aeb3-b9c342013099")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((RequirementData) data).mLastRequirementVersion;
             }
 
-            @objid ("74194c03-76ff-435d-91fc-287542b2c08d")
+            @objid ("2d9f01a4-23b9-4722-b60c-675c15601a0e")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((RequirementData) data).mLastRequirementVersion = value;
             }
 
-            @objid ("1de21318-a4c5-44cc-85bc-0ef94163f0c0")
+            @objid ("357b9de9-1282-4853-ba7a-3c26199029bc")
             @Override
             public SmDependency getSymetric() {
                 return RequirementData.Metadata.ArchivedRequirementVersionDep();

@@ -26,7 +26,7 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Component;
 import org.modelio.metamodel.uml.statik.ComponentRealization;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("35ec879d-0286-4736-9b8a-98715696988f")
 public class OComponentRealization extends OModelElement {
@@ -37,7 +37,7 @@ public class OComponentRealization extends OModelElement {
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE
-                .createComponentRealization();
+                        .createComponentRealization();
     }
 
     @objid ("19f86469-22e0-4cba-8358-94250fa18a32")

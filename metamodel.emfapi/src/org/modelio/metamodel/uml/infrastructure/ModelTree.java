@@ -31,16 +31,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00891e1c-c4be-1fd8-97fe-001ec947cd2a")
 public interface ModelTree extends ModelElement {
-    @objid ("15cf3a9d-a2f0-44ca-a6c5-3795599e6a6d")
+    @objid ("1649267d-4cf7-47a0-b24b-096138ee5aeb")
     ModelTree getOwner();
 
-    @objid ("3377a62c-1572-4109-b4df-70070584d885")
+    @objid ("0fd99362-ea29-4201-9e2f-45b92ba378ff")
     void setOwner(ModelTree value);
 
-    @objid ("03a67e7f-c684-4afb-8b93-b2a91415fad0")
+    @objid ("ce801df4-bd01-41cf-a452-63a63b5e595c")
     EList<ModelTree> getOwnedElement();
 
-    @objid ("8ca35cf5-7c76-4bc6-8226-48dcb1d24617")
+    @objid ("97031dfd-b2f5-43c8-8622-575c13a698a1")
     <T extends ModelTree> List<T> getOwnedElement(java.lang.Class<T> filterClass);
 
 }

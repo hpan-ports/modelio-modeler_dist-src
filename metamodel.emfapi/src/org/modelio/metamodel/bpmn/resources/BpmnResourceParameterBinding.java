@@ -33,22 +33,22 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("000b28b8-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnResourceParameterBinding extends BpmnBaseElement {
-    @objid ("50a3476f-1ef7-4a43-bc78-7c26dd74eabe")
+    @objid ("daf60e7f-42b1-4b2d-baa9-d6070d99eb80")
     String getExpression();
 
-    @objid ("5f16b8ee-13fa-463b-b658-1eb1f51df225")
+    @objid ("20571a42-7e8e-4268-88ea-9756f1cf2e4b")
     void setExpression(String value);
 
-    @objid ("a207adea-9f93-472f-8182-f24ff272dc80")
+    @objid ("73aa8f65-8f82-43e2-8969-8ab876d916f3")
     BpmnResourceRole getResourceRole();
 
-    @objid ("0bc7d747-ddd3-4e92-b604-09ec2bfd7cc0")
+    @objid ("a9657260-0d06-4146-a0e5-db69b1b4b4bc")
     void setResourceRole(BpmnResourceRole value);
 
-    @objid ("482b5a2b-675f-49ab-b597-92ada6a369fb")
+    @objid ("b5a98f45-dcbc-404f-a1ea-8e671924507d")
     BpmnResourceParameter getParameterRef();
 
-    @objid ("ce2cc0da-2fdf-4ca6-9752-b93d5da035c8")
+    @objid ("688f0ec5-a0fc-43fe-a214-43b461cc75b8")
     void setParameterRef(BpmnResourceParameter value);
 
 }

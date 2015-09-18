@@ -68,8 +68,7 @@ public class DeleteProjectHandler {
 
     @objid ("0046fef6-cc35-1ff2-a7f4-001ec947cd2a")
     @CanExecute
-    public boolean canExecute(final IProjectService projectService, @Optional
-@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+    public boolean canExecute(final IProjectService projectService, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         if (selection == null) {
             return false;
         }

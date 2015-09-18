@@ -43,57 +43,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00833fec-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnServiceTaskImpl extends BpmnTaskImpl implements BpmnServiceTask {
-    @objid ("f4166573-9e0a-42e8-b540-2bf9c1db648e")
+    @objid ("03c82b5c-57f5-41a7-bc10-a23beeed179c")
     @Override
     public String getImplementation() {
         return (String) getAttVal(BpmnServiceTaskData.Metadata.ImplementationAtt());
     }
 
-    @objid ("d89b44ca-88e5-4fb0-9c24-b96b943d0fcb")
+    @objid ("4b9f1d71-396e-4249-bff6-eaec315f08c0")
     @Override
     public void setImplementation(String value) {
         setAttVal(BpmnServiceTaskData.Metadata.ImplementationAtt(), value);
     }
 
-    @objid ("10ccda12-1d43-4953-befc-e38827bd01fe")
+    @objid ("e3904ea2-93fd-44d0-99d5-2fa80b22d4f0")
     @Override
     public Operation getCalledOperation() {
         return (Operation) getDepVal(BpmnServiceTaskData.Metadata.CalledOperationDep());
     }
 
-    @objid ("ebadbb99-91e5-494e-9423-4559ff790d44")
+    @objid ("d8b4ab9f-0ab0-427c-872e-846c89267129")
     @Override
     public void setCalledOperation(Operation value) {
         appendDepVal(BpmnServiceTaskData.Metadata.CalledOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5f2b6d2b-fe05-41a7-811c-29affccd4aeb")
+    @objid ("4a0d692e-d33b-46ef-ba76-2a9c1b3dd9fc")
     @Override
     public BpmnOperation getOperationRef() {
         return (BpmnOperation) getDepVal(BpmnServiceTaskData.Metadata.OperationRefDep());
     }
 
-    @objid ("b295f9ca-1dac-4b13-9318-884faced4401")
+    @objid ("dd9f66c6-4368-425e-b3a6-629aa5aa6d28")
     @Override
     public void setOperationRef(BpmnOperation value) {
         appendDepVal(BpmnServiceTaskData.Metadata.OperationRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fc3098e0-eb30-4a19-a0be-5405e1dddaef")
+    @objid ("561cc92a-6a63-4d1d-9151-e6f62b771d74")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0752b4a5-1af3-49f6-84a5-d1695502ad6e")
+    @objid ("f87fe053-c7dd-4821-a29e-fd1f1146d5fa")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("209089e6-707b-4aec-b866-e940613ad44b")
+    @objid ("2f6bc295-cfcc-4d21-8002-16e3b313e477")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnServiceTask(this);

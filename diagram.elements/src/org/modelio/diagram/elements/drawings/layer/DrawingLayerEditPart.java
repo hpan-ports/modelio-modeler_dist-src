@@ -32,7 +32,6 @@ import org.eclipse.draw2d.FreeformLayeredPane;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Layer;
-import org.eclipse.draw2d.TreeSearch;
 import org.eclipse.draw2d.XYAnchor;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -99,7 +98,7 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
     @Override
     protected IFigure createFigure() {
         // 1) Creates the nodes layer
-        this.nodesLayer = new DrawingsLayerFigure();
+        this.nodesLayer = new FreeformLayer();
         this.nodesLayer.setLayoutManager(new FreeformLayout());
         
         // the figure must be kept transparent 
@@ -304,41 +303,6 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
         getFigure();
         
         this.connectionsLayer.add(connectionFigure);
-    }
-
-    /**
-     * Figure for the drawing layer.
-     * <p>
-     * It is a layer that is transparent for display and opaque for behavior.
-     */
-    @objid ("a6659ade-d598-4f03-8b2b-14a0ce308280")
-    private static final class DrawingsLayerFigure extends FreeformLayer {
-        @objid ("6b55a61b-22fd-404b-a126-bb39e5af22e9")
-        public DrawingsLayerFigure() {
-            super();
-        }
-
-        @objid ("5e42645a-ea38-46b8-9489-d9b0bcc61d19")
-        @Override
-        public boolean containsPoint(int x, int y) {
-            return true;
-        }
-
-        @objid ("0a632cde-4a02-43a4-b93a-59f92a6da99a")
-        @Override
-        public IFigure findFigureAt(int x, int y, TreeSearch search) {
-            if (search.prune(this))
-                return null;
-            
-            IFigure child = findDescendantAtExcluding(x, y, search);
-            if (child != null)
-                return child;
-            
-            if (search.accept(this))
-                return this;
-            return null;
-        }
-
     }
 
 }

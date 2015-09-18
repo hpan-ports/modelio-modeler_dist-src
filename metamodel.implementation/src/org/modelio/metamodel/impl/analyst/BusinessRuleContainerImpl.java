@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("c569fea9-fad8-4e72-ac57-6326c88e45b6")
 public class BusinessRuleContainerImpl extends AnalystContainerImpl implements BusinessRuleContainer {
-    @objid ("311bff0d-6f89-4e7e-9a78-6f4e7058ad87")
+    @objid ("d8fc658d-47ca-401f-bb38-ed99ef7f3757")
     @Override
     public EList<BusinessRule> getOwnedRule() {
         return new SmList<>(this, BusinessRuleContainerData.Metadata.OwnedRuleDep());
     }
 
-    @objid ("e5f52152-9eb8-483e-969f-5a30401ebdd7")
+    @objid ("d6792db2-6415-4e50-a228-da9ff11cf168")
     @Override
     public <T extends BusinessRule> List<T> getOwnedRule(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,25 +63,25 @@ public class BusinessRuleContainerImpl extends AnalystContainerImpl implements B
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("62719416-f05d-402c-a272-ed8556793a3d")
+    @objid ("747e4ec7-ac3f-47f4-82ea-6baf03eae28f")
     @Override
     public BusinessRuleContainer getOwnerContainer() {
         return (BusinessRuleContainer) getDepVal(BusinessRuleContainerData.Metadata.OwnerContainerDep());
     }
 
-    @objid ("edc4edda-b470-4620-844d-13e3a9da3bc1")
+    @objid ("109aae44-46d2-43ad-bbd9-5ea1085fd75a")
     @Override
     public void setOwnerContainer(BusinessRuleContainer value) {
         appendDepVal(BusinessRuleContainerData.Metadata.OwnerContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a47606de-844f-4f70-9904-e1dce5f3c383")
+    @objid ("1d2c665d-1208-49df-a0f1-7ecbe2b40ade")
     @Override
     public EList<BusinessRuleContainer> getOwnedContainer() {
         return new SmList<>(this, BusinessRuleContainerData.Metadata.OwnedContainerDep());
     }
 
-    @objid ("279002f4-3fc9-45ee-9a69-d8b2d81b47bf")
+    @objid ("025613e3-4140-4c63-88a2-1e0a50b28e79")
     @Override
     public <T extends BusinessRuleContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,19 +94,19 @@ public class BusinessRuleContainerImpl extends AnalystContainerImpl implements B
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c344eea3-0ca3-4ce8-a912-d085c494e719")
+    @objid ("5500608a-c423-4be4-b384-529fe6afdb1d")
     @Override
     public AnalystProject getOwnerProject() {
         return (AnalystProject) getDepVal(BusinessRuleContainerData.Metadata.OwnerProjectDep());
     }
 
-    @objid ("957b4d09-245e-4608-8f7d-c7fe4a90c7a6")
+    @objid ("564eaf6a-693a-48d6-9b50-b29c6d1aedaf")
     @Override
     public void setOwnerProject(AnalystProject value) {
         appendDepVal(BusinessRuleContainerData.Metadata.OwnerProjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("21a883ec-f513-48af-9ed3-de09beb0f30b")
+    @objid ("78027517-9411-4fe0-aa0e-9138b14b69a1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -119,7 +119,7 @@ public class BusinessRuleContainerImpl extends AnalystContainerImpl implements B
         return super.getCompositionOwner();
     }
 
-    @objid ("cf00704a-02c3-4610-b457-0e0014db6c30")
+    @objid ("a99b91ac-fd7f-4b65-9dd1-de9ee3751f52")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -132,7 +132,7 @@ public class BusinessRuleContainerImpl extends AnalystContainerImpl implements B
         return super.getCompositionRelation();
     }
 
-    @objid ("c8bc2df3-48ce-47b8-891e-c034c6c8e73e")
+    @objid ("523c352f-259e-4cee-99d2-778722852392")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBusinessRuleContainer(this);

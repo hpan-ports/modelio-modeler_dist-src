@@ -24,7 +24,7 @@ package org.modelio.xmi.model.objing;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.InstanceNode;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("5d28bcaf-8bf3-4f7a-a979-304c72d24ea2")

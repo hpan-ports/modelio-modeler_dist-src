@@ -34,40 +34,40 @@ import org.modelio.metamodel.uml.statik.RequiredInterface;
 
 @objid ("0018a768-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Port extends BindableInstance {
-    @objid ("2128f4e7-8a6d-47e1-b4b5-95c88dadc5d3")
+    @objid ("1fde4365-8238-4cff-ac65-7a95283e5b2c")
     boolean isIsBehavior();
 
-    @objid ("fe1b12dd-81d9-4b67-9ee7-9ac62455c15c")
+    @objid ("439b3b97-d452-4395-b4a1-4916b467d0dc")
     void setIsBehavior(boolean value);
 
-    @objid ("4c86bd2c-290d-460b-ab92-133008479f93")
+    @objid ("8781d94a-91d9-4d60-a0bc-555a62822fc1")
     boolean isIsService();
 
-    @objid ("51904cc0-6b76-4b21-9c84-77ccc0dd2c9e")
+    @objid ("026bb3ca-59f2-4bc9-af25-6998a18a05a5")
     void setIsService(boolean value);
 
-    @objid ("e9f6d6cd-9ad0-4e5a-91d9-0f89c1b7f7ad")
+    @objid ("516ccb50-1ce1-4748-9e80-7a2831a523a8")
     boolean isIsConjugated();
 
-    @objid ("eabd57b3-61db-4e0c-8423-7cebb15b1321")
+    @objid ("9455e280-361a-4e6a-8ce0-8f0988015c06")
     void setIsConjugated(boolean value);
 
-    @objid ("799695a2-719c-4882-9b41-953cab1a1517")
+    @objid ("94d835c7-6e63-4661-afca-8802503b1ac0")
     PortOrientation getDirection();
 
-    @objid ("ab6f8465-2920-42f9-934f-ecb5ce9e87e3")
+    @objid ("515e985c-79d1-434d-84a0-bcce220635cf")
     void setDirection(PortOrientation value);
 
-    @objid ("cfc48464-81df-4877-8bbb-95e4d293cd15")
+    @objid ("bf05f274-b52e-4ace-ad55-c8ed73f2697f")
     EList<ProvidedInterface> getProvided();
 
-    @objid ("2e92cd12-8170-4a36-9bbc-a6d06f96dc9f")
+    @objid ("f501dd7a-3dfa-4f26-bc46-a75fc8a76a5e")
     <T extends ProvidedInterface> List<T> getProvided(java.lang.Class<T> filterClass);
 
-    @objid ("e61b4ef0-cf76-492e-90a7-a3c57a875fcb")
+    @objid ("a30e796d-b5c8-45a9-88dd-48d290841fd1")
     EList<RequiredInterface> getRequired();
 
-    @objid ("87839191-d69e-4b12-9aa6-b059ba0e9eec")
+    @objid ("7077a308-483d-4a4c-b72a-e0db8a26c55e")
     <T extends RequiredInterface> List<T> getRequired(java.lang.Class<T> filterClass);
 
 }

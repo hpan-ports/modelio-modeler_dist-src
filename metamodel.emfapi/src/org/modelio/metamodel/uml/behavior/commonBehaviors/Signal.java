@@ -41,76 +41,76 @@ import org.modelio.metamodel.uml.statik.Parameter;
 
 @objid ("00421152-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Signal extends GeneralClass {
-    @objid ("bff39a5f-2444-4690-a187-330fa1a5d074")
+    @objid ("73e07c64-ae69-455d-b887-ef8fc2b1e30f")
     boolean isIsEvent();
 
-    @objid ("82ace7e2-9220-47f6-9130-a8803c81b933")
+    @objid ("2a30bef3-f27c-4edf-b782-1da78803901f")
     void setIsEvent(boolean value);
 
-    @objid ("0bf3e8c7-30ec-4127-85d7-cb2b5adeff53")
+    @objid ("e4634705-a4b7-40b7-a7c9-842842930e52")
     boolean isIsException();
 
-    @objid ("6be0fdd1-4766-467c-9764-314064340eec")
+    @objid ("e4522974-bf23-4eab-b823-ef109ab2c140")
     void setIsException(boolean value);
 
-    @objid ("6485ea13-8c87-4afa-a010-ccd15d900681")
+    @objid ("84397971-f603-4712-83a7-5f0d38ca45e2")
     EList<SendSignalAction> getSender();
 
-    @objid ("613cc937-e8be-4e78-865f-ac5755251880")
+    @objid ("2e46f410-91b3-4d5c-add4-f7941caa4e50")
     <T extends SendSignalAction> List<T> getSender(java.lang.Class<T> filterClass);
 
-    @objid ("a1efed53-a499-46df-8df5-c1a7d4eefc2f")
+    @objid ("d4972c25-29f6-4dfc-a726-0c5853628d32")
     EList<Message> getUsage();
 
-    @objid ("1b7b907d-2441-436f-905f-85933258f8e3")
+    @objid ("cd304777-5db3-4fcd-ab7e-ef00abb1c079")
     <T extends Message> List<T> getUsage(java.lang.Class<T> filterClass);
 
-    @objid ("d9dfacc0-2f37-4e8f-958e-3dd58477c678")
+    @objid ("eb5b2889-f848-4c88-b466-a4b99007336c")
     EList<Transition> getSends();
 
-    @objid ("0bbeb780-6ea4-499e-83ad-c2290c4bc68a")
+    @objid ("082d27da-172f-4d7d-9519-57ae5815ebac")
     <T extends Transition> List<T> getSends(java.lang.Class<T> filterClass);
 
-    @objid ("2048c73f-b948-4715-9b3a-890dc92c90fb")
+    @objid ("d5ed8ca4-f2b3-4bec-9fa0-f435c0f763b5")
     Parameter getPBase();
 
-    @objid ("7fa7f1cb-13ba-4f70-a5a8-dca973277f30")
+    @objid ("30961e5d-c85f-4895-8074-95feb7e18d49")
     void setPBase(Parameter value);
 
-    @objid ("295ea4c3-8662-4313-ae02-ffdc288a58ac")
+    @objid ("0e958d71-2711-43ae-89d3-d1800fc49c29")
     Operation getOBase();
 
-    @objid ("9992b3a5-97b3-40ca-8b64-c8ea5db28e0c")
+    @objid ("2cddc0ff-dae9-46b2-aae1-976c7c2a9937")
     void setOBase(Operation value);
 
-    @objid ("6e686632-548f-4a25-b6ed-22d6b36bfc55")
+    @objid ("6665f016-36ff-4fd7-855c-e0e049015f12")
     EList<CommunicationMessage> getCommunicationUsage();
 
-    @objid ("eae9a6f9-9e19-4e41-844e-0a4d8e927553")
+    @objid ("4c6bae87-c5ee-4e3b-b993-58c0752a6abf")
     <T extends CommunicationMessage> List<T> getCommunicationUsage(java.lang.Class<T> filterClass);
 
-    @objid ("b18e0faf-154d-4ff7-8ce1-425ad91e23ae")
+    @objid ("93e84b77-5ec5-42ad-9281-7058fdf4b40a")
     EList<DataFlow> getDOccurence();
 
-    @objid ("baeed585-e96a-4dbd-8851-b4c4a7d56c99")
+    @objid ("5f43060f-48b6-4f15-bf48-e518da6537f3")
     <T extends DataFlow> List<T> getDOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("a2189687-7c26-479c-a642-ff17c7df4500")
+    @objid ("af7fc492-032d-4432-a11e-a9d39922ad33")
     EList<Event> getEOccurence();
 
-    @objid ("10c9f5e7-ff1a-466b-a848-e6648acd1dfd")
+    @objid ("c4b857b2-d9a6-4421-9ecb-044c90b19799")
     <T extends Event> List<T> getEOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("627e03b7-3218-43b8-9441-a9c7aa68905b")
+    @objid ("f5e646f1-4aca-462d-bb08-d5a30348b374")
     GeneralClass getBase();
 
-    @objid ("644863bc-d0e3-4392-a071-0c5c6cf405ff")
+    @objid ("e10e856e-745a-46fa-ba96-9992eaf437dc")
     void setBase(GeneralClass value);
 
-    @objid ("4eb384bd-9edf-4172-a49c-9f5ef21024c4")
+    @objid ("ed4350da-dae7-48f4-84d3-f359ee0d8413")
     EList<AcceptSignalAction> getReceiver();
 
-    @objid ("ffb10eb0-ea8f-446d-b563-dae2a9dd4b1f")
+    @objid ("cae1f3b5-83ee-431d-bb02-09a0e6213320")
     <T extends AcceptSignalAction> List<T> getReceiver(java.lang.Class<T> filterClass);
 
 }

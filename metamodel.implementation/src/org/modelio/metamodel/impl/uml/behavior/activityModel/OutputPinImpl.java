@@ -42,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003ae756-c4bf-1fd8-97fe-001ec947cd2a")
 public class OutputPinImpl extends PinImpl implements OutputPin {
-    @objid ("16902bd7-2ed4-4721-8fe2-a29c398f385d")
+    @objid ("1c919e06-602f-4d84-8f0c-5feba0d279a6")
     @Override
     public ActivityAction getOutputing() {
         return (ActivityAction) getDepVal(OutputPinData.Metadata.OutputingDep());
     }
 
-    @objid ("e1887512-2729-4676-805a-8e4f03779db2")
+    @objid ("9d7adec0-9563-473b-8376-a25ad8fc1d3c")
     @Override
     public void setOutputing(ActivityAction value) {
         appendDepVal(OutputPinData.Metadata.OutputingDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0023d72f-261a-486a-93b6-f5da97732810")
+    @objid ("02c0d443-85a2-4d1e-8d04-65cf7a53a725")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -64,7 +64,7 @@ public class OutputPinImpl extends PinImpl implements OutputPin {
         return super.getCompositionOwner();
     }
 
-    @objid ("53e8f016-c7b0-4473-bcf1-0158665417a0")
+    @objid ("ba57e8a3-07b6-44b7-96de-770ff263e063")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -74,7 +74,7 @@ public class OutputPinImpl extends PinImpl implements OutputPin {
         return super.getCompositionRelation();
     }
 
-    @objid ("502004b0-64ca-4b45-945a-38b4d1fa624c")
+    @objid ("09ae4d7c-c06e-4eed-a6f0-0ca6909e2325")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitOutputPin(this);

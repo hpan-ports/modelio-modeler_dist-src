@@ -32,8 +32,8 @@ import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("2c12769b-4ec8-446b-b19b-03672ef9aafe")
 public class EComment extends EElement {

@@ -124,7 +124,7 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
         parametersGroup.setLayout(new GridLayout(1, true));
         parametersGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         this.propertyComposite = new RamcPropertyComposite(parametersGroup, SWT.NONE, this.fragmentInfos, this.projectAdapter);
-        this.propertyComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+        this.propertyComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         return this.area;
     }
 
@@ -145,14 +145,14 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
         Point parentLocation = this.getShell().getParent().getLocation();
         
         this.getShell().setLocation(parentLocation.x + 300, parentLocation.y + 200);
-        this.getShell().setSize(550, 650);
-        this.getShell().setMinimumSize(520, 600);
+        this.getShell().setSize(600, 800);
+        this.getShell().setMinimumSize(600, 800);
     }
 
     @objid ("7d535807-3adc-11e2-916e-002564c97630")
     @Override
     protected void okPressed() {
-        // FIXME Replace with the following code to allow HTTP ramc fragments 
+        // FIXME Replace with the following code to allow HTTP ramc fragments
         //        try(UriPathAccess acc = new UriPathAccess(URI, IAuthData)) {
         //            Path p = acc.getPath();
         Path archivePath = Paths.get(this.panel.text.getText());

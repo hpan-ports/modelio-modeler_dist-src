@@ -44,8 +44,7 @@ import org.modelio.app.ui.plugin.AppUi;
 public class ShowViewHandler {
     @objid ("b78ed128-37cf-4e9c-b16d-81041639a420")
     @Execute
-    public void execute(EPartService partService, MMenuItem item, MWindow window, @Optional
-@Named("org.modelio.app.ui.command.showview.viewid") String viewid) {
+    public void execute(EPartService partService, MMenuItem item, MWindow window, @Optional @Named("org.modelio.app.ui.command.showview.viewid") String viewid) {
         MPart part = null;
         
         // Get a shared part (if exists)

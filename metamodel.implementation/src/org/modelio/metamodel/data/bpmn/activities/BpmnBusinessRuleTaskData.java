@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("007ec354-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnBusinessRuleTask.class, factory=BpmnBusinessRuleTaskData.Metadata.ObjectFactory.class)
 public class BpmnBusinessRuleTaskData extends BpmnTaskData {
-    @objid ("56b272b2-e2e7-4a1b-abd2-4100b28746f9")
+    @objid ("75825934-4c18-4368-88f3-b7f956027269")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00218e82-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("318d9c80-17fb-4ea9-994f-db4f47fe5437")
+        @objid ("bf37a957-c159-4f8a-9489-90450ce61f21")
         private static SmClass smClass = null;
 
-        @objid ("78dad10a-a01e-4b63-8336-3be2ad35c5c3")
+        @objid ("ea28cb72-7454-4fcf-811d-87b2eedbb0f5")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnBusinessRuleTaskData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("3b364e69-4654-4d97-a8ee-c1a005e11710")
+        @objid ("bc2deafe-5311-4907-a617-9887c1301068")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BpmnBusinessRuleTaskData extends BpmnTaskData {
 
         @objid ("0022b5dc-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ab5f0527-d8ee-41d6-b74b-ca424fee23e1")
+            @objid ("45d0966d-4019-4c51-84ad-2e090a513958")
             public ISmObjectData createData() {
                 return new BpmnBusinessRuleTaskData();
             }
 
-            @objid ("dc2fcd2a-0dfe-42b3-bcb2-6852dfddde28")
+            @objid ("01b4d677-8bf9-46b9-a51a-ea0172bd5e57")
             public SmObjectImpl createImpl() {
                 return new BpmnBusinessRuleTaskImpl();
             }

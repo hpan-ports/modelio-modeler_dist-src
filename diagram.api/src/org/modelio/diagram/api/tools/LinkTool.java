@@ -36,7 +36,7 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.editparts.LayerManager;
 import org.modelio.api.diagram.IDiagramGraphic;
 import org.modelio.api.diagram.IDiagramLink.LinkRouterKind;
-import org.modelio.api.diagram.tools.ILinkCommand;
+import org.modelio.api.diagram.tools.ILinkTool;
 import org.modelio.diagram.api.dg.DGFactory;
 import org.modelio.diagram.api.dg.LinkPath;
 import org.modelio.diagram.api.services.DiagramHandle;
@@ -60,16 +60,16 @@ public class LinkTool extends BendedConnectionCreationTool {
     protected GmModel sourceGm;
 
     @objid ("657d3847-fae3-4078-9143-d969af6ec9fa")
-    protected ILinkCommand linkCommand;
+    protected ILinkTool linkCommand;
+
+    @objid ("63278321-cb9f-4093-87ff-d8d07e8f1b99")
+    private DiagramHandle diagramHandle = null;
 
     /**
      * PropertyDefinition name for the actual handler on the module side.
      */
-    @objid ("928eaf04-8866-4277-a903-291596d9f567")
+    @objid ("84833205-8226-4f8a-b1a0-6cbbc47b264d")
     public static final Object PROPERTY_HANDLER = "handler";
-
-    @objid ("63278321-cb9f-4093-87ff-d8d07e8f1b99")
-    private DiagramHandle diagramHandle = null;
 
     /**
      * C'tor, used by platform to instantiate the tool by reflexion.
@@ -189,8 +189,8 @@ public class LinkTool extends BendedConnectionCreationTool {
     @Override
     protected void applyProperty(final Object key, final Object value) {
         if (PROPERTY_HANDLER.equals(key)) {
-            if (value instanceof ILinkCommand) {
-                this.linkCommand = (ILinkCommand) value;
+            if (value instanceof ILinkTool) {
+                this.linkCommand = (ILinkTool) value;
             }
             return;
         }

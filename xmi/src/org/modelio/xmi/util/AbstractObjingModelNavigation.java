@@ -88,6 +88,8 @@ import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
+import org.modelio.metamodel.uml.statik.NaryLink;
+import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.metamodel.uml.statik.PackageImport;
@@ -96,7 +98,9 @@ import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 /**
  * Services for the Modelio model navigation
@@ -165,7 +169,7 @@ public abstract class AbstractObjingModelNavigation {
         try {
             file = getFileFromPackage(pkgName);
         } catch  (ClassNotFoundException e) {
-            e.printStackTrace();
+           Xmi.LOG.error(e);
         }
         
         if (file != null) {
@@ -230,13 +234,13 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("160aa3a6-48e8-428b-9096-7d80a945940c")
     public static boolean isCreate(Operation operation) {
         return isStereotyped(operation, Xmi.I18N
-                .getString("objing.java.stereotype.constructor"));
+                                .getString("objing.java.stereotype.constructor"));
     }
 
     @objid ("b51df578-6c62-463e-9008-df45b4781f5a")
     public static boolean isDestroy(Operation operation) {
         return isStereotyped(operation, Xmi.I18N
-                .getString("objing.java.stereotype.destructor"));
+                                .getString("objing.java.stereotype.destructor"));
     }
 
     @objid ("a6c1b084-7e85-4e8e-9e72-d53d76db6e34")
@@ -332,7 +336,7 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("9f3eef78-6700-47da-8a57-a62f99d31bde")
     public static Stereotype getStereotype(MClass metaclass, String stereotypeName) {
         return Modelio.getInstance().getModelingSession()
-                .getMetamodelExtensions().getStereotype(stereotypeName, metaclass);
+                                .getMetamodelExtensions().getStereotype(stereotypeName, metaclass);
     }
 
     @objid ("fe3fec0d-ff09-4a77-acd7-f4292d535aab")
@@ -523,9 +527,9 @@ public abstract class AbstractObjingModelNavigation {
         
         StateMachine sm =  (StateMachine) getEnclosingElement(transition, SmClass.getClass("StateMachine"));
         return ((!(transition instanceof InternalTransition)) 
-                && (transition.getProcessed() != null)
-                && (sm != null)
-                && (sm.getKind().equals(KindOfStateMachine.PROTOCOL)));
+                                && (transition.getProcessed() != null)
+                                && (sm != null)
+                                && (sm.getKind().equals(KindOfStateMachine.PROTOCOL)));
     }
 
     @objid ("1188e00d-1028-4b0b-ac54-9e7ab2b2079e")
@@ -1037,6 +1041,51 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("338c5241-f43b-467e-bc30-06c87a55e9dd")
     public static boolean isIsClassAssociation(final AssociationEnd assocEnd) {
         return ((assocEnd != null) && (assocEnd.getAssociation() != null) && (assocEnd.getAssociation().getLinkToClass() != null));
+    }
+
+    @objid ("323eed05-a971-4061-810b-9e5bd92aebb3")
+    public static MObject getNaryConnectorOwner(NaryLink connector) {
+        MObject firstOwner = null;
+        MObject secondOwner = null;
+        
+        for (NaryLinkEnd connectorEnd : connector.getNaryLinkEnd()){
+            secondOwner = connectorEnd.getSource();
+        
+            if (firstOwner == null){
+                firstOwner = secondOwner;
+            }else {
+                if (!(firstOwner.equals(secondOwner)) 
+                        || ((!(secondOwner instanceof GeneralClass) )
+                                && (!(secondOwner instanceof Collaboration)))){  
+                    return null;
+                }
+            }
+        }
+        return secondOwner;
+    }
+
+    @objid ("17d5d6d3-1337-4ca7-bc41-1c3cfd8d2671")
+    public static Package getNaryLinkOwner(NaryLink link) {
+        MObject owner = null;
+        
+        for (NaryLinkEnd connectorEnd : link.getNaryLinkEnd()){
+            owner = connectorEnd.getCompositionOwner().getCompositionOwner();
+        
+            if ((owner == null) || (!(owner instanceof Package))){
+                return null;
+            }
+        }
+        return (Package) owner;
+    }
+
+    @objid ("c55ebfbc-5ec8-411b-9bdc-3fb3e4f94de7")
+    public static boolean isSubType(NameSpace superType, NameSpace subType) {
+        for (Generalization generalization : subType.getParent()){          
+            NameSpace currentSuperType = generalization.getSuperType();            
+            if ((superType.equals(currentSuperType)) ||  isSubType(superType, currentSuperType))
+               return true;         
+        }
+        return false;
     }
 
 }

@@ -55,17 +55,17 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
     @objid ("ac5129ed-55b7-11e2-877f-002564c97630")
     private IGmObject selectedSymbol;
 
-    @objid ("ac5129f3-55b7-11e2-877f-002564c97630")
-    private SashForm sash;
-
     @objid ("32561618-5991-11e2-8bfd-001ec947ccaf")
     private StyleViewer styleViewer;
 
-    @objid ("ac5129f4-55b7-11e2-877f-002564c97630")
-    private Text descriptionText;
-
     @objid ("727af078-1dfa-46db-a0f5-08ab79d6461b")
     private IModelioPickingService pickingService;
+
+    @objid ("797ef3f6-e11a-47ca-b2ea-eee1b984f942")
+    private SashForm sash;
+
+    @objid ("08397273-36ea-4aff-9baf-c902deed3552")
+    private Text descriptionText;
 
     /**
      * C'tor
@@ -244,13 +244,19 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
         return null;
     }
 
+    @objid ("68d7943e-263d-4497-b28c-d33fd85746af")
+    @Override
+    public void dispose() {
+        // nothing to do
+    }
+
     /**
      * This class is the selection listener of the symbol tree view. When the selected property changes, it update sthe key
      * description area.
      */
     @objid ("ac52b08e-55b7-11e2-877f-002564c97630")
     private static class DescriptionTextUpdater implements ISelectionChangedListener {
-        @objid ("ac52b091-55b7-11e2-877f-002564c97630")
+        @objid ("c0c39932-d9ae-4d41-b857-a9a216f09b93")
         private final Text descriptionTextControl;
 
         @objid ("ac52b093-55b7-11e2-877f-002564c97630")

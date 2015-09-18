@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00903bfc-c4be-1fd8-97fe-001ec947cd2a")
 public class TaggedValueImpl extends ModelElementImpl implements TaggedValue {
-    @objid ("d2e4d1d8-8480-4511-a334-64eef968ba43")
+    @objid ("adbef968-1748-42fc-adfb-47a6b9f0585e")
     @Override
     public ModelElement getAnnoted() {
         return (ModelElement) getDepVal(TaggedValueData.Metadata.AnnotedDep());
     }
 
-    @objid ("c3bcf0c1-bd2e-4491-a94e-efed63e931b3")
+    @objid ("6a4017bd-9def-45e9-86ee-c5bb72a356c0")
     @Override
     public void setAnnoted(ModelElement value) {
         appendDepVal(TaggedValueData.Metadata.AnnotedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("23d374db-9db1-4ac1-80fe-3279b640c956")
+    @objid ("f7ae5b64-92df-4e11-83b6-92411636361e")
     @Override
     public EList<TagParameter> getActual() {
         return new SmList<>(this, TaggedValueData.Metadata.ActualDep());
     }
 
-    @objid ("955b4e52-777a-401e-b3d8-1a0bc3a701df")
+    @objid ("85772064-f75b-4e9c-868f-466d5f17c78b")
     @Override
     public <T extends TagParameter> List<T> getActual(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,31 +76,31 @@ public class TaggedValueImpl extends ModelElementImpl implements TaggedValue {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("3058f911-63c8-4acb-9145-d3943d4a8d6d")
+    @objid ("63f20f34-8d8b-49c1-9338-ebf361da8a6b")
     @Override
     public TagParameter getQualifier() {
         return (TagParameter) getDepVal(TaggedValueData.Metadata.QualifierDep());
     }
 
-    @objid ("27413fb9-ea21-4722-ae30-81defb9be6d4")
+    @objid ("e4f2ba8d-11b2-4b85-a2f1-794a479a0b83")
     @Override
     public void setQualifier(TagParameter value) {
         appendDepVal(TaggedValueData.Metadata.QualifierDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9307bffd-046b-41c5-9e5a-817450f63b83")
+    @objid ("3737e3e1-30e8-42bd-b144-f7deb1f9a877")
     @Override
     public TagType getDefinition() {
         return (TagType) getDepVal(TaggedValueData.Metadata.DefinitionDep());
     }
 
-    @objid ("030ad833-9bc6-4e2c-8900-bf638fa80810")
+    @objid ("b610b651-5097-428e-a7d5-d99f6b5de9ab")
     @Override
     public void setDefinition(TagType value) {
         appendDepVal(TaggedValueData.Metadata.DefinitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c66df7e4-4d1e-491a-a758-ef5cd29c280d")
+    @objid ("e99eb34f-edf2-4740-ab8f-2f4f5bce36e6")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -110,7 +110,7 @@ public class TaggedValueImpl extends ModelElementImpl implements TaggedValue {
         return super.getCompositionOwner();
     }
 
-    @objid ("6867457d-e5b5-41ec-8bfe-3acd3816ab91")
+    @objid ("10bd9eea-9cb2-4ce8-bd14-856c6d6e36b2")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -120,7 +120,7 @@ public class TaggedValueImpl extends ModelElementImpl implements TaggedValue {
         return super.getCompositionRelation();
     }
 
-    @objid ("20611785-4e08-4d5f-bd92-069eff00986e")
+    @objid ("47ad8362-4f11-4d80-a731-c0b298f8cfb9")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTaggedValue(this);

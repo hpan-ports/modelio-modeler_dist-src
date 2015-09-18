@@ -23,11 +23,15 @@ package org.modelio.app.core.activation;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.app.core.IModelioService;
+import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("fa5e5483-3966-11e2-a430-001ec947c8cc")
 public interface IActivationService extends IModelioService {
     @objid ("59aa5cde-3a22-11e2-a430-001ec947c8cc")
     void activateMObject(MObject objectToActivate);
+
+    @objid ("762705df-cf40-4461-8d5d-7c4ad715fdc0")
+    void editProperties(Element e);
 
 }

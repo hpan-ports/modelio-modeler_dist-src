@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: HTML Text edition ui
 Bundle-SymbolicName: org.modelio.edition.html;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Bundle-Activator: org.modelio.edition.html.plugin.HtmlTextPlugin
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
@@ -17,15 +17,16 @@ Require-Bundle: org.eclipse.swt,
  org.modelio.core.utils,
  org.modelio.log,
  org.modelio.ui,
- org.modelio.app.preferences,
  org.eclipse.ui.workbench,
  org.eclipse.ui.editors,
  org.eclipse.e4.ui.bindings,
  org.eclipse.core.commands,
  com.ibm.icu
 Bundle-Vendor: modelio.org
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.modelio.edition.html.view
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.modelio.edition.html.htmleditor,
+ org.modelio.edition.html.view
 Bundle-ClassPath: res/,
  .,
  lib/jtidy.jar
+Eclipse-BundleShape: dir

@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.statik.Parameter;
 
 @objid ("004119be-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BehaviorParameter extends Parameter {
-    @objid ("99e14b81-1700-4b50-a9ff-3e026c651ea4")
+    @objid ("49eed845-f22c-4ff0-abef-babcb9301993")
     EList<ObjectNode> getRepresentingObjectNode();
 
-    @objid ("d48adfa2-5c55-43ce-aa53-d57aa8ddde5b")
+    @objid ("33a77d4f-f00a-42ee-9fec-e923c994ab8f")
     <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass);
 
-    @objid ("c7a7f3e6-ea80-414c-a2d8-81e1c20b72ee")
+    @objid ("a601bed9-c2ea-45c0-8ca0-d8f1601fac7f")
     Behavior getOwner();
 
-    @objid ("485fb2f3-8100-4078-af8b-34e67f6874b2")
+    @objid ("8bcac82b-4628-4f53-b459-391e239ed9e9")
     void setOwner(Behavior value);
 
-    @objid ("0fe914b1-ff94-40de-8531-0fa912930dfc")
+    @objid ("4bac1b35-88a7-4978-bd2f-d7f086a51beb")
     Parameter getMapped();
 
-    @objid ("33caeebb-423d-4d5d-b5ad-e28ba3d49981")
+    @objid ("ce36bd88-6b94-43dc-86f9-f6cc693244ca")
     void setMapped(Parameter value);
 
 }

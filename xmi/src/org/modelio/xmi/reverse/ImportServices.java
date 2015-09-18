@@ -53,7 +53,6 @@ import org.modelio.xmi.gui.ProgressBarComposite;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ResourceLoader;
-import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMIFileUtils;
 import org.modelio.xmi.util.XMILogs;
 import org.osgi.framework.Bundle;

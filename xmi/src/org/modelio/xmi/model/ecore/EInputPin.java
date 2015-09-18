@@ -31,8 +31,8 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("8112630e-54e1-4398-8cf5-07fa085f036f")

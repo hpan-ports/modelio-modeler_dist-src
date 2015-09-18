@@ -53,6 +53,9 @@ public class BpmnSequenceFlowEditPart extends GmLinkEditPart {
     protected IFigure createFigure() {
         PolylineConnection connection = (PolylineConnection) super.createFigure();
         connection.setTargetDecoration(getArrowDecoration());
+        
+        // Make sure the arrow has appropriate style
+        refreshFromStyle(connection, getModelStyle());
         return connection;
     }
 

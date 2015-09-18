@@ -43,6 +43,9 @@ public class BpmnMessageFlowEditPart extends GmLinkEditPart {
         PolylineConnection connection = (PolylineConnection) super.createFigure();
         connection.setTargetDecoration(getArrowDecoration());
         connection.setSourceDecoration(getCircleDecoration());
+        
+        // Make sure the arrow has appropriate style
+        refreshFromStyle(connection, getModelStyle());
         return connection;
     }
 

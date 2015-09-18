@@ -50,8 +50,7 @@ public class RebuildNsUsesHandler implements IRunnableWithProgress {
 
     @objid ("c8b1afb8-b8b8-49b2-915b-5b8696bf4c59")
     @Execute
-    void execute(@Optional
-@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection sel, IModelioProgressService progressSvc, StatusReporter reporter) {
+    void execute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection sel, IModelioProgressService progressSvc, StatusReporter reporter) {
         IProjectFragment frag = (IProjectFragment) sel.iterator().next();
         this.project = GProject.getProject(frag.getRoots().iterator().next());
         
@@ -68,7 +67,7 @@ public class RebuildNsUsesHandler implements IRunnableWithProgress {
 
     @objid ("0eae160b-f990-4229-a312-ec664c2e76bf")
     @Override
-    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+    public void run(IProgressMonitor monitor) throws InterruptedException, InvocationTargetException {
         IRepository nsUseRepo = this.project.getSession().getRepositorySupport().getRepository(IRepositorySupport.REPOSITORY_KEY_LOCAL);
         String title = Vaudit.I18N.getString("NSUseUpdater.RebuildAll");
         try (ITransaction t= this.project.getSession().getTransactionSupport().createTransaction(title)){

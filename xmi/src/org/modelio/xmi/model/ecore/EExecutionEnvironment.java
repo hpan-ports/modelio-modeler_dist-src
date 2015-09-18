@@ -25,8 +25,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Node;
+import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("5d6b6e99-e4d0-4289-a0b7-4c05cc54872b")
 public class EExecutionEnvironment extends ENamedElement {
@@ -39,7 +40,7 @@ public class EExecutionEnvironment extends ENamedElement {
             result.getExtension().add(ReverseProperties.getInstance().getMModelServices()
                     .getStereotype(IModelerModuleStereotypes.UML2EXECUTIONENVIRONMENT, result.getMClass()));
         } catch (ElementNotUniqueException e) {
-            e.printStackTrace();
+            Xmi.LOG.error(e);
         }
         return result;
     }

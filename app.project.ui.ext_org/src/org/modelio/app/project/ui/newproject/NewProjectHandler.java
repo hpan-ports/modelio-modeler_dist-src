@@ -201,7 +201,7 @@ public class NewProjectHandler {
     }
 
     @objid ("d29775ec-93f1-44e6-813d-bb30f1ae737f")
-    private boolean promptSaveBeforeClose(final IProjectService projectService, final Shell shell, IModelioProgressService progressSvc, StatusReporter statusReporter) throws IllegalArgumentException, IllegalStateException {
+    private boolean promptSaveBeforeClose(final IProjectService projectService, final Shell shell, IModelioProgressService progressSvc, StatusReporter statusReporter) throws IllegalStateException, IllegalArgumentException {
         GProject openedProject = projectService.getOpenedProject();
         if (openedProject == null) 
             return true;

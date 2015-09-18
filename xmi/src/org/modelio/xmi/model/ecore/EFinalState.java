@@ -24,7 +24,7 @@ package org.modelio.xmi.model.ecore;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.FinalState;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("82c24d09-b323-4b81-8433-813fc98ca4f9")
 public class EFinalState extends EState {

@@ -27,7 +27,7 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionUse;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("8c448c3c-19d9-4b51-9900-f22e27647889")
 public class EGate extends ENamedElement {
@@ -35,7 +35,7 @@ public class EGate extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createGate();
+                        .createGate();
     }
 
     @objid ("c38ff673-ae95-474e-a64a-0326ebb2a337")

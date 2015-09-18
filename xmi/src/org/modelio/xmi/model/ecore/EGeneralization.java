@@ -29,10 +29,8 @@ import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.statik.Generalization;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.reverse.PartialImportMap;
-import org.modelio.xmi.reverse.TotalImportMap;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 /**
@@ -170,8 +168,6 @@ public class EGeneralization extends EElement {
             objingGen.setSuperType((NameSpace) objingGeneral);
             objingGen.setSubType((NameSpace) objingSpecific);
         } else {
-            PartialImportMap.getInstance().remove(this.ecoreElement);
-            TotalImportMap.getInstance().remove(this.ecoreElement);
             objingElt.delete();
         }
     }

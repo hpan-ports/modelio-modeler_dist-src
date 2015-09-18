@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 
 @objid ("005151a8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InternalTransition extends Transition {
-    @objid ("c01553a0-2121-4a2c-b299-836d6292f48d")
+    @objid ("009f21bd-209a-4496-9585-249df493eb33")
     State getSComposed();
 
-    @objid ("8d9330c5-fcee-496e-af67-9d0ad5483168")
+    @objid ("7c655a06-c6fb-4566-9e82-99666fd29935")
     void setSComposed(State value);
 
 }

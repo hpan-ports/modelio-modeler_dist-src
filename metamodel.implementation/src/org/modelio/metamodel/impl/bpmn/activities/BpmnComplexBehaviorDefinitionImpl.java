@@ -44,43 +44,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007fa21a-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnComplexBehaviorDefinitionImpl extends BpmnBaseElementImpl implements BpmnComplexBehaviorDefinition {
-    @objid ("227a763d-a507-4434-bfdd-3df1c88b5f10")
+    @objid ("7c9918a2-11e3-4019-98d2-3921db688b04")
     @Override
     public String getCondition() {
         return (String) getAttVal(BpmnComplexBehaviorDefinitionData.Metadata.ConditionAtt());
     }
 
-    @objid ("d0c03c78-5a86-43f5-b70d-1e31d76fb8f0")
+    @objid ("1b24ce0b-e0cb-4cec-b90b-4c27c51947ec")
     @Override
     public void setCondition(String value) {
         setAttVal(BpmnComplexBehaviorDefinitionData.Metadata.ConditionAtt(), value);
     }
 
-    @objid ("520cf3e3-15c2-4661-847d-00c91b25bd63")
+    @objid ("dacce329-b37f-4cbb-92b3-b127c641a415")
     @Override
     public BpmnMultiInstanceLoopCharacteristics getOwner() {
         return (BpmnMultiInstanceLoopCharacteristics) getDepVal(BpmnComplexBehaviorDefinitionData.Metadata.OwnerDep());
     }
 
-    @objid ("596e4a04-41be-4a40-a264-e7810f5cd502")
+    @objid ("494cded5-e5d7-408c-b98a-0431a69cd9e7")
     @Override
     public void setOwner(BpmnMultiInstanceLoopCharacteristics value) {
         appendDepVal(BpmnComplexBehaviorDefinitionData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("41a14614-535e-46be-a8b6-b9527c16ab51")
+    @objid ("4beecf2c-7963-42b6-bec9-1dfe22642f4e")
     @Override
     public BpmnImplicitThrowEvent getEvent() {
         return (BpmnImplicitThrowEvent) getDepVal(BpmnComplexBehaviorDefinitionData.Metadata.EventDep());
     }
 
-    @objid ("0a4cd5e4-0009-4e7c-b531-ab40ba54c11e")
+    @objid ("28c4feb4-2183-4f0a-ad76-3f66edf9a8fc")
     @Override
     public void setEvent(BpmnImplicitThrowEvent value) {
         appendDepVal(BpmnComplexBehaviorDefinitionData.Metadata.EventDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9c51dae0-6ad8-46a4-92d0-c1029577889f")
+    @objid ("d00efb9c-d8ec-40b4-b81d-cef953383f7d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -90,7 +90,7 @@ public class BpmnComplexBehaviorDefinitionImpl extends BpmnBaseElementImpl imple
         return super.getCompositionOwner();
     }
 
-    @objid ("6b578e06-bcbe-42e4-8bdf-5e5aedbcc72e")
+    @objid ("e9daa18a-96b9-405e-ab9e-6cc56ee6c990")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -100,7 +100,7 @@ public class BpmnComplexBehaviorDefinitionImpl extends BpmnBaseElementImpl imple
         return super.getCompositionRelation();
     }
 
-    @objid ("72641ebe-9440-4bd5-9d72-fa9828807bbb")
+    @objid ("de546f13-385a-41a2-8eec-33ea766d9a5a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnComplexBehaviorDefinition(this);

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Property View
 Bundle-SymbolicName: org.modelio.model.property;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Bundle-Vendor: modelio.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.jface,
@@ -37,11 +37,14 @@ Require-Bundle: org.eclipse.jface,
  org.modelio.api,
  org.modelio.editors.richnote,
  org.modelio.core.project.data,
- org.modelio.metamodel.implementation
+ org.modelio.metamodel.implementation,
+ org.eclipse.e4.core.contexts
 Bundle-ClassPath: res/,
  .
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.modelio.property.plugin.ModelProperty
-Export-Package: org.modelio.property.ui
+Export-Package: org.modelio.property.ui,
+ org.modelio.property.ui.data.standard
 Import-Package: javax.annotation;version="1.1.0",
- javax.inject;version="1.0.0"
+ javax.inject;version="1.0.0",
+ org.eclipse.ui.forms.widgets

@@ -170,9 +170,7 @@ public class DiagramEditorsManager {
     @objid ("fd3fc81c-a3a1-47d8-bc9a-4aa087dc3c52")
     @Inject
     @Optional
-    void onProjectClosed(@SuppressWarnings("unused")
-@Optional
-@EventTopic(ModelioEventTopics.PROJECT_CLOSING) final GProject project, final IInputPartService inputPartService) {
+    void onProjectClosed(@SuppressWarnings("unused") @Optional @EventTopic(ModelioEventTopics.PROJECT_CLOSING) final GProject project, final IInputPartService inputPartService) {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
         Display.getDefault().syncExec(new Runnable() {
         

@@ -27,35 +27,21 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.eclipse.jface.action.IMenuListener;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.audit.checker.actions.AuditSeverityAction;
-import org.modelio.audit.checker.actions.DisableRuleHandlerAction;
-import org.modelio.audit.checker.actions.SelectInExplorerAction;
-import org.modelio.audit.checker.actions.ShowDetailsAction;
 import org.modelio.audit.plugin.Audit;
 import org.modelio.audit.service.IAuditService;
-import org.modelio.audit.view.AuditPanelProvider;
-import org.modelio.audit.view.providers.AuditProviderFactory.AuditViewMode;
 import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.gproject.model.IMModelServices;
@@ -70,54 +56,39 @@ public class CheckerView extends ModelioDialog {
     @objid ("41fda318-77e3-4cbb-8aec-2682b8e60b6c")
      volatile boolean refreshPending = false;
 
-    @objid ("ee65f8c0-a167-4569-928b-c5bf50fa2db5")
-    private final AuditPanelProvider auditPanel;
-
-    @objid ("8caa1334-044b-4bca-82f3-57d3fea29201")
-    private CheckElementRunner checker;
+    @objid ("51d41ab6-f0f8-43f4-b01b-4bb1330fb366")
+    private String jodId;
 
     @objid ("bba42d4a-5086-4baf-9209-4f16f25560c8")
     private IAuditService auditService;
 
+//
     @objid ("04a2cb18-1b8f-4991-9f66-3f6a735b148b")
     private List<MObject> checkedElements;
 
-    @objid ("ca6923a2-472b-4fbb-978c-eeab71eabd47")
-    private IProjectService projectService;
+    @objid ("d903d75e-b4a5-46c7-843c-a628b7f573ea")
+    private CheckerPanelProvider checkerPanel;
 
-    @objid ("77163aef-6967-4458-bd23-67f917a28b48")
-    private IModelioNavigationService navigationService;
-
-    @objid ("ff1e9730-1830-4297-a794-d4ec80856790")
-    private Thread checkerThread;
-
-    @objid ("5dbd4b31-af13-47bb-b29d-73a2b93901b1")
+    @objid ("6c4da468-d880-4939-9af6-625b9f87352f")
      Label statusLabel;
 
-    @objid ("3fe456c5-2511-454a-a2c5-4b7d23f1c1c4")
-    private Button byTypeButton;
-
-    @objid ("1d8b45e5-5404-4529-bac0-e9dc87b2fe65")
-    private Button byRuleButton;
-
-    @objid ("6ab7dbf9-7422-4440-b5d0-dad556b07625")
-    private Button byElementButton;
-
-    @objid ("723a2e63-b808-433b-b0c8-f1d20f627318")
-    private Button byListButton;
-
     @objid ("02060f87-ee74-494d-8c22-b6a55f4f1f30")
-    protected CheckerView(Shell parentShell, ICoreSession session, Object selection, IMModelServices modelService, IModelioNavigationService navigationService, MApplication application, EModelService emService, IAuditService auditService, IProjectService projectService, String jodId) {
+    protected CheckerView(Shell parentShell, Object selection, IMModelServices modelService, IModelioNavigationService navigationService, MApplication application, EModelService emService, IAuditService auditService, IProjectService projectService, String jodId) {
         super(parentShell);
-        
+        this.jodId = jodId;
+        this.auditService = auditService;
         this.checkedElements = getSelectedElements(selection);
         
-        this.checker = new CheckElementRunner(auditService, selection, jodId);
-        this.auditPanel = new AuditPanelProvider(session, modelService, navigationService, application, emService, jodId);
-        this.auditService = auditService;
-        this.projectService = projectService;
-        this.navigationService = navigationService;
-        setBlockOnOpen(false);
+        this.checkerPanel = new CheckerPanelProvider();
+        this.checkerPanel.setApplication(application);
+        this.checkerPanel.setAuditService(auditService);
+        this.checkerPanel.setEmService(emService);
+        this.checkerPanel.setModelService(modelService);
+        this.checkerPanel.setNavigationService(navigationService);
+        this.checkerPanel.setProjectService(projectService);
+        this.checkerPanel.setJodId(jodId);
+        
+            setBlockOnOpen(false);
     }
 
     @objid ("b484dcf7-7e02-40ee-be38-9b221a65a6aa")
@@ -132,7 +103,7 @@ public class CheckerView extends ModelioDialog {
         gd.grabExcessHorizontalSpace = true;
         gd.grabExcessVerticalSpace = true;
         root.setLayoutData(gd);
-        root.setLayout(new GridLayout(6, false));
+        root.setLayout(new GridLayout(2, false));
         
         // --------------------------------
         Composite comp = new Composite(root, SWT.BORDER);
@@ -140,8 +111,6 @@ public class CheckerView extends ModelioDialog {
         
         Label elementLabel = new Label(comp, SWT.NONE);
         elementLabel.setText("Checked element(s): ");
-        // gd = new GridData();
-        // elementLabel.setLayoutData(gd);
         
         int card = this.checkedElements.size();
         Label elementIcon;
@@ -209,115 +178,10 @@ public class CheckerView extends ModelioDialog {
         gd.horizontalAlignment = SWT.FILL;
         comp.setLayoutData(gd);
         
-        // --------------------------------
-        this.statusLabel = new Label(root, SWT.CENTER);
-        gd = new GridData();
-        gd.horizontalAlignment = SWT.FILL;
-        gd.grabExcessHorizontalSpace = true;
-        gd.horizontalSpan = 2;
-        this.statusLabel.setLayoutData(gd);
-        
-        this.byTypeButton = new Button(root, SWT.TOGGLE);
-        this.byTypeButton.setImage(Audit.getImageDescriptor("icons/LayoutByType.png").createImage());
-        this.byTypeButton.addMouseListener(new MouseListener() {
-        
-            @Override
-            public void mouseUp(MouseEvent e) {
-                CheckerView.this.auditPanel.setAuditViewMode(AuditViewMode.BYTYPE);
-                CheckerView.this.byRuleButton.setSelection(false);
-                CheckerView.this.byElementButton.setSelection(false);
-                CheckerView.this.byListButton.setSelection(false);
-            }
-        
-            @Override
-            public void mouseDown(MouseEvent e) {
-            }
-        
-            @Override
-            public void mouseDoubleClick(MouseEvent e) {
-            }
-        });
-        this.byTypeButton.setSelection(true);
-        
-        this.byRuleButton = new Button(root, SWT.TOGGLE);
-        this.byRuleButton.setImage(Audit.getImageDescriptor("icons/LayoutByRule.png").createImage());
-        this.byRuleButton.addMouseListener(new MouseListener() {
-        
-            @Override
-            public void mouseUp(MouseEvent e) {
-                CheckerView.this.auditPanel.setAuditViewMode(AuditViewMode.BYRULE);
-                CheckerView.this.byTypeButton.setSelection(false);
-                CheckerView.this.byElementButton.setSelection(false);
-                CheckerView.this.byListButton.setSelection(false);
-            }
-        
-            @Override
-            public void mouseDown(MouseEvent e) {
-            }
-        
-            @Override
-            public void mouseDoubleClick(MouseEvent e) {
-            }
-        });
-        
-        this.byElementButton = new Button(root, SWT.TOGGLE);
-        this.byElementButton.setImage(Audit.getImageDescriptor("icons/LayoutByElement.png").createImage());
-        this.byElementButton.addMouseListener(new MouseListener() {
-        
-            @Override
-            public void mouseUp(MouseEvent e) {
-                CheckerView.this.auditPanel.setAuditViewMode(AuditViewMode.BYELEMENT);
-                CheckerView.this.byTypeButton.setSelection(false);
-                CheckerView.this.byRuleButton.setSelection(false);
-                CheckerView.this.byListButton.setSelection(false);
-            }
-        
-            @Override
-            public void mouseDown(MouseEvent e) {
-            }
-        
-            @Override
-            public void mouseDoubleClick(MouseEvent e) {
-            }
-        });
-        this.byListButton = new Button(root, SWT.TOGGLE);
-        this.byListButton.setImage(Audit.getImageDescriptor("icons/LayoutFlat.png").createImage());
-        this.byListButton.addMouseListener(new MouseListener() {
-        
-            @Override
-            public void mouseUp(MouseEvent e) {
-                CheckerView.this.auditPanel.setAuditViewMode(AuditViewMode.FLAT);
-                CheckerView.this.byTypeButton.setSelection(false);
-                CheckerView.this.byRuleButton.setSelection(false);
-                CheckerView.this.byElementButton.setSelection(false);
-            }
-        
-            @Override
-            public void mouseDown(MouseEvent e) {
-            }
-        
-            @Override
-            public void mouseDoubleClick(MouseEvent e) {
-            }
-        });
-        this.auditPanel.createPanel(root);
-        gd = new GridData();
-        gd.horizontalSpan = 6;
-        gd.horizontalAlignment = SWT.FILL;
-        gd.grabExcessHorizontalSpace = true;
-        gd.verticalAlignment = SWT.FILL;
-        gd.grabExcessVerticalSpace = true;
-        this.auditPanel.getPanel().setLayoutData(gd);
-        
-        this.auditPanel.setInput(this.auditService.getAuditEngine());
-        
-        this.checker.setView(this);
-        this.checkerThread = new Thread(this.checker);
-        this.checkerThread.setPriority(Thread.MIN_PRIORITY);
-        this.checkerThread.setName("CHECKER");
-        this.checkerThread.start();
-        initContextMenu();
-        return this.auditPanel.getPanel();
+        this.checkerPanel.createPanel(root);
+        this.checkerPanel.setInput(this.checkedElements);
+        this.auditService.checkElementTree(this.checkedElements, this.jodId);
+        return this.checkerPanel.getAuditPanel().getPanel();
     }
 
     @objid ("9ad02847-2a84-465f-ac9f-47e1e2c762e0")
@@ -339,24 +203,14 @@ public class CheckerView extends ModelioDialog {
     @objid ("63a3a266-4063-45a7-b816-3310e63d25b5")
     @Override
     public boolean close() {
-        this.checkerThread.interrupt();
-        this.auditPanel.dispose();
+        this.checkerPanel.getAuditPanel().dispose();
         return super.close();
     }
 
     @objid ("9f139001-78db-4aef-967b-23998fd56d4c")
     public void refresh() {
         if (!this.refreshPending && !CheckerView.this.statusLabel.isDisposed()) {
-            this.refreshPending = true;    
-            Display.getDefault().asyncExec(new Runnable() {
-                @Override
-                public void run() {
-                    if (!CheckerView.this.statusLabel.isDisposed()) {
-                        CheckerView.this.statusLabel.setText(CheckerView.this.checker.getStatus());
-                    }
-                    CheckerView.this.refreshPending = false;
-                }
-            });
+            this.refreshPending = true;
         }
     }
 
@@ -390,36 +244,11 @@ public class CheckerView extends ModelioDialog {
 
     @objid ("5aa3ff89-5b8f-42fc-a96b-14c9b14f5e74")
     public void refreshContent() {
-        checker.setView(this);
-        checkerThread = new Thread(checker);
-        checkerThread.setPriority(Thread.MIN_PRIORITY);
-        checkerThread.setName("CHECKER");
-        checkerThread.start();
-    }
-
-    @objid ("416e764e-7153-4d39-bdaf-d320e8f52fb9")
-    private void initContextMenu() {
-        // initalize the context menu
-        MenuManager menuMgr = new MenuManager("#PopupMenu"); //$NON-NLS-1$
-        menuMgr.setRemoveAllWhenShown(true);
-        menuMgr.addMenuListener(new IMenuListener() {
-            @Override
-            public void menuAboutToShow(IMenuManager manager) {
-                manager.add(new SelectInExplorerAction(navigationService,  auditPanel.getTreeViewer()));
-                manager.add(new ShowDetailsAction(projectService,navigationService,  auditPanel.getTreeViewer()));
-                manager.add(new AuditSeverityAction("AuditAdvice",auditService,CheckerView.this));
-                manager.add(new AuditSeverityAction("AuditWarning",auditService,CheckerView.this));
-                manager.add(new AuditSeverityAction("AuditError",auditService,CheckerView.this));
-                manager.add(new DisableRuleHandlerAction(auditService, CheckerView.this));            
-            }
-        });
-        Menu menu = menuMgr.createContextMenu(this.auditPanel.getTreeViewer().getTree());
-        this.auditPanel.getTreeViewer().getTree().setMenu(menu);
     }
 
     @objid ("d0213c43-d025-4147-8d56-59e9ac747268")
     public Tree getAuditTree() {
-        return auditPanel.getTreeViewer().getTree();
+        return this.checkerPanel.getAuditPanel().getTreeViewer().getTree();
     }
 
 }

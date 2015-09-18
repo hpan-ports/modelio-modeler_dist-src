@@ -39,10 +39,10 @@ public interface EnumeratedPropertyType extends PropertyType {
     @objid ("980fb52a-eaee-4290-b6b6-bde39e3d8dc7")
     PropertyEnumerationLitteral getLitteral(String s);
 
-    @objid ("d040dbef-649f-48ef-a8d0-a0e250a1e8d5")
+    @objid ("ba5bea8a-d98d-45ec-a9c9-75ba858fd25b")
     EList<PropertyEnumerationLitteral> getLitteral();
 
-    @objid ("b881c97b-b7d1-4ba5-a684-e19cf82e996d")
+    @objid ("f6351119-9cfa-4b0a-aa7d-6122cbebe2f5")
     <T extends PropertyEnumerationLitteral> List<T> getLitteral(java.lang.Class<T> filterClass);
 
 }

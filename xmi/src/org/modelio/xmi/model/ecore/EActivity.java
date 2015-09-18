@@ -28,8 +28,8 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.NameSpace;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("62d4e77a-9768-44c5-a5e1-eca104234a4a")
 public class EActivity extends ENamedElement {
@@ -37,7 +37,7 @@ public class EActivity extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createActivity();
+                        .createActivity();
     }
 
     @objid ("c7d725e7-6d2d-4ac8-ae6d-44f1b1a145b5")

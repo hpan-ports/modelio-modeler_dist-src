@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.infrastructure.properties.TypedPropertyTable;
 
 @objid ("00899cf2-ec8f-1098-b22e-001ec947cd2a")
 public interface AnalystPropertyTable extends TypedPropertyTable {
-    @objid ("b80d00b0-27a6-4886-b541-0d1506db88ba")
+    @objid ("10e70304-0e40-486f-aa3d-631c667daab9")
     AnalystItem getAnalystOwner();
 
-    @objid ("bf0ee72f-9faf-48f4-95d5-17f40ba7f1c5")
+    @objid ("a30e1427-7d97-488c-9c69-79299be6ed5e")
     void setAnalystOwner(AnalystItem value);
 
 }

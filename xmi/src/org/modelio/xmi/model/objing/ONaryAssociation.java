@@ -25,10 +25,10 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.EcoreModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.XMILogs;
@@ -65,7 +65,7 @@ public class ONaryAssociation extends OModelElement {
         GenerationProperties genProp = GenerationProperties.getInstance();
         // Gets or creates the Ecore org.eclipse.uml2.uml.AssociationClass:
         return  (org.eclipse.uml2.uml.AssociationClass) genProp
-         .getMappedElement(this.objingElement);
+                 .getMappedElement(this.objingElement);
     }
 
     @objid ("d8f56553-1b1f-417c-9762-4b634a4d8cc4")

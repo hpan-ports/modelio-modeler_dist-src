@@ -33,16 +33,16 @@ import org.modelio.metamodel.uml.statik.Component;
 
 @objid ("62efa8ac-4b66-4ce6-bc08-86fd413905ce")
 public interface ComponentRealization extends ModelElement {
-    @objid ("338a8ffd-a5b9-4ec5-81a1-f608af2de145")
+    @objid ("dab12abc-6a40-4c05-9d53-619e9a49ab49")
     Classifier getRealizingClassifier();
 
-    @objid ("6f1a85f2-e576-492e-8860-37478ee7250b")
+    @objid ("033711b6-b3b2-4028-a100-6479978762f7")
     void setRealizingClassifier(Classifier value);
 
-    @objid ("93645278-dc29-4325-8d63-5a6e13ed0bc9")
+    @objid ("fdef42e6-a412-4aec-951a-66dddcf1ec6b")
     Component getAbstraction();
 
-    @objid ("1cf25af5-1144-456d-80e8-b52c509cfd05")
+    @objid ("c2e85380-846d-4d57-bb25-8e2760dde38b")
     void setAbstraction(Component value);
 
 }

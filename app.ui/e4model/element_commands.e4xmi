@@ -186,6 +186,7 @@
     <elements xsi:type="commands:Command" xmi:id="_hXAAkBx4EeOKmunD3rzg2A" elementId="org.modelio.app.ui.command.openrelateddiagram" commandName="%OpenRelatedDiagram.name" description="%OpenRelatedDiagram.description">
       <parameters xmi:id="_bv28cBx5EeOKmunD3rzg2A" elementId="org.modelio.app.ui.command.parameter.related_diagram" name="org.modelio.app.ui.command.parameter.related_diagram"/>
     </elements>
+    <elements xsi:type="commands:Command" xmi:id="_Dt3m8Hr0EeShLO3VXu_qAA" elementId="org.modelio.app.ui.command.openproperties" commandName="%OpenProperties.name" description="%OpenProperties.description"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_ePl7YDp4EeSS3e2fiyJoRw" featurename="bindingTables" parentElementId="org.modelio.app.application">
     <elements xsi:type="commands:BindingTable" xmi:id="_jFtVwDp4EeSS3e2fiyJoRw" elementId="app.ui.bindingtable.0" bindingContext="_r5PA4Dp4EeSS3e2fiyJoRw">

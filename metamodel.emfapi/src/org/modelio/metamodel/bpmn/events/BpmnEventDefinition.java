@@ -34,16 +34,16 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("008d3f9c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnEventDefinition extends BpmnBaseElement {
-    @objid ("78bc7bfc-88e5-4274-bc8f-47424a2e2a3f")
+    @objid ("331a8d77-8c51-4108-995c-0210c728e8be")
     BpmnEvent getDefined();
 
-    @objid ("9d2c4c2c-3240-43a1-9f4d-db2d1d1e5c94")
+    @objid ("3c6ea648-cac7-4e7a-b459-0fa413fb07b3")
     void setDefined(BpmnEvent value);
 
-    @objid ("961d9414-cbc3-4444-929b-8062ecd36133")
+    @objid ("4259c9e4-4374-4d0b-9cb4-9f70ec2f7602")
     EList<BpmnMultiInstanceLoopCharacteristics> getLoopRef();
 
-    @objid ("c0eb98b2-fc7c-4e90-b5ed-e24506e06eca")
+    @objid ("ba475fde-1de9-47b4-b091-29a0b967f0af")
     <T extends BpmnMultiInstanceLoopCharacteristics> List<T> getLoopRef(java.lang.Class<T> filterClass);
 
 }

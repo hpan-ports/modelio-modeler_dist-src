@@ -23,7 +23,6 @@ package org.modelio.diagram.editor.statik.elements.operation;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.diagram.editor.statik.elements.attribute.GmAttributeStyleKeys;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
 import org.modelio.diagram.elements.core.model.IEditableText;
@@ -303,7 +302,9 @@ public class GmOperation extends GmModelElementFlatHeader {
         if (styleKey == null) {
             return "";
         }
-        if (getStyle().getProperty(styleKey)) {
+        
+        boolean property = getStyle().getProperty(styleKey);
+        if (property) {
             switch (op.getVisibility()) {
                 case PUBLIC:
                     svis = "+";

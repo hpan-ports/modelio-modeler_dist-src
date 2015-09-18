@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002eb59e-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ControlNodeImpl extends ActivityNodeImpl implements ControlNode {
-    @objid ("a3e3df85-2b48-4df2-9209-16f93abc60d0")
+    @objid ("dc27e1e5-7bc6-43e9-b2b6-f5629319ed35")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2cfc2435-8bcc-4d24-834a-3c283906b66f")
+    @objid ("eee398e4-e5e7-445f-b8c8-0fd4fa9c195a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("9babf0e9-c2f3-4b51-add5-287b454aaa4f")
+    @objid ("34cbb2bb-67fd-403a-a708-05af47bd4cc5")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitControlNode(this);

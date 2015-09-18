@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004d701a-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class AbstractPseudoStateImpl extends StateVertexImpl implements AbstractPseudoState {
-    @objid ("b0ee040a-0548-459b-a148-1b454ecfa0ba")
+    @objid ("ea6eeb16-d9fe-4214-9e9e-e8d7ddb5ea1e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("f923fe6a-9dac-44e0-ab88-bd9691a6dfee")
+    @objid ("bef76126-b3b4-4e5e-84eb-905bc1ad3f2d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("13d18345-b3c3-48d1-b228-9b5ca4ab378f")
+    @objid ("d05ac7b1-d4cb-40cd-b4de-1f7e4cef3a8d")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAbstractPseudoState(this);

@@ -21,9 +21,11 @@
 
 package org.modelio.property.ui.data.standard.uml;
 
+import java.util.Arrays;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.bool.BooleanType;
+import org.modelio.core.ui.ktable.types.list.ListType;
 import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
@@ -31,7 +33,7 @@ import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 @objid ("8f4fb58d-c068-11e1-8c0a-002564c97630")
 public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
     @objid ("a7a87f0b-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"NoteType", "Name", "Label", "IsHidden"};
+    private static final String[] PROPERTIES = new String[] {"NoteType", "Name", "Label", "IsHidden", "MimeType"};
 
     @objid ("8f4fb58e-c068-11e1-8c0a-002564c97630")
     private BooleanType booleanType = null;
@@ -41,6 +43,9 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
 
     @objid ("8f4fb597-c068-11e1-8c0a-002564c97630")
     private StringType stringType = null;
+
+    @objid ("4e481476-55b2-427a-8fde-b4fe42da8e49")
+    private ListType mimeType;
 
     /**
      * Instantiate the note type properties view.
@@ -54,6 +59,8 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
         this.stringType = new StringType(true);
         
         this.booleanType = new BooleanType();
+        
+        this.mimeType = new ListType(false, Arrays.asList("text/plain", "text/html"));
     }
 
     /**
@@ -96,6 +103,8 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
                 return this.stringType;
             case 3:
                 return this.booleanType;
+            case 4:
+                return this.mimeType;
             default:
                 return null;
             }
@@ -124,6 +133,8 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
                 return this.theEditedElement.getLabelKey();
             case 3:
                 return this.theEditedElement.isIsHidden()?Boolean.TRUE:Boolean.FALSE;
+            case 4:
+                return this.theEditedElement.getMimeType();
             default:
                 return null;
             }
@@ -154,6 +165,9 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
                 return;
             case 3:
                 this.theEditedElement.setIsHidden(((Boolean) value).booleanValue());
+                return;
+            case 4:
+                this.theEditedElement.setMimeType((String) value);
                 return;
             default:
                 return;

@@ -49,25 +49,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0061e540-c4bf-1fd8-97fe-001ec947cd2a")
 public class AnalystProjectImpl extends ModelElementImpl implements AnalystProject {
-    @objid ("ed98be99-9994-479b-b74c-5767677f89cf")
+    @objid ("4d13c25c-2f3e-4581-8213-0b5eeb5edaaf")
     @Override
     public PropertyContainer getPropertyRoot() {
         return (PropertyContainer) getDepVal(AnalystProjectData.Metadata.PropertyRootDep());
     }
 
-    @objid ("a9b201cd-ef24-417d-94fc-d0fa4581befd")
+    @objid ("706ad2dd-c7ff-4c6a-8433-92c91dd629a1")
     @Override
     public void setPropertyRoot(PropertyContainer value) {
         appendDepVal(AnalystProjectData.Metadata.PropertyRootDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2f11356b-2fa1-4346-a83e-3e62fd0c5e7a")
+    @objid ("75aeed5e-ca1b-4aac-8f90-99e9aac3f737")
     @Override
     public EList<GoalContainer> getGoalRoot() {
         return new SmList<>(this, AnalystProjectData.Metadata.GoalRootDep());
     }
 
-    @objid ("be3cd6c4-81a5-4fab-8d70-1fe6441d707e")
+    @objid ("2dd9ecb4-a5f9-43dc-90c2-f65c2a0a5cd3")
     @Override
     public <T extends GoalContainer> List<T> getGoalRoot(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -80,13 +80,13 @@ public class AnalystProjectImpl extends ModelElementImpl implements AnalystProje
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1d3786e3-ef77-4a81-90f8-98e333b0f530")
+    @objid ("cfdb1a0f-849f-426d-ab60-a65404c6857d")
     @Override
     public EList<BusinessRuleContainer> getBusinessRuleRoot() {
         return new SmList<>(this, AnalystProjectData.Metadata.BusinessRuleRootDep());
     }
 
-    @objid ("0d9ff951-057f-49a6-8e4c-6e7bb2db07a2")
+    @objid ("c9aa86ec-5a39-4d40-a559-42a692b9f716")
     @Override
     public <T extends BusinessRuleContainer> List<T> getBusinessRuleRoot(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -99,13 +99,13 @@ public class AnalystProjectImpl extends ModelElementImpl implements AnalystProje
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("36806efc-d680-4568-9c0b-13b42bd1a4e1")
+    @objid ("3e5bb5f6-72d7-4dbd-9ac9-5ff7a1ae725c")
     @Override
     public EList<Dictionary> getDictionaryRoot() {
         return new SmList<>(this, AnalystProjectData.Metadata.DictionaryRootDep());
     }
 
-    @objid ("e2a5eb04-9674-453c-a6b4-661331a1394e")
+    @objid ("8626836a-28d5-467a-95e0-0a381b836198")
     @Override
     public <T extends Dictionary> List<T> getDictionaryRoot(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -118,13 +118,13 @@ public class AnalystProjectImpl extends ModelElementImpl implements AnalystProje
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b0af5da9-0b76-48ca-8a01-2bd596e7474a")
+    @objid ("50698f4a-0694-4430-b97c-28bf85bb171c")
     @Override
     public EList<RequirementContainer> getRequirementRoot() {
         return new SmList<>(this, AnalystProjectData.Metadata.RequirementRootDep());
     }
 
-    @objid ("83a5df9f-db97-4fd3-94ed-8ca5e389a2e2")
+    @objid ("9f4fc21f-f7f1-4b13-b349-16e0d30f3557")
     @Override
     public <T extends RequirementContainer> List<T> getRequirementRoot(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -137,13 +137,13 @@ public class AnalystProjectImpl extends ModelElementImpl implements AnalystProje
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("5097a407-69d1-44cd-9344-5b1286d0e09c")
+    @objid ("4a1ec99f-dd97-499c-99dc-f58d76cee2fd")
     @Override
     public EList<GenericAnalystContainer> getGenericRoot() {
         return new SmList<>(this, AnalystProjectData.Metadata.GenericRootDep());
     }
 
-    @objid ("0930ffa5-9abf-43c0-bebe-72e03f21edeb")
+    @objid ("04f21005-fb51-45c1-8217-2c95e485c51f")
     @Override
     public <T extends GenericAnalystContainer> List<T> getGenericRoot(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -156,21 +156,21 @@ public class AnalystProjectImpl extends ModelElementImpl implements AnalystProje
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("61e143fc-9d12-4ebc-8c00-2d180d38b6c7")
+    @objid ("77103e06-692a-4ea0-b3b8-3bfdd00e9a38")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("edbfaf75-a521-4749-b47c-0033f7f27028")
+    @objid ("b4df969a-4393-4ee2-b6fe-92ee76f81009")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("657004e2-ad32-4b95-b012-747632ebe7cf")
+    @objid ("f091063e-91d5-47f5-9ec0-ea9abbd7ee10")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAnalystProject(this);

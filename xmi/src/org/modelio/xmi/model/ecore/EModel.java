@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Component;
 import org.modelio.metamodel.uml.statik.Package;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("84d1ae7d-765b-4454-9973-8c9f1d8cbb0d")
 public class EModel extends EPackage {

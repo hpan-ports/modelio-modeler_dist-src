@@ -18,25 +18,10 @@
 
 package org.modelio.api.module;
 
-import java.util.Collection;
-import java.util.List;
 import javax.script.ScriptEngine;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.graphics.Image;
-import org.modelio.api.diagram.ContributorCategory;
-import org.modelio.api.diagram.IDiagramCustomizer;
-import org.modelio.api.diagram.tools.IAttachedBoxCommand;
-import org.modelio.api.diagram.tools.IBoxCommand;
-import org.modelio.api.diagram.tools.ILinkCommand;
-import org.modelio.api.diagram.tools.IMultiLinkCommand;
 import org.modelio.api.model.IModelingSession;
-import org.modelio.api.module.commands.ActionLocation;
-import org.modelio.api.module.commands.IModuleAction;
-import org.modelio.api.module.contrib.WizardContribution;
-import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
-import org.modelio.api.module.diagrams.DiagramToolDescriptor;
-import org.modelio.api.module.propertiesPage.IModulePropertyPage;
-import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
 import org.modelio.gproject.ramc.core.model.IModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
@@ -132,12 +117,8 @@ public interface IModule {
     @objid ("d7e1eff0-1d64-4d07-a6b0-00135b260e18")
     String getLabel(String key);
 
-    /**
-     * Returns an Image for this module.
-     * @return an Image for this module. Might be <code>null</code>.
-     */
-    @objid ("9567ce16-8bc1-11dd-ad20-0014222a9f79")
-    Image getModuleImage();
+    @objid ("d0f20abf-b0ac-404e-ae01-2c75875c3643")
+    ILicenseInfos getLicenseInfos();
 
     /**
      * Returns the {@link ModuleComponent} model associated with this module.
@@ -145,6 +126,28 @@ public interface IModule {
      */
     @objid ("01f40414-0000-3b83-0000-000000000000")
     ModuleComponent getModel();
+
+    /**
+     * Get the ModelComponent contributor associated to this module.
+     * @see IModelComponentContributor
+     * @return the module configuration.
+     */
+    @objid ("1f42ee4a-65e6-11e0-9853-001ec947cd2a")
+    IModelComponentContributor getModelComponentContributor(IModelComponent mc);
+
+    /**
+     * Returns the modeling session this module is loaded into.
+     * @return the modeling session this module is loaded into.
+     */
+    @objid ("7990c085-65db-11e0-9853-001ec947cd2a")
+    IModelingSession getModelingSession();
+
+    /**
+     * Returns an Image for this module.
+     * @return an Image for this module. Might be <code>null</code>.
+     */
+    @objid ("9567ce16-8bc1-11dd-ad20-0014222a9f79")
+    Image getModuleImage();
 
     /**
      * Used to return the module name.
@@ -171,6 +174,13 @@ public interface IModule {
      */
     @objid ("01f40414-0000-32c3-0000-000000000000")
     IPeerModule getPeerModule();
+
+    /**
+     * Returns the minimum Modelio version that authorize the Module to be activated.
+     * @return The minimum Modelio version
+     */
+    @objid ("45f75358-65cd-11e0-b0ca-001ec947cd2a")
+    Version getRequiredModelioVersion();
 
     /**
      * Returns the session that is connected to the module.
@@ -217,66 +227,6 @@ public interface IModule {
     void init();
 
     /**
-     * Returns the minimum Modelio version that authorize the Module to be activated.
-     * @return The minimum Modelio version
-     */
-    @objid ("45f75358-65cd-11e0-b0ca-001ec947cd2a")
-    Version getRequiredModelioVersion();
-
-    /**
-     * Returns the collection of {@link IModuleAction} associated with passed location.
-     * @param location the location for which actions are to be returned.
-     * @return the collection of {@link IModuleAction} associated with passed location.
-     */
-    @objid ("45f75357-65cd-11e0-b0ca-001ec947cd2a")
-    Collection<IModuleAction> getModuleActions(ActionLocation location);
-
-    /**
-     * Register a module action for the contextual popupmenu(s) of the application.
-     * @param location The action insertion point in the popupmenu (see {@link ActionLocation})
-     * @param action Action to store
-     */
-    @objid ("45f75359-65cd-11e0-b0ca-001ec947cd2a")
-    void registerAction(ActionLocation location, IModuleAction action);
-
-    /**
-     * Returns the collection of {@link IModuleAction} associated with passed location.
-     * @param location the location for which actions are to be returned.
-     * @return the collection of {@link IModuleAction} associated with passed location.
-     */
-    @objid ("45f7535b-65cd-11e0-b0ca-001ec947cd2a")
-    List<IModuleAction> getActions(ActionLocation location);
-
-    /**
-     * Returns the modeling session this module is loaded into.
-     * @return the modeling session this module is loaded into.
-     */
-    @objid ("7990c085-65db-11e0-9853-001ec947cd2a")
-    IModelingSession getModelingSession();
-
-    /**
-     * Return the defined property pages
-     * @return The collection of property pages
-     */
-    @objid ("b6dd5fcd-65e1-11e0-9853-001ec947cd2a")
-    Collection<IModulePropertyPage> getPropertyPages();
-
-    /**
-     * Get the ModelComponent contributor associated to this module.
-     * @see IModelComponentContributor
-     * @return the module configuration.
-     */
-    @objid ("1f42ee4a-65e6-11e0-9853-001ec947cd2a")
-    IModelComponentContributor getModelComponentContributor(IModelComponent mc);
-
-    /**
-     * Returns current runtime state of this module.
-     * @return the current runtime state of this module.
-     */
-    @objid ("0cf32e9f-99de-11e1-b1e0-001ec947c8cc")
-    ModuleRuntimeState getState();
-
-    /**
      * Method automatically called just before the disposal of the module.
      * <p>
      * <p>
@@ -294,140 +244,16 @@ public interface IModule {
     void uninit();
 
     /**
-     * Returns an Image Path for this module.
-     * @return an Image Path for this module. Might be <code>null</code>.
+     * Get the path to the image representing the module.
+     * @return a path relative to the module's resource path.
      */
-    @objid ("9c32ee31-1cf2-11e2-9c7e-bc305ba4815c")
+    @objid ("0bf45a9b-8afe-42fd-b7d0-06cd1a0421d0")
     String getModuleImagePath();
-
-    /**
-     * Get all defined diagram tools.
-     * @return the toolIds.
-     * @since 2.2.1
-     */
-    @objid ("95bb2bb4-dcc8-440e-97e6-142a6ef06048")
-    List<DiagramToolDescriptor> getDiagramTools();
-
-    /**
-     * Get all defined diagram custommizations.
-     * @return the toolIds.
-     * @since 2.2.1
-     */
-    @objid ("e2451778-d148-4ae8-a844-4b8f1d595e29")
-    List<DiagramCustomizationDescriptor> getDiagramCustomizations();
-
-    /**
-     * Register a new palette 'box' Tool.<br>
-     * The 'metaclass', 'stereotype' and 'dep' parameters are needed for the feedback mechanism when launching the tool interaction.
-     * Therefore, they should match as close as possible the created elements in the handler.
-     * A metamodel check based on the 'metaclass' to create is done beforehand by Modelio, which might trigger a 'red' feedback and prevent the handler to be called.
-     * @see IBoxCommand
-     * @param id The new tool id.
-     * @param metaclass the metaclass of the element to create.
-     * @param stereotype an optional stereotype.
-     * @param dep the optional "parent to child" meta dependency used to attach the new element to its owner.
-     * @param handler The new 'box' tool behavior.
-     * @since 2.2.1
-     */
-    @objid ("9dc478cd-b9db-4f31-a6bb-7f023e137a36")
-    void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, IBoxCommand handler);
-
-    /**
-     * Register a new palette 'attached box' Tool.<br>
-     * The 'metaclass', 'stereotype' and 'dep' parameters are needed for the feedback mechanism when launching the tool interaction.
-     * Therefore, they should match as close as possible the created elements in the handler.<br>
-     * A metamodel check based on the 'metaclass' to create is done beforehand by Modelio, which might trigger a 'red' feedback and prevent the handler to be called.
-     * @see IAttachedBoxCommand
-     * @param id The new tool id.
-     * @param metaclass the metaclass of the element to create.
-     * @param stereotype an optional stereotype.
-     * @param dep the "parent to child" meta dependency used to attach the new element to its owner.
-     * @param handler The new 'attached box' tool behavior.
-     * @since 2.2.1
-     */
-    @objid ("ade8ca2a-eb64-4b18-851d-daa62308de98")
-    void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, IAttachedBoxCommand handler);
-
-    /**
-     * Register a new palette 'link' Tool.<br>
-     * The 'metaclass', 'stereotype' and 'dep' parameters are needed for the feedback mechanism when launching the tool interaction.
-     * Therefore, they should match as close as possible the created elements in the handler.<br>
-     * A metamodel check based on the 'metaclass' to create is done beforehand by Modelio, which might trigger a 'red' feedback and prevent the handler to be called.
-     * @see ILinkCommand
-     * @param id The new tool id.
-     * @param metaclass the metaclass of the element to create.
-     * @param stereotype an optional stereotype.
-     * @param dep the "parent to child" meta dependency used to attach the new element to its owner.
-     * @param handler The new 'link' tool behavior.
-     * @since 2.2.1
-     */
-    @objid ("26b7c48e-b58c-417f-ac18-94d1a8bf8070")
-    void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, ILinkCommand handler);
-
-    /**
-     * Register a new palette 'multi link' Tool.<br>
-     * The 'metaclass', 'stereotype' and 'dep' parameters are needed for the feedback mechanism when launching the tool interaction.
-     * Therefore, they should match as close as possible the created elements in the handler.<br>
-     * A metamodel check based on the 'metaclass' to create is done beforehand by Modelio, which might trigger a 'red' feedback and prevent the handler to be called.
-     * @see IMultiLinkCommand
-     * @param id The new tool id.
-     * @param metaclass the metaclass of the element to create.
-     * @param stereotype an optional stereotype.
-     * @param dep the "parent to child" meta dependency used to attach the new element to its owner.
-     * @param handler The new 'multi link' tool behavior.
-     * @since 2.2.1
-     */
-    @objid ("d9fb453b-a8e6-4d8c-9fc7-745f2754fc2d")
-    void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, IMultiLinkCommand handler);
-
-    /**
-     * Register a customizer for a stereotyped diagram.
-     * @param stereotype the diagram stereotype which the customizer is intended for
-     * @param baseDiagramClass the base diagram editor to customize
-     * @param customizer the customizer implementation
-     * @since 2.2.1
-     */
-    @objid ("8aa419b1-2030-4444-9e9b-423219fec74a")
-    void registerDiagramCustomization(Stereotype stereotype, Class<? extends AbstractDiagram> baseDiagramClass, IDiagramCustomizer customizer);
-
-    @objid ("d0f20abf-b0ac-404e-ae01-2c75875c3643")
-    ILicenseInfos getLicenseInfos();
-
-    @objid ("4b8ff81b-0d93-4388-87e9-1a8cbf5fbf9c")
-    <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs);
-
-    @objid ("6311e30d-8d61-45f4-9d7e-5d56b94c942d")
-    List<WizardContribution> getDiagramWizardContributions();
-
-    @objid ("d6afacce-53ab-44f2-903c-a62e32bc8fd9")
-    void registerDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor);
-
-    @objid ("bc5436a9-9dbd-4d67-87b4-b4a90dc2f387")
-    void unregisterDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor);
 
     @objid ("8e52ef63-72a1-11dd-a1d1-001ec947cd2a")
     public enum ImageType {
         ICON,
         IMAGE;
-    }
-
-    /**
-     * Enumeration of the states a module can have at runtime.
-     */
-    @objid ("4d148035-99dd-11e1-b1e0-001ec947c8cc")
-    public enum ModuleRuntimeState {
-        /**
-         * This state indicates the module is loaded but not started.
-         */
-        Loaded,
-        /**
-         * This states indicates the module is loaded and started.
-         */
-        Started,
-        /**
-         * This state indicates the module could not be loaded at all.
-         */
-        Incompatible;
     }
 
 }

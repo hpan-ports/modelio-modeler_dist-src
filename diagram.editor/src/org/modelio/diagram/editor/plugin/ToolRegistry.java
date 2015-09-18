@@ -587,8 +587,7 @@ public class ToolRegistry {
     @objid ("5cc45a36-a84c-4168-85f1-27a60ebd0554")
     @Inject
     @Optional
-    void onProjectClose(@SuppressWarnings("unused")
-@EventTopic(ModelioEventTopics.PROJECT_CLOSING) final GProject project) {
+    void onProjectClose(@SuppressWarnings("unused") @EventTopic(ModelioEventTopics.PROJECT_CLOSING) final GProject project) {
         // Empty the tool registry
         this.toolRegistry = null;
     }

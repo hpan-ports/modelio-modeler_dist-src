@@ -32,7 +32,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.ModuleException;
 import org.modelio.gproject.data.project.GProperties.Entry;
 import org.modelio.gproject.gproject.GProject;
@@ -53,7 +52,7 @@ class ModuleInstaller {
     private GProject gProject;
 
     @objid ("44326855-0324-11e2-9fca-001ec947c8cc")
-    GModule moduleUpdateInstall(GModule gModule, IModuleHandle rtModuleHandle, GModule gModuleAlreadyInstalled) throws ModuleException {
+    void moduleUpdateInstall(GModule gModule, IModuleHandle rtModuleHandle, GModule gModuleAlreadyInstalled) throws ModuleException {
         Collection<GModule> dependentGModules = stopDependentModules(rtModuleHandle);
         
         // Get the previous values of the module parameters
@@ -66,12 +65,11 @@ class ModuleInstaller {
         callStaticMethodInstall(gModule, rtModuleHandle);
         
         // Load, upgrade and start the module.
-        IModule updatedIModule = this.moduleService.loadModule(this.gProject, gModule);
+        IRTModule updatedIModule = this.moduleService.loadModule(this.gProject, gModule, true);
         upgradeAndActivateModule(updatedIModule, gModuleAlreadyInstalled.getVersion(), oldParameters);
         
         
         restartDependentModules(dependentGModules);
-        return null;
     }
 
     @objid ("4434caad-0324-11e2-9fca-001ec947c8cc")
@@ -83,7 +81,7 @@ class ModuleInstaller {
         // done.
         callStaticMethodInstall(gModule, rtModuleHandle);
         // Load, select and start the module.
-        IModule iModule = this.moduleService.loadModule(this.gProject, gModule);
+        IRTModule iModule = this.moduleService.loadModule(this.gProject, gModule, false);
         selectAndActivateModule(iModule);
         
         restartDependentModules(dependentGModules);
@@ -95,7 +93,7 @@ class ModuleInstaller {
         // We need to "preload" the module so that we can actually access its
         // main class to call the static method on.
         // Resolve all loaded dependencies
-        List<IModule> loadedDependencies = ModuleResolutionHelper.getGModuleDependsOnIModules(gModule, this.gProject, this.moduleService);
+        List<IRTModule> loadedDependencies = ModuleResolutionHelper.getGModuleDependsOnIModules(gModule, this.gProject, this.moduleService);
         loadedDependencies.addAll(ModuleResolutionHelper.getGModuleActivatedWeakDependenciesIModules(gModule, this.gProject, this.moduleService));
         // Resolve and update it classpath
         
@@ -191,7 +189,7 @@ class ModuleInstaller {
     }
 
     @objid ("44372d04-0324-11e2-9fca-001ec947c8cc")
-    private void selectAndActivateModule(IModule iModule) throws ModuleException {
+    private void selectAndActivateModule(IRTModule iModule) throws ModuleException {
         try {
             boolean selectSuccessful = iModule.getSession().select();
         
@@ -212,9 +210,10 @@ class ModuleInstaller {
             // Note as deactivated.
             this.moduleService.deactivateModule(iModule, this.gProject);
             ModuleException e2 = new ModuleException(
-                    String.format(
-                            "Exception thrown while selecting the '%1$s' module: %2$s . \n\nThe stack trace is available in the Modelio log file.\nReport it with the error to the module developer.",
-                            iModule.getName(), e.getLocalizedMessage()));
+                    MdaInfra.I18N.getMessage("ModuleInstaller.selectFailed",
+                            iModule.getName(),
+                            iModule.getVersion(),
+                            e.toString()));
             e2.initCause(e);
             throw e2;
         
@@ -222,7 +221,7 @@ class ModuleInstaller {
     }
 
     @objid ("2d48b334-0c90-11e2-a703-001ec947c8cc")
-    private void upgradeAndActivateModule(IModule iModule, Version oldVersion, Map<String, String> oldParameters) throws ModuleException {
+    private void upgradeAndActivateModule(IRTModule iModule, Version oldVersion, Map<String, String> oldParameters) throws ModuleException {
         try {
             iModule.getSession().upgrade(oldVersion, oldParameters);
             // Note the module as activated
@@ -237,9 +236,12 @@ class ModuleInstaller {
             // Note as deactivated.
             this.moduleService.deactivateModule(iModule, this.gProject);
             ModuleException e2 = new ModuleException(
-                    String.format(
-                            "Exception thrown while selecting the '%1$s' module: %2$s . \n\nThe stack trace is available in the Modelio log file.\nReport it with the error to the module developer.",
-                            iModule.getName(), e.getLocalizedMessage()));
+                    MdaInfra.I18N.getMessage("ModuleInstaller.upgradeFailed",
+                    iModule.getName(),
+                    oldVersion,
+                    iModule.getVersion(),
+                    e.toString()));
+        
             e2.initCause(e);
             throw e2;
         
@@ -265,12 +267,12 @@ class ModuleInstaller {
         List<GModule> dependentGModules = ModuleResolutionHelper.getModuleHandleDependentGModules(rtModuleHandle, this.gProject);
         
         for (GModule dependentGModule : dependentGModules) {
-            IModule started = this.moduleService.getModuleRegistry().getStartedModule(dependentGModule.getModuleElement());
+            IRTModule started = this.moduleService.getModuleRegistry().getStartedModule(dependentGModule);
             if (started != null) {
                 this.moduleService.stopModule(started, this.gProject);
             }
         
-            IModule loaded = this.moduleService.getModuleRegistry().getLoadedModule(dependentGModule.getModuleElement());
+            IRTModule loaded = this.moduleService.getModuleRegistry().getLoadedModule(dependentGModule);
             if (loaded != null) {
                 this.moduleService.unloadModule(loaded, this.gProject);
             }
@@ -284,11 +286,11 @@ class ModuleInstaller {
     @objid ("b668ef79-d796-4fcf-841f-64b8ad0fbf8d")
     private void restartDependentModules(Collection<GModule> dependentGModules) throws ModuleException {
         for (GModule dependentGModule : dependentGModules) {
-            this.moduleService.loadModule(this.gProject, dependentGModule);
+            this.moduleService.loadModule(this.gProject, dependentGModule, true);
         }
         for (GModule dependentGModule : dependentGModules) {
-            IModule loadedModule = this.moduleService.getModuleRegistry().getLoadedModule(dependentGModule.getModuleElement());
-            if (loadedModule != null) {
+            IRTModule loadedModule = this.moduleService.getModuleRegistry().getLoadedModule(dependentGModule);
+            if (loadedModule != null && loadedModule.getDownError() == null) {
                 this.moduleService.startModule(loadedModule, this.gProject);
             }
         }

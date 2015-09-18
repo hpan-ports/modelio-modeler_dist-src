@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: core.project.data
 Bundle-SymbolicName: org.modelio.core.project.data
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Require-Bundle: org.modelio.core.utils,
  practicalxml
 Export-Package: org.modelio.gproject.data.module,
@@ -13,5 +13,5 @@ Export-Package: org.modelio.gproject.data.module,
  org.modelio.gproject.data.ramc
 Bundle-ClassPath: res/,
  .
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: Modeliosoft

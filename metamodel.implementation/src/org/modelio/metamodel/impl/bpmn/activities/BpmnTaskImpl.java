@@ -43,25 +43,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0084e734-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnTaskImpl extends BpmnActivityImpl implements BpmnTask {
-    @objid ("ad60fa1f-742b-4b4f-8f66-24804ea83810")
+    @objid ("9d8f9495-a33d-4bc8-9848-e782b23e99a8")
     @Override
     public boolean isIsGlobal() {
         return (Boolean) getAttVal(BpmnTaskData.Metadata.IsGlobalAtt());
     }
 
-    @objid ("2a5f29ad-c297-4cdb-a9f8-6d99212292a3")
+    @objid ("1b989fa4-ce82-4932-8fc6-7e8c9b660116")
     @Override
     public void setIsGlobal(boolean value) {
         setAttVal(BpmnTaskData.Metadata.IsGlobalAtt(), value);
     }
 
-    @objid ("97918d65-80a6-442c-8c34-39b74fe4248e")
+    @objid ("0cefb81c-526d-409e-a5bd-93a30dbaa343")
     @Override
     public EList<BpmnCallActivity> getCaller() {
         return new SmList<>(this, BpmnTaskData.Metadata.CallerDep());
     }
 
-    @objid ("8fc4cd84-55ed-4525-abf9-1d93a7eccc7b")
+    @objid ("e2dff0c1-bd37-44ef-ba21-0394f5396b98")
     @Override
     public <T extends BpmnCallActivity> List<T> getCaller(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -74,21 +74,21 @@ public class BpmnTaskImpl extends BpmnActivityImpl implements BpmnTask {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("18518796-f097-4b53-93b6-c8eac2b6ca37")
+    @objid ("e127394b-ae93-484a-8371-d0d52388b78d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("001d301f-6bb0-4a51-a3a4-970f459c6bb7")
+    @objid ("ebd5ed1d-a803-4824-aff2-5dee2f472723")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("1fccbef1-cba0-4b22-9e4b-5ce9d994fbd3")
+    @objid ("002bc2fc-db5d-4196-b4a3-f1d008af38a8")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnTask(this);

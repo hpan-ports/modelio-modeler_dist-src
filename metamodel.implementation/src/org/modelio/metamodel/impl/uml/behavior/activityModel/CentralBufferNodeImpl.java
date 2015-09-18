@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002c4b6a-c4bf-1fd8-97fe-001ec947cd2a")
 public class CentralBufferNodeImpl extends ObjectNodeImpl implements CentralBufferNode {
-    @objid ("a2587f93-8d04-41ea-8ef2-4172b7f71360")
+    @objid ("abdaffcd-f298-41a8-9a1e-4906a3d50e01")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("6da8a7dc-df64-46b2-9dbf-32cd00bf0cf2")
+    @objid ("a836a3dd-3152-406a-8237-ac68d5cb610e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("cbf7e3ee-f8ab-4e58-a7f9-7080871b84ee")
+    @objid ("10539101-c004-4969-a40c-58c7f5dcbabc")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCentralBufferNode(this);

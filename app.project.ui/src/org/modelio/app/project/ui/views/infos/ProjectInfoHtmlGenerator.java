@@ -94,7 +94,7 @@ public class ProjectInfoHtmlGenerator {
             AppProjectUi.LOG.error("Error when getting the template file from url");
             AppProjectUi.LOG.debug(e);
         }
-        if(pageTemplate==null || !pageTemplate.exists()){    
+        if(pageTemplate==null || !pageTemplate.exists()){
             AppProjectUi.LOG.error("Project Info html template does not exist.");
             return "";
         }
@@ -123,7 +123,7 @@ public class ProjectInfoHtmlGenerator {
     @objid ("1f206bce-d96d-448f-ae3c-9f2aad7f9446")
     private void fillProjectInfoPage(File file) {
         String line = "";
-        StringBuffer oldtext = new StringBuffer();
+        StringBuilder oldtext = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                 new FileInputStream(file), "UTF8"));) {
         
@@ -138,7 +138,7 @@ public class ProjectInfoHtmlGenerator {
             AppProjectUi.LOG.debug(ioe);
         }
         // replace strings in a the template file
-        StringBuffer newtext = replaceTemplateStrings(oldtext);
+        StringBuilder newtext = replaceTemplateStrings(oldtext);
         getFilePathOf("/res/img/");     //force loading the img folder
         
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
@@ -152,7 +152,7 @@ public class ProjectInfoHtmlGenerator {
     }
 
     @objid ("08459806-084e-4c05-a48c-a2d22d5fbabb")
-    private StringBuffer replaceTemplateStrings(StringBuffer source) {
+    private StringBuilder replaceTemplateStrings(StringBuilder source) {
         // Replace all the fix content of source file
         replaceTemplateFixContent(source);
         
@@ -193,14 +193,14 @@ public class ProjectInfoHtmlGenerator {
         
         // WorkModels Fragments section
         List<FragmentDescriptor> workModelsFragments = this.projectAdapter.getWorkModelsFragments();
-        if (workModelsFragments.size()>0) {            
+        if (workModelsFragments.size()>0) {
             replaceAll(source, "$tbl_workModels_content", createWorkModelsTableContent(workModelsFragments));
         } else {    // Hide container if no WorkModels
             hideContainer(source, "AccordionContainerWorkModels");
         }
         // Libraries Fragments section
         List<FragmentDescriptor> librariesFragments = this.projectAdapter.getLibrariesFragments();
-        if (librariesFragments.size()>0) {            
+        if (librariesFragments.size()>0) {
             replaceAll(source, "$tbl_libraries_content", createLibrariesTableContent(librariesFragments));
         } else {    // Hide container if no Libraries
             hideContainer(source, "AccordionContainerLibraries");
@@ -217,31 +217,33 @@ public class ProjectInfoHtmlGenerator {
     @objid ("16046109-3c97-44f4-aa5d-d22e5504a155")
     private String addProjectLogo() {
         String iconName = this.projectAdapter.getProperties().getValue(INFO_PROJECT_LOGO_NAME);
-        if (iconName == null) return "";
-        String addIconString = "";
+        if (iconName == null) {
+            return "";
+        }
+        StringBuilder addIconString = new StringBuilder();
         if (iconName.startsWith("http")) {
             try {
                 URI uri = new URI(iconName);
         
-                addIconString += "<img src=\"";
-                addIconString += uri.toString();
-                addIconString += "\" height=\"64\" width=\"64\">";
+                addIconString.append("<img src=\"");
+                addIconString.append(uri.toString());
+                addIconString.append("\" height=\"64\" width=\"64\">");
             } catch (URISyntaxException e) {
-                addIconString = "";
+                addIconString = new StringBuilder();
             }
         } else {
             try {
                 java.nio.file.Path iconPath = this.projectAdapter.getPath().resolve("data").resolve(iconName);
                 if (Files.exists(iconPath)) {
-                    addIconString += "<img src=\"";
-                    addIconString += iconPath.toString();
-                    addIconString += "\" height=\"64\" width=\"64\">";
+                    addIconString.append("<img src=\"");
+                    addIconString.append(iconPath.toString());
+                    addIconString.append("\" height=\"64\" width=\"64\">");
                 }
             } catch (InvalidPathException e) {
-                addIconString = "";
+                addIconString = new StringBuilder();
             }
         }
-        return addIconString;
+        return addIconString.toString();
     }
 
     /**
@@ -250,7 +252,7 @@ public class ProjectInfoHtmlGenerator {
      * @param content @return
      */
     @objid ("d5d92b4b-96f7-44c4-b465-33d684f7485c")
-    private StringBuffer hideContainer(StringBuffer sb, String idToHide) {
+    private StringBuilder hideContainer(StringBuilder sb, String idToHide) {
         String hideString = "document.getElementById('" + idToHide + "').style.display = 'none';";
         return replaceAll(sb, "//windowOnLoadFunction", "//windowOnLoadFunction"+System.getProperty("line.separator")+hideString);
     }
@@ -261,10 +263,10 @@ public class ProjectInfoHtmlGenerator {
      * @param content @return
      */
     @objid ("dcd6d884-7f43-4a68-ad30-e04664bb9986")
-    private StringBuffer replaceTemplateFixContent(StringBuffer sb) {
+    private StringBuilder replaceTemplateFixContent(StringBuilder sb) {
         Pattern myPattern = Pattern.compile("\\[\\#([^\\]]*)\\#\\]");
         Matcher m = myPattern.matcher(sb.toString());
-        while (m.find()) {
+        while (m.find()) {  
             String toReplace = m.group(1);
             replaceAll(sb, "[#"+toReplace+"#]", AppProjectUi.I18N.getString(toReplace));
         }
@@ -288,7 +290,7 @@ public class ProjectInfoHtmlGenerator {
             AppProjectUi.LOG.debug("File path %s is not found!", s);
             AppProjectUi.LOG.error(e);
         }
-        return "file://"+path;  //add protocol
+        return "file://"+path; //add protocol
     }
 
     /**
@@ -298,20 +300,31 @@ public class ProjectInfoHtmlGenerator {
      */
     @objid ("e6e1e47c-e272-42d3-8feb-e1d7ab2ee2dc")
     private String createWorkModelsTableContent(List<FragmentDescriptor> fragments) {
-        String content = "";
-        for(FragmentDescriptor fragment : fragments) {                              
-            content += "<tr>";
+        StringBuilder content = new StringBuilder();
+        for(FragmentDescriptor fragment : fragments) {
+            content.append("<tr>");
+        
             String fIconPath = getFragmentIconPath(fragment.getType());
             String addIconString = "<img src=\"" + getFilePathOf(fIconPath) + "\"> ";
+            content.append("<td>");
+            content.append(addIconString);
+            content.append(fragment.getId());
+            content.append("</td>");
+        
             boolean isDistance = fragment.getType().equals(FragmentType.EXML_SVN);
             String fType = isDistance ? AppProjectUi.I18N.getString("ProjectInfoHtmlGenerator.workmodeltype.distant"):AppProjectUi.I18N.getString("ProjectInfoHtmlGenerator.workmodeltype.local");
+            content.append("<td>");
+            content.append(fType);
+            content.append("</td>");
+        
             String fUriString = isDistance ? fragment.getUri().toString().replaceAll("%20", " ") : "";
-            content += "<td>" + addIconString + fragment.getId() + "</td>";
-            content += "<td>" + fType + "</td>";
-            content += "<td>" + fUriString + "</td>";
-            content += "</tr>"; 
+            content.append("<td>");
+            content.append(fUriString);
+            content.append("</td>");
+        
+            content.append("</tr>");
         }
-        return content;
+        return content.toString();
     }
 
     /**
@@ -321,19 +334,34 @@ public class ProjectInfoHtmlGenerator {
      */
     @objid ("c86615b6-3c1e-4a46-a380-a959070bdf76")
     private String createLibrariesTableContent(List<FragmentDescriptor> fragments) {
-        String content = "";
-        for(FragmentDescriptor fragment : fragments) {                              
-            content += "<tr>";
+        StringBuilder content = new StringBuilder();
+        for(FragmentDescriptor fragment : fragments) {
+            content.append("<tr>");
+        
             String fIconPath = getFragmentIconPath(fragment.getType());
             String addIconString = "<img src=\"" + getFilePathOf(fIconPath) + "\"> ";
+            content.append("<td>");
+            content.append(addIconString);
+            content.append(fragment.getId());
+            content.append("</td>");
+        
             String fVersion = fragment.getProperties().getValue("FragmentVersion");
+            content.append("<td>");
+            content.append(fVersion==null?"":fVersion);
+            content.append("</td>");
+        
+            content.append("<td>");
             String fDescription = fragment.getProperties().getValue("FragmentDescription");
-            content += "<td>"+ addIconString + fragment.getId() + "</td>";
-            content += "<td>" + (fVersion==null?"":fVersion) + "</td>";
-            content += "<td><textarea class='librarieDescriptorTextarea' rows='3' readonly>" + (fDescription==null?"":fDescription) + "</textarea></td>";
-            content += "</tr>";           
+            if (fDescription != null && fDescription.length() > 0) {
+                content.append("<textarea class='librarieDescriptorTextarea' rows='3' readonly>");
+                content.append(fDescription);
+                content.append("</textarea>");
+            }
+            content.append("</td>");
+        
+            content.append("</tr>");
         }
-        return content;
+        return content.toString();
     }
 
     /**
@@ -343,18 +371,27 @@ public class ProjectInfoHtmlGenerator {
      */
     @objid ("1cbfb808-3be4-49b4-9119-3334ce2cebde")
     private String createModulesTableContent(Object[] modules) {
-        String content = "";
+        StringBuilder content = new StringBuilder();
+        
         String mIconPath = "icons/modulecomponent.png";
         String addIconString = "<img src=\"" + getFilePathOf(mIconPath) + "\"> ";
         for( Object element : modules ) {
             if (element instanceof ModuleDescriptor) {
-                content += "<tr>";
-                content += "<td>" + addIconString + ((ModuleDescriptor) element).getName() + "</td>";
-                content += "<td>" + ((ModuleDescriptor) element).getVersion().toString() + "</td>";
-                content += "</tr>";           
+                content.append("<tr>");
+        
+                content.append("<td>");
+                content.append(addIconString);
+                content.append(((ModuleDescriptor) element).getName());
+                content.append("</td>");
+        
+                content.append("<td>");
+                content.append(((ModuleDescriptor) element).getVersion().toString());
+                content.append("</td>");
+        
+                content.append("</tr>");
             }
         }
-        return content;
+        return content.toString();
     }
 
     @objid ("4d3b51fe-cd4c-4115-9748-2c829a562868")
@@ -363,21 +400,21 @@ public class ProjectInfoHtmlGenerator {
     }
 
     /**
-     * Replace all the oldString by the newString in the given stringBuffer
-     * @param stringBuffer
+     * Replace all the oldString by the newString in the given buffer.
+     * @param buffer
      * @param oldString
      * @param newString @return
      */
     @objid ("40e702ce-7244-4ed3-97b6-b3abaedf93f7")
-    private StringBuffer replaceAll(StringBuffer stringBuffer, String oldString, String newString) {
-        int index = stringBuffer.indexOf(oldString);
+    private StringBuilder replaceAll(StringBuilder buffer, String oldString, String newString) {
+        int index = buffer.indexOf(oldString);
         while (index != -1) // replace all
         {
-            stringBuffer.replace(index, index + oldString.length(), newString);
+            buffer.replace(index, index + oldString.length(), newString);
             index += newString.length();    // get the beginning index of the next replacement if need
-            index = stringBuffer.indexOf(oldString, index);
+            index = buffer.indexOf(oldString, index);
         }
-        return stringBuffer;
+        return buffer;
     }
 
     @objid ("aa60b3b5-539d-481b-abcd-20c7957954a8")

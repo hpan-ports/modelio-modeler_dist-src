@@ -26,7 +26,7 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityParameterNode;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
 import org.modelio.metamodel.uml.statik.Parameter;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("ef924dc4-1d51-4c82-8501-c0f237f3fcdb")
 public class OActivityParameterNode extends OObjectNode {

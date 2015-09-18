@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecificatio
 
 @objid ("00444a76-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExecutionOccurenceSpecification extends MessageEnd {
-    @objid ("1f6315e8-a3c1-4aca-9816-39b87978864a")
+    @objid ("7b09b071-4d8a-49cb-9f57-b5e6c9772b82")
     ExecutionSpecification getFinished();
 
-    @objid ("f4a845ab-2cfd-4330-9d41-d4d7d94117cb")
+    @objid ("939f7917-e22d-4405-a1e1-3c5ec4d854b5")
     void setFinished(ExecutionSpecification value);
 
-    @objid ("ccfb53ed-965a-48cb-8ca5-f21162f969a0")
+    @objid ("9a93937e-0508-4e9e-8dff-2b55accc1a9e")
     ExecutionSpecification getStarted();
 
-    @objid ("a17ac2e2-3699-41e4-b6b0-de7c2637ef80")
+    @objid ("604981ab-3e6a-4f2b-b51f-35fd31fe57c6")
     void setStarted(ExecutionSpecification value);
 
 }

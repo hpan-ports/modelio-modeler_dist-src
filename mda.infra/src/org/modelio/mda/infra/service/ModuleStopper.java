@@ -25,9 +25,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.module.AbstractJavaModule;
-import org.modelio.api.module.IModule.ModuleRuntimeState;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.ModuleException;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.gproject.gproject.GProject;
@@ -47,11 +44,11 @@ class ModuleStopper {
      * @throws org.modelio.api.module.ModuleException when the stop fails.
      */
     @objid ("1843a05c-0ca8-11e2-8ebb-002564c97630")
-    static Set<IModule> stopModule(final IModule iModuleToStop, List<IModule> dependentIModules, final ModuleService moduleService, GProject gProject) throws ModuleException {
-        Set<IModule> ret = new HashSet<>();
+    static Set<IRTModule> stopModule(final IRTModule iModuleToStop, List<IRTModule> dependentIModules, final ModuleService moduleService, GProject gProject) throws ModuleException {
+        Set<IRTModule> ret = new HashSet<>();
         
         // Stop dependent modules first
-        for (IModule dependentIModule : dependentIModules) {
+        for (IRTModule dependentIModule : dependentIModules) {
             ret.addAll(moduleService.stopModule(dependentIModule, gProject));
         }
         
@@ -64,7 +61,7 @@ class ModuleStopper {
     }
 
     @objid ("1844158c-0ca8-11e2-8ebb-002564c97630")
-    private static void doStopModule(final IModule module, final ModuleService moduleService) throws ModuleException {
+    private static void doStopModule(final IRTModule module, final ModuleService moduleService) throws ModuleException {
         // Add to registry and set state
         moduleService.getModuleRegistry().removeStartedModule(module);
         setState(module, ModuleRuntimeState.Loaded);
@@ -78,9 +75,9 @@ class ModuleStopper {
     }
 
     @objid ("18443c9c-0ca8-11e2-8ebb-002564c97630")
-    private static void setState(final IModule module, final ModuleRuntimeState newState) {
-        if (module instanceof AbstractJavaModule) {
-            ((AbstractJavaModule) module).setState(newState);
+    private static void setState(final IRTModule module, final ModuleRuntimeState newState) {
+        if (module instanceof RTModule) {
+            module.setState(newState);
         } else if (module instanceof FakeModule) {
             ((FakeModule) module).setState(newState);
         }

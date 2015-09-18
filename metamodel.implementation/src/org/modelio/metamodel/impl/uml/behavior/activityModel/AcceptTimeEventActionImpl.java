@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0025b188-c4bf-1fd8-97fe-001ec947cd2a")
 public class AcceptTimeEventActionImpl extends ActivityActionImpl implements AcceptTimeEventAction {
-    @objid ("40b692c2-ac59-4afc-8b36-018d8050f6db")
+    @objid ("5c731c31-80c0-40a7-b493-e043562c9f50")
     @Override
     public String getTimeExpresion() {
         return (String) getAttVal(AcceptTimeEventActionData.Metadata.TimeExpresionAtt());
     }
 
-    @objid ("f0d381a8-1276-42a2-86d0-8d8f66902d1e")
+    @objid ("a2a5cfb6-5d8f-43a1-8d79-7d8de22208af")
     @Override
     public void setTimeExpresion(String value) {
         setAttVal(AcceptTimeEventActionData.Metadata.TimeExpresionAtt(), value);
     }
 
-    @objid ("8f42ae6b-cedf-4799-a1f7-a0d8e58035d6")
+    @objid ("d1e518f6-6792-43a1-bda2-cc1f1654c33f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("8ed04d07-6341-4612-ad0a-322821adb38a")
+    @objid ("639da33f-0f47-4421-ab38-1012218b9277")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("d7289055-3a76-4bc3-a987-ca096dacb405")
+    @objid ("6dc408ff-a0d2-4e4a-a1ac-a4e2c36d298c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAcceptTimeEventAction(this);

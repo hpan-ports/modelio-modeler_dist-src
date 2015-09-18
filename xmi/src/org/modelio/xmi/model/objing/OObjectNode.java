@@ -31,13 +31,13 @@ import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.util.ModelioPrimitiveTypeMapper;
 import org.modelio.xmi.util.NotFoundException;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 
 @objid ("87ba85d7-ef0e-48f9-afa1-ea5183737d13")
-public class OObjectNode extends OActivityNode implements IOElement {
+public class OObjectNode extends OActivityNode {
     @objid ("c43fe3c6-13cd-40fe-aab2-a7bb45058fb1")
     public OObjectNode(ObjectNode element) {
         super(element);
@@ -144,8 +144,8 @@ public class OObjectNode extends OActivityNode implements IOElement {
         GeneralClass objingType = this.getObjingElement().getType();
         if (objingType != null) {
                 
-            if (PrimitiveTypeMapper.isPredefinedType(objingType)) {
-                 PrimitiveTypeMapper.setEcorePredefinedType(node, (DataType) objingType);
+            if (ModelioPrimitiveTypeMapper.isPredefinedType(objingType)) {
+                ModelioPrimitiveTypeMapper.setEcorePredefinedType(node, (DataType) objingType);
             }else{
                 org.eclipse.uml2.uml.Element ecoreType =  GenerationProperties.getInstance().getMappedElement(objingType);
                 if (ecoreType instanceof org.eclipse.uml2.uml.Type)

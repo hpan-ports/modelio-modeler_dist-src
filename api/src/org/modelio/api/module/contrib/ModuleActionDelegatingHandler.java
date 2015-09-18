@@ -38,7 +38,7 @@ public class ModuleActionDelegatingHandler extends AbstractHandler {
     @Override
     @Execute
     public Object execute(ExecutionEvent event) throws ExecutionException {
-        this.moduleAction.getCommand().actionPerformed(getSelectedElements(), this.moduleAction.getModule());
+        this.moduleAction.getHandler().actionPerformed(getSelectedElements(), this.moduleAction.getModule());
         return null;
     }
 

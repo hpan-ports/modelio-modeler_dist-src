@@ -48,7 +48,7 @@ public interface IModuleCatalog {
      * Use {@link FileUtils#getLocalizedMessage(FileSystemException)} to get a human readable error message.
      */
     @objid ("57cd5c22-06f3-11e2-9469-001ec947ccaf")
-    IModuleHandle getModuleHandle(Path archivePath, IModelioProgress monitor) throws IOException, FileSystemException;
+    IModuleHandle getModuleHandle(Path archivePath, IModelioProgress monitor) throws FileSystemException, IOException;
 
     /**
      * Get a module handle from the cache.
@@ -76,7 +76,7 @@ public interface IModuleCatalog {
      * Use {@link FileUtils#getLocalizedMessage(FileSystemException)} to get a human readable error message.
      */
     @objid ("b58e7237-452a-11e2-aeb7-002564c97630")
-    List<IModuleHandle> findAllModules(IModelioProgress monitor) throws IOException, FileSystemException;
+    List<IModuleHandle> findAllModules(IModelioProgress monitor) throws FileSystemException, IOException;
 
     /**
      * Remove the module from the catalog.

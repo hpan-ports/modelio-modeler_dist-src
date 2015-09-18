@@ -42,33 +42,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("006cfe26-ec87-1098-b22e-001ec947cd2a")
 public class LocalPropertyTableImpl extends PropertyTableImpl implements LocalPropertyTable {
-    @objid ("81181a50-8a78-45fc-8950-60f17f8a33f3")
+    @objid ("ec321756-f7d2-48b1-83fa-a18c0ca78b8a")
     @Override
     public ModelElement getLocalAnnoted() {
         return (ModelElement) getDepVal(LocalPropertyTableData.Metadata.LocalAnnotedDep());
     }
 
-    @objid ("c205076a-21c9-4891-b411-632da92e6d87")
+    @objid ("48698e4f-b761-4278-9919-b854f5910dd6")
     @Override
     public void setLocalAnnoted(ModelElement value) {
         appendDepVal(LocalPropertyTableData.Metadata.LocalAnnotedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7b4c05e0-13a8-4d97-a510-911cf275fe55")
+    @objid ("bd6febb9-0120-4bbc-bc37-46479b25abf4")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("01d467d6-e76a-48f3-a3e5-992d54f4f765")
+    @objid ("bd78b394-b37d-4e36-b2f1-08d4178930eb")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("26299689-d05f-4122-a655-30013e584a1d")
+    @objid ("f8954322-23ea-49c2-b9e9-31b20baf5e28")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitLocalPropertyTable(this);

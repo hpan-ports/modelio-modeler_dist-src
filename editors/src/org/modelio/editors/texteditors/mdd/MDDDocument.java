@@ -60,8 +60,8 @@ public class MDDDocument extends Document {
     @Override
     public void replace(int offset, int length, String text) throws BadLocationException {
         if (length > 0) {
-            ITypedRegion[] typedRegions = computePartitioning(offset, length);
-            for (ITypedRegion typedRegion : typedRegions) {
+            final ITypedRegion[] typedRegions = computePartitioning(offset, length);
+            for (final ITypedRegion typedRegion : typedRegions) {
                 if (!isWritablePartition(typedRegion)) {
                     return;
                 }
@@ -69,8 +69,9 @@ public class MDDDocument extends Document {
         }
         if (isWritablePosition(offset) && isWritablePosition(offset + 1)) {
             super.replace(offset, length, text);
-        } else
+        } else {
             Display.getDefault().beep();
+        }
     }
 
     @objid ("7b57c7e2-2a77-11e2-9fb9-bc305ba4815c")
@@ -81,8 +82,8 @@ public class MDDDocument extends Document {
             // partition
             //if (!isWritablePosition(offset + length) || !isWritablePosition(offset + 1 + 1 - length))
             //return;
-            ITypedRegion[] typedRegions = computePartitioning(offset, length);
-            for (ITypedRegion typedRegion : typedRegions) {
+            final ITypedRegion[] typedRegions = computePartitioning(offset, length);
+            for (final ITypedRegion typedRegion : typedRegions) {
                 if (!isWritablePartition(typedRegion)) {
                     return;
                 }
@@ -93,8 +94,9 @@ public class MDDDocument extends Document {
             setCurrentPartionner(this.replacePartitionner);
             super.replace(offset, length, text, timestamp);
             setCurrentPartionner(this.stdPartitionner);
-        } else
+        } else {
             Display.getDefault().beep();
+        }
     }
 
     /**
@@ -133,7 +135,7 @@ public class MDDDocument extends Document {
     protected boolean isWritablePosition(int offset) {
         try {
             return isWritablePartition(this.getPartition(offset));
-        } catch (BadLocationException e) {
+        } catch (final BadLocationException e) {
             e.printStackTrace();
             return false;
         }
@@ -141,7 +143,7 @@ public class MDDDocument extends Document {
 
     @objid ("7b594e5c-2a77-11e2-9fb9-bc305ba4815c")
     protected boolean isWritablePartition(ITypedRegion r) {
-        return (r.getType() != "_RO" && r.getType() != "_TAG");
+        return ! "_RO".equals(r.getType()) && ! "_TAG".equals(r.getType());
     }
 
     /**
@@ -155,7 +157,7 @@ public class MDDDocument extends Document {
         try {
             partition = getPartition(DEFAULT_PARTITIONING, offset, true);
             Assert.isNotNull(partition);
-        } catch (BadPartitioningException e) {
+        } catch (final BadPartitioningException e) {
             Assert.isTrue(false);
         }
         return partition;

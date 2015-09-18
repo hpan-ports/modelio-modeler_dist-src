@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("002ac010-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=CallAction.class, factory=CallActionData.Metadata.ObjectFactory.class)
 public abstract class CallActionData extends ActivityActionData {
-    @objid ("5e47e183-3be5-40dd-a844-8fdfbe0261e6")
+    @objid ("3b56c393-4a48-4ef6-ab4d-9b926faac501")
     @SmaMetaAttribute(metaName="IsSynchronous", type=Boolean.class, smAttributeClass=Metadata.IsSynchronousSmAttribute.class)
      Object mIsSynchronous = true;
 
-    @objid ("e4ed8139-8b88-43be-9a94-7e0bbd6ff41b")
+    @objid ("315082f4-959c-4858-b458-3bcccddea41a")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0080c50a-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("ea09a76e-8eb0-4efc-9566-98e05761a50a")
+        @objid ("880a087f-84ea-41bb-beb4-c14d427655e4")
         private static SmClass smClass = null;
 
-        @objid ("ca86d477-3ef4-4517-8092-cceb3823962d")
+        @objid ("4021e086-dbdd-4858-9769-ea507d704f0b")
         private static SmAttribute IsSynchronousAtt = null;
 
-        @objid ("a304d9dd-8bf4-4a63-81a9-2209245e9035")
+        @objid ("09da62d9-8daa-455a-ba61-c52588064e6a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(CallActionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("07134e78-dbc4-4478-8c76-31ab3c18cf3a")
+        @objid ("da892bf1-6849-497c-9371-ad90c0397972")
         public static SmAttribute IsSynchronousAtt() {
             if (IsSynchronousAtt == null) {
             	IsSynchronousAtt = classof().getAttributeDef("IsSynchronous");
@@ -73,26 +73,26 @@ public abstract class CallActionData extends ActivityActionData {
             return IsSynchronousAtt;
         }
 
-        @objid ("30856ffc-d816-4fec-8953-7dba878eced1")
-        public static SmAttribute getIsSynchronousAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsSynchronousAtt;
-        }
-
-        @objid ("88b7b498-cdd9-468f-bae3-bf72d08ffae7")
+        @objid ("2db6e8cf-4d26-471e-80f1-dc50e01e07df")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("a1bfe0b6-7dcf-40f2-a6f5-9e3f8d7eb224")
+        public static SmAttribute getIsSynchronousAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsSynchronousAtt;
+        }
+
         @objid ("0081063c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("12b155fd-4a4c-4429-a64b-d7697366cdf0")
+            @objid ("aad40b5a-df3b-4512-b812-17bf1d896f08")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("3a23176f-0fb1-4e2e-9ce9-66deaf879283")
+            @objid ("03ff07ae-7f6d-4d78-b6bb-9807f484e4a2")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -101,12 +101,12 @@ public abstract class CallActionData extends ActivityActionData {
 
         @objid ("0081683e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IsSynchronousSmAttribute extends SmAttribute {
-            @objid ("341a2340-d92c-4cd3-9f73-a923d13aef47")
+            @objid ("0eb3fcb4-2f4a-4ee7-944b-8cc47e03d472")
             public Object getValue(ISmObjectData data) {
                 return ((CallActionData) data).mIsSynchronous;
             }
 
-            @objid ("c22cf402-bb58-4992-a3d5-91d03acaf8b8")
+            @objid ("2fba628e-6341-4014-83d7-70e7832b7851")
             public void setValue(ISmObjectData data, Object value) {
                 ((CallActionData) data).mIsSynchronous = value;
             }

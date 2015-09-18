@@ -37,10 +37,10 @@ import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.commands.MCommandsFactory;
 import org.eclipse.e4.ui.model.application.commands.MHandler;
 import org.eclipse.swt.widgets.Display;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
 import org.modelio.app.core.events.ModelioEventTopics;
+import org.modelio.mda.infra.service.IRTModule;
 
 /**
  * This class "translates" IModuleActions provided by modules into MCommand (with a default MHandler, although it is recommended that each contribution point use more local handlers) of the e4 model. These commands and handlers are created and activated when the module is started, and deactivated and deleted when the module stops.
@@ -111,7 +111,7 @@ public class ModuleCommandsRegistry {
      * Builds a MCommand ID for the given module/action pair.
      */
     @objid ("4f5c55e1-1449-11e2-a678-001ec947c8cc")
-    private static String getCommandId(IModule module, IModuleAction action) {
+    private static String getCommandId(IRTModule module, IModuleAction action) {
         return module.getName() + "." + action.getName();
     }
 
@@ -122,7 +122,7 @@ public class ModuleCommandsRegistry {
      * @return the MCommand corresponding to the given module/action pair.
      */
     @objid ("4f5c55e8-1449-11e2-a678-001ec947c8cc")
-    public static MCommand getCommand(IModule module, IModuleAction action) {
+    public static MCommand getCommand(IRTModule module, IModuleAction action) {
         return getCommand(getCommandId(module, action));
     }
 
@@ -130,7 +130,7 @@ public class ModuleCommandsRegistry {
     @SuppressWarnings("static-method")
     @Inject
     @Optional
-    void onModuleStarted(@EventTopic(ModelioEventTopics.MODULE_STARTED) final IModule module) {
+    void onModuleStarted(@EventTopic(ModelioEventTopics.MODULE_STARTED) final IRTModule module) {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
         Display.getDefault().asyncExec(new Runnable() {
         
@@ -154,7 +154,7 @@ public class ModuleCommandsRegistry {
     @SuppressWarnings("static-method")
     @Inject
     @Optional
-    void onModuleStopped(@EventTopic(ModelioEventTopics.MODULE_STOPPED) final IModule module) {
+    void onModuleStopped(@EventTopic(ModelioEventTopics.MODULE_STOPPED) final IRTModule module) {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
         Display.getDefault().asyncExec(new Runnable() {
         
@@ -175,7 +175,7 @@ public class ModuleCommandsRegistry {
     }
 
     @objid ("4f5eb83f-1449-11e2-a678-001ec947c8cc")
-    protected static MHandler createAndActivateHandler(MCommand command, IModule module, IModuleAction action) {
+    protected static MHandler createAndActivateHandler(MCommand command, IRTModule module, IModuleAction action) {
         // Instantiate the actual handler class
         Object handler = new ExecuteModuleActionHandler(module, action);
         // Fit it into a MHandler
@@ -197,7 +197,7 @@ public class ModuleCommandsRegistry {
 
     @objid ("4f5eb846-1449-11e2-a678-001ec947c8cc")
     protected static void deactivateAndRemoveHandler(MCommand command) {
-        // Do the exact opposite of what is done in #createAndActivateHandler(MCommand, IModule, IModuleAction)
+        // Do the exact opposite of what is done in #createAndActivateHandler(MCommand, IRTModule, IModuleAction)
         EHandlerService handlerService = application.getContext().get(EHandlerService.class);
         handlerService.deactivateHandler(command.getElementId(), null);
         MHandler handlerToRemove = defaultHandlersCache.get(command.getElementId());

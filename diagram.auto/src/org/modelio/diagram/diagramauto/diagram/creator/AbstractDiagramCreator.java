@@ -25,6 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.diagram.IDiagramHandle;
 import org.modelio.api.diagram.autodiagram.IDiagramCreator;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.diagram.diagramauto.plugin.DiagramAuto;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.Metamodel;
@@ -75,8 +76,8 @@ public abstract class AbstractDiagramCreator implements IDiagramCreator {
                 dh.setBatchMode(false);
                 return diagram;
             }
-        } catch (Error e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            DiagramAuto.LOG.debug(e);
             if (diagram != null) {
                 diagram.delete();
             }

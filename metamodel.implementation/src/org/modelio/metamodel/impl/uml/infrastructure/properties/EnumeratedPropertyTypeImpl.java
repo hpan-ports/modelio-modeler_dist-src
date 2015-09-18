@@ -53,13 +53,13 @@ public class EnumeratedPropertyTypeImpl extends PropertyTypeImpl implements Enum
         return null;
     }
 
-    @objid ("78be8a22-8f01-4007-9938-d592e77d7045")
+    @objid ("a7c9dcbf-dd94-4604-ab93-a7ee27cb649b")
     @Override
     public EList<PropertyEnumerationLitteral> getLitteral() {
         return new SmList<>(this, EnumeratedPropertyTypeData.Metadata.LitteralDep());
     }
 
-    @objid ("120922f7-b9c1-4d11-8e8f-52b5514aa23c")
+    @objid ("84853aff-4ff4-4963-ba8d-1c44fe2a0b54")
     @Override
     public <T extends PropertyEnumerationLitteral> List<T> getLitteral(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -72,21 +72,21 @@ public class EnumeratedPropertyTypeImpl extends PropertyTypeImpl implements Enum
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ffe649bb-a08a-49f1-8adf-8a199bd89622")
+    @objid ("b8fba39c-a91d-456d-9ba5-79792f411e66")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("1b4c4928-89ff-431c-b0b5-248dd20594e8")
+    @objid ("783e5d92-2969-4643-837a-65e0c53dca53")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("04740040-ee2b-44e1-9bbe-fab5570b7f1e")
+    @objid ("ae59b768-b5ad-43e3-899a-7f3d5f374acb")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitEnumeratedPropertyType(this);

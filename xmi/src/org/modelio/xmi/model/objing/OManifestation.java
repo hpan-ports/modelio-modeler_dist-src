@@ -27,8 +27,8 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.Manifestation;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("395262d0-29b1-482f-b6fa-8a14736b8c01")
 public class OManifestation extends OElement implements IOElement {

@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0050f62c-c4bf-1fd8-97fe-001ec947cd2a")
 public class InitialPseudoStateImpl extends AbstractPseudoStateImpl implements InitialPseudoState {
-    @objid ("92de7de7-e34e-4a4c-83ca-5ccddf587d25")
+    @objid ("1f6d9a2e-04df-477a-a67a-b33984618975")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("44e0b685-87a9-43e0-b6f0-7a494d4095de")
+    @objid ("6990513c-33a8-476d-9290-d27487afb236")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("ad2860b1-3eff-45e6-94b5-403ccf92d972")
+    @objid ("d66fec57-8898-41a9-9785-1490590712ce")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInitialPseudoState(this);

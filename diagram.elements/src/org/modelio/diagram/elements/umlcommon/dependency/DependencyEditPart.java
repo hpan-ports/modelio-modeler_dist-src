@@ -44,6 +44,8 @@ public class DependencyEditPart extends GmLinkEditPart {
         arrow.setScale(5, 5);
         arrow.setOpaque(false);
         connection.setTargetDecoration(arrow);
+        
+        refreshFromStyle(connection, getModelStyle());
         return connection;
     }
 

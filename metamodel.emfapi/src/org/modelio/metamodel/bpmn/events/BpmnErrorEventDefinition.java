@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("008b3af8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnErrorEventDefinition extends BpmnEventDefinition {
-    @objid ("bd35a713-acb1-4e99-b61b-ec82e0f2a9eb")
+    @objid ("9f947cdb-f9c7-49e7-b37f-5fe3742a06e5")
     String getErrorCode();
 
-    @objid ("d3e9b3cd-0734-4d0c-b84b-f1e36a787d52")
+    @objid ("ffce387f-8e7d-4c14-b267-7dd798b4678d")
     void setErrorCode(String value);
 
 }

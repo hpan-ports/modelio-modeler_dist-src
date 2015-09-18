@@ -235,10 +235,10 @@ class DependencyLoader {
     }
 
     /**
-     * Hook to notify a dependency change
-     * @param anObj
-     * @param aDep
-     * @param value
+     * Hook to notify a dependency change.
+     * @param anObj the modified object
+     * @param aDep the modified relation
+     * @param value the added value
      */
     @objid ("7d4d2e4b-1c43-11e2-8eb9-001ec947ccaf")
     protected void depValAdded(final SmObjectImpl anObj, final SmDependency aDep, final SmObjectImpl value) {
@@ -246,10 +246,10 @@ class DependencyLoader {
     }
 
     /**
-     * Hook to notify a dependency change
-     * @param anObj
-     * @param aDep
-     * @param value
+     * Hook to notify a dependency change.
+     * @param anObj the modified object
+     * @param aDep the modified relation
+     * @param value the removed value
      */
     @objid ("7d4d2e54-1c43-11e2-8eb9-001ec947ccaf")
     protected void depValErased(final SmObjectImpl anObj, final SmDependency aDep, final SmObjectImpl value) {
@@ -268,9 +268,9 @@ class DependencyLoader {
         try {
             err = "Cannot add " + getDebugSymbol(destObject, e) + " to " + getDebugSymbol(this.obj, e) + "."
                     + this.dep.getName() + ": " + e.getLocalizedMessage();
-        } catch (Throwable t) {
+        } catch (Exception | LinkageError t) {
             e.addSuppressed(t);
-            err = "Failed loading " + this.dep.getName() + " dependency: " + e.getLocalizedMessage();
+            err = "Failed loading " + this.dep.getName() + " dependency: " + e.toString();
         }
         return err;
     }
@@ -279,11 +279,11 @@ class DependencyLoader {
     private static String getDebugSymbol(SmObjectImpl obj, Throwable t) {
         try {
             return "('" + GetAbsoluteSymbol.get(obj) + "' {" + obj.getUuid() + "} " + obj.getMClass().getName() + ")";
-        } catch (Throwable e) {
+        } catch (Exception | LinkageError e) {
             t.addSuppressed(e);
             try {
                 return "(" + obj.toString() + ")";
-            } catch (Throwable e2) {
+            } catch (Exception | LinkageError e2) {
                 e.addSuppressed(e2);
                 return "(" + obj.getMClass().getName() + ")";
             }

@@ -49,10 +49,10 @@ public interface AnalystElement extends AnalystItem {
     @objid ("e76eb14a-27aa-4e63-86a3-87bf310a359c")
     AnalystElement getLastVersion();
 
-    @objid ("d3a54dcb-976d-40b7-a18c-2f8e33ddf44d")
+    @objid ("52932a6c-1167-4ef9-b312-7b41b9810f04")
     int getVersion();
 
-    @objid ("3cc818f6-1823-4090-b14a-ee9a71c74b9c")
+    @objid ("36cf5b28-de2e-4710-af79-db844aaad2d8")
     void setVersion(int value);
 
 }

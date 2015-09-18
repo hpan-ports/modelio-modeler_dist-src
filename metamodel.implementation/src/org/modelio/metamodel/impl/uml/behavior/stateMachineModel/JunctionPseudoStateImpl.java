@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00528a64-c4bf-1fd8-97fe-001ec947cd2a")
 public class JunctionPseudoStateImpl extends AbstractPseudoStateImpl implements JunctionPseudoState {
-    @objid ("503edbdd-c4db-4887-90b9-9cb8192fb060")
+    @objid ("c4c44e1a-6060-47d7-8ff9-29b4bbfec76f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("db7b592a-92dc-488d-8163-c92c76064ff9")
+    @objid ("65a4c814-09f4-407d-8593-d1bce5c1f26e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("0a48755d-b024-4377-b8a5-ea83fb8a5b36")
+    @objid ("11a23050-47aa-487c-a79e-129fcabf15a6")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitJunctionPseudoState(this);

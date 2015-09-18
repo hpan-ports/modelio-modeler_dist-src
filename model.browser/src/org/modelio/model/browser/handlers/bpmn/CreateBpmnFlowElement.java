@@ -50,7 +50,7 @@ public class CreateBpmnFlowElement extends CreateElementHandler {
         if (element instanceof BpmnProcess || element instanceof BpmnActivity) {
             return element;
         }
-        return getEffectiveOwner((Element) element.getCompositionOwner());
+        return element != null ? getEffectiveOwner((Element) element.getCompositionOwner()) : null;
     }
 
     @objid ("0058910c-cbbf-1006-9c1d-001ec947cd2a")
@@ -67,6 +67,9 @@ public class CreateBpmnFlowElement extends CreateElementHandler {
     @Override
     protected MDependency getDependency(final String dependencyName, Element selectedOwner) {
         Element owner = getEffectiveOwner(selectedOwner);
+        if (owner == null) {
+            return null;
+        }
         MDependency dependency = owner.getMClass().getDependency(dependencyName);
         assert (dependency != null) : "Unknown dependency " + dependencyName + " on " + owner.getClass().getName();
         return dependency;

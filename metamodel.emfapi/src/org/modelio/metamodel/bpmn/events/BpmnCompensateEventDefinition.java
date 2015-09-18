@@ -31,10 +31,10 @@ import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 
 @objid ("008944c8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnCompensateEventDefinition extends BpmnEventDefinition {
-    @objid ("2bbfc693-3a02-4080-8f5d-a1a9be9b20b7")
+    @objid ("f389775b-371e-4411-ac66-3b86884922a8")
     BpmnActivity getActivityRef();
 
-    @objid ("1ad4f7e4-4537-40e4-af47-67dcafa57740")
+    @objid ("88c9ceb8-11f4-44d8-8f31-3d803751fa13")
     void setActivityRef(BpmnActivity value);
 
 }

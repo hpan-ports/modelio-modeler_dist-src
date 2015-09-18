@@ -36,8 +36,8 @@ import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MStatus;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.gui.SwtWizardExport;
-import org.modelio.xmi.util.GenerationProperties;
 
 /**
  * Handler of the XMI export
@@ -54,7 +54,7 @@ public class ExportXMI {
         GenerationProperties genProp = GenerationProperties.getInstance();
         genProp.initialize(modelServices);      
         genProp.setTimeDisplayerActivated(false);
-        genProp.setSelectedPackage(this.selectedPackage);   
+        genProp.setRootElement(this.selectedPackage);   
         
         
         final SwtWizardExport dialog = new SwtWizardExport(activeShell, progressService, projectService);
@@ -78,9 +78,9 @@ public class ExportXMI {
     @objid ("0aeb5e59-fc8f-4655-9622-774aa665326c")
     public static boolean isVisible(List<MObject> selectedElements) {
         return ((! selectedElements.isEmpty())
-                && (selectedElements.size() == 1)
-                     && !(selectedElements.get(0) instanceof Profile)
-                     && (selectedElements.get(0) instanceof Package));
+                        && (selectedElements.size() == 1)
+                             && !(selectedElements.get(0) instanceof Profile)
+                             && (selectedElements.get(0) instanceof Package));
     }
 
 }

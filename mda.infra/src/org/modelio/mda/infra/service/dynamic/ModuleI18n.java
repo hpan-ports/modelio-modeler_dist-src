@@ -37,7 +37,7 @@ import org.modelio.mda.infra.plugin.MdaInfra;
  */
 @objid ("1f983345-680e-4712-b8bf-440bcfadf22d")
 class ModuleI18n {
-    @objid ("407596e3-e3f6-4c7e-9acd-163cadd5544b")
+    @objid ("1e12e590-9753-4eb6-924d-7ea53183a750")
     private File bundleDir;
 
     @objid ("98928531-9a86-4187-ac62-b075278f7321")

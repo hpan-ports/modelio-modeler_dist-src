@@ -464,37 +464,37 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         table.setProperty(key, value);
     }
 
-    @objid ("6db9c095-34f2-4e65-b3ce-003fc4a22dec")
+    @objid ("ea434d89-8911-4679-9e31-6c176f050dec")
     @Override
     public String getName() {
         return (String) getAttVal(ModelElementData.Metadata.NameAtt());
     }
 
-    @objid ("b3682c7c-471c-472f-ade0-3bb623115387")
+    @objid ("4e6bb111-577f-41b6-b7c5-83d1422f7568")
     @Override
     public void setName(String value) {
         setAttVal(ModelElementData.Metadata.NameAtt(), value);
     }
 
-    @objid ("1839919b-53f2-498c-87d4-f08bd3b77787")
+    @objid ("fd40fc5f-2cb5-4310-b676-5c3245d39b6c")
     @Override
     public LocalPropertyTable getLocalProperties() {
         return (LocalPropertyTable) getDepVal(ModelElementData.Metadata.LocalPropertiesDep());
     }
 
-    @objid ("94b04370-2a0b-43b6-a024-2f090ced65d6")
+    @objid ("3a47e111-a0e9-487d-a583-28704f6c1e7b")
     @Override
     public void setLocalProperties(LocalPropertyTable value) {
         appendDepVal(ModelElementData.Metadata.LocalPropertiesDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9267443a-b4f5-4558-be64-20dc320ac611")
+    @objid ("40bca87a-c399-496b-82d9-47e5a6eff3a0")
     @Override
     public EList<TemplateParameterSubstitution> getTemplateSubstitution() {
         return new SmList<>(this, ModelElementData.Metadata.TemplateSubstitutionDep());
     }
 
-    @objid ("131f881b-a9ec-4fd4-a6c0-b4b2aee432c3")
+    @objid ("478df7dd-3d3d-4da6-ad16-138edb238ba2")
     @Override
     public <T extends TemplateParameterSubstitution> List<T> getTemplateSubstitution(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -507,13 +507,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6468231a-4c82-4ef9-b4bb-e016420e49d3")
+    @objid ("c8c0d219-2b61-4b97-803a-22c0f80c75ea")
     @Override
     public EList<BpmnLane> getBpmnLaneRefs() {
         return new SmList<>(this, ModelElementData.Metadata.BpmnLaneRefsDep());
     }
 
-    @objid ("43bff5c6-cd23-4b87-992d-b84ab2756ea5")
+    @objid ("9979d0c7-f352-49de-bb8a-825a10f3c2ec")
     @Override
     public <T extends BpmnLane> List<T> getBpmnLaneRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -526,13 +526,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7e37bfe5-6dc6-4ee6-a2e9-0a4413026631")
+    @objid ("9bf5de47-0f00-4e9c-91c1-b19792d5cfbc")
     @Override
     public EList<Stereotype> getExtension() {
         return new SmList<>(this, ModelElementData.Metadata.ExtensionDep());
     }
 
-    @objid ("05c6efae-bd7c-4a78-b812-2d7dd1b2ca12")
+    @objid ("dfdec230-3c45-4165-9303-f918bc75ef26")
     @Override
     public <T extends Stereotype> List<T> getExtension(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -545,13 +545,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8a4c4137-4b23-4897-a0fe-05a1a56eb87a")
+    @objid ("716b3f19-18ef-44ff-8c65-06e9cacf4dcc")
     @Override
     public EList<Dependency> getDependsOnDependency() {
         return new SmList<>(this, ModelElementData.Metadata.DependsOnDependencyDep());
     }
 
-    @objid ("35f2cebb-b38a-4a30-94ab-1e6d3fdf37cb")
+    @objid ("087e8ba1-685c-46b6-92ea-05797dec0fbe")
     @Override
     public <T extends Dependency> List<T> getDependsOnDependency(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -564,13 +564,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2b3c647d-c64f-44ec-950d-7f16ba105e49")
+    @objid ("1321308b-cf74-4675-b1e0-ffa50f4f31ee")
     @Override
     public EList<TemplateParameter> getDefaultParametering() {
         return new SmList<>(this, ModelElementData.Metadata.DefaultParameteringDep());
     }
 
-    @objid ("38a901d7-1a91-4cd2-a4df-b338e0a11a05")
+    @objid ("bc42dae6-e192-4bfa-9bf2-7dda1dd1d74b")
     @Override
     public <T extends TemplateParameter> List<T> getDefaultParametering(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -583,13 +583,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4c3b1b85-87b6-4c37-812a-5a7a74407f1d")
+    @objid ("48e80b34-5e79-4162-b615-2a14c9d91a06")
     @Override
     public EList<Binding> getRepresents() {
         return new SmList<>(this, ModelElementData.Metadata.RepresentsDep());
     }
 
-    @objid ("e7ae2066-2c27-4acf-80f1-cdf26360d3d0")
+    @objid ("00037625-fa3e-4e2f-bc61-f90c95bd9bca")
     @Override
     public <T extends Binding> List<T> getRepresents(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -602,13 +602,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("da1979b2-523e-4722-8699-411ff8b90325")
+    @objid ("237d74ba-1bf0-49ec-b55a-6c12b59bf2bd")
     @Override
     public EList<ExternDocument> getDocument() {
         return new SmList<>(this, ModelElementData.Metadata.DocumentDep());
     }
 
-    @objid ("3dc5a91f-4940-4295-8b2c-0889ce47a77b")
+    @objid ("2987ac26-2045-4430-9287-1a250b96c455")
     @Override
     public <T extends ExternDocument> List<T> getDocument(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -621,13 +621,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("75455ce7-a686-40df-99ec-c286b71e6ced")
+    @objid ("af3ae4a1-8cc4-4b6b-807b-18ade349f428")
     @Override
     public EList<TaggedValue> getTag() {
         return new SmList<>(this, ModelElementData.Metadata.TagDep());
     }
 
-    @objid ("204cf422-deb1-4a95-a073-356e9207aebf")
+    @objid ("6bc7fabe-e8e4-4e67-925b-0d803c5f4870")
     @Override
     public <T extends TaggedValue> List<T> getTag(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -640,25 +640,25 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("3bca9af9-e97a-4b71-9727-663474dc2497")
+    @objid ("8d403f60-445c-4449-842b-6adae2f1749e")
     @Override
     public TemplateParameter getOwnerTemplateParameter() {
         return (TemplateParameter) getDepVal(ModelElementData.Metadata.OwnerTemplateParameterDep());
     }
 
-    @objid ("c05656dd-5419-4ca7-a37d-da6bd9bb4812")
+    @objid ("a818a2ba-29e6-4a67-9a4d-5162fb92164c")
     @Override
     public void setOwnerTemplateParameter(TemplateParameter value) {
         appendDepVal(ModelElementData.Metadata.OwnerTemplateParameterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0d21332d-a005-40aa-abd4-44f497899e24")
+    @objid ("0a4c632b-62aa-4904-9316-4a300dfd72dc")
     @Override
     public EList<Dependency> getImpactedDependency() {
         return new SmList<>(this, ModelElementData.Metadata.ImpactedDependencyDep());
     }
 
-    @objid ("da4b5c5b-c3d1-4254-91a0-ae52f03afedd")
+    @objid ("06b08c5f-5f95-46f2-afcf-e316dbe4b52c")
     @Override
     public <T extends Dependency> List<T> getImpactedDependency(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -671,13 +671,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("65c455f7-9e03-4592-9b58-5056ca8cec76")
+    @objid ("e2101598-e39d-45ca-9584-78bde919b4f8")
     @Override
     public EList<ConnectorEnd> getRepresentingEnd() {
         return new SmList<>(this, ModelElementData.Metadata.RepresentingEndDep());
     }
 
-    @objid ("1211cdcf-4224-40ac-9a86-f747bbad901e")
+    @objid ("e9ea67f0-3565-47f2-aeee-e3ab8ccf009e")
     @Override
     public <T extends ConnectorEnd> List<T> getRepresentingEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -690,13 +690,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("873d2872-0425-480c-bb6c-82c4a034183b")
+    @objid ("2078732b-9968-4ddf-935b-f1d32001a673")
     @Override
     public EList<ActivityPartition> getRepresentingPartition() {
         return new SmList<>(this, ModelElementData.Metadata.RepresentingPartitionDep());
     }
 
-    @objid ("a3d49b7e-bd00-4088-b7c3-771a2a450e2b")
+    @objid ("867827c1-6b54-4cd8-ba7a-4b94565ce1a1")
     @Override
     public <T extends ActivityPartition> List<T> getRepresentingPartition(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -709,13 +709,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1b031c2c-19fa-4903-897b-9c78a38d7c5b")
+    @objid ("2256aa2a-48b8-4e3f-87d6-85403c79efa9")
     @Override
     public EList<Constraint> getConstraintDefinition() {
         return new SmList<>(this, ModelElementData.Metadata.ConstraintDefinitionDep());
     }
 
-    @objid ("55c09f81-eeab-4a0a-8614-9f95de062ad6")
+    @objid ("1e25edf9-0f7d-4e27-8952-852bb50e2e47")
     @Override
     public <T extends Constraint> List<T> getConstraintDefinition(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -728,13 +728,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d36083d1-3fd5-44a0-b7b7-b0667df3610a")
+    @objid ("adb787ef-aacc-47ab-b94e-e8de4df351ec")
     @Override
     public EList<TemplateParameter> getTypingParameter() {
         return new SmList<>(this, ModelElementData.Metadata.TypingParameterDep());
     }
 
-    @objid ("4709c011-70fd-4f50-a9c0-a069aabc394d")
+    @objid ("32df91dc-74b3-4ef4-901e-0a94c274ed72")
     @Override
     public <T extends TemplateParameter> List<T> getTypingParameter(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -747,13 +747,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e659e6e9-2639-4df3-bd1e-50c2f05cfcb8")
+    @objid ("473008bf-fd89-4df9-8d2a-94b7f6a5d631")
     @Override
     public EList<Manifestation> getManifesting() {
         return new SmList<>(this, ModelElementData.Metadata.ManifestingDep());
     }
 
-    @objid ("8d857c68-542f-4016-bb4d-251eefae7fa0")
+    @objid ("9245c6de-9aac-4c92-9f39-90969ee1c71c")
     @Override
     public <T extends Manifestation> List<T> getManifesting(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -766,13 +766,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("38270208-fc3f-4410-b03d-7e923d74468e")
+    @objid ("6e3efda4-7ec3-428b-a845-ac5ae3f54a3f")
     @Override
     public EList<PropertyTable> getProperties() {
         return new SmList<>(this, ModelElementData.Metadata.PropertiesDep());
     }
 
-    @objid ("750ce11d-67ee-48f2-a9e0-00d7d0bba982")
+    @objid ("67bbd6fb-a959-4488-b71a-1dc9e57e0288")
     @Override
     public <T extends PropertyTable> List<T> getProperties(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -785,13 +785,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("00977428-1d6b-478b-909c-86336d641db8")
+    @objid ("249d6b5c-c6ea-4cee-a43a-8af8cb316216")
     @Override
     public EList<AbstractDiagram> getProduct() {
         return new SmList<>(this, ModelElementData.Metadata.ProductDep());
     }
 
-    @objid ("a7d4f9b3-69d5-4257-ae3e-bfcc0587b221")
+    @objid ("098c8a11-bba2-4e48-9b04-8b0e87c2b185")
     @Override
     public <T extends AbstractDiagram> List<T> getProduct(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -804,13 +804,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b44b2b3f-9b5d-41af-98a1-24e05a9e1a84")
+    @objid ("f8dcc9bf-cdf0-4d52-8074-143102e73958")
     @Override
     public EList<BindableInstance> getRepresentingInstance() {
         return new SmList<>(this, ModelElementData.Metadata.RepresentingInstanceDep());
     }
 
-    @objid ("3b2f59f3-a631-4a4d-b083-1161ad9ebe5c")
+    @objid ("ea10f27f-3817-4982-99ae-448ce1c0ad8d")
     @Override
     public <T extends BindableInstance> List<T> getRepresentingInstance(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -823,13 +823,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("82ee1ae9-98ae-4d01-a145-56f75bc8df62")
+    @objid ("bc53bf3b-2145-4256-a34e-8c7ecc5d379d")
     @Override
     public EList<InformationFlow> getReceivedInfo() {
         return new SmList<>(this, ModelElementData.Metadata.ReceivedInfoDep());
     }
 
-    @objid ("c1ceb1ad-accc-40e6-b52e-4e0508850941")
+    @objid ("c8afc383-0980-435c-8c8d-11dd010369b0")
     @Override
     public <T extends InformationFlow> List<T> getReceivedInfo(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -842,13 +842,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4cde5858-d2c6-4204-a8d0-8ed48376aade")
+    @objid ("bc24456f-d3dc-48f0-9ecd-3400dda9d3ed")
     @Override
     public EList<InformationFlow> getSentInfo() {
         return new SmList<>(this, ModelElementData.Metadata.SentInfoDep());
     }
 
-    @objid ("7fcf4031-ed53-4d2a-b3ff-8ec07951e1c8")
+    @objid ("30963f2b-7b29-440e-99e5-59c80393708e")
     @Override
     public <T extends InformationFlow> List<T> getSentInfo(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -861,13 +861,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("74a46281-f19f-4a00-ad03-77439393780d")
+    @objid ("0087f209-e5ca-4540-b8c3-e368c15a6b4d")
     @Override
     public EList<Note> getDescriptor() {
         return new SmList<>(this, ModelElementData.Metadata.DescriptorDep());
     }
 
-    @objid ("c68834a7-3ae5-4b80-8c9f-fb502027cd7c")
+    @objid ("ce0f12ba-5c35-4d8c-bfab-614dc3cbf652")
     @Override
     public <T extends Note> List<T> getDescriptor(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -880,13 +880,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("970dc19d-f159-465a-b13f-2f25c1d560f4")
+    @objid ("7a37b243-db00-457f-b66d-bfefef340946")
     @Override
     public EList<NaryConnector> getRepresentingConnector() {
         return new SmList<>(this, ModelElementData.Metadata.RepresentingConnectorDep());
     }
 
-    @objid ("a94040f8-83fe-4eaf-83dd-d399aaa7e19b")
+    @objid ("72d057fc-d710-4b96-b0a3-e589e90ac14f")
     @Override
     public <T extends NaryConnector> List<T> getRepresentingConnector(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -899,13 +899,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("73974cc8-93a6-459b-bb14-59fef017d378")
+    @objid ("54949dc7-4845-408c-a2e1-223539d3847d")
     @Override
     public EList<MatrixDefinition> getMatrix() {
         return new SmList<>(this, ModelElementData.Metadata.MatrixDep());
     }
 
-    @objid ("620e338c-3f47-417b-b6c6-f88f50df0497")
+    @objid ("3661bf5f-2f05-4770-8466-9ae4c4d687b8")
     @Override
     public <T extends MatrixDefinition> List<T> getMatrix(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -918,7 +918,7 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("af704a72-2dfe-4592-b329-3640380ef8a5")
+    @objid ("cea1b6a5-e26a-44ae-aa64-65a8d40c81be")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -928,7 +928,7 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return super.getCompositionOwner();
     }
 
-    @objid ("5f6e8cbd-8414-4c94-acbc-7bc6deab9a65")
+    @objid ("99ba7219-0e0f-401d-aad6-d420583d1e3b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -938,7 +938,7 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return super.getCompositionRelation();
     }
 
-    @objid ("ea86ae15-5b14-4033-8af2-1560e25bf8b0")
+    @objid ("527db626-190b-454d-bfaf-ebb9e9837f61")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitModelElement(this);

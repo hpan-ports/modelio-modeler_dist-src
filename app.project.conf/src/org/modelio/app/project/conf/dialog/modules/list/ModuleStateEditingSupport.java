@@ -23,24 +23,22 @@ package org.modelio.app.project.conf.dialog.modules.list;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
-import org.modelio.api.module.IModule.ModuleRuntimeState;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.ModuleException;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.gproject.module.GModule;
 import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IRTModule;
+import org.modelio.mda.infra.service.ModuleRuntimeState;
 import org.modelio.metamodel.mda.ModuleComponent;
 
 /**
- * StyleEditingSupport provides EditingSupport implementation for the StyleViewer.
- * <p>
- * It must be able to provide a Label and a CellEditor for all the supported StyleKey value types. It must also be able to get and
- * set values during edition, again dealing with all the possible StyleKey value types.
+ * ModuleStateEditingSupport provides EditingSupport implementation for the module state.
  */
 @objid ("85ccd9a0-3ef9-11e2-9bd5-002564c97630")
 class ModuleStateEditingSupport extends EditingSupport {
@@ -51,9 +49,9 @@ class ModuleStateEditingSupport extends EditingSupport {
     private IEclipseContext applicationContext;
 
     /**
-     * Initialize the StylePropertyEditingSupport.
-     * @param applicationContext
+     * Initialize the ModuleStateEditingSupport.
      * @param viewer The style viewer.
+     * @param applicationContext the Eclipse 4 context
      */
     @objid ("8aa2a29b-3ef9-11e2-9bd5-002564c97630")
     public ModuleStateEditingSupport(TableViewer viewer, IEclipseContext applicationContext) {
@@ -81,7 +79,7 @@ class ModuleStateEditingSupport extends EditingSupport {
             IModuleService moduleService = this.applicationContext.get(IModuleService.class);
             ModuleComponent moduleElement = ((GModule) element).getModuleElement();
             if (moduleElement != null) {
-                IModule iModule = moduleService.getIModule(moduleElement);
+                IRTModule iModule = moduleService.getIRTModule(moduleElement);
                 if (iModule != null && iModule.getState() == ModuleRuntimeState.Started) {
                     return true;
                 }
@@ -107,6 +105,9 @@ class ModuleStateEditingSupport extends EditingSupport {
                 }
             } catch (ModuleException e) {
                 AppProjectConf.LOG.error(e);
+                String title = AppProjectConf.I18N.getMessage("ModuleStateEditingSupport.startFail.title", gModule.getName(), e.getLocalizedMessage());
+                String message = AppProjectConf.I18N.getMessage("ModuleStateEditingSupport.startFail.msg", gModule.getName(), e.getLocalizedMessage());
+                MessageDialog.openError(this.viewer.getControl().getShell(), title, message);
             }
         }
             

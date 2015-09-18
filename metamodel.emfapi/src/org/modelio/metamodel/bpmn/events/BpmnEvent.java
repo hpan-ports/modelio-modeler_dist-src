@@ -33,10 +33,10 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
 
 @objid ("008c8ed0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnEvent extends BpmnFlowNode {
-    @objid ("3ad14ab6-db82-451f-a1ff-368c86b59b8e")
+    @objid ("f26dbab9-4f35-4c2e-b4a6-a9fc6a20aec9")
     EList<BpmnEventDefinition> getEventDefinitions();
 
-    @objid ("e7d1ca0c-e66a-4f50-91e1-02e2fdea9882")
+    @objid ("731bca9a-40df-4d3e-b5b0-dd816798185c")
     <T extends BpmnEventDefinition> List<T> getEventDefinitions(java.lang.Class<T> filterClass);
 
 }

@@ -43,13 +43,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00055032-c4bf-1fd8-97fe-001ec947cd2a")
 public class ComponentImpl extends ClassImpl implements Component {
-    @objid ("f0c1de79-d812-4d32-8fe3-17e44b196678")
+    @objid ("530864de-2744-408b-8562-a0326defe5a2")
     @Override
     public EList<ComponentRealization> getRealization() {
         return new SmList<>(this, ComponentData.Metadata.RealizationDep());
     }
 
-    @objid ("76b90a54-a152-4ce1-8a38-85c091f122f0")
+    @objid ("81d73911-6604-4e23-a633-c25360ad381b")
     @Override
     public <T extends ComponentRealization> List<T> getRealization(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -62,21 +62,21 @@ public class ComponentImpl extends ClassImpl implements Component {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6b39bdc9-b580-4a66-a4f5-b1c9da4530f4")
+    @objid ("3d6d3ddd-4240-4818-9d54-808a99929c25")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("23c45dd6-8843-49f4-adb1-f69cfaffd438")
+    @objid ("5c4af81f-7cfa-45d9-a8a5-94a029be5758")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("186e7f3a-9d94-407f-943d-da619f1cbce3")
+    @objid ("ccd273a1-1a00-47c2-ad0e-6e8e95163634")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitComponent(this);

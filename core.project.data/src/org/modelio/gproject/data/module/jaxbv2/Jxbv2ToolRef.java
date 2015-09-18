@@ -44,7 +44,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * &lt;complexContent>
  * &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  * &lt;attribute name="refid" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- * &lt;attribute name="group" use="required" type="{http://www.w3.org/2001/XMLSchema}string" default="default" />
+ * &lt;attribute name="group" type="{http://www.w3.org/2001/XMLSchema}string" default="default" />
  * &lt;/restriction>
  * &lt;/complexContent>
  * &lt;/complexType>
@@ -62,7 +62,7 @@ public class Jxbv2ToolRef {
     protected String refid;
 
     @objid ("ec752970-a6e9-4b1f-a0f3-87e999b0a75b")
-    @XmlAttribute(name = "group", required = true)
+    @XmlAttribute(name = "group")
     protected String group;
 
     /**

@@ -28,43 +28,64 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
-import org.modelio.api.module.IModule;
+import org.eclipse.swt.widgets.Control;
+import org.modelio.api.module.propertiesPage.IModulePropertyCustomPanel;
 import org.modelio.api.module.propertiesPage.IModulePropertyPage;
+import org.modelio.api.module.propertiesPage.IModulePropertyPanel;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.module.propertytab.plugin.ModulePropertyTab;
+import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("c884caa2-1eba-11e2-9382-bc305ba4815c")
 public class ModulePropertyView {
     @objid ("c884f1b0-1eba-11e2-9382-bc305ba4815c")
-    private ModulePanelProvider modulePanel;
+    private IPanelProvider modulePanel;
 
     @objid ("c884f1b1-1eba-11e2-9382-bc305ba4815c")
     @PostConstruct
-    public void createControls(final Composite parentComposite, IProjectService project, IModuleService modules, MPart part, @Optional IModelioPickingService pickingService, @Optional
-@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+    public void createControls(final Composite parentComposite, IProjectService project, IModuleService modules, MPart part, IEclipseContext eclipseContext, @Optional IModelioPickingService pickingService, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         // Create the view content
-        IModulePropertyPage page = getModulePropertyPage(modules, part);
-        this.modulePanel = new ModulePanelProvider(page);
-        this.modulePanel.createPanel(parentComposite);
-        this.modulePanel.activateEdition(project.getSession(), pickingService);
-        if(selection != null)
+        // Two cases: either the module provided
+        // - a table-based page as an IModulePropertyPage instance
+        // - a custom page as an IModulePropertyCustomPanel instance
+        
+        IModulePropertyPanel page = getModulePropertyPanel(modules, part);
+        
+        if (page instanceof IModulePropertyPage) {
+            ModulePanelProvider panel = new ModulePanelProvider((IModulePropertyPage) page);
+            panel.createPanel(parentComposite);
+            panel.activateEdition(project, pickingService);
+        
+            this.modulePanel = panel;
+        
+        } else if (page instanceof IModulePropertyCustomPanel) {
+            this.modulePanel = (IModulePropertyCustomPanel) page;
+            ContextInjectionFactory.inject(this.modulePanel, eclipseContext);
+            this.modulePanel.createPanel(parentComposite);
+        }
+        
+        if (selection != null) {
             update(selection);
+        }
     }
 
     @objid ("c8853fd3-1eba-11e2-9382-bc305ba4815c")
     @Focus
     void setFocus() {
         if (this.modulePanel != null) {
-            this.modulePanel.setFocus();
+            ((Control) this.modulePanel.getPanel()).setFocus();
         }
     }
 
@@ -89,7 +110,7 @@ public class ModulePropertyView {
                         if (adapter != null) {
                             selectedElements.add(adapter);
                         }
-                    } 
+                    }
                 }
                 this.modulePanel.setInput(selectedElements);
             }
@@ -104,10 +125,10 @@ public class ModulePropertyView {
      * PropertyPage at index 2
      */
     @objid ("c8858df4-1eba-11e2-9382-bc305ba4815c")
-    private IModulePropertyPage getModulePropertyPage(IModuleService modules, MPart part) {
-        for (IModule module : modules.getModuleRegistry().getStartedModules()) {
+    private IModulePropertyPanel getModulePropertyPanel(IModuleService modules, MPart part) {
+        for (IRTModule module : modules.getModuleRegistry().getStartedModules()) {
             if (module.getName().equals(part.getTags().get(1))) {
-                for (IModulePropertyPage page : module.getPropertyPages()) {
+                for (IModulePropertyPanel page : module.getPropertyPanels()) {
                     if (part.getTags().contains(page.getName())) {
                         return page;
                     }

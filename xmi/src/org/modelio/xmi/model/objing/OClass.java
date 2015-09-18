@@ -25,8 +25,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Class;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
@@ -52,7 +52,7 @@ public class OClass extends ONameSpace {
     @objid ("e68fdbf9-a34e-43c7-b174-069dc278ddef")
     private org.eclipse.uml2.uml.Element getOrCreateEcoreAssociationClass() {
         return GenerationProperties.getInstance()
-                .getMappedElement((getObjingElement()));
+                        .getMappedElement((getObjingElement()));
     }
 
     @objid ("1157bb84-fe52-46b4-a871-77dace7d1d03")

@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0071f0fc-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=UseCaseDiagram.class, factory=UseCaseDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class UseCaseDiagramData extends StaticDiagramData {
-    @objid ("3e805d50-a8db-4998-9ee8-def1c8883d77")
+    @objid ("65451e6e-0903-49b9-a7ee-0b40cdfb700b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002c6442-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("e22a628e-8b05-427a-a0d4-10f7c54b598b")
+        @objid ("bf00fbbd-deb9-4403-b515-8f57e5b2da10")
         private static SmClass smClass = null;
 
-        @objid ("eda1503f-fdc5-4fa6-a527-5ef5187f510e")
+        @objid ("06bd636c-905f-4479-b687-6159dba2bc52")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(UseCaseDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("9f0ea96f-04a3-4085-bef4-3d02a2bbebec")
+        @objid ("e0aeec9c-f2b3-47cb-a9ec-c23af84ca3fe")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class UseCaseDiagramData extends StaticDiagramData {
 
         @objid ("002ca4b6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e4f7272c-f1f1-4c18-9de2-805549099a89")
+            @objid ("b20b5800-9f04-4b64-8f29-6f7316777453")
             public ISmObjectData createData() {
                 return new UseCaseDiagramData();
             }
 
-            @objid ("35444c2e-6704-4841-b66b-19c1b6286b0e")
+            @objid ("9035f5f2-86f5-4143-ae0d-7aa6cb688278")
             public SmObjectImpl createImpl() {
                 return new UseCaseDiagramImpl();
             }

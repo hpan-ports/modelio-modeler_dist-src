@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.behavior.activityModel.DecisionNodeKind;
 
 @objid ("002fbdcc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface DecisionMergeNode extends ControlNode {
-    @objid ("3222f52e-78b2-4048-8f22-f4e665bde5ad")
+    @objid ("08f5f437-5fd4-4966-a580-2d1821e23682")
     DecisionNodeKind getDecisionKind();
 
-    @objid ("95dec086-410d-4bda-8393-9373f1c95eec")
+    @objid ("5167e6aa-4eb8-4281-b64a-455f34677957")
     void setDecisionKind(DecisionNodeKind value);
 
-    @objid ("a650fbc0-2c75-4c8c-9243-b80c537467d4")
+    @objid ("d6bb5ee5-e07c-4871-bd41-1a1bca7e7a74")
     String getDecisionInputBehavior();
 
-    @objid ("4cfc8ea9-39b6-423a-893c-c1a2e9940193")
+    @objid ("483bc8fb-6622-484b-8413-2df20a7a751f")
     void setDecisionInputBehavior(String value);
 
 }

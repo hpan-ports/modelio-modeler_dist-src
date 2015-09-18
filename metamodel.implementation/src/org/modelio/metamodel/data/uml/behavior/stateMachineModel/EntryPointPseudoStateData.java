@@ -47,43 +47,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004f999e-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=EntryPointPseudoState.class, factory=EntryPointPseudoStateData.Metadata.ObjectFactory.class)
 public class EntryPointPseudoStateData extends AbstractPseudoStateData {
-    @objid ("a5988a5f-77ae-4e04-b096-c62834cbe76a")
+    @objid ("9b000ba4-7dba-4ec9-aa0b-afea7d66c31f")
     @SmaMetaAssociation(metaName="EntryOf", typeDataClass=StateData.class, min=0, max=1, smAssociationClass=Metadata.EntryOfSmDependency.class)
      SmObjectImpl mEntryOf;
 
-    @objid ("45d56608-aa11-47c0-9105-15f8d56f1aa4")
+    @objid ("fe4da394-618c-4552-9806-11d46811a554")
     @SmaMetaAssociation(metaName="Connection", typeDataClass=ConnectionPointReferenceData.class, min=0, max=-1, smAssociationClass=Metadata.ConnectionSmDependency.class)
      List<SmObjectImpl> mConnection = null;
 
-    @objid ("d7eae3b9-25fd-43d7-9e55-db6089350390")
+    @objid ("953ecd89-4813-4da2-bd04-a2d426afddfe")
     @SmaMetaAssociation(metaName="EntryOfMachine", typeDataClass=StateMachineData.class, min=0, max=1, smAssociationClass=Metadata.EntryOfMachineSmDependency.class)
      SmObjectImpl mEntryOfMachine;
 
-    @objid ("2051e1dd-33a8-4508-94d1-6295f90d352a")
+    @objid ("0ac92e93-f22d-4069-a660-4b417a9ee9a4")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002f1e76-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("8ab7317c-f475-4c43-baa1-ae217a9ec446")
+        @objid ("07488347-8a86-45f1-8a16-0288339bc42d")
         private static SmClass smClass = null;
 
-        @objid ("25161645-f8da-476e-8343-8831364550f6")
+        @objid ("83bb9f76-41ad-4c90-adf5-f1f93c3132ae")
         private static SmDependency EntryOfDep = null;
 
-        @objid ("613f4fef-481e-4c55-b6d5-eff5e10aca25")
+        @objid ("39b7b09e-73c8-4d5e-ae2e-31c2d7a335cb")
         private static SmDependency ConnectionDep = null;
 
-        @objid ("7b1ea432-3531-4325-8aea-53461d695848")
+        @objid ("56ee13f9-3e77-4fdb-8a79-6101b0be7c3f")
         private static SmDependency EntryOfMachineDep = null;
 
-        @objid ("2f876fb4-f581-40a5-96ec-873122992c28")
+        @objid ("525ecfff-573b-4397-bf36-f9324243ba66")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(EntryPointPseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("ea4c6ec8-12cb-44e4-9b14-bc76e82f12e5")
+        @objid ("e4be2e70-f5fb-4df9-9404-9706a4e1ac52")
         public static SmDependency EntryOfDep() {
             if (EntryOfDep == null) {
             	EntryOfDep = classof().getDependencyDef("EntryOf");
@@ -91,7 +91,7 @@ public class EntryPointPseudoStateData extends AbstractPseudoStateData {
             return EntryOfDep;
         }
 
-        @objid ("228ef174-c0eb-4aab-b51a-428f67f3eca1")
+        @objid ("1fc71169-8dd8-4aa1-8899-ba577bf2928d")
         public static SmDependency ConnectionDep() {
             if (ConnectionDep == null) {
             	ConnectionDep = classof().getDependencyDef("Connection");
@@ -99,7 +99,7 @@ public class EntryPointPseudoStateData extends AbstractPseudoStateData {
             return ConnectionDep;
         }
 
-        @objid ("83ead05c-419e-44b1-b935-d25de7abf105")
+        @objid ("2147f0da-e907-4e3d-a7b9-2f2da8b9cf6a")
         public static SmDependency EntryOfMachineDep() {
             if (EntryOfMachineDep == null) {
             	EntryOfMachineDep = classof().getDependencyDef("EntryOfMachine");
@@ -107,38 +107,38 @@ public class EntryPointPseudoStateData extends AbstractPseudoStateData {
             return EntryOfMachineDep;
         }
 
-        @objid ("b0b1bd0a-a6c7-4873-8020-a3835052f037")
-        public static SmDependency getEntryOfDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return EntryOfDep;
-        }
-
-        @objid ("f7f0bd11-2228-4c65-8b36-a7a4474637fd")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("8f42fde2-4f91-4a73-98e3-4a02b5cc0d9c")
-        public static SmDependency getConnectionDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ConnectionDep;
-        }
-
-        @objid ("3ebe7b92-db66-44a5-8fc6-73e20519f895")
+        @objid ("3c8f22aa-a229-4f72-9665-513fd2e4f430")
         public static SmDependency getEntryOfMachineDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return EntryOfMachineDep;
         }
 
+        @objid ("d066ef6c-6f5a-4b5f-943b-c67a8cfa057b")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("8446095f-3873-4b1d-adfc-385b413188fb")
+        public static SmDependency getConnectionDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ConnectionDep;
+        }
+
+        @objid ("b91aa6f8-9293-499b-837f-8fe31b5207dd")
+        public static SmDependency getEntryOfDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return EntryOfDep;
+        }
+
         @objid ("002f5f44-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("d9f9d55e-b676-45d7-8d10-dae31c8d6e80")
+            @objid ("62f43710-b89d-4b33-955d-ff8aa5663773")
             public ISmObjectData createData() {
                 return new EntryPointPseudoStateData();
             }
 
-            @objid ("ce9112c7-2435-4892-8c67-40451d25dc62")
+            @objid ("5616cc62-56e3-4976-b45d-bc5f6e2632c0")
             public SmObjectImpl createImpl() {
                 return new EntryPointPseudoStateImpl();
             }
@@ -147,20 +147,20 @@ public class EntryPointPseudoStateData extends AbstractPseudoStateData {
 
         @objid ("002fc362-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ConnectionSmDependency extends SmMultipleDependency {
-            @objid ("e24e6da5-465c-444c-b3e0-70bf03c45bb9")
+            @objid ("0c03e023-768e-4ebf-a451-ec239797b39e")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((EntryPointPseudoStateData)data).mConnection != null)? ((EntryPointPseudoStateData)data).mConnection:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("ecbd17bf-3cbb-4b8d-b97e-ba73ad6f105f")
+            @objid ("409d3b4f-3163-44ce-8f2a-3d2c8baad1b4")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((EntryPointPseudoStateData) data).mConnection = new ArrayList<>(initialCapacity);
                 return ((EntryPointPseudoStateData) data).mConnection;
             }
 
-            @objid ("1f25a784-8d02-4359-9a67-95a416f163ac")
+            @objid ("7769a2b0-a0c6-4a2a-8ce1-66b444ce9494")
             @Override
             public SmDependency getSymetric() {
                 return ConnectionPointReferenceData.Metadata.EntryDep();
@@ -170,18 +170,18 @@ public class EntryPointPseudoStateData extends AbstractPseudoStateData {
 
         @objid ("0030279e-c4c5-1fd8-97fe-001ec947cd2a")
         public static class EntryOfSmDependency extends SmSingleDependency {
-            @objid ("a864db1c-e557-4a96-958a-3643d2fb4685")
+            @objid ("96c3944a-b593-49bc-822c-9990bc79070e")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((EntryPointPseudoStateData) data).mEntryOf;
             }
 
-            @objid ("fc3df6f4-ec61-49a1-afbf-00e1a1591bd3")
+            @objid ("81bb911d-4169-47bc-b156-4f4cc0cdd4ad")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((EntryPointPseudoStateData) data).mEntryOf = value;
             }
 
-            @objid ("44e362b4-adbf-4323-a0e8-0ce0bb593090")
+            @objid ("70fa0208-7491-48f8-950e-b3d80b9ea9ab")
             @Override
             public SmDependency getSymetric() {
                 return StateData.Metadata.EntryPointDep();
@@ -191,18 +191,18 @@ public class EntryPointPseudoStateData extends AbstractPseudoStateData {
 
         @objid ("00309eb8-c4c5-1fd8-97fe-001ec947cd2a")
         public static class EntryOfMachineSmDependency extends SmSingleDependency {
-            @objid ("9f644ba6-719e-40e8-b4c2-a3e8012232ef")
+            @objid ("1f137639-6422-4c2e-b7a2-a5c53ba0c9e5")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((EntryPointPseudoStateData) data).mEntryOfMachine;
             }
 
-            @objid ("949164b3-3e91-4e7c-9415-f4dd1b86bd89")
+            @objid ("fb599bce-f916-4bb2-8762-2fd98e9b9788")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((EntryPointPseudoStateData) data).mEntryOfMachine = value;
             }
 
-            @objid ("9b19c322-2c93-46f5-894f-d3c43a213838")
+            @objid ("9ac27ffb-f784-4fb4-bf78-4798877cc34c")
             @Override
             public SmDependency getSymetric() {
                 return StateMachineData.Metadata.EntryPointDep();

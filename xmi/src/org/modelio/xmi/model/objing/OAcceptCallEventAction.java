@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptCallEventAction;
 import org.modelio.metamodel.uml.statik.Operation;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("ce9ee64c-7e6a-4ead-95f2-33bad6aa2976")
 public class OAcceptCallEventAction extends OActivityNode {

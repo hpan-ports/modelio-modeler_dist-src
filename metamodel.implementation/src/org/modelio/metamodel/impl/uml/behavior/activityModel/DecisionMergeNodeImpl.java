@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002ff30a-c4bf-1fd8-97fe-001ec947cd2a")
 public class DecisionMergeNodeImpl extends ControlNodeImpl implements DecisionMergeNode {
-    @objid ("30c694da-18d2-48ce-b323-14cdd5d0b0dd")
+    @objid ("3ae66cfd-0165-40a2-87e4-d0c075ccaaf0")
     @Override
     public DecisionNodeKind getDecisionKind() {
         return (DecisionNodeKind) getAttVal(DecisionMergeNodeData.Metadata.DecisionKindAtt());
     }
 
-    @objid ("ca744ba2-a898-4e1e-98b4-b34c6c3e5b2f")
+    @objid ("6058aae6-53de-41ed-bef8-e1b7ec16f818")
     @Override
     public void setDecisionKind(DecisionNodeKind value) {
         setAttVal(DecisionMergeNodeData.Metadata.DecisionKindAtt(), value);
     }
 
-    @objid ("2afdeaae-a48c-4cec-a873-54b63fc04349")
+    @objid ("1ea9d52e-bde0-4f4d-b36c-58eb7fbfaf15")
     @Override
     public String getDecisionInputBehavior() {
         return (String) getAttVal(DecisionMergeNodeData.Metadata.DecisionInputBehaviorAtt());
     }
 
-    @objid ("a6522a3e-714e-49ec-a5b1-ca3171acc604")
+    @objid ("a959bdcf-7f54-43d9-b87a-a63c72576c88")
     @Override
     public void setDecisionInputBehavior(String value) {
         setAttVal(DecisionMergeNodeData.Metadata.DecisionInputBehaviorAtt(), value);
     }
 
-    @objid ("4b138b5a-495e-40c3-82a8-f71f41901002")
+    @objid ("966bfd41-b49a-452c-9dae-ca29c1a58c60")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0016e98f-7488-44d3-bfd4-7ac5cf0d08ee")
+    @objid ("3a959adb-43ca-47b7-8e49-3f4403131e46")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("2c263620-dad8-47de-a663-771ebd738487")
+    @objid ("f1b33a0a-b4de-4df9-b241-775021061092")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDecisionMergeNode(this);

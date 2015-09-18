@@ -43,13 +43,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0009bc1c-c4bf-1fd8-97fe-001ec947cd2a")
 public class EnumerationImpl extends GeneralClassImpl implements Enumeration {
-    @objid ("462e17a1-dfdd-43ef-bae3-08e2e5009057")
+    @objid ("4eac4a6a-358b-4c7d-ae58-1ae049218de0")
     @Override
     public EList<EnumerationLiteral> getValue() {
         return new SmList<>(this, EnumerationData.Metadata.ValueDep());
     }
 
-    @objid ("7ed7833f-50f2-49d8-a49b-f30b4f2991e1")
+    @objid ("f0c90b44-4aff-44e2-a9a5-981ebba1e44a")
     @Override
     public <T extends EnumerationLiteral> List<T> getValue(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -62,21 +62,21 @@ public class EnumerationImpl extends GeneralClassImpl implements Enumeration {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("06d519e3-75af-4d72-a0b2-251a95ab7f55")
+    @objid ("b6de322a-0cb0-4f4d-88fd-aef8fc108811")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("c43b0e86-9fe2-4bd8-b932-760c518a0343")
+    @objid ("d5dbbd25-bc48-451b-86c5-dee4174f3f88")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("d37593eb-b3cc-4dc5-b4bf-498668b498c0")
+    @objid ("b4b54372-9d77-4066-9f6b-6995d1e15d6f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitEnumeration(this);

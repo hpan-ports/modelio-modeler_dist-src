@@ -30,9 +30,9 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
 import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.AttachOutputPinToOwnerVisitor;
-import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("da4a48c7-e260-42d7-927a-28f672fbb87f")
 public class OOutputPin extends OPin implements IOElement {

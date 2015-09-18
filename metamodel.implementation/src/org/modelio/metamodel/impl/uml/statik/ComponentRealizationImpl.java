@@ -44,31 +44,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("ea0e67c5-5b02-447c-aae3-d3ef908c1f2a")
 public class ComponentRealizationImpl extends ModelElementImpl implements ComponentRealization {
-    @objid ("54e5ab01-82e4-4ced-b49a-e7d8e38555b8")
+    @objid ("5dc3a559-c0c1-486c-aee3-39517a79fd71")
     @Override
     public Classifier getRealizingClassifier() {
         return (Classifier) getDepVal(ComponentRealizationData.Metadata.RealizingClassifierDep());
     }
 
-    @objid ("f641d41e-df74-4d65-8f54-503cb2cbab7e")
+    @objid ("d53265ce-5220-47be-bd64-c6d4a5adc754")
     @Override
     public void setRealizingClassifier(Classifier value) {
         appendDepVal(ComponentRealizationData.Metadata.RealizingClassifierDep(), (SmObjectImpl)value);
     }
 
-    @objid ("450a0762-bf20-4f23-b070-27f079b0a59c")
+    @objid ("9ff2bb21-e43f-40ef-ab14-ceffaf2c0d1b")
     @Override
     public Component getAbstraction() {
         return (Component) getDepVal(ComponentRealizationData.Metadata.AbstractionDep());
     }
 
-    @objid ("16db38d9-04ce-48c1-8363-39863334dde3")
+    @objid ("af245ee2-0b33-4887-a5dd-e7f6e9bae2dd")
     @Override
     public void setAbstraction(Component value) {
         appendDepVal(ComponentRealizationData.Metadata.AbstractionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ee8506bc-5d9d-4a89-af42-e2e1571f031a")
+    @objid ("0dfeffea-f91d-4d53-ae23-fa1c42a59a84")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -78,7 +78,7 @@ public class ComponentRealizationImpl extends ModelElementImpl implements Compon
         return super.getCompositionOwner();
     }
 
-    @objid ("553c5aff-1adc-49fc-a881-add35b1df24a")
+    @objid ("3a2ae56f-cd46-4d2c-86b3-078fc132f3e5")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -88,7 +88,7 @@ public class ComponentRealizationImpl extends ModelElementImpl implements Compon
         return super.getCompositionRelation();
     }
 
-    @objid ("bba370a5-a1ed-4b74-abaa-e61cd6645017")
+    @objid ("f310a69b-c78c-42da-b81e-2d8c10fc7e06")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitComponentRealization(this);

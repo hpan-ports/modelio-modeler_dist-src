@@ -76,76 +76,76 @@ public interface AssociationEnd extends StructuralFeature {
     @objid ("44b82fff-5b39-4aaa-ac0d-ddb26b837ecd")
     boolean isNavigable();
 
-    @objid ("3b1b1d78-1c8e-4ebf-be03-315587affcd0")
+    @objid ("5c3902e7-09ac-4102-a31c-0d8c7045e9f8")
     AggregationKind getAggregation();
 
-    @objid ("4a285731-7964-4a31-86cc-fce48d9e23fa")
+    @objid ("f0402181-df0f-4fc6-8c19-a2d64cd02b16")
     void setAggregation(AggregationKind value);
 
-    @objid ("c76703f9-3f60-4f57-89f7-5d763f564e80")
+    @objid ("ae423f6d-10d7-4bb1-82f4-4d547602942b")
     boolean isIsChangeable();
 
-    @objid ("da99b50d-e6ae-4b0c-80fe-c81926629171")
+    @objid ("636dc4d8-44c3-49b3-9a34-8d06f61d5cd6")
     void setIsChangeable(boolean value);
 
-    @objid ("d8ba145d-86ef-4167-9d60-90b6fadedc87")
+    @objid ("8e0ff414-7553-41ee-b337-767e499d781e")
     Classifier getTarget();
 
-    @objid ("54080cff-4bff-420d-8b55-8a6b1dc79788")
+    @objid ("9fecd59a-7b58-4b0c-9743-ec8337f553e9")
     void setTarget(Classifier value);
 
-    @objid ("7fc2fd12-610a-4f62-aa65-d6c3abece68e")
+    @objid ("81451826-2a3d-414d-aa15-4cc8471362b2")
     AssociationEnd getOppositeOwner();
 
-    @objid ("0b60bb87-8261-4f5c-9f88-147d1b2a1f2d")
+    @objid ("509fb17c-a3be-474d-9b19-d7c893971699")
     void setOppositeOwner(AssociationEnd value);
 
-    @objid ("9bfc7ee4-a387-4582-bacd-9286fabfb355")
+    @objid ("24d97813-33cd-425d-8a07-1397d74b9aae")
     Classifier getSource();
 
-    @objid ("5dff984a-bec1-4fc3-88ff-d37e39466c6a")
+    @objid ("5861baed-0d69-413e-9c08-469640bd78a3")
     void setSource(Classifier value);
 
-    @objid ("0fd985ae-735a-41e1-95ca-bb4324d5f008")
+    @objid ("a94e5e71-8458-48e9-bd6f-c356520eba65")
     EList<LinkEnd> getOccurence();
 
-    @objid ("eaf5c746-fa42-4a1b-8300-8d28ff7ba0d7")
+    @objid ("9a18839a-f8d5-49ec-b562-3a723d328660")
     <T extends LinkEnd> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("7d53389a-aed4-4829-9532-2c2c80ca4b78")
+    @objid ("d4bcc96f-72d6-48d0-b4bf-ddd3b041dae7")
     EList<InformationFlow> getSent();
 
-    @objid ("35234326-51aa-44f9-9056-f4226e41de4a")
+    @objid ("3361c0e5-4b58-446f-ab39-3fe39a976446")
     <T extends InformationFlow> List<T> getSent(java.lang.Class<T> filterClass);
 
-    @objid ("75e995f9-4778-4623-ae75-aebf259de2ba")
+    @objid ("3d673164-6de6-4c2a-931c-ebbf07229e11")
     EList<Attribute> getQualifier();
 
-    @objid ("f1b51605-3215-4835-9faa-b35810aedbd4")
+    @objid ("5f230190-aa97-4c13-ae4e-3edd2e0271b7")
     <T extends Attribute> List<T> getQualifier(java.lang.Class<T> filterClass);
 
-    @objid ("16786673-ff95-49b7-a673-4f4f3591a15e")
+    @objid ("3d2e726f-3c5a-4b29-8884-292353621b04")
     AssociationEnd getOpposite();
 
-    @objid ("32c5dca0-8c58-447f-a85b-c569576630fa")
+    @objid ("fb97d03b-0df2-4478-b18c-9b19eb9b2ee2")
     void setOpposite(AssociationEnd value);
 
-    @objid ("72ddc0d0-95bf-4386-aa31-dfa6e004e214")
+    @objid ("58e0c036-61e0-49e5-81c2-b8813a861167")
     EList<ObjectNode> getRepresentingObjectNode();
 
-    @objid ("3aa864a5-1a1f-4679-b81a-57a21e646e78")
+    @objid ("2ba1d1e6-7daa-44c4-a941-02b0ae8ffd40")
     <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass);
 
-    @objid ("679f60ef-5085-44d6-a430-165e6909d3f4")
+    @objid ("52e71142-afe7-4915-94e0-e1292cac3c05")
     Association getAssociation();
 
-    @objid ("55f5a6f4-c256-4712-8c8c-559c68a3261f")
+    @objid ("cf8f3ff9-2ee6-4e80-8315-0350ae08d91d")
     void setAssociation(Association value);
 
-    @objid ("4b81b75a-03f1-409c-ad52-87b1c192313d")
+    @objid ("15b4119d-f6ad-4b4f-8793-98557f59f0bc")
     EList<BpmnItemAwareElement> getRepresentingItem();
 
-    @objid ("b1f0ff13-83e7-4e7f-b62c-1e8fdc7a14d6")
+    @objid ("1db448ef-dc04-4bd6-81b1-7340ae497333")
     <T extends BpmnItemAwareElement> List<T> getRepresentingItem(java.lang.Class<T> filterClass);
 
 }

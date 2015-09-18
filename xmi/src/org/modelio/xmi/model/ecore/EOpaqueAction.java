@@ -24,7 +24,7 @@ package org.modelio.xmi.model.ecore;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.OpaqueAction;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("348a1066-9a43-42e9-9d79-b452dc1151af")
 public class EOpaqueAction extends EActivityNode {
@@ -35,7 +35,7 @@ public class EOpaqueAction extends EActivityNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-        .createOpaqueAction();
+                .createOpaqueAction();
     }
 
     @objid ("f4244578-27bb-4633-87cf-8ed91762aef6")

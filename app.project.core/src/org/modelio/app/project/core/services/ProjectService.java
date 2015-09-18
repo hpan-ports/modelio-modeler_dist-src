@@ -68,9 +68,9 @@ import org.modelio.app.project.core.plugin.AppProjectCore;
 import org.modelio.app.project.core.prefs.ProjectPreferencesHelper;
 import org.modelio.app.project.core.prefs.ProjectPreferencesKeys;
 import org.modelio.core.ui.progress.ModelioProgressAdapter;
-import org.modelio.gproject.data.project.DescriptorWriter;
 import org.modelio.gproject.data.project.FragmentDescriptor;
 import org.modelio.gproject.data.project.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptorWriter;
 import org.modelio.gproject.fragment.FragmentAuthenticationException;
 import org.modelio.gproject.fragment.FragmentMigrationNeededException;
 import org.modelio.gproject.fragment.FragmentState;
@@ -175,7 +175,7 @@ class ProjectService implements IProjectService, EventHandler {
 
     @objid ("971ad6d9-026d-11e2-8189-001ec947ccaf")
     @Override
-    public void openProject(ProjectDescriptor projectToOpen, IAuthData authData, IProgressMonitor monitor) throws GProjectAuthenticationException, IOException {
+    public void openProject(ProjectDescriptor projectToOpen, IAuthData authData, IProgressMonitor monitor) throws IOException, GProjectAuthenticationException {
         if (this.project != null) {
             throw new IllegalStateException("A project is already opened.");
         }
@@ -671,7 +671,7 @@ class ProjectService implements IProjectService, EventHandler {
         
         // Save the new project conf
         Path confFilePath = oldPath.resolve("project.conf");
-        new DescriptorWriter().write(projectDescriptor, confFilePath);
+        new ProjectDescriptorWriter().write(projectDescriptor, confFilePath);
         
         // Move the project directory itself
         final Path targetPath = oldPath.resolveSibling(name);

@@ -24,7 +24,7 @@ package org.modelio.xmi.model.objing;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("2268a24e-5ed0-4c07-907e-21c9cb0114a4")
 public class OFinalState extends OModelElement implements IOElement {

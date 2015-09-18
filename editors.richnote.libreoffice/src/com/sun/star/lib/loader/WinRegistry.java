@@ -114,7 +114,7 @@ public class WinRegistry {
      * @return the value
      */
     @objid ("a36117b8-8ce9-4c15-8aa6-83ae032fbca1")
-    public static String readString(int hkey, String key, String valueName) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    public static String readString(int hkey, String key, String valueName) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         if (hkey == HKEY_LOCAL_MACHINE) {
             return readString(systemRoot, hkey, key, valueName);
         } else if (hkey == HKEY_CURRENT_USER) {
@@ -154,7 +154,7 @@ public class WinRegistry {
      * @return the value name(s)
      */
     @objid ("8f34e668-8097-41d8-afd6-21284882806e")
-    public static List<String> readStringSubKeys(int hkey, String key) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    public static List<String> readStringSubKeys(int hkey, String key) throws InvocationTargetException, IllegalArgumentException, IllegalAccessException {
         if (hkey == HKEY_LOCAL_MACHINE) {
             return readStringSubKeys(systemRoot, hkey, key);
         } else if (hkey == HKEY_CURRENT_USER) {
@@ -173,7 +173,7 @@ public class WinRegistry {
      * @param hkey HKEY_CURRENT_USER/HKEY_LOCAL_MACHINE
      */
     @objid ("e6a7e733-e5e1-4bad-a279-4332ef3b09f3")
-    public static void createKey(int hkey, String key) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    public static void createKey(int hkey, String key) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         int[] ret;
         if (hkey == HKEY_LOCAL_MACHINE) {
             ret = createKey(systemRoot, hkey, key);
@@ -200,7 +200,7 @@ public class WinRegistry {
      * @throws InvocationTargetException
      */
     @objid ("3133f11b-b092-471a-bb4f-4585ac2fd364")
-    public static void writeStringValue(int hkey, String key, String valueName, String value) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    public static void writeStringValue(int hkey, String key, String valueName, String value) throws IllegalAccessException, InvocationTargetException, IllegalArgumentException {
         if (hkey == HKEY_LOCAL_MACHINE) {
             writeStringValue(systemRoot, hkey, key, valueName, value);
         } else if (hkey == HKEY_CURRENT_USER) {
@@ -241,7 +241,7 @@ public class WinRegistry {
      * @throws InvocationTargetException
      */
     @objid ("2b32fdfe-2c5d-4eb7-83bf-041a6cf69355")
-    public static void deleteValue(int hkey, String key, String value) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    public static void deleteValue(int hkey, String key, String value) throws IllegalAccessException, InvocationTargetException, IllegalArgumentException {
         int rc = -1;
         if (hkey == HKEY_LOCAL_MACHINE) {
             rc = deleteValue(systemRoot, hkey, key, value);
@@ -255,7 +255,7 @@ public class WinRegistry {
 
 // =====================
     @objid ("7cfeff5b-9a5e-478a-a80b-7964829e473f")
-    private static int deleteValue(Preferences root, int hkey, String key, String value) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    private static int deleteValue(Preferences root, int hkey, String key, String value) throws InvocationTargetException, IllegalAccessException, IllegalArgumentException {
         int[] handles = (int[]) regOpenKey.invoke(root, new Object[] { new Integer(hkey), toCstr(key),
                 new Integer(KEY_ALL_ACCESS) });
         if (handles[1] != REG_SUCCESS) {
@@ -287,7 +287,7 @@ public class WinRegistry {
     }
 
     @objid ("74746a35-b973-4b0d-8634-881f359da527")
-    private static Map<String, String> readStringValues(Preferences root, int hkey, String key) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    private static Map<String, String> readStringValues(Preferences root, int hkey, String key) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         HashMap<String, String> results = new HashMap<String, String>();
         int[] handles = (int[]) regOpenKey.invoke(root, new Object[] { new Integer(hkey), toCstr(key),
                 new Integer(KEY_READ) });
@@ -309,7 +309,7 @@ public class WinRegistry {
     }
 
     @objid ("6e21c715-ce2c-4359-8545-f196b55eddd4")
-    private static List<String> readStringSubKeys(Preferences root, int hkey, String key) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    private static List<String> readStringSubKeys(Preferences root, int hkey, String key) throws InvocationTargetException, IllegalAccessException, IllegalArgumentException {
         List<String> results = new ArrayList<String>();
         int[] handles = (int[]) regOpenKey.invoke(root, new Object[] { new Integer(hkey), toCstr(key),
                 new Integer(KEY_READ) });
@@ -330,12 +330,12 @@ public class WinRegistry {
     }
 
     @objid ("69a5ffbe-939e-468d-ae92-06f6c05d944f")
-    private static int[] createKey(Preferences root, int hkey, String key) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    private static int[] createKey(Preferences root, int hkey, String key) throws InvocationTargetException, IllegalAccessException, IllegalArgumentException {
         return (int[]) regCreateKeyEx.invoke(root, new Object[] { new Integer(hkey), toCstr(key) });
     }
 
     @objid ("58eed7a1-6446-40be-bf16-15d93e5e8927")
-    private static void writeStringValue(Preferences root, int hkey, String key, String valueName, String value) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    private static void writeStringValue(Preferences root, int hkey, String key, String valueName, String value) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         int[] handles = (int[]) regOpenKey.invoke(root, new Object[] { new Integer(hkey), toCstr(key),
                 new Integer(KEY_ALL_ACCESS) });
         

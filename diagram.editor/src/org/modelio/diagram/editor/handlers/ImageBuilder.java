@@ -33,6 +33,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.editparts.LayerManager;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
@@ -48,9 +49,6 @@ public class ImageBuilder {
     @objid ("65b21826-33f7-11e2-95fe-001ec947c8cc")
     private static final int MARGIN = 10;
 
-    @objid ("edef0d79-3a7f-4f2e-8694-572e6e14e3ff")
-    private static final int MAX = 8192;
-
     @objid ("f4082e57-a12b-4409-a22a-462229d5ace0")
     private final int maxWidth;
 
@@ -63,21 +61,36 @@ public class ImageBuilder {
     @objid ("1f5c39d7-c4b9-4dc8-af79-05e7525b13f4")
     private double scale = 1.0;
 
+    @objid ("45955273-14d2-41d9-b518-3742e8ec513a")
+    private int format;
+
     @objid ("c2af8b06-cfc7-4d8a-b4a8-3583ccb8f5b4")
     public ImageBuilder() {
-        this(MAX, MAX, MARGIN);
-    }
-
-    @objid ("9f6e1e8e-2d4a-4156-8727-7d08fed3ae67")
-    public ImageBuilder(int margin) {
-        this(MAX, MAX, margin);
+        this(SWT.IMAGE_PNG);
     }
 
     @objid ("f00a3b84-d007-47e8-9c65-4d126d46ce41")
-    public ImageBuilder(int maxWidth, int maxHeight, int margin) {
-        this.maxWidth = maxWidth;
-        this.maxHeight = maxHeight;
+    public ImageBuilder(int format) {
+        this(MARGIN, format);
+    }
+
+    @objid ("47b49445-29c8-49c8-b4b6-ba095a1bf39d")
+    private ImageBuilder(int margin, int format) {
+        switch (format) {
+        case SWT.IMAGE_PNG:
+        case SWT.IMAGE_JPEG:
+        case SWT.IMAGE_GIF:
+            this.maxWidth = 8192 * 3;
+            this.maxHeight = 8192 * 3;
+            break;
+        case SWT.IMAGE_BMP:
+        default:
+            this.maxWidth = 8192;
+            this.maxHeight = 8192;
+            break;
+        }
         this.margin = margin;
+        this.format = format;
     }
 
     @objid ("d3118d79-4e32-4601-a1d4-7b54d98f1460")
@@ -107,14 +120,15 @@ public class ImageBuilder {
         int effectiveWidth = (int) (width * this.scale);
         int effectiveHeight = (int) (height * this.scale);
         
-        if (this.scale < 1.0)
+        if (this.scale < 1.0) {
             DiagramEditor.LOG.debug("makeImage: %dx%d ?> %dx%d =>using scale %f, %dx%d", width, height, this.maxWidth, this.maxHeight, this.scale,
                     effectiveWidth, effectiveHeight);
+        }
         
-        // Protection agains't image size being greater than 64Mb
+        // Protection agains't BMP image size being greater than 64Mb
         long totalSize = effectiveWidth * effectiveHeight * 4;
         long max = 64 * 1024 * 1024;
-        if (totalSize > max) {
+        if (this.format == SWT.IMAGE_BMP && totalSize > max) {
             DiagramEditor.LOG.warning("Make image, size %d x %d would exced max size !", effectiveWidth, effectiveHeight);
             this.scale = Math.sqrt((double) max / (double) totalSize);
             effectiveWidth = (int) (effectiveWidth * this.scale);
@@ -148,7 +162,7 @@ public class ImageBuilder {
         final Layer scalableLayers = (Layer) lm.getLayer(LayerConstants.SCALABLE_LAYERS);
         scalableLayers.add(backgroundLayer, "BACKGROUND_LAYER", 0);
         return img; // the caller is responsible for disposing the returned
-                    // image
+        // image
     }
 
     /**
@@ -251,15 +265,17 @@ public class ImageBuilder {
         
         for (final Object fig : figure.getChildren()) {
             final Rectangle b ;
-            if (fig instanceof FreeformFigure)
+            if (fig instanceof FreeformFigure) {
                 b = ((FreeformFigure) fig).getFreeformExtent();
-            else if (fig instanceof ConnectionLayer)
+            } else if (fig instanceof ConnectionLayer) {
                 b = computeMinimumBounds((ConnectionLayer) fig);
-            else
+            } else {
                 b = ((Figure) fig).getBounds();
-            
-            if (b.isEmpty())
+            }
+        
+            if (b.isEmpty()) {
                 continue;
+            }
         
             if (b.x < xMin) {
                 xMin = b.x;

@@ -24,7 +24,6 @@ package org.modelio.editors.texteditors.input;
 import java.io.File;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.text.IDocument;
-import org.modelio.api.editor.EditorType;
 import org.modelio.editors.service.IEditorListener;
 
 @objid ("7b54ba73-2a77-11e2-9fb9-bc305ba4815c")
@@ -49,5 +48,17 @@ public interface IDocumentInput extends IInput {
 
     @objid ("c1ec211e-2e5d-11e2-a8ff-bc305ba4815c")
     void dispose();
+
+    /**
+     * Get the current file charset. Default value is <b>UTF-8</b>.
+     */
+    @objid ("0e3b5f67-b67b-4135-a121-53b1deeadbe5")
+    String getCharsetName();
+
+    /**
+     * Change current charset and reload the file.
+     */
+    @objid ("202c375f-a2ae-423e-bdb0-21d1a748082d")
+    void setCharsetName(String charsetName);
 
 }

@@ -430,6 +430,12 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
         return null;
     }
 
+    @objid ("78829f67-63c3-4677-9183-8d5eff6e395f")
+    @Override
+    public void dispose() {
+        // nothing to do
+    }
+
     @objid ("8faa29c7-c068-11e1-8c0a-002564c97630")
     private class LayoutChangeListener implements ControlListener {
         @objid ("8faa29d0-c068-11e1-8c0a-002564c97630")

@@ -29,8 +29,8 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Binding;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("ae6d8d6d-3eec-4158-ad45-7339669fa4a8")
 public class OBinding extends OElement implements IOElement {

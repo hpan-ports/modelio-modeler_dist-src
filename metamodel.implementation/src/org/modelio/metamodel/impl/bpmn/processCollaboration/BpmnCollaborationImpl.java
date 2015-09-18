@@ -46,25 +46,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0073fd98-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnCollaborationImpl extends BpmnRootElementImpl implements BpmnCollaboration {
-    @objid ("69ec8e5a-e21c-494b-86e1-16b82031f7f2")
+    @objid ("9fe5567e-e55e-420f-a5eb-8a2f7ca0048c")
     @Override
     public boolean isIsClosed() {
         return (Boolean) getAttVal(BpmnCollaborationData.Metadata.IsClosedAtt());
     }
 
-    @objid ("de10536e-c360-49f0-b048-af4d586da07c")
+    @objid ("b56c95fe-25cc-489e-a238-69d0ab9b8faf")
     @Override
     public void setIsClosed(boolean value) {
         setAttVal(BpmnCollaborationData.Metadata.IsClosedAtt(), value);
     }
 
-    @objid ("914e8a7b-137a-4cb6-af69-0c71b1c5b3fe")
+    @objid ("103e4e39-5f9d-4d56-be3f-e24ebabf8393")
     @Override
     public EList<BpmnArtifact> getArtifact() {
         return new SmList<>(this, BpmnCollaborationData.Metadata.ArtifactDep());
     }
 
-    @objid ("60cffa56-6f89-4a3a-942f-2f8648cdfb8e")
+    @objid ("a9da06dd-fd27-45cf-98ed-1931063130e5")
     @Override
     public <T extends BpmnArtifact> List<T> getArtifact(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -77,13 +77,13 @@ public class BpmnCollaborationImpl extends BpmnRootElementImpl implements BpmnCo
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("5cf48007-d97e-4045-9758-52d133bfb366")
+    @objid ("6eb17abe-4e66-4a34-a8df-07d39d11032b")
     @Override
     public EList<BpmnMessageFlow> getMessageFlow() {
         return new SmList<>(this, BpmnCollaborationData.Metadata.MessageFlowDep());
     }
 
-    @objid ("68dc1ca1-770d-4dbb-bdfe-e33546766cc9")
+    @objid ("9a8c3d7f-3b26-4294-b64e-f3fc1149b275")
     @Override
     public <T extends BpmnMessageFlow> List<T> getMessageFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -96,13 +96,13 @@ public class BpmnCollaborationImpl extends BpmnRootElementImpl implements BpmnCo
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6cd3cd35-c78d-4281-ba64-35e9fbefbe2e")
+    @objid ("691a98d4-b740-4c50-818a-273221d9e720")
     @Override
     public EList<BpmnParticipant> getParticipants() {
         return new SmList<>(this, BpmnCollaborationData.Metadata.ParticipantsDep());
     }
 
-    @objid ("c94ceffa-7703-476c-8801-1e1bd8316005")
+    @objid ("7e47fb33-0104-44ec-9c09-6176e61813bf")
     @Override
     public <T extends BpmnParticipant> List<T> getParticipants(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -115,21 +115,21 @@ public class BpmnCollaborationImpl extends BpmnRootElementImpl implements BpmnCo
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4abf3601-764a-4d28-b890-e7fad3ad1409")
+    @objid ("23b925d1-7e2c-48ce-ac7d-c0c50ca493d4")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bbf0f0cd-45cb-4425-9a23-dda5fca5e5dc")
+    @objid ("6ffd36c7-a566-46b9-bdc8-f1eacbcd2398")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("fc5ef575-81a7-4405-9dd9-e4f3b28aaf1a")
+    @objid ("300b8aa8-b29e-440b-9d97-bc3b86cecae6")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnCollaboration(this);

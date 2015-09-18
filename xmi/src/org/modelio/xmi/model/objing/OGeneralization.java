@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.statik.Generalization;
 import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("382d83b0-1b72-4efe-bcb6-b9292b642f66")

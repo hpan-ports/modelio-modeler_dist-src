@@ -33,7 +33,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("7c0dd904-e19c-482a-97e7-11de654901fc")
 public class DiagnosticFormatter {
-    @objid ("8aec76fb-4e50-4c2c-bac5-c634d7521efc")
+    @objid ("fc65c184-6237-4b4b-b6df-0b3cef5287f8")
     protected static final ResourceBundle bundle = ResourceBundle.getBundle("auditrules");
 
     @objid ("f329c63c-59e7-4901-a527-5169a34dab31")

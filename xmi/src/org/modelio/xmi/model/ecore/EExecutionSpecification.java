@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecification;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("3805ded7-4e3f-402e-addd-a749719130f1")
 public class EExecutionSpecification extends EInteractionFragment {
@@ -33,7 +33,7 @@ public class EExecutionSpecification extends EInteractionFragment {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                  .createExecutionSpecification();
+                          .createExecutionSpecification();
     }
 
     @objid ("aa3b68be-b0d8-4dbe-b393-c87f07772c5e")

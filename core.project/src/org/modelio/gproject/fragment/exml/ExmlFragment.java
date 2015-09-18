@@ -224,7 +224,7 @@ public class ExmlFragment extends AbstractFragment {
 
     @objid ("d319c92e-bd14-44ff-a8a2-9a312f5ca227")
     @Override
-    public void migrate(GProject project, IModelioProgress aMonitor) throws IOException, FragmentAuthenticationException {
+    public void migrate(GProject project, IModelioProgress aMonitor) throws FragmentAuthenticationException, IOException {
         VersionDescriptors fragmentVersion = getMetamodelVersion();
         final int mmVersion = fragmentVersion.getMmVersion();
         if (mmVersion >= 9017 && mmVersion < 9022) {

@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("007f01c0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnCallActivity extends BpmnActivity {
-    @objid ("a3ec37ef-c814-48b6-b61e-5edf65edacc1")
+    @objid ("4e47f625-44bd-442d-bcea-296d0c775c85")
     BpmnTask getCalledGlobalTask();
 
-    @objid ("61eae2bb-46d1-45ca-8996-78c318ab1c54")
+    @objid ("93baca06-da23-467a-9558-91376c60705a")
     void setCalledGlobalTask(BpmnTask value);
 
-    @objid ("26664036-61c4-4e3c-bda7-6f14e89b7e6e")
+    @objid ("0bda83a3-82a2-4bcd-98c9-d858987efcb2")
     BpmnProcess getCalledProcess();
 
-    @objid ("843dfb48-cadb-4f76-b021-c4b97370da93")
+    @objid ("d27ef94b-e43b-4d58-b7c0-d6d310c8a80e")
     void setCalledProcess(BpmnProcess value);
 
-    @objid ("729a1fa4-6023-42a7-b74c-95f1686f9e8d")
+    @objid ("e7dc2c90-2f8c-492f-9e1d-9fae00150cf5")
     Operation getCalledOperation();
 
-    @objid ("27eb1a01-7e3f-44e2-abe5-3d3deda83dc7")
+    @objid ("59ac7f47-8682-405f-bca1-859113112dac")
     void setCalledOperation(Operation value);
 
-    @objid ("ba91459d-4281-4ae7-8bd8-df2a8557c929")
+    @objid ("27578c36-deea-4461-bac4-2c43878549e1")
     Behavior getCalledBehavior();
 
-    @objid ("543b2834-2b9b-457f-a564-95a4c8e0117b")
+    @objid ("631332aa-8b0a-4d5a-ba3b-0eb6c7abaf82")
     void setCalledBehavior(Behavior value);
 
 }

@@ -45,7 +45,7 @@ public class AuditEntry implements IAuditEntry {
     @objid ("55a02ba5-1145-41d5-a8bd-dcbbc4a93d08")
     private MObject element = null;
 
-    @objid ("7abdfdba-eb2f-4444-9871-27ae720cafd8")
+    @objid ("25205598-0720-44ea-9823-f1c459a9c655")
     private List<Object> linkedObjects = null;
 
     @objid ("fc5e199f-decb-40ec-8a4a-d3173c23bd62")

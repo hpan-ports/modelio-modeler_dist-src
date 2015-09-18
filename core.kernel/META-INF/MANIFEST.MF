@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Kernel
 Bundle-SymbolicName: org.modelio.core.kernel
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Export-Package:  org.modelio.vcore.model,
  org.modelio.vcore.model.filter,
  org.modelio.vcore.smkernel,
@@ -16,4 +16,4 @@ Export-Package:  org.modelio.vcore.model,
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.modelio.core.utils,
  jdbm;visibility:=reexport
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

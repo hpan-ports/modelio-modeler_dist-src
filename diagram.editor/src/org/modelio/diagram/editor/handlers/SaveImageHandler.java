@@ -64,14 +64,15 @@ public class SaveImageHandler {
         AbstractDiagramEditor editor = (AbstractDiagramEditor) part.getObject();
         
         SaveInfo saveInfo = getSaveInfo(part.getLabel());
-        if (saveInfo != null)
+        if (saveInfo != null) {
             saveAsImage(editor.getRootEditPart(), saveInfo);
+        }
         return null;
     }
 
     @objid ("65c78d59-33f7-11e2-95fe-001ec947c8cc")
     private void saveAsImage(RootEditPart rootEditPart, SaveInfo saveInfo) {
-        ImageBuilder imageBuilder = new ImageBuilder();
+        ImageBuilder imageBuilder = new ImageBuilder(saveInfo.format);
         Image img = imageBuilder.makeImage(rootEditPart);
         
         if (img != null) {
@@ -91,13 +92,14 @@ public class SaveImageHandler {
         dlg.setFilterNames(filterNames);
         dlg.setFilterIndex(initialFilterIndex);
         dlg.setFilterPath(initialFilterPath);
-        dlg.setFileName(diagramName + filterExtensions[initialFilterIndex].substring(1));   
+        dlg.setFileName(diagramName + filterExtensions[initialFilterIndex].substring(1));
         dlg.setOverwrite(true);
         
         String saveLocation = dlg.open();
         
-        if (saveLocation == null)
+        if (saveLocation == null) {
             return null;
+        }
         
         int filterIndex = dlg.getFilterIndex();
         saveLocation = normalizeFilename(saveLocation, filterExtensions[filterIndex].substring(1));
@@ -110,10 +112,11 @@ public class SaveImageHandler {
 
     @objid ("65c78d61-33f7-11e2-95fe-001ec947c8cc")
     private String normalizeFilename(String saveLocation, String fileExtension) {
-        if (saveLocation.endsWith(fileExtension))
+        if (saveLocation.endsWith(fileExtension)) {
             return saveLocation;
-        else
+        } else {
             return saveLocation + fileExtension;
+        }
     }
 
     @objid ("7a7b7b93-5e25-11e2-a8be-00137282c51b")

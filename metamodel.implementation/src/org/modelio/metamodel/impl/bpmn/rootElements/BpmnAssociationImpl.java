@@ -43,57 +43,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00775b3c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnAssociationImpl extends BpmnArtifactImpl implements BpmnAssociation {
-    @objid ("95edba92-a96a-4753-ac59-e2e461e6c487")
+    @objid ("2a4af63c-be5b-416c-abf4-f99c935154b3")
     @Override
     public BpmnAssociationDirection getAssociationDirection() {
         return (BpmnAssociationDirection) getAttVal(BpmnAssociationData.Metadata.AssociationDirectionAtt());
     }
 
-    @objid ("4b53717c-3b88-45e7-bf36-68ccdcdc9b0e")
+    @objid ("a2209643-ad07-49be-b17e-585945293db8")
     @Override
     public void setAssociationDirection(BpmnAssociationDirection value) {
         setAttVal(BpmnAssociationData.Metadata.AssociationDirectionAtt(), value);
     }
 
-    @objid ("32c9948b-3258-4fc3-a8b8-21d33b463691")
+    @objid ("242ac2d0-55a0-4ef4-bbca-71666c462eb4")
     @Override
     public BpmnBaseElement getTargetRef() {
         return (BpmnBaseElement) getDepVal(BpmnAssociationData.Metadata.TargetRefDep());
     }
 
-    @objid ("1827d3a9-a1cb-4d8e-96b7-148c4a68152f")
+    @objid ("d388340b-bb96-42e6-82e8-f2cba37e3b05")
     @Override
     public void setTargetRef(BpmnBaseElement value) {
         appendDepVal(BpmnAssociationData.Metadata.TargetRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a328d84c-b6b1-4947-a4be-b155b4b899ab")
+    @objid ("fb4ad99b-cf32-40e0-abe6-28b381d2715c")
     @Override
     public BpmnBaseElement getSourceRef() {
         return (BpmnBaseElement) getDepVal(BpmnAssociationData.Metadata.SourceRefDep());
     }
 
-    @objid ("d426d7dd-e6bf-410a-af87-dac741f4d008")
+    @objid ("9b09b6d5-23a5-4b4e-beb6-f5319989c3bc")
     @Override
     public void setSourceRef(BpmnBaseElement value) {
         appendDepVal(BpmnAssociationData.Metadata.SourceRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("dba875ae-5ac2-42b5-aa6e-6fc72fe43069")
+    @objid ("7501b763-7166-49d1-9ed1-aea808419607")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0e1e9ff7-2f6b-4d0f-a7f8-bcbcadae18e1")
+    @objid ("e9b3d1cb-9496-441f-a902-0e9b7694f285")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("cadfd4bf-34ec-45fd-9b28-4792ec94c502")
+    @objid ("baae618f-349b-40e3-884a-df2347cb8aa4")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnAssociation(this);

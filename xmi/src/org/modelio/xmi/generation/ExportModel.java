@@ -27,7 +27,6 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.xmi.gui.ProgressBarComposite;
 import org.modelio.xmi.model.objing.IOElement;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ScopeChecker;
 

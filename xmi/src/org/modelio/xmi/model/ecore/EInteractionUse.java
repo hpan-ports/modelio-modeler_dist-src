@@ -23,7 +23,7 @@ package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("9784d40a-7f93-4a22-ba54-dbb768e77dbc")
 public class EInteractionUse extends EInteractionFragment {
@@ -31,7 +31,7 @@ public class EInteractionUse extends EInteractionFragment {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                 .createInteractionUse();
+                         .createInteractionUse();
     }
 
     @objid ("f2b2af4b-e8a4-4823-ab98-45b013b2a55a")

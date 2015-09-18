@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008a1e34-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnConditionalEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnConditionalEventDefinition {
-    @objid ("c983bb97-54ac-431a-a68b-103bd0ad3582")
+    @objid ("06d5a136-0fb3-48c9-88ad-8a35f4b46680")
     @Override
     public String getCondition() {
         return (String) getAttVal(BpmnConditionalEventDefinitionData.Metadata.ConditionAtt());
     }
 
-    @objid ("7e218dfa-54c4-409e-a620-d2f456423687")
+    @objid ("08b0af24-e3d2-4a17-bc48-44dcd517efe7")
     @Override
     public void setCondition(String value) {
         setAttVal(BpmnConditionalEventDefinitionData.Metadata.ConditionAtt(), value);
     }
 
-    @objid ("5ba2a12b-f7c1-494c-a78f-f531745fdf6d")
+    @objid ("bb76e93a-f184-4828-acc5-64e345268f24")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2867464e-b7ac-47af-a2ca-e3b250a2f066")
+    @objid ("1c9e5208-f3af-49b2-ad16-639f5778e2cd")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("9159f7a3-768e-439a-bce3-b9673b7c89c8")
+    @objid ("aa6672bb-84a9-4895-b882-8e407fd36949")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnConditionalEventDefinition(this);

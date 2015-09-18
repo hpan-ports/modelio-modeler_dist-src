@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0084cc0e-c4be-1fd8-97fe-001ec947cd2a")
 public class AbstractionImpl extends DependencyImpl implements Abstraction {
-    @objid ("87998b04-1b7e-442f-bd17-05280526a260")
+    @objid ("3552217d-ddb1-40de-ad9f-fe6e43e4e85d")
     @Override
     public String getMapping() {
         return (String) getAttVal(AbstractionData.Metadata.MappingAtt());
     }
 
-    @objid ("935e1efc-01cf-4c55-83c1-bff0cfde4b28")
+    @objid ("6310b790-c046-428b-bdfd-96d72cd418b4")
     @Override
     public void setMapping(String value) {
         setAttVal(AbstractionData.Metadata.MappingAtt(), value);
     }
 
-    @objid ("dcc53391-c093-49c4-a69e-257ccccc3180")
+    @objid ("ef3fde1a-e535-4ab1-9aa6-d5c5695907c7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("1a8f5b28-587b-44b9-8ca6-a0c38a5cebd6")
+    @objid ("7bd5a5f2-a0ab-4d0e-907d-cd8b34e74445")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("00ef226e-ce96-4744-8afb-15be64367087")
+    @objid ("1714d3c8-f0c8-4dcd-99d5-894a54db209f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAbstraction(this);

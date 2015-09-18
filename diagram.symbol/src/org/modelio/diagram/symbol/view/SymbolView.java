@@ -33,7 +33,6 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.modelio.app.core.events.ModelioEventTopics;
@@ -70,22 +69,24 @@ public class SymbolView {
 
     @objid ("325f9f4f-5991-11e2-8bfd-001ec947ccaf")
     @Override
-    protected void finalize() {
-        if (this.symbolPanel != null)
+    protected void finalize() throws Throwable {
+        if (this.symbolPanel != null) {
             DiagramSymbol.LOG.warning("SymbolView.dispose() is not called, @PreDestroy not used, dispose() can be deleted.");
+        }
         dispose();
+        super.finalize();
     }
 
     /**
      * Called by the framework to create the view and initialize it.
+     * @param svc the model service
      * @param parent the composite the view must add its content into.
      * @param part the part model
-     * @param svc the model service
      * @param pickingService the Modelio picking service
      */
     @objid ("325d3d02-5991-11e2-8bfd-001ec947ccaf")
     @PostConstruct
-    public void createControls(Composite parent, MPart part, EModelService svc, IModelioPickingService pickingService) {
+    public void createControls(Composite parent, MPart part, IModelioPickingService pickingService) {
         this.symbolPanel = new SymbolPanelProvider(pickingService);
         this.symbolPanel.createPanel(parent);
         
@@ -189,12 +190,14 @@ public class SymbolView {
         @SuppressWarnings("synthetic-access")
         @Override
         public boolean changed(IEclipseContext context) {
-            if (SymbolView.this.symbolPanel == null)
+            if (SymbolView.this.symbolPanel == null) {
                 return false;
+            }
             
             final Object sel = context.get(IServiceConstants.ACTIVE_SELECTION);
-            if (sel instanceof IStructuredSelection)
+            if (sel instanceof IStructuredSelection) {
                 update((IStructuredSelection) sel);
+            }
             return true;
         }
 

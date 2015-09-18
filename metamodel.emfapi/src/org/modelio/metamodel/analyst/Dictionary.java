@@ -33,28 +33,28 @@ import org.modelio.metamodel.analyst.Term;
 
 @objid ("005b9e06-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Dictionary extends AnalystContainer {
-    @objid ("95248266-3596-42cd-a25b-c9355f702500")
+    @objid ("49d95a3d-e498-45e1-bd25-73e6d955e5c2")
     EList<Dictionary> getOwnedDictionary();
 
-    @objid ("9b9609bb-613b-46c8-9999-bfaf53279cf1")
+    @objid ("0c18bb1c-f481-44b5-9481-c37a2b086481")
     <T extends Dictionary> List<T> getOwnedDictionary(java.lang.Class<T> filterClass);
 
-    @objid ("8abf8315-2e11-4e2a-ac95-12e588426cad")
+    @objid ("e6a3e40c-6362-401e-badb-d34ba340c65d")
     Dictionary getOwnerDictionary();
 
-    @objid ("ba90d017-b879-4d5e-905d-b12231709884")
+    @objid ("e7e45747-c32c-4e9e-9d7c-0c60b883575f")
     void setOwnerDictionary(Dictionary value);
 
-    @objid ("cad6c36e-2bcc-470a-8930-c128f910b8ba")
+    @objid ("12173e5d-fbf7-4bd9-9213-2a705bed4a85")
     AnalystProject getOwnerProject();
 
-    @objid ("bb818052-421f-4ab5-b7c6-f3ab48597e06")
+    @objid ("e7903638-9f5a-4017-967a-04cfde41c019")
     void setOwnerProject(AnalystProject value);
 
-    @objid ("9af7eebb-a349-48d4-8aca-195094302cdd")
+    @objid ("73c511be-4ec4-4632-9c23-d71a45ad677f")
     EList<Term> getOwnedTerm();
 
-    @objid ("4f77861d-80a6-462f-8b34-e828c9d3f5b8")
+    @objid ("2b8da143-7d0a-4fb4-85f5-6551fa51314e")
     <T extends Term> List<T> getOwnedTerm(java.lang.Class<T> filterClass);
 
 }

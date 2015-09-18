@@ -33,8 +33,8 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.xmi.gui.report.ReportManager;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ResourceLoader;
-import org.modelio.xmi.util.ReverseProperties;
 
 /**
  * This class provides the XMI import dialog

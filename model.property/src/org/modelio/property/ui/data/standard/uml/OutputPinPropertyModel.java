@@ -108,7 +108,7 @@ public class OutputPinPropertyModel extends AbstractPropertyModel<OutputPin> {
         ICoreSession session = CoreSession.getSession(this.theEditedElement);
         this.generalClassType = new SingleElementType(false, GeneralClass.class, session);
         this.parameterType = new SingleElementType(false, Parameter.class, session);
-        this.stateType = new SingleElementType(false, Parameter.class, session);
+        this.stateType = new SingleElementType(false, State.class, session);
         this.representedType = new RepresentedType(session);
     }
 

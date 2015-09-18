@@ -22,13 +22,17 @@
 package org.modelio.gproject.gproject;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.AccessDeniedException;
+import java.nio.file.FileSystemException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.gproject.data.project.AuthDescriptor;
 import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.DescriptorServices;
 import org.modelio.gproject.data.project.FragmentDescriptor;
@@ -39,7 +43,6 @@ import org.modelio.gproject.data.project.ModuleDescriptor;
 import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.fragment.Fragments;
 import org.modelio.gproject.fragment.IProjectFragment;
-import org.modelio.gproject.gproject.ProjectWriter;
 import org.modelio.gproject.gproject.remote.GRemoteProject;
 import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.IModuleHandle;
@@ -59,11 +62,11 @@ import org.modelio.vbasic.progress.SubProgress;
  */
 @objid ("ec2c8fb7-cc48-46d2-82ee-fe56b40646ce")
 public class GProjectConfigurer {
-    @objid ("1d3e1140-30aa-43c0-b311-4d317632b27f")
-    private GProject project;
-
     @objid ("009e7105-8a6c-48ba-bb6d-d1f0826d6a1d")
     private List<Failure> failures = new ArrayList<>();
+
+    @objid ("1d3e1140-30aa-43c0-b311-4d317632b27f")
+    private GProject project;
 
     /**
      * Initialize a project configurer with an open project
@@ -75,20 +78,20 @@ public class GProjectConfigurer {
     }
 
     /**
-     * @return the configured project.
-     */
-    @objid ("0eedda80-36d2-49cb-9fb3-0e57bbad694a")
-    public GProject getProject() {
-        return this.project;
-    }
-
-    /**
      * Get the list of fragments or modules that couldn't be installed/removed or modified.
      * @return the failures list.
      */
     @objid ("97df6319-296e-4234-b887-8c0941659964")
     public List<Failure> getFailures() {
         return this.failures;
+    }
+
+    /**
+     * @return the configured project.
+     */
+    @objid ("0eedda80-36d2-49cb-9fb3-0e57bbad694a")
+    public GProject getProject() {
+        return this.project;
     }
 
     /**
@@ -184,6 +187,23 @@ public class GProjectConfigurer {
     }
 
     /**
+     * Called when authentication fails on a fragment or a module.
+     * <p>
+     * Returns null by default.
+     * Subclasses may prompt the user for new authentication data.
+     * @param name the name of the module/fragment that cannot be accessed
+     * @param uri the location of the element
+     * @param data the failred authentication data
+     * @param e the failure
+     * @return the new authentication data to try or null to abort.
+     */
+    @objid ("c04acc39-33bc-4c9f-9f8b-60ccd0013634")
+    protected IAuthData handleAccessDeniedException(String name, URI uri, IAuthData data, AccessDeniedException e) {
+        // aborts by default
+        return null;
+    }
+
+    /**
      * Install a new module.
      * <p>
      * May be redefined.
@@ -196,41 +216,6 @@ public class GProjectConfigurer {
     @objid ("ea6f1023-85dd-4f21-816a-090fee511246")
     protected void installModule(ModuleDescriptor fd, IModelioProgress mon) throws IOException {
         this.project.loadModuleDescriptor(mon, fd);
-    }
-
-    /**
-     * Update a module to another version.
-     * <p>
-     * May be redefined.
-     * @param m the module to update
-     * @param fd the new module descriptor
-     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
-     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
-     * reported and that the operation cannot be cancelled.
-     * @throws java.io.IOException in case of failure
-     */
-    @objid ("f7e455f8-2eed-4888-b017-baaa46ffb9c5")
-    protected void upgradeModule(GModule m, ModuleDescriptor fd, IModelioProgress monitor) throws IOException {
-        SubProgress mon = SubProgress.convert(monitor, 30);
-        removeModule(m, mon.newChild(10));
-        installModule(fd, mon.newChild(10));
-        
-        reconfigureModule(m, fd, mon.newChild(10));
-    }
-
-    /**
-     * Uninstall a module.
-     * <p>
-     * To be redefined to add other behavior.
-     * @param m the module to remove.
-     * @param mon the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
-     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
-     * reported and that the operation cannot be cancelled.
-     * @throws java.io.IOException in case of failure
-     */
-    @objid ("27503c90-5d40-4bbf-a76d-02a69d9db936")
-    protected void removeModule(GModule m, IModelioProgress mon) throws IOException {
-        this.project.removeModule(m);
     }
 
     /**
@@ -270,99 +255,11 @@ public class GProjectConfigurer {
         }
     }
 
-    /**
-     * Record failure to synchronize a module.
-     * @param moduleDescriptor a module descriptor if available
-     * @param module the module if available
-     * @param cause the error
-     */
-    @objid ("c8223389-c506-4fb9-b8ad-365e419d0866")
-    private void addFailure(ModuleDescriptor moduleDescriptor, GModule module, Throwable cause) {
-        Failure failure = new Failure(moduleDescriptor, module, cause);
-        this.failures.add(failure);
-        
-        GProjectEvent ev = new GProjectEvent(GProjectEventType.WARNING, failure.toString(),null,cause);
-        this.project.getMonitorSupport().fireMonitors(ev);
-    }
-
-    /**
-     * Record failure to synchronize a fragment.
-     * @param f the fragment if available
-     * @param fd a fragment descriptor if available
-     * @param cause the error
-     */
-    @objid ("30814275-e282-4d16-a5cc-3a6ec0e2e4a2")
-    private void addFailure(IProjectFragment f, FragmentDescriptor fd, Exception cause) {
-        this.failures.add(new Failure(fd, f, cause));
-    }
-
-    @objid ("61098f30-1054-4e06-9088-15b447fa0ba8")
-    private void callReconfigureFragment(SubProgress mon, IProjectFragment f, FragmentDescriptor fd) {
-        mon.subTask(CoreProject.getMessage("GProjectConfigurer.SynchronizingFragment",f.getId()));
-        
-        try {
-            f.reconfigure(fd, mon);
-        } catch (Exception e) {
-            addFailure(f, fd, e);
-        }
-    }
-
-    @objid ("cd5fa51e-1823-463d-abdb-e133715bcdc7")
-    private void callRemoveModule(GModule m, SubProgress mon) {
-        mon.subTask("Removing "+m.getName()+" "+m.getVersion()+"...");
-        
-        try {
-            removeModule(m, mon);
-        } catch (IOException | RuntimeException e) {
-            addFailure(null, m, e);
-        }
-    }
-
-    @objid ("fff74949-a51e-4e31-a32a-3886cf44e49e")
-    private void callReconfigureModule(GModule m, ModuleDescriptor fd, SubProgress mon) {
-        try {
-            reconfigureModule(m, fd, mon);
-        } catch (IOException | RuntimeException e) {
-            addFailure(fd, m, e);
-        }
-    }
-
-    @objid ("289fd0a5-9690-48cf-8e1b-80aac5a6c6a7")
-    private void callInstallModule(ModuleDescriptor fd, IModelioProgress mon) {
-        mon.subTask("Installing "+fd.getName()+" "+fd.getVersion()+"...");
-        
-        try {
-            installModule(fd, mon);
-        } catch (IOException | RuntimeException e) {
-            addFailure(fd, null, e);
-        }
-    }
-
-    @objid ("0d2ee5da-eb51-44c0-b4a7-80b839df1679")
-    private void callUpgradeModule(GModule m, ModuleDescriptor fd, IModelioProgress mon) {
-        try {
-            upgradeModule(m, fd, mon);
-        } catch (IOException | RuntimeException e) {
-            addFailure(fd, m, e);
-        }
-    }
-
     @objid ("b1f40ad6-421b-4f4e-8f75-26baf1b405cc")
     protected void reconfigureModules(ProjectDescriptor newDesc, SubProgress mon) {
         List<IModuleHandle> allModuleHandles = new ArrayList<>( newDesc.getModules().size());
         Map<String, M> map = new HashMap<>(); // old-new modules associations indexed by name.
-        
-        // Iterates new modules descriptors
-        for (ModuleDescriptor md : newDesc.getModules()) {
-            try {
-                IModuleHandle mh = this.getProject().getModuleHandle(null, md);
-                allModuleHandles.add(mh);
-                map.put(mh.getName(), new M(md, null, mh));
-                
-            } catch (IOException | RuntimeException e) {
-                addFailure(md, null, e);
-            }
-        }
+        final ModuleDescriptor IGNORE = new ModuleDescriptor(); // flag descriptor to tell ignore changes
         
         // Iterates old modules descriptors
         for (GModule oldModule : this.project.getModules()) {
@@ -374,6 +271,32 @@ public class GProjectConfigurer {
                 allModuleHandles.add(oldHandle);
             } else {
                 entry.oldModule = oldModule;
+            }
+        }
+        
+        // Iterates new modules descriptors
+        for (ModuleDescriptor md : newDesc.getModules()) {
+            try {
+                IModuleHandle mh = fetchModuleHandle(md);
+                allModuleHandles.add(mh);
+        
+                M entry = map.get(md.getName());
+                if (entry == null) {
+                    entry = new M(md, null, mh);
+                    map.put(mh.getName(), entry);
+                } else {
+                    entry.newDesc = md;
+                }
+                
+            } catch (IOException | RuntimeException e) {
+                // report failure
+                addFailure(md, null, e);
+        
+                // record this module to be ignored for changes
+                M entry = map.get(md.getName());
+                if (entry != null) {
+                    entry.newDesc = IGNORE;
+                }
             }
         }
         
@@ -390,8 +313,8 @@ public class GProjectConfigurer {
                 } else if (entry.oldModule == null) {
                     // new module
                     callInstallModule(entry.newDesc, mon.newChild(10));
-                } else if (! pw.writeModuleDescriptor(entry.oldModule).equals(entry.newDesc)){
-                    // module update
+                } else if (entry.newDesc != IGNORE && ! pw.writeModuleDescriptor(entry.oldModule).equals(entry.newDesc)){
+                    // module updated
                     if (entry.newDesc.getVersion().equals(entry.oldModule.getVersion())) {
                         // Same version, just update parameters
                         callReconfigureModule(entry.oldModule, entry.newDesc, mon.newChild(10));
@@ -408,6 +331,144 @@ public class GProjectConfigurer {
                 M entry = map.get(h.getName());
                 addFailure(entry.newDesc, entry.oldModule, e);
             }
+        }
+    }
+
+    /**
+     * Uninstall a module.
+     * <p>
+     * To be redefined to add other behavior.
+     * @param m the module to remove.
+     * @param mon the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
+     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
+     * @throws java.io.IOException in case of failure
+     */
+    @objid ("27503c90-5d40-4bbf-a76d-02a69d9db936")
+    protected void removeModule(GModule m, IModelioProgress mon) throws IOException {
+        this.project.removeModule(m);
+    }
+
+    /**
+     * Update a module to another version.
+     * <p>
+     * May be redefined.
+     * @param m the module to update
+     * @param fd the new module descriptor
+     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
+     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
+     * @throws java.io.IOException in case of failure
+     */
+    @objid ("f7e455f8-2eed-4888-b017-baaa46ffb9c5")
+    protected void upgradeModule(GModule m, ModuleDescriptor fd, IModelioProgress monitor) throws IOException {
+        SubProgress mon = SubProgress.convert(monitor, 30);
+        removeModule(m, mon.newChild(10));
+        installModule(fd, mon.newChild(10));
+        
+        reconfigureModule(m, fd, mon.newChild(10));
+    }
+
+    /**
+     * Record failure to synchronize a module.
+     * @param moduleDescriptor a module descriptor if available
+     * @param module the module if available
+     * @param cause the error
+     */
+    @objid ("c8223389-c506-4fb9-b8ad-365e419d0866")
+    private void addFailure(ModuleDescriptor moduleDescriptor, GModule module, Throwable cause) {
+        Failure failure = new Failure(moduleDescriptor, module, cause);
+        this.failures.add(failure);
+    }
+
+    /**
+     * Record failure to synchronize a fragment.
+     * @param f the fragment if available
+     * @param fd a fragment descriptor if available
+     * @param cause the error
+     */
+    @objid ("30814275-e282-4d16-a5cc-3a6ec0e2e4a2")
+    private void addFailure(IProjectFragment f, FragmentDescriptor fd, Exception cause) {
+        this.failures.add(new Failure(fd, f, cause));
+    }
+
+    @objid ("289fd0a5-9690-48cf-8e1b-80aac5a6c6a7")
+    private void callInstallModule(ModuleDescriptor fd, IModelioProgress mon) {
+        mon.subTask("Installing "+fd.getName()+" "+fd.getVersion()+"...");
+        
+        try {
+            installModule(fd, mon);
+        } catch (IOException | RuntimeException e) {
+            addFailure(fd, null, e);
+        }
+    }
+
+    @objid ("61098f30-1054-4e06-9088-15b447fa0ba8")
+    private void callReconfigureFragment(SubProgress mon, IProjectFragment f, FragmentDescriptor fd) {
+        mon.subTask(CoreProject.getMessage("GProjectConfigurer.SynchronizingFragment",f.getId()));
+        
+        try {
+            f.reconfigure(fd, mon);
+        } catch (Exception e) {
+            addFailure(f, fd, e);
+        }
+    }
+
+    @objid ("fff74949-a51e-4e31-a32a-3886cf44e49e")
+    private void callReconfigureModule(GModule m, ModuleDescriptor fd, SubProgress mon) {
+        try {
+            reconfigureModule(m, fd, mon);
+        } catch (IOException | RuntimeException e) {
+            addFailure(fd, m, e);
+        }
+    }
+
+    @objid ("cd5fa51e-1823-463d-abdb-e133715bcdc7")
+    private void callRemoveModule(GModule m, SubProgress mon) {
+        mon.subTask("Removing "+m.getName()+" "+m.getVersion()+"...");
+        
+        try {
+            removeModule(m, mon);
+        } catch (IOException | RuntimeException e) {
+            addFailure(null, m, e);
+        }
+    }
+
+    @objid ("0d2ee5da-eb51-44c0-b4a7-80b839df1679")
+    private void callUpgradeModule(GModule m, ModuleDescriptor fd, IModelioProgress mon) {
+        try {
+            upgradeModule(m, fd, mon);
+        } catch (IOException | RuntimeException e) {
+            addFailure(fd, m, e);
+        }
+    }
+
+    /**
+     * Fetch a module handle for the given descriptor.
+     * <p>
+     * Prompt for authentication if needed.
+     * @param md a module descriptor
+     * @return the module handle
+     * @throws java.nio.file.FileSystemException in case of failure
+     * @throws java.io.IOException in case of failure
+     */
+    @objid ("6bd85c21-db36-429e-af73-a810237123e2")
+    protected IModuleHandle fetchModuleHandle(ModuleDescriptor md) throws FileSystemException, IOException {
+        try {
+            return this.getProject().getModuleHandle(null, md);
+        } catch (AccessDeniedException e) {
+            AuthDescriptor authDesc = md.getAuthDescriptor();
+            final IAuthData badAuthData = authDesc.getData() ;
+            if (authDesc.getScope() == DefinitionScope.LOCAL || badAuthData == null) {
+                // Authentication may be modified locally, prompt user for correct ones
+                final String moduleLabel = md.getName()+" "+md.getVersion();
+                IAuthData authData = handleAccessDeniedException(moduleLabel, md.getArchiveLocation(), badAuthData, e);
+                if (authData != null) {
+                    authDesc.setData(authData);
+                    return fetchModuleHandle(md);
+                }
+            }
+            throw e;
         }
     }
 

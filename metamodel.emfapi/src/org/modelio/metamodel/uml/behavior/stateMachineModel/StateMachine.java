@@ -37,34 +37,34 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 
 @objid ("005404fc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StateMachine extends Behavior {
-    @objid ("766eaf0a-2ef1-49ed-b67d-85c9339f17e0")
+    @objid ("c2de35eb-9f8f-40d0-b42b-4ba7e58678b3")
     KindOfStateMachine getKind();
 
-    @objid ("14f36c2f-31e6-465a-bb16-40036d4d7e0c")
+    @objid ("f3f3e127-246d-4411-a47f-1969eb89eb7a")
     void setKind(KindOfStateMachine value);
 
-    @objid ("b65facdd-fad8-47f1-9d12-38c6360d69b7")
+    @objid ("49bdc1ad-3470-4d07-86d5-cb0ecc14065f")
     Region getTop();
 
-    @objid ("805d719b-da03-4628-8e75-da623b3c95c0")
+    @objid ("dfa60ced-637d-4c43-aafa-24e8f487a770")
     void setTop(Region value);
 
-    @objid ("3caa2ef9-d583-4f1c-91b9-c6dc6dd0c43f")
+    @objid ("d5ba7626-4740-49d2-9d77-fed4ec8c431c")
     EList<State> getSubmachineState();
 
-    @objid ("10d7bc10-cc65-4d09-8c1c-9b77452ff379")
+    @objid ("927298bb-a690-4132-8ec0-77845d09d57b")
     <T extends State> List<T> getSubmachineState(java.lang.Class<T> filterClass);
 
-    @objid ("b7dba46d-0bf9-4f7f-a730-eecd1aab03f6")
+    @objid ("6732a1bc-3ac1-4c17-b6ae-ff657048cb9b")
     EList<EntryPointPseudoState> getEntryPoint();
 
-    @objid ("a054d5c6-341e-439a-85ef-147d54813483")
+    @objid ("5d89797a-0500-4d76-a596-6ab2d5051161")
     <T extends EntryPointPseudoState> List<T> getEntryPoint(java.lang.Class<T> filterClass);
 
-    @objid ("26e4dddc-1d9a-4c5b-8a06-a2089878a6cd")
+    @objid ("ef595e8e-3937-4805-8781-4bcd7715b131")
     EList<ExitPointPseudoState> getExitPoint();
 
-    @objid ("5ee21dd2-68a2-465f-ba2e-b061b11432d3")
+    @objid ("04b550d7-0a77-4085-99b1-4f1fb56372d2")
     <T extends ExitPointPseudoState> List<T> getExitPoint(java.lang.Class<T> filterClass);
 
 }

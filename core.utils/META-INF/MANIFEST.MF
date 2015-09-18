@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Utils
 Bundle-SymbolicName: org.modelio.core.utils
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Export-Package: org.apache.commons.codec,
  org.apache.commons.codec.binary,
  org.apache.commons.codec.digest,

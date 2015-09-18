@@ -45,13 +45,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00097356-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnResourceImpl extends BpmnRootElementImpl implements BpmnResource {
-    @objid ("2fbfa317-f87c-43dc-91ac-3cf709f02357")
+    @objid ("aeceec4f-6af7-45dc-a650-b5d6bfae2b49")
     @Override
     public EList<BpmnResourceRole> getResourceroleRefs() {
         return new SmList<>(this, BpmnResourceData.Metadata.ResourceroleRefsDep());
     }
 
-    @objid ("f0071959-b944-4195-b653-93817c297025")
+    @objid ("fdf01fd8-739f-4a45-8a94-c8a738ebe838")
     @Override
     public <T extends BpmnResourceRole> List<T> getResourceroleRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -64,13 +64,13 @@ public class BpmnResourceImpl extends BpmnRootElementImpl implements BpmnResourc
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("15c95b04-b173-4dc3-8d2a-a94fc4b72027")
+    @objid ("d62de405-7de6-4bc5-8be6-e74a10521785")
     @Override
     public EList<BpmnResourceParameter> getParameter() {
         return new SmList<>(this, BpmnResourceData.Metadata.ParameterDep());
     }
 
-    @objid ("6779e55e-4218-4969-9454-9b2d2e4cf196")
+    @objid ("683f9b82-d4ac-4bde-bf04-6941fa79fb13")
     @Override
     public <T extends BpmnResourceParameter> List<T> getParameter(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -83,21 +83,21 @@ public class BpmnResourceImpl extends BpmnRootElementImpl implements BpmnResourc
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e9c47233-3dd9-42fc-b17e-b7537c0f7057")
+    @objid ("513f6aed-fea6-4023-8cd3-dcafafd53391")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("ce7f3683-dd85-414f-ad8b-c797f10f7bb5")
+    @objid ("cff10632-ef10-440c-96e5-dd8412df6c42")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("e178063c-0e38-4beb-af3b-b0699e28f13f")
+    @objid ("64a5d663-eb71-4e80-9651-46c4be9c8cad")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnResource(this);

@@ -33,28 +33,28 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 
 @objid ("00645dc0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface DataFlow extends ModelElement {
-    @objid ("9e3bf562-1b47-4958-8e4f-b1946adaee31")
+    @objid ("736993c4-26ac-4395-aca3-f4afbe1e3103")
     NameSpace getDestination();
 
-    @objid ("b93ff9d8-f24b-4d36-99e4-f68619352ded")
+    @objid ("605780d6-7ae2-41b8-98f7-e5d660f9af7a")
     void setDestination(NameSpace value);
 
-    @objid ("99a86386-fac0-4d83-8272-03aec92a304d")
+    @objid ("d34f9d4e-8c5a-4ffb-a9ac-034ca7368de6")
     NameSpace getOrigin();
 
-    @objid ("03ae111f-42c6-4bdf-8003-4efe6ae06d1f")
+    @objid ("bf1a5462-7ad7-4393-a8a1-fa48baaf5080")
     void setOrigin(NameSpace value);
 
-    @objid ("121e23aa-f934-4080-9284-13f98a24fc38")
+    @objid ("150b6e08-6966-42bb-a42a-66b64b0f590a")
     NameSpace getOwner();
 
-    @objid ("a1a6558c-64b6-43b7-ad42-da15870f24d5")
+    @objid ("4543d414-1055-43a1-8027-fd7d65d90ef8")
     void setOwner(NameSpace value);
 
-    @objid ("4ef302df-bbf1-4039-a915-3ea1dfc8008b")
+    @objid ("0e91f0e7-41fb-4204-9c9a-85f686f6b863")
     Signal getSModel();
 
-    @objid ("32efd0ac-578a-48ff-acd2-446099de0836")
+    @objid ("381ad0ad-7e07-4cf8-bd63-ab80f09c4299")
     void setSModel(Signal value);
 
 }

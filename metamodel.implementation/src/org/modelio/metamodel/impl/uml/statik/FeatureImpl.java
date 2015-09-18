@@ -43,57 +43,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000b3ab0-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class FeatureImpl extends ModelElementImpl implements Feature {
-    @objid ("f5cd3aa9-cbc0-415d-a34f-31da44f6ef74")
+    @objid ("b0ed264c-2e62-4279-8770-16d7e5c802c1")
     @Override
     public VisibilityMode getVisibility() {
         return (VisibilityMode) getAttVal(FeatureData.Metadata.VisibilityAtt());
     }
 
-    @objid ("1f803f27-7560-4458-b533-a73ae7c3f0ab")
+    @objid ("49c55517-5937-4ff0-8d5d-90be2d23c1e7")
     @Override
     public void setVisibility(VisibilityMode value) {
         setAttVal(FeatureData.Metadata.VisibilityAtt(), value);
     }
 
-    @objid ("bebaa602-d8ad-4a7d-92fd-06f5b06a5bea")
+    @objid ("d43fdbee-f696-419f-8829-4331fae99bad")
     @Override
     public boolean isIsClass() {
         return (Boolean) getAttVal(FeatureData.Metadata.IsClassAtt());
     }
 
-    @objid ("a2fecd04-8027-464d-bb30-b3f1d10794cb")
+    @objid ("344713d7-df34-40ff-9076-516604c20f8c")
     @Override
     public void setIsClass(boolean value) {
         setAttVal(FeatureData.Metadata.IsClassAtt(), value);
     }
 
-    @objid ("d9cd3e4d-e5e7-4ea9-8f60-9bc382ba6842")
+    @objid ("3fe48dd2-6a9f-44bd-bd68-b5105cde40b3")
     @Override
     public boolean isIsAbstract() {
         return (Boolean) getAttVal(FeatureData.Metadata.IsAbstractAtt());
     }
 
-    @objid ("d48f9baa-2b65-4f9f-87d8-0c98aeae6766")
+    @objid ("1372464e-ce14-4396-b4c5-151bb6256064")
     @Override
     public void setIsAbstract(boolean value) {
         setAttVal(FeatureData.Metadata.IsAbstractAtt(), value);
     }
 
-    @objid ("f752bf3c-1511-4c31-9d15-5a260dce27e1")
+    @objid ("e8b3fb2a-ffa6-4910-846d-a2b1135d4847")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("84f428fa-a818-498e-bb8b-bab6fe781c1a")
+    @objid ("310ab0c3-f6e3-4d77-9e9c-4e9db4b2809a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("03914813-40bc-4aca-8ddb-4c43ba205911")
+    @objid ("ba419680-bf3b-48f4-9fba-7ff320317faf")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitFeature(this);

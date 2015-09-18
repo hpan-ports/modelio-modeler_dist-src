@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("4ae8a661-1aef-45be-9c0f-6d0a1c1e2ef4")
 public class ConnectorImpl extends LinkImpl implements Connector {
-    @objid ("5ff59d9a-4f11-4004-b583-ed3a6bc69465")
+    @objid ("174fe058-5afc-4e7e-8214-d5334469c8bb")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bc9e41aa-0bd2-46ea-94db-3a635ac9f7e3")
+    @objid ("c55fe020-52d7-44f8-9361-1ffef5996630")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("8d57b316-93e0-4ce7-b2f0-8549c0853ccb")
+    @objid ("01e1a93a-7338-492f-82c7-79ed853f88e6")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitConnector(this);

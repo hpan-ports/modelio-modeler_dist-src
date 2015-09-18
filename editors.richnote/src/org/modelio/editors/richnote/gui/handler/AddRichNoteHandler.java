@@ -85,9 +85,7 @@ public class AddRichNoteHandler {
 
     @objid ("90c10778-0498-49c4-8fa1-5077685e59c9")
     @Execute
-    void execute(@Optional
-@Named(IServiceConstants.ACTIVE_SHELL) Shell parentShell, @Optional
-@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection, @Optional IActivationService activationService, @Optional IMModelServices modelServices) {
+    void execute(@Optional @Named(IServiceConstants.ACTIVE_SHELL) Shell parentShell, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection, @Optional IActivationService activationService, @Optional IMModelServices modelServices) {
         ModelElement currentElement = getSelectedElement(selection);
         
         PromptRichNoteDescriptorDlg dialog = new PromptRichNoteDescriptorDlg(parentShell, new RichNoteDescriptor(currentElement),

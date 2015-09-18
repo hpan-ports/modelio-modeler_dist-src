@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("006d73c4-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=DeploymentDiagram.class, factory=DeploymentDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class DeploymentDiagramData extends StaticDiagramData {
-    @objid ("43f64aac-266b-450d-a51d-77ec26392398")
+    @objid ("c8701f54-840c-4508-8dc8-1d44dce352bd")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00966248-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("0c707710-75b9-4bb7-9b9a-69a5eb3d4e9c")
+        @objid ("d1ed80a5-e647-45b9-9b4c-bc47efc398fc")
         private static SmClass smClass = null;
 
-        @objid ("c144df7f-52df-435e-a3cc-7caa39f944d3")
+        @objid ("45d82d8c-dec9-41e0-8db2-863aa39048d7")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DeploymentDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("b540f759-dc5f-407c-a5fe-7ea75294ca6f")
+        @objid ("247323ea-7d3b-4de8-8678-077b1e07c183")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class DeploymentDiagramData extends StaticDiagramData {
 
         @objid ("0096a352-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("7f48b178-5657-4472-a2f2-1e9ddf2a9418")
+            @objid ("a7dba81f-fe9f-4bbb-9c64-d2f37a894a40")
             public ISmObjectData createData() {
                 return new DeploymentDiagramData();
             }
 
-            @objid ("7dc3d83e-0555-4ae0-8743-bbc37dc58bc3")
+            @objid ("b9925c87-2498-449c-a786-4dd49ff71ce1")
             public SmObjectImpl createImpl() {
                 return new DeploymentDiagramImpl();
             }

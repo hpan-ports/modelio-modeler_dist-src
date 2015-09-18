@@ -33,28 +33,28 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("00828728-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnSendTask extends BpmnTask {
-    @objid ("aba2c1f5-5538-47a7-a80a-9a0fbf8af7c1")
+    @objid ("cc8bfc2c-41fc-4ba3-8e82-944845c6676b")
     String getImplementation();
 
-    @objid ("4ec9d29a-4888-4bc1-8597-a4523e3fd5f1")
+    @objid ("d8d6af8f-171a-4102-970a-e09024646aa8")
     void setImplementation(String value);
 
-    @objid ("f53ef757-9e7a-45d8-aaaf-0e5c0f8973c3")
+    @objid ("8de92953-3895-4241-b48b-48ad598698c4")
     BpmnMessage getMessageRef();
 
-    @objid ("6c488f37-91e6-496f-baac-79c3f7e80b65")
+    @objid ("dc519374-3c6d-4152-ae0e-11e2b4b3cb9f")
     void setMessageRef(BpmnMessage value);
 
-    @objid ("a6d8b1ce-3699-4de7-b6f3-fe1b192a9c4c")
+    @objid ("8f288ff4-9f50-4773-84d2-cb12bf3438a1")
     BpmnOperation getOperationRef();
 
-    @objid ("9cb2270d-0802-4a23-b46f-2effa1100c90")
+    @objid ("d712eebf-1a5d-480c-8320-c40875340a04")
     void setOperationRef(BpmnOperation value);
 
-    @objid ("66cc6443-b38c-464e-b2b3-f776b9cb2e91")
+    @objid ("8471226e-83c8-49df-917f-069659329294")
     Operation getCalledOperation();
 
-    @objid ("92eb121b-4eb2-4cc8-a3e5-bc15dd97afe3")
+    @objid ("a1e896ea-62b5-4fab-a05d-665706e4974b")
     void setCalledOperation(Operation value);
 
 }

@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00078320-c4bf-1fd8-97fe-001ec947cd2a")
 public class DataTypeImpl extends GeneralClassImpl implements DataType {
-    @objid ("cc0b75b9-2735-4298-98e3-ab051e977fbf")
+    @objid ("34b6e2e6-7a13-44e8-ab00-74a7b0fb99e9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("9df489f9-fb93-446d-a5dd-d0596f2e4eb9")
+    @objid ("e9cb4d70-1489-4e44-b289-f51b4e55d403")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("28b0a2b8-c6fc-4efe-8b1b-10263787a55a")
+    @objid ("97e17e8f-63d9-4a62-bd75-58b99ab2d78e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDataType(this);

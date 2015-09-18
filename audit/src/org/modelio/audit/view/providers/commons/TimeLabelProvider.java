@@ -30,7 +30,7 @@ import org.modelio.audit.engine.core.IAuditEntry;
 
 @objid ("4aac0f60-7dca-4643-a66a-54572b924011")
 public class TimeLabelProvider extends StyledCellLabelProvider {
-    @objid ("3892cb74-96da-4289-85b6-4f78f4944b59")
+    @objid ("0232a374-f569-4d7c-90ec-0dba00fa18d6")
     private final SimpleDateFormat formatter = new SimpleDateFormat("H:mm:ss");
 
     @objid ("c759960b-9061-4471-b5e9-ee76830973e8")

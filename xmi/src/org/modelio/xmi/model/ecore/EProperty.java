@@ -49,13 +49,13 @@ import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.StructuralFeature;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ProfileUtils;
-import org.modelio.xmi.util.ReverseProperties;
 
 /**
  * This class manages the import of UML Property elements

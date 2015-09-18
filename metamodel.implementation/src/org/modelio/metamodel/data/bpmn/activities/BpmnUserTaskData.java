@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0086919c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnUserTask.class, factory=BpmnUserTaskData.Metadata.ObjectFactory.class)
 public class BpmnUserTaskData extends BpmnTaskData {
-    @objid ("d09a4c53-c056-4886-bcd8-4044dd956ea1")
+    @objid ("8d2e4e0c-6341-4cae-b4ec-d5cc9215f45b")
     @SmaMetaAttribute(metaName="Implementation", type=String.class, smAttributeClass=Metadata.ImplementationSmAttribute.class)
      Object mImplementation = "##WebService";
 
-    @objid ("4ccf6e1c-2573-4800-9587-3056f75cbeed")
+    @objid ("9e323b6f-dd36-4397-9a31-ec1a1c278247")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00923290-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("90c1021e-4421-48cf-a3b8-e7e68631ba40")
+        @objid ("29cbf2d1-2816-44ec-8a67-6b2670f821f0")
         private static SmClass smClass = null;
 
-        @objid ("6ff76d94-0d27-4eae-ade5-0e575909a733")
+        @objid ("9deb94c4-3f48-4794-8f3c-2c45e9c64187")
         private static SmAttribute ImplementationAtt = null;
 
-        @objid ("e51830a3-2725-42f9-a485-96530052967b")
+        @objid ("69919701-6d74-4844-8fea-ddb698377066")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnUserTaskData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("996f215a-e3bd-409c-9dbc-c3697d400b96")
+        @objid ("7dd6cd5c-7e1b-496c-8d1b-30e222e21c39")
         public static SmAttribute ImplementationAtt() {
             if (ImplementationAtt == null) {
             	ImplementationAtt = classof().getAttributeDef("Implementation");
@@ -73,26 +73,26 @@ public class BpmnUserTaskData extends BpmnTaskData {
             return ImplementationAtt;
         }
 
-        @objid ("abb4b621-0a7c-4a5d-bcf0-1555882881bf")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("0f8c43d2-4416-409f-90ea-e720bb4f2cc8")
+        @objid ("b146a6ab-4af3-4a85-8a32-1c15237cac32")
         public static SmAttribute getImplementationAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ImplementationAtt;
         }
 
+        @objid ("2897f6bf-84ff-41d5-ac34-e24e373b4f96")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("00927fb6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("dd8598bd-67f2-4bb0-a727-8df64924b934")
+            @objid ("e3d0316b-8494-4c3e-8291-4e046c0a8f3b")
             public ISmObjectData createData() {
                 return new BpmnUserTaskData();
             }
 
-            @objid ("0e8b7d1a-23ec-42a0-a0af-15a32eb86cf8")
+            @objid ("be64818c-ae0d-41af-880e-c905f92f3594")
             public SmObjectImpl createImpl() {
                 return new BpmnUserTaskImpl();
             }
@@ -101,12 +101,12 @@ public class BpmnUserTaskData extends BpmnTaskData {
 
         @objid ("0092e366-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ImplementationSmAttribute extends SmAttribute {
-            @objid ("3b2d8723-1cc2-433b-8f38-7a11aa052d00")
+            @objid ("549a3a90-dbdc-4527-95b7-37146a6a8d84")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnUserTaskData) data).mImplementation;
             }
 
-            @objid ("eea7baa4-5336-44c4-a089-a078443ee0c8")
+            @objid ("f37ec4b8-bbd4-4cc8-b405-3eff2071803a")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnUserTaskData) data).mImplementation = value;
             }

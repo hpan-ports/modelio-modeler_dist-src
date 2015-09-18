@@ -91,4 +91,11 @@ public interface IMDATextEditor {
     @objid ("a42bb231-0ecc-11e2-96c4-002564c97630")
     ModelElement getElement();
 
+    /**
+     * Change current charset on the editor.
+     * @since 3.3.0
+     */
+    @objid ("d4172b78-8618-4854-9917-463151cb2140")
+    void setCharsetName(String charsetName);
+
 }

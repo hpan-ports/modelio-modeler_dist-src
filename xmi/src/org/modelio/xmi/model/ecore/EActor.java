@@ -26,7 +26,7 @@ import org.modelio.metamodel.uml.behavior.usecaseModel.Actor;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Profile;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("8ccba823-2898-4eca-8a92-2a5597c16cb0")
 public class EActor extends ENamedElement {

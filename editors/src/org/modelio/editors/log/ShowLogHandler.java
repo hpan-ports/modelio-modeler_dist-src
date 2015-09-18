@@ -36,7 +36,7 @@ public class ShowLogHandler {
     @Execute
     public void execute() {
         String userPath = System.getProperty("user.home");
-        File logFile = new File(userPath, "/.modelio/3.2/modelio.log");
+        File logFile = new File(userPath, "/.modelio/3.3/modelio.log");
         EditionManager.services().openEditor(null, logFile, EditorType.TXTEditor, true);
     }
 

@@ -97,7 +97,6 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.operations.OperationHistoryActionHandler;
 import org.eclipse.ui.texteditor.IReadOnlyDependent;
 import org.eclipse.ui.texteditor.IUpdate;
-import org.modelio.edition.html.epfcommon.IHTMLFormatter;
 import org.modelio.edition.html.plugin.HtmlTextImages;
 import org.modelio.edition.html.plugin.HtmlTextPlugin;
 import org.modelio.edition.html.plugin.HtmlTextResources;
@@ -137,12 +136,10 @@ import org.modelio.log.writers.PluginLogger;
 /**
  * The default rich text editor implementation.
  * <p>
- * The default rich text editor uses XHTML as the underlying markup language for
- * the rich text content. It is implemented using a <code>ViewForm</code>
- * control with a tool bar at the top, a tab folder that contains a
- * <code>RichText</code> control for entering the rich text content, and a tab
- * foler that contains a <code>StyleText</code> control for viewing and
- * modifying the XHTML representation of the rich text content.
+ * The default rich text editor uses XHTML as the underlying markup language for the rich text content. It is implemented using a
+ * <code>ViewForm</code> control with a tool bar at the top, a tab folder that contains a <code>RichText</code> control for entering
+ * the rich text content, and a tab foler that contains a <code>StyleText</code> control for viewing and modifying the XHTML
+ * representation of the rich text content.
  * 
  * @author Kelvin Low
  * @author Jeff Hardy
@@ -182,6 +179,7 @@ public class RichTextEditor implements IRichTextEditor {
 
     /**
      * The key binding scopes of this editor.
+     * 
      * @since 2.1
      */
     @objid ("3f8eeb57-695a-486c-b8af-cb3aa279bafe")
@@ -279,93 +277,89 @@ public class RichTextEditor implements IRichTextEditor {
 
     @objid ("a29c1c9c-edd6-4c0f-8f3d-8dfb8310b2f5")
     protected IDocumentListener sourceEditDocumentListener = new IDocumentListener() {
-		@Override
+        @Override
         public void documentAboutToBeChanged(DocumentEvent event) {
-		    // ignore
-		}
-		@Override
+            // ignore
+        }
+        @Override
         public void documentChanged(DocumentEvent event) {
-			RichTextEditor.this.sourceModified = true;
-			if (RichTextEditor.this.richText != null) {
-				RichTextEditor.this.richText.notifyModifyListeners();
-			}
-		}
-	};
+            RichTextEditor.this.sourceModified = true;
+            if (RichTextEditor.this.richText != null) {
+                RichTextEditor.this.richText.notifyModifyListeners();
+            }
+        }
+    };
 
 // The deactivate listener for the sourceEdit control.
     @objid ("cb0c426c-1edf-4bea-9479-44c9c28210af")
     protected Listener sourceEditDeactivateListener = new Listener() {
-		@SuppressWarnings("synthetic-access")
+        @SuppressWarnings("synthetic-access")
         @Override
         public void handleEvent(Event event) {
-			if (RichTextEditor.this.sourceModified) {
-				updateRichText(RichTextEditor.this.sourceViewer.getTextWidget().getText());
-				setModified(true);
-				RichTextEditor.this.sourceModified = false;
-			}
-		}
-	};
+            if (RichTextEditor.this.sourceModified) {
+                updateRichText(RichTextEditor.this.sourceViewer.getTextWidget().getText());
+                setModified(true);
+                RichTextEditor.this.sourceModified = false;
+            }
+        }
+    };
 
 // The key listener for the sourceEdit control.
     @objid ("023be3c0-068b-4d62-86e3-28a704684bd2")
     protected KeyListener sourceEditKeyListener = new KeyListener() {
-		@Override
+        @Override
         public void keyPressed(KeyEvent event) {
-		    int accel = SWTKeySupport
-		            .convertEventToUnmodifiedAccelerator(event);
-		    KeyStroke stroke = SWTKeySupport
-		            .convertAcceleratorToKeyStroke(accel);
-		    KeySequence seq = KeySequence.getInstance(stroke);
-		    
-		    System.err.println("Key sequence:"+seq.toString());
-		    
+            int accel = SWTKeySupport.convertEventToUnmodifiedAccelerator(event);
+            KeyStroke stroke = SWTKeySupport.convertAcceleratorToKeyStroke(accel);
+            KeySequence seq = KeySequence.getInstance(stroke);
+            //System.err.println("Key sequence:" + seq.toString());
             for (IAction action : RichTextEditor.this.fActions.values()) {
                 if (action.getAccelerator() == event.keyCode) {
-                    if (action instanceof IUpdate)
+                    if (action instanceof IUpdate) {
                         ((IUpdate) action).update();
+                    }
                     if (!action.isEnabled() && action instanceof IReadOnlyDependent) {
-                        IReadOnlyDependent dependent= (IReadOnlyDependent) action;
-                        boolean writable= dependent.isEnabled(true);
+                        IReadOnlyDependent dependent = (IReadOnlyDependent) action;
+                        boolean writable = dependent.isEnabled(true);
                         if (writable) {
-                            event.doit= false;
+                            event.doit = false;
                             return;
                         }
                     } else if (action.isEnabled()) {
-                        event.doit= false;
+                        event.doit = false;
                         action.run();
                         return;
                     }
                 }
             }
-		    
-		    //TODO
-//		    EBindingService adapter ;
-//			if (adapter != null) {
-//				int accel = SWTKeySupport
-//						.convertEventToUnmodifiedAccelerator(e);
-//				KeyStroke stroke = SWTKeySupport
-//						.convertAcceleratorToKeyStroke(accel);
-//				KeySequence seq = KeySequence.getInstance(stroke);
-//				Binding bind = adapter.getPerfectMatch(seq);
-//				if (bind != null) {
-//					ParameterizedCommand command = bind
-//							.getParameterizedCommand();
-//					if (command != null) {
-//						String cmdId = command.getId();
-//						if (cmdId != null
-//								&& cmdId
-//										.equals("org.eclipse.ui.edit.findReplace")) { //$NON-NLS-1$
-//							RichTextEditor.this.richText.getFindReplaceAction().execute(RichTextEditor.this);
-//						}
-//					}
-//				}
-//			}
-		}
-		@Override
+            // TODO
+            // EBindingService adapter ;
+            // if (adapter != null) {
+            // int accel = SWTKeySupport
+            // .convertEventToUnmodifiedAccelerator(e);
+            // KeyStroke stroke = SWTKeySupport
+            // .convertAcceleratorToKeyStroke(accel);
+            // KeySequence seq = KeySequence.getInstance(stroke);
+            // Binding bind = adapter.getPerfectMatch(seq);
+            // if (bind != null) {
+            // ParameterizedCommand command = bind
+            // .getParameterizedCommand();
+            // if (command != null) {
+            // String cmdId = command.getId();
+            // if (cmdId != null
+            // && cmdId
+            //										.equals("org.eclipse.ui.edit.findReplace")) { //$NON-NLS-1$
+            // RichTextEditor.this.richText.getFindReplaceAction().execute(RichTextEditor.this);
+            // }
+            // }
+            // }
+            // }
+        }
+        @Override
         public void keyReleased(KeyEvent e) {
-		    // ignore
-		}
-	};
+            // ignore
+        }
+    };
 
     /**
      * Focus listeners.
@@ -378,12 +372,12 @@ public class RichTextEditor implements IRichTextEditor {
      */
     @objid ("35f9ae8b-a59c-4167-ae3d-d60f93936ed5")
     private Listener richTextFocusInListener = new Listener() {
-        
         @Override
         public void handleEvent(Event event) {
             FocusEvent fev = new FocusEvent(event);
-            for (FocusListener fl : RichTextEditor.this.focusListeners)
+            for (FocusListener fl : RichTextEditor.this.focusListeners) {
                 fl.focusGained(fev);
+            }
         }
     };
 
@@ -392,13 +386,13 @@ public class RichTextEditor implements IRichTextEditor {
      */
     @objid ("56baf0df-6df6-4940-9e76-b012bfd30eef")
     private Listener richTextFocusOutListener = new Listener() {
-        
         @Override
         public void handleEvent(Event event) {
-            if (! event.widget.isDisposed()) {
+            if (!event.widget.isDisposed()) {
                 FocusEvent fev = new FocusEvent(event);
-                for (FocusListener fl : RichTextEditor.this.focusListeners)
+                for (FocusListener fl : RichTextEditor.this.focusListeners) {
                     fl.focusLost(fev);
+                }
             }
         }
     };
@@ -434,8 +428,7 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Adds the listener to the collection of listeners who will be notifed when
-     * this editor is disposed.
+     * Adds the listener to the collection of listeners who will be notifed when this editor is disposed.
      * @param listener the listener which should be notified
      */
     @objid ("23563a96-c706-4edc-80a0-822ffc8a3c70")
@@ -447,8 +440,7 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Adds a listener to the collection of listeners who will be notified when
-     * help events are generated for this editor.
+     * Adds a listener to the collection of listeners who will be notified when help events are generated for this editor.
      * @param listener the listener which should be notified
      */
     @objid ("4c7e6a1d-88f6-46cc-8135-a04764651cdf")
@@ -465,20 +457,20 @@ public class RichTextEditor implements IRichTextEditor {
      */
     @objid ("19942ccb-d993-43d4-b8fd-563b61858411")
     public void addHTML(String text) {
-        if (text == null || text.length() == 0) 
+        if (text == null || text.length() == 0) {
             return;
+        }
         if (this.tabFolder.getSelection() == this.richTextTab) {
-            //To avoid encoding of javascript
+            // To avoid encoding of javascript
             String text2 = text;
-            text2 = text2.replaceAll("&", "&amp;");  //$NON-NLS-1$//$NON-NLS-2$
+            text2 = text2.replaceAll("&", "&amp;"); //$NON-NLS-1$//$NON-NLS-2$
             executeCommand(IRichTextCommands.ADD_HTML, text);
         } else if (this.tabFolder.getSelection() == this.htmlTab) {
             String oldHTML = getSourceEdit().getText();
             Point sel = this.sourceViewer.getSelectedRange();
             int selStartIndex = sel.x;
             int selEndIndex = sel.x + sel.y - 1;
-            String newHTML = oldHTML.substring(0, selStartIndex) + text
-                    + oldHTML.substring(selEndIndex + 1);
+            String newHTML = oldHTML.substring(0, selStartIndex) + text + oldHTML.substring(selEndIndex + 1);
             removeModifyListeners();
             this.currentDoc.set(newHTML);
             addModifyListeners();
@@ -496,11 +488,7 @@ public class RichTextEditor implements IRichTextEditor {
     @objid ("c122c990-bdaf-47bf-b826-ef9e3f805824")
     public void addImage(String imageURL, String height, String width, String altTag) {
         if (this.tabFolder.getSelection() == this.richTextTab) {
-            executeCommand(
-                    IRichTextCommands.ADD_IMAGE,
-                    new String[] {
-                            imageURL,
-                            height, width, altTag });
+            executeCommand(IRichTextCommands.ADD_IMAGE, new String[] { imageURL, height, width, altTag });
         } else if (this.tabFolder.getSelection() == this.htmlTab) {
             StringBuffer imageLink = new StringBuffer();
             // order of these attributes is the same as JTidy'ed HTML
@@ -520,8 +508,7 @@ public class RichTextEditor implements IRichTextEditor {
             Point sel = this.sourceViewer.getSelectedRange();
             int selStartIndex = sel.x;
             int selEndIndex = sel.x + sel.y - 1;
-            String newHTML = oldHTML.substring(0, selStartIndex) + imageLink.toString()
-                    + oldHTML.substring(selEndIndex + 1);
+            String newHTML = oldHTML.substring(0, selStartIndex) + imageLink.toString() + oldHTML.substring(selEndIndex + 1);
             removeModifyListeners();
             this.currentDoc.set(newHTML);
             addModifyListeners();
@@ -530,8 +517,7 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Adds a listener to the collection of listeners who will be notified when
-     * keys are pressed and released within this editor.
+     * Adds a listener to the collection of listeners who will be notified when keys are pressed and released within this editor.
      * @param listener the listener which should be notified
      */
     @objid ("082bcc95-9fa7-4857-961f-0d07a302c304")
@@ -543,8 +529,8 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Adds the listener to the collection of listeners who will be notifed when
-     * an event of the given type occurs within this editor.
+     * Adds the listener to the collection of listeners who will be notifed when an event of the given type occurs within this
+     * editor.
      * @param eventType the type of event to listen for
      * @param listener the listener which should be notified when the event occurs
      */
@@ -557,8 +543,7 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Adds a listener to the collection of listeners who will be notified when
-     * the content of this editor is modified.
+     * Adds a listener to the collection of listeners who will be notified when the content of this editor is modified.
      * @param listener the listener which should be notified
      */
     @objid ("06e791cd-c6fa-4d68-81bc-42575b4279f0")
@@ -571,6 +556,7 @@ public class RichTextEditor implements IRichTextEditor {
 
 /*
      * (non-Javadoc)
+     *
      * @see org.eclipse.epf.richtext.IRichText#checkModify()
      */
     @objid ("7b369521-9343-4cbc-b6f7-81cae2d7679a")
@@ -581,7 +567,7 @@ public class RichTextEditor implements IRichTextEditor {
             notifyModifyListeners();
         }
         if (this.debug) {
-            printDebugMessage("checkModify", "modified=" + this.sourceModified); //$NON-NLS-1$ //$NON-NLS-2$    
+            printDebugMessage("checkModify", "modified=" + this.sourceModified); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 
@@ -601,7 +587,7 @@ public class RichTextEditor implements IRichTextEditor {
         }
         if (this.fActivationCodeTrigger != null) {
             this.fActivationCodeTrigger.uninstall();
-            this.fActivationCodeTrigger= null;
+            this.fActivationCodeTrigger = null;
         }
         removeModifyListeners();
         if (getSourceEdit() != null) {
@@ -612,12 +598,12 @@ public class RichTextEditor implements IRichTextEditor {
         }
         
         if (this.sourceViewer != null) {
-            this.sourceViewer= null;
+            this.sourceViewer = null;
         }
         
         if (this.fActions != null) {
             this.fActions.clear();
-            this.fActions= null;
+            this.fActions = null;
         }
         
         if (this.richText != null) {
@@ -627,9 +613,8 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Executes the given rich text command. The supported command strings are
-     * defined in <code>RichTextCommand<code>.
-     * @param    command        a rich text command string
+     * Executes the given rich text command. The supported command strings are defined in <code>RichTextCommand<code>.
+     * @param command a rich text command string
      * @return a status code returned by the executed command
      */
     @objid ("cbe80378-29e4-4706-96c7-89d120f2e41d")
@@ -642,10 +627,10 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Executes the given rich text command with a single parameter. The
-     * supported command strings are defined in <code>RichTextCommand<code>.
-     * @param    command        a rich text command string
-     * @param    param        a parameter for the command or <code>null</code>
+     * Executes the given rich text command with a single parameter. The supported command strings are defined in
+     * <code>RichTextCommand<code>.
+     * @param command a rich text command string
+     * @param param a parameter for the command or <code>null</code>
      * @return a status code returned by the executed command
      */
     @objid ("bf40f7ab-b349-4f20-b530-608270094aef")
@@ -658,10 +643,10 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Executes the given rich text command with an array of parameters. The
-     * supported command strings are defined in <code>RichTextCommand<code>.
-     * @param    command        a rich text command string
-     * @param    params        an array of parameters for the command or <code>null</code>
+     * Executes the given rich text command with an array of parameters. The supported command strings are defined in
+     * <code>RichTextCommand<code>.
+     * @param command a rich text command string
+     * @param params an array of parameters for the command or <code>null</code>
      * @return a status code returned by the executed command
      */
     @objid ("48d83c2d-4e79-4892-8a5d-d01d7d8bf04f")
@@ -690,7 +675,7 @@ public class RichTextEditor implements IRichTextEditor {
      */
     @objid ("83eb7589-5817-47b8-976e-4b27ff3a1591")
     private void fillToolBar(IRichTextToolBar aToolBar, IRichText aRichText) {
-        //aToolBar.addAction(new BlockTagAction(aRichText));
+        // aToolBar.addAction(new BlockTagAction(aRichText));
         aToolBar.addAction(new FontStyleAction(aRichText));
         aToolBar.addAction(new FontNameAction(aRichText));
         aToolBar.addAction(new FontSizeAction(aRichText));
@@ -723,31 +708,29 @@ public class RichTextEditor implements IRichTextEditor {
         aToolBar.addAction(new JustifyCenterAction(aRichText));
         aToolBar.addAction(new JustifyRightAction(aRichText));
         aToolBar.addSeparator();
-        aToolBar.addAction(new FindReplaceAction(aRichText)
-        {
+        aToolBar.addAction(new FindReplaceAction(aRichText) {
             /**
              * @see FindReplaceAction#execute(IRichText)
              */
             @Override
-            public void execute(IRichText rText)
-            {
+            public void execute(IRichText rText) {
                 rText.getFindReplaceAction().execute(rText);
             }
         });
         aToolBar.addSeparator();
         aToolBar.addAction(new AddLinkAction(aRichText));
-        //toolBar.addAction(new AddTopcasedLinkAction(richText));
+        // toolBar.addAction(new AddTopcasedLinkAction(richText));
         aToolBar.addAction(new AddImageAction(aRichText));
         aToolBar.addSeparator();
         aToolBar.addAction(new AddTableAction(aRichText));
         
         // Only add these actions when IE is used to render the Browser
-        //if (Platform.getOS().equals("win32")) {
-            aToolBar.addAction(new AddColumnAction(aRichText));
-            aToolBar.addAction(new DeleteLastColumnAction(aRichText));
-            aToolBar.addAction(new AddRowAction(aRichText));
-            aToolBar.addAction(new DeleteLastRowAction(aRichText));
-        //}
+        // if (Platform.getOS().equals("win32")) {
+        aToolBar.addAction(new AddColumnAction(aRichText));
+        aToolBar.addAction(new DeleteLastColumnAction(aRichText));
+        aToolBar.addAction(new AddRowAction(aRichText));
+        aToolBar.addAction(new DeleteLastRowAction(aRichText));
+        // }
     }
 
     /**
@@ -757,20 +740,19 @@ public class RichTextEditor implements IRichTextEditor {
     @SuppressWarnings("javadoc")
     public IAction getAction(String actionID) {
         assert actionID != null;
-        IAction action= this.fActions.get(actionID);
-        //TODO
-        //        if (action == null) {
-        //            action= findContributedAction(actionID);
-        //            if (action != null)
-        //                setAction(actionID, action);
-        //        }
+        IAction action = this.fActions.get(actionID);
+        // TODO
+        // if (action == null) {
+        // action= findContributedAction(actionID);
+        // if (action != null)
+        // setAction(actionID, action);
+        // }
         return action;
     }
 
     /**
      * Returns the base path used for resolving text and image links.
-     * @return the base path used for resolving links specified with <href>,
-     * <img>, etc.
+     * @return the base path used for resolving links specified with <href>, <img>, etc.
      */
     @objid ("17f67a04-7cb2-4b72-a445-aac4bf7f8b0f")
     @Override
@@ -789,8 +771,7 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Returns the base URL of the rich text control whose content was last
-     * copied to the clipboard.
+     * Returns the base URL of the rich text control whose content was last copied to the clipboard.
      * @return the base URL of a rich text control
      */
     @objid ("73b0f073-86fa-4aa4-8e51-daa87d93db6a")
@@ -805,8 +786,7 @@ public class RichTextEditor implements IRichTextEditor {
     /**
      * Returns an application specific property value.
      * @param key the name of the property
-     * @return the value of the property or <code>null</code> if it has not
-     * been set
+     * @return the value of the property or <code>null</code> if it has not been set
      */
     @objid ("ddab0e38-72aa-4a6d-a666-1a6ae0d79b03")
     @Override
@@ -848,8 +828,7 @@ public class RichTextEditor implements IRichTextEditor {
 
     /**
      * Returns the event listeners attached to this editor.
-     * @return an iterator for retrieving the event listeners attached to this
-     * editor
+     * @return an iterator for retrieving the event listeners attached to this editor
      */
     @objid ("433f3533-cbfa-4b38-bb19-199e2c5d28e3")
     @Override
@@ -897,6 +876,7 @@ public class RichTextEditor implements IRichTextEditor {
 
 /*
      * (non-Javadoc)
+     *
      * @see org.eclipse.epf.richtext.IRichText#getSelected()
      */
     @objid ("06338846-adbe-4630-baa6-e7d543b173f0")
@@ -979,8 +959,7 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Notifies the modify listeners that the rich text editor content has
-     * changed.
+     * Notifies the modify listeners that the rich text editor content has changed.
      */
     @objid ("a6d7931b-28a6-4ba4-873f-85c36c37a877")
     @Override
@@ -998,8 +977,7 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Removes a listener from the collection of listeners who will be notified
-     * when this editor is disposed.
+     * Removes a listener from the collection of listeners who will be notified when this editor is disposed.
      * @param listener the listener which should no longer be notified
      */
     @objid ("fd49317e-c779-4980-baf5-46bca7104c81")
@@ -1011,8 +989,7 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Removes a listener from the collection of listeners who will be notified
-     * when help events are generated for this editor.
+     * Removes a listener from the collection of listeners who will be notified when help events are generated for this editor.
      * @param listener the listener which should no longer be notified
      */
     @objid ("3d6ab9d2-9ede-4cce-ae1c-0cbd7feb424e")
@@ -1024,8 +1001,8 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Removes a listener from the collection of listeners who will be notified
-     * when keys are pressed and released within this editor.
+     * Removes a listener from the collection of listeners who will be notified when keys are pressed and released within this
+     * editor.
      * @param listener the listener which should no longer be notified
      */
     @objid ("fd049a0b-ad5d-4c16-ad5e-0b222c20514f")
@@ -1037,11 +1014,10 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Removes the listener from the collection of listeners who will be notifed
-     * when an event of the given type occurs within this editor.
+     * Removes the listener from the collection of listeners who will be notifed when an event of the given type occurs within this
+     * editor.
      * @param eventType the type of event to listen for
-     * @param listener the listener which should no longer be notified when the event
-     * occurs
+     * @param listener the listener which should no longer be notified when the event occurs
      */
     @objid ("62e22686-274c-4ba2-a3c2-e39f9e354e4a")
     @Override
@@ -1052,8 +1028,7 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Removes a listener from the collection of listeners who will be notified
-     * when the content of this editor is modified.
+     * Removes a listener from the collection of listeners who will be notified when the content of this editor is modified.
      * @param listener the listener which should no longer be notified
      */
     @objid ("aa5992c2-6dfb-41c6-88d7-07e7c88c8172")
@@ -1086,8 +1061,9 @@ public class RichTextEditor implements IRichTextEditor {
         IAction action2 = action;
         if (action2 == null) {
             action2 = this.fActions.remove(actionID);
-            if (action2 != null)
+            if (action2 != null) {
                 this.fActivationCodeTrigger.unregisterActionFromKeyActivation(action2);
+            }
         } else {
             this.fActions.put(actionID, action2);
             this.fActivationCodeTrigger.registerActionForKeyActivation(action2);
@@ -1106,8 +1082,7 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Sets the base URL of the rich text control whose content was last copied
-     * to the clipboard.
+     * Sets the base URL of the rich text control whose content was last copied to the clipboard.
      */
     @objid ("3cda633c-5fb9-4b85-bd1e-3feac761e9cc")
     @Override
@@ -1138,9 +1113,11 @@ public class RichTextEditor implements IRichTextEditor {
     @Override
     public void setEditable(boolean editable) {
         this.editable = editable;
+        
         if (this.toolBar != null && this.tabFolder != null) {
             this.toolBar.updateToolBar(editable);
         }
+        
         if (this.richText != null) {
             this.richText.setEditable(editable);
         }
@@ -1213,8 +1190,7 @@ public class RichTextEditor implements IRichTextEditor {
 
     /**
      * Selects the Rich Text or HTML tab.
-     * @param index <code>0</code> for the Rich Text tab, <code>1</code> for
-     * the HTML tab.
+     * @param index <code>0</code> for the Rich Text tab, <code>1</code> for the HTML tab.
      */
     @objid ("35661312-74f0-4721-8674-c0d8425eb67c")
     @Override
@@ -1255,13 +1231,13 @@ public class RichTextEditor implements IRichTextEditor {
         // http://www.eclipse.org/articles/Article-SWT-DND/DND-in-SWT.html
         
         // Allow data to be copied to the drop target
-        int operations = DND.DROP_MOVE |  DND.DROP_COPY | DND.DROP_DEFAULT;
+        int operations = DND.DROP_MOVE | DND.DROP_COPY | DND.DROP_DEFAULT;
         this.sourceEditDropTarget = new DropTarget(getSourceEdit(), operations);
         
         // Receive data in Text or HTML format
         final TextTransfer textTransfer = TextTransfer.getInstance();
         final HTMLTransfer htmlTransfer = HTMLTransfer.getInstance();
-        Transfer[] types = new Transfer[] {htmlTransfer, textTransfer};
+        Transfer[] types = new Transfer[] { htmlTransfer, textTransfer };
         this.sourceEditDropTarget.setTransfer(types);
         
         this.sourceEditDropTarget.addDropListener(new DropTargetListener() {
@@ -1279,16 +1255,18 @@ public class RichTextEditor implements IRichTextEditor {
                 }
                 // will accept text but prefer to have HTML dropped
                 for (int i = 0; i < event.dataTypes.length; i++) {
-                    if (htmlTransfer.isSupportedType(event.dataTypes[i])){
+                    if (htmlTransfer.isSupportedType(event.dataTypes[i])) {
                         event.currentDataType = event.dataTypes[i];
                         break;
                     }
                 }
             }
+        
             @Override
             public void dragLeave(DropTargetEvent event) {
                 // ignore
             }
+        
             @Override
             public void dragOperationChanged(DropTargetEvent event) {
                 if (event.detail == DND.DROP_DEFAULT) {
@@ -1299,18 +1277,20 @@ public class RichTextEditor implements IRichTextEditor {
                     }
                 }
             }
+        
             @Override
             public void dragOver(DropTargetEvent event) {
                 event.feedback = DND.FEEDBACK_SELECT | DND.FEEDBACK_INSERT_AFTER | DND.FEEDBACK_SCROLL;
             }
+        
             @Override
             public void drop(DropTargetEvent event) {
-                if (textTransfer.isSupportedType(event.currentDataType) || 
-                        htmlTransfer.isSupportedType(event.currentDataType)) {
-                    String text = (String)event.data;
+                if (textTransfer.isSupportedType(event.currentDataType) || htmlTransfer.isSupportedType(event.currentDataType)) {
+                    String text = (String) event.data;
                     addHTML(text);
                 }
             }
+        
             @Override
             public void dropAccept(DropTargetEvent event) {
                 // ignore
@@ -1319,17 +1299,17 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * from org.eclipse.ui.texteditor.AbstractTextEditor#getUndoContext()
-     * Returns this editor's viewer's undo manager undo context.
+     * from org.eclipse.ui.texteditor.AbstractTextEditor#getUndoContext() Returns this editor's viewer's undo manager undo context.
      * @return the undo context or <code>null</code> if not available
      * @since 3.1
      */
     @objid ("6fc536aa-1e8e-4f54-860c-637426b32711")
     private IUndoContext getUndoContext() {
         if (this.sourceViewer != null) {
-            IUndoManager iundoManager= this.sourceViewer.getUndoManager();
-            if (iundoManager instanceof IUndoManagerExtension)
-                return ((IUndoManagerExtension)iundoManager).getUndoContext();
+            IUndoManager iundoManager = this.sourceViewer.getUndoManager();
+            if (iundoManager instanceof IUndoManagerExtension) {
+                return ((IUndoManagerExtension) iundoManager).getUndoContext();
+            }
         }
         return null;
     }
@@ -1359,37 +1339,36 @@ public class RichTextEditor implements IRichTextEditor {
     private void printDebugMessage(String method, String msg, String text) {
         StringBuffer strBuf = new StringBuffer();
         strBuf.append("RichTextEditor[").append(this.richText.getControl().handle).append(']') //$NON-NLS-1$
-                .append('.').append(method);
+        .append('.').append(method);
         if (msg != null && msg.length() > 0) {
             strBuf.append(": ").append(msg); //$NON-NLS-1$
         }
         if (text != null && text.length() > 0) {
             strBuf.append('\n').append(text);
         }
-        System.out.println(strBuf);
+        //System.out.println(strBuf);
     }
 
     /**
-     * Registers the given undo/redo action under the given ID and
-     * ensures that previously installed actions get disposed. It
-     * also takes care of re-registering the new action with the
-     * global action handler.
+     * Registers the given undo/redo action under the given ID and ensures that previously installed actions get disposed. It also
+     * takes care of re-registering the new action with the global action handler.
      * @param actionId the action id under which to register the action
      * @param action the action to register
      * @since 3.1
      */
     @objid ("72e3aa78-0af6-4785-be7a-b40d4ecedb25")
     private void registerAction(String actionId, IAction action) {
-        IAction oldAction= getAction(actionId);
-        if (oldAction instanceof OperationHistoryActionHandler)
-            ((OperationHistoryActionHandler)oldAction).dispose();
+        IAction oldAction = getAction(actionId);
+        if (oldAction instanceof OperationHistoryActionHandler) {
+            ((OperationHistoryActionHandler) oldAction).dispose();
+        }
         
         setAction(actionId, action);
         
-        //TODO
-        //        IActionBars actionBars= getEditorSite().getActionBars();
-        //        if (actionBars != null)
-        //            actionBars.setGlobalActionHandler(actionId, action);
+        // TODO
+        // IActionBars actionBars= getEditorSite().getActionBars();
+        // if (actionBars != null)
+        // actionBars.setGlobalActionHandler(actionId, action);
     }
 
     @objid ("e66023c9-a845-44f8-8857-82213b2fa964")
@@ -1420,11 +1399,9 @@ public class RichTextEditor implements IRichTextEditor {
     }
 
     /**
-     * Updates the content of the rich text control without updating the HTML
-     * source editor.
+     * Updates the content of the rich text control without updating the HTML source editor.
      * <p>
-     * This method should be called by the HTML source editor to sync up its
-     * content with the rich text control.
+     * This method should be called by the HTML source editor to sync up its content with the rich text control.
      * @param text the rich text content in XHTML format
      */
     @objid ("9eb5e8a1-be2e-4435-838b-be72ca6b304c")
@@ -1451,7 +1428,6 @@ public class RichTextEditor implements IRichTextEditor {
     @objid ("11dba1a5-ebce-409e-8840-bbcc085f8399")
     protected void createActions() {
         createUndoRedoActions();
-        
         
         // select all
         Action selectAllAction = new Action() {
@@ -1495,8 +1471,7 @@ public class RichTextEditor implements IRichTextEditor {
         Composite htmlComposite = new Composite(folder, SWT.FLAT);
         htmlComposite.setLayout(new FillLayout());
         
-        this.sourceViewer = new TextViewer(htmlComposite, SWT.FLAT | SWT.MULTI
-                | SWT.WRAP | SWT.V_SCROLL);
+        this.sourceViewer = new TextViewer(htmlComposite, SWT.FLAT | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
         this.sourceViewer.setUndoManager(this.undoManager);
         setDocument(null);
         addModifyListeners();
@@ -1511,15 +1486,14 @@ public class RichTextEditor implements IRichTextEditor {
         getSourceEdit().setMenu(this.contextMenu);
         
         // FIXME! This opens up a can of worms, especially with DBCS characters.
-        // See https://bugs.eclipse.org/bugs/show_bug.cgi?id=179432. 
-        //addDropSupportToStyledText();
+        // See https://bugs.eclipse.org/bugs/show_bug.cgi?id=179432.
+        // addDropSupportToStyledText();
         
         fillContextMenu(this.contextMenu);
         
-        
         this.htmlTab = new CTabItem(folder, SWT.NONE);
         this.htmlTab.setText(HTML_TAB_NAME);
-        this.htmlTab.setToolTipText(HtmlTextResources.htmlTab_toolTipText); 
+        this.htmlTab.setToolTipText(HtmlTextResources.htmlTab_toolTipText);
         this.htmlTab.setControl(htmlComposite);
         
         folder.addSelectionListener(new SelectionAdapter() {
@@ -1569,26 +1543,25 @@ public class RichTextEditor implements IRichTextEditor {
      */
     @objid ("f443a95f-0e97-42e5-a710-d04d3149ed33")
     protected void createUndoRedoActions() {
-        IUndoContext undoContext= getUndoContext();
+        IUndoContext undoContext = getUndoContext();
         if (undoContext != null) {
             // TODO Use actions provided by global undo/redo
             /*
-            // Create the undo action
-            this.undoAction= new UndoActionHandler(getEditorSite(), undoContext);
-            PlatformUI.getWorkbench().getHelpSystem().setHelp(this.undoAction, IAbstractTextEditorHelpContextIds.UNDO_ACTION);
-            this.undoAction.setActionDefinitionId(IWorkbenchCommandConstants.UNDO);
-            registerAction(ITextEditorActionConstants.UNDO, this.undoAction);
-        
-            // Create the redo action.
-            this.redoAction= new RedoActionHandler(getEditorSite(), undoContext);
-            PlatformUI.getWorkbench().getHelpSystem().setHelp(this.redoAction, IAbstractTextEditorHelpContextIds.REDO_ACTION);
-            this.redoAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_REDO);
-            registerAction(ITextEditorActionConstants.REDO, this.redoAction);
-        */    
-            }
+             * // Create the undo action this.undoAction= new UndoActionHandler(getEditorSite(), undoContext);
+             * PlatformUI.getWorkbench().getHelpSystem().setHelp(this.undoAction, IAbstractTextEditorHelpContextIds.UNDO_ACTION);
+             * this.undoAction.setActionDefinitionId(IWorkbenchCommandConstants.UNDO);
+             * registerAction(ITextEditorActionConstants.UNDO, this.undoAction);
+             *
+             * // Create the redo action. this.redoAction= new RedoActionHandler(getEditorSite(), undoContext);
+             * PlatformUI.getWorkbench().getHelpSystem().setHelp(this.redoAction, IAbstractTextEditorHelpContextIds.REDO_ACTION);
+             * this.redoAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_REDO);
+             * registerAction(ITextEditorActionConstants.REDO, this.redoAction);
+             */
+        }
         
         Action undoAction = new Action() {
-            
+        
+            @Override
             public void run() {
                 RichTextEditor.this.sourceViewer.doOperation(ITextOperationTarget.UNDO);
             };
@@ -1597,16 +1570,17 @@ public class RichTextEditor implements IRichTextEditor {
         undoAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_UNDO);
         undoAction.setText("Undo");
         undoAction.setToolTipText("Undo text edition");
-        //        undoAction.setImageDescriptor(this.sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_UNDO));
-        //        undoAction.setDisabledImageDescriptor(this.sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_UNDO_DISABLED));
+        // undoAction.setImageDescriptor(this.sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_UNDO));
+        // undoAction.setDisabledImageDescriptor(this.sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_UNDO_DISABLED));
         registerAction(ActionFactory.UNDO.getId(), undoAction);
         
         Action redoAction = new Action() {
-            
+        
+            @Override
             public void run() {
                 RichTextEditor.this.sourceViewer.doOperation(ITextOperationTarget.UNDO);
             };
-            
+        
             @Override
             public boolean isEnabled() {
                 // TODO Auto-generated method stub
@@ -1617,8 +1591,8 @@ public class RichTextEditor implements IRichTextEditor {
         redoAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_REDO);
         redoAction.setText("Undo");
         redoAction.setToolTipText("Undo text edition");
-        //        redoAction.setImageDescriptor(this.sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_REDO));
-        //        redoAction.setDisabledImageDescriptor(this.sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_REDO_DISABLED));
+        // redoAction.setImageDescriptor(this.sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_REDO));
+        // redoAction.setDisabledImageDescriptor(this.sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_REDO_DISABLED));
         registerAction(ActionFactory.REDO.getId(), redoAction);
     }
 
@@ -1639,7 +1613,7 @@ public class RichTextEditor implements IRichTextEditor {
             }
         });
         final MenuItem copyItem = new MenuItem(aContextMenu, SWT.PUSH);
-        copyItem.setText(HtmlTextResources.copyAction_text); 
+        copyItem.setText(HtmlTextResources.copyAction_text);
         copyItem.setImage(HtmlTextImages.IMG_COPY);
         copyItem.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -1649,7 +1623,7 @@ public class RichTextEditor implements IRichTextEditor {
             }
         });
         final MenuItem pasteItem = new MenuItem(aContextMenu, SWT.PUSH);
-        pasteItem.setText(HtmlTextResources.pasteAction_text); 
+        pasteItem.setText(HtmlTextResources.pasteAction_text);
         pasteItem.setImage(HtmlTextImages.IMG_PASTE);
         pasteItem.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -1679,10 +1653,8 @@ public class RichTextEditor implements IRichTextEditor {
             @Override
             public void menuShown(MenuEvent e) {
                 Clipboard clipboard = new Clipboard(Display.getCurrent());
-                String html = (String) clipboard.getContents(HTMLTransfer
-                        .getInstance());
-                String text = (String) clipboard.getContents(TextTransfer
-                        .getInstance());
+                String html = (String) clipboard.getContents(HTMLTransfer.getInstance());
+                String text = (String) clipboard.getContents(TextTransfer.getInstance());
                 String selectedText = getSelected().getText();
                 boolean selection = selectedText.length() > 0;
                 cutItem.setEnabled(RichTextEditor.this.editable && selection);
@@ -1718,8 +1690,8 @@ public class RichTextEditor implements IRichTextEditor {
         
             this.tabFolder = createEditorTabFolder(this.content, style);
         
-            this.form.setTopCenter(((RichTextToolBar)this.toolBar).getToolbarMgr().getControl());
-            this.form.setTopLeft(((RichTextToolBar)this.toolBar).getToolbarMgrCombo().getControl());
+            this.form.setTopCenter(((RichTextToolBar) this.toolBar).getToolbarMgr().getControl());
+            this.form.setTopLeft(((RichTextToolBar) this.toolBar).getToolbarMgrCombo().getControl());
             this.form.setContent(this.content);
         } catch (Exception e) {
             this.logger.error(e);
@@ -1754,8 +1726,9 @@ public class RichTextEditor implements IRichTextEditor {
     @objid ("f035bd23-33fc-46e3-a5c1-4999480d9418")
     public void selectAll() {
         getSourceEdit().selectAll();
-        if (this.richText != null)
+        if (this.richText != null) {
             this.richText.executeCommand(IRichTextCommands.SELECT_ALL);
+        }
     }
 
     /**
@@ -1793,6 +1766,7 @@ public class RichTextEditor implements IRichTextEditor {
 
         /**
          * The key binding service to use.
+         * 
          * @since 2.0
          */
         @objid ("5dd3b965-349a-4807-bcee-87478507c1de")
@@ -1808,15 +1782,15 @@ public class RichTextEditor implements IRichTextEditor {
             if (!this.fIsInstalled) {
             
                 if (RichTextEditor.this.sourceViewer instanceof ITextViewerExtension) {
-                    ITextViewerExtension e= RichTextEditor.this.sourceViewer;
+                    ITextViewerExtension e = RichTextEditor.this.sourceViewer;
                     e.prependVerifyKeyListener(this);
                 } else {
-                    StyledText text= RichTextEditor.this.sourceViewer.getTextWidget();
+                    StyledText text = RichTextEditor.this.sourceViewer.getTextWidget();
                     text.addVerifyKeyListener(this);
                 }
             
-                //TODO this.fKeyBindingService= getEditorSite().getKeyBindingService();
-                this.fIsInstalled= true;
+                // TODO this.fKeyBindingService= getEditorSite().getKeyBindingService();
+                this.fIsInstalled = true;
             }
         }
 
@@ -1827,9 +1801,9 @@ public class RichTextEditor implements IRichTextEditor {
          */
         @objid ("080dd4a2-63b3-4b3e-80e3-00ec4e19a760")
         public void registerActionForKeyActivation(IAction action) {
-            //TODO
-            //            if (action.getActionDefinitionId() != null)
-            //                this.fKeyBindingService.registerAction(action);
+            // TODO
+            // if (action.getActionDefinitionId() != null)
+            // this.fKeyBindingService.registerAction(action);
         }
 
         /**
@@ -1839,8 +1813,8 @@ public class RichTextEditor implements IRichTextEditor {
          */
         @objid ("dc666312-9870-4f0a-aefb-f54b9087fcd3")
         public void setScopes(String[] keyBindingScopes) {
-            //            if (keyBindingScopes != null && keyBindingScopes.length > 0)
-            //                this.fKeyBindingService.setScopes(keyBindingScopes);
+            // if (keyBindingScopes != null && keyBindingScopes.length > 0)
+            // this.fKeyBindingService.setScopes(keyBindingScopes);
         }
 
         /**
@@ -1853,16 +1827,17 @@ public class RichTextEditor implements IRichTextEditor {
             if (this.fIsInstalled) {
             
                 if (RichTextEditor.this.sourceViewer instanceof ITextViewerExtension) {
-                    ITextViewerExtension e= RichTextEditor.this.sourceViewer;
+                    ITextViewerExtension e = RichTextEditor.this.sourceViewer;
                     e.removeVerifyKeyListener(this);
                 } else if (RichTextEditor.this.sourceViewer != null) {
-                    StyledText text= RichTextEditor.this.sourceViewer.getTextWidget();
-                    if (text != null && !text.isDisposed())
+                    StyledText text = RichTextEditor.this.sourceViewer.getTextWidget();
+                    if (text != null && !text.isDisposed()) {
                         text.removeVerifyKeyListener(RichTextEditor.this.fActivationCodeTrigger);
+                    }
                 }
             
-                this.fIsInstalled= false;
-                //this.fKeyBindingService= null;
+                this.fIsInstalled = false;
+                // this.fKeyBindingService= null;
             }
         }
 
@@ -1873,9 +1848,9 @@ public class RichTextEditor implements IRichTextEditor {
          */
         @objid ("da5b64b2-5e75-4cd0-9a48-073c0461bdb3")
         public void unregisterActionFromKeyActivation(IAction action) {
-            //TODO
-            //            if (action.getActionDefinitionId() != null)
-            //                this.fKeyBindingService.unregisterAction(action);
+            // TODO
+            // if (action.getActionDefinitionId() != null)
+            // this.fKeyBindingService.unregisterAction(action);
         }
 
         @objid ("f20ca18b-2258-4db8-b879-a25461fe2312")
@@ -1883,18 +1858,19 @@ public class RichTextEditor implements IRichTextEditor {
         public void verifyKey(VerifyEvent event) {
             for (IAction action : RichTextEditor.this.fActions.values()) {
                 if (action.getAccelerator() == event.keyCode) {
-                    if (action instanceof IUpdate)
+                    if (action instanceof IUpdate) {
                         ((IUpdate) action).update();
+                    }
             
                     if (!action.isEnabled() && action instanceof IReadOnlyDependent) {
-                        IReadOnlyDependent dependent= (IReadOnlyDependent) action;
-                        boolean writable= dependent.isEnabled(true);
+                        IReadOnlyDependent dependent = (IReadOnlyDependent) action;
+                        boolean writable = dependent.isEnabled(true);
                         if (writable) {
-                            event.doit= false;
+                            event.doit = false;
                             return;
                         }
                     } else if (action.isEnabled()) {
-                        event.doit= false;
+                        event.doit = false;
                         action.run();
                         return;
                     }

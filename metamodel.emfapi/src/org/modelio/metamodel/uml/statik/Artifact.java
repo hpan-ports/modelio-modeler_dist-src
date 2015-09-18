@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.statik.Node;
 
 @objid ("0093d3de-c4be-1fd8-97fe-001ec947cd2a")
 public interface Artifact extends Classifier {
-    @objid ("07a9eb35-7482-4fa8-9d87-69b8915bbd56")
+    @objid ("56602582-0183-41d2-8dea-8c5864bb35f2")
     String getFileName();
 
-    @objid ("ccfbcb70-8c35-4a37-9c84-eec772d2f9f9")
+    @objid ("6fc7a3cf-64d0-4e0a-8f10-d95d037f8ee5")
     void setFileName(String value);
 
-    @objid ("d1b7e55c-3337-4f75-b72f-70a57cdde22c")
+    @objid ("7bd47303-21fd-476a-8931-47baebbf28de")
     EList<Manifestation> getUtilized();
 
-    @objid ("c51340a8-390e-4faf-9641-984a042769a3")
+    @objid ("425f4c2d-3570-45a2-8562-f055380cb008")
     <T extends Manifestation> List<T> getUtilized(java.lang.Class<T> filterClass);
 
-    @objid ("7f82dddd-ac3f-4bef-8591-9884d28cb9a4")
+    @objid ("edde65f0-e34d-47e7-b4ce-b66c3b3953ae")
     EList<Node> getDeploymentLocation();
 
-    @objid ("d5a5fc38-359a-40ec-959d-a39c0b5777f9")
+    @objid ("67f240f1-a07b-486b-abae-1a9ba41fb34c")
     <T extends Node> List<T> getDeploymentLocation(java.lang.Class<T> filterClass);
 
 }

@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00419286-c4bf-1fd8-97fe-001ec947cd2a")
 public interface OpaqueBehavior extends Behavior {
-    @objid ("48fd71ab-0368-467e-aae9-cc42dd0ef753")
+    @objid ("6b6004d5-4908-4f09-8a45-e6cab8c7146f")
     String getBody();
 
-    @objid ("7d89ccbd-578c-427b-9a2d-28e8e48f4f86")
+    @objid ("379ca768-1532-4d3a-8bd5-4dde804272dc")
     void setBody(String value);
 
 }

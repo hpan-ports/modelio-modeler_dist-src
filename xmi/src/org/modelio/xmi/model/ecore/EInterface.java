@@ -27,8 +27,8 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.Interface;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 /**
  * This class handles the import of Ecore org.eclipse.uml2.uml.Interfaces.
@@ -43,7 +43,7 @@ public class EInterface extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return Modelio.getInstance().getModelingSession()
-        .getModel().createInterface();
+                .getModel().createInterface();
     }
 
     /**

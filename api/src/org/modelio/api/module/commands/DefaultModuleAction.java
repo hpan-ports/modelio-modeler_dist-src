@@ -26,7 +26,6 @@ import java.util.Arrays;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.module.IModule;
-import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -59,20 +58,14 @@ public class DefaultModuleAction implements IModuleAction {
     @objid ("e07a33fa-eff4-11e0-8ddf-002564c97630")
     private List<String> slots = new ArrayList<>();
 
-    @objid ("fa1c2bff-5b7b-11e0-a93a-002564c97630")
-    private List<Class<? extends MObject>> allowedMetaclasses = new ArrayList<>();
-
     @objid ("00d00158-0001-5e08-0000-000000000000")
     private IModule module;
 
-    @objid ("b9772e7d-edd2-11e1-82c2-001ec947ccaf")
-    private List<Stereotype> allowedStereotypes = new ArrayList<>();
-
     @objid ("31bb2105-0ecd-11e2-96c4-002564c97630")
-    private IModuleContextualCommand command;
+    private IModuleCommandHandler handler;
 
     @objid ("fa237f2f-5b7b-11e0-a93a-002564c97630")
-    public DefaultModuleAction(final IModule module, final String name, final String label, final String tooltip, final String bitmapPath, final String slotPattern, final String slotImagePaths, final boolean needReadWriteObject, final boolean editTheModel, final IModuleContextualCommand command) {
+    public DefaultModuleAction(final IModule module, final String name, final String label, final String tooltip, final String bitmapPath, final String slotPattern, final String slotImagePaths, final boolean needReadWriteObject, final boolean editTheModel, final IModuleCommandHandler command) {
         this.module = module;
         this.name = name;
         this.label = label;
@@ -88,70 +81,19 @@ public class DefaultModuleAction implements IModuleAction {
         }
         this.needReadWriteObject = needReadWriteObject;
         this.editTheModel = editTheModel;
-        this.command = command;
-        
-        this.allowedMetaclasses = new ArrayList<>();
+        this.handler = command;
     }
 
     @objid ("00d012e4-0000-59b7-0000-000000000000")
     @Override
     public final boolean accept(MObject[] selectedElements) {
-        for (int i = 0; i < selectedElements.length; i++) {
-            boolean matchStereotype = false;
-            boolean matchMetaClass = false;
-        
-            for (Class<? extends MObject> metaclass : this.allowedMetaclasses) {
-                if (metaclass.isAssignableFrom(selectedElements[i].getClass())) {
-                    matchMetaClass = true;
-                    break;
-                }
-            }
-        
-            if (this.allowedStereotypes.size() > 0) {
-                // If allowedStereotypes have been added. Actions are visible
-                // only if
-                // one of the allowed stereotypes is present on the selected
-                // element.
-                for (Stereotype stereotype : this.allowedStereotypes) {
-                    MObject element = selectedElements[i];
-                    if (element instanceof ModelElement) {
-                        ModelElement modelElement = (ModelElement) element;
-                        for (Stereotype extention : modelElement.getExtension()) {
-                            if (compareStereotype(extention, stereotype)) {
-                                matchStereotype = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-            } else {
-                // If no allowed stereotype has been added we accept the action.
-                matchStereotype = true;
-            }
-        
-            if (!matchMetaClass || !matchStereotype)
-                return false;
-        }
-        
         Boolean result = false;
         try {
-            result = this.command.accept(Arrays.asList(selectedElements), this.module);
+            result = this.handler.accept(Arrays.asList(selectedElements), this.module);
         } catch (Exception e) {
-        
+            return false;
         }
         return result;
-    }
-
-    @objid ("00d00158-0001-5dea-0000-000000000000")
-    @Override
-    public void addAllowedMetaclass(final Class<? extends MObject> eltName) {
-        this.allowedMetaclasses.add(eltName);
-    }
-
-    @objid ("01f4193c-0000-022f-0000-000000000000")
-    @Override
-    public void addAllowedStereotype(Stereotype stereotype) {
-        this.allowedStereotypes.add(stereotype);
     }
 
     @objid ("00d00158-0001-5ded-0000-000000000000")
@@ -172,8 +114,8 @@ public class DefaultModuleAction implements IModuleAction {
 
     @objid ("00d00158-0001-5dd5-0000-000000000000")
     @Override
-    public IModuleContextualCommand getCommand() {
-        return this.command;
+    public IModuleCommandHandler getHandler() {
+        return this.handler;
     }
 
     @objid ("00d00158-0001-5dde-0000-000000000000")
@@ -242,10 +184,10 @@ public class DefaultModuleAction implements IModuleAction {
             }
         }
         
-        // User test        
+        // User test
         Boolean result = false;
         try {
-            result =  this.command.isActiveFor(Arrays.asList(selectedElements), this.module);
+            result = this.handler.isActiveFor(Arrays.asList(selectedElements), this.module);
         } catch (Exception e) {
         
         }

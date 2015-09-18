@@ -47,13 +47,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0046b70c-c4bf-1fd8-97fe-001ec947cd2a")
 public class InteractionImpl extends BehaviorImpl implements Interaction {
-    @objid ("1bcec01f-18de-41a6-9e54-2e9ea9d6fba8")
+    @objid ("b287d533-9c95-44bf-93dd-0ff528c15d54")
     @Override
     public EList<Gate> getFormalGate() {
         return new SmList<>(this, InteractionData.Metadata.FormalGateDep());
     }
 
-    @objid ("f6ca4097-013c-4025-88a6-19e8f0b1a5fe")
+    @objid ("7b375131-d059-4296-a399-341325558c8c")
     @Override
     public <T extends Gate> List<T> getFormalGate(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -66,13 +66,13 @@ public class InteractionImpl extends BehaviorImpl implements Interaction {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("de116662-1e9f-424a-9242-e480846c50e4")
+    @objid ("856ff5df-2657-47d6-8538-a0d1bf33b0e6")
     @Override
     public EList<InteractionFragment> getFragment() {
         return new SmList<>(this, InteractionData.Metadata.FragmentDep());
     }
 
-    @objid ("6f6023b4-7179-40ef-81aa-e94a6810ebfc")
+    @objid ("80574315-29c2-4e68-aaf4-1a5057b62b33")
     @Override
     public <T extends InteractionFragment> List<T> getFragment(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -85,13 +85,13 @@ public class InteractionImpl extends BehaviorImpl implements Interaction {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b63ae7cd-d58d-43a3-bb68-413aa4ac1373")
+    @objid ("948cfeb3-38dc-4eea-aa28-adf68738afcc")
     @Override
     public EList<Lifeline> getOwnedLine() {
         return new SmList<>(this, InteractionData.Metadata.OwnedLineDep());
     }
 
-    @objid ("8efa16a7-886b-4e95-9139-fbe53fe6d065")
+    @objid ("4120af4d-fdc7-4d00-bcac-1fc9c481e432")
     @Override
     public <T extends Lifeline> List<T> getOwnedLine(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -104,13 +104,13 @@ public class InteractionImpl extends BehaviorImpl implements Interaction {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("12627836-b66b-43a3-b8b7-f1826055f08e")
+    @objid ("dd6acd80-caa1-41ac-a018-0cd8ff809c69")
     @Override
     public EList<InteractionUse> getReferedUse() {
         return new SmList<>(this, InteractionData.Metadata.ReferedUseDep());
     }
 
-    @objid ("f9768ab8-5f40-43cd-91f7-bc885377bf5e")
+    @objid ("c6159918-8260-44df-b5f4-ff51278cc6df")
     @Override
     public <T extends InteractionUse> List<T> getReferedUse(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -123,21 +123,21 @@ public class InteractionImpl extends BehaviorImpl implements Interaction {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b69197ed-de0d-4263-b1b1-1c09e90748bd")
+    @objid ("2b2a95b0-51f2-4db1-9478-320a6fdc912e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("ed13cdc6-b1b4-44fa-9a2a-1c50ee1b56d3")
+    @objid ("9bf8ebfe-cb9a-4e9d-a15f-9238740ca25c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("8b4b1a28-0060-4e2a-ab45-d34777f137bc")
+    @objid ("9ab3a900-c241-4ba1-8b48-f34569b45081")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInteraction(this);

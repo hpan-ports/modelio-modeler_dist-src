@@ -46,7 +46,7 @@ class ObjIdCollectionSerializer implements Serializer<Collection<ObjId>> {
 
     @objid ("d5a08622-6231-11e1-b31a-001ec947ccaf")
     @Override
-    public Collection<ObjId> deserialize(final SerializerInput in) throws IOException, ClassNotFoundException {
+    public Collection<ObjId> deserialize(final SerializerInput in) throws ClassNotFoundException, IOException {
         int nb = in.readInt();
         Collection<ObjId> ret = new ArrayList<>(nb);
         

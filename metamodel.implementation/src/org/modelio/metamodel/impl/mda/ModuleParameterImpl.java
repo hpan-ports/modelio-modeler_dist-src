@@ -45,103 +45,103 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00650bb2-c4bf-1fd8-97fe-001ec947cd2a")
 public class ModuleParameterImpl extends ModelElementImpl implements ModuleParameter {
-    @objid ("151585d6-2a8a-4153-9e19-b18124649307")
+    @objid ("9f1708e9-7f5f-4553-854f-dcb9b82d22d0")
     @Override
     public String getSetName() {
         return (String) getAttVal(ModuleParameterData.Metadata.SetNameAtt());
     }
 
-    @objid ("8a647b76-12f2-4462-8574-8d51baf0f305")
+    @objid ("b4482c35-2c71-4e78-9876-88b64d84ba7a")
     @Override
     public void setSetName(String value) {
         setAttVal(ModuleParameterData.Metadata.SetNameAtt(), value);
     }
 
-    @objid ("cb8d9705-3847-461c-83e3-631e5670e4ef")
+    @objid ("cfe7b5c6-f402-41bb-9b5e-de3e1791d466")
     @Override
     public ModuleParameterType getAssociatedType() {
         return (ModuleParameterType) getAttVal(ModuleParameterData.Metadata.AssociatedTypeAtt());
     }
 
-    @objid ("9f446826-af78-4a8f-88f1-e4813ac77807")
+    @objid ("f7b20303-f930-478c-baf1-ec4e78c8af05")
     @Override
     public void setAssociatedType(ModuleParameterType value) {
         setAttVal(ModuleParameterData.Metadata.AssociatedTypeAtt(), value);
     }
 
-    @objid ("13b7a9d7-12a1-4364-bb93-1c161ca3be72")
+    @objid ("9a38cfbf-3a49-40f0-8e8c-e38e328b1892")
     @Override
     public boolean isIsUserRead() {
         return (Boolean) getAttVal(ModuleParameterData.Metadata.IsUserReadAtt());
     }
 
-    @objid ("e4f1d812-e5bf-4ecf-9a0e-29f36d14d5ac")
+    @objid ("02a914c7-a1cc-4f86-bfc5-885dc2cd4bb7")
     @Override
     public void setIsUserRead(boolean value) {
         setAttVal(ModuleParameterData.Metadata.IsUserReadAtt(), value);
     }
 
-    @objid ("3a3fff7e-d663-49c6-a4c9-69d4cb196ee6")
+    @objid ("ea927c9c-d0ca-4826-861f-e5c0dede8973")
     @Override
     public boolean isIsUserWrite() {
         return (Boolean) getAttVal(ModuleParameterData.Metadata.IsUserWriteAtt());
     }
 
-    @objid ("8e9b4410-47b9-4b04-8eb6-103cf6bb9bef")
+    @objid ("40cbaf04-22de-431e-9d30-ca1ab800e46d")
     @Override
     public void setIsUserWrite(boolean value) {
         setAttVal(ModuleParameterData.Metadata.IsUserWriteAtt(), value);
     }
 
-    @objid ("6050696d-5dd1-4e16-b75f-dcf08e09385b")
+    @objid ("297f069a-6d3f-40b1-9dca-d1ea85c43e96")
     @Override
     public boolean isIsApiRead() {
         return (Boolean) getAttVal(ModuleParameterData.Metadata.IsApiReadAtt());
     }
 
-    @objid ("bd407505-ac6d-4b8e-affc-a092db4167ad")
+    @objid ("77cce948-36ab-422c-91f9-b8f4f3cd3139")
     @Override
     public void setIsApiRead(boolean value) {
         setAttVal(ModuleParameterData.Metadata.IsApiReadAtt(), value);
     }
 
-    @objid ("86ea42c1-9ec7-4288-ad24-7a245f1ae4bf")
+    @objid ("4a04a562-fe7a-42d9-80f7-e52aa1a30a98")
     @Override
     public boolean isIsApiWrite() {
         return (Boolean) getAttVal(ModuleParameterData.Metadata.IsApiWriteAtt());
     }
 
-    @objid ("7b57af9a-7522-48d3-9c02-bb41099435dd")
+    @objid ("98c04fd4-88c0-4ec9-a89a-dfdbdda4a2c7")
     @Override
     public void setIsApiWrite(boolean value) {
         setAttVal(ModuleParameterData.Metadata.IsApiWriteAtt(), value);
     }
 
-    @objid ("440a5cce-2031-4fdb-b7ed-6d88cd58908e")
+    @objid ("f4896866-edbe-468a-86c7-c48e1bfe541b")
     @Override
     public GeneralClass getType() {
         return (GeneralClass) getDepVal(ModuleParameterData.Metadata.TypeDep());
     }
 
-    @objid ("9b4e236f-d59e-4af4-b417-f41325dc0d38")
+    @objid ("d98100fc-6779-4a0d-8f87-ff0025429075")
     @Override
     public void setType(GeneralClass value) {
         appendDepVal(ModuleParameterData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bedb75fd-79ad-4bdb-8eeb-b21f3bc14b04")
+    @objid ("f7a77d15-dc15-474e-8032-76fb030e0a5b")
     @Override
     public ModuleComponent getOwner() {
         return (ModuleComponent) getDepVal(ModuleParameterData.Metadata.OwnerDep());
     }
 
-    @objid ("8541c72f-e78f-4d9a-a2e1-0039772309ce")
+    @objid ("c0889d92-4fcf-45e4-b28a-4892c9780afc")
     @Override
     public void setOwner(ModuleComponent value) {
         appendDepVal(ModuleParameterData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8422557b-f322-4fd2-86cd-c129bf2cf937")
+    @objid ("74eab3c9-2662-42d1-8848-5fc6923e30d7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -151,7 +151,7 @@ public class ModuleParameterImpl extends ModelElementImpl implements ModuleParam
         return super.getCompositionOwner();
     }
 
-    @objid ("72f70003-92fb-4a7b-8ca9-13b604963f73")
+    @objid ("34885438-8690-4610-912b-80f24030ee5d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -161,7 +161,7 @@ public class ModuleParameterImpl extends ModelElementImpl implements ModuleParam
         return super.getCompositionRelation();
     }
 
-    @objid ("4c92b03c-98bf-44a2-bee6-cd895295c376")
+    @objid ("33128768-a71e-476c-8275-9c6f50d413df")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitModuleParameter(this);

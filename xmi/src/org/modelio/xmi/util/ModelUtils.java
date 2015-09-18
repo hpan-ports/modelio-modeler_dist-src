@@ -33,6 +33,7 @@ import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("03547336-46c0-4583-9a17-10731be18c69")
 public class ModelUtils {

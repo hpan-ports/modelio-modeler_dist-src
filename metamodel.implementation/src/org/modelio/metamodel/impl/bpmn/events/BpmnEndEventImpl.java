@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008ac2c6-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnEndEventImpl extends BpmnThrowEventImpl implements BpmnEndEvent {
-    @objid ("08d145f6-1f78-4395-a1bc-efb8b1fc340a")
+    @objid ("12e24cd7-037c-408a-825a-0ed18fde1031")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("736f7eea-dc80-4cc8-a0dc-ef0a8f69b015")
+    @objid ("5de30fd2-c69d-4df4-853c-1ca9a666b614")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("25c4f5db-497b-41ca-9607-35c43bbe8cff")
+    @objid ("b7da7afa-64e3-44e6-8b80-f95e4593b771")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnEndEvent(this);

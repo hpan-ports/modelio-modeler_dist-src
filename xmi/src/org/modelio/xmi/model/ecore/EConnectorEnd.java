@@ -38,10 +38,10 @@ import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.xmi.reverse.PartialImportMap;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.reverse.TotalImportMap;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("b73dd019-6344-4cf1-b0c5-e51b9e565ba9")
 public class EConnectorEnd extends EElement {

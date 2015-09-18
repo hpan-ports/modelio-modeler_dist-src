@@ -33,28 +33,28 @@ import org.modelio.metamodel.analyst.Goal;
 
 @objid ("37c1a4e9-5d7e-4442-9d86-e66dd60b684c")
 public interface GoalContainer extends AnalystContainer {
-    @objid ("cb081a73-287e-4b19-911e-2ed708e6daad")
+    @objid ("938607f1-1a0e-403e-95ff-58c80bdbbed3")
     EList<Goal> getOwnedGoal();
 
-    @objid ("55177c39-9bd8-4771-808e-33a6c83eed67")
+    @objid ("d7ea113a-c54a-4a63-b4bf-1c3f04d815c7")
     <T extends Goal> List<T> getOwnedGoal(java.lang.Class<T> filterClass);
 
-    @objid ("d024386b-401a-4a75-b2ff-867578035186")
+    @objid ("f9d4b9d0-d351-4489-9cef-1df94dd9024a")
     GoalContainer getOwnerContainer();
 
-    @objid ("86f04197-d0a9-481e-9876-d998169827aa")
+    @objid ("cb59cee2-b7c4-439f-8530-6fe22d3cafa0")
     void setOwnerContainer(GoalContainer value);
 
-    @objid ("b0ccfc9f-24b9-464e-97d2-9e1cb5276387")
+    @objid ("71b6602a-8219-48d1-a71e-ffddc2246e5c")
     EList<GoalContainer> getOwnedContainer();
 
-    @objid ("096f2bfb-12e1-4aa3-a316-b16f860c53bb")
+    @objid ("4e31c7d4-d7b2-4eb7-b653-67e4cd72eca7")
     <T extends GoalContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass);
 
-    @objid ("da6bb78d-ac5f-4ef1-817b-8c4e1e347719")
+    @objid ("4c7003c1-9c44-4fb2-8f4d-3728676162ad")
     AnalystProject getOwnerProject();
 
-    @objid ("84402a45-2b07-451e-aff4-0411f826fd01")
+    @objid ("284e26df-9dbb-43fb-ad31-e63d1abb4043")
     void setOwnerProject(AnalystProject value);
 
 }

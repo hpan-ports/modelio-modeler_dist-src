@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.CallOperationAction;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Operation;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("f7746a29-e4da-4bd7-b945-627b4319ea8e")
 public class ECallOperationAction extends EActivityNode {
@@ -36,7 +36,7 @@ public class ECallOperationAction extends EActivityNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createCallOperationAction();
+                        .createCallOperationAction();
     }
 
     @objid ("78fa823f-9eca-4e62-9d4c-f9f62661cefc")

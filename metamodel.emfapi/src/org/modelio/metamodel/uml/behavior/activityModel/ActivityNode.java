@@ -37,40 +37,40 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0028adde-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityNode extends ModelElement {
-    @objid ("1c1c67ea-b224-4996-92c6-f032fa67d962")
+    @objid ("bd65a7b9-8ed6-4799-ae24-3a92a357dbce")
     Activity getOwner();
 
-    @objid ("4d6215b6-1d32-4eab-b421-3e8c74bda06b")
+    @objid ("1138bded-6792-4319-8023-fbcd4081a69f")
     void setOwner(Activity value);
 
-    @objid ("bc8407de-3fb6-4c7f-9288-4b6edbc913b9")
+    @objid ("25b43b79-1f02-4139-9249-7428711fd5f8")
     ActivityPartition getOwnerPartition();
 
-    @objid ("b1392c25-d7f5-4d66-8169-38f3c21cc42e")
+    @objid ("f07fdd2b-fde6-4470-8992-93dc5a8f2f06")
     void setOwnerPartition(ActivityPartition value);
 
-    @objid ("49fc70f0-67ce-4261-9de5-9018aea35068")
+    @objid ("2d77bae7-2e4c-4c1f-858b-15b425cdee84")
     EList<ActivityEdge> getIncoming();
 
-    @objid ("76a2eb4d-f237-4b56-b6cc-f8358fa999bf")
+    @objid ("2079c228-9eda-41e1-8bf0-50e1e866f042")
     <T extends ActivityEdge> List<T> getIncoming(java.lang.Class<T> filterClass);
 
-    @objid ("fb875118-68f6-4c6d-badf-c195e9fba0e3")
+    @objid ("2394d670-0390-4825-8020-0487dd690323")
     Clause getOwnerClause();
 
-    @objid ("246361df-ccde-4e1c-8d99-996432334882")
+    @objid ("ba9173c6-1b6f-464d-8460-34777eeff918")
     void setOwnerClause(Clause value);
 
-    @objid ("ce5d8396-305c-4027-bb3c-98a0bde2b7d6")
+    @objid ("ee6995fa-d89a-4ea1-bdff-b54a3c0128c7")
     StructuredActivityNode getOwnerNode();
 
-    @objid ("9e329c46-60a3-4ace-b405-e3374253b44c")
+    @objid ("263d7de2-6ab3-4024-8544-bc23082f9a23")
     void setOwnerNode(StructuredActivityNode value);
 
-    @objid ("397f764f-98fa-4e60-9877-6bf596960478")
+    @objid ("9e686443-a85c-4580-870b-899f60d31274")
     EList<ActivityEdge> getOutgoing();
 
-    @objid ("cae102f2-8ad3-4dfd-a27f-ba11c29d9703")
+    @objid ("1e96f3fe-fe2b-4d15-8475-6b858404e69a")
     <T extends ActivityEdge> List<T> getOutgoing(java.lang.Class<T> filterClass);
 
 }

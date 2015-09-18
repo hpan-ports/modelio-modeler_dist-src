@@ -48,141 +48,141 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00397a06-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ObjectNodeImpl extends ActivityNodeImpl implements ObjectNode {
-    @objid ("8ca5ec96-33d5-47bb-9f84-295b411353c7")
+    @objid ("b509122c-578f-4c42-9e76-b05c4958c274")
     @Override
     public boolean isIsControlType() {
         return (Boolean) getAttVal(ObjectNodeData.Metadata.IsControlTypeAtt());
     }
 
-    @objid ("c679be39-cb88-463e-ac70-cadc6a9eac2f")
+    @objid ("785dbde1-9c43-49b9-b2fb-dfd11e98a384")
     @Override
     public void setIsControlType(boolean value) {
         setAttVal(ObjectNodeData.Metadata.IsControlTypeAtt(), value);
     }
 
-    @objid ("c6e20617-a395-4ddf-a173-d96918476366")
+    @objid ("f72f2708-b9a9-47e3-b035-d04bedd09c7e")
     @Override
     public ObjectNodeOrderingKind getOrdering() {
         return (ObjectNodeOrderingKind) getAttVal(ObjectNodeData.Metadata.OrderingAtt());
     }
 
-    @objid ("faa9ea7e-c510-410e-8085-0a3d70bff0bb")
+    @objid ("0e1cd53a-3856-4fcd-8728-40d92dbf0060")
     @Override
     public void setOrdering(ObjectNodeOrderingKind value) {
         setAttVal(ObjectNodeData.Metadata.OrderingAtt(), value);
     }
 
-    @objid ("078fdb0a-3536-41f2-b800-ac98d79a9e15")
+    @objid ("10c9b762-80f3-49f6-bf7a-45cf80b9f19f")
     @Override
     public String getSelectionBehavior() {
         return (String) getAttVal(ObjectNodeData.Metadata.SelectionBehaviorAtt());
     }
 
-    @objid ("1e1df25a-546a-4c31-a8b2-39f38c9eb010")
+    @objid ("68ce0226-77f8-4a79-98da-587fcb4bdcf7")
     @Override
     public void setSelectionBehavior(String value) {
         setAttVal(ObjectNodeData.Metadata.SelectionBehaviorAtt(), value);
     }
 
-    @objid ("517665d8-1d1e-4c2d-9773-d8a48a1f20e1")
+    @objid ("3a7a2f5e-6f7e-4526-892d-b5a9e4256a1d")
     @Override
     public String getUpperBound() {
         return (String) getAttVal(ObjectNodeData.Metadata.UpperBoundAtt());
     }
 
-    @objid ("8ab472a4-4e96-4905-aef6-cdb015a88041")
+    @objid ("650c11a1-92a8-487a-ba16-9a2340247979")
     @Override
     public void setUpperBound(String value) {
         setAttVal(ObjectNodeData.Metadata.UpperBoundAtt(), value);
     }
 
-    @objid ("5644e752-c5f7-4d6b-8e61-4c2cdc9b0832")
+    @objid ("d83511e0-075e-422f-8233-7c96f2aef37c")
     @Override
     public Instance getRepresented() {
         return (Instance) getDepVal(ObjectNodeData.Metadata.RepresentedDep());
     }
 
-    @objid ("d67554ff-fb9c-40ef-8b79-55a4a451ba1e")
+    @objid ("a5e1a5d4-43a5-47fd-af02-0c8db107a8a9")
     @Override
     public void setRepresented(Instance value) {
         appendDepVal(ObjectNodeData.Metadata.RepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("02ef14e6-ab28-4969-8537-e890c03d4489")
+    @objid ("c56a50de-c3b9-4e7e-8ed7-4f0590290786")
     @Override
     public BehaviorParameter getRepresentedRealParameter() {
         return (BehaviorParameter) getDepVal(ObjectNodeData.Metadata.RepresentedRealParameterDep());
     }
 
-    @objid ("f6e86639-fa1f-4cd6-9c4c-642311016a9a")
+    @objid ("f685aa48-4237-4d2a-bbc5-62ff35d0778d")
     @Override
     public void setRepresentedRealParameter(BehaviorParameter value) {
         appendDepVal(ObjectNodeData.Metadata.RepresentedRealParameterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7b74281a-ab10-4b5e-96b7-7fde9a560812")
+    @objid ("90e56c7d-2169-432c-a865-3c5d47d5da0a")
     @Override
     public GeneralClass getType() {
         return (GeneralClass) getDepVal(ObjectNodeData.Metadata.TypeDep());
     }
 
-    @objid ("438df2d1-8356-49d0-b8f9-8c3588d9678c")
+    @objid ("7ca11ebb-04d6-446e-bf0b-45b98fefbfaa")
     @Override
     public void setType(GeneralClass value) {
         appendDepVal(ObjectNodeData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("191f3179-78e7-421b-8c67-1ef3f2e21b7c")
+    @objid ("fe6d0a87-03a2-4d74-b548-3aa8fcf8ef09")
     @Override
     public AssociationEnd getRepresentedRole() {
         return (AssociationEnd) getDepVal(ObjectNodeData.Metadata.RepresentedRoleDep());
     }
 
-    @objid ("7fa39a7a-6e40-45d3-a480-f4fb0836f971")
+    @objid ("3ffbf19c-df71-4388-a9a3-d2966ddcab83")
     @Override
     public void setRepresentedRole(AssociationEnd value) {
         appendDepVal(ObjectNodeData.Metadata.RepresentedRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("34f4ca92-6014-4993-b869-1662f9abe28e")
+    @objid ("3d981824-e19b-4170-b2ad-a214e90ff529")
     @Override
     public Attribute getRepresentedAttribute() {
         return (Attribute) getDepVal(ObjectNodeData.Metadata.RepresentedAttributeDep());
     }
 
-    @objid ("b26b7860-e1f3-4eca-b9b5-25e48de19341")
+    @objid ("73ffd8ac-4b02-4598-b714-02854ff6aa1a")
     @Override
     public void setRepresentedAttribute(Attribute value) {
         appendDepVal(ObjectNodeData.Metadata.RepresentedAttributeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("928e2ed8-248b-4cc5-a747-b76cb8497e33")
+    @objid ("09dfd919-fa38-4e3b-a5f7-a0ed7d585d0e")
     @Override
     public State getInState() {
         return (State) getDepVal(ObjectNodeData.Metadata.InStateDep());
     }
 
-    @objid ("ed74d515-eba6-4a93-bb56-62b193c00b5e")
+    @objid ("65922474-ec62-4012-be4e-5198869e40ef")
     @Override
     public void setInState(State value) {
         appendDepVal(ObjectNodeData.Metadata.InStateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("97159acf-42ee-4874-a8e7-91e530438c41")
+    @objid ("81a2ba46-d44e-4e64-88cf-ddf4d001bc09")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("6f22e6ed-5efb-44f8-961e-50c34b15e9fc")
+    @objid ("9a72f4b3-d25b-41a9-b901-e018f78515fe")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("0cacf72d-1d63-4f9e-8f7b-20a1cc817abb")
+    @objid ("01e85e62-10a8-408d-acff-3958de87a1b1")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitObjectNode(this);

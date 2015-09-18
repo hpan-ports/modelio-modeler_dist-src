@@ -46,36 +46,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0006480c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=NaryConnector.class, factory=NaryConnectorData.Metadata.ObjectFactory.class)
 public class NaryConnectorData extends NaryLinkData {
-    @objid ("a6bc8fbb-2776-469a-bf5d-067fd8e1dbe0")
+    @objid ("c18d5a23-90b4-4997-b11b-2048eafe14fc")
     @SmaMetaAssociation(metaName="Representation", typeDataClass=BindingData.class, min=0, max=-1, smAssociationClass=Metadata.RepresentationSmDependency.class)
      List<SmObjectImpl> mRepresentation = null;
 
-    @objid ("e4b681d7-c074-4dd6-8f7b-b0635441ffd5")
+    @objid ("1e778ff9-8bb0-4d01-b1f1-e7f5307d4e12")
     @SmaMetaAssociation(metaName="RepresentedFeature", typeDataClass=ModelElementData.class, min=0, max=1, smAssociationClass=Metadata.RepresentedFeatureSmDependency.class, partof = true)
      SmObjectImpl mRepresentedFeature;
 
-    @objid ("058cd8a0-3954-4927-89ca-132ebf6a2a4c")
+    @objid ("9121787e-e3df-44dc-8d4d-58737f61549f")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00297b9c-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("65ff2335-b340-4d37-a350-7dec71cc8b71")
+        @objid ("03ac7aaf-44b8-4550-b7d5-fdef52f198dc")
         private static SmClass smClass = null;
 
-        @objid ("a0ca983d-1929-49c7-9675-175577a3fffc")
+        @objid ("1a7ce725-f206-4b39-a472-c0306df4f0e1")
         private static SmDependency RepresentationDep = null;
 
-        @objid ("fbf8d548-bf25-4c6b-887b-a58e71d1f532")
+        @objid ("d846c495-a4e2-4f39-b085-8d6e49a8e1f5")
         private static SmDependency RepresentedFeatureDep = null;
 
-        @objid ("5e326724-9520-4ad9-8ef4-5127b735af87")
+        @objid ("323015f8-9f99-45c5-8b0e-4a1b4867f793")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(NaryConnectorData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("ce14da0d-abe5-4b27-bd33-6dfdbf6c31b3")
+        @objid ("16a71529-03fc-4909-84f7-c0d62947859e")
         public static SmDependency RepresentationDep() {
             if (RepresentationDep == null) {
             	RepresentationDep = classof().getDependencyDef("Representation");
@@ -83,7 +83,7 @@ public class NaryConnectorData extends NaryLinkData {
             return RepresentationDep;
         }
 
-        @objid ("8534692c-945f-48e0-9f27-980932987b1f")
+        @objid ("4c997720-3dda-4614-8a9b-709c3dea6e58")
         public static SmDependency RepresentedFeatureDep() {
             if (RepresentedFeatureDep == null) {
             	RepresentedFeatureDep = classof().getDependencyDef("RepresentedFeature");
@@ -91,32 +91,32 @@ public class NaryConnectorData extends NaryLinkData {
             return RepresentedFeatureDep;
         }
 
-        @objid ("4fe0b200-75c5-4965-8a96-d970ae4e8714")
-        public static SmDependency getRepresentationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return RepresentationDep;
-        }
-
-        @objid ("498d8300-8d2a-48e2-a458-1a440049ccb7")
+        @objid ("c28882d9-3937-45d1-a0a4-a06d4aeb8d9f")
         public static SmDependency getRepresentedFeatureDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return RepresentedFeatureDep;
         }
 
-        @objid ("49f80d3d-9741-4473-b78f-efc8c8b320fc")
+        @objid ("7f2ece58-d5f1-4b57-9f2b-5e7343622513")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("d9db1151-88a6-4f22-87a5-ea68a8bbd37f")
+        public static SmDependency getRepresentationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return RepresentationDep;
+        }
+
         @objid ("0029bee0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("4af41803-ff0c-4479-ba1f-3fb08971cbb7")
+            @objid ("8573f375-b972-4eed-8b72-b71e4a490181")
             public ISmObjectData createData() {
                 return new NaryConnectorData();
             }
 
-            @objid ("aca7a66e-cddf-4755-86ac-dad5e3996a3a")
+            @objid ("f94e0eb3-70b6-4f8e-80cd-de2674566e8f")
             public SmObjectImpl createImpl() {
                 return new NaryConnectorImpl();
             }
@@ -125,18 +125,18 @@ public class NaryConnectorData extends NaryLinkData {
 
         @objid ("002a2178-c4c3-1fd8-97fe-001ec947cd2a")
         public static class RepresentedFeatureSmDependency extends SmSingleDependency {
-            @objid ("8565cb43-e24d-478d-ae03-362987795f54")
+            @objid ("acd162bb-8a60-4d45-9615-8e67c82f5978")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NaryConnectorData) data).mRepresentedFeature;
             }
 
-            @objid ("f60d25c5-06c0-4a47-b06b-46a6a87a0b79")
+            @objid ("4a92c710-2f6a-475e-b54d-4c060506e16a")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NaryConnectorData) data).mRepresentedFeature = value;
             }
 
-            @objid ("04469290-7874-474b-9646-cee6d4cfe1a9")
+            @objid ("ce3916ec-c86b-4dfa-bce5-5b53be356740")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.RepresentingConnectorDep();
@@ -146,20 +146,20 @@ public class NaryConnectorData extends NaryLinkData {
 
         @objid ("002a9612-c4c3-1fd8-97fe-001ec947cd2a")
         public static class RepresentationSmDependency extends SmMultipleDependency {
-            @objid ("e7c8ee11-16a6-40ce-8f9e-777d28b860c7")
+            @objid ("44bde794-17f4-40ea-8624-533faad2f246")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NaryConnectorData)data).mRepresentation != null)? ((NaryConnectorData)data).mRepresentation:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("779314fd-f0a7-4196-9abd-e55bf3670a10")
+            @objid ("81dd6e1f-8840-4163-a1ac-838d2bbe78d2")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NaryConnectorData) data).mRepresentation = new ArrayList<>(initialCapacity);
                 return ((NaryConnectorData) data).mRepresentation;
             }
 
-            @objid ("5a5b8455-659d-423c-a2ac-0924e9ca11dc")
+            @objid ("d8a11a8e-c703-4e80-856c-4764e053161e")
             @Override
             public SmDependency getSymetric() {
                 return BindingData.Metadata.ConnectorRoleDep();

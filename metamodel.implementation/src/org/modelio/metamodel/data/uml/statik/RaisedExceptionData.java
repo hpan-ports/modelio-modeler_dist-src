@@ -46,36 +46,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("001afd60-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=RaisedException.class, factory=RaisedExceptionData.Metadata.ObjectFactory.class)
 public class RaisedExceptionData extends ModelElementData {
-    @objid ("61179c75-5d23-4e84-9c1f-5c0983d78359")
+    @objid ("89a68090-daa5-42a2-a0f9-72493e026b10")
     @SmaMetaAssociation(metaName="ThrownType", typeDataClass=ClassifierData.class, min=1, max=1, smAssociationClass=Metadata.ThrownTypeSmDependency.class, partof = true)
      SmObjectImpl mThrownType;
 
-    @objid ("ea7b4534-daf0-43be-97e7-21286bf5b7da")
+    @objid ("bf468323-26af-4143-b0b1-56fa5375486c")
     @SmaMetaAssociation(metaName="Thrower", typeDataClass=OperationData.class, min=1, max=1, smAssociationClass=Metadata.ThrowerSmDependency.class)
      SmObjectImpl mThrower;
 
-    @objid ("ada34a31-40ad-4a2a-bd96-cb96bfe7a2d9")
+    @objid ("3cbbabbe-e1ee-4cd1-a247-e3fd342e274f")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0032c044-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("42852c73-2416-4a39-ab63-91ff4f0a63eb")
+        @objid ("4451a380-5d2f-4bbf-8e3f-0629f4fceb20")
         private static SmClass smClass = null;
 
-        @objid ("0b77b01f-6e26-4a3f-abde-25605f66951d")
+        @objid ("65e116d0-9118-43a4-8494-332d52d79839")
         private static SmDependency ThrownTypeDep = null;
 
-        @objid ("44e1333e-a9a0-4122-bc47-c4b9132a9b6a")
+        @objid ("06fad4ec-5c51-4b55-a5da-1d9076343625")
         private static SmDependency ThrowerDep = null;
 
-        @objid ("3d92dbca-395a-4b54-bbf8-cdfbf4442ca4")
+        @objid ("593918a3-0b6d-4e47-a0a5-5a362634d828")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(RaisedExceptionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("3507c09e-e4b4-4d34-83f5-cb8cefec693d")
+        @objid ("b003468f-9c4b-492b-9aad-c1c660f27bb5")
         public static SmDependency ThrownTypeDep() {
             if (ThrownTypeDep == null) {
             	ThrownTypeDep = classof().getDependencyDef("ThrownType");
@@ -83,7 +83,7 @@ public class RaisedExceptionData extends ModelElementData {
             return ThrownTypeDep;
         }
 
-        @objid ("850f582b-f2b7-4c56-9fea-0ab731e06acd")
+        @objid ("7f7410cf-47db-4e0e-9d19-51567b5fb159")
         public static SmDependency ThrowerDep() {
             if (ThrowerDep == null) {
             	ThrowerDep = classof().getDependencyDef("Thrower");
@@ -91,32 +91,32 @@ public class RaisedExceptionData extends ModelElementData {
             return ThrowerDep;
         }
 
-        @objid ("f539fb4e-b4d0-4df2-a3ed-f06c37c9707d")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("50e39704-f203-44fc-a276-47927a587dd6")
-        public static SmDependency getThrownTypeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ThrownTypeDep;
-        }
-
-        @objid ("36fc398f-14db-4d4b-94bd-424e92a47475")
+        @objid ("1dad6e54-e249-4f8e-af43-b7f7b44498e6")
         public static SmDependency getThrowerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ThrowerDep;
         }
 
+        @objid ("081250e2-9611-4cfc-981c-d8ef0ab2a957")
+        public static SmDependency getThrownTypeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ThrownTypeDep;
+        }
+
+        @objid ("99f10478-f0bf-4590-bb5a-2599e99b0619")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("00330270-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("c2c344d4-0c9f-4a18-9be4-95353f5badf6")
+            @objid ("37a17ed6-7ff7-41ae-a0d8-61d36ccb4961")
             public ISmObjectData createData() {
                 return new RaisedExceptionData();
             }
 
-            @objid ("5526dd5f-8204-4df8-9070-996fcb991bab")
+            @objid ("97ed0580-e8b5-44c8-ad18-923c9587c420")
             public SmObjectImpl createImpl() {
                 return new RaisedExceptionImpl();
             }
@@ -125,18 +125,18 @@ public class RaisedExceptionData extends ModelElementData {
 
         @objid ("003366fc-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ThrowerSmDependency extends SmSingleDependency {
-            @objid ("7c67f7d4-90ae-454b-8185-4abc49c8db26")
+            @objid ("2a1fa2df-6aef-4baa-8223-173a32b02517")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((RaisedExceptionData) data).mThrower;
             }
 
-            @objid ("8bb5b658-b9dc-42b6-957a-28523ee3903e")
+            @objid ("b9641dfc-32a0-437f-b4f5-65160b317d80")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((RaisedExceptionData) data).mThrower = value;
             }
 
-            @objid ("f2237609-0262-4733-bc54-c19288b90441")
+            @objid ("90e4d7cb-d65f-4807-a58f-09d7a9c073a0")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.ThrownDep();
@@ -146,18 +146,18 @@ public class RaisedExceptionData extends ModelElementData {
 
         @objid ("0033db82-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ThrownTypeSmDependency extends SmSingleDependency {
-            @objid ("0c7c47c9-8344-4f42-991e-a84dafc8c5c7")
+            @objid ("00f9441e-d9df-4488-989f-132a6b1348fe")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((RaisedExceptionData) data).mThrownType;
             }
 
-            @objid ("2df84b69-411b-4f6f-b7b5-3b98defd6b77")
+            @objid ("25efd10e-6b33-41ed-a89f-ad0c6ee8e854")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((RaisedExceptionData) data).mThrownType = value;
             }
 
-            @objid ("cf21fb11-df7e-4808-b387-9e2cce4e16ce")
+            @objid ("67b1a58f-46fc-46f3-b63b-25e35f3db76e")
             @Override
             public SmDependency getSymetric() {
                 return ClassifierData.Metadata.ThrowingDep();

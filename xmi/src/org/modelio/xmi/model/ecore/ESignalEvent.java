@@ -27,7 +27,7 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.EventType;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("1187e5ac-e015-46f2-8d33-a6dfab618f3e")
 public class ESignalEvent extends ENamedElement {

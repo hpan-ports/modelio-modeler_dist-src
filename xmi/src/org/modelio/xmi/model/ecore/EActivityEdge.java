@@ -26,7 +26,7 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.InterruptibleActivityRegion;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("b10d3d1c-c140-474b-bede-35fac0ab9fe3")
 public class EActivityEdge extends ENamedElement {

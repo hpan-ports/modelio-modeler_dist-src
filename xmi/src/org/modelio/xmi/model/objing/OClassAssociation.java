@@ -28,8 +28,8 @@ import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Package;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("38a87f21-3b82-4ed2-b04c-e5162b48ebfc")
 public class OClassAssociation extends OModelElement {
@@ -50,7 +50,7 @@ public class OClassAssociation extends OModelElement {
         GenerationProperties genProp = GenerationProperties.getInstance();
         // Gets or creates the Ecore org.eclipse.uml2.uml.AssociationClass:
         return (org.eclipse.uml2.uml.AssociationClass) genProp
-                .getMappedElement(this.objingElement);
+                        .getMappedElement(this.objingElement);
     }
 
     @objid ("d6c13dc6-fa9b-48cd-8075-5fbdf6c209bc")

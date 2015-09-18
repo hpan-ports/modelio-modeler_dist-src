@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0033b2ec-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ForkJoinNode extends ControlNode {
-    @objid ("8dd3aaf5-bf33-48bc-be50-85c73fcfe351")
+    @objid ("40971517-5561-47ac-9527-97f616a7f8ca")
     boolean isIsCombineDuplicate();
 
-    @objid ("876920cb-6ea6-4372-bb3e-ce996d86f95f")
+    @objid ("3bd4b325-2c2b-4d34-8475-2917b5cf78f1")
     void setIsCombineDuplicate(boolean value);
 
-    @objid ("a651d6c1-7597-4cf7-99cd-b201ed302092")
+    @objid ("c96eb35d-2187-41aa-857b-0820165d7080")
     String getJoinSpec();
 
-    @objid ("b0b0e63f-37ef-411e-b710-d0cd242b531c")
+    @objid ("07cde95e-48a4-40d9-a6fc-4534267cd307")
     void setJoinSpec(String value);
 
 }

@@ -33,28 +33,28 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 
 @objid ("00640c80-ec87-1098-b22e-001ec947cd2a")
 public interface PropertyDefinition extends ModelElement {
-    @objid ("b9c96be7-78b5-405c-8ad1-a7f5164961db")
+    @objid ("ad379e47-3980-40d4-8afd-0d9c378e0f07")
     boolean isIsEditable();
 
-    @objid ("d5c384e1-cad2-43ce-917b-4b6412619e06")
+    @objid ("fda81b98-e0af-4edd-9368-8931236cbb7b")
     void setIsEditable(boolean value);
 
-    @objid ("ea3bebfe-68f3-47e7-9cff-8a1e2177d643")
+    @objid ("b9b71daf-3634-4bbe-bf85-1bcf714e16a5")
     String getDefaultValue();
 
-    @objid ("1db4e9b2-cebe-4f4c-bb8e-078602030c88")
+    @objid ("8a9b4488-d6f8-4f0e-a8f5-1a5eb998a529")
     void setDefaultValue(String value);
 
-    @objid ("be37dd63-480d-4223-bf01-169a3c79e998")
+    @objid ("d2ccf09d-b393-4582-94af-a778d7a86a12")
     PropertyType getType();
 
-    @objid ("040702c4-22f2-473f-9e85-93eb90822b4c")
+    @objid ("a9f402a8-30ed-475b-8cfa-cefdf29463c7")
     void setType(PropertyType value);
 
-    @objid ("5209c684-afbd-44e7-b2fe-c6ef27b52b41")
+    @objid ("ab56209b-2989-4f0b-869d-2b68c421cf80")
     PropertyTableDefinition getOwner();
 
-    @objid ("b3767410-ced7-4d89-96f3-86e1cd364d0a")
+    @objid ("071304cc-26cd-4c8e-85ee-98a18de64160")
     void setOwner(PropertyTableDefinition value);
 
 }

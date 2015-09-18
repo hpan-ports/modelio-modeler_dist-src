@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003337d6-c4bf-1fd8-97fe-001ec947cd2a")
 public class FlowFinalNodeImpl extends FinalNodeImpl implements FlowFinalNode {
-    @objid ("a9c3b540-1093-4ce7-9e81-e78387c09793")
+    @objid ("1708fc01-bc27-4b72-a51a-aebd891f0013")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("869954f7-3ee6-4dd9-b820-38af3b8f0c16")
+    @objid ("f3a276dd-8a75-4e4d-8bd4-faa343268007")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("e02dbbff-f84b-4d2f-9ded-2d711aee7ade")
+    @objid ("12b57ba1-3404-4624-9a96-33052587b45b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitFlowFinalNode(this);

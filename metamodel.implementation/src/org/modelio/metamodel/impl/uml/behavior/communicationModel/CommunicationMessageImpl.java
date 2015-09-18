@@ -48,49 +48,49 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("005b2ef8-c4bf-1fd8-97fe-001ec947cd2a")
 public class CommunicationMessageImpl extends ModelElementImpl implements CommunicationMessage {
-    @objid ("183370fd-f503-47e6-a4e5-85f698c4d9f2")
+    @objid ("cea52177-18a4-4d07-bfe0-ea889863fc41")
     @Override
     public String getArgument() {
         return (String) getAttVal(CommunicationMessageData.Metadata.ArgumentAtt());
     }
 
-    @objid ("04eed6c8-9d34-4b49-b785-3caac455c9a2")
+    @objid ("1ec87207-c7d8-4bd7-b59c-00f271bcee31")
     @Override
     public void setArgument(String value) {
         setAttVal(CommunicationMessageData.Metadata.ArgumentAtt(), value);
     }
 
-    @objid ("93734652-7cbe-4aef-8b3c-48d10e2b5366")
+    @objid ("f235bebe-7873-4242-adb4-538f5d627883")
     @Override
     public String getSequence() {
         return (String) getAttVal(CommunicationMessageData.Metadata.SequenceAtt());
     }
 
-    @objid ("877da5fa-8a5e-4b37-84e2-283eb2768860")
+    @objid ("14a57f50-db8a-4ea4-807a-b3bfe5fe9319")
     @Override
     public void setSequence(String value) {
         setAttVal(CommunicationMessageData.Metadata.SequenceAtt(), value);
     }
 
-    @objid ("2d73345d-c2cc-441c-bf4b-eacbae9878ba")
+    @objid ("4df7f355-ab13-4323-99d5-3eeac7e1dcc4")
     @Override
     public MessageSort getSortOfMessage() {
         return (MessageSort) getAttVal(CommunicationMessageData.Metadata.SortOfMessageAtt());
     }
 
-    @objid ("9e9c13ff-70e2-4057-a919-98124dd42229")
+    @objid ("d2898ce6-b172-49b1-9a78-6123e9246467")
     @Override
     public void setSortOfMessage(MessageSort value) {
         setAttVal(CommunicationMessageData.Metadata.SortOfMessageAtt(), value);
     }
 
-    @objid ("53a749dc-58a2-45c7-9baf-71682ed7a9d2")
+    @objid ("ef53d5d7-1b46-4ae2-bcac-792864606ec0")
     @Override
     public EList<InformationFlow> getRealizedInformationFlow() {
         return new SmList<>(this, CommunicationMessageData.Metadata.RealizedInformationFlowDep());
     }
 
-    @objid ("ff8502ff-11fb-48f2-9f0e-456c6fef08a8")
+    @objid ("58eca893-bdc2-40c0-92fe-97daccd92693")
     @Override
     public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -103,55 +103,55 @@ public class CommunicationMessageImpl extends ModelElementImpl implements Commun
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1debf6a4-c187-4325-aa38-603045515682")
+    @objid ("7cd8e018-5b2f-409b-b814-86fc9e81317f")
     @Override
     public CommunicationChannel getChannel() {
         return (CommunicationChannel) getDepVal(CommunicationMessageData.Metadata.ChannelDep());
     }
 
-    @objid ("571ae8f2-8e7d-42df-8f96-5070cd298e62")
+    @objid ("d8cad038-f967-42ef-ae35-0c3179d6cf98")
     @Override
     public void setChannel(CommunicationChannel value) {
         appendDepVal(CommunicationMessageData.Metadata.ChannelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9b94cadb-90e2-4d79-9c05-c1e791aaf5b8")
+    @objid ("094ce1b1-a466-438b-a4e1-813d24441c8c")
     @Override
     public CommunicationChannel getInvertedChannel() {
         return (CommunicationChannel) getDepVal(CommunicationMessageData.Metadata.InvertedChannelDep());
     }
 
-    @objid ("15ba4069-199a-4b8c-a515-a8eef2e1d076")
+    @objid ("c2aebb20-9249-4bfc-b9b8-60085472261b")
     @Override
     public void setInvertedChannel(CommunicationChannel value) {
         appendDepVal(CommunicationMessageData.Metadata.InvertedChannelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6be6eeb3-ebe1-4924-9c59-e7194b9b33fa")
+    @objid ("f8f57e9e-28b1-4eea-a3f7-f1b6e476158d")
     @Override
     public Operation getInvoked() {
         return (Operation) getDepVal(CommunicationMessageData.Metadata.InvokedDep());
     }
 
-    @objid ("afefc449-35a3-4fe4-930a-5b71ba1e3b02")
+    @objid ("60f3d13f-7662-4c59-a798-f32f0fb09114")
     @Override
     public void setInvoked(Operation value) {
         appendDepVal(CommunicationMessageData.Metadata.InvokedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("24f190f8-5a7e-446b-aaa1-8f6b47a021d9")
+    @objid ("efca6409-ee4a-49a4-8ecb-3e6353a9bac0")
     @Override
     public Signal getSignalSignature() {
         return (Signal) getDepVal(CommunicationMessageData.Metadata.SignalSignatureDep());
     }
 
-    @objid ("0de809e1-328c-4a07-8714-691e8956eeb2")
+    @objid ("c71d7622-a0cd-4f99-9762-75f52495237d")
     @Override
     public void setSignalSignature(Signal value) {
         appendDepVal(CommunicationMessageData.Metadata.SignalSignatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3b77e540-a418-40b3-80e1-33a34d5c64b3")
+    @objid ("25e5aaf9-a485-4b38-8324-4d356eb8981e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -164,7 +164,7 @@ public class CommunicationMessageImpl extends ModelElementImpl implements Commun
         return super.getCompositionOwner();
     }
 
-    @objid ("d0f00e70-02a9-4896-9747-c993b2d5774a")
+    @objid ("2cdf34fc-9b4e-4873-83ae-23048e9a77cd")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -177,7 +177,7 @@ public class CommunicationMessageImpl extends ModelElementImpl implements Commun
         return super.getCompositionRelation();
     }
 
-    @objid ("6154fb68-b4ef-4ffc-b3eb-adfaf0b05a3e")
+    @objid ("6f20bdcd-2f46-4108-8f8a-07a5d0de8d1c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCommunicationMessage(this);

@@ -23,8 +23,8 @@ package org.modelio.xmi.model.objing;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("90c23d80-db23-410c-a534-f02703f3632a")

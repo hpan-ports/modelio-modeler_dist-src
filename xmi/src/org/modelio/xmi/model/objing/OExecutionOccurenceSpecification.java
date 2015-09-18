@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecification;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("bae7993d-a34a-469e-9797-32de9af1abb6")
 public class OExecutionOccurenceSpecification extends OMessageEnd {

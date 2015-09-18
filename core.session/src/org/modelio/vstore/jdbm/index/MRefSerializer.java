@@ -48,7 +48,7 @@ class MRefSerializer implements Serializer<MRef> {
 
     @objid ("94e71b4c-a6f7-4f6c-be70-585f3503df78")
     @Override
-    public MRef deserialize(final SerializerInput in) throws ClassNotFoundException, IOException {
+    public MRef deserialize(final SerializerInput in) throws IOException, ClassNotFoundException {
         UUID id = UuidSerializer.instance.deserialize(in);
         String name = in.readUTF(); // uncomment for debug
         //String name = "";  // comment for debug

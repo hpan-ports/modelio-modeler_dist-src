@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DiagramApi
 Bundle-SymbolicName: org.modelio.diagram.api
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Bundle-Activator: org.modelio.diagram.api.plugin.DiagramApi
 Require-Bundle: org.eclipse.core.runtime,
  org.modelio.api,
@@ -30,7 +30,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.modelio.core.project,
  org.modelio.core.session,
  org.eclipse.e4.ui.services
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.modelio.diagram.api.services,
  org.modelio.diagram.api.style,

@@ -38,40 +38,40 @@ public interface NoteType extends ModelElement {
     @objid ("86c9b1d3-36e0-4281-ae56-13648e6465ec")
     ModuleComponent getModule();
 
-    @objid ("eba6b8f2-3950-461f-b04c-874b79719bc4")
+    @objid ("faba7d52-0b06-4003-b8d5-e0a14a110205")
     boolean isIsHidden();
 
-    @objid ("2395b181-80e5-49f5-a6c7-7431132447a2")
+    @objid ("67577f98-0838-4a37-bce5-a56248109c90")
     void setIsHidden(boolean value);
 
-    @objid ("8e6b92c4-3c7d-4709-ada7-60a5c78e219d")
+    @objid ("8fdc3c9b-fd7e-467e-ad57-6021e6ea0999")
     String getLabelKey();
 
-    @objid ("75de9fca-81fe-40b4-8a59-8df53037a2ed")
+    @objid ("290b9341-c636-412e-8acb-677d32c5ac6e")
     void setLabelKey(String value);
 
-    @objid ("7093085b-192d-4af6-a380-df81ffde35ff")
+    @objid ("17b60a59-00d0-4034-be62-678e295a05aa")
     String getMimeType();
 
-    @objid ("7623832a-1ebf-4685-853a-7167afde6832")
+    @objid ("338f20cf-b7cd-4dcc-b9b8-5956ad1cbcd4")
     void setMimeType(String value);
 
-    @objid ("4671d793-a351-4eed-9794-ef4ffe8e13d2")
+    @objid ("4dd835ad-a110-4c4d-963e-58b958df5026")
     EList<Note> getElement();
 
-    @objid ("913460a2-be43-48a8-95ad-45e30c629461")
+    @objid ("bacaa7ba-6684-4cfc-9362-b3908f03791d")
     <T extends Note> List<T> getElement(java.lang.Class<T> filterClass);
 
-    @objid ("96ea6ab9-03f9-4520-9678-e2c2c0ecb8f7")
+    @objid ("6a2093d5-5fd7-4923-a290-1cc4ad8128d6")
     Stereotype getOwnerStereotype();
 
-    @objid ("f2f6296d-87cb-4945-9976-fad11ee05d30")
+    @objid ("a782cb3b-8cf5-42d6-8f80-e5d849a5c80f")
     void setOwnerStereotype(Stereotype value);
 
-    @objid ("31bfc44c-0d27-4090-8e24-03848dcef67d")
+    @objid ("9495aaa6-bb44-4207-970e-36f2860b9491")
     MetaclassReference getOwnerReference();
 
-    @objid ("6e4f5c13-5c78-4f4c-915d-c6d10071e653")
+    @objid ("753d98ef-d84d-4b32-8c7c-543fc38f74a6")
     void setOwnerReference(MetaclassReference value);
 
 }

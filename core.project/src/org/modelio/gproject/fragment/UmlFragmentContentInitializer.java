@@ -132,10 +132,12 @@ public class UmlFragmentContentInitializer {
         // Create LocalModule
         ModuleComponent localModule = gf.create(ModuleComponent.class, proj);
         localModule.setName("LocalModule");
+        ret.add(localModule);
         
         Profile localProfile = gf.create(Profile.class, proj);
         localProfile.setName("LocalProfile");
         localModule.getOwnedProfile().add(localProfile);
+        ret.add(localProfile);
         return ret;
     }
 

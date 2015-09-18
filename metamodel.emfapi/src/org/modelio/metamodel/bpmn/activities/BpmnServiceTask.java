@@ -32,22 +32,22 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("008313be-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnServiceTask extends BpmnTask {
-    @objid ("b9c30da0-d026-4ba2-aa83-5fe66f053deb")
+    @objid ("29c220da-39a3-4c1a-886a-9569ca101167")
     String getImplementation();
 
-    @objid ("71e9cdea-8092-44bb-af91-d01d84518d2c")
+    @objid ("e6864a90-31a5-453f-82f4-04187de83537")
     void setImplementation(String value);
 
-    @objid ("65cc6a05-3255-457c-a93d-bbfb12f37158")
+    @objid ("2108c904-c27e-42ff-b181-af2ae5cc411e")
     Operation getCalledOperation();
 
-    @objid ("46652863-52cb-4cc4-aa9c-5f3f7318279a")
+    @objid ("683f8d8a-546d-4c70-abd0-75954e4ed75a")
     void setCalledOperation(Operation value);
 
-    @objid ("9d2a6f1d-b7fc-4839-a308-71b6e0b1cab2")
+    @objid ("7d4968a3-e564-4919-9daf-1c6893ab7566")
     BpmnOperation getOperationRef();
 
-    @objid ("53c3e269-c255-46a0-8b4d-76f6f5133849")
+    @objid ("0ed19e6e-c1c0-43bf-8e45-03adb92fa19a")
     void setOperationRef(BpmnOperation value);
 
 }

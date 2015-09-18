@@ -47,25 +47,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("e5225255-1ebe-40cd-bc3d-6cd038eb4046")
 public class QueryDefinitionImpl extends ElementImpl implements QueryDefinition {
-    @objid ("670d4fe6-f7e8-45ff-94a9-1b58c34304bf")
+    @objid ("281d5d3c-db6f-4f8d-aae5-5255bdd4b2a2")
     @Override
     public boolean isUsingAdditions() {
         return (Boolean) getAttVal(QueryDefinitionData.Metadata.UsingAdditionsAtt());
     }
 
-    @objid ("ca6a44ca-61f3-4d17-a135-730fe6d61988")
+    @objid ("51dbf285-069f-445f-b9e6-107c9db7fb9b")
     @Override
     public void setUsingAdditions(boolean value) {
         setAttVal(QueryDefinitionData.Metadata.UsingAdditionsAtt(), value);
     }
 
-    @objid ("53cd3b88-f51a-4bbe-8d3d-981eb91a49bd")
+    @objid ("c8185300-a31d-4dab-a078-2a3b7c450dcb")
     @Override
     public EList<Element> getAdded() {
         return new SmList<>(this, QueryDefinitionData.Metadata.AddedDep());
     }
 
-    @objid ("d5fa1178-7f69-4e45-8485-75c94936a9e4")
+    @objid ("38a0cc33-958f-4648-b67d-ac335bab8806")
     @Override
     public <T extends Element> List<T> getAdded(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -78,67 +78,67 @@ public class QueryDefinitionImpl extends ElementImpl implements QueryDefinition 
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("046e5285-38c0-4afa-a117-b4ff21130a71")
+    @objid ("1e60b2a2-474c-4674-b67e-69d51a241d7c")
     @Override
     public ExternProcessor getProcessor() {
         return (ExternProcessor) getDepVal(QueryDefinitionData.Metadata.ProcessorDep());
     }
 
-    @objid ("cb5e1a16-64c3-4623-b501-a7b7a637526a")
+    @objid ("aa8113ec-0be2-4709-9c7a-2ef383337f41")
     @Override
     public void setProcessor(ExternProcessor value) {
         appendDepVal(QueryDefinitionData.Metadata.ProcessorDep(), (SmObjectImpl)value);
     }
 
-    @objid ("40983811-4edf-4ecb-801b-3d873bf139cd")
+    @objid ("ff297ffb-5d68-498d-aad2-2c658286cc75")
     @Override
     public PropertyTable getParameters() {
         return (PropertyTable) getDepVal(QueryDefinitionData.Metadata.ParametersDep());
     }
 
-    @objid ("493f0d75-2970-4f85-a951-5436d55b10a1")
+    @objid ("5589be2e-14b8-4d32-a7d5-3f755b66ac48")
     @Override
     public void setParameters(PropertyTable value) {
         appendDepVal(QueryDefinitionData.Metadata.ParametersDep(), (SmObjectImpl)value);
     }
 
-    @objid ("20998e8e-0607-493b-aa57-2a34543c61c4")
+    @objid ("5be69560-3e6b-4a38-9007-9ae8c6220045")
     @Override
     public MatrixDefinition getOwnerAsLine() {
         return (MatrixDefinition) getDepVal(QueryDefinitionData.Metadata.OwnerAsLineDep());
     }
 
-    @objid ("029228fe-c9ad-43ac-b6b6-461f307c8b30")
+    @objid ("f9a2060a-b766-4959-af45-cdfebf9a7b4b")
     @Override
     public void setOwnerAsLine(MatrixDefinition value) {
         appendDepVal(QueryDefinitionData.Metadata.OwnerAsLineDep(), (SmObjectImpl)value);
     }
 
-    @objid ("14b08e01-02da-44ca-bdb2-345bb1b01632")
+    @objid ("448120e2-f9ea-453a-b5c2-25b14fea4f02")
     @Override
     public MatrixDefinition getOwnerAsCol() {
         return (MatrixDefinition) getDepVal(QueryDefinitionData.Metadata.OwnerAsColDep());
     }
 
-    @objid ("e38ac9b2-59cb-4cec-9192-98b0e103f2db")
+    @objid ("f61b4a83-67b5-43cc-bb89-15d0ac2ce366")
     @Override
     public void setOwnerAsCol(MatrixDefinition value) {
         appendDepVal(QueryDefinitionData.Metadata.OwnerAsColDep(), (SmObjectImpl)value);
     }
 
-    @objid ("225d73c5-0287-4e38-8813-64444f8dc27e")
+    @objid ("7dbd45ca-0ca4-47ae-bf36-9a87bf0bfc10")
     @Override
     public MatrixDefinition getOwnerAsDepth() {
         return (MatrixDefinition) getDepVal(QueryDefinitionData.Metadata.OwnerAsDepthDep());
     }
 
-    @objid ("f77e0cd0-ed6f-47fa-91d8-125a33d4b2f4")
+    @objid ("1c9db0ed-ad2d-4823-81bd-3f5a707a830b")
     @Override
     public void setOwnerAsDepth(MatrixDefinition value) {
         appendDepVal(QueryDefinitionData.Metadata.OwnerAsDepthDep(), (SmObjectImpl)value);
     }
 
-    @objid ("db2ddde9-037c-4040-8899-9b0969932ba3")
+    @objid ("5b4559fc-d174-4542-9eee-5646b24579e9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -154,7 +154,7 @@ public class QueryDefinitionImpl extends ElementImpl implements QueryDefinition 
         return super.getCompositionOwner();
     }
 
-    @objid ("5832e8a6-b50f-4b50-997b-eba899bf591d")
+    @objid ("712a4bf7-f131-4c50-8abe-e22e7052d6e5")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -170,7 +170,7 @@ public class QueryDefinitionImpl extends ElementImpl implements QueryDefinition 
         return super.getCompositionRelation();
     }
 
-    @objid ("83aeafa0-9d0c-4904-aa77-011d34d43b76")
+    @objid ("0f7d5e30-37c6-480f-b0a6-518554afb747")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitQueryDefinition(this);

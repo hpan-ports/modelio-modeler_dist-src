@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00729c6e-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ObjectDiagram.class, factory=ObjectDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class ObjectDiagramData extends StaticDiagramData {
-    @objid ("e956c29d-9e42-4340-bbe6-f4cb52fcce52")
+    @objid ("3db20856-13ed-4392-8c94-bf2bb9d5fa6c")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("004e747e-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("48357022-9a32-49b6-93e3-478996aaa5b5")
+        @objid ("c03d0ce1-132e-41ac-8341-f2465c483927")
         private static SmClass smClass = null;
 
-        @objid ("ea191f3e-ea19-4e32-b518-72903bd43045")
+        @objid ("6f6ee691-7021-45b8-a722-3804a22e5477")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ObjectDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("66d9f7b5-af11-45d6-b476-fca5babcccdb")
+        @objid ("ab289e0c-6ad0-4af0-a662-9b8f5327ac0c")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ObjectDiagramData extends StaticDiagramData {
 
         @objid ("004eb376-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("067c2f3e-9232-4cb7-837d-a1d611811f41")
+            @objid ("a1543ff9-1cea-4530-a610-1c000efeec86")
             public ISmObjectData createData() {
                 return new ObjectDiagramData();
             }
 
-            @objid ("e85211b5-6504-4f06-8552-98e2dfd1d8a7")
+            @objid ("94b81891-89b8-4ed7-b129-1ea69afde007")
             public SmObjectImpl createImpl() {
                 return new ObjectDiagramImpl();
             }

@@ -29,11 +29,11 @@ import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.util.ModelioPrimitiveTypeMapper;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.StringConverter;
 import org.modelio.xmi.util.XMILogs;
 
@@ -184,8 +184,8 @@ public class OBehaviorParameter extends OElement implements IOElement {
         // Getting type of the org.eclipse.uml2.uml.Parameter:
         GeneralClass objingType = this.objingElement.getType();
         if (objingType != null) {
-            if (PrimitiveTypeMapper.isPredefinedType(objingType)) {
-                 PrimitiveTypeMapper.setEcorePredefinedType(ecoreElt, (DataType) objingType);
+            if (ModelioPrimitiveTypeMapper.isPredefinedType(objingType)) {
+                ModelioPrimitiveTypeMapper.setEcorePredefinedType(ecoreElt, (DataType) objingType);
             } else {
         
                 if (objingType instanceof TemplateParameter) {

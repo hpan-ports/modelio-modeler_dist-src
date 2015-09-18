@@ -47,13 +47,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0019d6a6-c4bf-1fd8-97fe-001ec947cd2a")
 public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedInterface {
-    @objid ("6689b5aa-378e-4013-9dcb-3028e14653fc")
+    @objid ("c905e9f3-6f54-4a83-8d12-1b3e697638a2")
     @Override
     public EList<Interface> getProvidedElement() {
         return new SmList<>(this, ProvidedInterfaceData.Metadata.ProvidedElementDep());
     }
 
-    @objid ("7ddb8d1a-b5df-4010-8719-93e96b51c8cd")
+    @objid ("069aa2a7-a9b0-4b27-adca-62d09f84e397")
     @Override
     public <T extends Interface> List<T> getProvidedElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -66,25 +66,25 @@ public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7f0d2384-4e03-4c4f-9e2c-33b5f72d5748")
+    @objid ("b484f3bd-ea4c-4b9a-8c03-5aac95408ff1")
     @Override
     public Port getProviding() {
         return (Port) getDepVal(ProvidedInterfaceData.Metadata.ProvidingDep());
     }
 
-    @objid ("7e28ff5c-22fb-4d67-a746-faba1b7f37a7")
+    @objid ("87be7829-aade-4bcd-8f4e-2f420bc0e8bf")
     @Override
     public void setProviding(Port value) {
         appendDepVal(ProvidedInterfaceData.Metadata.ProvidingDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d7a81d27-890d-4790-a651-cb55608e9658")
+    @objid ("647f9106-db38-49b1-8d87-320dd03723e0")
     @Override
     public EList<LinkEnd> getConsumer() {
         return new SmList<>(this, ProvidedInterfaceData.Metadata.ConsumerDep());
     }
 
-    @objid ("781e193e-e508-48af-9d44-c652fdc79cb4")
+    @objid ("9589f1ac-c148-4c59-890f-aa0fa3c1f00c")
     @Override
     public <T extends LinkEnd> List<T> getConsumer(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -97,13 +97,13 @@ public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("01748284-021c-4791-b907-d1c3bd02c383")
+    @objid ("e0468657-4230-4156-adc4-90e7cb8db349")
     @Override
     public EList<NaryLinkEnd> getNaryConsumer() {
         return new SmList<>(this, ProvidedInterfaceData.Metadata.NaryConsumerDep());
     }
 
-    @objid ("d9cf06d9-19b0-477b-bb76-d8008bbc5f4d")
+    @objid ("289e9892-eb0f-47b7-a8de-b15ba0997d41")
     @Override
     public <T extends NaryLinkEnd> List<T> getNaryConsumer(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -116,7 +116,7 @@ public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("53e847b9-c49a-4ce7-9235-d4cb11094940")
+    @objid ("66cefaa0-0815-48b6-aeb2-aedcc4947f44")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -126,7 +126,7 @@ public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedI
         return super.getCompositionOwner();
     }
 
-    @objid ("24386704-d5ac-46a6-bbed-d3b3ed6969b5")
+    @objid ("4fde4042-4dbb-461f-aaa9-90c5e6d4f6cd")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -136,7 +136,7 @@ public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedI
         return super.getCompositionRelation();
     }
 
-    @objid ("d23508ad-d388-4bd5-b548-4bf77f3b2731")
+    @objid ("05a92fd8-84ab-4997-bb5e-97201656350a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitProvidedInterface(this);

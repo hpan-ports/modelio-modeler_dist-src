@@ -29,8 +29,8 @@ import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
 

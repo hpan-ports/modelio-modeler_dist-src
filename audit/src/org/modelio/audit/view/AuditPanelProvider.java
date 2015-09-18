@@ -35,20 +35,20 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.app.core.navigate.IModelioNavigationService;
-import org.modelio.audit.engine.AuditEngine;
 import org.modelio.audit.engine.core.AuditRunnerStatus;
 import org.modelio.audit.engine.core.IAuditDiagnostic;
 import org.modelio.audit.engine.core.IAuditEntry;
 import org.modelio.audit.engine.core.IAuditListener;
 import org.modelio.audit.engine.core.IAuditMonitor;
+import org.modelio.audit.engine.impl.AuditDiagnostic;
 import org.modelio.audit.engine.impl.AuditEntry;
+import org.modelio.audit.service.IAuditService;
 import org.modelio.audit.view.dialog.auditEntry.AuditEntryDialog;
 import org.modelio.audit.view.model.AuditElementModel;
 import org.modelio.audit.view.providers.AuditProviderFactory.AuditViewMode;
@@ -72,6 +72,15 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
     @objid ("6da009ba-0c4c-4441-b07f-a6e469bdcc34")
     private EModelService emService;
 
+    @objid ("c33f3c8b-5a42-42a8-96c5-7365f26783a6")
+    private Composite area;
+
+    @objid ("de854446-7bad-4b28-a565-fdf634fc54ee")
+     TreeViewer auditTable = null;
+
+    @objid ("71042cac-a15a-4f58-aaef-fe81a22695c5")
+    private List<TreeViewerColumn> columns;
+
     @objid ("fa78603f-c9fc-4e62-918b-b9493b9b4440")
      ICoreSession modelingSession;
 
@@ -79,7 +88,7 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
     private IMModelServices modelService;
 
     @objid ("4ed02965-590a-4f7d-b729-9b96161950ca")
-    private AuditEngine auditEngine;
+    private AuditDiagnostic auditDiagnostic;
 
     @objid ("458d715e-45aa-4969-899a-c2eb271ff9af")
      StatusBar auditStatus;
@@ -90,23 +99,18 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
     @objid ("42607bd7-1f45-42da-89e6-4ab8a2b7ccfa")
     private AuditProviderFactory providerFactory;
 
-    @objid ("358e1d5f-797f-49e1-a23f-a9c2e1e0b341")
-    private Composite area;
-
-    @objid ("c65101b7-55ec-4be1-b727-b3c428c49c2f")
-     TreeViewer auditTable = null;
-
-    @objid ("8c80e442-92c0-4ab2-9408-7fa0c15c9d9f")
-    private List<TreeViewerColumn> columns;
+    @objid ("79d91f6c-6d12-4827-9176-0a0684101300")
+    private IAuditService auditService;
 
     @objid ("89485182-43f9-4265-9401-27972fff1177")
-    public AuditPanelProvider(ICoreSession newModelingSession, IMModelServices newModelService, IModelioNavigationService newNavigationService, MApplication application, EModelService emService, String jobId) {
+    public AuditPanelProvider(IAuditService auditService, ICoreSession newModelingSession, IMModelServices newModelService, IModelioNavigationService newNavigationService, MApplication application, EModelService emService, String jobId) {
         this.modelingSession = newModelingSession;
         this.modelService = newModelService;
         this.navigationService = newNavigationService;
         this.autoSelectInExplorer = true;
         this.application = application;
         this.emService = emService;
+        this.auditService = auditService;
         this.providerFactory = new AuditProviderFactory(jobId);
         this.columns = new ArrayList<>();
     }
@@ -149,7 +153,8 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
 
     @objid ("91dc8ffb-d3b0-4a62-9fa0-cfc5d8b76997")
     public void dispose() {
-        this.auditEngine.removeAuditListener(this);
+        this.auditDiagnostic.removeAuditListener(this);
+        this.auditService.removeAuditMonitor(this);
         this.modelingSession = null;
     }
 
@@ -193,21 +198,23 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
     @objid ("9111731f-af16-448e-971c-0e3c867670be")
     @Override
     public void setInput(Object input) {
-        if (this.auditEngine != null) {
-            this.auditEngine.removeAuditListener(this);
-            this.auditEngine.removeAuditMonitor(this);
+        if(input instanceof IAuditDiagnostic){
+             if (this.auditDiagnostic != null) {
+                    this.auditDiagnostic.removeAuditListener(this);
+                    this.auditService.removeAuditMonitor(this);
+                }
+                
+                this.auditDiagnostic = (AuditDiagnostic) input;
+                this.auditDiagnostic.addAuditListener(this);
+                this.auditService.addAuditMonitor(this);
+                this.auditTable.setInput(this.auditDiagnostic);
         }
-        
-        this.auditEngine = (AuditEngine) input;
-        this.auditEngine.addAuditListener(this);
-        this.auditEngine.addAuditMonitor(this);
-        this.auditTable.setInput(this.auditEngine.getAuditDiagnostic());
     }
 
     @objid ("042aadf4-92de-4340-90cd-0f75b70ffe94")
     @Override
     public Object getInput() {
-        return this.auditEngine;
+        return this.auditDiagnostic;
     }
 
     @objid ("67495b1f-5530-412b-a0fe-db389fc78ebb")
@@ -270,13 +277,6 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
                         if (!lAuditTable.getTree().isDisposed()) {
                             lAuditTable.refresh();
                             AuditPanelProvider.this.auditStatus.doRefreshDiagnostic(auditDiagnostic);
-        
-                            /*
-                             * if (AuditPanelProvider.this.auditTable != null &&
-                             * !AuditPanelProvider.this.auditTable.getTree().isDisposed()) { if (auditDiagnostic.getErrorCount() >
-                             * 0) { setTitleImage("icons/error_flag.png"); } else if (auditDiagnostic.getWarningCount() > 0) {
-                             * setTitleImage("icons/warning_flag.png"); } else { setTitleImage("base.png"); } }
-                             */
                         }
                         AuditPanelProvider.this.redrawScheduled = false;
                     }

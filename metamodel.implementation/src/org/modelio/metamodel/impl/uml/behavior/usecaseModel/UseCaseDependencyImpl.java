@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00592d06-c4bf-1fd8-97fe-001ec947cd2a")
 public class UseCaseDependencyImpl extends ModelElementImpl implements UseCaseDependency {
-    @objid ("781332d1-3dd4-4a5e-aa1f-679655800918")
+    @objid ("776c6b02-7418-4d73-b180-4a1f777b1f7e")
     @Override
     public UseCase getOrigin() {
         return (UseCase) getDepVal(UseCaseDependencyData.Metadata.OriginDep());
     }
 
-    @objid ("1fac42af-d2a0-4ba3-948e-181dc780c06b")
+    @objid ("f0ebd80e-1223-4496-94ac-85263bc59f84")
     @Override
     public void setOrigin(UseCase value) {
         appendDepVal(UseCaseDependencyData.Metadata.OriginDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fab1f1c6-4d2c-4b84-ad0f-7237f6e02a17")
+    @objid ("87419914-02ff-4324-b03e-31199f4f8796")
     @Override
     public EList<ExtensionPoint> getExtensionLocation() {
         return new SmList<>(this, UseCaseDependencyData.Metadata.ExtensionLocationDep());
     }
 
-    @objid ("e9ebc300-884a-4c1f-880d-aa386d697c07")
+    @objid ("27035126-1e72-4a8d-8b56-49f94e7419c6")
     @Override
     public <T extends ExtensionPoint> List<T> getExtensionLocation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,19 +76,19 @@ public class UseCaseDependencyImpl extends ModelElementImpl implements UseCaseDe
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("bf735bf3-37fd-461b-94ed-901c6400f4aa")
+    @objid ("20c684f5-4c69-4456-afee-e31dbc4a0393")
     @Override
     public UseCase getTarget() {
         return (UseCase) getDepVal(UseCaseDependencyData.Metadata.TargetDep());
     }
 
-    @objid ("2abdd274-baa5-41ad-b3ef-71c70ee7b338")
+    @objid ("820c7729-eee9-4150-8f2c-7c078df6de74")
     @Override
     public void setTarget(UseCase value) {
         appendDepVal(UseCaseDependencyData.Metadata.TargetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("622bad09-817d-4938-af21-2e6ec0c42afe")
+    @objid ("70d3ec44-5239-441c-95e6-ed42fb040c15")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -98,7 +98,7 @@ public class UseCaseDependencyImpl extends ModelElementImpl implements UseCaseDe
         return super.getCompositionOwner();
     }
 
-    @objid ("2407b5ca-ad45-49ef-9c6c-8110e41f050e")
+    @objid ("157543fd-219b-455f-95bb-7ad13bda085d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -108,7 +108,7 @@ public class UseCaseDependencyImpl extends ModelElementImpl implements UseCaseDe
         return super.getCompositionRelation();
     }
 
-    @objid ("6eea02b7-413a-4499-83e0-4033a480317a")
+    @objid ("2f4bb435-dfda-49b9-b761-dacdadf11be0")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitUseCaseDependency(this);

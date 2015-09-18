@@ -331,6 +331,12 @@ public class ModuleCatalogPanel implements IPanelProvider {
         return null;
     }
 
+    @objid ("bdd79fa9-182e-4d7c-aa41-059ac283e259")
+    @Override
+    public void dispose() {
+        // nothing to do
+    }
+
     @objid ("231b1002-7740-4497-a09c-0241aa9d061e")
     private static class ModuleCatalogPanelController {
         @objid ("c4a4466f-f357-4694-893b-365bbe5413ed")

@@ -48,43 +48,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("005749aa-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Region.class, factory=RegionData.Metadata.ObjectFactory.class)
 public class RegionData extends ModelElementData {
-    @objid ("c5ab1a1b-930b-4a4f-82f3-466de8bdc32c")
+    @objid ("4bd62494-4af8-4edd-bbb3-708a70c6efca")
     @SmaMetaAssociation(metaName="Parent", typeDataClass=StateData.class, min=0, max=1, smAssociationClass=Metadata.ParentSmDependency.class)
      SmObjectImpl mParent;
 
-    @objid ("474146a5-8005-42a6-ade5-a1bb2c9b9f87")
+    @objid ("391b46f2-ec02-4347-bd99-b2b4655de061")
     @SmaMetaAssociation(metaName="Represented", typeDataClass=StateMachineData.class, min=0, max=1, smAssociationClass=Metadata.RepresentedSmDependency.class)
      SmObjectImpl mRepresented;
 
-    @objid ("1c37ae39-21c9-4b95-bc20-ef71eff9b275")
+    @objid ("4321d6c1-2215-44c5-81a3-9600d0d0e3de")
     @SmaMetaAssociation(metaName="Sub", typeDataClass=StateVertexData.class, min=0, max=-1, smAssociationClass=Metadata.SubSmDependency.class, component = true)
      List<SmObjectImpl> mSub = null;
 
-    @objid ("bbcb651b-1cdc-45b6-ab0f-a42bd346faee")
+    @objid ("ac12daa7-84d8-4f53-9247-ba07ba5f016b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00772356-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("5e9eef90-b56c-46a7-b626-0b8827056c76")
+        @objid ("1b88e310-2b78-4eda-a57d-812f10573020")
         private static SmClass smClass = null;
 
-        @objid ("858fcc29-f677-49ee-849d-162d29961142")
+        @objid ("627927db-c9fd-417b-9fcb-6f31224e770a")
         private static SmDependency ParentDep = null;
 
-        @objid ("415ccb30-13ba-436f-8c0b-5859b81cd70e")
+        @objid ("5e6597b7-7ed0-4ce3-b9c3-23102f5e0824")
         private static SmDependency RepresentedDep = null;
 
-        @objid ("6709ca9a-a4f5-4df8-bc14-9caa82107bec")
+        @objid ("7bf10e09-4168-458a-b0f6-31303d318559")
         private static SmDependency SubDep = null;
 
-        @objid ("a5acca48-aad7-494b-b3ed-2a7ceb9aa932")
+        @objid ("a6b6066c-0dbe-44fc-843d-8e826b19f475")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(RegionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("9c4212a7-786d-445b-bf45-26aca2312948")
+        @objid ("5b05de2c-1079-44f3-ba06-d0d0245c53cb")
         public static SmDependency ParentDep() {
             if (ParentDep == null) {
             	ParentDep = classof().getDependencyDef("Parent");
@@ -92,7 +92,7 @@ public class RegionData extends ModelElementData {
             return ParentDep;
         }
 
-        @objid ("6cfbc33a-8ede-4ed8-acbb-05268c119e55")
+        @objid ("6905e4db-d2da-4f76-bcac-2dd4b2df20e4")
         public static SmDependency RepresentedDep() {
             if (RepresentedDep == null) {
             	RepresentedDep = classof().getDependencyDef("Represented");
@@ -100,7 +100,7 @@ public class RegionData extends ModelElementData {
             return RepresentedDep;
         }
 
-        @objid ("b068cd86-bbd9-46aa-af41-28e866f7fb83")
+        @objid ("be9dd51e-a465-43d8-9c13-e6bda5a5dd8a")
         public static SmDependency SubDep() {
             if (SubDep == null) {
             	SubDep = classof().getDependencyDef("Sub");
@@ -108,38 +108,38 @@ public class RegionData extends ModelElementData {
             return SubDep;
         }
 
-        @objid ("fbb1a4cd-a265-40cc-8479-8668bdcdc86c")
-        public static SmDependency getParentDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ParentDep;
-        }
-
-        @objid ("25cbbb6d-00e7-4723-a8ac-d042761dce80")
+        @objid ("582193db-f1f1-411a-85d1-34531bb26bbf")
         public static SmDependency getSubDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SubDep;
         }
 
-        @objid ("7e28a4b7-9f77-4124-adfa-3bd4a1b7a22e")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("dcce9aab-73bb-43d4-8fdf-8ccbd9f46ab3")
+        @objid ("72819353-5df2-4dd7-b706-21751b27bb11")
         public static SmDependency getRepresentedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return RepresentedDep;
         }
 
+        @objid ("fb2a14da-10b4-4f84-828e-35d21f9cfa21")
+        public static SmDependency getParentDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ParentDep;
+        }
+
+        @objid ("b5fba6d3-c448-4a53-aa36-59261ba5353a")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("00776604-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("2e86bfe5-c2b1-45ee-a481-a28c145f75b8")
+            @objid ("eefbc949-9e5a-468c-95fa-1d764755afae")
             public ISmObjectData createData() {
                 return new RegionData();
             }
 
-            @objid ("fc163bf6-a6ce-4fa7-8fb0-d72c107fd87b")
+            @objid ("534becbb-52be-44af-875c-2204b6f6ea55")
             public SmObjectImpl createImpl() {
                 return new RegionImpl();
             }
@@ -148,18 +148,18 @@ public class RegionData extends ModelElementData {
 
         @objid ("0077ca40-c4c3-1fd8-97fe-001ec947cd2a")
         public static class RepresentedSmDependency extends SmSingleDependency {
-            @objid ("e273360c-040b-42fe-bfde-55573e77701d")
+            @objid ("73a1e01e-12a4-4ad4-af4e-e2a530404e9d")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((RegionData) data).mRepresented;
             }
 
-            @objid ("151b900b-55b3-46fc-8642-a65feffd6c34")
+            @objid ("1c6f0889-691e-42e0-b1b6-c92997211ab2")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((RegionData) data).mRepresented = value;
             }
 
-            @objid ("e534d1ce-1bcb-4244-9fa5-4b101fce52b1")
+            @objid ("bfd33149-8f1a-4ddd-8a6c-0aca27d0a4d7")
             @Override
             public SmDependency getSymetric() {
                 return StateMachineData.Metadata.TopDep();
@@ -169,18 +169,18 @@ public class RegionData extends ModelElementData {
 
         @objid ("00783fc0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ParentSmDependency extends SmSingleDependency {
-            @objid ("eb935794-30bc-494b-aa08-241f82f04228")
+            @objid ("3fe2ed7c-8920-41c8-a0f7-1e04ffeab987")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((RegionData) data).mParent;
             }
 
-            @objid ("33ab5ac5-cfb4-40b4-9f27-6821f0c311db")
+            @objid ("b8c898e7-5748-425c-b067-cab6ae908769")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((RegionData) data).mParent = value;
             }
 
-            @objid ("63869c9f-cc75-4f7a-87fe-c37e9fbd0648")
+            @objid ("2d81353f-691c-483b-8d5a-88af476be793")
             @Override
             public SmDependency getSymetric() {
                 return StateData.Metadata.OwnedRegionDep();
@@ -190,20 +190,20 @@ public class RegionData extends ModelElementData {
 
         @objid ("0078b4fa-c4c3-1fd8-97fe-001ec947cd2a")
         public static class SubSmDependency extends SmMultipleDependency {
-            @objid ("b80ec25b-50b5-4cbf-87df-e8ed24842cb6")
+            @objid ("39a869bb-a64a-4480-9c1b-6fbbea69b3b2")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((RegionData)data).mSub != null)? ((RegionData)data).mSub:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("3327c961-77fb-4ff8-a118-6608ee22606e")
+            @objid ("f450f279-2596-4059-a6d1-23b6798320ee")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((RegionData) data).mSub = new ArrayList<>(initialCapacity);
                 return ((RegionData) data).mSub;
             }
 
-            @objid ("7c895635-4d6b-4cc4-aaa2-e9ff75215034")
+            @objid ("f1f9e01f-77db-4d30-b239-722dc494d151")
             @Override
             public SmDependency getSymetric() {
                 return StateVertexData.Metadata.ParentDep();

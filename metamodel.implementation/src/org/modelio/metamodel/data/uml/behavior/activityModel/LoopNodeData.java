@@ -43,43 +43,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00379c9a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=LoopNode.class, factory=LoopNodeData.Metadata.ObjectFactory.class)
 public class LoopNodeData extends StructuredActivityNodeData {
-    @objid ("78f1a9d9-6165-4d15-aeed-8b90bb65dcf2")
+    @objid ("6efb6a54-e12e-4e0d-b020-c76014b77367")
     @SmaMetaAttribute(metaName="IsTestedFirst", type=Boolean.class, smAttributeClass=Metadata.IsTestedFirstSmAttribute.class)
      Object mIsTestedFirst = false;
 
-    @objid ("d523da16-1408-4db7-85c5-65e87f8178eb")
+    @objid ("363ef4fc-0e8f-4580-a1b3-299a331550a1")
     @SmaMetaAttribute(metaName="Setup", type=String.class, smAttributeClass=Metadata.SetupSmAttribute.class)
      Object mSetup = "";
 
-    @objid ("c28fd913-9370-430e-80e6-56c0973070b5")
+    @objid ("c475dc95-b723-456e-a7c8-31fd79d8c73f")
     @SmaMetaAttribute(metaName="Test", type=String.class, smAttributeClass=Metadata.TestSmAttribute.class)
      Object mTest = "";
 
-    @objid ("4f9f3053-08a4-4b6a-b017-04fe5599b53b")
+    @objid ("8f34b635-8caf-43e8-ae01-59e8d1b96ffe")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("003bf510-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("f7b0baf7-cf97-49c6-ac54-e2ef6f9e8bbf")
+        @objid ("e906060a-b7fe-4c1a-964e-864b02d7fe19")
         private static SmClass smClass = null;
 
-        @objid ("5dfa55b2-b652-4b27-8177-0f73e9a86bf8")
+        @objid ("ef4dbb96-efe7-433a-9032-a990d0c39f04")
         private static SmAttribute IsTestedFirstAtt = null;
 
-        @objid ("cef0ad0e-4bc6-4328-9fb2-704dc5deaf69")
+        @objid ("af3d0886-3825-494c-ba42-9a04b3872bd7")
         private static SmAttribute SetupAtt = null;
 
-        @objid ("74608bf9-d9c4-4d42-a234-66d982d5bf12")
+        @objid ("6b0da8e6-5981-403f-9a6f-66f5fdf189ce")
         private static SmAttribute TestAtt = null;
 
-        @objid ("b7e2fb3c-ce39-46c9-816d-43d84ed58df5")
+        @objid ("acaae0bf-a742-47f6-8567-ca3a3cb4475d")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(LoopNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f813f2d1-8a95-4d3b-80ef-0ebd52eb73d7")
+        @objid ("cddc0f01-1cb3-4fbb-a3d6-fd25e5e5ef67")
         public static SmAttribute IsTestedFirstAtt() {
             if (IsTestedFirstAtt == null) {
             	IsTestedFirstAtt = classof().getAttributeDef("IsTestedFirst");
@@ -87,7 +87,7 @@ public class LoopNodeData extends StructuredActivityNodeData {
             return IsTestedFirstAtt;
         }
 
-        @objid ("e938d5cf-f299-4c76-93e1-eb4713773526")
+        @objid ("c9d2ff76-d004-4de7-813a-e4e45a298886")
         public static SmAttribute SetupAtt() {
             if (SetupAtt == null) {
             	SetupAtt = classof().getAttributeDef("Setup");
@@ -95,7 +95,7 @@ public class LoopNodeData extends StructuredActivityNodeData {
             return SetupAtt;
         }
 
-        @objid ("3e061c05-415e-482e-afc0-3a416f7d6cb5")
+        @objid ("a4a6de49-fb43-48f9-8d2b-473f0b868562")
         public static SmAttribute TestAtt() {
             if (TestAtt == null) {
             	TestAtt = classof().getAttributeDef("Test");
@@ -103,38 +103,38 @@ public class LoopNodeData extends StructuredActivityNodeData {
             return TestAtt;
         }
 
-        @objid ("c3538b02-f605-42b4-83de-42a36a4d6aa8")
-        public static SmAttribute getIsTestedFirstAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsTestedFirstAtt;
-        }
-
-        @objid ("6f1121c7-f4cc-4357-8d2e-010e8c0ca2bf")
+        @objid ("0175c05f-f5fb-4021-b014-914f778c4eae")
         public static SmAttribute getSetupAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SetupAtt;
         }
 
-        @objid ("2f5a83f2-7d63-4216-915e-c2e877398553")
+        @objid ("1eb650ff-02c4-4fa4-9ce6-7651f86116be")
         public static SmAttribute getTestAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return TestAtt;
         }
 
-        @objid ("3203eaf3-3c40-4932-a3dc-ede355857102")
+        @objid ("2feb5328-c010-4a8f-916c-938924a8a070")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("106a89ce-65d6-4f8f-b273-aea4f153e34b")
+        public static SmAttribute getIsTestedFirstAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsTestedFirstAtt;
+        }
+
         @objid ("003c37f0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("86e2f5a0-8a49-4308-af9b-a470d141b61a")
+            @objid ("9759413d-69ee-4aae-8510-1b731be87f15")
             public ISmObjectData createData() {
                 return new LoopNodeData();
             }
 
-            @objid ("bef8d126-13ac-4a2d-8119-748109b540dc")
+            @objid ("eb51e59a-68c0-4466-9d77-e31ce2104c08")
             public SmObjectImpl createImpl() {
                 return new LoopNodeImpl();
             }
@@ -143,12 +143,12 @@ public class LoopNodeData extends StructuredActivityNodeData {
 
         @objid ("003c9b6e-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IsTestedFirstSmAttribute extends SmAttribute {
-            @objid ("e4f69e79-16c0-4160-8791-02e8b565db2a")
+            @objid ("761e9580-191d-4b3b-8dde-87f00a0d3a45")
             public Object getValue(ISmObjectData data) {
                 return ((LoopNodeData) data).mIsTestedFirst;
             }
 
-            @objid ("64357a01-33db-4956-91b4-9ced12313ac9")
+            @objid ("c8b10899-8384-4329-8b00-e45bea674311")
             public void setValue(ISmObjectData data, Object value) {
                 ((LoopNodeData) data).mIsTestedFirst = value;
             }
@@ -157,12 +157,12 @@ public class LoopNodeData extends StructuredActivityNodeData {
 
         @objid ("003cfe10-c4c3-1fd8-97fe-001ec947cd2a")
         public static class SetupSmAttribute extends SmAttribute {
-            @objid ("842f1aec-3426-434d-9f6f-ac4821035dec")
+            @objid ("3da78b85-dd22-4c79-864c-769bb31ada5e")
             public Object getValue(ISmObjectData data) {
                 return ((LoopNodeData) data).mSetup;
             }
 
-            @objid ("514014b2-4088-45e7-8af6-fa93d01983af")
+            @objid ("640fb2c6-6275-46a1-a11c-84031a82812a")
             public void setValue(ISmObjectData data, Object value) {
                 ((LoopNodeData) data).mSetup = value;
             }
@@ -171,12 +171,12 @@ public class LoopNodeData extends StructuredActivityNodeData {
 
         @objid ("003d62c4-c4c3-1fd8-97fe-001ec947cd2a")
         public static class TestSmAttribute extends SmAttribute {
-            @objid ("9a09cda7-26b9-4094-94a6-961bdf09ac61")
+            @objid ("d7fbd34a-e0e8-4f18-a161-d546ab7a7668")
             public Object getValue(ISmObjectData data) {
                 return ((LoopNodeData) data).mTest;
             }
 
-            @objid ("e150df7a-a7e0-4362-9223-6447154520fa")
+            @objid ("7b855064-d026-450f-b24a-9094a31d58f8")
             public void setValue(ISmObjectData data, Object value) {
                 ((LoopNodeData) data).mTest = value;
             }

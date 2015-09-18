@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.app.core.IModelioEventService;
 import org.modelio.app.core.events.ModelioEvent;
+import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("00302b70-3967-11e2-a430-001ec947c8cc")
@@ -43,6 +44,12 @@ public class ActivationService implements IActivationService {
     @Override
     public void activateMObject(MObject objectToActivate) {
         this.eventService.postAsyncEvent(this, ModelioEvent.EDIT_ELEMENT, objectToActivate);
+    }
+
+    @objid ("b8f5ea4b-2e94-4f5b-8e56-703ddea953bf")
+    @Override
+    public void editProperties(Element e) {
+        this.eventService.postAsyncEvent(this, ModelioEvent.EDIT_PROPERTIES, e);
     }
 
 }

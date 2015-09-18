@@ -71,7 +71,7 @@ public interface ITransactionSupport {
      * after having waited 2 seconds.
      */
     @objid ("0019bc2a-575b-10c8-842f-001ec947cd2a")
-    ITransaction createTransaction(final String transactionName) throws TransactionForbiddenException, ConcurrentTransactionException;
+    ITransaction createTransaction(final String transactionName) throws ConcurrentTransactionException, TransactionForbiddenException;
 
     /**
      * Create a new Transaction, waits for the specified time if a concurrent transaction is already running.
@@ -103,7 +103,7 @@ public interface ITransactionSupport {
      * @throws org.modelio.vcore.session.api.transactions.ConcurrentTransactionException if a concurrent transaction is still running after having waited.
      */
     @objid ("d7dfb2a4-ed06-47f6-9cd8-372a3081ebb0")
-    ITransaction createTransaction(final String transactionName, long timeout, TimeUnit unit) throws TransactionForbiddenException, ConcurrentTransactionException;
+    ITransaction createTransaction(final String transactionName, long timeout, TimeUnit unit) throws ConcurrentTransactionException, TransactionForbiddenException;
 
     /**
      * Set a {@link ITransactionValidator} to check transaction contents before commiting.

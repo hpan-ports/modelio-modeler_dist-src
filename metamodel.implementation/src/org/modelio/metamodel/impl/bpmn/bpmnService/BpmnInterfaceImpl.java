@@ -46,25 +46,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000e1c26-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnInterfaceImpl extends BpmnRootElementImpl implements BpmnInterface {
-    @objid ("1672fa3d-a7b7-439c-9914-7211b126600d")
+    @objid ("f6c72d60-2eaf-4f15-9341-4b3cc3e70519")
     @Override
     public GeneralClass getImplementationRef() {
         return (GeneralClass) getDepVal(BpmnInterfaceData.Metadata.ImplementationRefDep());
     }
 
-    @objid ("6b163cbb-d03d-4ea8-95a2-dcfd75f9ed81")
+    @objid ("cbd35db2-1270-401b-ab9b-eda56a85c888")
     @Override
     public void setImplementationRef(GeneralClass value) {
         appendDepVal(BpmnInterfaceData.Metadata.ImplementationRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1b45ec69-cedd-44c5-93ab-8291bd7beee7")
+    @objid ("b0609275-4927-4380-9b74-0104c0632139")
     @Override
     public EList<BpmnOperation> getOperation() {
         return new SmList<>(this, BpmnInterfaceData.Metadata.OperationDep());
     }
 
-    @objid ("7092325d-7110-48ae-91ed-bf8351a59a51")
+    @objid ("39540464-052c-497e-a0f2-6a43893c40de")
     @Override
     public <T extends BpmnOperation> List<T> getOperation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -77,13 +77,13 @@ public class BpmnInterfaceImpl extends BpmnRootElementImpl implements BpmnInterf
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4c319ea2-b9da-45c5-8344-870e037531f8")
+    @objid ("ca14bda1-1b12-4018-9ac0-132d50efd298")
     @Override
     public EList<BpmnParticipant> getParticipantRef() {
         return new SmList<>(this, BpmnInterfaceData.Metadata.ParticipantRefDep());
     }
 
-    @objid ("9ecce8a2-5976-4028-992f-0f0d037cf520")
+    @objid ("088057cf-65a1-4403-bc75-dae78cad5991")
     @Override
     public <T extends BpmnParticipant> List<T> getParticipantRef(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -96,21 +96,21 @@ public class BpmnInterfaceImpl extends BpmnRootElementImpl implements BpmnInterf
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7de85a93-8ce7-4013-8a3c-406986862a34")
+    @objid ("92e9f9ec-1332-4955-8e44-55bcdbc7655e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bc674b70-4d4f-4694-b26b-a72812f22ab3")
+    @objid ("8fb18a47-c4d2-4fb9-8ccf-97ec8f3f4c08")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("6b77a52e-00d8-4c73-a4b1-a9ebfdf9be4a")
+    @objid ("c73a4012-97f4-4607-82f8-cf3f35e12d93")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnInterface(this);

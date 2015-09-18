@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00735334-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=CompositeStructureDiagram.class, factory=CompositeStructureDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class CompositeStructureDiagramData extends StaticDiagramData {
-    @objid ("9c3b5a67-75b4-47ce-8c9b-af41fe6dcd44")
+    @objid ("05dceee5-0a87-4423-b825-97afd6d874be")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0007c0ec-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("b97aedf5-f62b-44d8-b089-4fae03c76810")
+        @objid ("1cba88ed-2776-4df9-b7c5-26d8620f7299")
         private static SmClass smClass = null;
 
-        @objid ("0a923af5-51e9-4888-8b3d-0aa639960903")
+        @objid ("d43f11fa-ab7b-4a30-b3b9-7385b436929f")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(CompositeStructureDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("3abcc4d5-655c-4240-838f-d9ad3632978d")
+        @objid ("08e644f2-bb00-4b1f-9f75-d88a6174f4ed")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class CompositeStructureDiagramData extends StaticDiagramData {
 
         @objid ("00080f52-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("8e5831f1-46f2-4b45-8657-568011fe40e7")
+            @objid ("b7c5cbf6-e044-40b4-aa59-f65a37d7f606")
             public ISmObjectData createData() {
                 return new CompositeStructureDiagramData();
             }
 
-            @objid ("3bc8ed03-8e8a-46d9-b8aa-e624b6612952")
+            @objid ("2723b6a5-e2fe-4f99-9667-2ff83e11e724")
             public SmObjectImpl createImpl() {
                 return new CompositeStructureDiagramImpl();
             }

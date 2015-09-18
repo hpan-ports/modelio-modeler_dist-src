@@ -50,13 +50,13 @@ public abstract class ElementImpl extends SmObjectImpl implements Element {
         // do nothing. Element has no name
     }
 
-    @objid ("88c607d4-3a28-41b8-b460-6f147175f3d3")
+    @objid ("a17eedf6-ee12-43ec-8470-cf9543449395")
     @Override
     public EList<AbstractDiagram> getDiagramElement() {
         return new SmList<>(this, ElementData.Metadata.DiagramElementDep());
     }
 
-    @objid ("b5d51c25-bbe1-4c8a-b492-a4756e89486b")
+    @objid ("6c9bbc14-c589-4da3-926b-b67ee5f82c78")
     @Override
     public <T extends AbstractDiagram> List<T> getDiagramElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -69,13 +69,13 @@ public abstract class ElementImpl extends SmObjectImpl implements Element {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4d89ba06-334f-40d8-8242-a9b5b099384b")
+    @objid ("9df4f540-8f7a-4ece-bf7c-ca1b9358be07")
     @Override
     public EList<NamespaceUse> getCausing() {
         return new SmList<>(this, ElementData.Metadata.CausingDep());
     }
 
-    @objid ("6803524b-64c0-475b-80f6-89ad403eb3cd")
+    @objid ("97002613-a825-4a4d-a28b-b685c6bd8a10")
     @Override
     public <T extends NamespaceUse> List<T> getCausing(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -88,13 +88,13 @@ public abstract class ElementImpl extends SmObjectImpl implements Element {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2997c6d7-18e4-44c5-b1c7-3316c16529ae")
+    @objid ("46ba8cb8-fda0-4be5-83da-b37304929cde")
     @Override
     public EList<QueryDefinition> getAddedToQuery() {
         return new SmList<>(this, ElementData.Metadata.AddedToQueryDep());
     }
 
-    @objid ("0b4bfeb1-2367-4901-a534-93a2e56a84fe")
+    @objid ("f39553a2-4c19-41c8-a751-585d98c34783")
     @Override
     public <T extends QueryDefinition> List<T> getAddedToQuery(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -107,21 +107,21 @@ public abstract class ElementImpl extends SmObjectImpl implements Element {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f8907646-7d52-40f2-a0c4-ebc4442420c7")
+    @objid ("e49f10cd-d2fe-42a9-8b8b-189b8d211222")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return null;
     }
 
-    @objid ("e86c35b0-950d-490a-bf5b-bbbe295a865b")
+    @objid ("4639eb65-cf1a-4f4c-842a-bfe3e2524889")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return null;
     }
 
-    @objid ("0a64cd6d-bd0d-4a4c-a13a-55ce77d485c3")
+    @objid ("1dcbfeb6-351a-410b-9dff-c085167567f2")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitElement(this);

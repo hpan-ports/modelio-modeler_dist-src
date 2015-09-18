@@ -23,7 +23,7 @@ package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("87770010-e3ef-450b-8f15-b2c258e34fa1")
 public class EFlowFinalNode extends EActivityNode {
@@ -31,7 +31,7 @@ public class EFlowFinalNode extends EActivityNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createFlowFinalNode();
+                        .createFlowFinalNode();
     }
 
     @objid ("2ef93a87-a0f9-4940-b0ad-cbb05dc330e2")

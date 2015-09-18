@@ -36,40 +36,40 @@ import org.modelio.metamodel.uml.statik.NaryLink;
 
 @objid ("5451d474-f72f-46a9-b8b5-35997413d584")
 public interface CommunicationChannel extends ModelElement {
-    @objid ("95c8830c-c7d7-4a08-8f0f-90714b7207de")
+    @objid ("3655359c-bb0c-4244-8262-18eff649565d")
     EList<CommunicationMessage> getStartToEndMessage();
 
-    @objid ("b1e7f292-30af-4227-ac27-193c7f107c62")
+    @objid ("33e3fbec-e68b-4850-9ac7-81608f6a4015")
     <T extends CommunicationMessage> List<T> getStartToEndMessage(java.lang.Class<T> filterClass);
 
-    @objid ("5b0eabd6-7bd6-4721-a656-8592f13d2b4a")
+    @objid ("d21d62c1-1f94-4a35-8221-5099aa9388ca")
     Link getChannel();
 
-    @objid ("cf241c9d-514c-471f-b104-59e162a0e904")
+    @objid ("2ce4ff5b-5699-4e86-8118-05b1d8ee6b8f")
     void setChannel(Link value);
 
-    @objid ("5da740fc-7bc4-4af2-9350-5608f78c0f54")
+    @objid ("f7dfcd9b-97df-4bd4-9a8f-b0f4a9eb40b8")
     CommunicationNode getStart();
 
-    @objid ("2687cfcf-c538-491f-8f79-cd7cc1cada2a")
+    @objid ("9b9177b8-438e-403d-8564-68885dcce379")
     void setStart(CommunicationNode value);
 
-    @objid ("b21681e1-b848-4b1a-8361-8cf8c5ee7fa1")
+    @objid ("5b43d6e5-6a30-4cd8-86d1-16744a897270")
     NaryLink getNaryChannel();
 
-    @objid ("dbddf6bf-d321-4d87-ada5-417d86c4ab17")
+    @objid ("89e2d4bc-72cf-4730-a654-4a8ccb92a1d9")
     void setNaryChannel(NaryLink value);
 
-    @objid ("0e341d96-d013-4f08-a6f4-86278cddc2ca")
+    @objid ("e7c048fc-cb16-4425-b6ef-13744d18034e")
     EList<CommunicationMessage> getEndToStartMessage();
 
-    @objid ("1adc0928-a593-4997-afbb-b59e73f4b452")
+    @objid ("d00913c7-3198-431a-99ba-87a03e161176")
     <T extends CommunicationMessage> List<T> getEndToStartMessage(java.lang.Class<T> filterClass);
 
-    @objid ("d5850b0c-c1d0-447a-be74-7457ff329b8b")
+    @objid ("33e411e9-0e79-4e10-823b-9b4ffc355811")
     CommunicationNode getEnd();
 
-    @objid ("230288fe-c698-4235-8306-8ca3b5f16d8b")
+    @objid ("3b42f23a-2053-4c76-b2d9-ce691f1b0aa7")
     void setEnd(CommunicationNode value);
 
 }

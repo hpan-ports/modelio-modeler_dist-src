@@ -28,7 +28,8 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperand;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 /**
@@ -125,7 +126,7 @@ public class OInteractionFragment extends OModelElement {
                 try{
                     ecoreLifeline.getCoveredBys().add((org.eclipse.uml2.uml.InteractionFragment)ecoreElt);
                 }catch (ArrayStoreException e){
-                    e.printStackTrace();
+                    Xmi.LOG.warning(e);
                 }
             }
         }

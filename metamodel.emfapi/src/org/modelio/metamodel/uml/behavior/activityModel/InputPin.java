@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.behavior.activityModel.ExceptionHandler;
 
 @objid ("003503ea-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InputPin extends Pin {
-    @objid ("bf2ebd17-d3ec-4971-8e51-24692ead928b")
+    @objid ("d98a7ec4-2b52-4829-b2e0-45629679123f")
     boolean isIsSelf();
 
-    @objid ("335bdb18-80fe-4eef-a595-97b066b06177")
+    @objid ("a14279dc-ddff-4274-a46e-b7511637d43b")
     void setIsSelf(boolean value);
 
-    @objid ("395d2149-df8b-4dc3-8c65-d8751031cb33")
+    @objid ("4fa05d9d-3fd9-446f-a218-98daae7003c7")
     EList<ExceptionHandler> getHandler();
 
-    @objid ("00863399-3651-410d-ac7b-5e06a8d88a6b")
+    @objid ("63aaafe5-6ed1-4e3a-aeb3-d6757c3b6855")
     <T extends ExceptionHandler> List<T> getHandler(java.lang.Class<T> filterClass);
 
-    @objid ("fa68f646-a05e-4be0-ad4c-73698be951b7")
+    @objid ("f9954900-cec6-41f5-8dd1-f5612582acff")
     ActivityAction getInputing();
 
-    @objid ("7c7a388f-1e66-4c90-866e-b898daf6acac")
+    @objid ("8d56d170-cae7-4073-a919-f08a32ca1f6c")
     void setInputing(ActivityAction value);
 
 }

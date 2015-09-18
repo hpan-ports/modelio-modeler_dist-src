@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.statik.VisibilityMode;
 
 @objid ("0008034a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ElementImport extends ModelElement {
-    @objid ("2ca5d0be-a6a1-44c6-81f1-7938fc76daf8")
+    @objid ("86e0ad32-449c-420e-9414-f96df3e9fee5")
     VisibilityMode getVisibility();
 
-    @objid ("b45ca791-a9e0-48e6-8784-6484b63bde94")
+    @objid ("70bcf431-e0ac-4ef0-9732-5172d7fe0662")
     void setVisibility(VisibilityMode value);
 
-    @objid ("f5464ac9-7f78-430e-8656-87ce744244d5")
+    @objid ("36318220-f843-4d10-962b-a13c01321d97")
     NameSpace getImportingNameSpace();
 
-    @objid ("a8f246ff-4dab-4dd5-91f7-12fb7b7f539d")
+    @objid ("06a396d2-6c9b-4a4c-88ae-084372b875b0")
     void setImportingNameSpace(NameSpace value);
 
-    @objid ("ff7d1bc9-ea6a-4d73-b00b-0a5172e32f86")
+    @objid ("d50ed98d-0be2-4273-83bd-a9eeed1961ca")
     NameSpace getImportedElement();
 
-    @objid ("34e874b6-b9da-4acb-9b36-be797d4bf4cd")
+    @objid ("045a45bc-0163-4801-9059-5644cc45ba27")
     void setImportedElement(NameSpace value);
 
-    @objid ("ddf1b5a2-a7e2-41d3-8af4-9bfa6a22e6b5")
+    @objid ("e31e8cb9-80b6-413f-98d5-90d326834940")
     Operation getImportingOperation();
 
-    @objid ("5973888f-ed48-447b-9c76-a2fc7535c73f")
+    @objid ("cb70e30f-46dc-4572-8d42-6cac1dd87a50")
     void setImportingOperation(Operation value);
 
 }

@@ -48,78 +48,78 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("001da934-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=TemplateParameter.class, factory=TemplateParameterData.Metadata.ObjectFactory.class)
 public class TemplateParameterData extends GeneralClassData {
-    @objid ("05e7ee85-3a9e-4303-bf37-fa87ddfd917b")
+    @objid ("34118a2b-0606-46c1-b298-75a1f022ece7")
     @SmaMetaAttribute(metaName="DefaultValue", type=String.class, smAttributeClass=Metadata.DefaultValueSmAttribute.class)
      Object mDefaultValue = "";
 
-    @objid ("e1a14fd6-048e-4bc5-a12a-9c042b588107")
+    @objid ("f1840674-3c2c-4f3b-8af6-9f93d3550313")
     @SmaMetaAttribute(metaName="IsValueParameter", type=Boolean.class, smAttributeClass=Metadata.IsValueParameterSmAttribute.class)
      Object mIsValueParameter = false;
 
-    @objid ("575c4e15-3ece-4c9a-bdd1-b80ada4ae8b6")
+    @objid ("d5c2cab5-6f12-4736-b0d7-5e36555d7ef7")
     @SmaMetaAssociation(metaName="ParameterSubstitution", typeDataClass=TemplateParameterSubstitutionData.class, min=0, max=-1, smAssociationClass=Metadata.ParameterSubstitutionSmDependency.class, istodelete = true)
      List<SmObjectImpl> mParameterSubstitution = null;
 
-    @objid ("86a31f8a-226b-4959-a8b9-5e2aca421b28")
+    @objid ("308ce007-58a5-4f07-adac-4cfc6cb17d7a")
     @SmaMetaAssociation(metaName="Type", typeDataClass=ModelElementData.class, min=0, max=1, smAssociationClass=Metadata.TypeSmDependency.class, partof = true)
      SmObjectImpl mType;
 
-    @objid ("0e41464e-7896-4d4b-95e4-f278813b2bce")
+    @objid ("aadf9a5d-fcbd-4689-af65-c9428d3a7cd3")
     @SmaMetaAssociation(metaName="Parameterized", typeDataClass=NameSpaceData.class, min=0, max=1, smAssociationClass=Metadata.ParameterizedSmDependency.class)
      SmObjectImpl mParameterized;
 
-    @objid ("7cba2e1a-32ab-485c-8ac6-3d8400e8357d")
+    @objid ("56512471-391d-4fd7-bd4f-31e466d9db42")
     @SmaMetaAssociation(metaName="OwnedParameterElement", typeDataClass=ModelElementData.class, min=0, max=1, smAssociationClass=Metadata.OwnedParameterElementSmDependency.class, component = true)
      SmObjectImpl mOwnedParameterElement;
 
-    @objid ("1d27a15a-3929-4812-b05a-359df46ed2dd")
+    @objid ("d2863584-4001-470e-82fd-4cc1d449e38c")
     @SmaMetaAssociation(metaName="DefaultType", typeDataClass=ModelElementData.class, min=0, max=1, smAssociationClass=Metadata.DefaultTypeSmDependency.class, partof = true)
      SmObjectImpl mDefaultType;
 
-    @objid ("717ab0f0-d3ac-48d8-83ea-fb1d7926610a")
+    @objid ("c22fc752-a217-4c36-887d-0a44ebca44a8")
     @SmaMetaAssociation(metaName="ParameterizedOperation", typeDataClass=OperationData.class, min=0, max=1, smAssociationClass=Metadata.ParameterizedOperationSmDependency.class)
      SmObjectImpl mParameterizedOperation;
 
-    @objid ("ab4cd8db-91b2-49fb-b9d9-d8cbe9569624")
+    @objid ("7918ae07-11e4-451d-8afc-fcdaa95932ba")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00343d02-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("665bdc2c-95fa-4f15-8f4a-a4905f17e98a")
+        @objid ("a2e11fd3-1eb4-4113-809a-9b7d82752573")
         private static SmClass smClass = null;
 
-        @objid ("760278b5-e770-46f0-8919-76ca00414d19")
+        @objid ("e17b9c9e-25e8-492a-9c4c-ba9bc61de4f2")
         private static SmAttribute DefaultValueAtt = null;
 
-        @objid ("5eb94103-e9c8-48e2-826f-d3a0e80bca63")
+        @objid ("546c68de-8cdb-4f20-a800-3606fd79e82b")
         private static SmAttribute IsValueParameterAtt = null;
 
-        @objid ("f2ec30ab-d632-47c2-bcf5-918b73c6f539")
+        @objid ("d2ff5b7c-b559-406e-8d4f-e2d942b3a712")
         private static SmDependency ParameterSubstitutionDep = null;
 
-        @objid ("4bdc2fbb-5d9a-4a20-9568-380ed92d3b93")
+        @objid ("426154d5-dd16-4a68-ad11-b872fb7c3876")
         private static SmDependency TypeDep = null;
 
-        @objid ("ab070c05-1f82-4b11-93ef-6481b4140cb8")
+        @objid ("00dcfb7b-bec4-4e29-b268-98326bbe327f")
         private static SmDependency ParameterizedDep = null;
 
-        @objid ("40438616-c7a3-4c26-8278-050cc27776de")
+        @objid ("6738aa0f-5cbc-4e12-bd03-38cdd4adad98")
         private static SmDependency OwnedParameterElementDep = null;
 
-        @objid ("9f7e93d0-fffa-479f-a444-f089e54e263e")
+        @objid ("6d450159-5b86-48c5-939e-957b63b1e230")
         private static SmDependency DefaultTypeDep = null;
 
-        @objid ("add879a6-8687-4eeb-be4d-814684776665")
+        @objid ("46c82d29-5264-40d8-92f5-5aa9fd8ef022")
         private static SmDependency ParameterizedOperationDep = null;
 
-        @objid ("09dba5ea-19d6-4790-8090-151a94be1721")
+        @objid ("7249d171-b1b3-4cf3-a7b8-a3317a125200")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(TemplateParameterData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4f2a5e0c-270b-490c-9918-70c089f6965e")
+        @objid ("50abc888-d058-4cd8-ac84-5840130d9bb0")
         public static SmAttribute DefaultValueAtt() {
             if (DefaultValueAtt == null) {
             	DefaultValueAtt = classof().getAttributeDef("DefaultValue");
@@ -127,7 +127,7 @@ public class TemplateParameterData extends GeneralClassData {
             return DefaultValueAtt;
         }
 
-        @objid ("10691923-050f-49e4-a424-7643aeb823ca")
+        @objid ("64e4b374-d35e-4c8c-a45c-e450c50f7cc3")
         public static SmAttribute IsValueParameterAtt() {
             if (IsValueParameterAtt == null) {
             	IsValueParameterAtt = classof().getAttributeDef("IsValueParameter");
@@ -135,7 +135,7 @@ public class TemplateParameterData extends GeneralClassData {
             return IsValueParameterAtt;
         }
 
-        @objid ("08a07b0a-88b1-49b7-b6b4-95d150bedcba")
+        @objid ("1ed5968e-f980-4817-8757-865662c13c25")
         public static SmDependency ParameterSubstitutionDep() {
             if (ParameterSubstitutionDep == null) {
             	ParameterSubstitutionDep = classof().getDependencyDef("ParameterSubstitution");
@@ -143,7 +143,7 @@ public class TemplateParameterData extends GeneralClassData {
             return ParameterSubstitutionDep;
         }
 
-        @objid ("29a2cabb-2b42-42f3-897b-4416679966c4")
+        @objid ("24e8be5b-145b-411f-8565-a9934b8cd416")
         public static SmDependency TypeDep() {
             if (TypeDep == null) {
             	TypeDep = classof().getDependencyDef("Type");
@@ -151,7 +151,7 @@ public class TemplateParameterData extends GeneralClassData {
             return TypeDep;
         }
 
-        @objid ("edeeb7e4-50fa-40bb-8010-4af94390060f")
+        @objid ("44dfd823-b816-424b-a36d-dde31530f608")
         public static SmDependency ParameterizedDep() {
             if (ParameterizedDep == null) {
             	ParameterizedDep = classof().getDependencyDef("Parameterized");
@@ -159,7 +159,7 @@ public class TemplateParameterData extends GeneralClassData {
             return ParameterizedDep;
         }
 
-        @objid ("52ca1a9b-c188-480c-bb87-b6e62e19c74b")
+        @objid ("f49477f6-921a-4f6e-808f-a9541f4c4879")
         public static SmDependency OwnedParameterElementDep() {
             if (OwnedParameterElementDep == null) {
             	OwnedParameterElementDep = classof().getDependencyDef("OwnedParameterElement");
@@ -167,7 +167,7 @@ public class TemplateParameterData extends GeneralClassData {
             return OwnedParameterElementDep;
         }
 
-        @objid ("9bbfb24e-f267-490e-bb78-8792334ad30e")
+        @objid ("576b3eff-9c7d-42aa-ba17-4d5e28f4ba26")
         public static SmDependency DefaultTypeDep() {
             if (DefaultTypeDep == null) {
             	DefaultTypeDep = classof().getDependencyDef("DefaultType");
@@ -175,7 +175,7 @@ public class TemplateParameterData extends GeneralClassData {
             return DefaultTypeDep;
         }
 
-        @objid ("5d74403b-c40f-40e0-9d70-1c963984607f")
+        @objid ("6c9fc2e4-288d-4a44-8e29-ce6786af2def")
         public static SmDependency ParameterizedOperationDep() {
             if (ParameterizedOperationDep == null) {
             	ParameterizedOperationDep = classof().getDependencyDef("ParameterizedOperation");
@@ -183,68 +183,68 @@ public class TemplateParameterData extends GeneralClassData {
             return ParameterizedOperationDep;
         }
 
-        @objid ("626ea1de-194c-488b-895c-c6933684d118")
+        @objid ("ca637fb4-d4a6-425f-a8b1-7131244a91ab")
         public static SmDependency getParameterizedOperationDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ParameterizedOperationDep;
         }
 
-        @objid ("689211b6-ee9d-4c05-8666-48e6bfc6d184")
-        public static SmDependency getParameterSubstitutionDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ParameterSubstitutionDep;
-        }
-
-        @objid ("e36ee8cb-8e8b-48d9-923e-bdf3281a4e36")
-        public static SmAttribute getDefaultValueAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DefaultValueAtt;
-        }
-
-        @objid ("6f435961-d051-4fa9-a308-de97f46476af")
-        public static SmAttribute getIsValueParameterAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsValueParameterAtt;
-        }
-
-        @objid ("d6fcaaff-6c6f-402b-b4d7-aaf7943581bc")
+        @objid ("811a0c6e-150d-4c13-a0ef-2e9eb55ccaf0")
         public static SmDependency getOwnedParameterElementDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnedParameterElementDep;
         }
 
-        @objid ("0f401cca-5a1b-44f4-8971-c32773af6518")
-        public static SmDependency getTypeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TypeDep;
-        }
-
-        @objid ("bb60f847-4405-4140-8f9a-0b942cca5fee")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("2091db9d-a7a3-42e8-8d07-520792909142")
-        public static SmDependency getDefaultTypeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DefaultTypeDep;
-        }
-
-        @objid ("e8a9b180-bdf9-4b63-8b1b-2025e00cd126")
+        @objid ("ab3ef436-65e4-45c2-80a0-3a5bcdded62c")
         public static SmDependency getParameterizedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ParameterizedDep;
         }
 
+        @objid ("b9414f52-84d7-410a-b928-594c8583f8d4")
+        public static SmDependency getParameterSubstitutionDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ParameterSubstitutionDep;
+        }
+
+        @objid ("8ea3bfb2-613f-4116-bc8c-fb0f762a7ef8")
+        public static SmAttribute getDefaultValueAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DefaultValueAtt;
+        }
+
+        @objid ("48925b81-3672-493d-aa12-06dc4a9f370f")
+        public static SmDependency getTypeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TypeDep;
+        }
+
+        @objid ("f1931ede-dea5-40f0-8ad0-8c1ac8129315")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("eab3451a-00b5-47ad-b548-e118681c699e")
+        public static SmDependency getDefaultTypeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DefaultTypeDep;
+        }
+
+        @objid ("3ccb73d0-8ca5-494e-b136-4399313313f5")
+        public static SmAttribute getIsValueParameterAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsValueParameterAtt;
+        }
+
         @objid ("00348046-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("86cf50a1-4ddb-4785-bac5-6077951cd648")
+            @objid ("52ff84e7-fb28-4325-879b-0c182053e316")
             public ISmObjectData createData() {
                 return new TemplateParameterData();
             }
 
-            @objid ("5ab700a3-a8a7-4b50-a881-b4cb5dbfc71a")
+            @objid ("d0bdc44d-b9ea-4c15-9779-22a9ec884402")
             public SmObjectImpl createImpl() {
                 return new TemplateParameterImpl();
             }
@@ -253,12 +253,12 @@ public class TemplateParameterData extends GeneralClassData {
 
         @objid ("0034e27a-c4c4-1fd8-97fe-001ec947cd2a")
         public static class DefaultValueSmAttribute extends SmAttribute {
-            @objid ("5b52b740-e44e-4beb-afb5-ff8766a0fd58")
+            @objid ("2c8b9276-1951-44b2-87ae-2cde43b9347f")
             public Object getValue(ISmObjectData data) {
                 return ((TemplateParameterData) data).mDefaultValue;
             }
 
-            @objid ("47113741-a623-4586-ac02-a13498881d72")
+            @objid ("efa186fa-3943-4b77-84c7-68cf2b624c01")
             public void setValue(ISmObjectData data, Object value) {
                 ((TemplateParameterData) data).mDefaultValue = value;
             }
@@ -267,12 +267,12 @@ public class TemplateParameterData extends GeneralClassData {
 
         @objid ("00354332-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IsValueParameterSmAttribute extends SmAttribute {
-            @objid ("174af7ad-b4fd-459f-ad1e-c881ddfa7974")
+            @objid ("3de9b01f-2b90-409c-b36a-e3bd05f858c9")
             public Object getValue(ISmObjectData data) {
                 return ((TemplateParameterData) data).mIsValueParameter;
             }
 
-            @objid ("32cefcdc-12d9-4c1f-ac45-225caaba35e3")
+            @objid ("d259d0f3-157b-4090-b180-9c9452dac874")
             public void setValue(ISmObjectData data, Object value) {
                 ((TemplateParameterData) data).mIsValueParameter = value;
             }
@@ -281,18 +281,18 @@ public class TemplateParameterData extends GeneralClassData {
 
         @objid ("0035a714-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ParameterizedSmDependency extends SmSingleDependency {
-            @objid ("7fd28bb8-3c96-4ef5-9eb5-b9b0c6b4b727")
+            @objid ("0958d272-cc82-418c-9d26-46a23c63662d")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateParameterData) data).mParameterized;
             }
 
-            @objid ("295cb293-ce88-43c4-8b3c-885ed31b37b5")
+            @objid ("17b03d2d-95a8-4d98-a8c2-33fd660e04ac")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateParameterData) data).mParameterized = value;
             }
 
-            @objid ("810a713b-9136-497b-bd40-39876a4771a2")
+            @objid ("15f440fa-9b84-4937-ae63-a8af018b43d9")
             @Override
             public SmDependency getSymetric() {
                 return NameSpaceData.Metadata.TemplateDep();
@@ -302,18 +302,18 @@ public class TemplateParameterData extends GeneralClassData {
 
         @objid ("00361e4c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ParameterizedOperationSmDependency extends SmSingleDependency {
-            @objid ("9bb002e1-d6a5-4416-9646-3ac1e954bbba")
+            @objid ("caf83053-8415-4109-a2f0-503c2eb0f070")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateParameterData) data).mParameterizedOperation;
             }
 
-            @objid ("a368a353-cada-4c4d-93cd-8445b14cc119")
+            @objid ("57bfcef2-5a0c-4b52-97e3-a3b43e6831bb")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateParameterData) data).mParameterizedOperation = value;
             }
 
-            @objid ("9030b764-3d75-4bce-9aa9-35e5044acf2e")
+            @objid ("43db1c2f-9199-4a49-bcb4-332f3bbb01b1")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.TemplateDep();
@@ -323,20 +323,20 @@ public class TemplateParameterData extends GeneralClassData {
 
         @objid ("00369412-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ParameterSubstitutionSmDependency extends SmMultipleDependency {
-            @objid ("714bd6a3-d211-45cd-861d-b62a68cd1b7c")
+            @objid ("29e44d29-9306-40e9-aeef-5a29353a2ba5")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((TemplateParameterData)data).mParameterSubstitution != null)? ((TemplateParameterData)data).mParameterSubstitution:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("af44af95-c8d0-4437-b183-7f169ecfaabe")
+            @objid ("14dc1165-827c-4f51-8b25-334619c1c9fe")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((TemplateParameterData) data).mParameterSubstitution = new ArrayList<>(initialCapacity);
                 return ((TemplateParameterData) data).mParameterSubstitution;
             }
 
-            @objid ("bdf7ee47-11bc-4e7a-81b0-7a43a4a78f59")
+            @objid ("3d18e15e-75e0-4405-9143-9ba3ac451496")
             @Override
             public SmDependency getSymetric() {
                 return TemplateParameterSubstitutionData.Metadata.FormalParameterDep();
@@ -346,18 +346,18 @@ public class TemplateParameterData extends GeneralClassData {
 
         @objid ("003701fe-c4c4-1fd8-97fe-001ec947cd2a")
         public static class DefaultTypeSmDependency extends SmSingleDependency {
-            @objid ("51571463-ad33-4b4d-ab53-061b945e00b8")
+            @objid ("7fcaa0a2-d8fb-49d4-a3c1-92ae28e48525")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateParameterData) data).mDefaultType;
             }
 
-            @objid ("a86d54ce-d5d4-414b-bfd9-e07fe345fb09")
+            @objid ("c4710094-0cd7-454e-ace4-f7e2ff4edc6f")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateParameterData) data).mDefaultType = value;
             }
 
-            @objid ("c872f41a-63ee-425e-9b52-b605abedc906")
+            @objid ("b84e5419-a0c7-4305-85b6-c8d68d1851f8")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.DefaultParameteringDep();
@@ -367,18 +367,18 @@ public class TemplateParameterData extends GeneralClassData {
 
         @objid ("003778dc-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnedParameterElementSmDependency extends SmSingleDependency {
-            @objid ("fe3c765e-b9cc-47c6-a33b-f0a65d8c2a4c")
+            @objid ("76cc3820-009b-49fc-a75a-02a84ce755b9")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateParameterData) data).mOwnedParameterElement;
             }
 
-            @objid ("4ca74f5b-4e38-4807-891d-5feae694dccb")
+            @objid ("f98e32b5-94e0-4dc3-85f8-c5af104620ae")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateParameterData) data).mOwnedParameterElement = value;
             }
 
-            @objid ("d2467782-bee5-4aa2-84bf-5959ab8d155a")
+            @objid ("f69e7a22-df7d-456c-b085-9f9ac374bb6a")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.OwnerTemplateParameterDep();
@@ -388,18 +388,18 @@ public class TemplateParameterData extends GeneralClassData {
 
         @objid ("0037efd8-c4c4-1fd8-97fe-001ec947cd2a")
         public static class TypeSmDependency extends SmSingleDependency {
-            @objid ("df087ec6-f17d-4679-be48-72d660da09b3")
+            @objid ("504f8413-8056-4401-b10c-b82eba079982")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateParameterData) data).mType;
             }
 
-            @objid ("2cee38bf-32d0-4506-9d9c-812cd895f39d")
+            @objid ("130878a8-50e9-4fb9-bae3-6df00944a1b8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateParameterData) data).mType = value;
             }
 
-            @objid ("84d911f5-e4bd-4e50-ab54-f4795590704c")
+            @objid ("91c28a01-51f2-4ee9-be0c-6c96368a40fb")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.TypingParameterDep();

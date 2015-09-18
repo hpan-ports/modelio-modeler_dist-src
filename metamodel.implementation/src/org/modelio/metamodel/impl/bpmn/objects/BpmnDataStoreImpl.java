@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00041136-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnDataStoreImpl extends BpmnItemAwareElementImpl implements BpmnDataStore {
-    @objid ("57ee53e7-343d-469a-a909-b239669bf99b")
+    @objid ("2c0692bf-fe54-47b2-8673-c6ceb328b5e2")
     @Override
     public int getCapacity() {
         return (Integer) getAttVal(BpmnDataStoreData.Metadata.CapacityAtt());
     }
 
-    @objid ("b0b83340-8773-458e-b76d-6e2d1742b971")
+    @objid ("dfa63dbb-a4dd-4195-a732-1ed039edcb84")
     @Override
     public void setCapacity(int value) {
         setAttVal(BpmnDataStoreData.Metadata.CapacityAtt(), value);
     }
 
-    @objid ("d7b8cd4d-fedf-40c0-944c-45bc2089e14e")
+    @objid ("e754ef93-436a-4621-83db-1b8e641286e9")
     @Override
     public boolean isIsUnlimited() {
         return (Boolean) getAttVal(BpmnDataStoreData.Metadata.IsUnlimitedAtt());
     }
 
-    @objid ("5324ade3-3b8a-44a6-91d4-44083249c29d")
+    @objid ("0ebae6da-44a7-4d5a-b488-6fc426fd51fe")
     @Override
     public void setIsUnlimited(boolean value) {
         setAttVal(BpmnDataStoreData.Metadata.IsUnlimitedAtt(), value);
     }
 
-    @objid ("f45b6b5c-7fec-4d96-865c-5207442fb38f")
+    @objid ("5b08dcb3-b133-44ec-b44d-bf9f217ab93b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bad4c3fd-329e-441f-a582-65530a7046c3")
+    @objid ("09f2d50a-8253-46d9-9921-cb99c603fb9a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("19b727ce-68f2-469a-b963-cb8fab9c6677")
+    @objid ("164e7eb4-82e6-4026-a434-34244edb1e7a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnDataStore(this);

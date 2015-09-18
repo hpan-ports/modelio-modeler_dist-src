@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0052027e-c4bf-1fd8-97fe-001ec947cd2a")
 public class JoinPseudoStateImpl extends AbstractPseudoStateImpl implements JoinPseudoState {
-    @objid ("5431d9a9-4107-4eec-972b-00562a00b7f0")
+    @objid ("764e92f4-1825-4ef0-b94e-8e65e62f8e83")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("a7fb5072-f135-492d-9246-e22491e67daf")
+    @objid ("07cf0bf4-b817-40e7-a8ed-62e9190cbf80")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("390dccb5-8177-4629-874f-25c36ce44975")
+    @objid ("66b210ff-3727-4c79-9244-dee16e98b92b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitJoinPseudoState(this);

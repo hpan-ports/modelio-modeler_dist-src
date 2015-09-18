@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0035f444-c4bf-1fd8-97fe-001ec947cd2a")
 public class InstanceNodeImpl extends ObjectNodeImpl implements InstanceNode {
-    @objid ("48f300f2-cad8-42d5-a346-7aef040d5d6f")
+    @objid ("b6517262-4706-4258-8662-5fb9cd8847a1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("3e0fe1ce-8704-4128-97ba-0ec99b0f216a")
+    @objid ("b13b8e57-bee4-4006-9bcc-4e0b7e882045")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("cfadbe4b-9b11-457d-a0b1-178d61e02207")
+    @objid ("7b2f2975-9cce-4de2-bae1-75f6a1a11f21")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInstanceNode(this);

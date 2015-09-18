@@ -27,7 +27,7 @@ import org.eclipse.uml2.uml.InstanceValue;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.Instance;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("c2d56eef-ef47-4c4a-99f8-135751fd8aee")
 public class EInstanceValue extends ENamedElement {

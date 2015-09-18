@@ -65,6 +65,7 @@ public interface IEditionService {
 
     /**
      * Open a new text editor, making the correspondence between a model element and a file.
+     * Use default UTF-8 charset.
      * @param modelElement the model element to edit.
      * @param file the file to display in the editor.
      * @param editorTypeID the type of the editor to open.
@@ -75,11 +76,24 @@ public interface IEditionService {
     IMDATextEditor openEditor(final ModelElement modelElement, final File file, final EditorType editorTypeID, final boolean readonly);
 
     /**
+     * Open a new text editor, making the correspondence between a model element and a file.
+     * @param modelElement the model element to edit.
+     * @param file the file to display in the editor.
+     * @param editorTypeID the type of the editor to open.
+     * @param readonly <code>true</code> if the editor is in read only mode.
+     * @param charsetName The name of a supported {@link java.nio.charset.Charset charset}.
+     * @return the opened editor.
+     * @since 3.3.0
+     */
+    @objid ("a407d596-0ecc-11e2-96c4-002564c97630")
+    IMDATextEditor openEditor(final ModelElement modelElement, final File file, final EditorType editorTypeID, final boolean readonly, String charsetName);
+
+    /**
      * Open a diagram editor from an absract diagram.
      * @param diagram the diagram to edit.
      * @since 2.1
      */
-    @objid ("a407d596-0ecc-11e2-96c4-002564c97630")
+    @objid ("a407fca7-0ecc-11e2-96c4-002564c97630")
     void openEditor(final AbstractDiagram diagram);
 
     /**
@@ -88,17 +102,8 @@ public interface IEditionService {
      * @param artifact the artifact to edit.
      * @since 2.1
      */
-    @objid ("a407fca7-0ecc-11e2-96c4-002564c97630")
-    void openEditor(final Artifact artifact);
-
-    /**
-     * Open an editor from an extern document.<br>
-     * The type of the document's file must be part of the supported mime type list.
-     * @param document the extern document to edit.
-     * @since 2.1
-     */
     @objid ("a40823b8-0ecc-11e2-96c4-002564c97630")
-    void openEditor(final ExternDocument document);
+    void openEditor(final Artifact artifact);
 
     /**
      * Create a document content for the given document.
@@ -160,5 +165,17 @@ public interface IEditionService {
      */
     @objid ("97d3bf10-fafd-4ea6-9c37-7787852c9daf")
     void unregisterListener(IExternDocumentChangeListener editor);
+
+    @objid ("e8d36cf5-e2ae-423d-afc0-e230e2f614e8")
+    String html2text(String s);
+
+    /**
+     * Open an editor from an extern document.<br>
+     * The type of the document's file must be part of the supported mime type list.
+     * @param document the extern document to edit.
+     * @since 2.1
+     */
+    @objid ("01f9c416-fad2-49e5-89a0-d2bb8321b001")
+    void openEditor(final ExternDocument document);
 
 }

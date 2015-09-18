@@ -45,36 +45,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00852208-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnTask.class, factory=BpmnTaskData.Metadata.ObjectFactory.class)
 public class BpmnTaskData extends BpmnActivityData {
-    @objid ("653d9904-0257-47d1-92d3-2ad87d637dc6")
+    @objid ("c033519f-c517-4e5d-9df3-729357859bb4")
     @SmaMetaAttribute(metaName="IsGlobal", type=Boolean.class, smAttributeClass=Metadata.IsGlobalSmAttribute.class)
      Object mIsGlobal = false;
 
-    @objid ("3669bd67-31d3-4c61-aaff-6b2dbdb5ff8d")
+    @objid ("ccdd0f03-9abd-4851-a412-48c5ba49a411")
     @SmaMetaAssociation(metaName="Caller", typeDataClass=BpmnCallActivityData.class, min=0, max=-1, smAssociationClass=Metadata.CallerSmDependency.class)
      List<SmObjectImpl> mCaller = null;
 
-    @objid ("7ef53bad-3341-4706-9ca2-f2640875ee25")
+    @objid ("4527cab4-bf90-4da0-bf34-6019666c3264")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00537ac8-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("4a004c4c-45bf-42ae-99e7-b543e879b358")
+        @objid ("381aad72-6460-4ea0-b17b-b9e71224fca6")
         private static SmClass smClass = null;
 
-        @objid ("ce337022-f43c-46e4-b929-f82c5aa73dc7")
+        @objid ("133010e8-b208-41a4-9205-142d718ed150")
         private static SmAttribute IsGlobalAtt = null;
 
-        @objid ("05cc9372-eacb-4b2f-a5a9-d879640c8c71")
+        @objid ("e304cdec-2fc0-4560-8aad-6cfda65c5d94")
         private static SmDependency CallerDep = null;
 
-        @objid ("ac718dbc-6f2f-44bc-91a3-94200ceca26a")
+        @objid ("1d07a48b-c50a-4fc8-9c97-28befb38ce2e")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnTaskData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("0a35563e-7e06-4a6d-b407-5de9491b4285")
+        @objid ("bd6f902c-b656-42e8-a7f6-dff969c46d1a")
         public static SmAttribute IsGlobalAtt() {
             if (IsGlobalAtt == null) {
             	IsGlobalAtt = classof().getAttributeDef("IsGlobal");
@@ -82,7 +82,7 @@ public class BpmnTaskData extends BpmnActivityData {
             return IsGlobalAtt;
         }
 
-        @objid ("c86160f2-2b1e-4d49-9eb5-7b6f2d3976e0")
+        @objid ("426a2b6a-ef6c-4a28-bd7a-bf758699b9f2")
         public static SmDependency CallerDep() {
             if (CallerDep == null) {
             	CallerDep = classof().getDependencyDef("Caller");
@@ -90,19 +90,19 @@ public class BpmnTaskData extends BpmnActivityData {
             return CallerDep;
         }
 
-        @objid ("ee0866ed-2890-4a33-a570-669cce4e9599")
+        @objid ("f02c267c-3e67-4d10-876b-9f4b4f20ce54")
         public static SmDependency getCallerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return CallerDep;
         }
 
-        @objid ("57b6062b-d9d7-46cf-ad45-fd696cdfff95")
+        @objid ("c8ae1c6c-e3ce-436d-9bfa-30e3743d31c1")
         public static SmAttribute getIsGlobalAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsGlobalAtt;
         }
 
-        @objid ("f59a47aa-4a48-4462-a69b-f09a15ccc40f")
+        @objid ("7f373c16-967b-43c1-92e6-61b2cbd71853")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -110,12 +110,12 @@ public class BpmnTaskData extends BpmnActivityData {
 
         @objid ("0053bae2-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("4f6e77b9-8fdd-45cc-a8f2-0e5ea579c694")
+            @objid ("0ad55e5b-c4dd-43df-9dc8-ce023b9ec22e")
             public ISmObjectData createData() {
                 return new BpmnTaskData();
             }
 
-            @objid ("8c443263-1b2c-427e-a582-a6bebc961ef9")
+            @objid ("b3d676d8-cef8-4348-ba62-53fdd7fe6827")
             public SmObjectImpl createImpl() {
                 return new BpmnTaskImpl();
             }
@@ -124,12 +124,12 @@ public class BpmnTaskData extends BpmnActivityData {
 
         @objid ("00541f32-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IsGlobalSmAttribute extends SmAttribute {
-            @objid ("655a6690-1d06-4a0b-834b-c2b9f802de58")
+            @objid ("825c5ae3-4bad-4c6a-8151-12319e501c66")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnTaskData) data).mIsGlobal;
             }
 
-            @objid ("afc8f2fc-8830-4a3d-b74f-815076189766")
+            @objid ("507c7b61-6cf2-4cdf-8495-2bece3ad8df4")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnTaskData) data).mIsGlobal = value;
             }
@@ -138,20 +138,20 @@ public class BpmnTaskData extends BpmnActivityData {
 
         @objid ("005492c8-c4c4-1fd8-97fe-001ec947cd2a")
         public static class CallerSmDependency extends SmMultipleDependency {
-            @objid ("b059ec8e-87e6-46c5-bd8e-dc5d0f82de7b")
+            @objid ("9078bfdd-1835-450c-9b01-531ba36e7e56")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnTaskData)data).mCaller != null)? ((BpmnTaskData)data).mCaller:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("7cfe041b-3b3f-4241-8c9c-e9c94654629d")
+            @objid ("42f99e3e-d132-4a55-a89a-7225bc3c7880")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnTaskData) data).mCaller = new ArrayList<>(initialCapacity);
                 return ((BpmnTaskData) data).mCaller;
             }
 
-            @objid ("3e5fb257-4e4b-48e8-b178-302773a58034")
+            @objid ("44502cf7-2ef0-489a-a9ac-5dac054e4ef0")
             @Override
             public SmDependency getSymetric() {
                 return BpmnCallActivityData.Metadata.CalledGlobalTaskDep();

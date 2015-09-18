@@ -35,22 +35,22 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("00867d60-c4be-1fd8-97fe-001ec947cd2a")
 public interface Element extends EObject, MObject {
-    @objid ("b7064783-df65-4b6b-af0a-1474256dd661")
+    @objid ("58b97a97-0592-4a0a-955c-467fe34f2a9a")
     EList<AbstractDiagram> getDiagramElement();
 
-    @objid ("de604c31-b702-49cd-83b0-481cccbdcb96")
+    @objid ("8e214478-c665-42d4-b1a1-e37114de695f")
     <T extends AbstractDiagram> List<T> getDiagramElement(java.lang.Class<T> filterClass);
 
-    @objid ("9117c3dd-685c-4b2c-8fa7-24c32512c3ef")
+    @objid ("bc6ef83f-cfd2-4482-99f3-90411ba38078")
     EList<NamespaceUse> getCausing();
 
-    @objid ("86f07024-db9e-4ee9-9aa0-6691e7d70791")
+    @objid ("82b36764-ee05-4449-8f05-88ee1ff3bc11")
     <T extends NamespaceUse> List<T> getCausing(java.lang.Class<T> filterClass);
 
-    @objid ("482ef09e-6141-4b2b-ad15-dd8515d832b8")
+    @objid ("315ec46a-532a-404e-b868-e9feb5e423aa")
     EList<QueryDefinition> getAddedToQuery();
 
-    @objid ("596d2bb2-6984-4942-9488-289f55abfa4f")
+    @objid ("4526b520-a8c2-4aa0-a11e-f8d2bf32a526")
     <T extends QueryDefinition> List<T> getAddedToQuery(java.lang.Class<T> filterClass);
 
 }

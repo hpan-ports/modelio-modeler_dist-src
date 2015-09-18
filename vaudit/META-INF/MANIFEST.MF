@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Core Audit
 Bundle-SymbolicName: org.modelio.vaudit;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Require-Bundle: org.eclipse.e4.core.contexts,
  org.eclipse.e4.core.di,
  org.eclipse.e4.core.di.extensions,
@@ -32,4 +32,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.modelio.vaudit.plugin.Vaudit
 Bundle-Vendor: Modelio
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

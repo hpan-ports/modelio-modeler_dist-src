@@ -28,9 +28,9 @@ import org.modelio.metamodel.uml.behavior.activityModel.OutputPin;
 import org.modelio.metamodel.uml.behavior.activityModel.Pin;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Parameter;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("0f95f041-a539-44ae-bbb1-1f094dfcca61")
 public class EPin extends EActivityNode {

@@ -187,7 +187,7 @@ public interface IProjectFragment {
      * @throws org.modelio.gproject.fragment.FragmentAuthenticationException in case of authentication failure
      */
     @objid ("9e66041e-6273-422e-8ddd-c67a8f6bfbf3")
-    void migrate(GProject project, IModelioProgress aMonitor) throws IOException, FragmentAuthenticationException;
+    void migrate(GProject project, IModelioProgress aMonitor) throws FragmentAuthenticationException, IOException;
 
     /**
      * Get the fragment metamodel versions.

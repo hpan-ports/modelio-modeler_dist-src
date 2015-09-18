@@ -45,37 +45,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00126858-c4bf-1fd8-97fe-001ec947cd2a")
 public class NamespaceUseImpl extends ElementImpl implements NamespaceUse {
-    @objid ("d0d1659b-cd34-4719-bae3-2bc92e89fd2e")
+    @objid ("b82e0d5f-2f27-4460-8298-a35ed488c889")
     @Override
     public NameSpace getUser() {
         return (NameSpace) getDepVal(NamespaceUseData.Metadata.UserDep());
     }
 
-    @objid ("8b1863ce-2594-4115-be0f-c1a89d5766be")
+    @objid ("e8434abb-5dd9-43ac-9985-b087978bb6ce")
     @Override
     public void setUser(NameSpace value) {
         appendDepVal(NamespaceUseData.Metadata.UserDep(), (SmObjectImpl)value);
     }
 
-    @objid ("82815ec2-eff6-433e-ba0e-0120243c1adb")
+    @objid ("fa3eaca4-787a-4dea-9262-a5af32691d42")
     @Override
     public NameSpace getUsed() {
         return (NameSpace) getDepVal(NamespaceUseData.Metadata.UsedDep());
     }
 
-    @objid ("4c5a4d9f-55f0-4846-b1f5-ecd57ac102d4")
+    @objid ("7cc59928-81c5-4e44-ab8d-914cf8854c67")
     @Override
     public void setUsed(NameSpace value) {
         appendDepVal(NamespaceUseData.Metadata.UsedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bc3ab6cb-9403-4e7e-8748-7a5aff622940")
+    @objid ("d2e36eb2-8194-454d-8641-a02f2aa3543d")
     @Override
     public EList<Element> getCause() {
         return new SmList<>(this, NamespaceUseData.Metadata.CauseDep());
     }
 
-    @objid ("d03927f6-8ff5-4720-854b-0e6fd1390592")
+    @objid ("92f6a932-7eec-400d-96be-ff9ff63fa52a")
     @Override
     public <T extends Element> List<T> getCause(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -88,21 +88,21 @@ public class NamespaceUseImpl extends ElementImpl implements NamespaceUse {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4fa4ce12-9c01-4b59-b3ea-c0fceac0e583")
+    @objid ("d73cad1d-8341-4d21-a54b-c8eace2f03bd")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("c64ad4e3-9142-4dd5-b685-52060a2e4e7d")
+    @objid ("b25d721d-bee5-4e67-a875-55d0cc26932e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("3e2d3bc7-8447-4fd2-a52f-cc03bfb3b8f3")
+    @objid ("482a415e-bb61-4bbb-8745-4fb8f0348687")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNamespaceUse(this);

@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("006c6ff6-ec87-1098-b22e-001ec947cd2a")
 public interface LocalPropertyTable extends PropertyTable {
-    @objid ("d32aa1c8-1b56-4e6e-b75a-8db4bcf6cf01")
+    @objid ("b031279d-2905-4d07-8465-8b380e63ebbf")
     ModelElement getLocalAnnoted();
 
-    @objid ("ffdf5bbb-1796-4b1a-9697-1e16b4b6db58")
+    @objid ("d11f8bfc-de12-4e6e-942b-4cd6d2d12202")
     void setLocalAnnoted(ModelElement value);
 
 }

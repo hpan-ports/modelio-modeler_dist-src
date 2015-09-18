@@ -281,7 +281,7 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
             // using an existing model element, make sure it does end on host's model element
             final MObject hostElement = ((GmModel) getHost().getModel()).getRelatedElement();
             if (hostElement == null || hostElement.isShell() || hostElement.isDeleted()
-                    || !hostElement.equals(MTools.getModelTool().getTarget(context.getElementToUnmask()))) {
+                    || !hostElement.equals(MTools.getLinkTool().getTarget(context.getElementToUnmask()))) {
                 return null;
             }
         }
@@ -331,6 +331,10 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
         final NodeEditPart newSourceNodeEditPart = (NodeEditPart) req.getTarget();
         final GmModel newSourceNodeModel = (GmModel) newSourceNodeEditPart.getModel();
         final ConnectionEditPart connectionEditPart = req.getConnectionEditPart();
+        
+        if (!(connectionEditPart.getModel() instanceof GmLink))
+            return null;
+        
         final GmLink linkModel = (GmLink) connectionEditPart.getModel();
         
         if (newSourceNodeModel != linkModel.getFrom()) {
@@ -359,6 +363,10 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
         final IGmLinkable newTargetNode = (IGmLinkable) destEditPart.getModel();
         
         final ConnectionEditPart connectionEditPart = req.getConnectionEditPart();
+        
+        if (!(connectionEditPart.getModel() instanceof GmLink))
+            return null;
+        
         final GmLink gmLink = (GmLink) connectionEditPart.getModel();
         
         if (newTargetNode != gmLink.getTo()) {
@@ -473,6 +481,10 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     @objid ("7fec4abc-1dec-11e2-8cad-001ec947c8cc")
     private EditPart getReconnectSourceTargetEditPart(final ReconnectRequest request) {
         ConnectionEditPart reconnectedConnectionEP = request.getConnectionEditPart();
+        
+        if (! (reconnectedConnectionEP.getModel() instanceof GmLink))
+            return null;
+        
         final GmLink gmLink = (GmLink) reconnectedConnectionEP.getModel();
         final IGmLinkable newSrcNode = (IGmLinkable) getHost().getModel();
         final IGmLinkable oldSrcNode = gmLink.getFrom();
@@ -513,6 +525,10 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     @objid ("7fec4ac6-1dec-11e2-8cad-001ec947c8cc")
     private EditPart getReconnectTargetTargetEditPart(final ReconnectRequest request) {
         ConnectionEditPart reconnectedConnectionEP = request.getConnectionEditPart();
+        
+        if (! (reconnectedConnectionEP.getModel() instanceof GmLink))
+            return null;
+        
         final GmLink gmLink = (GmLink) reconnectedConnectionEP.getModel();
         final IGmLinkable newTargetNode = (IGmLinkable) getHost().getModel();
         final IGmLinkable oldTargetNode = gmLink.getTo();

@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 
 @objid ("004f3f3a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface EntryPointPseudoState extends AbstractPseudoState {
-    @objid ("4dfb14ac-0517-4ed7-bb12-59d425d72623")
+    @objid ("8bd51b0f-26f2-464c-9f54-bfbdc9c18752")
     State getEntryOf();
 
-    @objid ("9f68825f-a3db-4bbc-8e7d-8cdae5f3b36e")
+    @objid ("30d338a5-f53a-4160-b2c9-771395176b81")
     void setEntryOf(State value);
 
-    @objid ("b9f6f838-ef06-4393-ab17-694fa9e7a5f4")
+    @objid ("cd003d48-21d5-4745-af63-74af2ca0499f")
     EList<ConnectionPointReference> getConnection();
 
-    @objid ("21d7421d-7e0f-4409-b319-0571401ca74c")
+    @objid ("d3213bb3-4017-4958-93ec-b4d7a683e305")
     <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass);
 
-    @objid ("88806fcb-86e8-425e-b564-ccdd10a656f4")
+    @objid ("9a1439af-4fa2-4618-966e-e258d3af9cc7")
     StateMachine getEntryOfMachine();
 
-    @objid ("51a83079-7901-4815-89bd-cfab5522e1a4")
+    @objid ("1024c6dd-5f91-4ba7-8cb6-d447b27fdbad")
     void setEntryOfMachine(StateMachine value);
 
 }

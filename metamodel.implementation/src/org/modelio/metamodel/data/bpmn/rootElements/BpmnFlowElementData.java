@@ -48,50 +48,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("007984ac-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnFlowElement.class, factory=BpmnFlowElementData.Metadata.ObjectFactory.class)
 public abstract class BpmnFlowElementData extends BpmnBaseElementData {
-    @objid ("dc7d78a1-44f5-4cc3-8446-215c256626f2")
+    @objid ("37effd2b-6708-4e27-9b4b-d9c0c8b50e2f")
     @SmaMetaAssociation(metaName="Groups", typeDataClass=BpmnGroupData.class, min=0, max=-1, smAssociationClass=Metadata.GroupsSmDependency.class)
      List<SmObjectImpl> mGroups = null;
 
-    @objid ("5520f4f0-cee7-4422-9388-4c5e327bbbd1")
+    @objid ("56778e37-23ff-4dd2-b193-2017ec556bf5")
     @SmaMetaAssociation(metaName="SubProcess", typeDataClass=BpmnSubProcessData.class, min=0, max=1, smAssociationClass=Metadata.SubProcessSmDependency.class)
      SmObjectImpl mSubProcess;
 
-    @objid ("03ba4966-88b1-4a75-811b-d485f1fa1774")
+    @objid ("6bcf69be-350a-48dd-9615-d476893c237b")
     @SmaMetaAssociation(metaName="Lane", typeDataClass=BpmnLaneData.class, min=0, max=-1, smAssociationClass=Metadata.LaneSmDependency.class)
      List<SmObjectImpl> mLane = null;
 
-    @objid ("967d6a30-35d8-4cb8-95c9-14511d64306d")
+    @objid ("b526a355-331f-459c-a53e-a4d18e56571e")
     @SmaMetaAssociation(metaName="Container", typeDataClass=BpmnProcessData.class, min=0, max=1, smAssociationClass=Metadata.ContainerSmDependency.class)
      SmObjectImpl mContainer;
 
-    @objid ("fca97b9e-6f53-443c-b080-aae3b5a1fd60")
+    @objid ("d18b4389-3af7-4cd0-a510-987af385568b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001878c4-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("86f04859-4c47-4ecc-a09b-79b9cce7541b")
+        @objid ("b2d6f2bc-9a1f-4177-aaa5-5bcbdc744c93")
         private static SmClass smClass = null;
 
-        @objid ("ed41563d-989c-4e5d-ad6a-b4befd417472")
+        @objid ("ceb74746-4cd4-4e75-aa92-d93da1cb2483")
         private static SmDependency GroupsDep = null;
 
-        @objid ("d4cb3653-fc1f-4da4-a4de-d7767a9439c7")
+        @objid ("3ca09612-a780-4486-bcbc-1fb5f5c729c2")
         private static SmDependency SubProcessDep = null;
 
-        @objid ("9ce9e52c-7160-4864-9704-25bb86cccbb0")
+        @objid ("2da62783-45e6-44a0-ba78-36a2a142530f")
         private static SmDependency LaneDep = null;
 
-        @objid ("58e858b5-95e2-4610-ad2f-097b83ddb957")
+        @objid ("daa8cc27-d681-4826-895a-bdb318aaf9c0")
         private static SmDependency ContainerDep = null;
 
-        @objid ("8c30f5c2-604d-481e-8840-a555aec52483")
+        @objid ("95792ce1-515f-4866-9ff7-2d23538cc637")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnFlowElementData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("d00c8403-5f96-4b69-8737-7a60060ed4ec")
+        @objid ("b5fe04f9-9be3-43e8-a943-03b6d5595367")
         public static SmDependency GroupsDep() {
             if (GroupsDep == null) {
             	GroupsDep = classof().getDependencyDef("Groups");
@@ -99,7 +99,7 @@ public abstract class BpmnFlowElementData extends BpmnBaseElementData {
             return GroupsDep;
         }
 
-        @objid ("ee3f6e1a-6110-419a-8005-39b1e6f9781d")
+        @objid ("e83212d3-8857-476f-bdf1-59a3f8c5e602")
         public static SmDependency SubProcessDep() {
             if (SubProcessDep == null) {
             	SubProcessDep = classof().getDependencyDef("SubProcess");
@@ -107,7 +107,7 @@ public abstract class BpmnFlowElementData extends BpmnBaseElementData {
             return SubProcessDep;
         }
 
-        @objid ("190be7a4-995e-48b2-a9f3-e02abc4c74a4")
+        @objid ("d35e03fb-0143-4d89-ae0d-ab52bcedbc61")
         public static SmDependency LaneDep() {
             if (LaneDep == null) {
             	LaneDep = classof().getDependencyDef("Lane");
@@ -115,7 +115,7 @@ public abstract class BpmnFlowElementData extends BpmnBaseElementData {
             return LaneDep;
         }
 
-        @objid ("1c8cb76b-74bf-40dd-baa6-ac44f1a7a126")
+        @objid ("1ef60d0e-756c-439c-a2c5-3b9298f16e19")
         public static SmDependency ContainerDep() {
             if (ContainerDep == null) {
             	ContainerDep = classof().getDependencyDef("Container");
@@ -123,44 +123,44 @@ public abstract class BpmnFlowElementData extends BpmnBaseElementData {
             return ContainerDep;
         }
 
-        @objid ("3e0d886b-2039-4ed9-bd0b-226c51649b39")
-        public static SmDependency getGroupsDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return GroupsDep;
-        }
-
-        @objid ("3370051b-2edb-49ce-a3b6-c8fa7fff8eea")
-        public static SmDependency getContainerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ContainerDep;
-        }
-
-        @objid ("d2f6fc77-291a-448e-ad89-639365fd24df")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("d8fd5c9b-f605-449d-ad8f-942a9a660cf6")
+        @objid ("daea1631-ef9b-47c8-a23f-6abd95da49f1")
         public static SmDependency getLaneDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return LaneDep;
         }
 
-        @objid ("18e6a9bb-eaad-4fd6-a4a3-0a5d6de43d33")
+        @objid ("801d886f-a039-4cf6-952c-2bf30227b464")
         public static SmDependency getSubProcessDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SubProcessDep;
         }
 
+        @objid ("f1ee1bd3-acd1-4e3e-91c5-2f3ba6cfe53c")
+        public static SmDependency getContainerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ContainerDep;
+        }
+
+        @objid ("413c651c-7812-4661-8957-afaa8c56f296")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("853798c4-4fd9-4ec7-877e-68203e856dbb")
+        public static SmDependency getGroupsDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return GroupsDep;
+        }
+
         @objid ("0018c004-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("300fde6d-7661-4a89-8dd6-76f636ff00bf")
+            @objid ("8a14f039-14ca-421c-a7b3-3c9afd346e92")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("92ddecbb-e5b1-4988-bd4a-73bea78dc052")
+            @objid ("603b9d1b-c9d2-40e4-aae2-c4b032a3db46")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -169,20 +169,20 @@ public abstract class BpmnFlowElementData extends BpmnBaseElementData {
 
         @objid ("00192396-c4c5-1fd8-97fe-001ec947cd2a")
         public static class GroupsSmDependency extends SmMultipleDependency {
-            @objid ("2035a961-01a3-4bbd-921d-c2490465a138")
+            @objid ("1a4e0738-e5d8-4bc3-a66f-9f23737b6095")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnFlowElementData)data).mGroups != null)? ((BpmnFlowElementData)data).mGroups:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("d0d02ea8-9ff3-46e7-a549-55e160bf537f")
+            @objid ("afda9bfc-bfe1-4479-8119-20f12a6b9cbf")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnFlowElementData) data).mGroups = new ArrayList<>(initialCapacity);
                 return ((BpmnFlowElementData) data).mGroups;
             }
 
-            @objid ("57600be1-6c17-4fde-bfab-757f329cbd8c")
+            @objid ("380a88f6-2d33-432c-af7c-0d033bf6d9d7")
             @Override
             public SmDependency getSymetric() {
                 return BpmnGroupData.Metadata.CategorizedDep();
@@ -192,18 +192,18 @@ public abstract class BpmnFlowElementData extends BpmnBaseElementData {
 
         @objid ("001984c6-c4c5-1fd8-97fe-001ec947cd2a")
         public static class SubProcessSmDependency extends SmSingleDependency {
-            @objid ("3402a9e0-ba15-4261-8845-ad45d93312d7")
+            @objid ("ff9c599c-78fa-4430-bb43-251375f8f6a6")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnFlowElementData) data).mSubProcess;
             }
 
-            @objid ("7751626b-9dfa-43b2-b8a4-608f071b5ffa")
+            @objid ("b2c683fe-a0a3-42c8-9496-3542bc0635d8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnFlowElementData) data).mSubProcess = value;
             }
 
-            @objid ("a93106fa-ecef-4d0b-b293-132fbc69739a")
+            @objid ("b39d54de-8c37-47d8-8fb2-6858ca26e7fb")
             @Override
             public SmDependency getSymetric() {
                 return BpmnSubProcessData.Metadata.FlowElementDep();
@@ -213,20 +213,20 @@ public abstract class BpmnFlowElementData extends BpmnBaseElementData {
 
         @objid ("0019ff96-c4c5-1fd8-97fe-001ec947cd2a")
         public static class LaneSmDependency extends SmMultipleDependency {
-            @objid ("2ba1d330-0bbc-41ca-a28f-7adc81db0154")
+            @objid ("c142f6f5-9ca6-42e2-a44e-919f1d63ea52")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnFlowElementData)data).mLane != null)? ((BpmnFlowElementData)data).mLane:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("946fe56c-6392-44e1-ab6d-706cb2719bf7")
+            @objid ("3500e563-0fce-4301-9312-e66e5f347d79")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnFlowElementData) data).mLane = new ArrayList<>(initialCapacity);
                 return ((BpmnFlowElementData) data).mLane;
             }
 
-            @objid ("476a49f2-0aef-4262-87ef-a6ca4245fcd7")
+            @objid ("e20e90fa-5d7f-4d05-b731-0348993a3708")
             @Override
             public SmDependency getSymetric() {
                 return BpmnLaneData.Metadata.FlowElementRefDep();
@@ -236,18 +236,18 @@ public abstract class BpmnFlowElementData extends BpmnBaseElementData {
 
         @objid ("001a6238-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ContainerSmDependency extends SmSingleDependency {
-            @objid ("cc997367-249a-459c-b356-61a9ec962c45")
+            @objid ("4e71eaf9-20b8-488c-b368-f8b0a62be0b9")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnFlowElementData) data).mContainer;
             }
 
-            @objid ("1a9f82ca-b159-4177-bcac-c32a4b8eef8f")
+            @objid ("e1c2ce9c-cafa-4eb2-80bc-474bacddf8af")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnFlowElementData) data).mContainer = value;
             }
 
-            @objid ("cd9fced8-cf2a-443b-a359-f5841e14da04")
+            @objid ("6e0c85eb-cdd9-42d0-ae82-77906d8ebfd5")
             @Override
             public SmDependency getSymetric() {
                 return BpmnProcessData.Metadata.FlowElementDep();

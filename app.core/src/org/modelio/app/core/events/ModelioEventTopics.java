@@ -121,6 +121,9 @@ public class ModelioEventTopics {
     @objid ("97803f79-2cdf-11e2-95fe-001ec947c8cc")
     public static final String EDIT_ELEMENT = "org/modelio/app/edit";
 
+    @objid ("4bb2310e-dc1f-4c66-a908-daa5739ae745")
+    public static final String EDIT_PROPERTIES = "org/modelio/app/editproperties";
+
     @objid ("008e432e-aa30-10ac-8258-001ec947cd2a")
     public static final String NAVIGATE_ELEMENT = "org/modelio/app/navigate";
 

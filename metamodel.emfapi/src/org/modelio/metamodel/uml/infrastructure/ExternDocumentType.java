@@ -38,46 +38,46 @@ public interface ExternDocumentType extends ModelElement {
     @objid ("1cb032b7-9ac9-46f1-b30f-f2f395b83488")
     ModuleComponent getModule();
 
-    @objid ("f136ad62-1ab2-415d-981b-90d40a46d9d0")
+    @objid ("79c4a97e-08d4-41d5-ab14-453b466f122e")
     boolean isIsHidden();
 
-    @objid ("1473eb50-ba6a-46ed-ac15-f961cf921c1a")
+    @objid ("78f42b95-fca3-4ccb-89d3-f2ac7ee50f5d")
     void setIsHidden(boolean value);
 
-    @objid ("1ea0e269-cda8-4d6b-b495-5fe71fd47c23")
+    @objid ("61144824-cffd-43d0-89e5-c5ac5b441d3d")
     String getLabelKey();
 
-    @objid ("80f9f2fb-fb9d-4e24-8c40-66d9ab0ac6e3")
+    @objid ("0a86881f-63b5-4e6d-9485-20e16bae7410")
     void setLabelKey(String value);
 
-    @objid ("a63bcf87-b983-47de-99f3-04c0a3aeb4b4")
+    @objid ("b8ae62f6-8678-4aea-9f7c-9ab1330bb41e")
     String getIcon();
 
-    @objid ("3ff06079-d847-41c7-90dd-1f119e7e4862")
+    @objid ("637ee0ac-6e69-4104-9fc8-fb095cea8123")
     void setIcon(String value);
 
-    @objid ("81ba9806-ccb5-4ba2-8c86-31eae97b6bd7")
+    @objid ("eecf9f5e-80e9-45da-af0d-fc8bf4f79394")
     String getImage();
 
-    @objid ("a8d44c48-2c52-42c6-9869-a2cdec7ae491")
+    @objid ("c309b1fd-9ffb-4d0d-a1e4-c5a25f262d5b")
     void setImage(String value);
 
-    @objid ("57fa0730-0e9d-499f-b11c-1cc7b1165e1c")
+    @objid ("91ce91e3-0cc4-4e35-b310-8225372278a7")
     Stereotype getOwnerStereotype();
 
-    @objid ("4788d324-8034-4bbb-b4f3-1051e2791228")
+    @objid ("d3187fab-8a32-472a-8875-b29b4a979826")
     void setOwnerStereotype(Stereotype value);
 
-    @objid ("44dc00b4-103f-4b17-93e2-12c628cbc246")
+    @objid ("a7d47da1-9a3c-4082-89b4-5a86e61f6322")
     EList<ExternDocument> getTypedDoc();
 
-    @objid ("4f348d32-5a87-4b0c-9177-3125250d916f")
+    @objid ("4a7019c9-1cd9-4058-a454-015bba056f5b")
     <T extends ExternDocument> List<T> getTypedDoc(java.lang.Class<T> filterClass);
 
-    @objid ("1e52dfe4-61f8-4f04-bcc2-b1bdb21276f1")
+    @objid ("4b0e31a3-3289-44b4-826b-bb506be8238c")
     MetaclassReference getOwnerReference();
 
-    @objid ("be0f7932-da04-4af6-be29-8052b2840bdd")
+    @objid ("f43e9c15-e500-4164-a89f-0145ffd1e8d9")
     void setOwnerReference(MetaclassReference value);
 
 }

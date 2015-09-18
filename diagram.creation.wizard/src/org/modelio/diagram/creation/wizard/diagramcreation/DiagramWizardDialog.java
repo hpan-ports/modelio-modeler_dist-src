@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.modelio.api.module.commands.CommandScope;
 import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.project.core.services.IProjectService;
@@ -47,6 +48,7 @@ import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.ui.UIColor;
 import org.modelio.vcore.session.api.model.IMObjectFilter;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("1f9f50ed-0a1e-458a-84a4-34fbd6da6f0c")
@@ -131,7 +133,11 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
         // Reset allowed metaclasses...
         if (selectedContributor != null) {
             this.contextText.getAcceptedMetaclasses().clear();
-            this.contextText.getAcceptedMetaclasses().addAll(selectedContributor.getAcceptedMetaclasses());
+        
+            // Since Modelio 3.3 scope contains both MClass and Stereotypes
+            for (CommandScope scope : selectedContributor.getScopes()) {
+                    this.contextText.getAcceptedMetaclasses().add(scope.getMetaclass());
+            }
             this.contextText.setAcceptNullValue(false);
             this.contextText.getTextControl().setForeground(UIColor.RED);
         }
@@ -156,7 +162,7 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
         this.descriptionText.addListener(SWT.Modify, this);
         this.hideInvalidCheckBox.addListener(SWT.Selection, this);
         this.treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-            
+        
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 IStructuredSelection selection = (IStructuredSelection) DiagramWizardDialog.this.treeViewer.getSelection();
@@ -168,16 +174,16 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
             }
         });
         this.treeViewer.addDoubleClickListener(new IDoubleClickListener() {
-            
+        
             @Override
             public void doubleClick(DoubleClickEvent event) {
-                okPressed();    // Double click to create the selected diagram
+                okPressed(); // Double click to create the selected diagram
             }
         });
         this.cancelButton.addListener(CANCEL, this);
         this.okButton.addListener(OK, this);
         this.contextText.addListener(new ITextElementSelectionListener() {
-            
+        
             @Override
             public void selectedElementChanged(MObject oldElement, MObject newElement) {
                 DiagramWizardDialog.this.dataModel.setContext((ModelElement) newElement);
@@ -191,7 +197,7 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
     @objid ("c9247f5a-8c13-47bd-939d-c065b6b564c2")
     @Override
     protected void okPressed() {
-        super.okPressed(); 
+        super.okPressed();
         this.resultModel = this.dataModel;
     }
 
@@ -238,12 +244,18 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
             if (validContributors.size() > 0) {
                 IDiagramWizardContributor newContributor = validContributors.get(0);
                 this.dataModel.setSelectedContributor(newContributor);
-                this.contextText.getAcceptedMetaclasses().addAll(newContributor.getAcceptedMetaclasses());
+        
+                // Since Modelio 3.3 scope contains both MClass and Stereotypes
+                for (CommandScope scope : newContributor.getScopes()) {
+                    if (scope instanceof MClass)
+                        this.contextText.getAcceptedMetaclasses().add(scope.getMetaclass());
+                }
+        
                 this.contextText.setAcceptNullValue(false);
                 this.contextText.setValue(context);
                 this.dataModel.setContext((ModelElement) context);
                 DiagramCategory category = this.getContributorCategoryModel().getCategoryOfContributor(newContributor);
-                this.treeViewer.setExpandedElements(new Object[]{category});
+                this.treeViewer.setExpandedElements(new Object[] { category });
                 this.treeViewer.setSelection(new StructuredSelection(newContributor), true);
             }
         } else {
@@ -256,7 +268,12 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
                 context = context.getCompositionOwner();
             }
         
-            this.contextText.getAcceptedMetaclasses().addAll(contributor.getAcceptedMetaclasses());
+            // Since Modelio 3.3 scope contains both MClass and Stereotypes
+            for (CommandScope scope : contributor.getScopes()) {
+                if (scope instanceof MClass)
+                    this.contextText.getAcceptedMetaclasses().add(scope.getMetaclass());
+            }
+            
             this.contextText.setAcceptNullValue(false);
             this.contextText.setValue(context);
             this.dataModel.setContext((ModelElement) context);
@@ -279,7 +296,8 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
     @objid ("43e0fce7-c9e4-41f7-b702-c521ad852902")
     private void updateDetailsText(final String text) {
         String helpUrl = null;
-        if (this.dataModel.getSelectedContributor()!=null) helpUrl = this.dataModel.getSelectedContributor().getHelpUrl();
+        if (this.dataModel.getSelectedContributor() != null)
+            helpUrl = this.dataModel.getSelectedContributor().getHelpUrl();
         if (helpUrl != null) {
             // When an URL exists, add an hyperlink after the text.
             String moreText = DiagramCreationWizard.I18N.getMessage("Ui.DiagramCreationWizard.More");
@@ -288,11 +306,11 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
             style.underline = true;
             style.underlineStyle = SWT.UNDERLINE_LINK;
         
-            int[] ranges = {this.detailsText.getText().length() - moreText.length(), moreText.length()}; 
-            StyleRange[] styles = {style};
+            int[] ranges = { this.detailsText.getText().length() - moreText.length(), moreText.length() };
+            StyleRange[] styles = { style };
             this.detailsText.setStyleRanges(ranges, styles);
         } else {
-            this.detailsText.setText(text);   
+            this.detailsText.setText(text);
         }
     }
 
@@ -307,12 +325,13 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
         this.mmServices = mmService;
         this.pickingService = pickingService;
         
-        this.contentProvider = new ContributorTreeContentProvider(this.dataModel.getContext(), this.dataModel.isShowInvalidDiagram());
+        this.contentProvider = new ContributorTreeContentProvider(this.dataModel.getContext(),
+                this.dataModel.isShowInvalidDiagram());
         this.elementFilter = new IMObjectFilter() {
-            
+        
             @Override
             public boolean accept(MObject element) {
-                if (DiagramWizardDialog.this.dataModel.getSelectedContributor() != null) {                    
+                if (DiagramWizardDialog.this.dataModel.getSelectedContributor() != null) {
                     return DiagramWizardDialog.this.dataModel.getSelectedContributor().accept(element);
                 }
                 return false;
@@ -323,9 +342,9 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
     @objid ("74a6a243-c2c7-40f6-891f-fe46490813e3")
     public List<IDiagramWizardContributor> getValidContributors(final MObject context) {
         List<IDiagramWizardContributor> result = new ArrayList<>();
-        for(IDiagramWizardContributor type :  this.contributorManager.getAllContributorsList()){
-            if(context != null){
-                if(type.accept(context)){
+        for (IDiagramWizardContributor type : this.contributorManager.getAllContributorsList()) {
+            if (context != null) {
+                if (type.accept(context)) {
                     result.add(type);
                 }
             }
@@ -345,7 +364,7 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
             update();
         } else if (event.widget.equals(this.detailsText)) {
             try {
-                int offset = this.detailsText.getOffsetAtLocation(new Point (event.x, event.y));
+                int offset = this.detailsText.getOffsetAtLocation(new Point(event.x, event.y));
                 StyleRange style = this.detailsText.getStyleRangeAtOffset(offset);
                 if (style != null && style.underline && style.underlineStyle == SWT.UNDERLINE_LINK) {
                     openBrowser();
@@ -361,7 +380,8 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
     @objid ("c9db9dd4-a9cf-4e08-b462-28a675e0e7d6")
     protected void updateOkButton() {
         ModelElement context = this.dataModel.getContext();
-        if (this.dataModel.getSelectedContributor() != null && context != null && this.dataModel.getSelectedContributor().accept(context)) {
+        if (this.dataModel.getSelectedContributor() != null && context != null
+                && this.dataModel.getSelectedContributor().accept(context)) {
             this.okButton.setEnabled(true);
         } else {
             this.okButton.setEnabled(false);
@@ -403,7 +423,7 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
         
         // Hide invalid checkbox
         this.hideInvalidCheckBox = new Button(g1, SWT.CHECK);
-        this.hideInvalidCheckBox.setText(DiagramCreationWizard.I18N.getMessage("Ui.DiagramCreationWizard.HideInvalid")); 
+        this.hideInvalidCheckBox.setText(DiagramCreationWizard.I18N.getMessage("Ui.DiagramCreationWizard.HideInvalid"));
         this.hideInvalidCheckBox.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
         
         Composite g3 = new Composite(composite, SWT.NONE);
@@ -425,7 +445,7 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
         fdG2.right = new FormAttachment(100, -10);
         fdG2.bottom = new FormAttachment(g3, -10);
         g2.setLayoutData(fdG2);
-          
+        
         Label nameLabel = new Label(g2, SWT.NONE);
         nameLabel.setText(DiagramCreationWizard.I18N.getMessage("Ui.DiagramCreationWizard.Name"));
         nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
@@ -440,10 +460,10 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
         this.contextText = new TextElement(g2, SWT.NONE);
         this.contextText.setAcceptNullValue(false);
         this.contextText.getTextControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        this.contextText.activatePicking(this.pickingService); 
+        this.contextText.activatePicking(this.pickingService);
         this.contextText.activateCompletion(this.projectService.getSession());
         this.contextText.setFilter(this.elementFilter);
-        this.contextText.activateDragAndDrop(this.projectService.getSession()); 
+        this.contextText.activateDragAndDrop(this.projectService.getSession());
         
         Label descriptionLabel = new Label(g2, SWT.NONE);
         descriptionLabel.setText(DiagramCreationWizard.I18N.getString("Ui.DiagramCreationWizard.Description"));

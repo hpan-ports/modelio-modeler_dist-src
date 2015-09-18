@@ -23,7 +23,7 @@ package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("1cbe71ce-ec1b-429c-945b-b34317c1175e")
 public class EMergeNode extends EActivityNode {
@@ -31,7 +31,7 @@ public class EMergeNode extends EActivityNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createDecisionMergeNode();
+                        .createDecisionMergeNode();
     }
 
     @objid ("ef507645-752f-4566-901c-3588247b08f8")

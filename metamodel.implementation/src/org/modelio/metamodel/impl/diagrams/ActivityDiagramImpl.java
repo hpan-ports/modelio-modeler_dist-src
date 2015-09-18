@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0067fa70-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActivityDiagramImpl extends BehaviorDiagramImpl implements ActivityDiagram {
-    @objid ("8e32b97f-251b-4a43-bc44-8381a92e1a11")
+    @objid ("ff01d1a7-73b5-4851-9fb5-ef390d8d9b6b")
     @Override
     public boolean isIsVertical() {
         return (Boolean) getAttVal(ActivityDiagramData.Metadata.IsVerticalAtt());
     }
 
-    @objid ("339f4d70-f451-4e33-825e-2c87437c6c07")
+    @objid ("b0865b00-7ec5-4cc0-acd0-836623264c5b")
     @Override
     public void setIsVertical(boolean value) {
         setAttVal(ActivityDiagramData.Metadata.IsVerticalAtt(), value);
     }
 
-    @objid ("35990317-7cc8-41bd-9f75-6a59220e1f26")
+    @objid ("8c8bfd87-0ea3-423c-8557-fbfe97b4393f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("6e9d1987-bb65-4962-a389-ec660c23b4a3")
+    @objid ("2ed2a56d-a2a5-4f03-9cd1-988d53dc9f83")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("d7750d05-370c-4cae-a5c3-eac2837dcbd4")
+    @objid ("734c7ab3-8964-49c3-a2b3-9e1f7164cc8a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityDiagram(this);

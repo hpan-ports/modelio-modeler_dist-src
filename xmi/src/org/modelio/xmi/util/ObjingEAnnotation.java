@@ -27,6 +27,7 @@ import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.uml2.uml.Property;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("38d2e701-6627-449e-ac90-cfc0cacd4c2e")
 public class ObjingEAnnotation extends XMIEAnnotation {
@@ -294,7 +295,7 @@ public class ObjingEAnnotation extends XMIEAnnotation {
     @objid ("9581817a-baa7-4a46-8ea7-abdd47a5a9fb")
     private static final String ENDLINENUMBER = "EndLineNumber";
 
-    @objid ("3f912564-ea00-415f-9b27-0322eeb3059b")
+    @objid ("fd09fbc9-0932-4821-b2f7-203ff9e3c556")
     private static GenerationProperties genProp = GenerationProperties
 	.getInstance();
 

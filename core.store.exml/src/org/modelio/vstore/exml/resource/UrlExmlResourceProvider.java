@@ -328,7 +328,7 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
     }
 
     @objid ("31b958cc-6395-4eb0-a41c-c1a0471f5f83")
-    private String readLocalStamp() throws IOException, FileSystemException {
+    private String readLocalStamp() throws FileSystemException, IOException {
         try {
             return FileUtils.readWhole(this.localIndexStampPath, "UTF-8");
         } catch (NoSuchFileException e) {

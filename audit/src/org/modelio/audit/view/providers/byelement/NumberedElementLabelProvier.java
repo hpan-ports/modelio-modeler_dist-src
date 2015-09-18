@@ -32,7 +32,7 @@ import org.modelio.core.ui.images.ElementImageService;
 
 @objid ("9a1ac88b-a495-48a7-b342-b2b3c8fd7099")
 public class NumberedElementLabelProvier extends StyledCellLabelProvider {
-    @objid ("5d2dca81-a823-4314-bb18-65b9779c6719")
+    @objid ("19d1f378-937e-4a9f-abe8-ebe3bf667f9b")
     private final SimpleDateFormat formatter = new SimpleDateFormat("H:mm:ss");
 
     @objid ("0672105d-d785-47f9-9763-cb7c3598917d")

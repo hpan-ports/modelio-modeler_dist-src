@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("002cb618-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Clause extends ModelElement {
-    @objid ("2ae6a922-6b9e-42ed-915f-4dc68834812a")
+    @objid ("d3c2c16d-161c-49d9-86c9-1889ae3458c2")
     String getTest();
 
-    @objid ("e44bbc74-8c9f-4020-8b79-a686443288dc")
+    @objid ("2a2cfa2a-f82e-473c-b184-bb13a84253ff")
     void setTest(String value);
 
-    @objid ("7902a2e1-d648-4570-964d-11ddfef80f56")
+    @objid ("45e780fe-7a99-4573-985d-930a6428a13b")
     EList<ActivityNode> getBody();
 
-    @objid ("a8750f83-ee0b-443d-b992-bbfaf03fdff0")
+    @objid ("8951cf32-0cb6-4f86-bdd0-c5602620b8f0")
     <T extends ActivityNode> List<T> getBody(java.lang.Class<T> filterClass);
 
-    @objid ("16113de8-fdef-4640-8407-33b1028a3975")
+    @objid ("aed7a10d-feef-4016-9b6b-14b41e133b4f")
     ConditionalNode getOwner();
 
-    @objid ("97847a5e-e6db-4805-a3d1-f69aa49485f1")
+    @objid ("6a666a0e-4079-466e-9e27-02fbac5ff4ef")
     void setOwner(ConditionalNode value);
 
 }

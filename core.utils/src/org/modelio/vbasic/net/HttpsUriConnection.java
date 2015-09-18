@@ -171,7 +171,7 @@ class HttpsUriConnection extends UriConnection {
     }
 
     @objid ("1a8124d8-79e8-4ecc-994b-5b8463575489")
-    private void initConnection() throws MalformedURLException, IOException {
+    private void initConnection() throws IOException, MalformedURLException {
         URL url = this.uri.toURL();
         this.conn = (HttpsURLConnection) url.openConnection();
         this.conn.setSSLSocketFactory(SslManager.getInstance().getSslContext().getSocketFactory());

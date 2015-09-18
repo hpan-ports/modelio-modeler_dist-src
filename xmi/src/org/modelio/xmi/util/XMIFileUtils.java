@@ -45,6 +45,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.xmi.UnresolvedReferenceException;
 import org.modelio.xmi.api.FormatExport;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 
 /**
@@ -81,7 +82,7 @@ public class XMIFileUtils {
      * @param filePath The file location
      */
     @objid ("9e98fff9-cece-4466-a272-62b11828b02b")
-    public static void changeToUML(final String filePath) {
+    public static void changeToUML(final String filePath, final File tempFolder) {
         File file = new File(filePath);
         
         List<String> oldPatterns = new LinkedList<>();
@@ -162,14 +163,7 @@ public class XMIFileUtils {
         //            newPatterns.add("\"");
         //
         //        }
-        
-        File tempFolder = ResourceLoader.getInstance().getXMITempFolder();
-        
-        if (!tempFolder.exists()){
-            tempFolder.mkdirs();
-            tempFolder.mkdir();
-        }
-        
+             
         String tempPath = tempFolder.getAbsolutePath() + java.io.File.separator  + file.getName() + ".temp";
         File tempFile = new File(tempPath);
         if (tempFile.exists()){
@@ -187,8 +181,6 @@ public class XMIFileUtils {
         if (tempFile.exists()){
             tempFile.delete();
         }
-        
-        System.gc();
     }
 
     /**

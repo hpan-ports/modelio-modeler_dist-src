@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("006cfce6-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=CommunicationDiagram.class, factory=CommunicationDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class CommunicationDiagramData extends BehaviorDiagramData {
-    @objid ("2331e56b-e7f0-4d4a-8281-9a7aaf575894")
+    @objid ("b76c3eda-cc66-44cc-aaf1-5a14a0e3ba2f")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("005fda2a-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("ea9bdcb2-71ed-45b1-9308-676b796b01b2")
+        @objid ("95fa1726-f7dc-4eeb-9539-701da5058f9a")
         private static SmClass smClass = null;
 
-        @objid ("7de8bdec-2e9f-4d05-8ca3-35d4651f3307")
+        @objid ("8079db45-368b-4d3a-b3cb-4a209222d52a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(CommunicationDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("3696d4b7-78ef-44a7-b41b-2e3986df5c6d")
+        @objid ("fe5b927f-157b-43b8-b397-e53a5bec40c5")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class CommunicationDiagramData extends BehaviorDiagramData {
 
         @objid ("00601bac-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("4f1ddc99-57b0-454e-9c2f-a1ac98ba5edc")
+            @objid ("526b6509-d073-4525-9fe8-6580cd524e6d")
             public ISmObjectData createData() {
                 return new CommunicationDiagramData();
             }
 
-            @objid ("e0816b1b-5da3-4b11-aa0c-3a95a330f918")
+            @objid ("1be8544a-b698-4443-8427-f841642b7e3e")
             public SmObjectImpl createImpl() {
                 return new CommunicationDiagramImpl();
             }

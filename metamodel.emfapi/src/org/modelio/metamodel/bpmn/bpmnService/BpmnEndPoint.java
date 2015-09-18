@@ -33,10 +33,10 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnRootElement;
 
 @objid ("000e89b8-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnEndPoint extends BpmnRootElement {
-    @objid ("dd4ab7d1-898c-4543-8772-651d89212455")
+    @objid ("e36e3c51-026b-4086-bd8e-491186f06785")
     EList<BpmnParticipant> getParticipantRefs();
 
-    @objid ("67dc664a-35c1-40f5-b620-9358905e9ce8")
+    @objid ("7cb2d694-458d-449f-b66d-6bfd5cdb4868")
     <T extends BpmnParticipant> List<T> getParticipantRefs(java.lang.Class<T> filterClass);
 
 }

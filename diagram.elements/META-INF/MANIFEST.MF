@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Diagram Elements
 Bundle-SymbolicName: org.modelio.diagram.elements;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.modelio.log,
  org.modelio.ui,
@@ -28,10 +28,15 @@ Require-Bundle: org.eclipse.core.runtime,
  org.modelio.mda.infra,
  org.eclipse.emf.common,
  org.eclipse.e4.ui.services,
- org.modelio.editors.richnote
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+ org.modelio.editors.richnote,
+ org.modelio.edition.html,
+ org.eclipse.swt
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: res/,
- .
+ .,
+ lib/flying-saucer-core-9.0.7.jar,
+ lib/flying-saucer-swt-9.0.7.jar,
+ lib/jtidy-r938.jar
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.modelio.diagram.elements.plugin.DiagramElements
 Export-Package: org.modelio.diagram.elements.common.abstractdiagram,
@@ -57,6 +62,7 @@ Export-Package: org.modelio.diagram.elements.common.abstractdiagram,
  org.modelio.diagram.elements.core.figures.borders,
  org.modelio.diagram.elements.core.figures.decorations,
  org.modelio.diagram.elements.core.figures.geometry,
+ org.modelio.diagram.elements.core.figures.labelum,
  org.modelio.diagram.elements.core.figures.routers,
  org.modelio.diagram.elements.core.helpers,
  org.modelio.diagram.elements.core.link,

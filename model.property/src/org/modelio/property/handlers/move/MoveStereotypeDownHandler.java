@@ -23,12 +23,10 @@ package org.modelio.property.handlers.move;
 
 import java.util.List;
 import javax.inject.Inject;
-import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -55,28 +53,26 @@ public class MoveStereotypeDownHandler {
      */
     @objid ("ca1fa72c-ffc1-4c35-904c-75e11a0fd439")
     @CanExecute
-    public final boolean canExecute(@Named(IServiceConstants.ACTIVE_PART) final MPart part) {
-        if (!(part.getObject() instanceof PropertyView)) {
-            return false;
-        }
-        
+    public final boolean canExecute(final MPart part) {
         // Sanity checks
         if (this.projectService.getSession() == null) {
             return false;
-        }    
+        }
         
-        ModelPropertyPanelProvider propertyPanel = ((PropertyView) part.getObject()).getPanel();
+        final ModelPropertyPanelProvider propertyPanel = ((PropertyView) part.getObject()).getPanel();
         if (propertyPanel == null) {
             return false;
         }
-        Element parentElement = propertyPanel.getInput();
+        final Element parentElement = propertyPanel.getInput();
         if (parentElement == null || !parentElement.isModifiable()) {
             return false;
         }
         
-        List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
-        if (selectedElements.isEmpty()) return false;
-        for (ModelElement element : selectedElements) {            
+        final List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
+        if (selectedElements.isEmpty()) {
+            return false;
+        }
+        for (final ModelElement element : selectedElements) {
             if (!(element instanceof Stereotype)) {
                 return false;
             }
@@ -90,26 +86,26 @@ public class MoveStereotypeDownHandler {
      */
     @objid ("1c9b6afb-823a-45a9-9270-5267b8faf76f")
     @Execute
-    public final void execute(@Named(IServiceConstants.ACTIVE_PART) final MPart part) {
-        ICoreSession session = this.projectService.getSession();
+    public final void execute(final MPart part) {
+        final ICoreSession session = this.projectService.getSession();
         
-        ModelPropertyPanelProvider propertyPanel = ((PropertyView) part.getObject()).getPanel();
+        final ModelPropertyPanelProvider propertyPanel = ((PropertyView) part.getObject()).getPanel();
         
-        List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
+        final List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
         
-        ModelElement parentElement = (ModelElement) propertyPanel.getInput();
+        final ModelElement parentElement = (ModelElement) propertyPanel.getInput();
         
         try (ITransaction transaction = session.getTransactionSupport().createTransaction("Move stereotype down")) {
             int nbToMove = 0;
         
-            List<Stereotype> listToReorder = parentElement.getExtension();
+            final List<Stereotype> listToReorder = parentElement.getExtension();
             // We first move down the Last selected element of the list; This way the positions of other
             // selected elements are not affected by the move of the current element.
             for (int i = selectedElements.size() - 1; i >= 0; --i) {
-                Stereotype element = (Stereotype) selectedElements.get(i);
-            
+                final Stereotype element = (Stereotype) selectedElements.get(i);
+        
                 // Retrieve the new index of the element
-                int index = computeNewIndex(element, listToReorder);
+                final int index = computeNewIndex(element, listToReorder);
         
                 if (index == -1) {
                     // Invalid case, just exit
@@ -117,7 +113,7 @@ public class MoveStereotypeDownHandler {
                     return;
                 }
         
-                // Move the element in the list 
+                // Move the element in the list
                 nbToMove++;
                 listToReorder.remove(element);
                 listToReorder.add(index, element);
@@ -129,7 +125,7 @@ public class MoveStereotypeDownHandler {
             } else {
                 transaction.rollback();
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Should catch InvalidModelManipulationException to display a popup box, but it
             // is not a RuntimeException.
             reportException(e);
@@ -155,7 +151,7 @@ public class MoveStereotypeDownHandler {
     @objid ("ca94544a-2b7c-42c8-9b66-132202d431f1")
     static void reportException(Exception e) {
         // Show an error box
-        String title = ModelProperty.I18N.getMessage("CannotMoveStereotypeDown");
+        final String title = ModelProperty.I18N.getMessage("CannotMoveStereotypeDown");
         
         MessageDialog.openError(null, title, e.getLocalizedMessage());
         

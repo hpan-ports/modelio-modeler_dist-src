@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0071b7ea-c4bf-1fd8-97fe-001ec947cd2a")
 public class UseCaseDiagramImpl extends StaticDiagramImpl implements UseCaseDiagram {
-    @objid ("56cdbc29-585d-4c49-a25b-41cedb4e8211")
+    @objid ("4c893379-5dc4-4422-9c6f-3f4c2f0c31a2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("06e78469-0f41-43df-a1ae-62a4c3944ef3")
+    @objid ("87bce649-ff78-46ea-b942-b59ef4026c47")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("5d59414e-346d-444c-ae31-4678348929d6")
+    @objid ("3bbf7bdb-f640-4e70-ba6e-4423c4518578")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitUseCaseDiagram(this);

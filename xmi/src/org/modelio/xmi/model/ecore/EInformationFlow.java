@@ -31,9 +31,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.xmi.reverse.PartialImportMap;
-import org.modelio.xmi.reverse.TotalImportMap;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("53296c13-1b6d-4565-a462-8b5c9ce1b402")
 public class EInformationFlow extends ENamedElement {
@@ -44,7 +42,7 @@ public class EInformationFlow extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createInformationFlow();
+                        .createInformationFlow();
     }
 
     @objid ("6c900606-27bb-4eac-920b-1c28bc33ddd7")
@@ -92,12 +90,8 @@ public class EInformationFlow extends ENamedElement {
                     .getMappedElement(ecoreOwner);
         
             if (objingOwner instanceof NameSpace) {
-                InformationFlow informationFlow = (InformationFlow) objingElt;
-                informationFlow.setOwner((NameSpace) objingOwner);
-        
+                ((InformationFlow) objingElt).setOwner((NameSpace) objingOwner);       
             }else{
-                PartialImportMap.getInstance().remove(this.ecoreElement);
-                TotalImportMap.getInstance().remove(this.ecoreElement);
                 objingElt.delete();
             }
         }

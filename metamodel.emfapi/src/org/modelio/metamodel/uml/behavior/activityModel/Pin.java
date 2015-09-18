@@ -31,22 +31,22 @@ import org.modelio.metamodel.uml.statik.Parameter;
 
 @objid ("003b6582-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Pin extends ObjectNode {
-    @objid ("17471dd3-a870-4d74-95ec-25df584ffe1c")
+    @objid ("22fba80a-9c1d-42fd-9a75-1ed718e69328")
     boolean isIsControl();
 
-    @objid ("be6e5a0b-4386-4e6a-b5ee-873abb32a41d")
+    @objid ("aaff3056-58b1-45e1-a2e8-9537801bf425")
     void setIsControl(boolean value);
 
-    @objid ("b85c9f52-564e-4388-943d-c403a2254a70")
+    @objid ("f67be29c-f575-415f-ae3f-7b18ba1431c5")
     boolean isIsExpansion();
 
-    @objid ("617e3d67-acc0-444d-9149-ec45f62cf5e3")
+    @objid ("4ea698fe-f67b-456a-a7da-4e939e4e01c3")
     void setIsExpansion(boolean value);
 
-    @objid ("9f0c6249-e396-4f3f-a9d0-d3bc1226c3d8")
+    @objid ("499b5e37-dd61-4d4d-ab0a-ab078e7e6a25")
     Parameter getMatched();
 
-    @objid ("bd7ff363-bd0d-4722-a71e-6b0582e8ab24")
+    @objid ("87fe9688-1923-43b0-ab10-41d626afe3fd")
     void setMatched(Parameter value);
 
 }

@@ -24,7 +24,7 @@ package org.modelio.xmi.model.ecore;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.ForkJoinNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("f6dd86a3-275b-4baa-86d3-4e8b3ec0594b")
 public class EJoinNode extends EActivityNode {
@@ -35,7 +35,7 @@ public class EJoinNode extends EActivityNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createForkJoinNode();
+                        .createForkJoinNode();
     }
 
     @objid ("0c805ee0-f75c-46d2-af17-80750ef4fd7b")

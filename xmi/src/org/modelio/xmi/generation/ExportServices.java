@@ -64,10 +64,8 @@ import org.modelio.xmi.api.XMIExtension;
 import org.modelio.xmi.gui.ProgressBarComposite;
 import org.modelio.xmi.model.objing.profile.PExportProfile;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.ProfileUtils;
 import org.modelio.xmi.util.ScopeChecker;
 import org.modelio.xmi.util.XMIFileUtils;
@@ -243,7 +241,7 @@ public class ExportServices {
                         ecoreModel.getPackagedElements().add((PackageableElement)ecoreRoot);
                     }
         
-                    for (org.eclipse.uml2.uml.PrimitiveType primitive :  PrimitiveTypeMapper.getPredifinedTypeList()){
+                    for (org.eclipse.uml2.uml.PrimitiveType primitive :  genProp.getEcoreTypes().getPredifinedTypeList()){
                         ecoreModel.getPackagedElements().add(primitive);
                     }
         
@@ -352,7 +350,7 @@ public class ExportServices {
                     resourceProfile.save(null);
         
                     if (!GenerationProperties.getInstance().getExportVersion().equals(FormatExport.EMF300))
-                        XMIFileUtils.changeToUML(resourceProfile.getURI().toFileString());
+                        XMIFileUtils.changeToUML(resourceProfile.getURI().toFileString(), GenerationProperties.getInstance().getTempFolder());
         
                 } catch (IOException ioe) {    
                     Xmi.LOG.error(ioe);
@@ -394,7 +392,7 @@ public class ExportServices {
                 resourceProfile.save(null);
         
                 if (!GenerationProperties.getInstance().getExportVersion().equals(FormatExport.EMF300))
-                    XMIFileUtils.changeToUML(resourceProfile.getURI().toFileString());
+                    XMIFileUtils.changeToUML(resourceProfile.getURI().toFileString(), GenerationProperties.getInstance().getTempFolder());
         
             } catch (IOException ioe) {
                 Xmi.LOG.error(ioe);

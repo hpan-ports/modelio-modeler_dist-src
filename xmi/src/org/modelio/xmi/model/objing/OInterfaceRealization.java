@@ -26,7 +26,7 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
 import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("f52bf05b-4671-4863-8d75-01d4a7dc6796")
 public class OInterfaceRealization extends OModelElement implements IOElement {
@@ -36,7 +36,7 @@ public class OInterfaceRealization extends OModelElement implements IOElement {
     @objid ("dcfc25b3-3cd2-4c17-a963-0d40cd30031e")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE
-                .createInterfaceRealization();
+                        .createInterfaceRealization();
     }
 
     @objid ("386b8299-c6cf-43cf-b9d9-b8e784d9dafa")

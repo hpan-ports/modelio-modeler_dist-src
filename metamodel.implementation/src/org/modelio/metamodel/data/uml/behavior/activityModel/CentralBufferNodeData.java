@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("002c7f7c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=CentralBufferNode.class, factory=CentralBufferNodeData.Metadata.ObjectFactory.class)
 public class CentralBufferNodeData extends ObjectNodeData {
-    @objid ("07b839d0-1052-430c-a9c6-7de68c7e7b47")
+    @objid ("d9df3793-7e38-47be-b46e-141692111342")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001ebcd4-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("a8382fe4-e0c0-4768-8d0a-68691b8325c1")
+        @objid ("202311c5-3e34-412a-9c77-afddd8ae6b6a")
         private static SmClass smClass = null;
 
-        @objid ("504a0e2b-b543-4389-a732-e090169ed0c8")
+        @objid ("f4b31875-2f3f-4b2d-8415-8db152fe783a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(CentralBufferNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("26c5d2e8-2d14-43d8-85fb-f206744f9964")
+        @objid ("80cae35c-2c79-4368-a6a3-877ee5a427af")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class CentralBufferNodeData extends ObjectNodeData {
 
         @objid ("001efe24-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("c9642722-6b15-479d-b445-70177115844d")
+            @objid ("588cab63-abd6-4957-afba-7443265f405e")
             public ISmObjectData createData() {
                 return new CentralBufferNodeData();
             }
 
-            @objid ("dc8cb53d-a339-4fee-b02b-54b882e9ae13")
+            @objid ("6eeb82ef-ee6f-49b1-8542-8991420bf9a1")
             public SmObjectImpl createImpl() {
                 return new CentralBufferNodeImpl();
             }

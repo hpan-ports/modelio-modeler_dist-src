@@ -49,8 +49,7 @@ public class RunMacroHandler {
 
     @objid ("98ec7b4f-cfc5-4e35-9daa-05fc96520fbb")
     @Execute
-    public void execute(EPartService partService, MWindow window, @Optional
-@Named(RUNMACRO_FILE) final String file) {
+    public void execute(EPartService partService, MWindow window, @Optional @Named(RUNMACRO_FILE) final String file) {
         MPart part = partService.findPart(ScriptView.PARTID);
         //If the part is not found try to browse the shared elements to find the script part
         if (part == null && window != null) {

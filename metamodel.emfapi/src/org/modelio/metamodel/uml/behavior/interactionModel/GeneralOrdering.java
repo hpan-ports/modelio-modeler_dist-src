@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("0045de18-c4bf-1fd8-97fe-001ec947cd2a")
 public interface GeneralOrdering extends Element {
-    @objid ("ab8a0833-1fbe-4270-be32-9fe09a31326c")
+    @objid ("1950a588-f9c7-4a1e-99a2-352decb5fa49")
     OccurrenceSpecification getBefore();
 
-    @objid ("18cb5a62-b035-4916-a48e-c6a1471f4e5f")
+    @objid ("8e80febe-3c10-4378-83e8-1fc5cd191508")
     void setBefore(OccurrenceSpecification value);
 
-    @objid ("becd7333-fe7d-4718-b426-57d920310b5e")
+    @objid ("fd9030b4-3af0-4f9c-824a-61d73cd5f263")
     OccurrenceSpecification getAfter();
 
-    @objid ("b1e36515-7baf-4afb-8a75-25b54a65d40f")
+    @objid ("4f386118-680b-42d0-9944-eacfc657e9f0")
     void setAfter(OccurrenceSpecification value);
 
 }

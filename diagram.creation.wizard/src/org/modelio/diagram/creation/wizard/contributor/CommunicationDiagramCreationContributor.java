@@ -29,7 +29,7 @@ import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 @objid ("95d779e3-1da3-4a4e-afa3-46058a83155a")
-public class CommunicationDiagramCreationContributor extends AbstractDiagramCreationContributor {
+public class CommunicationDiagramCreationContributor extends AbstractUMLDiagramCreationContributor {
     @objid ("ea2be538-10ce-4046-8045-6b3e9b68bebe")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
@@ -103,6 +103,48 @@ public class CommunicationDiagramCreationContributor extends AbstractDiagramCrea
         allowedMetaclasses.add(Metamodel.getMClass(Operation.class));
         allowedMetaclasses.add(Metamodel.getMClass(CommunicationInteraction.class));
         return allowedMetaclasses;
+    }
+
+    @objid ("e5f2c211-f980-4842-93e4-1dcc89b86e21")
+    @Override
+    public String getDetails() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Communication.Details");
+    }
+
+    @objid ("b31f620d-db97-4b3c-b483-5e3cd601d585")
+    @Override
+    public Image getIcon() {
+        return MetamodelImageService.getIcon(Metamodel.getMClass(CommunicationDiagram.class));
+    }
+
+    @objid ("ce2af409-eba2-4b8a-b1b2-76b8d88ff611")
+    @Override
+    public String getInformation() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Communication.Information");
+    }
+
+    @objid ("607477b0-0fbb-455c-b582-93bb16761084")
+    @Override
+    public String getLabel() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Communication.Name");
+    }
+
+    @objid ("a362afd0-4299-4c99-b6c2-7f43221a261f")
+    private Collaboration checkLocalCollaboration(final IModelFactory modelFactory, final CommunicationInteraction interaction) {
+        Collaboration locals = null;
+        // Look for an existing local Collaboration
+        for (Collaboration collab : interaction.getOwnedCollaboration()) {
+            locals = collab;
+            break;
+        }
+        
+        if (locals == null) {
+            // Create the local Collaboration
+            locals = modelFactory.createCollaboration();
+            interaction.getOwnedCollaboration().add(locals);
+            locals.setName("locals");
+        }
+        return locals;
     }
 
     @objid ("ec6f8179-97e9-4890-81ea-70c8db31f2f3")
@@ -189,48 +231,6 @@ public class CommunicationDiagramCreationContributor extends AbstractDiagramCrea
             }
         }
         return diagram;
-    }
-
-    @objid ("a362afd0-4299-4c99-b6c2-7f43221a261f")
-    private Collaboration checkLocalCollaboration(final IModelFactory modelFactory, final CommunicationInteraction interaction) {
-        Collaboration locals = null;
-        // Look for an existing local Collaboration
-        for (Collaboration collab : interaction.getOwnedCollaboration()) {
-            locals = collab;
-            break;
-        }
-        
-        if (locals == null) {
-            // Create the local Collaboration
-            locals = modelFactory.createCollaboration();
-            interaction.getOwnedCollaboration().add(locals);
-            locals.setName("locals");
-        }
-        return locals;
-    }
-
-    @objid ("607477b0-0fbb-455c-b582-93bb16761084")
-    @Override
-    public String getLabel() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Communication.Name");
-    }
-
-    @objid ("b31f620d-db97-4b3c-b483-5e3cd601d585")
-    @Override
-    public Image getIcon() {
-        return MetamodelImageService.getIcon(Metamodel.getMClass(CommunicationDiagram.class));
-    }
-
-    @objid ("ce2af409-eba2-4b8a-b1b2-76b8d88ff611")
-    @Override
-    public String getInformation() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Communication.Information");
-    }
-
-    @objid ("e5f2c211-f980-4842-93e4-1dcc89b86e21")
-    @Override
-    public String getDetails() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Communication.Details");
     }
 
 }

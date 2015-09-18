@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.statik.PackageMerge;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("b0c7b668-6720-4843-8a9b-7ad87b401039")
 public class OPackageMerge extends OElement implements IOElement {

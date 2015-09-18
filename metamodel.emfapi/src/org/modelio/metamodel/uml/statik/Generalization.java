@@ -32,22 +32,22 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 
 @objid ("000c7bb4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Generalization extends ModelElement {
-    @objid ("715f94ef-9caf-496f-ad83-cac7487b87b3")
+    @objid ("b1816540-6a94-45b6-8fef-aa48a5116ecd")
     String getDiscriminator();
 
-    @objid ("accc7a2b-2f27-4b50-9b89-cde7405ea13a")
+    @objid ("990d559d-891f-4136-b676-f119292913e7")
     void setDiscriminator(String value);
 
-    @objid ("f7fb175d-4b5b-435d-ad3a-8c34b0d5b440")
+    @objid ("c76aa46c-4741-4796-ba45-3a14f1c7745c")
     NameSpace getSuperType();
 
-    @objid ("b2c55985-8cc5-4754-a974-04667ab189d4")
+    @objid ("d2075c27-0eb3-4dca-9d47-fa72ea3ebd82")
     void setSuperType(NameSpace value);
 
-    @objid ("f7be7a60-4da5-4005-a51a-efb92bab89d1")
+    @objid ("8c9ad354-e5a5-4410-b89f-b52ed4fd9b94")
     NameSpace getSubType();
 
-    @objid ("0571b2e8-6225-4b61-8925-c3aae8dbb105")
+    @objid ("122bec3f-fa3e-4b4b-885c-83020b5c4d35")
     void setSubType(NameSpace value);
 
 }

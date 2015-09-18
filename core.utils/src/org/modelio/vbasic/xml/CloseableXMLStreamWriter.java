@@ -46,7 +46,7 @@ public class CloseableXMLStreamWriter implements AutoCloseable {
      * @throws javax.xml.stream.FactoryConfigurationError in case of failure
      */
     @objid ("78520859-3010-11e2-8359-001ec947ccaf")
-    public CloseableXMLStreamWriter(OutputStream os, boolean indent) throws XMLStreamException, FactoryConfigurationError {
+    public CloseableXMLStreamWriter(OutputStream os, boolean indent) throws FactoryConfigurationError, XMLStreamException {
         final XMLOutputFactory f = XMLOutputFactory.newFactory();
         
         XMLStreamWriter first = f.createXMLStreamWriter(os, StandardCharsets.UTF_8.toString());

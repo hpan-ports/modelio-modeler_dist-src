@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("2dcbabc7-1ffe-4eae-a040-8300156dfdc3")
 public class GenericAnalystContainerImpl extends AnalystContainerImpl implements GenericAnalystContainer {
-    @objid ("06885266-1266-4c24-98eb-ed86cc4d6a2e")
+    @objid ("b5307b8e-7831-455c-a00c-daee728e4418")
     @Override
     public EList<GenericAnalystElement> getOwnedElement() {
         return new SmList<>(this, GenericAnalystContainerData.Metadata.OwnedElementDep());
     }
 
-    @objid ("60634c23-d2e8-4d42-a4a9-2fb8ae200c6f")
+    @objid ("a98af9fd-58fa-4e69-8d8c-fb70228a8e73")
     @Override
     public <T extends GenericAnalystElement> List<T> getOwnedElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,25 +63,25 @@ public class GenericAnalystContainerImpl extends AnalystContainerImpl implements
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e5fe87c8-172b-461d-9f20-27ded244c725")
+    @objid ("44f7e7a2-19f1-4a7c-bfeb-37b74a219d6e")
     @Override
     public GenericAnalystContainer getOwnerContainer() {
         return (GenericAnalystContainer) getDepVal(GenericAnalystContainerData.Metadata.OwnerContainerDep());
     }
 
-    @objid ("60dd3dee-f9db-4ae6-a00d-afe113edd482")
+    @objid ("4a6d07e0-3f66-47e8-b078-cae21165ba1a")
     @Override
     public void setOwnerContainer(GenericAnalystContainer value) {
         appendDepVal(GenericAnalystContainerData.Metadata.OwnerContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0dd2994f-471b-460b-9b7a-f7d1fd0867b1")
+    @objid ("4ad89364-e687-46dd-9086-35ff8636976c")
     @Override
     public EList<GenericAnalystContainer> getOwnedContainer() {
         return new SmList<>(this, GenericAnalystContainerData.Metadata.OwnedContainerDep());
     }
 
-    @objid ("76ccb818-9242-420b-aac9-b0af6a83d5a3")
+    @objid ("ea7af386-40e2-422f-9bd4-4e6e55857728")
     @Override
     public <T extends GenericAnalystContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,19 +94,19 @@ public class GenericAnalystContainerImpl extends AnalystContainerImpl implements
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1a67e989-a356-4294-8107-ad318f572c60")
+    @objid ("09a25128-3682-4b21-947b-abcef7660af4")
     @Override
     public AnalystProject getOwnerProject() {
         return (AnalystProject) getDepVal(GenericAnalystContainerData.Metadata.OwnerProjectDep());
     }
 
-    @objid ("60c13ebb-7d2e-4565-a51e-17b46ea61427")
+    @objid ("8efd8849-b573-431d-9e4f-0e33b29980f9")
     @Override
     public void setOwnerProject(AnalystProject value) {
         appendDepVal(GenericAnalystContainerData.Metadata.OwnerProjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0916bb76-daf3-4b3b-87c7-56d96cd8bfa7")
+    @objid ("bda845c6-f51b-45c0-98f1-458a1fc98b12")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -119,7 +119,7 @@ public class GenericAnalystContainerImpl extends AnalystContainerImpl implements
         return super.getCompositionOwner();
     }
 
-    @objid ("71588031-dcc6-4cb2-b2fb-22d6d3cfee98")
+    @objid ("64de3491-0000-4ccd-840e-63646915219f")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -132,7 +132,7 @@ public class GenericAnalystContainerImpl extends AnalystContainerImpl implements
         return super.getCompositionRelation();
     }
 
-    @objid ("09afe74f-800a-471b-b5e5-81c545f35523")
+    @objid ("75832a6c-79c1-4e25-ae71-aa04a63c5a7a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGenericAnalystContainer(this);

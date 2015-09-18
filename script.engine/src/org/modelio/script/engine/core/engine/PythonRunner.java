@@ -55,7 +55,7 @@ public class PythonRunner implements IScriptRunner {
      * </ol>
      */
     @objid ("004696d2-fb86-10ee-9fe5-001ec947cd2a")
-    private final String JYTHON_INIT = "import sys\n" 
+    private static final String JYTHON_INIT = "import sys\n" 
             + "sys.setClassLoader (CLASSLOADER)\n"
             + "if  sys.path.count('__pyclasspath__/Lib') == 0:\n" 
             + "\tsys.path.append('__pyclasspath__/Lib')\n"
@@ -129,7 +129,8 @@ public class PythonRunner implements IScriptRunner {
         } catch (RuntimeException e) {
             ScriptEnginePlugin.LOG.error(ScriptEnginePlugin.PLUGIN_ID, e);
             e.printStackTrace(this.errorWriter);
-        } catch (Error e) {
+        } catch (Exception e) {
+            ScriptEnginePlugin.LOG.error(ScriptEnginePlugin.PLUGIN_ID, e);
             e.printStackTrace(this.errorWriter);
             throw e;
         } finally {
@@ -155,7 +156,7 @@ public class PythonRunner implements IScriptRunner {
         } catch (RuntimeException e) {
             ScriptEnginePlugin.LOG.error(ScriptEnginePlugin.PLUGIN_ID, e);
             e.printStackTrace(this.errorWriter);
-        } catch (Error e) {
+        } catch (Exception e) {
             ScriptEnginePlugin.LOG.error(ScriptEnginePlugin.PLUGIN_ID, e);
             e.printStackTrace(this.errorWriter);
             throw e;

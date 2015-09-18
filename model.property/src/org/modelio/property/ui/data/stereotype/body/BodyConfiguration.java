@@ -24,7 +24,9 @@ package org.modelio.property.ui.data.stereotype.body;
 import java.sql.Time;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.nebula.widgets.nattable.config.AbstractRegistryConfiguration;
 import org.eclipse.nebula.widgets.nattable.config.CellConfigAttributes;
@@ -43,6 +45,7 @@ import org.eclipse.nebula.widgets.nattable.edit.action.MouseEditAction;
 import org.eclipse.nebula.widgets.nattable.edit.editor.CheckBoxCellEditor;
 import org.eclipse.nebula.widgets.nattable.edit.editor.ComboBoxCellEditor;
 import org.eclipse.nebula.widgets.nattable.edit.editor.TextCellEditor;
+import org.eclipse.nebula.widgets.nattable.edit.gui.ICellEditDialog;
 import org.eclipse.nebula.widgets.nattable.grid.GridRegion;
 import org.eclipse.nebula.widgets.nattable.layer.DataLayer;
 import org.eclipse.nebula.widgets.nattable.layer.ILayer;
@@ -80,6 +83,7 @@ import org.modelio.core.ui.nattable.editors.TextIconPainter;
 import org.modelio.core.ui.nattable.editors.TimeDisplayConverter;
 import org.modelio.core.ui.nattable.editors.TimeEditor;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.property.plugin.ModelProperty;
 import org.modelio.property.ui.data.stereotype.DefaultLabelProvider;
 import org.modelio.property.ui.data.stereotype.data.TableDataModel;
 import org.modelio.property.ui.data.stereotype.model.IPropertyModel2;
@@ -104,6 +108,9 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
 
     @objid ("d39fb4fc-8f25-45f5-8984-37229c2146c5")
     protected final DataLayer bodyDataLayer;
+
+    @objid ("fdb44e3b-2e59-46de-85f1-9b04d6a7c243")
+    private static final Image EDIT_ICON = ModelProperty.getImageDescriptor("icons/edit.png").createImage();
 
     @objid ("26f0843e-ee64-4b71-8c86-e5e9a0d46718")
     public BodyConfiguration(final DataLayer bodyDataLayer, TableDataModel dataModel, IProjectService projectService, IModelioPickingService pickingService) {
@@ -531,6 +538,13 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         // Editor
         final ListEditor editor = new ListEditor();
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.NORMAL, tag + ".edit");
+        
+        Map<String, Object> editDialogSettings = new HashMap<>();
+        editDialogSettings.put(ICellEditDialog.DIALOG_SHELL_TITLE, ModelProperty.I18N.getString("StringListEditionDialog.Title"));
+        editDialogSettings.put(ICellEditDialog.DIALOG_MESSAGE, ModelProperty.I18N.getString("StringListEditionDialog.Message"));
+        editDialogSettings.put(ICellEditDialog.DIALOG_SHELL_ICON, EDIT_ICON);
+        
+        configRegistry.registerConfigAttribute(EditConfigAttributes.EDIT_DIALOG_SETTINGS, editDialogSettings, DisplayMode.EDIT);
         
         // Validator
     }

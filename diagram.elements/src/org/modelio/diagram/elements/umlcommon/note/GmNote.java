@@ -97,16 +97,16 @@ public class GmNote extends GmSimpleNode {
         if (this.note == null)
             return null;
         return new IEditableText() {
-            @Override
-            public String getText() {
-        return GmNote.this.getRepresentedElement().getContent();
-                    }
-                
-                    @Override
-                    public void setText(String text) {
-        GmNote.this.getRepresentedElement().setContent(text);
-                    }
-                };
+                                    @Override
+                                    public String getText() {
+                                return GmNote.this.getRepresentedElement().getContent();
+                                            }
+                                        
+                                            @Override
+                                            public void setText(String text) {
+                                GmNote.this.getRepresentedElement().setContent(text);
+                                            }
+                                        };
     }
 
     @objid ("81865f23-1dec-11e2-8cad-001ec947c8cc")
@@ -220,6 +220,24 @@ public class GmNote extends GmSimpleNode {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    /**
+     * @return true if the note text is HTML
+     */
+    @objid ("ec352994-5589-42d7-88b2-b4e4b973c4e3")
+    public boolean isHtml() {
+        /*return this.note != null && (
+                                this.note.getMimeType().contains("html") /*||
+                                this.note.getModel().getMimeType().contains("html") ||
+                                this.note.getContent().startsWith("<")); */
+        if (this.note == null)
+            return false;
+        
+        String mimeType = this.note.getMimeType();
+        if (mimeType == null || mimeType.isEmpty()) 
+            mimeType = this.note.getModel().getMimeType();
+        return mimeType.contains("html");
     }
 
 }

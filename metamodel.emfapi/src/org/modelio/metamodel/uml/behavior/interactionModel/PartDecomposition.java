@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 
 @objid ("004ae91c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface PartDecomposition extends InteractionUse {
-    @objid ("3829a304-3ad1-40de-b69a-b5001061448d")
+    @objid ("a8347665-c945-4c8f-91e8-8f0f061cb2a7")
     Lifeline getDecomposed();
 
-    @objid ("67aed820-c196-425e-8ed2-888d4f0384b1")
+    @objid ("0ea97b2f-5db6-4f31-97da-caa9020c65be")
     void setDecomposed(Lifeline value);
 
 }

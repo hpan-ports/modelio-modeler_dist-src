@@ -30,8 +30,8 @@ import org.modelio.metamodel.uml.behavior.interactionModel.InteractionUse;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.metamodel.uml.behavior.interactionModel.StateInvariant;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 /**
  * This class handles the import of Ecore org.eclipse.uml2.uml.Interaction Fragment

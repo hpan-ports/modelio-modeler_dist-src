@@ -23,8 +23,12 @@ package org.modelio.editors.texteditors.input;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.ListenerList;
-import org.modelio.editors.texteditors.input.IInput.Listener;
 
+/**
+ * Base implementation of {@link IInput}.
+ * <p>
+ * To be redefined by concrete implementations.
+ */
 @objid ("7b51ad32-2a77-11e2-9fb9-bc305ba4815c")
 public abstract class AbstractInput implements IInput {
     @objid ("7b51ad34-2a77-11e2-9fb9-bc305ba4815c")
@@ -34,19 +38,21 @@ public abstract class AbstractInput implements IInput {
     private ListenerList listeners = new ListenerList();
 
     @objid ("7b51ad35-2a77-11e2-9fb9-bc305ba4815c")
+    @Override
     public void addListener(Listener listener) {
-        listeners.add(listener);
+        this.listeners.add(listener);
     }
 
     @objid ("7b5333d2-2a77-11e2-9fb9-bc305ba4815c")
+    @Override
     public void removeListener(Listener listener) {
-        listeners.remove(listener);
+        this.listeners.remove(listener);
     }
 
     @objid ("7b5333d5-2a77-11e2-9fb9-bc305ba4815c")
     private void fireDirtyChange(boolean oldValue, boolean newValue) {
         this.dirty = newValue;
-        for( Object l : listeners.getListeners() ) {
+        for( Object l : this.listeners.getListeners() ) {
             ((Listener)l).propertyChanged(DIRTY, oldValue, newValue);
         }
     }
@@ -58,9 +64,12 @@ public abstract class AbstractInput implements IInput {
         }
     }
 
+    /**
+     * @return whether the input needs saving.
+     */
     @objid ("7b5333dc-2a77-11e2-9fb9-bc305ba4815c")
     public boolean isDirty() {
-        return dirty;
+        return this.dirty;
     }
 
 }

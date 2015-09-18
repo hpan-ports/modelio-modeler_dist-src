@@ -185,10 +185,9 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
+import org.modelio.xmi.util.ModelioPrimitiveTypeMapper;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.XMILogs;
 
 /**
@@ -677,8 +676,8 @@ public class PartialCreationExportVisitor {
             if (obOwner instanceof Signal) {
                 PartialCreationExportVisitor.this.ecoreElt = null;
             }else{
-                if (PrimitiveTypeMapper.isPredefinedType(objingElt)){
-                    PartialCreationExportVisitor.this.ecoreElt =   PrimitiveTypeMapper.getEcoreType(objingElt);
+                if (ModelioPrimitiveTypeMapper.isPredefinedType(objingElt)){
+                    PartialCreationExportVisitor.this.ecoreElt = ModelioPrimitiveTypeMapper.getEcoreType(objingElt);
                 }else if (objingElt.isIsElementary()){
             
                     PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createPrimitiveType();
@@ -1296,8 +1295,6 @@ public class PartialCreationExportVisitor {
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createReadExtentAction();
             else if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2DESTROYOBJECTACTION))
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createDestroyObjectAction();
-            else if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CREATELINKACTION))
-                PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createCreateLinkAction();
             else if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ADDVARIABLEVALUEACTION))
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createAddVariableValueAction();
             else if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLEARSTRUCTURALFEATUREACTION))

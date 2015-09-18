@@ -42,13 +42,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00904a52-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnLinkEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnLinkEventDefinition {
-    @objid ("b8f48636-5492-48b4-a860-39c18960f80e")
+    @objid ("7a4d336e-3d83-425a-b576-71a8aee3e692")
     @Override
     public EList<BpmnLinkEventDefinition> getSource() {
         return new SmList<>(this, BpmnLinkEventDefinitionData.Metadata.SourceDep());
     }
 
-    @objid ("a52c3690-fc4a-4c94-8b3f-67005d2f41dd")
+    @objid ("cc0d0cfa-db13-490e-bf3f-747973fd4898")
     @Override
     public <T extends BpmnLinkEventDefinition> List<T> getSource(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -61,33 +61,33 @@ public class BpmnLinkEventDefinitionImpl extends BpmnEventDefinitionImpl impleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6485dc7d-1a68-4520-baa5-e3222ef15b5f")
+    @objid ("b6e430cd-d510-43aa-a55a-03510492ff2f")
     @Override
     public BpmnLinkEventDefinition getTarget() {
         return (BpmnLinkEventDefinition) getDepVal(BpmnLinkEventDefinitionData.Metadata.TargetDep());
     }
 
-    @objid ("695ddff2-f64b-4256-b081-db23adf58fd1")
+    @objid ("5942fc4b-31e4-4eb7-8aac-cc95155bac00")
     @Override
     public void setTarget(BpmnLinkEventDefinition value) {
         appendDepVal(BpmnLinkEventDefinitionData.Metadata.TargetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("64188b06-1284-4a4a-8d04-d460aec58cbf")
+    @objid ("f4953c3f-e85b-49bf-81af-2c940da05627")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d4f09f2c-59fb-47bc-a4f8-808c12838c1a")
+    @objid ("94ba5739-a500-448f-89a4-9ee44e87a455")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("f2b00a81-3279-4a6b-905f-5629bdde42c2")
+    @objid ("00a07116-2962-4ed7-9d90-a992114bd436")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnLinkEventDefinition(this);

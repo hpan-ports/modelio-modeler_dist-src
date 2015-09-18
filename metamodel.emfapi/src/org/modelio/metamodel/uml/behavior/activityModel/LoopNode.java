@@ -30,22 +30,22 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00372b20-c4bf-1fd8-97fe-001ec947cd2a")
 public interface LoopNode extends StructuredActivityNode {
-    @objid ("fa2932da-bbf5-4380-bac7-8907936769db")
+    @objid ("dd333a21-1a12-428d-a83d-fd1fa49bf871")
     boolean isIsTestedFirst();
 
-    @objid ("ef710b5d-df89-4568-9d2d-995829c482cb")
+    @objid ("a90fadf5-16aa-4cef-8d25-f44068280d37")
     void setIsTestedFirst(boolean value);
 
-    @objid ("11a813a5-dab5-477c-b69c-35da44e5bf0d")
+    @objid ("42af3be7-281d-4bb7-9c3c-99ef28608efa")
     String getSetup();
 
-    @objid ("a7d6ca3a-802b-4696-90f1-c6f602a63888")
+    @objid ("2dbdf74c-6cac-4d82-8931-23053e4a275e")
     void setSetup(String value);
 
-    @objid ("1fa8534d-dbcd-44c1-8171-2482531d4e73")
+    @objid ("09fb668d-0b63-410c-8b2d-6a25ac4dbbca")
     String getTest();
 
-    @objid ("d4d5bac8-88ee-4124-9652-c7f73c0cd282")
+    @objid ("2696a85e-490b-4176-ac54-16e02747de47")
     void setTest(String value);
 
 }

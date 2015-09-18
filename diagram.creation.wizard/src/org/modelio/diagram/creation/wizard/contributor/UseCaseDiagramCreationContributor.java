@@ -20,7 +20,7 @@ import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 @objid ("ccb1a50b-4d4a-4a7f-8522-653bb74f2664")
-public class UseCaseDiagramCreationContributor extends AbstractDiagramCreationContributor {
+public class UseCaseDiagramCreationContributor extends AbstractUMLDiagramCreationContributor {
     @objid ("6e62d737-ea71-4d66-9752-6cf19e47995d")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
@@ -52,18 +52,10 @@ public class UseCaseDiagramCreationContributor extends AbstractDiagramCreationCo
         return allowedMetaclasses;
     }
 
-    @objid ("ccf81529-c52e-4a1c-8ff4-3ab675269992")
-    private StaticDiagram createUseCaseDiagram(final IModelFactory modelFactory, final String diagramName, final ModelElement diagramContext) {
-        // Create the UseCase diagram 
-        StaticDiagram diagram;
-        diagram = modelFactory.createUseCaseDiagram(diagramName, diagramContext, null);
-        return diagram;
-    }
-
-    @objid ("98adab97-5467-468a-9edc-dd6ae75b0aab")
+    @objid ("3f99e689-ead0-40e7-a779-89581d9852f8")
     @Override
-    public String getLabel() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.UseCase.Name");
+    public String getDetails() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.UseCase.Details");
     }
 
     @objid ("48ce1fa8-a89f-4b9e-ac12-e1dc36558b9e")
@@ -78,10 +70,18 @@ public class UseCaseDiagramCreationContributor extends AbstractDiagramCreationCo
         return DiagramCreationWizard.I18N.getString("CreationWizard.UseCase.Information");
     }
 
-    @objid ("3f99e689-ead0-40e7-a779-89581d9852f8")
+    @objid ("98adab97-5467-468a-9edc-dd6ae75b0aab")
     @Override
-    public String getDetails() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.UseCase.Details");
+    public String getLabel() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.UseCase.Name");
+    }
+
+    @objid ("ccf81529-c52e-4a1c-8ff4-3ab675269992")
+    private StaticDiagram createUseCaseDiagram(final IModelFactory modelFactory, final String diagramName, final ModelElement diagramContext) {
+        // Create the UseCase diagram 
+        StaticDiagram diagram;
+        diagram = modelFactory.createUseCaseDiagram(diagramName, diagramContext, null);
+        return diagram;
     }
 
 }

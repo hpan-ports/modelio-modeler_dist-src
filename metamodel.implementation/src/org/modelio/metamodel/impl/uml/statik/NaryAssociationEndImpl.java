@@ -43,31 +43,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0020dab4-c4bf-1fd8-97fe-001ec947cd2a")
 public class NaryAssociationEndImpl extends StructuralFeatureImpl implements NaryAssociationEnd {
-    @objid ("318b6d28-2c81-4a61-b035-fa8914c6fefc")
+    @objid ("c7944a42-83a1-45c3-b3bd-3f1e99bec9c4")
     @Override
     public NaryAssociation getNaryAssociation() {
         return (NaryAssociation) getDepVal(NaryAssociationEndData.Metadata.NaryAssociationDep());
     }
 
-    @objid ("6e1a3ac1-8390-456d-b03c-c97591ae5997")
+    @objid ("57b3ba77-74c8-4770-804b-8568db7f989a")
     @Override
     public void setNaryAssociation(NaryAssociation value) {
         appendDepVal(NaryAssociationEndData.Metadata.NaryAssociationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2b661bbe-85c9-4a12-9901-d0580e8c7a4d")
+    @objid ("c3a784cf-725e-4a30-819e-58e37cc3d612")
     @Override
     public Classifier getOwner() {
         return (Classifier) getDepVal(NaryAssociationEndData.Metadata.OwnerDep());
     }
 
-    @objid ("e7035254-a586-451a-927b-66fd047d9600")
+    @objid ("59759330-57fd-4934-ae8c-9f6a37fd9fe2")
     @Override
     public void setOwner(Classifier value) {
         appendDepVal(NaryAssociationEndData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("195b136a-43d9-48bc-a11d-de0782e61aa2")
+    @objid ("0c355fd3-62e6-4999-931e-84349763d41c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -80,7 +80,7 @@ public class NaryAssociationEndImpl extends StructuralFeatureImpl implements Nar
         return super.getCompositionOwner();
     }
 
-    @objid ("bd03a773-b0a2-4608-a903-4542a8d9651f")
+    @objid ("52d1566e-4509-467a-9bca-d9aaaa4fa2f0")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -93,7 +93,7 @@ public class NaryAssociationEndImpl extends StructuralFeatureImpl implements Nar
         return super.getCompositionRelation();
     }
 
-    @objid ("581c2582-da64-4428-bd68-772e65b82558")
+    @objid ("7672fd50-3a4f-48d9-bb48-07ad48226691")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryAssociationEnd(this);

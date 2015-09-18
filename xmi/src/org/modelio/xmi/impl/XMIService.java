@@ -39,11 +39,11 @@ import org.modelio.xmi.api.FormatExport;
 import org.modelio.xmi.api.IXMIService;
 import org.modelio.xmi.api.ImportConfiguration;
 import org.modelio.xmi.generation.ExportServices;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.reverse.ImportServices;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.AbortProcessException;
-import org.modelio.xmi.util.GenerationProperties;
-import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMIFileUtils;
 import org.modelio.xmi.util.XMILogs;
 
@@ -71,18 +71,26 @@ public class XMIService implements IXMIService {
     @objid ("c172d488-4dab-4ea0-b7db-e65a4ef210c1")
     private void exportModel(final ExportConfiguration configuration) {
         Shell shell = null;
+        String xmiFilePath = configuration.getXmiFile().getAbsolutePath() ;
+        
+        GenerationProperties genProp = GenerationProperties.getInstance();
+        
         try {
-         
-            String xmiFilePath = configuration.getXmiFile().getAbsolutePath() ;
-            GenerationProperties.getInstance().setSelectedPackage(configuration.getEntryPoint());
+        
+            genProp.setRootElement(configuration.getEntryPoint());
+            genProp.setRoundtripEnabled(configuration.exportedAnotation());
+        
             Resource resource = this.exportService.createResource(xmiFilePath);
-            GenerationProperties.getInstance().setRoundtripEnabled(configuration.exportedAnotation());
-            this.exportService.createEcoreModel(resource, null);
         
-            if (!configuration.getVersionExport().equals(FormatExport.EMF300))
-                XMIFileUtils.changeToUML(xmiFilePath);
+            if (resource != null){
+                this.exportService.createEcoreModel(resource, null);
         
-            Xmi.LOG.error(Xmi.I18N.getString("info.export.result_done"));
+                if (!configuration.getVersionExport().equals(FormatExport.EMF300))
+                    XMIFileUtils.changeToUML(xmiFilePath, genProp.getTempFolder());
+        
+                Xmi.LOG.error(Xmi.I18N.getString("info.export.result_done"));
+            }
+        
         } catch (AbortProcessException e) {
             cancelProcess(shell);
         } catch (Exception e) {
@@ -113,18 +121,18 @@ public class XMIService implements IXMIService {
     @objid ("708692ba-0a7b-4ac7-8376-015c89fa18b9")
     private boolean importModel(File xmiFile, MObject owner) {
         boolean error = false;
-              
+        
         Shell shell = Display.getDefault().getActiveShell();
         
         try(ITransaction t = GProject.getProject(owner).getSession().getTransactionSupport().createTransaction("Import") ) {
-            
+        
             Resource resource = this.importService.getResource(xmiFile);
         
             if ((resource != null)) {
                 error = this.importService.importEcoreModel(resource, null, shell);
             }
             t.commit();
-            
+        
         } catch (AbortProcessException e) {
             // cancelProcess(shell);
         } catch (Exception e) {
@@ -143,7 +151,7 @@ public class XMIService implements IXMIService {
         GenerationProperties genProp = GenerationProperties.getInstance();
         genProp.initialize(mmService);
         genProp.setTimeDisplayerActivated(false);
-        genProp.setSelectedPackage(entryPoint);
+        genProp.setRootElement(entryPoint);
         
         if (this.exportService == null)
             this.exportService = new ExportServices(null);
@@ -204,17 +212,24 @@ public class XMIService implements IXMIService {
     @objid ("bb172e86-1bb7-4d28-8da3-0ee4eb8b0169")
     private void exportProfile(final ExportConfiguration configuration) {
         Shell shell = null;
+        String xmiFilePath = configuration.getXmiFile().getAbsolutePath() ;
+        GenerationProperties genProp = GenerationProperties.getInstance();
+        
         try {      
-            String xmiFilePath = configuration.getXmiFile().getAbsolutePath() ;
-            GenerationProperties.getInstance().setSelectedPackage(configuration.getEntryPoint());
+        
+            genProp.setRootElement(configuration.getEntryPoint());
+            genProp.setRoundtripEnabled(configuration.exportedAnotation());          
+        
             Resource resource = this.exportService.createResource(xmiFilePath);
-            GenerationProperties.getInstance().setRoundtripEnabled(configuration.exportedAnotation());
-            this.exportService.createEcoreProfile(resource, null);
         
-            if (!configuration.getVersionExport().equals(FormatExport.EMF300))
-                XMIFileUtils.changeToUML(xmiFilePath);
+            if (resource != null){
+                this.exportService.createEcoreProfile(resource, null);
         
-            Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getString("info.export.result_done"));
+                if (!configuration.getVersionExport().equals(FormatExport.EMF300))
+                    XMIFileUtils.changeToUML(xmiFilePath, genProp.getTempFolder());
+        
+                Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getString("info.export.result_done"));
+            }
         } catch (AbortProcessException e) {
             cancelProcess(shell);
         } catch (Exception e) {
@@ -229,11 +244,11 @@ public class XMIService implements IXMIService {
     @objid ("249d893d-451a-491a-9cbf-64a3dbe2ed94")
     private boolean importProfile(final File xmiFile, final MObject module) {
         boolean error = false;
-              
+        
         
         Shell shell = Display.getDefault().getActiveShell();
         try(ITransaction t = GProject.getProject(module).getSession().getTransactionSupport().createTransaction("Import") ) {
-            
+        
             Resource resource = this.importService.getResource(xmiFile);
         
             if ((resource != null)) {

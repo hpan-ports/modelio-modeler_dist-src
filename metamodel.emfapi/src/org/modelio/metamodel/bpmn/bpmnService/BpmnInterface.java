@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 
 @objid ("000de92c-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnInterface extends BpmnRootElement {
-    @objid ("d833b728-c3f9-4118-9717-264fa5114ec3")
+    @objid ("bb664b74-c72c-4055-a24c-082aa0414b60")
     GeneralClass getImplementationRef();
 
-    @objid ("d8b0a412-631d-4e5e-9ea1-158083b12f03")
+    @objid ("1c1d94fb-baec-4040-83de-74703825bc0a")
     void setImplementationRef(GeneralClass value);
 
-    @objid ("6e165708-7669-4e21-bc0c-e2896a1c4f37")
+    @objid ("2aa99fec-f9c7-49fd-8058-e844064c3618")
     EList<BpmnOperation> getOperation();
 
-    @objid ("335db24c-18b6-417c-8b8d-7390c908ae2b")
+    @objid ("838672cb-c02e-4516-8add-3fd716df75e7")
     <T extends BpmnOperation> List<T> getOperation(java.lang.Class<T> filterClass);
 
-    @objid ("510fbf49-3dbf-4665-8f9c-b0a2b5ccd2a4")
+    @objid ("3b646463-f3b1-41d9-9b14-92b54ff2c576")
     EList<BpmnParticipant> getParticipantRef();
 
-    @objid ("43f13e8d-90ac-44d7-b79c-ce4df4190438")
+    @objid ("adcdc9bc-0a06-47d4-98b8-f00426eea27a")
     <T extends BpmnParticipant> List<T> getParticipantRef(java.lang.Class<T> filterClass);
 
 }

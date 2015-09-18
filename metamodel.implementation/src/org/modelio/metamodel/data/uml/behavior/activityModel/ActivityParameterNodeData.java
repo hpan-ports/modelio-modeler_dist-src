@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00299e56-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ActivityParameterNode.class, factory=ActivityParameterNodeData.Metadata.ObjectFactory.class)
 public class ActivityParameterNodeData extends ObjectNodeData {
-    @objid ("12bede92-2a05-4417-80ad-feb013985e53")
+    @objid ("a31e061e-9373-4e4c-b269-f59b33c359a6")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("007e6706-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("4ecefa2e-ad56-4223-8d63-354ec9da832c")
+        @objid ("0c74c873-0da6-4865-9df7-f574a328da1c")
         private static SmClass smClass = null;
 
-        @objid ("d66453c8-0d45-4833-bbb7-0424770091a1")
+        @objid ("254357ab-143a-40d7-a979-e0956e262583")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ActivityParameterNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("d2826bce-007e-4987-b8b9-35c84ecbd20f")
+        @objid ("4e508f93-0d8e-4eff-a440-3a142667d375")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ActivityParameterNodeData extends ObjectNodeData {
 
         @objid ("007eb346-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("9cb862f6-c064-4d15-9fec-27ebd4ef9568")
+            @objid ("fc3d101c-fb53-4233-ac9f-b849dccb1301")
             public ISmObjectData createData() {
                 return new ActivityParameterNodeData();
             }
 
-            @objid ("35774dd8-3d57-4bd9-bd37-2652a3be9ba3")
+            @objid ("fef3acd4-f176-485a-ad5d-ee3c2bb4e902")
             public SmObjectImpl createImpl() {
                 return new ActivityParameterNodeImpl();
             }

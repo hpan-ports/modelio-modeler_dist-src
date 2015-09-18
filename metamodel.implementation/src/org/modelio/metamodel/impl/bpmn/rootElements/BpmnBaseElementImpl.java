@@ -45,13 +45,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0078058c-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnBaseElementImpl extends ModelElementImpl implements BpmnBaseElement {
-    @objid ("c1f43e4c-a347-482b-bf93-e3fb7e992a57")
+    @objid ("2ccfdee9-e403-4849-bafe-6d3559097add")
     @Override
     public EList<BpmnAssociation> getOutgoingAssoc() {
         return new SmList<>(this, BpmnBaseElementData.Metadata.OutgoingAssocDep());
     }
 
-    @objid ("82bcab96-9c93-4b7e-a6b1-69b43d8f7327")
+    @objid ("e6de8812-2821-4233-8ffd-43722564d7bc")
     @Override
     public <T extends BpmnAssociation> List<T> getOutgoingAssoc(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -64,13 +64,13 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6dffdbf8-6d97-461a-b591-f9cfe49034bb")
+    @objid ("2394cc12-c2af-465f-8c6e-6e21dc03004d")
     @Override
     public EList<BpmnAssociation> getIncomingAssoc() {
         return new SmList<>(this, BpmnBaseElementData.Metadata.IncomingAssocDep());
     }
 
-    @objid ("baf134c4-4ef9-4768-b11f-5892abdd41ec")
+    @objid ("fa809696-4b7f-4d41-b1ea-cc800843d6a1")
     @Override
     public <T extends BpmnAssociation> List<T> getIncomingAssoc(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -83,13 +83,13 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("40bce4ac-db1d-429c-a04f-6ea1c33847e8")
+    @objid ("8d0b8627-9974-4ed4-a74f-aad431477fe1")
     @Override
     public EList<BpmnMessageFlow> getIncomingFlow() {
         return new SmList<>(this, BpmnBaseElementData.Metadata.IncomingFlowDep());
     }
 
-    @objid ("66d275ff-a626-4fb9-841a-44730bd18807")
+    @objid ("bf2368ad-6d0c-40df-ac9b-838985b2a558")
     @Override
     public <T extends BpmnMessageFlow> List<T> getIncomingFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -102,13 +102,13 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("be5ef854-1e68-4604-903d-d8d751910ae6")
+    @objid ("81723132-f0a2-4086-99c8-e134cc911197")
     @Override
     public EList<BpmnMessageFlow> getOutgoingFlow() {
         return new SmList<>(this, BpmnBaseElementData.Metadata.OutgoingFlowDep());
     }
 
-    @objid ("3230858b-6545-4f6f-b8af-134fd63fa315")
+    @objid ("cebc42c7-c5dd-41f9-a849-6e11a8d68959")
     @Override
     public <T extends BpmnMessageFlow> List<T> getOutgoingFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -121,21 +121,21 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c61bead9-30f9-49dc-bee7-35aa7f9d21e5")
+    @objid ("6ee14ea3-644d-4948-8861-595eb4e62553")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("a744e18e-914d-4673-b3a7-28a03f51ae0e")
+    @objid ("cf39e495-e846-4429-b9e9-06a149dd092a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("4f73a8ea-6172-4cee-a49d-9773f5aaf09c")
+    @objid ("5c541f66-4d56-415d-b6b1-9fc78923d1cc")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnBaseElement(this);

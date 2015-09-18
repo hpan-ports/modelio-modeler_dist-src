@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.SendSignalAction;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("3e7401c4-a13c-4a3d-9a47-78c5df842a53")
 public class ESendSignalAction extends EActivityNode {
@@ -36,7 +36,7 @@ public class ESendSignalAction extends EActivityNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-        .createSendSignalAction();
+                .createSendSignalAction();
     }
 
     @objid ("cb1c6c3e-2c0f-4ee5-83fe-850fe3431482")

@@ -146,6 +146,8 @@ public final class ModuleDescriptor implements Serializable {
         
         if (md.auth != null)
             this.auth = new AuthDescriptor(md.auth.getData(), md.auth.getScope());
+        else
+            this.auth = new AuthDescriptor(null, DefinitionScope.LOCAL); // should not happen
     }
 
     /**
@@ -182,9 +184,9 @@ public final class ModuleDescriptor implements Serializable {
     @objid ("046a5760-3019-11e2-8f81-001ec947ccaf")
     public boolean isValid() {
         return this.name != null && ! this.name.isEmpty() &&
-                this.scope != null &&
-                this.version != null &&
-                this.archiveLocation != null;
+                        this.scope != null &&
+                        this.version != null &&
+                        this.archiveLocation != null;
     }
 
     @objid ("33ed38cc-e3d8-4963-96c8-7f3a2e6878cb")
@@ -251,8 +253,8 @@ public final class ModuleDescriptor implements Serializable {
     /**
      * Get the authentication data descriptor.
      * <p>
-     * May return <i><code>null</code></i> if there is no authentication descriptor.
-     * @return the authentication data descriptor or <code>null</code>.
+     * Never return <i><code>null</code></i> .
+     * @return the authentication data descriptor.
      */
     @objid ("09d6655e-b593-4e55-9bd0-031c4c5e2905")
     public AuthDescriptor getAuthDescriptor() {

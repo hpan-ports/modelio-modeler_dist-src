@@ -69,11 +69,10 @@ import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.EcoreModelNavigation;
+import org.modelio.xmi.util.EcorePrimitiveTypeMapper;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.ProfileUtils;
-import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("aba6ace8-c1f5-4bb7-8751-6d25a5e5d550")
@@ -694,8 +693,8 @@ public class PartialCreationImportVisitor {
         @objid ("ef76f989-997e-49d6-be8f-0fe81aeb0e21")
         @Override
         public Object caseDataType(org.eclipse.uml2.uml.DataType ecoreElt) {
-            if (PrimitiveTypeMapper.isPredefinedType(ecoreElt))
-                PartialCreationImportVisitor.this.objingElt =  PrimitiveTypeMapper.getPredefinedType(ecoreElt);
+            if (EcorePrimitiveTypeMapper.isPredefinedType(ecoreElt))
+                PartialCreationImportVisitor.this.objingElt =  EcorePrimitiveTypeMapper.getPredefinedType(ecoreElt);
             else 
                 PartialCreationImportVisitor.this.objingElt = this.mmServices.getModelFactory().createDataType();
             return PartialCreationImportVisitor.this.defaut;
@@ -1028,7 +1027,7 @@ public class PartialCreationImportVisitor {
             
             if (objingGeneral instanceof NameSpace
                     && objingSpecific instanceof NameSpace
-                    && (!PrimitiveTypeMapper.isPredefinedType(ecoreGeneral))) {
+                    && (!EcorePrimitiveTypeMapper.isPredefinedType(ecoreGeneral))) {
                 PartialCreationImportVisitor.this.objingElt = this.mmServices.getModelFactory().createGeneralization();
             }else{
                 XMILogs xmilogs = XMILogs.getInstance();
@@ -1505,8 +1504,8 @@ public class PartialCreationImportVisitor {
         @objid ("70fbe1f2-e0ca-4085-8e32-1332fe0cb0dc")
         @Override
         public Object casePrimitiveType(org.eclipse.uml2.uml.PrimitiveType ecoreElt) {
-            if (PrimitiveTypeMapper.isPredefinedType(ecoreElt))
-                PartialCreationImportVisitor.this.objingElt = PrimitiveTypeMapper.getPredefinedType(ecoreElt);
+            if (EcorePrimitiveTypeMapper.isPredefinedType(ecoreElt))
+                PartialCreationImportVisitor.this.objingElt = EcorePrimitiveTypeMapper.getPredefinedType(ecoreElt);
             else 
                 PartialCreationImportVisitor.this.objingElt = this.mmServices.getModelFactory().createDataType();
             return PartialCreationImportVisitor.this.defaut;

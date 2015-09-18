@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("004b7b34-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StateInvariant extends OccurrenceSpecification {
-    @objid ("a41a233c-68e5-4fa2-8eb1-57a5b2dc3301")
+    @objid ("4c86a10b-ff16-4364-9539-c7217ac0e445")
     String getBody();
 
-    @objid ("11fc26bc-7ec3-4a14-a87a-dbdc05cbe7ce")
+    @objid ("9e158233-cef1-4678-be82-625d49ea8f95")
     void setBody(String value);
 
-    @objid ("94084010-37e3-40f5-8cb6-b0c374c89d98")
+    @objid ("b4aad570-295c-4eb3-9d6b-7d1c2c0d5fde")
     int getEndLineNumber();
 
-    @objid ("b9203ab2-1fbb-497d-8adb-4fcb8d825451")
+    @objid ("164742d8-9ee6-47f6-b147-1f2d6749642f")
     void setEndLineNumber(int value);
 
 }

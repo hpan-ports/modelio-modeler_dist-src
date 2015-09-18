@@ -33,10 +33,10 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 
 @objid ("007b2cd0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnBehavior extends Behavior {
-    @objid ("ca10a11c-05bb-4580-ac10-77f998797bf9")
+    @objid ("facabd37-5130-4aa3-8893-10f92e079cd9")
     EList<BpmnRootElement> getRootElement();
 
-    @objid ("9509bea9-f05b-4460-b535-0f25c82d44f2")
+    @objid ("e24c555d-87e9-4fd4-9938-ff6229992848")
     <T extends BpmnRootElement> List<T> getRootElement(java.lang.Class<T> filterClass);
 
 }

@@ -41,57 +41,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00376270-c4bf-1fd8-97fe-001ec947cd2a")
 public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode {
-    @objid ("6a4b6b40-d93f-44f7-a354-1e23dd34e4bf")
+    @objid ("26d5f405-9646-468b-b6f4-967550b92d47")
     @Override
     public boolean isIsTestedFirst() {
         return (Boolean) getAttVal(LoopNodeData.Metadata.IsTestedFirstAtt());
     }
 
-    @objid ("ca8371a7-8090-4431-bbbf-2d204f01516a")
+    @objid ("2cc98624-78b1-436f-8d80-d7bfe11d2648")
     @Override
     public void setIsTestedFirst(boolean value) {
         setAttVal(LoopNodeData.Metadata.IsTestedFirstAtt(), value);
     }
 
-    @objid ("16ad9cb5-4f3b-4adf-9274-41ac3c3ed9e9")
+    @objid ("cc476195-638e-4b60-aca1-f9e2ab64d317")
     @Override
     public String getSetup() {
         return (String) getAttVal(LoopNodeData.Metadata.SetupAtt());
     }
 
-    @objid ("1b6c89f9-a71a-4251-8d0c-68919bd71bee")
+    @objid ("16958910-8255-42f5-b140-93e10a8c1b54")
     @Override
     public void setSetup(String value) {
         setAttVal(LoopNodeData.Metadata.SetupAtt(), value);
     }
 
-    @objid ("34115b72-6f4f-4e7b-8626-d83e97717620")
+    @objid ("ce5716fa-742b-4f9b-8268-3da5dc0215f8")
     @Override
     public String getTest() {
         return (String) getAttVal(LoopNodeData.Metadata.TestAtt());
     }
 
-    @objid ("ccb753dd-efc3-40b5-8e12-5dc414085b5a")
+    @objid ("9350a31d-8607-4d0a-abe2-0d44b0edcf09")
     @Override
     public void setTest(String value) {
         setAttVal(LoopNodeData.Metadata.TestAtt(), value);
     }
 
-    @objid ("9af3d037-8d51-46f4-8ce7-1b4ffbfe29d9")
+    @objid ("a7acdb9e-864c-4bf7-a216-b1d648360f7e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("1a01b39d-2c3e-4bdd-acec-3172b9bb21dc")
+    @objid ("ee81b85e-204a-45e3-ace8-69809fd80f3d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("f8f10e7a-c8d3-4bc0-ac6c-a4af78a85899")
+    @objid ("fd7aff4e-3faa-4a6c-9094-3e6243c32db5")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitLoopNode(this);

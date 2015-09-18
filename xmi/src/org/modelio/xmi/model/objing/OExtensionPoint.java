@@ -27,7 +27,7 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.usecaseModel.ExtensionPoint;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCaseDependency;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("a16815c5-3e91-4ace-9209-db331254f7d2")
@@ -38,7 +38,7 @@ public class OExtensionPoint extends OModelElement implements IOElement {
     @objid ("b71492be-7011-4f28-ae0e-93dbf55c67ed")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE
-                 .createExtensionPoint();
+                         .createExtensionPoint();
     }
 
     @objid ("d6e22db1-0bf1-4091-ab62-6169c547f570")

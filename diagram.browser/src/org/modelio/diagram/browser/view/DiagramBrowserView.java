@@ -9,26 +9,20 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
-import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
-import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.model.application.ui.menu.impl.ItemImpl;
 import org.eclipse.e4.ui.services.EContextService;
+import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
-import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.events.ModelioEventTopics;
+import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.app.core.picking.IPickingSession;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.browser.model.bycontext.ByCtxModel;
@@ -54,10 +48,6 @@ public class DiagramBrowserView {
     @Inject
     @Optional
     public ESelectionService selectionService;
-
-    @objid ("096a2c3a-5e4a-4f8b-9426-94f1f858f3f6")
-    @Inject
-    protected EMenuService menuService;
 
     @objid ("000c9752-0d4f-10c6-842f-001ec947cd2a")
     protected GProject project;
@@ -93,12 +83,12 @@ public class DiagramBrowserView {
 
     @objid ("000ccc86-0d4f-10c6-842f-001ec947cd2a")
     @PostConstruct
-    public void createPartControl(Composite aParent, @Optional IProjectService aProjectService, MPart part) {
+    public void createPartControl(Composite aParent, @Optional IProjectService aProjectService, MPart part, EMenuService menuService, IModelioNavigationService navigationService) {
         // Connect to session if one is open
         this.parent = aParent;
         this.projectService = aProjectService;
-            if (this.projectService != null && this.projectService.getOpenedProject() != null) {
-            onProjectOpened(this.projectService.getOpenedProject(), part);
+        if (this.projectService != null && this.projectService.getOpenedProject() != null) {
+            onProjectOpened(this.projectService.getOpenedProject(), part, menuService, navigationService);
         }
     }
 
@@ -138,33 +128,29 @@ public class DiagramBrowserView {
     @objid ("0011a2ce-43b1-10c7-842f-001ec947cd2a")
     @Inject
     @Optional
-    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject, final MPart part) {
+    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject, final MPart part, final EMenuService menuService, final IModelioNavigationService navigationService) {
         // @UIEventTopic doesn't seems to be working here...
         this.project = openedProject;
         
-        Display.getDefault().asyncExec(new Runnable() {
+        Display.getDefault().asyncExec(() -> {
+            if (DiagramBrowserView.this.diagramBrowserPanelProvider==null) {
+                // diagramBrowserPanelProvider may be null if we click diagram browser view before opening a project
+                initDiagramBrowserPanelProvider(menuService, navigationService);
+            }
+            // install the select browser content provider
+            DiagramBrowserView.this.diagramBrowserPanelProvider.switchBrowserModel(getSelectedContentModel(part));
+            // set the tree input
+            DiagramBrowserView.this.diagramBrowserPanelProvider.setInput(openedProject);
         
-            @Override
-            public void run() {
-                if (DiagramBrowserView.this.diagramBrowserPanelProvider==null) {
-                    // diagramBrowserPanelProvider may be null if we click diagram browser view before opening a project
-                    initDiagramBrowserPanelProvider();
-                }
-                // install the select browser content provider
-                DiagramBrowserView.this.diagramBrowserPanelProvider.switchBrowserModel(getSelectedContentModel(part));
-                // set the tree input
-                DiagramBrowserView.this.diagramBrowserPanelProvider.setInput(openedProject);
-                
-                
-                // branch a model change listener:
-                DiagramBrowserView.this.modelChangeListener = new DiagramBrowserModelChangeListener(DiagramBrowserView.this.diagramBrowserPanelProvider);
-                if (openedProject != null) {
-                    openedProject.getSession().getModelChangeSupport().addModelChangeListener(DiagramBrowserView.this.modelChangeListener);
-                    openedProject.getSession().getModelChangeSupport().addStatusChangeListener(DiagramBrowserView.this.modelChangeListener);
-                }
-                
-                DiagramBrowserView.this.parent.layout();
-            }           
+        
+            // branch a model change listener:
+            DiagramBrowserView.this.modelChangeListener = new DiagramBrowserModelChangeListener(DiagramBrowserView.this.diagramBrowserPanelProvider);
+            if (openedProject != null) {
+                openedProject.getSession().getModelChangeSupport().addModelChangeListener(DiagramBrowserView.this.modelChangeListener);
+                openedProject.getSession().getModelChangeSupport().addStatusChangeListener(DiagramBrowserView.this.modelChangeListener);
+            }
+        
+            DiagramBrowserView.this.parent.layout();
         });
         
         // branch application event listeners:
@@ -229,14 +215,10 @@ public class DiagramBrowserView {
         }
         this.modelChangeListener = null;
         this.project = null;
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                DiagramBrowserView.this.diagramBrowserPanelProvider.setInput(null);
-                DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().getTree().dispose();
-                DiagramBrowserView.this.diagramBrowserPanelProvider = null;
-            }           
+        Display.getDefault().asyncExec(() -> {
+            DiagramBrowserView.this.diagramBrowserPanelProvider.setInput(null);
+            DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().getTree().dispose();
+            DiagramBrowserView.this.diagramBrowserPanelProvider = null;
         });
     }
 
@@ -258,13 +240,7 @@ public class DiagramBrowserView {
     @Optional
     void onNavigateElement(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final List<MObject> elements) {
         // @UIEventTopic doesn't seems to be working here...
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().setSelection(new StructuredSelection(elements));
-            }           
-        });
+        Display.getDefault().asyncExec(() -> DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().setSelection(new StructuredSelection(elements)));
     }
 
     @objid ("2869edea-4ab5-11e2-a4d3-002564c97630")
@@ -272,15 +248,11 @@ public class DiagramBrowserView {
     @Optional
     void onPickingStart(@EventTopic(ModelioEventTopics.PICKING_START) final IPickingSession session) {
         // @UIEventTopic doesn't seems to be working here...
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                if (DiagramBrowserView.this.diagramBrowserPanelProvider != null) {
-                    DiagramBrowserView.this.pickingManager = new DiagramBrowserPickingManager(DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel(), session);
-                    DiagramBrowserView.this.pickingManager.beginPicking();
-                }
-            }           
+        Display.getDefault().asyncExec(() -> {
+            if (DiagramBrowserView.this.diagramBrowserPanelProvider != null) {
+                DiagramBrowserView.this.pickingManager = new DiagramBrowserPickingManager(DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel(), session);
+                DiagramBrowserView.this.pickingManager.beginPicking();
+            }
         });
     }
 
@@ -290,16 +262,12 @@ public class DiagramBrowserView {
     @SuppressWarnings("unused")
     void onPickingStop(@EventTopic(ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
         // @UIEventTopic doesn't seems to be working here...
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                if (DiagramBrowserView.this.pickingManager != null) {
-                    DiagramBrowserView.this.pickingManager.endPicking();
-                    DiagramBrowserView.this.pickingManager.dispose();
-                    DiagramBrowserView.this.pickingManager = null;
-                }
-            }           
+        Display.getDefault().asyncExec(() -> {
+            if (DiagramBrowserView.this.pickingManager != null) {
+                DiagramBrowserView.this.pickingManager.endPicking();
+                DiagramBrowserView.this.pickingManager.dispose();
+                DiagramBrowserView.this.pickingManager = null;
+            }
         });
     }
 
@@ -315,68 +283,54 @@ public class DiagramBrowserView {
     @objid ("cd493808-54c7-11e2-ae63-002564c97630")
     public void edit(final Element elementToEdit) {
         Display display = this.diagramBrowserPanelProvider.getPanel().getControl().getDisplay();
-        display.asyncExec(new Runnable() {
-            
-            @Override
-            public void run() {
-                DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().expandToLevel(elementToEdit, 0);
-                DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().editElement(elementToEdit, 0);
-            }
+        display.asyncExec(() -> {
+            DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().expandToLevel(elementToEdit, 0);
+            DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().editElement(elementToEdit, 0);
         });
     }
 
     @objid ("cd49380d-54c7-11e2-ae63-002564c97630")
     public void collapseAll() {
-        if (this.diagramBrowserPanelProvider != null) {            
+        if (this.diagramBrowserPanelProvider != null) {
             this.diagramBrowserPanelProvider.getPanel().collapseAll();
         }
     }
 
     @objid ("fc05adf8-2a43-402f-8e86-0018f85d2c90")
-    protected void initDiagramBrowserPanelProvider() {
-        this.diagramBrowserPanelProvider = new DiagramBrowserPanelProvider(this.projectService.getOpenedProject());
+    protected void initDiagramBrowserPanelProvider(EMenuService menuService, IModelioNavigationService navigationService) {
+        this.diagramBrowserPanelProvider = new DiagramBrowserPanelProvider(this.projectService.getOpenedProject(), navigationService);
         this.diagramBrowserPanelProvider.createPanel(this.parent);
         
         // Add the selection provider
-        this.diagramBrowserPanelProvider.getPanel().addSelectionChangedListener(new ISelectionChangedListener() {
-            @Override
-            public void selectionChanged(SelectionChangedEvent event) {
-                if (DiagramBrowserView.this.selectionService != null) {
-                    DiagramBrowserView.this.selectionService.setSelection(event.getSelection());
-                }
+        this.diagramBrowserPanelProvider.getPanel().addSelectionChangedListener(event -> {
+            if (DiagramBrowserView.this.selectionService != null) {
+                DiagramBrowserView.this.selectionService.setSelection(event.getSelection());
             }
         });
         
         // Add the double click listener
-        this.diagramBrowserPanelProvider.getPanel().addDoubleClickListener(new IDoubleClickListener() {
-            @Override
-            public void doubleClick(DoubleClickEvent event) {
-                final ISelection selection = event.getSelection();
-                if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
-                    final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
-                    if (selectedObject instanceof MObject) {
-                        if (((MObject) selectedObject).isValid()) {                            
-                            DiagramBrowserView.this.activationService.activateMObject((MObject) selectedObject);
-                        }
-                    } else if (selectedObject instanceof DiagramRef) {
-                        DiagramBrowserView.this.activationService.activateMObject(((DiagramRef) selectedObject).getReferencedDiagram());
-                    } else if (selectedObject instanceof IAdaptable) {
-                        final MObject adapter = (MObject) ((IAdaptable) selectedObject).getAdapter(MObject.class);
-                        if (adapter != null) {
-                            DiagramBrowserView.this.activationService.activateMObject(adapter);
-                        }
+        this.diagramBrowserPanelProvider.getPanel().addDoubleClickListener(event -> {
+            final ISelection selection = event.getSelection();
+            if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+                final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
+                if (selectedObject instanceof MObject) {
+                    if (((MObject) selectedObject).isValid()) {
+                        DiagramBrowserView.this.activationService.activateMObject((MObject) selectedObject);
+                    }
+                } else if (selectedObject instanceof DiagramRef) {
+                    DiagramBrowserView.this.activationService.activateMObject(((DiagramRef) selectedObject).getReferencedDiagram());
+                } else if (selectedObject instanceof IAdaptable) {
+                    final MObject adapter = (MObject) ((IAdaptable) selectedObject).getAdapter(MObject.class);
+                    if (adapter != null) {
+                        DiagramBrowserView.this.activationService.activateMObject(adapter);
                     }
                 }
-        
             }
+        
         });
         
         // Add the contextual menu
-        MPopupMenu popupMenu = this.menuService.registerContextMenu(this.diagramBrowserPanelProvider.getPanel().getTree(), POPUPID);
-        
-        // FIXME Hack : PopupMenu are disposed when the view is closed and not loaded the second time. Force reloading of e4 popupmenu model 
-        MMenu moduleMenu = MMenuFactory.INSTANCE.createMenu();
-        popupMenu.getChildren().add(moduleMenu);
+        menuService.registerContextMenu(this.diagramBrowserPanelProvider.getPanel().getTree(), POPUPID);
     }
 
     /**
@@ -398,8 +352,8 @@ public class DiagramBrowserView {
                         return new ByTypeModel();
                     } else if (toolItem.getElementId().equals("org.modelio.diagram.browser.toolbar.tool.bycontext")) {
                         return new ByCtxModel();
-                    } 
-                }               
+                    }
+                }
             }
         }
         return new BySetModel();

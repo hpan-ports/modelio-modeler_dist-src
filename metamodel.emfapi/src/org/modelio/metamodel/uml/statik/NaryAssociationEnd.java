@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.statik.NaryAssociation;
 
 @objid ("00209ca2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NaryAssociationEnd extends StructuralFeature {
-    @objid ("6bbbbd03-abf5-41fb-92b1-f41e1cc3457f")
+    @objid ("0708b7ee-c33b-4960-9c1e-cafef0ee92ff")
     NaryAssociation getNaryAssociation();
 
-    @objid ("1a79151b-fe6e-41e6-8d96-8b70ced06877")
+    @objid ("3366de0b-4ff1-4273-918c-dfe361da45da")
     void setNaryAssociation(NaryAssociation value);
 
-    @objid ("844d4f82-0724-4aa0-9211-2f544037ade8")
+    @objid ("c7d9f2aa-7167-4b76-9e73-1a4892bd71bc")
     Classifier getOwner();
 
-    @objid ("ddd55a1e-a50b-404f-a9fc-5b415bd64866")
+    @objid ("debfde46-1575-4447-9798-7a36362ae3fa")
     void setOwner(Classifier value);
 
 }

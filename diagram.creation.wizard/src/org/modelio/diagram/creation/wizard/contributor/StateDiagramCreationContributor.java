@@ -26,7 +26,7 @@ import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 @objid ("3988a614-bd95-4ad5-8577-f1a7a9ded361")
-public class StateDiagramCreationContributor extends AbstractDiagramCreationContributor {
+public class StateDiagramCreationContributor extends AbstractUMLDiagramCreationContributor {
     @objid ("d1ff3ed3-cfa1-4ae6-ba4b-084942419f44")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
@@ -80,19 +80,10 @@ public class StateDiagramCreationContributor extends AbstractDiagramCreationCont
         return allowedMetaclasses;
     }
 
-    @objid ("0ca58be9-9018-4877-90ba-c29162407b60")
-    private StateMachineDiagram createStateDiagram(final IModelFactory modelFactory, final String diagramName, final ModelElement diagramContext) {
-        // Create the Sequence diagram
-        StateMachineDiagram stateDiagram = modelFactory.createStateMachineDiagram(diagramName,
-                diagramContext,
-                null);
-        return stateDiagram;
-    }
-
-    @objid ("cb5992b6-b7c5-4863-baf1-5082b20cffc0")
+    @objid ("f568091f-c6de-49cb-8608-b59a96ddb47a")
     @Override
-    public String getLabel() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.State.Name");
+    public String getDetails() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.State.Details");
     }
 
     @objid ("5a59a23d-5500-4601-bc7f-d38e1b4f48c1")
@@ -107,10 +98,19 @@ public class StateDiagramCreationContributor extends AbstractDiagramCreationCont
         return DiagramCreationWizard.I18N.getString("CreationWizard.State.Information");
     }
 
-    @objid ("f568091f-c6de-49cb-8608-b59a96ddb47a")
+    @objid ("cb5992b6-b7c5-4863-baf1-5082b20cffc0")
     @Override
-    public String getDetails() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.State.Details");
+    public String getLabel() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.State.Name");
+    }
+
+    @objid ("0ca58be9-9018-4877-90ba-c29162407b60")
+    private StateMachineDiagram createStateDiagram(final IModelFactory modelFactory, final String diagramName, final ModelElement diagramContext) {
+        // Create the Sequence diagram
+        StateMachineDiagram stateDiagram = modelFactory.createStateMachineDiagram(diagramName,
+                diagramContext,
+                null);
+        return stateDiagram;
     }
 
 }

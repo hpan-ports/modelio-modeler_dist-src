@@ -329,7 +329,7 @@ public class CreateRakeLinkEditPolicy extends GraphicalNodeEditPolicy {
         }
         if (REQ_RECONNECT_SOURCE.equals(request.getType()) || REQ_RECONNECT_TARGET.equals(request.getType())) {
             ConnectionEditPart reconnectedConnectionEP = ((ReconnectRequest) request).getConnectionEditPart();
-            if (isLinkCycle(getHost(), reconnectedConnectionEP)) {
+            if (isLinkCycle(getHost(), reconnectedConnectionEP) || !isHandled(request)) {
                 return null;
             } else {
                 return getHost();

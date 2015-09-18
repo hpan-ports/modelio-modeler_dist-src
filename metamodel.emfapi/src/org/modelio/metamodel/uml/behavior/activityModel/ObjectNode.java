@@ -37,64 +37,64 @@ import org.modelio.metamodel.uml.statik.Instance;
 
 @objid ("003940c2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ObjectNode extends ActivityNode {
-    @objid ("e771fe50-2922-49f8-890e-21e225a237c3")
+    @objid ("fe600dc3-b3a0-4ce9-89d2-8dbbde15d5c8")
     boolean isIsControlType();
 
-    @objid ("e7d1e892-bdd0-441e-9f90-230de7b11903")
+    @objid ("eebd4aa7-47cb-4a16-bb47-b370c20e4c77")
     void setIsControlType(boolean value);
 
-    @objid ("99a22596-aab9-4497-8893-b887049a1f06")
+    @objid ("3c4e3fb6-bfbc-4bbf-918a-f39cd24ed336")
     ObjectNodeOrderingKind getOrdering();
 
-    @objid ("a34f0587-0ee5-43c2-9cdd-4c9f378b0ae7")
+    @objid ("3d3e7ad1-6404-4c30-9e99-6ca82ab287ca")
     void setOrdering(ObjectNodeOrderingKind value);
 
-    @objid ("ce7972d9-31a4-485b-9b1c-53e5d856d6d3")
+    @objid ("5d671bc4-c7ba-4bf6-a169-2db71d6c7986")
     String getSelectionBehavior();
 
-    @objid ("c71d1b7b-0270-475f-a37b-6bec9b438658")
+    @objid ("5c8ad498-1a87-4835-94bf-51497e5120ff")
     void setSelectionBehavior(String value);
 
-    @objid ("06118852-45e7-4f5b-9ce2-63528041174b")
+    @objid ("67eeac39-6cfa-4b9f-9bc6-645bb51697ca")
     String getUpperBound();
 
-    @objid ("365adb60-3cde-40da-bba9-8db28a05029d")
+    @objid ("4ff10a60-f1e9-44ae-b6ec-43cfb964c1b9")
     void setUpperBound(String value);
 
-    @objid ("84986d61-d22b-45b5-975a-cae299d80b12")
+    @objid ("9b05670b-92f7-4cb9-a923-0c0b58ea1d41")
     Instance getRepresented();
 
-    @objid ("f60618fd-714b-48ec-b7e0-ccdb5e2edacc")
+    @objid ("c47de5e1-b88d-4974-8666-06cfdc918337")
     void setRepresented(Instance value);
 
-    @objid ("a5cbb30b-9a15-4ad3-bb34-91cf17154b5c")
+    @objid ("335b5efc-e3a2-4572-b460-7f1d1fa787a5")
     BehaviorParameter getRepresentedRealParameter();
 
-    @objid ("14836b0b-9405-4755-b8f8-f2af871e6a70")
+    @objid ("cf8d4b7a-7239-4c68-919e-35019581bb31")
     void setRepresentedRealParameter(BehaviorParameter value);
 
-    @objid ("a8553fa0-f498-415f-8f59-2fbecf0dccd6")
+    @objid ("8dd87b73-7996-4952-b368-4aa24e54d003")
     GeneralClass getType();
 
-    @objid ("1f1a25f0-f297-4a76-89bb-159d639a6a0b")
+    @objid ("f486f798-dc3b-4108-88f6-91c74d09d771")
     void setType(GeneralClass value);
 
-    @objid ("b78ce69c-9df5-41f6-818b-cbdc5b37742a")
+    @objid ("96840af8-7441-4dc6-a826-1081143c4470")
     AssociationEnd getRepresentedRole();
 
-    @objid ("427309c7-df1a-4718-aae9-332c0d2dc5e0")
+    @objid ("bbd95172-be41-4982-a23a-ff0de4912e9b")
     void setRepresentedRole(AssociationEnd value);
 
-    @objid ("e3fcf0a5-ffad-485a-965c-bb34a4d8190b")
+    @objid ("c7fdd097-d6cc-4e4d-8f7e-d5ff2b3f8936")
     Attribute getRepresentedAttribute();
 
-    @objid ("7ccf1dbf-16e3-4570-9dbd-9d40dd986cd6")
+    @objid ("aab78a61-5699-4d09-a4bf-579007aaa6ec")
     void setRepresentedAttribute(Attribute value);
 
-    @objid ("a9ec6d2c-26c4-4c17-a595-be53921dbb2b")
+    @objid ("40a27762-7147-42ed-9e27-2fa42ff29735")
     State getInState();
 
-    @objid ("10d1b0c7-cd8b-4908-87a0-5897ee8b7b03")
+    @objid ("54274edb-a5f2-4c4b-8584-911f809d15f6")
     void setInState(State value);
 
 }

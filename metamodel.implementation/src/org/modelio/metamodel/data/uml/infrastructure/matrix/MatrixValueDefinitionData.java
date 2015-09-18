@@ -47,43 +47,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("f8547119-965d-492b-818a-83746a647c78")
 @SmaMetaClass(mmClass=MatrixValueDefinition.class, factory=MatrixValueDefinitionData.Metadata.ObjectFactory.class)
 public class MatrixValueDefinitionData extends ElementData {
-    @objid ("1ceffe24-873a-42ef-b6db-e2e8d24cca40")
+    @objid ("75fdd658-c48a-418e-a0ac-f4dc06833c50")
     @SmaMetaAssociation(metaName="Processor", typeDataClass=ExternProcessorData.class, min=1, max=1, smAssociationClass=Metadata.ProcessorSmDependency.class, component = true)
      SmObjectImpl mProcessor;
 
-    @objid ("5a9946bb-7499-44cf-9770-7342186431af")
+    @objid ("a54dd2d4-0f84-4e3b-8444-a4eacab76d6c")
     @SmaMetaAssociation(metaName="Parameters", typeDataClass=PropertyTableData.class, min=1, max=1, smAssociationClass=Metadata.ParametersSmDependency.class, component = true)
      SmObjectImpl mParameters;
 
-    @objid ("ea0294ca-4d8e-40c2-b042-95c1d3c397ae")
+    @objid ("8f55ff3d-5621-438f-882e-a798bf344e93")
     @SmaMetaAssociation(metaName="Matrix", typeDataClass=MatrixDefinitionData.class, min=1, max=1, smAssociationClass=Metadata.MatrixSmDependency.class)
      SmObjectImpl mMatrix;
 
-    @objid ("3e4749c6-d2b7-43ad-b6ed-356a699805b8")
+    @objid ("20d3314c-2f3c-499a-b9c3-7fc933531f34")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("3158f254-b1ee-46ad-8292-8d24135be062")
     public static class Metadata {
-        @objid ("f416c8d4-239a-48cd-9d69-369efb203300")
+        @objid ("78bed382-a40c-4d53-9813-f7bacb3076d8")
         private static SmClass smClass = null;
 
-        @objid ("ab9d0725-ed7b-4f3d-a6b9-761b8cee1ceb")
+        @objid ("e80ff938-af2d-4bc5-8901-c8f1a4221ce4")
         private static SmDependency ProcessorDep = null;
 
-        @objid ("88e2548e-2ab5-44eb-b882-493a2aba1ee8")
+        @objid ("2b84a95c-5a76-41fb-956e-7538c5640710")
         private static SmDependency ParametersDep = null;
 
-        @objid ("f38ed145-e032-464f-b96a-4ffdaedeff5e")
+        @objid ("36df84b8-b27c-46ba-8e53-07655a2cfd6b")
         private static SmDependency MatrixDep = null;
 
-        @objid ("e8cde589-2b05-431a-89d8-2a3e2eb5de4f")
+        @objid ("bb3825d1-be17-4d4f-bf81-cfba78a1833f")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(MatrixValueDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f5db9fb8-b9bc-4ee6-93b9-de0d474c167d")
+        @objid ("2c122cb8-cfb4-4404-ac94-d727953bbe6e")
         public static SmDependency ProcessorDep() {
             if (ProcessorDep == null) {
             	ProcessorDep = classof().getDependencyDef("Processor");
@@ -91,7 +91,7 @@ public class MatrixValueDefinitionData extends ElementData {
             return ProcessorDep;
         }
 
-        @objid ("f34ea548-797a-4ff1-8b13-1fb12792b17f")
+        @objid ("a197249e-0ac0-4a15-8aac-650a85e11aad")
         public static SmDependency ParametersDep() {
             if (ParametersDep == null) {
             	ParametersDep = classof().getDependencyDef("Parameters");
@@ -99,7 +99,7 @@ public class MatrixValueDefinitionData extends ElementData {
             return ParametersDep;
         }
 
-        @objid ("ebe6e43c-323a-48f2-a826-6370f8b9a412")
+        @objid ("ee9fba60-286a-453b-8c5c-ea48f515162b")
         public static SmDependency MatrixDep() {
             if (MatrixDep == null) {
             	MatrixDep = classof().getDependencyDef("Matrix");
@@ -107,38 +107,38 @@ public class MatrixValueDefinitionData extends ElementData {
             return MatrixDep;
         }
 
-        @objid ("4867da5a-8065-427a-8d4a-0f6f12f08c1e")
-        public static SmDependency getMatrixDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MatrixDep;
-        }
-
-        @objid ("90bbeb05-682e-46b8-ab41-ae62c86d6d5f")
-        public static SmDependency getParametersDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ParametersDep;
-        }
-
-        @objid ("3b22868a-4d00-44c1-b87f-81b18214a842")
+        @objid ("aa3af55e-2cd8-4c31-bbc1-d21ccbe2f71d")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("afab82ed-8bfb-4a30-a2fb-3018a52624aa")
+        @objid ("2635c997-c91b-4adc-81e8-856be8ffa14b")
         public static SmDependency getProcessorDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ProcessorDep;
         }
 
+        @objid ("2f6ba1e5-e3ae-4b8b-9624-517c30424493")
+        public static SmDependency getMatrixDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MatrixDep;
+        }
+
+        @objid ("fef938ed-0f3d-4ece-9891-35393967816a")
+        public static SmDependency getParametersDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ParametersDep;
+        }
+
         @objid ("b7c061ff-1453-44df-ad09-48683dfdbb0a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("753bb9fc-4f7a-4046-8509-1abbea403396")
+            @objid ("7d185eaf-05ec-4b2d-bf75-558f9e453def")
             public ISmObjectData createData() {
                 return new MatrixValueDefinitionData();
             }
 
-            @objid ("c39e89f4-8b28-41c0-ab4d-ab445a488548")
+            @objid ("b865477e-14e6-499a-9599-1847ba09a25d")
             public SmObjectImpl createImpl() {
                 return new MatrixValueDefinitionImpl();
             }
@@ -147,18 +147,18 @@ public class MatrixValueDefinitionData extends ElementData {
 
         @objid ("8256c3c4-63bf-473a-87b6-ac5f01cf6d1c")
         public static class ProcessorSmDependency extends SmSingleDependency {
-            @objid ("a085a18d-8ed8-4432-bae9-4ce8394158e5")
+            @objid ("ec873e78-887f-484c-aecb-74e8050f6707")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((MatrixValueDefinitionData) data).mProcessor;
             }
 
-            @objid ("1969686e-024c-4516-a89a-9c7c2b288b5e")
+            @objid ("f071b4aa-dbf9-4f4e-82af-10646017986e")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((MatrixValueDefinitionData) data).mProcessor = value;
             }
 
-            @objid ("b325a7fc-0788-4633-b5a1-558fceaa9a8d")
+            @objid ("bb245b5c-fe72-4d43-aded-925cd08e4295")
             @Override
             public SmDependency getSymetric() {
                 return ExternProcessorData.Metadata.OwnerValDefDep();
@@ -168,18 +168,18 @@ public class MatrixValueDefinitionData extends ElementData {
 
         @objid ("3b95ac5c-fc97-4565-b47c-d5d912e3d695")
         public static class ParametersSmDependency extends SmSingleDependency {
-            @objid ("84406f33-5ef5-43d2-8af7-6938a232c3d0")
+            @objid ("03e6e7de-4e1c-4aad-9a63-4dba4e119d81")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((MatrixValueDefinitionData) data).mParameters;
             }
 
-            @objid ("adbff74c-d71f-4f7b-90da-c6676f03a1a0")
+            @objid ("4b510ab3-476f-4dca-a52c-63fe735ab803")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((MatrixValueDefinitionData) data).mParameters = value;
             }
 
-            @objid ("c995de71-dadb-496d-a5e8-b4c9611d1af6")
+            @objid ("92d5bd20-1a36-40f2-aa23-71aad38c8e80")
             @Override
             public SmDependency getSymetric() {
                 return PropertyTableData.Metadata.OwnerValDefDep();
@@ -189,18 +189,18 @@ public class MatrixValueDefinitionData extends ElementData {
 
         @objid ("d6462794-1201-4292-90c3-9f2057f46ae8")
         public static class MatrixSmDependency extends SmSingleDependency {
-            @objid ("f78da56b-a218-4d0a-8c71-a2ad2a32bc64")
+            @objid ("da3832d3-e95b-440d-9731-4d7366fc6256")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((MatrixValueDefinitionData) data).mMatrix;
             }
 
-            @objid ("0769c3ef-d628-44ae-9639-3caf39024070")
+            @objid ("99f89e09-f401-4e5e-908d-df40afad1589")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((MatrixValueDefinitionData) data).mMatrix = value;
             }
 
-            @objid ("f91ef4e6-d8e4-489f-9972-86f2b9cdf33e")
+            @objid ("7716e190-e408-454c-90b0-31e3f0bb94c6")
             @Override
             public SmDependency getSymetric() {
                 return MatrixDefinitionData.Metadata.ValuesDefinitionDep();

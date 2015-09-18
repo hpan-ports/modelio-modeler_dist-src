@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00249514-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AcceptChangeEventAction extends ActivityAction {
-    @objid ("0dc66c84-870b-4139-93b8-285f8371e4fd")
+    @objid ("f2bbe3b6-7342-4ede-8d33-a86743288823")
     String getChangeExpresion();
 
-    @objid ("ddf7f03e-4966-4143-bd68-ab469720be4e")
+    @objid ("632e3f26-fb6d-4651-92c8-1875faaf621e")
     void setChangeExpresion(String value);
 
 }

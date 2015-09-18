@@ -34,11 +34,11 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("dba3fb61-f279-4762-9a73-7c3b424a441b")
 public class SelectInExplorerAction extends Action {
-    @objid ("589704b2-d626-4c7a-8453-f7ce00a4d2fc")
-    private TreeViewer tree;
-
     @objid ("d50c56fa-68a0-4bdf-818b-b7ca1d2dd2b6")
     private IModelioNavigationService navigationService;
+
+    @objid ("63dda605-0ca3-4427-9d76-fae55a57632b")
+    private TreeViewer tree;
 
     @objid ("56f082dd-d319-48b7-a644-5f17d8ffc582")
     public SelectInExplorerAction(IModelioNavigationService navigationService, TreeViewer tree) {

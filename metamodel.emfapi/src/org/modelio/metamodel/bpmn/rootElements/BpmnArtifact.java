@@ -33,22 +33,22 @@ import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
 
 @objid ("00787d78-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnArtifact extends BpmnBaseElement {
-    @objid ("85fba349-935d-47a1-b05d-bce08946aa85")
+    @objid ("42c64ac4-e2f1-45a2-94b3-d1dc3e1eacba")
     BpmnSubProcess getSubProcess();
 
-    @objid ("08f6bba7-18c4-4bf4-bcd9-21ce50639cac")
+    @objid ("1587cd0c-9cfa-441b-afba-5aa44284c063")
     void setSubProcess(BpmnSubProcess value);
 
-    @objid ("51f586a9-249a-4aab-9f5d-fba671dbeb30")
+    @objid ("67d09172-e270-46f9-85d4-02b408c6b743")
     BpmnCollaboration getCollaboration();
 
-    @objid ("c95380b5-194e-4619-a01f-23beb0dd0f25")
+    @objid ("7fa0f46e-6146-4017-84b4-99f60ebbacd4")
     void setCollaboration(BpmnCollaboration value);
 
-    @objid ("07b2d0af-9b88-4631-9649-675abc953917")
+    @objid ("20588351-14f9-44a7-8d36-de3e272de3e2")
     BpmnProcess getProcess();
 
-    @objid ("bdcfb27e-5ee8-4696-a96e-ada7aff46246")
+    @objid ("ba633eb0-8159-41fc-b34c-b16a31ad636f")
     void setProcess(BpmnProcess value);
 
 }

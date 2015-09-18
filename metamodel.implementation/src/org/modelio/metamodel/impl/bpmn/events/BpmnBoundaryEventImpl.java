@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008790d8-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnBoundaryEventImpl extends BpmnCatchEventImpl implements BpmnBoundaryEvent {
-    @objid ("7b2707c5-d06a-4919-b7fc-4f481f3fe0c9")
+    @objid ("2b77ed4f-162d-49d8-a5e1-ee1693ae352d")
     @Override
     public boolean isCancelActivity() {
         return (Boolean) getAttVal(BpmnBoundaryEventData.Metadata.CancelActivityAtt());
     }
 
-    @objid ("d368f406-0b3e-4995-9980-6ebcdd15cb5c")
+    @objid ("92a630b6-9f76-467c-95b7-8c4e7d9b2784")
     @Override
     public void setCancelActivity(boolean value) {
         setAttVal(BpmnBoundaryEventData.Metadata.CancelActivityAtt(), value);
     }
 
-    @objid ("ef15735e-0b67-4e6d-8825-904511a29939")
+    @objid ("2d394892-cf71-4d9a-b6bc-15e54317c561")
     @Override
     public BpmnActivity getAttachedToRef() {
         return (BpmnActivity) getDepVal(BpmnBoundaryEventData.Metadata.AttachedToRefDep());
     }
 
-    @objid ("d7fc3a73-b6b3-470a-a417-2d4b4519b6ae")
+    @objid ("17476b53-6a85-436e-9fdb-b219791c1d27")
     @Override
     public void setAttachedToRef(BpmnActivity value) {
         appendDepVal(BpmnBoundaryEventData.Metadata.AttachedToRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e4610a35-785d-4247-995f-a5ccceb343a7")
+    @objid ("c5ac5db9-6fb6-4466-b3b5-b95df1dd506d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("71819ec8-3959-4dbe-854c-6319ef6885aa")
+    @objid ("566137ea-b13e-4958-9119-498d9180f778")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("a101a316-286d-402d-b2b6-e6a140574e68")
+    @objid ("87674f40-9568-48ff-8ee3-ec884a869118")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnBoundaryEvent(this);

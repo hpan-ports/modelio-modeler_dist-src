@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.statik.Package;
 
 @objid ("0016e662-c4bf-1fd8-97fe-001ec947cd2a")
 public interface PackageMerge extends ModelElement {
-    @objid ("77ab888a-667f-4650-a608-ec4723412418")
+    @objid ("171badbe-56cc-4b81-b894-37abbaead0b7")
     Package getMergedPackage();
 
-    @objid ("e1568762-510d-4ca4-a044-af7f22a3bf2f")
+    @objid ("3955afd7-c0d3-4ccf-a1e0-50c1642849eb")
     void setMergedPackage(Package value);
 
-    @objid ("cb610823-0de4-46e4-b7a8-ebfb7bcdc395")
+    @objid ("9d82a940-ece8-4731-a556-76b3978300a9")
     Package getReceivingPackage();
 
-    @objid ("be6d0797-8a8a-4efb-b99e-3869a7481bbf")
+    @objid ("d9fb85c9-89a4-4aed-b17f-3bafddfe39b3")
     void setReceivingPackage(Package value);
 
 }

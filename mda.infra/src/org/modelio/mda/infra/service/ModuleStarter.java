@@ -23,9 +23,6 @@ package org.modelio.mda.infra.service;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.module.AbstractJavaModule;
-import org.modelio.api.module.IModule.ModuleRuntimeState;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.ModuleException;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.gproject.gproject.GProject;
@@ -48,16 +45,16 @@ class ModuleStarter {
      * @throws org.modelio.api.module.ModuleException when the start fails.
      */
     @objid ("5a85c179-023e-11e2-9fca-001ec947c8cc")
-    static boolean startModule(final IModule iModuleToStart, List<IModule> dependsOnIModules, List<IModule> weakDependencies, final ModuleService moduleService, GProject gProject) throws ModuleException {
+    static boolean startModule(final IRTModule iModuleToStart, List<IRTModule> dependsOnIModules, List<IRTModule> weakDependencies, final ModuleService moduleService, GProject gProject) throws ModuleException {
         // Start required modules first (if one fails, consider this start to be failed
-        for (IModule requiredModule : dependsOnIModules) {
+        for (IRTModule requiredModule : dependsOnIModules) {
             if (!moduleService.startModule(requiredModule, gProject)) {
                 return false;
             }
         }
         // Try to start weak dependencies but catch and silently ignore failures
         // (if any) and continue.
-        for (IModule weakDependency : weakDependencies) {
+        for (IRTModule weakDependency : weakDependencies) {
             try {
                 moduleService.startModule(weakDependency, gProject);
             } catch (ModuleException e) {
@@ -72,14 +69,14 @@ class ModuleStarter {
         if (doStartModule(iModuleToStart, moduleService)) {
         
             // Register the module to allow stereotype image loading
-            ModuleI18NService.registerModule(iModuleToStart.getModel(), iModuleToStart);
+            ModuleI18NService.registerModule(iModuleToStart.getModel(), iModuleToStart.getIModule());
             return true;
         }
         return false;
     }
 
     @objid ("5a85c189-023e-11e2-9fca-001ec947c8cc")
-    private static boolean doStartModule(final IModule module, final ModuleService moduleService) throws ModuleException {
+    private static boolean doStartModule(final IRTModule module, final ModuleService moduleService) throws ModuleException {
         boolean startSuccessful = false;
         try {
             // Add to registry and set state
@@ -89,15 +86,16 @@ class ModuleStarter {
             // Call IModuleSession#start() method.
             try {
                 startSuccessful = module.getSession().start();
-            } catch (Error e) {
-                throw new ModuleException("Could not start" + module.getName() + ".", e);
+            } catch (RuntimeException | Error e) {
+                String msg = MdaInfra.I18N.getMessage("ModuleStarter.startFailed", module.getName(), e.toString());
+                throw new ModuleException(msg, e);
             }
         } finally {
             if (startSuccessful) {
-                MdaInfra.LOG.debug("Jxbv2Module %s v%s started successfully.", module.getName(), module.getVersion());
+                MdaInfra.LOG.debug("ModuleStarter.doStartModule(): %s v%s started successfully.", module.getName(), module.getVersion());
             } else {
                 // Start could not complete, remove form registry and reset state.
-                MdaInfra.LOG.debug("Jxbv2Module %s v%s failed to start.", module.getName(), module.getVersion());
+                MdaInfra.LOG.debug("ModuleStarter.doStartModule(): %s v%s failed to start.", module.getName(), module.getVersion());
                 setState(module, ModuleRuntimeState.Loaded);
                 moduleService.getModuleRegistry().removeStartedModule(module);
             }
@@ -106,9 +104,9 @@ class ModuleStarter {
     }
 
     @objid ("5a8823c8-023e-11e2-9fca-001ec947c8cc")
-    private static void setState(final IModule module, final ModuleRuntimeState newState) {
-        if (module instanceof AbstractJavaModule) {
-            ((AbstractJavaModule) module).setState(newState);
+    private static void setState(final IRTModule module, final ModuleRuntimeState newState) {
+        if (module instanceof RTModule) {
+            module.setState(newState);
         } else if (module instanceof FakeModule) {
             ((FakeModule) module).setState(newState);
         }

@@ -30,8 +30,8 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleTagTypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("efbb2549-baa0-4451-bdf9-3e164680df8e")
 public class EExpansionRegion extends EActivityNode {
@@ -42,7 +42,7 @@ public class EExpansionRegion extends EActivityNode {
     @Override
     public Element createObjingElt() {
         return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
-        .createExpansionRegion();
+                .createExpansionRegion();
     }
 
     @objid ("b599def2-8dcb-4732-a69d-40d2c44dd247")

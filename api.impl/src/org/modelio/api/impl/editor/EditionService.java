@@ -17,6 +17,7 @@ import org.modelio.api.editor.IMDATextEditor;
 import org.modelio.app.core.IModelioEventService;
 import org.modelio.app.core.IModelioService;
 import org.modelio.app.core.events.ModelioEvent;
+import org.modelio.core.ui.MimeServices;
 import org.modelio.editors.richnote.api.RichNoteCreator;
 import org.modelio.editors.richnote.api.RichNoteFormat;
 import org.modelio.editors.richnote.api.RichNoteFormatRegistry;
@@ -36,10 +37,10 @@ import org.modelio.metamodel.uml.statik.Artifact;
 @objid ("9b047d60-f973-4bec-a496-0667720f08b8")
 public class EditionService implements IEditionService {
     @objid ("3228e593-d8d7-4787-af2c-1d8357b40952")
-    private IModelioEventService eventService;
+    private final IModelioEventService eventService;
 
     @objid ("13bc8192-d095-48fe-8436-3c4b5c331e56")
-    private Map<IExternDocumentChangeListener, MdaRichNoteEditor> richNoteEditors = new HashMap<>();
+    private final Map<IExternDocumentChangeListener, MdaRichNoteEditor> richNoteEditors = new HashMap<>();
 
     /**
      * Initialize the edition service.
@@ -72,27 +73,28 @@ public class EditionService implements IEditionService {
     @objid ("27bc191b-9185-4002-b6bd-6dbf7efe4341")
     @Override
     public Path editRichNote(final ExternDocument doc, final IExternDocumentChangeListener listener) throws IOException {
-        IRichNoteFileRepository fileRepository = RichNotesSession.get(GProject.getProject(doc)).getFileRepository();
+        final IRichNoteFileRepository fileRepository = RichNotesSession.get(GProject.getProject(doc)).getFileRepository();
         
         if (listener != null) {
             // Store proxy editor in the map
-            MdaRichNoteEditor richNoteEditor = new MdaRichNoteEditor(doc, listener); 
+            final MdaRichNoteEditor richNoteEditor = new MdaRichNoteEditor(doc, listener);
             this.richNoteEditors.put(listener, richNoteEditor);
             return fileRepository.openRichNote(doc, richNoteEditor);
         } else {
-            return fileRepository.openRichNote(doc, null);    
+            return fileRepository.openRichNote(doc, null);
         }
     }
 
     @objid ("0f1883de-d93e-4bb5-8f34-0bd39a384dc7")
     @Override
     public List<String> getSupportedMimeTypes() {
-        Collection<RichNoteFormat> formats = RichNoteFormatRegistry.getInstance().getAllFormats();
-        List<String> ret = new ArrayList<>(formats.size());
+        final Collection<RichNoteFormat> formats = RichNoteFormatRegistry.getInstance().getAllFormats();
+        final List<String> ret = new ArrayList<>(formats.size());
         
-        for (RichNoteFormat f : formats) {
-            if (f.getSupportLevel() == SupportLevel.Primary)
+        for (final RichNoteFormat f : formats) {
+            if (f.getSupportLevel() == SupportLevel.Primary) {
                 ret.add(f.getMimeType());
+            }
         }
         return ret;
     }
@@ -105,6 +107,12 @@ public class EditionService implements IEditionService {
 
     @objid ("11cb29de-b0d5-41cb-bafe-977b0152d1f9")
     @Override
+    public IMDATextEditor openEditor(ModelElement modelElement, File file, EditorType editorTypeID, boolean readonly, String charsetName) {
+        return EditionManager.services().openEditor(modelElement, file, editorTypeID, readonly, charsetName);
+    }
+
+    @objid ("a36eec9b-ce6d-4891-a27c-5feca10158e8")
+    @Override
     public void openEditor(final AbstractDiagram diagram) {
         this.eventService.postAsyncEvent(new IModelioService() {
             @Override
@@ -114,7 +122,7 @@ public class EditionService implements IEditionService {
         }, ModelioEvent.EDIT_ELEMENT, diagram);
     }
 
-    @objid ("a36eec9b-ce6d-4891-a27c-5feca10158e8")
+    @objid ("9e8ed4f1-69e0-42c4-952e-343f44036857")
     @Override
     public void openEditor(final Artifact artifact) {
         this.eventService.postAsyncEvent(new IModelioService() {
@@ -125,21 +133,10 @@ public class EditionService implements IEditionService {
         }, ModelioEvent.EDIT_ELEMENT, artifact);
     }
 
-    @objid ("9e8ed4f1-69e0-42c4-952e-343f44036857")
-    @Override
-    public void openEditor(final ExternDocument document) {
-        this.eventService.postAsyncEvent(new IModelioService() {
-            @Override
-            public String getName() {
-                return "openEditor : ExternDocument";
-            }
-        }, ModelioEvent.EDIT_ELEMENT, document);
-    }
-
     @objid ("cd3dc372-aa67-4cdc-b2c3-7b711e77bbc9")
     @Override
     public void saveRichNote(final ExternDocument doc, Path fileToSave) throws IOException {
-        IRichNoteFileRepository fileRepository = RichNotesSession.get(GProject.getProject(doc)).getFileRepository();
+        final IRichNoteFileRepository fileRepository = RichNotesSession.get(GProject.getProject(doc)).getFileRepository();
         
         fileRepository.saveRichNote(doc, fileToSave);
     }
@@ -149,7 +146,7 @@ public class EditionService implements IEditionService {
     public void setDocumentContent(final ExternDocument doc, Path content) throws IOException {
         // Initialize the document
         if (content != null) {
-            IRichNoteFileRepository fileRepository = RichNotesSession.get(doc).getFileRepository();
+            final IRichNoteFileRepository fileRepository = RichNotesSession.get(doc).getFileRepository();
             fileRepository.initRichNoteFromFile(doc, content);
         }
     }
@@ -157,10 +154,27 @@ public class EditionService implements IEditionService {
     @objid ("9edad825-775a-48d9-aeee-1e4ee25cea36")
     @Override
     public void unregisterListener(final IExternDocumentChangeListener editor) {
-        MdaRichNoteEditor mdaRichNoteEditor = this.richNoteEditors.get(editor);
+        final MdaRichNoteEditor mdaRichNoteEditor = this.richNoteEditors.get(editor);
         
-        IRichNoteFileRepository fileRepository = RichNotesSession.get(GProject.getProject(mdaRichNoteEditor.getDoc())).getFileRepository();
+        final IRichNoteFileRepository fileRepository = RichNotesSession.get(GProject.getProject(mdaRichNoteEditor.getDoc())).getFileRepository();
         fileRepository.removeEditor(mdaRichNoteEditor);
+    }
+
+    @objid ("70bb4c57-b5fc-496a-b5f7-6bd29692ac27")
+    @Override
+    public String html2text(String s) {
+        return MimeServices.html2text(s);
+    }
+
+    @objid ("e0754362-b51f-4f7e-aced-8108c7c3418f")
+    @Override
+    public void openEditor(final ExternDocument document) {
+        this.eventService.postAsyncEvent(new IModelioService() {
+            @Override
+            public String getName() {
+                return "openEditor : ExternDocument";
+            }
+        }, ModelioEvent.EDIT_ELEMENT, document);
     }
 
 }

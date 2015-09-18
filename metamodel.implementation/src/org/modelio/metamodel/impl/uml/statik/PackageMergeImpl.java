@@ -43,31 +43,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00172b86-c4bf-1fd8-97fe-001ec947cd2a")
 public class PackageMergeImpl extends ModelElementImpl implements PackageMerge {
-    @objid ("60aafd6b-924e-44ac-8489-7525ecbe521e")
+    @objid ("cf236499-b605-4768-aa1f-9c87e594df9b")
     @Override
     public Package getMergedPackage() {
         return (Package) getDepVal(PackageMergeData.Metadata.MergedPackageDep());
     }
 
-    @objid ("91c48040-13d1-44ba-8956-99514ef7f78e")
+    @objid ("a5dd5230-a284-4875-8401-e7d42408267c")
     @Override
     public void setMergedPackage(Package value) {
         appendDepVal(PackageMergeData.Metadata.MergedPackageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1e70a54f-ea83-4049-9a57-41be9ceb93de")
+    @objid ("ccc5a76b-72cc-415f-8406-1ade82a8963e")
     @Override
     public Package getReceivingPackage() {
         return (Package) getDepVal(PackageMergeData.Metadata.ReceivingPackageDep());
     }
 
-    @objid ("d5036442-fae5-46c1-8cf6-3e8696316a17")
+    @objid ("4a22d3f3-6a6b-454f-af32-ae4254f88e8e")
     @Override
     public void setReceivingPackage(Package value) {
         appendDepVal(PackageMergeData.Metadata.ReceivingPackageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0eeb0336-a496-4a92-9105-e63a2fc86634")
+    @objid ("eaf4e989-5bc1-431b-a3f7-e1ab2ef0f868")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -77,7 +77,7 @@ public class PackageMergeImpl extends ModelElementImpl implements PackageMerge {
         return super.getCompositionOwner();
     }
 
-    @objid ("a60f153c-c10f-41ef-a28d-d6d623a0a63b")
+    @objid ("cab73ec3-665c-4364-a7f5-03ae996977f0")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -87,7 +87,7 @@ public class PackageMergeImpl extends ModelElementImpl implements PackageMerge {
         return super.getCompositionRelation();
     }
 
-    @objid ("93efcf1e-deb9-47d5-94f5-427131c1b756")
+    @objid ("9aabe28a-3615-4c93-adf4-b5022f52a553")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPackageMerge(this);

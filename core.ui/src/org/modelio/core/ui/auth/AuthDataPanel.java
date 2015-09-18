@@ -50,7 +50,7 @@ import org.modelio.vbasic.auth.IAuthData;
 /**
  * Authentication data panel provider.
  * <ul>
- * <li> {@link #create(Composite)} returns itself.<br>
+ * <li> {@link #createPanel(Composite)} returns itself.<br>
  * Assumes the parent composite uses a {@link GridLayout} layout.
  * <li> Uses a {@link IAuthData} as input.
  * </ul>
@@ -161,7 +161,6 @@ public class AuthDataPanel implements IPanelProvider {
         this.dataPanel.setLayoutData(fd);
         
         this.controller = new AuthDataPanelController(this);
-        this.controller.init();
         return this;
     }
 
@@ -186,7 +185,8 @@ public class AuthDataPanel implements IPanelProvider {
     @Override
     public void setInput(Object input) {
         this.authData = (IAuthData) input;
-        this.schemeSelector.setSelection(new StructuredSelection(this.authData.getClass()));
+        if (this.authData != null)
+            this.schemeSelector.setSelection(new StructuredSelection(this.authData.getClass()));
     }
 
     @objid ("3d941b3a-7bc8-45db-9eba-a44a48a7eb9f")
@@ -198,7 +198,8 @@ public class AuthDataPanel implements IPanelProvider {
             this.stack.layout();
         
             // reuse and display as much data as possible
-            ui.show(this.authData);
+            if (this.authData != null)
+                ui.show(this.authData);
         
             // instantiate data
             try {
@@ -223,10 +224,10 @@ public class AuthDataPanel implements IPanelProvider {
         
         // fragment name
         // Label label = new Label(data, SWT.NULL);
-        //        label.setText(CoreUi.I18N.getString("AddFragmentDialog.FragmentId")); //$NON-NLS-1$
+        // label.setText(CoreUi.I18N.getString("AddFragmentDialog.FragmentId")); //$NON-NLS-1$
         //
         // this.fragmentIdText = new Text(data, SWT.BORDER | SWT.SINGLE);
-        //        this.fragmentIdText.setText(""); //$NON-NLS-1$
+        // this.fragmentIdText.setText(""); //$NON-NLS-1$
         // gd = new GridData(GridData.FILL_HORIZONTAL);
         // this.fragmentIdText.setLayoutData(gd);
         
@@ -242,7 +243,6 @@ public class AuthDataPanel implements IPanelProvider {
         for (Class<? extends IAuthData> type : AuthDataUiFactory.getAllSchemes()) {
             IAuthDataUi panel = AuthDataUiFactory.createPanel(this.stack, type);
             if (panel != null) {
-                Composite composite = panel.getTopComposite();
                 this.stackedPanels.put(type, panel);
             }
         }
@@ -267,6 +267,12 @@ public class AuthDataPanel implements IPanelProvider {
         return null;
     }
 
+    @objid ("92f136eb-9b07-40e4-a340-204f74ea7533")
+    @Override
+    public void dispose() {
+        // nothing to do
+    }
+
     @objid ("8184be64-0f5f-4f4e-bf16-4d42b44c2539")
     private static class AuthDataPanelController {
         @objid ("17372e75-8d0a-4960-989f-202dc0562abd")
@@ -289,11 +295,6 @@ public class AuthDataPanel implements IPanelProvider {
                         .getFirstElement();
                 this.panel.selectScheme(scheme);
             }
-        }
-
-        @objid ("4bb3363c-38e1-48f1-9894-6dceea1f8d66")
-        public void init() {
-            // TODO Auto-generated method stub
         }
 
     }

@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator;
 
 @objid ("00435a1c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CombinedFragment extends InteractionFragment {
-    @objid ("033f39b5-423f-499a-be1d-a49d262f882c")
+    @objid ("48f5ad03-838f-44fb-8af1-a7d283daf6e1")
     InteractionOperator getOperator();
 
-    @objid ("dfad0eda-9e8a-426f-913d-90fc944c48ca")
+    @objid ("7d976dd3-dabc-4175-8a46-7b432e09ecd1")
     void setOperator(InteractionOperator value);
 
-    @objid ("3678ef21-f572-4001-b2d8-b2eae9b2d340")
+    @objid ("a2246a2a-de42-4f8b-8e71-2e60a9b3aa4f")
     EList<InteractionOperand> getOperand();
 
-    @objid ("9849213c-a1e2-4244-b704-5883a3f7edbd")
+    @objid ("18ef52c5-0ef0-464e-9a97-7fc00f103f63")
     <T extends InteractionOperand> List<T> getOperand(java.lang.Class<T> filterClass);
 
-    @objid ("bba432ed-3832-4de1-8dbc-5ee028c1b56e")
+    @objid ("1da6c520-c952-49d1-b903-508b8a19af1d")
     EList<Gate> getFragmentGate();
 
-    @objid ("f5796bb1-63ee-4206-8437-84dacb795e52")
+    @objid ("58708e8d-1285-4ab5-99ab-c4f6c9fda2fb")
     <T extends Gate> List<T> getFragmentGate(java.lang.Class<T> filterClass);
 
 }

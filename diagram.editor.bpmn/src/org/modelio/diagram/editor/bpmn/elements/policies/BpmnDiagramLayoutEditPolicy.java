@@ -24,13 +24,12 @@ package org.modelio.diagram.editor.bpmn.elements.policies;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.editor.bpmn.elements.bpmnlane.BpmnLaneEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnlanesetcontainer.CreateBpmnLaneSetContainerCommand;
@@ -77,13 +76,13 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
                 }
             }
             CompoundCommand compCommand = new CompoundCommand();
-                    
-            Object requestConstraint = getConstraintFor(request);                
-            List<BpmnLaneEditPart> childrens =  findMovableChildrens();
-            for (Command command : createMoveCommands(childrens, null,(Rectangle)requestConstraint)) {
+        
+            Object requestConstraint = getConstraintFor(request);
+            List<BpmnLaneEditPart> childrens = findMovableChildrens();
+            for (Command command : createMoveCommands(childrens, null, (Rectangle) requestConstraint)) {
                 compCommand.add(command);
             }
-            compCommand.add( new CreateBpmnLaneSetContainerCommand(hostElement, getHostCompositeNode(), ctx, requestConstraint));
+            compCommand.add(new CreateBpmnLaneSetContainerCommand(hostElement, getHostCompositeNode(), ctx, requestConstraint));
             return compCommand;
         }
         return super.getCreateCommand(request);
@@ -137,7 +136,6 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
         GmNodeModel gmmodel = (GmNodeModel) child.getModel();
         MObject element = gmmodel.getRelatedElement();
         if (element instanceof BpmnBoundaryEvent) {
-        
             if (getHostElement() instanceof BpmnActivity) {
                 return new BpmnBoundaryEventReparentElementCommand(getHostElement(), getHostCompositeNode(), (GmNodeModel) child.getModel(), constraint);
             }
@@ -163,19 +161,19 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
                 CompoundCommand compCommand = new CompoundCommand();
                 BpmnLaneEditPart movedLane = (BpmnLaneEditPart) movedEditPart;
                 Rectangle delta = calculateDelta(movedLane.getFigure().getBounds(), constrRect);
-                
+        
                 Rectangle newPos = null;
         
-                List<BpmnLaneEditPart> childrens =  findMovableChildrens();
+                List<BpmnLaneEditPart> childrens = findMovableChildrens();
                 if (delta.height != 0 || delta.width != 0) {
-                    // Resize                    
+                    // Resize
                     for (Command command : createResizeCommands(childrens, movedLane, delta)) {
                         compCommand.add(command);
                     }
-                    
+        
                 } else if (delta.x != 0 || delta.y != 0) {
                     // Move
-                    for (Command command : createMoveCommands(childrens, movedLane,constrRect)) {
+                    for (Command command : createMoveCommands(childrens, movedLane, constrRect)) {
                         compCommand.add(command);
                     }
                 }
@@ -193,10 +191,10 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
 
     @objid ("b813fada-ae37-45fa-aefd-e17130f44b88")
     private List<BpmnLaneEditPart> findMovableChildrens() {
-        List<BpmnLaneEditPart>  result = new ArrayList<>();
+        List<BpmnLaneEditPart> result = new ArrayList<>();
         for (EditPart children : new ArrayList<EditPart>(getHost().getChildren())) {
             if (children instanceof BpmnLaneEditPart) {
-                result.add((BpmnLaneEditPart)children);
+                result.add((BpmnLaneEditPart) children);
             }
         }
         return result;
@@ -204,8 +202,8 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
 
     @objid ("bd14ee46-4a95-4af4-a3d0-ab69c22d5db9")
     private Rectangle calculateDelta(Rectangle actualPos, Rectangle newPos) {
-        if(newPos.height == -1 || newPos.height == -1){
-             return new Rectangle(newPos.x - actualPos.x, newPos.y - actualPos.y,0,0);
+        if (newPos.height == -1 || newPos.height == -1) {
+            return new Rectangle(newPos.x - actualPos.x, newPos.y - actualPos.y, 0, 0);
         }
         return new Rectangle(newPos.x - actualPos.x, newPos.y - actualPos.y, newPos.width - actualPos.width, newPos.height - actualPos.height);
     }
@@ -215,23 +213,30 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
         List<Command> result = new ArrayList<>();
         Rectangle refPos = movedElement.getFigure().getBounds();
         
-        for(BpmnLaneEditPart editpart : impactedElements){
-            
-            Rectangle actualPos = editpart.getFigure().getBounds();    
+        for (BpmnLaneEditPart editpart : impactedElements) {
+        
+            Rectangle actualPos = editpart.getFigure().getBounds();
             Rectangle newPos = null;
-            
+        
             if (editpart.equals(movedElement)) {
-                 newPos = new Rectangle(actualPos.x + delta.x, actualPos.y + delta.y, actualPos.width + delta.width, actualPos.height + delta.height);
+                newPos = new Rectangle(actualPos.x + delta.x, actualPos.y + delta.y, actualPos.width + delta.width, actualPos.height + delta.height);
+        
+                // resize children
+                List<BpmnLaneEditPart> childrens = findLaneChildrens(editpart);
+                
+                for(BpmnLaneEditPart children : childrens){
+                    children.setLayoutConstraint(children, children.getFigure(),children.getFigure().getBounds().height);
+                }
             } else {
-               if (refPos.y < actualPos.y && delta.y == 0) {
-                     newPos = new Rectangle(actualPos.x + delta.x, actualPos.y + delta.height, actualPos.width + delta.width, actualPos.height);
+                if (refPos.y < actualPos.y && delta.y == 0) {
+                    newPos = new Rectangle(actualPos.x + delta.x, actualPos.y + delta.height, actualPos.width + delta.width, actualPos.height);
                 } else if (refPos.y > actualPos.y && delta.y != 0) {
-                     newPos = new Rectangle(actualPos.x + delta.x, actualPos.y - delta.height, actualPos.width  + delta.width, actualPos.height);
+                    newPos = new Rectangle(actualPos.x + delta.x, actualPos.y - delta.height, actualPos.width + delta.width, actualPos.height);
                 } else {
-                     newPos = new Rectangle(actualPos.x + delta.x, actualPos.y, actualPos.width + delta.width, actualPos.height);
+                    newPos = new Rectangle(actualPos.x + delta.x, actualPos.y, actualPos.width + delta.width, actualPos.height);
                 }
             }
-            
+        
             // Create Moved Command
             NodeChangeLayoutCommand command = new NodeChangeLayoutCommand();
             command.setModel(editpart.getModel());
@@ -248,38 +253,38 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
         int aboveDelta = 0;
         int belowDelta = 0;
         // Calculate Delta for pool above and below moved pool
-        for(BpmnLaneEditPart editpart : impactedElements){
-            if(!editpart.equals(movedElement)){
-                Rectangle actualPos = editpart.getFigure().getBounds();    
-                
-                //Pool Above
-                if(actualPos.y + actualPos.height + POOL_Y_MIN_MARGING > destination.y && actualPos.y  < destination.y){            
-                    aboveDelta = destination.y - (actualPos.height + POOL_Y_MIN_MARGING)  - actualPos.y;
+        for (BpmnLaneEditPart editpart : impactedElements) {
+            if (!editpart.equals(movedElement)) {
+                Rectangle actualPos = editpart.getFigure().getBounds();
+        
+                // Pool Above
+                if (actualPos.y + actualPos.height + POOL_Y_MIN_MARGING > destination.y && actualPos.y < destination.y) {
+                    aboveDelta = destination.y - (actualPos.height + POOL_Y_MIN_MARGING) - actualPos.y;
                 }
-                
-                //Pool Below
-                if(actualPos.y - POOL_Y_MIN_MARGING < destination.y  +  destination.height && actualPos.y > destination.y ){            
-                    belowDelta = destination.y + (destination.height + POOL_Y_MIN_MARGING)  - actualPos.y;
+        
+                // Pool Below
+                if (actualPos.y - POOL_Y_MIN_MARGING < destination.y + destination.height && actualPos.y > destination.y) {
+                    belowDelta = destination.y + (destination.height + POOL_Y_MIN_MARGING) - actualPos.y;
                 }
-            }    
+            }
         }
         
         Rectangle newPos = null;
-        for(BpmnLaneEditPart editpart : impactedElements){
-            Rectangle actualPos = editpart.getFigure().getBounds();            
+        for (BpmnLaneEditPart editpart : impactedElements) {
+            Rectangle actualPos = editpart.getFigure().getBounds();
             if (editpart.equals(movedElement)) {
-                 newPos = destination;
+                newPos = destination;
             } else {
-                if (actualPos.y  < destination.y){
-                     newPos = new Rectangle(destination.x, actualPos.y + aboveDelta, actualPos.width, actualPos.height);        
-                }else if (actualPos.y > destination.y ){
-                     newPos = new Rectangle(destination.x, actualPos.y + belowDelta, actualPos.width, actualPos.height);
+                if (actualPos.y < destination.y) {
+                    newPos = new Rectangle(destination.x, actualPos.y + aboveDelta, actualPos.width, actualPos.height);
+                } else if (actualPos.y > destination.y) {
+                    newPos = new Rectangle(destination.x, actualPos.y + belowDelta, actualPos.width, actualPos.height);
                 }
-            }    
+            }
             NodeChangeLayoutCommand command = new NodeChangeLayoutCommand();
             command.setModel(editpart.getModel());
             command.setConstraint(newPos);
-            result.add(command);        
+            result.add(command);
         }
         return result;
     }
@@ -288,22 +293,35 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
     @Override
     protected Object getConstraintFor(CreateRequest request) {
         Object constraint = super.getConstraintFor(request);
-        if(constraint instanceof Rectangle &&((( ModelioCreationContext) request.getNewObject()).getMetaclass().equals("BpmnLane") || (( ModelioCreationContext) request.getNewObject()).getMetaclass().equals("BpmnLaneSet"))){
-            
-            if(((Rectangle)constraint).height == -1){
-                ((Rectangle)constraint).height = 200;
+        if (constraint instanceof Rectangle && (((ModelioCreationContext) request.getNewObject()).getMetaclass().equals("BpmnLane") || ((ModelioCreationContext) request.getNewObject()).getMetaclass().equals("BpmnLaneSet"))) {
+        
+            if (((Rectangle) constraint).height == -1) {
+                ((Rectangle) constraint).height = 200;
             }
-            
+        
             for (EditPart children : new ArrayList<EditPart>(getHost().getChildren())) {
-                   if (children instanceof BpmnLaneEditPart) {
-                       Rectangle childrenPos = ((BpmnLaneEditPart) children).getFigure().getBounds();
-                       ((Rectangle)constraint).x = childrenPos.x;
-                       ((Rectangle)constraint).width = childrenPos.width; 
-                   }
-               }
-                
+                if (children instanceof BpmnLaneEditPart) {
+                    Rectangle childrenPos = ((BpmnLaneEditPart) children).getFigure().getBounds();
+                    ((Rectangle) constraint).x = childrenPos.x;
+                    ((Rectangle) constraint).width = childrenPos.width;
+                }
+            }
+        
         }
         return constraint;
+    }
+
+    @objid ("3cf023c3-e3ed-4efe-8d73-4304248df385")
+    private List<BpmnLaneEditPart> findLaneChildrens(AbstractEditPart editpart) {
+        List<BpmnLaneEditPart> result = new ArrayList<>();
+        for (Object children : editpart.getChildren()) {
+            if (children instanceof BpmnLaneEditPart) {
+                result.add((BpmnLaneEditPart) children);
+            } else if (children instanceof AbstractEditPart) {
+                result.addAll(findLaneChildrens((AbstractEditPart) children));
+            }
+        }
+        return result;
     }
 
 }

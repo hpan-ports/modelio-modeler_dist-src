@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.statik.Link;
 
 @objid ("28f7c9fd-bee9-46f0-8969-5c46572cec86")
 public interface Association extends ModelElement {
-    @objid ("a21832fa-415d-45ae-9997-578bd62e4ca4")
+    @objid ("1eefd792-6aaa-446f-820c-bbf768db3e01")
     EList<Link> getOccurence();
 
-    @objid ("d044b040-f3d3-4f95-beb7-02fb5225a0ac")
+    @objid ("22d6e5ab-c454-41df-ad0b-f0a0d6b7fc21")
     <T extends Link> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("546670d1-4f46-445c-a56a-d5908913ce56")
+    @objid ("f506f1e9-63e4-45a7-8b6a-cdd548e57695")
     EList<AssociationEnd> getEnd();
 
-    @objid ("33e5847b-2866-4203-9f74-e1e63b0a65bc")
+    @objid ("f965ab72-234b-4090-ac4d-4b7faee76226")
     <T extends AssociationEnd> List<T> getEnd(java.lang.Class<T> filterClass);
 
-    @objid ("f177ff29-a9b6-41ee-ba03-af44bf4641c5")
+    @objid ("fd8aef4d-0709-48a0-a389-0b7a57cf6f25")
     ClassAssociation getLinkToClass();
 
-    @objid ("ab97b3d9-673b-478e-9d6d-a921f10e262d")
+    @objid ("fb330aef-3ecb-4cfc-9803-384fdfb01ca4")
     void setLinkToClass(ClassAssociation value);
 
 }

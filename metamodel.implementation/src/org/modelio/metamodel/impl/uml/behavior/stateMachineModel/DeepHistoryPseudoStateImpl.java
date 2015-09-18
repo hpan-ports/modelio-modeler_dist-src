@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004ee8e6-c4bf-1fd8-97fe-001ec947cd2a")
 public class DeepHistoryPseudoStateImpl extends AbstractPseudoStateImpl implements DeepHistoryPseudoState {
-    @objid ("e1cc8102-5613-49ce-b183-e7e2d727ae02")
+    @objid ("6bdb3787-d6e3-4fb1-985e-dc98d7dada18")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d6fe3ade-7dd9-4e47-8965-57dcd3bb98ed")
+    @objid ("c119912b-8988-4cf6-afe8-3445e69ce8a6")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("61dd5b33-f6d3-44bf-8e6c-9b5475955ca6")
+    @objid ("b6343721-6824-44ba-b276-84abc2140531")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDeepHistoryPseudoState(this);

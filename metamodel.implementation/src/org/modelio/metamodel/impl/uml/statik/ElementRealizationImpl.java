@@ -42,21 +42,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0008fd2c-c4bf-1fd8-97fe-001ec947cd2a")
 public class ElementRealizationImpl extends AbstractionImpl implements ElementRealization {
-    @objid ("6cc1f3e8-c0a1-4188-b3c0-c45653b7ecb1")
+    @objid ("953d5795-360a-45bf-991e-2f38e2783086")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("b6cd0c20-3cea-4c4b-90b2-99e69a8625f4")
+    @objid ("da8a556f-85ea-4e34-b729-b5d3e517c626")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("ee7f7f4b-9b30-4c4a-88b2-63144e966819")
+    @objid ("e66d6a00-39c1-4ee0-be84-4fc1c0295833")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitElementRealization(this);

@@ -51,25 +51,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0040c504-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BehaviorImpl extends ModelElementImpl implements Behavior {
-    @objid ("d17a525d-26ce-4372-a3e4-007d3c13c3af")
+    @objid ("00693b42-9b04-4064-a7e7-75f126955c00")
     @Override
     public boolean isIsReentrant() {
         return (Boolean) getAttVal(BehaviorData.Metadata.IsReentrantAtt());
     }
 
-    @objid ("4afdcf57-0eef-4e90-9b27-ba83d55599d8")
+    @objid ("bf3924f5-3820-41b2-be38-e93204a6a0f3")
     @Override
     public void setIsReentrant(boolean value) {
         setAttVal(BehaviorData.Metadata.IsReentrantAtt(), value);
     }
 
-    @objid ("3ecc91c0-acd6-4faf-b363-e84d8b8717d1")
+    @objid ("52b3affd-be0f-4ff5-8d33-a88bcd888a8f")
     @Override
     public EList<BpmnCallActivity> getBpmnCaller() {
         return new SmList<>(this, BehaviorData.Metadata.BpmnCallerDep());
     }
 
-    @objid ("df44a987-701c-48b8-8e40-b8b93604a246")
+    @objid ("f6522d5a-bbf5-4521-85db-0142cd4946d5")
     @Override
     public <T extends BpmnCallActivity> List<T> getBpmnCaller(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -82,25 +82,25 @@ public abstract class BehaviorImpl extends ModelElementImpl implements Behavior 
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("84e1d7fb-3c44-4062-9ca6-ed14b32215c1")
+    @objid ("dda1b5be-e2ef-49fc-b1e6-982f6fd01564")
     @Override
     public NameSpace getOwner() {
         return (NameSpace) getDepVal(BehaviorData.Metadata.OwnerDep());
     }
 
-    @objid ("6ec92a26-ee3a-4d3c-8bea-ba5e16bbcd80")
+    @objid ("af5064c0-d293-4573-9bef-88973c6434ba")
     @Override
     public void setOwner(NameSpace value) {
         appendDepVal(BehaviorData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("04e44090-fb5a-451f-85d5-b0db2fb23bb4")
+    @objid ("31bf09b6-dd98-4577-9cda-abc8ba7da85a")
     @Override
     public EList<BehaviorParameter> getParameter() {
         return new SmList<>(this, BehaviorData.Metadata.ParameterDep());
     }
 
-    @objid ("9a27f8ed-4a8c-45db-a85d-b7a2dc197511")
+    @objid ("d745e869-d7a4-44bd-abb4-06792dead786")
     @Override
     public <T extends BehaviorParameter> List<T> getParameter(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -113,25 +113,25 @@ public abstract class BehaviorImpl extends ModelElementImpl implements Behavior 
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("afd0da30-f2a1-455e-be02-58d70757d34f")
+    @objid ("efe8d33e-e8ab-4593-9c98-3939352ecf66")
     @Override
     public Operation getOwnerOperation() {
         return (Operation) getDepVal(BehaviorData.Metadata.OwnerOperationDep());
     }
 
-    @objid ("786002e2-90df-4507-ab68-b1bb212b75f0")
+    @objid ("2b01c647-ca88-4b23-8fec-77995bb1e98d")
     @Override
     public void setOwnerOperation(Operation value) {
         appendDepVal(BehaviorData.Metadata.OwnerOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0a4e4653-924b-4a53-8e2c-a932cd8cd35a")
+    @objid ("6ba1d727-3561-49d0-bb1c-4e530f3ca4af")
     @Override
     public EList<Collaboration> getOwnedCollaboration() {
         return new SmList<>(this, BehaviorData.Metadata.OwnedCollaborationDep());
     }
 
-    @objid ("cbe5f1f0-9587-4804-be55-825908efa508")
+    @objid ("7ab73525-ca4e-4de4-80be-6c29117f36a8")
     @Override
     public <T extends Collaboration> List<T> getOwnedCollaboration(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -144,13 +144,13 @@ public abstract class BehaviorImpl extends ModelElementImpl implements Behavior 
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e4d97c7e-c51d-4c42-8092-ee7265b8d321")
+    @objid ("4aaf31fe-4613-46cd-84a1-374c6c7e37a5")
     @Override
     public EList<CallBehaviorAction> getCaller() {
         return new SmList<>(this, BehaviorData.Metadata.CallerDep());
     }
 
-    @objid ("64cf4689-c853-4598-a6e4-447582cebdad")
+    @objid ("b8da07cd-f1b3-474d-8941-19df32c71d3d")
     @Override
     public <T extends CallBehaviorAction> List<T> getCaller(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -163,13 +163,13 @@ public abstract class BehaviorImpl extends ModelElementImpl implements Behavior 
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a3012f30-00bf-42b8-a1e6-592ac4e93b20")
+    @objid ("f869f75b-0fcf-4f99-abce-c906bccb1e0d")
     @Override
     public EList<Event> getEComponent() {
         return new SmList<>(this, BehaviorData.Metadata.EComponentDep());
     }
 
-    @objid ("5332808f-9a3e-4e4e-9f5e-837e4d912ac6")
+    @objid ("4f7a0e95-b8c1-4645-a349-974f51ffb465")
     @Override
     public <T extends Event> List<T> getEComponent(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -182,13 +182,13 @@ public abstract class BehaviorImpl extends ModelElementImpl implements Behavior 
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ebc8b1b5-ddc2-4b58-960f-a79094d193c0")
+    @objid ("32864b7b-d259-4433-b10e-cd9517c8221c")
     @Override
     public EList<Transition> getEffectOf() {
         return new SmList<>(this, BehaviorData.Metadata.EffectOfDep());
     }
 
-    @objid ("b4789b93-de3f-4ca1-982e-3570862ef3bc")
+    @objid ("b18150f2-9ae0-4762-a65b-156bf0562428")
     @Override
     public <T extends Transition> List<T> getEffectOf(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -201,7 +201,7 @@ public abstract class BehaviorImpl extends ModelElementImpl implements Behavior 
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1e8aae85-561b-47bb-8f19-e13e7a1df6eb")
+    @objid ("0b7d1fbb-a04f-4caa-8292-cb6b7bd19875")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -214,7 +214,7 @@ public abstract class BehaviorImpl extends ModelElementImpl implements Behavior 
         return super.getCompositionOwner();
     }
 
-    @objid ("62a3513c-c934-4e76-8f8d-5a5dd3a1f8b3")
+    @objid ("71d98fb5-93f5-44b8-b0b3-e21f1866d0a5")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -227,7 +227,7 @@ public abstract class BehaviorImpl extends ModelElementImpl implements Behavior 
         return super.getCompositionRelation();
     }
 
-    @objid ("01b87626-3eb6-4ddb-87e3-b0b8b7c34bd8")
+    @objid ("96edc182-e1c8-423e-8e8d-edee5ab88a3a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBehavior(this);

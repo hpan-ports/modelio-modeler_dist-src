@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007319aa-c4bf-1fd8-97fe-001ec947cd2a")
 public class CompositeStructureDiagramImpl extends StaticDiagramImpl implements CompositeStructureDiagram {
-    @objid ("03c7b9ef-973d-46ab-9097-ed7c0cbd282b")
+    @objid ("9f921cb6-1eba-45b0-8f58-43fa365e1907")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("017dfc1e-2b0a-4c47-8813-c1c6060d6fc3")
+    @objid ("dfd6f845-52c6-43ff-ba43-7c8696fa490b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("0a68c353-79df-4a4c-91b9-c77bda145751")
+    @objid ("dd9b3add-5489-4de3-a9da-e110651f65aa")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCompositeStructureDiagram(this);

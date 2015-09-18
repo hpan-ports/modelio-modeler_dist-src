@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0032c97c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=FinalNode.class, factory=FinalNodeData.Metadata.ObjectFactory.class)
 public abstract class FinalNodeData extends ControlNodeData {
-    @objid ("c210927e-2dbd-41a4-9494-ec542eddeab8")
+    @objid ("5b1b1521-473c-4df5-8808-e32b8898cf03")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("006fafae-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("6792c11b-181f-49c0-aa78-580a14eee153")
+        @objid ("b1929082-1c6a-48c4-aa63-873d9c8ef0e4")
         private static SmClass smClass = null;
 
-        @objid ("785df819-a99a-486b-85c4-9edf8197a5a6")
+        @objid ("843c845d-6786-4f8c-b497-100ccd3f5b19")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(FinalNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("551a1acc-2e9a-4546-bcce-0d0ed5d19436")
+        @objid ("f845cbee-9f89-42e2-86d3-535a02b7a53a")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public abstract class FinalNodeData extends ControlNodeData {
 
         @objid ("007000b2-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("73dba942-8069-4ca8-8807-27b4b178afa1")
+            @objid ("dee4e569-7675-47db-81c9-ce3190ec7ac4")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("546fdfc3-fc18-4574-a0d1-df19924d2ce5")
+            @objid ("3e062f57-a7a9-450e-846b-cd22b650f1c6")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }

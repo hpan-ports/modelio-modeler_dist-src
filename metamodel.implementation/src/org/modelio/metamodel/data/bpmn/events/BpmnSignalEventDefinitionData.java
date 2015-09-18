@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0092002c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnSignalEventDefinition.class, factory=BpmnSignalEventDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnSignalEventDefinitionData extends BpmnEventDefinitionData {
-    @objid ("8ff75ac3-7205-43fd-bb9e-5935152f00eb")
+    @objid ("08c46289-1e7b-46f3-b2b5-e09169e61f66")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00567822-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("d2c011ef-4bec-42ea-9f7b-ad69b6a6a609")
+        @objid ("33cb8d75-9a3a-4ee4-b70f-5d5780ee14c9")
         private static SmClass smClass = null;
 
-        @objid ("18e53588-09b0-4aaf-b36f-bf47d2a90789")
+        @objid ("200a082a-7508-40d2-908a-597a1a1687f5")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnSignalEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4ac0f7c1-61fd-469e-9f1b-61fffb9522ef")
+        @objid ("602fa106-acb5-415f-af7e-af67a85cb0e7")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BpmnSignalEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("0056ba58-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("b78eab49-460b-4d76-ad28-03999e598a35")
+            @objid ("ff28338b-da67-44a1-8879-3ef44afbd642")
             public ISmObjectData createData() {
                 return new BpmnSignalEventDefinitionData();
             }
 
-            @objid ("361898c8-7629-4f03-93b1-54d1b4cad479")
+            @objid ("3bdf2f0c-b40a-4b67-b724-e3391ea57e52")
             public SmObjectImpl createImpl() {
                 return new BpmnSignalEventDefinitionImpl();
             }

@@ -107,7 +107,7 @@ public class ProjectDescriptorReader {
     /**
      * Read a project descriptor from an XML file.
      * <p>
-     * Looks for an {@link DescriptorWriter#CONF_ENCRYPT_FILE} file in the same directory
+     * Looks for an {@link ProjectDescriptorWriter#CONF_ENCRYPT_FILE} file in the same directory
      * to determine encryption of the file.
      * @param confFile The project.conf file path
      * <code>null</code> means the project is in the conf file directory.
@@ -123,7 +123,7 @@ public class ProjectDescriptorReader {
         
         // Look for encryption file
         String encryption = "";
-        Path encryptionFile = this.localProjectPath.resolve(DescriptorWriter.CONF_ENCRYPT_FILE);
+        Path encryptionFile = this.localProjectPath.resolve(ProjectDescriptorWriter.CONF_ENCRYPT_FILE);
         if (Files.isRegularFile(encryptionFile))
             encryption = new String(Files.readAllBytes(encryptionFile));
         
@@ -299,10 +299,12 @@ public class ProjectDescriptorReader {
         for (Element authNode : DomUtil.getChildren(domEl, "auth")) {
             if (authDesc != null)
                 throw new IOException("More than one <auth> tag on the same node: "+domEl);
-            
+        
             authDesc = new AuthDescriptor();
             authDesc.setScope(decodeScope(authNode, this.defaultScope));
-            IAuthData authData = createAuthData(authNode.getAttribute("scheme"));
+        
+            final String authScheme = authNode.getAttribute("scheme");
+            IAuthData authData = createAuthData(authScheme);
             authDesc.setData(authData);
             if (authData != null) {
                 for (Element p : DomUtil.getChildren(authNode, "prop")) {
@@ -317,20 +319,23 @@ public class ProjectDescriptorReader {
     }
 
     /**
-     * Get an authentication data from this descriptor.
-     * <p>
-     * Returns the authentication data given to the constructor
+     * Create an authentication data from the given scheme id.
      * @return the authentication data
      */
     @objid ("d1767cec-0e77-4445-bfb3-c6ba579105e8")
     private IAuthData createAuthData(String scheme) {
+        // if scheme is null, empty or InheritedAuthData.SCHEME_ID auth is inherited from project.
         if (scheme == null)
-            return null;
+            return new InheritedAuthData();
         
         switch (scheme) {
-        case "":
+        case AuthDescriptor.AUTH_TYPE_ASK:
             return null;
             
+        case "":
+        case InheritedAuthData.SCHEME_ID:
+            return new InheritedAuthData();
+        
         case NoneAuthData.AUTH_NONE_SCHEME_ID:
             return new NoneAuthData();
         

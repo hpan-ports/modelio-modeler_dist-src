@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.Substitution;
 import org.modelio.metamodel.uml.statik.Classifier;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("f498a70d-d18a-4381-bf63-24990024e467")
 public class ESubstitution extends ENamedElement {
@@ -36,7 +36,7 @@ public class ESubstitution extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createSubstitution();
+                        .createSubstitution();
     }
 
     @objid ("d91e6b6e-d32e-4644-ba0d-2d1c031a0cfe")

@@ -99,8 +99,8 @@ public class HtmlTextPlugin implements BundleActivator {
         
         PLUGIN_ID = bundle.getSymbolicName();
         
-        ServiceReference<ExtendedLogService> ref = context.getServiceReference(ExtendedLogService.class);
-        ExtendedLogService service = context.getService(ref);
+        final ServiceReference<ExtendedLogService> ref = context.getServiceReference(ExtendedLogService.class);
+        final ExtendedLogService service = context.getService(ref);
         LOG = new PluginLogger(service.getLogger(bundle, PLUGIN_ID));
         
         I18N = new BundledMessages(LOG, ResourceBundle.getBundle("Resources"));
@@ -146,7 +146,7 @@ public class HtmlTextPlugin implements BundleActivator {
             return image;
         }
         
-        ImageDescriptor imageDescriptor = getImageDescriptor(relativePath);
+        final ImageDescriptor imageDescriptor = getImageDescriptor(relativePath);
         if (imageDescriptor != null) {
             image = imageDescriptor.createImage(false);
             if (image != null) {
@@ -164,9 +164,9 @@ public class HtmlTextPlugin implements BundleActivator {
     @objid ("7661543f-b2a4-4915-9302-6c145007885e")
     public ImageDescriptor getImageDescriptor(String relativePath) {
         try {
-            URL url = new URL(this.iconURL, relativePath);
+            final URL url = new URL(this.iconURL, relativePath);
             return ImageDescriptor.createFromURL(url);
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             return ImageDescriptor.getMissingImageDescriptor();
         }
     }
@@ -177,7 +177,7 @@ public class HtmlTextPlugin implements BundleActivator {
         try {
             url = FileLocator.toFileURL(url);
             return url.getPath();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new IOError(e);
         }
     }
@@ -185,6 +185,11 @@ public class HtmlTextPlugin implements BundleActivator {
     @objid ("1739a29a-c8bb-4276-8395-4357c92432dd")
     public boolean isDebugging() {
         return LOG.isDebugEnabled();
+    }
+
+    @objid ("ca9744df-7a16-46dd-9a39-8793a34fc9a9")
+    public Bundle getBundle() {
+        return this.bundleContext.getBundle();
     }
 
 }

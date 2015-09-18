@@ -47,10 +47,10 @@ public interface TypedPropertyTable extends PropertyTable {
     @objid ("054ae88c-2834-11e2-bf07-001ec947ccaf")
     void setProperty(PropertyDefinition prop, String value);
 
-    @objid ("4b48163b-3f89-4342-885f-f19d74bc162a")
+    @objid ("32b9878c-b573-4c4c-895f-36b5162b9059")
     PropertyTableDefinition getType();
 
-    @objid ("4cea4c28-6d62-40e1-b18a-3a4bb9f5d619")
+    @objid ("8f7b2204-e409-48c2-8692-e346af8df85f")
     void setType(PropertyTableDefinition value);
 
 }

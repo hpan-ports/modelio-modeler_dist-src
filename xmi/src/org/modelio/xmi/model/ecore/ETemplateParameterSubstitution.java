@@ -27,8 +27,8 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.TemplateBinding;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("5ac76c88-751c-403b-853f-a7724fc69837")
 public class ETemplateParameterSubstitution extends EElement {

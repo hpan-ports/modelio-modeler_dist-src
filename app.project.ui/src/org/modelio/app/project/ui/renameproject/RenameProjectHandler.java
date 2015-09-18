@@ -62,8 +62,7 @@ public class RenameProjectHandler {
 
     @objid ("00470022-cc35-1ff2-a7f4-001ec947cd2a")
     @CanExecute
-    public boolean canExecute(final IProjectService projectService, @Optional
-@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+    public boolean canExecute(final IProjectService projectService, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         if (selection == null) return false;
         List<ProjectDescriptor> projects = getSelectedElements(selection);
         if (projects.size() != 1) 

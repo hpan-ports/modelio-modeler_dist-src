@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002cec14-c4bf-1fd8-97fe-001ec947cd2a")
 public class ClauseImpl extends ModelElementImpl implements Clause {
-    @objid ("b069d9ab-e4aa-426d-a8e6-057b72e26833")
+    @objid ("ca990fa3-934a-4ed2-8fa9-bd71fe89f437")
     @Override
     public String getTest() {
         return (String) getAttVal(ClauseData.Metadata.TestAtt());
     }
 
-    @objid ("175e6836-05c0-4ee6-b0ec-e69505699b81")
+    @objid ("b2d74e34-78fe-4937-bb3f-fef833d75c77")
     @Override
     public void setTest(String value) {
         setAttVal(ClauseData.Metadata.TestAtt(), value);
     }
 
-    @objid ("05010d55-5947-4f49-a722-4e0d4cd70487")
+    @objid ("6bf4c483-0dc2-4e53-bd14-ca5bf1f91feb")
     @Override
     public EList<ActivityNode> getBody() {
         return new SmList<>(this, ClauseData.Metadata.BodyDep());
     }
 
-    @objid ("7729a0bb-dbb7-4ac6-9a3d-5f144653f597")
+    @objid ("115b5b84-f9c9-4d56-972d-56274fb1f365")
     @Override
     public <T extends ActivityNode> List<T> getBody(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,19 +76,19 @@ public class ClauseImpl extends ModelElementImpl implements Clause {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8ab8b263-56c2-4dcf-b94b-a7d5f9defd90")
+    @objid ("9420b7ae-79c0-4913-b9fe-c47a52394c15")
     @Override
     public ConditionalNode getOwner() {
         return (ConditionalNode) getDepVal(ClauseData.Metadata.OwnerDep());
     }
 
-    @objid ("14d322d6-bfc7-4b26-9288-e78db45db1f6")
+    @objid ("bc74048c-1f5c-43bb-88c9-44c5c8b29e7b")
     @Override
     public void setOwner(ConditionalNode value) {
         appendDepVal(ClauseData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5efc8ed0-5fe3-4ee1-869a-173dadf73d43")
+    @objid ("8c3f7a3c-1167-40d5-8801-4c1b89636324")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -98,7 +98,7 @@ public class ClauseImpl extends ModelElementImpl implements Clause {
         return super.getCompositionOwner();
     }
 
-    @objid ("9d783e73-10e2-49ec-b8c4-1f24ad914ce1")
+    @objid ("a8ff8ecb-eac3-419c-b6c6-bb46aa77d1c2")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -108,7 +108,7 @@ public class ClauseImpl extends ModelElementImpl implements Clause {
         return super.getCompositionRelation();
     }
 
-    @objid ("dd3cd3eb-4c02-40ba-a283-fb9180e968ab")
+    @objid ("8677b1b2-b536-4412-9d70-c3a284960cf6")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitClause(this);

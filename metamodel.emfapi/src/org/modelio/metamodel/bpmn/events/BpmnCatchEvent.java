@@ -33,22 +33,22 @@ import org.modelio.metamodel.bpmn.objects.BpmnDataOutput;
 
 @objid ("00889ec4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnCatchEvent extends BpmnEvent {
-    @objid ("ecc5fe1e-438f-4d41-9d90-268ca884d3ed")
+    @objid ("5d481d46-f8ee-4b5f-a52b-f983acb3176f")
     boolean isParallelMultiple();
 
-    @objid ("90cc2570-c8eb-4d6d-a6cc-fa5173e1f76f")
+    @objid ("4cb3c3c3-db43-48d2-b5ca-6dfeaf417984")
     void setParallelMultiple(boolean value);
 
-    @objid ("11bd2abd-701c-41ca-8cc0-d9eacf583633")
+    @objid ("da97c59a-8bdb-4f22-a99c-dab8b0ae311a")
     EList<BpmnDataAssociation> getDataOutputAssociation();
 
-    @objid ("06572da4-a1f4-4fc3-b29f-ad42c90e29d6")
+    @objid ("f28374be-abd0-4813-b8a0-798a9e6ff22b")
     <T extends BpmnDataAssociation> List<T> getDataOutputAssociation(java.lang.Class<T> filterClass);
 
-    @objid ("0224e2fc-873b-4d70-b2f1-84da321ee88d")
+    @objid ("507eba1c-18ad-4b78-a3a2-347e5bfaae8e")
     BpmnDataOutput getDataOutput();
 
-    @objid ("fa271d4b-a319-4577-822c-a6a15d6ace36")
+    @objid ("0b60d411-8c2e-442e-abbc-895f32f573c9")
     void setDataOutput(BpmnDataOutput value);
 
 }

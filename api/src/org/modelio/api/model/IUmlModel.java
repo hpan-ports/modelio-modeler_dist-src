@@ -1723,7 +1723,7 @@ public interface IUmlModel {
      * @throws java.io.IOException in case of failure creating the file.
      */
     @objid ("1275546b-1fe7-11e1-938e-002564c97630")
-    ExternDocument createExternDocument(String moduleName, final String documentRole, final ModelElement owner, final String mimeType) throws IOException, ExtensionNotFoundException;
+    ExternDocument createExternDocument(String moduleName, final String documentRole, final ModelElement owner, final String mimeType) throws ExtensionNotFoundException, IOException;
 
     /**
      * Creates a rich note.

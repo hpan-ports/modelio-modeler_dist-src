@@ -44,29 +44,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0051a63a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=InternalTransition.class, factory=InternalTransitionData.Metadata.ObjectFactory.class)
 public class InternalTransitionData extends TransitionData {
-    @objid ("0fc09395-277b-4a46-beed-9554ddd66ee4")
+    @objid ("a5979c4b-0864-4625-ab27-34111b565f8e")
     @SmaMetaAssociation(metaName="SComposed", typeDataClass=StateData.class, min=0, max=1, smAssociationClass=Metadata.SComposedSmDependency.class)
      SmObjectImpl mSComposed;
 
-    @objid ("dcf12d68-5c08-48b5-b035-efc9419eb6c3")
+    @objid ("f5f6ecf7-f445-4a06-bbf7-46440dc71ff9")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("005e8472-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("dccd9083-1b4f-4f00-bcec-678698bda952")
+        @objid ("4a1363b4-6fc6-48bb-8db4-10ecf93bbce9")
         private static SmClass smClass = null;
 
-        @objid ("af88406c-3353-4a98-a4d1-15f4bb183941")
+        @objid ("2713dc45-e1bc-477c-9984-9629f18f05ea")
         private static SmDependency SComposedDep = null;
 
-        @objid ("19428842-42fb-42f6-b2a1-611ca01919c1")
+        @objid ("6c4e6ffa-5e7e-4e36-b5f0-5f594a70a3b7")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(InternalTransitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("40d70c96-dffb-4653-99b1-5254f9342fb6")
+        @objid ("e025acac-b582-443f-859c-bbd69508e9a1")
         public static SmDependency SComposedDep() {
             if (SComposedDep == null) {
             	SComposedDep = classof().getDependencyDef("SComposed");
@@ -74,26 +74,26 @@ public class InternalTransitionData extends TransitionData {
             return SComposedDep;
         }
 
-        @objid ("5d77d6ee-6944-48e2-80ab-35b50c337335")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("186c9b61-d207-499b-bcc5-9b4c20887978")
+        @objid ("212ec2e5-0780-4ce6-b8e6-d471fba38588")
         public static SmDependency getSComposedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SComposedDep;
         }
 
+        @objid ("45236453-f191-4216-9dce-6ddc62b19a42")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("005ec6da-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("9b7158b6-980e-43f1-9801-f15cf3633b32")
+            @objid ("01366dc0-399d-4d1c-8ea0-8b43e8dc377c")
             public ISmObjectData createData() {
                 return new InternalTransitionData();
             }
 
-            @objid ("b84b9e34-d234-40b1-98ea-d6be4f251901")
+            @objid ("49420454-7cb3-4523-a221-f9b2c86d90a4")
             public SmObjectImpl createImpl() {
                 return new InternalTransitionImpl();
             }
@@ -102,18 +102,18 @@ public class InternalTransitionData extends TransitionData {
 
         @objid ("005f2a1c-c4c2-1fd8-97fe-001ec947cd2a")
         public static class SComposedSmDependency extends SmSingleDependency {
-            @objid ("3d0d9131-59c7-453d-ab01-741438871c1a")
+            @objid ("915eeb92-7d54-4c03-8f9c-59b329388fbc")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((InternalTransitionData) data).mSComposed;
             }
 
-            @objid ("6ea8cbb6-c7b6-4b60-9ad5-cca3ab0c9cac")
+            @objid ("934ac92f-d611-4a03-925d-1534146a2f11")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((InternalTransitionData) data).mSComposed = value;
             }
 
-            @objid ("7678588a-9eb9-462d-8fbd-a385db85932f")
+            @objid ("eef6211b-07ed-441f-9d0f-7c85373dc823")
             @Override
             public SmDependency getSymetric() {
                 return StateData.Metadata.InternalDep();

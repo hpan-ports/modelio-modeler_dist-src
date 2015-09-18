@@ -229,6 +229,9 @@ public class ResizableGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
                 if (!this.canHandle(Metamodel.getMClass(metaclassName)) && !(editPart instanceof ConnectionEditPart))
                     return null;
         
+            } else {
+                // It is a probably drawing : don't handle
+                return null;
             }
         }
         // This policy can handle all elements of this request: handle it!
@@ -245,7 +248,7 @@ public class ResizableGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
     @objid ("7f10f283-1dec-11e2-8cad-001ec947c8cc")
     protected boolean canHandle(MClass metaclass) {
         return MTools.getMetaTool().canCompose(getHostElement(), metaclass, null)
-                && getHostCompositeNode().canCreate(Metamodel.getJavaInterface(metaclass));
+                        && getHostCompositeNode().canCreate(Metamodel.getJavaInterface(metaclass));
     }
 
     @objid ("7f10f28b-1dec-11e2-8cad-001ec947c8cc")

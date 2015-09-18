@@ -48,6 +48,7 @@ import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 import org.modelio.diagram.styles.core.StyleKey.ShowStereotypeMode;
 import org.modelio.diagram.styles.core.StyleKey;
+import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Enumeration;
@@ -203,7 +204,7 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
         } else if (Operation.class.isAssignableFrom(metaclass)) {
             // Operations are unmasked in the operations group
             ret = getOperationsGroup();
-        } else if (NameSpace.class.isAssignableFrom(metaclass)) {
+        } else if (NameSpace.class.isAssignableFrom(metaclass) && metaclass != Signal.class) {
             // Namespaces are unmasked in the inner classes gm
             ret = getInnerElements().getCompositeFor(metaclass);
         }

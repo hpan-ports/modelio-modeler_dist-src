@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0034c7ae-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=InitialNode.class, factory=InitialNodeData.Metadata.ObjectFactory.class)
 public class InitialNodeData extends ControlNodeData {
-    @objid ("859bc3a7-43bd-45a2-9f3c-159de6d9298f")
+    @objid ("45aab0dc-6ddc-4e33-a7a3-81cfe495823f")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0043f530-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("7f63bc01-0d58-47d1-89e4-4047028f151b")
+        @objid ("936fa219-025b-422d-b517-1da35090844d")
         private static SmClass smClass = null;
 
-        @objid ("b5af869b-018b-48ff-950e-270a274986b3")
+        @objid ("01abfe9a-c8c2-4a13-b279-bc595a7815eb")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(InitialNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("0bc267cc-3d2e-4a27-ab1a-b99b43b06c97")
+        @objid ("934a24e1-c380-47ce-9327-e1dd449a16d0")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class InitialNodeData extends ControlNodeData {
 
         @objid ("00443702-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("a1490862-fba0-41f7-a97f-ae5e9139249a")
+            @objid ("8a1bae0e-aae3-4d24-a597-69b841f201ac")
             public ISmObjectData createData() {
                 return new InitialNodeData();
             }
 
-            @objid ("17200163-c5c0-4528-8eb5-6ad0572dda21")
+            @objid ("8c4c5359-6fb5-4fdb-8604-a1ab635d3d52")
             public SmObjectImpl createImpl() {
                 return new InitialNodeImpl();
             }

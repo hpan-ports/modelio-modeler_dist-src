@@ -22,7 +22,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
  * Creation contributor for "Composite structure" diagrams.
  */
 @objid ("9a4f178d-88a9-4e71-acbd-303e15a0f02b")
-public class CompositeDiagramCreationContributor extends AbstractDiagramCreationContributor {
+public class CompositeDiagramCreationContributor extends AbstractUMLDiagramCreationContributor {
     @objid ("51aaaa11-a3f0-4349-bea1-fd15d6e8a557")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
@@ -52,19 +52,10 @@ public class CompositeDiagramCreationContributor extends AbstractDiagramCreation
         return allowedMetaclasses;
     }
 
-    @objid ("a8668476-d993-40a4-ad96-ce4803fd9816")
-    private StaticDiagram createCompositeDiagram(final IModelFactory modelFactory, final String diagramName, final ModelElement diagramContext) {
-        // Create the Composite diagram       
-        StaticDiagram diagram = modelFactory.createCompositeStructureDiagram();
-        diagram.setName(diagramName);
-        diagram.setOrigin(diagramContext);
-        return diagram;
-    }
-
-    @objid ("1a7722cf-b89b-4c03-b9b8-5b180f0190c2")
+    @objid ("21628747-3435-4bc5-baeb-ab2a49797a66")
     @Override
-    public String getLabel() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Composite.Name");
+    public String getDetails() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Composite.Details");
     }
 
     @objid ("a8ad66d6-0a74-41ed-b229-457b648507a2")
@@ -79,10 +70,19 @@ public class CompositeDiagramCreationContributor extends AbstractDiagramCreation
         return DiagramCreationWizard.I18N.getString("CreationWizard.Composite.Information");
     }
 
-    @objid ("21628747-3435-4bc5-baeb-ab2a49797a66")
+    @objid ("1a7722cf-b89b-4c03-b9b8-5b180f0190c2")
     @Override
-    public String getDetails() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Composite.Details");
+    public String getLabel() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Composite.Name");
+    }
+
+    @objid ("a8668476-d993-40a4-ad96-ce4803fd9816")
+    private StaticDiagram createCompositeDiagram(final IModelFactory modelFactory, final String diagramName, final ModelElement diagramContext) {
+        // Create the Composite diagram       
+        StaticDiagram diagram = modelFactory.createCompositeStructureDiagram();
+        diagram.setName(diagramName);
+        diagram.setOrigin(diagramContext);
+        return diagram;
     }
 
 }

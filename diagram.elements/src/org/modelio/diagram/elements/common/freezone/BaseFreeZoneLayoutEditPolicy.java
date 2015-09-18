@@ -148,7 +148,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             return false;
         }
         return MTools.getMetaTool().canCompose(hostElement.getMClass(), Metamodel.getMClass(metaclass), null)
-                && getHostCompositeNode().canCreate(metaclass);
+                        && getHostCompositeNode().canCreate(metaclass);
     }
 
     @objid ("7e3337ae-1dec-11e2-8cad-001ec947c8cc")
@@ -191,6 +191,29 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
         return new DefaultNodeResizableEditPolicy();
     }
 
+    /**
+     * Same as super implementation, except we filter the connection editparts.
+     */
+    @objid ("7e37fc45-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected Command getAddCommand(final Request generic) {
+        ChangeBoundsRequest request = (ChangeBoundsRequest) generic;
+        List<?> editParts = request.getEditParts();
+        CompoundCommand command = new CompoundCommand();
+        command.setDebugLabel("Add in ConstrainedLayoutEditPolicy");//$NON-NLS-1$
+        GraphicalEditPart child;
+        
+        for (int i = 0; i < editParts.size(); i++) {
+            child = (GraphicalEditPart) editParts.get(i);
+            if (child instanceof ConnectionEditPart) {
+                command.add(child.getCommand(generic));
+            } else {
+                command.add(createAddCommand(request, child, translateToModelConstraint(getConstraintFor(request, child))));
+            }
+        }
+        return command.unwrap();
+    }
+
     @objid ("7e3337ce-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getCloneCommand(ChangeBoundsRequest request) {
@@ -217,6 +240,44 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             return command.unwrap();
         }
         return null;
+    }
+
+    @objid ("7e359a34-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected Object getConstraintFor(final CreateRequest request) {
+        // Just making sure that the constraint doesn't violate the "min size".
+        Object constraint = super.getConstraintFor(request);
+        if (constraint instanceof Rectangle) {
+            Rectangle rectConstraint = (Rectangle) constraint;
+            if (rectConstraint.width != -1 && rectConstraint.width < 8) {
+                rectConstraint.width = 8;
+            }
+            if (rectConstraint.height != -1 && rectConstraint.height < 8) {
+                rectConstraint.height = 8;
+            }
+        }
+        return constraint;
+    }
+
+    /**
+     * Returns the correct rectangle bounds for the new clone's location. Handles the HandleBounds to avoid errors with
+     * PortContainers.
+     * @param part the graphical edit part representing the object to be cloned.
+     * @param request the changeboundsrequest that knows where to place the new object.
+     * @return the bounds that will be used for the new object.
+     */
+    @objid ("7e359a26-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected Object getConstraintForClone(final GraphicalEditPart part, final ChangeBoundsRequest request) {
+        IFigure figure = part.getFigure();
+        Rectangle bounds = new PrecisionRectangle(getEffectiveBounds(figure));
+        
+        figure.translateToAbsolute(bounds);
+        bounds = request.getTransformedRectangle(bounds);
+        
+        ((GraphicalEditPart) getHost()).getContentPane().translateToRelative(bounds);
+        bounds.translate(getLayoutOrigin().getNegated());
+        return getConstraintFor(bounds);
     }
 
     @objid ("7e3337d8-1dec-11e2-8cad-001ec947c8cc")
@@ -248,6 +309,28 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             }
         }
         return null;
+    }
+
+    /**
+     * Retrieves the child's current constraint from the <code>LayoutManager</code>.
+     * @param child the child
+     * @return the current constraint
+     */
+    @objid ("7e37fc51-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected Rectangle getCurrentConstraintFor(GraphicalEditPart child) {
+        IFigure fig = child.getFigure();
+        Object constraint = fig.getParent().getLayoutManager().getConstraint(fig);
+        if (constraint instanceof Rectangle) {
+            return (Rectangle) constraint;
+        }
+        return null;
+    }
+
+    @objid ("7e359a1c-1dec-11e2-8cad-001ec947c8cc")
+    protected Rectangle getEffectiveBounds(final IFigure figure) {
+        return (figure instanceof HandleBounds) ? ((HandleBounds) figure).getHandleBounds().getCopy() : figure.getBounds()
+                        .getCopy();
     }
 
     /**
@@ -325,6 +408,9 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
                     return null;
                 }
         
+            } else {
+                // This is not a GmModel (maybe a drawing): not handled
+                return null;
             }
         }
         // This policy can handle all elements of this request: handle it!
@@ -349,89 +435,6 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             }
         }
         return false;
-    }
-
-    @objid ("7e359a1c-1dec-11e2-8cad-001ec947c8cc")
-    protected Rectangle getEffectiveBounds(final IFigure figure) {
-        return (figure instanceof HandleBounds) ? ((HandleBounds) figure).getHandleBounds().getCopy() : figure.getBounds()
-                .getCopy();
-    }
-
-    /**
-     * Returns the correct rectangle bounds for the new clone's location. Handles the HandleBounds to avoid errors with
-     * PortContainers.
-     * @param part the graphical edit part representing the object to be cloned.
-     * @param request the changeboundsrequest that knows where to place the new object.
-     * @return the bounds that will be used for the new object.
-     */
-    @objid ("7e359a26-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected Object getConstraintForClone(final GraphicalEditPart part, final ChangeBoundsRequest request) {
-        IFigure figure = part.getFigure();
-        Rectangle bounds = new PrecisionRectangle(getEffectiveBounds(figure));
-        
-        figure.translateToAbsolute(bounds);
-        bounds = request.getTransformedRectangle(bounds);
-        
-        ((GraphicalEditPart) getHost()).getContentPane().translateToRelative(bounds);
-        bounds.translate(getLayoutOrigin().getNegated());
-        return getConstraintFor(bounds);
-    }
-
-    @objid ("7e359a34-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected Object getConstraintFor(final CreateRequest request) {
-        // Just making sure that the constraint doesn't violate the "min size".
-        Object constraint = super.getConstraintFor(request);
-        if (constraint instanceof Rectangle) {
-            Rectangle rectConstraint = (Rectangle) constraint;
-            if (rectConstraint.width != -1 && rectConstraint.width < 8) {
-                rectConstraint.width = 8;
-            }
-            if (rectConstraint.height != -1 && rectConstraint.height < 8) {
-                rectConstraint.height = 8;
-            }
-        }
-        return constraint;
-    }
-
-    /**
-     * Same as super implementation, except we filter the connection editparts.
-     */
-    @objid ("7e37fc45-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected Command getAddCommand(final Request generic) {
-        ChangeBoundsRequest request = (ChangeBoundsRequest) generic;
-        List<?> editParts = request.getEditParts();
-        CompoundCommand command = new CompoundCommand();
-        command.setDebugLabel("Add in ConstrainedLayoutEditPolicy");//$NON-NLS-1$
-        GraphicalEditPart child;
-        
-        for (int i = 0; i < editParts.size(); i++) {
-            child = (GraphicalEditPart) editParts.get(i);
-            if (child instanceof ConnectionEditPart) {
-                command.add(child.getCommand(generic));
-            } else {
-                command.add(createAddCommand(request, child, translateToModelConstraint(getConstraintFor(request, child))));
-            }
-        }
-        return command.unwrap();
-    }
-
-    /**
-     * Retrieves the child's current constraint from the <code>LayoutManager</code>.
-     * @param child the child
-     * @return the current constraint
-     */
-    @objid ("7e37fc51-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected Rectangle getCurrentConstraintFor(GraphicalEditPart child) {
-        IFigure fig = child.getFigure();
-        Object constraint = fig.getParent().getLayoutManager().getConstraint(fig);
-        if (constraint instanceof Rectangle) {
-            return (Rectangle) constraint;
-        }
-        return null;
     }
 
 }

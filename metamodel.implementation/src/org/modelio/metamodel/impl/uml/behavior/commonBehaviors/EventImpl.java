@@ -49,37 +49,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0042b3fa-c4bf-1fd8-97fe-001ec947cd2a")
 public class EventImpl extends ModelElementImpl implements Event {
-    @objid ("08ce7ab8-e47d-4f3a-8b81-ac292fee9774")
+    @objid ("46d0d24e-fe4f-4d85-814c-69556a288531")
     @Override
     public String getExpression() {
         return (String) getAttVal(EventData.Metadata.ExpressionAtt());
     }
 
-    @objid ("e6037fe7-9ee5-4885-87ea-916360bf90bb")
+    @objid ("849e842b-ebbe-401c-bb17-441e585480c7")
     @Override
     public void setExpression(String value) {
         setAttVal(EventData.Metadata.ExpressionAtt(), value);
     }
 
-    @objid ("f3267e90-41bf-4805-a4ea-704b3a42d039")
+    @objid ("8e3af849-357b-4f90-9456-326ec6cea904")
     @Override
     public EventType getKind() {
         return (EventType) getAttVal(EventData.Metadata.KindAtt());
     }
 
-    @objid ("4f70745c-0b9a-4011-9890-541dfb855885")
+    @objid ("4a96e0ce-8b12-407d-b4a7-b1c03a21205c")
     @Override
     public void setKind(EventType value) {
         setAttVal(EventData.Metadata.KindAtt(), value);
     }
 
-    @objid ("323c180b-06af-401d-893b-3b53fcadcd70")
+    @objid ("d6cee948-4fc1-467a-8d88-d93e48b4e494")
     @Override
     public EList<Transition> getTriggered() {
         return new SmList<>(this, EventData.Metadata.TriggeredDep());
     }
 
-    @objid ("febb08de-b9a8-461d-9495-02eada6327ce")
+    @objid ("d3847d67-a61c-4f86-a792-ec9f7462d8ae")
     @Override
     public <T extends Transition> List<T> getTriggered(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -92,25 +92,25 @@ public class EventImpl extends ModelElementImpl implements Event {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("593deefe-9703-4ca8-a777-ac7b77ad67c2")
+    @objid ("537bc2ae-6816-490c-93fe-5c84b16c9155")
     @Override
     public Signal getModel() {
         return (Signal) getDepVal(EventData.Metadata.ModelDep());
     }
 
-    @objid ("19606c23-f714-4572-a014-041a1c901754")
+    @objid ("1f839649-8ed8-4226-8819-5e3a9d0e884d")
     @Override
     public void setModel(Signal value) {
         appendDepVal(EventData.Metadata.ModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7a2f4682-ad11-4c1d-8711-6da1335c9d97")
+    @objid ("f092050c-8f74-44ac-84a8-50d4059d2acc")
     @Override
     public EList<State> getOrigin() {
         return new SmList<>(this, EventData.Metadata.OriginDep());
     }
 
-    @objid ("74a39e8c-f097-4c0a-86db-827058c815df")
+    @objid ("4b777332-d9ec-4093-9be5-ffa0344eaa33")
     @Override
     public <T extends State> List<T> getOrigin(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -123,31 +123,31 @@ public class EventImpl extends ModelElementImpl implements Event {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9a96b2d7-9d05-41e8-b2f6-fec768e893d3")
+    @objid ("216b20c8-3d8f-4727-8592-d93f20de05d6")
     @Override
     public Operation getCalled() {
         return (Operation) getDepVal(EventData.Metadata.CalledDep());
     }
 
-    @objid ("b4f60bed-7b3b-4ab7-bf09-2a88edc46395")
+    @objid ("d9d722fe-9399-437a-a3ac-23495c609948")
     @Override
     public void setCalled(Operation value) {
         appendDepVal(EventData.Metadata.CalledDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9f517199-539c-400e-b2b3-0039dbae498d")
+    @objid ("4f41e44c-fc3d-4250-ab30-6c905c4cbeaa")
     @Override
     public Behavior getComposed() {
         return (Behavior) getDepVal(EventData.Metadata.ComposedDep());
     }
 
-    @objid ("b4efdb8d-d225-47ef-b9ad-b3b6aad9de4f")
+    @objid ("2bf76844-4ba6-4266-b2dd-2fb77677f942")
     @Override
     public void setComposed(Behavior value) {
         appendDepVal(EventData.Metadata.ComposedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b67d7da3-b07d-4560-b65e-30d8077a4acf")
+    @objid ("4c5b200a-da8b-450f-80b2-54ef3c15dc07")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -157,7 +157,7 @@ public class EventImpl extends ModelElementImpl implements Event {
         return super.getCompositionOwner();
     }
 
-    @objid ("832d2cdb-d8b0-41e5-b2fe-d65bb8f3a954")
+    @objid ("ffd20f83-8479-45d9-81bb-9a329dfe83ea")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -167,7 +167,7 @@ public class EventImpl extends ModelElementImpl implements Event {
         return super.getCompositionRelation();
     }
 
-    @objid ("b62232a6-ceb7-4935-8d2e-a3c54d77db5b")
+    @objid ("b6f8af4e-6a42-48a9-8ed5-0edc7474532c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitEvent(this);

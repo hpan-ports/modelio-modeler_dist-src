@@ -48,25 +48,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0067251e-ec87-1098-b22e-001ec947cd2a")
 public class PropertyTableDefinitionImpl extends ModelElementImpl implements PropertyTableDefinition {
-    @objid ("19595df7-7e41-4fa0-9630-000050b91bd9")
+    @objid ("7b8e850f-49a5-46fe-8074-4574a3b23b72")
     @Override
     public PropertyContainer getOwner() {
         return (PropertyContainer) getDepVal(PropertyTableDefinitionData.Metadata.OwnerDep());
     }
 
-    @objid ("836788d5-1788-410b-a2a9-0846e0c45bb6")
+    @objid ("0099916f-e9c2-4057-84ec-b20a97e1e74c")
     @Override
     public void setOwner(PropertyContainer value) {
         appendDepVal(PropertyTableDefinitionData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("af9cdae4-bcd2-42dd-9857-f4d5116e97c4")
+    @objid ("378ee51e-2582-4960-9a75-4c1fee7bdc1b")
     @Override
     public EList<TypedPropertyTable> getTypedTable() {
         return new SmList<>(this, PropertyTableDefinitionData.Metadata.TypedTableDep());
     }
 
-    @objid ("d578c166-2105-400d-b9f9-6eb4cd80ee0f")
+    @objid ("83873cd6-dc45-43e8-9cdf-8289842a9915")
     @Override
     public <T extends TypedPropertyTable> List<T> getTypedTable(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -79,37 +79,37 @@ public class PropertyTableDefinitionImpl extends ModelElementImpl implements Pro
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b89074f2-6188-4eb0-9806-4ffed6b71f46")
+    @objid ("0a13e7d3-8293-4d9d-bf6a-4904c0f0a109")
     @Override
     public MetaclassReference getOwnerReference() {
         return (MetaclassReference) getDepVal(PropertyTableDefinitionData.Metadata.OwnerReferenceDep());
     }
 
-    @objid ("c3bce45f-832c-4cf0-9f7d-534af213f19c")
+    @objid ("26afeff2-1830-4235-8e0c-664ffac9678d")
     @Override
     public void setOwnerReference(MetaclassReference value) {
         appendDepVal(PropertyTableDefinitionData.Metadata.OwnerReferenceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("28fabbaa-3e03-450b-9b2c-1e9dec312a38")
+    @objid ("238cf80e-a23e-4d2e-81ea-300521b44760")
     @Override
     public Stereotype getOwnerStereotype() {
         return (Stereotype) getDepVal(PropertyTableDefinitionData.Metadata.OwnerStereotypeDep());
     }
 
-    @objid ("3f7e1c04-a07e-4b50-bd8e-33d16aec56fd")
+    @objid ("e1715175-8be8-4509-9a30-f8a0ea2578c8")
     @Override
     public void setOwnerStereotype(Stereotype value) {
         appendDepVal(PropertyTableDefinitionData.Metadata.OwnerStereotypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f4025f40-fcc4-4a3c-addf-86dbf4699f91")
+    @objid ("254d1df0-f8d2-4722-bdea-24a9704f4384")
     @Override
     public EList<PropertyDefinition> getOwned() {
         return new SmList<>(this, PropertyTableDefinitionData.Metadata.OwnedDep());
     }
 
-    @objid ("fd48e276-4f7e-4cc4-a050-888db242eae7")
+    @objid ("1b276bde-45c9-498d-b2bc-da2c50b72e04")
     @Override
     public <T extends PropertyDefinition> List<T> getOwned(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -122,7 +122,7 @@ public class PropertyTableDefinitionImpl extends ModelElementImpl implements Pro
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f42292f7-13c6-4f4d-a9da-d53bbb8aa634")
+    @objid ("fc08ccbf-6af0-419b-b8e2-ae0a7a4ebb6c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -138,7 +138,7 @@ public class PropertyTableDefinitionImpl extends ModelElementImpl implements Pro
         return super.getCompositionOwner();
     }
 
-    @objid ("e271b800-9041-474e-9284-db736fb5562e")
+    @objid ("4ae76d81-2bc2-416d-8002-ad73bd6f5951")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -154,7 +154,7 @@ public class PropertyTableDefinitionImpl extends ModelElementImpl implements Pro
         return super.getCompositionRelation();
     }
 
-    @objid ("232ad713-50c3-4faa-9cbb-d66ce09be0be")
+    @objid ("021924d5-e0fe-4ff3-a58d-e7c56f97fc16")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPropertyTableDefinition(this);

@@ -24,7 +24,7 @@ package org.modelio.xmi.model.ecore;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.interactionModel.StateInvariant;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("352e1571-5cc9-4063-8fe8-59dbe83bb299")
 public class EStateInvariant extends EInteractionFragment {
@@ -32,7 +32,7 @@ public class EStateInvariant extends EInteractionFragment {
     @Override
     public Element createObjingElt() {
         return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createStateInvariant();
+                        .createStateInvariant();
     }
 
     @objid ("d244bfc4-f348-40aa-a653-bd7271d8e884")

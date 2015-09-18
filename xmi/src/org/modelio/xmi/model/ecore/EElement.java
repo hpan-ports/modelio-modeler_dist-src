@@ -38,11 +38,11 @@ import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.Manifestation;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.reverse.TotalImportMap;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ProfileUtils;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("44857b9e-9717-43e2-9b36-f9601e9d22b0")
 public class EElement implements IEElement {

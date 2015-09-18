@@ -39,12 +39,12 @@ import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.DescriptorServices;
-import org.modelio.gproject.data.project.DescriptorWriter;
 import org.modelio.gproject.data.project.FragmentDescriptor;
 import org.modelio.gproject.data.project.GAuthConf;
 import org.modelio.gproject.data.project.GProperties;
 import org.modelio.gproject.data.project.ModuleDescriptor;
 import org.modelio.gproject.data.project.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptorWriter;
 import org.modelio.gproject.data.project.ProjectType;
 import org.modelio.gproject.fragment.Fragments;
 import org.modelio.gproject.fragment.IProjectFragment;
@@ -521,7 +521,7 @@ public class GProject {
      * @throws java.nio.file.FileSystemException in case of file system error getting the module archive
      */
     @objid ("538790be-d9c8-4eeb-b2ba-c9c36f4adbaf")
-    IModuleHandle getModuleHandle(IModelioProgress mon, final ModuleDescriptor md) throws IOException, FileSystemException {
+    IModuleHandle getModuleHandle(IModelioProgress mon, final ModuleDescriptor md) throws FileSystemException, IOException {
         IModuleHandle moduleHandle = null;
         
         // try to get the local copy
@@ -535,7 +535,7 @@ public class GProject {
         
         if (moduleHandle == null) {
             // try to get the original and copy it to local
-            IAuthData authData = md.getAuthDescriptor().getData();
+            IAuthData authData = new AuthResolver(this).resolve(md);
             copyJmdacToModuleDir(md.getArchiveLocation(), authData, archive);
             if (Files.isRegularFile(archive)) {
                 moduleHandle = this.moduleCatalog.getModuleHandle(archive, mon);
@@ -765,7 +765,7 @@ public class GProject {
     protected void saveProjectDescription() throws IOException {
         Path confFilePath = this.projectPath.resolve("project.conf");
         ProjectDescriptor desc = new ProjectWriter(this).writeProject();
-        new DescriptorWriter().write(desc, confFilePath);
+        new ProjectDescriptorWriter().write(desc, confFilePath);
     }
 
     @objid ("1de1a27e-07a4-46fd-ba78-39c6e7a36098")

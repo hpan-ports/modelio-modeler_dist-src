@@ -28,12 +28,12 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.xmi.api.FormatExport;
 import org.modelio.xmi.generation.ExportServices;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.generation.PartialExportMap;
 import org.modelio.xmi.generation.TotalExportMap;
 import org.modelio.xmi.gui.report.ReportManager;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbortProcessException;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.XMIFileUtils;
 import org.modelio.xmi.util.XMILogs;
 
@@ -67,9 +67,9 @@ public class ExportThread extends AbstractXMIThread implements IRunnableWithProg
             this.error = this.service.createEcoreModel(resource, this.progressBar);
         
             if (!this.error){
-                FormatExport versionExport = GenerationProperties.getInstance().getExportVersion();
+                FormatExport versionExport = genProp.getExportVersion();
                 if (!versionExport.equals(FormatExport.EMF300))
-                    XMIFileUtils.changeToUML(genProp.getFilePath());                     
+                    XMIFileUtils.changeToUML(genProp.getFilePath(), genProp.getTempFolder());                     
             }
             this.progressBar.addFinalValue();
         } catch (AbortProcessException e) {

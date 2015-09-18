@@ -43,45 +43,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("901bf652-8771-4ad2-9eff-9f03ee6e7461")
 public abstract class AnalystItemImpl extends ModelElementImpl implements AnalystItem {
-    @objid ("855e29d0-4502-4181-8f2a-6037f2e970dc")
+    @objid ("a8e56246-13bc-483d-bd6b-9bbbab3cc2b8")
     @Override
     public String getDefinition() {
         return (String) getAttVal(AnalystItemData.Metadata.DefinitionAtt());
     }
 
-    @objid ("7ccab82a-e973-453d-893b-a92f4fa6a963")
+    @objid ("81fcb9b9-d11f-4092-870d-3ce1b2d63580")
     @Override
     public void setDefinition(String value) {
         setAttVal(AnalystItemData.Metadata.DefinitionAtt(), value);
     }
 
-    @objid ("27c276e8-2d27-4ad0-a4aa-175d62ee3375")
+    @objid ("c57d492c-2752-4b4a-b21c-b1b9090c0dfc")
     @Override
     public AnalystPropertyTable getAnalystProperties() {
         return (AnalystPropertyTable) getDepVal(AnalystItemData.Metadata.AnalystPropertiesDep());
     }
 
-    @objid ("908ee91d-d942-447e-8bc8-54e7256876c4")
+    @objid ("98ef17f8-644a-4232-99af-813d34c24f7d")
     @Override
     public void setAnalystProperties(AnalystPropertyTable value) {
         appendDepVal(AnalystItemData.Metadata.AnalystPropertiesDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7bada9d4-f793-4d6e-ba6d-2821d90e8e7e")
+    @objid ("75dd45c8-c238-4d23-ab75-d00e54012080")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("93fedc5c-50d8-4bd0-94ac-5a68dc66faf2")
+    @objid ("984be850-dc7b-4bc8-9df6-c8b4362c2b7c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("4b9b05a0-0579-465e-ab35-a625f961b65a")
+    @objid ("141c955b-9630-420b-9ed5-52f8d7ce6d13")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAnalystItem(this);

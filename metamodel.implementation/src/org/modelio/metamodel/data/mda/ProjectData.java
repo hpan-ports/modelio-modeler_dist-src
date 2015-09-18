@@ -46,50 +46,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0066673c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Project.class, factory=ProjectData.Metadata.ObjectFactory.class, cmsnode=true)
 public class ProjectData extends ModelElementData {
-    @objid ("8c814948-a141-4357-91cc-3f91ce87d576")
+    @objid ("9ee23178-c15b-446b-8cde-8e60173921ad")
     @SmaMetaAttribute(metaName="ProjectContext", type=String.class, smAttributeClass=Metadata.ProjectContextSmAttribute.class)
      Object mProjectContext = "";
 
-    @objid ("723c4bf6-3977-46c5-b363-eddb30b30627")
+    @objid ("07e13c44-2919-482d-8efc-fbad630faef7")
     @SmaMetaAttribute(metaName="ProjectDescr", type=String.class, smAttributeClass=Metadata.ProjectDescrSmAttribute.class)
      Object mProjectDescr = "";
 
-    @objid ("e4054946-8312-4039-8608-0d63f95cd971")
+    @objid ("bcb73cf9-fce0-487e-9235-dfccdb9d01dc")
     @SmaMetaAssociation(metaName="DiagramRoot", typeDataClass=DiagramSetData.class, min=1, max=1, smAssociationClass=Metadata.DiagramRootSmDependency.class, component = true)
      SmObjectImpl mDiagramRoot;
 
-    @objid ("38f9afab-a781-4796-8ca2-35ab59f5e0c5")
+    @objid ("d6a72c86-9b0d-484a-a09a-75e94e2e0cb7")
     @SmaMetaAssociation(metaName="Model", typeDataClass=PackageData.class, min=1, max=1, smAssociationClass=Metadata.ModelSmDependency.class, component = true)
      SmObjectImpl mModel;
 
-    @objid ("99083b28-d910-4ddf-bc8b-3ea2373f7d5e")
+    @objid ("2a97ccb9-0782-4b90-8958-0b70b4fa166b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("005b5fa4-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("af3cb946-0b33-401b-894b-bb2e9544ce01")
+        @objid ("d6206744-7152-40de-88db-f571c4e0be73")
         private static SmClass smClass = null;
 
-        @objid ("a53872dc-e67d-469b-a37f-580cc0c1d6ed")
+        @objid ("952d3919-6e64-40c6-9d5e-b52c54a987c8")
         private static SmAttribute ProjectContextAtt = null;
 
-        @objid ("ed724da8-0c33-4706-81c5-05a3c51ec025")
+        @objid ("6e3ed90d-9553-4985-9221-1a7025886870")
         private static SmAttribute ProjectDescrAtt = null;
 
-        @objid ("84df92c0-7424-4490-9ef4-77efc2032252")
+        @objid ("df6e9f0d-d427-41ad-bffb-c1419960d363")
         private static SmDependency DiagramRootDep = null;
 
-        @objid ("1ecd1da4-331a-41b9-b60c-c4bdf8f77215")
+        @objid ("2b8eea99-2728-4cde-8ddf-687dcee2f989")
         private static SmDependency ModelDep = null;
 
-        @objid ("0507c551-2c9b-4f99-b149-0eae2d61992c")
+        @objid ("bffc24f1-35e4-4011-b510-2cc7b144acb8")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ProjectData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("c09b42cd-e43a-4b45-83ff-5dd4e28c1772")
+        @objid ("e3abf443-e78a-4b52-b325-045bbd585dad")
         public static SmAttribute ProjectContextAtt() {
             if (ProjectContextAtt == null) {
             	ProjectContextAtt = classof().getAttributeDef("ProjectContext");
@@ -97,7 +97,7 @@ public class ProjectData extends ModelElementData {
             return ProjectContextAtt;
         }
 
-        @objid ("8caa5934-63d0-4915-97af-6797c4802a7c")
+        @objid ("d4fc3488-7a7f-4c6a-8450-01bae6fabd2e")
         public static SmAttribute ProjectDescrAtt() {
             if (ProjectDescrAtt == null) {
             	ProjectDescrAtt = classof().getAttributeDef("ProjectDescr");
@@ -105,7 +105,7 @@ public class ProjectData extends ModelElementData {
             return ProjectDescrAtt;
         }
 
-        @objid ("fbb9a3f6-61a4-4d59-aad7-6571519ad79b")
+        @objid ("d72b9097-41cb-43f3-8d27-47fbb5d89c16")
         public static SmDependency DiagramRootDep() {
             if (DiagramRootDep == null) {
             	DiagramRootDep = classof().getDependencyDef("DiagramRoot");
@@ -113,7 +113,7 @@ public class ProjectData extends ModelElementData {
             return DiagramRootDep;
         }
 
-        @objid ("a2fa68f8-e613-4829-8286-1bb9b29ba6b7")
+        @objid ("e86fd05d-b1a8-4294-bbc6-04e54daa2bf1")
         public static SmDependency ModelDep() {
             if (ModelDep == null) {
             	ModelDep = classof().getDependencyDef("Model");
@@ -121,44 +121,44 @@ public class ProjectData extends ModelElementData {
             return ModelDep;
         }
 
-        @objid ("1a1dc9cb-1335-41bb-8eb5-3797202c208f")
-        public static SmDependency getDiagramRootDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DiagramRootDep;
-        }
-
-        @objid ("c7b45db5-ad91-4c03-a020-e6b40bc7934c")
-        public static SmAttribute getProjectDescrAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ProjectDescrAtt;
-        }
-
-        @objid ("cdc89578-e3b2-4d8e-9907-2acdeb7c9e3a")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("c28b36a1-f508-492b-98f0-672e1e2e7a33")
-        public static SmAttribute getProjectContextAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ProjectContextAtt;
-        }
-
-        @objid ("b0f77552-5f7b-4868-89aa-458a5c5fbca2")
+        @objid ("51ae60cd-f830-4624-8000-772513b89848")
         public static SmDependency getModelDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ModelDep;
         }
 
+        @objid ("770838df-a448-43e9-bec3-3d2c6003c76b")
+        public static SmDependency getDiagramRootDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DiagramRootDep;
+        }
+
+        @objid ("0980b053-76ba-4ff7-b68f-2624ac9e6251")
+        public static SmAttribute getProjectDescrAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ProjectDescrAtt;
+        }
+
+        @objid ("ee1a15e0-f90b-4048-a397-bd2dedcd678c")
+        public static SmAttribute getProjectContextAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ProjectContextAtt;
+        }
+
+        @objid ("556e516e-54db-4709-9aa4-1597e6163cc0")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("005ba126-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("3b217e1a-dc48-4e1f-902b-54d1e9a85f4a")
+            @objid ("7c86be0e-11b7-40a1-a28a-45c00776f909")
             public ISmObjectData createData() {
                 return new ProjectData();
             }
 
-            @objid ("3b84adba-42c1-42ec-9502-ab0a7ef9d7a6")
+            @objid ("f929c009-d298-479a-94f0-60104d5053bd")
             public SmObjectImpl createImpl() {
                 return new ProjectImpl();
             }
@@ -167,12 +167,12 @@ public class ProjectData extends ModelElementData {
 
         @objid ("005c049a-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ProjectContextSmAttribute extends SmAttribute {
-            @objid ("09050abf-d215-4039-b858-81a305300b2c")
+            @objid ("f212c10b-e127-4d35-ad3f-727f0f2c0650")
             public Object getValue(ISmObjectData data) {
                 return ((ProjectData) data).mProjectContext;
             }
 
-            @objid ("552e1864-580d-4b2d-b205-574e71b53266")
+            @objid ("2d01f3e9-e980-4f31-9752-422c84d3918b")
             public void setValue(ISmObjectData data, Object value) {
                 ((ProjectData) data).mProjectContext = value;
             }
@@ -181,12 +181,12 @@ public class ProjectData extends ModelElementData {
 
         @objid ("005c69bc-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ProjectDescrSmAttribute extends SmAttribute {
-            @objid ("d452727a-60d4-4ba0-a092-982e351d61e8")
+            @objid ("b48e6b9f-7821-4e8b-af78-cd4cdf482fa4")
             public Object getValue(ISmObjectData data) {
                 return ((ProjectData) data).mProjectDescr;
             }
 
-            @objid ("55f3ebd2-f4f0-4460-b421-3d84961d701a")
+            @objid ("55084366-bf23-4436-97ba-56d6366e1c40")
             public void setValue(ISmObjectData data, Object value) {
                 ((ProjectData) data).mProjectDescr = value;
             }
@@ -195,18 +195,18 @@ public class ProjectData extends ModelElementData {
 
         @objid ("005ccf38-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ModelSmDependency extends SmSingleDependency {
-            @objid ("1a69a065-00d3-445c-b29f-4d4f7010ba6b")
+            @objid ("74838287-58d6-4874-8e37-ae6818084570")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ProjectData) data).mModel;
             }
 
-            @objid ("1b98008e-cf23-46b8-b6e5-0f66a492299b")
+            @objid ("7ea423cc-702d-4879-b6cb-b435df849ba2")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ProjectData) data).mModel = value;
             }
 
-            @objid ("0a73c1bb-4bcd-48c2-a52e-92ef3c9f172c")
+            @objid ("5d4fee9a-68ad-40f5-b576-321c6fe13535")
             @Override
             public SmDependency getSymetric() {
                 return PackageData.Metadata.RepresentedDep();
@@ -216,18 +216,18 @@ public class ProjectData extends ModelElementData {
 
         @objid ("005e2112-c4c2-1fd8-97fe-001ec947cd2a")
         public static class DiagramRootSmDependency extends SmSingleDependency {
-            @objid ("ebe8ffb3-951a-4245-9974-ce3ecbf9ffe5")
+            @objid ("6a695179-df6b-4f4f-9fba-f10ddc497ad8")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ProjectData) data).mDiagramRoot;
             }
 
-            @objid ("cc3d5208-f8ce-427f-ac0c-1f7ce7e123dd")
+            @objid ("a4e07023-a465-4c49-8b17-b373908de97c")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ProjectData) data).mDiagramRoot = value;
             }
 
-            @objid ("ba422608-549f-471a-a14f-70fb1840acee")
+            @objid ("0a316bed-8b14-4bc1-8f79-7155a5808321")
             @Override
             public SmDependency getSymetric() {
                 return DiagramSetData.Metadata.OwnerDep();

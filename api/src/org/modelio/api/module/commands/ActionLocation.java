@@ -20,6 +20,11 @@ package org.modelio.api.module.commands;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * This enum indicates where a module command is to be contributed.
+ * 
+ * @author phv
+ */
 @objid ("01f41998-0000-0001-0000-000000000000")
 public enum ActionLocation {
     /**

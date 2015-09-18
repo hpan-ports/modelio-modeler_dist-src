@@ -53,6 +53,7 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
 import org.modelio.gproject.ramc.core.packaging.RamcPackager;
 import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.vcore.session.api.ICoreSession;
 
@@ -79,9 +80,9 @@ public class PackageRamcHandler {
         
             RamcModel model = new RamcModel(projectService.getOpenedProject().getProjectPath(), ramc);
             List<IModule> contributorCandidates = new ArrayList<>();
-            for (IModule m : moduleService.getModuleRegistry().getStartedModules()) {
-                if (m.getModelComponentContributor(model) != null)
-                    contributorCandidates.add(m);
+            for (IRTModule m : moduleService.getModuleRegistry().getStartedModules()) {
+                if ((m.getIModule() != null && m.getIModule().getModelComponentContributor(model) != null))
+                    contributorCandidates.add(m.getIModule());
             }
             model.setContributorCandidates(contributorCandidates);
         
@@ -92,10 +93,12 @@ public class PackageRamcHandler {
                 case IDialogConstants.FINISH_ID: // Package
                     // Contributors to RAMC packaging
                     List<IModelComponentContributor> contributors = new ArrayList<>();
-                    for (IModule m : moduleService.getModuleRegistry().getStartedModules()) {
-                        IModelComponentContributor contributor = m.getModelComponentContributor(model);
+                    for (IRTModule m : moduleService.getModuleRegistry().getStartedModules()) {
+                        if (m.getIModule() != null) {
+                        IModelComponentContributor contributor = m.getIModule().getModelComponentContributor(model);
                         if (contributor != null && model.getContributingModules().containsKey(m.getName()))
                             contributors.add(contributor);
+                        }
                     }
                     doPackageRamc(projectService.getOpenedProject(), model, shell, contributors, progressService);
                     break;

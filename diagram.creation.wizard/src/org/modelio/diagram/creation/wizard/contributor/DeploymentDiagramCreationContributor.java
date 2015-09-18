@@ -20,7 +20,7 @@ import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 @objid ("b79b3869-00ce-42c7-bc93-4bb83f24888c")
-public class DeploymentDiagramCreationContributor extends AbstractDiagramCreationContributor {
+public class DeploymentDiagramCreationContributor extends AbstractUMLDiagramCreationContributor {
     @objid ("65419b8f-51eb-43cd-a6b8-bc0af296134d")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
@@ -50,18 +50,10 @@ public class DeploymentDiagramCreationContributor extends AbstractDiagramCreatio
         return allowedMetaclasses;
     }
 
-    @objid ("030942a0-6241-4773-bfe6-7fec875610fb")
-    private StaticDiagram createDeploymentDiagram(final IModelFactory modelFactory, final String diagramName, final ModelElement diagramContext) {
-        // Create the Deployment diagram
-        StaticDiagram diagram;
-        diagram = modelFactory.createDeploymentDiagram(diagramName, diagramContext, null);
-        return diagram;
-    }
-
-    @objid ("f3176b6c-e024-47f7-b29d-13570704130e")
+    @objid ("c235a863-3379-4422-bb27-81b026d60357")
     @Override
-    public String getLabel() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Deployment.Name");
+    public String getDetails() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Deployment.Details");
     }
 
     @objid ("fdb94d4c-71d1-4106-ba0c-e13ae56040ea")
@@ -76,10 +68,18 @@ public class DeploymentDiagramCreationContributor extends AbstractDiagramCreatio
         return DiagramCreationWizard.I18N.getString("CreationWizard.Deployment.Information");
     }
 
-    @objid ("c235a863-3379-4422-bb27-81b026d60357")
+    @objid ("f3176b6c-e024-47f7-b29d-13570704130e")
     @Override
-    public String getDetails() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.Deployment.Details");
+    public String getLabel() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.Deployment.Name");
+    }
+
+    @objid ("030942a0-6241-4773-bfe6-7fec875610fb")
+    private StaticDiagram createDeploymentDiagram(final IModelFactory modelFactory, final String diagramName, final ModelElement diagramContext) {
+        // Create the Deployment diagram
+        StaticDiagram diagram;
+        diagram = modelFactory.createDeploymentDiagram(diagramName, diagramContext, null);
+        return diagram;
     }
 
 }

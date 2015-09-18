@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004f11fe-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=DeepHistoryPseudoState.class, factory=DeepHistoryPseudoStateData.Metadata.ObjectFactory.class)
 public class DeepHistoryPseudoStateData extends AbstractPseudoStateData {
-    @objid ("9ff383ec-2575-4059-821d-9090399b8690")
+    @objid ("4e25a05a-15cd-4247-8b6e-20b7ce8614d6")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00579e14-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("c91ecc5c-e5f9-471a-94e9-6eea8bfd8127")
+        @objid ("0e697970-c055-4a23-83be-9dcbff97675a")
         private static SmClass smClass = null;
 
-        @objid ("7e3da221-8862-42a2-b78b-13baeb613ca0")
+        @objid ("2c6d3864-0b98-490d-9299-f616393bd167")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DeepHistoryPseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("053c61a9-998b-4b44-8cb0-26cd41086a5e")
+        @objid ("c12c9042-a5ee-47c4-83bc-2d04cda68df3")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class DeepHistoryPseudoStateData extends AbstractPseudoStateData {
 
         @objid ("0057e086-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("183100f5-6d45-4d13-a522-dbc7627038b3")
+            @objid ("b1a2ea4a-67ac-49e7-ab02-0c0b07182218")
             public ISmObjectData createData() {
                 return new DeepHistoryPseudoStateData();
             }
 
-            @objid ("a066ac66-913a-4f30-9978-77c670f16e3f")
+            @objid ("38b60384-c89e-4873-b3d2-eaa733978ecb")
             public SmObjectImpl createImpl() {
                 return new DeepHistoryPseudoStateImpl();
             }

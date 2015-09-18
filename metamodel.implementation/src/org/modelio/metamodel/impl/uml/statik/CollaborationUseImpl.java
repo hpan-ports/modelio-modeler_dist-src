@@ -47,49 +47,49 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0004a754-c4bf-1fd8-97fe-001ec947cd2a")
 public class CollaborationUseImpl extends ModelElementImpl implements CollaborationUse {
-    @objid ("9f7cadc1-fc5e-479b-a887-79b4826f96f1")
+    @objid ("600fdfbe-fe91-481e-b7cf-5b6817d1e750")
     @Override
     public Collaboration getType() {
         return (Collaboration) getDepVal(CollaborationUseData.Metadata.TypeDep());
     }
 
-    @objid ("21174eee-86eb-4685-a08f-1d3b1bdf045d")
+    @objid ("b6b9ee8c-87e9-40e3-9bfe-7d4d4bc83a51")
     @Override
     public void setType(Collaboration value) {
         appendDepVal(CollaborationUseData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("50348d32-2d51-4b6b-a0a5-19c5d0c0a3aa")
+    @objid ("e857e1d3-d210-4d40-861f-ce1cc9078f9d")
     @Override
     public NameSpace getNRepresented() {
         return (NameSpace) getDepVal(CollaborationUseData.Metadata.NRepresentedDep());
     }
 
-    @objid ("354b9aa1-f0e8-4635-8bd7-925050e595e5")
+    @objid ("f21acd1d-3210-49fc-af47-55324e3e2501")
     @Override
     public void setNRepresented(NameSpace value) {
         appendDepVal(CollaborationUseData.Metadata.NRepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("76064cee-9de7-46fc-bd35-5d3b44b4d65b")
+    @objid ("b33271f8-7955-458b-9079-ff057907e9a7")
     @Override
     public Operation getORepresented() {
         return (Operation) getDepVal(CollaborationUseData.Metadata.ORepresentedDep());
     }
 
-    @objid ("fb56ce30-7d3d-402a-912a-64e5460d4c2e")
+    @objid ("9c36e271-e663-4ccc-a6f0-ae3191c23e67")
     @Override
     public void setORepresented(Operation value) {
         appendDepVal(CollaborationUseData.Metadata.ORepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("520cf4fc-dd32-4b69-8273-17c5066ee337")
+    @objid ("7732c8be-4ac9-43aa-8aaf-e7c85d693038")
     @Override
     public EList<Binding> getRoleBinding() {
         return new SmList<>(this, CollaborationUseData.Metadata.RoleBindingDep());
     }
 
-    @objid ("20f7dc54-4a78-456e-8059-24f475d12e88")
+    @objid ("63e38102-35ca-4817-9712-87a3ef6d46b3")
     @Override
     public <T extends Binding> List<T> getRoleBinding(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -102,7 +102,7 @@ public class CollaborationUseImpl extends ModelElementImpl implements Collaborat
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("3e4f1250-58c7-47e2-a559-f748f35e1c17")
+    @objid ("5891460d-de0d-40b6-9b10-c08f5b9c6a98")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -115,7 +115,7 @@ public class CollaborationUseImpl extends ModelElementImpl implements Collaborat
         return super.getCompositionOwner();
     }
 
-    @objid ("4963fab3-3005-4e8b-9df9-97f75ce693e7")
+    @objid ("670fa479-ff9a-46bf-8b02-82e97671b98c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -128,7 +128,7 @@ public class CollaborationUseImpl extends ModelElementImpl implements Collaborat
         return super.getCompositionRelation();
     }
 
-    @objid ("9961cfd2-4e6e-4b27-b8d4-cd6cdeb00209")
+    @objid ("d32f3fae-1164-4e7a-ae17-d9aca09c47a2")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCollaborationUse(this);

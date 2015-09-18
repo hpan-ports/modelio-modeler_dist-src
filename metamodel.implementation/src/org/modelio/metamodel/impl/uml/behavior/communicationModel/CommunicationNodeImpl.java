@@ -46,49 +46,49 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("005ab766-c4bf-1fd8-97fe-001ec947cd2a")
 public class CommunicationNodeImpl extends ModelElementImpl implements CommunicationNode {
-    @objid ("8a7df48c-48b1-42a7-bcc7-9bda3cc6bced")
+    @objid ("2f43d5fe-b434-4078-b20e-b2eaf42f8789")
     @Override
     public String getSelector() {
         return (String) getAttVal(CommunicationNodeData.Metadata.SelectorAtt());
     }
 
-    @objid ("d55dfddd-8166-449c-8a7e-a4f231999464")
+    @objid ("29f4a29b-831e-49c0-92e0-76ed17cd92cf")
     @Override
     public void setSelector(String value) {
         setAttVal(CommunicationNodeData.Metadata.SelectorAtt(), value);
     }
 
-    @objid ("a2ca9dc1-90d2-4b76-878a-98520ba16427")
+    @objid ("1dbcb545-54c4-41df-8bb9-ec7b9f1fc6b8")
     @Override
     public CommunicationInteraction getOwner() {
         return (CommunicationInteraction) getDepVal(CommunicationNodeData.Metadata.OwnerDep());
     }
 
-    @objid ("9b6d51ee-877e-40bc-be55-8c27b8b492b6")
+    @objid ("6b031b88-a0d6-4fdb-815b-394e5d295c26")
     @Override
     public void setOwner(CommunicationInteraction value) {
         appendDepVal(CommunicationNodeData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1276e2da-e64a-4672-9e71-2167bdf97d8a")
+    @objid ("68033c4b-df3b-4cbc-a494-d3dcd46db715")
     @Override
     public Instance getRepresented() {
         return (Instance) getDepVal(CommunicationNodeData.Metadata.RepresentedDep());
     }
 
-    @objid ("dea1efc1-4b3f-4ab0-a606-7bee52ad92eb")
+    @objid ("5bbd019e-0936-4beb-9b47-31ca7ad48298")
     @Override
     public void setRepresented(Instance value) {
         appendDepVal(CommunicationNodeData.Metadata.RepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ef44248a-e7bf-458a-b3c1-344d0f6a6093")
+    @objid ("9e66dcb0-eb72-4053-8e05-0cd65729d276")
     @Override
     public EList<CommunicationChannel> getStarted() {
         return new SmList<>(this, CommunicationNodeData.Metadata.StartedDep());
     }
 
-    @objid ("aec353e4-866b-448f-92ea-8e64ecfdef8c")
+    @objid ("95d4ec86-e7d3-4861-923a-f6c92971869b")
     @Override
     public <T extends CommunicationChannel> List<T> getStarted(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -101,13 +101,13 @@ public class CommunicationNodeImpl extends ModelElementImpl implements Communica
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cd47942f-63c4-4e7f-84ca-894f25ea559d")
+    @objid ("3375ed08-8124-4af7-89e6-b644777facf4")
     @Override
     public EList<CommunicationChannel> getEnded() {
         return new SmList<>(this, CommunicationNodeData.Metadata.EndedDep());
     }
 
-    @objid ("463eaf2e-dd83-43f3-b873-bb5f91df70c2")
+    @objid ("e25e9f75-d0ae-4c1d-b608-f8ee0eada01d")
     @Override
     public <T extends CommunicationChannel> List<T> getEnded(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -120,7 +120,7 @@ public class CommunicationNodeImpl extends ModelElementImpl implements Communica
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("616caa79-3f52-4db4-8386-43a1512f134c")
+    @objid ("d9af31af-e146-4ebd-8974-f3d10944288e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -130,7 +130,7 @@ public class CommunicationNodeImpl extends ModelElementImpl implements Communica
         return super.getCompositionOwner();
     }
 
-    @objid ("b9dcfe25-81d7-445d-8f59-080d46fe59d8")
+    @objid ("b6e0a42c-0c6c-4644-843c-40e8139196b2")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -140,7 +140,7 @@ public class CommunicationNodeImpl extends ModelElementImpl implements Communica
         return super.getCompositionRelation();
     }
 
-    @objid ("f82e551b-b107-450b-aefc-6f9e89dc748b")
+    @objid ("060af050-d5e3-42eb-9790-4f4ffaed54e6")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCommunicationNode(this);

@@ -27,7 +27,7 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionUse;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("ea347b53-5311-42ab-854b-56283d4d28ca")

@@ -61,7 +61,7 @@ public class MessageDG extends DiagramLink {
 
     @objid ("48a84774-55b9-450a-a374-e980ecf9b92f")
     @Override
-    public void setPath(final ILinkPath linkPath) throws InvalidSourcePointException, InvalidPointsPathException, InvalidDestinationPointException {
+    public void setPath(final ILinkPath linkPath) throws InvalidPointsPathException, InvalidSourcePointException, InvalidDestinationPointException {
         // Do nothing
     }
 

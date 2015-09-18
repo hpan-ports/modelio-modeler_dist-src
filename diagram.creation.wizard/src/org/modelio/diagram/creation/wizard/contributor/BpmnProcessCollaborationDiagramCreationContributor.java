@@ -29,7 +29,7 @@ import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 @objid ("b14cde30-787a-4fa2-b4b1-7616a2c34fe1")
-public class BpmnProcessCollaborationDiagramCreationContributor extends AbstractDiagramCreationContributor {
+public class BpmnProcessCollaborationDiagramCreationContributor extends AbstractUMLDiagramCreationContributor {
     @objid ("53c16dfc-36b2-43a4-86f4-bce9a605086b")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
@@ -65,6 +65,30 @@ public class BpmnProcessCollaborationDiagramCreationContributor extends Abstract
         allowedMetaclasses.add(Metamodel.getMClass(BpmnProcess.class));
         allowedMetaclasses.add(Metamodel.getMClass(BpmnBehavior.class));
         return allowedMetaclasses;
+    }
+
+    @objid ("8b31bbfb-25c7-41a5-be72-e38fda9107df")
+    @Override
+    public String getDetails() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.BpmnProcessCollaboration.Details");
+    }
+
+    @objid ("02a01669-bd24-4f94-a0f0-ecbe6566fd4e")
+    @Override
+    public Image getIcon() {
+        return MetamodelImageService.getIcon(Metamodel.getMClass(BpmnProcessCollaborationDiagram.class));
+    }
+
+    @objid ("70490cdf-2713-4dac-9ace-dd3615ae157e")
+    @Override
+    public String getInformation() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.BpmnProcessCollaboration.Information");
+    }
+
+    @objid ("c5e549da-417a-49eb-afe2-12377314e81e")
+    @Override
+    public String getLabel() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.BpmnProcessCollaboration.Name");
     }
 
     @objid ("372b54e6-7f7f-444b-bdfb-46cf90a9d3d0")
@@ -113,30 +137,6 @@ public class BpmnProcessCollaborationDiagramCreationContributor extends Abstract
             }
         }
         return process;
-    }
-
-    @objid ("c5e549da-417a-49eb-afe2-12377314e81e")
-    @Override
-    public String getLabel() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.BpmnProcessCollaboration.Name");
-    }
-
-    @objid ("02a01669-bd24-4f94-a0f0-ecbe6566fd4e")
-    @Override
-    public Image getIcon() {
-        return MetamodelImageService.getIcon(Metamodel.getMClass(BpmnProcessCollaborationDiagram.class));
-    }
-
-    @objid ("70490cdf-2713-4dac-9ace-dd3615ae157e")
-    @Override
-    public String getInformation() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.BpmnProcessCollaboration.Information");
-    }
-
-    @objid ("8b31bbfb-25c7-41a5-be72-e38fda9107df")
-    @Override
-    public String getDetails() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.BpmnProcessCollaboration.Details");
     }
 
 }

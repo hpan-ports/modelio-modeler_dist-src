@@ -32,22 +32,22 @@ import org.modelio.metamodel.uml.behavior.activityModel.Clause;
 
 @objid ("002d52f8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ConditionalNode extends StructuredActivityNode {
-    @objid ("4e010692-b4f6-4783-b58c-87f0967ecba9")
+    @objid ("8b9c5355-c035-4208-9eb1-04f3f7f44303")
     boolean isIsDeterminate();
 
-    @objid ("0be0cade-c7da-4878-a060-c9a2f5b9a845")
+    @objid ("847770fc-1685-4c7e-ad51-684540771124")
     void setIsDeterminate(boolean value);
 
-    @objid ("d21e8f87-c858-4592-9918-bd8e7b893db1")
+    @objid ("654c7e3e-383d-4f46-8193-87223f37a0ef")
     boolean isIsAssured();
 
-    @objid ("72a9d40a-9341-4c2d-94d1-2f6f5cb1d0ef")
+    @objid ("e6bb3bfb-d979-4b3b-95a5-09ac978e7fdb")
     void setIsAssured(boolean value);
 
-    @objid ("4096ac6e-2d1b-4e1e-ace9-4cddaa57e0d5")
+    @objid ("4e827e5c-8e80-4d08-aef5-e0c7e374f48a")
     EList<Clause> getOwnedClause();
 
-    @objid ("8924981d-2171-4358-bbe3-e3fc20faf640")
+    @objid ("93e27483-77f2-407a-831e-25fdc33bd90f")
     <T extends Clause> List<T> getOwnedClause(java.lang.Class<T> filterClass);
 
 }

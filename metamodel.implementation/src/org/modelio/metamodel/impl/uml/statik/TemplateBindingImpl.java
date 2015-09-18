@@ -46,13 +46,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("001c7c58-c4bf-1fd8-97fe-001ec947cd2a")
 public class TemplateBindingImpl extends ModelElementImpl implements TemplateBinding {
-    @objid ("603f8390-eb90-465c-bfc1-05ee96f8a810")
+    @objid ("e68e60ce-e645-4528-9c93-569fe81a9e25")
     @Override
     public EList<TemplateParameterSubstitution> getParameterSubstitution() {
         return new SmList<>(this, TemplateBindingData.Metadata.ParameterSubstitutionDep());
     }
 
-    @objid ("d3ef33ee-9ccf-4960-a7b6-d38922515018")
+    @objid ("75a57352-215a-4e30-b3b3-244aaad7cfcb")
     @Override
     public <T extends TemplateParameterSubstitution> List<T> getParameterSubstitution(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -65,55 +65,55 @@ public class TemplateBindingImpl extends ModelElementImpl implements TemplateBin
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e0790331-2016-4c5b-93fc-6ebb10b28278")
+    @objid ("8177581c-0219-4c6b-a08e-aa95f5a59591")
     @Override
     public Operation getBoundOperation() {
         return (Operation) getDepVal(TemplateBindingData.Metadata.BoundOperationDep());
     }
 
-    @objid ("631247ff-a53d-4418-85d1-f56bdce415dc")
+    @objid ("70924c9c-72f9-4c63-9020-ec24b74bdc6e")
     @Override
     public void setBoundOperation(Operation value) {
         appendDepVal(TemplateBindingData.Metadata.BoundOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7e91b121-60d6-4749-a7ff-77b4e1abaf5c")
+    @objid ("dcb9d66a-1137-4ebb-a7a4-2b9a74188c14")
     @Override
     public Operation getInstanciatedTemplateOperation() {
         return (Operation) getDepVal(TemplateBindingData.Metadata.InstanciatedTemplateOperationDep());
     }
 
-    @objid ("8dd830b2-5507-4657-aeea-cf2325641711")
+    @objid ("5f04e78c-6af6-406a-b1a4-3789d44c5ca5")
     @Override
     public void setInstanciatedTemplateOperation(Operation value) {
         appendDepVal(TemplateBindingData.Metadata.InstanciatedTemplateOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7a754063-9edf-4726-a241-3c95fd89d049")
+    @objid ("a5ab22c4-37ce-4970-953d-ac037c63fc2b")
     @Override
     public NameSpace getInstanciatedTemplate() {
         return (NameSpace) getDepVal(TemplateBindingData.Metadata.InstanciatedTemplateDep());
     }
 
-    @objid ("37caea21-d411-4126-aafc-7b96c9a9a217")
+    @objid ("042ce9d7-0a2c-4141-8ac4-18e0e7605353")
     @Override
     public void setInstanciatedTemplate(NameSpace value) {
         appendDepVal(TemplateBindingData.Metadata.InstanciatedTemplateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("950175be-e050-4f80-8f93-bea44f4419ed")
+    @objid ("cc16b77c-739b-4d05-aaf8-68f03208b6ee")
     @Override
     public NameSpace getBoundElement() {
         return (NameSpace) getDepVal(TemplateBindingData.Metadata.BoundElementDep());
     }
 
-    @objid ("10995464-46be-4d9d-bf06-6e720c7d24b8")
+    @objid ("d3a80bfd-1866-4ff9-be44-ec303dbe9517")
     @Override
     public void setBoundElement(NameSpace value) {
         appendDepVal(TemplateBindingData.Metadata.BoundElementDep(), (SmObjectImpl)value);
     }
 
-    @objid ("77df6aa0-bbb5-4aab-a5e3-1d4956266087")
+    @objid ("02fb4c51-410d-4449-b028-43338d102526")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -126,7 +126,7 @@ public class TemplateBindingImpl extends ModelElementImpl implements TemplateBin
         return super.getCompositionOwner();
     }
 
-    @objid ("6f48c150-4894-4297-ace7-22cbf60d344b")
+    @objid ("dcebd59a-93cb-45b7-9188-78a05c7d0807")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -139,7 +139,7 @@ public class TemplateBindingImpl extends ModelElementImpl implements TemplateBin
         return super.getCompositionRelation();
     }
 
-    @objid ("cfeae87c-3fd0-4649-9ea2-dc903127bd69")
+    @objid ("c0397b15-7690-4fad-8d1b-157309225672")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTemplateBinding(this);

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Project Configurator
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.modelio.app.project.conf;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Bundle-Activator: org.modelio.app.project.conf.plugin.AppProjectConf
 Bundle-Vendor: Modelio
 Require-Bundle: org.modelio.ui,
@@ -31,8 +31,10 @@ Require-Bundle: org.modelio.ui,
  org.modelio.audit,
  org.eclipse.emf.common,
  org.eclipse.e4.core.services,
- org.modelio.core.project.data
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+ org.modelio.core.project.data,
+ org.modelio.admtool,
+ org.modelio.edition.html
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: res/,
  .,

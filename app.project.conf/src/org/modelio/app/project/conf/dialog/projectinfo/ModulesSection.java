@@ -40,12 +40,12 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
-import org.modelio.api.module.IModule;
 import org.modelio.app.project.conf.dialog.ProjectModel;
 import org.modelio.app.project.conf.dialog.common.ModuleHelper;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.gproject.module.GModule;
 import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.ui.UIColor;
 
@@ -149,10 +149,10 @@ class ModulesSection {
             @Override
             public String getText(Object element) {
                 if (element instanceof GModule) {
-                    IModuleService moduleService = ModulesSection.this.applicationContext.get(IModuleService.class);
+                    IModuleService mService = ModulesSection.this.applicationContext.get(IModuleService.class);
                     ModuleComponent moduleElement = ((GModule) element).getModuleElement();
                     if (moduleElement != null) {
-                        IModule iModule = moduleService.getIModule(moduleElement);
+                        IRTModule iModule = mService.getIRTModule(moduleElement);
                         if (iModule != null) {
                             return AppProjectConf.I18N.getString("ModulesSection." + iModule.getState().name()); //$NON-NLS-1$
                         }

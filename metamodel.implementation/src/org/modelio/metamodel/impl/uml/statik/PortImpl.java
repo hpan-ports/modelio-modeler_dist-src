@@ -45,61 +45,61 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0018eeee-c4bf-1fd8-97fe-001ec947cd2a")
 public class PortImpl extends BindableInstanceImpl implements Port {
-    @objid ("3d977269-1122-434c-9a72-76cc3a667523")
+    @objid ("4bfe35b0-2381-47f9-b8f3-e8da96a52f32")
     @Override
     public boolean isIsBehavior() {
         return (Boolean) getAttVal(PortData.Metadata.IsBehaviorAtt());
     }
 
-    @objid ("4714a453-00d4-4de5-ba29-2a7148a6e82e")
+    @objid ("c145567e-9300-4207-8ca7-51567adce6f0")
     @Override
     public void setIsBehavior(boolean value) {
         setAttVal(PortData.Metadata.IsBehaviorAtt(), value);
     }
 
-    @objid ("efe838f0-0581-4e20-af9d-e1ade555a92c")
+    @objid ("c2b3e06f-56d5-4066-95d6-2c9fb1193ca4")
     @Override
     public boolean isIsService() {
         return (Boolean) getAttVal(PortData.Metadata.IsServiceAtt());
     }
 
-    @objid ("fa09ef98-e15d-4f39-a84f-5a2eaf2a7bd3")
+    @objid ("30236e33-4fc7-4772-90b6-18b840d3abda")
     @Override
     public void setIsService(boolean value) {
         setAttVal(PortData.Metadata.IsServiceAtt(), value);
     }
 
-    @objid ("eea6e5c5-c6b4-4c38-a184-dea24412929a")
+    @objid ("dcc43750-397b-46da-8812-32d10594369e")
     @Override
     public boolean isIsConjugated() {
         return (Boolean) getAttVal(PortData.Metadata.IsConjugatedAtt());
     }
 
-    @objid ("b741438e-5569-4bf4-955d-519dc3ce3fcc")
+    @objid ("5acc88a3-b0c3-4f68-9b01-528e0a84c28c")
     @Override
     public void setIsConjugated(boolean value) {
         setAttVal(PortData.Metadata.IsConjugatedAtt(), value);
     }
 
-    @objid ("0df6a04c-a7eb-494d-bfd2-c6a088c1df2d")
+    @objid ("1b707fb0-3906-445c-a9b4-2d2c4187532b")
     @Override
     public PortOrientation getDirection() {
         return (PortOrientation) getAttVal(PortData.Metadata.DirectionAtt());
     }
 
-    @objid ("89d1561d-9c8d-4bdc-afd1-d0cb0b8324f3")
+    @objid ("02badbc7-f433-4695-84a4-edf232b324f1")
     @Override
     public void setDirection(PortOrientation value) {
         setAttVal(PortData.Metadata.DirectionAtt(), value);
     }
 
-    @objid ("435a3191-7e17-471b-8bf0-f8fd94e15dd7")
+    @objid ("f290dd0d-f63d-4193-9c51-e273ff63f085")
     @Override
     public EList<ProvidedInterface> getProvided() {
         return new SmList<>(this, PortData.Metadata.ProvidedDep());
     }
 
-    @objid ("c5c4c004-a593-44bf-83ae-10ac2cc644a9")
+    @objid ("96af5b9e-57ee-47ee-8ce4-54fa22d4aa6a")
     @Override
     public <T extends ProvidedInterface> List<T> getProvided(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -112,13 +112,13 @@ public class PortImpl extends BindableInstanceImpl implements Port {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("22a6c15e-be2a-4f35-a860-dcb627caa647")
+    @objid ("7975b9a5-082e-47e1-a4b4-85298479e40e")
     @Override
     public EList<RequiredInterface> getRequired() {
         return new SmList<>(this, PortData.Metadata.RequiredDep());
     }
 
-    @objid ("ab59705e-cacc-4660-85eb-cce255605eac")
+    @objid ("8394cf45-ce7b-479b-a0da-49a53c3f115c")
     @Override
     public <T extends RequiredInterface> List<T> getRequired(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -131,21 +131,21 @@ public class PortImpl extends BindableInstanceImpl implements Port {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6cc45f2b-4dcb-4730-87f8-87150b920ce7")
+    @objid ("7d9121cb-11f2-4054-a9fa-3dc3e8d7edd2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("efe6dd8e-dc11-4a6b-bf2d-61e6827c589c")
+    @objid ("13121e38-5514-47b2-b83f-cde1e8e50ca0")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("e6f6dc97-a31a-4a3a-b3aa-72445d8baaab")
+    @objid ("a93c2862-512d-4c37-adcb-1c4fe10a4d39")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPort(this);

@@ -189,7 +189,7 @@ class SmObjectDataSerializer {
     }
 
     @objid ("3c978ea8-de8f-4528-9ac6-447b1e65baaa")
-    private void readDep(DataInput in, SmObjectImpl obj, SmDependency d, IModelLoader loader) throws IOException, DuplicateObjectException {
+    private void readDep(DataInput in, SmObjectImpl obj, SmDependency d, IModelLoader loader) throws DuplicateObjectException, IOException {
         //String depName = in.readUTF();
         
         //assert (depName.equals(d.getName())) : depName + " !=" + d;
@@ -207,7 +207,7 @@ class SmObjectDataSerializer {
     }
 
     @objid ("b7c5f0bd-fa9e-4e1c-bcd9-595076a80f00")
-    private SmObjectImpl readRef(DataInput in, IModelLoader loader) throws IOException, DuplicateObjectException {
+    private SmObjectImpl readRef(DataInput in, IModelLoader loader) throws DuplicateObjectException, IOException {
         boolean isLocal = in.readBoolean();
         
         String clsid = in.readUTF();

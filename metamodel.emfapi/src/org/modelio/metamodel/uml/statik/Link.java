@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.statik.LinkEnd;
 
 @objid ("815acdf3-5af8-48c5-894b-85d62dbe2e9b")
 public interface Link extends ModelElement {
-    @objid ("6ebfb3f8-1d38-4170-8d7b-f27696552c34")
+    @objid ("ffb0e530-5737-4ac8-9c0d-e7bcaf006769")
     Association getModel();
 
-    @objid ("40cdfc64-35cd-4a53-9093-aca1c1148aaa")
+    @objid ("33f2ae35-558e-4ab3-be42-1f45b7eeee32")
     void setModel(Association value);
 
-    @objid ("4ee1492f-0964-427b-a1e2-66e78306bcbe")
+    @objid ("3a48194d-f9b4-42b6-a0e1-5a26b3f6b99b")
     EList<LinkEnd> getLinkEnd();
 
-    @objid ("33abb122-f542-40d2-99e1-c8597ffa0133")
+    @objid ("bb572ab4-492c-4e52-bc09-142e0f9fd417")
     <T extends LinkEnd> List<T> getLinkEnd(java.lang.Class<T> filterClass);
 
-    @objid ("17e1e31a-f925-4501-9f34-d728addfb954")
+    @objid ("9ee31ef5-1eff-44f3-b3ea-273ebaf61dea")
     CommunicationChannel getSent();
 
-    @objid ("c7002077-b059-4aac-bef0-299b8d2c37e9")
+    @objid ("9c57ca47-7296-4b79-ad55-5cddd973a4b6")
     void setSent(CommunicationChannel value);
 
 }

@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00882ebc-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnCancelEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnCancelEventDefinition {
-    @objid ("eda8e203-e326-4518-8b35-05672229725d")
+    @objid ("38969ab4-9b2e-46c9-a1f9-2d95abcfc3dc")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("feb07ae2-0593-4ea2-a813-b13db67d669e")
+    @objid ("7377e3bf-17f9-41de-9249-1e4658661d48")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("f45481a4-d45d-4cfb-a4d1-c73844831a8b")
+    @objid ("e8579ca6-989a-4f9e-afb0-1916d9e6d47c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnCancelEventDefinition(this);

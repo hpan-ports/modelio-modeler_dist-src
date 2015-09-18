@@ -24,6 +24,9 @@ package org.modelio.audit.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystemException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -34,6 +37,8 @@ import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.audit.engine.AuditEngine;
+import org.modelio.audit.engine.CheckElementRunner;
+import org.modelio.audit.engine.core.IAuditMonitor;
 import org.modelio.audit.engine.impl.AuditPlan;
 import org.modelio.audit.plugin.Audit.ResourceNotFoundError;
 import org.modelio.audit.plugin.Audit;
@@ -51,18 +56,15 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("7ddbb117-45fb-11e2-9b4d-bc305ba4815c")
 @Creatable
 public class AuditService implements IAuditService {
+    @objid ("f9c3e796-3f01-48b8-8a7f-740a9a544411")
+    @Inject
+    private StatusReporter errReporter;
+
     @objid ("7ddbb11a-45fb-11e2-9b4d-bc305ba4815c")
     private AuditEngine auditEngine;
 
     @objid ("7ddbb11b-45fb-11e2-9b4d-bc305ba4815c")
     private GProject openedProject;
-
-    @objid ("93b616c7-3a98-412a-a899-e8390d767b93")
-    @Inject
-    private StatusReporter errReporter;
-
-    @objid ("b2406960-22f0-4001-aabf-19cd4fdb86ba")
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("auditrules");
 
     @objid ("4fd2d0ed-357f-45c7-b763-e7d91f4f80e5")
     private AuditModelController modelController;
@@ -72,6 +74,12 @@ public class AuditService implements IAuditService {
 
     @objid ("fc30aaff-44c7-494d-ac1c-56f1c93e67d8")
     private ObsoleteGeometry oldGeometry;
+
+    @objid ("0bb12eda-335f-49aa-a282-efdce396c6f9")
+    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("auditrules");
+
+    @objid ("120a6490-2457-4db5-bd68-fe88d72a209b")
+    private Map<String, Thread> threadMap;
 
     @objid ("7ddbb11c-45fb-11e2-9b4d-bc305ba4815c")
     @Override
@@ -185,6 +193,7 @@ public class AuditService implements IAuditService {
         this.modelController = new AuditModelController();
         this.geometry = new Geometry();
         this.oldGeometry = new ObsoleteGeometry();
+        this.threadMap= new HashMap<String,Thread>();
     }
 
     @objid ("36b7f133-5e97-483e-aeb0-9965120a1037")
@@ -331,6 +340,38 @@ public class AuditService implements IAuditService {
         this.geometry.defaultSettingsFile = confFile;
     }
 
+    @objid ("a146c2ab-3d69-4d46-9638-821cac96ecf4")
+    @Override
+    public void checkElementTree(List<MObject> selection, String jobId) {
+        CheckElementRunner checker = new CheckElementRunner(this,selection,jobId);
+        Thread checkerThread = new Thread(checker);
+        checkerThread.setPriority(Thread.MIN_PRIORITY);
+        checkerThread.setName("CHECKER");
+        checkerThread.start();
+        
+        threadMap.put(jobId, checkerThread);
+    }
+
+    @objid ("4685e5e3-6ef7-477f-bb73-16e3caccf244")
+    @Override
+    public void addAuditMonitor(IAuditMonitor monitor) {
+        this.auditEngine.addAuditMonitor(monitor);
+    }
+
+    @objid ("40c2eea9-b031-4219-96f9-ffb3567c938f")
+    @Override
+    public void removeAuditMonitor(IAuditMonitor monitor) {
+        this.auditEngine.addAuditMonitor(monitor);
+    }
+
+    @objid ("4b695881-32ea-4ce1-b7ef-fd4ebe5b0272")
+    public void interuptCheck(String jobId) {
+        Thread checkerThread= threadMap.get(jobId);
+        if(checkerThread != null){
+            checkerThread.interrupt();
+        }
+    }
+
     /**
      * Current configuration files geometry.
      * <p>
@@ -338,10 +379,10 @@ public class AuditService implements IAuditService {
      */
     @objid ("47824921-74a7-4ae6-b1af-7b20c48425eb")
     private class Geometry {
-        @objid ("7ddbb119-45fb-11e2-9b4d-bc305ba4815c")
+        @objid ("0e84e471-42a6-4de7-b355-7528929922bf")
         private File redefinedFile;
 
-        @objid ("4ffe6fd3-fc23-4359-868c-bda3822b7d48")
+        @objid ("7e403b90-6baf-4c50-bb22-0c9847a12e2d")
          File defaultSettingsFile;
 
         @objid ("0702a158-b73f-4865-a585-d47019cbaff3")

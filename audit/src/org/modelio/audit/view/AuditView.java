@@ -31,8 +31,8 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
+import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.app.core.events.ModelioEventTopics;
@@ -66,7 +66,7 @@ public class AuditView {
     @objid ("251de8e3-ad5e-4b96-ad44-513ed0df31ef")
     protected IMModelServices modelService;
 
-    @objid ("0f912ed5-3c10-49b8-88dd-cc6c87b61c18")
+    @objid ("19ae0644-3c4e-4dcf-ae28-058857fe11c5")
     protected Composite parentComposite;
 
     /**
@@ -110,16 +110,12 @@ public class AuditView {
                     public void run() {
                         if (AuditView.this.project != null) {
                             // Create the view content
-                            AuditView.this.view = new AuditPanelProvider(openedProject.getSession(), AuditView.this.modelService, navigationService,application, emService,"");
+                            AuditView.this.view = new AuditPanelProvider(auditService,openedProject.getSession(), AuditView.this.modelService, navigationService,application, emService,"");
                             AuditView.this.view.createPanel(AuditView.this.parentComposite);
                             AuditView.this.parentComposite.layout();
-                            AuditView.this.view.setInput(auditService.getAuditEngine());
+                            AuditView.this.view.setInput(auditService.getAuditEngine().getAuditDiagnostic());
                             AuditView.this.view.refresh(auditService.getAuditEngine().getAuditDiagnostic());
-                            MPopupMenu popupMenu = menuService.registerContextMenu(AuditView.this.view.getTreeViewer().getTree(), POPUPID);
-                                      
-                            // FIXME Hack : PopupMenu are disposed when the view is closed and not loaded the second time. Force reloading of e4 popupmenu model 
-                            MMenu moduleMenu = MMenuFactory.INSTANCE.createMenu();
-                            popupMenu.getChildren().add(moduleMenu);
+                            menuService.registerContextMenu(AuditView.this.view.getTreeViewer().getTree(), POPUPID);
                         }
                     }
                 });

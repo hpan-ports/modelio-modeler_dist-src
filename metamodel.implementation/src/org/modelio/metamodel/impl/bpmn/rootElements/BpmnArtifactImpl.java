@@ -44,43 +44,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0078aed8-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnArtifactImpl extends BpmnBaseElementImpl implements BpmnArtifact {
-    @objid ("1ee14e72-e581-499a-be1d-f02174405231")
+    @objid ("98f937a0-f6f7-4f4c-816d-6883ee8e3783")
     @Override
     public BpmnSubProcess getSubProcess() {
         return (BpmnSubProcess) getDepVal(BpmnArtifactData.Metadata.SubProcessDep());
     }
 
-    @objid ("6298fdee-cc91-4eb7-95ae-127f5a1b781f")
+    @objid ("f5b308ec-5fab-4875-9f14-03e7367354e4")
     @Override
     public void setSubProcess(BpmnSubProcess value) {
         appendDepVal(BpmnArtifactData.Metadata.SubProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("88f6676f-123c-4a73-afd0-a6f82ac7ee8f")
+    @objid ("24fa9457-6636-4860-bff1-4bfe00164bd9")
     @Override
     public BpmnCollaboration getCollaboration() {
         return (BpmnCollaboration) getDepVal(BpmnArtifactData.Metadata.CollaborationDep());
     }
 
-    @objid ("8d52c1f5-b4b6-4a66-b7e3-bb0ce040bfdb")
+    @objid ("4de02eee-125e-45df-806f-c3889699fda8")
     @Override
     public void setCollaboration(BpmnCollaboration value) {
         appendDepVal(BpmnArtifactData.Metadata.CollaborationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4c68c40a-cf4d-41c9-a418-b94421259fc6")
+    @objid ("a517a8fb-59d2-4834-8366-8e9b92e46bb1")
     @Override
     public BpmnProcess getProcess() {
         return (BpmnProcess) getDepVal(BpmnArtifactData.Metadata.ProcessDep());
     }
 
-    @objid ("cc682069-c55c-41ad-93db-9c6f18c78089")
+    @objid ("81d94907-3ea2-4a5a-823c-aad23ad0a0a1")
     @Override
     public void setProcess(BpmnProcess value) {
         appendDepVal(BpmnArtifactData.Metadata.ProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e51746fa-9a21-45a8-81e8-e8271fc6e069")
+    @objid ("1df0cadb-9ac7-4c83-8500-a113bf5e639e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -96,7 +96,7 @@ public abstract class BpmnArtifactImpl extends BpmnBaseElementImpl implements Bp
         return super.getCompositionOwner();
     }
 
-    @objid ("b75b982e-44a5-499c-95bf-1c817497f34c")
+    @objid ("1d47dafc-c1f5-428f-a418-8d04085628d9")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -112,7 +112,7 @@ public abstract class BpmnArtifactImpl extends BpmnBaseElementImpl implements Bp
         return super.getCompositionRelation();
     }
 
-    @objid ("552acb62-e065-4501-8654-65868cf649c9")
+    @objid ("46d23b5e-7aeb-4e0e-a358-0d6e4006ccad")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnArtifact(this);

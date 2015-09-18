@@ -23,12 +23,10 @@ package org.modelio.edition.notes.handlers.copy;
 
 import java.util.List;
 import javax.inject.Inject;
-import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
@@ -37,7 +35,7 @@ import org.modelio.core.ui.copy.PasteElementObject.PasteType;
 import org.modelio.core.ui.copy.PasteElementObject;
 import org.modelio.core.ui.copy.PasteElementTransfer;
 import org.modelio.core.ui.copy.TransferItem;
-import org.modelio.edition.notes.view.NotesPanelProvider;
+import org.modelio.edition.notes.panelprovider.NotesPanelProvider;
 import org.modelio.edition.notes.view.NotesView;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
@@ -64,7 +62,7 @@ public class CutAnnotationHandler {
      */
     @objid ("7ffd9d53-937d-4303-ac08-25ca37564575")
     @CanExecute
-    public final boolean canExecute(@Named(IServiceConstants.ACTIVE_PART) final MPart part) {
+    public final boolean canExecute(final MPart part) {
         if (!(part.getObject() instanceof NotesView)) {
             return false;
         }
@@ -79,6 +77,11 @@ public class CutAnnotationHandler {
             return false;
         }
         
+        // Check focus
+        if (!notesPanel.getTreeViewer().getControl().isFocusControl()) {
+            return false;
+        }
+        
         ModelElement parentElement = notesPanel.getInput();
         if (parentElement == null) {
             return false;
@@ -88,7 +91,7 @@ public class CutAnnotationHandler {
             return false;
         }
         
-        List<ModelElement> selectedItems = notesPanel.getSelectedNoteItems();
+        List<ModelElement> selectedItems = notesPanel.getSelectedNotes();
         for (ModelElement me : selectedItems) {
             if (!(me instanceof Note) && !(me instanceof Constraint) && (!(me instanceof ExternDocument))) {
                 return false;
@@ -104,10 +107,10 @@ public class CutAnnotationHandler {
      */
     @objid ("daaeef67-3284-4439-9d48-77bc3f51add8")
     @Execute
-    public final void execute(@Named(IServiceConstants.ACTIVE_PART) final MPart part, Display currentDisplay) {
+    public final void execute(final MPart part, Display currentDisplay) {
         NotesPanelProvider notesPanel = ((NotesView) part.getObject()).getNotesPanel();
         
-        List<ModelElement> selectedElements = notesPanel.getSelectedNoteItems();
+        List<ModelElement> selectedElements = notesPanel.getSelectedNotes();
         
         PasteElementObject toCopy = new PasteElementObject(PasteType.CUT);
         

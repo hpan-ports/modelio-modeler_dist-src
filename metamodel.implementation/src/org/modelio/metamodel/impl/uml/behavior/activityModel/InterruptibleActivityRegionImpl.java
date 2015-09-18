@@ -43,13 +43,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0036a3d0-c4bf-1fd8-97fe-001ec947cd2a")
 public class InterruptibleActivityRegionImpl extends ActivityGroupImpl implements InterruptibleActivityRegion {
-    @objid ("74b21b9c-76c6-4834-b5ea-af3c8f69b530")
+    @objid ("38f20492-b496-46d8-97c2-3ca87b2d085b")
     @Override
     public EList<ActivityEdge> getInterruptingEdge() {
         return new SmList<>(this, InterruptibleActivityRegionData.Metadata.InterruptingEdgeDep());
     }
 
-    @objid ("5d1cf58c-b4ea-4791-be03-3d0c4f246ed1")
+    @objid ("945535ad-fa69-4b21-a2ae-40344ce7a71f")
     @Override
     public <T extends ActivityEdge> List<T> getInterruptingEdge(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -62,21 +62,21 @@ public class InterruptibleActivityRegionImpl extends ActivityGroupImpl implement
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4d77953b-8814-4c53-9d02-f16e9c11e8ad")
+    @objid ("02801f15-8654-4090-98b0-4aa0959799ed")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("00340bc2-bbfa-43a4-8bb8-ce40fc32fb3e")
+    @objid ("ee6105b6-24e9-4f96-9852-934c4efda34a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("9888a598-ab81-4781-a75e-9477e851785f")
+    @objid ("a22c81c8-844d-476e-94df-c38cbbe7ddf3")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInterruptibleActivityRegion(this);

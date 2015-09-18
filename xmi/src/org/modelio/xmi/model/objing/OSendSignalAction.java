@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.SendSignalAction;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 
 @objid ("a0560fda-cda9-4908-b2e5-d2e437e9bd70")

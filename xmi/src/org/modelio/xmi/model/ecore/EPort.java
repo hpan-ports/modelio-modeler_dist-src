@@ -38,10 +38,10 @@ import org.modelio.metamodel.uml.statik.PortOrientation;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.reverse.TotalImportMap;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("59b5c0fc-40c2-429c-911e-b256042122e0")
 public class EPort extends EFeature {

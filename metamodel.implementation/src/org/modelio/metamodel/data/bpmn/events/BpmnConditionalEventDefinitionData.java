@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008a5390-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnConditionalEventDefinition.class, factory=BpmnConditionalEventDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnConditionalEventDefinitionData extends BpmnEventDefinitionData {
-    @objid ("56f5a0dd-68e8-4b8c-b3ac-3de569f6eaaf")
+    @objid ("8457d8e0-9490-4d95-a983-e527afcedc49")
     @SmaMetaAttribute(metaName="Condition", type=String.class, smAttributeClass=Metadata.ConditionSmAttribute.class)
      Object mCondition = "";
 
-    @objid ("87a00f14-469b-404a-8631-d253dc474a06")
+    @objid ("8889d769-d60c-4e95-930c-191ad124d372")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002659c6-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("465f1c5f-8712-4f07-be9e-ab8eea3a4002")
+        @objid ("27281ff4-073f-4c6a-8911-39e0809d2910")
         private static SmClass smClass = null;
 
-        @objid ("e2e492a7-342c-43b1-b2a1-7eef9add14c0")
+        @objid ("53641be8-009b-4b68-a00c-7d194f670a11")
         private static SmAttribute ConditionAtt = null;
 
-        @objid ("76423095-935f-47b1-89bb-27470cfa1d31")
+        @objid ("e275fc11-befa-4415-b3f8-a0dd9ac3e96b")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnConditionalEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("07e0da23-bdfa-4732-b1d9-c50a6766a596")
+        @objid ("8e5dbd6c-569b-425c-b237-5a8e22550ec8")
         public static SmAttribute ConditionAtt() {
             if (ConditionAtt == null) {
             	ConditionAtt = classof().getAttributeDef("Condition");
@@ -73,13 +73,13 @@ public class BpmnConditionalEventDefinitionData extends BpmnEventDefinitionData 
             return ConditionAtt;
         }
 
-        @objid ("5184d977-6557-4564-a594-8e35ace0bdeb")
+        @objid ("c5b95bcc-3774-4918-bfe5-6ef0ed727147")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("dae1621c-bac5-47f8-a0b7-315d58d51d1b")
+        @objid ("c6989654-75e8-4c96-8cd4-e53b75e25a24")
         public static SmAttribute getConditionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ConditionAtt;
@@ -87,12 +87,12 @@ public class BpmnConditionalEventDefinitionData extends BpmnEventDefinitionData 
 
         @objid ("00269b2a-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("33b776f6-1ab6-4d05-b674-9c353c2f1b01")
+            @objid ("63fe3ca3-ab7c-420b-9cdc-94ff48d07c79")
             public ISmObjectData createData() {
                 return new BpmnConditionalEventDefinitionData();
             }
 
-            @objid ("2d4bd046-1bc1-44f6-9150-7bf6a59db0cd")
+            @objid ("6b3b003b-ad27-45e2-a4d5-52bbe90e3675")
             public SmObjectImpl createImpl() {
                 return new BpmnConditionalEventDefinitionImpl();
             }
@@ -101,12 +101,12 @@ public class BpmnConditionalEventDefinitionData extends BpmnEventDefinitionData 
 
         @objid ("0026fbd8-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ConditionSmAttribute extends SmAttribute {
-            @objid ("1528e84a-6495-45cd-b029-356ccf2b3c60")
+            @objid ("51431d5a-15d5-4bb9-9db3-75af939f2b5e")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnConditionalEventDefinitionData) data).mCondition;
             }
 
-            @objid ("ab2cb087-b25e-41b7-8c2f-294b8ad9fbe3")
+            @objid ("56f4c447-a6d8-4140-b4d0-7f5880351648")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnConditionalEventDefinitionData) data).mCondition = value;
             }

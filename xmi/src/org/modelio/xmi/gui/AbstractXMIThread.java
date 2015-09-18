@@ -23,7 +23,7 @@ package org.modelio.xmi.gui;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.widgets.Shell;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 /**
  * XMI thread.

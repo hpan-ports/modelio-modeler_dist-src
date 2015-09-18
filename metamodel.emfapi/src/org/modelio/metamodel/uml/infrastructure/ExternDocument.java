@@ -32,34 +32,34 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("00924014-c4be-1fd8-97fe-001ec947cd2a")
 public interface ExternDocument extends ModelElement {
-    @objid ("9a22b3dc-60b2-47e9-9f3e-1e1d9f919f19")
+    @objid ("92694de5-84c7-48c4-ab0f-d0e7223b6fc4")
     String getMimeType();
 
-    @objid ("8134138e-4d91-457b-acbb-3b879e03731b")
+    @objid ("3d43a0a1-0fd4-4b9a-8e42-9ff82e23f40c")
     void setMimeType(String value);
 
-    @objid ("93eb042d-ca05-4eb4-b5bd-bcf0c713de53")
+    @objid ("eeb0988e-f10c-44f1-8648-75b5796d42d7")
     String getPath();
 
-    @objid ("071da3d8-98b7-42b0-8526-f03d1edf3dcf")
+    @objid ("aa822cf8-454a-4f31-83e9-8d2fb124f222")
     void setPath(String value);
 
-    @objid ("235296c5-35af-4fc9-8446-f759b8d99143")
+    @objid ("c2433baa-023d-419d-90fa-56b25689c325")
     String getAbstract();
 
-    @objid ("5e47d2b6-da19-48e1-a958-a7da2a19573e")
+    @objid ("d26b8343-24a5-4c2b-a36a-5ad059eb541e")
     void setAbstract(String value);
 
-    @objid ("feb7ab92-159f-4f55-be49-a559e26d3c2f")
+    @objid ("4dc7ddfc-c8e1-46b3-848c-6d89cd5ab498")
     ExternDocumentType getType();
 
-    @objid ("1be5689b-3ec6-4e8e-8524-e5fbca4d5741")
+    @objid ("3bcf4a71-3a26-45a3-9432-cf91b819831b")
     void setType(ExternDocumentType value);
 
-    @objid ("45afa824-1f68-4be5-a005-43e46da6b865")
+    @objid ("20508009-4ac2-4b28-81db-f616a7e56bf7")
     ModelElement getSubject();
 
-    @objid ("1b58ab8f-6b0c-4a04-a3ec-f5ba4e67f168")
+    @objid ("0ac64cf6-fd4b-4ae1-b331-f2bea7d7f4d8")
     void setSubject(ModelElement value);
 
 }

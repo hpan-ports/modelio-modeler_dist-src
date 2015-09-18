@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0058fd18-c4bf-1fd8-97fe-001ec947cd2a")
 public interface UseCaseDependency extends ModelElement {
-    @objid ("7518e9e4-a288-4f43-87c7-a12f81e7dc49")
+    @objid ("cb2961f2-daae-43c4-b970-ca94b53f3578")
     UseCase getOrigin();
 
-    @objid ("9b97eab3-43e9-4e4c-af2d-0876557231f0")
+    @objid ("410cee66-c682-4c59-8126-9665f3d38459")
     void setOrigin(UseCase value);
 
-    @objid ("280f8dba-5506-48a0-9d0d-c881adc03c97")
+    @objid ("9ccbe7a8-b131-44b4-93c5-3feaac635f6e")
     EList<ExtensionPoint> getExtensionLocation();
 
-    @objid ("2088185c-4c8c-4616-b281-3a26b0d97754")
+    @objid ("43cc4357-a401-4ddd-8c6d-08069ace0c54")
     <T extends ExtensionPoint> List<T> getExtensionLocation(java.lang.Class<T> filterClass);
 
-    @objid ("dc4f68ea-e399-4dcf-bce9-35d24df2157b")
+    @objid ("12d090cf-b987-4bb5-8886-3393a9fcc1d8")
     UseCase getTarget();
 
-    @objid ("1cbdbda0-9264-4b7d-ad86-1e0352150687")
+    @objid ("e06c3cb3-aa28-4117-aaec-7a701b684d48")
     void setTarget(UseCase value);
 
 }

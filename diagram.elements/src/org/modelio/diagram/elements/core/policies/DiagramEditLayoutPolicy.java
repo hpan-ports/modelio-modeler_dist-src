@@ -22,8 +22,11 @@
 package org.modelio.diagram.elements.core.policies;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.modelio.diagram.elements.common.freezone.BaseFreeZoneLayoutEditPolicy;
+import org.modelio.diagram.elements.drawings.layer.GmDrawingLayer;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Note;
@@ -66,6 +69,15 @@ public class DiagramEditLayoutPolicy extends BaseFreeZoneLayoutEditPolicy {
             this.highlight.setOpaque(false);
             this.highlight.setBackgroundColor(null);
         }
+    }
+
+    @objid ("68911685-6e7d-498a-95f8-6bae340817f6")
+    @Override
+    protected EditPolicy createChildEditPolicy(EditPart child) {
+        // No edit policy for drawing layers
+        if (child.getModel() instanceof GmDrawingLayer)
+            return null;
+        return super.createChildEditPolicy(child);
     }
 
 }

@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00337692-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=FlowFinalNode.class, factory=FlowFinalNodeData.Metadata.ObjectFactory.class)
 public class FlowFinalNodeData extends FinalNodeData {
-    @objid ("db12cbc4-5d81-44ce-be56-cbcfb2a21feb")
+    @objid ("0ac746c8-83b9-463d-b9a8-f29f96ed4d52")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0072be60-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("72adb2e5-55ca-4c88-975b-3e8b06868745")
+        @objid ("1f760a0a-8c5d-45f2-b227-32e803de54e1")
         private static SmClass smClass = null;
 
-        @objid ("90204c7c-2306-40ad-99d7-4b1f6974665e")
+        @objid ("1174b82e-0d4f-43ef-a59b-4ef30da2663f")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(FlowFinalNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("64f524b4-155c-41d2-9841-4f035a97c94d")
+        @objid ("8f4a5a87-c917-4e51-a265-f0740bcc5ecb")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class FlowFinalNodeData extends FinalNodeData {
 
         @objid ("007300a0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("6ca5ba5c-aeec-4ed7-b693-1dbdd31fe325")
+            @objid ("9f77d7f2-9a14-47c4-a212-384a1e0d4e30")
             public ISmObjectData createData() {
                 return new FlowFinalNodeData();
             }
 
-            @objid ("d6b9dfb6-3b03-4f5f-8c25-3dd4748c8a07")
+            @objid ("533afd88-24a4-43ae-afaf-5f3d1e44f657")
             public SmObjectImpl createImpl() {
                 return new FlowFinalNodeImpl();
             }

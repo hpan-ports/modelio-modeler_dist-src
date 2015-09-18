@@ -43,25 +43,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007a5ba2-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnGroupImpl extends BpmnArtifactImpl implements BpmnGroup {
-    @objid ("f9e6930d-b9c0-4ff7-866a-3e450ed97cd7")
+    @objid ("a4aa95b1-03da-4437-b81b-49c370aa93be")
     @Override
     public String getCategory() {
         return (String) getAttVal(BpmnGroupData.Metadata.CategoryAtt());
     }
 
-    @objid ("b2f182b7-e4d2-4f50-b89d-d76220e48531")
+    @objid ("70a9db5a-53c8-478d-937f-6ba4619ad9e1")
     @Override
     public void setCategory(String value) {
         setAttVal(BpmnGroupData.Metadata.CategoryAtt(), value);
     }
 
-    @objid ("4f2c9c7d-48f8-44c8-ad5e-b355f7a931ca")
+    @objid ("7283e5a0-7a47-4970-b8d9-04f474ab4d7a")
     @Override
     public EList<BpmnFlowElement> getCategorized() {
         return new SmList<>(this, BpmnGroupData.Metadata.CategorizedDep());
     }
 
-    @objid ("071246dd-9a76-4f5e-93fd-031c8ba47509")
+    @objid ("d1cdaa78-bebf-4ada-862a-40abb94572c1")
     @Override
     public <T extends BpmnFlowElement> List<T> getCategorized(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -74,21 +74,21 @@ public class BpmnGroupImpl extends BpmnArtifactImpl implements BpmnGroup {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("53d71654-5218-4771-9a9b-a65176926db7")
+    @objid ("b35cb8e6-5320-4fa5-912c-e18239aec0e9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("858a07a5-e49e-423b-96d4-a35445536e49")
+    @objid ("8b3fee87-ef27-4f6f-85fd-b27603dfe99e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("522898c0-6773-4011-8d50-987b8cfc8020")
+    @objid ("3a996938-0c7e-4e0d-bdea-2a87bf4e8f46")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnGroup(this);

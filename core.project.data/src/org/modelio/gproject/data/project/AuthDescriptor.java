@@ -38,6 +38,12 @@ public class AuthDescriptor {
     private DefinitionScope scope;
 
     /**
+     * To be used as authentication scheme to tell authentication must be asked to the user.
+     */
+    @objid ("bce96002-7ab6-4650-8e94-7854214495a9")
+    public static final String AUTH_TYPE_ASK = "AUTH_TYPE_ASK";
+
+    /**
      * Authentication data either computed from own datas or
      * given to the constructor.
      * <p>

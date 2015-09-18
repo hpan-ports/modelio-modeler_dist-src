@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00534670-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ShallowHistoryPseudoState.class, factory=ShallowHistoryPseudoStateData.Metadata.ObjectFactory.class)
 public class ShallowHistoryPseudoStateData extends AbstractPseudoStateData {
-    @objid ("30976621-a849-4c7f-97f3-2d39cfb98d16")
+    @objid ("e304ad70-006f-44cd-9d28-79df8fdc437f")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("007858ca-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("deb445c2-0808-4696-b4f2-cece18050047")
+        @objid ("e04a05cd-4719-45b7-927f-397e8eba4d77")
         private static SmClass smClass = null;
 
-        @objid ("eea7e240-85a3-4ae5-a373-62039d2d4bb9")
+        @objid ("b13bd94f-6a6d-42bc-a7be-012830e21020")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ShallowHistoryPseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("d99bef39-6bf3-4acc-8535-7595a0c3d995")
+        @objid ("672bc0a9-28f0-4d8c-b837-3883961499c7")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ShallowHistoryPseudoStateData extends AbstractPseudoStateData {
 
         @objid ("00789d62-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("472ee787-e0d0-4cdd-a3cb-ea87c92f90be")
+            @objid ("7a14b28b-3ed6-43ee-86ef-1dff96f258e0")
             public ISmObjectData createData() {
                 return new ShallowHistoryPseudoStateData();
             }
 
-            @objid ("43275711-68ba-4031-8744-b2a6ede0e8dd")
+            @objid ("ec3d7561-8f56-4a7a-9b4a-36afc6d1594b")
             public SmObjectImpl createImpl() {
                 return new ShallowHistoryPseudoStateImpl();
             }

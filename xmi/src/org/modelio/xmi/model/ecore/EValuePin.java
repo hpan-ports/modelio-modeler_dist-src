@@ -24,8 +24,8 @@ package org.modelio.xmi.model.ecore;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.ValuePin;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("fc8339aa-8d4d-4e85-84a9-e68401e7d6ba")
 public class EValuePin extends EInputPin {
@@ -33,7 +33,7 @@ public class EValuePin extends EInputPin {
     @Override
     public Element createObjingElt() {
         return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createValuePin();
+                        .createValuePin();
     }
 
     @objid ("3021b0f3-8d15-464e-a455-a86453a14cc8")

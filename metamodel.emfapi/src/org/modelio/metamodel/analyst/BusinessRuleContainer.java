@@ -33,28 +33,28 @@ import org.modelio.metamodel.analyst.BusinessRule;
 
 @objid ("26a924f1-2881-4dea-bc77-f6f2a6d7406b")
 public interface BusinessRuleContainer extends AnalystContainer {
-    @objid ("76f96939-efdc-4669-89a9-f686fd0cb063")
+    @objid ("96bf243d-6287-4181-bd6c-906e7bf8fc6c")
     EList<BusinessRule> getOwnedRule();
 
-    @objid ("2c559032-72a9-4ace-a2e9-009eda96f545")
+    @objid ("c168e400-88f1-4831-85b3-2ad91092ce76")
     <T extends BusinessRule> List<T> getOwnedRule(java.lang.Class<T> filterClass);
 
-    @objid ("e6480c43-31bb-4df6-81e6-8fe82a285567")
+    @objid ("40f1a6ae-5e15-4613-b90e-c00f19cb36eb")
     BusinessRuleContainer getOwnerContainer();
 
-    @objid ("c485d54c-a6e5-486f-ac0d-d36ebdce9fcb")
+    @objid ("8ef5518b-7314-4816-af76-6c718d76583f")
     void setOwnerContainer(BusinessRuleContainer value);
 
-    @objid ("71cd32d7-0605-4e58-88dd-0493d5d17ac4")
+    @objid ("dd6dd71f-8e22-45d6-8db9-68e89e691b4b")
     EList<BusinessRuleContainer> getOwnedContainer();
 
-    @objid ("da9557e1-3831-4510-b507-c5df6cdf511f")
+    @objid ("d5cae6c8-7633-4d8b-9f3c-1da18ccf9b25")
     <T extends BusinessRuleContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass);
 
-    @objid ("486fec9b-957c-47fa-9ceb-3c5672ed6150")
+    @objid ("dc37ae49-66ba-4910-b247-78e44c8693f0")
     AnalystProject getOwnerProject();
 
-    @objid ("7373a357-6d9f-4466-a0c4-eb446111e7cc")
+    @objid ("a7c04476-266e-41ee-8e1b-2eec49af208f")
     void setOwnerProject(AnalystProject value);
 
 }

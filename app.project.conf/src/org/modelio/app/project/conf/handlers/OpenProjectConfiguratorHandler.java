@@ -58,8 +58,7 @@ import org.modelio.vbasic.files.FileUtils;
 public class OpenProjectConfiguratorHandler {
     @objid ("0023c4cc-5a8e-10a6-888d-001ec947cd2a")
     @Execute
-    void execute(final MApplication application, final IProjectService projectService, final IAuditService auditService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Optional
-@Named("folder") final String folder, ModelioEnv env, IModelioProgressService progressService, StatusReporter statusReporter) {
+    void execute(final MApplication application, final IProjectService projectService, final IAuditService auditService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Optional @Named("folder") final String folder, ModelioEnv env, IModelioProgressService progressService, StatusReporter statusReporter) {
         AppProjectConf.LOG.info("Opening project configurator");
         
         ProjectConfigurationDialog dialog = new ProjectConfigurationDialog(application, projectService.getOpenedProject(), shell, auditService, env);
@@ -92,7 +91,7 @@ public class OpenProjectConfiguratorHandler {
     }
 
     @objid ("be8412e8-51a9-4f98-b6ee-6ce3df733435")
-    private void saveProject(IModelioProgressService svc, final IProjectService projectService) throws InvocationTargetException, InterruptedException {
+    private void saveProject(IModelioProgressService svc, final IProjectService projectService) throws InterruptedException, InvocationTargetException {
         IRunnableWithProgress runnable = new IRunnableWithProgress() {
             
             @Override

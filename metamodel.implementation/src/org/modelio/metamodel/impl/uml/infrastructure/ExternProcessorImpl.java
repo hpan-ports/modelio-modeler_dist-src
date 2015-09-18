@@ -43,43 +43,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("19257ea4-a0e7-4d4a-a390-75b7f65742f4")
 public class ExternProcessorImpl extends ModelElementImpl implements ExternProcessor {
-    @objid ("e29b994a-ef67-487a-8c8a-3d12781aacda")
+    @objid ("a894a66d-ebde-4fbe-a6ee-ae993ea675ac")
     @Override
     public String getClassName() {
         return (String) getAttVal(ExternProcessorData.Metadata.ClassNameAtt());
     }
 
-    @objid ("488d3fc5-49a1-4754-8cd4-b8b08b355dae")
+    @objid ("8b1040ef-0671-42c1-b06a-d0683d6663bd")
     @Override
     public void setClassName(String value) {
         setAttVal(ExternProcessorData.Metadata.ClassNameAtt(), value);
     }
 
-    @objid ("05671f30-e3bc-49c5-a0c4-b6d74e7ad107")
+    @objid ("d5e13078-5300-40cc-89a1-a369b96e229a")
     @Override
     public QueryDefinition getOwnerQuery() {
         return (QueryDefinition) getDepVal(ExternProcessorData.Metadata.OwnerQueryDep());
     }
 
-    @objid ("eb9aafe5-2058-4707-808e-73a71ca03951")
+    @objid ("0f191eb0-f795-4798-ac42-550e732375c8")
     @Override
     public void setOwnerQuery(QueryDefinition value) {
         appendDepVal(ExternProcessorData.Metadata.OwnerQueryDep(), (SmObjectImpl)value);
     }
 
-    @objid ("36c574ea-3d8b-46f6-9ffc-5343616db2fe")
+    @objid ("0e6bac6f-f171-4d06-944d-94e4e169dae8")
     @Override
     public MatrixValueDefinition getOwnerValDef() {
         return (MatrixValueDefinition) getDepVal(ExternProcessorData.Metadata.OwnerValDefDep());
     }
 
-    @objid ("7c2619bd-f6e8-4167-bfee-24e52b5d61fc")
+    @objid ("91b0e93f-2c96-4e86-81f6-392bdda7db21")
     @Override
     public void setOwnerValDef(MatrixValueDefinition value) {
         appendDepVal(ExternProcessorData.Metadata.OwnerValDefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7e1f4199-8f9e-42a1-ac8a-f7f6db7938ea")
+    @objid ("8c213cae-0677-44b6-86e3-1e9abefa97ca")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -92,7 +92,7 @@ public class ExternProcessorImpl extends ModelElementImpl implements ExternProce
         return super.getCompositionOwner();
     }
 
-    @objid ("2e4b8fe3-f893-4b7d-9ca9-eef9b011182d")
+    @objid ("e4baf115-529d-4362-84e2-c78086f30653")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -105,7 +105,7 @@ public class ExternProcessorImpl extends ModelElementImpl implements ExternProce
         return super.getCompositionRelation();
     }
 
-    @objid ("e3e56429-b458-4d58-8a41-5ea4792657aa")
+    @objid ("c90e4b28-ec0c-4b5d-b4e9-8d800aacb5b9")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExternProcessor(this);

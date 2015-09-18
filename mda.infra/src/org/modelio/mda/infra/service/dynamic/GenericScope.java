@@ -23,26 +23,26 @@ package org.modelio.mda.infra.service.dynamic;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("74fe2831-8d67-47e2-a7b5-436c33f90523")
+@objid ("531fe01c-3df1-4b76-b5eb-98871727c52c")
 public class GenericScope {
-    @objid ("e585d2a1-17f6-459e-9338-1b10409f062a")
+    @objid ("a7e46b58-f559-4b49-998e-59b8b21aff29")
     protected String metaclass;
 
-    @objid ("ac63437c-96fe-400b-9c3b-984e54b11918")
+    @objid ("93a5fe52-f112-45dd-8252-1b547d847124")
     protected String stereotype;
 
-    @objid ("6b3e5d91-2bcc-45af-9699-25222eeff729")
+    @objid ("93e9c3b0-d043-4085-a85d-e24cc4cf382d")
     public GenericScope(String metaclass, String stereotype) {
         this.metaclass = metaclass;
         this.stereotype = stereotype;
     }
 
-    @objid ("fb59f651-e67e-4aa3-b323-56bdce4096f0")
+    @objid ("08c4d896-a27c-431d-9d00-28b92aa645f5")
     public String getMetaclass() {
         return this.metaclass;
     }
 
-    @objid ("868387f8-496a-41a1-80b4-f7de79b1bd4f")
+    @objid ("79cc0744-fa76-4361-9509-c9f40769482b")
     public String getStereotype() {
         return this.stereotype;
     }

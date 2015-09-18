@@ -22,20 +22,14 @@ import java.nio.file.Path;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.module.IModule;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * Interface defining an Action or Command provided by a module (usually to be used either in contextual menus or in the toolbar of the property view).
+ * Interface defining an Action or Command provided by a module (usually to be used either in contextual menus or in the toolbar of
+ * the property view).
  */
 @objid ("00d00158-0001-5db6-0000-000000000000")
 public interface IModuleAction {
-    @objid ("00d00158-0001-5e33-0000-000000000000")
-    void addAllowedMetaclass(Class<? extends MObject> name);
-
-    @objid ("01f41934-0000-001a-0000-000000000000")
-    void addAllowedStereotype(Stereotype stereotype);
-
     @objid ("00d00158-0001-5e39-0000-000000000000")
     String getLabel();
 
@@ -49,7 +43,7 @@ public interface IModuleAction {
     String getTooltip();
 
     @objid ("00d00158-0001-5e41-0000-000000000000")
-    IModuleContextualCommand getCommand();
+    IModuleCommandHandler getHandler();
 
     @objid ("00d00158-0001-5e43-0000-000000000000")
     Path getBitmapPath();

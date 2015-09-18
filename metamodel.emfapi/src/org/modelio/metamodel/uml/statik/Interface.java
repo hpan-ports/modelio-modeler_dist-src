@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.statik.RequiredInterface;
 
 @objid ("000e151e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Interface extends GeneralClass {
-    @objid ("ebf113eb-343c-4ec5-a589-2b8573091014")
+    @objid ("1ba866b8-2e6a-4920-b52e-80c0c6efd35e")
     EList<RequiredInterface> getRequiring();
 
-    @objid ("f3e970f4-c213-46dd-9656-45c3d31ddba3")
+    @objid ("60377a23-4baa-4ab3-8cd7-1ad83445d4f3")
     <T extends RequiredInterface> List<T> getRequiring(java.lang.Class<T> filterClass);
 
-    @objid ("aa76ed70-16d1-472f-ba30-941eea1fd996")
+    @objid ("8a04e1f5-5d7b-434d-b501-736a7ec4147a")
     EList<InterfaceRealization> getImplementedLink();
 
-    @objid ("8f77ae0c-def9-497e-9e20-80256c72aebd")
+    @objid ("2a40880c-8202-43fc-a8ec-2c132c9c4b69")
     <T extends InterfaceRealization> List<T> getImplementedLink(java.lang.Class<T> filterClass);
 
-    @objid ("0ddad09b-c951-4ab1-8cac-2e59af43761e")
+    @objid ("218d6d16-ee86-42dc-bd88-4fa54d50611c")
     EList<ProvidedInterface> getProviding();
 
-    @objid ("adba7b56-b948-4785-a0bf-1e742a04d19b")
+    @objid ("1b2dd1fc-a9e5-48e2-8bc0-c8cb254642be")
     <T extends ProvidedInterface> List<T> getProviding(java.lang.Class<T> filterClass);
 
 }

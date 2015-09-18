@@ -32,8 +32,8 @@ import org.eclipse.e4.ui.di.AboutToHide;
 import org.eclipse.e4.ui.di.AboutToShow;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
-import org.modelio.api.module.IModule;
 import org.modelio.app.core.events.ModelioEventTopics;
+import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.module.browser.commands.ModulePopupManager;
 
 /**
@@ -46,7 +46,7 @@ public class ModuleMenuCreator {
 
 // FIXME we should not have a module list in here, but somehow access the module registry...
     @objid ("90cf454a-7e8c-4e62-b67e-6086b408c21c")
-    private List<IModule> startedModules = new ArrayList<>();
+    private List<IRTModule> startedModules = new ArrayList<>();
 
     @objid ("06cb60ea-1266-4a08-9419-0cbe7778aeb1")
     private MPart part;
@@ -61,9 +61,9 @@ public class ModuleMenuCreator {
     @objid ("17c60090-9bf3-48be-84eb-aed84ac68a4c")
     @Inject
     @Optional
-    public void onModuleStarted(@EventTopic(ModelioEventTopics.MODULE_STARTED) final IModule module) {
+    public void onModuleStarted(@EventTopic(ModelioEventTopics.MODULE_STARTED) final IRTModule module) {
         // Make sure there is no old module with the same ID, to avoid duplicated popups...
-        for (IModule oldModule : new ArrayList<>(INSTANCE.startedModules)) {
+        for (IRTModule oldModule : new ArrayList<>(INSTANCE.startedModules)) {
             if (oldModule.getName().equals(module.getName())) {
                 INSTANCE.startedModules.remove(oldModule);
             }
@@ -74,7 +74,7 @@ public class ModuleMenuCreator {
     @objid ("e5178f26-5d48-4e4c-a440-6a8ab748e938")
     @Inject
     @Optional
-    public void onModuleStopped(@EventTopic(ModelioEventTopics.MODULE_STOPPED) final IModule module) {
+    public void onModuleStopped(@EventTopic(ModelioEventTopics.MODULE_STOPPED) final IRTModule module) {
         INSTANCE.startedModules.remove(module);
     }
 
@@ -87,7 +87,7 @@ public class ModuleMenuCreator {
     @AboutToShow
     public void aboutToShow(List<MMenuElement> items) {
         if (INSTANCE.part != null) {
-            for (IModule module : INSTANCE.startedModules) {
+            for (IRTModule module : INSTANCE.startedModules) {
                 MMenuElement item = ModulePopupManager.createMenu(module, INSTANCE.part);
                 if (item != null) {
                     items.add(item);
@@ -108,7 +108,7 @@ public class ModuleMenuCreator {
             }
         
             // Cleanup commands & handlers
-            for (IModule module : INSTANCE.startedModules) {
+            for (IRTModule module : INSTANCE.startedModules) {
                 ModulePopupManager.removeMenu(module, INSTANCE.part);
             }
         }

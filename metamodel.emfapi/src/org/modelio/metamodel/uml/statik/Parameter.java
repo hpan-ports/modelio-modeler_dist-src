@@ -41,112 +41,112 @@ import org.modelio.metamodel.uml.statik.PassingMode;
 
 @objid ("0017c640-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Parameter extends ModelElement {
-    @objid ("f4b47419-a28a-4da7-b2fd-43522f24bbec")
+    @objid ("e03421dd-27ed-4c10-87a1-cd43ca2181ac")
     PassingMode getParameterPassing();
 
-    @objid ("ebe51e9d-36a6-4b91-b26a-b19b4ffadaa2")
+    @objid ("fc322e39-6379-457a-a862-c86dbc5bcb6e")
     void setParameterPassing(PassingMode value);
 
-    @objid ("fa90f25e-8fb7-4b1f-ac90-2687855553ae")
+    @objid ("8e6586bb-3268-4367-8aaa-0ccdce90bd72")
     String getMultiplicityMin();
 
-    @objid ("a769ba51-b60b-4583-82c3-f2726d230f93")
+    @objid ("4c6e2d3e-c8ac-4388-b731-7261deb65ec7")
     void setMultiplicityMin(String value);
 
-    @objid ("63a9bce0-8217-4caa-94d6-ff5086a0928f")
+    @objid ("02e7ebc5-726e-4c19-9690-f476d56d808f")
     String getMultiplicityMax();
 
-    @objid ("e2bdb92c-c5c0-4985-8543-a510b16ecb6b")
+    @objid ("bc36744e-6dc3-42ac-a51f-2641dbfe0cda")
     void setMultiplicityMax(String value);
 
-    @objid ("a6fe8197-db47-48e8-8282-796363b98773")
+    @objid ("9af7dc05-5c8c-4c36-a2ec-9df9e231c351")
     String getTypeConstraint();
 
-    @objid ("f2743663-f9a3-45bc-8b33-73618ca1a0ba")
+    @objid ("50d1bf1e-0a68-4df6-b7aa-ecc406b4f695")
     void setTypeConstraint(String value);
 
-    @objid ("a1354db2-0565-4dad-a18a-a70896110962")
+    @objid ("8a1f7967-9e82-4428-b25d-abc4acb7fefc")
     String getDefaultValue();
 
-    @objid ("4c4f4ba7-32cb-4e17-a86c-c007108aac24")
+    @objid ("97bff7e0-0cc0-4cac-b4a3-617b0fc89ae8")
     void setDefaultValue(String value);
 
-    @objid ("f3ae3109-9557-42a8-a4b3-523625033375")
+    @objid ("bdb64230-0427-4547-968a-ee9c3b506782")
     boolean isIsOrdered();
 
-    @objid ("640fd465-be88-4e72-a9ec-70c22ecfb435")
+    @objid ("d930cfa5-2b3e-4559-a818-feaf02c826fd")
     void setIsOrdered(boolean value);
 
-    @objid ("c751372e-4e56-4620-b2fc-2a91d36dba28")
+    @objid ("1e04bad3-181b-46e8-8a6c-0acce9b8f80a")
     boolean isIsUnique();
 
-    @objid ("a57ec802-9fda-464e-9e94-c69c058dfbd3")
+    @objid ("c9c60ac0-e705-4c77-9d97-456deea2bc28")
     void setIsUnique(boolean value);
 
-    @objid ("b9770424-c404-45e3-8af0-561c5d513dda")
+    @objid ("374f38ec-2502-4c42-aed6-3820a882ee5b")
     boolean isIsException();
 
-    @objid ("ef2d2a5f-09fa-49ae-8c77-249fb7c3701f")
+    @objid ("16b7a490-3482-469b-b5aa-720dad7beb4b")
     void setIsException(boolean value);
 
-    @objid ("27d19b14-adf2-48f0-882f-f11af9cce575")
+    @objid ("8668e258-6037-4b1c-855f-29e47253d1ce")
     boolean isIsStream();
 
-    @objid ("d9648f76-dc76-47df-a6c4-3222337e6810")
+    @objid ("decbc358-2a21-480f-8e12-1a0a363dd1ec")
     void setIsStream(boolean value);
 
-    @objid ("c1c210f9-b352-4484-aeb4-3cb06efe9535")
+    @objid ("c0e8a497-93d5-4e87-ac68-767386058e87")
     ParameterEffectKind getEffect();
 
-    @objid ("f74e38ee-f94d-49b2-83ec-5028233ae8c2")
+    @objid ("d068a721-b605-42a4-804b-55a2813573fe")
     void setEffect(ParameterEffectKind value);
 
-    @objid ("5c30b372-6d70-4926-82b0-ab6d8fcc6334")
+    @objid ("ed8d55bc-ce7e-4e13-8de1-95c6bc482657")
     EList<BpmnDataInput> getBpmnRepresentingDataInput();
 
-    @objid ("31723d2b-2837-4515-8d68-2011c5e17de1")
+    @objid ("23b2687f-5c7f-4612-854c-428a5faf4c53")
     <T extends BpmnDataInput> List<T> getBpmnRepresentingDataInput(java.lang.Class<T> filterClass);
 
-    @objid ("dc0d6638-e0bb-48cc-a728-9aaa34754515")
+    @objid ("4a7f6694-4c1e-4ed5-9a65-cad915cadf0f")
     GeneralClass getType();
 
-    @objid ("87bd6b31-b7ba-4cca-a332-4bff5f0bd2c1")
+    @objid ("957ec5ef-b58f-4843-8424-c9e281e11433")
     void setType(GeneralClass value);
 
-    @objid ("19702ef7-2976-4d69-a412-c7aeda570d0e")
+    @objid ("6823a141-0c12-4526-9b1a-741952b8bbd8")
     Operation getComposed();
 
-    @objid ("b44d290b-6d66-47ae-96f6-51dbcbfdb750")
+    @objid ("d9f1e387-a1be-458c-bbcb-5344f3fe9397")
     void setComposed(Operation value);
 
-    @objid ("0f5f9d8e-ba8c-47d5-b370-3944aafc5cad")
+    @objid ("0beb9024-6faa-42c2-ab40-eea3b1819a9e")
     EList<Pin> getMatching();
 
-    @objid ("e2ff8d12-7982-4b58-9478-657aa0bdf6e0")
+    @objid ("436952ab-2678-439a-8756-66f2a48ee049")
     <T extends Pin> List<T> getMatching(java.lang.Class<T> filterClass);
 
-    @objid ("c81cc3ab-7e1b-428e-9938-7d21a195e43e")
+    @objid ("401b195c-3379-47f5-82dd-723a4ff1100b")
     EList<BpmnDataOutput> getBpmnRepresentingDataOutput();
 
-    @objid ("13c21dc6-a9ed-4eb7-a310-db842fffb027")
+    @objid ("79907e64-e691-4806-ab34-948054920ef0")
     <T extends BpmnDataOutput> List<T> getBpmnRepresentingDataOutput(java.lang.Class<T> filterClass);
 
-    @objid ("98a6d72e-6959-47f3-aa56-d340586ff8ed")
+    @objid ("be100936-7268-4010-bf67-f7afd07242d9")
     EList<Signal> getSRepresentation();
 
-    @objid ("5974cd94-9448-47e5-b81d-59755ebd8274")
+    @objid ("8b34b351-7cc7-437b-9cac-ab0ea64fbb4d")
     <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("5f323af0-f71e-4069-bbf2-3485d13a517a")
+    @objid ("3bda932d-a745-444b-8ffc-079fa7098abb")
     Operation getReturned();
 
-    @objid ("7d794343-25d1-4029-8dcb-6be44e33f4f4")
+    @objid ("f179329d-058b-4dbf-9d11-e0ae2262d98b")
     void setReturned(Operation value);
 
-    @objid ("a5cdb941-e890-40bf-854e-9a0ace0e6c7e")
+    @objid ("2d7fe310-8538-4f15-88b4-70bfb480c9b7")
     EList<BehaviorParameter> getBehaviorParam();
 
-    @objid ("d3333c91-40b6-4c07-82ec-44ff4be6280f")
+    @objid ("7d75c401-4c76-49bd-97b3-32ac9d7cff10")
     <T extends BehaviorParameter> List<T> getBehaviorParam(java.lang.Class<T> filterClass);
 
 }

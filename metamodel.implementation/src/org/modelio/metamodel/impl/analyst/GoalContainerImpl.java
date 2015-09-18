@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("3ab0ab80-0c60-4e6c-83f2-d2694ce30165")
 public class GoalContainerImpl extends AnalystContainerImpl implements GoalContainer {
-    @objid ("437d3c59-c6e2-4170-9579-9b522de59ec7")
+    @objid ("c758477e-8592-4e29-9744-c6ea4a3ad020")
     @Override
     public EList<Goal> getOwnedGoal() {
         return new SmList<>(this, GoalContainerData.Metadata.OwnedGoalDep());
     }
 
-    @objid ("bbda2ab6-1353-4789-8f3c-780e3056032e")
+    @objid ("88a4ef46-c263-489d-af5b-ffcb206c3675")
     @Override
     public <T extends Goal> List<T> getOwnedGoal(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,25 +63,25 @@ public class GoalContainerImpl extends AnalystContainerImpl implements GoalConta
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("20792808-8097-413a-8b1b-dce11b82cbd5")
+    @objid ("84bacc42-8f21-4d91-a01d-436b68751d88")
     @Override
     public GoalContainer getOwnerContainer() {
         return (GoalContainer) getDepVal(GoalContainerData.Metadata.OwnerContainerDep());
     }
 
-    @objid ("70226e4e-780f-474f-b811-395136f06b90")
+    @objid ("b4a52bd0-2bb2-4887-a9f1-fe33d1038a62")
     @Override
     public void setOwnerContainer(GoalContainer value) {
         appendDepVal(GoalContainerData.Metadata.OwnerContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4e224990-3108-4a75-905b-1a7dbce0d69f")
+    @objid ("4226e785-61eb-498a-8c70-d64072b20876")
     @Override
     public EList<GoalContainer> getOwnedContainer() {
         return new SmList<>(this, GoalContainerData.Metadata.OwnedContainerDep());
     }
 
-    @objid ("0e0fa436-3085-4edd-8bab-97ea537ab059")
+    @objid ("603d0d82-d189-4a60-bccf-28d41459f3ad")
     @Override
     public <T extends GoalContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,19 +94,19 @@ public class GoalContainerImpl extends AnalystContainerImpl implements GoalConta
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6107771c-db12-4c2b-a807-0bbbd0d7ac62")
+    @objid ("b381cd1a-d7b2-4a80-8c74-e8ebe32f803c")
     @Override
     public AnalystProject getOwnerProject() {
         return (AnalystProject) getDepVal(GoalContainerData.Metadata.OwnerProjectDep());
     }
 
-    @objid ("a694f15a-dda8-4b8c-b41c-76fcd5679e61")
+    @objid ("ca989c66-c010-4644-bbfb-12b319e0a1fc")
     @Override
     public void setOwnerProject(AnalystProject value) {
         appendDepVal(GoalContainerData.Metadata.OwnerProjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8506b104-ec56-4826-89cc-2781f6784ecb")
+    @objid ("d1b5296a-0de6-4c1c-96ee-1715c142f5db")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -119,7 +119,7 @@ public class GoalContainerImpl extends AnalystContainerImpl implements GoalConta
         return super.getCompositionOwner();
     }
 
-    @objid ("c9993ea5-8957-46a3-8e8e-b5d2756ec48b")
+    @objid ("4700730c-d1f9-4c15-87cb-58070a005e23")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -132,7 +132,7 @@ public class GoalContainerImpl extends AnalystContainerImpl implements GoalConta
         return super.getCompositionRelation();
     }
 
-    @objid ("b3312327-6f03-4b35-8920-97fcd4c33a5a")
+    @objid ("59a4a883-696f-405d-bd27-cb7818468235")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGoalContainer(this);

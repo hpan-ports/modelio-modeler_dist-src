@@ -134,7 +134,7 @@ public class WksLabelProvider extends StyledCellLabelProvider {
                     "icons/lock_indicator.png").createImage();
         }
         
-                
+        
         this.projectService = projectService;
     }
 
@@ -234,16 +234,20 @@ public class WksLabelProvider extends StyledCellLabelProvider {
         Image projectIcon = this.icons.get(project.getPath().toString());
         if (projectIcon == null) {
             String iconName = project.getProperties().getValue(INFO_PROJECT_ICON_NAME);
-            if (iconName == null)
+            if (iconName == null) {
                 return null;
-            
+            }
+        
             Path iconPath = project.getPath().resolve("data").resolve(iconName);
             projectIcon = createUserProjectIcon(iconPath);
-            
-            if (projectIcon == null)
+        
+            if (projectIcon == null) {
                 projectIcon = createImageFromUrl(iconName);
-            
-            this.icons.put(project.getPath().toString(), projectIcon);
+            }
+        
+            if (projectIcon != null) {
+                this.icons.put(project.getPath().toString(), projectIcon);
+            }
         }
         return projectIcon;
     }
@@ -257,8 +261,9 @@ public class WksLabelProvider extends StyledCellLabelProvider {
                 originalImage = new Image(null, path.toString());
                 projectIcon = new Image(null, originalImage.getImageData().scaledTo(16, 16));
             } finally {
-                if (originalImage != null)
+                if (originalImage != null) {
                     originalImage.dispose();
+                }
             }
         }
         return projectIcon;
@@ -282,14 +287,14 @@ public class WksLabelProvider extends StyledCellLabelProvider {
         try {
             URL url = new URL(path);
             originalImage = ImageDescriptor.createFromURL(url).createImage(false, null);
-            Image projectIcon = new Image(null, originalImage.getImageData().scaledTo(16, 16));
-            return projectIcon;
+            return new Image(null, originalImage.getImageData().scaledTo(16, 16));
         } catch (MalformedURLException e) {
             // ignore exception and return null
             return null;
         } finally {
-            if (originalImage != null)
+            if (originalImage != null) {
                 originalImage.dispose();
+            }
         }
     }
 
@@ -301,7 +306,7 @@ public class WksLabelProvider extends StyledCellLabelProvider {
         // Add lock icon on locked projects
         if (element instanceof ProjectDescriptor) {
             ProjectDescriptor desc = (ProjectDescriptor) element;
-            
+        
             ILockInfo lockInfo = desc.getLockInfo();
             if (lockInfo != null) {
                 if (! lockInfo.isSelf()) {
@@ -320,9 +325,9 @@ public class WksLabelProvider extends StyledCellLabelProvider {
         
             ILockInfo lockInfo = project.getLockInfo();
             if (!isCurrentlyOpenedProject(project) && lockInfo != null && !lockInfo.isSelf()) {
-                return AppProjectUi.I18N.getMessage("WksLabelProvider.lockedTooltip", 
-                        project.getName(), 
-                        lockInfo.getOwner(), 
+                return AppProjectUi.I18N.getMessage("WksLabelProvider.lockedTooltip",
+                        project.getName(),
+                        lockInfo.getOwner(),
                         lockInfo.getHostName(),
                         lockInfo.getDate());
             }
@@ -343,12 +348,13 @@ public class WksLabelProvider extends StyledCellLabelProvider {
 
         @objid ("ff555d52-f5c5-42cf-bb8f-36c90b9d3e27")
         public static ProjectType get(final ProjectDescriptor project) {
-            if (project.getType().equals(PROJECT_TYPE_LOCAL))
+            if (project.getType().equals(PROJECT_TYPE_LOCAL)) {
                 return LOCAL;
-            else if (project.getRemoteLocation().startsWith("constellation:"))
+            } else if (project.getRemoteLocation().startsWith("constellation:")) {
                 return CONSTELLATION;
-            else
+            } else {
                 return SERVER;
+            }
         }
 
     }

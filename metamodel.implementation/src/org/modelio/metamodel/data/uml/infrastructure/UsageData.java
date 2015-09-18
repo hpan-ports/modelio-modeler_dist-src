@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00913aa2-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Usage.class, factory=UsageData.Metadata.ObjectFactory.class)
 public class UsageData extends DependencyData {
-    @objid ("622d8ab0-6376-46fa-8bcd-8f7610621cd3")
+    @objid ("8738959f-80b6-44c0-9680-214e09d806f7")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0009b80c-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("41019774-9a21-42e8-9288-229bc50319e1")
+        @objid ("922a0cc5-de23-4b12-90e5-93b75f8e5d47")
         private static SmClass smClass = null;
 
-        @objid ("b012963b-b964-4bfe-9883-56037855e41a")
+        @objid ("37616baf-22c2-4b79-96c4-c7be3dd40fb8")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(UsageData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("218874fb-68a8-452c-bb75-baa2a1f0cf99")
+        @objid ("4e733f5e-9dfb-4523-a264-adf26ab2cfd0")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class UsageData extends DependencyData {
 
         @objid ("0009f920-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("a17775d2-cc6c-4490-9716-8d208415f37a")
+            @objid ("99bc3813-e407-40df-898c-f8c394304f6b")
             public ISmObjectData createData() {
                 return new UsageData();
             }
 
-            @objid ("140228cf-dc38-4972-a5e4-2fc4b58cfd7d")
+            @objid ("9965b27e-3cfb-42ed-aae1-3bfea1aa9da7")
             public SmObjectImpl createImpl() {
                 return new UsageImpl();
             }

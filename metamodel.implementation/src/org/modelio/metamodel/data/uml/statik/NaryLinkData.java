@@ -49,50 +49,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0022bc4e-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=NaryLink.class, factory=NaryLinkData.Metadata.ObjectFactory.class)
 public class NaryLinkData extends ModelElementData {
-    @objid ("faeb0ff9-4544-455c-aec6-a556b86b1d8b")
+    @objid ("0444d640-c42d-4e9f-b717-adcb32b6e543")
     @SmaMetaAssociation(metaName="NaryLinkEnd", typeDataClass=NaryLinkEndData.class, min=0, max=-1, smAssociationClass=Metadata.NaryLinkEndSmDependency.class, sharedComponent = true)
      List<SmObjectImpl> mNaryLinkEnd = null;
 
-    @objid ("ce57f4a3-3ac5-46d2-bc25-2f3c53471da8")
+    @objid ("2844bd2a-3660-4ae3-8cfd-09a2d9765362")
     @SmaMetaAssociation(metaName="Model", typeDataClass=NaryAssociationData.class, min=0, max=1, smAssociationClass=Metadata.ModelSmDependency.class, partof = true)
      SmObjectImpl mModel;
 
-    @objid ("140ef8f4-9ace-4f3b-806c-b5399b39c9f2")
+    @objid ("7ebf9519-936f-4d28-83de-ed09c99d8be1")
     @SmaMetaAssociation(metaName="RealizedInformationFlow", typeDataClass=InformationFlowData.class, min=0, max=-1, smAssociationClass=Metadata.RealizedInformationFlowSmDependency.class)
      List<SmObjectImpl> mRealizedInformationFlow = null;
 
-    @objid ("d27ec294-260d-4731-995d-db20a0c35377")
+    @objid ("d64425c3-69b8-4c48-9382-2489d15b7356")
     @SmaMetaAssociation(metaName="Sent", typeDataClass=CommunicationChannelData.class, min=0, max=-1, smAssociationClass=Metadata.SentSmDependency.class)
      List<SmObjectImpl> mSent = null;
 
-    @objid ("7d4071ed-e155-440b-8494-b00b1d16e814")
+    @objid ("5cf46245-1470-4440-953c-ac0c39e198a8")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008ef2c4-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("d7d6f2ce-ce28-4262-9fa2-370d2d3d2b83")
+        @objid ("5d839b70-be40-4abf-86f5-9020b5363b64")
         private static SmClass smClass = null;
 
-        @objid ("9abc97ef-7f82-4406-97f5-0ba8ecd80b25")
+        @objid ("494b903d-4193-4069-ab68-f2b61c504a7f")
         private static SmDependency NaryLinkEndDep = null;
 
-        @objid ("6ac3806c-2cb0-4026-86d0-3363ff278c44")
+        @objid ("a3f83e02-3bf4-4ca3-97ac-ccbb76182b88")
         private static SmDependency ModelDep = null;
 
-        @objid ("6d551874-5c24-42c2-aa5b-2df43f9bb2d3")
+        @objid ("e40ebb85-9053-42a7-a537-f11bbe1efea8")
         private static SmDependency RealizedInformationFlowDep = null;
 
-        @objid ("ccc15389-92a7-4279-b1c6-a0f2278e468f")
+        @objid ("d70dc469-0e10-4bfb-a0ee-a48ff0d3737f")
         private static SmDependency SentDep = null;
 
-        @objid ("6b03309a-4177-4033-b278-2ab8d0fa15e0")
+        @objid ("7fb91775-14a2-48c8-8ff3-6993ca58ce41")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(NaryLinkData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("31c00912-8310-41bb-914d-862fdb9f75fe")
+        @objid ("7ec191c3-1e42-4893-ae7b-61d4bfed00e1")
         public static SmDependency NaryLinkEndDep() {
             if (NaryLinkEndDep == null) {
             	NaryLinkEndDep = classof().getDependencyDef("NaryLinkEnd");
@@ -100,7 +100,7 @@ public class NaryLinkData extends ModelElementData {
             return NaryLinkEndDep;
         }
 
-        @objid ("0c701acd-4ac4-46c0-87b2-535923558d64")
+        @objid ("0265a7fd-3e7a-4f44-8891-cb0d4065cba1")
         public static SmDependency ModelDep() {
             if (ModelDep == null) {
             	ModelDep = classof().getDependencyDef("Model");
@@ -108,7 +108,7 @@ public class NaryLinkData extends ModelElementData {
             return ModelDep;
         }
 
-        @objid ("342977c1-055e-41c3-bfd3-1dc5066e2a6d")
+        @objid ("d4ccd06b-59b9-4a25-92e9-b39e2b1ac15f")
         public static SmDependency RealizedInformationFlowDep() {
             if (RealizedInformationFlowDep == null) {
             	RealizedInformationFlowDep = classof().getDependencyDef("RealizedInformationFlow");
@@ -116,7 +116,7 @@ public class NaryLinkData extends ModelElementData {
             return RealizedInformationFlowDep;
         }
 
-        @objid ("ea752956-050e-4c60-b4fe-8e478de75a1b")
+        @objid ("a9041e1b-4eb8-4c28-9fba-730b07dafd52")
         public static SmDependency SentDep() {
             if (SentDep == null) {
             	SentDep = classof().getDependencyDef("Sent");
@@ -124,44 +124,44 @@ public class NaryLinkData extends ModelElementData {
             return SentDep;
         }
 
-        @objid ("323795c6-8a5c-435c-a5c8-e79fb90b38ca")
-        public static SmDependency getModelDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ModelDep;
-        }
-
-        @objid ("94b911fe-f438-4c7c-9f3f-d4356fe4e163")
-        public static SmDependency getSentDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SentDep;
-        }
-
-        @objid ("9ef6a456-c5d4-47d1-b0a2-2914426776fb")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("47f24a33-2cde-45c5-b9e0-3a7bf9185aed")
-        public static SmDependency getRealizedInformationFlowDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return RealizedInformationFlowDep;
-        }
-
-        @objid ("ba4fada5-f855-41ce-a66f-9f3f0653b8d4")
+        @objid ("9d7cb46d-573b-4bfa-a1f7-f838aba73685")
         public static SmDependency getNaryLinkEndDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return NaryLinkEndDep;
         }
 
+        @objid ("4a96e0b8-70a0-4318-9b4c-dba4db002236")
+        public static SmDependency getRealizedInformationFlowDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return RealizedInformationFlowDep;
+        }
+
+        @objid ("ab8ef67d-11e0-4687-bb23-68019c1cb0e7")
+        public static SmDependency getSentDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SentDep;
+        }
+
+        @objid ("69bc4a5c-8381-45dd-98f3-153be1dac101")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("d4bd9dba-426d-4bc5-8179-abf201086d68")
+        public static SmDependency getModelDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ModelDep;
+        }
+
         @objid ("008f3284-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e941c45c-2feb-4e5f-9d0b-981b620df31a")
+            @objid ("dfc92757-80cb-4667-83eb-95fca5f41c9b")
             public ISmObjectData createData() {
                 return new NaryLinkData();
             }
 
-            @objid ("fd625fec-7a6f-4fd5-b935-db1f13bbe2e1")
+            @objid ("d13c573b-c46e-47d6-a437-bf46a648e19d")
             public SmObjectImpl createImpl() {
                 return new NaryLinkImpl();
             }
@@ -170,20 +170,20 @@ public class NaryLinkData extends ModelElementData {
 
         @objid ("008f94ea-c4c5-1fd8-97fe-001ec947cd2a")
         public static class NaryLinkEndSmDependency extends SmMultipleDependency {
-            @objid ("5aa99f7e-994b-4e2c-8350-cb9f3e1b085b")
+            @objid ("bf95990b-d780-44ef-a9f7-ac18e09e2bd3")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NaryLinkData)data).mNaryLinkEnd != null)? ((NaryLinkData)data).mNaryLinkEnd:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("fb00a3fc-64c5-472a-a530-ad518bf918b6")
+            @objid ("1168f7cb-911a-42c3-87b9-1345eac5f9d4")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NaryLinkData) data).mNaryLinkEnd = new ArrayList<>(initialCapacity);
                 return ((NaryLinkData) data).mNaryLinkEnd;
             }
 
-            @objid ("edff0615-6fb1-4af6-a6bc-e3a0662d928f")
+            @objid ("55c602db-e593-4c72-a1c2-d7a90c9f5a64")
             @Override
             public SmDependency getSymetric() {
                 return NaryLinkEndData.Metadata.NaryLinkDep();
@@ -193,18 +193,18 @@ public class NaryLinkData extends ModelElementData {
 
         @objid ("008ff64c-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ModelSmDependency extends SmSingleDependency {
-            @objid ("eb1b9868-8ee6-4fd7-8390-8e473e2c7b7f")
+            @objid ("72ba5185-ed3d-4938-ab6b-e4a00e3cad93")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NaryLinkData) data).mModel;
             }
 
-            @objid ("1066b713-8b01-40d5-a553-50126605af36")
+            @objid ("0b21d327-969d-4df7-9723-c4443c0d13da")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NaryLinkData) data).mModel = value;
             }
 
-            @objid ("1ae0faa0-99f2-4c0a-a93d-bd9482659862")
+            @objid ("8b393878-432e-4e9f-aca0-cfd6866817aa")
             @Override
             public SmDependency getSymetric() {
                 return NaryAssociationData.Metadata.OccurenceDep();
@@ -214,20 +214,20 @@ public class NaryLinkData extends ModelElementData {
 
         @objid ("00551928-17f4-10a1-88a0-001ec947cd2a")
         public static class SentSmDependency extends SmMultipleDependency {
-            @objid ("0dc2874d-4871-4c69-8e25-4b883691d20b")
+            @objid ("7dc0e1dd-a222-4257-8a5a-2659562eb937")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NaryLinkData)data).mSent != null)? ((NaryLinkData)data).mSent:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("ce3e91c4-f2cb-4e28-b012-88f425291bbf")
+            @objid ("c21662d2-a130-4fc6-a563-51ebb8db739b")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NaryLinkData) data).mSent = new ArrayList<>(initialCapacity);
                 return ((NaryLinkData) data).mSent;
             }
 
-            @objid ("46df75e2-4da5-4705-96c4-6c9dc6a7cd2e")
+            @objid ("c38611ba-4dcd-4061-aaca-cfb932323c7a")
             @Override
             public SmDependency getSymetric() {
                 return CommunicationChannelData.Metadata.NaryChannelDep();
@@ -237,20 +237,20 @@ public class NaryLinkData extends ModelElementData {
 
         @objid ("0055c3e6-17f4-10a1-88a0-001ec947cd2a")
         public static class RealizedInformationFlowSmDependency extends SmMultipleDependency {
-            @objid ("1b6cb8fa-00c6-4b6b-af8c-b02006bf1099")
+            @objid ("575d732b-f7f8-4935-bab3-a9f6652554c9")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NaryLinkData)data).mRealizedInformationFlow != null)? ((NaryLinkData)data).mRealizedInformationFlow:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("77e38fca-eeee-49d4-b96f-af59215b054a")
+            @objid ("6e4038d1-2cdd-499f-99a9-de43ae32e4e3")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NaryLinkData) data).mRealizedInformationFlow = new ArrayList<>(initialCapacity);
                 return ((NaryLinkData) data).mRealizedInformationFlow;
             }
 
-            @objid ("3733ea90-fbfe-49e2-80f4-6ce58df0f1fa")
+            @objid ("946aa9f9-874b-4972-98df-cfab794a5a42")
             @Override
             public SmDependency getSymetric() {
                 return InformationFlowData.Metadata.RealizingNaryLinkDep();

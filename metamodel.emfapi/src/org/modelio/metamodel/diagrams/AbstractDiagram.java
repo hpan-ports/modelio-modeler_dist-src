@@ -34,40 +34,40 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("006721c2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AbstractDiagram extends ModelElement {
-    @objid ("559442b4-431d-4dc3-a401-eee21dc8a938")
+    @objid ("7ae29c7f-546b-4512-b4ac-989e3e041c0c")
     int getUiDataVersion();
 
-    @objid ("243fa6a4-a5e6-4610-8836-3e572295ba32")
+    @objid ("f679ea57-7266-483f-b35b-53d450045a7d")
     void setUiDataVersion(int value);
 
-    @objid ("c1ddff6c-306c-4d37-9067-1b4af6e10360")
+    @objid ("37c7287f-9615-4f34-bc50-6a9fdbe46fdc")
     String getUiData();
 
-    @objid ("5b78aa75-aa64-404e-8c65-18e46eb445a8")
+    @objid ("face7fdd-1299-40da-9eaa-8798685a39b6")
     void setUiData(String value);
 
-    @objid ("ec48a0cc-1998-4b95-860a-228e9217211c")
+    @objid ("a6538b1a-2ee8-4ccb-8499-fc2ba560c271")
     String getPdeProperties();
 
-    @objid ("164b6152-6c12-4d31-bb00-2a27ac10e912")
+    @objid ("897fd06c-65ca-4041-b0fc-585bdd33cdc0")
     void setPdeProperties(String value);
 
-    @objid ("97fce8ec-5203-40fe-b6a9-c4b59fdd6b84")
+    @objid ("78d62bc7-71f9-489a-93a5-e4e0a0486cff")
     ModelElement getOrigin();
 
-    @objid ("58d5eb47-d0dc-43bd-a20c-63147a735172")
+    @objid ("221bb280-2ecd-4180-a5ad-4c38b297ed75")
     void setOrigin(ModelElement value);
 
-    @objid ("ee4b459e-aa0f-4cc5-9e4a-34250bc0f64e")
+    @objid ("23fe0b35-1549-42f2-8613-af310ba2f332")
     EList<Element> getRepresented();
 
-    @objid ("5b932398-6789-4b7e-9bfc-37cea3f913d3")
+    @objid ("678487e7-7b3c-43ef-8f74-324d33b0f80b")
     <T extends Element> List<T> getRepresented(java.lang.Class<T> filterClass);
 
-    @objid ("11fb9128-b2d7-4f64-85bd-184f96089286")
+    @objid ("ec1ab296-4c59-4705-8b82-5272f421c551")
     EList<DiagramSet> getReferencingSet();
 
-    @objid ("2aa6658b-9977-4128-b3f8-ffbdd0cc4667")
+    @objid ("92c9943f-aa84-48ea-9766-1cedc76b5a54")
     <T extends DiagramSet> List<T> getReferencingSet(java.lang.Class<T> filterClass);
 
 }

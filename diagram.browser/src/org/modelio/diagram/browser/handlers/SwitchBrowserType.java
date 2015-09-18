@@ -16,8 +16,7 @@ import org.modelio.diagram.browser.view.DiagramBrowserView;
 public class SwitchBrowserType {
     @objid ("001c147a-0d4f-10c6-842f-001ec947cd2a")
     @Execute
-    public Object execute(MPart part, @Optional
-@Named("type") final String type) {
+    public Object execute(MPart part, @Optional @Named("type") final String type) {
         final DiagramBrowserView browserView = (DiagramBrowserView) part.getObject();
         
         if ("flat".equals(type)) {

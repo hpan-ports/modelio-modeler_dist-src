@@ -31,7 +31,9 @@ import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.FragmentDescriptor;
 import org.modelio.gproject.data.project.GAuthConf;
 import org.modelio.gproject.data.project.GProperties;
+import org.modelio.gproject.data.project.InheritedAuthData;
 import org.modelio.gproject.data.project.VersionDescriptors;
+import org.modelio.gproject.gproject.AuthResolver;
 import org.modelio.gproject.gproject.FragmentConflictException;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectEvent;
@@ -162,9 +164,9 @@ public abstract class AbstractFragment implements IProjectFragment {
     @objid ("b422a1e8-0baa-11e2-bed6-001ec947ccaf")
     public final Path getDataDirectory() {
         return this.gproject.getProjectDataPath()
-                .resolve(GProject.DATA_SUBDIR)
-                .resolve(FRAGMENTS_SUBDIR)
-                .resolve(this.encodedDirName);
+                                                .resolve(GProject.DATA_SUBDIR)
+                                                .resolve(FRAGMENTS_SUBDIR)
+                                                .resolve(this.encodedDirName);
     }
 
     /**
@@ -177,8 +179,8 @@ public abstract class AbstractFragment implements IProjectFragment {
     @objid ("b422a1ed-0baa-11e2-bed6-001ec947ccaf")
     public final Path getRuntimeDirectory() {
         return this.gproject.getProjectRuntimePath()
-                .resolve(FRAGMENTS_SUBDIR)
-                .resolve(this.encodedDirName);
+                                                .resolve(FRAGMENTS_SUBDIR)
+                                                .resolve(this.encodedDirName);
     }
 
     /**
@@ -441,16 +443,17 @@ public abstract class AbstractFragment implements IProjectFragment {
      * @throws org.modelio.gproject.fragment.FragmentAuthenticationException in case of authentication failure
      */
     @objid ("8ed62b3e-07f4-11e2-b193-001ec947ccaf")
-    protected abstract IRepository doMountInitRepository(IModelioProgress aMonitor) throws IOException, FragmentAuthenticationException;
+    protected abstract IRepository doMountInitRepository(IModelioProgress aMonitor) throws FragmentAuthenticationException, IOException;
 
     /**
+     * Get the real authentication data to use for this fragment.
+     * <p>
+     * If the fragment uses inherited authentication data, returns the project authentication data.
      * @return the fragment authentication data.
      */
     @objid ("577094a7-243a-48fb-90d6-5dbb08813676")
     protected final IAuthData getAuthData() {
-        if (this.authConf == null)
-            return null;
-        return this.authConf.getAuthData();
+        return new AuthResolver(getProject()).resolve(this);
     }
 
     /**
@@ -514,7 +517,7 @@ public abstract class AbstractFragment implements IProjectFragment {
      * @throws org.modelio.gproject.fragment.FragmentMigrationNeededException if the fragment needs to be migrated before opening.
      */
     @objid ("86471d8d-0b51-4f7c-b692-423a07a2286f")
-    protected void checkMmVersion() throws IOException, FragmentMigrationNeededException {
+    protected void checkMmVersion() throws FragmentMigrationNeededException, IOException {
         VersionDescriptors fragmentVersion = getMetamodelVersion();
         VersionDescriptors lastMmVersion = getLastMmVersion();
         
@@ -545,12 +548,23 @@ public abstract class AbstractFragment implements IProjectFragment {
      */
     @objid ("954fce26-f09f-4b64-91b1-34f9705187b5")
     @Override
-    public void migrate(GProject project, IModelioProgress aMonitor) throws IOException, FragmentAuthenticationException {
+    public void migrate(GProject project, IModelioProgress aMonitor) throws FragmentAuthenticationException, IOException {
         try {
             checkMmVersion();
         } catch (FragmentMigrationNeededException e) {
             throw new IOException(e.getLocalizedMessage(), e);
         }
+    }
+
+    /**
+     * Returns the name, type and state of the fragment.
+     */
+    @objid ("8a5d8144-811a-44f4-9a96-6903e6f96c22")
+    @Override
+    public String toString() {
+        final String stateStr = (getState()==FragmentState.DOWN) ? (getState() + ": " + getDownError()) 
+                :   (getState().toString());
+        return "'"+getId()+"' "+getType().toString()+" fragment ("+stateStr+")";
     }
 
     /**

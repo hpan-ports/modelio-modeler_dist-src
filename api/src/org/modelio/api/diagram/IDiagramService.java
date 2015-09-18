@@ -24,10 +24,10 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.modelio.api.diagram.autodiagram.IAutoDiagramFactory;
 import org.modelio.api.diagram.style.IStyleHandle;
-import org.modelio.api.diagram.tools.IAttachedBoxCommand;
-import org.modelio.api.diagram.tools.IBoxCommand;
-import org.modelio.api.diagram.tools.ILinkCommand;
-import org.modelio.api.diagram.tools.IMultiLinkCommand;
+import org.modelio.api.diagram.tools.IAttachedBoxTool;
+import org.modelio.api.diagram.tools.IBoxTool;
+import org.modelio.api.diagram.tools.ILinkTool;
+import org.modelio.api.diagram.tools.IMultiLinkTool;
 import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -91,16 +91,16 @@ public interface IDiagramService {
     PaletteEntry getRegisteredTool(final String id);
 
     @objid ("18c7be9c-b77a-48b5-a511-141901dd0505")
-    void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IBoxCommand handler);
+    void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IBoxTool handler);
 
     @objid ("05e80879-c80a-4f2d-9639-944ba48ebbb7")
-    void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IAttachedBoxCommand handler);
+    void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IAttachedBoxTool handler);
 
     @objid ("7a79e9af-8dcc-4270-8610-e4772d06b691")
-    void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final ILinkCommand handler);
+    void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final ILinkTool handler);
 
     @objid ("9b03c21d-8ec5-4808-8a4f-df434b644246")
-    void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IMultiLinkCommand handler);
+    void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IMultiLinkTool handler);
 
     @objid ("e90872ae-6052-46a6-9557-0a94d5ab1914")
     void registerDiagramCustomization(final Stereotype stereotype, MClass baseDiagramClass, final IDiagramCustomizer customizer);

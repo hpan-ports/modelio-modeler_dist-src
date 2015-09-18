@@ -25,7 +25,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.ModuleException;
 import org.modelio.gproject.gproject.GProject;
 
@@ -44,11 +43,11 @@ class ModuleUnloader {
      * @throws org.modelio.api.module.ModuleException in case of failure
      */
     @objid ("f48f2f31-0d4f-11e2-b01f-002564c97630")
-    static Set<IModule> unloadModule(final IModule iModuleToStop, Collection<IModule> dependentIModules, final ModuleService moduleService, GProject gProject) throws ModuleException {
-        Set<IModule> ret = new HashSet<>();
+    static Set<IRTModule> unloadModule(final IRTModule iModuleToStop, Collection<IRTModule> dependentIModules, final ModuleService moduleService, GProject gProject) throws ModuleException {
+        Set<IRTModule> ret = new HashSet<>();
         
         // Stop dependent modules first
-        for (IModule dependentIModule : dependentIModules) {
+        for (IRTModule dependentIModule : dependentIModules) {
             ret.addAll(moduleService.unloadModule(dependentIModule, gProject));
         }
         
@@ -58,7 +57,7 @@ class ModuleUnloader {
     }
 
     @objid ("f48fcb75-0d4f-11e2-b01f-002564c97630")
-    private static void doUnloadModule(final IModule module, final ModuleService moduleService) throws ModuleException {
+    private static void doUnloadModule(final IRTModule module, final ModuleService moduleService) throws ModuleException {
         // Remove from registry and set state
         moduleService.getModuleRegistry().removeLoadedModule(module);
         

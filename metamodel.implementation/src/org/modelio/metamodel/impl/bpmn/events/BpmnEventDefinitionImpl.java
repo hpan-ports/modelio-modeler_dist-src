@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008d76e2-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnEventDefinitionImpl extends BpmnBaseElementImpl implements BpmnEventDefinition {
-    @objid ("bf59b9f0-6b40-4359-83c6-5b63e2394d18")
+    @objid ("8be7430d-a847-4776-a0d7-1fb2ff84e403")
     @Override
     public BpmnEvent getDefined() {
         return (BpmnEvent) getDepVal(BpmnEventDefinitionData.Metadata.DefinedDep());
     }
 
-    @objid ("bb88ba96-beeb-46d5-8504-f0b28a5bec69")
+    @objid ("0db77540-0839-4919-bb75-dc3d69b42042")
     @Override
     public void setDefined(BpmnEvent value) {
         appendDepVal(BpmnEventDefinitionData.Metadata.DefinedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5fd86411-e38f-49f6-8259-47c4c591b5b8")
+    @objid ("e7dd4550-6ec3-4073-bc3d-f36aebefbed4")
     @Override
     public EList<BpmnMultiInstanceLoopCharacteristics> getLoopRef() {
         return new SmList<>(this, BpmnEventDefinitionData.Metadata.LoopRefDep());
     }
 
-    @objid ("a53edf5e-47e4-487b-b9dd-91d788856b26")
+    @objid ("261cd74d-0cd5-4723-834e-052261ec5774")
     @Override
     public <T extends BpmnMultiInstanceLoopCharacteristics> List<T> getLoopRef(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,7 +76,7 @@ public abstract class BpmnEventDefinitionImpl extends BpmnBaseElementImpl implem
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ab4b69d5-af8c-41be-84c4-076b5be713be")
+    @objid ("8b778917-d7a8-4529-8232-bc8a2bc3c985")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -86,7 +86,7 @@ public abstract class BpmnEventDefinitionImpl extends BpmnBaseElementImpl implem
         return super.getCompositionOwner();
     }
 
-    @objid ("37427f02-7fdd-4e0a-aaf1-2ec6268360f6")
+    @objid ("0eb0d357-9faa-4108-939e-b8d0435303b7")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -96,7 +96,7 @@ public abstract class BpmnEventDefinitionImpl extends BpmnBaseElementImpl implem
         return super.getCompositionRelation();
     }
 
-    @objid ("604b3f9f-700d-400f-9ff8-61b32769d84c")
+    @objid ("2e37e287-6a93-45eb-8b1c-358c557cefa6")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnEventDefinition(this);

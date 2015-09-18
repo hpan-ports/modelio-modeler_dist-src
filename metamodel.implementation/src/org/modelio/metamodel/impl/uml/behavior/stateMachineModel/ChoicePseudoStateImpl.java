@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004de7e8-c4bf-1fd8-97fe-001ec947cd2a")
 public class ChoicePseudoStateImpl extends AbstractPseudoStateImpl implements ChoicePseudoState {
-    @objid ("57d9c62e-9f72-457f-baf2-95859756dcdb")
+    @objid ("2d056873-cdde-49c4-a4a7-77414b1c4be1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0097d993-b35d-4cc3-94e1-b8b0840424de")
+    @objid ("822611f8-99bb-46d5-8100-2a6ba24edb61")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("6c1a76f5-317d-47e8-87d1-a4fe7420619e")
+    @objid ("b0980b28-0eb9-4d08-84d3-ff7eefecbb6a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitChoicePseudoState(this);

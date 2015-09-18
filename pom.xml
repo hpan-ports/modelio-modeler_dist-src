@@ -10,12 +10,13 @@
 
 	<groupId>org.modelio</groupId>
 	<artifactId>modelio</artifactId>
-	<version>3.2.1-SNAPSHOT</version>
+	<version>3.3.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.21.0</tycho-version>
+		<tycho-version>0.22.0</tycho-version>
 		<tycho-groupid>org.eclipse.tycho</tycho-groupid>
+		<modelio.rootFolder>Modelio 3.3</modelio.rootFolder>
 	</properties>
 
 	<repositories>
@@ -25,9 +26,9 @@
 			<url>http://repository.modelio.org/</url>
 		</repository>
 		<repository>
-			<id>kepler</id>
+			<id>luna</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.3</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.4</url>
 		</repository>
 		<repository>
 			<id>astyle</id>
@@ -123,7 +124,7 @@
 						<artifact>
 							<groupId>org.modelio</groupId>
 							<artifactId>rcp</artifactId>
-							<version>3.2.1-SNAPSHOT</version>
+							<version>3.3.0-SNAPSHOT</version>
 						</artifact>
 					</target>
 					<environments>
@@ -162,6 +163,20 @@
 			</plugin>
 
 		</plugins>
+		
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>${tycho-groupid}</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>				
+		
 	</build>
 
 </project>

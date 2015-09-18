@@ -46,50 +46,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("001e961e-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=TemplateParameterSubstitution.class, factory=TemplateParameterSubstitutionData.Metadata.ObjectFactory.class)
 public class TemplateParameterSubstitutionData extends ModelElementData {
-    @objid ("cd7a0566-2cda-4b72-b5b0-f94b5f96769b")
+    @objid ("76a139a4-0dfb-403b-8835-36bfb3e7ea1c")
     @SmaMetaAttribute(metaName="Value", type=String.class, smAttributeClass=Metadata.ValueSmAttribute.class)
      Object mValue = "";
 
-    @objid ("d893e078-d72e-4647-958a-87fa323e8c7f")
+    @objid ("88517871-e3ac-4d95-bb5f-c3b67c5b4266")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=TemplateBindingData.class, min=1, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("86d4fd07-008b-42e3-8f24-eb2fa0adb56b")
+    @objid ("bb49675c-382f-4177-a24b-3a2d192581d6")
     @SmaMetaAssociation(metaName="Actual", typeDataClass=ModelElementData.class, min=0, max=1, smAssociationClass=Metadata.ActualSmDependency.class, partof = true)
      SmObjectImpl mActual;
 
-    @objid ("394e810d-acb1-46a0-88ba-0389c5582603")
+    @objid ("aaa5ee96-8cbd-42c5-a282-917089fda10b")
     @SmaMetaAssociation(metaName="FormalParameter", typeDataClass=TemplateParameterData.class, min=1, max=1, smAssociationClass=Metadata.FormalParameterSmDependency.class, partof = true)
      SmObjectImpl mFormalParameter;
 
-    @objid ("cebf8c66-ffe1-4c74-8ec2-ea56a3416b3c")
+    @objid ("20b66874-0d78-4021-820e-fc455a18f668")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00653eca-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("8b88afc6-ba51-4f80-874a-9b36fce63ea5")
+        @objid ("ce4657f3-914a-469e-959b-59c7f555cb21")
         private static SmClass smClass = null;
 
-        @objid ("b9427f10-9ef5-4404-affb-9c8408a49c46")
+        @objid ("b3a25a5b-e493-4d68-8057-4bc7eb7a78e0")
         private static SmAttribute ValueAtt = null;
 
-        @objid ("1d8961a8-7803-4bef-8770-e2a0ae0433bb")
+        @objid ("25b35a13-c8d3-4825-9637-39421ac9774b")
         private static SmDependency OwnerDep = null;
 
-        @objid ("95d726a5-8b9f-487e-9d90-6b9d9c6d96eb")
+        @objid ("b4849324-f8b5-4bfb-900e-7591068e6d64")
         private static SmDependency ActualDep = null;
 
-        @objid ("cab0b40b-ab26-400b-b9b8-cd0d1e41e56b")
+        @objid ("b4a713f6-086b-491a-aca2-3bcb63c7a68f")
         private static SmDependency FormalParameterDep = null;
 
-        @objid ("95de3f17-903d-4813-a25e-5ba9ef4faf83")
+        @objid ("24a541da-4e20-4c58-8f5e-9ff59fb03233")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(TemplateParameterSubstitutionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("6bdd1091-6248-4217-b480-3e05a375e22d")
+        @objid ("5c71110d-a244-4175-8238-26e72a4c842d")
         public static SmAttribute ValueAtt() {
             if (ValueAtt == null) {
             	ValueAtt = classof().getAttributeDef("Value");
@@ -97,7 +97,7 @@ public class TemplateParameterSubstitutionData extends ModelElementData {
             return ValueAtt;
         }
 
-        @objid ("ae3b4030-73fd-48a2-af8b-0adb684f3cbb")
+        @objid ("8d4f47e7-8a74-444c-acb2-2e53ab980f1b")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -105,7 +105,7 @@ public class TemplateParameterSubstitutionData extends ModelElementData {
             return OwnerDep;
         }
 
-        @objid ("3ef43ff8-e5f5-427a-b7b5-a3244b086ebf")
+        @objid ("5cf36a71-eb77-48af-8a83-5091825cfece")
         public static SmDependency ActualDep() {
             if (ActualDep == null) {
             	ActualDep = classof().getDependencyDef("Actual");
@@ -113,7 +113,7 @@ public class TemplateParameterSubstitutionData extends ModelElementData {
             return ActualDep;
         }
 
-        @objid ("0215371f-7dd8-4d3c-a2c9-95f79bf8bc5a")
+        @objid ("d7a7673c-f832-46ad-9ed3-04789091c64d")
         public static SmDependency FormalParameterDep() {
             if (FormalParameterDep == null) {
             	FormalParameterDep = classof().getDependencyDef("FormalParameter");
@@ -121,44 +121,44 @@ public class TemplateParameterSubstitutionData extends ModelElementData {
             return FormalParameterDep;
         }
 
-        @objid ("ae60f8fa-b1ba-4f80-b6dc-11343c2792b6")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("4cf0d2eb-1a67-4885-8c51-7716492c90bc")
-        public static SmDependency getActualDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ActualDep;
-        }
-
-        @objid ("a2506d3d-59c9-4df4-adaa-d609d62ac208")
+        @objid ("016beb93-7f98-415b-a4c9-f45738b5078c")
         public static SmAttribute getValueAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ValueAtt;
         }
 
-        @objid ("6a7070b9-1945-4bd0-8d38-532c0f58eeec")
-        public static SmDependency getOwnerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerDep;
-        }
-
-        @objid ("48b8d39f-1a9f-4c9a-ad1c-be0994cf3087")
+        @objid ("a54ab0f5-bcba-4afa-b742-e29164ab8b8f")
         public static SmDependency getFormalParameterDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return FormalParameterDep;
         }
 
+        @objid ("7e6d91f3-15f9-44b6-ae36-471d1071cddb")
+        public static SmDependency getOwnerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerDep;
+        }
+
+        @objid ("b04a48e3-291b-446b-826f-fd50c6d04eea")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("5d25bc3e-e0e3-42a4-bc85-8a92a7aa1f97")
+        public static SmDependency getActualDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ActualDep;
+        }
+
         @objid ("00657ef8-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("132da363-e5da-41af-80dc-514613900c3f")
+            @objid ("c80d62e8-f357-4668-9232-43fc9de65f0d")
             public ISmObjectData createData() {
                 return new TemplateParameterSubstitutionData();
             }
 
-            @objid ("50e1a99f-588b-41af-828c-b90e8018298f")
+            @objid ("4e07c024-5ac1-41a8-838e-11eb42e386e3")
             public SmObjectImpl createImpl() {
                 return new TemplateParameterSubstitutionImpl();
             }
@@ -167,12 +167,12 @@ public class TemplateParameterSubstitutionData extends ModelElementData {
 
         @objid ("0065df7e-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ValueSmAttribute extends SmAttribute {
-            @objid ("8b720b71-047a-4825-9328-d49e3bf26838")
+            @objid ("00b5c108-4916-431a-bc6c-bd2ccb60e80f")
             public Object getValue(ISmObjectData data) {
                 return ((TemplateParameterSubstitutionData) data).mValue;
             }
 
-            @objid ("a4b6bb36-aa85-4e63-84f3-de16ad67d0b4")
+            @objid ("898e0144-fcc4-4bfe-9094-653e13d0c308")
             public void setValue(ISmObjectData data, Object value) {
                 ((TemplateParameterSubstitutionData) data).mValue = value;
             }
@@ -181,18 +181,18 @@ public class TemplateParameterSubstitutionData extends ModelElementData {
 
         @objid ("00664158-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ActualSmDependency extends SmSingleDependency {
-            @objid ("f9ea8688-3385-4197-ba4f-da89de14b880")
+            @objid ("97201e1d-f67d-4146-acab-404aa0cf4824")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateParameterSubstitutionData) data).mActual;
             }
 
-            @objid ("6cf5b4fa-8d7c-4811-a35a-0111d0094e39")
+            @objid ("2e02d87b-d9c0-4675-81fd-60b9962a8a39")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateParameterSubstitutionData) data).mActual = value;
             }
 
-            @objid ("b06fb942-225e-480b-9806-fb1f5637c4e1")
+            @objid ("5a82c044-c1cf-436d-8732-52b9447f8f83")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.TemplateSubstitutionDep();
@@ -202,18 +202,18 @@ public class TemplateParameterSubstitutionData extends ModelElementData {
 
         @objid ("0066b5de-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("12de4d98-9aef-4e8f-b9bd-2d7acc5ce718")
+            @objid ("c7bf9baf-d0b4-4b69-87b8-de252df2d764")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateParameterSubstitutionData) data).mOwner;
             }
 
-            @objid ("271fd547-c9a1-436c-8db8-a76ec9a89de0")
+            @objid ("98e40879-cb11-4caf-b308-9fa21efcf3b8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateParameterSubstitutionData) data).mOwner = value;
             }
 
-            @objid ("711f9458-d7ba-4afb-9c73-32940119b756")
+            @objid ("fa6badaa-21af-478c-8eca-9f2047692702")
             @Override
             public SmDependency getSymetric() {
                 return TemplateBindingData.Metadata.ParameterSubstitutionDep();
@@ -223,18 +223,18 @@ public class TemplateParameterSubstitutionData extends ModelElementData {
 
         @objid ("00672a46-c4c5-1fd8-97fe-001ec947cd2a")
         public static class FormalParameterSmDependency extends SmSingleDependency {
-            @objid ("3d18ab31-d0b1-4c0c-9ee4-2403054f45d8")
+            @objid ("509fcf7e-2f60-4bfc-86d8-be758cb48475")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateParameterSubstitutionData) data).mFormalParameter;
             }
 
-            @objid ("3022f725-9372-47bc-a3d2-28548ec9e8c3")
+            @objid ("ea8738de-e535-400b-bd7b-c2c01a82aadb")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateParameterSubstitutionData) data).mFormalParameter = value;
             }
 
-            @objid ("7087f706-976b-4bf0-8210-2d148b11f1dc")
+            @objid ("02300bb7-c159-4f42-ab60-2ec640646e95")
             @Override
             public SmDependency getSymetric() {
                 return TemplateParameterData.Metadata.ParameterSubstitutionDep();

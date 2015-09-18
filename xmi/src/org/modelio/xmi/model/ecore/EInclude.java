@@ -29,7 +29,7 @@ import org.modelio.metamodel.uml.behavior.usecaseModel.UseCaseDependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 /**
  * This class mandes the import of Ecore include elements
@@ -44,7 +44,7 @@ public class EInclude extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createUseCaseDependency();
+                        .createUseCaseDependency();
     }
 
     /**

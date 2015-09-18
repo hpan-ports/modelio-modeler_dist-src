@@ -32,13 +32,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.IParameterModel;
 import org.modelio.app.core.ModelioEnv;
 import org.modelio.app.project.conf.dialog.ProjectModel;
@@ -46,8 +45,12 @@ import org.modelio.app.project.conf.dialog.modules.list.ModulesSection;
 import org.modelio.app.project.conf.dialog.modules.parameters.ParameterSection;
 import org.modelio.gproject.module.GModule;
 import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.ui.UIColor;
 
+/**
+ * Modules page
+ */
 @objid ("a73dfbfb-33f6-11e2-a514-002564c97630")
 public class ModulesPage {
     @objid ("a73dfbfd-33f6-11e2-a514-002564c97630")
@@ -57,7 +60,7 @@ public class ModulesPage {
     protected ParameterSection parameterSection;
 
     @objid ("5ce78b08-2d71-4937-8c5e-6f8f5efefbea")
-    protected Label descriptionLabel;
+    protected Text descriptionLabel;
 
     @objid ("420779fc-4a9f-477e-b584-ca069eb5fa27")
     protected IEclipseContext applicationContext;
@@ -65,6 +68,13 @@ public class ModulesPage {
     @objid ("0d6c89e4-d2fc-4a2e-bdc7-294d37969c1f")
      ProjectModel projectAdapter;
 
+    /**
+     * @param toolkit the form toolkit
+     * @param application the application model
+     * @param parent the parent composite
+     * @param env Modelio env variables
+     * @return the created page
+     */
     @objid ("a73dfbff-33f6-11e2-a514-002564c97630")
     public Composite createControls(FormToolkit toolkit, MApplication application, final Composite parent, ModelioEnv env) {
         this.applicationContext = application.getContext();
@@ -93,7 +103,7 @@ public class ModulesPage {
                 ISelection selection = event.getSelection();
                 if (selection instanceof IStructuredSelection) {
                     IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-                    if (structuredSelection.size() == 0) {
+                    if (structuredSelection.isEmpty()) {
                         ModulesPage.this.parameterSection.setInput(null);                       
                         // force layout of the new zone
                         boolean expanded = s3.isExpanded();
@@ -114,7 +124,7 @@ public class ModulesPage {
             }
         });
         
-        this.descriptionLabel = toolkit.createLabel(mainComposite, "", SWT.WRAP | SWT.V_SCROLL);
+        this.descriptionLabel = toolkit.createText(mainComposite, "", SWT.WRAP /*| SWT.V_SCROLL*/);
         this.descriptionLabel.setForeground(UIColor.LABEL_TIP_FG);
         GridData gd2 = new GridData(SWT.FILL, SWT.FILL, true, false);
         gd2.heightHint = 60;
@@ -126,6 +136,10 @@ public class ModulesPage {
         return mainComposite;
     }
 
+    /**
+     * Set the data model.
+     * @param projectAdapter the project data model.
+     */
     @objid ("a73f82a3-33f6-11e2-a514-002564c97630")
     public void setInput(ProjectModel projectAdapter) {
         this.projectAdapter = projectAdapter;
@@ -158,7 +172,7 @@ public class ModulesPage {
                             // Fill the module's description
                             GModule module = (GModule) obj;
                             
-                            IModule iModule = moduleService.getIModule(module.getModuleElement());
+                            IRTModule iModule = moduleService.getIRTModule(module);
                             if (iModule != null) { 
                                 ModulesPage.this.descriptionLabel.setText(iModule.getDescription());
                             }

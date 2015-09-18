@@ -48,6 +48,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.gproject.module.IModuleHandle;
@@ -66,6 +67,9 @@ import org.modelio.vbasic.progress.SubProgress;
  */
 @objid ("2c95c248-f37d-11e1-a3c7-002564c97630")
 public class FileModuleStore implements IModuleCatalog {
+    /**
+     * Catalog version: changing this version will clean the catalog/cache.
+     */
     @objid ("43401e6b-f9b3-4f86-82ad-6cbd93bcc0b7")
     private static final int VERSION = 3;
 
@@ -92,13 +96,14 @@ public class FileModuleStore implements IModuleCatalog {
     @objid ("d9530931-37da-11e2-8ba4-002564c97630")
     @Override
     public IModuleHandle findModule(String moduleName, String moduleVersion, IModelioProgress monitor) throws IOException {
-        String archiveName;
+        String qmoduleName = Pattern.quote(moduleName);
+        Pattern archiveName;
         if (moduleVersion == null || moduleVersion.isEmpty()) {
-            //archiveName = moduleName + "_[0-9]+\\.[0-9]+\\.[0-9]+\\.jmdac";
-            archiveName = moduleName + "_.*\\.jmdac";
+            //archiveName = Pattern.compile(qmoduleName + "_[0-9]+\\.[0-9]+\\.[0-9]+\\.jmdac");
+            archiveName =  Pattern.compile(qmoduleName + "_.*\\.jmdac");
         } else {
-            archiveName = moduleName + "_" + moduleVersion + "\\.jmdac";
-        }
+            archiveName = Pattern.compile(qmoduleName + "_" + moduleVersion + "\\.jmdac");
+        } 
         
         ModuleFileSearcher visitor = new ModuleFileSearcher(archiveName);
         
@@ -117,9 +122,9 @@ public class FileModuleStore implements IModuleCatalog {
     public List<IModuleHandle> findAllModules(IModelioProgress monitor) throws IOException {
         List<IModuleHandle> ret = new ArrayList<>();
         
-        String archiveName = "[a-zA-Z0-9 _]+_[0-9]+\\.[0-9]+\\.[0-9]+\\.jmdac";
+        Pattern archivePattern = Pattern.compile("[a-zA-Z0-9 _\\-]+_[0-9]+\\.[0-9]+\\.[0-9]+\\.jmdac");
         
-        ModuleFileSearcher visitor = new ModuleFileSearcher(archiveName);
+        ModuleFileSearcher visitor = new ModuleFileSearcher(archivePattern);
         Files.walkFileTree(this.cachePath, EnumSet.of(FileVisitOption.FOLLOW_LINKS), SEARCH_DEPTH, visitor);
         
         for (Path moduleFile : visitor.foundFiles) {
@@ -237,7 +242,7 @@ public class FileModuleStore implements IModuleCatalog {
 
     @objid ("0f1b8454-7f0e-4940-a319-10462765b93e")
     @Override
-    public void removeModule(IModuleHandle mh) throws IOException, FileSystemException {
+    public void removeModule(IModuleHandle mh) throws FileSystemException, IOException {
         Path path = ((FileCatalogModuleHandle) mh).getModuleCachePath();      
         Path path1 = path.getParent();    
         FileUtils.delete(path1);
@@ -259,7 +264,7 @@ public class FileModuleStore implements IModuleCatalog {
      * Use {@link FileUtils#getLocalizedMessage(FileSystemException)} to get a human readable message.
      */
     @objid ("fa8db662-f0be-42a5-a279-b4a7a94d1868")
-    public IModuleHandle copy(IModuleHandle handle, FileModuleStore destStore, IModelioProgress monitor) throws IOException, FileSystemException {
+    public IModuleHandle copy(IModuleHandle handle, FileModuleStore destStore, IModelioProgress monitor) throws FileSystemException, IOException {
         FileCatalogModuleHandle h = (FileCatalogModuleHandle) handle;
         Path dir = h.getModuleCachePath();
         Path dirParent = dir.getParent(); // the directory with hashcode as name
@@ -357,7 +362,7 @@ public class FileModuleStore implements IModuleCatalog {
          
          String archiveName = moduleName + "_.*\\.jmdac";
          
-         ModuleFileSearcher visitor = new ModuleFileSearcher(archiveName);
+         ModuleFileSearcher visitor = new ModuleFileSearcher(Pattern.compile(archiveName));
          Files.walkFileTree(this.cachePath, EnumSet.of(FileVisitOption.FOLLOW_LINKS), SEARCH_DEPTH, visitor);
          
          for (Path moduleFile : visitor.foundFiles) {
@@ -366,11 +371,17 @@ public class FileModuleStore implements IModuleCatalog {
         return ret;
     }
 
+    /**
+     * @return the module cache path
+     */
     @objid ("f29bb236-3733-419b-94c5-5cd4ce1bd8ad")
     public Path getCachePath() {
-        return cachePath;
+        return this.cachePath;
     }
 
+    /**
+     * @param cachePath the module cache path.
+     */
     @objid ("abb2d5ba-d5a1-4c0f-b1fa-16a6ec48cb29")
     public void setCachePath(Path cachePath) {
         this.cachePath = cachePath;
@@ -378,15 +389,15 @@ public class FileModuleStore implements IModuleCatalog {
 
     @objid ("d9530939-37da-11e2-8ba4-002564c97630")
     private static class ModuleFileSearcher implements FileVisitor<Path> {
-        @objid ("e529f1de-3898-11e2-aba0-002564c97630")
-        private final String searchedFileName;
-
         @objid ("b9859d03-9c57-4ab9-a96f-b979e33ba88e")
         public final Set<Path> foundFiles;
 
+        @objid ("c997b217-e04e-499a-8040-73541004cbe9")
+        private final Pattern searchedFilePattern;
+
         @objid ("d9548fd4-37da-11e2-8ba4-002564c97630")
-        public ModuleFileSearcher(String searchedFile) {
-            this.searchedFileName = searchedFile;
+        public ModuleFileSearcher(Pattern searchedFilePattern) {
+            this.searchedFilePattern = searchedFilePattern;
             this.foundFiles = new TreeSet<>(new ModuleArchiveComparator());
         }
 
@@ -407,7 +418,7 @@ public class FileModuleStore implements IModuleCatalog {
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
             String fileName = file.getName(file.getNameCount() - 1).toString();
             if (fileName.endsWith(".jmdac")) {
-                if (fileName.matches(this.searchedFileName)) {
+                if (this.searchedFilePattern.matcher(fileName).matches()) {
                     this.foundFiles.add(file);
                 }
             }

@@ -26,7 +26,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("e478e605-d488-4760-98bb-fff5c2cc114f")
 public class OGate extends OOccurrenceSpecification implements IOElement {

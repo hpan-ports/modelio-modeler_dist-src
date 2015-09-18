@@ -45,29 +45,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00058f48-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Component.class, factory=ComponentData.Metadata.ObjectFactory.class, cmsnode=true)
 public class ComponentData extends ClassData {
-    @objid ("d63e25ed-efca-4baa-a9a3-c9561be75d62")
+    @objid ("1d78ad23-4247-4246-ab51-ca2753e518fc")
     @SmaMetaAssociation(metaName="Realization", typeDataClass=ComponentRealizationData.class, min=0, max=-1, smAssociationClass=Metadata.RealizationSmDependency.class, component = true)
      List<SmObjectImpl> mRealization = null;
 
-    @objid ("14983202-2610-41e8-a2d3-b9029aa46ee9")
+    @objid ("d33f1b54-344c-47f6-9c14-e55cf07d717d")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002e8efc-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("27b5e16d-199d-46eb-919d-9bd750944483")
+        @objid ("bb40ebb4-68cc-4e62-9856-8729ba1aa2bf")
         private static SmClass smClass = null;
 
-        @objid ("a1775cc9-8172-4864-9b4a-c5a33fb723f2")
+        @objid ("d6efd142-1a8b-482d-b6ef-74efa9ecdc5b")
         private static SmDependency RealizationDep = null;
 
-        @objid ("4e7e6eb9-bf96-4878-860c-9b7122d55cce")
+        @objid ("2e6ad505-b79d-4f64-acfe-68ad5131353c")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ComponentData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("a2f0a74b-9e17-4614-add3-cde17df0a2b6")
+        @objid ("9452114d-3958-4913-8510-eb60c2bb95a9")
         public static SmDependency RealizationDep() {
             if (RealizationDep == null) {
             	RealizationDep = classof().getDependencyDef("Realization");
@@ -75,13 +75,13 @@ public class ComponentData extends ClassData {
             return RealizationDep;
         }
 
-        @objid ("1f7a9ea1-024e-41f1-b5cb-53604bf0a4c5")
+        @objid ("83ccbc5d-caa3-4adf-b474-b1ffbebb80bf")
         public static SmDependency getRealizationDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return RealizationDep;
         }
 
-        @objid ("dd1f989f-ba0e-4ab2-a964-0adbae194160")
+        @objid ("d8d335ab-db6a-4e0d-a8e8-506f2af8f58b")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -89,12 +89,12 @@ public class ComponentData extends ClassData {
 
         @objid ("002ecfb6-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("f1360a46-b651-4f4f-a025-703e2d90a07c")
+            @objid ("a2902e3e-32c7-4989-acd2-c7d76892fcb5")
             public ISmObjectData createData() {
                 return new ComponentData();
             }
 
-            @objid ("ba3ddf29-2c4c-4e03-a377-25862a1bd36c")
+            @objid ("ee205fff-b7f8-4341-9e77-5a1caea28353")
             public SmObjectImpl createImpl() {
                 return new ComponentImpl();
             }
@@ -103,20 +103,20 @@ public class ComponentData extends ClassData {
 
         @objid ("20c1eac7-3feb-44c9-b5e0-20c5f30638e1")
         public static class RealizationSmDependency extends SmMultipleDependency {
-            @objid ("8f165d91-74f9-4ffc-9eb9-fb29de9178d7")
+            @objid ("04b4e2cf-f99e-4cef-9e66-2655bdac901c")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ComponentData)data).mRealization != null)? ((ComponentData)data).mRealization:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("5b2c35aa-e8e0-48e7-a793-0cdbed1e1b4b")
+            @objid ("b29f19f9-aa3c-4c37-afed-b22892119873")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ComponentData) data).mRealization = new ArrayList<>(initialCapacity);
                 return ((ComponentData) data).mRealization;
             }
 
-            @objid ("174c8510-7e60-4c7a-bda4-b4bb58e0484d")
+            @objid ("b7cb680b-958c-4cff-8312-c91d69b0b41b")
             @Override
             public SmDependency getSymetric() {
                 return ComponentRealizationData.Metadata.AbstractionDep();

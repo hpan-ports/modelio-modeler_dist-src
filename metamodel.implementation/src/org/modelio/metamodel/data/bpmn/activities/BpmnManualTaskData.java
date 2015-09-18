@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0080c9b0-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnManualTask.class, factory=BpmnManualTaskData.Metadata.ObjectFactory.class)
 public class BpmnManualTaskData extends BpmnTaskData {
-    @objid ("fbd08d33-790d-4807-896f-a43c66b34e9f")
+    @objid ("3c3eb145-a92e-4d06-ae5d-9473f989514a")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0042476c-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("dc711fb6-173a-4007-b5fb-e278a0445187")
+        @objid ("e2a24d26-90ce-4dfa-9669-6265394c8aee")
         private static SmClass smClass = null;
 
-        @objid ("1e871759-f38b-4ed2-8c7b-4d4fff3dc939")
+        @objid ("deff4e91-abbb-473f-9551-8653a5bf0eaf")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnManualTaskData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("7f67d038-d9e6-49bd-90b1-33eea5d97cf6")
+        @objid ("650ecdf5-6faf-4584-a0dc-6551b660608d")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BpmnManualTaskData extends BpmnTaskData {
 
         @objid ("004287f4-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ba24aaff-1f4d-4764-bf2b-4da8bd1f05bb")
+            @objid ("9b5de5e9-c79e-44b6-b9f9-685a62745e5d")
             public ISmObjectData createData() {
                 return new BpmnManualTaskData();
             }
 
-            @objid ("1574a924-c541-47e0-807d-76bbf8dd7de1")
+            @objid ("f4f78659-0f3c-4c0f-9ee0-b65898770936")
             public SmObjectImpl createImpl() {
                 return new BpmnManualTaskImpl();
             }

@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("00241b8e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AcceptCallEventAction extends ActivityAction {
-    @objid ("23bff0ad-2039-4be1-bc51-c34abbe928bc")
+    @objid ("a50a95ae-de22-411f-b786-ebd7258d86e8")
     Operation getCalled();
 
-    @objid ("608a49e7-ed4c-48ac-a838-ccbb8cdb4017")
+    @objid ("df56d3f4-250b-4600-a5b4-2883455dd254")
     void setCalled(Operation value);
 
 }

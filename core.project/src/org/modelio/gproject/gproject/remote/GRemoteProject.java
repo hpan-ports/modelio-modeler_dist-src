@@ -24,8 +24,8 @@ package org.modelio.gproject.gproject.remote;
 import java.io.IOException;
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.data.project.DescriptorWriter;
 import org.modelio.gproject.data.project.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptorWriter;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.ProjectWriter;
 import org.modelio.vbasic.progress.IModelioProgress;
@@ -44,7 +44,7 @@ public abstract class GRemoteProject extends GProject {
         
         Path confFilePath = getProjectPath().resolve("project.conf");
         ProjectDescriptor desc = new ProjectWriter(this).writeProject();
-        new DescriptorWriter().write(desc, confFilePath);
+        new ProjectDescriptorWriter().write(desc, confFilePath);
     }
 
 }

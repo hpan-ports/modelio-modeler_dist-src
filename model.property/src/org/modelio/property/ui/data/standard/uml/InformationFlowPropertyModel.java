@@ -241,9 +241,9 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
                     this.theEditedElement.setName((String) value);
                     break;
                 case 2:
-                    for (Classifier s : this.theEditedElement.getConveyed())
+                    for (Classifier s : new ArrayList<>(this.theEditedElement.getConveyed())) {
                         this.theEditedElement.getConveyed().remove(s);
-                    
+                    }
                     List<Classifier> newcontent = (List<Classifier>)value;
                     for (Classifier s : newcontent)
                         this.theEditedElement.getConveyed().add(s);

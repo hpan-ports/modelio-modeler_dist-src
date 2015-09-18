@@ -168,7 +168,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
      * @throws org.modelio.vcore.session.api.transactions.EndTransactionNoActiveTransactionException if there is no currently active transaction.
      */
     @objid ("006ed0d4-0d1e-1f20-85a5-001ec947cd2a")
-    public void commit(final Transaction toCommit) throws EndTransactionBadIdException, EndTransactionNoActiveTransactionException {
+    public void commit(final Transaction toCommit) throws EndTransactionNoActiveTransactionException, EndTransactionBadIdException {
         this.sync.lock();
         
         try {
@@ -418,7 +418,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
      * @throws org.modelio.vcore.session.api.transactions.EndTransactionNoActiveTransactionException if there is no active transaction
      */
     @objid ("006edaf2-0d1e-1f20-85a5-001ec947cd2a")
-    public void rollback(final Transaction toRollback) throws EndTransactionBadIdException, EndTransactionNoActiveTransactionException {
+    public void rollback(final Transaction toRollback) throws EndTransactionNoActiveTransactionException, EndTransactionBadIdException {
         this.sync.lock();
         try {
             if (!this.actionsRecorded) {
@@ -552,7 +552,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
 
     @objid ("458edfa6-5353-4a23-97ce-fb91e36b827e")
     @Override
-    public ITransaction createTransaction(final String trName, long timeout, TimeUnit unit) throws TransactionForbiddenException, ConcurrentTransactionException {
+    public ITransaction createTransaction(final String trName, long timeout, TimeUnit unit) throws ConcurrentTransactionException, TransactionForbiddenException {
         try {
         if (!this.sync.tryLock(timeout, unit)) 
             throwConcurrentTransactionException(trName, timeout, unit);
@@ -627,7 +627,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
     }
 
     @objid ("025aea44-30d3-43a5-8973-589096570776")
-    private void throwConcurrentTransactionException(final String trName, long timeout, TimeUnit unit) throws IllegalStateException, ConcurrentTransactionException {
+    private void throwConcurrentTransactionException(final String trName, long timeout, TimeUnit unit) throws ConcurrentTransactionException, IllegalStateException {
         Transaction lastTransaction = this.activeTransactions.peek();
         if (lastTransaction != null)
             throw new ConcurrentTransactionException(trName, lastTransaction, lastTransaction.getCreatorThread(), lastTransaction.getCreationTrace(), timeout, unit);

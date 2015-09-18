@@ -23,6 +23,7 @@ package org.modelio.audit.checker.actions;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.action.Action;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.modelio.audit.checker.CheckerView;
 import org.modelio.audit.engine.core.IAuditEntry;
@@ -40,13 +41,13 @@ public class DisableRuleHandlerAction extends Action {
     @objid ("b715079c-f533-42ea-bc52-2da8cebdc68c")
     private IAuditService auditService;
 
-    @objid ("f111c45a-fd93-4b7f-bc94-13409b3f3f59")
-    private CheckerView view;
+    @objid ("8ac0434d-f677-41c6-9b81-be78961b689a")
+    private Tree tree;
 
     @objid ("f1f6d2a2-284c-4663-8b25-13d40883ae5c")
-    public DisableRuleHandlerAction(IAuditService auditService, CheckerView view) {
+    public DisableRuleHandlerAction(IAuditService auditService, Tree tree) {
         this.auditService = auditService;
-        this.view = view;
+        this.tree = tree;
         
         this.setText(Audit.I18N.getString("Audit.CheckerView.Contextual.Disable"));
         setImageDescriptor(Audit.getImageDescriptor("icons/suspended.png"));
@@ -55,7 +56,7 @@ public class DisableRuleHandlerAction extends Action {
     @objid ("3a226a03-0c35-4f96-be56-947ec080afc5")
     @Override
     public void run() {
-        TreeItem[] item = view.getAuditTree().getSelection();
+        TreeItem[] item = tree.getSelection();
         Object obj = item[0].getData();
         
         String ruleId = null;
@@ -73,7 +74,7 @@ public class DisableRuleHandlerAction extends Action {
             if (rulePref != null) {
                 rulePref.enabled = false;
                 auditService.apply(prefModel);
-                view.refreshContent();
+                tree.redraw();
             }
         }
     }
@@ -81,7 +82,7 @@ public class DisableRuleHandlerAction extends Action {
     @objid ("51359115-7eaf-414c-872e-61d61c6ff303")
     @Override
     public boolean isEnabled() {
-        TreeItem[] item = view.getAuditTree().getSelection();
+        TreeItem[] item = tree.getSelection();
         Object obj = (Object) item[0].getData();
         return  obj instanceof IAuditEntry || obj instanceof AuditRuleModel;
     }

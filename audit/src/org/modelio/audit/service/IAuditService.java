@@ -22,8 +22,10 @@
 package org.modelio.audit.service;
 
 import java.io.File;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.audit.engine.AuditEngine;
+import org.modelio.audit.engine.core.IAuditMonitor;
 import org.modelio.audit.preferences.model.AuditConfigurationModel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -99,5 +101,34 @@ public interface IAuditService {
      */
     @objid ("56178467-a188-40cd-a6c1-b19e379901df")
     void setDefaultSettingsFile(File confFile);
+
+    /**
+     * Audit an hierarchy of elements.
+     * @param selection a model object or a selection of model object
+     * @param jobId an audit job identifier for reporting
+     */
+    @objid ("30ec12a7-aead-4e36-accb-6d726f8e742a")
+    void checkElementTree(List<MObject> selection, String jobId);
+
+    /**
+     * Register a listener for Audit Status
+     * @param  monitor Listener interface to add
+     */
+    @objid ("9fcd5a4b-f765-49c7-90ae-3fd58a747927")
+    void addAuditMonitor(IAuditMonitor monitor);
+
+    /**
+     * remove a listener for Audit Status
+     * @param  monitor Listener interface to remove
+     */
+    @objid ("6ca00ed1-535b-45cc-8d81-8281e9463d0b")
+    void removeAuditMonitor(IAuditMonitor monitor);
+
+    /**
+     * Interupt an audit
+     * @param jobId an audit job identifier for reporting
+     */
+    @objid ("05bb9b0d-bcc9-4c09-af25-59e404edfef1")
+    void interuptCheck(String jobId);
 
 }

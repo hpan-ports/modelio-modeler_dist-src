@@ -35,46 +35,46 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyTable;
 
 @objid ("1b70521e-83b3-42a8-a6ca-a0b86b8dc3ea")
 public interface QueryDefinition extends Element {
-    @objid ("dbc93df9-010e-492c-8a7a-193bc3da4bb0")
+    @objid ("8e1cf75d-2da0-408f-af68-99eed0bc8345")
     boolean isUsingAdditions();
 
-    @objid ("6a94cbd7-1edd-4ea0-90cc-5a37f0c21f76")
+    @objid ("f4a82796-6d52-4b84-b5d0-c174149a498c")
     void setUsingAdditions(boolean value);
 
-    @objid ("e749c94b-5d5e-462e-a8a2-5419510ae85b")
+    @objid ("ff42c8b9-8e33-4e2e-9284-e478ce31171a")
     EList<Element> getAdded();
 
-    @objid ("4a6d7dd4-4fed-406c-8ce8-d06d53cbc700")
+    @objid ("763bb422-6378-462f-ab63-67f415968162")
     <T extends Element> List<T> getAdded(java.lang.Class<T> filterClass);
 
-    @objid ("6756b30b-4a16-405c-b30d-9e7ba88c7330")
+    @objid ("8411c03d-c450-4810-8da4-d6e3be80765a")
     ExternProcessor getProcessor();
 
-    @objid ("6fbe0a26-6eb0-47c1-866b-d2ad46aa4fc2")
+    @objid ("3d2d93e4-8841-4b8b-99d1-85670d901ebd")
     void setProcessor(ExternProcessor value);
 
-    @objid ("8a9d4eb7-d8af-4736-bfb4-2338e16cad77")
+    @objid ("112ef889-d9a0-4ba2-8f8d-5f65f6742e0f")
     PropertyTable getParameters();
 
-    @objid ("cfa5d6ec-4717-4126-a694-172cf96499d5")
+    @objid ("919e2200-9ff6-4c47-a6da-57f3f59d6f21")
     void setParameters(PropertyTable value);
 
-    @objid ("9ac92c51-147e-47d8-a2d4-a6684014d4e3")
+    @objid ("4e954317-d5ec-4d89-a66a-897796d17c09")
     MatrixDefinition getOwnerAsLine();
 
-    @objid ("12e77092-0dec-4325-bbeb-f991a64d579b")
+    @objid ("d9a3307b-0955-4340-ba2f-018748f81694")
     void setOwnerAsLine(MatrixDefinition value);
 
-    @objid ("8d7218c0-5468-4605-9aa8-6b48e07e84c5")
+    @objid ("edcb7524-81e5-4bb0-b26f-6cf8444db041")
     MatrixDefinition getOwnerAsCol();
 
-    @objid ("b8b3ce1b-9e5e-4d30-9dd7-9ca1418911fd")
+    @objid ("aa036384-11d3-4df5-945d-81c4a8a6772b")
     void setOwnerAsCol(MatrixDefinition value);
 
-    @objid ("843636b6-5496-47f9-a2d5-37bb53026826")
+    @objid ("7ddc4e32-b787-4ec6-a12d-3ae1c28bfdc2")
     MatrixDefinition getOwnerAsDepth();
 
-    @objid ("42f43816-2a91-4d89-a780-9a493c796ce2")
+    @objid ("914ac3d3-42ee-4c33-8e38-b05ec1e5f78d")
     void setOwnerAsDepth(MatrixDefinition value);
 
 }

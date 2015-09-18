@@ -45,29 +45,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("006434d0-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=InformationItem.class, factory=InformationItemData.Metadata.ObjectFactory.class)
 public class InformationItemData extends ClassifierData {
-    @objid ("d35ccb11-5a55-4846-9209-bc3e74b15e27")
+    @objid ("4a354b4c-3826-497a-942c-9bbed61e5fb7")
     @SmaMetaAssociation(metaName="Represented", typeDataClass=ClassifierData.class, min=0, max=-1, smAssociationClass=Metadata.RepresentedSmDependency.class, partof = true)
      List<SmObjectImpl> mRepresented = null;
 
-    @objid ("dd4f5087-a97e-49c8-bc7c-58ebedf773bc")
+    @objid ("2b6b2c6c-f45f-4c5c-b4f3-745b09fc5595")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001732f2-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("7f498d3a-741c-4770-a948-7f05134c8b1f")
+        @objid ("972bb576-7b64-4744-baf8-114e98270b97")
         private static SmClass smClass = null;
 
-        @objid ("ef68cb94-ffc4-4d93-92c4-048d9cef164d")
+        @objid ("55c6721f-a1a1-4d46-8a60-ef6ed95e80e3")
         private static SmDependency RepresentedDep = null;
 
-        @objid ("aac54722-dcae-4c1d-b60f-913ad76e0eb9")
+        @objid ("96427d40-4bdb-46f4-b837-455015b8d7e6")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(InformationItemData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4628f75c-4c77-4b8e-87f3-b40f90670d22")
+        @objid ("bfa91972-4f30-4ca0-bf89-efdb43872f85")
         public static SmDependency RepresentedDep() {
             if (RepresentedDep == null) {
             	RepresentedDep = classof().getDependencyDef("Represented");
@@ -75,13 +75,13 @@ public class InformationItemData extends ClassifierData {
             return RepresentedDep;
         }
 
-        @objid ("97528fd3-0666-40ea-a49f-71a42643252f")
+        @objid ("aa6e585e-3425-428f-9426-533e164f61d0")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("d209e393-2863-4fa4-ae45-d37a274fab2d")
+        @objid ("e0bcae1f-cf03-4b88-94ca-73765332204a")
         public static SmDependency getRepresentedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return RepresentedDep;
@@ -89,12 +89,12 @@ public class InformationItemData extends ClassifierData {
 
         @objid ("001774b0-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("3de55a33-cb8d-4a17-9820-d9ac3cdc902b")
+            @objid ("4293fc5b-9687-4df0-94e5-465a71d49a01")
             public ISmObjectData createData() {
                 return new InformationItemData();
             }
 
-            @objid ("356ef659-7f2c-4ae2-8cc8-b86684c5b1c7")
+            @objid ("f6a9c757-052e-4ec0-993f-4674b2a8bf56")
             public SmObjectImpl createImpl() {
                 return new InformationItemImpl();
             }
@@ -103,20 +103,20 @@ public class InformationItemData extends ClassifierData {
 
         @objid ("0017d59a-c4c4-1fd8-97fe-001ec947cd2a")
         public static class RepresentedSmDependency extends SmMultipleDependency {
-            @objid ("05a18a53-8210-4813-8fc7-1bf062e10737")
+            @objid ("b735f47b-c9b7-4016-aaac-541bab5e6cfa")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((InformationItemData)data).mRepresented != null)? ((InformationItemData)data).mRepresented:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("9d844243-ec35-405f-b1cd-4837247887e2")
+            @objid ("d15b2bc2-f956-4c45-a42e-ae2c259ccc1b")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((InformationItemData) data).mRepresented = new ArrayList<>(initialCapacity);
                 return ((InformationItemData) data).mRepresented;
             }
 
-            @objid ("a084dac9-d05e-4485-aa0c-d994f1fe572e")
+            @objid ("f14cb997-13b3-4234-ab9e-7ca786e56b6d")
             @Override
             public SmDependency getSymetric() {
                 return ClassifierData.Metadata.RepresentationDep();

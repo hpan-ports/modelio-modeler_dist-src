@@ -126,10 +126,10 @@ public class AuditProviderFactory {
         @objid ("c2e65275-114c-4361-9e7d-1028b888f49a")
         public String[] columnName;
 
-        @objid ("4474597f-f202-4208-aa47-09575d4b7eab")
+        @objid ("8a6e1144-3d02-4048-b4d8-c259ee5f5e51")
         public IContentProvider contentProvider;
 
-        @objid ("28fe365a-67be-45e7-8e53-b8ecd008f7de")
+        @objid ("a42e3397-ac8f-47d0-a795-6e68cc19225c")
         public CellLabelProvider[] labelsProviders;
 
     }

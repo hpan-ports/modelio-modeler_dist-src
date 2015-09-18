@@ -44,31 +44,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0010c444-c4bf-1fd8-97fe-001ec947cd2a")
 public class ManifestationImpl extends ModelElementImpl implements Manifestation {
-    @objid ("6ef9f9db-4f07-4aaa-979a-7e60530512b9")
+    @objid ("9800fb89-22db-4f44-b8ab-ed973c818e36")
     @Override
     public ModelElement getUtilizedElement() {
         return (ModelElement) getDepVal(ManifestationData.Metadata.UtilizedElementDep());
     }
 
-    @objid ("be4f2010-7c8b-40dd-aad0-ccefe6b6278c")
+    @objid ("9e227e9d-939b-4dfa-91bc-33b36a89fcf6")
     @Override
     public void setUtilizedElement(ModelElement value) {
         appendDepVal(ManifestationData.Metadata.UtilizedElementDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c3d7f87f-f053-4941-8564-9516361ddf40")
+    @objid ("2e354027-596c-432c-a29f-00c4e78f3aa8")
     @Override
     public Artifact getOwner() {
         return (Artifact) getDepVal(ManifestationData.Metadata.OwnerDep());
     }
 
-    @objid ("cfa596d7-2d5e-44da-9f23-b1ac062dc7d9")
+    @objid ("dad14e77-ca22-46f0-8de6-280cf20027be")
     @Override
     public void setOwner(Artifact value) {
         appendDepVal(ManifestationData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f6cd100a-adc4-432f-b9a3-72487c077b51")
+    @objid ("a3c4fae6-d392-4896-af4b-b0f748d9a815")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -78,7 +78,7 @@ public class ManifestationImpl extends ModelElementImpl implements Manifestation
         return super.getCompositionOwner();
     }
 
-    @objid ("899bbba6-dcf0-4fc9-9dd7-ad7ae8c9acdb")
+    @objid ("53495a77-5212-4027-9cf6-d28378474857")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -88,7 +88,7 @@ public class ManifestationImpl extends ModelElementImpl implements Manifestation
         return super.getCompositionRelation();
     }
 
-    @objid ("ef76c97b-5ea8-4934-bcbe-4ef40d96ad66")
+    @objid ("6be23bdd-1130-4a55-812f-b1eb55384144")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitManifestation(this);

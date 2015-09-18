@@ -45,7 +45,6 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.modelio.script.handlers.RunMacroHandler;
 import org.modelio.script.macro.IMacroService;
 import org.modelio.script.macro.catalog.Macro;
-import org.modelio.script.plugin.Script;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -79,15 +78,16 @@ public class MacroToolbarProvider {
     @objid ("a8d95c61-19da-4f32-af8b-3dc2fce0d571")
     @Inject
     @Optional
-    void onSelectionChanged(@SuppressWarnings("unused")
-@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
-        deleteToolItems();
+    void onSelectionChanged(@SuppressWarnings("unused") @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+        if (this.macroToolbar != null) {
+            deleteToolItems();
         
-        createToolItems(this.macroService.getMacros(getSelectedElements()));
+            createToolItems(this.macroService.getMacros(getSelectedElements()));
         
-        // Layout the toolbar, as e4 is lost with it...
-        this.macroToolbar.pack();
-        this.macroToolbar.getShell().layout(new Control[] { this.macroToolbar }, SWT.DEFER);
+            // Layout the toolbar, as e4 is lost with it...
+            this.macroToolbar.pack();
+            this.macroToolbar.getShell().layout(new Control[] { this.macroToolbar }, SWT.DEFER);
+        }
     }
 
     /**

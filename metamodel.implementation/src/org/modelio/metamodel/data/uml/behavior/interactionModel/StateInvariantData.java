@@ -43,36 +43,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004be470-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=StateInvariant.class, factory=StateInvariantData.Metadata.ObjectFactory.class)
 public class StateInvariantData extends OccurrenceSpecificationData {
-    @objid ("89fca15d-343e-4734-8cdc-cddf6e86d5b4")
+    @objid ("b929e6e1-272e-488e-a286-973eb9840c7c")
     @SmaMetaAttribute(metaName="Body", type=String.class, smAttributeClass=Metadata.BodySmAttribute.class)
      Object mBody = "";
 
-    @objid ("5540507f-3c9f-4f04-a521-f0e24b72a1f6")
+    @objid ("2252e579-1cd0-4ce5-a07d-327e22d81630")
     @SmaMetaAttribute(metaName="EndLineNumber", type=Integer.class, smAttributeClass=Metadata.EndLineNumberSmAttribute.class)
      Object mEndLineNumber = 0;
 
-    @objid ("40394a76-8d82-4680-9d46-cfc38db65484")
+    @objid ("f8f8b4f3-9e66-4b72-9660-049ec1eb1797")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0075111a-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("1075cbd5-9714-44e8-97f6-be53763317fc")
+        @objid ("f7c1af89-f536-4060-8339-eea8dfd3a09d")
         private static SmClass smClass = null;
 
-        @objid ("d6961763-1ad1-4143-b0da-e2c7ce098592")
+        @objid ("5c63933e-7e0e-4fec-bd7b-44148ce84259")
         private static SmAttribute BodyAtt = null;
 
-        @objid ("716e5354-19c6-4bc3-9f60-df4f845fc4c1")
+        @objid ("c7a913e9-1d05-4e99-bacf-99d7eeaec56f")
         private static SmAttribute EndLineNumberAtt = null;
 
-        @objid ("0107b500-684b-46f9-8683-1d82b3f58928")
+        @objid ("1f37b046-387a-4eba-ad1b-327a7b227069")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(StateInvariantData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("36fc1093-2959-47d1-8f4f-d6a90b7f909f")
+        @objid ("dd6cfb85-75f3-4e6e-b220-22d6307609a0")
         public static SmAttribute BodyAtt() {
             if (BodyAtt == null) {
             	BodyAtt = classof().getAttributeDef("Body");
@@ -80,7 +80,7 @@ public class StateInvariantData extends OccurrenceSpecificationData {
             return BodyAtt;
         }
 
-        @objid ("9d255c47-5c36-498d-bde1-187b2b7ce59f")
+        @objid ("af83c3cc-84c8-44f1-b252-175a6009d8b4")
         public static SmAttribute EndLineNumberAtt() {
             if (EndLineNumberAtt == null) {
             	EndLineNumberAtt = classof().getAttributeDef("EndLineNumber");
@@ -88,32 +88,32 @@ public class StateInvariantData extends OccurrenceSpecificationData {
             return EndLineNumberAtt;
         }
 
-        @objid ("5445dea7-80b2-4a70-b836-94fd5a982db7")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("5f35e7e1-417f-4506-9d91-9504c9cf1cf5")
-        public static SmAttribute getBodyAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BodyAtt;
-        }
-
-        @objid ("a6e45daf-a39c-4b1a-bda1-1707879611e3")
+        @objid ("6818a673-4689-45ba-aadf-392d312c8679")
         public static SmAttribute getEndLineNumberAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return EndLineNumberAtt;
         }
 
+        @objid ("76850ddc-7219-47e1-ad19-d49eb3e17a18")
+        public static SmAttribute getBodyAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return BodyAtt;
+        }
+
+        @objid ("e3f8acc7-e9eb-4553-97b6-4d15c266949c")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("00756e76-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("65ed6bd3-c900-4633-9d1b-36495afd2c88")
+            @objid ("385fbb85-1df7-4a49-8f3e-59cd86866633")
             public ISmObjectData createData() {
                 return new StateInvariantData();
             }
 
-            @objid ("515792fc-d534-49bc-9528-322e703357fd")
+            @objid ("8c4a6b8f-dc31-4b18-9523-d38b4e6a0f98")
             public SmObjectImpl createImpl() {
                 return new StateInvariantImpl();
             }
@@ -122,12 +122,12 @@ public class StateInvariantData extends OccurrenceSpecificationData {
 
         @objid ("0075e2d4-c4c5-1fd8-97fe-001ec947cd2a")
         public static class BodySmAttribute extends SmAttribute {
-            @objid ("dc6148cc-b408-4ba2-9b9f-5a2a57bfd640")
+            @objid ("951a3b3a-d231-4070-8313-4de3fe0a5500")
             public Object getValue(ISmObjectData data) {
                 return ((StateInvariantData) data).mBody;
             }
 
-            @objid ("a3c364f6-9f14-437f-a1f0-b9f8c182ada7")
+            @objid ("a45b6c10-19ff-4177-8f65-73de8001d3f1")
             public void setValue(ISmObjectData data, Object value) {
                 ((StateInvariantData) data).mBody = value;
             }
@@ -136,12 +136,12 @@ public class StateInvariantData extends OccurrenceSpecificationData {
 
         @objid ("00765660-c4c5-1fd8-97fe-001ec947cd2a")
         public static class EndLineNumberSmAttribute extends SmAttribute {
-            @objid ("3144cb2f-4e13-49ac-a563-c1fcfcd85149")
+            @objid ("3d1d5d7b-ff53-402d-8424-429c7c25349d")
             public Object getValue(ISmObjectData data) {
                 return ((StateInvariantData) data).mEndLineNumber;
             }
 
-            @objid ("eb2cebe0-787d-47f7-8263-135eae243d36")
+            @objid ("0b845d84-5f5e-4c97-9839-4c1aa92b5503")
             public void setValue(ISmObjectData data, Object value) {
                 ((StateInvariantData) data).mEndLineNumber = value;
             }

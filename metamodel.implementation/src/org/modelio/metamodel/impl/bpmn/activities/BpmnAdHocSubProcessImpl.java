@@ -42,57 +42,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007e160c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnAdHocSubProcessImpl extends BpmnSubProcessImpl implements BpmnAdHocSubProcess {
-    @objid ("9addc870-9218-4539-8cc4-5fdeb33ff197")
+    @objid ("de4c64aa-eac9-4d9d-830c-90bae4ab6ac4")
     @Override
     public AdHocOrdering getOrdering() {
         return (AdHocOrdering) getAttVal(BpmnAdHocSubProcessData.Metadata.OrderingAtt());
     }
 
-    @objid ("fb489724-3113-4484-bc22-be17689e5479")
+    @objid ("6b89cacb-c7a5-4a4e-b22a-e5e70b78229b")
     @Override
     public void setOrdering(AdHocOrdering value) {
         setAttVal(BpmnAdHocSubProcessData.Metadata.OrderingAtt(), value);
     }
 
-    @objid ("92ab3c41-ec37-4806-a2e1-ddba3a5c8e0b")
+    @objid ("b86899ae-761f-4cd4-8c72-8b089a5e3509")
     @Override
     public boolean isCancelRemainingInstances() {
         return (Boolean) getAttVal(BpmnAdHocSubProcessData.Metadata.CancelRemainingInstancesAtt());
     }
 
-    @objid ("19d20416-3f08-4302-923f-53bb3a38b65a")
+    @objid ("ab1f4c77-a7e5-42d8-8c22-03fdff048cd5")
     @Override
     public void setCancelRemainingInstances(boolean value) {
         setAttVal(BpmnAdHocSubProcessData.Metadata.CancelRemainingInstancesAtt(), value);
     }
 
-    @objid ("46947603-0742-417c-b64f-d8b6bdf91202")
+    @objid ("c0412ad6-0598-4273-b664-ca1148e74af4")
     @Override
     public String getCompletionCondition() {
         return (String) getAttVal(BpmnAdHocSubProcessData.Metadata.CompletionConditionAtt());
     }
 
-    @objid ("af6a1d1c-9cb0-4bcf-a2ed-b6993482f956")
+    @objid ("8646a8b1-140f-4b7d-98eb-623b31e6921f")
     @Override
     public void setCompletionCondition(String value) {
         setAttVal(BpmnAdHocSubProcessData.Metadata.CompletionConditionAtt(), value);
     }
 
-    @objid ("a856e5c5-10bd-4451-9879-e1d70381f7b7")
+    @objid ("4c4b9221-50b7-4998-9350-2f1695b3e1c6")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("f871d6de-1327-48ae-8b73-3e1084e4a1cb")
+    @objid ("b8d60900-3755-45fb-b6fb-bd0f60836862")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("3f9958c8-d1d2-4229-9b93-9663b2299f51")
+    @objid ("d485feee-1477-44b1-aad1-740c9732dded")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnAdHocSubProcess(this);

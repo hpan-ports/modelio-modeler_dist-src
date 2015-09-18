@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0033e794-c4bf-1fd8-97fe-001ec947cd2a")
 public class ForkJoinNodeImpl extends ControlNodeImpl implements ForkJoinNode {
-    @objid ("89c3d540-2ff8-48ce-9171-4f0556bb4cf9")
+    @objid ("7d346b3c-013a-4d38-9558-a8dd330d06a7")
     @Override
     public boolean isIsCombineDuplicate() {
         return (Boolean) getAttVal(ForkJoinNodeData.Metadata.IsCombineDuplicateAtt());
     }
 
-    @objid ("77bfc5f1-93dc-440b-8e1f-499a97b3ea12")
+    @objid ("d4aaeafd-f40e-4057-8c18-06617f9fe978")
     @Override
     public void setIsCombineDuplicate(boolean value) {
         setAttVal(ForkJoinNodeData.Metadata.IsCombineDuplicateAtt(), value);
     }
 
-    @objid ("cfbc8cc7-94b0-4bb3-a0fb-1974b116c1bf")
+    @objid ("3969a63b-ce60-4838-83d9-00da7c3c144b")
     @Override
     public String getJoinSpec() {
         return (String) getAttVal(ForkJoinNodeData.Metadata.JoinSpecAtt());
     }
 
-    @objid ("8db636ac-2725-41cf-827e-417e5f8aaf64")
+    @objid ("a4f719b5-6669-4593-96b0-d6c066e46d37")
     @Override
     public void setJoinSpec(String value) {
         setAttVal(ForkJoinNodeData.Metadata.JoinSpecAtt(), value);
     }
 
-    @objid ("1d6940f7-e667-4ef4-9b93-a9285e555162")
+    @objid ("12286159-404c-48b0-ad55-22eb7974d824")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("cd8817d9-0185-4703-8b78-1538d184c893")
+    @objid ("e869ab1a-de77-45ab-a71b-bef1cc9912ef")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("10220297-e3ee-4a6c-8882-e509966a2b41")
+    @objid ("7b451dba-413c-4860-9d55-841bd5b27000")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitForkJoinNode(this);

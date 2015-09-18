@@ -42,33 +42,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003d773c-c4bf-1fd8-97fe-001ec947cd2a")
 public class SendSignalActionImpl extends ActivityActionImpl implements SendSignalAction {
-    @objid ("f8ea1e44-587b-4930-9cb4-66e617aabf37")
+    @objid ("3aece4ab-f9b0-4d69-8825-67e462d915b8")
     @Override
     public Signal getSent() {
         return (Signal) getDepVal(SendSignalActionData.Metadata.SentDep());
     }
 
-    @objid ("3a3f26d3-1dcf-43e5-a6a9-e91b59654e34")
+    @objid ("a16c9b93-76e1-434f-904d-e7ef1a705b73")
     @Override
     public void setSent(Signal value) {
         appendDepVal(SendSignalActionData.Metadata.SentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0f0bc803-994e-4842-bde8-8dd91973731b")
+    @objid ("a008af44-3245-415c-96c6-49a53c3e9f75")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("413b02c7-a0ae-4b7f-b704-1a18e7556ed3")
+    @objid ("5e734d11-98eb-4b9e-b8a2-788e6f8bebd9")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("0466be94-7bd4-42c3-acba-db9af7123a1f")
+    @objid ("807f91e4-5adc-4361-a07f-be0a67fa4e94")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitSendSignalAction(this);

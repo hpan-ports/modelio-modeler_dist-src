@@ -273,7 +273,7 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
     }
 
     @objid ("2fae883f-10f4-4baa-a1e9-4876bdf3bdc1")
-    private void checkLocalIndex() throws IOException, IndexOutdatedException {
+    private void checkLocalIndex() throws IndexOutdatedException, IOException {
         boolean islocalDir = Files.isDirectory(this.localIndexDir);
         if (! islocalDir)
             throw new IndexOutdatedException(this.getName()+" indexes not yet copied in '"+this.localIndexDir+"'.");
@@ -297,7 +297,7 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
     }
 
     @objid ("4d53035d-1184-4ef3-83be-06eee47e61a9")
-    private String readLocalStamp() throws IOException, FileSystemException {
+    private String readLocalStamp() throws FileSystemException, IOException {
         return FileUtils.readWhole(this.localIndexStampPath, "UTF-8");
     }
 

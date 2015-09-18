@@ -42,70 +42,70 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 
 @objid ("0053788e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface State extends StateVertex {
-    @objid ("679d7a7c-7e0c-4013-bb48-0b7eb8e85ea5")
+    @objid ("efb93eca-9b20-41b6-9c67-c6cd64ad1077")
     EList<ExitPointPseudoState> getExitPoint();
 
-    @objid ("d4eac235-a0bb-4061-9ba7-826c627fd785")
+    @objid ("21c8bc33-3df1-469f-893d-47e32da7e105")
     <T extends ExitPointPseudoState> List<T> getExitPoint(java.lang.Class<T> filterClass);
 
-    @objid ("e414490c-7cb8-4613-94c5-a8bd14225f99")
+    @objid ("a853ad92-7971-46ab-b4e5-ff4821233baa")
     EList<BpmnDataState> getBpmnDataStateRefs();
 
-    @objid ("de516431-309a-4bf2-bd2d-b4e99d2f7b0b")
+    @objid ("38ddb5d2-f596-4e8a-a656-de4579065b5a")
     <T extends BpmnDataState> List<T> getBpmnDataStateRefs(java.lang.Class<T> filterClass);
 
-    @objid ("bbe4b4c1-3215-4429-a19a-c51a52b8170b")
+    @objid ("3f8b019f-24c0-4ed3-b841-47a3d86f6cd4")
     EList<Event> getDeffered();
 
-    @objid ("8d429441-9f46-46f7-8d0e-590ce27851fd")
+    @objid ("606e0ff4-09c2-4b97-ac46-c68282a1bb69")
     <T extends Event> List<T> getDeffered(java.lang.Class<T> filterClass);
 
-    @objid ("6be4f9f5-9607-4002-80dc-6f3e0f0147c6")
+    @objid ("4805f1ce-df04-454e-8760-bdaefa649af4")
     EList<InternalTransition> getInternal();
 
-    @objid ("0843988c-0c53-4fdd-b3ef-6a3f02ee22a2")
+    @objid ("104eb439-ab73-49a7-8a15-7e7e96838e2c")
     <T extends InternalTransition> List<T> getInternal(java.lang.Class<T> filterClass);
 
-    @objid ("a2395175-c0e7-4f6b-b151-da41747ada07")
+    @objid ("ca4ff8dc-70ce-4004-ae96-f7c96cdaf120")
     EList<EntryPointPseudoState> getEntryPoint();
 
-    @objid ("a40b49e3-6cb7-424f-b92f-01136d04d733")
+    @objid ("edf3bfb8-5293-4fa9-8de4-a5f577d11da3")
     <T extends EntryPointPseudoState> List<T> getEntryPoint(java.lang.Class<T> filterClass);
 
-    @objid ("ec9776b3-4834-4715-a002-f2c5a616ad7c")
+    @objid ("466ccfc0-9604-44eb-84fc-db304106d248")
     EList<Region> getOwnedRegion();
 
-    @objid ("7abf2c40-6bbd-4453-9c6e-45ec3f6bd191")
+    @objid ("ac567ae4-5130-47a4-bc4f-f492fe4e83b1")
     <T extends Region> List<T> getOwnedRegion(java.lang.Class<T> filterClass);
 
-    @objid ("03fd44d2-ab15-489e-a280-955ea363f333")
+    @objid ("b8d6a9fc-f555-44b6-b3d0-20ca2f9ad8c3")
     EList<BpmnMessage> getRequiredStateOfBpmnMessage();
 
-    @objid ("4abd81ed-9200-4164-9d9f-95087d513b21")
+    @objid ("2009fe10-bc93-4fc3-aeaf-ce5551e8b098")
     <T extends BpmnMessage> List<T> getRequiredStateOfBpmnMessage(java.lang.Class<T> filterClass);
 
-    @objid ("f5e674ec-98a1-45b1-b153-d773d5f501a7")
+    @objid ("6eba57f3-116d-4876-a124-43ddacb1e141")
     EList<ObjectNode> getRequiredStateOf();
 
-    @objid ("f2c391a9-55de-44be-8afa-587f09a1af2a")
+    @objid ("50b1a001-c34a-416b-a4b5-6a4c853b9774")
     <T extends ObjectNode> List<T> getRequiredStateOf(java.lang.Class<T> filterClass);
 
-    @objid ("d0c858ea-080b-4012-aa66-9d1407f4cf85")
+    @objid ("a818d137-009e-4503-a314-eb737a955c60")
     EList<ConnectionPointReference> getConnection();
 
-    @objid ("c02d3e64-50eb-494a-9f1c-279ed6a305ba")
+    @objid ("d781280c-04ac-4ed9-b42c-5d65871544e6")
     <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass);
 
-    @objid ("a0062651-ec63-4435-8f47-e490f3eaff1d")
+    @objid ("da865350-c655-47be-b7c6-78b8a9c2debd")
     StateMachine getSubMachine();
 
-    @objid ("d31337f6-5ccc-4857-897b-5bd7d20196a3")
+    @objid ("c029e528-b49d-4808-a126-04538074a34c")
     void setSubMachine(StateMachine value);
 
-    @objid ("c9ae6ce5-7ef1-4960-86b0-7f87f1c5858b")
+    @objid ("0c7defe2-0a3a-469a-a468-c0379991db6c")
     EList<BpmnItemAwareElement> getRequiredStateOfBpmnItem();
 
-    @objid ("a3cdf5b1-454f-46e8-b7a4-0815df1c9125")
+    @objid ("30c393bc-f494-46cc-b16c-4d12245203d5")
     <T extends BpmnItemAwareElement> List<T> getRequiredStateOfBpmnItem(java.lang.Class<T> filterClass);
 
 }

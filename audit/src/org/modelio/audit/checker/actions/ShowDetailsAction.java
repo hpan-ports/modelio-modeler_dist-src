@@ -35,14 +35,14 @@ import org.modelio.audit.view.model.AuditElementModel;
 
 @objid ("c5960dc3-ded7-4893-baf2-4fac1156738c")
 public class ShowDetailsAction extends Action {
-    @objid ("f19e970d-8b65-4c27-a843-930deed7969d")
-    private TreeViewer tree;
-
     @objid ("d5b4c833-a2b2-4d40-b2f5-b50bc69aaf48")
     private IProjectService projectService;
 
     @objid ("1833a222-1f41-44ba-b282-3f315d9a92fb")
     private IModelioNavigationService navigationService;
+
+    @objid ("f1b7c876-f584-4641-9180-547d3c245169")
+    private TreeViewer tree;
 
     @objid ("23068af3-abd9-40a7-aa21-5caff3464983")
     public ShowDetailsAction(IProjectService projectService, IModelioNavigationService navigationService, TreeViewer tree) {

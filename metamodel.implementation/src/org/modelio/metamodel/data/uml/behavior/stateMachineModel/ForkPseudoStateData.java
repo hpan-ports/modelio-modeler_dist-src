@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00509d58-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ForkPseudoState.class, factory=ForkPseudoStateData.Metadata.ObjectFactory.class)
 public class ForkPseudoStateData extends AbstractPseudoStateData {
-    @objid ("58883d5c-45bb-4c94-aa14-44e327485ffb")
+    @objid ("61846968-2fbd-4895-a8dc-0a77bab38832")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0068642e-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("c5094fc9-9212-49f5-aa9e-87e5e737f357")
+        @objid ("16b6b255-05e7-4a84-b3db-31c1fb7f0078")
         private static SmClass smClass = null;
 
-        @objid ("f14277d8-0e03-48ab-86ed-c8a7e17824d7")
+        @objid ("00e2496f-9b54-41f2-9be3-8edec4b119a7")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ForkPseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("113a09cd-b5f8-4592-8374-772c6b6f794c")
+        @objid ("35f00c23-4b81-4f35-86fb-b823246997c7")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ForkPseudoStateData extends AbstractPseudoStateData {
 
         @objid ("0068a5d8-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("70c433fd-3228-44d1-a740-c81bf38a6070")
+            @objid ("a84bb761-4b2a-4676-8e24-96523dcd7a0d")
             public ISmObjectData createData() {
                 return new ForkPseudoStateData();
             }
 
-            @objid ("45904951-53a2-438d-ba6a-0eba2453d84b")
+            @objid ("8b790147-2ce1-4d30-8337-3e3ce39a2a1e")
             public SmObjectImpl createImpl() {
                 return new ForkPseudoStateImpl();
             }

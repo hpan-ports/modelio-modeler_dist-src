@@ -29,8 +29,8 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("8d378d9d-44ca-4d56-9747-d92ed2246a5f")
 public class ECreationEvent extends ENamedElement {

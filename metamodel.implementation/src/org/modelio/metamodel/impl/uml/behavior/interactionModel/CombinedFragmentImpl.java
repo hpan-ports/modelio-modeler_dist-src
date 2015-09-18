@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00437f1a-c4bf-1fd8-97fe-001ec947cd2a")
 public class CombinedFragmentImpl extends InteractionFragmentImpl implements CombinedFragment {
-    @objid ("47a91ec9-cdb8-45ce-97f3-d72dfaffc632")
+    @objid ("e0f0cc21-f0e9-44fe-82cd-fb9339defc34")
     @Override
     public InteractionOperator getOperator() {
         return (InteractionOperator) getAttVal(CombinedFragmentData.Metadata.OperatorAtt());
     }
 
-    @objid ("91e3ead5-cc22-46a1-b347-19b922248a03")
+    @objid ("e313607b-78f5-4c59-9ff0-80af215d3e67")
     @Override
     public void setOperator(InteractionOperator value) {
         setAttVal(CombinedFragmentData.Metadata.OperatorAtt(), value);
     }
 
-    @objid ("7e9cddb5-04aa-4a33-8899-5a9da5ef8ffd")
+    @objid ("ac02e4bd-efa7-497a-aa83-75b7a14ca776")
     @Override
     public EList<InteractionOperand> getOperand() {
         return new SmList<>(this, CombinedFragmentData.Metadata.OperandDep());
     }
 
-    @objid ("83f3d396-c875-4164-b314-615f4f6d332d")
+    @objid ("eb720ac5-d26b-4c76-a37b-93f6ec5e7aff")
     @Override
     public <T extends InteractionOperand> List<T> getOperand(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,13 +76,13 @@ public class CombinedFragmentImpl extends InteractionFragmentImpl implements Com
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cd1e5a3a-4a94-44be-8fe1-c766fdb95b44")
+    @objid ("439d5b40-0cfe-4340-99f7-284f7e7dee8e")
     @Override
     public EList<Gate> getFragmentGate() {
         return new SmList<>(this, CombinedFragmentData.Metadata.FragmentGateDep());
     }
 
-    @objid ("58692ce3-b934-4873-b737-8ef19284c4d6")
+    @objid ("3eb19463-25be-4311-8287-ef2903bf658d")
     @Override
     public <T extends Gate> List<T> getFragmentGate(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -95,21 +95,21 @@ public class CombinedFragmentImpl extends InteractionFragmentImpl implements Com
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b3cca112-c9a4-4265-9911-7efb67b9f234")
+    @objid ("fe0203bf-0089-47e1-9832-97a961c706ff")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("8247519a-1cf9-4c29-a094-0da2bf59a3b1")
+    @objid ("f6c1299f-b70d-4a98-9c10-3d27009e1a93")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c55f6a28-51be-4884-9222-33f5dd6a96b1")
+    @objid ("13ea294d-cafc-4cb2-81ae-b93cf16bda09")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCombinedFragment(this);

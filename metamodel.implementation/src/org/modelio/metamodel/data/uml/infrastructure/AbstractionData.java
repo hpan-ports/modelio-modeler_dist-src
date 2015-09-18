@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0084fefe-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Abstraction.class, factory=AbstractionData.Metadata.ObjectFactory.class)
 public class AbstractionData extends DependencyData {
-    @objid ("27bded81-bf50-4108-b8db-51c16c4f1897")
+    @objid ("1d04d386-ddf3-4d86-83b7-64f9a4f59c86")
     @SmaMetaAttribute(metaName="Mapping", type=String.class, smAttributeClass=Metadata.MappingSmAttribute.class)
      Object mMapping = "";
 
-    @objid ("f5224000-caac-468d-919d-1a1b18d52122")
+    @objid ("84e20468-9d62-469d-81e5-c793de608946")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008018c6-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("88ab6f22-0240-4044-bf7a-9378e33df32c")
+        @objid ("01f4ca44-1c9e-4f72-b275-c58706fb52eb")
         private static SmClass smClass = null;
 
-        @objid ("0d3c951d-087a-4525-830a-82a835272802")
+        @objid ("80cd889c-9c33-4ff3-9299-0855000a936e")
         private static SmAttribute MappingAtt = null;
 
-        @objid ("3d46de10-a7aa-43fa-a809-3b0c2b3be99f")
+        @objid ("53ad5c81-8d6e-4ab1-b847-a0fadd6a7d03")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(AbstractionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("a02ba734-1268-4657-950e-10b4a51b303e")
+        @objid ("39320c72-1347-4624-bd25-8a37b23ba558")
         public static SmAttribute MappingAtt() {
             if (MappingAtt == null) {
             	MappingAtt = classof().getAttributeDef("Mapping");
@@ -73,13 +73,13 @@ public class AbstractionData extends DependencyData {
             return MappingAtt;
         }
 
-        @objid ("36994559-4424-45d2-97ea-d3b7d42d6588")
+        @objid ("2eed576f-dfce-4de5-b5f7-49004219cf02")
         public static SmAttribute getMappingAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return MappingAtt;
         }
 
-        @objid ("63504645-2aaa-4119-955d-455008b86039")
+        @objid ("e2fc578e-5f0c-4b27-93f1-0bf0dff20aec")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -87,12 +87,12 @@ public class AbstractionData extends DependencyData {
 
         @objid ("00806830-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("148323ee-a28b-456d-b812-7dc100d2d5fd")
+            @objid ("851daadb-3012-4c49-984f-16dd4c092a0c")
             public ISmObjectData createData() {
                 return new AbstractionData();
             }
 
-            @objid ("b27833c0-d4c1-4d00-a9b7-26d1f0e90f01")
+            @objid ("e8627a77-1018-49d7-aaeb-06dfbe8d0c42")
             public SmObjectImpl createImpl() {
                 return new AbstractionImpl();
             }
@@ -101,12 +101,12 @@ public class AbstractionData extends DependencyData {
 
         @objid ("0080db30-c4c5-1fd8-97fe-001ec947cd2a")
         public static class MappingSmAttribute extends SmAttribute {
-            @objid ("d1666c4e-7a0b-4612-9191-b6f02c0a9f35")
+            @objid ("cfeea3fb-ea84-4385-8dd7-03d4e9c421c5")
             public Object getValue(ISmObjectData data) {
                 return ((AbstractionData) data).mMapping;
             }
 
-            @objid ("0ec321b1-8d18-4ec2-b1fa-2c6612e4d124")
+            @objid ("01f6ec0a-06dc-46e6-87e3-8490c86f2bc4")
             public void setValue(ISmObjectData data, Object value) {
                 ((AbstractionData) data).mMapping = value;
             }

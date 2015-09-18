@@ -48,7 +48,7 @@ class StringTextListener implements ModifyListener, KeyListener {
     @objid ("8dd3b40a-c068-11e1-8c0a-002564c97630")
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.keyCode == SWT.CR) {
+        if (e.keyCode == SWT.CR || e.keyCode == SWT.KEYPAD_CR) {
             Text addStringText = (Text)e.getSource();
             String text = addStringText.getText();
             this.dialog.addAdapter(text);

@@ -46,25 +46,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00157246-c4bf-1fd8-97fe-001ec947cd2a")
 public class PackageImpl extends NameSpaceImpl implements Package {
-    @objid ("e0ee9b09-7eb3-42ff-82d0-01c5a6794ec8")
+    @objid ("33f4ba62-5562-430c-813a-e39015803b4e")
     @Override
     public boolean isIsInstantiable() {
         return (Boolean) getAttVal(PackageData.Metadata.IsInstantiableAtt());
     }
 
-    @objid ("a8c8d8eb-be8a-4ec8-9fe4-b068b524184e")
+    @objid ("496c9c90-2916-4098-bac2-eef2704e282f")
     @Override
     public void setIsInstantiable(boolean value) {
         setAttVal(PackageData.Metadata.IsInstantiableAtt(), value);
     }
 
-    @objid ("3368485e-7576-4a07-809b-ae27abd12b3b")
+    @objid ("fe27bf35-231f-4a79-b968-05aed9c8f66a")
     @Override
     public EList<BpmnParticipant> getBpmnRepresents() {
         return new SmList<>(this, PackageData.Metadata.BpmnRepresentsDep());
     }
 
-    @objid ("1ece9dbc-c720-4915-9c14-0c51b42c0fda")
+    @objid ("6af717ab-c2c3-434c-b180-f27fff7ee395")
     @Override
     public <T extends BpmnParticipant> List<T> getBpmnRepresents(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -77,13 +77,13 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("0751802e-4feb-4bba-a64c-0c970621e3f6")
+    @objid ("f0e0e6e0-7bb8-4233-90a7-2be7f1601f5c")
     @Override
     public EList<PackageMerge> getReceivingMerge() {
         return new SmList<>(this, PackageData.Metadata.ReceivingMergeDep());
     }
 
-    @objid ("416cf79f-ef22-4101-81ea-83fddd90c125")
+    @objid ("29908973-3e96-4ad3-bc18-faf02edf489c")
     @Override
     public <T extends PackageMerge> List<T> getReceivingMerge(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -96,25 +96,25 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1d09ea9e-c2f4-44f6-b804-403facb2f467")
+    @objid ("369a659f-998b-4c2c-b8aa-0e9d8d429107")
     @Override
     public Project getRepresented() {
         return (Project) getDepVal(PackageData.Metadata.RepresentedDep());
     }
 
-    @objid ("5e776ff6-d907-4ee2-a837-9cff6deee7d6")
+    @objid ("2c7d1d3d-f966-4307-b413-f2ba101325a5")
     @Override
     public void setRepresented(Project value) {
         appendDepVal(PackageData.Metadata.RepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("60c2cb92-9f18-4915-88f1-aa89a5e66f3d")
+    @objid ("5f528ae5-ab21-4bea-a6ba-4d4062644e63")
     @Override
     public EList<PackageMerge> getMerge() {
         return new SmList<>(this, PackageData.Metadata.MergeDep());
     }
 
-    @objid ("bcda8a8d-d12a-4856-9688-7b5d8f5770f1")
+    @objid ("b70f622b-b0cd-4396-83dc-03dd42b0e6ed")
     @Override
     public <T extends PackageMerge> List<T> getMerge(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -127,13 +127,13 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("303b67fc-1a97-40ef-902a-3e5743633aa3")
+    @objid ("a96d34fb-4b7e-4f66-92bd-7a71f6eb97d6")
     @Override
     public EList<PackageImport> getPackageImporting() {
         return new SmList<>(this, PackageData.Metadata.PackageImportingDep());
     }
 
-    @objid ("0b159f30-fb1f-40c0-9d63-bfa0ade04fe8")
+    @objid ("97f357d6-a9af-4bf6-9041-bbca0a2ee478")
     @Override
     public <T extends PackageImport> List<T> getPackageImporting(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -146,7 +146,7 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2e25c705-6c63-4452-b66d-6328a12e3d92")
+    @objid ("cc3b758f-2748-4219-b7a7-20993af85cb9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -156,7 +156,7 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return super.getCompositionOwner();
     }
 
-    @objid ("db23f37e-8363-477e-8025-a36dbf0d74ff")
+    @objid ("244359a6-bf8a-4570-9ef8-87a5a6b7b5f1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -166,7 +166,7 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return super.getCompositionRelation();
     }
 
-    @objid ("49bdeae0-90c1-477b-ab5e-bcd164ba74f0")
+    @objid ("d19b4fe8-b2fc-415e-8ebd-033287a1a92b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPackage(this);

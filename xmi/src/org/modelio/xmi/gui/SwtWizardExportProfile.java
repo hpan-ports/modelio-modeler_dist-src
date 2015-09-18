@@ -31,10 +31,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.IProgressService;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.xmi.api.XMIExtension;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.gui.report.ReportManager;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.preferences.XmiPreferencesKeys;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ResourceLoader;
 
 /**

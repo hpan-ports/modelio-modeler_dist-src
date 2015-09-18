@@ -48,37 +48,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00543116-c4bf-1fd8-97fe-001ec947cd2a")
 public class StateMachineImpl extends BehaviorImpl implements StateMachine {
-    @objid ("558a88b5-1a62-44e0-840c-c25282a27aa0")
+    @objid ("f8787510-0e0e-4b15-95a8-71ba84c695f2")
     @Override
     public KindOfStateMachine getKind() {
         return (KindOfStateMachine) getAttVal(StateMachineData.Metadata.KindAtt());
     }
 
-    @objid ("0f3371b6-06e4-49a0-8154-97c1817cc413")
+    @objid ("57a129b7-7347-44ba-b1de-49e1cbab7b37")
     @Override
     public void setKind(KindOfStateMachine value) {
         setAttVal(StateMachineData.Metadata.KindAtt(), value);
     }
 
-    @objid ("154bc505-a112-40e9-a504-e01d3dada2d8")
+    @objid ("320e4681-a247-4c49-bf6c-0c30c7ea6c8b")
     @Override
     public Region getTop() {
         return (Region) getDepVal(StateMachineData.Metadata.TopDep());
     }
 
-    @objid ("f9c3a08c-c8e6-486b-ade0-e380f167eb04")
+    @objid ("a1859558-8099-4f9b-93e5-15f32011fda1")
     @Override
     public void setTop(Region value) {
         appendDepVal(StateMachineData.Metadata.TopDep(), (SmObjectImpl)value);
     }
 
-    @objid ("dfd319b1-92b3-4c64-8a84-7db46741543f")
+    @objid ("d2e20c09-94db-495d-b664-f21a1a002aea")
     @Override
     public EList<State> getSubmachineState() {
         return new SmList<>(this, StateMachineData.Metadata.SubmachineStateDep());
     }
 
-    @objid ("1f3b02c7-f1a7-40fe-b8aa-d49db7da21cb")
+    @objid ("ab2f077e-ebc7-4fc4-a871-755ad032e3eb")
     @Override
     public <T extends State> List<T> getSubmachineState(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -91,13 +91,13 @@ public class StateMachineImpl extends BehaviorImpl implements StateMachine {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("575a0bc9-57ba-496d-9734-268754991f1d")
+    @objid ("9679ae0f-66ef-4644-bf27-8adbe308d4f7")
     @Override
     public EList<EntryPointPseudoState> getEntryPoint() {
         return new SmList<>(this, StateMachineData.Metadata.EntryPointDep());
     }
 
-    @objid ("53c282c6-fb4f-4657-ba1f-c4a1262f9754")
+    @objid ("4023d937-5fb4-4d89-81a4-af71f9538c9f")
     @Override
     public <T extends EntryPointPseudoState> List<T> getEntryPoint(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -110,13 +110,13 @@ public class StateMachineImpl extends BehaviorImpl implements StateMachine {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("bf71cfbd-35ea-48ca-ad31-9614244e55e4")
+    @objid ("2d61430f-5df5-4bf6-a5c9-b66c8f220cfa")
     @Override
     public EList<ExitPointPseudoState> getExitPoint() {
         return new SmList<>(this, StateMachineData.Metadata.ExitPointDep());
     }
 
-    @objid ("08d40103-cad8-4157-8d7c-40c488078eb6")
+    @objid ("d54c8390-7e1c-4607-888a-fdbe16c9201e")
     @Override
     public <T extends ExitPointPseudoState> List<T> getExitPoint(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -129,21 +129,21 @@ public class StateMachineImpl extends BehaviorImpl implements StateMachine {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("185cf0d3-fc4a-4ad2-af04-fbc3bd8b352e")
+    @objid ("65f2334b-b0d6-4f59-b08f-c31ed1a1c382")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0aad778a-28cc-4cb7-943d-f679f4b848bd")
+    @objid ("b4c31675-a5a1-4af5-bea0-b7f9f4090a65")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("74b57940-1b64-4627-9ef5-a945dd5ff9f5")
+    @objid ("e0a4642a-79bf-490d-b205-d7dba9213e5d")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStateMachine(this);

@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0049f7c8-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class MessageEndImpl extends OccurrenceSpecificationImpl implements MessageEnd {
-    @objid ("eca24a5e-ba80-4ec1-9a3c-77c0a7e0a7a4")
+    @objid ("7dc9c04b-5e6c-46f8-8a67-34067c922b56")
     @Override
     public Message getReceivedMessage() {
         return (Message) getDepVal(MessageEndData.Metadata.ReceivedMessageDep());
     }
 
-    @objid ("bfa5ceb4-3d0a-42a9-8e74-30bcedc1fdd9")
+    @objid ("e4e3e8b0-b8eb-44dd-a8f3-5cc0f3af52e9")
     @Override
     public void setReceivedMessage(Message value) {
         appendDepVal(MessageEndData.Metadata.ReceivedMessageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9ae64bb6-b07b-4acd-9125-c667feda9261")
+    @objid ("a632f056-8d63-4751-a158-574f046cf3dd")
     @Override
     public Message getSentMessage() {
         return (Message) getDepVal(MessageEndData.Metadata.SentMessageDep());
     }
 
-    @objid ("d10b9911-7d17-4169-9f30-130a9d41c61f")
+    @objid ("a25e9fc1-a68d-480c-a9b9-867e13632956")
     @Override
     public void setSentMessage(Message value) {
         appendDepVal(MessageEndData.Metadata.SentMessageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("82e2006c-c77c-44de-b1e5-2f1dcc378be5")
+    @objid ("a3d29150-bbf4-4d72-8feb-0f163c62e70d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("a5a49f47-c9ca-431a-bb55-193a8c70acb2")
+    @objid ("3df54692-c106-4829-9d0e-dd03a7377c7b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("1c1e2253-56a1-4ee0-83f3-feb350283355")
+    @objid ("3a358c39-a88d-42a4-81da-9ed5f43d7ef3")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitMessageEnd(this);

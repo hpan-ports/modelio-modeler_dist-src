@@ -21,7 +21,10 @@
 
 package org.modelio.module.propertytab.propertytab;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.swt.SWT;
@@ -31,8 +34,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.api.module.propertiesPage.IModulePropertyPage;
 import org.modelio.app.core.picking.IModelioPickingService;
+import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.module.propertytab.model.ModulePropertyModel;
-import org.modelio.module.propertytab.ui.panel.IModulePropertyPanel;
+import org.modelio.module.propertytab.ui.panel.IModulePropertyTreePanel;
 import org.modelio.module.propertytab.ui.panel.PropertyPanelFactory;
 import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vcore.session.api.ICoreSession;
@@ -40,6 +44,7 @@ import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
 import org.modelio.vcore.session.api.model.change.IModelChangeListener;
 import org.modelio.vcore.session.api.model.change.IStatusChangeEvent;
 import org.modelio.vcore.session.api.model.change.IStatusChangeListener;
+import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("c882a7c0-1eba-11e2-9382-bc305ba4815c")
@@ -69,7 +74,7 @@ public class ModulePanelProvider implements IPanelProvider {
     private IModelioPickingService pickingService;
 
     @objid ("c882ced4-1eba-11e2-9382-bc305ba4815c")
-    private IModulePropertyPanel propertyPanel = null;
+    private IModulePropertyTreePanel propertyPanel = null;
 
     @objid ("c882f5e0-1eba-11e2-9382-bc305ba4815c")
     private IModulePropertyPage propertyPage;
@@ -106,6 +111,9 @@ public class ModulePanelProvider implements IPanelProvider {
         this.shform = new SashForm(parent, SWT.HORIZONTAL);
         this.shform.setLayout(new FillLayout());
         this.propertyPanel = PropertyPanelFactory.createStandardPanel(this.shform, null);
+        if (this.modelingSession != null) {
+            this.propertyPanel.start(this.modelingSession);
+        }
         return this.shform;
     }
 
@@ -117,13 +125,16 @@ public class ModulePanelProvider implements IPanelProvider {
      * @param newModelingSession the current edited modeling session.
      */
     @objid ("c8839221-1eba-11e2-9382-bc305ba4815c")
-    public void activateEdition(ICoreSession newModelingSession, IModelioPickingService aPickingService) {
-        if (newModelingSession != null) {
-            this.modelingSession = newModelingSession;
+    @Inject
+    public void activateEdition(IProjectService newProject, IModelioPickingService aPickingService) {
+        if (newProject != null) {
+            this.modelingSession = newProject.getSession();
             this.pickingService = aPickingService;
             this.modelChangeListener = new ModelChangeListener(this);
             this.modelingSession.getModelChangeSupport().addModelChangeListener(this.modelChangeListener);
-            this.propertyPanel.start(this.modelingSession);
+            if (this.propertyPanel != null) {
+                this.propertyPanel.start(this.modelingSession);
+            }
         } else {
             if (this.modelingSession != null) {
                 // remove listeners
@@ -151,21 +162,28 @@ public class ModulePanelProvider implements IPanelProvider {
 
     /**
      * Set the current element displayed by the view.
-     * @param input the model element whose note are to be listed in the tree panel. May be null.
+     * @param input the model element whose note are to be listed in the tree panel. May be null, a single element or a list of elements.
      */
     @objid ("c8840750-1eba-11e2-9382-bc305ba4815c")
     @Override
     public void setInput(final Object input) {
-        boolean valid = false;
-        if (this.shform != null && input instanceof List<?>) {
-            List<?> selectedElements = (List<?>)input;
-            for (Object selected : selectedElements) {
-                if (selected instanceof MObject) {
-                    valid = true;
-                } else {
-                    valid = false;
-                    break;
-                }
+        if (this.shform == null) {
+            return;
+        }
+        
+        List<?> selectedElements = null;
+        if (input instanceof List<?>) {
+            selectedElements = (List<?>)input;
+        } else {
+            selectedElements = Arrays.asList(input);
+        }
+        
+        //---------------------------------------------------------------------
+        boolean valid = true;
+        for (Object selected : selectedElements) {
+            if (! (selected instanceof MObject)) {
+                valid = false;
+                break;
             }
         }
         
@@ -176,8 +194,8 @@ public class ModulePanelProvider implements IPanelProvider {
             return;
         }
         
-        @SuppressWarnings("unchecked") 
-        List<MObject> elList = (List<MObject>) input;
+        @SuppressWarnings("unchecked")
+        List<MObject> elList = (List<MObject>)selectedElements;
         this.currentElement = new ModulePropertyModel(this.modelingSession,this.propertyPage, elList);
         this.propertyPanel.setInput(this.pickingService, this.currentElement);
         return;
@@ -188,16 +206,19 @@ public class ModulePanelProvider implements IPanelProvider {
      */
     @objid ("c8842e62-1eba-11e2-9382-bc305ba4815c")
     public void refreshView() {
-        Composite control = this.propertyPanel.getComposite();
-        if (control==null || control.isDisposed())
-            return;
+        if (this.propertyPanel != null) {
+            Composite control = this.propertyPanel.getComposite();
+            if (control==null || control.isDisposed()) {
+                return;
+            }
         
-        if (this.currentElement != null) {
-            this.currentElement.clearTable();
-            this.propertyPanel.setInput( this.pickingService, this.currentElement);
-        } else {
-            this.currentElement = null;
-            this.propertyPanel.setInput(this.pickingService, null);
+            if (this.currentElement != null) {
+                this.currentElement.clearTable();
+                this.propertyPanel.setInput( this.pickingService, this.currentElement);
+            } else {
+                this.currentElement = null;
+                this.propertyPanel.setInput(this.pickingService, null);
+            }
         }
     }
 
@@ -209,13 +230,22 @@ public class ModulePanelProvider implements IPanelProvider {
     @objid ("75dab102-8ea1-4368-be4d-0a338e50198b")
     @Override
     public boolean isRelevantFor(Object obj) {
-        return true;
+        final List<MObject> selection = obj instanceof MObject ? Arrays.asList((MObject)obj) : new ArrayList<>();
+        
+        ModulePropertyModel property = new ModulePropertyModel(CoreSession.getSession(selection.get(0)), this.propertyPage, selection);
+        return property.getProperties().size() > 0;
     }
 
     @objid ("c2a2f432-55cb-4a54-99e3-07f080bd7a5a")
     @Override
     public String getHelpTopic() {
         return null;
+    }
+
+    @objid ("1f52ab41-3c88-4404-ae21-bf941af9eff4")
+    @Override
+    public void dispose() {
+        // nothing to do
     }
 
     @objid ("c8845573-1eba-11e2-9382-bc305ba4815c")

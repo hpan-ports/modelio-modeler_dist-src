@@ -73,37 +73,37 @@ public class StatusBar {
     @objid ("60711bf5-9dbe-48df-ba6c-5a27e4b96339")
     private String nAdvicesSuffix;
 
-    @objid ("4d79dca0-6847-408a-858b-aa1b124588ac")
+    @objid ("f0374a41-5ef9-4d38-b7f9-0f82a0285c4d")
     private final Label queueSizeLabel;
 
-    @objid ("b0ae407c-0b2e-440d-a042-d1d890b15ebd")
+    @objid ("99fb8f68-bc2b-4ff9-8689-e89681be58e4")
     private final Label runnerStatusLabel;
 
-    @objid ("f160ead6-f563-4ac0-b384-1f9e21ebd978")
+    @objid ("fe9b9a64-53f8-41af-934a-9946a80a5cf3")
     private Image processingStatusIcon;
 
-    @objid ("0d541b96-eec4-483e-9e38-177982da243b")
+    @objid ("eb46a74d-5590-4f9a-84c6-4fd2f51eef70")
     private Image suspendedStatusIcon;
 
-    @objid ("bd428326-221a-4a19-9b04-0126ed75a4bc")
+    @objid ("5827e43a-7b77-4f5d-b8c2-b37f9733192b")
     private Image idleStatusIcon;
 
-    @objid ("9b3c8307-7fba-4849-ab0d-6fea7a3c7c7a")
+    @objid ("dd15491c-05d1-42d1-8543-f023010873c2")
     private final Composite container;
 
-    @objid ("09107f7c-64a1-478f-a360-931cd0d17016")
+    @objid ("41055517-458f-4a87-a006-b0fcdbb8d3f9")
     private final Label auditSummaryLabel;
 
-    @objid ("56cdbed4-19d9-4718-9b9c-6c65273a46e7")
+    @objid ("b43c2b01-2976-464f-83bd-11482a4075cd")
     private StringBuilder summaryMessage = new StringBuilder();
 
-    @objid ("cfa7443f-7f0d-4f3e-8e1b-7c7fed168602")
+    @objid ("8b0c641d-d9a0-45d4-a6af-a65ab00e9694")
     private Color errorColor;
 
-    @objid ("12a7fd53-5d8c-4833-b06e-1fe87d6ae43c")
+    @objid ("4c1497c6-f21a-4bd4-ada3-7848d8819ac2")
     private Color warningColor;
 
-    @objid ("2c8f5237-965e-4d17-b30f-a0f8a9aaa8b7")
+    @objid ("3fb40665-09fd-40d9-bdee-4b3d1ac88647")
     private Color adviceColor;
 
     /**

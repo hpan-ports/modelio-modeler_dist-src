@@ -31,10 +31,10 @@ import org.modelio.metamodel.bpmn.flows.BpmnSequenceFlow;
 
 @objid ("000002bc-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnExclusiveGateway extends BpmnGateway {
-    @objid ("ec33b307-2a70-4cd2-9e25-b4ebcdcbeef5")
+    @objid ("4d7e3e7f-8519-4a01-866b-0faf1f8ea84b")
     BpmnSequenceFlow getDefaultFlow();
 
-    @objid ("9417995f-8c00-4e5f-88c0-766c4b4c94cd")
+    @objid ("4d77e52f-b3ca-4768-b56e-4e3ed13d7e47")
     void setDefaultFlow(BpmnSequenceFlow value);
 
 }

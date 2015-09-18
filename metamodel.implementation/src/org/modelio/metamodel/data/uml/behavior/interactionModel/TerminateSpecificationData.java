@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004c77aa-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=TerminateSpecification.class, factory=TerminateSpecificationData.Metadata.ObjectFactory.class)
 public class TerminateSpecificationData extends ExecutionOccurenceSpecificationData {
-    @objid ("3b19430a-8d9a-4953-9eac-233b8ca35a33")
+    @objid ("780b318e-c1e4-4c30-9021-7ef201c794f5")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0087d138-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("e8abf9fb-f9d4-4748-85c1-f0c82582de3d")
+        @objid ("438fc109-3f9b-4379-9d3b-5953e0dc82af")
         private static SmClass smClass = null;
 
-        @objid ("71415266-3c03-42bf-92a4-c89d32252bd9")
+        @objid ("abfa2421-201e-4379-a0cb-03be1d6f94b9")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(TerminateSpecificationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("c2c3a76a-19b9-49a7-8aed-1fa543c120f0")
+        @objid ("909983e5-9785-4004-9db7-8734047e6888")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class TerminateSpecificationData extends ExecutionOccurenceSpecificationD
 
         @objid ("008811f2-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("25d37b82-1b00-4911-8cb6-163a414e74c8")
+            @objid ("1201b685-e99e-4846-bd18-7a330600c2d7")
             public ISmObjectData createData() {
                 return new TerminateSpecificationData();
             }
 
-            @objid ("a11c8b4f-8aaa-42dc-83d8-e8babac74c22")
+            @objid ("a6cd4bff-e499-44ac-bd1e-23c0f52ebc78")
             public SmObjectImpl createImpl() {
                 return new TerminateSpecificationImpl();
             }

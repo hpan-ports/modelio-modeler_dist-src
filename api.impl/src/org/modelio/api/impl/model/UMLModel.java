@@ -1931,7 +1931,7 @@ public class UMLModel implements IUmlModel {
 
     @objid ("04162f69-8ca8-4dd6-b3d1-457eaec97f62")
     @Override
-    public ExternDocument createExternDocument(String moduleName, final String documentRole, final ModelElement owner, final String mimeType) throws IOException, ExtensionNotFoundException {
+    public ExternDocument createExternDocument(String moduleName, final String documentRole, final ModelElement owner, final String mimeType) throws ExtensionNotFoundException, IOException {
         return createExternDocument(moduleName, documentRole, owner, mimeType, null);
     }
 
@@ -4001,7 +4001,7 @@ public class UMLModel implements IUmlModel {
 
     @objid ("ab63da4f-a60f-4f0d-a880-9e8f6373934e")
     @Override
-    public ExternDocument createExternDocument(String moduleName, final String documentRole, final ModelElement owner, final String mimeType, Path initialContent) throws IOException, ExtensionNotFoundException {
+    public ExternDocument createExternDocument(String moduleName, final String documentRole, final ModelElement owner, final String mimeType, Path initialContent) throws ExtensionNotFoundException, IOException {
         try {
             final ExternDocument doc = this.modelService.getModelFactory().createExternDocument(moduleName, documentRole, owner, mimeType);
             

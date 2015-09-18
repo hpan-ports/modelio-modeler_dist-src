@@ -83,21 +83,6 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     @objid ("e0ec614a-0d71-430c-aae6-7ce7191b437d")
     protected String path = "";
 
-    @objid ("c25ee0ff-2b3e-4cd4-b291-76e61273120c")
-    protected FileChooserComposite fileChooserComposite = null;
-
-    @objid ("9e3a2f14-3425-4159-91e7-efeadd672d18")
-    protected OptionComposite optionComposite = null;
-
-    @objid ("58bf281e-031e-4115-b40b-f3dcb692f6d7")
-    private ValidationBoutonComposite validateComposite = null;
-
-    @objid ("5f2d462c-655e-4836-8d80-191b97ec820e")
-    protected ProgressBarComposite theProgressBar = null;
-
-    @objid ("9cf17c57-ea46-4251-8044-df2d9afc6e82")
-    protected AbstractXMIThread theThread = null;
-
     @objid ("1774a60a-11b2-4185-a68e-b2864da06768")
     protected Element selectedElt = null;
 
@@ -109,6 +94,21 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
 
     @objid ("0956e81b-7f35-4304-a46b-b878163bf9c1")
     protected IProjectService projectService = null;
+
+    @objid ("d2c3697f-ef49-430b-a5fc-ba75b25f29a6")
+    protected FileChooserComposite fileChooserComposite = null;
+
+    @objid ("dd2770b7-b74f-497c-8248-06b110b11b9f")
+    protected OptionComposite optionComposite = null;
+
+    @objid ("e3e59f25-e517-452e-9456-14d68ebb39b3")
+    private ValidationBoutonComposite validateComposite = null;
+
+    @objid ("a98d91f5-02fe-40fb-80bc-1b0e594f8e9c")
+    protected ProgressBarComposite theProgressBar = null;
+
+    @objid ("14411607-0456-4b1c-8e0b-50e025dc2867")
+    protected AbstractXMIThread theThread = null;
 
     /**
      * @return nothing

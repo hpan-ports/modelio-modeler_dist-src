@@ -26,7 +26,7 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("2824e10c-a662-467d-9ea0-4fd8ec028c35")
 public class ECollaborationUse extends ENamedElement {

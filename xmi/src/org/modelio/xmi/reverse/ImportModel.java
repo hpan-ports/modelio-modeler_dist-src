@@ -28,7 +28,6 @@ import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.xmi.gui.ProgressBarComposite;
 import org.modelio.xmi.model.ecore.IEElement;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("84a8a797-3c11-4e05-b8c1-66fe64583225")
 public class ImportModel {

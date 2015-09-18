@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.behavior.activityModel.ExpansionNode;
 
 @objid ("0031bab4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExpansionRegion extends StructuredActivityNode {
-    @objid ("de684447-57a6-4b1d-8a1c-a0429f0c06fd")
+    @objid ("6f7bfa43-6a95-4128-a351-46d11764d25f")
     ExpansionKind getMode();
 
-    @objid ("8ff5e564-87e8-4f3e-956c-52ee2d5b6a6b")
+    @objid ("2c8814c0-b6bd-449c-ae28-bec052f0f7fb")
     void setMode(ExpansionKind value);
 
-    @objid ("e9372ef8-b40a-4ffc-ae9a-d71025d39b7b")
+    @objid ("37ed4734-d682-4cd8-9218-4dfcb891fc90")
     EList<ExpansionNode> getOutputElement();
 
-    @objid ("73bc61de-41c0-457e-b9cc-35b7cc619b88")
+    @objid ("927b714a-89f6-4752-a9be-31b4ec091713")
     <T extends ExpansionNode> List<T> getOutputElement(java.lang.Class<T> filterClass);
 
-    @objid ("cf5e72af-bd80-4334-bc85-682a793be1e9")
+    @objid ("b5a25f52-838c-40c5-865a-f59708fabcf9")
     EList<ExpansionNode> getInputElement();
 
-    @objid ("99ecd80c-2674-464c-a2f2-534cb47d3ef3")
+    @objid ("2a32ebf7-f7cb-4650-822c-bfdfa9c81691")
     <T extends ExpansionNode> List<T> getInputElement(java.lang.Class<T> filterClass);
 
 }

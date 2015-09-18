@@ -34,16 +34,16 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnRootElement;
 
 @objid ("00093d64-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnResource extends BpmnRootElement {
-    @objid ("ce7c00b4-ae68-4432-be03-a2388bc0eb20")
+    @objid ("bf36d6b7-ba8d-4c32-a281-31b7f60da0a8")
     EList<BpmnResourceRole> getResourceroleRefs();
 
-    @objid ("422c7289-c92f-467f-b1a6-81e5bebc5980")
+    @objid ("a51ea468-4d73-4522-b77b-6d6778ef56cc")
     <T extends BpmnResourceRole> List<T> getResourceroleRefs(java.lang.Class<T> filterClass);
 
-    @objid ("d310833f-82c8-465b-b420-699b41f9ca82")
+    @objid ("ace285b3-5e24-4c8e-b38a-edbc2a2da29c")
     EList<BpmnResourceParameter> getParameter();
 
-    @objid ("c943b87b-f6a2-4bf1-bff4-4035232c7201")
+    @objid ("e1f20cf1-1320-4b8b-a95b-209d8a4ce1fe")
     <T extends BpmnResourceParameter> List<T> getParameter(java.lang.Class<T> filterClass);
 
 }

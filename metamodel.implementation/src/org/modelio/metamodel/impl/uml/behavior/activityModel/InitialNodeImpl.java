@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00349040-c4bf-1fd8-97fe-001ec947cd2a")
 public class InitialNodeImpl extends ControlNodeImpl implements InitialNode {
-    @objid ("ea6dbe99-24ce-4ced-a5aa-ac5e7882c553")
+    @objid ("0ecba489-5c2f-4b27-a172-f585fab69c23")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("9d6df811-28b6-4ce3-be1b-84a829720619")
+    @objid ("b9b07416-dfe8-4b69-a1a0-73ecec214ce4")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("05d6731e-256a-43f8-9e14-10e532abedf2")
+    @objid ("102b252f-6870-4078-96de-3103b4212541")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInitialNode(this);

@@ -26,7 +26,7 @@ import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.Substitution;
 import org.modelio.metamodel.uml.statik.Classifier;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("4e2ee150-e354-46d9-a987-262224174476")
 public class OSubstitution extends OModelElement {

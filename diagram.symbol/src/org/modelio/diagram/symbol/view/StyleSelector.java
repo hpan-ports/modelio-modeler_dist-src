@@ -113,8 +113,7 @@ public class StyleSelector implements IStyleChangeListener, PropertyChangeListen
      */
     @objid ("ac4fa35a-55b7-11e2-877f-002564c97630")
     @PostConstruct
-    public Control createControl(Composite parent, @Optional
-@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection sel) {
+    public Control createControl(Composite parent, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection sel) {
         this.combo = new Combo(parent, SWT.READ_ONLY);
         this.combo.addFocusListener(new StyleComboFocusListener(this,
                                                                 this.combo));

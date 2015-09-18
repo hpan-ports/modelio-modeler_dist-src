@@ -63,8 +63,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.modelio.api.module.ILicenseInfos;
-import org.modelio.api.module.IModule.ModuleRuntimeState;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.ModuleException;
 import org.modelio.app.core.ModelioEnv;
 import org.modelio.app.project.conf.dialog.ProjectModel;
@@ -85,6 +83,8 @@ import org.modelio.gproject.module.catalog.FileModuleStore;
 import org.modelio.mda.infra.catalog.CompatibilityHelper;
 import org.modelio.mda.infra.catalog.ModuleCatalogPanel;
 import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IRTModule;
+import org.modelio.mda.infra.service.ModuleRuntimeState;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.ui.UIImages;
 import org.modelio.ui.progress.IModelioProgressService;
@@ -168,8 +168,9 @@ public class ModulesSection {
             this.modulesTable.setInput(projectAdapter.getModules());
             Boolean enableRemove = (!this.modulesTable.getSelection().isEmpty()) && getProjectAdapter().isLocalProject();
             this.removeButton.setEnabled(enableRemove);
-            if (enableRemove)
+            if (enableRemove) {
                 this.addButton.setEnabled(false);
+            }
         } else {
             this.modulesTable.setInput(new Object[0]);
             this.removeButton.setEnabled(false);
@@ -225,7 +226,7 @@ public class ModulesSection {
                 if (element instanceof GModule) {
                     ModuleComponent moduleElement = ((GModule) element).getModuleElement();
                     if (moduleElement != null) {
-                        IModule iModule = ModulesSection.this.moduleService.getIModule(moduleElement);
+                        IRTModule iModule = ModulesSection.this.moduleService.getIRTModule(moduleElement);
                         if (iModule != null && iModule.getState() == ModuleRuntimeState.Started) {
                             return CHECKED;
                         }
@@ -288,7 +289,7 @@ public class ModulesSection {
                 if (element instanceof GModule) {
                     ModuleComponent moduleElement = ((GModule) element).getModuleElement();
                     if (moduleElement != null) {
-                        IModule iModule = ModulesSection.this.moduleService.getIModule(moduleElement);
+                        IRTModule iModule = ModulesSection.this.moduleService.getIRTModule(moduleElement);
                         if (iModule != null) {
                             return AppProjectConf.I18N.getString("ModulesSection." + iModule.getState().name()); //$NON-NLS-1$
                         }
@@ -312,7 +313,7 @@ public class ModulesSection {
                 if (element instanceof GModule) {
                     ModuleComponent moduleElement = ((GModule) element).getModuleElement();
                     if (moduleElement != null) {
-                        IModule iModule = ModulesSection.this.moduleService.getIModule(moduleElement);
+                        IRTModule iModule = ModulesSection.this.moduleService.getIRTModule(moduleElement);
                         if (iModule != null) {
                             final ILicenseInfos licenseInfos = iModule.getLicenseInfos();
                             if (licenseInfos != null) {
@@ -321,7 +322,7 @@ public class ModulesSection {
                                     SimpleDateFormat sdf = new SimpleDateFormat(AppProjectConf.I18N.getString("ModulesSection.License.DateFormat"));
                                     return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".limited", sdf.format(date));
                                 } else {
-                                    return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".unlimited"); 
+                                    return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".unlimited");
                                 }
                             } else {
                                 AppProjectConf.LOG.warning("'"+iModule.getName()+"' ("+iModule.getClass().getName()+") module has no license info (state="+iModule.getState()+")");
@@ -527,7 +528,6 @@ public class ModulesSection {
         }
         
         addMissingDependencies(modulesToAdd);
-        
         return modulesToAdd.values();
         //return ModuleSorter.sortHandles(modulesToAdd.values());
     }
@@ -559,7 +559,7 @@ public class ModulesSection {
         });
         
         panel.addDoubleClickListener(new IDoubleClickListener() {
-            
+        
             @Override
             public void doubleClick(DoubleClickEvent event) {
                 addSelectedModules();
@@ -571,37 +571,39 @@ public class ModulesSection {
 
     @objid ("1388620e-79d6-41bc-b84c-5052d29a0e82")
     protected void addSelectedModules() {
-        IRunnableWithProgress runnable = new IRunnableWithProgress() {
-            
-            @Override
-            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                final Collection<IModuleHandle> modulesToAdd = getModulesToAdd();
-                
-                if (AppProjectConf.LOG.isDebugEnabled()) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("Add module(s):\n");//$NON-NLS-1$
-                    for (IModuleHandle h : modulesToAdd) {
-                        sb.append(" - ");
-                        sb.append(h.getName());
-                        sb.append("  v");
-                        sb.append(h.getVersion());
-                        sb.append("  (");
-                        sb.append(h.getDependencies().size() + h.getWeakDependencies().size());
-                        sb.append("  deps)\n");
+        if (getProjectAdapter().isLocalProject()) {
+            IRunnableWithProgress runnable = new IRunnableWithProgress() {
+        
+                @Override
+                public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                    final Collection<IModuleHandle> modulesToAdd = getModulesToAdd();
+        
+                    if (AppProjectConf.LOG.isDebugEnabled()) {
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("Add module(s):\n");//$NON-NLS-1$
+                        for (IModuleHandle h : modulesToAdd) {
+                            sb.append(" - ");
+                            sb.append(h.getName());
+                            sb.append("  v");
+                            sb.append(h.getVersion());
+                            sb.append("  (");
+                            sb.append(h.getDependencies().size() + h.getWeakDependencies().size());
+                            sb.append("  deps)\n");
+                        }
+                        AppProjectConf.LOG.debug(sb.toString());
                     }
-                    AppProjectConf.LOG.debug(sb.toString()); 
+        
+                    IProjectService projectService = ModulesSection.this.applicationContext.get(IProjectService.class);
+                    GProject openedProject = projectService.getOpenedProject();
+                    AddModuleHelper.run(openedProject, ModulesSection.this.moduleService, modulesToAdd, monitor, getProjectAdapter());
                 }
-                
-                IProjectService projectService = ModulesSection.this.applicationContext.get(IProjectService.class);
-                GProject openedProject = projectService.getOpenedProject();
-                AddModuleHelper.run(openedProject, ModulesSection.this.moduleService, modulesToAdd, monitor, getProjectAdapter());
+            };
+            try {
+                this.progressService.run(false, false, runnable);
+                setInput(getProjectAdapter());
+            } catch (InvocationTargetException | InterruptedException e) {
+                AppProjectConf.LOG.error(e);
             }
-        };
-        try {
-            this.progressService.run(false, false, runnable);
-            setInput(getProjectAdapter());
-        } catch (InvocationTargetException | InterruptedException e) {
-            AppProjectConf.LOG.error(e);
         }
     }
 
@@ -651,7 +653,7 @@ public class ModulesSection {
             List<IModuleHandle> sortedModules;
             try {
                 sortedModules = ModuleSorter.sortHandles(modules);
-                
+            
                 if (AppProjectConf.LOG.isDebugEnabled()) {
                     StringBuilder sb = new StringBuilder();
                     sb.append("AddModuleHelper: Installing module(s):\n");//$NON-NLS-1$
@@ -664,14 +666,14 @@ public class ModulesSection {
                         sb.append(h.getDependencies().size() + h.getWeakDependencies().size());
                         sb.append("  deps)\n");
                     }
-                    AppProjectConf.LOG.debug(sb.toString()); 
+                    AppProjectConf.LOG.debug(sb.toString());
                 }
-                
+            
             } catch (CyclicDependencyException e) {
                 // Error dialog
                 AppProjectConf.LOG.debug(e);
-                MessageDialog.openError(null, 
-                        AppProjectConf.I18N.getString("ModulesSection.ModuleInstallationErrorTitle"), 
+                MessageDialog.openError(null,
+                        AppProjectConf.I18N.getString("ModulesSection.ModuleInstallationErrorTitle"),
                         e.getLocalizedMessage());
                 return;
             }
@@ -682,14 +684,14 @@ public class ModulesSection {
             for (int i = 0; i < sum; i++) {
                 final IModuleHandle module = sortedModules.get(i);
                 if (invalidIds.contains(module.getName())) {
-                    MessageDialog.openError(null, AppProjectConf.I18N.getString("ModulesSection.ModuleInstallationErrorTitle"), 
+                    MessageDialog.openError(null, AppProjectConf.I18N.getString("ModulesSection.ModuleInstallationErrorTitle"),
                             AppProjectConf.I18N.getMessage("ModulesSection.ModuleInstallationErrorMessage.NameExistAlready", module.getName()));
                     return;
                 }
-                
+            
                 monitor.subTask(AppProjectConf.I18N.getMessage("ModulesSection.AddModulesProgressSubTask", String.valueOf(i+1), String.valueOf(sum), module.getName()));
                 monitor.worked(1);
-                
+            
                 try (ITransaction t = project.getSession().getTransactionSupport().createTransaction("install a module")) { //$NON-NLS-1$
                     moduleService.installModule(project, module.getArchive());
                     t.commit();
@@ -697,7 +699,7 @@ public class ModulesSection {
                     // Error dialog
                     AppProjectConf.LOG.debug(e);
                     MessageDialog.openError(null, AppProjectConf.I18N.getString("ModulesSection.ModuleInstallationErrorTitle"), e.getMessage());
-                }   
+                }
             }
             monitor.done();
         }
@@ -712,7 +714,7 @@ public class ModulesSection {
             List<String> fragmentIds = new ArrayList<>();
             List<IProjectFragment> fragments = projectAdapter.getAllFragments();
             for (IProjectFragment fragment : fragments) {
-                if (fragment.getType() != FragmentType.MDA) {                    
+                if (fragment.getType() != FragmentType.MDA) {
                     fragmentIds.add(fragment.getId());
                 }
             }

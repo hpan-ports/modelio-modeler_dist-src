@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00781720-17e8-10a1-88a0-001ec947cd2a")
 public class NaryConnectorEndImpl extends NaryLinkEndImpl implements NaryConnectorEnd {
-    @objid ("6eadfc60-62e6-4d40-9087-00c290777a7d")
+    @objid ("70bf69a8-fba6-4325-863f-864b921bbd0e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("af0c55f9-fe67-462c-829f-ba0462efd506")
+    @objid ("ded90036-3c0e-4778-9d4f-5ad75eb65a78")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("cf57b660-e8c1-491a-b004-50dfc8a3a039")
+    @objid ("8bfad434-960d-4160-82bc-9554344be924")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryConnectorEnd(this);

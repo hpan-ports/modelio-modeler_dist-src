@@ -33,16 +33,16 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 
 @objid ("00084846-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnDataState extends BpmnBaseElement {
-    @objid ("4e03551b-378e-473c-8492-d471ffd728fe")
+    @objid ("9ec51a76-e71f-4d44-a617-d0148a6f2153")
     BpmnItemAwareElement getItem();
 
-    @objid ("573ac1ab-aedb-4382-ac3e-667997dfe35f")
+    @objid ("0c74856d-46ce-401c-8bf7-ea937f204dbe")
     void setItem(BpmnItemAwareElement value);
 
-    @objid ("1e6c8f38-f8b5-420c-83a5-fbd7669d8e4b")
+    @objid ("179bd0e6-225d-448e-b8ca-9943ed3fb3ec")
     State getUmlState();
 
-    @objid ("4d079f38-6ee7-47df-a62a-8ef248c8c959")
+    @objid ("26bd3396-8227-4e3a-a9b4-b0fcf48ee0bd")
     void setUmlState(State value);
 
 }

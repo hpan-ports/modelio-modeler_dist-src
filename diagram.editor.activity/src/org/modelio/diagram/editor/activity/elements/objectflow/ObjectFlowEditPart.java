@@ -45,6 +45,9 @@ public class ObjectFlowEditPart extends GmLinkEditPart {
         arrow.setScale(5, 5);
         arrow.setOpaque(false);
         connection.setTargetDecoration(arrow);
+        
+        // Make sure the arrow has appropriate style
+        refreshFromStyle(connection, getModelStyle());
         return connection;
     }
 

@@ -27,8 +27,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ExceptionHandler;
 import org.modelio.metamodel.uml.behavior.activityModel.InputPin;
 import org.modelio.metamodel.uml.statik.GeneralClass;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.XMILogs;
 

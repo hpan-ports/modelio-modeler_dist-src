@@ -35,12 +35,12 @@ public class ShowAnalystModelHandler {
     @objid ("07dd5744-0171-4d4e-b5a3-807f224d6479")
     @Execute
     public static final void execute(MPart part, EModelService s) {
-        assert (part.getObject() instanceof BrowserView) : "Handler used on a part other than BrowserView!";
-        for (MMenu menu : part.getMenus()) {
+        assert part.getObject() instanceof BrowserView : "Handler used on a part other than BrowserView!";
+        for (final MMenu menu : part.getMenus()) {
             if ("org.modelio.model.browser.viewmenu".equals(menu.getElementId())) {
-                MDirectMenuItem button = (MDirectMenuItem) s.find("org.modelio.model.browser.directmenuitem.analyst", menu);
+                final MDirectMenuItem button = (MDirectMenuItem) s.find("org.modelio.model.browser.directmenuitem.analyst", menu);
                 if (button != null) {
-                    BrowserView view = (BrowserView) part.getObject();
+                    final BrowserView view = (BrowserView) part.getObject();
                     view.setShowAnalystModel(button.isSelected());
                 }
             }

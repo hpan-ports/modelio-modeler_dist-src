@@ -40,58 +40,58 @@ import org.modelio.metamodel.uml.statik.Instance;
 
 @objid ("0006fc34-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnItemAwareElement extends BpmnFlowElement {
-    @objid ("2ffd605e-f86d-40e2-96d3-60845874414f")
+    @objid ("d6c5b21e-44ae-4748-99ee-3791b9d9822e")
     GeneralClass getType();
 
-    @objid ("6a214086-e5fd-404c-bc52-8cc5ed3f3058")
+    @objid ("a2fcc11f-9753-4a5f-a87c-2e5b473e7d66")
     void setType(GeneralClass value);
 
-    @objid ("76526c45-ff2c-4590-a721-2cf230b27fd6")
+    @objid ("98f79e44-0eb3-407d-b44b-8252cae03d61")
     EList<BpmnDataAssociation> getTargetOfDataAssociation();
 
-    @objid ("d9a4d528-bccd-416d-9ff0-89a31b8575cc")
+    @objid ("d852e2ad-a27f-4776-8ba2-4b901f1a6af8")
     <T extends BpmnDataAssociation> List<T> getTargetOfDataAssociation(java.lang.Class<T> filterClass);
 
-    @objid ("83fdd226-ec55-4c0e-aaff-36692ed62def")
+    @objid ("c8c62a43-b3f8-493b-8e37-d4208cb5865e")
     BpmnItemDefinition getItemSubjectRef();
 
-    @objid ("e65201b3-cee0-4a84-a29f-c84bcb5c1e57")
+    @objid ("0ba3e294-568b-436b-8440-b259d8d18047")
     void setItemSubjectRef(BpmnItemDefinition value);
 
-    @objid ("a261a2ca-20db-4b1c-b8de-2db96a8f8db0")
+    @objid ("46fa4e6b-827d-401b-a9e2-bbeb4d56d6ce")
     State getInState();
 
-    @objid ("648e69a2-8e17-4272-9563-30480adadb31")
+    @objid ("7d3973a6-4c97-4a5a-b4c4-f1cba7efd292")
     void setInState(State value);
 
-    @objid ("30a2886a-8f87-4400-922c-b9cc5e053cf0")
+    @objid ("9892a04f-a8d2-418b-bc16-310b159f0b5f")
     AssociationEnd getRepresentedAssociationEnd();
 
-    @objid ("846fc5e6-48bd-429a-8f9c-4b495a4a6103")
+    @objid ("b43b6bab-e59a-48c5-8bd4-1664a4efb2f8")
     void setRepresentedAssociationEnd(AssociationEnd value);
 
-    @objid ("d94ae364-df33-4018-ae7e-f6e4c0aaf1e3")
+    @objid ("b1b339e7-9405-450e-85fc-5fd4ef0eecdf")
     BpmnDataState getDataState();
 
-    @objid ("c7688cc0-6036-48f7-8fd6-522d3a38e424")
+    @objid ("82b9c688-c89b-493f-8f56-143064e00c8c")
     void setDataState(BpmnDataState value);
 
-    @objid ("066831a5-2f46-4137-821b-6c9fcd78a888")
+    @objid ("e3e032f2-6203-4130-bb2c-d1b38f269c16")
     EList<BpmnDataAssociation> getSourceOfDataAssociation();
 
-    @objid ("6b833644-7cfe-46c6-b57d-0f4930928e24")
+    @objid ("1219e764-1117-4689-9ca0-76a0880d5cd1")
     <T extends BpmnDataAssociation> List<T> getSourceOfDataAssociation(java.lang.Class<T> filterClass);
 
-    @objid ("860c85e1-9153-4217-a94a-655432f24736")
+    @objid ("70f2b576-84ef-4409-a6f8-c111d6d5c915")
     Attribute getRepresentedAttribute();
 
-    @objid ("d7d92ebb-84b1-4dfa-8ae5-b13a74f4ff29")
+    @objid ("10909a27-6bfe-4ab1-8712-503708082c7f")
     void setRepresentedAttribute(Attribute value);
 
-    @objid ("a6b50f38-4c72-48b9-9936-69ff13041d88")
+    @objid ("db7dedd1-5ac8-4fc8-b15e-5a1d0a59e8ad")
     Instance getRepresentedInstance();
 
-    @objid ("a738e84a-51b2-4610-b62e-55b2ffa0f503")
+    @objid ("9250d399-9b55-402f-8e5a-cfe7c2ab2990")
     void setRepresentedInstance(Instance value);
 
 }

@@ -33,10 +33,10 @@ import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
 
 @objid ("005a13d8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CommunicationInteraction extends Behavior {
-    @objid ("e883eaa2-dbdd-49bd-9283-6b324bb0728c")
+    @objid ("81d4ce71-c6fb-4ad8-8b4a-a9f76862621b")
     EList<CommunicationNode> getOwned();
 
-    @objid ("65353bc3-4bd0-46bb-ba2a-441bac2c9da6")
+    @objid ("a65981fc-fd26-4f0b-af73-57740f23ccc6")
     <T extends CommunicationNode> List<T> getOwned(java.lang.Class<T> filterClass);
 
 }

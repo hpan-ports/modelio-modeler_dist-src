@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0090fb64-c4be-1fd8-97fe-001ec947cd2a")
 public class UsageImpl extends DependencyImpl implements Usage {
-    @objid ("41c18eee-d6b8-4d0f-8bb0-1b69e784a19b")
+    @objid ("1fbf12e8-0506-41f6-9a79-394039229de2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("81d8f086-d023-4a1a-93e5-a8093b3736f3")
+    @objid ("e946c858-8e57-46c9-b0fd-efc9caa86243")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("5331fe86-973a-4a5f-b8d1-60bde6b2d57c")
+    @objid ("f7fc62cc-3d2d-4c70-9937-84f72f77ca97")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitUsage(this);

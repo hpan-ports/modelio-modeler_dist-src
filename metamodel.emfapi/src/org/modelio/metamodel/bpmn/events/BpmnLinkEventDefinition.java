@@ -31,16 +31,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0090129e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnLinkEventDefinition extends BpmnEventDefinition {
-    @objid ("1242bb14-5567-48a8-8d6c-ceb9387b69bc")
+    @objid ("90332cd7-3613-4e34-a7d0-09e34c9187ce")
     EList<BpmnLinkEventDefinition> getSource();
 
-    @objid ("5cbe63e0-b638-41a9-a7a6-817e976a3565")
+    @objid ("fd899263-f375-4182-809f-d71940a8b337")
     <T extends BpmnLinkEventDefinition> List<T> getSource(java.lang.Class<T> filterClass);
 
-    @objid ("57e5b4e6-a773-4ca1-bd14-52b5bd3fe2ab")
+    @objid ("30708b64-f6ed-447f-915c-edb72225fe53")
     BpmnLinkEventDefinition getTarget();
 
-    @objid ("7b84a9db-67d6-4949-8690-bcd92216fc1c")
+    @objid ("304eb8b0-1cb1-4139-8e83-86d9e3b26942")
     void setTarget(BpmnLinkEventDefinition value);
 
 }

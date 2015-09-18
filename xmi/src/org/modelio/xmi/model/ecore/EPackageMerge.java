@@ -25,8 +25,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.metamodel.uml.statik.PackageMerge;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 /**
  * This class is in charge of the Ecore org.eclipse.uml2.uml.PackageMerge import
@@ -41,7 +41,7 @@ public class EPackageMerge extends EElement {
     @Override
     public Element createObjingElt() {
         return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createPackageMerge();
+                        .createPackageMerge();
     }
 
     @objid ("691ad382-3c3a-47b4-ae58-3c72a77e3c5b")

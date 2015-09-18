@@ -306,4 +306,10 @@ public class ModelBrowserPanelProvider implements IPanelProvider {
         return null;
     }
 
+    @objid ("c2a435c5-2910-4cf3-b726-ec2f40e42623")
+    @Override
+    public void dispose() {
+        // nothing to do
+    }
+
 }

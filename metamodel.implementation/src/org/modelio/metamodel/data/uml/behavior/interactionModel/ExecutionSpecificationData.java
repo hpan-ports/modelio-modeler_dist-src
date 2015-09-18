@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004518ac-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ExecutionSpecification.class, factory=ExecutionSpecificationData.Metadata.ObjectFactory.class)
 public class ExecutionSpecificationData extends InteractionFragmentData {
-    @objid ("340affb6-6f09-446e-a9bb-b34c103091eb")
+    @objid ("ef45f1c6-7aa4-450c-98bd-b3db0bc08980")
     @SmaMetaAssociation(metaName="Finish", typeDataClass=ExecutionOccurenceSpecificationData.class, min=1, max=1, smAssociationClass=Metadata.FinishSmDependency.class, partof = true)
      SmObjectImpl mFinish;
 
-    @objid ("09ef7240-b594-47f8-923d-851c4a920f8c")
+    @objid ("841b1ba6-3cb1-44f3-a5c0-8ba8be0eba20")
     @SmaMetaAssociation(metaName="Start", typeDataClass=ExecutionOccurenceSpecificationData.class, min=1, max=1, smAssociationClass=Metadata.StartSmDependency.class)
      SmObjectImpl mStart;
 
-    @objid ("c9cb68db-fb1e-4c08-a975-546c5a84a4eb")
+    @objid ("b42813ba-6fd2-4ae0-8b81-6e9fcfa0f003")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0048687c-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("34fab113-c28f-4130-a087-c736613ea06d")
+        @objid ("ccfcd963-0b22-4dfc-aa5b-3f3ad1c74142")
         private static SmClass smClass = null;
 
-        @objid ("e423ff50-2813-4c68-afa7-1357bd093052")
+        @objid ("a680f27b-b0d4-4a75-bbf4-77f479b2b27a")
         private static SmDependency FinishDep = null;
 
-        @objid ("ac764533-aa1c-40e7-afcb-ac4c9fbbbd27")
+        @objid ("7ece43a9-e9e3-4439-abb8-9b2e8071a1a4")
         private static SmDependency StartDep = null;
 
-        @objid ("6290f958-24c6-414c-b4aa-0a7f95b4fcf1")
+        @objid ("d498641f-127a-4e7f-b4ef-f00b5dac51c1")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ExecutionSpecificationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("19af408a-4065-4251-9b6b-eff040908e05")
+        @objid ("138677e8-dc07-497f-941f-05b325a4a1c8")
         public static SmDependency FinishDep() {
             if (FinishDep == null) {
             	FinishDep = classof().getDependencyDef("Finish");
@@ -81,7 +81,7 @@ public class ExecutionSpecificationData extends InteractionFragmentData {
             return FinishDep;
         }
 
-        @objid ("0e71796a-4771-4530-aa3c-45f498d2df0b")
+        @objid ("c3a58f06-27b7-4e55-b8ff-91ef4ef1a25f")
         public static SmDependency StartDep() {
             if (StartDep == null) {
             	StartDep = classof().getDependencyDef("Start");
@@ -89,32 +89,32 @@ public class ExecutionSpecificationData extends InteractionFragmentData {
             return StartDep;
         }
 
-        @objid ("3177c9e7-bd28-42d6-b0d8-6e44e189ad6c")
+        @objid ("862e3ff6-8fb0-4287-b7b2-e726eb9da0c7")
         public static SmDependency getFinishDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return FinishDep;
         }
 
-        @objid ("8be5687d-0e69-45bb-92c3-92232d2a800b")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("244ed398-935b-4bf3-ba53-e979960141ce")
+        @objid ("9a6ca794-7bd1-43e1-8dc8-26cc64781074")
         public static SmDependency getStartDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return StartDep;
         }
 
+        @objid ("bf3bbb99-bfb1-49a9-bd8c-1d1b70a9d639")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("0048ab02-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("de1cfeed-1c27-4355-a4c9-dcd6a1e128a2")
+            @objid ("02e36d1f-7818-442c-900d-546b4ff81abc")
             public ISmObjectData createData() {
                 return new ExecutionSpecificationData();
             }
 
-            @objid ("211e4206-4613-461d-be63-d43579a87ef2")
+            @objid ("caef8361-f70f-41a5-bc16-e056f05dd55c")
             public SmObjectImpl createImpl() {
                 return new ExecutionSpecificationImpl();
             }
@@ -123,18 +123,18 @@ public class ExecutionSpecificationData extends InteractionFragmentData {
 
         @objid ("00490dae-c4c3-1fd8-97fe-001ec947cd2a")
         public static class StartSmDependency extends SmSingleDependency {
-            @objid ("da299f6e-5674-42c6-97e7-e39edc902c75")
+            @objid ("5b8d0dce-8272-4641-b248-2558aa398786")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExecutionSpecificationData) data).mStart;
             }
 
-            @objid ("d326ff15-b589-4110-a08b-376046cdfa4a")
+            @objid ("8da28fef-6844-41e0-a80d-d15f5313032a")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExecutionSpecificationData) data).mStart = value;
             }
 
-            @objid ("aef38dc6-71ba-4f08-adca-cb3cacb2401c")
+            @objid ("6418a539-c319-43f4-9031-1834a4bd68f0")
             @Override
             public SmDependency getSymetric() {
                 return ExecutionOccurenceSpecificationData.Metadata.StartedDep();
@@ -144,18 +144,18 @@ public class ExecutionSpecificationData extends InteractionFragmentData {
 
         @objid ("004983ba-c4c3-1fd8-97fe-001ec947cd2a")
         public static class FinishSmDependency extends SmSingleDependency {
-            @objid ("b11dcf04-ac40-4a4c-b7a0-adda6e409158")
+            @objid ("acef3ac4-f48a-4429-a686-6480b7862c5e")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExecutionSpecificationData) data).mFinish;
             }
 
-            @objid ("7ee2e09e-d1b3-4372-8b8f-e6cf8a31e1ea")
+            @objid ("cf9fc272-04d9-4605-aec4-9be12aa351da")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExecutionSpecificationData) data).mFinish = value;
             }
 
-            @objid ("7490a9f7-fcdd-4138-aabf-c0da659d7514")
+            @objid ("7adf1da0-daf0-43fe-be5a-e2a5cf5dc0d2")
             @Override
             public SmDependency getSymetric() {
                 return ExecutionOccurenceSpecificationData.Metadata.FinishedDep();

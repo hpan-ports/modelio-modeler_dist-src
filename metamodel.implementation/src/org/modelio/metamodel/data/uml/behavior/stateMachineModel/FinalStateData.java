@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0056aa36-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=FinalState.class, factory=FinalStateData.Metadata.ObjectFactory.class)
 public class FinalStateData extends StateData {
-    @objid ("0dc7ed87-2340-4ae2-8d07-11ae2b5790f6")
+    @objid ("49d9e4f2-9f50-4f94-adb0-34f95385500b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000d2c26-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("fc72176a-002b-4622-bae5-7af883949452")
+        @objid ("fe6036ba-f025-4346-9800-d002087a6ec9")
         private static SmClass smClass = null;
 
-        @objid ("ef86c613-07f9-451c-8157-faf31ec0ff6e")
+        @objid ("f9be5349-2c19-409d-9935-156b2cae6658")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(FinalStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("6f5f50cc-db21-419d-9e62-5a412ee2bf88")
+        @objid ("6832700e-615c-48fa-a76f-e4feb46d4619")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class FinalStateData extends StateData {
 
         @objid ("000d6de4-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("00c3ef83-73a1-4f0f-a985-9a4980b49392")
+            @objid ("e9e3f0a4-3831-4f89-a232-bdc05ae98339")
             public ISmObjectData createData() {
                 return new FinalStateData();
             }
 
-            @objid ("ad46ca1e-1334-46c3-b7f2-bc7d2470cc1e")
+            @objid ("5174cb8b-20bf-4891-a9a1-37b08cc63287")
             public SmObjectImpl createImpl() {
                 return new FinalStateImpl();
             }

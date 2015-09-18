@@ -165,7 +165,7 @@ public class RamcPackager {
     }
 
     @objid ("c2e04000-a5b8-11e1-aa98-001ec947ccaf")
-    private static void createCompressedArchive(Path dataPath, Path archive, IModelioProgress subMonitor) throws IOException, ZipException {
+    private static void createCompressedArchive(Path dataPath, Path archive, IModelioProgress subMonitor) throws ZipException, IOException {
         subMonitor.subTask(MessageFormat.format(CoreProject.I18N.getString("RamcPackager.ArchiveModelComponent"),
                 archive.toString()));
         

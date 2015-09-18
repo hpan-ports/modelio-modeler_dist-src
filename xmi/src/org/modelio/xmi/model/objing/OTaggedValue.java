@@ -29,9 +29,8 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.generation.TotalExportMap;
-import org.modelio.xmi.util.GenerationProperties;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 
 @objid ("4c2eb653-938e-4afa-9f5c-2672866cd73e")
 public class OTaggedValue extends OElement implements IOElement {
@@ -39,10 +38,10 @@ public class OTaggedValue extends OElement implements IOElement {
     private TaggedValue objingElement;
 
     @objid ("60118e79-0aa2-4b81-8e6d-4e784407cfca")
-    private org.eclipse.uml2.uml.PrimitiveType booleanType = PrimitiveTypeMapper.getBoolean();
+    private org.eclipse.uml2.uml.PrimitiveType booleanType = GenerationProperties.getInstance().getEcoreUMLTypes().getBoolean();
 
     @objid ("666784c9-2b43-42b4-8c9f-01f10e5535ab")
-    private org.eclipse.uml2.uml.PrimitiveType stringType = PrimitiveTypeMapper.getString();
+    private org.eclipse.uml2.uml.PrimitiveType stringType = GenerationProperties.getInstance().getEcoreUMLTypes().getString();
 
     @objid ("9dd64097-b7dd-4c04-8fac-d78aca065aa7")
     @Override

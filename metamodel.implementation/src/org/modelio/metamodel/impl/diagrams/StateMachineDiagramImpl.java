@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00702ad8-c4bf-1fd8-97fe-001ec947cd2a")
 public class StateMachineDiagramImpl extends BehaviorDiagramImpl implements StateMachineDiagram {
-    @objid ("e6284078-c411-4dbf-b850-54aa812bce75")
+    @objid ("a5589bc9-35c1-45a9-91d1-2190363e7a55")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("77ed17e1-dc21-467a-b483-cc4cb211c5c5")
+    @objid ("d45c3216-1d10-494f-a19d-767de1cc0d43")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("f4e47afd-0c74-467d-a371-cdf63978babd")
+    @objid ("c89abdde-a390-4370-9649-6c9aac50527f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStateMachineDiagram(this);

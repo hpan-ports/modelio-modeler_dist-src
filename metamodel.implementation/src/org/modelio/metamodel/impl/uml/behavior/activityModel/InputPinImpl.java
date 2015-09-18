@@ -44,25 +44,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00353996-c4bf-1fd8-97fe-001ec947cd2a")
 public class InputPinImpl extends PinImpl implements InputPin {
-    @objid ("d1b2e685-0eeb-4448-83a2-2b58601772a4")
+    @objid ("490a9db1-c1e5-4ba6-be73-63a1debd7cfe")
     @Override
     public boolean isIsSelf() {
         return (Boolean) getAttVal(InputPinData.Metadata.IsSelfAtt());
     }
 
-    @objid ("8db701f8-eaec-4c46-b9d9-64c334af5726")
+    @objid ("6d134817-7a9f-4287-8dd8-e367c8797be6")
     @Override
     public void setIsSelf(boolean value) {
         setAttVal(InputPinData.Metadata.IsSelfAtt(), value);
     }
 
-    @objid ("c7546618-0425-41e1-a594-a952de589e0c")
+    @objid ("1c218c53-c062-4bde-a136-dea284fe9fd1")
     @Override
     public EList<ExceptionHandler> getHandler() {
         return new SmList<>(this, InputPinData.Metadata.HandlerDep());
     }
 
-    @objid ("ae56395f-6f3f-420b-9fe6-58e14149b5dd")
+    @objid ("c570d96d-29be-48c4-8079-1aed13dee366")
     @Override
     public <T extends ExceptionHandler> List<T> getHandler(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -75,19 +75,19 @@ public class InputPinImpl extends PinImpl implements InputPin {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a1d9ed36-5421-45fa-b7a9-f048acb5a077")
+    @objid ("4771ea19-898c-4970-b269-8ab633315a51")
     @Override
     public ActivityAction getInputing() {
         return (ActivityAction) getDepVal(InputPinData.Metadata.InputingDep());
     }
 
-    @objid ("5c38ddbc-7e9f-438b-b072-ecdbd3464461")
+    @objid ("52682bdc-2364-40c9-9b45-b26d6db56b6e")
     @Override
     public void setInputing(ActivityAction value) {
         appendDepVal(InputPinData.Metadata.InputingDep(), (SmObjectImpl)value);
     }
 
-    @objid ("dff16a5b-b926-4dd7-8087-b847c16e0150")
+    @objid ("51892c6a-1de7-4ca1-9c32-35157641d8bc")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -97,7 +97,7 @@ public class InputPinImpl extends PinImpl implements InputPin {
         return super.getCompositionOwner();
     }
 
-    @objid ("2344f240-282d-4206-a932-4ce350150d47")
+    @objid ("1bab8446-119c-4875-9dc5-2323e8d0719f")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -107,7 +107,7 @@ public class InputPinImpl extends PinImpl implements InputPin {
         return super.getCompositionRelation();
     }
 
-    @objid ("ac61040f-0692-41aa-bda4-6f7d66869871")
+    @objid ("62ce0f6f-c315-49c1-816d-cf802cdceff1")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInputPin(this);

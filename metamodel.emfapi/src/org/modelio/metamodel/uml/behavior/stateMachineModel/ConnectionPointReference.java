@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 
 @objid ("004e3efa-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ConnectionPointReference extends StateVertex {
-    @objid ("71389258-3f6b-43fc-90bc-ed52784fb229")
+    @objid ("b50d0a0d-4266-410f-9470-0b0c8161a634")
     ExitPointPseudoState getExit();
 
-    @objid ("8f5ad486-2ca7-4ed5-a1ff-3b8f97e6fd2b")
+    @objid ("2373d43b-4fef-4c33-aa82-051e374f96ad")
     void setExit(ExitPointPseudoState value);
 
-    @objid ("32740103-dca2-49a8-b8cb-93efbdb70127")
+    @objid ("02201c48-9325-493d-92b5-37159a659cca")
     EntryPointPseudoState getEntry();
 
-    @objid ("bfadb0de-a7cd-4850-9e2a-8ed25c042a6c")
+    @objid ("014c4887-0bea-4041-a4ec-edb4db9e568f")
     void setEntry(EntryPointPseudoState value);
 
-    @objid ("a836159d-4821-4c25-8939-09bc986e87c3")
+    @objid ("010f0853-d84d-4164-9fe8-d7521b5a2ee0")
     State getOwnerState();
 
-    @objid ("9705d99c-ee05-4884-b14f-dac2e10ef4fe")
+    @objid ("8e0c1b1f-90bf-4feb-84f5-ca9f2578cf90")
     void setOwnerState(State value);
 
 }

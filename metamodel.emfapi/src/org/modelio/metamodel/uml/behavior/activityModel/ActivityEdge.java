@@ -35,40 +35,40 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("00270a1a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityEdge extends ModelElement {
-    @objid ("1ba51d6d-af61-404c-8279-50b544f250e3")
+    @objid ("170c2143-2298-430c-8d68-59ab8741b286")
     String getGuard();
 
-    @objid ("802e03a2-8684-409b-9361-a72f745002ea")
+    @objid ("1258014f-0cc2-4a7d-a02d-307a34071b5d")
     void setGuard(String value);
 
-    @objid ("eef0fba4-a315-4e7c-acc7-58ebb5df35ec")
+    @objid ("91e86ba4-db2d-4395-a715-be9e449d1c52")
     String getWeight();
 
-    @objid ("4e9ca325-df2c-43f2-ad4c-8c58f6487672")
+    @objid ("dc2e1336-ac0e-4fef-ba8f-4b462090f732")
     void setWeight(String value);
 
-    @objid ("70e6a5cc-6df2-402d-a79c-97038c376cc2")
+    @objid ("caaca909-8965-454e-89af-3df9b573db50")
     ActivityNode getTarget();
 
-    @objid ("d3a335b7-f361-4d5e-a13d-7d710766f6c2")
+    @objid ("eb27103d-0c39-46ed-a4bd-258aab5f4b67")
     void setTarget(ActivityNode value);
 
-    @objid ("e66db25d-6d58-4c5c-bd32-5558965726da")
+    @objid ("da5e0cc6-ae15-4b58-9bee-172b6674329e")
     ActivityNode getSource();
 
-    @objid ("528996e0-f129-4f3a-9444-edb128e4643d")
+    @objid ("7c4de554-4010-4273-83e5-4ae851ab7bb2")
     void setSource(ActivityNode value);
 
-    @objid ("b385cf3e-46ff-41ec-982f-1901798b7f48")
+    @objid ("eb3fa8ac-45b5-4bc5-88a3-9f470094c314")
     InterruptibleActivityRegion getInterrupts();
 
-    @objid ("02a44404-30d7-48ca-8799-3511885392dc")
+    @objid ("9fdc0903-80c1-43ce-a61f-08966380d2d1")
     void setInterrupts(InterruptibleActivityRegion value);
 
-    @objid ("1f070666-fc29-4995-9b72-f77c1fce0862")
+    @objid ("45c50fef-9a83-4297-8de4-6ea0b66b1b91")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("67c82c3b-9329-4590-9c6a-8326f5cff5f0")
+    @objid ("fbab7d6e-806f-4327-b660-0bd11649bc1e")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
 }

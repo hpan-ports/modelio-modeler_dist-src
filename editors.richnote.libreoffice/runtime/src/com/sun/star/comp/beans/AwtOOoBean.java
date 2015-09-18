@@ -228,7 +228,7 @@ public class AwtOOoBean extends java.awt.Container implements java.io.Externaliz
      * @internal
      */
     @objid ("131a17c9-b5f6-4852-af46-dba0d2cd6702")
-    private synchronized void setOOoConnection(final OfficeConnection iNewConnection) throws HasConnectionException, NoConnectionException {
+    private synchronized void setOOoConnection(final OfficeConnection iNewConnection) throws NoConnectionException, HasConnectionException {
         // the connection cannot be exchanged
         if (this.iConnection != null)
             throw new HasConnectionException();
@@ -261,7 +261,7 @@ public class AwtOOoBean extends java.awt.Container implements java.io.Externaliz
      * @throws com.sun.star.comp.beans.NoConnectionException if the specified connection cannot be established
      */
     @objid ("ece2aa10-4ccb-403d-ab57-7c525189e171")
-    public void startOOoConnection(final String aConnectionURL) throws MalformedURLException, HasConnectionException, NoConnectionException {
+    public void startOOoConnection(final String aConnectionURL) throws HasConnectionException, NoConnectionException, MalformedURLException {
         // create a new connection from the given connection URL
         LocalOfficeConnection aConnection = new LocalOfficeConnection();
         aConnection.setUnoUrl(aConnectionURL);
@@ -488,7 +488,7 @@ public class AwtOOoBean extends java.awt.Container implements java.io.Externaliz
      * @throws com.sun.star.comp.beans.NoConnectionException if the connection is not established.
      */
     @objid ("d9ec8b8c-77f9-4279-9f3d-c972dea9d146")
-    public synchronized void aquireSystemWindow() throws SystemWindowException, NoConnectionException {
+    public synchronized void aquireSystemWindow() throws NoConnectionException, SystemWindowException {
         if (this.iConnection == null)
             throw new NoConnectionException();
         if (!isShowing())
@@ -542,7 +542,7 @@ public class AwtOOoBean extends java.awt.Container implements java.io.Externaliz
      * @throws com.sun.star.comp.beans.NoConnectionException if no connection can be established.
      */
     @objid ("b47c3b76-fc91-44ed-a32b-4bcf8bdd7735")
-    public void loadFromURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, com.sun.star.util.CloseVetoException, NoConnectionException {
+    public void loadFromURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws com.sun.star.util.CloseVetoException, NoConnectionException, IOException {
         dbgPrint("loadFromURL()");
         // try loading
         try {
@@ -704,7 +704,7 @@ public class AwtOOoBean extends java.awt.Container implements java.io.Externaliz
      * @throws com.sun.star.comp.beans.NoConnectionException if no connection is established.
      */
     @objid ("bac526fd-75a4-4110-8a9f-372d4f82aa84")
-    public void loadFromStream(final java.io.InputStream iInStream, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, com.sun.star.util.CloseVetoException, NoConnectionException {
+    public void loadFromStream(final java.io.InputStream iInStream, final com.sun.star.beans.PropertyValue[] aArguments) throws NoConnectionException, com.sun.star.util.CloseVetoException, IOException {
         // wrap Java stream into UNO stream
         /*
         com.sun.star.io.XInputStream xStream = 
@@ -754,7 +754,7 @@ public class AwtOOoBean extends java.awt.Container implements java.io.Externaliz
      * @throws com.sun.star.comp.beans.NoConnectionException if no connection is established.
      */
     @objid ("0e039bfe-ecb2-435a-adc6-544ceeda26c0")
-    public void loadFromByteArray(final byte[] aInBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, com.sun.star.util.CloseVetoException, NoConnectionException {
+    public void loadFromByteArray(final byte[] aInBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws NoConnectionException, IOException, com.sun.star.util.CloseVetoException {
         // wrap byte arrray into UNO stream
         com.sun.star.io.XInputStream xStream = new com.sun.star.lib.uno.adapter.ByteArrayToXInputStreamAdapter(aInBuffer);
         
@@ -793,7 +793,7 @@ public class AwtOOoBean extends java.awt.Container implements java.io.Externaliz
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("9cd020f9-c18a-41d5-bc88-b7d6492bba0f")
-    public void storeToURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, IOException, NoConnectionException, NoDocumentException {
+    public void storeToURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, NoDocumentException, NoConnectionException, IOException {
         // no document available?
         if (this.aDocument == null)
             throw new NoDocumentException();
@@ -832,7 +832,7 @@ public class AwtOOoBean extends java.awt.Container implements java.io.Externaliz
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("ab9755e8-59bd-47aa-b3fb-fcc08bd749c4")
-    public java.io.OutputStream storeToStream(final java.io.OutputStream aOutStream, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, IOException, NoConnectionException, NoDocumentException {
+    public java.io.OutputStream storeToStream(final java.io.OutputStream aOutStream, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, NoDocumentException, IOException, NoConnectionException {
         // wrap Java stream into UNO stream
         com.sun.star.lib.uno.adapter.OutputStreamToXOutputStreamAdapter aStream = new com.sun.star.lib.uno.adapter.OutputStreamToXOutputStreamAdapter(aOutStream);
         
@@ -871,7 +871,7 @@ public class AwtOOoBean extends java.awt.Container implements java.io.Externaliz
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("33b0a3dc-b3a7-4387-b239-6fb79ad2d36d")
-    public byte[] storeToByteArray(final byte[] aOutBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, IOException, NoConnectionException, NoDocumentException {
+    public byte[] storeToByteArray(final byte[] aOutBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws NoDocumentException, IOException, IllegalArgumentException, NoConnectionException {
         // wrap byte arrray into UNO stream
         com.sun.star.lib.uno.adapter.XOutputStreamToByteArrayAdapter aStream = new com.sun.star.lib.uno.adapter.XOutputStreamToByteArrayAdapter(aOutBuffer);
         
@@ -1315,7 +1315,7 @@ public class AwtOOoBean extends java.awt.Container implements java.io.Externaliz
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("d18eb12c-7cfe-4c61-9896-fe5f00b7dc46")
-    public void storeAsURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, IOException, NoConnectionException, NoDocumentException {
+    public void storeAsURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, NoDocumentException, NoConnectionException, IOException {
         // no document available?
         if (this.aDocument == null)
             throw new NoDocumentException();
@@ -1375,7 +1375,7 @@ public class AwtOOoBean extends java.awt.Container implements java.io.Externaliz
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("f1f04e9e-d6f7-4760-a14c-c87bba5e1cfc")
-    public void store() throws IllegalArgumentException, IOException, NoConnectionException, NoDocumentException {
+    public void store() throws IllegalArgumentException, NoConnectionException, IOException, NoDocumentException {
         // no document available?
         if (this.aDocument == null)
             throw new NoDocumentException();

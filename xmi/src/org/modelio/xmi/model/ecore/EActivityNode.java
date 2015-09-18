@@ -30,8 +30,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.Clause;
 import org.modelio.metamodel.uml.behavior.activityModel.ConditionalNode;
 import org.modelio.metamodel.uml.behavior.activityModel.StructuredActivityNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("08d3d55e-f178-4680-9292-5a9108619472")
 public class EActivityNode extends ENamedElement {

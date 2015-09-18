@@ -89,13 +89,13 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         super.afterEraseDepVal(dep, value);
     }
 
-    @objid ("b911fa6a-345c-43ba-bf73-0ccae298ed80")
+    @objid ("7f41b186-a777-48ff-be7d-154ace6eee00")
     @Override
     public EList<NaryLink> getOccurence() {
         return new SmList<>(this, NaryAssociationData.Metadata.OccurenceDep());
     }
 
-    @objid ("e7404ba6-f4a6-4d12-9bb7-609586c275d2")
+    @objid ("80364607-1cfa-4e82-8f17-e158f62d8968")
     @Override
     public <T extends NaryLink> List<T> getOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -108,13 +108,13 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("733d505f-c35e-405c-bdac-4be52db69524")
+    @objid ("1a2ee738-8554-4232-904a-da89e5d5677c")
     @Override
     public EList<NaryAssociationEnd> getNaryEnd() {
         return new SmList<>(this, NaryAssociationData.Metadata.NaryEndDep());
     }
 
-    @objid ("ce89a1af-2c12-4b03-9816-59aa0c839a61")
+    @objid ("01172f05-98e1-4c1d-a6b7-4f07fd42fc8a")
     @Override
     public <T extends NaryAssociationEnd> List<T> getNaryEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -127,19 +127,19 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("476fe511-9255-4d64-ad06-c00d007aa485")
+    @objid ("1dbc8724-73c4-471f-84a0-7d8fd1a363ba")
     @Override
     public ClassAssociation getLinkToClass() {
         return (ClassAssociation) getDepVal(NaryAssociationData.Metadata.LinkToClassDep());
     }
 
-    @objid ("3cf7abd4-c45b-40eb-b5d3-4a9bbc10f3da")
+    @objid ("db956f0c-4559-4de8-b62b-c003e46b4639")
     @Override
     public void setLinkToClass(ClassAssociation value) {
         appendDepVal(NaryAssociationData.Metadata.LinkToClassDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1c23829b-4657-4a58-8f57-88a879dbe9b6")
+    @objid ("2718a345-7153-4fa4-a49f-62913e75bd6c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryAssociation(this);

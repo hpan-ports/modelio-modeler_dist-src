@@ -32,16 +32,16 @@ import org.modelio.metamodel.bpmn.activities.BpmnCallActivity;
 
 @objid ("0084bb4c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnTask extends BpmnActivity {
-    @objid ("8683f3f7-3a1f-415a-86e6-4bba95fa121b")
+    @objid ("bf938f05-c248-4427-97c1-11b8caba9f9d")
     boolean isIsGlobal();
 
-    @objid ("4de04ca7-8ea6-47d0-9c85-56a92ab042f5")
+    @objid ("703c3acc-6051-4f7d-b880-67de17047623")
     void setIsGlobal(boolean value);
 
-    @objid ("02ca0b94-678c-4393-93b8-aba97df4441b")
+    @objid ("f55ed732-2828-4563-b163-52eccb469f6a")
     EList<BpmnCallActivity> getCaller();
 
-    @objid ("064dbaf9-7bcb-40a5-a3e7-c0320dadb509")
+    @objid ("7ae1fa04-41ea-4dfc-8d7f-f60a0d5c8cf1")
     <T extends BpmnCallActivity> List<T> getCaller(java.lang.Class<T> filterClass);
 
 }

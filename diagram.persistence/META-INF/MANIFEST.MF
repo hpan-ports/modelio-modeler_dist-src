@@ -2,14 +2,14 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Diagram Persistence
 Bundle-SymbolicName: org.modelio.diagram.persistence;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.modelio.log,
  org.modelio.ui,
  org.eclipse.draw2d,
  org.modelio.core.kernel,
  org.modelio.core.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: res/,
  .
 Bundle-ActivationPolicy: lazy

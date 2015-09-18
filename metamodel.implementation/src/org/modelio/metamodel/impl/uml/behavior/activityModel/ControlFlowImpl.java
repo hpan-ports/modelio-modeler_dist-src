@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002e18a0-c4bf-1fd8-97fe-001ec947cd2a")
 public class ControlFlowImpl extends ActivityEdgeImpl implements ControlFlow {
-    @objid ("f91f9578-5152-4869-9ace-3049cff00d85")
+    @objid ("0da2d01c-bd77-4390-a152-b06594ba0385")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("9d2d3db7-4530-49b1-a5e7-155630f57be4")
+    @objid ("868e21e4-6af1-4d68-b9ba-43187788a759")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("fe5cad9a-7d3c-458f-9755-790cfa6dd9a0")
+    @objid ("6294478f-f860-46ce-a67c-e1d992aa3a52")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitControlFlow(this);

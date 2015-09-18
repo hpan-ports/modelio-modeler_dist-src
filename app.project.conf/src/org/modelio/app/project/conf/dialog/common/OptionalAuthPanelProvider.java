@@ -35,9 +35,11 @@ import org.modelio.core.ui.auth.AuthDataPanel;
 import org.modelio.gproject.data.project.AuthDescriptor;
 import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.InheritedAuthData;
 import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.auth.NoneAuthData;
+import org.modelio.vbasic.auth.UserPasswordAuthData;
 
 /**
  * Panel that gives the user possibility to specify or not authentication data.
@@ -107,10 +109,9 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
     public void setInput(Object input) {
         IAuthData data = (IAuthData) input;
         
-        if (data == null && ! this.allowUseProjectAuth)
-            data = new NoneAuthData();
-        
         if (data == null) {
+            data = new UserPasswordAuthData();
+        } else if (InheritedAuthData.matches(data)) {
             this.useProjectAuthCheck.setSelection(true);
         } else {
             this.savedInput = data;
@@ -167,7 +168,7 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
         IAuthData newData = getInput();
         if (newData == null) {
             if (this.allowUseProjectAuth)
-                fragmentDescriptor.setAuthDescriptor(null);
+                fragmentDescriptor.setAuthDescriptor(new AuthDescriptor(new InheritedAuthData(), DefinitionScope.LOCAL));
             else
                 fragmentDescriptor.setAuthDescriptor(new AuthDescriptor(new NoneAuthData(), DefinitionScope.LOCAL));
         } else {
@@ -202,6 +203,12 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
     @Override
     public String getHelpTopic() {
         return null;
+    }
+
+    @objid ("0d0a506c-25d4-48da-8fe3-52753a367ef2")
+    @Override
+    public void dispose() {
+        // nothing to do
     }
 
 }

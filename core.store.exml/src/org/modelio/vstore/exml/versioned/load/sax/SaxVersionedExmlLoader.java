@@ -66,7 +66,7 @@ public class SaxVersionedExmlLoader extends SaxExmlLoader implements IVersionedE
      */
     @objid ("c7fa47e5-3fbb-11e2-87cb-001ec947ccaf")
     @Override
-    public SmObjectImpl load(final InputSource is, final InputSource localIs, IModelLoader loader) throws IOException, DuplicateObjectException {
+    public SmObjectImpl load(final InputSource is, final InputSource localIs, IModelLoader loader) throws DuplicateObjectException, IOException {
         if (localIs != null) {
             this.localFileLoader.load(localIs, loader);
         } else {

@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("006e175c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface DiagramSet extends ModelElement {
-    @objid ("3e2dec86-ad89-4b2b-b5b4-fafc31298ceb")
+    @objid ("6582d239-c8e7-450e-8a2c-53e0b7e37ec1")
     EList<DiagramSet> getSub();
 
-    @objid ("9c7a7be3-b3ab-4d76-b0a7-a02551c0225c")
+    @objid ("3880a544-dcf7-43a2-86da-cfd3e263a6da")
     <T extends DiagramSet> List<T> getSub(java.lang.Class<T> filterClass);
 
-    @objid ("ada6f110-7a78-4ea8-9500-2b35e957eca8")
+    @objid ("23f356ef-af93-4eb2-934d-59b2aaadc41a")
     DiagramSet getParent();
 
-    @objid ("8bb98286-ccc3-457f-a4d1-e603785c788e")
+    @objid ("52ae256f-4ad3-4ee8-a353-46afd4cff6c7")
     void setParent(DiagramSet value);
 
-    @objid ("0acde750-9a96-42bd-84af-a90aaffd7f14")
+    @objid ("ea004e02-6328-45e4-bab7-ce12a6b64364")
     EList<AbstractDiagram> getReferencedDiagram();
 
-    @objid ("7d83cc25-d98f-4b89-8f56-80e0b4c694b2")
+    @objid ("d2e525a0-6265-4529-95d9-abe290eec983")
     <T extends AbstractDiagram> List<T> getReferencedDiagram(java.lang.Class<T> filterClass);
 
-    @objid ("86c64914-6ddd-4adf-b267-3eb4b93e907a")
+    @objid ("cd976e10-e6de-4281-b803-7d26562e7ad8")
     Project getOwner();
 
-    @objid ("b89fd568-fb76-4fa9-a10a-53ebe5ee1584")
+    @objid ("fad84c53-5ea3-43f9-8631-8c7e5e64ea32")
     void setOwner(Project value);
 
 }

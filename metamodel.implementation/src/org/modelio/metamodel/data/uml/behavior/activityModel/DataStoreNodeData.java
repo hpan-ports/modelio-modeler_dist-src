@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("002f83c0-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=DataStoreNode.class, factory=DataStoreNodeData.Metadata.ObjectFactory.class)
 public class DataStoreNodeData extends CentralBufferNodeData {
-    @objid ("f17c06d6-44f7-4d0e-abdb-872ee646a349")
+    @objid ("93b472ad-0814-4fc7-b14c-5fcc154a3b15")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0076b844-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("59d7a7ab-f39f-442f-851f-28bb3be1fece")
+        @objid ("372bad0c-3c73-4757-8837-99225eca2bea")
         private static SmClass smClass = null;
 
-        @objid ("cce67ac4-87dc-46c0-8171-c018c9f41b6a")
+        @objid ("f04574a7-a9e3-4bf5-bbc1-8c0de522086f")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DataStoreNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("0b0b9dd5-7463-4ba4-b003-0da0faa04ad9")
+        @objid ("fd69463a-0a19-412b-b160-c7cca6e1131e")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class DataStoreNodeData extends CentralBufferNodeData {
 
         @objid ("007705a6-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("570aaf1d-9338-4f4b-9b17-57e201d96e98")
+            @objid ("885cade1-3527-4619-ab50-f93b5aa3376d")
             public ISmObjectData createData() {
                 return new DataStoreNodeData();
             }
 
-            @objid ("a5220b16-f1e0-4c0f-9175-3e4946517fce")
+            @objid ("5dc802f3-a9a0-4063-8b54-7ff756044991")
             public SmObjectImpl createImpl() {
                 return new DataStoreNodeImpl();
             }

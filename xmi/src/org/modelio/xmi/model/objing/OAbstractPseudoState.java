@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Vertex;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.AbstractPseudoState;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("627cf5ca-7898-45ae-91ed-72f5bbd3eb18")

@@ -26,7 +26,7 @@ import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.modelio.api.diagram.tools.IDiagramCommand;
+import org.modelio.api.diagram.tools.IDiagramTool;
 
 @objid ("2cff1487-96e7-429f-9ebf-d94ac2194c16")
 public class MultiLinkToolEntry extends ConnectionCreationToolEntry {
@@ -39,7 +39,7 @@ public class MultiLinkToolEntry extends ConnectionCreationToolEntry {
      * @param iconLarge the large icon
      */
     @objid ("0b4ebe1d-7669-4c22-acc7-5f2976930c7a")
-    public MultiLinkToolEntry(final String label, final String shortDesc, final CreationFactory factory, final ImageDescriptor iconSmall, final ImageDescriptor iconLarge, final IDiagramCommand handler) {
+    public MultiLinkToolEntry(final String label, final String shortDesc, final CreationFactory factory, final ImageDescriptor iconSmall, final ImageDescriptor iconLarge, final IDiagramTool handler) {
         super(label, shortDesc, factory, iconSmall, iconLarge);
         setToolClass(MultiLinkTool.class);
         this.setToolProperty(LinkTool.PROPERTY_HANDLER, handler);

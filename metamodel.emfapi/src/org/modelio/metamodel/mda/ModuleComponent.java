@@ -36,76 +36,76 @@ import org.modelio.metamodel.uml.statik.Component;
 
 @objid ("006567e2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ModuleComponent extends Component {
-    @objid ("3971137a-e58e-48ac-87b4-e17b6f109e58")
+    @objid ("958df359-23fc-44b3-8029-542c31478270")
     int getLicenseKey();
 
-    @objid ("19c5e67a-f05f-4bcc-84db-f0511b8a934c")
+    @objid ("abaca3fb-1b70-4d92-af08-2f0240bd022f")
     void setLicenseKey(int value);
 
-    @objid ("887e0d68-d35a-4b5a-a7c9-0a9063357a45")
+    @objid ("5fc54222-cf4c-4afa-b07a-963175f88d80")
     int getMajVersion();
 
-    @objid ("a53a3e4d-24d0-48e6-ab0a-75b352d5c4bb")
+    @objid ("d40c275f-fbb2-4ed7-9264-64ba8e7c62f4")
     void setMajVersion(int value);
 
-    @objid ("b44fe7f3-36f1-44f7-ac48-fb6fb595c76d")
+    @objid ("087e28c2-40ea-4074-8dc0-28048ca39e29")
     int getMinVersion();
 
-    @objid ("37109a1c-01d2-4a60-9802-c8f0708df5be")
+    @objid ("26988a92-4d47-4e09-9dcd-6e390f5e8c67")
     void setMinVersion(int value);
 
-    @objid ("cd3b19a4-f8a2-419d-9b9a-b72e37135222")
+    @objid ("0c64cb2d-4cc1-4e9f-9371-1d0c88894b91")
     String getMinMinVersion();
 
-    @objid ("cc29f1df-309f-4db1-ad3f-b5de63bdfd69")
+    @objid ("96eb2767-bf93-432a-aa69-65a1fe288ef0")
     void setMinMinVersion(String value);
 
-    @objid ("3c459e40-0737-4f34-827f-e122aa06e4e1")
+    @objid ("44c477fd-2655-466b-a3f8-ee813cd79028")
     String getMinBinVersionCompatibility();
 
-    @objid ("87dd2c82-7f53-4251-ad77-e19003066ad3")
+    @objid ("e62b9b94-2e0b-48b3-bfe7-945a001f3b0f")
     void setMinBinVersionCompatibility(String value);
 
-    @objid ("622027d8-8975-4223-b699-9f38e561962f")
+    @objid ("8325e142-5fa9-4cfa-97ac-8a64753925bc")
     String getJavaClassName();
 
-    @objid ("8be1c0e9-40d6-4351-8363-f624a9c059c0")
+    @objid ("708b8e79-b615-4944-a246-28f494eb4968")
     void setJavaClassName(String value);
 
-    @objid ("1c7cc118-f52f-40c1-b4ec-de094ac98b8f")
+    @objid ("489ffaee-73e4-4c6b-825d-d8aaeb5932ef")
     ModuleState getState();
 
-    @objid ("bcd934ab-6306-4d50-b68f-73ffa233b3e0")
+    @objid ("301cd720-497e-4e2e-a906-fc024a78b793")
     void setState(ModuleState value);
 
-    @objid ("571f4a08-089e-426d-a594-9b8df754c120")
+    @objid ("864f4347-ca46-4118-9e58-7ab225fbefd6")
     EList<PropertyType> getDefinedPropertyType();
 
-    @objid ("1686f39f-d9f1-4e77-8bf9-e99e910b08b9")
+    @objid ("ce73e353-8f4f-4eee-a087-8eaa03cdc3f6")
     <T extends PropertyType> List<T> getDefinedPropertyType(java.lang.Class<T> filterClass);
 
-    @objid ("e02baa6b-4336-48f1-a44e-15d54a9f748f")
+    @objid ("d90385c7-677b-4e8f-9dfe-854a5878e327")
     EList<Profile> getOwnedProfile();
 
-    @objid ("a51692e2-7594-4a79-bdad-1bda2cfe8fc3")
+    @objid ("e2b3b996-0b9d-4b8b-be0b-28d8a2295c83")
     <T extends Profile> List<T> getOwnedProfile(java.lang.Class<T> filterClass);
 
-    @objid ("f2e94f8d-fce9-4f57-8293-2012306c660b")
+    @objid ("947ab089-b9cf-4fa0-b0f0-833ed6bccf38")
     EList<ModuleParameter> getModuleParameter();
 
-    @objid ("713780b3-2a7e-486f-9dac-70c3e36f0b0d")
+    @objid ("a7ebb509-b4ea-44b0-b68d-0847cd3e692d")
     <T extends ModuleParameter> List<T> getModuleParameter(java.lang.Class<T> filterClass);
 
-    @objid ("02bb31a4-b156-4c2c-be41-ddfb0bc1fe5e")
+    @objid ("9d3ac775-2ffc-4fa6-9c0a-43429e78653f")
     EList<ModuleComponent> getDependsOn();
 
-    @objid ("0520676e-89a3-42b0-abce-74e05a847de0")
+    @objid ("f46d81f2-a541-4ce7-ba24-d09d4f861837")
     <T extends ModuleComponent> List<T> getDependsOn(java.lang.Class<T> filterClass);
 
-    @objid ("f5bc76e9-d7ba-4d15-9bee-95671be1ef0c")
+    @objid ("ef55e5af-6d51-478b-a4b4-abc6f8c19753")
     EList<ModuleComponent> getImpacted();
 
-    @objid ("8ea28629-69ed-4c9b-9aaa-661c7777debb")
+    @objid ("b4aff6e4-f807-442f-aa0c-62dfd023cfb6")
     <T extends ModuleComponent> List<T> getImpacted(java.lang.Class<T> filterClass);
 
 }

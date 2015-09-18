@@ -147,7 +147,7 @@ public class FourGroupStructuralLayout {
     }
 
     @objid ("6d1e8590-1144-45e1-a227-b644ec070f7a")
-    public void layout(final IDiagramNode mainDG, final List<IDiagramNode> topDgs, final List<IDiagramNode> bottomDgs, final List<IDiagramNode> leftDgs, final List<IDiagramNode> rightDgs, final List<IDiagramLink> linkDgs) throws InvalidSourcePointException, InvalidPointsPathException, InvalidDestinationPointException {
+    public void layout(final IDiagramNode mainDG, final List<IDiagramNode> topDgs, final List<IDiagramNode> bottomDgs, final List<IDiagramNode> leftDgs, final List<IDiagramNode> rightDgs, final List<IDiagramLink> linkDgs) throws InvalidDestinationPointException, InvalidSourcePointException, InvalidPointsPathException {
         //System.out.println("   Sizes:");
         
         // compute top group width, horizontal group

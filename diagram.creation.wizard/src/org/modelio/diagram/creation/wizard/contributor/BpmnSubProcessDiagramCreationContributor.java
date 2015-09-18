@@ -15,7 +15,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 @objid ("3e4b1657-cb8f-4925-a14b-6c02e8877ffd")
-public class BpmnSubProcessDiagramCreationContributor extends AbstractDiagramCreationContributor {
+public class BpmnSubProcessDiagramCreationContributor extends AbstractUMLDiagramCreationContributor {
     @objid ("8e3fe408-1c52-443e-a4e2-4efdda11f7f9")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
@@ -35,22 +35,10 @@ public class BpmnSubProcessDiagramCreationContributor extends AbstractDiagramCre
         return allowedMetaclasses;
     }
 
-    @objid ("6478ea12-7a14-4e5d-bd31-06f2e6ab92ae")
-    private BpmnSubProcessDiagram createBpmnSubProcessDiagram(final IModelFactory modelFactory, final ModelElement diagramContext, final String diagramName) {
-        BpmnSubProcessDiagram diagram = modelFactory.createBpmnSubProcessDiagram();
-        diagram.setOrigin(diagramContext);
-        if (diagramName.equals(this.getLabel())) {                
-            setElementDefaultName(diagram);
-        } else {
-            diagram.setName(diagramName);
-        }
-        return diagram;
-    }
-
-    @objid ("1305e5bd-bdac-45dd-8295-07c6a5489674")
+    @objid ("d90b0a09-66a2-4ec4-b681-26758fe74122")
     @Override
-    public String getLabel() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.BpmnSubProcess.Name");
+    public String getDetails() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.BpmnSubProcess.Details");
     }
 
     @objid ("d4454991-3606-4c96-9613-8ffb4b949cc3")
@@ -65,10 +53,22 @@ public class BpmnSubProcessDiagramCreationContributor extends AbstractDiagramCre
         return DiagramCreationWizard.I18N.getString("CreationWizard.BpmnSubProcess.Information");
     }
 
-    @objid ("d90b0a09-66a2-4ec4-b681-26758fe74122")
+    @objid ("1305e5bd-bdac-45dd-8295-07c6a5489674")
     @Override
-    public String getDetails() {
-        return DiagramCreationWizard.I18N.getString("CreationWizard.BpmnSubProcess.Details");
+    public String getLabel() {
+        return DiagramCreationWizard.I18N.getString("CreationWizard.BpmnSubProcess.Name");
+    }
+
+    @objid ("6478ea12-7a14-4e5d-bd31-06f2e6ab92ae")
+    private BpmnSubProcessDiagram createBpmnSubProcessDiagram(final IModelFactory modelFactory, final ModelElement diagramContext, final String diagramName) {
+        BpmnSubProcessDiagram diagram = modelFactory.createBpmnSubProcessDiagram();
+        diagram.setOrigin(diagramContext);
+        if (diagramName.equals(this.getLabel())) {                
+            setElementDefaultName(diagram);
+        } else {
+            diagram.setName(diagramName);
+        }
+        return diagram;
     }
 
 }

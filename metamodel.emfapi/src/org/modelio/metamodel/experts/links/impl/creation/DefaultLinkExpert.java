@@ -165,6 +165,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule("AssociationEnd", "Artifact", "Signal");
             addRule("AssociationEnd", "Class", "Class");
             addRule("AssociationEnd", "Class", "DataType");
+            addRule("AssociationEnd", "Class", "Enumeration");
             addRule("AssociationEnd", "Class", "Interface");
             addRule("AssociationEnd", "Class", "Signal");
             addRule("AssociationEnd", "Component", "Class");

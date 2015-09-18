@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Project
 Bundle-SymbolicName: org.modelio.core.project
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Require-Bundle: org.modelio.core.store.exml,
  org.modelio.core.kernel,
  org.modelio.core.utils,
@@ -33,4 +33,4 @@ Export-Package: org.modelio.gproject.fragment,
  org.modelio.gproject.ramc.core.packaging
 Bundle-ClassPath: res/,
  .
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

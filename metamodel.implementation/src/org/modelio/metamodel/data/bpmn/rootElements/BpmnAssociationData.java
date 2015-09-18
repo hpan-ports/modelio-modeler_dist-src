@@ -45,43 +45,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00779282-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnAssociation.class, factory=BpmnAssociationData.Metadata.ObjectFactory.class)
 public class BpmnAssociationData extends BpmnArtifactData {
-    @objid ("759255ed-556e-4071-9d9d-883a7323e1b3")
+    @objid ("72ef050b-ba76-4436-afa7-c9cc3b9c8de7")
     @SmaMetaAttribute(metaName="AssociationDirection", type=BpmnAssociationDirection.class, smAttributeClass=Metadata.AssociationDirectionSmAttribute.class)
      Object mAssociationDirection = BpmnAssociationDirection.NONEDIRECTION;
 
-    @objid ("eb53e003-184a-4ea7-9a4e-022974d54bdd")
+    @objid ("9d7ffbd8-0dc0-4c66-b4f0-2279211aca8d")
     @SmaMetaAssociation(metaName="TargetRef", typeDataClass=BpmnBaseElementData.class, min=1, max=1, smAssociationClass=Metadata.TargetRefSmDependency.class, partof = true)
      SmObjectImpl mTargetRef;
 
-    @objid ("234fca40-a64e-4e73-8d20-0e1b4ad25fbd")
+    @objid ("835f3e3b-1adf-4a11-ad68-6941aa15c22f")
     @SmaMetaAssociation(metaName="SourceRef", typeDataClass=BpmnBaseElementData.class, min=1, max=1, smAssociationClass=Metadata.SourceRefSmDependency.class, partof = true)
      SmObjectImpl mSourceRef;
 
-    @objid ("cb120243-b470-42ac-80a4-7d1563f810d2")
+    @objid ("6cc0c657-1454-45c9-89d6-1225e9d947c6")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("006bd8ca-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("d66a8317-75f3-45b2-ab05-1527a1e5ad1d")
+        @objid ("c04d5a49-3450-40c4-83ca-7f691ac40573")
         private static SmClass smClass = null;
 
-        @objid ("5cb5cf86-bd2e-4164-89d2-bb2c4a8a11d2")
+        @objid ("637bf126-d48f-40ce-8f77-2be3d8d1b8ed")
         private static SmAttribute AssociationDirectionAtt = null;
 
-        @objid ("3fe2b1c8-28be-4acd-9713-cae76e5ed6cb")
+        @objid ("ba323d6d-48c4-45b6-8a98-ab4412da22b3")
         private static SmDependency TargetRefDep = null;
 
-        @objid ("19b5bb8c-ea37-4a3d-9916-60365e11a2f1")
+        @objid ("f1a2376c-b91b-42ef-97b9-65b064f406e2")
         private static SmDependency SourceRefDep = null;
 
-        @objid ("e65f5958-5a49-4056-9e40-758ed011e408")
+        @objid ("2339c68c-05f8-44fa-8590-21e4878c6ae7")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnAssociationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f160311a-d6f6-499d-8ab6-7a0c573c3025")
+        @objid ("a79154fc-68ab-4aa6-94d6-cf958554d259")
         public static SmAttribute AssociationDirectionAtt() {
             if (AssociationDirectionAtt == null) {
             	AssociationDirectionAtt = classof().getAttributeDef("AssociationDirection");
@@ -89,7 +89,7 @@ public class BpmnAssociationData extends BpmnArtifactData {
             return AssociationDirectionAtt;
         }
 
-        @objid ("336dbca1-3c4c-4781-9116-8a6749bb6741")
+        @objid ("a52eee88-5775-4044-b3c2-51c196e13fff")
         public static SmDependency TargetRefDep() {
             if (TargetRefDep == null) {
             	TargetRefDep = classof().getDependencyDef("TargetRef");
@@ -97,7 +97,7 @@ public class BpmnAssociationData extends BpmnArtifactData {
             return TargetRefDep;
         }
 
-        @objid ("8b8486dc-38c9-426c-9362-fccbe6192b49")
+        @objid ("99184f14-46a4-49fd-988d-668eb2c38978")
         public static SmDependency SourceRefDep() {
             if (SourceRefDep == null) {
             	SourceRefDep = classof().getDependencyDef("SourceRef");
@@ -105,38 +105,38 @@ public class BpmnAssociationData extends BpmnArtifactData {
             return SourceRefDep;
         }
 
-        @objid ("79715e44-269a-4137-96c2-e768fb403027")
-        public static SmDependency getTargetRefDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TargetRefDep;
-        }
-
-        @objid ("86689e20-1249-444c-90c8-bd365799e33a")
-        public static SmDependency getSourceRefDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SourceRefDep;
-        }
-
-        @objid ("84e9db8a-3f1f-4480-bf1d-696c54e62c19")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("44806778-df42-4f3b-bbf9-8396f60eb461")
+        @objid ("26c07995-7be2-4938-ab52-8124669f2be5")
         public static SmAttribute getAssociationDirectionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return AssociationDirectionAtt;
         }
 
+        @objid ("8a92dcf0-bbc8-4a81-b4bf-c93de9f77b90")
+        public static SmDependency getSourceRefDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SourceRefDep;
+        }
+
+        @objid ("fe374cc8-8108-4925-a6a7-4ead8ff7d9dd")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("39d55eff-79df-4936-8572-94932930302b")
+        public static SmDependency getTargetRefDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TargetRefDep;
+        }
+
         @objid ("006c1b50-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("6b4d9491-272e-47b9-805d-609c7455c98b")
+            @objid ("50d4e9bd-18eb-43d1-86f6-ced7a5552681")
             public ISmObjectData createData() {
                 return new BpmnAssociationData();
             }
 
-            @objid ("4e8518f7-6f35-45fa-a65f-410c7b2bd1e2")
+            @objid ("dad92c60-eb5b-45bf-a1de-1d90cfd7d775")
             public SmObjectImpl createImpl() {
                 return new BpmnAssociationImpl();
             }
@@ -145,12 +145,12 @@ public class BpmnAssociationData extends BpmnArtifactData {
 
         @objid ("006c7c94-c4c2-1fd8-97fe-001ec947cd2a")
         public static class AssociationDirectionSmAttribute extends SmAttribute {
-            @objid ("9234c989-218b-4574-a1c4-98bb186b000c")
+            @objid ("2cbd0bbf-743c-41fd-9805-e0a38cb29f93")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnAssociationData) data).mAssociationDirection;
             }
 
-            @objid ("912d6583-059d-4521-be33-6b85b3eb04dc")
+            @objid ("36e2d0b2-31b7-41cd-8451-707f7d4ee9db")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnAssociationData) data).mAssociationDirection = value;
             }
@@ -159,18 +159,18 @@ public class BpmnAssociationData extends BpmnArtifactData {
 
         @objid ("006cdf4a-c4c2-1fd8-97fe-001ec947cd2a")
         public static class SourceRefSmDependency extends SmSingleDependency {
-            @objid ("f474e584-66a3-4dc0-a997-2a60f0c50de0")
+            @objid ("8788fdca-f357-450c-b4ab-ba50e970810f")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnAssociationData) data).mSourceRef;
             }
 
-            @objid ("5864202a-2c66-4f63-ac3a-7863781533b5")
+            @objid ("a173f7b8-0a4c-4155-820c-e145de8904f8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnAssociationData) data).mSourceRef = value;
             }
 
-            @objid ("ab25bf5a-5bfd-408c-b25b-850a1bb7b27c")
+            @objid ("2201a6f0-b643-44b7-9c6d-ab27a6a38558")
             @Override
             public SmDependency getSymetric() {
                 return BpmnBaseElementData.Metadata.OutgoingAssocDep();
@@ -180,18 +180,18 @@ public class BpmnAssociationData extends BpmnArtifactData {
 
         @objid ("006d563c-c4c2-1fd8-97fe-001ec947cd2a")
         public static class TargetRefSmDependency extends SmSingleDependency {
-            @objid ("598f8207-b709-40bc-929d-c9b53b348171")
+            @objid ("92e32efb-83b7-4d5a-83f3-9b8b9aedfffa")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnAssociationData) data).mTargetRef;
             }
 
-            @objid ("1b22e385-6bdd-457f-a835-bb08e02132ad")
+            @objid ("a1ea2ed3-8dce-47ef-abc1-628fe8e1a53f")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnAssociationData) data).mTargetRef = value;
             }
 
-            @objid ("d951a5e6-f243-40c6-99ce-65820eb5974c")
+            @objid ("ba150dda-8f69-43bc-888b-9fe82008f510")
             @Override
             public SmDependency getSymetric() {
                 return BpmnBaseElementData.Metadata.IncomingAssocDep();

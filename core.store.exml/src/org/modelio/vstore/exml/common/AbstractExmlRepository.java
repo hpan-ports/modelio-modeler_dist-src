@@ -181,24 +181,11 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         this.emfResource = new EmfResource(this);
     }
 
-    /**
-     * initialize the EXML repository.
-     * <p>
-     * The repository needs to be {@link #open(IModelLoaderProvider, IModelioProgress) opened} before being used.
-     * @deprecated Use {@link #AbstractExmlRepository(Path, Path)} with a runtime path.
-     * @param path the repository path
-     * @throws java.io.IOException in case of failure.
-     */
-    @objid ("fd21f542-5986-11e1-991a-001ec947ccaf")
-    @Deprecated
-    public AbstractExmlRepository(final Path path) throws IOException {
-        this (path, path);
-    }
-
     @objid ("fd21f545-5986-11e1-991a-001ec947ccaf")
     @Override
-    protected void finalize() {
+    protected void finalize() throws Throwable {
         close();
+        super.finalize();
     }
 
     @objid ("fd24587e-5986-11e1-991a-001ec947ccaf")
@@ -348,7 +335,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
      * in another repository.
      */
     @objid ("fd24574c-5986-11e1-991a-001ec947ccaf")
-    public SmObjectImpl findByObjId(final ObjId id, IModelLoader modelLoader) throws IOException, DuplicateObjectException {
+    public SmObjectImpl findByObjId(final ObjId id, IModelLoader modelLoader) throws DuplicateObjectException, IOException {
         assertOpen();
         
         // Return the element if already loaded
@@ -486,7 +473,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
 
     @objid ("fd26b9b2-5986-11e1-991a-001ec947ccaf")
     @Override
-    public SmObjectImpl loadCmsNode(ObjId it, IModelLoader modelLoader) throws IOException, DuplicateObjectException {
+    public SmObjectImpl loadCmsNode(ObjId it, IModelLoader modelLoader) throws DuplicateObjectException, IOException {
         SmObjectImpl obj = findByObjId(it, modelLoader);
         if (obj != null) {
             // Load the node if not moved to another repository and not already loaded.
@@ -813,7 +800,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     }
 
     @objid ("fd2458f1-5986-11e1-991a-001ec947ccaf")
-    private void loadAll(SmClass cls, IModelLoader modelLoader) throws IOException, DuplicateObjectException {
+    private void loadAll(SmClass cls, IModelLoader modelLoader) throws DuplicateObjectException, IOException {
         for (UUID id : getCmsNodeIndex().getByMClass(cls)) {
             findByObjId(new ObjId(cls, "", id), modelLoader);
         }

@@ -42,12 +42,13 @@ import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.NaryLink;
 import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.Port;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
+import org.modelio.xmi.util.EcoreUMLTypes;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("b679cdef-61f9-4b20-89be-45cac9ee4046")
 public class ESlot extends EElement {
@@ -111,26 +112,27 @@ public class ESlot extends EElement {
 
     @objid ("038681a8-570d-40bc-8980-8427462ea627")
     private String getValueSpecification() {
-        org.eclipse.uml2.uml.Type type =  PrimitiveTypeMapper.getString();
+        EcoreUMLTypes umlTypes = GenerationProperties.getInstance().getEcoreUMLTypes();
+        org.eclipse.uml2.uml.Type type =  umlTypes.getString();
         org.eclipse.uml2.uml.ValueSpecification result = this.ecoreElement.getValue("", type);
         
         if (result != null){
             return result.stringValue();
         }
         
-        type =  PrimitiveTypeMapper.getBoolean();
+        type =  umlTypes.getBoolean();
         result = this.ecoreElement.getValue("", type);
         if (result != null){
             return result.stringValue();
         }
         
-        type =  PrimitiveTypeMapper.getUnlimited();
+        type =  umlTypes.getUnlimitedNatural();
         result = this.ecoreElement.getValue("", type);
         if (result != null){
             return result.stringValue();
         }
         
-        type =  PrimitiveTypeMapper.getInteger();
+        type =  umlTypes.getInteger();
         result = this.ecoreElement.getValue("", type);
         if (result != null){
             return result.stringValue();

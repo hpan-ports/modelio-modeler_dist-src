@@ -26,7 +26,7 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.metamodel.uml.behavior.interactionModel.PartDecomposition;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("784e5006-381a-4264-952d-92d22e5189a5")
 public class OPartDecomposition extends OInteractionUse implements IOElement {

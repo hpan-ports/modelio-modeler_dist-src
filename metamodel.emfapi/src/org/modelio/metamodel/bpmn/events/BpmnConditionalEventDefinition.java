@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0089eafe-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnConditionalEventDefinition extends BpmnEventDefinition {
-    @objid ("6eede388-7452-40dd-ba5d-025c61b94f9a")
+    @objid ("ebd54d7f-16e8-4d41-9167-e76fad08ba6a")
     String getCondition();
 
-    @objid ("63336ee2-9043-46f7-a945-5c5dc3783ef0")
+    @objid ("97b7f166-f5c2-42ea-bcf8-410431487683")
     void setCondition(String value);
 
 }

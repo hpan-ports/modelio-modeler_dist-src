@@ -52,7 +52,9 @@ import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("0b9802e6-55ba-4291-acd6-618a3eda5bf3")
 public class EcoreModelNavigation {
@@ -929,7 +931,7 @@ public class EcoreModelNavigation {
                 return (trans.getGuard().equals(constraint)
                         || trans.getPostCondition().equals(constraint)
                         || trans.getPreCondition().equals(constraint));
-            }else  if (constrainedElt instanceof org.eclipse.uml2.uml.ProtocolTransition) {
+            }else  if (constrainedElt instanceof org.eclipse.uml2.uml.Transition) {
                 org.eclipse.uml2.uml.Transition trans =  (org.eclipse.uml2.uml.Transition) constrainedElt;
                 return trans.getGuard().equals(constraint);
             }
@@ -1094,7 +1096,7 @@ public class EcoreModelNavigation {
         
         org.eclipse.uml2.uml.Element owner = ecoreClass.getOwner();
         return ((owner instanceof Model ) &&
-                ((Model)owner).getName().equals(UMLMetamodel.getInstance().getUMLMetamodel().getName()));
+                                ((Model)owner).getName().equals(UMLMetamodel.getInstance().getUMLMetamodel().getName()));
     }
 
     @objid ("ce8493b2-fe4f-47af-a50c-81c5aa4775ae")

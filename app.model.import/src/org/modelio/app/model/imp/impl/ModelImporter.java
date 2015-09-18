@@ -85,7 +85,7 @@ public class ModelImporter implements IRunnableWithProgress {
 
     @objid ("fb8e79cd-7aa1-4291-ad9a-17d9d2b624b8")
     @Override
-    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+    public void run(IProgressMonitor monitor) throws InterruptedException, InvocationTargetException {
         List<SmObjectImpl> importedUmlElements = new ArrayList<>();
         List<SmObjectImpl> importedAnalystElements = new ArrayList<>();
         List<SmObjectImpl> importedAnalystProperties = new ArrayList<>();

@@ -41,4 +41,10 @@ public interface IAuditDiagnostic {
     @objid ("457ba0d2-924e-4d53-857a-3e77b7c0a8be")
     int getTipCount();
 
+    @objid ("da800349-56b5-4193-a6e0-f40cd373088f")
+    void addAuditListener(IAuditListener listener);
+
+    @objid ("bad199a9-0953-483a-807c-4f741b6cc9fd")
+    void removeAuditListener(IAuditListener listener);
+
 }

@@ -32,22 +32,22 @@ import org.modelio.metamodel.uml.statik.VisibilityMode;
 
 @objid ("000b00cc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Feature extends ModelElement {
-    @objid ("9a4b165a-2188-4a42-a223-6cc65bfc16e0")
+    @objid ("5b8d1629-9c71-4f03-ace1-fac3ad3badef")
     VisibilityMode getVisibility();
 
-    @objid ("31f562ae-b968-43a8-a28e-af49a4942db6")
+    @objid ("e2b1cd7c-fa81-4072-9b95-16805f7603e3")
     void setVisibility(VisibilityMode value);
 
-    @objid ("29a8fb57-a287-415b-a5ce-724df74bc6bf")
+    @objid ("ec04b077-5351-440a-af0e-f67b8c74412e")
     boolean isIsClass();
 
-    @objid ("7a92da78-fce6-48a6-b465-63fe719ec976")
+    @objid ("0b81857e-328a-4549-aa47-dad4c3963c2b")
     void setIsClass(boolean value);
 
-    @objid ("da1f56d6-1629-4c2c-9199-2b459640b4cb")
+    @objid ("4e011858-66e6-46fb-9d95-fbedf83b201d")
     boolean isIsAbstract();
 
-    @objid ("1967fb1b-d068-4e07-8cbb-a4751ea901bf")
+    @objid ("e900e0e3-3061-48e1-8986-192f917373e4")
     void setIsAbstract(boolean value);
 
 }

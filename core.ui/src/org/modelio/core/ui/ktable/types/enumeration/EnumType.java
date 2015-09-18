@@ -23,9 +23,22 @@ package org.modelio.core.ui.ktable.types.enumeration;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import de.kupzog.ktable.KTableCellEditor;
+import de.kupzog.ktable.KTableModel;
+import de.kupzog.ktable.SWTX;
+import de.kupzog.ktable.renderers.DefaultCellRenderer;
+import de.kupzog.ktable.renderers.TextCellRenderer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Display;
 import org.modelio.app.core.picking.IModelioPickingService;
+import org.modelio.core.ui.MetamodelLabels;
 import org.modelio.core.ui.ktable.types.PropertyType;
 
+/**
+ * EnumType for UML metamodel enumeration ONLY !
+ * Deals with I18N !
+ */
 @objid ("8dea977b-c068-11e1-8c0a-002564c97630")
 public class EnumType extends PropertyType {
     @objid ("8dea977c-c068-11e1-8c0a-002564c97630")
@@ -46,6 +59,26 @@ public class EnumType extends PropertyType {
     @Override
     public KTableCellEditor getEditor(IModelioPickingService pickingService) {
         return new EnumCellEditor(getTheEnumeration());
+    }
+
+    @objid ("890a41f3-f012-4bbf-aa3a-3f08aa910f05")
+    @Override
+    public DefaultCellRenderer getRenderer() {
+        final TextCellRenderer renderer = new TextCellRenderer(DefaultCellRenderer.INDICATION_FOCUS) {
+        
+        
+        
+        
+            @Override
+            public void drawCell(GC gc, Rectangle rect, int col, int row, Object content, boolean focus, boolean fixed,
+                                 boolean clicked, KTableModel model) {
+                super.drawCell(gc, rect, col, row, MetamodelLabels.getString(content.toString()), focus, fixed, clicked, model);
+            }
+        
+        };
+        renderer.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_BLUE));
+        renderer.setAlignment(SWTX.ALIGN_HORIZONTAL_CENTER | SWTX.ALIGN_VERTICAL_CENTER);
+        return renderer;
     }
 
 }

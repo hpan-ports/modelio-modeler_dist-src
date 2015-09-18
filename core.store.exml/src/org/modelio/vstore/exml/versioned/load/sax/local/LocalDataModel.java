@@ -99,7 +99,7 @@ final class LocalDataModel implements ExmlTags {
     }
 
     @objid ("b5c32b8b-3fbb-11e2-87cb-001ec947ccaf")
-    void addDepId(final ObjId refid) throws IllegalReferenceException, DuplicateObjectException {
+    void addDepId(final ObjId refid) throws DuplicateObjectException, IllegalReferenceException {
         if (refid != null) {
             SmObjectImpl obj = this.loadHelper.getObject(refid);
             if (obj == null)

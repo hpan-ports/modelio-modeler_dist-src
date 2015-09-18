@@ -44,31 +44,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("001ab350-c4bf-1fd8-97fe-001ec947cd2a")
 public class RaisedExceptionImpl extends ModelElementImpl implements RaisedException {
-    @objid ("4a840d6e-9bfe-406f-82e0-9d27d92d9267")
+    @objid ("2858f686-4359-4624-80b8-8edf1beec768")
     @Override
     public Classifier getThrownType() {
         return (Classifier) getDepVal(RaisedExceptionData.Metadata.ThrownTypeDep());
     }
 
-    @objid ("164a0215-d858-48b2-bf96-8566eedf4678")
+    @objid ("927acc19-7f3d-4b03-8d42-11c8f94b011a")
     @Override
     public void setThrownType(Classifier value) {
         appendDepVal(RaisedExceptionData.Metadata.ThrownTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3a717557-0bdf-4aa8-bc8f-5eee1b327a1b")
+    @objid ("dbf27feb-6d8d-4ec1-87fb-142231a9ff7b")
     @Override
     public Operation getThrower() {
         return (Operation) getDepVal(RaisedExceptionData.Metadata.ThrowerDep());
     }
 
-    @objid ("e8f9480a-50d9-4e03-8abe-e359480f8a10")
+    @objid ("33cc4554-a19e-4251-92a1-df2a58f8b8f2")
     @Override
     public void setThrower(Operation value) {
         appendDepVal(RaisedExceptionData.Metadata.ThrowerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1acfff1f-f982-47ca-b9c1-6c24cad2a027")
+    @objid ("47425d95-c8d4-4802-95e6-0ddbd75f1943")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -78,7 +78,7 @@ public class RaisedExceptionImpl extends ModelElementImpl implements RaisedExcep
         return super.getCompositionOwner();
     }
 
-    @objid ("666d185a-64a4-4651-a2dd-68e1ec356ad3")
+    @objid ("71ff6976-cecf-4fad-b992-d48afb94b71a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -88,7 +88,7 @@ public class RaisedExceptionImpl extends ModelElementImpl implements RaisedExcep
         return super.getCompositionRelation();
     }
 
-    @objid ("2e2e8011-99ef-4fa4-9305-71fd8c8eb93b")
+    @objid ("db521648-cfa7-4abb-9920-9ca43684dfbe")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitRaisedException(this);

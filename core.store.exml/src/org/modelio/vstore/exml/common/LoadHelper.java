@@ -106,7 +106,7 @@ public class LoadHelper implements ILoadHelper {
 
     @objid ("6784129c-2e7b-11e2-8aaa-001ec947ccaf")
     @Override
-    public final SmObjectImpl getRefObject(IModelLoader modelLoader, final ObjId id, final ObjId pid) throws IllegalReferenceException, DuplicateObjectException {
+    public final SmObjectImpl getRefObject(IModelLoader modelLoader, final ObjId id, final ObjId pid) throws DuplicateObjectException, IllegalReferenceException {
         if (!this.exmlBase.isStored(id))
             return getForeignObject(modelLoader, id);
         return createStubObject(modelLoader, id, pid);
@@ -213,7 +213,7 @@ public class LoadHelper implements ILoadHelper {
 
     @objid ("e809ae47-041e-4f20-a858-35f519f89e41")
     @Override
-    public SmObjectImpl createStubObject(IModelLoader modelLoader, final ObjId id, final ObjId pid) throws IllegalReferenceException, DuplicateObjectException {
+    public SmObjectImpl createStubObject(IModelLoader modelLoader, final ObjId id, final ObjId pid) throws DuplicateObjectException, IllegalReferenceException {
         SmObjectImpl newObject = modelLoader.createLoadedObject(id.classof, id.id);
         
         // Set the name now

@@ -38,7 +38,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.IPeerModule;
 import org.modelio.api.module.ModuleException;
 import org.modelio.app.core.IModelioEventService;
@@ -93,10 +92,9 @@ public class ModuleService implements IModuleService {
     public void activateModule(GModule gModule) throws ModuleException {
         gModule.setActivated(true);
         
-        final ModuleComponent moduleElement = gModule.getModuleElement();
-        if (moduleElement != null) {
-            startModule(getIModule(moduleElement), gModule.getProject());
-        }
+        final IRTModule irtModule = getIRTModule(gModule);
+        if (irtModule != null)
+            startModule(irtModule, gModule.getProject());
     }
 
     /**
@@ -108,7 +106,7 @@ public class ModuleService implements IModuleService {
      * @throws org.modelio.api.module.ModuleException in case of failure
      */
     @objid ("c85c0675-03ec-11e2-8e1f-001ec947c8cc")
-    void activateModule(IModule iModule, GProject gProject) throws ModuleException {
+    void activateModule(IRTModule iModule, GProject gProject) throws ModuleException {
         GModule gModule = ModuleResolutionHelper.getGModuleByName(gProject, iModule.getName());
         activateModule(gModule);
     }
@@ -118,10 +116,7 @@ public class ModuleService implements IModuleService {
     public void deactivateModule(GModule gModule) throws ModuleException {
         gModule.setActivated(false);
         
-        final ModuleComponent moduleElement = gModule.getModuleElement();
-        if (moduleElement != null) {
-            stopModule(getIModule(moduleElement), gModule.getProject());
-        }
+        stopModule(getIRTModule(gModule), gModule.getProject());
     }
 
     /**
@@ -133,15 +128,17 @@ public class ModuleService implements IModuleService {
      * @throws org.modelio.api.module.ModuleException on failure
      */
     @objid ("c85c0678-03ec-11e2-8e1f-001ec947c8cc")
-    void deactivateModule(IModule iModule, GProject gProject) throws ModuleException {
+    void deactivateModule(IRTModule iModule, GProject gProject) throws ModuleException {
         GModule gModule = ModuleResolutionHelper.getGModuleByName(gProject, iModule.getName());
         deactivateModule(gModule);
     }
 
     @objid ("61ca78df-186b-11e2-92d2-001ec947c8cc")
+    @Deprecated
     @Override
-    public IModule getIModule(ModuleComponent moduleComponent) {
-        return getModuleRegistry().getLoadedModule(moduleComponent);
+    public IRTModule getIRTModule(ModuleComponent moduleComponent) {
+        GModule gModule = ModuleResolutionHelper.getGModuleByName(GProject.getProject(moduleComponent), moduleComponent.getName());
+        return getModuleRegistry().getLoadedModule(gModule);
     }
 
     @objid ("2bb63ef6-f1ed-11e1-af52-001ec947c8cc")
@@ -160,7 +157,7 @@ public class ModuleService implements IModuleService {
     @Override
     public <T extends IPeerModule> T getPeerModule(Class<T> metaclass) throws UnknownModuleException {
         try {
-            for (IModule module : ModuleService.moduleRegistry.getStartedModules()) {
+            for (IRTModule module : ModuleService.moduleRegistry.getStartedModules()) {
                 IPeerModule peerModule = module.getPeerModule();
                 String metaclassInterfaceName = metaclass.getCanonicalName();
                 Class<? extends IPeerModule> peerModuleClass = peerModule.getClass();
@@ -233,16 +230,15 @@ public class ModuleService implements IModuleService {
                 newModule = installer.moduleFirstInstall(gModule, rtModuleHandle);
             } else {
                 // Update model
-                IModule startedOldModule = this.getModuleRegistry().getStartedModule(previouslyInstalledGModule.getModuleElement());
-                this.stopModule(startedOldModule, gProject);
+                IRTModule startedOldModule = getModuleRegistry().getLoadedModule(previouslyInstalledGModule);
         
-                this.unloadModule(startedOldModule, gProject);
-        
-        
+                stopModule(startedOldModule, gProject);
+                unloadModule(startedOldModule, gProject);
                 gProject.removeModule(previouslyInstalledGModule);
         
                 GModule updatedGModule = gProject.installModule(rtModuleHandle, moduleFilePath);
-                newModule = installer.moduleUpdateInstall(updatedGModule, rtModuleHandle, previouslyInstalledGModule);
+                installer.moduleUpdateInstall(updatedGModule, rtModuleHandle, previouslyInstalledGModule);
+                newModule = updatedGModule;
             }
             if (newModule != null) {
                 this.modelioEventService.postSyncEvent(this, ModelioEvent.MODULE_DEPLOYED, newModule);
@@ -257,21 +253,21 @@ public class ModuleService implements IModuleService {
     @objid ("b60fdf1c-0d64-11e2-ae8f-002564c97630")
     @Override
     public void removeModule(GModule gModule) throws ModuleException {
-        IModule iModule = getIModule(gModule.getModuleElement());
+        IRTModule iModule = getIRTModule(gModule);
         
         GProject gProject = gModule.getProject();
         
-        // IModule might be null for broken modules
+        // IRTModule might be null for broken modules
         if (iModule != null) {
             ModuleComponent comp = iModule.getModel();
         
             // If there remains some strong deps, cannot remove the module
-            Collection<IModule> deps = ModuleResolutionHelper.getIModuleDependentIModules(iModule, gProject, this);
+            Collection<IRTModule> deps = ModuleResolutionHelper.getIModuleDependentIModules(iModule, gProject, this);
             if (!deps.isEmpty()) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(MdaInfra.I18N.getString("ModuleRemove.error.dependencies"));
                 sb.append("\n");
-                for (IModule dep : deps) {
+                for (IRTModule dep : deps) {
                     sb.append(" - ");
                     sb.append(dep.getLabel());
                     sb.append("\n");
@@ -317,7 +313,7 @@ public class ModuleService implements IModuleService {
                         gModule.getParameters().remove(GModule.SELECT_ON_OPEN);
                     } else {
                         // Load the module
-                        IModule iModule = loadModule(gProject, gModule);
+                        IRTModule iModule = loadModule(gProject, gModule, true);
                         if (gModule.isActivated()) {
                             // Start the module
                             progress.subTask(MdaInfra.I18N.getMessage("ModuleStartProgress.Starting", iModule.getLabel(),
@@ -341,7 +337,7 @@ public class ModuleService implements IModuleService {
     @Override
     public void stopAllModules(GProject project) {
         // Stops modules in any order : stopModule(...) will stop itself dependent modules first.
-        for (IModule module : new ArrayList<>(getModuleRegistry().getStartedModules())) {
+        for (IRTModule module : new ArrayList<>(getModuleRegistry().getStartedModules())) {
             try {
                 stopModule(module, project);
             } catch (ModuleException | RuntimeException | LinkageError e) {
@@ -349,7 +345,7 @@ public class ModuleService implements IModuleService {
             }
         }
         
-        for (IModule module : new ArrayList<>(getModuleRegistry().getLoadedModules())) {
+        for (IRTModule module : new ArrayList<>(getModuleRegistry().getLoadedModules())) {
             try {
                 unloadModule(module, project);
             } catch (ModuleException | RuntimeException | LinkageError e) {
@@ -362,25 +358,26 @@ public class ModuleService implements IModuleService {
      * Stop a module.
      * <p>
      * Modules that depend on the given module will be stopped first.
-     * @param iModule the module to stop
+     * If the module is <i>null</i> or not started does nothing and return empty list.
+     * @param rtModule the module to stop, <i>null</i> accepted
      * @param gProject the project
      * @return all stopped modules
      * @throws org.modelio.api.module.ModuleException in case of failure.
      */
     @objid ("4440b654-0324-11e2-9fca-001ec947c8cc")
-    public Set<IModule> stopModule(IModule iModule, GProject gProject) throws ModuleException {
+    public Set<IRTModule> stopModule(IRTModule rtModule, GProject gProject) throws ModuleException {
         // Check that module is not already stopped
-        if (iModule==null ||  getModuleRegistry().getStartedModule(iModule.getModel()) == null) {
+        if (rtModule==null ||  getModuleRegistry().getStartedModule(rtModule.getGModule()) == null) {
             return Collections.emptySet();
         }
         
         // Get all required modules
-        List<IModule> dependentIModules = ModuleResolutionHelper.getIModuleDependentIModules(iModule, gProject,
+        List<IRTModule> dependentIModules = ModuleResolutionHelper.getIModuleDependentIModules(rtModule, gProject,
                 this);
         
         // Stop the module (dependencies will be started if not already)
-        Set<IModule> stoppedModules = ModuleStopper.stopModule(iModule, dependentIModules, this, gProject);
-        this.modelioEventService.postSyncEvent(this, ModelioEvent.MODULE_STOPPED, iModule);
+        Set<IRTModule> stoppedModules = ModuleStopper.stopModule(rtModule, dependentIModules, this, gProject);
+        this.modelioEventService.postSyncEvent(this, ModelioEvent.MODULE_STOPPED, rtModule);
         return stoppedModules;
     }
 
@@ -389,68 +386,101 @@ public class ModuleService implements IModuleService {
      * <p>
      * Modules that depend on the given module will be unloaded first.
      * <p>
+     * If <i>iModule</i> is <i>null</i> or is not in the loaded modules registry, does nothing
+     * and trurn empty set.
      * FIXME: dependent modules are directly unloaded. They are not stopped if already started.
-     * @param iModule the module to stop
+     * @param iModule the module to stop, <i>null</i> accepted.
      * @param gProject the project
      * @return all stopped modules
      * @throws org.modelio.api.module.ModuleException in case of failure.
      */
     @objid ("444318ad-0324-11e2-9fca-001ec947c8cc")
-    public Set<IModule> unloadModule(IModule iModule, GProject gProject) throws ModuleException {
+    public Set<IRTModule> unloadModule(IRTModule iModule, GProject gProject) throws ModuleException {
         // Check that module is loaded
-        if (iModule == null || getModuleRegistry().getLoadedModule(iModule.getModel()) == null) {
+        if (iModule == null || getModuleRegistry().getLoadedModule(iModule.getGModule()) == null) {
             // This module was already unloaded as a 'dependent' module.
             return Collections.emptySet();
         }
         
         // Check that module is not started
-        if (getModuleRegistry().getStartedModule(iModule.getModel()) != null) {
+        if (getModuleRegistry().getStartedModule(iModule.getGModule()) != null) {
             throw new ModuleException("Module '" + iModule.getName()
                     + "' is still in started state. Stop it before unloading it.");
         }
         
         // Get all required modules topologically sorted by stopping order
-        Collection<IModule> dependentIModules = ModuleResolutionHelper.getIModuleDependentIModules(iModule, gProject, this);
+        Collection<IRTModule> dependentIModules = ModuleResolutionHelper.getIModuleDependentIModules(iModule, gProject, this);
         
         // Unload the module (dependencies will be unloaded if not already)
         return ModuleUnloader.unloadModule(iModule, dependentIModules, this, gProject);
     }
 
+    /**
+     * Load the module by beginning by its dependencies.
+     * <p>
+     * Does nothing if the module is already loaded.
+     * <p>
+     * If <i>fallback</i> is <i>true</i> and the module loading fails/throws an exception, a {@link BrokenModule}
+     * will be instantiated with the failure cause then returned. If <i>false</i>, the exception is directly thrown.
+     * @param gProject the project
+     * @param gModule the module to load
+     * @param fallback if <i>true</i> and the module loading fails/throws an exception, a {@link BrokenModule}
+     * will be instantiated with the failure cause then returned. If <i>false</i>, the exception is directly thrown.
+     * @return the loaded module
+     * @throws org.modelio.api.module.ModuleException in case of failure
+     */
     @objid ("495b93d2-f2b5-11e1-af52-001ec947c8cc")
-    IModule loadModule(final GProject gProject, final GModule gModule) throws ModuleException {
-        IModule iModule = getModuleRegistry().getLoadedModule(gModule.getModuleElement());
+    IRTModule loadModule(final GProject gProject, final GModule gModule, boolean fallback) throws ModuleException {
+        IRTModule iModule = getModuleRegistry().getLoadedModule(gModule);
         // Return the module if already loaded
         if (iModule == null) {
-            List<IModule> loadedDependencies = new ArrayList<>();
+            try {
+                List<IRTModule> loadedDependencies = new ArrayList<>();
         
-            for (GModule strongDependency : ModuleResolutionHelper.getGModuleDependsOnGModules(gModule, gProject)) {
-                IModule loadedStrongDependency = loadModule(gProject, strongDependency);
-                if (loadedStrongDependency != null) {
-                    loadedDependencies.add(loadedStrongDependency);
-                } else {
-                    MdaInfra.LOG.warning("Loading module %s as strong dependency of module %s failed.", strongDependency.getName(), gModule.getName());
-                }
-            }
-        
-            for (GModule weakDependency : ModuleResolutionHelper.getGModuleActivatedWeakDependenciesGModules(gModule, gProject)) {
-                try {
-                    IModule loadedWeakDependency = loadModule(gProject, weakDependency);
-                    if (loadedWeakDependency != null) {
-                        loadedDependencies.add(loadedWeakDependency);
+                for (GModule strongDependency : ModuleResolutionHelper.getGModuleDependsOnGModules(gModule, gProject)) {
+                    try {
+                        IRTModule loadedStrongDependency = loadModule(gProject, strongDependency, false);
+                        if (loadedStrongDependency.getDownError() != null) 
+                            throw loadedStrongDependency.getDownError(); 
+                        
+                        loadedDependencies.add(loadedStrongDependency);
+                    } catch (ModuleException e) {
+                        MdaInfra.LOG.warning("Loading module %s as strong dependency of module %s failed.", strongDependency.getName(), gModule.getName());
+                        throw new ModuleException(MdaInfra.I18N.getMessage("ModuleService.loadDependentModuleFailed",
+                                gModule.getName(),
+                                gModule.getVersion(),
+                                strongDependency.getName(), 
+                                strongDependency.getVersion(), 
+                                e.getLocalizedMessage()), e);
                     }
-                } catch (ModuleException e) {
-                    // Log the error as warning but continue
-                    MdaInfra.LOG.warning("Loading module %s as weak dependency of module %s failed: %s", weakDependency.getName(), gModule.getName(), e.getMessage());
-                    MdaInfra.LOG.warning(e);
+                }
+        
+                for (GModule weakDependency : ModuleResolutionHelper.getGModuleActivatedWeakDependenciesGModules(gModule, gProject)) {
+                    try {
+                        IRTModule loadedWeakDependency = loadModule(gProject, weakDependency, false);
+                        loadedDependencies.add(loadedWeakDependency);
+                    } catch (ModuleException e) {
+                        // Log the error as warning and continue
+                        MdaInfra.LOG.warning("Loading module %s as weak dependency of module %s failed: %s", weakDependency.getName(), gModule.getName(), e.getMessage());
+                        MdaInfra.LOG.warning(e);
+                    }
+                }
+        
+                ModuleLoader loader = new ModuleLoader(gProject, this.mModelServices);
+                iModule = loader.loadModule(gModule, gModule.getModuleHandle(), loadedDependencies);
+        
+            } catch (ModuleException e) {
+                if (fallback) {
+                    // instantiate a broken module
+                    iModule = loadBrokenModule(gProject, gModule, e);
+                } else  {
+                    // propagate error
+                    throw e;
                 }
             }
-        
-            ModuleLoader loader = new ModuleLoader(gProject, this.mModelServices);
-            iModule = loader.loadModule(gModule, gModule.getModuleHandle(), loadedDependencies);
         
             // Add loaded module to the registry
             getModuleRegistry().addLoadedModule(iModule);
-        
         }
         return iModule;
     }
@@ -475,26 +505,45 @@ public class ModuleService implements IModuleService {
     }
 
     @objid ("b7e56813-01a1-11e2-9fca-001ec947c8cc")
-    boolean startModule(final IModule iModule, GProject gProject) throws ModuleException {
+    boolean startModule(final IRTModule rtModule, GProject gProject) throws ModuleException {
         // Check that module is not already started
-        if (getModuleRegistry().getStartedModule(iModule.getModel()) != null) {
+        if (getModuleRegistry().getStartedModule(rtModule.getGModule()) != null) {
             return true;
         }
         
         // Get all required modules
-        List<IModule> dependsOnIModules = ModuleResolutionHelper.getIModuleDependsOnIModules(iModule, gProject, this);
+        List<IRTModule> dependsOnIModules = ModuleResolutionHelper.getIModuleDependsOnIModules(rtModule, gProject, this);
         
         // Get all activated weak dependencies
-        GModule gModule = ModuleResolutionHelper.getGModuleByName(gProject, iModule.getName());
-        List<IModule> weakDependencies = ModuleResolutionHelper.getGModuleActivatedWeakDependenciesIModules(gModule,
+        GModule gModule = ModuleResolutionHelper.getGModuleByName(gProject, rtModule.getName());
+        List<IRTModule> weakDependencies = ModuleResolutionHelper.getGModuleActivatedWeakDependenciesIModules(gModule,
                 gProject, this);
         
         // Start the module (dependencies will be started if not already)
-        boolean success = ModuleStarter.startModule(iModule, dependsOnIModules, weakDependencies, this, gProject);
+        boolean success = ModuleStarter.startModule(rtModule, dependsOnIModules, weakDependencies, this, gProject);
         if (success) {
-            this.modelioEventService.postSyncEvent(this, ModelioEvent.MODULE_STARTED, iModule);
+            this.modelioEventService.postSyncEvent(this, ModelioEvent.MODULE_STARTED, rtModule);
         }
         return success;
+    }
+
+    @objid ("4d2b74de-1390-4a06-beae-8fe3d8508d04")
+    @Override
+    public IRTModule getIRTModule(GModule gModule) {
+        return getModuleRegistry().getLoadedModule(gModule);
+    }
+
+    /**
+     * Load a broken module instance.
+     * @param gProject the project
+     * @param gModule the broken module
+     * @param pb the failure cause
+     * @return the broken module instance
+     */
+    @objid ("8b7984e3-684e-4953-9fc1-21fa6a456658")
+    IRTModule loadBrokenModule(final GProject gProject, final GModule gModule, Throwable pb) {
+        ModuleLoader loader = new ModuleLoader(gProject, this.mModelServices);
+        return loader.loadBrokenModule(gModule, pb);
     }
 
 }

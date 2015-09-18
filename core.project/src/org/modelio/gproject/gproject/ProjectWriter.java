@@ -32,6 +32,7 @@ import org.modelio.gproject.data.project.ModuleDescriptor;
 import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.module.GModule;
+import org.modelio.vbasic.auth.NoneAuthData;
 
 /**
  * Serialize a {@link GProject}, a {@link IProjectFragment} or a project
@@ -96,6 +97,7 @@ public class ProjectWriter {
         // Write properties
         
         out.setProperties(new GProperties(this.project.getProperties()));
+        
         out.setAuthDescriptor(writeAuth(this.project.getAuthConfiguration()));
         
         // Write project fragments
@@ -143,7 +145,7 @@ public class ProjectWriter {
     @objid ("2edd7fb7-8fbf-417d-9063-d46f55c20ab8")
     private AuthDescriptor writeAuth(GAuthConf auth) {
         if (auth == null)
-            return new AuthDescriptor(null, DefinitionScope.LOCAL);
+            return new AuthDescriptor(new NoneAuthData(), DefinitionScope.LOCAL);
         else
             return new AuthDescriptor(auth.getAuthData(), auth.getScope());
     }

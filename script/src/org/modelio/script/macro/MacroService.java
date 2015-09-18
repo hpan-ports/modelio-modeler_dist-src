@@ -93,8 +93,7 @@ public class MacroService implements IMacroService {
     @objid ("c1325c8e-a2f4-4248-a5f5-b9eac5a721af")
     @Inject
     @Optional
-    void onProjectClosed(@SuppressWarnings("unused")
-@EventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject project) {
+    void onProjectClosed(@SuppressWarnings("unused") @EventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject project) {
         this.projectCatalog = null;
     }
 

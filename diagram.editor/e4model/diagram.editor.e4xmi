@@ -3,6 +3,7 @@
   <imports xsi:type="commands:Command" xmi:id="_7pjPgMRhEeKzIKCziwJO6Q" elementId="org.modelio.app.ui.command.rename"/>
   <imports xsi:type="commands:Command" xmi:id="_dSLyANf1EeKjSfPDByQfxw" elementId="org.modelio.app.ui.command.ShowImpactCause"/>
   <imports xsi:type="commands:Command" xmi:id="_zxkecBx4EeOKmunD3rzg2A" elementId="org.modelio.app.ui.command.openrelateddiagram"/>
+  <imports xsi:type="commands:Command" xmi:id="_unNAIHr8EeShLO3VXu_qAA" elementId="org.modelio.app.ui.command.openproperties"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_EOSVgF_tEeKxFZW_aaCuxw" featurename="commands" parentElementId="org.modelio.app.application" positionInList="">
     <elements xsi:type="commands:Command" xmi:id="_d0xgAGF4EeKZr6syzOEatQ" elementId="org.modelio.diagram.editor.command.ZoomInCommand" commandName="%ZoomIn" description="%ZoomIn"/>
     <elements xsi:type="commands:Command" xmi:id="_qbX0IGF4EeKZr6syzOEatQ" elementId="org.modelio.diagram.editor.command.ZoomToDefaultCommand" commandName="%ZoomToDefault" description="%ZoomToDefault"/>
@@ -78,6 +79,7 @@
     <elements xsi:type="commands:Handler" xmi:id="_eG-C4FBwEeOnQNx17ETh3g" elementId="diagram.editor.handler.MoveDrawingsToBackground" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.drawings.MoveDrawingToBackgroundHandler" command="_yx-HwFBvEeOnQNx17ETh3g"/>
     <elements xsi:type="commands:Handler" xmi:id="_mAGGkFEFEeOnQNx17ETh3g" elementId="diagram.editor.handler.MoveDrawingsToForeground" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.drawings.MoveDrawingToForegroundHandler" command="_oLaHkFEFEeOnQNx17ETh3g"/>
     <elements xsi:type="commands:Handler" xmi:id="_hrGVIGPxEeOKPIEepcCqnQ" elementId="org.modelio.diagram.editor.handler.SelectAllHandler" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.SelectAllHandler" command="_0qT00IvfEeKYnJDNd7Af2A"/>
+    <elements xsi:type="commands:Handler" xmi:id="_l-9_AHr8EeShLO3VXu_qAA" elementId="diagram.editor.handler.0" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.EditPropertiesHandler" command="_unNAIHr8EeShLO3VXu_qAA"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_LlHiIFE9EeOxPvmodYTYgw" featurename="menuContributions" parentElementId="org.modelio.app.application">
     <elements xsi:type="menu:MenuContribution" xmi:id="_Q_D68FFAEeOxPvmodYTYgw" elementId="diagram.editor.menucontribution.layoutmenucontent" parentId="org.modelio.diagram.editor.layoutmenu">

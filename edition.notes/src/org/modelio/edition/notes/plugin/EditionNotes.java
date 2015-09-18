@@ -40,7 +40,7 @@ import org.osgi.framework.ServiceReference;
 @objid ("26ce1968-186f-11e2-bc4e-002564c97630")
 public class EditionNotes implements BundleActivator {
     @objid ("34f4d0a6-186f-11e2-bc4e-002564c97630")
-    public static final String PLUGIN_ID = "org.modelio.model.property";
+    public static final String PLUGIN_ID = "org.modelio.edition.notes";
 
     @objid ("26ce196c-186f-11e2-bc4e-002564c97630")
     private static BundleContext context;

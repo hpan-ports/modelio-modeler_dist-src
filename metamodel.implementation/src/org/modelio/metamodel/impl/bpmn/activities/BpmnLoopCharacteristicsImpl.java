@@ -43,19 +43,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00801fec-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnLoopCharacteristicsImpl extends BpmnBaseElementImpl implements BpmnLoopCharacteristics {
-    @objid ("659fec50-666f-4652-82d2-cda62e3f7168")
+    @objid ("44ae4927-3164-497e-8df9-b16e180f4dc1")
     @Override
     public BpmnActivity getOwnerActivity() {
         return (BpmnActivity) getDepVal(BpmnLoopCharacteristicsData.Metadata.OwnerActivityDep());
     }
 
-    @objid ("a6935e19-ec49-4ecb-81a1-737070082de5")
+    @objid ("7a44dc04-3117-48b5-90e2-68a58ab599fb")
     @Override
     public void setOwnerActivity(BpmnActivity value) {
         appendDepVal(BpmnLoopCharacteristicsData.Metadata.OwnerActivityDep(), (SmObjectImpl)value);
     }
 
-    @objid ("004ed713-df5b-4d8e-8d05-04359bf5d822")
+    @objid ("c6911e41-74f1-4a44-ae39-acbc048021e1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -65,7 +65,7 @@ public abstract class BpmnLoopCharacteristicsImpl extends BpmnBaseElementImpl im
         return super.getCompositionOwner();
     }
 
-    @objid ("9c6a6318-c3de-42b1-af7d-8d987dcec6d6")
+    @objid ("c96324c4-b499-40a6-ac67-79379b8faf4e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -75,7 +75,7 @@ public abstract class BpmnLoopCharacteristicsImpl extends BpmnBaseElementImpl im
         return super.getCompositionRelation();
     }
 
-    @objid ("17ca2c6e-c3c1-4fb3-bc77-1ce004fb4b05")
+    @objid ("f1d133b7-7016-4cb0-8382-427a909de30b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnLoopCharacteristics(this);

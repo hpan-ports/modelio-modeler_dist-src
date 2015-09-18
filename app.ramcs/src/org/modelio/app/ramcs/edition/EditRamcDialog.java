@@ -176,7 +176,7 @@ public class EditRamcDialog extends ViewRamcDialog {
         this.ramcDescriptionText.addModifyListener(new ModifyListener() {
             @Override
             public void modifyText(ModifyEvent e) {
-                EditRamcDialog.this.controller.onModifyDescription(EditRamcDialog.this.ramcDescriptionText.getText());
+                EditRamcDialog.this.controller.onModifyDescription(EditRamcDialog.this.ramcDescriptionText.getHtml());
             }
         });
     }
@@ -364,6 +364,9 @@ public class EditRamcDialog extends ViewRamcDialog {
         this.getShell().setText(AppRamcs.I18N.getString("EditRamcDialog.EditRamcDialogTitle"));
         this.setTitle(AppRamcs.I18N.getString("EditRamcDialog.EditRamcDialogTitle"));
         this.setMessage(AppRamcs.I18N.getString("EditRamcDialog.EditRamcMessage"));
+        
+        this.ramcDescriptionText.setEditable(true);
+        this.ramcDescriptionText.setEnabled(true);
     }
 
     @objid ("e81c7f87-9184-4923-92c2-8cdf8d4749fa")

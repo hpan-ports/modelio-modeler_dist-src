@@ -44,29 +44,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("003db58a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=SendSignalAction.class, factory=SendSignalActionData.Metadata.ObjectFactory.class)
 public class SendSignalActionData extends ActivityActionData {
-    @objid ("877812cd-0d7e-4db6-9c60-1971fc5d4568")
+    @objid ("07d58ffa-ed02-4468-b542-652367bc4a22")
     @SmaMetaAssociation(metaName="Sent", typeDataClass=SignalData.class, min=0, max=1, smAssociationClass=Metadata.SentSmDependency.class, partof = true)
      SmObjectImpl mSent;
 
-    @objid ("78af1150-3a48-45e9-a69a-3e28e8e6d5ef")
+    @objid ("d9419c08-41f5-479a-896f-9e0fa1e951a8")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0071b484-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("0c3922c8-dd02-4d00-a4a4-9986092fd522")
+        @objid ("7f65c316-b106-492c-8a9c-3fbc031c8184")
         private static SmClass smClass = null;
 
-        @objid ("261dd45c-36fe-4e26-830d-33aa1a099841")
+        @objid ("c98fa3b4-b392-4f27-9f9c-d126b538c569")
         private static SmDependency SentDep = null;
 
-        @objid ("0201d4e9-9b08-4e51-b1b5-217f573556fc")
+        @objid ("8ec5139d-e6d7-412e-a049-5a58c5f5d4eb")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(SendSignalActionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("7d3f711a-c137-4c27-906e-dd3c0d4cf9bc")
+        @objid ("012d55ad-2fa1-4456-8206-78251d866e88")
         public static SmDependency SentDep() {
             if (SentDep == null) {
             	SentDep = classof().getDependencyDef("Sent");
@@ -74,13 +74,13 @@ public class SendSignalActionData extends ActivityActionData {
             return SentDep;
         }
 
-        @objid ("44716355-90e1-41e0-92c7-887b1472fdd5")
+        @objid ("b303a750-f95e-480d-b46c-db870ff70648")
         public static SmDependency getSentDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SentDep;
         }
 
-        @objid ("3b07489b-7338-425d-8be7-94e9d04dcf20")
+        @objid ("2c97435d-8444-415b-b6d5-8b0b490a7b41")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -88,12 +88,12 @@ public class SendSignalActionData extends ActivityActionData {
 
         @objid ("0071f6b0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("4924b17c-2d94-4bc3-bf43-459274466ad7")
+            @objid ("8b9ee8d4-50cd-4c86-91eb-18d374aaf261")
             public ISmObjectData createData() {
                 return new SendSignalActionData();
             }
 
-            @objid ("bd221da4-c9cb-440e-8623-f8afc941bdde")
+            @objid ("ed76eeba-730c-487d-acdf-fb9cc0fde744")
             public SmObjectImpl createImpl() {
                 return new SendSignalActionImpl();
             }
@@ -102,18 +102,18 @@ public class SendSignalActionData extends ActivityActionData {
 
         @objid ("00725a4c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class SentSmDependency extends SmSingleDependency {
-            @objid ("ea0b2973-b505-474e-a2d7-6ea65c13bc20")
+            @objid ("0ba4af46-9d93-4583-afb1-32cfef82b197")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((SendSignalActionData) data).mSent;
             }
 
-            @objid ("7113f4ca-8045-4788-ab0e-a9da71a6bb4a")
+            @objid ("da58970c-359e-4e64-aab9-7692d7464606")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((SendSignalActionData) data).mSent = value;
             }
 
-            @objid ("69d20555-73a0-4d9a-b7af-4aa89c3b339b")
+            @objid ("fdf56460-be5d-426c-8730-ad3921f28517")
             @Override
             public SmDependency getSymetric() {
                 return SignalData.Metadata.SenderDep();

@@ -30,7 +30,7 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateVertex;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("e21296fe-66a5-4d2d-8303-57b04a5dde18")
 public class EPseudostate extends ENamedElement {

@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0006c57a-c4bf-1fd8-97fe-001ec947cd2a")
 public class ConnectorEndImpl extends LinkEndImpl implements ConnectorEnd {
-    @objid ("403a16ed-7344-4dbd-aa33-4949b1e469c6")
+    @objid ("7bd618a4-799d-4415-8915-08889d1af99d")
     @Override
     public EList<Binding> getRepresentation() {
         return new SmList<>(this, ConnectorEndData.Metadata.RepresentationDep());
     }
 
-    @objid ("7d3c842e-3e63-4c53-815f-fdd3b21b3aba")
+    @objid ("e58a1c50-1cbc-4590-9e8e-291c05000e9b")
     @Override
     public <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,33 +63,33 @@ public class ConnectorEndImpl extends LinkEndImpl implements ConnectorEnd {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7128afdc-134c-40ac-a850-8116acb3713e")
+    @objid ("b9d23e50-4040-4b1d-af8e-6b132c13bb4b")
     @Override
     public ModelElement getRepresentedFeature() {
         return (ModelElement) getDepVal(ConnectorEndData.Metadata.RepresentedFeatureDep());
     }
 
-    @objid ("dd0e58a3-acb8-4546-8f6d-b13da64c4f05")
+    @objid ("18b96ed8-cef8-4092-b72f-6169bb80e1c8")
     @Override
     public void setRepresentedFeature(ModelElement value) {
         appendDepVal(ConnectorEndData.Metadata.RepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a3d90f65-e8e3-4f4e-a4cf-1140b97edc00")
+    @objid ("9653947b-05ef-4e5f-8fa6-1f9e1ff224fd")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("4e0a2d6b-c9bc-44cf-acfe-9578e5ca182a")
+    @objid ("33d60844-f589-473f-b689-576da194d2c8")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("a589e146-5bf6-4eed-9faa-fdbec1c92c55")
+    @objid ("8a48d769-1078-4bae-9acc-5fb8e0c2f05b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitConnectorEnd(this);

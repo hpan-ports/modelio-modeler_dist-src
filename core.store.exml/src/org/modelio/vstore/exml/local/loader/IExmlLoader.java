@@ -42,6 +42,6 @@ public interface IExmlLoader {
      * @throws org.modelio.vcore.model.DuplicateObjectException if another object with the same identifier as a loaded object already exists in another repository.
      */
     @objid ("2b11cbb4-3faf-11e2-87cb-001ec947ccaf")
-    SmObjectImpl load(final InputSource is, IModelLoader loader) throws IOException, DuplicateObjectException;
+    SmObjectImpl load(final InputSource is, IModelLoader loader) throws DuplicateObjectException, IOException;
 
 }

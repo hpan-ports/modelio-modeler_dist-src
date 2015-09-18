@@ -44,31 +44,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000f221a-c4bf-1fd8-97fe-001ec947cd2a")
 public class InterfaceRealizationImpl extends ModelElementImpl implements InterfaceRealization {
-    @objid ("0f64c263-79a5-4bef-9498-2d2f1b3b74eb")
+    @objid ("4a00d90a-78b1-403d-ab26-0264588ce25d")
     @Override
     public Interface getImplemented() {
         return (Interface) getDepVal(InterfaceRealizationData.Metadata.ImplementedDep());
     }
 
-    @objid ("bfba5b7b-0b11-470d-8b94-a750126338e3")
+    @objid ("13aa08d2-e1af-4b0c-9e40-9da9b7bc70af")
     @Override
     public void setImplemented(Interface value) {
         appendDepVal(InterfaceRealizationData.Metadata.ImplementedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("22908346-b680-4677-a7e5-fad037899d99")
+    @objid ("ced57221-d490-4517-a659-aba1de5e7dc2")
     @Override
     public NameSpace getImplementer() {
         return (NameSpace) getDepVal(InterfaceRealizationData.Metadata.ImplementerDep());
     }
 
-    @objid ("85521089-f735-4793-9358-6cb751e7fc02")
+    @objid ("21164cd7-9d9f-40cf-88cb-798bee571872")
     @Override
     public void setImplementer(NameSpace value) {
         appendDepVal(InterfaceRealizationData.Metadata.ImplementerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2f4fd5db-dd1e-4266-8160-bac9bd4f95c7")
+    @objid ("85544757-11a9-4387-bedb-bc563e4f707b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -78,7 +78,7 @@ public class InterfaceRealizationImpl extends ModelElementImpl implements Interf
         return super.getCompositionOwner();
     }
 
-    @objid ("80769396-0b87-4cfc-bc4f-a1a5ccfc4800")
+    @objid ("518d6bdc-0d61-401b-be67-5b0eccf5b348")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -88,7 +88,7 @@ public class InterfaceRealizationImpl extends ModelElementImpl implements Interf
         return super.getCompositionRelation();
     }
 
-    @objid ("5355616b-a251-4f91-b5b1-936559bff52c")
+    @objid ("0a0afdd2-e4a8-46d0-a654-e15669b4f47a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInterfaceRealization(this);

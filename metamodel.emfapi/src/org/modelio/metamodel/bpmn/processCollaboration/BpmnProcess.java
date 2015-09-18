@@ -40,70 +40,70 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnRootElement;
 
 @objid ("00762104-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnProcess extends BpmnRootElement {
-    @objid ("63510a39-6e8e-418e-916b-2fc3818b34cb")
+    @objid ("7150394b-6306-4ee6-b91c-5f584cbb0bd2")
     BpmnProcessType getProcessType();
 
-    @objid ("ea04ca93-8275-4e9a-8374-b6cbbcc6358b")
+    @objid ("ede1c404-567d-4335-bc7a-7cd85d2d9660")
     void setProcessType(BpmnProcessType value);
 
-    @objid ("43a58b9b-5bb1-4103-b354-7ffa9aa4ac89")
+    @objid ("f60dbaee-17f7-4a3d-8282-aeb39e9393ea")
     boolean isIsClosed();
 
-    @objid ("324d8d3f-94f0-4d9f-a530-160816795aa3")
+    @objid ("5f6bc624-eaea-46a2-90b8-b75340ce6fb0")
     void setIsClosed(boolean value);
 
-    @objid ("daa0c04c-1edf-4eb9-b383-7fbb91191e9f")
+    @objid ("da3189f8-d72e-421b-bbba-a6d87adbd0b5")
     OptionalBoolean getIsExecutable();
 
-    @objid ("14ebadb3-3060-4aff-a81e-49f1db444748")
+    @objid ("0cf707de-36cc-476b-a969-e74e51055147")
     void setIsExecutable(OptionalBoolean value);
 
-    @objid ("8f2c31f1-54ac-4aaa-8524-89914ecb1026")
+    @objid ("f32357d5-bc29-4070-82c6-ed42ead9def1")
     EList<BpmnCallActivity> getCaller();
 
-    @objid ("2bdaaa39-702e-4d43-a66d-58c3ebca54a8")
+    @objid ("fa20c8c7-c2ff-4f68-8763-d6e3a161825e")
     <T extends BpmnCallActivity> List<T> getCaller(java.lang.Class<T> filterClass);
 
-    @objid ("6fc284fb-ef62-40ee-bb9b-b2ed873a26b8")
+    @objid ("85f9b04f-de26-4839-9e00-8ba458ccf30c")
     EList<BpmnProcess> getSupports();
 
-    @objid ("50e08869-ede7-4e6a-ae8a-2bda938f8372")
+    @objid ("91b0d6b5-546b-4931-9fd0-885bceffed56")
     <T extends BpmnProcess> List<T> getSupports(java.lang.Class<T> filterClass);
 
-    @objid ("48bb23e2-f1ba-410b-b69d-e7efaad80c06")
+    @objid ("4d7a3d43-a7a9-4628-9b74-5cb5f4ba9bea")
     EList<BpmnArtifact> getArtifact();
 
-    @objid ("a0d7b1af-9901-4728-ba98-97445be5047c")
+    @objid ("a6a0401d-bb4d-4127-8b96-3f6f455d7ded")
     <T extends BpmnArtifact> List<T> getArtifact(java.lang.Class<T> filterClass);
 
-    @objid ("44dcb150-d029-41db-827e-b73b3965a67f")
+    @objid ("0d46c94e-9cf8-4086-86d2-540106137cba")
     EList<BpmnLaneSet> getLaneSet();
 
-    @objid ("9a5ce9ed-dceb-40c0-bcc1-2bc088be5fce")
+    @objid ("7e4f069a-863a-460d-b0cb-f0150a34acbf")
     <T extends BpmnLaneSet> List<T> getLaneSet(java.lang.Class<T> filterClass);
 
-    @objid ("1f86769f-6675-41a9-8675-62cb436814cf")
+    @objid ("a55da339-2cea-47bf-ab2d-ada130293fe2")
     EList<BpmnProcess> getSupported();
 
-    @objid ("5f05871a-6d93-4380-92ee-87b147027fef")
+    @objid ("16bccdb8-e7f1-47e4-ad6c-76564dd98e67")
     <T extends BpmnProcess> List<T> getSupported(java.lang.Class<T> filterClass);
 
-    @objid ("1323a776-ec89-492a-beb4-5c07fab05117")
+    @objid ("b605838a-9aa6-4676-b543-f5333dbe8be2")
     BpmnParticipant getParticipant();
 
-    @objid ("35b1e7cd-4ba3-448a-b6fa-b9e07bca490d")
+    @objid ("e9a22c24-9820-4496-98a6-0652705db346")
     void setParticipant(BpmnParticipant value);
 
-    @objid ("5a6211bb-f1e4-4613-862f-1372cd523734")
+    @objid ("a95a403e-125c-4538-b050-ab3c00b49d5b")
     EList<BpmnFlowElement> getFlowElement();
 
-    @objid ("f2fbf809-9c1d-418f-abcd-c040d29a6ec2")
+    @objid ("b07b9751-779a-4366-85b2-5f3fa1ca118d")
     <T extends BpmnFlowElement> List<T> getFlowElement(java.lang.Class<T> filterClass);
 
-    @objid ("48fa6106-1844-4f64-b087-55fdfbbb7798")
+    @objid ("75f21723-d140-4c99-8a6d-e542d98e7a97")
     EList<BpmnResourceRole> getResource();
 
-    @objid ("53cfbf2e-dc6a-45a3-a966-7ec0317efdfd")
+    @objid ("7549c28c-9cd0-4661-bc95-00a4940387d9")
     <T extends BpmnResourceRole> List<T> getResource(java.lang.Class<T> filterClass);
 
 }

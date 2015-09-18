@@ -63,25 +63,25 @@ public class LinkImpl extends ModelElementImpl implements Link {
         return super.getCompositionRelation();
     }
 
-    @objid ("74f99276-7264-4308-ad8d-1300bab74311")
+    @objid ("be5d02eb-ccdb-436f-8b04-1a2dfa69364c")
     @Override
     public Association getModel() {
         return (Association) getDepVal(LinkData.Metadata.ModelDep());
     }
 
-    @objid ("9079693e-571b-4e42-b48a-9577ef8b83c5")
+    @objid ("98f20deb-8085-4ae6-b199-f1e51817511e")
     @Override
     public void setModel(Association value) {
         appendDepVal(LinkData.Metadata.ModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ee9b5261-b381-4805-be86-0bcd65d321b7")
+    @objid ("a115d9d4-4691-4056-9790-16dab52a795f")
     @Override
     public EList<LinkEnd> getLinkEnd() {
         return new SmList<>(this, LinkData.Metadata.LinkEndDep());
     }
 
-    @objid ("7ab06fc9-19dd-4fe6-a84c-ee2d35d81d2a")
+    @objid ("a1145674-b1d7-4d93-9063-a790d7a2cb59")
     @Override
     public <T extends LinkEnd> List<T> getLinkEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,19 +94,19 @@ public class LinkImpl extends ModelElementImpl implements Link {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e095979b-1c33-4419-a0c8-2435a7e2f31d")
+    @objid ("355d9f56-18e5-4f3e-9b4f-6c87a6602dae")
     @Override
     public CommunicationChannel getSent() {
         return (CommunicationChannel) getDepVal(LinkData.Metadata.SentDep());
     }
 
-    @objid ("2f71ff4e-c4a9-4c9a-b76e-1a12bc024e04")
+    @objid ("b198b917-22a8-4640-85ce-d1d62df674ab")
     @Override
     public void setSent(CommunicationChannel value) {
         appendDepVal(LinkData.Metadata.SentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("47859d6c-7d30-40b8-b50c-cef42228e84b")
+    @objid ("c702a3d6-5959-4435-bef9-cc59125fd255")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitLink(this);

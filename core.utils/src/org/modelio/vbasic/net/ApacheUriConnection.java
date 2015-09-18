@@ -97,14 +97,14 @@ public class ApacheUriConnection extends UriConnection {
     @objid ("64f7bf30-b22d-49ac-9467-1af449b781bb")
     private HttpClientContext context;
 
+    @objid ("797536b3-9d7c-4507-8c9b-1819f6ef96a0")
+    private HttpRequestBase req;
+
     @objid ("dd1f5d11-eb65-4998-8263-9e56adc8ef00")
     private IAuthData auth;
 
     @objid ("a1511e70-2685-47e5-88d5-2d8064d43fc3")
     private URI uri;
-
-    @objid ("d0873604-f235-4d24-acbd-d1a221812836")
-    private HttpRequestBase req;
 
     /**
      * @param uri the URI to open
@@ -119,16 +119,16 @@ public class ApacheUriConnection extends UriConnection {
     private static CloseableHttpClient initHttpClient() {
         X509HostnameVerifier hostnameVerifier = new HostNameVerifier();
         return HttpClientBuilder.create()
-                .useSystemProperties()
-                .setSslcontext(SslManager.getInstance().getSslContext())
-                .setRedirectStrategy(null)
-                .setRetryHandler(new RetryHandler())
-                .setHostnameVerifier(hostnameVerifier)
-                .build();
+                                                .useSystemProperties()
+                                                .setSslcontext(SslManager.getInstance().getSslContext())
+                                                .setRedirectStrategy(null)
+                                                .setRetryHandler(new RetryHandler())
+                                                .setHostnameVerifier(hostnameVerifier)
+                                                .build();
     }
 
     @objid ("f8e1a3e4-45b3-4065-8838-90de7fe64eaa")
-    private void openConnection() throws IOException, IllegalStateException {
+    private void openConnection() throws IllegalStateException, IOException {
         this.context = HttpClientContext.create();
         
         CredentialsProvider credsProvider = new SystemDefaultCredentialsProvider();
@@ -162,19 +162,14 @@ public class ApacheUriConnection extends UriConnection {
         getRequest().setConfig(this.configBuilder.build());
         
         
-        try {
-            this.res = httpclient.execute(getRequest(), this.context);
-            int statusCode = this.res.getStatusLine().getStatusCode();
-            
-            if (statusCode >=200 && statusCode < 300) { 
-                // Try to get content now to get an exception on failure immediately
-                this.res.getEntity().getContent();
-            } else {
-                handleConnectionFailure();
-            }
-            
-        } catch (ClientProtocolException e) {
-            throw new IOException(e.getLocalizedMessage(), e);
+        this.res = httpclient.execute(getRequest(), this.context);
+        int statusCode = this.res.getStatusLine().getStatusCode();
+        
+        if (statusCode >=200 && statusCode < 300) { 
+            // Try to get content now to get an exception on failure immediately
+            this.res.getEntity().getContent();
+        } else {
+            handleConnectionFailure();
         }
     }
 
@@ -376,7 +371,8 @@ public class ApacheUriConnection extends UriConnection {
     /**
      * Builds and throws a {@link FileSystemException} from {@link #res}.
      * <p>
-     * Adds as cause another exception whose message is the entity content. This may be the HTML message sent by the server.
+     * Adds as cause another exception whose message is the entity content.
+     * This may be the HTML message sent by the server.
      * @throws java.nio.file.FileSystemException the built exception
      */
     @objid ("4e25ec1d-3711-45cc-b742-0c77edf5e414")
@@ -386,6 +382,7 @@ public class ApacheUriConnection extends UriConnection {
         
         Exception base = null;
         try {
+            // Look for a message in the response body
             String s = EntityUtils.toString(this.res.getEntity());
             if (s != null)
                 base = new HttpResponseException(statusLine.getStatusCode(), s);
@@ -449,7 +446,7 @@ public class ApacheUriConnection extends UriConnection {
                 URI anUri = request.getURI();
                 anUri = (anUri.isAbsolute()) ? anUri : URI.create(currentHost.toURI()).resolve(anUri);
                 
-                return (SslManager.getInstance().fixUntrustedServer((SSLHandshakeException) exception, anUri));
+                return (SslManager.getInstance().fixUntrustedServer((SSLException) exception, anUri));
             }
             return super.retryRequest(exception, executionCount, context);
         }
@@ -466,7 +463,7 @@ public class ApacheUriConnection extends UriConnection {
      */
     @objid ("e5a628f4-826f-4727-b3ed-838b86b17879")
     private static class HostNameVerifier implements X509HostnameVerifier {
-        @objid ("377a9998-b1a5-4757-a60b-5c66b7fdbcfd")
+        @objid ("10f83c8f-ef2c-4988-a2fd-905362d5fca4")
          BrowserCompatHostnameVerifier delegate = new BrowserCompatHostnameVerifier();
 
         @objid ("774f3770-2d3b-4899-8bbd-cad288d11dc7")

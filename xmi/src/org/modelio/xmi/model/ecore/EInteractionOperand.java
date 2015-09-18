@@ -24,7 +24,7 @@ package org.modelio.xmi.model.ecore;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperand;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("3cf6b1df-8a80-4578-aa64-181554e6b87c")
 public class EInteractionOperand extends EInteractionFragment {
@@ -32,7 +32,7 @@ public class EInteractionOperand extends EInteractionFragment {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createInteractionOperand();
+                        .createInteractionOperand();
     }
 
     @objid ("bcd9c0cf-89a0-42bd-9830-ea4418945646")

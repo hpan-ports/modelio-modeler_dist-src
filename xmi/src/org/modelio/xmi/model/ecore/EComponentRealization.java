@@ -29,7 +29,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Component;
 import org.modelio.metamodel.uml.statik.ComponentRealization;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("4fbfd4c1-49cd-40f5-878c-28a9c6fefa69")
 public class EComponentRealization extends ENamedElement {

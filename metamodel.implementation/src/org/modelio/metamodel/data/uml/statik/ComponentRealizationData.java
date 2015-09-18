@@ -46,36 +46,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("085ab992-591c-4bfe-a9dd-e52568b31bc1")
 @SmaMetaClass(mmClass=ComponentRealization.class, factory=ComponentRealizationData.Metadata.ObjectFactory.class)
 public class ComponentRealizationData extends ModelElementData {
-    @objid ("c1be1d1c-d972-4b0b-b808-2bf9d1bbca6d")
+    @objid ("ef118ecf-e80c-42d6-875c-46247d6b878f")
     @SmaMetaAssociation(metaName="RealizingClassifier", typeDataClass=ClassifierData.class, min=1, max=1, smAssociationClass=Metadata.RealizingClassifierSmDependency.class, partof = true)
      SmObjectImpl mRealizingClassifier;
 
-    @objid ("c9eb371e-a714-47a5-8bc9-cc7fa166eaf6")
+    @objid ("b1a8aea4-7e63-4a20-9127-26b277204624")
     @SmaMetaAssociation(metaName="Abstraction", typeDataClass=ComponentData.class, min=1, max=1, smAssociationClass=Metadata.AbstractionSmDependency.class)
      SmObjectImpl mAbstraction;
 
-    @objid ("149dc186-a26d-4393-8643-602621d64875")
+    @objid ("19d07ee9-dcd3-46d9-8b3c-83a1fa0f1c1b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("6e4ef81f-0098-42d8-bed7-74982373cf11")
     public static class Metadata {
-        @objid ("96e6deef-e20b-4525-a7ea-b2e2d9249996")
+        @objid ("8e551eca-8322-48b4-956d-ee93bc5badfb")
         private static SmClass smClass = null;
 
-        @objid ("34019f2b-06a3-4b73-8c53-2911fab5d4a7")
+        @objid ("73360429-e8ba-435f-bb5f-3d720443175a")
         private static SmDependency RealizingClassifierDep = null;
 
-        @objid ("40965dcd-4fd7-44f6-80ee-f7e932272ca8")
+        @objid ("302b67c4-6a34-4a79-8eeb-52f1f00d9de3")
         private static SmDependency AbstractionDep = null;
 
-        @objid ("e092abe2-2d99-4d3c-96f6-88ef71b29106")
+        @objid ("187e876f-3cab-43e5-8b94-2a8b01edf9a1")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ComponentRealizationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("2be192c7-8c6d-4922-a22c-093a55e20780")
+        @objid ("8f0e44e4-dd76-4e69-92e1-0ebebb5f3a4a")
         public static SmDependency RealizingClassifierDep() {
             if (RealizingClassifierDep == null) {
             	RealizingClassifierDep = classof().getDependencyDef("RealizingClassifier");
@@ -83,7 +83,7 @@ public class ComponentRealizationData extends ModelElementData {
             return RealizingClassifierDep;
         }
 
-        @objid ("04f880bc-313e-45c4-9df2-2e750b6020bf")
+        @objid ("396a2012-79bd-496f-999d-25cc2a69b136")
         public static SmDependency AbstractionDep() {
             if (AbstractionDep == null) {
             	AbstractionDep = classof().getDependencyDef("Abstraction");
@@ -91,32 +91,32 @@ public class ComponentRealizationData extends ModelElementData {
             return AbstractionDep;
         }
 
-        @objid ("e72ecafb-6d31-4a57-9474-0755a36df797")
+        @objid ("4fd6ad81-7529-4c4c-80d1-2b5dde3f2c38")
         public static SmDependency getAbstractionDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return AbstractionDep;
         }
 
-        @objid ("2a5e08cd-8e37-4a85-a483-a97625c1722c")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("ee761b28-4478-4be8-bb93-61ef74ef9b21")
+        @objid ("a9c33ec5-5e35-41be-95c2-f03ee8c2eff0")
         public static SmDependency getRealizingClassifierDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return RealizingClassifierDep;
         }
 
+        @objid ("0de09f75-e2c2-4ac0-a23a-d092cc7540ee")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("1812942e-747f-496c-9e18-d01bd8796d2b")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("d4321c06-68f6-4e17-aac9-85bd48e35c3d")
+            @objid ("421bd14a-a96d-41be-8919-9cc0af96e467")
             public ISmObjectData createData() {
                 return new ComponentRealizationData();
             }
 
-            @objid ("78aa7f45-86d9-4918-b80e-199057d291af")
+            @objid ("e46129cd-762a-4508-868e-ae78cd4b2969")
             public SmObjectImpl createImpl() {
                 return new ComponentRealizationImpl();
             }
@@ -125,18 +125,18 @@ public class ComponentRealizationData extends ModelElementData {
 
         @objid ("36536f6f-8be8-4f9e-b8c9-c5edcf8e4fb7")
         public static class RealizingClassifierSmDependency extends SmSingleDependency {
-            @objid ("e41df955-ac29-4000-a99c-617a60f890ed")
+            @objid ("28358bc6-37af-45ac-9db0-788302d63959")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ComponentRealizationData) data).mRealizingClassifier;
             }
 
-            @objid ("2139bfcf-515f-4735-a79c-5354023224a6")
+            @objid ("309c8ccb-5953-4771-aa0e-5f93e7cb11e2")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ComponentRealizationData) data).mRealizingClassifier = value;
             }
 
-            @objid ("28159394-374b-41ce-bf15-e9bef6d650a8")
+            @objid ("cfdd0b2f-49de-40d8-96cd-ea627b65c8ec")
             @Override
             public SmDependency getSymetric() {
                 return ClassifierData.Metadata.RealizedComponentDep();
@@ -146,18 +146,18 @@ public class ComponentRealizationData extends ModelElementData {
 
         @objid ("4f228a60-bd71-49f8-acd3-79bd06eba8d2")
         public static class AbstractionSmDependency extends SmSingleDependency {
-            @objid ("e0854213-b3df-45c0-b37b-59dff4ca6e3f")
+            @objid ("997be956-6b6c-412b-990f-c892f4480ad2")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ComponentRealizationData) data).mAbstraction;
             }
 
-            @objid ("58f886b0-7435-4c75-a92e-fb6bc4a1e228")
+            @objid ("55c784b6-cafd-4125-ac40-e4336019c12b")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ComponentRealizationData) data).mAbstraction = value;
             }
 
-            @objid ("c67cc81c-b3a1-414b-a22f-6a5391659268")
+            @objid ("36260f94-9edd-4805-beaf-859377a683d5")
             @Override
             public SmDependency getSymetric() {
                 return ComponentData.Metadata.RealizationDep();

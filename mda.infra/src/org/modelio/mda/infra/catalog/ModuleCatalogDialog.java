@@ -24,6 +24,7 @@ package org.modelio.mda.infra.catalog;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -51,6 +52,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.core.ModelioEnv;
 import org.modelio.core.ui.dialog.ModelioDialog;
+import org.modelio.core.ui.progress.ModelioProgressAdapter;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.catalog.FileModuleStore;
 import org.modelio.mda.infra.catalog.update.ModuleUpdateBrowserDialog;
@@ -58,11 +60,16 @@ import org.modelio.mda.infra.catalog.update.ModuleUpdateChecker;
 import org.modelio.mda.infra.catalog.update.ModuleUpdateDescriptor;
 import org.modelio.mda.infra.plugin.MdaInfra;
 import org.modelio.ui.progress.IModelioProgressService;
+import org.modelio.vbasic.files.FileUtils;
+import org.modelio.vbasic.progress.SubProgress;
 
+/**
+ * Module catalog dialog.
+ */
 @objid ("9749de58-5677-4846-9609-115da4110982")
 public class ModuleCatalogDialog extends ModelioDialog {
     @objid ("097c1053-1bcc-4df6-a7db-d5ca4a2c017d")
-    private static final String HELP_TOPIC = "/org.modelio.documentation.modeler/html/Modeler-_modeler_modelio_settings_modules_catalog.html";
+    private static final String HELP_TOPIC = MdaInfra.I18N.getString("ModuleCatalogDialog.HELP_TOPIC");
 
     @objid ("17d0bb77-9f68-4088-992d-1ef90f943155")
     protected boolean validUpdateSite;
@@ -88,6 +95,11 @@ public class ModuleCatalogDialog extends ModelioDialog {
     @objid ("ec8eb56f-95fb-4348-a95c-2ba090b06a35")
     protected List<ModuleUpdateDescriptor> modulesToUpdate = new ArrayList<>();
 
+    /**
+     * @param parentShell a SWT shell
+     * @param env Modelio environment
+     * @param progressService a progress service.
+     */
     @objid ("6cfffb59-1769-4820-8416-4db028b5bdd1")
     public ModuleCatalogDialog(Shell parentShell, ModelioEnv env, IModelioProgressService progressService) {
         super(parentShell);
@@ -212,40 +224,49 @@ public class ModuleCatalogDialog extends ModelioDialog {
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                         List<IModuleHandle> modules;
                         try {
-                            monitor.beginTask(MdaInfra.I18N.getString("ModuleCatalogDialog.UpdateProgressTitle"), 5);
-                            monitor.worked(3);
-                            modules = ((FileModuleStore) ModuleCatalogDialog.this.panel.getInput()).findAllModules(null);
-                            monitor.worked(1);
+                            SubProgress mon = ModelioProgressAdapter.convert(monitor, MdaInfra.I18N.getString("ModuleCatalogDialog.UpdateProgressTitle"), 5);
+                            modules = ((FileModuleStore) ModuleCatalogDialog.this.panel.getInput()).findAllModules(mon.newChild(4));
                             ModuleUpdateChecker checker = new ModuleUpdateChecker(modules, catalog);
                             checker.run();
+                            monitor.worked(1);
                             ModuleCatalogDialog.this.modulesToUpdate = checker.getModulesToUpdate();
                             ModuleCatalogDialog.this.validUpdateSite = checker.isValidUpdateSite();
-                            monitor.worked(1);
                             monitor.done();
                         } catch (IOException e) {
-                            MdaInfra.LOG.error(e);
+                            throw new InvocationTargetException(e, FileUtils.getLocalizedMessage(e));
+                        } catch (URISyntaxException e) {
+                            throw new InvocationTargetException(e, e.getLocalizedMessage());
                         }
                     }
                 };
+        
                 try {
                     ModuleCatalogDialog.this.progressService.run(true, false, runnable);
         
                     if (ModuleCatalogDialog.this.validUpdateSite) {
                         // New modules found: open the update dialog
                         if (ModuleCatalogDialog.this.modulesToUpdate != null && ModuleCatalogDialog.this.modulesToUpdate.size() > 0) {
-                            ModuleUpdateBrowserDialog dialog = new ModuleUpdateBrowserDialog(Display.getDefault().getActiveShell(),
-                                    ModuleCatalogDialog.this.modulesToUpdate, catalog, ModuleCatalogDialog.this.progressService);
+                            ModuleUpdateBrowserDialog dialog = new ModuleUpdateBrowserDialog(
+                                    ModuleCatalogDialog.this.getShell(),
+                                    ModuleCatalogDialog.this.modulesToUpdate,
+                                    catalog, ModuleCatalogDialog.this.progressService);
                             dialog.open();
                         } else {
-                            MessageDialog.openInformation(Display.getDefault().getActiveShell(),
+                            MessageDialog.openInformation(ModuleCatalogDialog.this.getShell(),
                                     MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.Title"),
                                     MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.NoUpdate"));
                         }
                     }
+        
                     // Update catalog list
                     ModuleCatalogDialog.this.panel.setInput(catalog);
-                } catch (InvocationTargetException | InterruptedException e) {
+                } catch (InvocationTargetException e) {
                     MdaInfra.LOG.error(e);
+                    MessageDialog.openError(ModuleCatalogDialog.this.getShell(),
+                            MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.Title"),
+                            e.getLocalizedMessage());
+                } catch (InterruptedException e) {
+                    MdaInfra.LOG.info(e);
                 }
             }
         
@@ -266,11 +287,11 @@ public class ModuleCatalogDialog extends ModelioDialog {
         Shell parentShell = Display.getDefault().getActiveShell();
         FileDialog dialog = new FileDialog(parentShell, SWT.OPEN | SWT.MULTI);
         
-        // Find out the mda store path
-        File mdastore = new File(Platform.getInstallLocation().getURL().getFile(), "mdastore"); //$NON-NLS-1$
+        // Find out the module store path
+        File moduleStore = new File(Platform.getInstallLocation().getURL().getFile(), "modules"); //$NON-NLS-1$
         
         // Configure the dialog
-        dialog.setFilterPath(mdastore.getAbsolutePath());
+        dialog.setFilterPath(moduleStore.getAbsolutePath());
         dialog.setFilterNames(new String[] { MdaInfra.I18N.getString("MDAComponents") }); //$NON-NLS-1$
         dialog.setFilterExtensions(new String[] { "*.jmdac" }); //$NON-NLS-1$
         

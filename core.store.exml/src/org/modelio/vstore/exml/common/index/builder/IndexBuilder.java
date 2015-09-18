@@ -81,7 +81,7 @@ public class IndexBuilder {
      * @throws org.modelio.vstore.exml.common.index.builder.InvalidExmlException in case of error reading the EXML source.
      */
     @objid ("fd21f719-5986-11e1-991a-001ec947ccaf")
-    public void run(final InputSource is) throws IOException, InvalidExmlException {
+    public void run(final InputSource is) throws InvalidExmlException, IOException {
         this.defaultHandler.resetModel();
         this.defaultHandler.enterDocumentState();
                  

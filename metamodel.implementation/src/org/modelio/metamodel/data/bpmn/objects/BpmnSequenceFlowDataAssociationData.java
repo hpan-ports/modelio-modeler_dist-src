@@ -47,36 +47,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00057d32-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnSequenceFlowDataAssociation.class, factory=BpmnSequenceFlowDataAssociationData.Metadata.ObjectFactory.class)
 public class BpmnSequenceFlowDataAssociationData extends BpmnBaseElementData {
-    @objid ("032f20c7-bae6-4d4b-a560-7d9694c3a9e4")
+    @objid ("b22a04bd-35bf-4432-bbc5-06f275d7a575")
     @SmaMetaAssociation(metaName="Connected", typeDataClass=BpmnSequenceFlowData.class, min=1, max=1, smAssociationClass=Metadata.ConnectedSmDependency.class, partof = true)
      SmObjectImpl mConnected;
 
-    @objid ("6b7b6de2-f54c-4ab4-a714-82792aef9442")
+    @objid ("57904f7c-b023-4ff0-8a96-6784722ab344")
     @SmaMetaAssociation(metaName="DataAssociation", typeDataClass=BpmnDataAssociationData.class, min=2, max=2, smAssociationClass=Metadata.DataAssociationSmDependency.class, partof = true)
      List<SmObjectImpl> mDataAssociation = null;
 
-    @objid ("13fc2b20-4817-446e-bd23-4815d704f4be")
+    @objid ("33b11c9f-5e15-481f-b83e-dcf1da491e03")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00478df8-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("2cae9efd-75fe-4939-83e7-20950bd2d5db")
+        @objid ("6dc8c365-d834-4da9-9af5-e3dfbea2f00b")
         private static SmClass smClass = null;
 
-        @objid ("fedef83c-eed2-4fbe-b15f-862f3209170d")
+        @objid ("39e5a70d-3be0-4b1a-8d1e-35c479881f51")
         private static SmDependency ConnectedDep = null;
 
-        @objid ("2678cbbd-68dc-4d5c-aaef-68b7a3b7972a")
+        @objid ("bc9699b5-c582-45c9-84f2-783a6f158638")
         private static SmDependency DataAssociationDep = null;
 
-        @objid ("82e4376e-9c2c-4e79-9c50-3cb2cb33a0c7")
+        @objid ("d0e50637-2d4b-4516-a1af-df45c8786139")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnSequenceFlowDataAssociationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("34e983a6-395f-4429-a650-e5df1e3f931a")
+        @objid ("71377514-ca72-456f-b228-38ec3a8159fc")
         public static SmDependency ConnectedDep() {
             if (ConnectedDep == null) {
             	ConnectedDep = classof().getDependencyDef("Connected");
@@ -84,7 +84,7 @@ public class BpmnSequenceFlowDataAssociationData extends BpmnBaseElementData {
             return ConnectedDep;
         }
 
-        @objid ("5bbe6894-9bda-4020-bddb-5f63fcad3a20")
+        @objid ("92efd621-9a3a-490a-a3ba-04d548aa9959")
         public static SmDependency DataAssociationDep() {
             if (DataAssociationDep == null) {
             	DataAssociationDep = classof().getDependencyDef("DataAssociation");
@@ -92,32 +92,32 @@ public class BpmnSequenceFlowDataAssociationData extends BpmnBaseElementData {
             return DataAssociationDep;
         }
 
-        @objid ("4e2d7036-ac29-4986-9516-536682488074")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("c4a5f47f-e8d4-4c91-a9ee-1c814c4ae2a2")
-        public static SmDependency getDataAssociationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DataAssociationDep;
-        }
-
-        @objid ("4aa0b1dd-0890-478a-8e90-e5783ac7a727")
+        @objid ("007114dc-d5e8-4142-991e-db8afeebf396")
         public static SmDependency getConnectedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ConnectedDep;
         }
 
+        @objid ("e59c0aac-403c-4596-9dba-251117cdda1e")
+        public static SmDependency getDataAssociationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DataAssociationDep;
+        }
+
+        @objid ("c3433e16-02bf-46d0-be00-714c61b574c2")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("0047ced0-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("fd667599-b03d-4bd8-91b8-acb7af24389d")
+            @objid ("cd88a485-f48b-4c5d-98f2-883c0bab2cf8")
             public ISmObjectData createData() {
                 return new BpmnSequenceFlowDataAssociationData();
             }
 
-            @objid ("eb8f3de8-4c90-47f0-b0ee-0ece69b5cba2")
+            @objid ("ff83268f-788c-49e1-aa88-0cf996cf869a")
             public SmObjectImpl createImpl() {
                 return new BpmnSequenceFlowDataAssociationImpl();
             }
@@ -126,20 +126,20 @@ public class BpmnSequenceFlowDataAssociationData extends BpmnBaseElementData {
 
         @objid ("004830f0-c4c4-1fd8-97fe-001ec947cd2a")
         public static class DataAssociationSmDependency extends SmMultipleDependency {
-            @objid ("e2e4e3a3-4276-43a2-a985-1c226ff33a44")
+            @objid ("9f7bf9ae-73f4-492f-8232-9aa4d6e89b52")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnSequenceFlowDataAssociationData)data).mDataAssociation != null)? ((BpmnSequenceFlowDataAssociationData)data).mDataAssociation:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b256ec7b-e47e-401a-a18b-7e9cefe830b5")
+            @objid ("6f647828-104d-43f8-b80f-d1f38a24b691")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnSequenceFlowDataAssociationData) data).mDataAssociation = new ArrayList<>(initialCapacity);
                 return ((BpmnSequenceFlowDataAssociationData) data).mDataAssociation;
             }
 
-            @objid ("c7ef8603-d8fe-4c29-9302-26ad28c022b7")
+            @objid ("5fd943f0-e2bb-44d3-890f-8875a0d5de2b")
             @Override
             public SmDependency getSymetric() {
                 return BpmnDataAssociationData.Metadata.VisualShortCutDep();
@@ -149,18 +149,18 @@ public class BpmnSequenceFlowDataAssociationData extends BpmnBaseElementData {
 
         @objid ("00489356-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ConnectedSmDependency extends SmSingleDependency {
-            @objid ("c53c2771-585d-4959-a96e-79ba2cf98b4d")
+            @objid ("97159c25-b6aa-471f-8255-3495d6af9884")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnSequenceFlowDataAssociationData) data).mConnected;
             }
 
-            @objid ("37322afa-ae15-4c2a-83e9-a9d9e623bc78")
+            @objid ("6fc1bc1f-ead4-4710-9fd1-14d22076a106")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnSequenceFlowDataAssociationData) data).mConnected = value;
             }
 
-            @objid ("bc4ef3f4-f120-47a3-b264-88f8053d44a3")
+            @objid ("e97b236e-662d-4624-80da-271b1c4e8d97")
             @Override
             public SmDependency getSymetric() {
                 return BpmnSequenceFlowData.Metadata.ConnectorDep();

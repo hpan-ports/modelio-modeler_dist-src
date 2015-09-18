@@ -61,8 +61,6 @@ public class ResourceDlg {
 static {
         String language;
         try {
-            // TODO fix bug
-            // language = Modelio.getInstance().getContext().getLanguage();
             language = Locale.getDefault().getLanguage();
             if (!("fr".equalsIgnoreCase(language))) {
                 language = "us";

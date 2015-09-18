@@ -47,43 +47,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0058d388-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=UseCase.class, factory=UseCaseData.Metadata.ObjectFactory.class, cmsnode=true)
 public class UseCaseData extends GeneralClassData {
-    @objid ("1155c589-6883-4031-97ab-8aed1a07190d")
+    @objid ("3dd772e5-470b-4a05-bd75-bc26120356f0")
     @SmaMetaAssociation(metaName="Used", typeDataClass=UseCaseDependencyData.class, min=0, max=-1, smAssociationClass=Metadata.UsedSmDependency.class, component = true)
      List<SmObjectImpl> mUsed = null;
 
-    @objid ("9dde90db-2dd6-415f-811d-94f14f56998b")
+    @objid ("b09fc71f-dc46-4d50-936a-608d97ef08ed")
     @SmaMetaAssociation(metaName="OwnedExtension", typeDataClass=ExtensionPointData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedExtensionSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedExtension = null;
 
-    @objid ("84fb6470-efc3-43c0-a8f1-3703113b37b1")
+    @objid ("364fb318-fda5-42a4-9dc0-e4aa841851a8")
     @SmaMetaAssociation(metaName="User", typeDataClass=UseCaseDependencyData.class, min=0, max=-1, smAssociationClass=Metadata.UserSmDependency.class, performanceRisk = true, istodelete = true)
      List<SmObjectImpl> mUser = null;
 
-    @objid ("bbc7c71b-8b33-4910-8b65-827734ddc6be")
+    @objid ("1e928e0e-e708-4459-b539-9a4e4d521c87")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("004f01fa-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("e7efbce3-a72b-4e01-addb-1dc01c201ced")
+        @objid ("081b9138-49ca-4f01-8934-f67e25859468")
         private static SmClass smClass = null;
 
-        @objid ("56734995-2b37-4712-8f0c-fac4dae27ace")
+        @objid ("51d9e0ac-a1fc-40b9-af09-bbb22535314e")
         private static SmDependency UsedDep = null;
 
-        @objid ("7f858ac8-8212-4ffa-99c3-82b39a104505")
+        @objid ("f2931cf1-b652-4678-9fd8-396cca2c3ff6")
         private static SmDependency OwnedExtensionDep = null;
 
-        @objid ("1839c5b2-2e17-4177-b1ab-958d85685588")
+        @objid ("618c2f5b-31e2-4a62-8a4d-0410964c0077")
         private static SmDependency UserDep = null;
 
-        @objid ("b44d73f3-7087-4837-89c7-3db87f369b89")
+        @objid ("6fb3cc63-66cc-4f32-b3a0-8818da71e5e6")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(UseCaseData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("9d3b454e-95f6-4130-872b-9c7dd798b5b9")
+        @objid ("f01d55ab-9e70-4dd5-98f0-95213ff2c751")
         public static SmDependency UsedDep() {
             if (UsedDep == null) {
             	UsedDep = classof().getDependencyDef("Used");
@@ -91,7 +91,7 @@ public class UseCaseData extends GeneralClassData {
             return UsedDep;
         }
 
-        @objid ("b295457e-6540-422e-ad8c-0843113f0a20")
+        @objid ("df7afab0-fdb5-464c-af57-db8e19a0b5b3")
         public static SmDependency OwnedExtensionDep() {
             if (OwnedExtensionDep == null) {
             	OwnedExtensionDep = classof().getDependencyDef("OwnedExtension");
@@ -99,7 +99,7 @@ public class UseCaseData extends GeneralClassData {
             return OwnedExtensionDep;
         }
 
-        @objid ("dfdab875-05cc-4edf-bde3-91b963964145")
+        @objid ("ff6cfdf2-752e-442d-94cc-91cb199ceee6")
         public static SmDependency UserDep() {
             if (UserDep == null) {
             	UserDep = classof().getDependencyDef("User");
@@ -107,38 +107,38 @@ public class UseCaseData extends GeneralClassData {
             return UserDep;
         }
 
-        @objid ("af96deca-7633-4855-9b18-c0e487df4881")
-        public static SmDependency getUserDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return UserDep;
-        }
-
-        @objid ("cfc2459f-3a78-4a66-a6b2-3a7c0d240765")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("a3667d3d-ee5d-4150-80d0-089ef59b6a44")
-        public static SmDependency getOwnedExtensionDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedExtensionDep;
-        }
-
-        @objid ("0fed75b0-ed37-4025-a91c-93875756a703")
+        @objid ("b24a988e-0e0f-4c82-96a6-6d62d714f251")
         public static SmDependency getUsedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return UsedDep;
         }
 
+        @objid ("009a71a9-92b4-4c39-a2b5-eb40fc63595e")
+        public static SmDependency getUserDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return UserDep;
+        }
+
+        @objid ("16f921da-3f85-4fd1-b1d8-fa813cfd25ee")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("ff9cdacb-917e-4d82-aaa7-b85653d8318b")
+        public static SmDependency getOwnedExtensionDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnedExtensionDep;
+        }
+
         @objid ("004f42aa-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("cdf30283-c1df-4088-95a3-e41b69e8fd77")
+            @objid ("edcc3c4b-8f85-4bec-bed9-36ef79ae7f4e")
             public ISmObjectData createData() {
                 return new UseCaseData();
             }
 
-            @objid ("35e0767e-53c8-4271-bd4c-3bf2503ce569")
+            @objid ("9c754666-abff-43a4-b35d-dbdd70a508eb")
             public SmObjectImpl createImpl() {
                 return new UseCaseImpl();
             }
@@ -147,20 +147,20 @@ public class UseCaseData extends GeneralClassData {
 
         @objid ("004fa678-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnedExtensionSmDependency extends SmMultipleDependency {
-            @objid ("e597c488-3ded-44af-93ba-5fb9197ff591")
+            @objid ("31b0745b-431a-4984-a8ea-77cea4e5bdb6")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((UseCaseData)data).mOwnedExtension != null)? ((UseCaseData)data).mOwnedExtension:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("1b88549c-b923-4286-9525-2f42f52d6cc1")
+            @objid ("68f33faa-186f-41de-a96b-6fc0def975b5")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((UseCaseData) data).mOwnedExtension = new ArrayList<>(initialCapacity);
                 return ((UseCaseData) data).mOwnedExtension;
             }
 
-            @objid ("0e24ac3e-aef3-4e5c-88d1-2ac2d2378b32")
+            @objid ("05e916d7-465a-42a3-be65-2ee9f8a9a55f")
             @Override
             public SmDependency getSymetric() {
                 return ExtensionPointData.Metadata.OwnerDep();
@@ -170,20 +170,20 @@ public class UseCaseData extends GeneralClassData {
 
         @objid ("00500938-c4c4-1fd8-97fe-001ec947cd2a")
         public static class UsedSmDependency extends SmMultipleDependency {
-            @objid ("7b9642e5-92bc-4182-962e-ffc2c777efce")
+            @objid ("298879be-7c7d-42da-9e60-d6d23af1dffa")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((UseCaseData)data).mUsed != null)? ((UseCaseData)data).mUsed:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("01a3ec42-580d-4619-85b7-74c7d7b017ef")
+            @objid ("96044197-0350-4c9b-81ce-93e75cf4bd79")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((UseCaseData) data).mUsed = new ArrayList<>(initialCapacity);
                 return ((UseCaseData) data).mUsed;
             }
 
-            @objid ("50dba7ac-dc8c-42f4-b6d9-9ad03a72e95f")
+            @objid ("c78fc293-a67f-40e4-9f7e-c80dd12d912b")
             @Override
             public SmDependency getSymetric() {
                 return UseCaseDependencyData.Metadata.OriginDep();
@@ -193,20 +193,20 @@ public class UseCaseData extends GeneralClassData {
 
         @objid ("00506c0c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class UserSmDependency extends SmMultipleDependency {
-            @objid ("c83d3585-f2e7-40b6-a470-3cf3fdf71d9f")
+            @objid ("01dc476f-3325-48e5-b897-e81d7bb109c0")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((UseCaseData)data).mUser != null)? ((UseCaseData)data).mUser:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("f7b49d2d-1c8e-432c-9e2c-cf455413507b")
+            @objid ("c7f98ebc-9d68-4e3b-9373-7a76c39c0e38")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((UseCaseData) data).mUser = new ArrayList<>(initialCapacity);
                 return ((UseCaseData) data).mUser;
             }
 
-            @objid ("ebd6280a-7ae4-407a-9c25-b7237fc65663")
+            @objid ("97370eef-678b-4722-9051-11d053ba00b6")
             @Override
             public SmDependency getSymetric() {
                 return UseCaseDependencyData.Metadata.TargetDep();

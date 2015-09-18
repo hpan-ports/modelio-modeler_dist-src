@@ -36,28 +36,28 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
 
 @objid ("000a8606-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnResourceRole extends BpmnBaseElement {
-    @objid ("1a75ce93-db35-4bdb-bb2c-bb8f64ec73a3")
+    @objid ("dc4d11b3-09aa-47ed-9d65-a8ee74671c4d")
     BpmnResource getResourceRef();
 
-    @objid ("8812e722-bdbf-4509-a315-cb6b5bfcf631")
+    @objid ("ac610fed-6d89-45d2-a4e5-61951bc1c7f8")
     void setResourceRef(BpmnResource value);
 
-    @objid ("25350c41-5cba-4cd2-9491-961a3edf17a4")
+    @objid ("86302c92-f510-403e-a8e5-686a5f92bd02")
     BpmnFlowNode getAnnotated();
 
-    @objid ("8d70ae59-fccd-4df8-b422-9477fd5487d3")
+    @objid ("9fdcdb8d-f392-4083-9161-3725f86ffbdd")
     void setAnnotated(BpmnFlowNode value);
 
-    @objid ("27565264-fba3-414b-868c-19f8853469e9")
+    @objid ("ce9c494e-ad44-4577-a668-3b824448d9af")
     EList<BpmnResourceParameterBinding> getResourceParameterBinding();
 
-    @objid ("0def1636-ac69-4315-a7ab-b63a94385792")
+    @objid ("386fa33e-1817-46d2-b988-0fbb7fd390c9")
     <T extends BpmnResourceParameterBinding> List<T> getResourceParameterBinding(java.lang.Class<T> filterClass);
 
-    @objid ("01611958-84cc-4fef-88c0-cc73ac22a34d")
+    @objid ("fa53fceb-b13e-4398-b866-23c810808037")
     BpmnProcess getProcess();
 
-    @objid ("853fe433-092f-4c22-bdf4-2a74c2fc974a")
+    @objid ("c0349614-2cb1-4518-be54-83e040fcf543")
     void setProcess(BpmnProcess value);
 
 }

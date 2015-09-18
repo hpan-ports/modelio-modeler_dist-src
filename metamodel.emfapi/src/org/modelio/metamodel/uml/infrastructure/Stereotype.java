@@ -41,82 +41,82 @@ public interface Stereotype extends ModelElement {
     @objid ("27dde74f-c802-420a-8472-e6f2e9d112a7")
     ModuleComponent getModule();
 
-    @objid ("f242de32-4adf-4d68-8e6e-584f53eef431")
+    @objid ("c3e4e88b-c5d1-4ff6-82d3-3e72fa290ca6")
     String getImage();
 
-    @objid ("2173a174-09e4-4e9e-a8a6-8328f39e5720")
+    @objid ("7df8f535-01d8-44d1-8293-de50fe44a827")
     void setImage(String value);
 
-    @objid ("b20e444e-6c08-4a2c-b1c2-8ea5911e0c8a")
+    @objid ("5cd6d2af-ef2f-4e7b-860f-99404f92dd83")
     String getIcon();
 
-    @objid ("390d8725-e361-4e75-b10a-a35aead3b71b")
+    @objid ("9e23a996-cce7-463d-9369-ff6c7f7e1592")
     void setIcon(String value);
 
-    @objid ("85da5255-75f5-44ed-8a15-9be65b300b81")
+    @objid ("3890bc2a-f4eb-4028-9c0d-9d86d223b7df")
     boolean isIsHidden();
 
-    @objid ("9f2bb863-2a08-40ed-926c-a77ff6710743")
+    @objid ("76f0c385-faee-45d9-8f4b-a8f240cf1ecc")
     void setIsHidden(boolean value);
 
-    @objid ("de70c5f4-e1c1-439c-85c1-4c6543473c69")
+    @objid ("3b4304ce-d949-432d-abce-69d029a33708")
     String getLabelKey();
 
-    @objid ("c9a1be5c-f3c0-4d89-8dfc-4d300307918b")
+    @objid ("f2ac66c5-f505-45d8-8297-1a1321dac440")
     void setLabelKey(String value);
 
-    @objid ("5c0200cb-20c6-4c93-8f20-4d111daddd9a")
+    @objid ("0d76dcd3-abb7-4917-bc59-5544867e0fe0")
     String getBaseClassName();
 
-    @objid ("1af9dcfe-214b-4fa5-8db2-d6f41666e2c3")
+    @objid ("4df5d41b-7abd-427e-9525-d45c2a6dc1a2")
     void setBaseClassName(String value);
 
-    @objid ("6b683226-f0ca-450a-8264-c8a044e42caf")
+    @objid ("43733726-a441-467c-81b6-c97bb1e4f32d")
     PropertyTableDefinition getDefinedTable();
 
-    @objid ("6b02dc0e-98a9-4f43-a15a-ed3f31d39306")
+    @objid ("6cd19657-53d8-4a55-a521-73df4625139e")
     void setDefinedTable(PropertyTableDefinition value);
 
-    @objid ("bda9071f-54fc-48c0-8970-a1ce239226a3")
+    @objid ("c66e4709-1534-445b-b5c2-4148ec462b26")
     EList<ModelElement> getExtendedElement();
 
-    @objid ("cf9e0647-0e4d-4327-9d9f-af5f08293452")
+    @objid ("92434626-ca24-4d35-be88-1f49f4c3e094")
     <T extends ModelElement> List<T> getExtendedElement(java.lang.Class<T> filterClass);
 
-    @objid ("a2c7a9a3-ef52-4dd7-a6fd-7198db9b154d")
+    @objid ("55be66c1-caa8-43a5-b29c-926a26671fc1")
     EList<ExternDocumentType> getDefinedExternDocumentType();
 
-    @objid ("7f8b1327-eaaa-49b3-8338-935513dae5a0")
+    @objid ("fc4ee524-f7ba-4195-bf7c-ba86d689b08b")
     <T extends ExternDocumentType> List<T> getDefinedExternDocumentType(java.lang.Class<T> filterClass);
 
-    @objid ("8da8d9e6-b092-4bcf-8c15-d16518103906")
+    @objid ("b27c0b59-b499-4bfb-a8f9-ea58e4466329")
     Profile getOwner();
 
-    @objid ("b0fc4733-6457-4d01-aa76-e5a87202399c")
+    @objid ("9fc07554-3d8f-45b3-86da-01d664b89ca4")
     void setOwner(Profile value);
 
-    @objid ("baae4669-8958-4822-aa0c-aba8e5bc4f28")
+    @objid ("06510345-f990-4df2-bc2b-568a36828ad3")
     Stereotype getParent();
 
-    @objid ("74ecd34a-9611-4312-af17-bf8923c9bd9e")
+    @objid ("4000b872-1144-41c8-9a8f-31d4415c0612")
     void setParent(Stereotype value);
 
-    @objid ("999dd2de-ce35-46da-9537-faf9ce7cf666")
+    @objid ("2874de65-a1ca-4841-ab91-4231096a7e26")
     EList<TagType> getDefinedTagType();
 
-    @objid ("e56f5699-bf1d-4cc1-b30c-fa80b5dea96b")
+    @objid ("812de514-26c9-416e-a1d7-f325c2f76834")
     <T extends TagType> List<T> getDefinedTagType(java.lang.Class<T> filterClass);
 
-    @objid ("65b41c32-f888-4e5e-b98f-6cf7cbe3c25c")
+    @objid ("d28e0811-e268-4152-8310-318b4ed18b43")
     EList<Stereotype> getChild();
 
-    @objid ("42b9576d-0b24-4c4f-b6bf-0cd027021b81")
+    @objid ("21bce9e8-1248-4c84-b556-5e9dfabbdc40")
     <T extends Stereotype> List<T> getChild(java.lang.Class<T> filterClass);
 
-    @objid ("20d3c039-a1bd-44f9-a593-25b4635b306a")
+    @objid ("0383ddf7-a3b2-4316-8db7-5e09bb4fd233")
     EList<NoteType> getDefinedNoteType();
 
-    @objid ("5655bd19-c04e-4e82-986c-13ec972149be")
+    @objid ("1a8c020a-a177-4028-9e3e-269332f0699b")
     <T extends NoteType> List<T> getDefinedNoteType(java.lang.Class<T> filterClass);
 
 }

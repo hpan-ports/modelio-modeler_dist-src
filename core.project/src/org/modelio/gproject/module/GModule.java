@@ -90,6 +90,7 @@ public class GModule {
      * @param moduleHandle the base structure defining the module.
      * @param defScope the module definition scope: shared with the work group or local.
      * @param gProperties the module parameter values.
+     * @param activated whether the module is activated
      */
     @objid ("f87f0295-f369-11e1-9173-001ec947ccaf")
     public GModule(GProject project, URI originalArchiveUri, IModuleHandle moduleHandle, DefinitionScope defScope, GProperties gProperties, boolean activated) {

@@ -89,7 +89,7 @@ public class JaxbModelPersistence {
             try {
                 return loadJaxbModelV1(moduleXmlFile);
             } catch (JAXBException e1) {
-                throw new IOException(e1);
+                throw new IOException(e);
             }
         }
     }
@@ -158,7 +158,7 @@ public class JaxbModelPersistence {
     }
 
     @objid ("0ec60d78-3c53-46fa-b761-3dbc16f619db")
-    private static Jxbv2Module loadJaxbModelV1(final Path moduleXmlFile) throws JAXBException, IOException {
+    private static Jxbv2Module loadJaxbModelV1(final Path moduleXmlFile) throws IOException, JAXBException {
         try (InputStream inputStream = Files.newInputStream(moduleXmlFile)) {
             String packageName = JxbModule.class.getPackage().getName();
             JAXBContext jaxbContext = JAXBContext.newInstance(packageName);

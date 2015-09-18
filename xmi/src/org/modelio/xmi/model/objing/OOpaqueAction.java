@@ -32,7 +32,7 @@ import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.GeneralClass;
-import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 
 @objid ("cd9144df-04f4-412a-8b79-44ecbc476562")
@@ -63,8 +63,6 @@ public class OOpaqueAction extends OActivityNode {
             return UMLFactory.eINSTANCE.createReadExtentAction();
         else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2DESTROYOBJECTACTION))
             return UMLFactory.eINSTANCE.createDestroyObjectAction();
-        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CREATELINKACTION))
-            return UMLFactory.eINSTANCE.createCreateLinkAction();
         else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ADDVARIABLEVALUEACTION))
             return UMLFactory.eINSTANCE.createAddVariableValueAction();
         else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLEARSTRUCTURALFEATUREACTION))

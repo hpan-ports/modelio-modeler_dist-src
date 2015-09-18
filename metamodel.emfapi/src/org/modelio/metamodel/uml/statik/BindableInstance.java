@@ -35,28 +35,28 @@ import org.modelio.metamodel.uml.statik.Instance;
 
 @objid ("0000aa6e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BindableInstance extends Instance {
-    @objid ("69472e0b-d115-4a38-8196-c125b58bb387")
+    @objid ("7d67817c-69eb-48d1-b697-4131844a6dfe")
     Instance getCluster();
 
-    @objid ("b74409e7-f2f9-4d28-98c5-3a0bb2331e1c")
+    @objid ("ba9172db-13b1-4bb2-a04a-ce671e210e9c")
     void setCluster(Instance value);
 
-    @objid ("a84f80e6-d709-43e0-b11f-230f703a82a7")
+    @objid ("20779332-0166-4486-9615-555f148bb144")
     Classifier getInternalOwner();
 
-    @objid ("fdf406dd-7fa2-4d4d-b06b-a34cd958c782")
+    @objid ("5515de77-c6ac-48c7-be53-8e3d0452a3a7")
     void setInternalOwner(Classifier value);
 
-    @objid ("d053db27-3e1c-4ac7-886c-5d128a9972aa")
+    @objid ("fb5e42e6-0f2e-4f9e-bb98-70a522f3dfab")
     EList<Binding> getRepresentation();
 
-    @objid ("2f713636-a70a-45fc-8d60-eb6335aa3c1c")
+    @objid ("385cda56-d81a-40f9-8429-49a6ea1105ac")
     <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("edbbad5c-f203-4fb6-bb93-a42c57d3fc01")
+    @objid ("90ef28e7-73eb-4845-b443-e8d35df4c13f")
     ModelElement getRepresentedFeature();
 
-    @objid ("3b0585d5-08e0-4c90-b8fd-69a77a46575f")
+    @objid ("fc3f223f-37a0-4932-a9cb-a91e3b939567")
     void setRepresentedFeature(ModelElement value);
 
 }

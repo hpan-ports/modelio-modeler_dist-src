@@ -10,19 +10,25 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeExpansionEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerEditor;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
+import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.diagram.browser.dnd.DiagramBrowserDragListener;
 import org.modelio.diagram.browser.dnd.DiagramBrowserDropListener;
 import org.modelio.diagram.browser.model.IBrowserModel;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.ui.panel.IPanelProvider;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("85b4d950-54b9-11e2-85c1-002564c97630")
 public class DiagramBrowserPanelProvider implements IPanelProvider {
@@ -30,7 +36,7 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
     private ITreeViewerListener expandlistener;
 
     @objid ("0050759e-3566-10c7-842f-001ec947cd2a")
-    private TreeViewer treeViewer;
+    protected TreeViewer treeViewer;
 
     @objid ("2868673c-4ab5-11e2-a4d3-002564c97630")
     private IBrowserModel model;
@@ -41,19 +47,47 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
     @objid ("cd4213ed-54c7-11e2-ae63-002564c97630")
     private DiagramBrowserActivationStrategy actSupport;
 
+    @objid ("2d869639-093d-4d24-8c7c-60165606f245")
+    protected final IModelioNavigationService navigationService;
+
     @objid ("85b73aaf-54b9-11e2-85c1-002564c97630")
-    public DiagramBrowserPanelProvider(GProject project) {
+    public DiagramBrowserPanelProvider(GProject project, IModelioNavigationService navigationService) {
         this.project = project;
+        this.navigationService = navigationService;
     }
 
     @objid ("85b73ab2-54b9-11e2-85c1-002564c97630")
     @Override
     public Object createPanel(Composite parent) {
-        this.treeViewer = new TreeViewer(parent, SWT.MULTI);        
+        this.treeViewer = new TreeViewer(parent, SWT.MULTI);
         
         Transfer[] transferTypes = new Transfer[]{LocalSelectionTransfer.getTransfer()};
         this.treeViewer.addDragSupport(DND.DROP_MOVE, transferTypes , new DiagramBrowserDragListener(this.treeViewer));
         this.treeViewer.addDropSupport(DND.DROP_MOVE, transferTypes, new DiagramBrowserDropListener(this.treeViewer,this.project.getSession()));
+        
+        this.treeViewer.getTree().addMouseListener(new MouseListener() {
+        
+            @Override
+            public void mouseUp(MouseEvent e) {
+                // Nothing to do
+            }
+        
+            @Override
+            public void mouseDown(MouseEvent e) {
+                if (e.stateMask == (SWT.CTRL + SWT.ALT)) {
+                    final ViewerCell cell = DiagramBrowserPanelProvider.this.treeViewer.getCell(new Point(e.x, e.y));
+                    final Object selectedElement = cell != null ? cell.getElement() : null;
+                    if (selectedElement instanceof MObject) {
+                        DiagramBrowserPanelProvider.this.navigationService.fireNavigate((MObject) selectedElement);
+                    }
+                }
+            }
+        
+            @Override
+            public void mouseDoubleClick(MouseEvent e) {
+                // Nothing to do
+            }
+        });
         return this.treeViewer;
     }
 
@@ -122,7 +156,7 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
         
             @Override
             public void activate() {
-                // We must deactivate the active contexts during the edition, to avoid the editor's shortcuts to be triggered when entering an element's name... 
+                // We must deactivate the active contexts during the edition, to avoid the editor's shortcuts to be triggered when entering an element's name...
                 // Store those contexts for further reactivation
                 this.activeContexts = new ArrayList<>(DiagramBrowserView.contextService.getActiveContextIds());
                 for (String contextId : this.activeContexts) {
@@ -188,6 +222,12 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
     @Override
     public String getHelpTopic() {
         return null;
+    }
+
+    @objid ("ce1cc8f8-4d19-4b8a-82bc-f6926f79adc6")
+    @Override
+    public void dispose() {
+        // nothing to do
     }
 
     @objid ("cd4213f2-54c7-11e2-ae63-002564c97630")

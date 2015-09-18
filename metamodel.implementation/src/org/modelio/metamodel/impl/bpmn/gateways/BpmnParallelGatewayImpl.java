@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0002797a-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnParallelGatewayImpl extends BpmnGatewayImpl implements BpmnParallelGateway {
-    @objid ("a7830a1e-9c32-40b9-a028-ff9f34ce730e")
+    @objid ("2fa236cc-94d0-4476-b0a7-6f5c821e1b98")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("60afc5d1-13df-404b-9550-b4b5a2e4be83")
+    @objid ("51545c38-28b3-45b1-9411-b8fc565da81e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("2b8f186f-9abf-4d9e-99dc-bb358746095e")
+    @objid ("48fe541c-2bed-4e4e-a6f6-66f2583365d8")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnParallelGateway(this);

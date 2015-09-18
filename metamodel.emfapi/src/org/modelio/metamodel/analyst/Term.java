@@ -32,22 +32,22 @@ import org.modelio.metamodel.analyst.Dictionary;
 
 @objid ("006241a2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Term extends AnalystElement {
-    @objid ("70f9b6d5-4e44-449f-b701-c170c44eafee")
+    @objid ("428876b9-80e9-419c-b550-8faaf7c9b699")
     Dictionary getOwnerDictionary();
 
-    @objid ("ddb499de-3727-4582-a7af-9ea294ffa491")
+    @objid ("9c10fc7e-b531-42e4-83bb-fad20eef2853")
     void setOwnerDictionary(Dictionary value);
 
-    @objid ("90fb61a2-5b63-47ff-9d83-c04ab4b2a1e4")
+    @objid ("48022ebc-5f44-4cb5-b392-d4a200b30560")
     EList<Term> getArchivedTermVersion();
 
-    @objid ("0f8e1586-e99f-46a2-8fc5-b8cc8e80a6b5")
+    @objid ("9a05d627-acb4-4893-95bd-8db34b9c3aad")
     <T extends Term> List<T> getArchivedTermVersion(java.lang.Class<T> filterClass);
 
-    @objid ("fa3bed7d-295f-4f30-a0f9-ffa3ae046381")
+    @objid ("32979674-1382-4257-a9c1-d73756870a77")
     Term getLastTermVersion();
 
-    @objid ("44a2a937-c7d4-4d8f-85a3-ed02cdc802b0")
+    @objid ("0e3e4589-75ed-4013-aed4-307576cd27ad")
     void setLastTermVersion(Term value);
 
 }

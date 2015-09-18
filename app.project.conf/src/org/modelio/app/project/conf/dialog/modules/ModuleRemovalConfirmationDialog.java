@@ -31,6 +31,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -42,6 +43,12 @@ import org.osgi.framework.Bundle;
 
 @objid ("4e8deca2-d493-4784-a287-44a8768b36ea")
 public class ModuleRemovalConfirmationDialog extends ModelioDialog {
+    @objid ("65aecfb8-cc04-4cd6-a059-a839b21e4b1c")
+    private static final int HEIGHT = 700;
+
+    @objid ("fa681a16-9732-4542-a784-edf22a6e45ea")
+    private static final int WIDTH = 600;
+
     @objid ("04258cfa-ebfd-48cd-b9b6-2649fbc71246")
     public ModuleRemovalConfirmationDialog(Shell parentShell) {
         super(parentShell);
@@ -50,16 +57,16 @@ public class ModuleRemovalConfirmationDialog extends ModelioDialog {
     @objid ("a108539a-ac33-45d4-a26d-edabe09c38d9")
     @Override
     public Control createContentArea(Composite parent) {
-        Browser browser = new Browser(parent, SWT.BORDER);
+        final Browser browser = new Browser(parent, SWT.BORDER);
         browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         browser.setMenu(new Menu(browser));
         browser.setJavascriptEnabled(false);
-        IPath helpUrl = new Path( AppProjectConf.I18N.getString("RemoveMdacsDlg.Confirm.Url"));
-        Bundle bundle = Platform.getBundle(AppProjectConf.PLUGIN_ID);
+        final IPath helpUrl = new Path(AppProjectConf.I18N.getString("RemoveMdacsDlg.Confirm.Url"));
+        final Bundle bundle = Platform.getBundle(AppProjectConf.PLUGIN_ID);
         try {
-            URL url = FileLocator.toFileURL(FileLocator.find(bundle, helpUrl, null));
+            final URL url = FileLocator.toFileURL(FileLocator.find(bundle, helpUrl, null));
             browser.setUrl(url.toString());
-        } catch (IOException e) {
+        } catch (final IOException e) {
             AppProjectConf.LOG.error(e);
         }
         return browser;
@@ -78,8 +85,11 @@ public class ModuleRemovalConfirmationDialog extends ModelioDialog {
         getShell().setText(AppProjectConf.I18N.getString("RemoveMdacsDlg.Confirm.Title"));
         setTitle(AppProjectConf.I18N.getString("RemoveMdacsDlg.Confirm.Title"));
         setMessage(AppProjectConf.I18N.getString("RemoveMdacsDlg.Confirm.Text"));
-        getShell().setSize(600, 700);
-        getShell().setMinimumSize(600, 550);
+        
+        getShell().setMinimumSize(WIDTH, HEIGHT);
+        
+        final Rectangle b = getShell().getParent().getBounds();
+        getShell().setBounds(b.x + (b.width - WIDTH) / 2, b.y + (b.height - HEIGHT) / 2, WIDTH, HEIGHT);
     }
 
 }

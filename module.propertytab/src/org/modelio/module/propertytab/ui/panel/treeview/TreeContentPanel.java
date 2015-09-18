@@ -26,21 +26,26 @@ import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.ScrollBar;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.module.propertytab.model.ModulePropertyModel;
 import org.modelio.module.propertytab.plugin.ModulePropertyTab;
-import org.modelio.module.propertytab.ui.panel.IModulePropertyPanel;
+import org.modelio.module.propertytab.ui.panel.IModulePropertyTreePanel;
 import org.modelio.module.propertytab.ui.panel.treeview.editingsupport.ModulePropertyEditingSupport;
 import org.modelio.module.propertytab.ui.panel.treeview.editingsupport.key.KeyLabelProvider;
 import org.modelio.vcore.session.api.ICoreSession;
 
 @objid ("c89a7583-1eba-11e2-9382-bc305ba4815c")
-public class TreeContentPanel implements IModulePropertyPanel {
+public class TreeContentPanel implements IModulePropertyTreePanel {
     @objid ("c89a9c90-1eba-11e2-9382-bc305ba4815c")
-    private TreeViewer treeViewer;
+    protected TreeViewer treeViewer;
 
     @objid ("c89a9c92-1eba-11e2-9382-bc305ba4815c")
     public TreeContentPanel(Composite parent, ModelElement element) {
@@ -90,7 +95,7 @@ public class TreeContentPanel implements IModulePropertyPanel {
         
         // Create columns
         String[] columnTitles = { ModulePropertyTab.I18N.getString("TreeView.Property"),  ModulePropertyTab.I18N.getString("TreeView.Value")};
-        int[] columnInitialWidths = { 200, 100 };
+        int[] columnInitialWidths = { 200, 300 };
         TreeViewerColumn col1 = this.createTreeViewerColumn(columnTitles[0], columnInitialWidths[0]);
         col1.setLabelProvider(new KeyLabelProvider());
         
@@ -100,6 +105,10 @@ public class TreeContentPanel implements IModulePropertyPanel {
         
         ModulePropertyContentProvider content = new ModulePropertyContentProvider();
         this.treeViewer.setContentProvider(content);
+        
+        final LayoutChangeListener layoutListener = new LayoutChangeListener();
+        col1.getColumn().addControlListener(layoutListener);
+        this.treeViewer.getTree().addControlListener(layoutListener);
     }
 
     @objid ("c89b11c4-1eba-11e2-9382-bc305ba4815c")
@@ -134,7 +143,7 @@ public class TreeContentPanel implements IModulePropertyPanel {
     @Override
     public void setInput(IModelioPickingService pickingService, ModulePropertyModel moduleProperty) {
         if (System.getProperty("os.name").startsWith("Mac")) {
-            // On Mac OS, we have to 
+            // On Mac OS, we have to
             Composite parent = this.treeViewer.getTree().getParent();
             this.treeViewer.getTree().dispose();
         
@@ -144,7 +153,7 @@ public class TreeContentPanel implements IModulePropertyPanel {
         
         if (moduleProperty == null) {
             this.treeViewer.setInput(null);
-        } else {         
+        } else {
             this.treeViewer.setInput(moduleProperty);
         }
     }
@@ -152,6 +161,51 @@ public class TreeContentPanel implements IModulePropertyPanel {
     @objid ("c89bae03-1eba-11e2-9382-bc305ba4815c")
     public ColumnViewer getTreeViewer() {
         return this.treeViewer;
+    }
+
+    @objid ("459c5b53-3acf-465f-a9a3-81b578161274")
+    private class LayoutChangeListener implements ControlListener {
+        @objid ("f67b0e48-ac08-46c0-a477-90b4c80a17c6")
+        protected LayoutChangeListener() {
+            super();
+        }
+
+        @objid ("a9286e09-4075-48dc-8378-c6bacc4bc753")
+        @Override
+        public void controlResized(ControlEvent theEvent) {
+            changeLayout(theEvent);
+        }
+
+        @objid ("79abea54-c5ff-41a3-94f6-7d3b2861c957")
+        @Override
+        public void controlMoved(ControlEvent theEvent) {
+            // Nothing to do
+        }
+
+        @objid ("2d6b1d9c-1cf5-4ecd-823f-531e79527b5c")
+        private void changeLayout(ControlEvent theEvent) {
+            Tree tree = TreeContentPanel.this.treeViewer.getTree();
+            final ScrollBar verticalScrollbar = TreeContentPanel.this.treeViewer.getTree().getVerticalBar();
+            
+            final TreeColumn col0 = tree.getColumn(0);
+            final TreeColumn col1 = tree.getColumn(1);
+            final int newWidth = getRemainingWidth(tree, col0.getWidth(), verticalScrollbar);
+            if (newWidth > 0) {
+                col1.setWidth(newWidth);
+            }
+        }
+
+        @objid ("09e8b078-ee7c-4e85-a06b-42c9ebafef13")
+        protected int getRemainingWidth(Composite parentComposite, int usedWidth, ScrollBar verticalScrollbar) {
+            int parentWidth = parentComposite.getSize().x;
+            int scollbarWidth = verticalScrollbar != null && verticalScrollbar.isVisible() ? verticalScrollbar.getSize().x : 0;
+            int margin = 5;
+            
+            // We have two columns, let the second one take all the available width
+            final int secondColumnWidth = parentWidth - scollbarWidth - usedWidth - margin;
+            return secondColumnWidth;
+        }
+
     }
 
 }

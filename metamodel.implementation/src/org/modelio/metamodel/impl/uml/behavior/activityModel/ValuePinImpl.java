@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003f166e-c4bf-1fd8-97fe-001ec947cd2a")
 public class ValuePinImpl extends InputPinImpl implements ValuePin {
-    @objid ("ab3cd283-86dc-43da-a59f-7afa12264907")
+    @objid ("d38a4396-0d0c-478e-806b-91bc77695319")
     @Override
     public String getValue() {
         return (String) getAttVal(ValuePinData.Metadata.ValueAtt());
     }
 
-    @objid ("8ae7a8f2-d5c0-405f-bf2f-8a828a5da6ca")
+    @objid ("e72dca90-ff6a-4f23-8ebe-2b7173dd008f")
     @Override
     public void setValue(String value) {
         setAttVal(ValuePinData.Metadata.ValueAtt(), value);
     }
 
-    @objid ("198b518a-5c82-471f-a127-3daf617a034e")
+    @objid ("1cd5c07d-b8fb-444a-84d4-2eb00f032b47")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7317a462-c38b-4563-8db0-0df1c5905e2b")
+    @objid ("90138fbd-4ee9-4fac-bc25-0f37f2f62598")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("e877ed4c-bbda-421f-969d-48b2ab78e0ae")
+    @objid ("9cf5fca5-6bb8-4f84-bd7c-116c61ea61c7")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitValuePin(this);

@@ -40,8 +40,7 @@ import org.modelio.app.ui.plugin.AppUi;
 public class HelpHandler {
     @objid ("d68514f5-196c-4653-8bf5-a6376a6d566a")
     @Execute
-    public void execute(IWorkbenchHelpSystem helpService, MMenuItem item, @Optional
-@Named("org.modelio.app.ui.command.help.topicid") String topic) {
+    public void execute(IWorkbenchHelpSystem helpService, MMenuItem item, @Optional @Named("org.modelio.app.ui.command.help.topicid") String topic) {
         if (topic == null) {
             helpService.displayHelp();
         } else {

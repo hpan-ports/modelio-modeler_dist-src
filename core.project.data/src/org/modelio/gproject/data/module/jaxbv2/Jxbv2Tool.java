@@ -47,7 +47,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  * &lt;sequence>
  * &lt;element name="Jxbv2Scope-source" type="{}_Scope" maxOccurs="unbounded" minOccurs="0"/>
- * &lt;element name="Jxbv2Scope-target" type="{}_Scope" maxOccurs="unbounded"/>
+ * &lt;element name="Jxbv2Scope-target" type="{}_Scope" maxOccurs="unbounded" minOccurs="0"/>
  * &lt;element name="Jxbv2Handler" type="{}_Handler"/>
  * &lt;/sequence>
  * &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -88,7 +88,7 @@ public class Jxbv2Tool {
     protected List<Jxbv2Scope> scopeSource;
 
     @objid ("03e46797-9635-4470-93c2-28b2d41a160c")
-    @XmlElement(name = "Scope-target", required = true)
+    @XmlElement(name = "Scope-target")
     protected List<Jxbv2Scope> scopeTarget;
 
     @objid ("93e0cd13-d39a-40f8-b712-b386335cbe1a")

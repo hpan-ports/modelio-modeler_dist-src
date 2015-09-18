@@ -57,21 +57,77 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
     @objid ("b5d03dda-84a8-47ae-bb4c-acdaeca47e0a")
     private IFigure highlight = null;
 
-    @objid ("7e4fd3cb-1dec-11e2-8cad-001ec947c8cc")
+    @objid ("7e523641-1dec-11e2-8cad-001ec947c8cc")
     @Override
-    protected Command getCreateCommand(CreateRequest request) {
-        if (request.getNewObjectType() instanceof String) {
-            final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-            final MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
+    public void eraseTargetFeedback(Request request) {
+        if (REQ_ADD.equals(request.getType()) || REQ_CREATE.equals(request.getType())) {
         
-            final GmCompositeNode gmGroup = (GmCompositeNode) getHost().getModel();
-            final boolean returnCommand = MTools.getMetaTool().canCompose(gmGroup.getRelatedElement(), metaclassToCreate, null);
-            if (returnCommand) {
-        
-                return new DefaultCreateElementCommand(gmGroup, ctx, Integer.valueOf(-1));
+            if (this.highlight != null) {
+                removeFeedback(this.highlight);
+                this.highlight = null;
             }
         }
+        
+        super.eraseTargetFeedback(request);
+    }
+
+    @objid ("7e4fd3f4-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    public EditPart getTargetEditPart(Request request) {
+        if (REQ_CREATE.equals(request.getType())) {
+            final CreateRequest createRequest = (CreateRequest) request;
+            return getTargetEditPart(createRequest);
+        }
+        if (REQ_ADD.equals(request.getType()) || REQ_CLONE.equals(request.getType()) || REQ_MOVE.equals(request.getType())) {
+            final ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
+            return getTargetEditPart(changeBoundsRequest);
+        }
         return null;
+    }
+
+    @objid ("7e52363b-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    public void showTargetFeedback(Request request) {
+        if (REQ_ADD.equals(request.getType()) || REQ_CREATE.equals(request.getType())) {
+        
+            // compute highlight type
+            final Command c = getCommand(request);
+            FigureUtilities2.HighlightType hightlightType = FigureUtilities2.HighlightType.INFO;
+            if (c == null) {
+                hightlightType = FigureUtilities2.HighlightType.ERROR;
+            } else if (c.canExecute()) {
+                hightlightType = FigureUtilities2.HighlightType.SUCCESS;
+            } else {
+                hightlightType = FigureUtilities2.HighlightType.WARNING;
+            }
+        
+            // create a highlight figure if it does not exist
+            if (this.highlight == null) {
+                this.highlight = FigureUtilities2.createHighlightFigure(getFeedbackLayer(), getHostFigure(), hightlightType);
+        
+                // add the highlight figure to the feedback layer
+                getFeedbackLayer().add(this.highlight);
+            }
+            // configure the highlight figure
+            FigureUtilities2.updateHighlightType(this.highlight, hightlightType);
+        }
+        super.showTargetFeedback(request);
+    }
+
+    /**
+     * Returns whether this edit policy can handle this metaclass (either through simple or smart behavior). Default behavior is to
+     * accept any metaclass that can be child (in the CreationExpert's understanding) of the host's metaclass This method should be
+     * overridden by subclasses to add specific the behavior.
+     * @param metaclass the metaclass to handle.
+     * @return true if this policy can handle the metaclass.
+     */
+    @objid ("7e4fd3ec-1dec-11e2-8cad-001ec947c8cc")
+    protected boolean canHandle(MClass metaclass) {
+        final GmCompositeNode node = (GmCompositeNode) getHost().getModel();
+        if (!node.canCreate(Metamodel.getJavaInterface(metaclass))) {
+            return false;
+        }
+        return MTools.getMetaTool().canCompose(node.getRelatedElement(), metaclass, null);
     }
 
     @objid ("7e4fd3d5-1dec-11e2-8cad-001ec947c8cc")
@@ -79,6 +135,41 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
     protected Command createAddCommand(EditPart child, EditPart after) {
         final GmCompositeNode gmNode = (GmCompositeNode) getHost().getModel();
         return new DefaultReparentElementCommand(gmNode.getRelatedElement(), gmNode, (GmNodeModel) child.getModel(), null);
+    }
+
+    @objid ("7e523647-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected EditPolicy createChildEditPolicy(EditPart child) {
+        return new DefaultNodeNonResizableEditPolicy();
+    }
+
+    @objid ("7e523624-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected Command createMoveChildCommand(EditPart child, EditPart after) {
+        if (child instanceof GmNodeEditPart) {
+            final GmGroupMoveChildCommand command = new GmGroupMoveChildCommand();
+            command.setChild(child.getModel());
+            command.setAfter(after.getModel());
+            return command;
+        }
+        return null;
+    }
+
+    @objid ("7e523651-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected Command getAddCommand(final Request req) {
+        ChangeBoundsRequest request = (ChangeBoundsRequest) req;
+        List<?> editParts = request.getEditParts();
+        CompoundCommand command = new CompoundCommand();
+        for (int i = 0; i < editParts.size(); i++) {
+            EditPart child = (EditPart) editParts.get(i);
+            if (child instanceof ConnectionEditPart) {
+                command.add(child.getCommand(req));
+            } else {
+                command.add(createAddCommand(child, getInsertionReference(request)));
+            }
+        }
+        return command.unwrap();
     }
 
     @objid ("7e4fd3e2-1dec-11e2-8cad-001ec947c8cc")
@@ -107,34 +198,32 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
         return null;
     }
 
-    /**
-     * Returns whether this edit policy can handle this metaclass (either through simple or smart behavior). Default behavior is to
-     * accept any metaclass that can be child (in the CreationExpert's understanding) of the host's metaclass This method should be
-     * overridden by subclasses to add specific the behavior.
-     * @param metaclass the metaclass to handle.
-     * @return true if this policy can handle the metaclass.
-     */
-    @objid ("7e4fd3ec-1dec-11e2-8cad-001ec947c8cc")
-    protected boolean canHandle(MClass metaclass) {
-        final GmCompositeNode node = (GmCompositeNode) getHost().getModel();
-        if (!node.canCreate(Metamodel.getJavaInterface(metaclass))) {
-            return false;
-        }
-        return MTools.getMetaTool().canCompose(node.getRelatedElement(), metaclass, null);
-    }
-
-    @objid ("7e4fd3f4-1dec-11e2-8cad-001ec947c8cc")
+    @objid ("7e4fd3cb-1dec-11e2-8cad-001ec947c8cc")
     @Override
-    public EditPart getTargetEditPart(Request request) {
-        if (REQ_CREATE.equals(request.getType())) {
-            final CreateRequest createRequest = (CreateRequest) request;
-            return getTargetEditPart(createRequest);
-        }
-        if (REQ_ADD.equals(request.getType()) || REQ_CLONE.equals(request.getType()) || REQ_MOVE.equals(request.getType())) {
-            final ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
-            return getTargetEditPart(changeBoundsRequest);
+    protected Command getCreateCommand(CreateRequest request) {
+        if (request.getNewObjectType() instanceof String) {
+            final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
+            final MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
+        
+            final GmCompositeNode gmGroup = (GmCompositeNode) getHost().getModel();
+            final boolean returnCommand = MTools.getMetaTool().canCompose(gmGroup.getRelatedElement(), metaclassToCreate, null);
+            if (returnCommand) {
+        
+                return new DefaultCreateElementCommand(gmGroup, ctx, Integer.valueOf(-1));
+            }
         }
         return null;
+    }
+
+    @objid ("7e523631-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected EditPart getInsertionReference(Request request) {
+        // TODO Always return the last child for the moment
+        final List<?> children = getHost().getChildren();
+        if (children.isEmpty()) {
+            return null;
+        }
+        return (EditPart) children.get(children.size() - 1);
     }
 
     /**
@@ -174,99 +263,13 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
                         && !(editPart instanceof ConnectionEditPart)) {
                     return null;
                 }
+            } else {
+                // Not a GmModel, probably a drawing : not handled
+                return null;
             }
         }
         // This policy can handle all elements of this request: handle it!
         return getHost();
-    }
-
-    @objid ("7e523624-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected Command createMoveChildCommand(EditPart child, EditPart after) {
-        if (child instanceof GmNodeEditPart) {
-            final GmGroupMoveChildCommand command = new GmGroupMoveChildCommand();
-            command.setChild(child.getModel());
-            command.setAfter(after.getModel());
-            return command;
-        }
-        return null;
-    }
-
-    @objid ("7e523631-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected EditPart getInsertionReference(Request request) {
-        // TODO Always return the last child for the moment
-        final List<?> children = getHost().getChildren();
-        if (children.isEmpty()) {
-            return null;
-        }
-        return (EditPart) children.get(children.size() - 1);
-    }
-
-    @objid ("7e52363b-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public void showTargetFeedback(Request request) {
-        if (REQ_ADD.equals(request.getType()) || REQ_CREATE.equals(request.getType())) {
-        
-            // compute highlight type
-            final Command c = getCommand(request);
-            FigureUtilities2.HighlightType hightlightType = FigureUtilities2.HighlightType.INFO;
-            if (c == null) {
-                hightlightType = FigureUtilities2.HighlightType.ERROR;
-            } else if (c.canExecute()) {
-                hightlightType = FigureUtilities2.HighlightType.SUCCESS;
-            } else {
-                hightlightType = FigureUtilities2.HighlightType.WARNING;
-            }
-        
-            // create a highlight figure if it does not exist
-            if (this.highlight == null) {
-                this.highlight = FigureUtilities2.createHighlightFigure(getFeedbackLayer(), getHostFigure(), hightlightType);
-        
-                // add the highlight figure to the feedback layer
-                getFeedbackLayer().add(this.highlight);
-            }
-            // configure the highlight figure
-            FigureUtilities2.updateHighlightType(this.highlight, hightlightType);
-        }
-        super.showTargetFeedback(request);
-    }
-
-    @objid ("7e523641-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public void eraseTargetFeedback(Request request) {
-        if (REQ_ADD.equals(request.getType()) || REQ_CREATE.equals(request.getType())) {
-        
-            if (this.highlight != null) {
-                removeFeedback(this.highlight);
-                this.highlight = null;
-            }
-        }
-        
-        super.eraseTargetFeedback(request);
-    }
-
-    @objid ("7e523647-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected EditPolicy createChildEditPolicy(EditPart child) {
-        return new DefaultNodeNonResizableEditPolicy();
-    }
-
-    @objid ("7e523651-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected Command getAddCommand(final Request req) {
-        ChangeBoundsRequest request = (ChangeBoundsRequest) req;
-        List<?> editParts = request.getEditParts();
-        CompoundCommand command = new CompoundCommand();
-        for (int i = 0; i < editParts.size(); i++) {
-            EditPart child = (EditPart) editParts.get(i);
-            if (child instanceof ConnectionEditPart) {
-                command.add(child.getCommand(req));
-            } else {
-                command.add(createAddCommand(child, getInsertionReference(request)));
-            }
-        }
-        return command.unwrap();
     }
 
 }

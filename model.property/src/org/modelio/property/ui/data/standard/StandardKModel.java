@@ -34,7 +34,6 @@ import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.core.ui.MetamodelLabels;
 import org.modelio.core.ui.ktable.IPropertyModel;
 import org.modelio.core.ui.ktable.types.IPropertyType;
-import org.modelio.core.ui.ktable.types.enumeration.EnumType;
 import org.modelio.core.ui.ktable.types.header.HeaderType;
 import org.modelio.core.ui.ktable.types.hybrid.HybridCellEditor;
 import org.modelio.core.ui.ktable.types.label.LabelType;
@@ -65,10 +64,10 @@ public class StandardKModel extends KTableDefaultModel {
     private KTableCellEditor currentEditor = null;
 
     @objid ("86ac3ee1-cf24-11e1-80a9-002564c97630")
-    private ICoreSession modelingSession;
+    private final ICoreSession modelingSession;
 
     @objid ("06fc5b1b-16d1-11e2-aa0d-002564c97630")
-    private IModelioPickingService pickingService;
+    private final IModelioPickingService pickingService;
 
     /**
      * Constructor initializing the KTable model.
@@ -151,7 +150,7 @@ public class StandardKModel extends KTableDefaultModel {
         
         renderer = type.getRenderer();
         if (renderer != null) {
-            renderer.setBackground((row % 2 == 0) ? this.oddColor : this.evenColor);
+            renderer.setBackground(row % 2 == 0 ? this.oddColor : this.evenColor);
         }
         return renderer;
     }
@@ -169,7 +168,7 @@ public class StandardKModel extends KTableDefaultModel {
         
         try {
             value = this.data.getValueAt(row, col);
-        } catch (RuntimeException e) {
+        } catch (final RuntimeException e) {
             ModelProperty.LOG.error(e);
             return "<!"+e.getClass().getSimpleName()+"!>";
         }
@@ -178,7 +177,6 @@ public class StandardKModel extends KTableDefaultModel {
         String key = null;
         Object label = value;
         
-        final IPropertyType type = this.data.getTypeAt(row, col);
         
         if (col == 0) {
             key = (String) value;
@@ -190,9 +188,6 @@ public class StandardKModel extends KTableDefaultModel {
             }
         } else if (row == 0) {
             key = (String) value;
-            i18n = true;
-        } else if (type instanceof EnumType) {
-            key = ((Enum<?>) value).toString();
             i18n = true;
         }
         
@@ -226,7 +221,7 @@ public class StandardKModel extends KTableDefaultModel {
         try (ITransaction t = this.modelingSession.getTransactionSupport().createTransaction("doSetContentAt")) {
             this.data.setValueAt(row, col, value);
             t.commit();
-        } 
+        }
         
         if (!this.table.isDisposed()) {
             this.table.redraw();
@@ -250,8 +245,9 @@ public class StandardKModel extends KTableDefaultModel {
     @objid ("8dd6c165-c068-11e1-8c0a-002564c97630")
     @Override
     public int getInitialRowHeight(int row) {
-        if (row == 0) 
+        if (row == 0) {
             return 22;
+        }
         
         int ret = 18;
         
@@ -260,17 +256,20 @@ public class StandardKModel extends KTableDefaultModel {
         GC gc = null;
         try {
             for (int col = getFixedColumnCount(); col<getColumnCount(); col++) {
-                Object val = getContentAt(1, row);
+                final Object val = getContentAt(1, row);
                 if (val instanceof String) {
-                    if (gc==null) 
+                    if (gc==null) {
                         gc = new GC(this.table);
+                    }
                     // Assumes the cell renderer uses the default font...
-                    int cell = SWTX.getCachedStringExtent(gc, val.toString()).y + 2;
+                    final int cell = SWTX.getCachedStringExtent(gc, val.toString()).y + 2;
                     ret  = Math.max(cell, ret);
-                } 
+                }
             }
         } finally {
-            if (gc != null) gc.dispose();
+            if (gc != null) {
+                gc.dispose();
+            }
         }
         return ret;
     }

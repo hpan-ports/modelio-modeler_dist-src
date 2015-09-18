@@ -42,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008e2808-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnImplicitThrowEventImpl extends BpmnThrowEventImpl implements BpmnImplicitThrowEvent {
-    @objid ("6092f0c6-5645-4aef-a6d3-fb847ef37e79")
+    @objid ("f01221f2-66b2-4e38-a60a-31cdb072fefa")
     @Override
     public BpmnComplexBehaviorDefinition getOwner() {
         return (BpmnComplexBehaviorDefinition) getDepVal(BpmnImplicitThrowEventData.Metadata.OwnerDep());
     }
 
-    @objid ("a8ccf7de-3d4e-4b92-8b25-ec3c9e24adbd")
+    @objid ("7408a935-65d8-432d-b8a2-7bedcbe90a77")
     @Override
     public void setOwner(BpmnComplexBehaviorDefinition value) {
         appendDepVal(BpmnImplicitThrowEventData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("02170902-d43b-47ee-a6c0-53129dbc2159")
+    @objid ("983cb0c8-3fb7-4458-97eb-d945516049dc")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -64,7 +64,7 @@ public class BpmnImplicitThrowEventImpl extends BpmnThrowEventImpl implements Bp
         return super.getCompositionOwner();
     }
 
-    @objid ("773a1189-a090-4a01-a65a-09f5cf4ef237")
+    @objid ("e8cff74d-9317-47e7-a3a2-cd2cd1e5be34")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -74,7 +74,7 @@ public class BpmnImplicitThrowEventImpl extends BpmnThrowEventImpl implements Bp
         return super.getCompositionRelation();
     }
 
-    @objid ("ec7af69f-63d7-4c4c-ad96-7ce6b6eae5cf")
+    @objid ("f32f36ea-ae57-42c2-a2c2-78049fcafc8a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnImplicitThrowEvent(this);

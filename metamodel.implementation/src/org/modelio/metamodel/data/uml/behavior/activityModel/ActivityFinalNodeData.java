@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0027e354-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ActivityFinalNode.class, factory=ActivityFinalNodeData.Metadata.ObjectFactory.class)
 public class ActivityFinalNodeData extends FinalNodeData {
-    @objid ("9cbb2035-066d-4d2d-adeb-345dbbc6a38c")
+    @objid ("54b6d193-4b05-44ba-b138-d0b394c4e762")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00107638-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("d76d3676-b2cf-4dfe-8a76-02c6cc1166bd")
+        @objid ("5cea7524-c330-4fa8-ba3e-acb4189a365f")
         private static SmClass smClass = null;
 
-        @objid ("f1474032-4cc9-4fd9-866c-91992c290915")
+        @objid ("942c7764-3adc-40ec-8afc-b3a2525d6c27")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ActivityFinalNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("e41506f0-eb16-4e45-8a64-10488bb6f2e6")
+        @objid ("6d0144cc-528c-418b-8ba4-9ab73be461b6")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ActivityFinalNodeData extends FinalNodeData {
 
         @objid ("0010b878-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("f422424c-a751-4388-b4ac-23cd1275ba12")
+            @objid ("90f84684-cec2-4944-97cd-e48c685efa25")
             public ISmObjectData createData() {
                 return new ActivityFinalNodeData();
             }
 
-            @objid ("ccbba99c-e4ab-42bc-aa90-51d2fa4a45cd")
+            @objid ("46ae939f-860c-40f3-b3d8-610d9999b40a")
             public SmObjectImpl createImpl() {
                 return new ActivityFinalNodeImpl();
             }

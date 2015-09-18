@@ -34,34 +34,34 @@ import org.modelio.metamodel.uml.behavior.interactionModel.InteractionUse;
 
 @objid ("004545ca-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Gate extends MessageEnd {
-    @objid ("d0d988f8-f9c1-4c67-b86c-0d30cb310f92")
+    @objid ("ebb805b9-2763-4d33-9eef-d4782847b5f3")
     InteractionUse getOwnerUse();
 
-    @objid ("1a930322-6ab5-40b9-bf7b-0a826dd61258")
+    @objid ("1d1fbde2-ef82-48cc-a384-4e317a7fa278")
     void setOwnerUse(InteractionUse value);
 
-    @objid ("eec10608-5700-4128-ae01-0d42b4475e1d")
+    @objid ("fefc0e76-ebac-40de-8ce4-8317889764a8")
     EList<Gate> getActual();
 
-    @objid ("64fe183f-c51d-405e-bf75-c7e258561904")
+    @objid ("fd45009c-e492-44df-b833-efb2e5b1224d")
     <T extends Gate> List<T> getActual(java.lang.Class<T> filterClass);
 
-    @objid ("a1093df4-f9e2-4fdb-87c9-70de3095b6c9")
+    @objid ("10f030c8-a6fe-4b9a-a694-64104bb50f67")
     Interaction getOwnerInteraction();
 
-    @objid ("dbac7e01-ff00-46ea-9c3d-35d3da5453b9")
+    @objid ("bb4b14e4-8c41-44aa-89f5-ccd3c457e95d")
     void setOwnerInteraction(Interaction value);
 
-    @objid ("df312755-bdbc-40ed-bef9-f7dd00b3589c")
+    @objid ("056d7a79-d5a3-4904-a316-7ce3a12889cf")
     CombinedFragment getOwnerFragment();
 
-    @objid ("0abf1d51-c355-4a19-bbc3-57b1f0acb11c")
+    @objid ("90d6e169-b792-4955-8064-844703fb3fc7")
     void setOwnerFragment(CombinedFragment value);
 
-    @objid ("014b727b-4f7a-4d3a-803c-dddcee553817")
+    @objid ("afe92712-0684-47b8-8f33-1b0155299f98")
     Gate getFormal();
 
-    @objid ("fc17cf52-727f-456d-b19d-743364d46bf8")
+    @objid ("8b5f02a5-6f14-45a3-a984-5d9aa2ad875e")
     void setFormal(Gate value);
 
 }

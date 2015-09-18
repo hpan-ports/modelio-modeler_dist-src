@@ -255,7 +255,7 @@ public class Version {
     @objid ("063d7a2c-c9cc-11e1-8052-001ec947ccaf")
     @Override
     public String toString() {
-        StringBuffer stringBuf = new StringBuffer();
+        StringBuilder stringBuf = new StringBuilder();
         stringBuf.append(this.majorVersion);
         stringBuf.append('.');
         stringBuf.append(this.minorVersion);
@@ -319,7 +319,7 @@ public class Version {
      */
     @objid ("5de000a8-66df-4b8a-9095-015af24b6505")
     public String toString(String format) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         
         for (char c : format.toUpperCase().toCharArray()) {
             switch (c) {

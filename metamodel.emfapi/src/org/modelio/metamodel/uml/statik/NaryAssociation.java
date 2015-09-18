@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.statik.NaryLink;
 
 @objid ("0021601a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NaryAssociation extends ModelElement {
-    @objid ("13f8fed4-a708-467b-a3f3-a9e7fdf9e769")
+    @objid ("c7b52dfe-61f1-49f1-94ab-23499c96f0b1")
     EList<NaryLink> getOccurence();
 
-    @objid ("c90c35e6-6738-44d2-b874-efa110b7ce62")
+    @objid ("3290cb14-f0b7-4241-b51e-145fca16a26e")
     <T extends NaryLink> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("d183748d-8488-4d28-b39e-b595ba365e69")
+    @objid ("d932436f-f425-4082-ade6-88547f08753c")
     EList<NaryAssociationEnd> getNaryEnd();
 
-    @objid ("faad1f68-00a1-4e7f-9e46-2b6e50766d6f")
+    @objid ("7219fb07-741d-4296-acb0-091879e1daf2")
     <T extends NaryAssociationEnd> List<T> getNaryEnd(java.lang.Class<T> filterClass);
 
-    @objid ("7c01e47b-718f-4e31-a765-d85aa153b598")
+    @objid ("066c933a-c598-41c7-85e2-e916be2b2034")
     ClassAssociation getLinkToClass();
 
-    @objid ("30404601-7815-4f8f-969a-7d2fca58e2d0")
+    @objid ("837a400e-3edc-48df-9739-23ab8ab9c2c6")
     void setLinkToClass(ClassAssociation value);
 
 }

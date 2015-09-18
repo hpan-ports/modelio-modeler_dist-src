@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("002ee852-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ControlNode.class, factory=ControlNodeData.Metadata.ObjectFactory.class)
 public abstract class ControlNodeData extends ActivityNodeData {
-    @objid ("f51e6ab9-d284-480d-8a84-c60fca26447a")
+    @objid ("b16df411-6eca-4dcf-86b3-33c6edc9217e")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008d9cd0-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("6b7424ae-10d6-4826-8da1-fc50fca5bd5f")
+        @objid ("182beb5c-d347-44e6-ada4-e3f87e00b77e")
         private static SmClass smClass = null;
 
-        @objid ("f7b45ca4-64cf-4d60-8cb2-df018fe7a7e3")
+        @objid ("9ddf596b-4ee7-4a5f-ab4d-999519398c7d")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ControlNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("93f56806-a758-40d5-bdb5-06c1b4a383aa")
+        @objid ("410a0069-49c0-4ee2-9204-8529adb9dfd4")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public abstract class ControlNodeData extends ActivityNodeData {
 
         @objid ("008de078-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("5ece560f-311d-4b3b-821e-1cc98beaed04")
+            @objid ("b9df62fb-4287-4eeb-bcec-39da32f2e757")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("2c259358-9768-47c0-8fc5-b94f906ca402")
+            @objid ("193a3c72-036e-4794-88f3-c3997e3fdf23")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }

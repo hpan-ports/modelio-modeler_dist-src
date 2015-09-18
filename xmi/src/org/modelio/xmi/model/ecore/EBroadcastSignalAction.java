@@ -28,8 +28,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.SendSignalAction;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("e5b9ff4a-ade7-4a5c-80bd-6fc3af9326dd")
 public class EBroadcastSignalAction extends EActivityNode {

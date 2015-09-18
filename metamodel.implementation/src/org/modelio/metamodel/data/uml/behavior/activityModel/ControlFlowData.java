@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("002e4dac-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ControlFlow.class, factory=ControlFlowData.Metadata.ObjectFactory.class)
 public class ControlFlowData extends ActivityEdgeData {
-    @objid ("c5fada13-a50b-445e-b820-7f6bccfd152a")
+    @objid ("44365901-0de4-4790-9e09-5302b77272da")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00415adc-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("ac9255d9-f3bc-4ab3-82d5-ede7b14af6d8")
+        @objid ("e6fe7c75-ef99-4a33-8557-4a34e414e9ad")
         private static SmClass smClass = null;
 
-        @objid ("8a30a6b1-5aeb-4398-9ddc-97ad85dd468c")
+        @objid ("257df2da-1e30-4c61-8ab1-54bb6df4e8f3")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ControlFlowData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("99801029-dfb1-4943-a107-e94a156b253e")
+        @objid ("dc5b53cc-45aa-4a00-914c-e2e45ccd64d0")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ControlFlowData extends ActivityEdgeData {
 
         @objid ("0041a870-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("fb420cf2-bead-4139-a59a-5d73dfa32cae")
+            @objid ("63b87de2-0613-4585-ae08-a895c4f17233")
             public ISmObjectData createData() {
                 return new ControlFlowData();
             }
 
-            @objid ("f5ac1613-4a1c-423b-aaa6-45d9ce33b6f3")
+            @objid ("1a536818-873c-472f-b32a-ef8c600b3a2c")
             public SmObjectImpl createImpl() {
                 return new ControlFlowImpl();
             }

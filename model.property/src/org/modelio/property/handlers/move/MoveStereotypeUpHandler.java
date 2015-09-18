@@ -23,12 +23,10 @@ package org.modelio.property.handlers.move;
 
 import java.util.List;
 import javax.inject.Inject;
-import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -55,28 +53,26 @@ public class MoveStereotypeUpHandler {
      */
     @objid ("98ec54d1-d469-4a48-97a7-23261f1a0bb0")
     @CanExecute
-    public final boolean canExecute(@Named(IServiceConstants.ACTIVE_PART) final MPart part) {
-        if (!(part.getObject() instanceof PropertyView)) {
-            return false;
-        }
-        
+    public final boolean canExecute(final MPart part) {
         // Sanity checks
         if (this.projectService.getSession() == null) {
             return false;
         }
         
-        ModelPropertyPanelProvider propertyPanel = ((PropertyView) part.getObject()).getPanel();
+        final ModelPropertyPanelProvider propertyPanel = ((PropertyView) part.getObject()).getPanel();
         if (propertyPanel == null) {
             return false;
         }
-        Element parentElement = propertyPanel.getInput();
+        final Element parentElement = propertyPanel.getInput();
         if (parentElement == null || !parentElement.isModifiable()) {
             return false;
         }
         
-        List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
-        if (selectedElements.isEmpty()) return false;
-        for (ModelElement element : selectedElements) {            
+        final List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
+        if (selectedElements.isEmpty()) {
+            return false;
+        }
+        for (final ModelElement element : selectedElements) {
             if (!(element instanceof Stereotype)) {
                 return false;
             }
@@ -90,23 +86,23 @@ public class MoveStereotypeUpHandler {
      */
     @objid ("8f1e5ccf-8490-47bf-9bf3-a2957a2af962")
     @Execute
-    public final void execute(@Named(IServiceConstants.ACTIVE_PART) final MPart part) {
-        ICoreSession session = this.projectService.getSession();
+    public final void execute(final MPart part) {
+        final ICoreSession session = this.projectService.getSession();
         
-        ModelPropertyPanelProvider propertyPanel = ((PropertyView) part.getObject()).getPanel();
+        final ModelPropertyPanelProvider propertyPanel = ((PropertyView) part.getObject()).getPanel();
         
-        List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
+        final List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
         
-        ModelElement parentElement = (ModelElement) propertyPanel.getInput();
+        final ModelElement parentElement = (ModelElement) propertyPanel.getInput();
         
         try (ITransaction transaction = session.getTransactionSupport().createTransaction("Move stereotype up")) {
             int nbToMove = 0;
-            
-            List<Stereotype> listToReorder = parentElement.getExtension();
         
-            for (ModelElement element : selectedElements) {
+            final List<Stereotype> listToReorder = parentElement.getExtension();
         
-                int index = getIndexUp((Stereotype)element, listToReorder);
+            for (final ModelElement element : selectedElements) {
+        
+                final int index = getIndexUp((Stereotype)element, listToReorder);
         
                 if (index != -1) {
                     nbToMove++;
@@ -120,9 +116,9 @@ public class MoveStereotypeUpHandler {
             if (nbToMove > 0) {
                 transaction.commit();
             } else {
-                transaction.rollback();        
+                transaction.rollback();
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Should catch InvalidModelManipulationException to display a popup box, but it
             // is not a RuntimeException.
             reportException(e);
@@ -149,7 +145,7 @@ public class MoveStereotypeUpHandler {
     @objid ("66ab53e0-b506-4163-8af8-cbc000cdbc0e")
     static void reportException(Exception e) {
         // Show an error box
-        String title = ModelProperty.I18N.getMessage("CannotMoveStereotypeUp");
+        final String title = ModelProperty.I18N.getMessage("CannotMoveStereotypeUp");
         
         MessageDialog.openError(null, title, e.getLocalizedMessage());
         

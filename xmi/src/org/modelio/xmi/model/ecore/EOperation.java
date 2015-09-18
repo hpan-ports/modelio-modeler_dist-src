@@ -26,9 +26,7 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.MethodPassingMode;
 import org.modelio.metamodel.uml.statik.Operation;
-import org.modelio.xmi.reverse.PartialImportMap;
-import org.modelio.xmi.reverse.TotalImportMap;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("fef74c9e-d707-41ad-a875-96d1584e305f")
 public class EOperation extends EBehavioralFeature {
@@ -53,11 +51,8 @@ public class EOperation extends EBehavioralFeature {
                 .getMappedElement(ecoreOwner);
         
         if (objingOwner instanceof Classifier){
-            ((Operation) objingElt).setOwner((Classifier) objingOwner);
-        
+            ((Operation) objingElt).setOwner((Classifier) objingOwner);       
         }else {
-            PartialImportMap.getInstance().remove(ecoreElement);
-            TotalImportMap.getInstance().remove(ecoreElement);
             objingElt.delete();
         }
     }

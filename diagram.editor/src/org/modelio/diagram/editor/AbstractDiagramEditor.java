@@ -48,9 +48,9 @@ import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.EContextService;
+import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
@@ -79,10 +79,7 @@ import org.eclipse.gef.ui.properties.UndoablePropertySheetPage;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -122,6 +119,7 @@ import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
 import org.modelio.vcore.session.api.model.change.IModelChangeListener;
 import org.modelio.vcore.session.api.model.change.IStatusChangeEvent;
 import org.modelio.vcore.session.api.model.change.IStatusChangeListener;
+import org.modelio.vcore.smkernel.mapi.MObject;
 import org.osgi.framework.Bundle;
 
 /**
@@ -131,7 +129,7 @@ import org.osgi.framework.Bundle;
 public abstract class AbstractDiagramEditor implements IModelChangeListener, IEditPartAbstractFactory, IDiagramEditor, IStatusChangeListener, CommandStackListener {
     @objid ("65741afb-33f7-11e2-95fe-001ec947c8cc")
     private static final double[] zoomLevels = { 0.25, 0.50, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5,
-			3.75, 4.0 };
+        3.75, 4.0 };
 
     @objid ("7a3b1c18-5e25-11e2-a8be-00137282c51b")
     private GraphicalViewer graphicalViewer;
@@ -410,8 +408,9 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
      */
     @objid ("65767d58-33f7-11e2-95fe-001ec947c8cc")
     protected ActionRegistry getActionRegistry() {
-        if (this.actionRegistry == null)
+        if (this.actionRegistry == null) {
             this.actionRegistry = new ActionRegistry();
+        }
         return this.actionRegistry;
     }
 
@@ -425,7 +424,6 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
      * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
      */
     @objid ("65767d5d-33f7-11e2-95fe-001ec947c8cc")
-    @SuppressWarnings("rawtypes")
     @Override
     public Object getAdapter(Class type) {
         if (type == ZoomManager.class) {
@@ -439,16 +437,21 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
             return new UndoablePropertySheetPage(getCommandStack(), getActionRegistry().getAction(ActionFactory.UNDO.getId()),
                     getActionRegistry().getAction(ActionFactory.REDO.getId()));
         }
-        if (type == GraphicalViewer.class)
+        if (type == GraphicalViewer.class) {
             return getGraphicalViewer();
-        if (type == CommandStack.class)
+        }
+        if (type == CommandStack.class) {
             return getCommandStack();
-        if (type == ActionRegistry.class)
+        }
+        if (type == ActionRegistry.class) {
             return getActionRegistry();
-        if (type == EditPart.class && getGraphicalViewer() != null)
+        }
+        if (type == EditPart.class && getGraphicalViewer() != null) {
             return getGraphicalViewer().getRootEditPart();
-        if (type == IFigure.class && getGraphicalViewer() != null)
+        }
+        if (type == IFigure.class && getGraphicalViewer() != null) {
             return ((GraphicalEditPart) getGraphicalViewer().getRootEditPart()).getFigure();
+        }
         return null;
     }
 
@@ -521,8 +524,9 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
      */
     @objid ("65767d8d-33f7-11e2-95fe-001ec947c8cc")
     protected final PaletteViewerProvider getPaletteViewerProvider() {
-        if (this.provider == null)
+        if (this.provider == null) {
             this.provider = createPaletteViewerProvider();
+        }
         return this.provider;
     }
 
@@ -576,8 +580,9 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
      */
     @objid ("6578dfb1-33f7-11e2-95fe-001ec947c8cc")
     protected SelectionSynchronizer getSelectionSynchronizer() {
-        if (this.synchronizer == null)
+        if (this.synchronizer == null) {
             this.synchronizer = new SelectionSynchronizer();
+        }
         return this.synchronizer;
     }
 
@@ -604,12 +609,7 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     protected void hookGraphicalViewer() {
         getSelectionSynchronizer().addViewer(getGraphicalViewer());
         
-        getGraphicalViewer().addSelectionChangedListener(new ISelectionChangedListener() {
-            @Override
-            public void selectionChanged(SelectionChangedEvent event) {
-                AbstractDiagramEditor.this.selectionService.setSelection(event.getSelection());
-            }
-        });
+        getGraphicalViewer().addSelectionChangedListener(event -> AbstractDiagramEditor.this.selectionService.setSelection(event.getSelection()));
     }
 
     /**
@@ -701,25 +701,22 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
         // Re enter the UI thread
         Display display = Display.getDefault();
         if (display != null) {
-            display.asyncExec(new Runnable() {
-                @Override
-                public void run() {
-                    final AbstractDiagram diagram = getEditorInput().getDiagram();
-                    if (event.getDeleteEvents().size() != 0) {
-                        // Some elements were deleted: check for validity of the
-                        // diagram.
-                        if (diagram != null && !diagram.isValid()) {
-                            // The diagram in no longer valid, close the editor
-                            // use the PartService to close this editor
-                            AbstractDiagramEditor.this.partService.hidePart(getPart(), true);
-                            return;
-                        }
+            display.asyncExec(() -> {
+                final AbstractDiagram diagram = getEditorInput().getDiagram();
+                if (event.getDeleteEvents().size() != 0) {
+                    // Some elements were deleted: check for validity of the
+                    // diagram.
+                    if (diagram != null && !diagram.isValid()) {
+                        // The diagram in no longer valid, close the editor
+                        // use the PartService to close this editor
+                        AbstractDiagramEditor.this.partService.hidePart(getPart(), true);
+                        return;
                     }
-                    // At this point, we know that diagram is still valid,
-                    // update the editor's title.
-                    if (diagram != null) {
-                        getPart().setLabel(diagram.getName());
-                    }
+                }
+                // At this point, we know that diagram is still valid,
+                // update the editor's title.
+                if (diagram != null) {
+                    getPart().setLabel(diagram.getName());
                 }
             });
         }
@@ -727,8 +724,9 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
 
     @objid ("6578dfeb-33f7-11e2-95fe-001ec947c8cc")
     @PostConstruct
-    public void postConstruct(Composite composite, DiagramEditorInput diagramEditorInput, MPart mPart, IDiagramConfigurerRegistry configurerRegistry, ToolRegistry toolRegistry) {
+    public void postConstruct(Composite composite, DiagramEditorInput diagramEditorInput, MPart mPart, IDiagramConfigurerRegistry configurerRegistry, ToolRegistry toolRegistry, EMenuService menuService) {
         this.part = mPart;
+        this.menuService = menuService;
         
         if (diagramEditorInput != null) {
             // init
@@ -757,12 +755,7 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     public void onPickingStart(@EventTopic(ModelioEventTopics.PICKING_START) final IPickingSession session) {
         // FIXME this should be an @UIEventTopic, but they are not triggered
         // with eclipse 4.3 M5...
-        Display.getDefault().asyncExec(new Runnable() {
-            @Override
-            public void run() {
-                getEditDomain().setActiveTool(new PickingSelectionTool(session));
-            }
-        });
+        Display.getDefault().asyncExec(() -> getEditDomain().setActiveTool(new PickingSelectionTool(session)));
     }
 
     @objid ("76c9ecb8-dc7f-4493-8fe4-a68f66bc8c40")
@@ -772,12 +765,7 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     public void onPickingStop(@EventTopic(ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
         // FIXME this should be an @UIEventTopic, but they are not triggered
         // with eclipse 4.3 M5...
-        Display.getDefault().asyncExec(new Runnable() {
-            @Override
-            public void run() {
-                getEditDomain().setActiveTool(new PanSelectionTool());
-            }
-        });
+        Display.getDefault().asyncExec(() -> getEditDomain().setActiveTool(new PanSelectionTool()));
     }
 
     /**
@@ -853,12 +841,7 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
             // use the PartService to close this editor
             // Re enter the UI thread
             Display display = this.graphicalViewer.getControl().getDisplay();
-            display.asyncExec(new Runnable() {
-                @Override
-                public void run() {
-                    AbstractDiagramEditor.this.partService.hidePart(getPart(), true);
-                }
-            });
+            display.asyncExec(() -> AbstractDiagramEditor.this.partService.hidePart(getPart(), true));
         }
         this.modifIndicator.statusChanged();
     }
@@ -884,6 +867,33 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
 
     @objid ("6b1dd411-59bd-4cde-871a-ae072268c61c")
     protected abstract String getPopupId();
+
+    @objid ("240967b0-7531-41f4-a515-54a64fce0961")
+    @Inject
+    @Optional
+    void onNavigateElement(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final MObject element) {
+        final AbstractDiagram diagram = this.input.getDiagram();
+        if (element.equals(diagram)) {
+        
+            // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+            Display.getDefault().asyncExec(new Runnable() {
+        
+                @Override
+                public void run() {
+                    AbstractDiagramEditor.this.partService.activate(AbstractDiagramEditor.this.part);
+                }
+            });
+        }
+    }
+
+    @objid ("e5c2cec2-1dc7-4e6f-8ca7-5b3e8c4ce4ab")
+    @Inject
+    @Optional
+    void onNavigateElement(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final List<MObject> elements) {
+        if (elements.size() == 1) {
+            onNavigateElement(elements.get(0));
+        }
+    }
 
 
 {
@@ -953,13 +963,8 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
         protected void statusChanged() {
             if (this.diagram != null && this.label != null) {
                 final boolean isModifiable = IsModifiableIndicator.this.diagram.isModifiable();
-                
-                this.label.getDisplay().asyncExec(new Runnable() {
-                    @Override
-                    public void run() {
-                        IsModifiableIndicator.this.label.setImage(isModifiable ? modifiableImage : notModifiableImage);
-                    }
-                });
+            
+                this.label.getDisplay().asyncExec(() -> IsModifiableIndicator.this.label.setImage(isModifiable ? modifiableImage : notModifiableImage));
             }
         }
 
@@ -1018,17 +1023,14 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
                 lws.setContents(this.thumbnail);
             
                 // add a dispose listener for cleaning
-                this.disposeListener = new DisposeListener() {
-                    @Override
-                    public void widgetDisposed(DisposeEvent e) {
-                        if (OutlinePage.this.thumbnail != null) {
-                            OutlinePage.this.thumbnail.deactivate();
-                            OutlinePage.this.thumbnail = null;
-                        }
-                        OutlinePage.this.dispose(); // dispose the outline page to
-                        // avoid a graphical refresh
-                        // problem
+                this.disposeListener = e -> {
+                    if (OutlinePage.this.thumbnail != null) {
+                        OutlinePage.this.thumbnail.deactivate();
+                        OutlinePage.this.thumbnail = null;
                     }
+                    OutlinePage.this.dispose(); // dispose the outline page to
+                    // avoid a graphical refresh
+                    // problem
                 };
                 viewer.getControl().addDisposeListener(this.disposeListener);
             }
@@ -1079,14 +1081,14 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
         @Override
         public int getPaletteState() {
             return InstanceScope.INSTANCE.getNode(DiagramEditor.PLUGIN_ID).getInt(PALETTE_STATE,
-                    FlyoutPaletteComposite.STATE_PINNED_OPEN);
+                                            FlyoutPaletteComposite.STATE_PINNED_OPEN);
         }
 
         @objid ("6571b8d2-33f7-11e2-95fe-001ec947c8cc")
         @Override
         public int getPaletteWidth() {
             return InstanceScope.INSTANCE.getNode(DiagramEditor.PLUGIN_ID).getInt(PALETTE_SIZE,
-                    FlyoutPaletteComposite2.DEFAULT_PALETTE_SIZE);
+                                            FlyoutPaletteComposite2.DEFAULT_PALETTE_SIZE);
         }
 
         @objid ("6571b8d7-33f7-11e2-95fe-001ec947c8cc")

@@ -39,6 +39,7 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.modelio.diagram.editor.statik.elements.namespacinglink.CircleDeco;
+import org.modelio.diagram.editor.statik.elements.namespacinglink.GmCompositionLink;
 import org.modelio.diagram.elements.core.link.ConnectionRouterRegistry;
 import org.modelio.diagram.elements.core.link.CreateBendedConnectionRequest;
 import org.modelio.diagram.elements.core.link.GmPath;
@@ -98,7 +99,16 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else if (REQ_CONNECTION_END.equals(request.getType())) {
             return getTargetEditPartConnectionEnd((CreateConnectionRequest) request);
         }
-        return super.getTargetEditPart(request);
+        
+        if (REQ_RECONNECT_SOURCE.equals(request.getType())
+                || REQ_RECONNECT_TARGET.equals(request.getType())) {
+            ReconnectRequest req = (ReconnectRequest) request;
+        
+            // Handle reconnecting only for composition links
+            if (req.getConnectionEditPart().getModel() instanceof GmCompositionLink)
+                return getHost();
+        }
+        return null;
     }
 
     @objid ("35b42c4c-55b7-11e2-877f-002564c97630")
@@ -291,7 +301,7 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
     }
 
     /**
-     * @return
+     * @return the connection routers registry.
      */
     @objid ("35b5b2ef-55b7-11e2-877f-002564c97630")
     private ConnectionRouterRegistry getRouterRegistry() {

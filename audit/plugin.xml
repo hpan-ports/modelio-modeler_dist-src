@@ -12,5 +12,11 @@
             uri="e4model/auditui.e4xmi">
       </fragment>
    </extension>
+   <extension point="org.modelio.edition.dialogs.panels">
+      <panel class="org.modelio.audit.checker.CheckerPanelProvider"
+             id="edition.notes.panel1"
+             label="Audit">
+      </panel>
+   </extension>
 
 </plugin>

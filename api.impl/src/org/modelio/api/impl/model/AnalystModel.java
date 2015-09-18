@@ -1,9 +1,9 @@
 package org.modelio.api.impl.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
 import org.modelio.api.model.IAnalystModel;
 import org.modelio.api.model.IUmlModel;
 import org.modelio.metamodel.analyst.AnalystProject;
@@ -247,12 +247,11 @@ public class AnalystModel implements IAnalystModel {
     @objid ("62d5048e-0c59-468e-bacb-ad38a3019601")
     @Override
     public List<BusinessRuleContainer> getRootBusinessRuleContainer() {
-        final AnalystProject reqProject = this.getAnalystProject();
-        if (reqProject != null) {
-            return reqProject.getBusinessRuleRoot();
-        } else {
-            return null;
+        List<BusinessRuleContainer> ret = new ArrayList<>();
+        for (AnalystProject reqProject : this.getAnalystProject()) {
+            ret.addAll(reqProject.getBusinessRuleRoot());
         }
+        return ret;
     }
 
     /**
@@ -262,12 +261,11 @@ public class AnalystModel implements IAnalystModel {
     @objid ("2eaf79b8-79b0-4a09-a326-2aed7d8bb92f")
     @Override
     public List<Dictionary> getRootDictionary() {
-        final AnalystProject reqProject = this.getAnalystProject();
-        if (reqProject != null) {
-            return reqProject.getDictionaryRoot();
-        } else {
-            return null;
+        List<Dictionary> ret = new ArrayList<>();
+        for (AnalystProject reqProject : this.getAnalystProject()) {
+            ret.addAll(reqProject.getDictionaryRoot());
         }
+        return ret;
     }
 
     /**
@@ -278,12 +276,11 @@ public class AnalystModel implements IAnalystModel {
     @objid ("4b08ed2f-b477-4169-a43b-30375654b411")
     @Override
     public List<GoalContainer> getRootGoalContainer() {
-        final AnalystProject reqProject = this.getAnalystProject();
-        if (reqProject != null) {
-            return reqProject.getGoalRoot();
-        } else {
-            return null;
+        List<GoalContainer> ret = new ArrayList<>();
+        for (AnalystProject reqProject : this.getAnalystProject()) {
+            ret.addAll(reqProject.getGoalRoot());
         }
+        return ret;
     }
 
     /**
@@ -294,12 +291,11 @@ public class AnalystModel implements IAnalystModel {
     @objid ("f674fdc2-2569-4852-8815-2283a6e959c9")
     @Override
     public List<RequirementContainer> getRootRequirementContainer() {
-        final AnalystProject reqProject = this.getAnalystProject();
-        if (reqProject != null) {
-            return reqProject.getRequirementRoot();
-        } else {
-            return null;
+        List<RequirementContainer> ret = new ArrayList<>();
+        for (AnalystProject reqProject : this.getAnalystProject()) {
+            ret.addAll(reqProject.getRequirementRoot());
         }
+        return ret;
     }
 
     /**
@@ -313,12 +309,11 @@ public class AnalystModel implements IAnalystModel {
     @objid ("8f71e1fe-efdd-48dc-9d25-f4f597da9bd3")
     @Override
     public List<PropertyType> getPropertyTypes() {
-        AnalystProject reqProject = this.getAnalystProject();
-        if (reqProject != null) {
-            return reqProject.getPropertyRoot().getDefinedType();
-        } else {
-            return null;
+        List<PropertyType> ret = new ArrayList<>();
+        for (AnalystProject reqProject : this.getAnalystProject()) {
+            ret.addAll(reqProject.getPropertyRoot().getDefinedType());
         }
+        return ret;
     }
 
     /**
@@ -330,13 +325,12 @@ public class AnalystModel implements IAnalystModel {
      */
     @objid ("c173870f-714c-4422-91a8-07a0ebe42658")
     @Override
-    public EList<PropertyTableDefinition> getPropertySets() {
-        AnalystProject reqProject = this.getAnalystProject();
-        if (reqProject != null) {
-            return reqProject.getPropertyRoot().getDefinedTable();
-        } else {
-            return null;
+    public List<PropertyTableDefinition> getPropertySets() {
+        List<PropertyTableDefinition> ret = new ArrayList<>();
+        for (AnalystProject reqProject : this.getAnalystProject()) {
+            ret.addAll(reqProject.getPropertyRoot().getDefinedTable());
         }
+        return ret;
     }
 
     /**
@@ -351,9 +345,10 @@ public class AnalystModel implements IAnalystModel {
     @objid ("8adbcf55-aceb-4e37-a51d-1a174f409fa1")
     @Override
     public void addPropertyType(PropertyType type) {
-        AnalystProject reqProject = this.getAnalystProject();
-        if (reqProject != null)
+        for (AnalystProject reqProject : this.getAnalystProject()) {
             reqProject.getPropertyRoot().getDefinedType().add(type);
+            return;
+        }
     }
 
     /**
@@ -364,9 +359,11 @@ public class AnalystModel implements IAnalystModel {
     @objid ("eb68e0b0-9533-463e-8e20-5444a8c88864")
     @Override
     public void removePropertyType(PropertyType type) {
-        AnalystProject reqProject = this.getAnalystProject();
-        if (reqProject != null)
-            reqProject.getPropertyRoot().getDefinedType().remove(type);
+        for (AnalystProject reqProject : this.getAnalystProject()) {
+            if (reqProject.getPropertyRoot().getDefinedType().remove(type)) {
+                return;
+            }
+        }
     }
 
     /**
@@ -380,9 +377,10 @@ public class AnalystModel implements IAnalystModel {
     @objid ("ade919a2-9acc-4194-a688-64ed8e3bdd52")
     @Override
     public void addPropertySet(PropertyTableDefinition set) {
-        AnalystProject reqProject = this.getAnalystProject();
-        if (reqProject != null)
+        for (AnalystProject reqProject : this.getAnalystProject()) {
             reqProject.getPropertyRoot().getDefinedTable().add(set);
+            return;
+        }
     }
 
     /**
@@ -392,9 +390,11 @@ public class AnalystModel implements IAnalystModel {
     @objid ("4b925de0-bccd-424b-b645-6e114d271e1f")
     @Override
     public void removePropertySet(PropertyTableDefinition set) {
-        AnalystProject reqProject = this.getAnalystProject();
-        if (reqProject != null)
-            reqProject.getPropertyRoot().getDefinedTable().remove(set);
+        for (AnalystProject reqProject : this.getAnalystProject()) {
+            if (reqProject.getPropertyRoot().getDefinedTable().remove(set)) {
+                return;
+            }
+        }
     }
 
     /**
@@ -405,12 +405,14 @@ public class AnalystModel implements IAnalystModel {
      * @return the project
      */
     @objid ("b3f57eee-8f27-4d8a-a640-1add727ecf37")
-    private AnalystProject getAnalystProject() {
+    private List<AnalystProject> getAnalystProject() {
+        List<AnalystProject> ret = new ArrayList<>();
+        
         Collection<? extends MObject> findByClass = this.model.findByClass(SmClass.getClass(AnalystProject.class), IModel.ISVALID);
         for (MObject project : findByClass) {
-            return (AnalystProject) project;
+            ret.add((AnalystProject) project);
         }
-        return null;
+        return ret;
     }
 
     @objid ("75f5fcc1-d89a-4036-bb17-1304741b5a74")

@@ -42,7 +42,7 @@ public class CheckElementHandler {
     @Execute
     public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IAuditService auditService, Shell shell, @Optional IProjectService projectService, IMModelServices modelService, IModelioNavigationService navigationService, MApplication application, EModelService emService) {
         String jodId = getJobId();  
-        CheckerView view = new CheckerView(shell,projectService.getSession(),selection, modelService, navigationService,application, emService,auditService,projectService,jodId);
+        CheckerView view = new CheckerView(shell,selection, modelService, navigationService,application, emService,auditService,projectService,jodId);
         view.open();
     }
 

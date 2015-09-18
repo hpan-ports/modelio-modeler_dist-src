@@ -46,25 +46,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0059a6a0-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExtensionPointImpl extends ModelElementImpl implements ExtensionPoint {
-    @objid ("3968ef4e-a312-46cf-9b2d-3ffb6161e292")
+    @objid ("75ddb28f-8506-481e-8bf2-ae3ce37dc3e3")
     @Override
     public VisibilityMode getVisibility() {
         return (VisibilityMode) getAttVal(ExtensionPointData.Metadata.VisibilityAtt());
     }
 
-    @objid ("d0009374-ba91-4e12-b450-38b41a6a5a39")
+    @objid ("aff26095-56ea-4861-936f-cf5a919d7e42")
     @Override
     public void setVisibility(VisibilityMode value) {
         setAttVal(ExtensionPointData.Metadata.VisibilityAtt(), value);
     }
 
-    @objid ("bb9d53d4-0287-44de-8382-f2cfcc70ec5b")
+    @objid ("417db627-fd54-4a60-ae26-35bdd205b773")
     @Override
     public EList<UseCaseDependency> getExtended() {
         return new SmList<>(this, ExtensionPointData.Metadata.ExtendedDep());
     }
 
-    @objid ("68e7bee3-4aa0-4d93-ae44-b8f324df1abe")
+    @objid ("993e0275-3161-4c3e-a5d5-18149848a725")
     @Override
     public <T extends UseCaseDependency> List<T> getExtended(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -77,19 +77,19 @@ public class ExtensionPointImpl extends ModelElementImpl implements ExtensionPoi
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("811f1922-cdae-4411-be35-0b87afbba42d")
+    @objid ("87b404f8-078d-4686-9cd7-23ff85d5dff2")
     @Override
     public UseCase getOwner() {
         return (UseCase) getDepVal(ExtensionPointData.Metadata.OwnerDep());
     }
 
-    @objid ("86d274ff-c192-48d4-a432-4ceace8cafd9")
+    @objid ("62d622d5-9077-4b0e-a10a-5af9932e8e0e")
     @Override
     public void setOwner(UseCase value) {
         appendDepVal(ExtensionPointData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1daa2f17-e6ce-4629-9173-a9ecd33914a9")
+    @objid ("6177566b-34c2-44db-b326-d66db51d0643")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -99,7 +99,7 @@ public class ExtensionPointImpl extends ModelElementImpl implements ExtensionPoi
         return super.getCompositionOwner();
     }
 
-    @objid ("8e1c2e8e-c840-4f6a-8c9b-1586ba04eb94")
+    @objid ("99cee618-74e6-4ddf-b4dd-7b9c53744037")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -109,7 +109,7 @@ public class ExtensionPointImpl extends ModelElementImpl implements ExtensionPoi
         return super.getCompositionRelation();
     }
 
-    @objid ("1081058b-337d-49dc-abf7-3e712ee528fc")
+    @objid ("cdcc26b0-6189-4c47-af06-06b46d17fd4b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExtensionPoint(this);

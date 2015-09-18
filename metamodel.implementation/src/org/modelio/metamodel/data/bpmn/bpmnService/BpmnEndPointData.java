@@ -46,29 +46,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("000ef07e-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnEndPoint.class, factory=BpmnEndPointData.Metadata.ObjectFactory.class)
 public class BpmnEndPointData extends BpmnRootElementData {
-    @objid ("110450ef-567d-4fa4-a124-447bfec6cb9a")
+    @objid ("02eac3d7-80c1-42e5-ac17-42b7470f5196")
     @SmaMetaAssociation(metaName="ParticipantRefs", typeDataClass=BpmnParticipantData.class, min=0, max=-1, smAssociationClass=Metadata.ParticipantRefsSmDependency.class)
      List<SmObjectImpl> mParticipantRefs = null;
 
-    @objid ("f19b11c5-7b49-46b4-883e-2500e8eee90b")
+    @objid ("19a67504-6653-4c3f-8267-269683916f3a")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("007ef086-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("cafbd79e-4d52-44b9-af40-549db1ff18e8")
+        @objid ("4c19a2ee-1dd0-423a-bc5a-df56eb19af33")
         private static SmClass smClass = null;
 
-        @objid ("ad6e4587-709e-4ea5-87a4-dd875fe20979")
+        @objid ("96f16535-d80e-4001-994b-2915ed98e3f0")
         private static SmDependency ParticipantRefsDep = null;
 
-        @objid ("3693ce1a-b07f-47e0-a1c4-e3fdafb0fe42")
+        @objid ("6b574e8f-1a20-4519-8fce-a261a55d4ad5")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnEndPointData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("0e3599bb-c304-4b3d-ab5c-75826c001fa3")
+        @objid ("69cae2b5-31c9-4058-a2f2-4e826f259638")
         public static SmDependency ParticipantRefsDep() {
             if (ParticipantRefsDep == null) {
             	ParticipantRefsDep = classof().getDependencyDef("ParticipantRefs");
@@ -76,13 +76,13 @@ public class BpmnEndPointData extends BpmnRootElementData {
             return ParticipantRefsDep;
         }
 
-        @objid ("380eec92-1a46-42e7-a5eb-798f9e20ccc9")
+        @objid ("28173055-f368-480c-8b7f-cc4c104e358e")
         public static SmDependency getParticipantRefsDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ParticipantRefsDep;
         }
 
-        @objid ("46f1fa44-a305-4e06-836a-11437e5c4215")
+        @objid ("cf192ee5-b5ea-4bf7-9426-f92992872492")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -90,12 +90,12 @@ public class BpmnEndPointData extends BpmnRootElementData {
 
         @objid ("007f4068-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("432afc6b-0c90-4ba3-96a6-ad89d30b9272")
+            @objid ("91d0ac46-30dd-4338-9eb9-93d19e0e452b")
             public ISmObjectData createData() {
                 return new BpmnEndPointData();
             }
 
-            @objid ("ea848304-5053-4edc-8fc5-ec4e4b7b1d41")
+            @objid ("135a2e0a-d3f4-462f-975b-13170bb97fef")
             public SmObjectImpl createImpl() {
                 return new BpmnEndPointImpl();
             }
@@ -104,20 +104,20 @@ public class BpmnEndPointData extends BpmnRootElementData {
 
         @objid ("007fb336-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ParticipantRefsSmDependency extends SmMultipleDependency {
-            @objid ("30c3006a-576d-423c-996b-f69424ab835f")
+            @objid ("3027329e-f509-4335-8a86-228f9b9256c7")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnEndPointData)data).mParticipantRefs != null)? ((BpmnEndPointData)data).mParticipantRefs:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b04acce7-cdd0-49db-89f4-a47eb6854101")
+            @objid ("ff02f9fa-9b4f-4a20-9ad3-9d6010605a7c")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnEndPointData) data).mParticipantRefs = new ArrayList<>(initialCapacity);
                 return ((BpmnEndPointData) data).mParticipantRefs;
             }
 
-            @objid ("fdd7157a-d2c7-449e-87f7-9ab302ee32ba")
+            @objid ("9150c77f-9490-40dc-bb44-37fdefe169ab")
             @Override
             public SmDependency getSymetric() {
                 return BpmnParticipantData.Metadata.EndPointRefsDep();

@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.CallBehaviorAction;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.reverse.ReverseProperties;
 
 @objid ("0f17fcda-e812-4fc3-a6a0-6ce279fc50cc")
 public class ECallBehaviorAction extends EActivityNode {
@@ -36,7 +36,7 @@ public class ECallBehaviorAction extends EActivityNode {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createCallBehaviorAction();
+                        .createCallBehaviorAction();
     }
 
     @objid ("a3c6ee8f-b017-4885-9495-7e6d2194bf1a")

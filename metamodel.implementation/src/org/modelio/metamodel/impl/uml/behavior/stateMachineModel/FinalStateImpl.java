@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("005678d6-c4bf-1fd8-97fe-001ec947cd2a")
 public class FinalStateImpl extends StateImpl implements FinalState {
-    @objid ("a9669aae-1042-409f-922a-0ad2a4ef85e7")
+    @objid ("a495097b-b8c5-49f3-8183-dfe6a3de4e61")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("428a9dd2-119a-45a6-99d4-e45f14f9a490")
+    @objid ("ba9c0c9a-ade8-4333-b330-4756f8bef21d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("2f0735f6-23ab-4691-9067-a9ebe45ca23d")
+    @objid ("6a41d62e-2c75-4f68-9a04-ecc1e4e246d1")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitFinalState(this);

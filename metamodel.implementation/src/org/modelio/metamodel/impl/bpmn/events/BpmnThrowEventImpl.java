@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0095d2e2-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnThrowEventImpl extends BpmnEventImpl implements BpmnThrowEvent {
-    @objid ("8f931043-daa5-461b-a830-a47d795a9bee")
+    @objid ("5e9f0835-0c51-4592-a8f6-bbf457a43e3b")
     @Override
     public EList<BpmnDataAssociation> getDataInputAssociation() {
         return new SmList<>(this, BpmnThrowEventData.Metadata.DataInputAssociationDep());
     }
 
-    @objid ("8ad93fd2-e726-47ed-a4fe-893967fe365b")
+    @objid ("a5cb319c-53b4-49bf-8b32-e3aa8031e87e")
     @Override
     public <T extends BpmnDataAssociation> List<T> getDataInputAssociation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,33 +63,33 @@ public abstract class BpmnThrowEventImpl extends BpmnEventImpl implements BpmnTh
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("5de53c92-cb31-4ec0-abf1-bb4215213848")
+    @objid ("cedff99b-bc64-4b76-bfa6-3924ad2fdfb2")
     @Override
     public BpmnDataInput getDataInput() {
         return (BpmnDataInput) getDepVal(BpmnThrowEventData.Metadata.DataInputDep());
     }
 
-    @objid ("4508aa05-6d32-490c-a506-8bb700fb5a5d")
+    @objid ("f249b2a1-b8db-4838-9a16-2ecf7f89af15")
     @Override
     public void setDataInput(BpmnDataInput value) {
         appendDepVal(BpmnThrowEventData.Metadata.DataInputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("385c38c3-4297-436a-9092-773e038eeded")
+    @objid ("04ddf6a2-7fbf-42ab-a47a-8d5e1c83c3d2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0b26b6d7-0dba-4c22-b48c-29cf240ff1bb")
+    @objid ("32666c19-8863-4266-a0d4-4ca9d64fe7b4")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("be009042-d53f-4f92-aa32-10cc0b95a674")
+    @objid ("4408476a-5746-4af2-a25e-c6ca030343b9")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnThrowEvent(this);

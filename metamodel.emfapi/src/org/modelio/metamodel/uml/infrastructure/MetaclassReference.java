@@ -36,40 +36,40 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefiniti
 
 @objid ("0091820a-c4be-1fd8-97fe-001ec947cd2a")
 public interface MetaclassReference extends Element {
-    @objid ("878f583c-a94e-444f-9969-2e020b66626e")
+    @objid ("2918451e-ec6c-454a-8e60-b9916965206c")
     String getReferencedClassName();
 
-    @objid ("f70a3943-0325-428a-a669-d762665b75cb")
+    @objid ("50f6e073-7b6a-4dbb-9d8f-96892fa2c849")
     void setReferencedClassName(String value);
 
-    @objid ("8de7a0c6-9627-4fe0-8393-1b7c21529c70")
+    @objid ("1e248786-7b67-4fef-9f0e-325ec1fda1da")
     PropertyTableDefinition getDefinedTable();
 
-    @objid ("1d698c71-57e8-4799-8e04-4625469da7dd")
+    @objid ("5dda5d23-db5a-4a86-b77b-9cc887857426")
     void setDefinedTable(PropertyTableDefinition value);
 
-    @objid ("05c94415-328d-49e0-a46a-62b626fb92cb")
+    @objid ("90e8396c-52db-4f53-9cd2-7e579534636f")
     EList<NoteType> getDefinedNoteType();
 
-    @objid ("c30029d1-e1fa-494a-9aa3-355ec279c52b")
+    @objid ("d9ce180b-f461-4b43-853a-3a2a0cbe51ed")
     <T extends NoteType> List<T> getDefinedNoteType(java.lang.Class<T> filterClass);
 
-    @objid ("401398bb-bc61-4fe6-b5ff-40ab06646c69")
+    @objid ("5c4e1a14-13cb-49d3-a25f-51e0775d5368")
     EList<ExternDocumentType> getDefinedExternDocumentType();
 
-    @objid ("8e793a49-649e-4ccb-88f8-604241e29bde")
+    @objid ("3a13f0e3-c8a4-497e-bc5f-7760ed096c4b")
     <T extends ExternDocumentType> List<T> getDefinedExternDocumentType(java.lang.Class<T> filterClass);
 
-    @objid ("3f72080b-7b6a-4916-baa0-0d67c72ba96a")
+    @objid ("a566e422-3bde-4218-9432-5968b4646ae4")
     Profile getOwnerProfile();
 
-    @objid ("909cad0d-c767-4a06-84bb-4e1c7f7a82b5")
+    @objid ("d120777e-09dc-4777-aa1f-3c87bf1290a0")
     void setOwnerProfile(Profile value);
 
-    @objid ("4a496b27-89f1-4f44-a72f-668eb0b4168b")
+    @objid ("305c7508-a9e8-495b-9ae8-123802084967")
     EList<TagType> getDefinedTagType();
 
-    @objid ("fae8033f-ed50-4734-b99a-85d1b4725733")
+    @objid ("42a6531d-dc27-4b79-8af5-6412c25a73f2")
     <T extends TagType> List<T> getDefinedTagType(java.lang.Class<T> filterClass);
 
 }

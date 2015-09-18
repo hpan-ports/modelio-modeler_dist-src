@@ -26,7 +26,7 @@ import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.modelio.api.diagram.tools.IDiagramCommand;
+import org.modelio.api.diagram.tools.IDiagramTool;
 
 @objid ("6d2b1616-f815-4774-b572-abf001d2ae7c")
 public class AttacherBoxToolEntry extends ConnectionCreationToolEntry {
@@ -39,7 +39,7 @@ public class AttacherBoxToolEntry extends ConnectionCreationToolEntry {
      * @param iconLarge the large icon
      */
     @objid ("d73f9ac3-b810-4bb7-bb86-b1d9ee98478d")
-    public AttacherBoxToolEntry(final String label, final String shortDesc, final CreationFactory factory, final ImageDescriptor iconSmall, final ImageDescriptor iconLarge, final IDiagramCommand handler) {
+    public AttacherBoxToolEntry(final String label, final String shortDesc, final CreationFactory factory, final ImageDescriptor iconSmall, final ImageDescriptor iconLarge, final IDiagramTool handler) {
         super(label, shortDesc, factory, iconSmall, iconLarge);
         setToolClass(AttachedBoxTool.class);
         this.setToolProperty(LinkTool.PROPERTY_HANDLER, handler);

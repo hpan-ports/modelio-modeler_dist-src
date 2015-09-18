@@ -60,11 +60,11 @@ public class AuditEngine {
     @objid ("a4afbd11-3e66-4216-87e4-0c661d701793")
     private final CheckProgram controlProgram;
 
-    @objid ("993c1091-1a4e-4685-ace9-5c35ad83b62a")
-    private Thread auditThread;
-
     @objid ("392ee00d-9cdd-4e79-a706-38839730de8c")
     private ICoreSession session;
+
+    @objid ("4371ff55-d43d-4b6b-ae3f-9540692832ba")
+    private Thread auditThread;
 
     @objid ("54d1b224-431d-4f26-9fd2-ad0b65773c35")
     public AuditEngine() {
@@ -221,16 +221,6 @@ public class AuditEngine {
     @objid ("b20ae5c1-aee8-4052-ac35-11b07dfb722d")
     public AuditRunnerStatus getRunningStatus() {
         return this.auditRunner.status;
-    }
-
-    @objid ("64f06c67-87dd-4247-aa21-9fe97d59f5bf")
-    public synchronized void addAuditListener(IAuditListener listener) {
-        this.auditDiagnostic.addAuditListener(listener);
-    }
-
-    @objid ("3ff873bd-c09b-4c74-951f-f66ab0acc78c")
-    public synchronized void removeAuditListener(IAuditListener listener) {
-        this.auditDiagnostic.removeAuditListener(listener);
     }
 
     @objid ("8a79cf4e-c024-4a81-a5aa-86520338ee37")

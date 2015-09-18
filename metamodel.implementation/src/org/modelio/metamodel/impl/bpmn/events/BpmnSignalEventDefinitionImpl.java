@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0091bd74-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnSignalEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnSignalEventDefinition {
-    @objid ("2273382b-2287-405f-be3b-74cd9fcebe3e")
+    @objid ("e6a2f86c-8822-4108-8a2a-b06fed4e6bf9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("1b6d8ab0-3da8-4c5f-8077-6e43270471b7")
+    @objid ("1510c78e-2d8b-497f-a218-6c820b4a552e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("0c25652f-9b48-43d1-a35a-4be775f48ca7")
+    @objid ("e2d48164-60bb-4d5e-8f5c-284aa06b36ab")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnSignalEventDefinition(this);

@@ -33,46 +33,46 @@ import org.modelio.metamodel.uml.statik.KindOfAccess;
 
 @objid ("001ee9c0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StructuralFeature extends Feature {
-    @objid ("002d2f85-b3f4-4ce1-9d77-33d7da1f7386")
+    @objid ("5c007b44-2632-4868-840b-d491586cbda1")
     KindOfAccess getChangeable();
 
-    @objid ("04a4f95f-14a6-4e89-9688-5ca2681cea2b")
+    @objid ("1850534b-597b-49c6-ae32-77e0abd59a00")
     void setChangeable(KindOfAccess value);
 
-    @objid ("867b0b6f-a501-4de6-9de8-7fe4ea120e0b")
+    @objid ("3883030f-481f-4b20-b8f9-1ea6062d7627")
     boolean isIsDerived();
 
-    @objid ("1476aed8-a04a-45fe-836e-b4ad1d3c6885")
+    @objid ("c5121bb7-edc4-4cc2-9256-c879239417eb")
     void setIsDerived(boolean value);
 
-    @objid ("b91f435c-11ee-4bf7-8db5-1bff7bb9197d")
+    @objid ("d003601a-14c7-4c8f-b320-a80e699b56fa")
     boolean isIsOrdered();
 
-    @objid ("ef32b2c7-e0f0-402c-b6fc-92370861780d")
+    @objid ("b2875ff3-cf0a-4bc0-adaf-f2ad7c83f911")
     void setIsOrdered(boolean value);
 
-    @objid ("c78b238f-b5ce-4a1c-af5d-d5038f590a52")
+    @objid ("7752694c-104c-45b0-8b3f-389ae08c3376")
     boolean isIsUnique();
 
-    @objid ("31dbb0ad-2261-436d-b335-10ebcd889ff6")
+    @objid ("f9c8c422-5048-4165-b45e-de020606f94b")
     void setIsUnique(boolean value);
 
-    @objid ("7b4e6448-ac43-4bcc-ae1b-178151ba3a71")
+    @objid ("9858277e-9b8a-4651-860f-74dcbcb6ea25")
     String getMultiplicityMin();
 
-    @objid ("0503d54c-fe06-4cdb-9e8d-85361c969a6c")
+    @objid ("716c7f44-fed0-4ddd-92e0-33e2a5d0083e")
     void setMultiplicityMin(String value);
 
-    @objid ("41d0b5c7-fccb-4a16-8116-9e338834c487")
+    @objid ("1c68101a-1822-45dc-a125-1008ddca4b63")
     String getMultiplicityMax();
 
-    @objid ("5a4a3891-86ed-4aff-9476-ddaf02a87381")
+    @objid ("e7a000d6-b84a-4824-a50c-1228bc253f0e")
     void setMultiplicityMax(String value);
 
-    @objid ("9e56670f-6160-4e89-aa12-6c75cda62718")
+    @objid ("530eb615-34fd-4c19-b338-6ded862cf9cd")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("2dc85b89-0526-4749-8cbb-a2c15bdd437d")
+    @objid ("519c8b26-5b39-4635-8cc4-2ab376b44470")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
 }

@@ -73,13 +73,13 @@ public class ModelioProgressService implements IModelioProgressService {
 
     @objid ("f287cf0c-5221-497f-b85e-aa20dd4cde08")
     @Override
-    public void busyCursorWhile(IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
+    public void busyCursorWhile(IRunnableWithProgress runnable) throws InterruptedException, InvocationTargetException {
         new ProgressMonitorDialog(this.activeShell).run(true, false, runnable);
     }
 
     @objid ("1692c6ed-bf2e-4e12-b0d7-1fd8e588d5a7")
     @Override
-    public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
+    public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InterruptedException, InvocationTargetException {
         new ProgressMonitorDialog(this.activeShell).run(fork, cancelable, runnable);
     }
 
@@ -91,7 +91,7 @@ public class ModelioProgressService implements IModelioProgressService {
 
     @objid ("25c8601f-8b6e-4742-9d25-9c5693106b17")
     @Override
-    public void run(final String title, boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
+    public void run(final String title, boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InterruptedException, InvocationTargetException {
         new ProgressMonitorDialog(this.activeShell) {
             @Override
             protected void configureShell(Shell shell) {

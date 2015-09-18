@@ -34,11 +34,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
-import org.modelio.api.module.IModule.ModuleRuntimeState;
 import org.modelio.api.module.IModule;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.gproject.module.GModule;
 import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IRTModule;
+import org.modelio.mda.infra.service.ModuleRuntimeState;
 
 /**
  * Manage the modules parameters.
@@ -62,9 +63,10 @@ public class ParameterSection {
         
         // Get the runtime module from the static one
         if (module != null && module.getModuleElement() != null) {
-            IModule iModule = moduleService.getIModule(module.getModuleElement());
-            if (iModule != null && iModule.getState() == ModuleRuntimeState.Started) {
-                if (iModule.getParametersEditionModel() != null) {
+            IRTModule irtModule = moduleService.getIRTModule(module.getModuleElement());
+            if (irtModule != null && irtModule.getState() == ModuleRuntimeState.Started) {
+                IModule iModule = irtModule.getIModule();
+                if (iModule != null && iModule.getParametersEditionModel() != null) {
                     this.parameterViewer.setInput(Arrays.asList(iModule));
                     return;
                 }                    

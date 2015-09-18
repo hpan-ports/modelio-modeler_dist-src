@@ -42,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004b1612-c4bf-1fd8-97fe-001ec947cd2a")
 public class PartDecompositionImpl extends InteractionUseImpl implements PartDecomposition {
-    @objid ("d7643fd6-8e54-4db3-82ca-3af7a1936cab")
+    @objid ("8b6515ff-2fff-4755-8c42-3d0a9b7aff82")
     @Override
     public Lifeline getDecomposed() {
         return (Lifeline) getDepVal(PartDecompositionData.Metadata.DecomposedDep());
     }
 
-    @objid ("7556c5cd-6a4c-4feb-bcc1-3c1f6ec9165a")
+    @objid ("43cb5958-5d73-44b0-b274-2ba169551ca6")
     @Override
     public void setDecomposed(Lifeline value) {
         appendDepVal(PartDecompositionData.Metadata.DecomposedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4f1ae4e5-d043-42f6-8273-71be732ecc0e")
+    @objid ("82c2284b-b27e-438d-9bde-8b0300daf3a7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -64,7 +64,7 @@ public class PartDecompositionImpl extends InteractionUseImpl implements PartDec
         return super.getCompositionOwner();
     }
 
-    @objid ("60b2e922-4153-4057-a971-d99a2d7bbab3")
+    @objid ("6e731403-8aee-4946-a965-008d2c25616b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -74,7 +74,7 @@ public class PartDecompositionImpl extends InteractionUseImpl implements PartDec
         return super.getCompositionRelation();
     }
 
-    @objid ("11dc66c5-bb48-4140-b0cf-bab1f50bc94a")
+    @objid ("473a81a1-6255-4479-bbc3-b88071548311")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPartDecomposition(this);

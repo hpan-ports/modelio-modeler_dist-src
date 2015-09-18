@@ -221,7 +221,7 @@ public interface IDiagramLink extends IDiagramGraphic {
      * @throws org.modelio.api.diagram.InvalidDestinationPointException If the destination point is invalid.
      */
     @objid ("6d0d9379-69b5-11e0-adf3-002564c97630")
-    void setPath(final ILinkPath linkPath) throws InvalidSourcePointException, InvalidPointsPathException, InvalidDestinationPointException;
+    void setPath(final ILinkPath linkPath) throws InvalidDestinationPointException, InvalidPointsPathException, InvalidSourcePointException;
 
     /**
      * Modify the router referenced by the link.

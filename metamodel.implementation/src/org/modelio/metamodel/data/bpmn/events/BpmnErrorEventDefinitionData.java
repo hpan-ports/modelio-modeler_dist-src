@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008ba8e4-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnErrorEventDefinition.class, factory=BpmnErrorEventDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnErrorEventDefinitionData extends BpmnEventDefinitionData {
-    @objid ("5d310bde-95c0-4d41-93dc-15fee17f1ea9")
+    @objid ("512d0b44-9cb9-44bd-8f62-d38a9ea54aa8")
     @SmaMetaAttribute(metaName="ErrorCode", type=String.class, smAttributeClass=Metadata.ErrorCodeSmAttribute.class)
      Object mErrorCode = "";
 
-    @objid ("5244e7ef-39cb-4731-bdc8-efee515d5e5d")
+    @objid ("b6e1449a-a5a9-469f-891d-cbef17c4a3a8")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0014bd06-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("62a555b5-b523-4291-bb7a-211b80f7096f")
+        @objid ("e15ce480-b534-402f-b726-c800b869d06c")
         private static SmClass smClass = null;
 
-        @objid ("a7a102ee-28f6-48f5-a1d8-72ea1e4fcfc1")
+        @objid ("d4490aec-a503-4609-a8c7-f1582ad98aaf")
         private static SmAttribute ErrorCodeAtt = null;
 
-        @objid ("7757e6b0-9ffe-4135-ae47-7056c2dc3795")
+        @objid ("8e27ac96-b59b-496e-945c-b3c154f08a7e")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnErrorEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("1f160412-aaf1-4236-83a5-8020bb7d110e")
+        @objid ("033710d7-d2ca-4020-ac36-4df74d337e7c")
         public static SmAttribute ErrorCodeAtt() {
             if (ErrorCodeAtt == null) {
             	ErrorCodeAtt = classof().getAttributeDef("ErrorCode");
@@ -73,13 +73,13 @@ public class BpmnErrorEventDefinitionData extends BpmnEventDefinitionData {
             return ErrorCodeAtt;
         }
 
-        @objid ("1f60ee31-5ba7-470d-a59f-e4996d683d54")
+        @objid ("39e8c50f-395c-4711-a0ab-84c2ee4b4709")
         public static SmAttribute getErrorCodeAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ErrorCodeAtt;
         }
 
-        @objid ("24a53d0f-ddbf-48fd-b79d-4ac54f88bc63")
+        @objid ("8d1a2394-6ea5-4a56-9c73-7748b55c38cf")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -87,12 +87,12 @@ public class BpmnErrorEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("0014ff6e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("bfbb4ecd-a39c-44fd-8955-254a3f99a1a2")
+            @objid ("c7b57fae-d4eb-492c-8aae-3ae6cdaf5bd7")
             public ISmObjectData createData() {
                 return new BpmnErrorEventDefinitionData();
             }
 
-            @objid ("4dd2c725-549b-4322-bddc-9e03f71f96d9")
+            @objid ("41ca8d2d-baa5-4eb6-8b65-f2f316d8ce6c")
             public SmObjectImpl createImpl() {
                 return new BpmnErrorEventDefinitionImpl();
             }
@@ -101,12 +101,12 @@ public class BpmnErrorEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("0015644a-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ErrorCodeSmAttribute extends SmAttribute {
-            @objid ("727667ce-dcd3-4c3a-864a-c9a8976b67cf")
+            @objid ("96a7cbe9-7aef-459c-9b71-96638c7fd008")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnErrorEventDefinitionData) data).mErrorCode;
             }
 
-            @objid ("afdaab5b-f197-4d2b-8f48-f6bad26ec848")
+            @objid ("9eb23fdf-d024-4e84-bfb5-82a8163eca9a")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnErrorEventDefinitionData) data).mErrorCode = value;
             }

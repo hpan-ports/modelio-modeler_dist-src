@@ -75,7 +75,7 @@ public interface IProjectService extends IModelioService {
      * @throws org.modelio.gproject.gproject.GProjectAuthenticationException if the authentication fails
      */
     @objid ("0082f550-acc2-103b-a520-001ec947cd2a")
-    void openProject(final ProjectDescriptor project, IAuthData authData, IProgressMonitor monitor) throws GProjectAuthenticationException, IllegalArgumentException, IOException, IllegalStateException;
+    void openProject(final ProjectDescriptor project, IAuthData authData, IProgressMonitor monitor) throws IllegalArgumentException, IllegalStateException, GProjectAuthenticationException, IOException;
 
     /**
      * Closes the project currently opened in the application.
@@ -84,7 +84,7 @@ public interface IProjectService extends IModelioService {
      * @throws java.lang.IllegalStateException If no project is currently opened.
      */
     @objid ("0083087e-acc2-103b-a520-001ec947cd2a")
-    void closeProject(final GProject project) throws IllegalArgumentException, IllegalStateException;
+    void closeProject(final GProject project) throws IllegalStateException, IllegalArgumentException;
 
     /**
      * Saves the contents of the project currently opened in the application.
@@ -221,6 +221,6 @@ public interface IProjectService extends IModelioService {
      * @throws java.nio.file.FileSystemException in case of file system error.
      */
     @objid ("0c049288-0008-4133-a8ae-527b5c3a01de")
-    void renameProject(ProjectDescriptor projectDescriptor, String name) throws IOException, FileSystemException;
+    void renameProject(ProjectDescriptor projectDescriptor, String name) throws FileSystemException, IOException;
 
 }

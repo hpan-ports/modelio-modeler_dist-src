@@ -44,22 +44,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("000cee8c-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnSubProcessDiagram.class, factory=BpmnSubProcessDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class BpmnSubProcessDiagramData extends BehaviorDiagramData {
-    @objid ("d7feb2a8-23ff-4bc1-b4e1-03946b38b789")
+    @objid ("91d11f44-b9f0-49b5-9991-0189e39792f6")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008fd3b0-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("950b47da-cdbc-4f28-93f4-098c004cd211")
+        @objid ("b27a2040-205e-4365-9405-a7aff529100e")
         private static SmClass smClass = null;
 
-        @objid ("3097cbde-fc7f-4afd-94c0-7e695d9c145c")
+        @objid ("78dd53d9-be20-4776-ac42-119655270a2b")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnSubProcessDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4028a6cc-304e-499f-a473-90156581ba8a")
+        @objid ("9c4296b2-e6c8-402c-b81a-2be02a193ee9")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -67,12 +67,12 @@ public class BpmnSubProcessDiagramData extends BehaviorDiagramData {
 
         @objid ("0090160e-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("41b5c348-2d09-4195-a985-47e9cf85fa04")
+            @objid ("147b95c1-ef61-4d3e-acc5-e5b80a9433e0")
             public ISmObjectData createData() {
                 return new BpmnSubProcessDiagramData();
             }
 
-            @objid ("b5980be7-6cc7-4694-aa9b-665933b366c7")
+            @objid ("cb5866e4-c3ad-4187-aa8e-36c809d7c157")
             public SmObjectImpl createImpl() {
                 return new BpmnSubProcessDiagramImpl();
             }

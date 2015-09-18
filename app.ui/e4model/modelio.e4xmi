@@ -55,7 +55,7 @@
         <children xsi:type="menu:MenuSeparator" xmi:id="_gwd3ANdWEeKODOpBUEKbEw" elementId="org.modelio.app.ui.menu.configuration.3"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_OkK_EECPEeKYDuxvZV8bnA" elementId="app.ui.handledmenuitem.0" label="%DiagramStyles.label" iconURI="platform:/plugin/org.modelio.app.ui/icons/diagram_style.png" tooltip="%DiagramStyles.tooltip" command="_IspLAECPEeKYDuxvZV8bnA"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_IUEZkNdWEeKODOpBUEKbEw" elementId="org.modelio.app.ui.menu.configuration.4"/>
-        <children xsi:type="menu:Menu" xmi:id="_o3Dd4MhTEeKP5aeCtKUXnw" elementId="app.ui.menu.0" label="%Themes.label">
+        <children xsi:type="menu:Menu" xmi:id="_o3Dd4MhTEeKP5aeCtKUXnw" elementId="app.ui.menu.0" toBeRendered="false" label="%Themes.label">
           <children xsi:type="menu:DynamicMenuContribution" xmi:id="_Fe9X0MhnEeK2uOopmB8dvw" elementId="app.ui.dynamicmenucontribution.0" label="%Themes" contributionURI="bundleclass://org.modelio.app.ui/org.modelio.app.ui.handlers.ThemeMenuHandler"/>
         </children>
       </children>

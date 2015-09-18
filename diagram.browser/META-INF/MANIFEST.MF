@@ -3,9 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Browser
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.modelio.diagram.browser;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 3.3.0.qualifier
 Bundle-Vendor: modelio.org
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.modelio.log,
  org.eclipse.ui,

@@ -43,33 +43,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00012282-c4c0-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnGatewayImpl extends BpmnFlowNodeImpl implements BpmnGateway {
-    @objid ("ecfdc033-e6ec-4214-9d4d-bbb5dff00830")
+    @objid ("6964c70d-8863-4230-a918-dd0780a720aa")
     @Override
     public BpmnGatewayDirection getGatewayDirection() {
         return (BpmnGatewayDirection) getAttVal(BpmnGatewayData.Metadata.GatewayDirectionAtt());
     }
 
-    @objid ("5632c898-7eab-45ee-a274-d3613357fd51")
+    @objid ("fe36bdce-9860-4031-9f48-2bd20872ebe6")
     @Override
     public void setGatewayDirection(BpmnGatewayDirection value) {
         setAttVal(BpmnGatewayData.Metadata.GatewayDirectionAtt(), value);
     }
 
-    @objid ("a729cf27-4e91-4f4c-85aa-772eb172b196")
+    @objid ("3caf1384-3ea9-43cb-b531-60d15668d2ca")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("b80f2ec8-d3d9-4009-a759-68c219f1b4bb")
+    @objid ("f6d0105c-2aa0-4b97-a975-2ef6f9be9dc8")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("1f0d02ff-ba89-44c1-928a-79b20a1f4515")
+    @objid ("5cbd1822-a21e-455d-8c3f-0dc593badc37")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnGateway(this);

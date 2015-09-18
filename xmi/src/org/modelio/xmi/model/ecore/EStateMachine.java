@@ -28,9 +28,9 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("cbd05ffc-789d-4b54-bde5-8fb996479112")
 public class EStateMachine extends ENamedElement {
@@ -41,7 +41,7 @@ public class EStateMachine extends ENamedElement {
     @Override
     public Element createObjingElt() {
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createStateMachine();
+                        .createStateMachine();
     }
 
     @objid ("cf4053f0-7a12-4805-b119-262fc2dd62eb")

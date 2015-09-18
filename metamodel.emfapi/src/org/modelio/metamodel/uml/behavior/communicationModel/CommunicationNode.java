@@ -35,34 +35,34 @@ import org.modelio.metamodel.uml.statik.Instance;
 
 @objid ("005a9290-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CommunicationNode extends ModelElement {
-    @objid ("5cc07f40-1132-45c6-9f20-c17df2e98047")
+    @objid ("9b356161-3e20-4844-bc12-b89995899209")
     String getSelector();
 
-    @objid ("daeefde8-5418-4ce7-b7e7-4b271cd331d7")
+    @objid ("38423fda-9cd2-4771-81ba-b511e73be62d")
     void setSelector(String value);
 
-    @objid ("6afc95dd-b6f0-4719-9173-099b1ff03ee8")
+    @objid ("c8c92df5-99cb-434f-882a-1dea06778501")
     CommunicationInteraction getOwner();
 
-    @objid ("597c4bba-d791-469e-8e71-6de823924103")
+    @objid ("f850cff8-1a3a-4da6-a6b2-cdb439947bc8")
     void setOwner(CommunicationInteraction value);
 
-    @objid ("a76e27c3-ffc7-479c-bf7a-9d47ca457f3f")
+    @objid ("da9f5713-1274-415d-87fb-62c33102c9d6")
     Instance getRepresented();
 
-    @objid ("40da44dc-bb62-408b-accb-c6bd8d1ccd7a")
+    @objid ("772a8371-ae20-44e4-adf5-68d5f2e41146")
     void setRepresented(Instance value);
 
-    @objid ("ce3c20e3-478a-4d3f-8e18-c2ee6166c10a")
+    @objid ("24411b41-12e9-4177-bd05-76c74826e5da")
     EList<CommunicationChannel> getStarted();
 
-    @objid ("d63ff380-2858-40d5-af52-cd3708afcfe0")
+    @objid ("1f855c64-b57c-44ff-92ae-b9cfa6c11a2a")
     <T extends CommunicationChannel> List<T> getStarted(java.lang.Class<T> filterClass);
 
-    @objid ("e58b05f3-d527-4e14-a3ab-5cefb9388409")
+    @objid ("95af487b-91a9-4a16-b1a5-7cc9d375d3a1")
     EList<CommunicationChannel> getEnded();
 
-    @objid ("b6a7b1b8-f8d2-4003-866a-49ab8673218c")
+    @objid ("aec356ef-a556-4e6f-bba9-32fdee58165b")
     <T extends CommunicationChannel> List<T> getEnded(java.lang.Class<T> filterClass);
 
 }

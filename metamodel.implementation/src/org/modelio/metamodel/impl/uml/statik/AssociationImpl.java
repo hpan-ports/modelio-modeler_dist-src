@@ -63,13 +63,13 @@ public class AssociationImpl extends ModelElementImpl implements Association {
         return super.getCompositionRelation();
     }
 
-    @objid ("e56e95d7-1e59-4189-8835-e5fecc9c9dff")
+    @objid ("5485138e-e689-4fb4-a661-5fed47d7689b")
     @Override
     public EList<Link> getOccurence() {
         return new SmList<>(this, AssociationData.Metadata.OccurenceDep());
     }
 
-    @objid ("f599246f-593a-4906-9221-1302989d9926")
+    @objid ("48bb8482-0fcc-48cb-8dae-954ab26e8361")
     @Override
     public <T extends Link> List<T> getOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -82,13 +82,13 @@ public class AssociationImpl extends ModelElementImpl implements Association {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1a86e29b-fd16-46be-ba16-e64149665e15")
+    @objid ("92874822-e22f-4281-8ea2-e7e924eb2780")
     @Override
     public EList<AssociationEnd> getEnd() {
         return new SmList<>(this, AssociationData.Metadata.EndDep());
     }
 
-    @objid ("ef15c0aa-fa85-4e94-9536-638846779c7b")
+    @objid ("04a0a9ec-2bb8-44fc-8517-09c6fc1be76e")
     @Override
     public <T extends AssociationEnd> List<T> getEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -101,19 +101,19 @@ public class AssociationImpl extends ModelElementImpl implements Association {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d51fe754-4c6e-44aa-babb-09ee5af5d5c6")
+    @objid ("a488f4c5-91cd-4d22-bbf2-0d26c81e025a")
     @Override
     public ClassAssociation getLinkToClass() {
         return (ClassAssociation) getDepVal(AssociationData.Metadata.LinkToClassDep());
     }
 
-    @objid ("d9e70af8-fa96-4172-bf7a-40ecba63f966")
+    @objid ("96ce0cc4-2310-4d6f-a09e-0709c0ef7ef6")
     @Override
     public void setLinkToClass(ClassAssociation value) {
         appendDepVal(AssociationData.Metadata.LinkToClassDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c6b18813-073b-4612-8cd1-d96c78fe1b58")
+    @objid ("01bd5009-7b31-408f-aaf0-afdd88c30ae8")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAssociation(this);

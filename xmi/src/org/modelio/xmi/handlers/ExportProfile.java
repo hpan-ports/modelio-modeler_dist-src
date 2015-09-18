@@ -19,6 +19,24 @@
  */  
                                     
 
+/*
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
 package org.modelio.xmi.handlers;
 
 import java.util.List;
@@ -35,8 +53,8 @@ import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MStatus;
+import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.gui.SwtWizardExportProfile;
-import org.modelio.xmi.util.GenerationProperties;
 
 /**
  * @author ebrosse
@@ -52,7 +70,7 @@ public class ExportProfile {
         GenerationProperties genProp = GenerationProperties.getInstance();
         genProp.initialize(modelServices);
         genProp.setTimeDisplayerActivated(false);
-        genProp.setSelectedPackage(this.selectedProfile);
+        genProp.setRootElement(this.selectedProfile);
         
         SwtWizardExportProfile dialog = new SwtWizardExportProfile(activeShell, progressService, projectService);
         dialog.setSelectedElt(this.selectedProfile);
@@ -81,8 +99,8 @@ public class ExportProfile {
     @objid ("b3ee6b89-33ca-4f8f-83eb-804114fd2826")
     public static boolean isVisible(List<MObject> selectedElements) {
         return ((! selectedElements.isEmpty())
-                && (selectedElements.size() == 1)
-                     && (selectedElements.get(0) instanceof Profile));
+                        && (selectedElements.size() == 1)
+                             && (selectedElements.get(0) instanceof Profile));
     }
 
 }

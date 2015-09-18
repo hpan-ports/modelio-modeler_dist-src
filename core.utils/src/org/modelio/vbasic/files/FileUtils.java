@@ -84,7 +84,7 @@ public final class FileUtils {
      * Call {@linkplain FileUtils#getLocalizedMessage(FileSystemException)} to get a user friendly error message.
      */
     @objid ("fabda4a4-d023-11e1-bf59-001ec947ccaf")
-    public static void copyDirectoryTo(Path from, Path toDir) throws IOException, FileSystemException {
+    public static void copyDirectoryTo(Path from, Path toDir) throws FileSystemException, IOException {
         CopyDirVisitor copyVisitor = new CopyDirVisitor(from, toDir, StandardCopyOption.REPLACE_EXISTING);
         Files.walkFileTree(from, copyVisitor);
     }
@@ -111,7 +111,7 @@ public final class FileUtils {
      * @throws java.nio.file.InvalidPathException - if a Path object cannot be constructed from the abstract path (see FileSystem.getPath)
      */
     @objid ("e9ac671b-8541-11e1-afeb-001ec947ccaf")
-    public static void createDir(final File dir) throws InvalidPathException, SecurityException, IOException, FileSystemException, FileAlreadyExistsException {
+    public static void createDir(final File dir) throws SecurityException, FileSystemException, InvalidPathException, IOException, FileAlreadyExistsException {
         Files.createDirectories(dir.toPath());
     }
 
@@ -135,7 +135,7 @@ public final class FileUtils {
      * exception)</i>
      */
     @objid ("00974b68-bdb5-1ffa-8e11-001ec947cd2a")
-    public static void delete(final Path path) throws NoSuchFileException, DirectoryNotEmptyException, SecurityException, IOException, FileSystemException {
+    public static void delete(final Path path) throws SecurityException, IOException, FileSystemException, DirectoryNotEmptyException, NoSuchFileException {
         if (Files.isDirectory(path)) {
             Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                 @Override
@@ -177,7 +177,7 @@ public final class FileUtils {
      * @throws java.nio.file.NoSuchFileException if the file does not exist <i>(optional specific exception)</i>
      */
     @objid ("e9ac6713-8541-11e1-afeb-001ec947ccaf")
-    public static void delete(final String path) throws NoSuchFileException, DirectoryNotEmptyException, SecurityException, IOException, FileSystemException {
+    public static void delete(final String path) throws DirectoryNotEmptyException, IOException, SecurityException, NoSuchFileException, FileSystemException {
         delete(Paths.get(path));
     }
 
@@ -277,6 +277,20 @@ public final class FileUtils {
      */
     @objid ("edc68ee7-9054-433f-9f60-04d3b68f6911")
     public static String getLocalizedMessage(IOException e) {
+        try {
+            if (e instanceof org.apache.http.client.ClientProtocolException) 
+                return getApacheErrorMessage(e);
+        } catch (NoClassDefFoundError ignored) {
+            // ignore org.apache.http.client.ClientProtocolException not found
+        }
+        
+        if (e instanceof javax.net.ssl.SSLProtocolException) {
+            // better message for "javax.net.ssl.SSLProtocolException: handshake alert:  unrecognized_name"
+            if (e.getMessage().equals("handshake alert:  unrecognized_name")) {
+                return CoreUtils.I18N.getString("javax.net.ssl.SSLProtocolException_handshake_alert_unrecognized_name");
+            }
+        } 
+        
         if (e instanceof FileSystemException)
             return getLocalizedMessage((FileSystemException) e) ;
         else
@@ -297,7 +311,7 @@ public final class FileUtils {
      * Call {@linkplain #getLocalizedMessage(FileSystemException)} to get a user friendly error message.
      */
     @objid ("40ad1e4c-87b4-4514-9d05-50754dc3eb15")
-    public static String readWhole(InputStream is, String charset) throws IOException, FileSystemException {
+    public static String readWhole(InputStream is, String charset) throws FileSystemException, IOException {
         // see http://stackoverflow.com/questions/309424/read-convert-an-inputstream-to-a-string
         try (Scanner s = new java.util.Scanner(is, charset)){
             s.useDelimiter("\\A");
@@ -333,6 +347,60 @@ public final class FileUtils {
      */
     @objid ("d4576141-cc12-11e1-a564-001ec947ccaf")
     private FileUtils() {
+    }
+
+    /**
+     * Handles Apache ClientProtocolException exceptions that have no message
+     * and each cause having a part of the message:
+     * <pre>
+     * org.apache.http.client.ClientProtocolException: null
+     * at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:188)
+     * at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+     * 
+     * Caused by: org.apache.http.HttpException: Cannot convert host to URI: http://www.m&lt;odeliosoft.com
+     * at org.apache.http.impl.conn.SystemDefaultRoutePlanner.determineProxy(SystemDefaultRoutePlanner.java:77)
+     * at org.apache.http.impl.conn.DefaultRoutePlanner.determineRoute(DefaultRoutePlanner.java:73)
+     * 
+     * Caused by: java.net.URISyntaxException: Illegal character in authority at index 7: http://www.m&lt;odeliosoft.com
+     * at java.net.URI$Parser.fail(URI.java:2848)
+     * at java.net.URI$Parser.parseAuthority(URI.java:3186)
+     * </pre>
+     * 
+     * Returns in this case :
+     * 
+     * <pre>Cannot convert host to URI: http://www.m&lt;odeliosoft.com
+     * Illegal character in authority at index 7: http://www.m&lt;odeliosoft.com</pre>
+     * @param e the Apache exception
+     */
+    @objid ("9cd5ba5d-6fef-4fb3-ad00-fff9da570869")
+    private static String getApacheErrorMessage(IOException e) {
+        if (e.getMessage() != null)
+            return e.getMessage(); // message filled, return it.
+        else {
+            /*
+             * Handles Apache exceptions where ClientProtocolException has no message
+             * and each cause has a part of the message:
+             * 
+             * org.apache.http.client.ClientProtocolException: null 
+             *   at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:188) 
+             *   at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+             *    
+             * Caused by: org.apache.http.HttpException: Cannot convert host to URI: http://www.m<odeliosoft.com 
+             *   at org.apache.http.impl.conn.SystemDefaultRoutePlanner.determineProxy(SystemDefaultRoutePlanner.java:77) 
+             *   at org.apache.http.impl.conn.DefaultRoutePlanner.determineRoute(DefaultRoutePlanner.java:73)
+             *    
+             * Caused by: java.net.URISyntaxException: Illegal character in authority at index 7: http://www.m<odeliosoft.com 
+             *   at java.net.URI$Parser.fail(URI.java:2848)
+             *   at java.net.URI$Parser.parseAuthority(URI.java:3186)
+             */
+            StringBuilder sb = new StringBuilder();
+            for (Throwable t = e.getCause(); t!=null; t = t.getCause()) {
+                if (sb.length() > 0) sb.append("\n");
+                sb.append(t.getMessage());
+            }
+            return sb.toString();
+        
+        }
     }
 
     /**

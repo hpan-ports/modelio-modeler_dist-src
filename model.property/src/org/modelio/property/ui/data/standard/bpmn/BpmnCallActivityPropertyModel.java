@@ -104,51 +104,54 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
     @Override
     public Object getValueAt(int row, int col) {
         LoopType type = LoopType.getType(this.theEditedElement);
-        if (col == 0) // col 0 is the property key
+        if (col == 0) {
             return this.properties.get(row);
+        }
         
         // else
         if (col == 1) // col 1 is the property value
         {
-            if (row == 0)
+            if (row == 0) {
                 return "Value";
-            else if (row == 1)
+            } else if (row == 1) {
                 return this.theEditedElement.getName();
-            else if (row == 2)
+            } else if (row == 2) {
                 return this.theEditedElement.isIsForCompensation() ? Boolean.TRUE : Boolean.FALSE;
-            else if (row == 3)
+            } else if (row == 3) {
                 return this.theEditedElement.getStartQuantity();
-            else if (row == 4)
+            } else if (row == 4) {
                 return this.theEditedElement.getCompletionQuantity();
-            else if (row == 5)
+            } else if (row == 5) {
                 return this.theEditedElement.getCalledGlobalTask();
-            else if (row == 6)
+            } else if (row == 6) {
                 return this.theEditedElement.getCalledProcess();
-            else if (row == 7)
+            } else if (row == 7) {
                 return this.theEditedElement.getCalledOperation();
-            else if (row == 8)
+            } else if (row == 8) {
                 return this.theEditedElement.getCalledBehavior();
-            else if (row == 9)
+            } else if (row == 9) {
                 return LoopType.getType(this.theEditedElement);
-            else if (row > 9) {
+            } else if (row > 9) {
                 if (type == LoopType.Standard) {
                     BpmnStandardLoopCharacteristics caracteristic = (BpmnStandardLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
-                    if (row == 10)
+                    if (row == 10) {
                         return caracteristic.isTestBefore() ? Boolean.TRUE : Boolean.FALSE;
-                    else if (row == 11)
+                    } else if (row == 11) {
                         return caracteristic.getLoopCondition();
-                    else if (row == 12)
+                    } else if (row == 12) {
                         return caracteristic.getLoopMaximum();
+                    }
                 } else if (type == LoopType.MultiInstanceParallel || type == LoopType.MultiInstanceSequential) {
                     BpmnMultiInstanceLoopCharacteristics caracteristic = (BpmnMultiInstanceLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
-                    if (row == 10)
+                    if (row == 10) {
                         return caracteristic.getBehavior();
-                    else if (row == 11)
+                    } else if (row == 11) {
                         return caracteristic.getLoopCardinality();
-                    else if (row == 12)
+                    } else if (row == 12) {
                         return caracteristic.getCompletionCondition();
-                    else if (row == 13)
+                    } else if (row == 13) {
                         return caracteristic.getCompletionEventRef();
+                    }
                 }
             }
         }
@@ -169,49 +172,52 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         LoopType type = LoopType.getType(this.theEditedElement);
-        if (col == 0) // col 0 is the property key
+        if (col == 0) {
             return new StringType(false);
+        }
         
         // else
         if (col == 1) // col 1 is the property value
         {
-            if (row == 0)
+            if (row == 0) {
                 return new StringType(false);
-            else if (row == 1)
+            } else if (row == 1) {
                 return new StringType(true);
-            else if (row == 2)
+            } else if (row == 2) {
                 return new BooleanType();
-            else if (row == 3)
+            } else if (row == 3) {
                 return new StringType(true);
-            else if (row == 4)
+            } else if (row == 4) {
                 return new StringType(true);
-            else if (row == 5)
+            } else if (row == 5) {
                 return new SingleElementType(true, BpmnTask.class, CoreSession.getSession(this.theEditedElement));
-            else if (row == 6)
+            } else if (row == 6) {
                 return new SingleElementType(true, BpmnProcess.class, CoreSession.getSession(this.theEditedElement));
-            else if (row == 7)
+            } else if (row == 7) {
                 return new SingleElementType(true, Operation.class, CoreSession.getSession(this.theEditedElement));
-            else if (row == 8)
+            } else if (row == 8) {
                 return new SingleElementType(true, Behavior.class, CoreSession.getSession(this.theEditedElement));
-            else if (row == 9)
+            } else if (row == 9) {
                 return new EnumType(LoopType.class);
-            else if (row > 9) {
+            } else if (row > 9) {
                 if (type == LoopType.Standard) {
-                    if (row == 10)
+                    if (row == 10) {
                         return new BooleanType();
-                    else if (row == 11)
+                    } else if (row == 11) {
                         return new StringType(true);
-                    else if (row == 12)
+                    } else if (row == 12) {
                         return new StringType(true);
+                    }
                 } else if (type == LoopType.MultiInstanceParallel || type == LoopType.MultiInstanceSequential) {
-                    if (row == 10)
+                    if (row == 10) {
                         return new EnumType(MultiInstanceBehavior.class);
-                    else if (row == 11)
+                    } else if (row == 11) {
                         return new StringType(true);
-                    else if (row == 12)
+                    } else if (row == 12) {
                         return new StringType(true);
-                    else if (row == 13)
+                    } else if (row == 13) {
                         return new SingleElementType(true, BpmnEventDefinition.class, CoreSession.getSession(this.theEditedElement));
+                    }
                 }
             }
         }
@@ -230,22 +236,23 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
     @Override
     public void setValueAt(int row, int col, Object value) {
         LoopType type = LoopType.getType(this.theEditedElement);
-        if (col == 0) // col 0 is the property key
+        if (col == 0) {
             return;
+        }
         
         if (col == 1) // col 1 is the property value
         {
-            if (row == 0)
+            if (row == 0) {
                 return;
-            else if (row == 1)
+            } else if (row == 1) {
                 this.theEditedElement.setName((String) value);
-            else if (row == 2)
+            } else if (row == 2) {
                 this.theEditedElement.setIsForCompensation((Boolean) value);
-            else if (row == 3)
+            } else if (row == 3) {
                 this.theEditedElement.setStartQuantity(Integer.valueOf((String) value));
-            else if (row == 4)
+            } else if (row == 4) {
                 this.theEditedElement.setCompletionQuantity(Integer.valueOf((String) value));
-            else if (row == 5) {
+            } else if (row == 5) {
                 this.theEditedElement.setCalledGlobalTask((BpmnTask) value);
                 this.theEditedElement.setCalledProcess(null);
                 this.theEditedElement.setCalledOperation(null);
@@ -276,22 +283,24 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
             } else if (row > 9) {
                 if (type == LoopType.Standard) {
                     BpmnStandardLoopCharacteristics caracteristic = (BpmnStandardLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
-                    if (row == 10)
+                    if (row == 10) {
                         caracteristic.setTestBefore((Boolean) value);
-                    else if (row == 11)
+                    } else if (row == 11) {
                         caracteristic.setLoopCondition((String) value);
-                    else if (row == 12)
+                    } else if (row == 12) {
                         caracteristic.setLoopMaximum((String) value);
+                    }
                 } else if (type == LoopType.MultiInstanceParallel || type == LoopType.MultiInstanceSequential) {
                     BpmnMultiInstanceLoopCharacteristics caracteristic = (BpmnMultiInstanceLoopCharacteristics) this.theEditedElement.getLoopCharacteristics();
-                    if (row == 10)
+                    if (row == 10) {
                         caracteristic.setBehavior((MultiInstanceBehavior) value);
-                    else if (row == 11)
+                    } else if (row == 11) {
                         caracteristic.setLoopCardinality((String) value);
-                    else if (row == 12)
+                    } else if (row == 12) {
                         caracteristic.setCompletionCondition((String) value);
-                    else if (row == 13)
+                    } else if (row == 13) {
                         caracteristic.setCompletionEventRef((BpmnEventDefinition) value);
+                    }
                 }
             }
         }
@@ -300,7 +309,7 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
     @objid ("8e13ca88-c068-11e1-8c0a-002564c97630")
     private void initPropertyModel() {
         this.properties.clear();
-        this.properties.add("SubProcess");
+        this.properties.add("CallActivity");
         this.properties.add("Name");
         this.properties.add("ForCompensation");
         this.properties.add("StartQuantity");

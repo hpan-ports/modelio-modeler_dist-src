@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004bb34c-c4bf-1fd8-97fe-001ec947cd2a")
 public class StateInvariantImpl extends OccurrenceSpecificationImpl implements StateInvariant {
-    @objid ("3efc0d35-c58f-4295-b163-0f47c418f808")
+    @objid ("520e52a8-ea01-42c9-9810-b779a512182d")
     @Override
     public String getBody() {
         return (String) getAttVal(StateInvariantData.Metadata.BodyAtt());
     }
 
-    @objid ("589cc076-1652-48b6-a6c7-c6fffb8152cb")
+    @objid ("0469b4ae-b27f-4bcf-b2a0-adaaee19157e")
     @Override
     public void setBody(String value) {
         setAttVal(StateInvariantData.Metadata.BodyAtt(), value);
     }
 
-    @objid ("ec38b2b2-b368-4aa3-8154-245f990e9fc3")
+    @objid ("c3096503-b954-45d2-9bdc-ea04e17a6fd1")
     @Override
     public int getEndLineNumber() {
         return (Integer) getAttVal(StateInvariantData.Metadata.EndLineNumberAtt());
     }
 
-    @objid ("735a9e22-c4c5-4d43-912f-34801616398b")
+    @objid ("c3111149-e948-401a-bc5f-70956c45f95a")
     @Override
     public void setEndLineNumber(int value) {
         setAttVal(StateInvariantData.Metadata.EndLineNumberAtt(), value);
     }
 
-    @objid ("65d65be3-d29b-47d4-918c-02346187cf4c")
+    @objid ("4f9f56e6-edaa-467c-9115-95b0a7441c8f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("c1a16585-c77a-4828-9e9c-c4de1cb9e243")
+    @objid ("6cabddfa-e854-494d-bd77-2df455a99e80")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("4bd1cd93-fbbf-4a4d-8168-cca11a951a1b")
+    @objid ("20610581-d369-434c-95ab-09edf4be73cc")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStateInvariant(this);

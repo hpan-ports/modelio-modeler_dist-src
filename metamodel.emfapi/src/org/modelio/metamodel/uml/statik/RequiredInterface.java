@@ -36,28 +36,28 @@ import org.modelio.metamodel.uml.statik.Port;
 
 @objid ("001b5224-c4bf-1fd8-97fe-001ec947cd2a")
 public interface RequiredInterface extends ModelElement {
-    @objid ("1a42f240-16f0-4789-8b16-9dbf8aed227e")
+    @objid ("239bfc8a-bed4-47a6-b1f9-9215bc3f8a93")
     EList<Interface> getRequiredElement();
 
-    @objid ("6125ec78-8a11-4dba-b051-3e2423834afe")
+    @objid ("58713459-c7e1-4f49-9ffb-09595ff19366")
     <T extends Interface> List<T> getRequiredElement(java.lang.Class<T> filterClass);
 
-    @objid ("f1d7b575-6f55-4696-98a7-76227d43bd7c")
+    @objid ("1eba319a-c1e3-4a00-a606-38f8c0368b1d")
     EList<LinkEnd> getProvider();
 
-    @objid ("a1322dc7-64c0-4e88-86fa-15e2bb1f4132")
+    @objid ("3c664efc-7bb0-4d60-9745-7fa03069acd0")
     <T extends LinkEnd> List<T> getProvider(java.lang.Class<T> filterClass);
 
-    @objid ("f4ec57f1-4672-4703-8e86-63dcb15a3145")
+    @objid ("92d0c139-4014-4276-b27b-69bb121fac42")
     Port getRequiring();
 
-    @objid ("78bd9d56-aed7-473c-8216-5de3cfae2ede")
+    @objid ("c9164e02-863e-405a-a35f-d17b7035f069")
     void setRequiring(Port value);
 
-    @objid ("a1783078-4785-4792-a5ba-bec4c5197c77")
+    @objid ("7c288326-8f4f-4244-9a10-c1f19507ed66")
     EList<NaryLinkEnd> getNaryProvider();
 
-    @objid ("8c93a8ab-2234-4b6e-bd48-73e7b19ba99e")
+    @objid ("ececd50c-d27e-4097-bcde-9fbf5d2d0cb2")
     <T extends NaryLinkEnd> List<T> getNaryProvider(java.lang.Class<T> filterClass);
 
 }

@@ -46,37 +46,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("001d5f2e-c4bf-1fd8-97fe-001ec947cd2a")
 public class TemplateParameterImpl extends GeneralClassImpl implements TemplateParameter {
-    @objid ("f96d1697-f9f4-4277-bcae-6eb6321f058a")
+    @objid ("8fd6ed64-f86a-4238-a009-f05df57a9c63")
     @Override
     public String getDefaultValue() {
         return (String) getAttVal(TemplateParameterData.Metadata.DefaultValueAtt());
     }
 
-    @objid ("4ea1d6dc-5ca8-4315-9aa7-17c743530a82")
+    @objid ("ad2c08f8-12e7-4600-98a0-19e7e72286cc")
     @Override
     public void setDefaultValue(String value) {
         setAttVal(TemplateParameterData.Metadata.DefaultValueAtt(), value);
     }
 
-    @objid ("8cadab66-5349-4349-aec6-6a423ecf2f57")
+    @objid ("a2821ae2-6860-4eb3-a090-7a8d36ee9142")
     @Override
     public boolean isIsValueParameter() {
         return (Boolean) getAttVal(TemplateParameterData.Metadata.IsValueParameterAtt());
     }
 
-    @objid ("415f4b51-d51c-4232-a024-2a979bf00b00")
+    @objid ("588a67eb-0478-4fb3-94a5-144d51f0b26f")
     @Override
     public void setIsValueParameter(boolean value) {
         setAttVal(TemplateParameterData.Metadata.IsValueParameterAtt(), value);
     }
 
-    @objid ("32ddfaee-560d-4406-b906-434da1dc8270")
+    @objid ("307b28da-c6a8-465d-b5ff-a854bff6474c")
     @Override
     public EList<TemplateParameterSubstitution> getParameterSubstitution() {
         return new SmList<>(this, TemplateParameterData.Metadata.ParameterSubstitutionDep());
     }
 
-    @objid ("4785d0d1-b387-4543-8783-13f1698dd64a")
+    @objid ("82160b1c-7cf5-4033-91e1-42bce4a3ce46")
     @Override
     public <T extends TemplateParameterSubstitution> List<T> getParameterSubstitution(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -89,67 +89,67 @@ public class TemplateParameterImpl extends GeneralClassImpl implements TemplateP
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c29a559a-be82-4948-b11a-b677bd03fc80")
+    @objid ("14652a3e-853a-4e66-843a-fad12af1bed8")
     @Override
     public ModelElement getType() {
         return (ModelElement) getDepVal(TemplateParameterData.Metadata.TypeDep());
     }
 
-    @objid ("962150c8-9b23-4188-a6e3-c58f9e3d5ba2")
+    @objid ("5189ff45-2b73-413f-a202-bc07c6042542")
     @Override
     public void setType(ModelElement value) {
         appendDepVal(TemplateParameterData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3d700ee1-edd3-414d-a615-266b9235a2db")
+    @objid ("0cd10a33-5ec9-47d4-a6a7-b8e6ceb50df5")
     @Override
     public NameSpace getParameterized() {
         return (NameSpace) getDepVal(TemplateParameterData.Metadata.ParameterizedDep());
     }
 
-    @objid ("60312737-9fb2-4de9-aaa4-4bce45f6c49c")
+    @objid ("41fca8d4-e342-4507-b1b1-9fdfbf0e2d82")
     @Override
     public void setParameterized(NameSpace value) {
         appendDepVal(TemplateParameterData.Metadata.ParameterizedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("01baad97-a92f-4988-b908-5709826e1ebc")
+    @objid ("4e6a726a-06e0-4bc3-bb55-67a15ad210b3")
     @Override
     public ModelElement getOwnedParameterElement() {
         return (ModelElement) getDepVal(TemplateParameterData.Metadata.OwnedParameterElementDep());
     }
 
-    @objid ("3ec11250-6386-4070-b9f0-1e3e59c5012f")
+    @objid ("8cf4ef88-b808-4424-b3f3-2f06bb608792")
     @Override
     public void setOwnedParameterElement(ModelElement value) {
         appendDepVal(TemplateParameterData.Metadata.OwnedParameterElementDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d5f27afd-5364-4f56-9b3d-32780a647c91")
+    @objid ("b5838410-d7f5-499b-b916-349a323fb2e3")
     @Override
     public ModelElement getDefaultType() {
         return (ModelElement) getDepVal(TemplateParameterData.Metadata.DefaultTypeDep());
     }
 
-    @objid ("430271ed-cbb0-436d-928b-72e602d4d610")
+    @objid ("f15d8e89-90f3-44c0-89a9-a1cd5e404e24")
     @Override
     public void setDefaultType(ModelElement value) {
         appendDepVal(TemplateParameterData.Metadata.DefaultTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2b8c9496-fd40-4f0e-954f-bf3102d8ecf8")
+    @objid ("422c1215-be2b-4dcb-9841-51b2f493c316")
     @Override
     public Operation getParameterizedOperation() {
         return (Operation) getDepVal(TemplateParameterData.Metadata.ParameterizedOperationDep());
     }
 
-    @objid ("75c9ba0a-6128-47e1-8fff-9653ade14ffe")
+    @objid ("7c5f5f8f-7507-465d-a2cb-b153019b4c78")
     @Override
     public void setParameterizedOperation(Operation value) {
         appendDepVal(TemplateParameterData.Metadata.ParameterizedOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4c960824-6fe8-43ae-b089-a1522dc9b1dd")
+    @objid ("2c39ee61-b433-4d5b-b020-1bbfabadfd67")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -162,7 +162,7 @@ public class TemplateParameterImpl extends GeneralClassImpl implements TemplateP
         return super.getCompositionOwner();
     }
 
-    @objid ("8a1a4e18-a8db-4f03-9f28-910a30f4a14f")
+    @objid ("107c6264-018a-4eed-b5ee-4922d96e987e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -175,7 +175,7 @@ public class TemplateParameterImpl extends GeneralClassImpl implements TemplateP
         return super.getCompositionRelation();
     }
 
-    @objid ("2ff947cc-8edc-4135-b36b-0fba5929205c")
+    @objid ("33c957c9-8354-4a7f-851f-54104bf5e454")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTemplateParameter(this);

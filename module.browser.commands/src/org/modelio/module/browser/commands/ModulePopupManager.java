@@ -38,9 +38,9 @@ import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
-import org.modelio.api.module.IModule;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
+import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.module.commands.ExecuteModuleActionHandler;
 import org.modelio.module.commands.IsVisibleExpression;
 import org.modelio.module.commands.ModuleCommandsRegistry;
@@ -51,7 +51,7 @@ public class ModulePopupManager {
     private static final String DYNAMIC_MODULE_MENU_TAG = "dynamicModuleMenu";
 
     @objid ("491bee9e-12dd-11e2-8549-001ec947c8cc")
-    private static void createMenuEntriesForAction(IModule module, MMenu moduleMenu, MPart view) {
+    private static void createMenuEntriesForAction(IRTModule module, MMenu moduleMenu, MPart view) {
         // Map used to prevent slot multiplication
         Map<String, MMenu> slotMap = new HashMap<>();
         
@@ -156,7 +156,7 @@ public class ModulePopupManager {
     }
 
     @objid ("9a6323cb-12ea-11e2-8549-001ec947c8cc")
-    private static MHandler createAndActivateHandler(MCommand command, IModule module, IModuleAction action, MPart view) {
+    private static MHandler createAndActivateHandler(MCommand command, IRTModule module, IModuleAction action, MPart view) {
         // Instantiate the actual handler class
         Object handler = new ExecuteModuleActionHandler(module, action);
         // Fit it into a MHandler
@@ -172,7 +172,7 @@ public class ModulePopupManager {
     }
 
     @objid ("c42238e7-1d14-11e2-9c7e-bc305ba4815c")
-    private static String getModuleIconeURI(IModule module) {
+    private static String getModuleIconeURI(IRTModule module) {
         String relativePath = module.getModuleImagePath();
         if (relativePath != null && !relativePath.isEmpty()) {
             final Path moduleDirectory = module.getConfiguration().getModuleResourcesPath();
@@ -186,7 +186,7 @@ public class ModulePopupManager {
     }
 
     @objid ("fff3543b-6152-4665-9552-d57a3790f997")
-    public static MMenuElement createMenu(final IModule module, MPart view) {
+    public static MMenuElement createMenu(final IRTModule module, MPart view) {
         // create menu entry for this module (with tag so it can be cleaned
         // later).
         MMenu moduleMenu = MMenuFactory.INSTANCE.createMenu();
@@ -209,7 +209,7 @@ public class ModulePopupManager {
     }
 
     @objid ("8b62147f-883f-4514-ab5d-bf553972a3fc")
-    public static void removeMenu(final IModule module, MPart view) {
+    public static void removeMenu(final IRTModule module, MPart view) {
         // Unbind and remove handlers for each command.
         for (IModuleAction action : module.getActions(ActionLocation.contextualpopup)) {
             deactivateAndRemoveHandler(ModuleCommandsRegistry.getCommand(module, action), view);

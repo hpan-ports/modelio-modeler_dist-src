@@ -29,9 +29,9 @@ import org.modelio.metamodel.uml.behavior.activityModel.AcceptTimeEventAction;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("554ecc30-cd0f-45a1-b60a-d4ea1e2a66d4")
 public class EAcceptEventAction extends EActivityNode {
@@ -100,7 +100,7 @@ public class EAcceptEventAction extends EActivityNode {
         
             }
         return ReverseProperties.getInstance().getMModelServices().getModelFactory()
-                .createAcceptCallEventAction();
+                        .createAcceptCallEventAction();
     }
 
     @objid ("a89c0b7c-7fea-473c-8651-3a2dec9be441")

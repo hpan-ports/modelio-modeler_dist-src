@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("003a6c18-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=OpaqueAction.class, factory=OpaqueActionData.Metadata.ObjectFactory.class)
 public class OpaqueActionData extends ActivityActionData {
-    @objid ("07789287-4a7c-4f98-8546-24cd0fa82882")
+    @objid ("c498ea52-8bea-482b-809d-b18b73dd2ba3")
     @SmaMetaAttribute(metaName="Body", type=String.class, smAttributeClass=Metadata.BodySmAttribute.class)
      Object mBody = "";
 
-    @objid ("ff17f11d-a7e4-4dec-8c08-759f4f61ce4d")
+    @objid ("786a1c8d-5764-4bba-9a4e-fb8291dfba3d")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("005b0374-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("67ec0ed2-f4ab-4664-8a34-c4401d611eab")
+        @objid ("e6780409-8ad3-495b-bc90-8c8964e5c443")
         private static SmClass smClass = null;
 
-        @objid ("838bd662-b359-4ffd-a722-82d5735348c8")
+        @objid ("e13f4ceb-b157-4a7e-b7ef-7b7826eaa2b1")
         private static SmAttribute BodyAtt = null;
 
-        @objid ("fea8d946-6939-4d5d-a7a6-47183a4a5075")
+        @objid ("612b5a31-9cea-4a9a-a552-ee9e12772808")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(OpaqueActionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("5b8ef021-f858-40bf-aad0-c04848984013")
+        @objid ("4ccc3fb6-1f1e-425e-b783-b5fa9fdbeb98")
         public static SmAttribute BodyAtt() {
             if (BodyAtt == null) {
             	BodyAtt = classof().getAttributeDef("Body");
@@ -73,13 +73,13 @@ public class OpaqueActionData extends ActivityActionData {
             return BodyAtt;
         }
 
-        @objid ("64efc5ba-e4d6-4fc1-b223-b0c28a712c64")
+        @objid ("b04f3f8c-556f-4030-bed9-5a78273a1e4d")
         public static SmAttribute getBodyAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return BodyAtt;
         }
 
-        @objid ("4c365963-689f-4e80-9e75-c80f11d5f784")
+        @objid ("0b924749-9d23-46ca-bf5f-b19a9c98f0c8")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -87,12 +87,12 @@ public class OpaqueActionData extends ActivityActionData {
 
         @objid ("005b4564-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("58b0bb3a-ecf8-480c-afb6-f595aa750efc")
+            @objid ("39739904-86c2-43c8-bcad-66dbc5c8c899")
             public ISmObjectData createData() {
                 return new OpaqueActionData();
             }
 
-            @objid ("62d00052-fd3a-468d-b04a-11d9d1781341")
+            @objid ("feaf3794-ce7f-4a28-b10d-727640ebea4b")
             public SmObjectImpl createImpl() {
                 return new OpaqueActionImpl();
             }
@@ -101,12 +101,12 @@ public class OpaqueActionData extends ActivityActionData {
 
         @objid ("005ba810-c4c3-1fd8-97fe-001ec947cd2a")
         public static class BodySmAttribute extends SmAttribute {
-            @objid ("3fa52b84-a90f-4551-92fe-a4a00b5d3f03")
+            @objid ("8f304f27-67e4-4a0e-a5b5-dc2d0fc8b8f1")
             public Object getValue(ISmObjectData data) {
                 return ((OpaqueActionData) data).mBody;
             }
 
-            @objid ("d1e89af2-92ef-4b5c-b1df-130d48e7ea8e")
+            @objid ("7f8a5bb1-b9f1-4d3f-ad19-01da7e3081d9")
             public void setValue(ISmObjectData data, Object value) {
                 ((OpaqueActionData) data).mBody = value;
             }
