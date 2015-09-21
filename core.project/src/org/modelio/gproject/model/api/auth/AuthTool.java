@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,25 +12,32 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model.api.auth;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
 import org.modelio.metamodel.uml.statik.NameSpace;
+import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MStatus;
+import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
-// isShell = false isRamc = false
+/**
+ * Implementation of {@link IAuthTool}.
+ * <p>
+ * Helper class to test whether some model operations are allowed.
+ */
 @objid ("5f252c1a-272e-11e2-a9d1-002564c97630")
 public class AuthTool implements IAuthTool {
     @objid ("620e36d0-272e-11e2-a9d1-002564c97630")
@@ -51,13 +58,47 @@ public class AuthTool implements IAuthTool {
         
         // Parent is CMS locked here.
         // Both parent and child must be CMS node.
-        return (parentElement.getMClass().isCmsNode() && Metamodel.getMClass(metaclass).isCmsNode());
+        SmMetamodel mm = CoreSession.getSession(parentElement).getMetamodel();
+        
+        SmClass mClass = mm.getMClass(metaclass);
+        if (mClass == null) {
+            // don't know what we add
+            return false;
+        }
+        return canAdd(parentElement, mClass);
     }
 
-    @objid ("620e36d9-272e-11e2-a9d1-002564c97630")
+    @objid ("c32d4730-4079-499e-98dd-9d0b420072ae")
     @Override
-    public boolean canModify(final MObject el) {
-        return (el != null && !el.isShell() && !el.isDeleted() && el.getStatus().isModifiable());
+    public boolean canAdd(final MObject parentElement, final MClass metaclass) {
+        if (parentElement == null) {
+            return false;
+        }
+        
+        final MStatus parentStatus = parentElement.getStatus();
+        if (parentStatus.isModifiable()) {
+            return true;
+        }
+        
+        if (!parentStatus.isUserWrite()) {
+            return false;
+        }
+        
+        // Parent is CMS locked here.
+        // Both parent and child must be CMS node.
+        return (parentElement.getMClass().isCmsNode() && metaclass.isCmsNode());
+    }
+
+    @objid ("f1865eb6-2984-11e2-8460-002564c97630")
+    @Override
+    public boolean canAddTo(MObject child, MObject parent) {
+        MStatus cs = child.getStatus();
+        MStatus ps = parent.getStatus();
+        
+        if (! cs.isModifiable()) {
+            return false;
+        }
+        return ps.isModifiable() ||  (child.getMClass().isCmsNode() && !cs.isCmsManaged() && !cs.isRamc());
     }
 
     @objid ("620e36e0-272e-11e2-a9d1-002564c97630")
@@ -95,6 +136,24 @@ public class AuthTool implements IAuthTool {
             return parent != null && parent.getStatus().isModifiable();
         }
         return true;
+    }
+
+    @objid ("620e36d9-272e-11e2-a9d1-002564c97630")
+    @Override
+    public boolean canModify(final MObject el) {
+        return (el != null && !el.isShell() && !el.isDeleted() && el.getStatus().isModifiable());
+    }
+
+    @objid ("f188c004-2984-11e2-8460-002564c97630")
+    @Override
+    public boolean canRemoveFrom(MObject child, MObject parent) {
+        MStatus cs = child.getStatus();
+        MStatus ps = parent.getStatus();
+        
+        if (! cs.isModifiable()) {
+            return false;
+        }
+        return ps.isModifiable() || (child.getMClass().isCmsNode() && !cs.isCmsManaged() && !cs.isRamc());
     }
 
     @objid ("6210982c-272e-11e2-a9d1-002564c97630")
@@ -142,28 +201,6 @@ public class AuthTool implements IAuthTool {
         
         // Should never reach this point.
         throw new IllegalArgumentException("No common namespace between " + aSource + " and " + aTarget);
-    }
-
-    @objid ("f1865eb6-2984-11e2-8460-002564c97630")
-    @Override
-    public boolean canAddTo(MObject child, MObject parent) {
-        MStatus cs = child.getStatus();
-        MStatus ps = parent.getStatus();
-        
-        if (! cs.isModifiable())
-            return false;
-        return ps.isModifiable() ||  (child.getMClass().isCmsNode() && !cs.isCmsManaged() && !cs.isRamc());
-    }
-
-    @objid ("f188c004-2984-11e2-8460-002564c97630")
-    @Override
-    public boolean canRemoveFrom(MObject child, MObject parent) {
-        MStatus cs = child.getStatus();
-        MStatus ps = parent.getStatus();
-        
-        if (! cs.isModifiable())
-            return false;
-        return ps.isModifiable() || (child.getMClass().isCmsNode() && !cs.isCmsManaged() && !cs.isRamc());
     }
 
 }

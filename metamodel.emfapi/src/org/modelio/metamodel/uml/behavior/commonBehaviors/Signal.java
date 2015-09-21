@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.behavior.commonBehaviors;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptSignalAction;
 import org.modelio.metamodel.uml.behavior.activityModel.SendSignalAction;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
@@ -39,78 +43,237 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Parameter;
 
+/**
+ * Signal v0.0.9054
+ * 
+ * 
+ * Signals are processed by StateMachines, which represent how SignalEvents are taken into account. 
+ * 
+ * Modelio provides the DataFlow extension to UML.  Using this extension, a Signal can be declared as representing a ModelElement (GeneralClass, Operation, or Parameter). 
+ * 
+ * A DataFlow associated to the Signal will then be able to express this data, represented by the Signal, and may circulate between different NameSpaces.  
+ * 
+ * In Modelio, a Signal belongs to a NameSpace, notably its Package.
+ */
 @objid ("00421152-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Signal extends GeneralClass {
-    @objid ("73e07c64-ae69-455d-b887-ef8fc2b1e30f")
+    @objid ("070650c5-bc1f-484b-8f28-a0eb8744c4d9")
+    public static final String MNAME = "Signal";
+
+    /**
+     * Getter for attribute 'Signal.IsEvent'
+     * 
+     * Metamodel description:
+     * <i>Establishes if it is an event in the sense of event based systems : CORBA, Java, XWindow's, SGBDR.</i>
+     */
+    @objid ("cded861a-cd7c-4a15-bb4c-b3560a4d6bd9")
     boolean isIsEvent();
 
-    @objid ("2a30bef3-f27c-4edf-b782-1da78803901f")
+    /**
+     * Setter for attribute 'Signal.IsEvent'
+     * 
+     * Metamodel description:
+     * <i>Establishes if it is an event in the sense of event based systems : CORBA, Java, XWindow's, SGBDR.</i>
+     */
+    @objid ("853b34d7-3eed-4df3-80e8-d8ea5a5415ae")
     void setIsEvent(boolean value);
 
-    @objid ("e4634705-a4b7-40b7-a7c9-842842930e52")
+    /**
+     * Getter for attribute 'Signal.IsException'
+     * 
+     * Metamodel description:
+     * <i>Defines if it is an exception, as they exist in Java, C++, and so on.</i>
+     */
+    @objid ("d11a1fb6-b0c7-4d8a-804f-eb1b4d35f4f0")
     boolean isIsException();
 
-    @objid ("e4522974-bf23-4eab-b823-ef109ab2c140")
+    /**
+     * Setter for attribute 'Signal.IsException'
+     * 
+     * Metamodel description:
+     * <i>Defines if it is an exception, as they exist in Java, C++, and so on.</i>
+     */
+    @objid ("1f7ab3c6-b303-42f2-9761-ac589ca2a4fa")
     void setIsException(boolean value);
 
-    @objid ("84397971-f603-4712-83a7-5f0d38ca45e2")
+    /**
+     * Getter for relation 'Signal->Sender'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("31154307-2c08-49d7-af67-1885b3bfcddb")
     EList<SendSignalAction> getSender();
 
-    @objid ("2e46f410-91b3-4d5c-add4-f7941caa4e50")
+    /**
+     * Filtered Getter for relation 'Signal->Sender'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("aa335b10-20d7-4087-a269-ded12ca03af8")
     <T extends SendSignalAction> List<T> getSender(java.lang.Class<T> filterClass);
 
-    @objid ("d4972c25-29f6-4dfc-a726-0c5853628d32")
+    /**
+     * Getter for relation 'Signal->Usage'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("77ac2b6f-f12f-45fe-a8b1-461ad0ac94c3")
     EList<Message> getUsage();
 
-    @objid ("cd304777-5db3-4fcd-ab7e-ef00abb1c079")
+    /**
+     * Filtered Getter for relation 'Signal->Usage'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("46dcb0d2-18c0-4605-999d-005fdf5f6f98")
     <T extends Message> List<T> getUsage(java.lang.Class<T> filterClass);
 
-    @objid ("eb5b2889-f848-4c88-b466-a4b99007336c")
+    /**
+     * Getter for relation 'Signal->Sends'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("3e4e3d7c-624b-4f2a-9ffc-db6bbe62d23a")
     EList<Transition> getSends();
 
-    @objid ("082d27da-172f-4d7d-9519-57ae5815ebac")
+    /**
+     * Filtered Getter for relation 'Signal->Sends'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("39721fea-9c44-4236-a91d-d71936b1cce6")
     <T extends Transition> List<T> getSends(java.lang.Class<T> filterClass);
 
-    @objid ("d5ed8ca4-f2b3-4bec-9fa0-f435c0f763b5")
+    /**
+     * Getter for relation 'Signal->PBase'
+     * 
+     * Metamodel description:
+     * <i>Parameter that the Signal may represent.</i>
+     */
+    @objid ("98d49623-22db-4a09-80b0-93f0c3ed2e03")
     Parameter getPBase();
 
-    @objid ("30961e5d-c85f-4895-8074-95feb7e18d49")
+    /**
+     * Setter for relation 'Signal->PBase'
+     * 
+     * Metamodel description:
+     * <i>Parameter that the Signal may represent.</i>
+     */
+    @objid ("e457b92b-4395-4042-ba2d-2e65bd2531ee")
     void setPBase(Parameter value);
 
-    @objid ("0e958d71-2711-43ae-89d3-d1800fc49c29")
+    /**
+     * Getter for relation 'Signal->OBase'
+     * 
+     * Metamodel description:
+     * <i>The Operation that the Signal may represent.</i>
+     */
+    @objid ("7ed309f4-6fe8-470e-8886-bbd918cfad1a")
     Operation getOBase();
 
-    @objid ("2cddc0ff-dae9-46b2-aae1-976c7c2a9937")
+    /**
+     * Setter for relation 'Signal->OBase'
+     * 
+     * Metamodel description:
+     * <i>The Operation that the Signal may represent.</i>
+     */
+    @objid ("1e3a9db4-1c62-45fe-a402-ffc8e2564125")
     void setOBase(Operation value);
 
-    @objid ("6665f016-36ff-4fd7-855c-e0e049015f12")
+    /**
+     * Getter for relation 'Signal->CommunicationUsage'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("61ab238c-25fd-4db3-955a-f8f9f05ef4e8")
     EList<CommunicationMessage> getCommunicationUsage();
 
-    @objid ("4c6bae87-c5ee-4e3b-b993-58c0752a6abf")
+    /**
+     * Filtered Getter for relation 'Signal->CommunicationUsage'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f6e92dfa-341a-49ee-9a12-8cbb97afeee5")
     <T extends CommunicationMessage> List<T> getCommunicationUsage(java.lang.Class<T> filterClass);
 
-    @objid ("93e84b77-5ec5-42ad-9281-7058fdf4b40a")
+    /**
+     * Getter for relation 'Signal->DOccurence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("251014ef-dfd4-48d1-b379-047c13361f5d")
     EList<DataFlow> getDOccurence();
 
-    @objid ("5f43060f-48b6-4f15-bf48-e518da6537f3")
+    /**
+     * Filtered Getter for relation 'Signal->DOccurence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("c2ea734b-8e2d-48c9-8660-eb65ff595781")
     <T extends DataFlow> List<T> getDOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("af7fc492-032d-4432-a11e-a9d39922ad33")
+    /**
+     * Getter for relation 'Signal->EOccurence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("cb34e92b-c38b-4fc8-842a-d9da1129e1e1")
     EList<Event> getEOccurence();
 
-    @objid ("c4b857b2-d9a6-4421-9ecb-044c90b19799")
+    /**
+     * Filtered Getter for relation 'Signal->EOccurence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("43f91308-5579-4702-9bc8-755a78b1bc45")
     <T extends Event> List<T> getEOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("f5e646f1-4aca-462d-bb08-d5a30348b374")
+    /**
+     * Getter for relation 'Signal->Base'
+     * 
+     * Metamodel description:
+     * <i>Class that the Signal may represent.</i>
+     */
+    @objid ("c48536c2-ed7e-4fb1-82fb-c52f731dcc5f")
     GeneralClass getBase();
 
-    @objid ("e10e856e-745a-46fa-ba96-9992eaf437dc")
+    /**
+     * Setter for relation 'Signal->Base'
+     * 
+     * Metamodel description:
+     * <i>Class that the Signal may represent.</i>
+     */
+    @objid ("036bdef5-bd57-43d2-8b6e-62d4c06fadc8")
     void setBase(GeneralClass value);
 
-    @objid ("ed4350da-dae7-48f4-84d3-f359ee0d8413")
+    /**
+     * Getter for relation 'Signal->Receiver'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("2e7b0855-c19b-4158-a79a-b05df015998a")
     EList<AcceptSignalAction> getReceiver();
 
-    @objid ("cae1f3b5-83ee-431d-bb02-09a0e6213320")
+    /**
+     * Filtered Getter for relation 'Signal->Receiver'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("0b704917-6896-40b8-b8a1-dfbdf808f9ab")
     <T extends AcceptSignalAction> List<T> getReceiver(java.lang.Class<T> filterClass);
 
 }

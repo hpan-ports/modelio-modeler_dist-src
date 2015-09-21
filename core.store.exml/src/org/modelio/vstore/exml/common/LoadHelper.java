@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common;
 
@@ -32,6 +32,8 @@ import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
+import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vstore.exml.common.model.IllegalReferenceException;
 import org.modelio.vstore.exml.common.model.ObjId;
 
@@ -49,6 +51,9 @@ public class LoadHelper implements ILoadHelper {
     @objid ("202e4da2-99e2-4041-90a2-446e3f7afafe")
     private IExmlBase exmlBase;
 
+    @objid ("ca906cfb-0af6-494b-b57d-a2beb8a28ea7")
+    private SmMetamodel metamodel;
+
     @objid ("1d8fdab5-122c-11e2-816a-001ec947ccaf")
     @SuppressWarnings({ "unchecked", "rawtypes" })
     private static Enum<?> getEnumValue(final String attValue, final Class<?> attType) {
@@ -57,7 +62,9 @@ public class LoadHelper implements ILoadHelper {
 
     @objid ("678412b0-2e7b-11e2-8aaa-001ec947ccaf")
     private static void reportProblem(final SmObjectImpl obj, final String msg) {
-        if (Log.ENABLED) Log.warning("EXML loading problem on "+obj.getClassOf().getName()+" "+obj.getUuid()+": "+msg);
+        if (Log.ENABLED) {
+            Log.warning("EXML loading problem on "+obj.getClassOf().getName()+" "+obj.getUuid()+": "+msg);
+        }
     }
 
     @objid ("1d8fdabc-122c-11e2-816a-001ec947ccaf")
@@ -69,15 +76,18 @@ public class LoadHelper implements ILoadHelper {
             this.exmlBase.setIndexesDamaged(e);
         }
         
-        if (name == null)
+        if (name == null) {
             name = id.name;
+        }
         
         SmAttribute nameAtt = newObject.getClassOf().getAttributeDef("Name");
-        if (nameAtt == null)
+        if (nameAtt == null) {
             nameAtt = newObject.getClassOf().getAttributeDef("name");
+        }
         
-        if (nameAtt != null)
+        if (nameAtt != null) {
             modelLoader.loadAttribute(newObject, nameAtt, name);
+        }
     }
 
     /**
@@ -90,11 +100,12 @@ public class LoadHelper implements ILoadHelper {
         this.exmlBase = exmlBase;
         this.loadCache = exmlBase.getLoadCache();
         this.loadReadWrite = loadReadWrite;
+        this.metamodel = exmlBase.getModelLoaderProvider().getMetamodel();
     }
 
     @objid ("67841285-2e7b-11e2-8aaa-001ec947ccaf")
     @Override
-    public final SmObjectImpl createObject(IModelLoader modelLoader, final ObjId id) throws DuplicateObjectException {
+    public final SmObjectImpl createCmsNodeObject(IModelLoader modelLoader, final ObjId id) throws DuplicateObjectException {
         SmObjectImpl newObject = modelLoader.createLoadedObject(id.classof, id.id);
         
         // Add new object to the loaded objects cache
@@ -106,10 +117,11 @@ public class LoadHelper implements ILoadHelper {
 
     @objid ("6784129c-2e7b-11e2-8aaa-001ec947ccaf")
     @Override
-    public final SmObjectImpl getRefObject(IModelLoader modelLoader, final ObjId id, final ObjId pid) throws DuplicateObjectException, IllegalReferenceException {
-        if (!this.exmlBase.isStored(id))
+    public final SmObjectImpl getRefObject(IModelLoader modelLoader, final ObjId id) throws DuplicateObjectException, IOException, IllegalReferenceException {
+        if (!this.exmlBase.isStored(id)) {
             return getForeignObject(modelLoader, id);
-        return createStubObject(modelLoader, id, pid);
+        }
+        return createStubObject(modelLoader, id);
     }
 
     @objid ("678412b7-2e7b-11e2-8aaa-001ec947ccaf")
@@ -171,21 +183,21 @@ public class LoadHelper implements ILoadHelper {
 
     @objid ("67841295-2e7b-11e2-8aaa-001ec947ccaf")
     @Override
-    public final SmObjectImpl getObject(final ObjId id) {
+    public final SmObjectImpl getLoadedObject(final ObjId id) {
         SmObjectImpl ret = null;
         
         if (id.id != null)
         {
             ret = this.loadCache.findById(id.classof, id.id);
         
-            if (ret!=null && 
-                    ret.getClassOf() != id.classof && 
-                    !ret.getClassOf().hasBase(id.classof)) 
+            if (ret!=null &&
+                    ret.getClassOf() != id.classof &&
+                    !ret.getClassOf().hasBase(id.classof))
             {
                 Log.error(String.format("LoadHelper.getObject(%s): \"%s\" found is a '%s' and not a '%s' !",
                         id.toString(),
                         GetAbsoluteSymbol.get(ret),
-                        ret.getClassOf().getName(), 
+                        ret.getClassOf().getName(),
                         id.classof.getName()));
                 ret = null;
             }
@@ -207,42 +219,112 @@ public class LoadHelper implements ILoadHelper {
     @objid ("1d8fdac0-122c-11e2-816a-001ec947ccaf")
     @Override
     public void initObjectFlags(IModelLoader modelLoader, SmObjectImpl obj) {
-        if (!this.loadReadWrite)
+        if (!this.loadReadWrite) {
             modelLoader.setRStatus(obj, 0, IRStatus.USERWRITE, 0);
+        }
     }
 
+    /**
+     * Create a not yet loaded object.
+     * <p>
+     * Throws {@link IOException} if the object does not exist in this repository.
+     * @param modelLoader the model loader
+     * @param id the model object identifier
+     * @return the loaded model object.
+     * @throws org.modelio.vcore.model.DuplicateObjectException in case of duplicate identifier
+     * @throws org.modelio.vstore.exml.common.model.IllegalReferenceException if a wrong reference is encountered in the file.
+     * @throws java.io.IOException if indexes are broken
+     */
     @objid ("e809ae47-041e-4f20-a858-35f519f89e41")
     @Override
-    public SmObjectImpl createStubObject(IModelLoader modelLoader, final ObjId id, final ObjId pid) throws DuplicateObjectException, IllegalReferenceException {
-        SmObjectImpl newObject = modelLoader.createLoadedObject(id.classof, id.id);
+    public SmObjectImpl createStubObject(IModelLoader modelLoader, ObjId id) throws DuplicateObjectException, IOException, IllegalReferenceException {
+        SmObjectImpl newObject;
         
-        // Set the name now
-        setObjectName(modelLoader, newObject, id);
+        try {
         
-        if (id.equals(pid)) {
-            // reference to A CMS node.
-            // Assert the object is a CMS node.
-            if (! newObject.getClassOf().isCmsNode())
-                throw new IllegalReferenceException("referenced "+newObject+ " is not a CMS node.");
+            // Need to load the element
+            if (id.classof.isCmsNode()) {
+                // The element is a CMS node.
         
-            newObject.setRepositoryObject(createStorageHandler(newObject, false));
-        } else {
-            // Get the storage handler from the parent CMS node
-            SmObjectImpl parentNode = getObject(pid);
-            if (parentNode == null) {
-                // Create ref to the parent CMS node
-                parentNode = getRefObject(modelLoader, pid, pid);
+                // Create a not yet loaded ref.
+                newObject = modelLoader.createLoadedObject(id.classof, id.id);
+        
+                // Add new object to the loaded objects cache
+                this.loadCache.putToCache(newObject);
+        
+                newObject.setRepositoryObject(createStorageHandler(newObject, false));
+            } else {
+                // The element is not a CMS node.
+                // Get the CMS node containing the element
+                SmObjectImpl parentNode = getParentCmsNode(id, modelLoader);
+        
+                // Create a not yet loaded ref.
+                newObject = modelLoader.createLoadedObject(id.classof, id.id);
+        
+                // Add new object to the loaded objects cache
+                this.loadCache.putToCache(newObject);
+        
+                newObject.setRepositoryObject( parentNode.getRepositoryObject());
             }
         
-            newObject.setRepositoryObject( parentNode.getRepositoryObject());
+            // Set the name now
+            setObjectName(modelLoader, newObject, id);
+        
+            return newObject;
+        
+        } catch (IllegalReferenceException e) {
+            // The index is probably dead
+            IOException e2 = new IOException(e.getLocalizedMessage(), e);
+            this.exmlBase.setIndexesDamaged(e2);
+        
+            throw e;
+        } catch (IOException e) {
+            this.exmlBase.setIndexesDamaged(e);
+            throw e;
+        }
+    }
+
+    @objid ("bafffe7f-7dc9-44b1-94c8-0b1395f6b758")
+    @Override
+    public SmClass getSmClass(String xclassof) {
+        SmClass mClass = this.metamodel.getMClass(xclassof);
+        
+        if (mClass == null) {
+            synchronized(this) {
+                mClass = this.metamodel.getMClass(xclassof);
+                if (mClass == null) {
+                    mClass = this.metamodel
+                            .fakeClassBuilder()
+                            .setQualifiedName(xclassof)
+                            .setCmsNode(false)
+                            .build();
+                }
+            }
+        }
+        return mClass;
+    }
+
+    @objid ("1c306acf-7c5a-40cf-98dc-2b07ae51922c")
+    private SmObjectImpl getParentCmsNode(ObjId id, IModelLoader modelLoader) throws DuplicateObjectException, IOException, IllegalReferenceException {
+        final ObjId parentId = this.exmlBase.getCmsNodeIndex().getCmsNodeOf(id);
+        
+        // If no parent, the element does not exist in the repository
+        if (parentId == null) {
+            throw new IllegalReferenceException(parentId+" parent of "+id+" not in repository.");
         }
         
-        // Set read only if needed
-        //initObjectFlags(modelLoader, newObject);
+        // Get the storage handler from the parent CMS node
+        SmObjectImpl parentNode = getLoadedObject(parentId);
+        if (parentNode == null) {
+            // Create ref to the parent CMS node
+            parentNode = getRefObject(modelLoader, parentId);
         
-        // Add new object to the loaded objects cache
-        this.loadCache.putToCache(newObject);
-        return newObject;
+            if (parentNode.getRepositoryObject().getRepositoryId() != this.exmlBase.getRepositoryId()) {
+                throw new IllegalReferenceException(String.format("%s owning %s is in %s repository instead of %s.",
+                        parentNode, id, parentNode.getRepositoryObject(), this.exmlBase));
+            }
+        }
+        return parentNode;
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -35,14 +35,13 @@ import org.modelio.metamodel.uml.behavior.activityModel.DecisionMergeNode;
 import org.modelio.metamodel.uml.behavior.activityModel.StructuredActivityNode;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("acaf94e3-ee33-4df8-b690-b7e2cd9afdf4")
-public class ODecisionMergeNode extends OModelElement implements IOElement {
+public class ODecisionMergeNode extends OModelElement {
     @objid ("9a68bad2-1ec7-4c32-ac94-cd7f7f3fe89f")
     private boolean partialCreation = true;
 
@@ -51,9 +50,6 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
 
     @objid ("3f9bec85-3610-4cf9-b5f3-a78054ab6cbc")
     private boolean isDecisionNode = false;
-
-    @objid ("b149fc4e-2462-42f1-9628-42c50accba05")
-    private DecisionMergeNode objingElement = null;
 
     @objid ("45ba275e-3e23-48ae-80f6-a9f2263a0d76")
     private org.eclipse.uml2.uml.DecisionNode decisionNode;
@@ -76,7 +72,6 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
     @objid ("7474c69b-7c57-474a-979f-c005090a1ff3")
     public ODecisionMergeNode(DecisionMergeNode element) {
         super(element);
-        this.objingElement = element;
         if (AbstractObjingModelNavigation.isMergeNode(element))
             this.isMergeNode = true;
         else if (AbstractObjingModelNavigation.isDecisionNode(element))
@@ -96,7 +91,7 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
             }
         }
         
-        MObject objingOwner = this.objingElement.getCompositionOwner();
+        MObject objingOwner = getObjingElement().getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
@@ -139,8 +134,8 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
         this.decisionNode = UMLFactory.eINSTANCE.createDecisionNode();
         
         ActivityEdge typeOfEdge = null;
-        List<ActivityEdge> objingInc = this.objingElement.getIncoming();
-        List<ActivityEdge> objingOut = this.objingElement.getOutgoing();
+        List<ActivityEdge> objingInc = getObjingElement().getIncoming();
+        List<ActivityEdge> objingOut = getObjingElement().getOutgoing();
         
         if (objingInc.size() > 0) {
             typeOfEdge = objingInc.get(0);
@@ -155,7 +150,7 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
             ecoreFlow = UMLFactory.eINSTANCE.createObjectFlow();
         
         Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
+                .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
         
         if (enclosingActivity != null) {
             org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
@@ -167,7 +162,7 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
         }
         
         ecoreFlow.setSource(mergeNode);
-        ecoreFlow.setTarget(decisionNode);
+        ecoreFlow.setTarget(this.decisionNode);
     }
 
     @objid ("76b17668-8895-47f9-bdfb-702363e0456f")
@@ -202,7 +197,7 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
         
             // Setting composition relation
             Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                    .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
+                    .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
             if (enclosingActivity != null) {
                 org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
                         .getMappedElement(enclosingActivity);
@@ -259,7 +254,7 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
         if (!isAttached) {
             // Setting composition relation (in  org.eclipse.uml2.uml.Activity):
             Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                    .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
+                    .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
             if (enclosingActivity != null) {
                 org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
                         .getMappedElement(enclosingActivity);
@@ -275,7 +270,7 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
 
     @objid ("47bc0b40-7bfe-451a-a88d-d7a87d9a5140")
     private void setDecisionInput(org.eclipse.uml2.uml.DecisionNode node) {
-        String decisionInput = this.objingElement.getDecisionInputBehavior();
+        String decisionInput = getObjingElement().getDecisionInputBehavior();
         if (decisionInput.length() > 0) {
             org.eclipse.uml2.uml.OpaqueBehavior behavior = UMLFactory.eINSTANCE.createOpaqueBehavior();
             ObjingEAnnotation.setDeleted(behavior, true);
@@ -283,7 +278,7 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
         
             // Setting composition relation
             Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                    .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
+                    .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
         
             Package objingPkg = AbstractObjingModelNavigation
                     .getNearestPackage(enclosingActivity);
@@ -301,6 +296,12 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
         
             node.setDecisionInput(behavior);
         }
+    }
+
+    @objid ("de4d4ede-448c-40fb-9b4e-8e1a30ef77af")
+    @Override
+    public DecisionMergeNode getObjingElement() {
+        return (DecisionMergeNode) super.getObjingElement();
     }
 
 }

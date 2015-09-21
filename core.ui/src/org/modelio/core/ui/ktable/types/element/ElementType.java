@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,19 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.ktable.types.element;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import de.kupzog.ktable.renderers.DefaultCellRenderer;
 import org.modelio.core.ui.ktable.types.PropertyType;
 import org.modelio.vcore.session.api.model.IMObjectFilter;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -62,6 +63,12 @@ abstract class ElementType extends PropertyType {
     @objid ("8dea976c-c068-11e1-8c0a-002564c97630")
     public void setElementFilter(IMObjectFilter elementFilter) {
         this.elementFilter = elementFilter;
+    }
+
+    @objid ("aab6490b-fcf6-4152-a6f2-7272b3d9efeb")
+    @Override
+    public DefaultCellRenderer getRenderer() {
+        return super.getRenderer();
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.editpartFactory;
 
@@ -26,6 +26,7 @@ import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.modelio.diagram.elements.common.freezone.GmBodyFreeZone;
 import org.modelio.diagram.elements.common.freezone.GmFreeZone;
 import org.modelio.diagram.elements.common.freezone.GmFreeZoneEditPart;
@@ -36,12 +37,14 @@ import org.modelio.diagram.elements.common.group.GmGroupEditPart;
 import org.modelio.diagram.elements.common.groupitem.GroupItemEditPart;
 import org.modelio.diagram.elements.common.header.GmModelElementHeader;
 import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
+import org.modelio.diagram.elements.common.image.ImageEditPart;
 import org.modelio.diagram.elements.common.image.LabelledImageEditPart;
 import org.modelio.diagram.elements.common.image.NonSelectableImageEditPart;
+import org.modelio.diagram.elements.common.image.UserDefinedImageProvider;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
 import org.modelio.diagram.elements.common.label.base.GmElementLabelEditPart;
-import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
-import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
+import org.modelio.diagram.elements.common.label.modelelement.GmModelElementLabel;
+import org.modelio.diagram.elements.common.label.modelelement.ModelElementLabelEditPart;
 import org.modelio.diagram.elements.common.label.name.GmNameLabel;
 import org.modelio.diagram.elements.common.label.name.GmNameSimpleLabel;
 import org.modelio.diagram.elements.common.label.name.NameLabelEditPart;
@@ -54,6 +57,7 @@ import org.modelio.diagram.elements.common.text.GmElementText;
 import org.modelio.diagram.elements.common.text.GmElementTextEditPart;
 import org.modelio.diagram.elements.core.link.GmLinkEditPart;
 import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.elements.core.model.ImageServices;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.node.IImageableNode;
 import org.modelio.diagram.elements.drawings.core.GmDrawing;
@@ -89,7 +93,6 @@ import org.modelio.diagram.elements.umlcommon.note.GmNote;
 import org.modelio.diagram.elements.umlcommon.note.GmNoteLink;
 import org.modelio.diagram.elements.umlcommon.note.NoteEditPart;
 import org.modelio.diagram.elements.umlcommon.usage.GmUsage;
-import org.modelio.diagram.elements.umlcommon.usage.GmUsageHeader;
 
 /**
  * The UML standard EditPart factory for Modelio diagrams.
@@ -130,6 +133,9 @@ public class ModelioEditPartFactory implements EditPartFactory {
     @objid ("eaa04cf4-6faa-4d5d-8ba5-1360d762d3e9")
     private DrawingEditPartFactory drawingEditPartFactory = new DrawingEditPartFactory();
 
+    @objid ("3d371f6e-3a45-4fb5-910f-7d278770e279")
+    private UserImageModeEditPartFactory userImageModeEditPartFactory = new UserImageModeEditPartFactory();
+
     /**
      * @return the instance.
      */
@@ -167,14 +173,18 @@ public class ModelioEditPartFactory implements EditPartFactory {
         // First ask cascaded edit part factories
         for (EditPartFactory factory : this.cascadedFactories.values()) {
             editPart = factory.createEditPart(context, model);
-            if (editPart != null)
+            if (editPart != null) {
                 return editPart;
+            }
         }
         
         if (model instanceof GmNodeModel) {
             // For node models, delegates according the representation mode.
             GmNodeModel node = (GmNodeModel) model;
             switch (node.getRepresentationMode()) {
+            case USER_IMAGE:
+                editPart = this.userImageModeEditPartFactory.createEditPart(context, model);
+                break;
             case IMAGE:
                 editPart = this.imageModeEditPartFactory.createEditPart(context, model);
                 break;
@@ -189,21 +199,23 @@ public class ModelioEditPartFactory implements EditPartFactory {
                 break;
             }
         
-            if (editPart != null)
+            if (editPart != null) {
                 return editPart;
+            }
         
             throw new IllegalArgumentException(model +
                     " is not supported in " +
                     node.getRepresentationMode() +
                     " mode.");
-        } 
+        }
         
         if (model instanceof GmDrawing || model instanceof GmDrawingLayer) {
             // For drawings, use dedicated factory
             editPart = this.drawingEditPartFactory.createEditPart(context, model);
         
-            if (editPart != null)
+            if (editPart != null) {
                 return editPart;
+            }
         
             throw new IllegalArgumentException(model +
                     " is not supported.");
@@ -212,8 +224,9 @@ public class ModelioEditPartFactory implements EditPartFactory {
         // Link models are always in structured mode.
         editPart = this.structuredModeEditPartFactory.createEditPart(context, model);
         
-        if (editPart != null)
+        if (editPart != null) {
             return editPart;
+        }
         
         throw new IllegalArgumentException(model + " link is not supported.");
     }
@@ -257,6 +270,19 @@ public class ModelioEditPartFactory implements EditPartFactory {
             }
             
             // Fall back
+            
+            if (model instanceof GmModelElementHeader) {
+                EditPart editPart;
+                if (((GmModelElementHeader)model).isFlat()) {
+                    editPart = new ModelElementLabelEditPart();
+                } else {
+                    editPart = new ModelElementHeaderEditPart();
+                }
+                editPart.setModel(model);
+                return editPart;
+            }
+            
+            
             if (model instanceof GmNodeModel) {
                 if (((GmNodeModel) model).getParent() instanceof GmPortContainer) {
                     final SimpleEditPart editPart = new NonSelectableSimpleEditPart();
@@ -429,10 +455,6 @@ public class ModelioEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model instanceof GmUsageHeader) {
-                editPart = new ModelElementFlatHeaderEditPart();
-                editPart.setModel(model);
-            }
             
             
             // Last chance: Generic fall backs
@@ -455,14 +477,18 @@ public class ModelioEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model instanceof GmModelElementFlatHeader) {
-                editPart = new ModelElementFlatHeaderEditPart();
+            if (model instanceof GmModelElementLabel) {
+                editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
             
             if (model instanceof GmModelElementHeader) {
-                editPart = new ModelElementHeaderEditPart();
+                if (((GmModelElementHeader)model).isFlat()) {
+                    editPart = new ModelElementLabelEditPart();
+                } else {
+                    editPart = new ModelElementHeaderEditPart();
+                }
                 editPart.setModel(model);
                 return editPart;
             }
@@ -506,6 +532,53 @@ public class ModelioEditPartFactory implements EditPartFactory {
                 }
             }
             return null;
+        }
+
+    }
+
+    /**
+     * EditPart factory for node models in stereotype image mode.
+     * 
+     * @author cmarin
+     */
+    @objid ("d5c33b24-6c8e-452c-af88-cc3f94224992")
+    public static class UserImageModeEditPartFactory implements EditPartFactory {
+        @objid ("d6b72268-f916-48e0-b1e8-c4bcf77aaee6")
+        @Override
+        public EditPart createEditPart(EditPart context, Object model) {
+            if (model instanceof GmPortContainer) {
+                // Port containers stay a port container in image mode
+                new IllegalStateException("Ports containers should never be in image mode.").printStackTrace();
+            
+                final EditPart editPart = new PortContainerEditPart();
+                editPart.setModel(model);
+                return editPart;
+            }
+            
+            UserDefinedImageProvider imProv = createImageProvider(context, model);
+            return createUserImageEditPart(model, imProv);
+        }
+
+        @objid ("cbc4a6f7-65e0-4c6f-9ffe-3aa0f3e09652")
+        protected UserDefinedImageProvider createImageProvider(EditPart context, Object model) {
+            ImageRegistry imageRegistry = ImageServices.getImageRegistry(context);
+            UserDefinedImageProvider imProv = new UserDefinedImageProvider((GmModel) model, imageRegistry);
+            return imProv;
+        }
+
+        @objid ("2e95117b-2edc-4108-877c-c521379ca7d6")
+        protected EditPart createUserImageEditPart(Object model, UserDefinedImageProvider imProv) {
+            if (((GmNodeModel) model).getParent() instanceof GmPortContainer) {
+                final ImageEditPart editPart = new NonSelectableImageEditPart();
+                editPart.setModel(model);
+                editPart.setImageProvider(imProv);
+                return editPart;
+            } else {
+                final ImageEditPart editPart = new LabelledImageEditPart();
+                editPart.setModel(model);
+                editPart.setImageProvider(imProv);
+                return editPart;
+            }
         }
 
     }

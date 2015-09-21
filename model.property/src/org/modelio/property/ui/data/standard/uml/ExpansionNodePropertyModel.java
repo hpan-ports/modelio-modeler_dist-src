@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -57,13 +57,13 @@ public class ExpansionNodePropertyModel extends AbstractPropertyModel<ExpansionN
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a70dc5a6-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"ExpansionNode", "Name", "TypeRepresented", "UpperBound",
-			"IsControlType", "Ordering", "SelectionBehavior", "InState" };
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "TypeRepresented", "UpperBound", "IsControlType",
+            "Ordering", "SelectionBehavior", "InState" };
 
     @objid ("fa64527c-c5d4-11e1-8f21-002564c97630")
     private StringType labelStringType;
@@ -103,7 +103,7 @@ public class ExpansionNodePropertyModel extends AbstractPropertyModel<ExpansionN
         cardinalityMaxValues.add("*");
         this.cardinalityMaxType = new EditableListType(true, cardinalityMaxValues);
         ICoreSession session = CoreSession.getSession(this.theEditedElement);
-        this.stateType = new SingleElementType(false, State.class, session );
+        this.stateType = new SingleElementType(false, State.class, session);
         this.objectNodeOrderingKindType = new EnumType(ObjectNodeOrderingKind.class);
         this.representedType = new RepresentedType(session);
     }
@@ -144,24 +144,24 @@ public class ExpansionNodePropertyModel extends AbstractPropertyModel<ExpansionN
             return ExpansionNodePropertyModel.PROPERTIES[row];
         case 1: // col 1 is the property value
             switch (row) {
-                case 0: // Header
-                    return "Value";
-                case 1:
+            case 0: // Header
+                return "Value";
+            case 1:
                 return this.theEditedElement.getName();
             case 2:
                 return getRepresented();
             case 3:
                 return this.theEditedElement.getUpperBound();
             case 4:
-                return this.theEditedElement.isIsControlType()?Boolean.TRUE:Boolean.FALSE;
+                return this.theEditedElement.isIsControlType() ? Boolean.TRUE : Boolean.FALSE;
             case 5:
                 return this.theEditedElement.getOrdering();
             case 6:
                 return this.theEditedElement.getSelectionBehavior();
             case 7:
                 return this.theEditedElement.getInState();
-                default:
-                    return null;
+            default:
+                return null;
             }
         default:
             return null;
@@ -171,8 +171,7 @@ public class ExpansionNodePropertyModel extends AbstractPropertyModel<ExpansionN
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -187,10 +186,10 @@ public class ExpansionNodePropertyModel extends AbstractPropertyModel<ExpansionN
             return this.labelStringType;
         case 1: // col 1 is the property value type
             switch (row) {
-                case 0: // Header
-                    return this.labelStringType;
-                case 1:
-                    return this.stringType;
+            case 0: // Header
+                return this.labelStringType;
+            case 1:
+                return this.stringType;
             case 2:
                 return this.representedType;
             case 3:
@@ -203,8 +202,8 @@ public class ExpansionNodePropertyModel extends AbstractPropertyModel<ExpansionN
                 return this.stringType;
             case 7:
                 return this.stateType;
-                default:
-                    return null;
+            default:
+                return null;
             }
         default:
             return null;
@@ -227,9 +226,9 @@ public class ExpansionNodePropertyModel extends AbstractPropertyModel<ExpansionN
             return;
         case 1: // col 1 is the property value
             switch (row) {
-                case 0:
-                    return; // Header cannot be modified
-                case 1:
+            case 0:
+                return; // Header cannot be modified
+            case 1:
                 this.theEditedElement.setName((String) value);
                 break;
             case 2:
@@ -249,9 +248,9 @@ public class ExpansionNodePropertyModel extends AbstractPropertyModel<ExpansionN
                 break;
             case 7:
                 this.theEditedElement.setInState((State) value);
-                    break;
-                default:
-                    return;
+                break;
+            default:
+                return;
             }
             break;
         default:
@@ -266,24 +265,27 @@ public class ExpansionNodePropertyModel extends AbstractPropertyModel<ExpansionN
     @objid ("8f173099-c068-11e1-8c0a-002564c97630")
     private ModelElement getRepresented() {
         ModelElement ret = this.theEditedElement.getRepresented();
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         ret = this.theEditedElement.getRepresentedAttribute();
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         ret = this.theEditedElement.getRepresentedRole();
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         ret = this.theEditedElement.getRepresentedRealParameter();
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         ret = this.theEditedElement.getType();
         return ret;
     }
 
     /**
-     * Set the InstanceNode represented elements.
-     * This method set the right dependency and clears the otheEditedElement.
+     * Set the InstanceNode represented elements. This method set the right dependency and clears the otheEditedElement.
      * @param theEditedElement the instance node
      * @param value the new represented element
      */
@@ -292,51 +294,57 @@ public class ExpansionNodePropertyModel extends AbstractPropertyModel<ExpansionN
         // Erase old value or exit if old value is new value
         Instance old1 = theEditedElement.getRepresented();
         if (old1 != null) {
-            if (old1.equals(value))
+            if (old1.equals(value)) {
                 return;
+            }
             theEditedElement.setRepresented(null);
         } else {
             Attribute old2 = theEditedElement.getRepresentedAttribute();
             if (old2 != null) {
-                if (old2.equals(value))
+                if (old2.equals(value)) {
                     return;
+                }
                 theEditedElement.setRepresentedAttribute(null);
             } else {
                 AssociationEnd old3 = theEditedElement.getRepresentedRole();
                 if (old3 != null) {
-                    if (old3.equals(value))
+                    if (old3.equals(value)) {
                         return;
+                    }
                     theEditedElement.setRepresentedRole(null);
                 } else {
                     BehaviorParameter old4 = theEditedElement.getRepresentedRealParameter();
                     if (old4 != null) {
-                        if (old4.equals(value))
+                        if (old4.equals(value)) {
                             return;
+                        }
                         theEditedElement.setRepresentedRealParameter(null);
                     } else {
                         GeneralClass old5 = theEditedElement.getType();
                         if (old5 != null) {
-                            if (old5.equals(value))
+                            if (old5.equals(value)) {
                                 return;
+                            }
                             theEditedElement.setType(null);
                         }
                     }
                 }
             }
         }
-                
+        
         // Set new value
         if (value != null) {
-            if (Instance.class.isAssignableFrom(value.getClass()))
+            if (Instance.class.isAssignableFrom(value.getClass())) {
                 theEditedElement.setRepresented((Instance) value);
-            else if (Attribute.class.isAssignableFrom(value.getClass()))
+            } else if (Attribute.class.isAssignableFrom(value.getClass())) {
                 theEditedElement.setRepresentedAttribute((Attribute) value);
-            else if (AssociationEnd.class.isAssignableFrom(value.getClass()))
+            } else if (AssociationEnd.class.isAssignableFrom(value.getClass())) {
                 theEditedElement.setRepresentedRole((AssociationEnd) value);
-            else if (BehaviorParameter.class.isAssignableFrom(value.getClass()))
+            } else if (BehaviorParameter.class.isAssignableFrom(value.getClass())) {
                 theEditedElement.setRepresentedRealParameter((BehaviorParameter) value);
-            else if (GeneralClass.class.isAssignableFrom(value.getClass()))
+            } else if (GeneralClass.class.isAssignableFrom(value.getClass())) {
                 theEditedElement.setType((GeneralClass) value);
+            }
         }
     }
 

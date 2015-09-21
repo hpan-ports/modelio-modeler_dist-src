@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.ui.lifecycle;
 
@@ -169,7 +169,7 @@ public class PerspectiveManager implements EventHandler, IModelioUiService {
 
     @objid ("1ec8ab45-99b4-4a0e-9334-e4ba1e0e8349")
     private MPerspective getDefaultPerspective() {
-        if (projectService != null && projectService.getOpenedProject() != null) {
+        if (this.projectService != null && this.projectService.getOpenedProject() != null) {
             return getProjectPerspectives().get(0);
         } else {
             return getWorkspacePerspectives().get(0);

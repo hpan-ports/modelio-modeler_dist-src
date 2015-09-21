@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,51 +12,109 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.statik.Package;
 
+/**
+ * Profile v0.0.9054
+ */
 @objid ("008c74a4-c4be-1fd8-97fe-001ec947cd2a")
 public interface Profile extends Package {
-    @objid ("dffffbcf-e938-4c05-b030-5e28c9985d22")
+    @objid ("6095ee37-2427-430a-8900-05536fe9abed")
+    public static final String MNAME = "Profile";
+
+    /**
+     * Getter for attribute 'Profile.JCode'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("645d5cdc-a0a1-4fd9-8196-c851a25300d4")
     String getJCode();
 
-    @objid ("efb31e94-a899-4b4f-8a45-8d7f9f714e61")
+    /**
+     * Setter for attribute 'Profile.JCode'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e56fc453-4760-4347-bf90-c4999de57b0d")
     void setJCode(String value);
 
-    @objid ("badf9702-9bf3-41ef-8d39-ed48ad464f5a")
+    /**
+     * Getter for relation 'Profile->DefinedStereotype'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("9b552766-668e-4a8f-ac3a-1aa744956475")
     EList<Stereotype> getDefinedStereotype();
 
-    @objid ("46ce5200-f36e-4b7e-bc00-ca69ef6d6ae5")
+    /**
+     * Filtered Getter for relation 'Profile->DefinedStereotype'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("02aa6d65-711d-426e-ba32-7126791d67a1")
     <T extends Stereotype> List<T> getDefinedStereotype(java.lang.Class<T> filterClass);
 
-    @objid ("e5ff1cef-05dd-4cb6-a45b-682ea70494b9")
+    /**
+     * Getter for relation 'Profile->OwnerModule'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4d6b1c58-540d-45c5-8cc7-62de7424a283")
     ModuleComponent getOwnerModule();
 
-    @objid ("a6550429-db93-4323-a213-daffd44d9a78")
+    /**
+     * Setter for relation 'Profile->OwnerModule'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("d9293607-f47a-434f-a72b-dc87d5320987")
     void setOwnerModule(ModuleComponent value);
 
-    @objid ("a6443a20-4b66-4c01-b039-cfb9ada4a2d5")
+    /**
+     * Getter for relation 'Profile->OwnedReference'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("102c43a6-44c9-42cb-9d80-1ce26e76f575")
     EList<MetaclassReference> getOwnedReference();
 
-    @objid ("74cc800a-2612-4aa7-8324-b1ffd373fd89")
+    /**
+     * Filtered Getter for relation 'Profile->OwnedReference'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("89d6c710-be34-41b4-b749-ef0f54b2f4eb")
     <T extends MetaclassReference> List<T> getOwnedReference(java.lang.Class<T> filterClass);
 
 }

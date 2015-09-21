@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link.rake;
 
@@ -33,6 +33,7 @@ import org.modelio.diagram.elements.core.model.IGmLinkable;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 import org.modelio.gproject.model.api.MTools;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -113,8 +114,8 @@ public class RakeLinkOnTargetCommand extends Command {
     @Override
     public boolean canExecute() {
         if (this.toConnect.getStyleKey(MetaKey.CONNECTIONROUTER) != null &&
-            (this.rakeLink.getStyleKey(MetaKey.CONNECTIONROUTER) != null) &&
-            (this.toConnect == null || this.toConnect.getClass() == this.rakeLink.getClass())) {
+                (this.rakeLink.getStyleKey(MetaKey.CONNECTIONROUTER) != null) &&
+                (this.toConnect == null || this.toConnect.getClass() == this.rakeLink.getClass())) {
             return MTools.getAuthTool().canModify(this.toConnect.getDiagram().getRelatedElement());
         }
         return false;
@@ -125,15 +126,17 @@ public class RakeLinkOnTargetCommand extends Command {
         final MObject link = this.toConnect.getRelatedElement();
         final MObject newDest = this.rakeLink.getToElement();
         final IGmLinkable oldTargetNode = this.toConnect.getTo();
+        final MExpert expert = link.getMClass().getMetamodel().getMExpert();
+        
         if (oldTargetNode != null) {
             final MObject oldDest = oldTargetNode.getRelatedElement();
             if (!newDest.equals(oldDest)) {
                 // Update Ob model
-                MTools.getModelTool().setTarget(link, oldDest, newDest);
+                expert.setTarget(link, oldDest, newDest);
             }
             oldTargetNode.removeEndingLink(this.toConnect);
         } else {
-            MTools.getModelTool().setTarget(link, null, newDest);
+            expert.setTarget(link, null, newDest);
         }
         
         // Update gm model

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.dialogs.dialog.panels.operation.properties;
 
@@ -51,29 +51,29 @@ import org.modelio.ui.panel.IPanelProvider;
 
 @objid ("050ad305-9298-48fc-965c-03c0471a3e5f")
 public class OperationPropertiesPanel implements IPanelProvider {
-    @objid ("d71a432d-05e2-47d3-bd86-6e28229da8bc")
-    private OperationModel opModel;
-
-    @objid ("c4f567ac-ddc5-4834-b55f-760fc0e5e025")
+    @objid ("9a66a0b0-6ca3-47b4-8174-f265d7c8b260")
     private Composite container;
 
-    @objid ("047201c5-d0fb-4668-b69a-8a3328239ca0")
+    @objid ("0d017a81-d4b0-49e6-b9ed-0f1a1ad73159")
     private Text nameText;
+
+    @objid ("4e3462ac-6097-4832-adaa-e52733802fcd")
+    private Button isAbstractCheckbox;
+
+    @objid ("9404a5f9-759a-49ea-9ef6-60f488d8c351")
+    private Button isClassCheckbox;
+
+    @objid ("851e9f80-0e3d-4f69-afa6-588ca133afa6")
+    private Button isFinalCheckbox;
+
+    @objid ("d71a432d-05e2-47d3-bd86-6e28229da8bc")
+    private OperationModel opModel;
 
     @objid ("a9c771cc-ed57-4002-af57-abc1058c6b54")
     private ComboViewer kindCombo;
 
     @objid ("13095e54-6449-4f1c-86d0-faca9949237a")
     private ComboViewer visibilityCombo;
-
-    @objid ("ee98926a-cf4e-40bf-9a55-546abd16d27d")
-    private Button isAbstractCheckbox;
-
-    @objid ("612fdab4-8731-4df8-bc0b-7ff087b83067")
-    private Button isClassCheckbox;
-
-    @objid ("51986d75-11a6-49cf-b5b6-eed835eda1f9")
-    private Button isFinalCheckbox;
 
     @objid ("e0293cb4-ffc4-433b-85b7-10a8549a7472")
     private TextElement redefinitionTextElement;

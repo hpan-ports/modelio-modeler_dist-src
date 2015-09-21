@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,33 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 9024, by Modeliosoft
+ Generator version: 3.0.01.9022
+ Generated on: 28 janv. 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 9024, by Modeliosoft
+ Generator version: 3.2.07.9022
+ Generated on: Mar 9, 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -29,8 +46,8 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.LinkEndData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.statik.LinkEndData;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Instance;
@@ -103,11 +120,11 @@ public class LinkEndImpl extends ModelElementImpl implements LinkEnd {
     @Override
     public void setTarget(final Instance value, boolean fixModel) {
         if (fixModel) {
-            boolean isNavigable = isNavigable();            
+            boolean isNavigable = isNavigable();
         
             LinkEnd opposite = getOpposite();
             boolean otherNavigable = opposite.isNavigable();
-            
+        
             // The source instance is the current source or the opposite end's target according to the old navigability
             Instance source = getSource() != null ? getSource() : opposite.getTarget();
         
@@ -134,7 +151,7 @@ public class LinkEndImpl extends ModelElementImpl implements LinkEnd {
             } else if (!isNavigable && !otherNavigable) { // NONE
                 this.setSource(source);
                 this.setTarget(target);
-                
+        
                 opposite.setSource(null);
                 opposite.setTarget(null);
             }
@@ -148,7 +165,7 @@ public class LinkEndImpl extends ModelElementImpl implements LinkEnd {
     public void setSource(final Instance value, boolean fixModel) {
         if (fixModel) {
             boolean isNavigable = isNavigable();
-            
+        
             LinkEnd opposite = getOpposite();
             boolean otherNavigable = opposite.isNavigable();
         
@@ -197,10 +214,11 @@ public class LinkEndImpl extends ModelElementImpl implements LinkEnd {
             // Return the 'opposite' role only if it has a source:
             // Avoid cycle if both ends have no source.
             LinkEnd opp = getOpposite();
-            if (opp != null && opp.getSource() != null)
+            if (opp != null && opp.getSource() != null) {
                 return (SmObjectImpl) opp;
-            else
+            } else {
                 return null;
+            }
         }
     }
 
@@ -225,9 +243,9 @@ public class LinkEndImpl extends ModelElementImpl implements LinkEnd {
         SmObjectImpl obj;
         
         // First look for 'source'
-        obj = (SmObjectImpl) getDepVal(LinkEndData.Metadata.SourceDep());
+        obj = (SmObjectImpl) getDepVal(((LinkEndSmClass) getClassOf()).getSourceDep());
         if (obj != null) {
-            return new SmDepVal(LinkEndData.Metadata.SourceDep(), obj);
+            return new SmDepVal(((LinkEndSmClass) getClassOf()).getSourceDep(), obj);
         }
         
         // Return the 'opposite' role only if it has a source:
@@ -235,7 +253,7 @@ public class LinkEndImpl extends ModelElementImpl implements LinkEnd {
         LinkEnd opp = getOpposite();
         
         if (opp != null && opp.getSource() != null) {
-            return new SmDepVal(LinkEndData.Metadata.OppositeOwnerDep(), opp);
+            return new SmDepVal(((LinkEndSmClass) getClassOf()).getOppositeOwnerDep(), opp);
         } else {
             return null;
         }
@@ -249,7 +267,7 @@ public class LinkEndImpl extends ModelElementImpl implements LinkEnd {
             return source;
         } else {
             LinkEnd opposite = getOpposite();
-            return opposite != null ? opposite.getTarget(): null;   
+            return opposite != null ? opposite.getTarget() : null;
         }
     }
 
@@ -258,7 +276,7 @@ public class LinkEndImpl extends ModelElementImpl implements LinkEnd {
     public void afterEraseDepVal(SmDependency dep, SmObjectImpl value) {
         super.afterEraseDepVal(dep, value);
         
-        if (dep == LinkEndData.Metadata.getSourceDep()) {
+        if (dep == ((LinkEndSmClass) getClassOf()).getSourceDep()) {
             // Workaround bug where the storage handle is not updated
             LinkEnd opposite = getOpposite();
             if (opposite != null) {
@@ -275,170 +293,181 @@ public class LinkEndImpl extends ModelElementImpl implements LinkEnd {
         }
     }
 
-    @objid ("9e4470e6-1430-44c1-820f-17e083868840")
+    @objid ("5ec21244-5f81-48fe-bce9-4af33eac1d39")
     @Override
     public boolean isIsOrdered() {
-        return (Boolean) getAttVal(LinkEndData.Metadata.IsOrderedAtt());
+        return (Boolean) getAttVal(((LinkEndSmClass)getClassOf()).getIsOrderedAtt());
     }
 
-    @objid ("afab1a7f-6047-4d1b-bf63-c9736cf0bf4b")
+    @objid ("69a61f46-f051-4a9e-b90a-0c82d69a6f6e")
     @Override
     public void setIsOrdered(boolean value) {
-        setAttVal(LinkEndData.Metadata.IsOrderedAtt(), value);
+        setAttVal(((LinkEndSmClass)getClassOf()).getIsOrderedAtt(), value);
     }
 
-    @objid ("c083ac84-a985-4c85-a979-ced07104732e")
+    @objid ("e4698d2c-a6f3-4a21-b832-e215df1d4931")
     @Override
     public boolean isIsUnique() {
-        return (Boolean) getAttVal(LinkEndData.Metadata.IsUniqueAtt());
+        return (Boolean) getAttVal(((LinkEndSmClass)getClassOf()).getIsUniqueAtt());
     }
 
-    @objid ("8c3a5ac4-12f8-461f-b53a-39b411c7e195")
+    @objid ("f3a1b570-a519-4d4a-bb46-dc71f14d703c")
     @Override
     public void setIsUnique(boolean value) {
-        setAttVal(LinkEndData.Metadata.IsUniqueAtt(), value);
+        setAttVal(((LinkEndSmClass)getClassOf()).getIsUniqueAtt(), value);
     }
 
-    @objid ("5e60cfd3-7335-44a5-94e5-ce2ed21e9bc9")
+    @objid ("651edb8a-fd47-4aa3-ae7d-b38cf4d7c56c")
     @Override
     public String getMultiplicityMax() {
-        return (String) getAttVal(LinkEndData.Metadata.MultiplicityMaxAtt());
+        return (String) getAttVal(((LinkEndSmClass)getClassOf()).getMultiplicityMaxAtt());
     }
 
-    @objid ("01a52109-65cb-4f3c-b54f-d4cfae6539e3")
+    @objid ("5e650304-7c30-40a7-94b2-17382373a7fd")
     @Override
     public void setMultiplicityMax(String value) {
-        setAttVal(LinkEndData.Metadata.MultiplicityMaxAtt(), value);
+        setAttVal(((LinkEndSmClass)getClassOf()).getMultiplicityMaxAtt(), value);
     }
 
-    @objid ("322e9568-594c-4b80-85f2-71ae5b2f288b")
+    @objid ("7a51856a-e162-4a0a-886c-c7f55bf4a985")
     @Override
     public String getMultiplicityMin() {
-        return (String) getAttVal(LinkEndData.Metadata.MultiplicityMinAtt());
+        return (String) getAttVal(((LinkEndSmClass)getClassOf()).getMultiplicityMinAtt());
     }
 
-    @objid ("a51fb370-0aeb-4e32-af18-9bbeed82703e")
+    @objid ("fdc0a6b9-09bb-4e93-8bbd-04a358fb6bd7")
     @Override
     public void setMultiplicityMin(String value) {
-        setAttVal(LinkEndData.Metadata.MultiplicityMinAtt(), value);
+        setAttVal(((LinkEndSmClass)getClassOf()).getMultiplicityMinAtt(), value);
     }
 
-    @objid ("74654d48-59a6-4649-a5c0-109797dc256f")
+    @objid ("16ae3a9f-9224-4d87-949a-f3e59daf1645")
     @Override
     public Link getLink() {
-        return (Link) getDepVal(LinkEndData.Metadata.LinkDep());
+        Object obj = getDepVal(((LinkEndSmClass)getClassOf()).getLinkDep());
+        return (obj instanceof Link)? (Link)obj : null;
     }
 
-    @objid ("999522b1-4cbc-4ef8-ae50-f42995e0cfd7")
+    @objid ("40546a0f-a7a3-47ea-83b4-efcb0ab1b1d3")
     @Override
     public void setLink(Link value) {
-        appendDepVal(LinkEndData.Metadata.LinkDep(), (SmObjectImpl)value);
+        appendDepVal(((LinkEndSmClass)getClassOf()).getLinkDep(), (SmObjectImpl)value);
     }
 
-    @objid ("80183e88-0818-43c7-98f8-2c77fec59b58")
+    @objid ("f107c1c1-e0ea-4f6e-b9a6-61d8a6b9bb8c")
     @Override
     public Instance getTarget() {
-        return (Instance) getDepVal(LinkEndData.Metadata.TargetDep());
+        Object obj = getDepVal(((LinkEndSmClass)getClassOf()).getTargetDep());
+        return (obj instanceof Instance)? (Instance)obj : null;
     }
 
-    @objid ("0b2a43da-7ee5-40f6-9302-47094a0b6b07")
+    @objid ("63bfe89d-9480-43fa-819d-d48b0b01816a")
     @Override
     public void setTarget(Instance value) {
-        appendDepVal(LinkEndData.Metadata.TargetDep(), (SmObjectImpl)value);
+        appendDepVal(((LinkEndSmClass)getClassOf()).getTargetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c1b1152d-70e2-473a-a6d3-fe6bee959526")
+    @objid ("ef580854-65b8-49af-b925-98bb6bc4cad1")
     @Override
     public LinkEnd getOppositeOwner() {
-        return (LinkEnd) getDepVal(LinkEndData.Metadata.OppositeOwnerDep());
+        Object obj = getDepVal(((LinkEndSmClass)getClassOf()).getOppositeOwnerDep());
+        return (obj instanceof LinkEnd)? (LinkEnd)obj : null;
     }
 
-    @objid ("25a9d036-419e-4148-8254-80ebf5941f72")
+    @objid ("f74973a5-7f87-41ce-bac7-56d66da2fc86")
     @Override
     public void setOppositeOwner(LinkEnd value) {
-        appendDepVal(LinkEndData.Metadata.OppositeOwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((LinkEndSmClass)getClassOf()).getOppositeOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("297761bb-216a-4f55-aa75-11d6f382dba5")
+    @objid ("827d144f-0e9f-4795-b416-5950eb6a6fc7")
     @Override
     public EList<InformationFlow> getRealizedInformationFlow() {
-        return new SmList<>(this, LinkEndData.Metadata.RealizedInformationFlowDep());
+        return new SmList<>(this, ((LinkEndSmClass)getClassOf()).getRealizedInformationFlowDep());
     }
 
-    @objid ("842cf38d-a931-49c0-93d0-54a881aadef3")
+    @objid ("5a765762-0dce-4814-b5e3-62426ae7de5a")
     @Override
     public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final InformationFlow element : getRealizedInformationFlow()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("93e1d088-5281-42eb-b7cb-4bdda6fbcbbf")
+    @objid ("3091b29f-b52d-4cf2-b17f-88775d57a766")
     @Override
     public AssociationEnd getModel() {
-        return (AssociationEnd) getDepVal(LinkEndData.Metadata.ModelDep());
+        Object obj = getDepVal(((LinkEndSmClass)getClassOf()).getModelDep());
+        return (obj instanceof AssociationEnd)? (AssociationEnd)obj : null;
     }
 
-    @objid ("3ded4b03-e776-4e22-9e04-3998080a199f")
+    @objid ("4f91f8cc-1ff6-4eb2-b4c8-dce5cf3379f9")
     @Override
     public void setModel(AssociationEnd value) {
-        appendDepVal(LinkEndData.Metadata.ModelDep(), (SmObjectImpl)value);
+        appendDepVal(((LinkEndSmClass)getClassOf()).getModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("47339707-6205-43cc-bcf3-e69a5d0f9946")
+    @objid ("d3f0013e-0e94-4357-955e-1b2c5ea7d63c")
     @Override
     public RequiredInterface getConsumer() {
-        return (RequiredInterface) getDepVal(LinkEndData.Metadata.ConsumerDep());
+        Object obj = getDepVal(((LinkEndSmClass)getClassOf()).getConsumerDep());
+        return (obj instanceof RequiredInterface)? (RequiredInterface)obj : null;
     }
 
-    @objid ("636b2412-fc85-421e-a949-a1a78e1ecd58")
+    @objid ("7e7c4e57-c48d-49a3-bd4f-a09308f1ea2d")
     @Override
     public void setConsumer(RequiredInterface value) {
-        appendDepVal(LinkEndData.Metadata.ConsumerDep(), (SmObjectImpl)value);
+        appendDepVal(((LinkEndSmClass)getClassOf()).getConsumerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bb9ba407-3d39-408e-ab61-a50497dd079e")
+    @objid ("0ec3f155-eb66-4666-a119-19ce454e2d63")
     @Override
     public LinkEnd getOpposite() {
-        return (LinkEnd) getDepVal(LinkEndData.Metadata.OppositeDep());
+        Object obj = getDepVal(((LinkEndSmClass)getClassOf()).getOppositeDep());
+        return (obj instanceof LinkEnd)? (LinkEnd)obj : null;
     }
 
-    @objid ("be22b0e9-e062-490c-bb86-c8696b5bd2fa")
+    @objid ("f84ce7d9-8adf-44fd-b918-ca993db7d205")
     @Override
     public void setOpposite(LinkEnd value) {
-        appendDepVal(LinkEndData.Metadata.OppositeDep(), (SmObjectImpl)value);
+        appendDepVal(((LinkEndSmClass)getClassOf()).getOppositeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("16f73a05-fd1f-45a6-982d-025e7c2b6ab2")
+    @objid ("e129f718-908b-4675-a84b-402e3f370a3b")
     @Override
     public Instance getSource() {
-        return (Instance) getDepVal(LinkEndData.Metadata.SourceDep());
+        Object obj = getDepVal(((LinkEndSmClass)getClassOf()).getSourceDep());
+        return (obj instanceof Instance)? (Instance)obj : null;
     }
 
-    @objid ("4301937b-1c68-4f5c-adca-39eb2974a11b")
+    @objid ("8e7cc76f-5f65-472d-93ae-f509550176d6")
     @Override
     public void setSource(Instance value) {
-        appendDepVal(LinkEndData.Metadata.SourceDep(), (SmObjectImpl)value);
+        appendDepVal(((LinkEndSmClass)getClassOf()).getSourceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("78969b0a-7537-45dc-a421-1bbb506ebdf2")
+    @objid ("77720ab2-30e3-4d21-931e-368aaf084e2b")
     @Override
     public ProvidedInterface getProvider() {
-        return (ProvidedInterface) getDepVal(LinkEndData.Metadata.ProviderDep());
+        Object obj = getDepVal(((LinkEndSmClass)getClassOf()).getProviderDep());
+        return (obj instanceof ProvidedInterface)? (ProvidedInterface)obj : null;
     }
 
-    @objid ("6d209d84-cf9f-4b5f-987c-d88505cd702f")
+    @objid ("5dd3a0d5-33b6-4fa1-87f9-2c24af70dd4b")
     @Override
     public void setProvider(ProvidedInterface value) {
-        appendDepVal(LinkEndData.Metadata.ProviderDep(), (SmObjectImpl)value);
+        appendDepVal(((LinkEndSmClass)getClassOf()).getProviderDep(), (SmObjectImpl)value);
     }
 
-    @objid ("630bf40a-51c6-45d8-a368-2cfee4f5d8e5")
+    @objid ("5dd6e16e-03a8-411a-85e1-42e35e803e4e")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitLinkEnd(this);

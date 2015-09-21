@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.data.module.migration;
 
@@ -129,7 +129,7 @@ public class Migrator {
         migrateGUI(moduleV1, moduleV2);
         
         // PropertyTypes
-        ; // nothing to do since PropertyTypes did not exist in V1
+        // nothing to do since PropertyTypes did not exist in V1
         return moduleV2;
     }
 
@@ -334,7 +334,7 @@ public class Migrator {
             }
         
             // PropertyTable
-            ; // nothing to do since PropertyTable did not exist in V1
+            // nothing to do since PropertyTable did not exist in V1
         
         }
     }
@@ -483,6 +483,11 @@ public class Migrator {
                 // Migrate Style => V1 Style do not migrate in V2. nothing to do
             }
         
+            // Add standard handler
+            Jxbv2Handler handler = new Jxbv2Handler();
+            handler.setClazz("StandardCustomizer");
+            diagramV2.setHandler(handler);
+        
             guiV2.getDiagrams().getDiagramType().add(diagramV2);
         }
     }
@@ -518,7 +523,7 @@ public class Migrator {
     @objid ("665e4b5f-a2fb-45cd-9c6f-c449ef9ebe8d")
     private void migrateContextualMenu(org.modelio.gproject.data.module.jaxbv1.JxbModule.Gui guiV1, Jxbv2Gui guiV2) {
         final Jxbv2ContextualMenu menuV2 = this.factoryV2.createModuleGuiContextualMenu();
-        guiV2.setContextualMenu(menuV2);
+        guiV2.getContextualMenu().add(menuV2);
         
         for (final JxbModule.Gui.Command commandV1 : V1Utils.getCommands(guiV1)) {
             final Contribution contribution = V1Utils.getContribution(commandV1);

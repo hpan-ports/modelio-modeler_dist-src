@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.script.engine.core.engine;
 
@@ -33,12 +33,12 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.ISelection;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.script.engine.plugin.ScriptEnginePlugin;
+import org.modelio.vbasic.files.FileUtils;
 import org.osgi.framework.Bundle;
 
 /**
@@ -55,9 +55,9 @@ public class PythonRunner implements IScriptRunner {
      * </ol>
      */
     @objid ("004696d2-fb86-10ee-9fe5-001ec947cd2a")
-    private static final String JYTHON_INIT = "import sys\n" 
+    private static final String JYTHON_INIT = "import sys\n"
             + "sys.setClassLoader (CLASSLOADER)\n"
-            + "if  sys.path.count('__pyclasspath__/Lib') == 0:\n" 
+            + "if  sys.path.count('__pyclasspath__/Lib') == 0:\n"
             + "\tsys.path.append('__pyclasspath__/Lib')\n"
             + "sys.prefix = '.'\n";
 
@@ -89,13 +89,26 @@ public class PythonRunner implements IScriptRunner {
         
         this.engine.put("CLASSLOADER", this.classLoader);
         
-        final String initScript = getInitScript(); 
-        try (FileReader r = new FileReader(initScript)){
-            this.engine.eval(this.JYTHON_INIT);
-            this.engine.eval(r);
-        } catch (ScriptException|IOException e) {
-            ScriptEnginePlugin.LOG.debug("Initialization of the script engine failed");
+        
+        try {
+            this.engine.eval(PythonRunner.JYTHON_INIT);
+        } catch (ScriptException e) {
+            ScriptEnginePlugin.LOG.debug("Evaluation of the initialization script engine failed: %s", e.getMessage());
+            ScriptEnginePlugin.LOG.debug(PythonRunner.JYTHON_INIT);
             ScriptEnginePlugin.LOG.error(e);
+        }
+        
+        final String initScript = getInitScript();
+        if (initScript != null) {
+            try (FileReader r = new FileReader(initScript)){
+                this.engine.eval(r);
+            } catch (ScriptException e) {
+                ScriptEnginePlugin.LOG.debug("Evaluation of the '%s' initialization script engine failed: %s", initScript, e.getMessage());
+                ScriptEnginePlugin.LOG.error(e);
+            } catch (IOException e) {
+                ScriptEnginePlugin.LOG.debug("Reading of the '%s' initialization script failed: %s", initScript, FileUtils.getLocalizedMessage(e));
+                ScriptEnginePlugin.LOG.error(e);
+            }
         }
     }
 
@@ -263,7 +276,7 @@ public class PythonRunner implements IScriptRunner {
             this.engine.put("CLASSLOADER", this.classLoader);
             this.engine.put("classloader", this.classLoader);
         
-            final String init = this.JYTHON_INIT; 
+            final String init = this.JYTHON_INIT;
             try {
                 this.engine.eval(init);
             } catch (ScriptException e) {
@@ -276,18 +289,22 @@ public class PythonRunner implements IScriptRunner {
 
     @objid ("7c16d9bf-6525-4f82-95c3-f9fa5ed94df1")
     private String getInitScript() {
-        String path="";
-        Bundle bundle = Platform.getBundle(ScriptEnginePlugin.PLUGIN_ID);
-        String s = "platform:/plugin/"+bundle.getSymbolicName()+"/" + INITSCRIPT;
-        URL url = null;
+        Bundle bundle = ScriptEnginePlugin.getContext().getBundle();
+        
         try {
-            url = new URL(s);
-            path = FileLocator.toFileURL(url).getPath();
-        } catch (Exception e) {
-            ScriptEnginePlugin.LOG.debug("File path %s is not found!", s);
+            org.eclipse.core.runtime.Path ipath = new org.eclipse.core.runtime.Path(INITSCRIPT);
+            URL url = FileLocator.find(bundle, ipath, null);
+            if (url == null) {
+                throw new FileNotFoundException(ipath.toString());
+            }
+        
+            String path = FileLocator.toFileURL(url).getPath();
+            return path;
+        } catch (IOException e) {
+            ScriptEnginePlugin.LOG.error("'%s' plugin file not found: %s", INITSCRIPT, FileUtils.getLocalizedMessage(e));
             ScriptEnginePlugin.LOG.error(e);
+            return null;
         }
-        return path;
     }
 
 }

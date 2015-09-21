@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.loopnode;
 
@@ -30,7 +30,7 @@ import org.modelio.diagram.editor.activity.elements.activitynodeheader.GmActivit
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.freezone.GmBodyFreeZone;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.model.IEditableText;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNoStyleCompositeNode;
@@ -123,8 +123,8 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
     @Override
     public boolean canCreate(Class<? extends MObject> type) {
         return ActivityNode.class.isAssignableFrom(type) &&
-               !Pin.class.isAssignableFrom(type) &&
-               !ActivityParameterNode.class.isAssignableFrom(type);
+                                                       !Pin.class.isAssignableFrom(type) &&
+                                                       !ActivityParameterNode.class.isAssignableFrom(type);
     }
 
     @objid ("2abe7fa4-55b6-11e2-877f-002564c97630")
@@ -132,10 +132,10 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
     public boolean canUnmask(MObject el) {
         Class<? extends MObject> type = el.getClass();
         return ActivityNode.class.isAssignableFrom(type) &&
-               !Pin.class.isAssignableFrom(type) &&
-               !ActivityParameterNode.class.isAssignableFrom(type) &&
-               getRelatedElement() != null &&
-               getRelatedElement().equals(el.getCompositionOwner());
+                                                       !Pin.class.isAssignableFrom(type) &&
+                                                       !ActivityParameterNode.class.isAssignableFrom(type) &&
+                                                       getRelatedElement() != null &&
+                                                       getRelatedElement().equals(el.getCompositionOwner());
     }
 
     @objid ("2abe7fac-55b6-11e2-877f-002564c97630")
@@ -196,7 +196,7 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
         String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -236,8 +236,8 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
         this.setup = (GmElementLabel) this.getChildren().get(1);
         this.test = (GmElementLabel) this.getChildren().get(2);
         this.innerZone = (GmBodyFreeZone) this.getChildren().get(3);
-                
-        GmDefaultFlatHeader imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(4);
+        
+        GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(4);
         imageModeHeader.delete();
     }
 
@@ -307,16 +307,16 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
             if (loopnode == null)
                 return null;
             return new IEditableText() {
-                @Override
-                public String getText() {
-            return loopnode.getSetup();
-                            }
-                        
-                            @Override
-                            public void setText(String text) {
-            loopnode.setSetup(text);
-                            }
-                        };
+                                                                            @Override
+                                                                            public String getText() {
+                                                                        return loopnode.getSetup();
+                                                                                        }
+                                                            
+                                                                                        @Override
+                                                                                        public void setText(String text) {
+                                                                        loopnode.setSetup(text);
+                                                                                        }
+                                                                                    };
         }
 
         @objid ("2ac18cd0-55b6-11e2-877f-002564c97630")
@@ -414,16 +414,16 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
             if (loopnode == null)
                 return null;
             return new IEditableText() {
-                @Override
-                public String getText() {
-            return loopnode.getTest();
-                            }
-                        
-                            @Override
-                            public void setText(String text) {
-            loopnode.setTest(text);
-                            }
-                        };
+                                                                            @Override
+                                                                            public String getText() {
+                                                                        return loopnode.getTest();
+                                                                                        }
+                                                            
+                                                                                        @Override
+                                                                                        public void setText(String text) {
+                                                                        loopnode.setTest(text);
+                                                                                        }
+                                                                                    };
         }
 
         @objid ("2ac3136b-55b6-11e2-877f-002564c97630")

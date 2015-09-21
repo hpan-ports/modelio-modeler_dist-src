@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.communication.elements.communicationmessage;
 
@@ -33,13 +33,12 @@ import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.policies.DefaultNodeNonResizableEditPolicy;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationMessage;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * Edit policy that allow creation an {@link ICommunicationMessage communication message} model element on this edit
+ * Edit policy that allow creation an {@link CommunicationMessage communication message} model element on this edit
  * part.
  * <p>
  * Also forbid labels to be dragged.
@@ -52,7 +51,7 @@ public class CommunicationMessageGroupCreatePolicy extends DefaultGroupLayoutEdi
     @objid ("7a3becbc-55b6-11e2-877f-002564c97630")
     @Override
     protected boolean canHandle(final MClass metaclass) {
-        return metaclass == Metamodel.getMClass(CommunicationMessage.class);
+        return metaclass.getJavaInterface() == CommunicationMessage.class;
     }
 
     @objid ("7a3becc5-55b6-11e2-877f-002564c97630")
@@ -83,11 +82,10 @@ public class CommunicationMessageGroupCreatePolicy extends DefaultGroupLayoutEdi
                 final EditPart editPart = (EditPart) editPartObj;
                 if (editPart.getModel() instanceof GmModel) {
                     final GmModel gmModel = (GmModel) editPart.getModel();
-                    final String metaclassToCreateName = gmModel.getRepresentedRef().mc;
-                    final MClass metaclassToCreate = Metamodel.getMClass(metaclassToCreateName);
+                    final MClass metaclassToCreate = gmModel.getRelatedMClass();
                     if (canHandle(metaclassToCreate)) {
                         command.add(new CreateCommunicationMessageCommand(hostModel,
-                                                                          new ModelioCreationContext(metaclassToCreateName,
+                                                                          new ModelioCreationContext(metaclassToCreate,
                                                                                                      null,
                                                                                                      null),
                                                                           Integer.valueOf(-1)));
@@ -104,10 +102,11 @@ public class CommunicationMessageGroupCreatePolicy extends DefaultGroupLayoutEdi
     @Override
     protected Command getCreateCommand(final CreateRequest req) {
         final ModelioCreationContext ctx = (ModelioCreationContext) req.getNewObject();
-        final Class<? extends MObject> metaclassToCreate = Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
+        final Class<? extends MObject> metaclassToCreate = ctx.getMetaclass().getJavaInterface();
         
-        if (metaclassToCreate != CommunicationMessage.class)
+        if (metaclassToCreate != CommunicationMessage.class) {
             return null;
+        }
         
         final GmCompositeNode gmGroup = (GmCompositeNode) getHost().getModel();
         return new CreateCommunicationMessageCommand(gmGroup, ctx, Integer.valueOf(-1));

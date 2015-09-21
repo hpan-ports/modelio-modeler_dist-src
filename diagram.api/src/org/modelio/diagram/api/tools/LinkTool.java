@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.api.tools;
 
@@ -83,15 +83,15 @@ public class LinkTool extends BendedConnectionCreationTool {
     @Override
     protected org.eclipse.gef.EditPartViewer.Conditional getTargetingConditional() {
         return new EditPartViewer.Conditional() {
-            @SuppressWarnings("synthetic-access")
-            @Override
-            public boolean evaluate(EditPart editpart) {
-                if (LinkTool.super.getTargetingConditional().evaluate(editpart)) {
-                    return doAccept(editpart);
-                }
-        return false;
-                    }
-                };
+                    @SuppressWarnings("synthetic-access")
+                    @Override
+                    public boolean evaluate(EditPart editpart) {
+                        if (LinkTool.super.getTargetingConditional().evaluate(editpart)) {
+                            return doAccept(editpart);
+                        }
+                return false;
+                            }
+                        };
     }
 
     @objid ("25eb4915-37a4-48d2-a7c8-d79b6fd47f9a")

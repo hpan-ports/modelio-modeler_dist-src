@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.hybridtext;
 
@@ -61,7 +61,6 @@ import org.modelio.app.core.picking.IPickingClient;
 import org.modelio.app.core.picking.IPickingSession;
 import org.modelio.core.ui.plugin.CoreUi;
 import org.modelio.core.ui.textelement.PopupChooser;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.model.search.engine.searchers.model.ModelSearchCriteria;
@@ -359,7 +358,7 @@ public class HybridTextElement {
         
         // If the element is not null, display its name in the text field
         if (value instanceof MObject) {
-            MObject element = (MObject) value; 
+            MObject element = (MObject) value;
             String textString = element.getName();
             if (element.getCompositionOwner() != null) {
                 textString = textString + "  (from " + element.getCompositionOwner().getName() + ")";
@@ -500,7 +499,7 @@ public class HybridTextElement {
                 if (this.tooltip != null) {
                     this.tooltip.hide();
                 }
-                
+            
                 MessageDialog.openInformation(this.text.getShell(),
                         CoreUi.I18N.getString("TextElement.NotFoundTitle"),
                         CoreUi.I18N.getString("TextElement.NotFoundMessage"));
@@ -696,11 +695,11 @@ public class HybridTextElement {
             this.textElement.getTextControl().addFocusListener(this.focusListener);
             
             this.disposeListener = new DisposeListener() {
-                
+            
                 @Override
                 public void widgetDisposed(DisposeEvent e) {
                     HybridPickingDriver.this.stopPicking();
-                    
+            
                 }
             };
             this.textElement.getTextControl().addDisposeListener(this.disposeListener);
@@ -734,14 +733,14 @@ public class HybridTextElement {
         public boolean hover(MObject target) {
             // does 'target' match textElement criteria
             return (target != null) && (metaclassMatch(target))
-                    && ((this.textElement.filter != null) ? this.textElement.filter.accept(target) : true);
+                                && ((this.textElement.filter != null) ? this.textElement.filter.accept(target) : true);
         }
 
         @objid ("674b72d9-fe04-4ba1-bf42-539143cea571")
         private boolean metaclassMatch(MObject obj) {
-            final Class<? extends MObject> cls = Metamodel.getJavaInterface(obj.getMClass());
+            final Class<? extends MObject> cls = obj.getMClass().getJavaInterface();
             for (final MClass mc : this.textElement.metaclasses) {
-                if (Metamodel.getJavaInterface(mc).isAssignableFrom(cls)) {
+                if (mc.getJavaInterface().isAssignableFrom(cls)) {
                     return true;
                 }
             }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmncomplexgateway;
 
@@ -42,7 +42,6 @@ import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointReques
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPolicy;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.MetaKey;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.gateways.BpmnComplexGateway;
 
 /**
@@ -70,7 +69,7 @@ public final class BpmnComplexGatewayEditPart extends GmNodeEditPart {
     @Override
     protected IFigure createFigure() {
         Image image = DiagramEditorBpmn.getImageRegistry()
-                .getImage(Metamodel.getMClass(BpmnComplexGateway.class).getName());
+                .getImage(BpmnComplexGateway.MNAME);
         ColorizableImageFigure fig = new ColorizableImageFigure(image);
         fig.setPreferredSize(40, 40);
         fig.setMinimumSize(new Dimension(40, 40));
@@ -108,38 +107,38 @@ public final class BpmnComplexGatewayEditPart extends GmNodeEditPart {
     @Override
     public SelectionEditPolicy getPreferredDragRolePolicy(final String requestType) {
         return new DefaultNodeResizableEditPolicy() {
-            @Override
-            protected Command getResizeCommand(ChangeBoundsRequest request) {
-                ChangeBoundsRequest req = new ChangeBoundsRequest(REQ_RESIZE_CHILDREN);
-                req.setEditParts(getHost());
-        
-                req.setMoveDelta(request.getMoveDelta());
-        
-                int dimension = 0;
-                int x = request.getSizeDelta().height;
-                int y = request.getSizeDelta().width;
-        
-                if (x >= 0 && y >= 0) {
-                    if (x > y) {
-                        dimension = x;
-                    } else {
-                        dimension = y;
-                    }
-                } else {
-                    if (x < y) {
-                        dimension = x;
-                    } else {
-                        dimension = y;
-                    }
-                }
-        
-                req.setSizeDelta(new Dimension(dimension, dimension));
-                req.setLocation(request.getLocation());
-                req.setExtendedData(request.getExtendedData());
-                req.setResizeDirection(request.getResizeDirection());
-        return getHost().getParent().getCommand(req);
-                    }
-                };
+                                            @Override
+                                            protected Command getResizeCommand(ChangeBoundsRequest request) {
+                                                ChangeBoundsRequest req = new ChangeBoundsRequest(REQ_RESIZE_CHILDREN);
+                                                req.setEditParts(getHost());
+                                        
+                                                req.setMoveDelta(request.getMoveDelta());
+                                        
+                                                int dimension = 0;
+                                                int x = request.getSizeDelta().height;
+                                                int y = request.getSizeDelta().width;
+                                        
+                                                if (x >= 0 && y >= 0) {
+                                                    if (x > y) {
+                                                        dimension = x;
+                                                    } else {
+                                                        dimension = y;
+                                                    }
+                                                } else {
+                                                    if (x < y) {
+                                                        dimension = x;
+                                                    } else {
+                                                        dimension = y;
+                                                    }
+                                                }
+                                        
+                                                req.setSizeDelta(new Dimension(dimension, dimension));
+                                                req.setLocation(request.getLocation());
+                                                req.setExtendedData(request.getExtendedData());
+                                                req.setResizeDirection(request.getResizeDirection());
+                                        return getHost().getParent().getCommand(req);
+                                                    }
+                                                };
     }
 
 }

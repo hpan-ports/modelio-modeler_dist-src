@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.swap;
 
@@ -41,6 +41,7 @@ import org.modelio.vcore.smkernel.IMetaOf;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.ISwap;
 import org.modelio.vcore.smkernel.SmObjectData;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 @objid ("00461d38-702c-1f21-85a5-001ec947cd2a")
 public class FileSwap implements ISwap {
@@ -53,8 +54,16 @@ public class FileSwap implements ISwap {
     @objid ("3f1af8f9-7e46-11e1-bee3-001ec947ccaf")
     private Index<IMetaOf> metaObjectIndex = new Index<>();
 
+    @objid ("912b2bf1-552a-4a68-ac54-c1dc0b2b9683")
+    private SmMetamodel metamodel;
+
+    /**
+     * @param metamodel the metamodel
+     * @param swapPath the swap directory
+     */
     @objid ("3f1af8fc-7e46-11e1-bee3-001ec947ccaf")
-    public FileSwap(final File swapPath) {
+    public FileSwap(SmMetamodel metamodel, final File swapPath) {
+        this.metamodel = metamodel;
         this.swapPath = swapPath.getAbsolutePath();
         //        Log.trace("Swap initialized to:"+swapPath);
     }
@@ -78,14 +87,14 @@ public class FileSwap implements ISwap {
             return null;
         
         try (ObjectInputStream s = new ObjectInputStream(new FileInputStream(fileName))){
-            
+        
             SmObjectData data = (SmObjectData) s.readObject();
         
         //            Log.trace("Swap restoring: "+data.getClassOf().getName()+ " "+data.getUuid());
-            
+        
             data.setRepositoryObject(this.storeIndex.getObject(s.readInt()));
             data.setMetaOf(this.metaObjectIndex.getObject(s.readInt()));
-            
+        
             return data;
         } catch (FileNotFoundException e) {
             throw new IOError(e);

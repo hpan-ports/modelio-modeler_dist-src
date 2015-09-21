@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.ui.text;
 
@@ -33,14 +33,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.modelio.api.Messages;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.api.plugin.Api;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * This class defines the popup of proposed results that appears when user uses the 'Ctrl+Space' shortcut and there are
- * several valid results.
+ * This class defines the popup of proposed results that appears when user uses the 'Ctrl+Space'
+ * shortcut and there are several valid results.
  */
 @objid ("5bf100ef-911c-11e0-9de7-002564c97630")
 public class ResultsProposalPopup extends PopupDialog {
@@ -74,13 +73,14 @@ public class ResultsProposalPopup extends PopupDialog {
         Display display = Display.getDefault();
         
         open();
-        this.setTitleText(Messages.getMessage("ResultsProposalPopup.choose", "" + this.elements.size())); //$NON-NLS-1$ //$NON-NLS-2$
+        setTitleText(Api.I18N.getMessage("ResultsProposalPopup.choose", this.elements.size())); //$NON-NLS-1$
         //getShell().pack();
-        if (getShell().getSize().y < 100)
+        if (getShell().getSize().y < 100) {
             getShell().setSize(getShell().getSize().x, 100);
+        }
         
         if (this.acceptNullValue) {
-            this.list.add(Messages.getMessage("None")); //$NON-NLS-1$ 
+            this.list.add(Api.I18N.getMessage("ResultsProposalPopup.None")); //$NON-NLS-1$
         }
         
         for (MObject e : this.elements) {
@@ -89,12 +89,9 @@ public class ResultsProposalPopup extends PopupDialog {
                 String item = me.getName();
                 MObject owner = me.getCompositionOwner();
                 if (owner instanceof ModelElement) {
-                    item = item +
-                           "  (" +
-                           Messages.getMessage("From") +
-                           " " +
-                           ((ModelElement) me.getCompositionOwner()).getName() +
-                           ")";
+                    item = item + Api.I18N.getMessage("ResultsProposalPopup.From",
+                           ((ModelElement) me.getCompositionOwner()).getName())
+                           ;
                 }
                 this.list.add(item);
             }
@@ -161,7 +158,7 @@ public class ResultsProposalPopup extends PopupDialog {
                     display.sleep();
                 }
             } catch (Exception e) {
-                Modelio.getInstance().getLogService().error(null, e);
+                Api.LOG.error(e);
             }
         }
         close();
@@ -171,7 +168,7 @@ public class ResultsProposalPopup extends PopupDialog {
     @objid ("5bf21267-911c-11e0-9de7-002564c97630")
     @Override
     protected void adjustBounds() {
-        this.getShell().setBounds(this.listRectangle);
+        getShell().setBounds(this.listRectangle);
     }
 
     /**
@@ -188,8 +185,8 @@ public class ResultsProposalPopup extends PopupDialog {
         /*persist location*/false,
         /*show dialog menu*/false,
         /*show persist action*/false,
-        /* info title*/Messages.getMessage("ResultsProposalPopup.title"), //$NON-NLS-1$
-        /* info description */Messages.getMessage("ResultsProposalPopup.description")); //$NON-NLS-1$
+        /* info title*/Api.I18N.getMessage("ResultsProposalPopup.title"), //$NON-NLS-1$
+        /* info description */Api.I18N.getMessage("ResultsProposalPopup.description")); //$NON-NLS-1$
         
         this.parent = control.getParent();
         this.elements = elements;
@@ -206,10 +203,12 @@ public class ResultsProposalPopup extends PopupDialog {
         int width = textRect.width;
         int height = (tableRect.height - textRect.y);
         
-        if (width < 100)
+        if (width < 100) {
             width = 100;
-        if (height < 100)
+        }
+        if (height < 100) {
             height = 100;
+        }
         this.listRectangle = Display.getDefault().map(this.parent, null, new Rectangle(posX, posY, width, height));
     }
 

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -29,6 +29,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.ConnectionAnchor;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FreeformLayeredPane;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayeredPane;
@@ -51,12 +52,12 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.diagram.elements.common.linktovoid.LinkToVoidConstants;
 import org.modelio.diagram.elements.common.linktovoid.LinkToVoidFinishCreationEditPolicy;
+import org.modelio.diagram.elements.core.model.GmAbstractObject;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
 import org.modelio.diagram.elements.drawings.core.IGmDrawingLayer;
 import org.modelio.diagram.elements.drawings.layer.DrawingLayerEditPart;
 import org.modelio.diagram.styles.core.IStyle;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 
 /**
@@ -120,14 +121,6 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
         // Nothing to do yet.
     }
 
-    @objid ("7e05eaee-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public void activate() {
-        super.activate();
-        // Property change listener already added by super, no need to add another one
-        //((GmAbstractDiagram) this.getModel()).addPropertyChangeListener(this);
-    }
-
     /**
      * In order to provide snap to grid facility the AbstractEditPart must be adaptable to a SnapToHelper. Here we adapt
      * to a SnapToGrid only if the style defines SNAPTOGRID = true
@@ -136,9 +129,10 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
     @Override
     public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
         if (type == SnapToHelper.class) {
-            boolean snap = this.getModelStyle().getBoolean(GmAbstractDiagramStyleKeys.SNAPTOGRID);
-            if (snap)
+            boolean snap = getModelStyle().getBoolean(GmAbstractDiagramStyleKeys.SNAPTOGRID);
+            if (snap) {
                 return new SnapToGrid(this);
+            }
         }
         return super.getAdapter(type);
     }
@@ -208,8 +202,10 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
+        
         // Override the default drop policy with a specific one that can also handle links.
         installEditPolicy(ModelElementDropRequest.TYPE, new DiagramElementDropEditPolicy());
+        
         // Remove the default DIRECT_EDIT policy: we don't want the diagram
         // background to delegate direct edit requests.
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, null);
@@ -219,10 +215,26 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
         installEditPolicy(LinkToVoidConstants.REQ_LINKTOVOID_END, linkTovoidEditPolicy);
         
         // For constraints "body"
-        installEditPolicy(Metamodel.getMClass(Constraint.class).getName(), new ConstraintFinalizationEditPolicy());
+        installEditPolicy(Constraint.MNAME, new ConstraintFinalizationEditPolicy());
         
         // To redirect to drawing layers
         installEditPolicy(DRAWINGLAYER_ROLE, new AskDrawingLayerEditPolicy());
+    }
+
+    /**
+     * Creates an {@link AbstractDiagramFigure}.
+     */
+    @objid ("28b5e133-9225-4e57-8dd6-36c7e81046f3")
+    @Override
+    protected IFigure createFigure() {
+        Figure diagramFigure = new AbstractDiagramFigure();
+        IStyle style = ((GmAbstractObject) getModel()).getStyle();
+        
+        // Set style independent properties
+        
+        // Set style dependent properties
+        refreshFromStyle(diagramFigure, style);
+        return diagramFigure;
     }
 
     @objid ("e13d5a6e-f507-4d36-834c-e75a3cbe351d")
@@ -242,8 +254,9 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
     @objid ("2b7373ed-b77c-4cd3-bbae-8887dba3c516")
     protected final LayeredPane getDrawingLayerPane() {
         LayeredPane pane = (LayeredPane) getLayer(LAYER_PANE_DRAWING);
-        if (pane == null)
+        if (pane == null) {
             pane = createDrawingLayerPane();
+        }
         return pane;
     }
 
@@ -260,8 +273,9 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
         
         ArrayList<Object> ret = new ArrayList<>(modelChildren.size()+ drawingLayers.size() + 1);
         
-        if (d.getBackgroundDrawingLayer()!= null)
+        if (d.getBackgroundDrawingLayer()!= null) {
             ret.add(d.getBackgroundDrawingLayer());
+        }
         
         ret.addAll(modelChildren);
         ret.addAll(drawingLayers);
@@ -291,31 +305,32 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
         int fillAlpha = style.getInteger(GmAbstractDiagramStyleKeys.FILLALPHA);
         
         // Process the page size property
-        // TODO: in the future this parsing might become the responsibility of the property view, 
+        // TODO: in the future this parsing might become the responsibility of the property view,
         // ie the property view would propose a 'Dimension' editor returning the proper 'in pixel' dimension value...
         String pageSize = (String) style.getProperty(GmAbstractDiagramStyleKeys.PAGE_SIZE);
         Dimension pixelPageSize = null;
         if (pageSize != null && !pageSize.isEmpty()) {
-            PrecisionDimension inchPageSize = this.parsePageSize(pageSize);
-            if (inchPageSize != null)
-                pixelPageSize = this.convertToPixel(inchPageSize);
+            PrecisionDimension inchPageSize = parsePageSize(pageSize);
+            if (inchPageSize != null) {
+                pixelPageSize = convertToPixel(inchPageSize);
+            }
         }
         
         //
-        EditPartViewer v = this.getRoot().getViewer();
+        EditPartViewer v = getRoot().getViewer();
         v.setProperty(SnapToGrid.PROPERTY_GRID_VISIBLE, Boolean.valueOf(viewGrid));
         v.setProperty(SnapToGrid.PROPERTY_GRID_ENABLED, Boolean.valueOf(snapToGrid));
         v.setProperty(SnapToGrid.PROPERTY_GRID_SPACING, new Dimension(gridSpacing, gridSpacing));
         v.setProperty(AbstractDiagramEditPart.PROPERTY_GRID_COLOR, gridColor);
-        v.setProperty(AbstractDiagramEditPart.PROPERTY_GRID_ALPHA, new Integer(gridAlpha));
+        v.setProperty(AbstractDiagramEditPart.PROPERTY_GRID_ALPHA, Integer.valueOf(gridAlpha));
         v.setProperty(AbstractDiagramEditPart.PROPERTY_FILL_COLOR, fillColor);
         v.setProperty(AbstractDiagramEditPart.PROPERTY_FILL_IMAGE, fillImage);
-        v.setProperty(AbstractDiagramEditPart.PROPERTY_FILL_ALPHA, new Integer(fillAlpha));
+        v.setProperty(AbstractDiagramEditPart.PROPERTY_FILL_ALPHA, Integer.valueOf(fillAlpha));
         
         //
         diagramFigure.showPageBoundaries(style.getBoolean(GmAbstractDiagramStyleKeys.SHOW_PAGES));
         
-        // 
+        //
         v.setProperty(AbstractDiagramEditPart.PROPERTY_FILL_TILE_SIZE, pixelPageSize);
         diagramFigure.setPageBoundaries(pixelPageSize);
     }
@@ -338,8 +353,9 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
 
     @objid ("7e05eb0c-1dec-11e2-8cad-001ec947c8cc")
     private PrecisionDimension convertMmToInch(PrecisionDimension d) {
-        if (d == null)
+        if (d == null) {
             return null;
+        }
         final float factor = 25.4f; // one inch is 25,4 mm
         return new PrecisionDimension(d.preciseWidth() / factor, d.preciseHeight() / factor);
     }
@@ -360,30 +376,42 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
         String s = value.replaceAll(" ", "");
         
         // This might be replaced by a lookup table in the future ?
-        if ("A0H".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(1189, 841));
-        if ("A0V".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(841, 1189));
-        if ("A1H".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(841, 594));
-        if ("A1V".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(594, 841));
-        if ("A2H".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(594, 420));
-        if ("A2V".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(420, 594));
-        if ("A3H".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(420, 297));
-        if ("A3V".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(297, 420));
-        if ("A4H".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(297, 210));
-        if ("A4V".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(210, 297));
-        if ("A5H".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(210, 148));
-        if ("A5V".equals(s))
-            return this.convertMmToInch(new PrecisionDimension(148, 210));
+        if ("A0H".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(1189, 841));
+        }
+        if ("A0V".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(841, 1189));
+        }
+        if ("A1H".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(841, 594));
+        }
+        if ("A1V".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(594, 841));
+        }
+        if ("A2H".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(594, 420));
+        }
+        if ("A2V".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(420, 594));
+        }
+        if ("A3H".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(420, 297));
+        }
+        if ("A3V".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(297, 420));
+        }
+        if ("A4H".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(297, 210));
+        }
+        if ("A4V".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(210, 297));
+        }
+        if ("A5H".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(210, 148));
+        }
+        if ("A5V".equals(s)) {
+            return convertMmToInch(new PrecisionDimension(148, 210));
+        }
         
         // try to parse
         Pattern whR = Pattern.compile("(\\d+\\.?\\d*.*)(x|X)(\\d+\\.?\\d*.*)", Pattern.CASE_INSENSITIVE);
@@ -437,8 +465,9 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
                 EditPart o = it.previous();
                 if (o instanceof DrawingLayerEditPart) {
                     EditPart target = o.getTargetEditPart(request);
-                    if (target != null)
+                    if (target != null) {
                         return target;
+                    }
                 }
             }
             return null;

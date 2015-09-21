@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.core;
 
@@ -228,6 +228,12 @@ public class MetaKey {
     public static final MetaKey HYPERREFLINK = new MetaKey("HYPERREFLINK", MRef.class);
 
     /**
+     * Wrap or not the name label. {@link Boolean} type.
+     */
+    @objid ("cb84195a-774c-4828-8664-af914a71e942")
+    public static final MetaKey WRAPLABEL = new MetaKey("WRAPLABEL", Boolean.class);
+
+    /**
      * Meta key type.
      */
     @objid ("855d100b-1926-11e2-92d2-001ec947c8cc")
@@ -358,6 +364,12 @@ public class MetaKey {
         @objid ("85643708-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey ATTSHOWVISIBILITY = new MetaKey("ATTSHOWVISIBILITY", Boolean.class);
 
+        /**
+         * Wrap or not the name label. {@link Boolean} type.
+         */
+        @objid ("12b90d9d-ecb3-43fd-8fe0-623ea3e740fd")
+        public static final MetaKey ATTWRAPLABEL = new MetaKey("ATTWRAPLABEL", Boolean.class);
+
         @objid ("8564370a-1926-11e2-92d2-001ec947c8cc")
         private AttGroup() {
             // just to forbid instantiation
@@ -421,6 +433,12 @@ public class MetaKey {
         @objid ("85643721-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey OPSHOWVISIBILITY = new MetaKey("OPSHOWVISIBILITY", Boolean.class);
 
+        /**
+         * Wrap or not the name label. {@link Boolean} type.
+         */
+        @objid ("c56242f1-e412-43f7-8e38-ef5dd6267e12")
+        public static final MetaKey OPWRAPLABEL = new MetaKey("OPWRAPLABEL", Boolean.class);
+
         @objid ("85643723-1926-11e2-92d2-001ec947c8cc")
         private OperationGroup() {
             // just to forbid instantiation
@@ -478,6 +496,12 @@ public class MetaKey {
          */
         @objid ("85643737-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey INTAUTOUNMASK = new MetaKey("INTAUTOUNMASK", Boolean.class);
+
+        /**
+         * Wrap or not the name label. {@link Boolean} type.
+         */
+        @objid ("9827c771-b971-45ed-b7c1-06a38ac7b532")
+        public static final MetaKey INTWRAPLABEL = new MetaKey("INTWRAPLABEL", Boolean.class);
 
         @objid ("8564373a-1926-11e2-92d2-001ec947c8cc")
         private InternalGroup() {
@@ -552,6 +576,12 @@ public class MetaKey {
         @objid ("85669978-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey INNERSHOWNAME = new MetaKey("SHOWNAME", ShowNameMode.class);
 
+        /**
+         * Wrap or not the name label. {@link Boolean} type.
+         */
+        @objid ("1e2c9f95-2a4f-4868-9fd5-2ca6ce3ce48c")
+        public static final MetaKey INNERWRAPLABEL = new MetaKey("INNERWRAPLABEL", Boolean.class);
+
         @objid ("8566997b-1926-11e2-92d2-001ec947c8cc")
         private InnerGroup() {
             // just to forbid instantiation
@@ -602,6 +632,12 @@ public class MetaKey {
          */
         @objid ("8568fbc0-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey INFSHOWGROUP = new MetaKey("INFSHOWGROUP", Boolean.class);
+
+        /**
+         * Wrap or not the name label. {@link Boolean} type.
+         */
+        @objid ("0d249004-ff5f-404d-96e1-4ce0c77526f8")
+        public static final MetaKey INFWRAPLABEL = new MetaKey("INFWRAPLABEL", Boolean.class);
 
         @objid ("8568fbc3-1926-11e2-92d2-001ec947c8cc")
         private InformationItemGroup() {

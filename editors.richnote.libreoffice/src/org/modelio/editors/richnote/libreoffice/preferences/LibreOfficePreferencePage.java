@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,26 +12,23 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.editors.richnote.libreoffice.preferences;
 
 import java.io.File;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import com.sun.star.lib.loader.InstallationFinder;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
-import org.modelio.app.preferences.ScopedPreferenceStore;
 import org.modelio.editors.richnote.libreoffice.plugin.LibreOfficeEditors;
 
 /**
@@ -74,8 +71,8 @@ public class LibreOfficePreferencePage extends FieldEditorPreferencePage {
     @objid ("f935bbd6-6734-4ad5-9ebe-75b955f32733")
     @Override
     public void createFieldEditors() {
-        this.installPathField = new OooDirFieldEditor(PreferenceConstants.P_OOOPATH, 
-                LibreOfficeEditors.I18N.getString("preferences.installpath"), 
+        this.installPathField = new OooDirFieldEditor(PreferenceConstants.P_OOOPATH,
+                LibreOfficeEditors.I18N.getString("preferences.installpath"),
                 getFieldEditorParent());
         
         addField(this.installPathField);
@@ -83,8 +80,7 @@ public class LibreOfficePreferencePage extends FieldEditorPreferencePage {
 
     @objid ("da547746-6994-4c4d-a3f3-6d8525fd7b1c")
     private void init() {
-        final IPreferenceStore preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, LibreOfficeEditors.PLUGIN_ID);
-        setPreferenceStore(preferenceStore);
+        setPreferenceStore(LibreOfficeEditors.PREFERENCES);
         setDescription(LibreOfficeEditors.I18N.getString("preferences.page.description"));
     }
 
@@ -118,12 +114,14 @@ public class LibreOfficePreferencePage extends FieldEditorPreferencePage {
         public boolean doCheckState() {
             final String installDir = getStringValue();
             
-            if (installDir==null || installDir.trim().isEmpty())
+            if (installDir==null || installDir.trim().isEmpty()) {
                 return true;
+            }
             
             boolean ret = InstallationFinder.isProgramPathValid(new File(installDir));
-            if (! ret)
+            if (! ret) {
                 setErrorMessage(LibreOfficeEditors.I18N.getMessage("preferences.installPathNotValid", installDir));
+            }
             return ret;
         }
 

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
 import java.util.Collections;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystContainer;
 import org.modelio.metamodel.analyst.AnalystElement;
 import org.modelio.metamodel.analyst.AnalystItem;
@@ -39,6 +38,7 @@ import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * E291:
@@ -73,19 +73,19 @@ public class E291Checker implements IChecker {
 
     @objid ("d5a2ea3b-e72c-4b7c-a19e-1a4bdda9df04")
     @Override
-    public void register(final Plan plan) {
-        plan.registerChecker(this, Metamodel.getMClass(Requirement.class), TriggerType.Update, "ParentRequirement");
-        plan.registerChecker(this, Metamodel.getMClass(Requirement.class), TriggerType.Update, "OwnerContainer");
+    public void register(final Plan plan, SmMetamodel smMetamodel) {
+        plan.registerChecker(this, smMetamodel.getMClass(Requirement.class), TriggerType.Update, "ParentRequirement");
+        plan.registerChecker(this, smMetamodel.getMClass(Requirement.class), TriggerType.Update, "OwnerContainer");
         
-        plan.registerChecker(this, Metamodel.getMClass(Term.class), TriggerType.Update, "OwnerDictionary");
+        plan.registerChecker(this, smMetamodel.getMClass(Term.class), TriggerType.Update, "OwnerDictionary");
         
-        plan.registerChecker(this, Metamodel.getMClass(Goal.class), TriggerType.Update, "OwnerContainer");
-        plan.registerChecker(this, Metamodel.getMClass(Goal.class), TriggerType.Update, "ParentGoal");
+        plan.registerChecker(this, smMetamodel.getMClass(Goal.class), TriggerType.Update, "OwnerContainer");
+        plan.registerChecker(this, smMetamodel.getMClass(Goal.class), TriggerType.Update, "ParentGoal");
         
-        plan.registerChecker(this, Metamodel.getMClass(BusinessRule.class), TriggerType.Update, "OwnerContainer");
-        plan.registerChecker(this, Metamodel.getMClass(BusinessRule.class), TriggerType.Update, "ParentRule");
+        plan.registerChecker(this, smMetamodel.getMClass(BusinessRule.class), TriggerType.Update, "OwnerContainer");
+        plan.registerChecker(this, smMetamodel.getMClass(BusinessRule.class), TriggerType.Update, "ParentRule");
         
-        plan.registerChecker(this, Metamodel.getMClass(AnalystPropertyTable.class), TriggerType.Update, "Type");
+        plan.registerChecker(this, smMetamodel.getMClass(AnalystPropertyTable.class), TriggerType.Update, "Type");
     }
 
     @objid ("0224a55e-ff27-4aad-9bdc-bc6efe830d8b")

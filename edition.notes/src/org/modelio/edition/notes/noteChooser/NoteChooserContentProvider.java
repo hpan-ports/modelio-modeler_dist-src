@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.notes.noteChooser;
 
@@ -29,7 +29,6 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.modelio.edition.notes.plugin.EditionNotes;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -37,6 +36,7 @@ import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 
 /**
  * Default content provider for the note chooser dialog.
@@ -85,7 +85,7 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
                     }
                 } else {
                     Stereotype ownerStereotype = noteType.getOwnerStereotype();
-                    if (!noteType.isIsHidden() && ownerStereotype != null && this.element.getExtension().contains(ownerStereotype)) {
+                    if (!noteType.isIsHidden() && ownerStereotype != null && ownerStereotype.getModule() != null && this.element.isStereotyped(ownerStereotype.getModule().getName(), ownerStereotype.getName())) {
                         ModuleComponent module = noteType.getModule();
                         if (module != null) {
                             ret.add(module);
@@ -95,11 +95,12 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
             }
         } else if (parent instanceof ModuleComponent) {
             ModuleComponent moduleComponent = (ModuleComponent) parent;
+            MMetamodel mm = moduleComponent.getMClass().getMetamodel();
             for (Profile profile : moduleComponent.getOwnedProfile()) {
                 for (MetaclassReference metaclass : profile.getOwnedReference()) {
                     String referencedClassName = metaclass.getReferencedClassName();
-                    MClass referencedMClass = Metamodel.getMClass(referencedClassName);
-                    if (referencedMClass!=null && Metamodel.getJavaInterface(referencedMClass).isAssignableFrom(this.element.getClass())) {
+                    MClass referencedMClass = mm.getMClass(referencedClassName);
+                    if (referencedMClass!=null && referencedMClass.getJavaInterface().isAssignableFrom(this.element.getClass())) {
                         for (NoteType noteType : metaclass.getDefinedNoteType()) {
                             if (!noteType.isIsHidden()) {
                                 ret.add(noteType);
@@ -124,7 +125,7 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
             }
         } else if (parent instanceof Stereotype) {
             Stereotype stereotype = (Stereotype) parent;
-            if (this.element.getExtension().contains(stereotype)) {
+            if (stereotype.getModule() != null && this.element.isStereotyped(stereotype.getModule().getName(), stereotype.getName())) {
                 while (stereotype != null) {
                     for (NoteType noteType : stereotype.getDefinedNoteType()) {
                         if (!noteType.isIsHidden()) {
@@ -164,13 +165,14 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
             return true;
         } else if (parent instanceof ModuleComponent) {
             ModuleComponent moduleComponent = (ModuleComponent) parent;
+            MMetamodel mm = moduleComponent.getMClass().getMetamodel();
             for (Profile profile : moduleComponent.getOwnedProfile()) {
                 for (MetaclassReference metaclass : profile.getOwnedReference()) {
                     String referencedClassName = metaclass.getReferencedClassName();
-                    MClass referencedMClass = Metamodel.getMClass(referencedClassName);
+                    MClass referencedMClass = mm.getMClass(referencedClassName);
                     if (referencedMClass == null) {
                         EditionNotes.LOG.warning(moduleComponent.getName()+" module has an invalid '"+referencedClassName+"' metaclass reference.");
-                    } else if (Metamodel.getJavaInterface(referencedMClass).isAssignableFrom(this.element.getClass())) {
+                    } else if (referencedMClass.getJavaInterface().isAssignableFrom(this.element.getClass())) {
                         for (NoteType noteType : metaclass.getDefinedNoteType()) {
                             if (!noteType.isIsHidden()) {
                                 return true;
@@ -181,7 +183,7 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
         
                 for (Stereotype stereotype : profile.getDefinedStereotype()) {
                     if (this.element.getExtension().contains(stereotype)) {
-                        while (stereotype != null) {   
+                        while (stereotype != null) {
                             for (NoteType noteType : stereotype.getDefinedNoteType()) {
                                 if (!noteType.isIsHidden()) {
                                     return true;

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,99 +12,225 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.bpmnService.BpmnInterface;
 import org.modelio.metamodel.bpmn.flows.BpmnMessage;
 import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
 import org.modelio.metamodel.bpmn.objects.BpmnItemDefinition;
-import org.modelio.metamodel.mda.ModuleParameter;
 import org.modelio.metamodel.uml.behavior.activityModel.ExceptionHandler;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.Parameter;
 
+/**
+ * GeneralClass v0.0.9054
+ * 
+ * 
+ * A GeneralClass is an elaborated Classifier.  It belongs to its NameSpace.
+ */
 @objid ("000bbdb4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface GeneralClass extends Classifier {
-    @objid ("790c8cd7-7f21-41b1-a1f6-71b09d8f7ca1")
+    @objid ("e117e334-e947-4991-8595-3bacf7a52f20")
+    public static final String MNAME = "GeneralClass";
+
+    /**
+     * Getter for attribute 'GeneralClass.IsElementary'
+     * 
+     * Metamodel description:
+     * <i>Determines whether a Class is elementary/primitive or not. A Class is primitive if its value cannot be broken down and its instances are not handled by the application. For example, integer and boolean are elementary Classes, whereas Human or Device are generally not.</i>
+     */
+    @objid ("d8e3e457-b83f-44eb-bcdb-0efe0a6cfe7b")
     boolean isIsElementary();
 
-    @objid ("168a2c02-d1b1-459a-920c-b0f6c738a249")
+    /**
+     * Setter for attribute 'GeneralClass.IsElementary'
+     * 
+     * Metamodel description:
+     * <i>Determines whether a Class is elementary/primitive or not. A Class is primitive if its value cannot be broken down and its instances are not handled by the application. For example, integer and boolean are elementary Classes, whereas Human or Device are generally not.</i>
+     */
+    @objid ("b26c1ce7-5e5c-4bd3-b6e7-a54d18ee63bb")
     void setIsElementary(boolean value);
 
-    @objid ("5e699830-eeda-48a7-9ddb-9502d72d4877")
+    /**
+     * Getter for relation 'GeneralClass->BpmnInterfaceRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("520fec70-c888-4de2-8ca5-de190be1dc46")
     EList<BpmnInterface> getBpmnInterfaceRefs();
 
-    @objid ("5835bb4f-cc03-4263-8d10-6426c50d4770")
+    /**
+     * Filtered Getter for relation 'GeneralClass->BpmnInterfaceRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("3cde7896-1951-40ff-84db-f8a4aef4fedb")
     <T extends BpmnInterface> List<T> getBpmnInterfaceRefs(java.lang.Class<T> filterClass);
 
-    @objid ("ec7c71d3-f4c0-438d-b786-da1f7785c490")
+    /**
+     * Getter for relation 'GeneralClass->Occurence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("928526e9-0dd9-4268-8ca6-1164c1deacaa")
     EList<Parameter> getOccurence();
 
-    @objid ("a014bd88-f3a9-46e7-84b9-1be181c88960")
+    /**
+     * Filtered Getter for relation 'GeneralClass->Occurence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("82659af8-d1c3-4f1f-9c64-4ab60cef46b2")
     <T extends Parameter> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("94e7b597-7c23-4a32-89ec-ef77fe379461")
+    /**
+     * Getter for relation 'GeneralClass->ExceptionInput'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6b0f595f-6952-4f22-a77e-9c64e185de43")
     ExceptionHandler getExceptionInput();
 
-    @objid ("b4f4da1a-89d0-4996-8dd3-fc7817281c0d")
+    /**
+     * Setter for relation 'GeneralClass->ExceptionInput'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("badabf33-4d08-4124-aee6-e71660e4d073")
     void setExceptionInput(ExceptionHandler value);
 
-    @objid ("b421bbfd-62a5-4086-a6e7-6ca4334c4ed0")
+    /**
+     * Getter for relation 'GeneralClass->Object'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("94a334f1-1ff2-40df-8cab-215bb9737503")
     EList<Attribute> getObject();
 
-    @objid ("74f5ae89-6b97-4c9a-8ada-ff3e602a8059")
+    /**
+     * Filtered Getter for relation 'GeneralClass->Object'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("0e1ad77a-26b0-47bc-b979-3df731a3923a")
     <T extends Attribute> List<T> getObject(java.lang.Class<T> filterClass);
 
-    @objid ("4a0b2840-6953-46fb-ba84-fbd1387aa79c")
+    /**
+     * Getter for relation 'GeneralClass->BpmnMessageRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("c4d2fb3a-488a-4e25-b160-22f484662712")
     EList<BpmnMessage> getBpmnMessageRefs();
 
-    @objid ("e4eaea7d-e330-468d-a7df-19599879f4f2")
+    /**
+     * Filtered Getter for relation 'GeneralClass->BpmnMessageRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("c56f2cff-2b86-416a-a9de-1ffd8e1622b3")
     <T extends BpmnMessage> List<T> getBpmnMessageRefs(java.lang.Class<T> filterClass);
 
-    @objid ("7fd283ae-5b15-456b-bf55-edd68662cc5a")
+    /**
+     * Getter for relation 'GeneralClass->SRepresentation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("86566b42-beff-4bdb-9cb5-58658715cdb5")
     EList<Signal> getSRepresentation();
 
-    @objid ("04d25ad6-6a29-4842-a781-90a54b6ac4cc")
+    /**
+     * Filtered Getter for relation 'GeneralClass->SRepresentation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4bc4e8d6-a8c8-4eb7-8beb-6151415cef6f")
     <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("d844376c-831b-4c3f-9ab6-3de162c480d4")
+    /**
+     * Getter for relation 'GeneralClass->BpmnItemDefinitionRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("8daaf7dd-272c-48b9-945c-a364539a63aa")
     EList<BpmnItemDefinition> getBpmnItemDefinitionRefs();
 
-    @objid ("9a75c29a-3ff2-46ff-b9b1-304617cb52fe")
+    /**
+     * Filtered Getter for relation 'GeneralClass->BpmnItemDefinitionRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("67ca213a-1617-42d3-a865-61a6b3ef94c1")
     <T extends BpmnItemDefinition> List<T> getBpmnItemDefinitionRefs(java.lang.Class<T> filterClass);
 
-    @objid ("179b6142-fa71-4ba8-9555-a06e987d0fdc")
+    /**
+     * Getter for relation 'GeneralClass->OccurenceObjectNode'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("68162490-eec9-4ad7-b12e-112d84da59e9")
     EList<ObjectNode> getOccurenceObjectNode();
 
-    @objid ("8d2d945e-73bb-4927-8b7e-43bae92a7e0b")
+    /**
+     * Filtered Getter for relation 'GeneralClass->OccurenceObjectNode'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4d088164-bcb7-4315-a683-546e816b5853")
     <T extends ObjectNode> List<T> getOccurenceObjectNode(java.lang.Class<T> filterClass);
 
-    @objid ("9a4bd0e7-6d67-4fd2-9c9c-bc01cb01e866")
+    /**
+     * Getter for relation 'GeneralClass->BpmnItemAwareRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e0e39514-7f49-4ce3-b2c7-2efea2472f84")
     EList<BpmnItemAwareElement> getBpmnItemAwareRefs();
 
-    @objid ("94d43b78-a441-4f63-89df-fdfe58ef29cf")
+    /**
+     * Filtered Getter for relation 'GeneralClass->BpmnItemAwareRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("0db13b41-dcc8-4e40-a7f5-f76e9b1152fa")
     <T extends BpmnItemAwareElement> List<T> getBpmnItemAwareRefs(java.lang.Class<T> filterClass);
-
-    @objid ("b142e1cd-58f5-485e-99cc-f075c1831205")
-    EList<ModuleParameter> getOccurenceConfigParam();
-
-    @objid ("39559e74-20f2-401b-a8b5-0845170eaef8")
-    <T extends ModuleParameter> List<T> getOccurenceConfigParam(java.lang.Class<T> filterClass);
 
 }

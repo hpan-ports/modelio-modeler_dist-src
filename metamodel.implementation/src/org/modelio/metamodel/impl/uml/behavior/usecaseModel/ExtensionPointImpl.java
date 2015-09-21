@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.usecaseModel;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.usecaseModel.ExtensionPointData;
+import org.modelio.metamodel.impl.uml.behavior.usecaseModel.ExtensionPointData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.behavior.usecaseModel.ExtensionPoint;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
@@ -43,73 +55,85 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0059a6a0-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExtensionPointImpl extends ModelElementImpl implements ExtensionPoint {
-    @objid ("75ddb28f-8506-481e-8bf2-ae3ce37dc3e3")
+    @objid ("030eddca-00bb-4ed7-8f3a-047040aef976")
     @Override
     public VisibilityMode getVisibility() {
-        return (VisibilityMode) getAttVal(ExtensionPointData.Metadata.VisibilityAtt());
+        return (VisibilityMode) getAttVal(((ExtensionPointSmClass)getClassOf()).getVisibilityAtt());
     }
 
-    @objid ("aff26095-56ea-4861-936f-cf5a919d7e42")
+    @objid ("17b5a62f-7d63-4993-964d-e927d29658ed")
     @Override
     public void setVisibility(VisibilityMode value) {
-        setAttVal(ExtensionPointData.Metadata.VisibilityAtt(), value);
+        setAttVal(((ExtensionPointSmClass)getClassOf()).getVisibilityAtt(), value);
     }
 
-    @objid ("417db627-fd54-4a60-ae26-35bdd205b773")
+    @objid ("cf014519-5ec3-459d-bc44-2aee708f380e")
     @Override
     public EList<UseCaseDependency> getExtended() {
-        return new SmList<>(this, ExtensionPointData.Metadata.ExtendedDep());
+        return new SmList<>(this, ((ExtensionPointSmClass)getClassOf()).getExtendedDep());
     }
 
-    @objid ("993e0275-3161-4c3e-a5d5-18149848a725")
+    @objid ("6697ad05-bf69-441d-893d-075a37259cc6")
     @Override
     public <T extends UseCaseDependency> List<T> getExtended(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final UseCaseDependency element : getExtended()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("87b404f8-078d-4686-9cd7-23ff85d5dff2")
+    @objid ("6949127e-b833-4070-9352-f8c9dd6f5bd0")
     @Override
     public UseCase getOwner() {
-        return (UseCase) getDepVal(ExtensionPointData.Metadata.OwnerDep());
+        Object obj = getDepVal(((ExtensionPointSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof UseCase)? (UseCase)obj : null;
     }
 
-    @objid ("62d622d5-9077-4b0e-a10a-5af9932e8e0e")
+    @objid ("976d822a-a77e-48be-9a44-0b8488e4ce58")
     @Override
     public void setOwner(UseCase value) {
-        appendDepVal(ExtensionPointData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((ExtensionPointSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6177566b-34c2-44db-b326-d66db51d0643")
+    @objid ("fcfd31f6-7522-4a46-8291-e45488dbbab7")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ExtensionPointData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((ExtensionPointSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("99cee618-74e6-4ddf-b4dd-7b9c53744037")
+    @objid ("a134a654-32e8-46eb-870d-c107d74974a9")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ExtensionPointData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(ExtensionPointData.Metadata.OwnerDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((ExtensionPointSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("cdcc26b0-6189-4c47-af06-06b46d17fd4b")
+    @objid ("d2423140-3151-41ec-a847-d3369b9178ea")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExtensionPoint(this);

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -42,7 +42,7 @@ import org.modelio.xmi.util.StringConverter;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("2ab79e11-2c99-4d6c-bc3a-66715fca30fa")
-public class OConnectorEnd extends OLinkEnd implements IOElement {
+public class OConnectorEnd extends OLinkEnd {
     @objid ("df533af4-5b89-49df-86fa-3f1c7ea2f67d")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -54,14 +54,14 @@ public class OConnectorEnd extends OLinkEnd implements IOElement {
         
         if (connector != null){
             if (connector instanceof org.eclipse.uml2.uml.Connector){
-                return UMLFactory.eINSTANCE.createConnectorEnd();            
+                return UMLFactory.eINSTANCE.createConnectorEnd();
             }else if (connector instanceof InstanceSpecification){
                 return UMLFactory.eINSTANCE.createSlot();
             }
         }
         
-        String message = Xmi.I18N.getMessage("logFile.warning.unsupportedExport", 
-                this.objElt.getName(), 
+        String message = Xmi.I18N.getMessage("logFile.warning.unsupportedExport",
+                this.objElt.getName(),
                 this.objElt.getClass().getSimpleName());
         String  description = Xmi.I18N.getMessage("logFile.warning.unexportedConnector");
         XMILogs xmilogs = XMILogs.getInstance();
@@ -91,7 +91,7 @@ public class OConnectorEnd extends OLinkEnd implements IOElement {
         if (ecoreElt != null){
             if (ecoreElt instanceof org.eclipse.uml2.uml.Slot){
                 setLinked((org.eclipse.uml2.uml.Slot) ecoreElt);
-                setDefiningFeature((org.eclipse.uml2.uml.Slot) ecoreElt);           
+                setDefiningFeature((org.eclipse.uml2.uml.Slot) ecoreElt);
             }else if (ecoreElt instanceof org.eclipse.uml2.uml.ConnectorEnd){
                 setIsOrdered((org.eclipse.uml2.uml.ConnectorEnd)ecoreElt);
                 setIsUnique((org.eclipse.uml2.uml.ConnectorEnd)ecoreElt);
@@ -132,12 +132,12 @@ public class OConnectorEnd extends OLinkEnd implements IOElement {
     private void setLinked(org.eclipse.uml2.uml.Slot ecoreElt) {
         org.eclipse.uml2.uml.Element inst = GenerationProperties.getInstance().getMappedElement(this.objElt.getOwner());
         
-        if ((inst instanceof org.eclipse.uml2.uml.Slot) && (((org.eclipse.uml2.uml.Slot)inst).getValues().size() == 0)){        
+        if ((inst instanceof org.eclipse.uml2.uml.Slot) && (((org.eclipse.uml2.uml.Slot)inst).getValues().size() == 0)){
         
             org.eclipse.uml2.uml.Slot slot = (org.eclipse.uml2.uml.Slot) inst;
             InstanceValue instanceValue = UMLFactory.eINSTANCE.createInstanceValue();
              org.eclipse.uml2.uml.ValueSpecification result = ecoreElt.createValue(null, null, instanceValue.eClass());
-            ((InstanceValue)result).setInstance((InstanceSpecification) slot.getOwningInstance());
+            ((InstanceValue)result).setInstance(slot.getOwningInstance());
             slot.getValues().add(result);
         
             if (AbstractObjingModelNavigation.isNotNullOrEmpty(this.objElt.getName()))
@@ -150,12 +150,15 @@ public class OConnectorEnd extends OLinkEnd implements IOElement {
 
     @objid ("4e56c1f8-599f-4acf-8a9c-e70607cf008d")
     private void ordered(org.eclipse.uml2.uml.ConnectorEnd ecoreElt) {
-        org.eclipse.uml2.uml.Connector connector = (org.eclipse.uml2.uml.Connector) GenerationProperties.getInstance().getMappedElement(this.objElt.getOwner());
-        if ((connector.getKind() != null) 
-                &&(connector.getKind().equals(org.eclipse.uml2.uml.ConnectorKind.DELEGATION_LITERAL))){
-            if (this.objElt.isNavigable()){
-                connector.getEnds().remove(ecoreElt);                
-                connector.getEnds().add(connector.getEnds().size(), ecoreElt);
+        org.eclipse.uml2.uml.Element element =  GenerationProperties.getInstance().getMappedElement(this.objElt.getLink());
+        if (element instanceof org.eclipse.uml2.uml.Connector ){
+            org.eclipse.uml2.uml.Connector connector = (org.eclipse.uml2.uml.Connector) element;
+        
+            if ((connector.getKind() != null) &&(connector.getKind().equals(org.eclipse.uml2.uml.ConnectorKind.DELEGATION_LITERAL))){
+                if (this.objElt.isNavigable()){
+                    connector.getEnds().remove(ecoreElt);
+                    connector.getEnds().add(connector.getEnds().size(), ecoreElt);
+                }
             }
         }
     }

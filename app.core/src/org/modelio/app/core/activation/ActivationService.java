@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,20 +12,20 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.core.activation;
 
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.swt.widgets.Display;
 import org.modelio.app.core.IModelioEventService;
 import org.modelio.app.core.events.ModelioEvent;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("00302b70-3967-11e2-a430-001ec947c8cc")
@@ -48,8 +48,14 @@ public class ActivationService implements IActivationService {
 
     @objid ("b8f5ea4b-2e94-4f5b-8e56-703ddea953bf")
     @Override
-    public void editProperties(Element e) {
-        this.eventService.postAsyncEvent(this, ModelioEvent.EDIT_PROPERTIES, e);
+    public void editProperties(MObject objectToActivate) {
+        Display.getDefault().asyncExec(new Runnable() {
+        
+            @Override
+            public void run() {
+                ActivationService.this.eventService.postAsyncEvent(ActivationService.this, ModelioEvent.EDIT_PROPERTIES, objectToActivate);
+            }
+        });
     }
 
 }

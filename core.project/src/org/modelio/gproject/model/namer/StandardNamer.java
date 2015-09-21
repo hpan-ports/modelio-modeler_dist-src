@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model.namer;
 
@@ -42,6 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("0067c186-030f-1035-9f91-001ec947cd2a")
 public class StandardNamer implements IElementNamer {
     @objid ("f877e222-9afb-4d44-81ab-d1c2a784c4b9")
+    @SuppressWarnings("synthetic-access")
     private static final Dispatcher dispatcher = new Dispatcher();
 
     @objid ("0067cd20-030f-1035-9f91-001ec947cd2a")
@@ -59,7 +60,11 @@ public class StandardNamer implements IElementNamer {
     @Override
     public String getBaseName(final MObject object) {
         assert (object != null);
+        
         IElementNamer effectiveNamer = (IElementNamer) object.accept(dispatcher);
+        if (effectiveNamer == null) {
+            effectiveNamer = new BasicNamer();
+        }
         return effectiveNamer.getBaseName(object);
     }
 
@@ -82,7 +87,11 @@ public class StandardNamer implements IElementNamer {
     public String getUniqueName(final String basename, final MObject object) {
         assert (basename != null);
         assert (object != null);
+        
         IElementNamer effectiveNamer = (IElementNamer) object.accept(dispatcher);
+        if (effectiveNamer == null) {
+            effectiveNamer = new BasicNamer();
+        }
         return effectiveNamer.getUniqueName(basename, object);
     }
 

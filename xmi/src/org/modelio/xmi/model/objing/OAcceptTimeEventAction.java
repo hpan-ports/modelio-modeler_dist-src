@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -29,9 +29,6 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("5c308ba5-6dba-4ef1-b326-5717bd1f1b46")
 public class OAcceptTimeEventAction extends OActivityNode {
-    @objid ("feac54cf-2373-411e-b581-ae2c3226e2c8")
-    private AcceptTimeEventAction objingElement = null;
-
     @objid ("77abbb27-a09e-425c-8b8f-34274ec380c2")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -41,7 +38,6 @@ public class OAcceptTimeEventAction extends OActivityNode {
     @objid ("d63a187f-574d-4b5b-98ed-f17687d701c9")
     public OAcceptTimeEventAction(AcceptTimeEventAction element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("07e7053b-3185-4cdb-bb55-4a1ab2337825")
@@ -60,7 +56,7 @@ public class OAcceptTimeEventAction extends OActivityNode {
 
     @objid ("3de38f11-5819-4bcf-9f7e-b5594c0c61f4")
     private void setTimeExpression(org.eclipse.uml2.uml.AcceptEventAction action) {
-        String timeExpression = this.objingElement.getTimeExpresion();
+        String timeExpression = getObjingElement().getTimeExpresion();
         
         if ((timeExpression != null) && (!timeExpression.equals(""))){
             org.eclipse.uml2.uml.Trigger trigger = UMLFactory.eINSTANCE.createTrigger();
@@ -87,6 +83,12 @@ public class OAcceptTimeEventAction extends OActivityNode {
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             ObjingEAnnotation.setSignal(ecoreElt, "time");
         }
+    }
+
+    @objid ("36211ee2-a664-46f6-9afb-3bb208351ab0")
+    @Override
+    public AcceptTimeEventAction getObjingElement() {
+        return (AcceptTimeEventAction) super.getObjingElement();
     }
 
 }

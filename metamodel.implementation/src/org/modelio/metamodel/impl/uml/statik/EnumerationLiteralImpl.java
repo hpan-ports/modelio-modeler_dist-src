@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,24 +12,36 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.EnumerationLiteralData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.statik.EnumerationLiteralData;
 import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.EnumerationLiteral;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -40,42 +52,52 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("000a7e90-c4bf-1fd8-97fe-001ec947cd2a")
 public class EnumerationLiteralImpl extends ModelElementImpl implements EnumerationLiteral {
-    @objid ("b7682e7d-403c-4724-936a-1d268c0f9796")
+    @objid ("e5e20405-0449-460d-afad-a747cf900405")
     @Override
     public Enumeration getValuated() {
-        return (Enumeration) getDepVal(EnumerationLiteralData.Metadata.ValuatedDep());
+        Object obj = getDepVal(((EnumerationLiteralSmClass)getClassOf()).getValuatedDep());
+        return (obj instanceof Enumeration)? (Enumeration)obj : null;
     }
 
-    @objid ("0ef01107-8ac7-4693-9b6f-a64cf70f6562")
+    @objid ("ef30c643-e0f5-45d9-b9f8-ee0beef7855b")
     @Override
     public void setValuated(Enumeration value) {
-        appendDepVal(EnumerationLiteralData.Metadata.ValuatedDep(), (SmObjectImpl)value);
+        appendDepVal(((EnumerationLiteralSmClass)getClassOf()).getValuatedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d3d86c87-d47d-400c-8c0c-9d87da461c49")
+    @objid ("c2c2aeb9-bc3a-4c4b-a1bb-5cf3192d9c87")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(EnumerationLiteralData.Metadata.ValuatedDep());
+        // Valuated
+        obj = (SmObjectImpl)this.getDepVal(((EnumerationLiteralSmClass)getClassOf()).getValuatedDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bad3664d-1de7-4027-aa3f-84ddff36f966")
+    @objid ("57bdfa92-2aa8-4bbc-aad8-b15caa25fcac")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(EnumerationLiteralData.Metadata.ValuatedDep());
-        if (obj != null)
-          return new SmDepVal(EnumerationLiteralData.Metadata.ValuatedDep(), obj);
+        SmDependency dep;
+        
+        // Valuated
+        dep = ((EnumerationLiteralSmClass)getClassOf()).getValuatedDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("35c972b7-5dc2-4b94-a98d-0c5b68cf9b9f")
+    @objid ("9252f687-cd1d-4752-86f7-15747c8cb7c6")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitEnumerationLiteral(this);

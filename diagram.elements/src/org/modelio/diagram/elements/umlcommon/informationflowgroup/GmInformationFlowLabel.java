@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.umlcommon.informationflowgroup;
 
@@ -26,26 +26,23 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
-import org.modelio.diagram.elements.core.model.IEditableText;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
- * Label representing an {@link IInformationFlow}.
+ * Label representing an {@link InformationFlow}.
  * 
  * @author cmarin
  */
 @objid ("816c2534-1dec-11e2-8cad-001ec947c8cc")
-public class GmInformationFlowLabel extends GmModelElementFlatHeader {
+public class GmInformationFlowLabel extends GmDefaultModelElementLabel {
     /**
      * Current version of this Gm. Defaults to 0.
      */
@@ -76,36 +73,6 @@ public class GmInformationFlowLabel extends GmModelElementFlatHeader {
         super(diagram, ref);
         this.element = el;
         init();
-    }
-
-    @objid ("816c2545-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public List<Stereotype> filterStereotypes(List<Stereotype> stereotypes) {
-        return stereotypes;
-    }
-
-    @objid ("816c254f-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public List<TaggedValue> filterTags(List<TaggedValue> taggedValues) {
-        return taggedValues;
-    }
-
-    @objid ("816c2559-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public IEditableText getEditableText() {
-        return new IEditableText() {
-        
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
-                    }
-        
-                    @Override
-                    public void setText(String text) {
-        getRelatedElement().setName(text);
-                    }
-        
-                };
     }
 
     @objid ("816c255e-1dec-11e2-8cad-001ec947c8cc")
@@ -163,7 +130,7 @@ public class GmInformationFlowLabel extends GmModelElementFlatHeader {
 
     @objid ("816e8796-1dec-11e2-8cad-001ec947c8cc")
     @Override
-    protected String computeLabel() {
+    protected String computeMainLabel() {
         return computeSignature(getRelatedElement());
     }
 
@@ -173,8 +140,9 @@ public class GmInformationFlowLabel extends GmModelElementFlatHeader {
         if (getParent() != parent) {
             super.setParent(parent);
         
-            if (parent != null)
+            if (parent != null) {
                 getStyle().setCascadedStyle(parent.getStyle());
+            }
         }
     }
 
@@ -186,8 +154,9 @@ public class GmInformationFlowLabel extends GmModelElementFlatHeader {
         if (!types.isEmpty()) {
             StringBuilder s = new StringBuilder();
             for (Classifier t : types) {
-                if (s.length() > 0)
+                if (s.length() > 0) {
                     s.append(", ");
+                }
                 s.append(t.getName());
             }
             typename = s.toString();
@@ -215,7 +184,7 @@ public class GmInformationFlowLabel extends GmModelElementFlatHeader {
     @objid ("816e87aa-1dec-11e2-8cad-001ec947c8cc")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.element = (InformationFlow) resolveRef(this.getRepresentedRef());
+        this.element = (InformationFlow) resolveRef(getRepresentedRef());
     }
 
     @objid ("816e87ad-1dec-11e2-8cad-001ec947c8cc")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.versioned.save;
 
@@ -86,11 +86,11 @@ public class VersionedExmlSaver implements ExmlTags {
     @objid ("3de29100-121a-11e2-816a-001ec947ccaf")
     public void externalize(final SmObjectImpl object, final OutputStream os, final OutputStream localOs) throws IOException {
         // Note : http://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
-        // In a try-with-resources statement, any catch or finally block 
+        // In a try-with-resources statement, any catch or finally block
         // is run after the resources declared have been closed.
         try (CloseableXMLStreamWriter closeableWriter = new CloseableXMLStreamWriter(os, ExmlTags.INDENT_FILES);
                 LocalSaver aLocalSaver = new LocalSaver(localOs)){
-            
+        
             this.localSaver = aLocalSaver;
             this.out = closeableWriter.getW();
         
@@ -109,7 +109,7 @@ public class VersionedExmlSaver implements ExmlTags {
     }
 
     @objid ("3de29101-121a-11e2-816a-001ec947ccaf")
-    private final void _dumpOBJECT(final SmObjectImpl object, Collection<SmObjectImpl> recursionContext) throws XMLStreamException {
+    private final void _dumpOBJECT(final SmObjectImpl object, Collection<SmObjectImpl> recursionContext, boolean withPid) throws XMLStreamException {
         if (recursionContext.contains(object)) {
             // Object already being externalized, skip it
             return;
@@ -118,13 +118,16 @@ public class VersionedExmlSaver implements ExmlTags {
         // Process it, add it to context
         recursionContext.add(object);
         
-        SmObjectImpl parent = getParentExt(object);
         
         this.out.writeStartElement(TAG_OBJECT);
         
         dumpID(TAG_ID, object);
-        if (parent != null) 
-            dumpID(TAG_PID, parent);
+        if (withPid) {
+            SmObjectImpl parent = getParentExt(object);
+            if (parent != null) {
+                dumpID(TAG_CMSNODE_PID, parent);
+            }
+        }
         
         dumpATTRIBUTES(object);
         dumpDEPENDENCIES(object, recursionContext);
@@ -146,8 +149,9 @@ public class VersionedExmlSaver implements ExmlTags {
         } else {
             String stringVal = attVal.toString();
             if (att.getType() == String.class) {
-                if (!stringVal.isEmpty())
+                if (!stringVal.isEmpty()) {
                     this.out.writeCData(getCDataForm(stringVal));
+                }
             } else {
                 this.out.writeCharacters(stringVal);
             }
@@ -179,8 +183,9 @@ public class VersionedExmlSaver implements ExmlTags {
                     tagWritten = writeCompTag(tagWritten, dep );
                     dumpID(TAG_COMPID, t);
                 } else {
-                    if (localTargets == null)
+                    if (localTargets == null) {
                         localTargets = new ArrayList<>(3);
+                    }
                         localTargets.add(t);
                 }
             } else if (t.getRepositoryObject() == NullRepository.getInstance()) {
@@ -197,15 +202,17 @@ public class VersionedExmlSaver implements ExmlTags {
             } else {
                 // composed by value, recursive call
                 tagWritten = writeCompTag(tagWritten, dep );
-                _dumpOBJECT( t, recursionContext);
+                _dumpOBJECT( t, recursionContext, false);
             }
         }
         
-        if (tagWritten)
+        if (tagWritten) {
             this.out.writeEndElement();
+        }
         
-        if (localTargets != null)
+        if (localTargets != null) {
             this.localSaver.dumpCompId(object, dep, localTargets);
+        }
     }
 
     /**
@@ -229,7 +236,7 @@ public class VersionedExmlSaver implements ExmlTags {
                     dumpCOMPS(object, dep, content, recursionContext);
                 } else {
                     dumpLINKS(object, dep, content);
-                } 
+                }
             }
         }
         
@@ -242,6 +249,7 @@ public class VersionedExmlSaver implements ExmlTags {
      * @throws javax.xml.stream.XMLStreamException in case of XML writing error.
      */
     @objid ("3de29106-121a-11e2-816a-001ec947ccaf")
+    @Deprecated
     private void dumpDEPS(final SmObjectImpl object) throws XMLStreamException {
         this.out.writeStartElement(TAG_DEPS);
         dumpID("ID", object);
@@ -249,16 +257,19 @@ public class VersionedExmlSaver implements ExmlTags {
         VersionedNodeDependencies deps = new VersionedNodeDependencies(object);
         
         // dump composed
-        for ( MObject it:deps.getCompManagedNodes())
+        for ( MObject it:deps.getCompManagedNodes()) {
             dumpID(TAG_COMPID, it);
+        }
         
         // dump references nodes
-        for ( MObject it:deps.getUsedNodes())
+        for ( MObject it:deps.getUsedNodes()) {
             dumpID(TAG_DEPS_EXTID, it);
+        }
         
         // dump ext ref
-        for ( MObject it:deps.getExtDeps())
+        for ( MObject it:deps.getExtDeps()) {
             dumpID(TAG_FOREIGNID, it);
+        }
         
         // dump links
         //for ( SmObjectImpl it:deps.refDeps) {
@@ -274,10 +285,10 @@ public class VersionedExmlSaver implements ExmlTags {
 
     @objid ("3de29107-121a-11e2-816a-001ec947ccaf")
     private void dumpEXT(final SmObjectImpl object) throws XMLStreamException {
-        this.out.writeStartElement("EXT");
+        this.out.writeStartElement(TAG_EXT);
         this.out.writeAttribute(ATT_EXT_OBJECT, object.getName());
         this.out.writeAttribute(ATT_EXT_VERSION, String.valueOf(FORMAT_VERSION));
-        dumpDEPS(object);
+        //TODO remove :dumpDEPS(object);
         dumpOBJECT(object);
         this.out.writeEndElement();
     }
@@ -286,7 +297,7 @@ public class VersionedExmlSaver implements ExmlTags {
     private void dumpID(final String xmlkey, final MObject object) throws XMLStreamException {
         this.out.writeEmptyElement(xmlkey);
         this.out.writeAttribute(ATT_ID_NAME, object.getName());
-        this.out.writeAttribute(ATT_ID_MC, object.getMClass().getName());
+        this.out.writeAttribute(ATT_ID_MC, object.getMClass().getQualifiedName());
         this.out.writeAttribute(ATT_ID_UID, object.getUuid().toString());
         //out.writeEndElement();
     }
@@ -309,8 +320,7 @@ public class VersionedExmlSaver implements ExmlTags {
 
     @objid ("3de2910b-121a-11e2-816a-001ec947ccaf")
     private final void dumpOBJECT(final SmObjectImpl object) throws XMLStreamException {
-        // cout << "dumpObject() " << const_cast<SmObjectImpl&>(object).name() << std::endl;
-        _dumpOBJECT(object, new HashSet<SmObjectImpl>());
+        _dumpOBJECT(object, new HashSet<SmObjectImpl>(), true);
     }
 
     @objid ("3de2910c-121a-11e2-816a-001ec947ccaf")
@@ -329,8 +339,13 @@ public class VersionedExmlSaver implements ExmlTags {
         } else {
             this.out.writeStartElement(TAG_REFOBJ);
             dumpID(TAG_ID, object);
+        
+           /*
+            TODO remove: This information is not accurate over time, to be removed and no tool should rely on it.
             dumpID(TAG_PID, parent);
+            */
             this.out.writeEndElement();
+        
         }
     }
 
@@ -339,7 +354,7 @@ public class VersionedExmlSaver implements ExmlTags {
      * This code must be obfuscated to avoid being itself broken on Modelio EXML save
      * in the case this method wouldn't work.
      * <p><code>
-     * "&#x5d;&#x5d;&gt;" <b>---></b> "]"(1) <b>+</b> "&#x5d;&#x5d;&gt;&lt;![CDATA[" <b>+</b> "]&gt;"(2)
+     * "&#x5d; &#x5d;&gt;" <b>---></b> "]"(1) <b>+</b> "&#x5d; &#x5d;&gt;&lt;![CDATA[" <b>+</b> "]&gt;"(2)
      * </code>
      * @param aString a future CDATA string
      * @return a CDATA ready string
@@ -347,8 +362,8 @@ public class VersionedExmlSaver implements ExmlTags {
     @objid ("3de2910e-121a-11e2-816a-001ec947ccaf")
     private static String getCDataForm(String aString) {
         // split all CDATA end tags in 2 CDATA sections to avoid XML parse error
-        // This code must be obfuscated to avoid being itself broken on Modelio EXML save. 
-        // "&#x5d;&#x5d;&gt;" --> "]"(1) + "&#x5d;&#x5d;&gt;<![CDATA[" + "]>"(2)
+        // This code must be obfuscated to avoid being itself broken on Modelio EXML save.
+        // "&#x5d; &#x5d;&gt;" --> "]"(1) + "&#x5d; &#x5d;&gt;<![CDATA[" + "]>"(2)
         return aString.replace("]"+"]"+">", "]"+"]]"+"><![CDATA["+"]>");
     }
 

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.tools.multipoint;
 
@@ -42,7 +42,6 @@ import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 import org.modelio.diagram.elements.core.figures.FigureUtilities2;
 import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
 import org.modelio.diagram.elements.drawings.core.GmDrawing;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -269,14 +268,13 @@ public abstract class MultiPointCreationEditPolicy extends GraphicalEditPolicy {
      */
     @objid ("80edc8bf-1dec-11e2-8cad-001ec947c8cc")
     protected final Class<? extends MObject> getCreationMetaclass(final CreateMultiPointRequest request) {
-        final Object newObject = request.getNewObject();
-        if (newObject instanceof ModelioLinkCreationContext) {
-            final ModelioLinkCreationContext ctx = (ModelioLinkCreationContext) newObject;
-            final Class<? extends MObject> metaclass = Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
+        final ModelioLinkCreationContext ctx = ModelioLinkCreationContext.lookRequest(request);
+        if (ctx != null) {
+            final Class<? extends MObject> metaclass = ctx.getMetaclass().getJavaInterface();
             return metaclass;
-        }
-        else 
+        } else {
             return null;
+        }
     }
 
     /**
@@ -446,7 +444,6 @@ public abstract class MultiPointCreationEditPolicy extends GraphicalEditPolicy {
      * @param request the CreateMultiPointRequest
      */
     @objid ("80f02b37-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings("unchecked")
     protected void showTargetConnectionFeedback(final CreateMultiPointRequest request) {
         // Additional feedback: highlight the node.
         
@@ -502,8 +499,9 @@ public abstract class MultiPointCreationEditPolicy extends GraphicalEditPolicy {
     @objid ("ed891901-8d4c-4c76-acd9-934186e0b858")
     protected final Class<?> getCreationType(final CreateMultiPointRequest request) {
         final Object newObjectType = request.getNewObjectType();
-        if (newObjectType instanceof Class<?> && GmDrawing.class.isAssignableFrom((Class<?>) newObjectType) )
+        if (newObjectType instanceof Class<?> && GmDrawing.class.isAssignableFrom((Class<?>) newObjectType) ) {
             return (Class<?>) newObjectType;
+        }
         return getCreationMetaclass(request);
     }
 

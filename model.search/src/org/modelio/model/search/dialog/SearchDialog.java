@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.model.search.dialog;
 
 import java.util.List;
@@ -7,8 +28,8 @@ import org.eclipse.jface.viewers.StyledCellLabelProvider;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -30,7 +51,7 @@ import org.modelio.model.search.engine.ISearchCriteria;
 import org.modelio.model.search.engine.ISearchEngine;
 import org.modelio.model.search.plugin.ModelSearch;
 import org.modelio.model.search.results.ResultsPanel;
-import org.modelio.model.search.searchers.model.ModelSearchPanel;
+import org.modelio.ui.UIImages;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
 import org.modelio.vcore.session.api.model.change.IModelChangeListener;
@@ -38,6 +59,9 @@ import org.modelio.vcore.session.api.model.change.IStatusChangeEvent;
 import org.modelio.vcore.session.api.model.change.IStatusChangeListener;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
+/**
+ * Search dialog.
+ */
 @objid ("000a8552-c59e-10ab-8258-001ec947cd2a")
 public class SearchDialog extends ModelioDialog {
     @objid ("aaa00fbf-3b49-499e-879a-4883dc93ba83")
@@ -47,7 +71,7 @@ public class SearchDialog extends ModelioDialog {
     private static final String PANEL_DATAKEY = "panel";
 
     @objid ("55dff01a-afbd-4156-bc08-dc3e408630ea")
-    private static final String HELP_TOPIC = "/org.modelio.documentation.modeler/html/Modeler-_modeler_handy_tools_advanced_search.html";
+    private static final String HELP_TOPIC = ModelSearch.I18N.getString("SearchDialog.HELP_TOPIC");
 
     @objid ("000a8f52-c59e-10ab-8258-001ec947cd2a")
     protected List<Element> results;
@@ -80,13 +104,11 @@ public class SearchDialog extends ModelioDialog {
     private static SearchDialog instance = null;
 
     @objid ("000ac24c-c59e-10ab-8258-001ec947cd2a")
-    private SearchDialog(Shell parentShell, ICoreSession session, List<Element> results, IModelioNavigationService navigationService) {
+    private SearchDialog(Shell parentShell, ICoreSession session, IModelioNavigationService navigationService) {
         super(parentShell);
-        // this.searchEngine = SearchEngine;
-        // this.searchCriteria = searchCriteria;
+        
         this.session = session;
-        this.results = null; // FIXME (results != null) ? results :
-                             // SearchEngine.search(session, searchCriteria);
+        this.results = null;
         this.navigationService = navigationService;
         
         this.listener = new SearchModelChangeListener(this);
@@ -139,19 +161,27 @@ public class SearchDialog extends ModelioDialog {
     }
 
     @objid ("3026918d-5ab3-4cc7-8d47-6402b5804de0")
-    void showResults(ISearchPanel panel, List<Element> results) {
+    void showResults(ISearchPanel panel, List<Element> resultsToShow) {
         setActivePanel(panel);
-        this.resultsPanel.showResults(results);
+        this.resultsPanel.showResults(resultsToShow);
     }
 
+    /**
+     * Set the informations the dialog will display once ready.
+     * @param panelClass the panel to show
+     * @param searchCriteria the search criteria to show
+     * @param found the results to show
+     */
     @objid ("b13881d8-f408-44e0-9939-cc914dd4bb1a")
-    public void initCriteria(final Class<? extends ISearchPanel> panelClass, final ISearchCriteria searchCriteria, final List<Element> found) {
-        this.getShell().getDisplay().asyncExec(new Runnable() {
+    public void setDisplayedContent(final Class<? extends ISearchPanel> panelClass, final ISearchCriteria searchCriteria, final List<Element> found) {
+        final TabFolder tabs = SearchDialog.this.tabFolder;
+        
+        getShell().getDisplay().asyncExec(new Runnable() {
             @Override
             public void run() {
-                if (!SearchDialog.this.tabFolder.isDisposed()) {
+                if (!tabs.isDisposed()) {
                     ISearchPanel panel = null;
-                    for (final TabItem tabItem : SearchDialog.this.tabFolder.getItems()) {
+                    for (final TabItem tabItem : tabs.getItems()) {
                         if (tabItem.getData(PANEL_DATAKEY).getClass() == panelClass) {
                             panel = ((ISearchPanel) tabItem.getData(PANEL_DATAKEY));
                             break;
@@ -176,12 +206,14 @@ public class SearchDialog extends ModelioDialog {
     @objid ("d124b33a-1766-4bec-ae94-29f779d42eea")
     @Override
     public boolean close() {
-        if (this.equals(instance))       // should always be the case, could be an assert!
-                instance = null;
+        if (equals(instance)) {
+            instance = null;
+        }
         
-        if (this.listener != null && this.session != null && this.session.getModelChangeSupport()!=null) {
+        if (this.listener != null && this.session != null && this.session.getModelChangeSupport() != null) {
             this.session.getModelChangeSupport().removeModelChangeListener(this.listener);
         }
+        
         this.session = null;
         this.results = null;
         return super.close();
@@ -204,20 +236,16 @@ public class SearchDialog extends ModelioDialog {
         this.searchButton = new Button(composite, SWT.PUSH);
         this.searchButton.setText(ModelSearch.I18N.getString("SearchButton.label"));
         this.searchButton.setToolTipText(ModelSearch.I18N.getString("SearchButton.tooltip"));
+        this.searchButton.setImage(UIImages.SEARCH);
         final GridData fdButton = new GridData(SWT.FILL, SWT.FILL, true, false);
         this.searchButton.setLayoutData(fdButton);
         
-        this.searchButton.addSelectionListener(new SelectionListener() {
+        this.searchButton.addSelectionListener(new SelectionAdapter() {
         
+            @SuppressWarnings("synthetic-access")
             @Override
             public void widgetSelected(SelectionEvent e) {
                 SearchDialog.this.controller.runSearch();
-            }
-        
-            @Override
-            public void widgetDefaultSelected(SelectionEvent e) {
-                // TODO Auto-generated method stub
-        
             }
         });
     }
@@ -234,6 +262,12 @@ public class SearchDialog extends ModelioDialog {
         top.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
     }
 
+    /**
+     * Register a search tool tab in the tab folder.
+     * @param label the tool label, to display as tab title
+     * @param panel the panel
+     * @param engine the search engine used by the tool.
+     */
     @objid ("727bc3cc-9c73-4141-b7e4-c2df732cffb9")
     public void registerSearchTool(String label, ISearchPanel panel, ISearchEngine engine) {
         panel.initialize(this.tabFolder, this.session, this.controller);
@@ -261,20 +295,33 @@ public class SearchDialog extends ModelioDialog {
         return HELP_TOPIC;
     }
 
+    /**
+     * Get the search dialog.
+     * <p>
+     * Displays the existing dialog if one already exists, create it in the other case.
+     * @param parentShell a parent SWT shell if a dialog needs to be created
+     * @param session the modeling session
+     * @param navigationService the navigation service
+     * @return the search dialog instance
+     */
     @objid ("22bb9fa1-b482-4481-84ff-3d83c28b1b51")
-    public static SearchDialog getInstance(final Shell parentShell, final ICoreSession session, final List<Element> results, final IModelioNavigationService navigationService) {
-        if (parentShell == null)
+    public static SearchDialog getInstance(final Shell parentShell, final ICoreSession session, final IModelioNavigationService navigationService) {
+        if (parentShell == null) {
             return null;
+        }
         
         if (instance != null) {
             assert (instance.session.equals(session));
             return instance;
         }
         
-        instance = new SearchDialog(parentShell, session, results, navigationService);
+        instance = new SearchDialog(parentShell, session, navigationService);
         return instance;
     }
 
+    /**
+     * Close the search dialog instance.
+     */
     @objid ("fad163e4-b15a-4b1f-91b5-1ea0ef128b95")
     public static void closeInstance() {
         if (instance != null) {
@@ -283,8 +330,24 @@ public class SearchDialog extends ModelioDialog {
         }
     }
 
+    @objid ("b0df4761-faa3-468d-869b-709971a4d450")
+    void runASyncSearch() {
+        getShell().getDisplay().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                runSearch();
+            }
+        
+        });
+    }
+
+    @objid ("1c1f332c-e5b9-4263-8de2-e813feb44045")
+    void runSearch() {
+        this.controller.runSearch();
+    }
+
     @objid ("691d4e0b-13ab-4b31-90c3-b32868c9a5eb")
-    public static class MetaclassLabelProvider extends StyledCellLabelProvider {
+    static class MetaclassLabelProvider extends StyledCellLabelProvider {
         @objid ("4b859808-c0bf-4ea7-923c-dcafb0ddac68")
         @Override
         public void update(ViewerCell cell) {
@@ -297,7 +360,7 @@ public class SearchDialog extends ModelioDialog {
     }
 
     @objid ("1281e30e-6529-4a2e-b0dd-35b7467833ae")
-    public static class SearchModelChangeListener implements IModelChangeListener, IStatusChangeListener {
+    static class SearchModelChangeListener implements IModelChangeListener, IStatusChangeListener {
         @objid ("acd6f846-d925-4b5a-9872-b5f1d993aece")
         private final SearchDialog searchDialog;
 
@@ -309,28 +372,14 @@ public class SearchDialog extends ModelioDialog {
         @objid ("d026ae1b-8147-4056-9800-07d9f444c2d2")
         @Override
         public void statusChanged(IStatusChangeEvent event) {
-            this.searchDialog.getShell().getDisplay().asyncExec(new Runnable() {
-            
-                @Override
-                public void run() {
-                    SearchModelChangeListener.this.searchDialog.controller.runSearch();
-                }
-            
-            });
+            this.searchDialog.runASyncSearch();
         }
 
         @objid ("c5c8888f-edf2-46f1-a4b2-21d401345549")
         @Override
         public void modelChanged(IModelChangeEvent event) {
-            this.searchDialog.getShell().getDisplay().asyncExec(new Runnable() {
-                @Override
-                public void run() {
-                    // TODO improve by looking up for deletions in the update
-                    // event
-                    SearchModelChangeListener.this.searchDialog.controller.runSearch();
-                }
-            
-            });
+            // TODO improve by looking up for deletions in the update event
+            this.searchDialog.runASyncSearch();
         }
 
     }

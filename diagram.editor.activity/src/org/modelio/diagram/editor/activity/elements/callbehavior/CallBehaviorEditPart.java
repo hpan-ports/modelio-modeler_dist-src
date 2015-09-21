@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.callbehavior;
 
@@ -30,8 +30,8 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.modelio.diagram.editor.activity.elements.policies.CreateFlowEditPolicy;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.RoundedBoxFigure;
-import org.modelio.diagram.elements.core.model.GmAbstractObject;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointRequest;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPolicy;
@@ -56,21 +56,14 @@ public class CallBehaviorEditPart extends GmNodeEditPart {
         // Only two possible children: the header and the behavior label!
         // See Gm constructor for detail
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
-        GmAbstractObject gmAbstractObject = (GmAbstractObject) childEditPart.getModel();
-        if (index == 0 && gmAbstractObject.getLayoutData() == null) {
-            gmAbstractObject.setLayoutData(BorderLayout.TOP);
-        } else if (index == 1 && gmAbstractObject.getLayoutData() == null) {
-            gmAbstractObject.setLayoutData(BorderLayout.CENTER);
-        } else if (index >= 2) {
-            throw new IllegalArgumentException("CallBehaviorEditPart#addChildVisual: unknown index " + index);
-        }
-        this.getFigure().add(child, gmAbstractObject.getLayoutData(), index);
+        getFigure().add(child, BorderLayout.CENTER, index);
     }
 
     @objid ("29b4fec8-55b6-11e2-877f-002564c97630")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
+        
         installEditPolicy(EditPolicy.NODE_ROLE, new CreateFlowEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                           new LinkedNodeStartCreationEditPolicy());
@@ -84,8 +77,8 @@ public class CallBehaviorEditPart extends GmNodeEditPart {
         RoundedBoxFigure fig = new RoundedBoxFigure();
         fig.setLayoutManager(new BorderLayout());
         
-        // set style independent properties
-        fig.setSize(100, 50); // TODO: Find a nice initial size
+        // set style independent propertie
+        MinimumSizeLayout.apply(fig, 100, 50);
         
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
@@ -107,8 +100,8 @@ public class CallBehaviorEditPart extends GmNodeEditPart {
     @objid ("29b4fed7-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmCallBehaviorPrimaryNode callBehaviorModel = (GmCallBehaviorPrimaryNode) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), callBehaviorModel.getLayoutData());
+        GmCallBehaviorPrimaryNode callBehaviorModel = (GmCallBehaviorPrimaryNode) getModel();
+        getFigure().getParent().setConstraint(getFigure(), callBehaviorModel.getLayoutData());
     }
 
 }

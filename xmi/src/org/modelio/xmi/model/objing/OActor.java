@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -30,9 +30,6 @@ import org.modelio.xmi.util.NotFoundException;
 
 @objid ("d6fea16f-f743-40e0-a244-206893547c5d")
 public class OActor extends ONameSpace {
-    @objid ("7eba38b7-9302-495f-8d30-943526c091be")
-    private Actor objingElement = null;
-
     @objid ("5aac9e9f-d1d1-4d08-b65d-89210ede1b07")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -42,7 +39,6 @@ public class OActor extends ONameSpace {
     @objid ("1e4ed0f0-90a3-47e5-8648-fa798cb3267f")
     public OActor(Actor element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("1be5f538-77de-469b-baf4-5bced5656c46")
@@ -50,7 +46,7 @@ public class OActor extends ONameSpace {
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        ModelTree objingOwner = this.objingElement.getOwner();
+        ModelTree objingOwner = getObjingElement().getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
@@ -78,6 +74,12 @@ public class OActor extends ONameSpace {
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
+    }
+
+    @objid ("0dd9c773-6fd6-41f1-91d6-bc20461b16dd")
+    @Override
+    public Actor getObjingElement() {
+        return (Actor) super.getObjingElement();
     }
 
 }

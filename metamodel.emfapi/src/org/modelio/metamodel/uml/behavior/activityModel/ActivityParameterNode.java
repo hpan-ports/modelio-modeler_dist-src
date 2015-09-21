@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,38 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
+/**
+ * ActivityParameterNode v0.0.9054
+ * 
+ * 
+ * Activity parameter nodes are object nodes at the beginning and end of flows that provide a means to accept inputs to an activity and provide outputs from the activity, through the activity parameters.
+ * 
+ * As a kind of behavior, an activity may have owned parameters. Within the activity, in and inout parameters may be associated with activity parameter nodes that have no incoming edges�??they provide a source within the activity for the overall �??input values�?� of the activity. Similarly, inout, out, and return parameters may be associated with activity nodes that have no outgoing edges�??they provide a sink within the activity for the overall �??output values�?� of the activity.
+ * 
+ * Per the general semantics of a behavior, when the activity is invoked, its in and inout parameters may be given actual values. These input values are placed as tokens on those activity parameter nodes within the activity that are associated with the corresponding in and inout parameters, the ones which do not have incoming edges. The overall activity input values are then available within the activity via the outgoing edges of the activity parameter nodes.
+ */
 @objid ("00293b96-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityParameterNode extends ObjectNode {
+    @objid ("930c333c-085f-4c16-898c-e7020f0fc5a5")
+    public static final String MNAME = "ActivityParameterNode";
+
 }

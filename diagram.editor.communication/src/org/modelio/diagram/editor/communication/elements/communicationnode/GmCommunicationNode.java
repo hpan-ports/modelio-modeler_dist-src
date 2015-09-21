@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.communication.elements.communicationnode;
 
@@ -27,7 +27,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.editor.communication.elements.communicationnode.v0._GmCommunicationNode;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmModelElementLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -71,6 +71,9 @@ public class GmCommunicationNode extends GmPortContainer {
     @objid ("0561fa7d-599a-11e2-ae45-002564c97630")
      static final GmCommunicationNodeSimpleStyleKeys SIMPLEKEYS = new GmCommunicationNodeSimpleStyleKeys();
 
+    @objid ("40a154ed-b7b6-4dfb-9bce-c57b686d1eaa")
+    private static final GmCommunicationNodeUserImageStyleKeys USERIMAGE_KEYS = new GmCommunicationNodeUserImageStyleKeys();
+
     /**
      * Default constructor.
      * @param diagram the diagram in which this gm is unmasked.
@@ -85,7 +88,7 @@ public class GmCommunicationNode extends GmPortContainer {
         GmCommunicationNodePrimaryNode primary = new GmCommunicationNodePrimaryNode(diagram, ref);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        GmModelElementFlatHeader imageModeHeader = new GmCommunicationNodeFlatHeader(diagram, ref);
+        GmModelElementLabel imageModeHeader = new GmCommunicationNodeFlatHeader(diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
@@ -280,7 +283,7 @@ public class GmCommunicationNode extends GmPortContainer {
         GmCommunicationNodePrimaryNode primary = new GmCommunicationNodePrimaryNode(oldVersionGm);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        GmModelElementFlatHeader imageModeHeader = new GmCommunicationNodeFlatHeader(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
+        GmModelElementLabel imageModeHeader = new GmCommunicationNodeFlatHeader(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);

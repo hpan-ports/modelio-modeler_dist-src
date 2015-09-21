@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.checker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -72,21 +73,6 @@ public class CheckerPanelProvider implements IPanelProvider {
     @Optional
     private EModelService emService;
 
-    @objid ("cd1dd1ea-4196-41a0-8f3d-b2498c32ae8f")
-    private Button byTypeButton;
-
-    @objid ("e12ea9b7-2445-407c-bdf5-ff6e02f72fe7")
-    private Button byRuleButton;
-
-    @objid ("4edbdcd4-b1fd-4e4b-9a2e-cae295d667fa")
-    private Button byElementButton;
-
-    @objid ("8885b773-416e-479e-8ce3-cd86a85219dc")
-    private Button byListButton;
-
-    @objid ("5db9dc3a-fe83-4905-a30e-c5af67640fee")
-    private Composite rootComposite;
-
     @objid ("6e220856-42cc-43c8-bd0f-909f5924e0f3")
     private AuditPanelProvider auditPanel;
 
@@ -113,16 +99,31 @@ public class CheckerPanelProvider implements IPanelProvider {
     @objid ("b300eafd-8ea4-4289-b3f4-97a8d6096886")
     private Object input;
 
+    @objid ("e6ef31b9-71c1-4980-a584-a9b33b301afb")
+    private Button byTypeButton;
+
+    @objid ("ecb4712e-2799-4b16-ae3d-4c80bcb35a82")
+    private Button byRuleButton;
+
+    @objid ("b8355824-d879-4889-92d5-9043b2d14856")
+    private Button byElementButton;
+
+    @objid ("9cccfac9-56f6-42a4-bbea-fc0fd993c903")
+    private Button byListButton;
+
+    @objid ("991cfdd8-6fd6-4ab3-9af7-8192a6574d59")
+    private Composite rootComposite;
+
     @objid ("106b1506-22a7-4fae-ba45-39f2736da135")
     public CheckerPanelProvider() {
-        jodId = UUID.randomUUID().toString();
+        this.jodId = UUID.randomUUID().toString();
     }
 
     @objid ("44301568-bd03-4fd8-acef-96576f6c51ea")
     @Override
     public Object createPanel(Composite parent) {
-        this.auditPanel = new AuditPanelProvider(this.auditService,this.projectService.getSession(), this.modelService,this.navigationService, this.application, this.emService, jodId);
-        
+        this.auditPanel = new AuditPanelProvider(this.auditService, this.projectService.getSession(), this.modelService,
+                this.navigationService, this.application, this.emService, this.jodId);
         
         parent.setLayout(new GridLayout(1, false));
         this.rootComposite = new Composite(parent, SWT.NONE);
@@ -134,17 +135,16 @@ public class CheckerPanelProvider implements IPanelProvider {
         this.rootComposite.setLayoutData(gd);
         this.rootComposite.setLayout(new GridLayout(4, false));
         
-        
-        this.byTypeButton = new Button(rootComposite, SWT.TOGGLE);
+        this.byTypeButton = new Button(this.rootComposite, SWT.TOGGLE);
         this.byTypeButton.setImage(Audit.getImageDescriptor("icons/LayoutByType.png").createImage());
         this.byTypeButton.addMouseListener(new MouseListener() {
         
             @Override
             public void mouseUp(MouseEvent e) {
-                auditPanel.setAuditViewMode(AuditViewMode.BYTYPE);
-                byRuleButton.setSelection(false);
-                byElementButton.setSelection(false);
-                byListButton.setSelection(false);
+                CheckerPanelProvider.this.auditPanel.setAuditViewMode(AuditViewMode.BYTYPE);
+                CheckerPanelProvider.this.byRuleButton.setSelection(false);
+                CheckerPanelProvider.this.byElementButton.setSelection(false);
+                CheckerPanelProvider.this.byListButton.setSelection(false);
             }
         
             @Override
@@ -157,16 +157,16 @@ public class CheckerPanelProvider implements IPanelProvider {
         });
         this.byTypeButton.setSelection(true);
         
-        this.byRuleButton = new Button(rootComposite, SWT.TOGGLE);
+        this.byRuleButton = new Button(this.rootComposite, SWT.TOGGLE);
         this.byRuleButton.setImage(Audit.getImageDescriptor("icons/LayoutByRule.png").createImage());
         this.byRuleButton.addMouseListener(new MouseListener() {
         
             @Override
             public void mouseUp(MouseEvent e) {
-                auditPanel.setAuditViewMode(AuditViewMode.BYRULE);
-                byTypeButton.setSelection(false);
-                byElementButton.setSelection(false);
-                byListButton.setSelection(false);
+                CheckerPanelProvider.this.auditPanel.setAuditViewMode(AuditViewMode.BYRULE);
+                CheckerPanelProvider.this.byTypeButton.setSelection(false);
+                CheckerPanelProvider.this.byElementButton.setSelection(false);
+                CheckerPanelProvider.this.byListButton.setSelection(false);
             }
         
             @Override
@@ -178,16 +178,16 @@ public class CheckerPanelProvider implements IPanelProvider {
             }
         });
         
-        this.byElementButton = new Button(rootComposite, SWT.TOGGLE);
+        this.byElementButton = new Button(this.rootComposite, SWT.TOGGLE);
         this.byElementButton.setImage(Audit.getImageDescriptor("icons/LayoutByElement.png").createImage());
         this.byElementButton.addMouseListener(new MouseListener() {
         
             @Override
             public void mouseUp(MouseEvent e) {
-                auditPanel.setAuditViewMode(AuditViewMode.BYELEMENT);
-                byTypeButton.setSelection(false);
-                byRuleButton.setSelection(false);
-                byListButton.setSelection(false);
+                CheckerPanelProvider.this.auditPanel.setAuditViewMode(AuditViewMode.BYELEMENT);
+                CheckerPanelProvider.this.byTypeButton.setSelection(false);
+                CheckerPanelProvider.this.byRuleButton.setSelection(false);
+                CheckerPanelProvider.this.byListButton.setSelection(false);
             }
         
             @Override
@@ -198,16 +198,16 @@ public class CheckerPanelProvider implements IPanelProvider {
             public void mouseDoubleClick(MouseEvent e) {
             }
         });
-        this.byListButton = new Button(rootComposite, SWT.TOGGLE);
+        this.byListButton = new Button(this.rootComposite, SWT.TOGGLE);
         this.byListButton.setImage(Audit.getImageDescriptor("icons/LayoutFlat.png").createImage());
         this.byListButton.addMouseListener(new MouseListener() {
         
             @Override
             public void mouseUp(MouseEvent e) {
-                auditPanel.setAuditViewMode(AuditViewMode.FLAT);
-                byTypeButton.setSelection(false);
-                byRuleButton.setSelection(false);
-                byElementButton.setSelection(false);
+                CheckerPanelProvider.this.auditPanel.setAuditViewMode(AuditViewMode.FLAT);
+                CheckerPanelProvider.this.byTypeButton.setSelection(false);
+                CheckerPanelProvider.this.byRuleButton.setSelection(false);
+                CheckerPanelProvider.this.byElementButton.setSelection(false);
             }
         
             @Override
@@ -218,7 +218,7 @@ public class CheckerPanelProvider implements IPanelProvider {
             public void mouseDoubleClick(MouseEvent e) {
             }
         });
-        this.auditPanel.createPanel(rootComposite);
+        this.auditPanel.createPanel(this.rootComposite);
         gd = new GridData();
         gd.horizontalSpan = 6;
         gd.horizontalAlignment = SWT.FILL;
@@ -228,7 +228,6 @@ public class CheckerPanelProvider implements IPanelProvider {
         this.auditPanel.getPanel().setLayoutData(gd);
         
         this.auditPanel.setInput(this.auditService.getAuditEngine().getAuditDiagnostic());
-        
         
         initContextMenu();
         return this.rootComposite;
@@ -242,12 +241,18 @@ public class CheckerPanelProvider implements IPanelProvider {
         menuMgr.addMenuListener(new IMenuListener() {
             @Override
             public void menuAboutToShow(IMenuManager manager) {
-                manager.add(new SelectInExplorerAction(navigationService, auditPanel.getTreeViewer()));
-                manager.add(new ShowDetailsAction(projectService, navigationService, auditPanel.getTreeViewer()));
-                manager.add(new AuditSeverityAction("AuditAdvice", auditService, auditPanel.getTreeViewer().getTree()));
-                manager.add(new AuditSeverityAction("AuditWarning", auditService, auditPanel.getTreeViewer().getTree()));
-                manager.add(new AuditSeverityAction("AuditError", auditService, auditPanel.getTreeViewer().getTree()));
-                manager.add(new DisableRuleHandlerAction(auditService, auditPanel.getTreeViewer().getTree()));
+                manager.add(new SelectInExplorerAction(CheckerPanelProvider.this.navigationService,
+                        CheckerPanelProvider.this.auditPanel.getTreeViewer()));
+                manager.add(new ShowDetailsAction(CheckerPanelProvider.this.projectService,
+                        CheckerPanelProvider.this.navigationService, CheckerPanelProvider.this.auditPanel.getTreeViewer()));
+                manager.add(new AuditSeverityAction("AuditAdvice", CheckerPanelProvider.this.auditService,
+                        CheckerPanelProvider.this.auditPanel.getTreeViewer().getTree()));
+                manager.add(new AuditSeverityAction("AuditWarning", CheckerPanelProvider.this.auditService,
+                        CheckerPanelProvider.this.auditPanel.getTreeViewer().getTree()));
+                manager.add(new AuditSeverityAction("AuditError", CheckerPanelProvider.this.auditService,
+                        CheckerPanelProvider.this.auditPanel.getTreeViewer().getTree()));
+                manager.add(new DisableRuleHandlerAction(CheckerPanelProvider.this.auditService,
+                        CheckerPanelProvider.this.auditPanel.getTreeViewer().getTree()));
             }
         });
         Menu menu = menuMgr.createContextMenu(this.auditPanel.getTreeViewer().getTree());
@@ -257,10 +262,18 @@ public class CheckerPanelProvider implements IPanelProvider {
     @objid ("a695f1ee-e0e2-4295-87cf-050d99488846")
     @Override
     public void setInput(Object input) {
+        // Because set input launches a background asynchronous process, better to avoid launching several instances for the same
+        // input.
+        // Furthermore, in the case of the checker panel the audit process can fire a status change event which in turn will re-set
+        // this input leading to a loop without the guard coded below.
+        
+        if (Objects.equals(this.input, input)) {
+            return;
+        }
         this.input = input;
-        if(input instanceof MObject){
-            List<MObject> elements =  new ArrayList<>();
-            elements.add((MObject)input);
+        if (input instanceof MObject) {
+            List<MObject> elements = new ArrayList<>();
+            elements.add((MObject) input);
             this.auditService.checkElementTree(elements, this.jodId);
         }
     }
@@ -274,13 +287,13 @@ public class CheckerPanelProvider implements IPanelProvider {
     @objid ("c8d34d25-0388-4cf0-8e65-826cdbff1d24")
     @Override
     public Object getPanel() {
-        return rootComposite;
+        return this.rootComposite;
     }
 
     @objid ("2b25c80e-5b3f-4014-ad7d-18014d699194")
     @Override
     public String getHelpTopic() {
-        return  HELP_TOPIC;
+        return HELP_TOPIC;
     }
 
     @objid ("502adaa9-c837-4e3d-809a-75afbc81b3e2")
@@ -291,7 +304,7 @@ public class CheckerPanelProvider implements IPanelProvider {
 
     @objid ("a83365ee-8848-4ff9-b3c5-18efaa1f82e9")
     public AuditPanelProvider getAuditPanel() {
-        return auditPanel;
+        return this.auditPanel;
     }
 
     @objid ("5d6bc26e-7708-4530-8173-9e69209fbc5a")

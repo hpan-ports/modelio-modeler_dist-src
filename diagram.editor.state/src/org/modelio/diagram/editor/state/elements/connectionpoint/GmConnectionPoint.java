@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.state.elements.connectionpoint;
 
@@ -65,6 +65,9 @@ public class GmConnectionPoint extends GmPortContainer {
 
     @objid ("fcff663c-5a5b-11e2-9e33-00137282c51b")
      static GmConnectionPointStructuredStyleKeys STRUCTURED_KEYS = new GmConnectionPointStructuredStyleKeys();
+
+    @objid ("9db1e2ca-c6f9-466b-82a7-c751fd8988cf")
+    private static GmConnectionPointUserImageStyleKeys USERIMAGE_KEYS = new GmConnectionPointUserImageStyleKeys();
 
     /**
      * Constructor.
@@ -129,6 +132,8 @@ public class GmConnectionPoint extends GmPortContainer {
             switch (mode) {
                 case IMAGE:
                     return IMAGE_KEYS.getStyleKey(metakey);
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKey(metakey);
                 case SIMPLE:
                     return SIMPLE_KEYS.getStyleKey(metakey);
                 case STRUCTURED:
@@ -147,6 +152,8 @@ public class GmConnectionPoint extends GmPortContainer {
             switch (mode) {
                 case IMAGE:
                     return IMAGE_KEYS.getStyleKeys();
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKeys();
                 case SIMPLE:
                     return SIMPLE_KEYS.getStyleKeys();
                 case STRUCTURED:

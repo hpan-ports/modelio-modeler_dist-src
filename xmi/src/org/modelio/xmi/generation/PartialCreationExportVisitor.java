@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.generation;
 
@@ -182,7 +182,6 @@ import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 import org.modelio.metamodel.visitors.DefaultModelVisitor;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
@@ -605,8 +604,8 @@ public class PartialCreationExportVisitor {
             }
             
             XMILogs xmilogs = XMILogs.getInstance();
-            xmilogs.writelnInLog(Xmi.I18N.getMessage("logFile.warning.unsupportedExport", 
-                    objingElt.getName(), 
+            xmilogs.writelnInLog(Xmi.I18N.getMessage("logFile.warning.unsupportedExport",
+                    objingElt.getName(),
                     objingElt.getClass().getName()));
             PartialCreationExportVisitor.this.ecoreElt = null;
             return null;
@@ -621,18 +620,18 @@ public class PartialCreationExportVisitor {
                 connector = GenerationProperties.getInstance().getMappedElement(objingElt.getLink());
             
             if (connector != null) {
-                if (connector instanceof Connector){
-                    PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createConnectorEnd();    
-                    return null;     
+                if (connector instanceof org.eclipse.uml2.uml.Connector){
+                    PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createConnectorEnd();
+                    return null;
                 }else if (connector instanceof InstanceSpecification){
-                    PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createSlot();    
+                    PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createSlot();
                     return null;
                 }
             }
             
             XMILogs xmilogs = XMILogs.getInstance();
-            String message = Xmi.I18N.getMessage("logFile.warning.unsupportedExport", 
-                    objingElt.getName(), 
+            String message = Xmi.I18N.getMessage("logFile.warning.unsupportedExport",
+                    objingElt.getName(),
                     objingElt.getClass().getSimpleName());
             xmilogs.writelnInLog(message);
             GenerationProperties.getInstance().getReportModel().addWarning(message, objingElt);
@@ -727,7 +726,7 @@ public class PartialCreationExportVisitor {
                     ecoreFlow = UMLFactory.eINSTANCE.createObjectFlow();
             
                 Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                        .getEnclosingElement(objingElt, SmClass.getClass(Activity.class));
+                        .getEnclosingElement(objingElt, objingElt.getMClass().getMetamodel().getMClass(Activity.class));
             
                 if (enclosingActivity != null) {
                     org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
@@ -757,12 +756,12 @@ public class PartialCreationExportVisitor {
         @objid ("af2dda02-3ccc-41d9-a15b-aa5b50472ab4")
         @Override
         public Object visitDependency(Dependency objingElt) {
-            if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ASSOCIATIONREFERENCE) 
+            if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ASSOCIATIONREFERENCE)
                     || objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2METHODREFERENCE)
                     || objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2STRUCTURALFEATUREREFERENCE)
                     || objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLASSIFIERREFERENCE)
                     || objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ENDCREATIONDATAREFERENCE)
-                    || objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ENDDESTRUCTIONDATAREFERENCE) 
+                    || objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ENDDESTRUCTIONDATAREFERENCE)
                     || objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EVENT)
                     || objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2INSTANCEVALUE)
                     || objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.PART)){
@@ -860,7 +859,7 @@ public class PartialCreationExportVisitor {
                     PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createTimeEvent();
                     break;
                 case CHANGEEVENT :
-                    PartialCreationExportVisitor.this.ecoreElt =  UMLFactory.eINSTANCE.createChangeEvent(); 
+                    PartialCreationExportVisitor.this.ecoreElt =  UMLFactory.eINSTANCE.createChangeEvent();
                     break;
                 default :
                     PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createCallEvent();
@@ -880,7 +879,7 @@ public class PartialCreationExportVisitor {
         @objid ("378a24eb-9cc4-4f84-8112-daf8cf17171b")
         @Override
         public Object visitExecutionOccurenceSpecification(ExecutionOccurenceSpecification objingElt) {
-            if ((objingElt.getSentMessage() != null)  
+            if ((objingElt.getSentMessage() != null)
                     || (objingElt.getReceivedMessage() != null))
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createMessageOccurrenceSpecification();
             
@@ -963,7 +962,7 @@ public class PartialCreationExportVisitor {
                     ecoreFlow = UMLFactory.eINSTANCE.createObjectFlow();
             
                 Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                        .getEnclosingElement(objingElt, SmClass.getClass(Activity.class));
+                        .getEnclosingElement(objingElt, objingElt.getMClass().getMetamodel().getMClass(Activity.class));
             
                 if (enclosingActivity != null) {
                     org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
@@ -1155,7 +1154,7 @@ public class PartialCreationExportVisitor {
             Element linkOwner = AbstractObjingModelNavigation.getLinkOwner(objingElt);
             MObject connectorOwner = AbstractObjingModelNavigation.getConnectorOwner(objingElt);
             
-            if (linkOwner != null){ 
+            if (linkOwner != null){
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createInstanceSpecification();
                 return null;
             }else if (connectorOwner != null){
@@ -1164,8 +1163,8 @@ public class PartialCreationExportVisitor {
             }
             
             XMILogs xmilogs = XMILogs.getInstance();
-            xmilogs.writelnInLog(Xmi.I18N.getMessage("logFile.warning.unsupportedExport", 
-                    objingElt.getName(), 
+            xmilogs.writelnInLog(Xmi.I18N.getMessage("logFile.warning.unsupportedExport",
+                    objingElt.getName(),
                     objingElt.getClass().getName()));
             PartialCreationExportVisitor.this.ecoreElt = null;
             return null;
@@ -1180,8 +1179,8 @@ public class PartialCreationExportVisitor {
                 connector = GenerationProperties.getInstance().getMappedElement(objingElt.getLink());
             
             if(connector != null){
-                if (connector  instanceof Connector){
-                    PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createConnectorEnd();    
+                if (connector instanceof org.eclipse.uml2.uml.Connector){
+                    PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createConnectorEnd();
                     return null;
                 }else if (connector instanceof InstanceSpecification){
                     PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createSlot();
@@ -1190,8 +1189,8 @@ public class PartialCreationExportVisitor {
             }
             
             XMILogs xmilogs = XMILogs.getInstance();
-            String message = Xmi.I18N.getMessage("logFile.warning.unsupportedExport", 
-                    objingElt.getName(), 
+            String message = Xmi.I18N.getMessage("logFile.warning.unsupportedExport",
+                    objingElt.getName(),
                     objingElt.getClass().getSimpleName());
             xmilogs.writelnInLog(message);
             
@@ -1402,7 +1401,7 @@ public class PartialCreationExportVisitor {
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createClassifierTemplateParameter();
             else if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2OPERATIONTEMPLATEPARAMETER))
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createOperationTemplateParameter();
-            else    
+            else
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createParameter();
             return null;
         }
@@ -1420,18 +1419,18 @@ public class PartialCreationExportVisitor {
             MObject objOwner = objingElt.getCompositionOwner();
             //            MObject objOwner = AbstractObjingModelNavigation.getBindableInstanceOwner(objingElt);
             if ( objOwner instanceof BindableInstance){
-                boolean exist = false; 
+                boolean exist = false;
                 ModelElement representedFeature = objingElt.getRepresentedFeature();
                 if (objOwner instanceof Instance){
                     NameSpace base = ((Instance) objOwner).getBase();
-                    exist = ((base!= null) && (representedFeature != null) 
+                    exist = ((base!= null) && (representedFeature != null)
                             && (representedFeature instanceof Port)
                             && (representedFeature.getCompositionOwner().equals(base)));
                 }
             
                 if (exist){
-                    PartialCreationExportVisitor.this.ecoreElt = GenerationProperties.getInstance().getMappedElement(representedFeature);            
-                }else{ 
+                    PartialCreationExportVisitor.this.ecoreElt = GenerationProperties.getInstance().getMappedElement(representedFeature);
+                }else{
                     if ((representedFeature != null) && (representedFeature instanceof Port)
                             && !(representedFeature.getCompositionOwner() instanceof Instance)){
                         PartialCreationExportVisitor.this.ecoreElt = GenerationProperties.getInstance().getMappedElement(representedFeature);
@@ -1521,7 +1520,7 @@ public class PartialCreationExportVisitor {
         public Object visitSendSignalAction(SendSignalAction objingElt) {
             if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2BROADCASTSIGNALACTION))
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createBroadcastSignalAction();
-            else    
+            else
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createSendSignalAction();
             return null;
         }
@@ -1627,9 +1626,9 @@ public class PartialCreationExportVisitor {
         public Object visitTemplateParameterSubstitution(TemplateParameterSubstitution objingElt) {
             org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingElt.getCompositionOwner());
             
-            if (ecoreOwner instanceof TemplateBinding)   
+            if (ecoreOwner instanceof TemplateBinding)
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createTemplateParameterSubstitution();
-            else 
+            else
                 PartialCreationExportVisitor.this.ecoreElt = null;
             return null;
         }

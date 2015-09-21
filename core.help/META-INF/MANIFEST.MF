@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Localization: plugin
 Bundle-Name: Core Help
 Bundle-SymbolicName: org.modelio.core.help
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Bundle-Vendor: Modelio
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.osgi,
@@ -12,9 +12,25 @@ Require-Bundle: org.eclipse.osgi,
  org.eclipse.help.base,
  org.eclipse.ui.workbench,
  org.eclipse.jface,
- org.modelio.ui
-Export-Package: org.modelio.core.help.system
+ org.modelio.ui,
+ org.eclipse.equinox.preferences,
+ org.eclipse.jface.text,
+ org.eclipse.equinox.registry,
+ org.eclipse.e4.ui.model.workbench,
+ org.eclipse.e4.ui.workbench,
+ org.eclipse.e4.core.di,
+ org.eclipse.emf.ecore,
+ org.eclipse.e4.core.contexts,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.core.runtime
+Export-Package: org.modelio.core.help.e4model,
+ org.modelio.core.help.inputpart,
+ org.modelio.core.help.preferences, 
+ org.modelio.core.help.system
 Bundle-ClassPath: .,
  res/
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.modelio.core.help.plugin.CoreHelp
+Import-Package: javax.annotation;version="1.1.0",
+ javax.inject;version="1.0.0"
+

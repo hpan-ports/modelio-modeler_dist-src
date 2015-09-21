@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.usecase.elements.usecase;
 
@@ -27,7 +27,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.editor.usecase.elements.usecase.v0._GmUseCase;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -62,6 +62,9 @@ public class GmUseCase extends GmPortContainer {
     @objid ("7b949100-5eff-11e2-b9cc-001ec947c8cc")
     private static final GmUseCaseImageStyleKeys IMAGEKEYS = new GmUseCaseImageStyleKeys();
 
+    @objid ("48927e75-bd7c-4a15-bddd-aac4f00df231")
+    private static final GmUseCaseUserImageStyleKeys USERIMAGE_KEYS = new GmUseCaseUserImageStyleKeys();
+
     @objid ("5e5af8fb-55b7-11e2-877f-002564c97630")
     public GmUseCase(GmAbstractDiagram diagram, UseCase theUseCase, MRef ref) {
         super(diagram, ref);
@@ -71,7 +74,7 @@ public class GmUseCase extends GmPortContainer {
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
         
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(diagram, ref);
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         
@@ -153,7 +156,7 @@ public class GmUseCase extends GmPortContainer {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -172,7 +175,7 @@ public class GmUseCase extends GmPortContainer {
                    case IMAGE:
                    default:
                        break;
-           
+        
                }
            }
         return ret;
@@ -255,7 +258,7 @@ public class GmUseCase extends GmPortContainer {
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
         
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         

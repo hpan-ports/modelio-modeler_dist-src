@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.treetable.linepattern;
 
@@ -51,13 +51,13 @@ public class LinePatternCellEditor extends CellEditor {
     @objid ("6b3bdf00-1eba-11e2-9382-bc305ba4815c")
     @Override
     protected void doSetValue(Object value) {
-        slider.setSelection(valueToPercent((Integer) value));
+        this.slider.setSelection(valueToPercent((Integer) value));
     }
 
     @objid ("6b3bdf04-1eba-11e2-9382-bc305ba4815c")
     @Override
     protected Object doGetValue() {
-        return percentToValue(slider.getSelection());
+        return percentToValue(this.slider.getSelection());
     }
 
     @objid ("6b3c0614-1eba-11e2-9382-bc305ba4815c")
@@ -74,7 +74,7 @@ public class LinePatternCellEditor extends CellEditor {
                 fireEditorValueChanged(true, true);
             }
         });
-        return slider;
+        return this.slider;
     }
 
     @objid ("6b3c2d24-1eba-11e2-9382-bc305ba4815c")
@@ -85,12 +85,12 @@ public class LinePatternCellEditor extends CellEditor {
 
     @objid ("6b3c5431-1eba-11e2-9382-bc305ba4815c")
     private int valueToPercent(int value) {
-        return ((((Integer) value) * 100) / (max - min));
+        return (((value) * 100) / (this.max - this.min));
     }
 
     @objid ("6b3c7b40-1eba-11e2-9382-bc305ba4815c")
     private int percentToValue(int percent) {
-        return percent * (max - min) / 100;
+        return percent * (this.max - this.min) / 100;
     }
 
 }

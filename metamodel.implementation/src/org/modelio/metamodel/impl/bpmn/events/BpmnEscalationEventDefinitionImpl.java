@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.events.BpmnEscalationEventDefinition;
-import org.modelio.metamodel.data.bpmn.events.BpmnEscalationEventDefinitionData;
+import org.modelio.metamodel.impl.bpmn.events.BpmnEscalationEventDefinitionData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -38,36 +50,42 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("008c1a7c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnEscalationEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnEscalationEventDefinition {
-    @objid ("3d18c0c6-a516-4c4e-9a43-2c50a87740f7")
+    @objid ("7a08c151-7cd6-47ee-bb8e-e2e9fbb34355")
     @Override
     public String getEscalationCode() {
-        return (String) getAttVal(BpmnEscalationEventDefinitionData.Metadata.EscalationCodeAtt());
+        return (String) getAttVal(((BpmnEscalationEventDefinitionSmClass)getClassOf()).getEscalationCodeAtt());
     }
 
-    @objid ("71dc5942-9cf3-49ce-b591-574afca4fc58")
+    @objid ("71221e40-a1cd-44b1-8b55-d86cf4c2711c")
     @Override
     public void setEscalationCode(String value) {
-        setAttVal(BpmnEscalationEventDefinitionData.Metadata.EscalationCodeAtt(), value);
+        setAttVal(((BpmnEscalationEventDefinitionSmClass)getClassOf()).getEscalationCodeAtt(), value);
     }
 
-    @objid ("34e2e315-6741-474b-a15a-f45061444264")
+    @objid ("08ba1de1-9a53-486c-90b6-817ff1e9466e")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("57fd369c-6bac-49ad-8184-479a5eb3759d")
+    @objid ("693b60e4-118b-499c-aef7-bc37957984d1")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("ffa2897a-82a0-4aed-8ff4-59e456a3ec5f")
+    @objid ("8ba03812-0437-496e-a5a2-2264cbab5b1b")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnEscalationEventDefinition(this);

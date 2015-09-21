@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.informationFlow;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.informationFlow.DataFlowData;
+import org.modelio.metamodel.impl.uml.informationFlow.DataFlowData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.informationFlow.DataFlow;
@@ -41,78 +53,91 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00648264-c4bf-1fd8-97fe-001ec947cd2a")
 public class DataFlowImpl extends ModelElementImpl implements DataFlow {
-    @objid ("05df4880-1467-49db-8283-5b88fcb50972")
+    @objid ("aae5c876-6446-4c99-a0e2-d872ffb97037")
     @Override
     public NameSpace getDestination() {
-        return (NameSpace) getDepVal(DataFlowData.Metadata.DestinationDep());
+        Object obj = getDepVal(((DataFlowSmClass)getClassOf()).getDestinationDep());
+        return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("0184a5ce-f219-4603-9773-9c211f6c552f")
+    @objid ("758decc5-22fc-49ec-bc8a-f859335f4511")
     @Override
     public void setDestination(NameSpace value) {
-        appendDepVal(DataFlowData.Metadata.DestinationDep(), (SmObjectImpl)value);
+        appendDepVal(((DataFlowSmClass)getClassOf()).getDestinationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6d42eb2a-4b79-41b6-9f2e-197f246765c7")
+    @objid ("10466273-7039-455d-8c9d-0e768d9c2d21")
     @Override
     public NameSpace getOrigin() {
-        return (NameSpace) getDepVal(DataFlowData.Metadata.OriginDep());
+        Object obj = getDepVal(((DataFlowSmClass)getClassOf()).getOriginDep());
+        return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("52ff1702-0b74-46c3-a6cb-a368c2250d32")
+    @objid ("c4129292-01ea-442e-b8b8-9a84cfa19eca")
     @Override
     public void setOrigin(NameSpace value) {
-        appendDepVal(DataFlowData.Metadata.OriginDep(), (SmObjectImpl)value);
+        appendDepVal(((DataFlowSmClass)getClassOf()).getOriginDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e0e6c8fe-f897-4072-9803-9e7437ea71b2")
+    @objid ("e015e467-d3fc-4adf-8614-ed7576918e66")
     @Override
     public NameSpace getOwner() {
-        return (NameSpace) getDepVal(DataFlowData.Metadata.OwnerDep());
+        Object obj = getDepVal(((DataFlowSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("a9d39c0c-6d16-4cf3-893b-d4882d373f79")
+    @objid ("e4d445cc-e74c-4c47-a7d8-9b726a1cb707")
     @Override
     public void setOwner(NameSpace value) {
-        appendDepVal(DataFlowData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((DataFlowSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("226b396b-3711-4887-b313-639dcff65627")
+    @objid ("3223d686-6cc0-408d-9446-7fd4dc27e7c2")
     @Override
     public Signal getSModel() {
-        return (Signal) getDepVal(DataFlowData.Metadata.SModelDep());
+        Object obj = getDepVal(((DataFlowSmClass)getClassOf()).getSModelDep());
+        return (obj instanceof Signal)? (Signal)obj : null;
     }
 
-    @objid ("d3dab4d8-5a8b-4363-9c1a-bf00e0d9fd8a")
+    @objid ("70788f57-62fe-49f8-851e-6883f8089214")
     @Override
     public void setSModel(Signal value) {
-        appendDepVal(DataFlowData.Metadata.SModelDep(), (SmObjectImpl)value);
+        appendDepVal(((DataFlowSmClass)getClassOf()).getSModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("68b7967d-6e25-43c5-8117-30b9f9bae217")
+    @objid ("aaa10fd3-d9a0-4d7f-9b96-fadaf1602d14")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(DataFlowData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((DataFlowSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("68a905a6-3554-4647-9e9a-30ab9de7d03e")
+    @objid ("a127a922-0b38-481e-bab1-ee3040419058")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(DataFlowData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(DataFlowData.Metadata.OwnerDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((DataFlowSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("f250c716-032e-48c3-b285-ed6103d4fedb")
+    @objid ("e9859f00-a5fb-4da8-8a9d-5b94f9ab19bc")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDataFlow(this);

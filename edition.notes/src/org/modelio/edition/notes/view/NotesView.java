@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.notes.view;
 
@@ -32,8 +32,8 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.ui.di.Focus;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.services.EContextService;
 import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -175,9 +175,7 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
     @objid ("d7a0aaf0-1a32-4e94-89bd-86c0d3391e57")
     @Inject
     @Optional
-    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject, @Optional final IActivationService activationService, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        
+    void onProjectOpened(@UIEventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject, @Optional final IActivationService activationService, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         if (openedProject == null) {
             return;
         }
@@ -199,9 +197,7 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
     @Inject
     @SuppressWarnings("unused")
     @Optional
-    void onProjectClosing(@EventTopic(ModelioEventTopics.PROJECT_CLOSING) final GProject closedProject) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        
+    void onProjectClosing(@UIEventTopic(ModelioEventTopics.PROJECT_CLOSING) final GProject closedProject) {
         final NotesPanelProvider lpanel = NotesView.this.panel;
         Display.getDefault().asyncExec(new Runnable() {
             @Override

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.behavior.communicationModel;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageSort;
@@ -35,54 +39,165 @@ import org.modelio.metamodel.uml.informationFlow.InformationFlow;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Operation;
 
+/**
+ * CommunicationMessage v0.0.9054
+ * 
+ * 
+ * CommunicationMessages are used in communication diagrams. 
+ * 
+ * If the CommunicationMessage has no InvokedOperation, then its description is in its name. 
+ * 
+ * In Modelio, a Message belongs to the Communication it follows.
+ * 
+ * The message sequencing information is handled in communication diagrams by the 'Sequencing' attribute.
+ */
 @objid ("005b08f6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CommunicationMessage extends ModelElement {
-    @objid ("4ee8c735-4c7c-4696-9b8b-5e606d5f4bd1")
+    @objid ("5fe147f7-a166-4d78-bea7-b58162da4292")
+    public static final String MNAME = "CommunicationMessage";
+
+    /**
+     * Getter for attribute 'CommunicationMessage.Argument'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("95d1eea6-df97-4249-b3bc-8b45db3247e3")
     String getArgument();
 
-    @objid ("7fcfd156-9a90-4a31-b575-ca6b60895ccb")
+    /**
+     * Setter for attribute 'CommunicationMessage.Argument'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("395a3b5e-46c4-4fe0-9b3d-0115c5657a9b")
     void setArgument(String value);
 
-    @objid ("973fd913-ea54-4419-be78-f6e0dd16978b")
+    /**
+     * Getter for attribute 'CommunicationMessage.Sequence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("abc8c793-772d-4ba0-a8f9-6eab408b9af5")
     String getSequence();
 
-    @objid ("1bac7e18-e18a-4531-8564-24b7234b4440")
+    /**
+     * Setter for attribute 'CommunicationMessage.Sequence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("8c5a65b8-814b-4372-9978-eff68a00d0fc")
     void setSequence(String value);
 
-    @objid ("c8bb866c-eb67-4d4e-b37c-32a26eb9c5d3")
+    /**
+     * Getter for attribute 'CommunicationMessage.SortOfMessage'
+     * 
+     * Metamodel description:
+     * <i>The sort of communication reflected by the CommunicationMessage. Default value is synchCall.</i>
+     */
+    @objid ("1947d53d-ab7f-4bce-8b0d-a6bd08f5d02c")
     MessageSort getSortOfMessage();
 
-    @objid ("7fd252ed-3891-49d1-8255-31a257c10ca8")
+    /**
+     * Setter for attribute 'CommunicationMessage.SortOfMessage'
+     * 
+     * Metamodel description:
+     * <i>The sort of communication reflected by the CommunicationMessage. Default value is synchCall.</i>
+     */
+    @objid ("b935ae98-d3d7-4072-9011-a43ecf61efcc")
     void setSortOfMessage(MessageSort value);
 
-    @objid ("866cb2ea-4dd7-495a-922f-083cdaa1542f")
+    /**
+     * Getter for relation 'CommunicationMessage->RealizedInformationFlow'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e0e68e35-378c-444f-bedf-da6247dbc12e")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("10e81ef0-bf3a-47aa-878d-d7466b4347f6")
+    /**
+     * Filtered Getter for relation 'CommunicationMessage->RealizedInformationFlow'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("56d25548-2cb0-4d63-9068-784f57d3f1f2")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
-    @objid ("9300fc94-9924-456a-a7db-9842257884c7")
+    /**
+     * Getter for relation 'CommunicationMessage->Channel'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6ba8d8d8-4052-4ccb-ab58-24e681bde16a")
     CommunicationChannel getChannel();
 
-    @objid ("69044d57-a888-4c95-9895-4b08bba8acb3")
+    /**
+     * Setter for relation 'CommunicationMessage->Channel'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("fc432b47-139b-4943-a4ea-a08d658621ec")
     void setChannel(CommunicationChannel value);
 
-    @objid ("e81b00e6-ab3b-4b41-92f6-5daf48f3c127")
+    /**
+     * Getter for relation 'CommunicationMessage->InvertedChannel'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("594dbe86-0fa3-4ca2-9415-3969b95360b7")
     CommunicationChannel getInvertedChannel();
 
-    @objid ("a7edf913-36ff-4056-8f8d-a2f383874eb1")
+    /**
+     * Setter for relation 'CommunicationMessage->InvertedChannel'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e49dbf6e-af39-4af4-b06b-a4bd85c1582e")
     void setInvertedChannel(CommunicationChannel value);
 
-    @objid ("99bf8cce-b8d0-488c-8234-055d482900a9")
+    /**
+     * Getter for relation 'CommunicationMessage->Invoked'
+     * 
+     * Metamodel description:
+     * <i>The Operation is invoked by the Message.</i>
+     */
+    @objid ("064da4ca-1b55-4a09-b458-0d035fe732a8")
     Operation getInvoked();
 
-    @objid ("3335a57b-2981-4d96-ba92-dde7fc7daf71")
+    /**
+     * Setter for relation 'CommunicationMessage->Invoked'
+     * 
+     * Metamodel description:
+     * <i>The Operation is invoked by the Message.</i>
+     */
+    @objid ("0adceec1-8b35-4b9a-b13a-4a6256f0342c")
     void setInvoked(Operation value);
 
-    @objid ("caf3d384-2dba-4512-8b29-0aee1cbf04d4")
+    /**
+     * Getter for relation 'CommunicationMessage->SignalSignature'
+     * 
+     * Metamodel description:
+     * <i>Signal that is sent by the message.</i>
+     */
+    @objid ("5c43a461-0187-4c7f-80b6-8979d953cf39")
     Signal getSignalSignature();
 
-    @objid ("96ea61de-1aff-45ee-9333-b6db07b058db")
+    /**
+     * Setter for relation 'CommunicationMessage->SignalSignature'
+     * 
+     * Metamodel description:
+     * <i>Signal that is sent by the message.</i>
+     */
+    @objid ("ab2b5e80-757d-4f0a-bd49-163fea6bcece")
     void setSignalSignature(Signal value);
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.rules;
 
@@ -35,7 +35,6 @@ import org.modelio.audit.engine.impl.AuditTrigger;
 import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.plugin.Audit;
 import org.modelio.audit.service.AuditSeverity;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.behavior.usecaseModel.Actor;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
@@ -81,21 +80,21 @@ public class R1980 extends AbstractRule {
     public void autoRegister(IAuditPlan plan) {
         // IClassifier
         // In case of a delete or move event, which call an update on the old parent.
-        plan.registerRule(Metamodel.getMClass(InformationItem.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Artifact.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(TemplateParameter.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Actor.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(org.modelio.metamodel.uml.statik.Class.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(DataType.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Enumeration.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Interface.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Signal.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(UseCase.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Node.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Component.class).getName(), this, AuditTrigger.UPDATE);
+        plan.registerRule(InformationItem.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Artifact.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(TemplateParameter.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Actor.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(org.modelio.metamodel.uml.statik.Class.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(DataType.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Enumeration.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Interface.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Signal.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(UseCase.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Node.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Component.MNAME, this, AuditTrigger.UPDATE);
         
-        plan.registerRule(Metamodel.getMClass(Attribute.class).getName(), this, AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(AssociationEnd.class).getName(), this, AuditTrigger.MOVE | AuditTrigger.UPDATE);
+        plan.registerRule(Attribute.MNAME, this, AuditTrigger.MOVE | AuditTrigger.UPDATE);
+        plan.registerRule(AssociationEnd.MNAME, this, AuditTrigger.MOVE | AuditTrigger.UPDATE);
     }
 
     /**

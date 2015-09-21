@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.portcontainer;
 
@@ -36,11 +36,16 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.modelio.diagram.elements.common.freezone.BaseFreeZoneLayoutEditPolicy;
+import org.modelio.diagram.elements.common.header.GmModelElementHeader;
+import org.modelio.diagram.elements.common.label.base.GmElementLabel;
 import org.modelio.diagram.elements.core.commands.NodeChangeLayoutCommand;
+import org.modelio.diagram.elements.core.commands.PostLayoutCommand;
+import org.modelio.diagram.elements.core.helpers.RequestHelper;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy;
+import org.modelio.diagram.elements.core.policies.ProgrammaticOnlyDragPolicy;
 
 /**
  * Try 2 of edit policy for port container.
@@ -50,12 +55,47 @@ import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy
 @objid ("7ef45653-1dec-11e2-8cad-001ec947c8cc")
 public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
     /**
-     * Never called, because I overrode {@link #createChangeConstraintCommand(ChangeBoundsRequest, EditPart, Object)}
-     * instead (I needed some informations only the request could provide).
+     * Overridden instead of the usual {@link #createChangeConstraintCommand(EditPart, Object)} because the request
+     * contains some useful informations like resize direction.
      */
     @objid ("7ef45655-1dec-11e2-8cad-001ec947c8cc")
     @Override
-    protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
+    protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
+        // If moving the main node move the port container instead.
+        if (REQ_MOVE_CHILDREN.equals(request.getType())) {
+            GmNodeModel gmMainNode = ((GmPortContainer) getHost().getModel()).getMainNode();
+            if (child.getModel() == gmMainNode) {
+                // Moving main node : move the port container itself instead.
+                // This code is reached when the main node edit part has a preferred drag edit policy.
+                ChangeBoundsRequest newReq = RequestHelper.deepCopy(request) ;
+                newReq.setEditParts(getHost());
+        
+                Rectangle mainBounds = PortResizeHelper.computeRequestedMainNodeBounds((PortContainerFigure) getHostFigure(), request);
+                newReq.getExtendedData().put(PortResizeHelper.REQPROP_MAIN_NODE_BOUNDS, mainBounds);
+        
+                // Ask directly to parent to avoid infinite recursion
+                return getHost().getParent().getCommand(newReq);
+            }
+        }
+        
+        // if child is a 'node' it usually can be resized and/or moved
+        if (child instanceof GmNodeEditPart) {
+            // Create the command to resize/move child
+            NodeChangeLayoutCommand resizeChildCommand = new NodeChangeLayoutCommand();
+            resizeChildCommand.setModel(child.getModel());
+            resizeChildCommand.setConstraint(constraint);
+        
+            // If needed, resize the container.
+            Command resizeContainerCommand = new LastMinuteContainerAutoResizeCommand((PortContainerEditPart) getHost());
+        
+            // combine both.
+            CompoundCommand command = new CompoundCommand();
+            command.add(resizeChildCommand);
+            command.add(resizeContainerCommand);
+        
+            // Embed all in a  PostLayoutCommand to allow post layout operations.
+            return new PostLayoutCommand(command.unwrap(), request);
+        }
         return null;
     }
 
@@ -79,53 +119,30 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
             if (childModel == pc.getMainNode()) {
                 // Resize of main node is actually handled by resize of
                 // container, see AutoSizeEditPolicy.
-                return null;
-            }
-            // else
-            if (pc.isPort(childModel)) {
+                // Just allow programmatic move/resize requests
+                return new ProgrammaticOnlyDragPolicy();
+            } else if (pc.isPort(childModel)) {
                 SelectionEditPolicy childPolicy = childNodePart.getPreferredDragRolePolicy(REQ_RESIZE);
-                if (childPolicy != null)
+                if (childPolicy != null) {
                     return childPolicy;
-                // else
-                return new DefaultNodeResizableEditPolicy();
-            }
-            // else
-            if (pc.isSatellite(childModel)) {
+                } else {
+                    return new DefaultNodeResizableEditPolicy();
+                }
+            } else if (pc.isSatellite(childModel)) {
+                // Satellite: ask if the child can provide its own policy,
+                // otherwise use default.
                 SelectionEditPolicy childPolicy = childNodePart.getPreferredDragRolePolicy(REQ_RESIZE);
-                if (childPolicy != null)
+                if (childPolicy != null) {
                     return childPolicy;
-                // else
-                return new DefaultNodeResizableEditPolicy();
+                } else if (childModel instanceof GmElementLabel || childModel instanceof GmModelElementHeader) {
+                    // Satellite label
+                    SatelliteLabelMoveResizeEditPolicy policy = new SatelliteLabelMoveResizeEditPolicy();
+                    //policy.setResizeDirections(PositionConstants.EAST_WEST);
+                    return policy;
+                } else {
+                    return new DefaultNodeResizableEditPolicy();
+                }
             }
-            // else
-            return null;
-        }
-        // else
-        return null;
-    }
-
-    /**
-     * Overridden instead of the usual {@link #createChangeConstraintCommand(EditPart, Object)} because the request
-     * contains some useful informations like resize direction.
-     */
-    @objid ("7ef6b863-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
-        // if child is a 'node' it usually can be resized and/or moved
-        if (child instanceof GmNodeEditPart) {
-            // If needed, resize the container.
-            Command resizeContainerCommand = new LastMinuteContainerAutoResizeCommand(getHost());
-        
-            // Create the command to resize/move child
-            NodeChangeLayoutCommand resizeChildCommand = new NodeChangeLayoutCommand();
-            resizeChildCommand.setModel(child.getModel());
-            resizeChildCommand.setConstraint(constraint);
-        
-            // Return the simplest command combining both.
-            CompoundCommand command = new CompoundCommand();
-            command.add(resizeChildCommand);
-            command.add(resizeContainerCommand);
-            return command.unwrap();
         }
         return null;
     }
@@ -138,33 +155,29 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
         if (parentNode instanceof GmPortContainer) {
             GmPortContainer pc = (GmPortContainer) parentNode;
             // Main node and satellites use Rectangles.
-            if ((pc.getMainNode() == childModel) ||
-                    pc.isSatellite(childModel)) {
+            if ((pc.getMainNode() == childModel) || pc.isSatellite(childModel)) {
                 return super.getConstraintFor(request, child);
             }
         }
+        
         // else: Ports use PortConstraints.
-        Object currentConstraint = childModel.getLayoutData();
         PortConstraint newConstraint = new PortConstraint();
         newConstraint.setRequestedBounds((Rectangle) super.getConstraintFor(request, child));
-        if (request.getExtendedData().containsKey("newHandleBounds")) {
+        
+        Rectangle mainNodeBounds = (Rectangle) request.getExtendedData().get(PortResizeHelper.REQPROP_MAIN_NODE_BOUNDS);
+        if (mainNodeBounds != null) {
             // Port is itself a PortContainer and gave us the evolution of its
-            // handle bounds: these handle bounds must be "fixed" to one border,
+            // main node bounds: this main node bounds must be "fixed" to one border,
             // instead of using the bounds as usual.
-            Rectangle handleBounds = (Rectangle) request.getExtendedData().get("newHandleBounds");
-            Point requestedCentre = handleBounds.getCenter();
+            Point requestedCentre = mainNodeBounds.getCenter();
+            getLayoutContainer().translateToRelative(requestedCentre);
             requestedCentre.translate(getLayoutOrigin().getNegated());
             newConstraint.setRequestedCenter(requestedCentre);
         }
-        // A RESIZE_CHILDREN request should not change the reference border,
-        // while a MOVE_CHILDREN can.
-        if (REQ_RESIZE_CHILDREN.equals(request.getType())) {
-            newConstraint.setReferenceBorder(((PortConstraint) currentConstraint).getReferenceBorder());
-        } else {
-            // MOVE: let layout determine the new reference border.
-            PortContainerLayout layout = (PortContainerLayout) getHostFigure().getLayoutManager();
-            layout.determineReferenceBorder(getHostFigure(), newConstraint);
-        }
+        
+        // let layout determine the new reference border.
+        PortContainerLayout layout = getPortContainerLayout();
+        layout.determineReferenceBorder(getHostFigure(), newConstraint);
         return newConstraint;
     }
 
@@ -187,8 +200,7 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
     @objid ("7ef6b887-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Point getLayoutOrigin() {
-        IFigure container = getLayoutContainer();
-        PortContainerLayout layout = (PortContainerLayout) container.getLayoutManager();
+        PortContainerLayout layout = getPortContainerLayout();
         return layout.getOrigin(getLayoutContainer());
     }
 
@@ -224,9 +236,36 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
             } else {
                 ((PortConstraint) constraint).setRequestedBounds(r);
             }
-            command.add(createAddCommand(childPart, translateToModelConstraint(constraint)));
+            command.add(createAddCommand(request, childPart, translateToModelConstraint(constraint)));
         }
         return command.unwrap();
+    }
+
+    @objid ("27efa8a0-cf23-4f4f-9525-e330fa589597")
+    @Override
+    public boolean understandsRequest(Request req) {
+        if (PostLayoutCommand.REQ_TYPE == req.getType()) {
+            return true;
+        }
+        return super.understandsRequest(req);
+    }
+
+    @objid ("9610fdc9-ab72-47ba-bbc8-27b02dc3d8cb")
+    @Override
+    protected IFigure getTargetFeedbackFigure(Request request) {
+        IFigure hostFigure = getHostFigure();
+        IFigure mainNodeFigure = ((PortContainerFigure) hostFigure).getMainNodeFigure();
+        if (mainNodeFigure != null) {
+            return mainNodeFigure;
+        } else {
+            return hostFigure;
+        }
+    }
+
+    @objid ("702123c6-e56b-4990-a97e-1f0d6949e37a")
+    protected PortContainerLayout getPortContainerLayout() {
+        PortContainerLayout layout = ((PortContainerFigure) getHostFigure()).getPortContainerLayout();
+        return layout;
     }
 
 }

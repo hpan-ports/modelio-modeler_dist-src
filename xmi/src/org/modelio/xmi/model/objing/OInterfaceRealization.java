@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -29,28 +29,28 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("f52bf05b-4671-4863-8d75-01d4a7dc6796")
-public class OInterfaceRealization extends OModelElement implements IOElement {
+public class OInterfaceRealization extends OModelElement {
     @objid ("30af37d9-009e-4850-8503-6538cdb8d405")
     private InterfaceRealization objingElement;
 
     @objid ("dcfc25b3-3cd2-4c17-a963-0d40cd30031e")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE
-                        .createInterfaceRealization();
+                                .createInterfaceRealization();
     }
 
     @objid ("386b8299-c6cf-43cf-b9d9-b8e784d9dafa")
     public OInterfaceRealization(InterfaceRealization element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("1a3ae940-f2fd-4d18-b38e-de0d1beb4205")
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
                 
-        NameSpace objingImplementerNS = objingElement.getImplementer();
-        Interface objingImplementedItf = objingElement.getImplemented();
+        NameSpace objingImplementerNS = this.objingElement.getImplementer();
+        Interface objingImplementedItf = this.objingElement.getImplemented();
                 
         if (objingImplementerNS != null && objingImplementedItf != null) {
             // Gets or creates the ecore implementer org.eclipse.uml2.uml.Namespace:

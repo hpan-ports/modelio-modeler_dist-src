@@ -75,6 +75,12 @@
        
     </product>
   </extension>
+  <extension
+        point="org.eclipse.core.runtime.preferences">
+     <initializer
+           class="org.modelio.app.ui.plugin.AppUiPreferenceInitializer">
+     </initializer>
+  </extension>
    
 
 

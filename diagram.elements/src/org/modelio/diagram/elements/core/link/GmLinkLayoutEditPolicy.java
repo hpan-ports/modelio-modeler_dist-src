@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,19 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
@@ -34,10 +35,10 @@ import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
+import org.modelio.diagram.elements.core.link.extensions.ChangeExtensionSizeCommand;
 import org.modelio.diagram.elements.core.link.extensions.ConnectionEndpoinLocatorMoveEditPolicy;
 import org.modelio.diagram.elements.core.link.extensions.FractionalConnectionLocatorMoveEditPolicy;
 import org.modelio.diagram.elements.core.link.extensions.GmConnectionEndpoinLocator;
-import org.modelio.diagram.elements.core.link.extensions.GmConnectionLocator;
 import org.modelio.diagram.elements.core.link.extensions.GmFractionalConnectionLocator;
 import org.modelio.diagram.elements.core.link.extensions.IGmLocator;
 import org.modelio.diagram.elements.core.model.IGmLink;
@@ -60,8 +61,6 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
             return new ConnectionEndpoinLocatorMoveEditPolicy();
         } else if (locator instanceof GmFractionalConnectionLocator) {
             return new FractionalConnectionLocatorMoveEditPolicy();
-        } else if (locator instanceof GmConnectionLocator) {
-            return null;
         } else {
             return null;
         }
@@ -76,9 +75,8 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
     @objid ("802320ea-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getMoveChildrenCommand(Request request) {
-        // By default, move and resize are treated the same for constrained
-        // layouts.
-        return getResizeChildrenCommand((ChangeBoundsRequest) request);
+        // Move requests are directly handled by children
+        throw new IllegalStateException();
     }
 
     /**
@@ -95,7 +93,7 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
         
         for (int i = 0; i < children.size(); i++) {
             child = (GraphicalEditPart) children.get(i);
-            c = createMoveCommand(request, child, request.getMoveDelta());
+            c = createResizeCommand(request, child);
             resize.add(c);
         }
         return resize.unwrap();
@@ -107,8 +105,18 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
      * @param moveDelta @return
      */
     @objid ("802320fe-1dec-11e2-8cad-001ec947c8cc")
-    private Command createMoveCommand(ChangeBoundsRequest request, GraphicalEditPart child, Point moveDelta) {
-        return null;
+    private Command createResizeCommand(ChangeBoundsRequest request, GraphicalEditPart child) {
+        IFigure figure = child.getFigure();
+        
+        Rectangle newRect = figure.getBounds().getCopy();
+        figure.translateToAbsolute(newRect);
+        newRect.resize(request.getSizeDelta());
+        newRect.translate(request.getMoveDelta());
+        figure.translateToRelative(newRect);
+        
+        final IGmObject gmExtension = (IGmObject) child.getModel();
+        final IGmLink gmlink = (IGmLink) getHost().getModel();
+        return new ChangeExtensionSizeCommand(figure, gmlink, gmExtension, newRect.getSize());
     }
 
     /**
@@ -121,8 +129,9 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
     @Override
     protected void decorateChild(final EditPart child) {
         EditPolicy policy = createChildEditPolicy(child);
-        if (policy != null)
+        if (policy != null) {
             child.installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, policy);
+        }
     }
 
     @objid ("8025830a-1dec-11e2-8cad-001ec947c8cc")
@@ -131,7 +140,7 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
         if (REQ_ADD.equals(request.getType()) ||
             REQ_MOVE.equals(request.getType()) ||
             REQ_CLONE.equals(request.getType())) {
-            // Special case: MOVE and ADD request can be tricky: depending on the "previous loop" of the tool sending 
+            // Special case: MOVE and ADD request can be tricky: depending on the "previous loop" of the tool sending
             // the request, an ADD request can be send for a simple graphic move, and a MOVE request can be sent for an
             // actual graphic re-parenting. Let's analyse the request a bit to determine how to handle it.
             final ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
@@ -153,7 +162,7 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
         if (REQ_CLONE.equals(changeBoundsRequest.getType())) {
             return false;
         }
-        // The request is actually a move request (not taking its type into account) if the primary selection's 
+        // The request is actually a move request (not taking its type into account) if the primary selection's
         // parent edit part is the host.
         for (final Object o : changeBoundsRequest.getEditParts()) {
             final EditPart editPart = (EditPart) o;
@@ -165,6 +174,15 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
             }
         }
         return false;
+    }
+
+    @objid ("d68e44f9-1bee-4fbe-8a46-cd86729d3ad4")
+    @Override
+    public Command getCommand(Request request) {
+        if (REQ_RESIZE_CHILDREN.equals(request.getType())) {
+            return getResizeChildrenCommand((ChangeBoundsRequest) request);
+        }
+        return super.getCommand(request);
     }
 
 }

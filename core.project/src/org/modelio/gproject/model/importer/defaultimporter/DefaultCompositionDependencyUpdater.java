@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model.importer.defaultimporter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.model.importer.core.BrokenDepReport;
@@ -30,13 +29,14 @@ import org.modelio.gproject.model.importer.core.IBrokenDependencyHandler;
 import org.modelio.gproject.model.importer.core.IDependencyUpdater;
 import org.modelio.gproject.model.importer.core.IImportFilter;
 import org.modelio.gproject.model.importer.core.IObjectFinder;
-import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 
+/**
+ * {@link IDependencyUpdater} implementation for composition dependencies.
+ */
 @objid ("00811d2a-d3aa-108f-8d81-001ec947cd2a")
 public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
     @objid ("bb886551-4467-11e2-b513-002564c97630")
@@ -48,6 +48,9 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
     @objid ("00924442-e7d6-1090-8d81-001ec947cd2a")
     private final IObjectFinder objectFinder;
 
+    /**
+     * TODO this is not used anymore
+     */
     @objid ("009266de-e7d6-1090-8d81-001ec947cd2a")
     private final IImportFilter importFilter;
 
@@ -92,15 +95,17 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
         }
         
         // Update the local dep values according to the reference values
-        
-        // Do the update according to the dependency : there are some special cases
-        if (smDep == SmClass.getClass(ModelTree.class).getDependency("OwnedElement")) {
-            return updateModelTreeOwnedElementModelTree(localObject, smDep, equivalentLocalValues, refValues);
-        } else {
-            return updateDependency(localObject, smDep, equivalentLocalValues, refValues);
-        }
+        return updateDependency(localObject, smDep, equivalentLocalValues, refValues);
     }
 
+    /**
+     * Update a dependency
+     * @param localObject the local object to modify
+     * @param smDep the dependency
+     * @param equivalentLocalValues the new dependency values found in the local model
+     * @param refValues the new dependency values in the source model
+     * @return the objects to test for orphan
+     */
     @objid ("00821400-d3aa-108f-8d81-001ec947cd2a")
     protected List<SmObjectImpl> updateDependency(SmObjectImpl localObject, SmDependency smDep, List<SmObjectImpl> equivalentLocalValues, List<MObject> refValues) {
         List<SmObjectImpl> toGarbage = new ArrayList<>();
@@ -155,22 +160,12 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
         return equivalentLocalValues;
     }
 
-    @objid ("00823b1a-d3aa-108f-8d81-001ec947cd2a")
-    protected List<SmObjectImpl> updateModelTreeOwnedElementModelTree(SmObjectImpl localObject, SmDependency smDep, List<SmObjectImpl> equivalentLocalValues, List<MObject> refValues) {
-        if (!setEqual(refValues, localObject.mGet(smDep), smDep.isOrdered())) {
-            // We need to keeps ramcs
-            for (MObject obj : localObject.mGet(smDep)) {
-                if (!this.importFilter.select((SmObjectImpl) obj) && !equivalentLocalValues.contains(obj)) {
-                    // Put the ramc in the new list
-                    equivalentLocalValues.add((SmObjectImpl) obj);
-                }
-            }
-        
-            return updateDependency(localObject, smDep, equivalentLocalValues, refValues);
-        }
-        return Collections.emptyList();
-    }
-
+    /**
+     * @param brokenDependencyHandler the broken dependencies handler
+     * @param objectFinder the object finder
+     * @param localSession the local session
+     * @param importFilter the import filter
+     */
     @objid ("00927778-e7d6-1090-8d81-001ec947cd2a")
     public DefaultCompositionDependencyUpdater(IBrokenDependencyHandler brokenDependencyHandler, IObjectFinder objectFinder, ICoreSession localSession, IImportFilter importFilter) {
         super();

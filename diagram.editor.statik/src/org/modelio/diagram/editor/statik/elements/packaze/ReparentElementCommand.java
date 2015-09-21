@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.packaze;
 
@@ -32,15 +32,16 @@ import org.modelio.gproject.model.api.MTools;
 import org.modelio.vcore.smkernel.SmDepVal;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * {@link GmNodeModel} reparent <code>command</code> that:
  * <ul>
- * <li>orphan the underlying {@link MObject element} from its previous {@link Element#getCompositionOwner()
+ * <li>orphan the underlying {@link MObject element} from its previous {@link MObject#getCompositionOwner()
  * composition owner},</li>
  * <li>orphan the {@link GmNodeModel node} from its previous {@link GmCompositeNode container},</li>
- * <li>attach the underlying {@link MObject element} to its new {@link Element#getCompositionOwner() composition
+ * <li>attach the underlying {@link MObject element} to its new {@link MObject#getCompositionOwner() composition
  * owner},</li>
  * <li>and finally attach the {@link GmNodeModel node} to its new {@link GmCompositeNode container}.</li>
  * </ul>
@@ -49,10 +50,8 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * 
  * @author fpoyer
  * 
- * @see org.modelio.metamodel.uml.infrastructure.Element#getCompositionOwner()
- * @see com.modeliosoft.modelio.core.model.CompositionExpert
- * @see com.modeliosoft.modelio.core.model.CompositionServices
- * @see org.modelio.diagram.elements.core.node.GmCompositeNode
+ * @see MObject#getCompositionOwner()
+ * @see MExpert
  */
 @objid ("362b3138-55b7-11e2-877f-002564c97630")
 public class ReparentElementCommand extends Command {
@@ -101,30 +100,36 @@ public class ReparentElementCommand extends Command {
     public boolean canExecute() {
         final MObject childElement = this.reparentedChild.getRelatedElement();
         
-        if (this.newParentElement == null || childElement == null)
+        if (this.newParentElement == null || childElement == null) {
             return false;
+        }
         
-        if (this.newParentElement.equals(childElement))
+        if (this.newParentElement.equals(childElement)) {
             return false;
+        }
         
         // The diagram must be valid and modifiable.
-        if (!MTools.getAuthTool().canModify(this.reparentedChild.getDiagram().getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(this.reparentedChild.getDiagram().getRelatedElement())) {
             return false;
+        }
         
         // The moved element must be modifiable.
-        if (!childElement.getStatus().isModifiable())
+        if (!childElement.getStatus().isModifiable()) {
             return false;
+        }
         
         // The old and new parent elements must be modifiable or
         // both must be CMS nodes.
-        if (!MTools.getAuthTool().canAdd(this.newParentElement, childElement.getMClass().getName()))
+        if (!MTools.getAuthTool().canAdd(this.newParentElement, childElement.getMClass().getName())) {
             return false;
+        }
         
-        if (!MTools.getAuthTool().canAdd(childElement.getCompositionOwner(), childElement.getMClass().getName()))
+        if (!MTools.getAuthTool().canAdd(childElement.getCompositionOwner(), childElement.getMClass().getName())) {
             return false;
+        }
         
         // Ask metamodel experts
-        return MTools.getMetaTool().canCompose(this.newParentElement, childElement, null);
+        return getMmExpert().canCompose(this.newParentElement, childElement, null);
     }
 
     @objid ("362cb7b6-55b7-11e2-877f-002564c97630")
@@ -155,7 +160,7 @@ public class ReparentElementCommand extends Command {
         } catch (Exception e) {
             // Maybe new parent is not using the same dependency for composition
             // Try to find a fitting dependency
-            MDependency newParentDep = MTools.getMetaTool().getDefaultCompositionDep(this.newParentElement, childElement);
+            MDependency newParentDep = getMmExpert().getDefaultCompositionDep(this.newParentElement, childElement);
             this.newParentElement.mGet(newParentDep).add(childElement);
         }
         
@@ -197,6 +202,11 @@ public class ReparentElementCommand extends Command {
             // Delete the now unused child
             this.reparentedChild.delete();
         }
+    }
+
+    @objid ("d4cf6a38-b9b5-41fc-a82d-0dfe84228583")
+    private MExpert getMmExpert() {
+        return this.newParentElement.getMClass().getMetamodel().getMExpert();
     }
 
 }

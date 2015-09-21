@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.ramcs.edition;
 
@@ -28,7 +28,6 @@ import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.module.IModule;
 import org.modelio.app.ramcs.plugin.AppRamcs;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.ElementImport;
@@ -87,7 +86,6 @@ class Controller {
     }
 
     @objid ("c15ba24d-f693-4b04-936b-3dacce7f4ab6")
-    @SuppressWarnings("unused")
     private boolean isValidVersion(String version) {
         try {
             new Version(version);
@@ -124,7 +122,7 @@ class Controller {
         try (ITransaction t = session.getTransactionSupport().createTransaction("Apply changes to '"+this.model.getName()+"' RAMC.")) {
             // Force the metamodel version.
             Version v = this.model.getVersion();
-            v = new Version(v.getMajorVersion(), v.getMinorVersion(), v.getBuildVersion(), Integer.parseInt(Metamodel.VERSION));
+            v = new Version(v.getMajorVersion(), v.getMinorVersion(), v.getBuildVersion());
             this.model.setRamcVersion(v);
         
             this.model.updateArtifact();
@@ -164,17 +162,17 @@ class Controller {
 
     @objid ("8cc7df3d-362c-42d5-8739-3a03ba8419c3")
     private boolean isValidRamc(Element e) {
-        return (e.isValid() 
-                && (e instanceof Artifact) 
-                && ((Artifact)e).isStereotyped("ModelerModule", "ModelComponentArchive"))
-                && ! causeCycle((Artifact)e);
+        return (e.isValid()
+                        && (e instanceof Artifact)
+                        && ((Artifact)e).isStereotyped("ModelerModule", "ModelComponentArchive"))
+                        && ! causeCycle((Artifact)e);
     }
 
     @objid ("f44df655-1e0c-494d-a51c-dbd66535d9be")
     public boolean isRamcArtifact(Element element) {
-        return (element.isValid() 
-                && (element instanceof Artifact) 
-                && ((Artifact)element).isStereotyped("ModelerModule", "ModelComponentArchive"));
+        return (element.isValid()
+                        && (element instanceof Artifact)
+                        && ((Artifact)element).isStereotyped("ModelerModule", "ModelComponentArchive"));
     }
 
     @objid ("34d1d26a-e95d-4f1e-87b1-603c5004d06a")

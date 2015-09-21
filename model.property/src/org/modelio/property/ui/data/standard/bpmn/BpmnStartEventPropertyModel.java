@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.bpmn;
 
@@ -60,7 +60,7 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
      * </ul>
      */
     @objid ("a62941b1-c068-11e1-8c0a-002564c97630")
-    private static final String[] properties = new String[] { "StartEvent", "Name","Type", "ParallelMultiple", "Interrupting" };
+    private static final String[] properties = new String[] { "Property", "Name", "Type", "ParallelMultiple", "Interrupting" };
 
     @objid ("aa2781f4-d004-11e1-9020-002564c97630")
     private IMModelServices modelService;
@@ -106,25 +106,25 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return BpmnStartEventPropertyModel.properties[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getName();                     
-                    case 2:                     
-                      return getType();
-                    case 3:
-                        return this.theEditedElement.isParallelMultiple() ? Boolean.TRUE : Boolean.FALSE;
-                    case 4:
-                        return this.theEditedElement.isIsInterrupting() ? Boolean.TRUE : Boolean.FALSE;
-                    default:
-                        return null;
-                }
+        case 0: // col 0 is the property key
+            return BpmnStartEventPropertyModel.properties[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return getType();
+            case 3:
+                return this.theEditedElement.isParallelMultiple() ? Boolean.TRUE : Boolean.FALSE;
+            case 4:
+                return this.theEditedElement.isIsInterrupting() ? Boolean.TRUE : Boolean.FALSE;
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -142,25 +142,25 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return new StringType(false);
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return new StringType(false);
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return new StringType(false);
-                    case 1:
-                        return new StringType(true);         
-                    case 2:
-                        return new EnumType(getEnumeration()); 
-                    case 3:
-                        return new BooleanType();
-                    case 4:
-                        return new BooleanType();
-                    default:
-                        return null;
-                }
+            case 1:
+                return new StringType(true);
+            case 2:
+                return new EnumType(getEnumeration());
+            case 3:
+                return new BooleanType();
+            case 4:
+                return new BooleanType();
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -176,60 +176,60 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
-                return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setName((String) value);
-                        break;
-                    case 2:
-                        setType(this.modelService, value);
-                    break;
-                    case 3:
-                        this.theEditedElement.setParallelMultiple((Boolean) value);
-                        break;
-                    case 4:
-                        this.theEditedElement.setIsInterrupting((Boolean) value);
-                        break;
-                    default:
-                        return;
-                }
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                setType(this.modelService, value);
+                break;
+            case 3:
+                this.theEditedElement.setParallelMultiple((Boolean) value);
+                break;
+            case 4:
+                this.theEditedElement.setIsInterrupting((Boolean) value);
                 break;
             default:
                 return;
+            }
+            break;
+        default:
+            return;
         }
     }
 
     @objid ("8e5d0859-c068-11e1-8c0a-002564c97630")
     private Object getType() {
-        if(getEnumeration() == EventType.class){            
-            List<BpmnEventDefinition> definition = this.theEditedElement.getEventDefinitions();    
-            if(definition.size() == 0){
+        if (getEnumeration() == EventType.class) {
+            List<BpmnEventDefinition> definition = this.theEditedElement.getEventDefinitions();
+            if (definition.size() == 0) {
                 return EventType.None;
-            }else  if(definition.size() == 1){
-                return EventType.getType(definition.get(0));                  
-            }else{
+            } else if (definition.size() == 1) {
+                return EventType.getType(definition.get(0));
+            } else {
                 return EventType.Multiple;
             }
-        }else if(getEnumeration() == SubEventType.class){            
-            List<BpmnEventDefinition> definition = this.theEditedElement.getEventDefinitions();    
-            if(definition.size() == 0){
+        } else if (getEnumeration() == SubEventType.class) {
+            List<BpmnEventDefinition> definition = this.theEditedElement.getEventDefinitions();
+            if (definition.size() == 0) {
                 return SubEventType.None;
-            }else  if(definition.size() == 1){
-                return SubEventType.getType(definition.get(0));                  
-            }else{
+            } else if (definition.size() == 1) {
+                return SubEventType.getType(definition.get(0));
+            } else {
                 return SubEventType.Multiple;
             }
-        }else if(getEnumeration() == InterSubEventType.class){            
-            List<BpmnEventDefinition> definition = this.theEditedElement.getEventDefinitions();    
-            if(definition.size() == 0){
+        } else if (getEnumeration() == InterSubEventType.class) {
+            List<BpmnEventDefinition> definition = this.theEditedElement.getEventDefinitions();
+            if (definition.size() == 0) {
                 return InterSubEventType.None;
-            }else  if(definition.size() == 1){
-                return InterSubEventType.getType(definition.get(0));                  
-            }else{
+            } else if (definition.size() == 1) {
+                return InterSubEventType.getType(definition.get(0));
+            } else {
                 return InterSubEventType.Multiple;
             }
         }
@@ -238,46 +238,46 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
 
     @objid ("8e5d085d-c068-11e1-8c0a-002564c97630")
     private Class<? extends Enum<?>> getEnumeration() {
-        if(((SmObjectImpl)this.theEditedElement).getCompositionOwner() instanceof BpmnSubProcess){
-            if(this.theEditedElement.isIsInterrupting()){
+        if (((SmObjectImpl) this.theEditedElement).getCompositionOwner() instanceof BpmnSubProcess) {
+            if (this.theEditedElement.isIsInterrupting()) {
                 return InterSubEventType.class;
-            }else{
+            } else {
                 return SubEventType.class;
             }
-        }else{
-            return EventType.class ;
+        } else {
+            return EventType.class;
         }
     }
 
     @objid ("8e5d0860-c068-11e1-8c0a-002564c97630")
     private void setType(IMModelServices modelService, Object type) {
-        if(getEnumeration() == EventType.class){ 
+        if (getEnumeration() == EventType.class) {
             EventType event_type = (EventType) type;
-            if(type == EventType.None){
+            if (type == EventType.None) {
                 deleteEventType();
-            }else if(type == EventType.Multiple){
+            } else if (type == EventType.Multiple) {
                 createMultipleEventType(modelService);
-            }else{
+            } else {
                 deleteEventType();
                 createEventType(modelService, EventType.getMetaclass(event_type));
             }
-        }else if(getEnumeration() == SubEventType.class){            
+        } else if (getEnumeration() == SubEventType.class) {
             SubEventType event_type = (SubEventType) type;
-            if(type == SubEventType.None){
+            if (type == SubEventType.None) {
                 deleteEventType();
-            }else if(type == SubEventType.Multiple){
+            } else if (type == SubEventType.Multiple) {
                 createMultipleEventType(modelService);
-            }else{
+            } else {
                 deleteEventType();
                 createEventType(modelService, SubEventType.getMetaclass(event_type));
             }
-        }else if(getEnumeration() == InterSubEventType.class){            
+        } else if (getEnumeration() == InterSubEventType.class) {
             InterSubEventType event_type = (InterSubEventType) type;
-            if(type == InterSubEventType.None){
+            if (type == InterSubEventType.None) {
                 deleteEventType();
-            }else if(type == InterSubEventType.Multiple){
+            } else if (type == InterSubEventType.Multiple) {
                 createMultipleEventType(modelService);
-            }else{
+            } else {
                 deleteEventType();
                 createEventType(modelService, InterSubEventType.getMetaclass(event_type));
             }
@@ -287,10 +287,10 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
     @objid ("8e5d0863-c068-11e1-8c0a-002564c97630")
     private void createMultipleEventType(IMModelServices mmService) {
         List<BpmnEventDefinition> definitions = this.theEditedElement.getEventDefinitions();
-        if(definitions.size() == 0){
+        if (definitions.size() == 0) {
             createEventType(mmService, BpmnMessageEventDefinition.class);
             createEventType(mmService, BpmnSignalEventDefinition.class);
-        }else if(definitions.size() == 1){
+        } else if (definitions.size() == 1) {
             createEventType(mmService, BpmnMessageEventDefinition.class);
         }
     }
@@ -321,28 +321,28 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
 
         @objid ("8e5d0872-c068-11e1-8c0a-002564c97630")
         public static EventType getType(BpmnEventDefinition definition) {
-            if(definition instanceof BpmnMessageEventDefinition){
+            if (definition instanceof BpmnMessageEventDefinition) {
                 return Message;
-            }else if(definition instanceof BpmnTimerEventDefinition){
+            } else if (definition instanceof BpmnTimerEventDefinition) {
                 return Timer;
-            }else if(definition instanceof BpmnConditionalEventDefinition){
+            } else if (definition instanceof BpmnConditionalEventDefinition) {
                 return Conditional;
-            }else if(definition instanceof BpmnSignalEventDefinition){
-                return Signal; 
+            } else if (definition instanceof BpmnSignalEventDefinition) {
+                return Signal;
             }
             return None;
         }
 
         @objid ("8e5d0879-c068-11e1-8c0a-002564c97630")
         public static Class<? extends Element> getMetaclass(EventType event) {
-            if(event == EventType.Message){
+            if (event == EventType.Message) {
                 return BpmnMessageEventDefinition.class;
-            }else if(event == EventType.Timer ){
+            } else if (event == EventType.Timer) {
                 return BpmnTimerEventDefinition.class;
-            }else if(event == EventType.Conditional ){
+            } else if (event == EventType.Conditional) {
                 return BpmnConditionalEventDefinition.class;
-            }else if(event == EventType.Signal ){
-                return BpmnSignalEventDefinition.class; 
+            } else if (event == EventType.Signal) {
+                return BpmnSignalEventDefinition.class;
             }
             return null;
         }
@@ -364,32 +364,32 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
 
         @objid ("8e5d0887-c068-11e1-8c0a-002564c97630")
         public static SubEventType getType(BpmnEventDefinition definition) {
-            if(definition instanceof BpmnMessageEventDefinition){
+            if (definition instanceof BpmnMessageEventDefinition) {
                 return Message;
-            }else if(definition instanceof BpmnTimerEventDefinition){
+            } else if (definition instanceof BpmnTimerEventDefinition) {
                 return Timer;
-            }else if(definition instanceof BpmnEscalationEventDefinition){
+            } else if (definition instanceof BpmnEscalationEventDefinition) {
                 return Escalation;
-            }else if(definition instanceof BpmnConditionalEventDefinition){
+            } else if (definition instanceof BpmnConditionalEventDefinition) {
                 return Conditional;
-            }else if(definition instanceof BpmnSignalEventDefinition){
-                return Signal; 
+            } else if (definition instanceof BpmnSignalEventDefinition) {
+                return Signal;
             }
             return None;
         }
 
         @objid ("8e5d088e-c068-11e1-8c0a-002564c97630")
         public static Class<? extends Element> getMetaclass(SubEventType event) {
-            if(event == SubEventType.Message){
+            if (event == SubEventType.Message) {
                 return BpmnMessageEventDefinition.class;
-            }else if(event == SubEventType.Timer ){
+            } else if (event == SubEventType.Timer) {
                 return BpmnTimerEventDefinition.class;
-            }else if(event == SubEventType.Escalation){
+            } else if (event == SubEventType.Escalation) {
                 return BpmnEscalationEventDefinition.class;
-            }else if(event == SubEventType.Conditional ){
+            } else if (event == SubEventType.Conditional) {
                 return BpmnConditionalEventDefinition.class;
-            }else if(event == SubEventType.Signal ){
-                return BpmnSignalEventDefinition.class; 
+            } else if (event == SubEventType.Signal) {
+                return BpmnSignalEventDefinition.class;
             }
             return null;
         }
@@ -412,35 +412,35 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
 
         @objid ("8e5e8ef0-c068-11e1-8c0a-002564c97630")
         public static InterSubEventType getType(BpmnEventDefinition definition) {
-            if(definition instanceof BpmnMessageEventDefinition){
+            if (definition instanceof BpmnMessageEventDefinition) {
                 return Message;
-            }else if(definition instanceof BpmnTimerEventDefinition){
+            } else if (definition instanceof BpmnTimerEventDefinition) {
                 return Error;
-            }else if(definition instanceof BpmnErrorEventDefinition){
+            } else if (definition instanceof BpmnErrorEventDefinition) {
                 return Timer;
-            }else if(definition instanceof BpmnEscalationEventDefinition){
+            } else if (definition instanceof BpmnEscalationEventDefinition) {
                 return Escalation;
-            }else if(definition instanceof BpmnConditionalEventDefinition){
+            } else if (definition instanceof BpmnConditionalEventDefinition) {
                 return Conditional;
-            }else if(definition instanceof BpmnSignalEventDefinition){
-                return Signal; 
+            } else if (definition instanceof BpmnSignalEventDefinition) {
+                return Signal;
             }
             return None;
         }
 
         @objid ("8e5e8ef7-c068-11e1-8c0a-002564c97630")
         public static Class<? extends Element> getMetaclass(InterSubEventType event) {
-            if(event == InterSubEventType.Message){
+            if (event == InterSubEventType.Message) {
                 return BpmnMessageEventDefinition.class;
-            }else if(event == InterSubEventType.Error){
+            } else if (event == InterSubEventType.Error) {
                 return BpmnTimerEventDefinition.class;
-            }else if(event == InterSubEventType.Timer ){
+            } else if (event == InterSubEventType.Timer) {
                 return BpmnTimerEventDefinition.class;
-            }else if(event == InterSubEventType.Escalation){
+            } else if (event == InterSubEventType.Escalation) {
                 return BpmnEscalationEventDefinition.class;
-            }else if(event == InterSubEventType.Conditional ){
+            } else if (event == InterSubEventType.Conditional) {
                 return BpmnConditionalEventDefinition.class;
-            }else if(event == InterSubEventType.Signal ){
+            } else if (event == InterSubEventType.Signal) {
                 return BpmnSignalEventDefinition.class;
             }
             return null;

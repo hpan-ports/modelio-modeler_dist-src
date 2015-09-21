@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.interactionModel.StateInvariantData;
+import org.modelio.metamodel.impl.uml.behavior.interactionModel.StateInvariantData;
 import org.modelio.metamodel.uml.behavior.interactionModel.StateInvariant;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
@@ -38,48 +50,54 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("004bb34c-c4bf-1fd8-97fe-001ec947cd2a")
 public class StateInvariantImpl extends OccurrenceSpecificationImpl implements StateInvariant {
-    @objid ("520e52a8-ea01-42c9-9810-b779a512182d")
+    @objid ("4ec721d6-601d-49a5-bcee-846a204bf6cc")
     @Override
     public String getBody() {
-        return (String) getAttVal(StateInvariantData.Metadata.BodyAtt());
+        return (String) getAttVal(((StateInvariantSmClass)getClassOf()).getBodyAtt());
     }
 
-    @objid ("0469b4ae-b27f-4bcf-b2a0-adaaee19157e")
+    @objid ("e599b0ba-b759-43f0-a3c0-56eb12a00cce")
     @Override
     public void setBody(String value) {
-        setAttVal(StateInvariantData.Metadata.BodyAtt(), value);
+        setAttVal(((StateInvariantSmClass)getClassOf()).getBodyAtt(), value);
     }
 
-    @objid ("c3096503-b954-45d2-9bdc-ea04e17a6fd1")
+    @objid ("d35dbf53-fc7f-42ce-ade2-813577fad70c")
     @Override
     public int getEndLineNumber() {
-        return (Integer) getAttVal(StateInvariantData.Metadata.EndLineNumberAtt());
+        return (Integer) getAttVal(((StateInvariantSmClass)getClassOf()).getEndLineNumberAtt());
     }
 
-    @objid ("c3111149-e948-401a-bc5f-70956c45f95a")
+    @objid ("567bab86-b6ea-4e32-bd8d-eefbf976aeb0")
     @Override
     public void setEndLineNumber(int value) {
-        setAttVal(StateInvariantData.Metadata.EndLineNumberAtt(), value);
+        setAttVal(((StateInvariantSmClass)getClassOf()).getEndLineNumberAtt(), value);
     }
 
-    @objid ("4f9f56e6-edaa-467c-9115-95b0a7441c8f")
+    @objid ("56eab2b6-ec86-41ec-be38-584f8dbcca0f")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("6cabddfa-e854-494d-bd77-2df455a99e80")
+    @objid ("346b9ae1-0619-403d-b6c0-2c53dc80efee")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("20610581-d369-434c-95ab-09edf4be73cc")
+    @objid ("d2841086-ceda-4827-952e-aedb9d9aa7d9")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStateInvariant(this);

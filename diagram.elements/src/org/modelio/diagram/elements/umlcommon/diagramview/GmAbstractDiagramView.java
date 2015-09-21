@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.umlcommon.diagramview;
 
@@ -100,11 +100,12 @@ public abstract class GmAbstractDiagramView extends GmCompositeNode {
     @objid ("81486258-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void delete() {
-        super.delete();
         if (this.viewedDiagram != null) {
             this.viewedDiagram.dispose();
             this.viewedDiagram = null;
         }
+        
+        super.delete();
     }
 
     @objid ("814ac445-1dec-11e2-8cad-001ec947c8cc")
@@ -193,7 +194,7 @@ public abstract class GmAbstractDiagramView extends GmCompositeNode {
     private void read_0(IDiagramReader in) {
         super.read(in);
         
-        this.obDiagram = (AbstractDiagram) resolveRef(this.getRepresentedRef());
+        this.obDiagram = (AbstractDiagram) resolveRef(getRepresentedRef());
     }
 
     @objid ("814ac472-1dec-11e2-8cad-001ec947c8cc")

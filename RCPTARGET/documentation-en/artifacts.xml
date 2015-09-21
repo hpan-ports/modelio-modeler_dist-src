@@ -1,243 +1,59 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?artifactRepository version='1.1.0'?>
-<repository name='PRODUCT' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
-  <properties size='3'>
-    <property name='p2.timestamp' value='1421667237863'/>
-    <property name='p2.compressed' value='true'/>
-    <property name='publishPackFilesAsSiblings' value='true'/>
+<repository name='file:/home/fferran/mtools/raiju/work/forge-modelio-org.svn/branches/modelio3.4/RCPTARGET/documentation-en/ - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1442818803882'/>
+    <property name='p2.compressed' value='false'/>
   </properties>
-  <mappings size='5'>
-    <rule filter='(&amp; (classifier=osgi.bundle) (format=packed))' output='${repoUrl}/plugins/${id}_${version}.jar.pack.gz'/>
+  <mappings size='3'>
     <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
     <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
-    <rule filter='(&amp; (classifier=org.eclipse.update.feature) (format=packed))' output='${repoUrl}/features/${id}_${version}.jar.pack.gz'/>
     <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
   </mappings>
-  <artifacts size='25'>
-    <artifact classifier='osgi.bundle' id='com.modeliosoft.modelio.documentation.togaf' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='752714'/>
-        <property name='download.size' value='752714'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='com.modeliosoft.modelio.documentation.togaf'/>
-        <property name='maven-version' value='3.3.00'/>
+  <artifacts size='7'>
+    <artifact classifier='osgi.bundle' id='org.modelio.documentation.vaudit' version='3.4.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='352572'/>
+        <property name='download.size' value='352572'/>
+        <property name='download.md5' value='b32ed00b9d0f3699e11388a4e805f276'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.welcome' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='5363670'/>
-        <property name='download.size' value='5363670'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.welcome'/>
-        <property name='maven-version' value='3.3.00'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.vaudit' version='3.2.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='358125'/>
-        <property name='download.size' value='358125'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.vaudit'/>
-        <property name='maven-version' value='3.2.0'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.xsddesigner' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='569555'/>
-        <property name='download.size' value='569555'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.xsddesigner'/>
-        <property name='maven-version' value='3.3.00'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='com.modeliosoft.modelio.documentation.cxxdesigner' version='4.3.1'>
-      <properties size='5'>
-        <property name='artifact.size' value='2719537'/>
-        <property name='download.size' value='2719537'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='com.modeliosoft.modelio.documentation.cxxdesigner'/>
-        <property name='maven-version' value='4.3.01'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='com.modeliosoft.modelio.documentation.welcome' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='5364746'/>
-        <property name='download.size' value='5364746'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='com.modeliosoft.modelio.documentation.welcome'/>
-        <property name='maven-version' value='3.3.00'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='com.modeliosoft.modelio.documentation.sysml' version='3.2.2'>
-      <properties size='5'>
-        <property name='artifact.size' value='1435562'/>
-        <property name='download.size' value='1435562'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='com.modeliosoft.modelio.documentation.sysml'/>
-        <property name='maven-version' value='3.2.02'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.javadesigner' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='1125818'/>
-        <property name='download.size' value='1125818'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.javadesigner'/>
-        <property name='maven-version' value='3.3.00'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.wsdldesigner' version='3.3.1'>
-      <properties size='5'>
-        <property name='artifact.size' value='654404'/>
-        <property name='download.size' value='654404'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.wsdldesigner'/>
-        <property name='maven-version' value='3.3.01'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.copyright' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='6220'/>
-        <property name='download.size' value='6220'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.copyright'/>
-        <property name='maven-version' value='3.3.0'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='com.modeliosoft.modelio.documentation.javadesigner' version='3.3.5'>
-      <properties size='5'>
-        <property name='artifact.size' value='1129092'/>
-        <property name='download.size' value='1129092'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='com.modeliosoft.modelio.documentation.javadesigner'/>
-        <property name='maven-version' value='3.3.05'/>
-      </properties>
-    </artifact>
-    <artifact classifier='org.eclipse.update.feature' id='com.modeliosoft.modelio.documentation.all.feature' version='3.3.0'>
-      <properties size='6'>
-        <property name='artifact.size' value='1088'/>
-        <property name='download.size' value='1088'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='com.modeliosoft.modelio.documentation.all.feature'/>
-        <property name='maven-version' value='3.3.0'/>
+    <artifact classifier='org.eclipse.update.feature' id='org.modelio.documentation.modeler.feature' version='3.4.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='4096'/>
+        <property name='download.size' value='4096'/>
         <property name='download.contentType' value='application/zip'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='com.modeliosoft.modelio.documentation.modeler' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='7656463'/>
-        <property name='download.size' value='7656463'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='com.modeliosoft.modelio.documentation.modeler'/>
-        <property name='maven-version' value='3.3.00'/>
+    <artifact classifier='osgi.bundle' id='org.modelio.documentation.modelioapi' version='3.4.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='4096'/>
+        <property name='download.size' value='4096'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.togaf' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='752707'/>
-        <property name='download.size' value='752707'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.togaf'/>
-        <property name='maven-version' value='3.3.00'/>
+    <artifact classifier='osgi.bundle' id='org.modelio.documentation.modeler' version='3.4.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='4096'/>
+        <property name='download.size' value='4096'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='com.modeliosoft.modelio.documentation.sqldesigner' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='993408'/>
-        <property name='download.size' value='993408'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='com.modeliosoft.modelio.documentation.sqldesigner'/>
-        <property name='maven-version' value='3.3.00'/>
+    <artifact classifier='osgi.bundle' id='org.modelio.documentation.copyright' version='3.4.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='4096'/>
+        <property name='download.size' value='4096'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='com.modeliosoft.modelio.documentation.copyright' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='6233'/>
-        <property name='download.size' value='6233'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='com.modeliosoft.modelio.documentation.copyright'/>
-        <property name='maven-version' value='3.3.0'/>
+    <artifact classifier='osgi.bundle' id='org.modelio.documentation.metamodel' version='3.4.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='5499986'/>
+        <property name='download.size' value='5499986'/>
+        <property name='download.md5' value='d637a96beb552237246eb34581740649'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.modeler' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='6439019'/>
-        <property name='download.size' value='6439019'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.modeler'/>
-        <property name='maven-version' value='3.3.0'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.modelioapi' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='6175389'/>
-        <property name='download.size' value='6175389'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.modelioapi'/>
-        <property name='maven-version' value='3.3.00'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.hibernate' version='3.3.1'>
-      <properties size='5'>
-        <property name='artifact.size' value='1000179'/>
-        <property name='download.size' value='1000179'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.hibernate'/>
-        <property name='maven-version' value='3.3.01'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='com.modeliosoft.modelio.documentation.csdesigner' version='3.3.3'>
-      <properties size='5'>
-        <property name='artifact.size' value='1769802'/>
-        <property name='download.size' value='1769802'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='com.modeliosoft.modelio.documentation.csdesigner'/>
-        <property name='maven-version' value='3.3.03'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.sysml' version='3.3.1'>
-      <properties size='5'>
-        <property name='artifact.size' value='1383621'/>
-        <property name='download.size' value='1383621'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.sysml'/>
-        <property name='maven-version' value='3.3.01'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.excel' version='2.5.1'>
-      <properties size='5'>
-        <property name='artifact.size' value='369504'/>
-        <property name='download.size' value='369504'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.excel'/>
-        <property name='maven-version' value='2.5.01'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.metamodel' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='5384698'/>
-        <property name='download.size' value='5384698'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.metamodel'/>
-        <property name='maven-version' value='3.3.00'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.modelio.documentation.soaml' version='3.3.0'>
-      <properties size='5'>
-        <property name='artifact.size' value='1437'/>
-        <property name='download.size' value='1437'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='org.modelio.documentation.soaml'/>
-        <property name='maven-version' value='3.3.00'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='com.modeliosoft.modelio.documentation.documentpublisher' version='4.3.4'>
-      <properties size='5'>
-        <property name='artifact.size' value='1997879'/>
-        <property name='download.size' value='1997879'/>
-        <property name='maven-groupId' value='org.modelio'/>
-        <property name='maven-artifactId' value='com.modeliosoft.modelio.documentation.documentpublisher'/>
-        <property name='maven-version' value='4.3.04'/>
+    <artifact classifier='osgi.bundle' id='org.modelio.documentation.welcome' version='3.4.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='4096'/>
+        <property name='download.size' value='4096'/>
       </properties>
     </artifact>
   </artifacts>

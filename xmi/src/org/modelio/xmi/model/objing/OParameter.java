@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -49,17 +49,14 @@ import org.modelio.xmi.util.XMILogs;
  */
 @objid ("95a1771b-7243-445a-b042-82eb0da1ee35")
 public class OParameter extends OModelElement {
-    @objid ("2194fa74-3f05-451e-8022-ce33ea0e419a")
-    private Parameter objingElement = null;
-
     @objid ("ea27ece0-af77-48a0-9c67-4e141a4001bd")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLASSIFIERTEMPLATEPARAMETER))
+        if (getObjingElement().isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLASSIFIERTEMPLATEPARAMETER))
             return UMLFactory.eINSTANCE.createClassifierTemplateParameter();
-        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2OPERATIONTEMPLATEPARAMETER))
+        else if (getObjingElement().isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2OPERATIONTEMPLATEPARAMETER))
             return UMLFactory.eINSTANCE.createOperationTemplateParameter();
-        else    
+        else
             return UMLFactory.eINSTANCE.createParameter();
     }
 
@@ -70,13 +67,12 @@ public class OParameter extends OModelElement {
     @objid ("86d59a04-e0e4-464e-9db7-3c7df19e831a")
     public OParameter(final Parameter element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("876f56a6-3b18-4f7f-8caa-a216830ec030")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        MObject objingParent = this.objingElement.getCompositionOwner();
+        MObject objingParent = getObjingElement().getCompositionOwner();
         
         org.eclipse.uml2.uml.Element ecoreParent = GenerationProperties.getInstance().getMappedElement(objingParent);
         
@@ -97,14 +93,14 @@ public class OParameter extends OModelElement {
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         if (!AbstractObjingModelNavigation
-                .isReturnParameter(this.objingElement))
+                .isReturnParameter(getObjingElement()))
              super.setProperties(ecoreElt);
         
         setParameterPassingMode((org.eclipse.uml2.uml.Parameter) ecoreElt);
         setMin((org.eclipse.uml2.uml.Parameter) ecoreElt);
         setMax((org.eclipse.uml2.uml.Parameter) ecoreElt);
-        setTypeConstraintEAnnotation((org.eclipse.uml2.uml.Parameter) ecoreElt);      
-        setDefaultValue((org.eclipse.uml2.uml.Parameter) ecoreElt);        
+        setTypeConstraintEAnnotation((org.eclipse.uml2.uml.Parameter) ecoreElt);
+        setDefaultValue((org.eclipse.uml2.uml.Parameter) ecoreElt);
         setClass((org.eclipse.uml2.uml.Parameter) ecoreElt);
         setOrdered((org.eclipse.uml2.uml.Parameter) ecoreElt);
         setUnique((org.eclipse.uml2.uml.Parameter) ecoreElt);
@@ -112,7 +108,7 @@ public class OParameter extends OModelElement {
 
     @objid ("efe75c3a-2dde-4c2c-af3b-18af3a175b23")
     private void setParameterPassingMode(org.eclipse.uml2.uml.Parameter ecoreElt) {
-        switch (this.objingElement.getParameterPassing()) {
+        switch (getObjingElement().getParameterPassing()) {
         case IN:
             ecoreElt.setDirection(org.eclipse.uml2.uml.ParameterDirectionKind.IN_LITERAL);
             break;
@@ -125,13 +121,13 @@ public class OParameter extends OModelElement {
         default:
             break;
         }
-        if (AbstractObjingModelNavigation.isReturnParameter(this.objingElement))
+        if (AbstractObjingModelNavigation.isReturnParameter(getObjingElement()))
             ecoreElt.setDirection(org.eclipse.uml2.uml.ParameterDirectionKind.RETURN_LITERAL);
     }
 
     @objid ("3ff0904c-43fd-4b69-b1d7-575ca4f6eea9")
     private void setMin(org.eclipse.uml2.uml.Parameter ecoreElt) {
-        String objingMultMin = this.objingElement.getMultiplicityMin();
+        String objingMultMin = getObjingElement().getMultiplicityMin();
         
         // If objingMultMin is "" then we don't set a lower multiplicity for the
         // UML2 element.
@@ -154,7 +150,7 @@ public class OParameter extends OModelElement {
                                                         "String", "\"" + objingMultMin + "\"", "Integer",
                                                         contextualMsg);
                     logs.writelnInLog(message);
-                    GenerationProperties.getInstance().getReportModel().addInfo(message, this.objingElement);
+                    GenerationProperties.getInstance().getReportModel().addInfo(message, getObjingElement());
                 }
             }
         }
@@ -162,7 +158,7 @@ public class OParameter extends OModelElement {
 
     @objid ("ecc62ff1-aa5e-4cd3-bac4-8ce55912c822")
     private void setMax(org.eclipse.uml2.uml.Parameter ecoreElt) {
-        String objingMultMax = this.objingElement.getMultiplicityMax();
+        String objingMultMax = getObjingElement().getMultiplicityMax();
         
         // If objingMultMax is "" then we don't set an upper multiplicity for
         // the UML2 element.
@@ -185,7 +181,7 @@ public class OParameter extends OModelElement {
                                                         "String", "\"" + objingMultMax + "\"", "Integer",
                                                         contextualMsg);
                     logs.writelnInLog(message);
-                    GenerationProperties.getInstance().getReportModel().addInfo(message, this.objingElement);
+                    GenerationProperties.getInstance().getReportModel().addInfo(message, getObjingElement());
                 }
             }
         }
@@ -193,23 +189,23 @@ public class OParameter extends OModelElement {
 
     @objid ("c6a498e9-5c77-4aa7-8548-9d9deed0e819")
     private void setTypeConstraintEAnnotation(org.eclipse.uml2.uml.Parameter ecoreElt) {
-        ObjingEAnnotation.setTypeConstraint(ecoreElt, this.objingElement
+        ObjingEAnnotation.setTypeConstraint(ecoreElt, getObjingElement()
                 .getTypeConstraint());
     }
 
     @objid ("4ae2e684-e61f-4539-971e-d59201a8e99d")
     private void setDefaultValue(org.eclipse.uml2.uml.Parameter ecoreParam) {
-        if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
+        if (AbstractObjingModelNavigation.haveInstanceValue(getObjingElement())){
             InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
             InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                    AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
+                    AbstractObjingModelNavigation.getInstanceValue(getObjingElement()));
             value.setInstance(inst);
             ecoreParam.setDefaultValue(value);
-            
+        
                }else{
-           
-           String objingDefaultValue = this.objingElement.getDefaultValue();
-           GeneralClass objingType = this.objingElement.getType();
+        
+           String objingDefaultValue = getObjingElement().getDefaultValue();
+           GeneralClass objingType = getObjingElement().getType();
            IUMLTypes umlTypes = Modelio.getInstance() .getModelingSession().getModel().getUmlTypes();
         // If objingValue is "" then we don't set a default value for the UML2
         // element.
@@ -219,7 +215,7 @@ public class OParameter extends OModelElement {
         
                     DataType objingPredefinedType = (DataType) objingType;
         
-                    if (( AbstractObjingModelNavigation.OBJING_NULL_VALUE != null) 
+                    if (( AbstractObjingModelNavigation.OBJING_NULL_VALUE != null)
                             && ( AbstractObjingModelNavigation.OBJING_NULL_VALUE.equals(objingDefaultValue.toLowerCase()))){
                         ecoreParam.setNullDefaultValue();
                     }else if ((umlTypes.getBOOLEAN() != null) && (umlTypes.getBOOLEAN().equals(objingPredefinedType))) {
@@ -234,14 +230,14 @@ public class OParameter extends OModelElement {
                             XMILogs logs = XMILogs.getInstance();
                             String contextualMsg = Xmi.I18N.getMessage(
                                     "logFile.exception.stringConverter.defaultValue",
-                                    this.objingElement.getName(),
+                                    getObjingElement().getName(),
                             "Parameter");
                             String message = Xmi.I18N.getMessage(
                                                                 "logFile.exception.stringConverter.defaultMsg",
                                                                 "String", "\"" + objingDefaultValue + "\"",
                                                                 "Boolean", contextualMsg);
                             logs.writelnInLog(message);
-                            GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement,  message);
+                            GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement(),  message);
                             ecoreParam.setStringDefaultValue(objingDefaultValue);
                         }
                     } else if ((umlTypes.getCHAR() != null) && (umlTypes.getCHAR().equals(objingPredefinedType))) {
@@ -265,20 +261,20 @@ public class OParameter extends OModelElement {
                             XMILogs logs = XMILogs.getInstance();
                             String contextualMsg = Xmi.I18N.getMessage(
                                     "logFile.exception.stringConverter.defaultValue",
-                                    this.objingElement.getName(),
+                                    getObjingElement().getName(),
                             "Parameter");
-                            
+        
                             String message = Xmi.I18N.getMessage(
                                                                 "logFile.exception.stringConverter.defaultMsg",
                                                                 "String", "\"" + objingDefaultValue + "\"",
                                                                 "Integer", contextualMsg);
                             logs.writelnInLog(message);
-                            GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement,  message);
+                            GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement(),  message);
                             ecoreParam.setStringDefaultValue(objingDefaultValue);
                         }
-                    } else 
+                    } else
                         ecoreParam.setStringDefaultValue(objingDefaultValue);
-                } else if ((objingType instanceof Enumeration) 
+                } else if ((objingType instanceof Enumeration)
                         && (AbstractObjingModelNavigation.isEnumerationliteral((Enumeration)objingType, objingDefaultValue))){
         
                     InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
@@ -310,7 +306,7 @@ public class OParameter extends OModelElement {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
         // Getting type of the org.eclipse.uml2.uml.Parameter:
-        GeneralClass objingType = this.objingElement.getType();
+        GeneralClass objingType = getObjingElement().getType();
         if (objingType != null) {
             if (ModelioPrimitiveTypeMapper.isPredefinedType(objingType)) {
                 ModelioPrimitiveTypeMapper.setEcorePredefinedType(ecoreElt, (DataType) objingType);
@@ -338,12 +334,18 @@ public class OParameter extends OModelElement {
 
     @objid ("1123e756-93bb-4051-8829-3ac6e3348e44")
     private void setUnique(final org.eclipse.uml2.uml.Parameter ecoreElt) {
-        ecoreElt.setIsUnique(this.objingElement.isIsUnique());
+        ecoreElt.setIsUnique(getObjingElement().isIsUnique());
     }
 
     @objid ("f4d2c4d6-b718-4bb6-8f18-523fcdaa9120")
     private void setOrdered(final org.eclipse.uml2.uml.Parameter ecoreElt) {
-        ecoreElt.setIsOrdered(this.objingElement.isIsOrdered());
+        ecoreElt.setIsOrdered(getObjingElement().isIsOrdered());
+    }
+
+    @objid ("71208c5e-10ee-486d-bd0e-0c3bc07889f7")
+    @Override
+    public Parameter getObjingElement() {
+        return (Parameter) super.getObjingElement();
     }
 
 }

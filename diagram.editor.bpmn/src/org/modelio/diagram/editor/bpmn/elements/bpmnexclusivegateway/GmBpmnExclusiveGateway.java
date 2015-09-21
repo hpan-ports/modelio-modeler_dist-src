@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnexclusivegateway;
 
@@ -28,6 +28,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.editor.bpmn.elements.style.GmBpmnGatewayImageStyleKeys;
 import org.modelio.diagram.editor.bpmn.elements.style.GmBpmnGatewaySimpleStyleKeys;
 import org.modelio.diagram.editor.bpmn.elements.style.GmBpmnGatewayStructuredStyleKeys;
+import org.modelio.diagram.editor.bpmn.elements.style.GmBpmnGatewayUserImageStyleKeys;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.label.name.GmNameLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
@@ -68,6 +69,9 @@ public class GmBpmnExclusiveGateway extends GmPortContainer {
     @objid ("c4aa6831-59a6-11e2-ae45-002564c97630")
     private static final GmBpmnGatewayImageStyleKeys IMAGE_KEYS = new GmBpmnGatewayImageStyleKeys();
 
+    @objid ("28f37e52-d94d-46bc-a1c2-decb167ef30a")
+    private static final GmBpmnGatewayUserImageStyleKeys USERIMAGE_KEYS = new GmBpmnGatewayUserImageStyleKeys();
+
     /**
      * Constructor.
      * @param diagram the diagram in which the timeEvent is unmasked.
@@ -107,6 +111,8 @@ public class GmBpmnExclusiveGateway extends GmPortContainer {
         switch (getPrimaryNode().getRepresentationMode()) {
         case IMAGE:
             return IMAGE_KEYS.getStyleKey(metakey);
+        case USER_IMAGE:
+            return USERIMAGE_KEYS.getStyleKey(metakey);
         case SIMPLE:
             return SIMPLE_KEYS.getStyleKey(metakey);
         case STRUCTURED:
@@ -122,6 +128,8 @@ public class GmBpmnExclusiveGateway extends GmPortContainer {
         switch (getPrimaryNode().getRepresentationMode()) {
         case IMAGE:
             return IMAGE_KEYS.getStyleKeys();
+        case USER_IMAGE:
+            return USERIMAGE_KEYS.getStyleKeys();
         case SIMPLE:
             return SIMPLE_KEYS.getStyleKeys();
         case STRUCTURED:

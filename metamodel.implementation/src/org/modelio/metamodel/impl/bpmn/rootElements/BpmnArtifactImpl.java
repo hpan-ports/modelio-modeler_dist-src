@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -32,7 +44,7 @@ import org.modelio.metamodel.bpmn.activities.BpmnSubProcess;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnCollaboration;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
 import org.modelio.metamodel.bpmn.rootElements.BpmnArtifact;
-import org.modelio.metamodel.data.bpmn.rootElements.BpmnArtifactData;
+import org.modelio.metamodel.impl.bpmn.rootElements.BpmnArtifactData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -41,78 +53,96 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0078aed8-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnArtifactImpl extends BpmnBaseElementImpl implements BpmnArtifact {
-    @objid ("98f937a0-f6f7-4f4c-816d-6883ee8e3783")
+    @objid ("7ea7d4ad-e5a9-4a70-bad5-691f12b74001")
     @Override
     public BpmnSubProcess getSubProcess() {
-        return (BpmnSubProcess) getDepVal(BpmnArtifactData.Metadata.SubProcessDep());
+        Object obj = getDepVal(((BpmnArtifactSmClass)getClassOf()).getSubProcessDep());
+        return (obj instanceof BpmnSubProcess)? (BpmnSubProcess)obj : null;
     }
 
-    @objid ("f5b308ec-5fab-4875-9f14-03e7367354e4")
+    @objid ("f0ddbcf8-634e-47a7-86f6-63765ff1e3da")
     @Override
     public void setSubProcess(BpmnSubProcess value) {
-        appendDepVal(BpmnArtifactData.Metadata.SubProcessDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnArtifactSmClass)getClassOf()).getSubProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("24fa9457-6636-4860-bff1-4bfe00164bd9")
+    @objid ("5f67ab04-908e-4806-b931-e331484389ba")
     @Override
     public BpmnCollaboration getCollaboration() {
-        return (BpmnCollaboration) getDepVal(BpmnArtifactData.Metadata.CollaborationDep());
+        Object obj = getDepVal(((BpmnArtifactSmClass)getClassOf()).getCollaborationDep());
+        return (obj instanceof BpmnCollaboration)? (BpmnCollaboration)obj : null;
     }
 
-    @objid ("4de02eee-125e-45df-806f-c3889699fda8")
+    @objid ("5ac44458-c2d3-421f-b860-793cd6f83d3f")
     @Override
     public void setCollaboration(BpmnCollaboration value) {
-        appendDepVal(BpmnArtifactData.Metadata.CollaborationDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnArtifactSmClass)getClassOf()).getCollaborationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a517a8fb-59d2-4834-8366-8e9b92e46bb1")
+    @objid ("73745f84-8955-4984-ab97-f68da66cf256")
     @Override
     public BpmnProcess getProcess() {
-        return (BpmnProcess) getDepVal(BpmnArtifactData.Metadata.ProcessDep());
+        Object obj = getDepVal(((BpmnArtifactSmClass)getClassOf()).getProcessDep());
+        return (obj instanceof BpmnProcess)? (BpmnProcess)obj : null;
     }
 
-    @objid ("81d94907-3ea2-4a5a-823c-aad23ad0a0a1")
+    @objid ("f6082837-59d7-41a6-acc4-87f8121b962b")
     @Override
     public void setProcess(BpmnProcess value) {
-        appendDepVal(BpmnArtifactData.Metadata.ProcessDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnArtifactSmClass)getClassOf()).getProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1df0cadb-9ac7-4c83-8500-a113bf5e639e")
+    @objid ("58c8a7bf-7c87-439a-abc7-e9ded796552b")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnArtifactData.Metadata.SubProcessDep());
+        // SubProcess
+        obj = (SmObjectImpl)this.getDepVal(((BpmnArtifactSmClass)getClassOf()).getSubProcessDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnArtifactData.Metadata.CollaborationDep());
+        // Collaboration
+        obj = (SmObjectImpl)this.getDepVal(((BpmnArtifactSmClass)getClassOf()).getCollaborationDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnArtifactData.Metadata.ProcessDep());
+        // Process
+        obj = (SmObjectImpl)this.getDepVal(((BpmnArtifactSmClass)getClassOf()).getProcessDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("1d47dafc-c1f5-428f-a418-8d04085628d9")
+    @objid ("949d2577-cfd5-4a54-abfd-cc37f80cd44a")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnArtifactData.Metadata.SubProcessDep());
-        if (obj != null)
-          return new SmDepVal(BpmnArtifactData.Metadata.SubProcessDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(BpmnArtifactData.Metadata.CollaborationDep());
-        if (obj != null)
-          return new SmDepVal(BpmnArtifactData.Metadata.CollaborationDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(BpmnArtifactData.Metadata.ProcessDep());
-        if (obj != null)
-          return new SmDepVal(BpmnArtifactData.Metadata.ProcessDep(), obj);
+        SmDependency dep;
+        
+        // SubProcess
+        dep = ((BpmnArtifactSmClass)getClassOf()).getSubProcessDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // Collaboration
+        dep = ((BpmnArtifactSmClass)getClassOf()).getCollaborationDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // Process
+        dep = ((BpmnArtifactSmClass)getClassOf()).getProcessDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("46d23b5e-7aeb-4e0e-a358-0d6e4006ccad")
+    @objid ("4e55441c-fb85-457a-bdfc-6261cca87871")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnArtifact(this);

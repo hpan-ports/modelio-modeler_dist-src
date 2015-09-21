@@ -48,6 +48,10 @@
         <tags>popup:org.modelio.popupmenu.cms</tags>
         <tags>popup:org.modelio.diagram.editor.popup</tags>
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_j57a0oD9EeKKLZZAYaz6Sg" elementId="org.modelio.diagram.editor.statik.menu.createelement" contributionURI="bundleclass://org.modelio.diagram.editor.statik/org.modelio.diagram.editor.statik.editor.StaticCreationPopupProvider"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_ID2BAEFpEeODJ4EDWZysYw" elementId="org.modelio.popupmenu.cms"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_DUZGMB61EeO9r6b_vtRk6A" elementId="diagram.editor.statik.menuseparator.0"/>
+        <children xsi:type="menu:DynamicMenuContribution" xmi:id="_zwCUodcwEeK1QOP0kMMjeA" elementId="org.modelio.diagram.editor.statik.menu.module" contributionURI="bundleclass://org.modelio.diagram.editor.statik/org.modelio.diagram.editor.statik.editor.StaticDiagramModuleMenuCreator"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_pT1_AB5hEeWNGttPULvSww" elementId="diagram.editor.statik.menuseparator.4"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_XJOKFIV_EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.statik.handledmenuitem.AddStereotype" label="%AddStereotype.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/addstereotype.png" tooltip="%AddStereotype.tooltip" command="_kFQisIV_EeK8HPFXYIuaeQ">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_4W3fEPN6EeKUS4Va9pp0vw" coreExpressionId="diagram.editor.statik.test.iscompositionlink.id"/>
         </children>
@@ -88,9 +92,6 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_4XGmUNf0EeKjSfPDByQfxw" elementId="diagram.editor.statik.handledmenuitem.1" label="%ShowImpactCause.label" iconURI="platform:/plugin/org.modelio.diagram.editor.statik/icons/shownsucauses.png" tooltip="%ShowImpactCause.tooltip" command="_25-hANf0EeKjSfPDByQfxw">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_IiWnwNgHEeKyxbNt7FpO0w" coreExpressionId="org.modelio.diagram.editor.corexp.is-gmnsu.id"/>
         </children>
-        <children xsi:type="menu:MenuSeparator" xmi:id="_ID2BAEFpEeODJ4EDWZysYw" elementId="org.modelio.popupmenu.cms"/>
-        <children xsi:type="menu:MenuSeparator" xmi:id="_DUZGMB61EeO9r6b_vtRk6A" elementId="diagram.editor.statik.menuseparator.0"/>
-        <children xsi:type="menu:DynamicMenuContribution" xmi:id="_zwCUodcwEeK1QOP0kMMjeA" elementId="org.modelio.diagram.editor.statik.menu.module" contributionURI="bundleclass://org.modelio.diagram.editor.statik/org.modelio.diagram.editor.statik.editor.StaticDiagramModuleMenuCreator"/>
       </menus>
       <toolbar xmi:id="_juJkYGR8EeKpoNjm4nPb8Q" elementId="diagram.editor.statik.toolbar.0">
         <children xsi:type="menu:HandledToolItem" xmi:id="_rPwUoGR8EeKpoNjm4nPb8Q" elementId="org.modelio.diagram.statik.handledtoolitem.ZoomIn" label="%ZoomIn" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/zoom_in.png" tooltip="%ZoomIn" command="_dX-5gGF8EeKZr6syzOEatQ"/>

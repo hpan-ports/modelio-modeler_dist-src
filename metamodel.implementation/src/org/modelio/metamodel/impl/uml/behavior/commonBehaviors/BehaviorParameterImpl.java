@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.commonBehaviors;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.commonBehaviors.BehaviorParameterData;
+import org.modelio.metamodel.impl.uml.behavior.commonBehaviors.BehaviorParameterData;
 import org.modelio.metamodel.impl.uml.statik.ParameterImpl;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
@@ -43,73 +55,86 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00413f3e-c4bf-1fd8-97fe-001ec947cd2a")
 public class BehaviorParameterImpl extends ParameterImpl implements BehaviorParameter {
-    @objid ("889c434d-99e7-4e11-a58c-8e5ae766ada9")
+    @objid ("721b1d56-03f8-4718-99af-07e83388c0a7")
     @Override
     public EList<ObjectNode> getRepresentingObjectNode() {
-        return new SmList<>(this, BehaviorParameterData.Metadata.RepresentingObjectNodeDep());
+        return new SmList<>(this, ((BehaviorParameterSmClass)getClassOf()).getRepresentingObjectNodeDep());
     }
 
-    @objid ("36b32880-9e55-4664-99f6-fd10988a793d")
+    @objid ("eef1ce13-218d-4dcc-a72a-c5fa6373dc09")
     @Override
     public <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ObjectNode element : getRepresentingObjectNode()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("46ca65d8-4285-4e4a-b013-10c83ec0d08b")
+    @objid ("6e67af1c-8bee-4291-bbba-f35b24d9e4ff")
     @Override
     public Behavior getOwner() {
-        return (Behavior) getDepVal(BehaviorParameterData.Metadata.OwnerDep());
+        Object obj = getDepVal(((BehaviorParameterSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof Behavior)? (Behavior)obj : null;
     }
 
-    @objid ("dcc23318-a18d-4cb0-8087-2e8d88401dd2")
+    @objid ("5883b48f-5a55-4bc7-b0f8-94e70a17f318")
     @Override
     public void setOwner(Behavior value) {
-        appendDepVal(BehaviorParameterData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((BehaviorParameterSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a2392008-0091-4451-89da-fd40906597c9")
+    @objid ("0f9cd79e-0e59-49b1-82ef-10ade3474ae4")
     @Override
     public Parameter getMapped() {
-        return (Parameter) getDepVal(BehaviorParameterData.Metadata.MappedDep());
+        Object obj = getDepVal(((BehaviorParameterSmClass)getClassOf()).getMappedDep());
+        return (obj instanceof Parameter)? (Parameter)obj : null;
     }
 
-    @objid ("18272678-6e8f-4fc3-92c4-638f03194094")
+    @objid ("e328645b-d971-4e1f-a964-241eaee54ab7")
     @Override
     public void setMapped(Parameter value) {
-        appendDepVal(BehaviorParameterData.Metadata.MappedDep(), (SmObjectImpl)value);
+        appendDepVal(((BehaviorParameterSmClass)getClassOf()).getMappedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7cdfa860-a5f9-4159-87a6-3a68bc2b8ae9")
+    @objid ("a81c375d-4ce0-464b-8cf3-f3c26a3d60ca")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BehaviorParameterData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((BehaviorParameterSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("13b8547a-97f5-40af-af65-f83e870771cd")
+    @objid ("7b8668a3-d276-46b9-9df0-b0cf256d0f36")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BehaviorParameterData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(BehaviorParameterData.Metadata.OwnerDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((BehaviorParameterSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("ad921983-ff76-4fb9-9d3c-010d74381c1d")
+    @objid ("c4be6123-269f-4200-ab1a-6da996e05fe0")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBehaviorParameter(this);

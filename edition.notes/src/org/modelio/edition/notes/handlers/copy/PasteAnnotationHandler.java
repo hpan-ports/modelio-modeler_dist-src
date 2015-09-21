@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.notes.handlers.copy;
 
@@ -44,6 +44,7 @@ import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -58,7 +59,8 @@ public class PasteAnnotationHandler {
 
     /**
      * Available only when the selection contains only one modifiable element.
-     * @param selection the current modelio selection.
+     * @param part the E4 part
+     * @param currentDisplay the SWT display
      * @return true if the handler can be executed.
      */
     @objid ("604025a2-ef00-4d64-b9a9-4e97bb7ee6b7")
@@ -96,6 +98,7 @@ public class PasteAnnotationHandler {
         }
         
         final ICoreSession session = this.projectService.getSession();
+        MExpert expert = session.getMetamodel().getMExpert();
         
         final List<TransferItem> items = pastedObject.getTransferedItems();
         final List<MObject> pastedElements = getElementsToCopy(items, session);
@@ -106,7 +109,7 @@ public class PasteAnnotationHandler {
                 if (!MTools.getAuthTool().canAddTo(pasted, destElement)) {
                     return false;
                 }
-                if (!MTools.getMetaTool().canCompose(destElement, pasted, null)) {
+                if (!expert.canCompose(destElement, pasted, null)) {
                     return false;
                 }
                 break;
@@ -115,7 +118,7 @@ public class PasteAnnotationHandler {
                 if (!MTools.getAuthTool().canAdd(destElement, pasted.getMClass().getName()))  {
                     return false;
                 }
-                if (!MTools.getMetaTool().canCompose(destElement, pasted, null)) {
+                if (!expert.canCompose(destElement, pasted, null)) {
                     return false;
                 }
                 break;
@@ -126,7 +129,7 @@ public class PasteAnnotationHandler {
 
     /**
      * Cut the currently selected elements.
-     * @param selection the current modelio selection.
+     * @param part the current E4 view
      * @param currentDisplay the display Modelio runs into.
      */
     @objid ("be2f6280-9d4f-4e3e-b24f-877ff3dec5e2")
@@ -239,7 +242,7 @@ public class PasteAnnotationHandler {
      */
     @objid ("f5c03ebd-ae4b-45fb-bd5f-7218df9d2f12")
     private static boolean canBeParentOf(final MObject owner, final MObject composed) {
-        return MTools.getMetaTool().canCompose(owner, composed, null);
+        return owner.getMClass().getMetamodel().getMExpert().canCompose(owner, composed, null);
     }
 
 }

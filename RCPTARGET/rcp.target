@@ -11,7 +11,8 @@
 		<location path="${project_loc:/RCPTARGET}/ktable" type="Directory"/>
 		<location path="${project_loc:/RCPTARGET}/nebula" type="Directory"/>
 		<location path="${project_loc:/RCPTARGET}/nebula-incubator" type="Directory"/>
-		<location path="${project_loc:/RCPTARGET}/nebula-nattable" type="Directory"/>		
+		<location path="${project_loc:/RCPTARGET}/nebula-nattable" type="Directory"/>
+		<location path="${project_loc:/RCPTARGET}/praticalxml" type="Directory"/>
 		<location path="${project_loc:/RCPTARGET}/uml2_3.2" type="Directory"/>
 	</locations>
 </target>

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.portcontainer;
 
@@ -42,14 +42,14 @@ public class PortConstraint implements IPersistent {
     @objid ("8f5cef91-1e83-11e2-8cad-001ec947c8cc")
     private Border referenceBorder = Border.Undefined;
 
-    @objid ("993fe266-66d9-4867-8f15-187de8921cd0")
+    @objid ("f1aa2828-c122-47fe-96fe-9e75528f5a11")
     private Rectangle requestedBounds;
 
     /**
      * This point, if defined, must be considered over the center of the requestedBounds (in which case only the size of
      * the requested bounds will be used).
      */
-    @objid ("53e1e70a-ed39-4dcd-8c3e-b6e4e2907e93")
+    @objid ("2634c1aa-2129-429e-ab27-f8fde7872599")
     private Point requestedCenter = null;
 
     /**
@@ -105,19 +105,21 @@ public class PortConstraint implements IPersistent {
     public void write(IDiagramWriter out) {
         // Small hack to workaround the serialisation not handling "null" as a
         // valid Rectangle...
-        if (this.requestedBounds == null)
+        if (this.requestedBounds == null) {
             out.writeProperty("requestedBounds", (Object) null);
-        else
+        } else {
             out.writeProperty("requestedBounds", this.requestedBounds);
+        }
         
         out.writeProperty("referenceBorder", this.referenceBorder);
         
         // Small hack to workaround the serialisation not handling "null" as a
         // valid Point...
-        if (this.requestedCenter == null)
+        if (this.requestedCenter == null) {
             out.writeProperty("requestedCenter", (Object) null);
-        else
+        } else {
             out.writeProperty("requestedCenter", this.requestedCenter);
+        }
     }
 
     /**
@@ -141,6 +143,27 @@ public class PortConstraint implements IPersistent {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("c48d976a-26b1-487f-91e1-1c9a71104f9e")
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("PortConstraint [");
+        builder.append("border=");
+        builder.append(this.referenceBorder);
+        builder.append(", ");
+        
+        builder.append("bounds=");
+        builder.append(this.requestedBounds);
+        builder.append(", ");
+        
+        if (this.requestedCenter != null) {
+            builder.append("center=");
+            builder.append(this.requestedCenter);
+        }
+        builder.append("]");
+        return builder.toString();
     }
 
     /**

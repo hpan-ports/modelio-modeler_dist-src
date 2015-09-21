@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.decisionmerge;
 
@@ -66,6 +66,9 @@ public class GmDecisionMerge extends GmPortContainer {
     @objid ("30876d00-58a2-11e2-9574-002564c97630")
     private static final GmDecisionMergeImageStyleKeys IMAGE_KEYS = new GmDecisionMergeImageStyleKeys();
 
+    @objid ("7a878177-f866-4340-b771-e2ec1a1e909c")
+    private static final GmDecisionMergeUserImageStyleKeys USERIMAGE_KEYS = new GmDecisionMergeUserImageStyleKeys();
+
     /**
      * Constructor.
      * @param diagram the diagram in which the timeEvent is unmasked.
@@ -113,6 +116,8 @@ public class GmDecisionMerge extends GmPortContainer {
             switch (mode) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKey(metakey);
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKey(metakey);
             case SIMPLE:
                 return SIMPLE_KEYS.getStyleKey(metakey);
             case STRUCTURED:
@@ -131,6 +136,8 @@ public class GmDecisionMerge extends GmPortContainer {
             switch (mode) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKeys();
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKeys();
             case SIMPLE:
                 return SIMPLE_KEYS.getStyleKeys();
             case STRUCTURED:
@@ -194,7 +201,7 @@ public class GmDecisionMerge extends GmPortContainer {
     @objid ("2a3e5311-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.element = (DecisionMergeNode) resolveRef(this.getRepresentedRef());
+        this.element = (DecisionMergeNode) resolveRef(getRepresentedRef());
     }
 
     @objid ("2a3e5316-55b6-11e2-877f-002564c97630")

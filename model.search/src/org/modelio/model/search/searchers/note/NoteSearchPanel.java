@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.model.search.searchers.note;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -17,7 +38,7 @@ import org.eclipse.swt.widgets.Text;
 import org.modelio.model.search.ISearchController;
 import org.modelio.model.search.ISearchPanel;
 import org.modelio.model.search.engine.ISearchCriteria;
-import org.modelio.model.search.engine.searchers.note.NoteSearchCriteria2;
+import org.modelio.model.search.engine.searchers.note.NoteSearchCriteria;
 import org.modelio.model.search.plugin.ModelSearch;
 import org.modelio.vcore.session.api.ICoreSession;
 
@@ -51,7 +72,7 @@ public class NoteSearchPanel implements ISearchPanel {
     private Text notetypeText;
 
     @objid ("de6a0ca7-4047-4dd1-81de-7bb67554a213")
-    private NoteSearchCriteria2 searchCriteria;
+    private NoteSearchCriteria searchCriteria;
 
     @objid ("c7ebacd5-569d-4b58-a6d1-5e3f0eae51d8")
     @Override
@@ -88,7 +109,7 @@ public class NoteSearchPanel implements ISearchPanel {
             @Override
             public void modifyText(ModifyEvent e) {
                 final Text text = (Text) e.getSource();
-                if (NoteSearchCriteria2.isValidExpression(text.getText())) {
+                if (NoteSearchCriteria.isValidExpression(text.getText())) {
                     text.setForeground(text.getDisplay().getSystemColor(SWT.COLOR_LIST_FOREGROUND));
                 } else {
                     text.setForeground(text.getDisplay().getSystemColor(SWT.COLOR_RED));
@@ -113,7 +134,7 @@ public class NoteSearchPanel implements ISearchPanel {
         this.notetypeText.setToolTipText(ModelSearch.I18N.getString("NoteSearch.TypePattern.tooltip"));
         
         // Setup default values for criteria
-        final NoteSearchCriteria2 defaultCriteria = new NoteSearchCriteria2();
+        final NoteSearchCriteria defaultCriteria = new NoteSearchCriteria();
         defaultCriteria.setExpression(ModelSearch.I18N.getString("NoteSearch.TextPattern.default"));
         defaultCriteria.setNoteType(DEFAULT_NOTE_TYPE);
         defaultCriteria.setCaseSensitive(false);
@@ -139,8 +160,8 @@ public class NoteSearchPanel implements ISearchPanel {
     @objid ("15bd7a44-9ca8-4ac0-b22e-3693ce6e4006")
     @Override
     public void setCriteria(ISearchCriteria searchCriteria) {
-        assert (searchCriteria instanceof NoteSearchCriteria2);
-        final NoteSearchCriteria2 criteria = (NoteSearchCriteria2) searchCriteria;
+        assert (searchCriteria instanceof NoteSearchCriteria);
+        final NoteSearchCriteria criteria = (NoteSearchCriteria) searchCriteria;
         
         this.searchCriteria = criteria;
         
@@ -149,6 +170,9 @@ public class NoteSearchPanel implements ISearchPanel {
         this.caseSensitiveCheckBox.setSelection(this.searchCriteria.isCaseSensitive());
     }
 
+    /**
+     * Default constructor
+     */
     @objid ("adfc7124-f6c7-4ac1-b570-5c5ed6ef4025")
     public NoteSearchPanel() {
     }

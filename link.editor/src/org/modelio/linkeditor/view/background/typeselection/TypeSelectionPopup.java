@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.linkeditor.view.background.typeselection;
 
@@ -47,14 +47,14 @@ import org.modelio.metamodel.uml.infrastructure.Stereotype;
  */
 @objid ("1b9865cd-5e33-11e2-b81d-002564c97630")
 public class TypeSelectionPopup extends ModelioDialog {
-    @objid ("4ba3b8ec-6713-4393-8cf6-91091cdde99f")
-    private Composite composite;
-
-    @objid ("d25e7579-91d3-4122-8b2b-408842db0163")
-    private Button okButton;
-
     @objid ("1b9865cf-5e33-11e2-b81d-002564c97630")
      TypeSelectionModel model;
+
+    @objid ("a35a9ee8-3679-4649-a69e-e089eccebeb4")
+    private Composite composite;
+
+    @objid ("be001ecf-b935-4fc0-93af-1605dd3b0a94")
+    private Button okButton;
 
     /**
      * C'tor.

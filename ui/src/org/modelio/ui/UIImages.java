@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.ui;
 
@@ -31,8 +31,14 @@ import org.osgi.framework.Bundle;
 @objid ("23eee14b-ae7f-4a4a-9f41-ad4f3c57462c")
 public class UIImages {
     /**
-     * Generic 16x16 icon used to indicate an "Add" action. The dialog/button
-     * context must be relevant enough for the user to guess what will be added...
+     * Generic 16x16 icon used to indicate an "Accept" or "Ok" action. T
+     */
+    @objid ("45638239-9b71-4548-9a19-541ad16d647e")
+    public static final Image ACCEPT = getImage("icons/accept.png");
+
+    /**
+     * Generic 16x16 icon used to indicate an "Add" action. The dialog/button context must be relevant enough for the user to guess
+     * what will be added...
      */
     @objid ("84e3fe19-d1bf-4128-9f1d-221991bdbd00")
     public static final Image ADD = getImage("icons/add.png");
@@ -44,21 +50,30 @@ public class UIImages {
     public static final Image ASSIST = getImage("icons/assist.png");
 
     /**
-     * Generic 16x16 icon used to indicate that on operation (create/add/edit)
-     * will occur in a separated dialog a "Delete" or "Remove" action. The
-     * dialog/button context must be relevant enough for the user to guess what will happen
-     * ...
+     * Generic 16x16 icon used to indicate an "Cancel" or "Refuse" action. T
+     */
+    @objid ("267bbcc2-008f-4217-b2dc-8ff2af94f688")
+    public static final Image CANCEL = getImage("icons/cancel.png");
+
+    /**
+     * Generic 16x16 icon used to indicate that on operation (create/add/edit) will occur in a separated dialog a "Delete" or
+     * "Remove" action. The dialog/button context must be relevant enough for the user to guess what will happen ...
      */
     @objid ("106f7014-b0c9-4fb1-ae76-1302bc9b4425")
     public static final Image CHOOSER = getImage("icons/chooser.png");
 
     /**
-     * Generic 16x16 icon used to indicate a "Delete" or "Remove" action. The
-     * dialog/button context must be relevant enough for the user to guess what will be
-     * deleted/removed...
+     * Generic 16x16 icon used to indicate a "Delete" or "Remove" action. The dialog/button context must be relevant enough for the
+     * user to guess what will be deleted/removed...
      */
     @objid ("a08c2664-5006-4e53-9788-d255cfa5e3a1")
     public static final Image DELETE = getImage("icons/delete.png");
+
+    /**
+     * Generic 16x16 icon used to indicate an element without icon.
+     */
+    @objid ("2cc2790d-b3f7-4870-9e95-1ef7d692ac43")
+    public static final Image DOT = getImage("icons/dot.png");
 
     /**
      * Generic 16x16 icon used to indicate a "down" move or slide operation
@@ -115,16 +130,22 @@ public class UIImages {
     public static final Image RIGHTARROW = getImage("icons/rightarrow.png");
 
     /**
+     * <p>
+     * Generic 16x16 icon used to indicate a &quot;search&quot; operation.
+     * </p>
+     */
+    @objid ("4ed8e97e-e8d1-4b24-bbea-ca0090f41628")
+    public static final Image SEARCH = getImage("icons/search.png");
+
+    /**
      * Generic 16x16 icon used to indicate a "up" move or slide operation
      */
     @objid ("4226554d-75f7-47e4-89d6-fabb77fd9670")
     public static final Image UPARROW = getImage("icons/uparrow.png");
 
-    /**
-     * Generic 16x16 icon used to indicate an element without icon.
-     */
-    @objid ("2cc2790d-b3f7-4870-9e95-1ef7d692ac43")
-    public static final Image DOT = getImage("icons/dot.png");
+    @objid ("e507fdf4-3f36-4f39-8351-82a02b963917")
+    private UIImages() {
+    }
 
     @objid ("165b4af5-07f9-4a23-93e2-c53c9917a9ee")
     private static Image getImage(String relativePath) {
@@ -133,10 +154,6 @@ public class UIImages {
         ImageDescriptor desc = ImageDescriptor.createFromURL(url);
         Image image = desc.createImage();
         return image;
-    }
-
-    @objid ("e507fdf4-3f36-4f39-8351-82a02b963917")
-    private UIImages() {
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.policies;
 
@@ -34,6 +34,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.swt.SWT;
+import org.modelio.diagram.elements.core.figures.IClonableFigure;
 import org.modelio.diagram.elements.plugin.DiagramElements;
 
 /**
@@ -64,11 +65,12 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
     protected IFigure createDragSourceFeedbackFigure() {
         IFigure fig = getHostFigure();
         try {
-            final IFigure feed = fig.getClass().newInstance();
+            final IFigure feed = clone(fig);
             feed.setBounds(fig.getBounds());
         
-            if (feed instanceof Shape)
+            if (feed instanceof Shape) {
                 ((Shape) feed).setLineStyle(SWT.LINE_DASH);
+            }
         
             getFeedbackLayer().add(feed);
         
@@ -83,8 +85,9 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
                 connFig.setConnectionRouter(origConn.getConnectionRouter());
                 connFig.setRoutingConstraint(origConn.getRoutingConstraint());
         
-                if (connFig instanceof Shape)
+                if (connFig instanceof Shape) {
                     ((Shape) connFig).setLineStyle(SWT.LINE_DASH);
+                }
         
                 this.feedbackFigures.add(connFig);
                 getFeedbackLayer().add(connFig);
@@ -102,8 +105,9 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
                 connFig.setConnectionRouter(origConn.getConnectionRouter());
                 connFig.setRoutingConstraint(origConn.getRoutingConstraint());
         
-                if (connFig instanceof Shape)
+                if (connFig instanceof Shape) {
                     ((Shape) connFig).setLineStyle(SWT.LINE_DASH);
+                }
         
                 this.feedbackFigures.add(connFig);
                 getFeedbackLayer().add(connFig);
@@ -170,6 +174,15 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
     private Dimension computeSizeDelta() {
         final IFigure fig = getHostFigure();
         return fig.getPreferredSize().getShrinked(fig.getBounds().getSize());
+    }
+
+    @objid ("4ec10b22-75b7-422c-997e-9b1db2002a0d")
+    private IFigure clone(IFigure fig) throws IllegalAccessException, InstantiationException {
+        if (fig instanceof IClonableFigure) {
+            return ((IClonableFigure)fig).getCopy();
+        } else {
+            return fig.getClass().newInstance();
+        }
     }
 
 }

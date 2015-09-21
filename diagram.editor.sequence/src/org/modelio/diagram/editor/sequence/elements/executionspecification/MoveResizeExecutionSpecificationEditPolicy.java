@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.executionspecification;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -76,7 +77,7 @@ public class MoveResizeExecutionSpecificationEditPolicy extends DefaultNodeResiz
     private void computePredicatesForHost() {
         // Move and/or resizing an ExecutionSpecification, is really like move the ExecutionOccurrenceSpecification at each end.
         ExecutionSpecification executionSpecification = ((GmExecutionSpecification) getHost().getModel()).getRelatedElement();
-        this.manipHelper.computePredicatesForHost(executionSpecification.getStart(), 
+        this.manipHelper.computePredicatesForHost(executionSpecification.getStart(),
                 executionSpecification.getFinish());
     }
 
@@ -91,35 +92,42 @@ public class MoveResizeExecutionSpecificationEditPolicy extends DefaultNodeResiz
             if (editPart != null) {
                 GmModel model = (GmModel) editPart.getModel();
                 final MObject el = model.getRelatedElement();
+        
+                Dimension moveDelta = new Dimension(request.getMoveDelta().x, request.getMoveDelta().y);
+                editPart.getFigure().translateToRelative(moveDelta);
+        
                 if (el instanceof MessageEnd ) {
                     int newLineNumber = ((MessageEnd) el).getLineNumber();
-                    newLineNumber += request.getMoveDelta().y;
+                    newLineNumber += moveDelta.height;
                     this.manipHelper.updateVariable(el, newLineNumber);
                 } else if (el instanceof ExecutionSpecification) {
                     // Start with the Execution itself.
                     ExecutionSpecification executionSpecification = (ExecutionSpecification) el;
                     int newLineNumber = executionSpecification.getLineNumber();
-                    newLineNumber += request.getMoveDelta().y;
+                    newLineNumber += moveDelta.height;
                     this.manipHelper.updateVariable(el, newLineNumber);
         
                     // Now the Execution start.
                     newLineNumber = executionSpecification.getStart().getLineNumber();
-                    newLineNumber += request.getMoveDelta().y;
+                    newLineNumber += moveDelta.height;
                     this.manipHelper.updateVariable(executionSpecification.getStart(), newLineNumber);
         
                     // And finally the Execution end.
+                    Dimension sizeDelta = request.getSizeDelta();
+                    editPart.getFigure().translateToRelative(sizeDelta);
+        
                     newLineNumber = executionSpecification.getFinish().getLineNumber();
-                    newLineNumber += request.getMoveDelta().y + request.getSizeDelta().height;
+                    newLineNumber += moveDelta.height + sizeDelta.height;
                     this.manipHelper.updateVariable(executionSpecification.getFinish(), newLineNumber);
         
                 } else if (el instanceof Message) {
                     Message message = (Message) el;
                     int newLineNumber = message.getSendEvent().getLineNumber();
-                    newLineNumber += request.getMoveDelta().y;
+                    newLineNumber += moveDelta.height;
                     this.manipHelper.updateVariable(message.getSendEvent(), newLineNumber);
         
                     newLineNumber = message.getReceiveEvent().getLineNumber();
-                    newLineNumber += request.getMoveDelta().y;
+                    newLineNumber += moveDelta.height;
                     this.manipHelper.updateVariable(message.getReceiveEvent(), newLineNumber);
         
                     // If the moved message starts some execution specification, they will be moved too.
@@ -128,7 +136,7 @@ public class MoveResizeExecutionSpecificationEditPolicy extends DefaultNodeResiz
                         if (event.getStarted() != null) {
                             MessageEnd otherEnd = event.getStarted().getFinish();
                             newLineNumber = otherEnd.getLineNumber();
-                            newLineNumber += request.getMoveDelta().y;
+                            newLineNumber += moveDelta.height;
                             this.manipHelper.updateVariable(otherEnd, newLineNumber);
                         }
                     }
@@ -137,7 +145,7 @@ public class MoveResizeExecutionSpecificationEditPolicy extends DefaultNodeResiz
                         if (event.getStarted() != null) {
                             MessageEnd otherEnd = event.getStarted().getFinish();
                             newLineNumber = otherEnd.getLineNumber();
-                            newLineNumber += request.getMoveDelta().y;
+                            newLineNumber += moveDelta.height;
                             this.manipHelper.updateVariable(otherEnd, newLineNumber);
                         }
                     }

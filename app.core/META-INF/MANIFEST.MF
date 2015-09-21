@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Modelio Application Core
 Bundle-SymbolicName: org.modelio.app.core;singleton:=true
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Bundle-Activator: org.modelio.app.core.plugin.AppCore
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface,
@@ -21,15 +21,14 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.ui.di,
  org.eclipse.emf.ecore,
  org.eclipse.e4.ui.model.workbench,
- org.eclipse.emf.ecore.xmi
+ org.eclipse.emf.ecore.xmi,
+ org.modelio.core.help
 Bundle-Vendor: modelio.org
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Export-Package: org.modelio.app.core,
  org.modelio.app.core.activation,
- org.modelio.app.core.e4model,
  org.modelio.app.core.events,
- org.modelio.app.core.inputpart,
  org.modelio.app.core.navigate,
  org.modelio.app.core.picking
 Bundle-ClassPath: res/,

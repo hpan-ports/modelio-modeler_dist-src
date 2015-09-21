@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.ramcs.handlers;
 
@@ -52,7 +52,7 @@ import org.modelio.core.ui.progress.ModelioProgressAdapter;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
 import org.modelio.gproject.ramc.core.packaging.RamcPackager;
-import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IModuleManagementService;
 import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.vcore.session.api.ICoreSession;
@@ -67,7 +67,7 @@ public class PackageRamcHandler {
 
     @objid ("ca4fd202-417b-4b44-8e12-d01a6b4531b1")
     @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, IProjectService projectService, IModuleService moduleService, IProgressService progressService) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, IProjectService projectService, IModuleManagementService moduleService, IProgressService progressService) {
         if (selection.size() == 1 && selection.getFirstElement() instanceof Artifact) {
         
             Artifact ramc = (Artifact) selection.getFirstElement();

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -27,7 +27,7 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("2268a24e-5ed0-4c07-907e-21c9cb0114a4")
-public class OFinalState extends OModelElement implements IOElement {
+public class OFinalState extends OModelElement {
     @objid ("d499623d-e91a-4c81-8b82-38f317570277")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createFinalState();

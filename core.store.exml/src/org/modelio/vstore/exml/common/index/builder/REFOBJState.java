@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.index.builder;
 
 import java.io.IOException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vstore.exml.common.model.ExmlTags;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -31,27 +32,27 @@ class REFOBJState extends AbstractState {
     @objid ("fd21f69f-5986-11e1-991a-001ec947ccaf")
     @Override
     public void startElement(final String uri, final String localName, final String qName, final Attributes attrs) throws SAXException {
-        if (localName.equals( "PID"))
+        if (localName.equals( ExmlTags.TAG_ID))
         {
             String cuid = attrs.getValue ("uid");
             String cclassof = attrs.getValue ("mc");
             String cname = attrs.getValue ("name");
-                 
+        
             try {
-                this.stateHandler.addUsedCmsNode (cclassof, cuid, cname);
+                this.stateHandler.addUsedRef (cclassof, cuid, cname);
             } catch (IOException e) {
                 this.stateHandler.throwError(e);
             }
-                 
+        
         }
     }
 
     @objid ("fd21f69d-5986-11e1-991a-001ec947ccaf")
     @Override
     public void endElement(final String uri, final String localName, final String qName) throws SAXException {
-        if (localName.equals( "REFOBJ"))
+        if (localName.equals( ExmlTags.TAG_REFOBJ))
         {
-            this.stateHandler.enterDocumentState();
+            this.stateHandler.enterOBJECTState();
         }
     }
 

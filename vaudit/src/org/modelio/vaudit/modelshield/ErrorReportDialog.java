@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield;
 
@@ -120,16 +120,17 @@ public class ErrorReportDialog extends IconAndMessageDialog {
      */
     @objid ("5b7d7cd0-a738-44d2-a4a4-b8341db3912b")
     public static void open(final String dialogTitle, final String message, final IErrorReport errorReport) {
-        // Build the HTMl before the transaction is rollbacked:
-        // After roll back objects loose the modification that made them invalid,
-        // created objects become deleted and have no name, ...
-        final String htmlReport = buildHtmlReport(errorReport);
+        Display display = Display.getDefault();
         
-        Display.getDefault().asyncExec(new Runnable() {
-            @Override
-            public void run() {
-                new ErrorReportDialog(Display.getCurrent().getActiveShell(), dialogTitle, message, htmlReport).open();
-            }
+        display.syncExec(() -> {
+            // Build the HTMl before the transaction is rollbacked:
+            // After roll back objects loose the modification that made them invalid,
+            // created objects become deleted and have no name, ...
+            final String htmlReport = buildHtmlReport(errorReport);
+        
+            // The report dialog can open later
+            display.asyncExec(()
+                    -> new ErrorReportDialog(display.getActiveShell(), dialogTitle, message, htmlReport).open());
         });
     }
 

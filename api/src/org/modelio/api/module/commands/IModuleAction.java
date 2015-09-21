@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.module.commands;
 
@@ -25,8 +25,10 @@ import org.modelio.api.module.IModule;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * Interface defining an Action or Command provided by a module (usually to be used either in contextual menus or in the toolbar of
- * the property view).
+ * Interface defining an Action or Command provided by a module.
+ * <p>
+ * Usually to be used either in contextual menus or in the toolbar of
+ * the property view.
  */
 @objid ("00d00158-0001-5db6-0000-000000000000")
 public interface IModuleAction {
@@ -62,5 +64,11 @@ public interface IModuleAction {
 
     @objid ("a784bfb3-c8d4-11e0-9f93-002564c97630")
     List<String> getSlots();
+
+    @objid ("c414ddce-83eb-4cc1-a986-327d23e4f7aa")
+    void parseSlotPattern(String slotPattern);
+
+    @objid ("bbb97a9a-e383-443c-84e1-c9f9f7d0fa58")
+    void parseSlotImagePaths(String slotImagePaths);
 
 }

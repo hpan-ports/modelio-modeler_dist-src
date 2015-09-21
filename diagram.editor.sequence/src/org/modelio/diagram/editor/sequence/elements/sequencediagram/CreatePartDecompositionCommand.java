@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.sequencediagram;
 
@@ -29,11 +29,11 @@ import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.gproject.model.IElementConfigurator;
 import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.metamodel.uml.behavior.interactionModel.PartDecomposition;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 
 @objid ("d972eca7-55b6-11e2-877f-002564c97630")
 class CreatePartDecompositionCommand extends Command {
@@ -90,7 +90,8 @@ class CreatePartDecompositionCommand extends Command {
         // Configure element from properties
         final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
         elementConfigurer.configure(modelManager.getModelFactory(lifeline), lifeline, this.context.getProperties());
-        elementConfigurer.configure(modelManager.getModelFactory(partDecomposition), partDecomposition, this.context.getProperties());
+        elementConfigurer.configure(modelManager.getModelFactory(partDecomposition), partDecomposition,
+                this.context.getProperties());
         
         // Show the new lifeline in the diagram (ie create its Gm )
         diagram.unmask(this.parentNode, lifeline, this.constraint);
@@ -101,18 +102,21 @@ class CreatePartDecompositionCommand extends Command {
     public boolean canExecute() {
         // The diagram must be valid and modifiable.
         final GmAbstractDiagram gmDiagram = this.parentNode.getDiagram();
-        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement())) {
             return false;
+        }
         
         // If it is an actual creation (and not a simple unmasking).
         if (this.context.getElementToUnmask() == null) {
             // The parent element must be modifiable or
             // both must be CMS nodes.
-            if (!MTools.getAuthTool().canAdd(this.interaction, Metamodel.getMClass(Lifeline.class).getName()))
+            if (!MTools.getAuthTool().canAdd(this.interaction, Lifeline.MNAME)) {
                 return false;
+            }
         
             // Ask metamodel experts
-            return MTools.getMetaTool().canCompose(this.interaction, Metamodel.getMClass(Lifeline.class), null);
+            MMetamodel mm = gmDiagram.getModelManager().getMetamodel();
+            return mm.getMExpert().canCompose(this.interaction, mm.getMClass(Lifeline.class), null);
         
         }
         return true;

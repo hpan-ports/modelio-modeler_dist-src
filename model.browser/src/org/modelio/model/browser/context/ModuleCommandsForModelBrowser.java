@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,20 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.model.browser.context;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.inject.Inject;
 import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -57,7 +60,13 @@ class ModuleCommandsForModelBrowser {
 
 // FIXME we should not have a module list in here, but somehow access the module registry...
     @objid ("04561d81-e7bf-4292-9418-b15a2b01313f")
-    private List<IRTModule> startedModules = new ArrayList<>();
+    private Set<IRTModule> startedModules = new TreeSet<>(Comparator.nullsFirst(new Comparator<IRTModule>() {
+		@Override
+		public int compare(IRTModule o1, IRTModule o2) {
+			// TODO Auto-generated method stub
+			return o1.getName().compareTo(o2.getName());
+		}
+	}));
 
     @objid ("176a38bc-c344-490b-a29a-baa6280479a6")
     @Execute

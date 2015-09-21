@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.api.impl.model;
 
 import java.io.IOException;
@@ -1653,7 +1674,12 @@ public class UMLModel implements IUmlModel {
     @objid ("a6f15b63-b111-4f50-a027-91bc3fd36023")
     @Override
     public Element createElement(final String metaclassName, final String uuid) {
-        return (Element) this.model.findById(SmClass.getClass(metaclassName), UUID.fromString(uuid), IModel.ISVALID);
+        SmClass metaclass = this.openedProject.getSession().getMetamodel().getMClass(metaclassName);
+        if (metaclass != null) {
+            return (Element) this.model.findById(metaclass, UUID.fromString(uuid), IModel.ISVALID);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -4004,13 +4030,13 @@ public class UMLModel implements IUmlModel {
     public ExternDocument createExternDocument(String moduleName, final String documentRole, final ModelElement owner, final String mimeType, Path initialContent) throws ExtensionNotFoundException, IOException {
         try {
             final ExternDocument doc = this.modelService.getModelFactory().createExternDocument(moduleName, documentRole, owner, mimeType);
-            
+        
             // Initialize the document
             if (initialContent != null) {
                 IRichNoteFileRepository fileRepository = RichNotesSession.get(this.openedProject).getFileRepository();
                 fileRepository.initRichNoteFromFile(doc, initialContent);
             }
-            
+        
             return doc;
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);

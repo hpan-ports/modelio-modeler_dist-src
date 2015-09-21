@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnendevent;
 
@@ -88,10 +88,12 @@ public final class GmBpmnEndEventPrimaryNode extends GmNoStyleSimpleNode impleme
         
         if (this.image_service.hasImageChange(this)) {
             GmCompositeNode gm_parent = this.getParentNode();
-            gm_parent.removeChild(this);
-            gm_parent.addChild(this);
+            if (gm_parent != null) {
+                gm_parent.removeChild(this);
+                gm_parent.addChild(this);
+            }
         }
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -135,14 +137,14 @@ public final class GmBpmnEndEventPrimaryNode extends GmNoStyleSimpleNode impleme
     public IEditableText getEditableText() {
         return new IEditableText() {
         
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
+                    @Override
+                    public String getText() {
+                        return getRelatedElement().getName();
                     }
         
                     @Override
                     public void setText(String text) {
-        getRelatedElement().setName(text);
+                        getRelatedElement().setName(text);
                     }
         
                 };

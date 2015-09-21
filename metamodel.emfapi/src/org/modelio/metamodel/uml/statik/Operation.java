@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.activities.BpmnCallActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnReceiveTask;
 import org.modelio.metamodel.bpmn.activities.BpmnSendTask;
@@ -52,180 +56,539 @@ import org.modelio.metamodel.uml.statik.RaisedException;
 import org.modelio.metamodel.uml.statik.TemplateBinding;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 
+/**
+ * Operation v0.0.9054
+ * 
+ * 
+ * In Modelio, this metaclass defines both the Operation, and the method implementing it. 
+ * 
+ * An Operation belongs to its Classifier.
+ */
 @objid ("001449ac-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Operation extends BehavioralFeature {
-    @objid ("11b392a5-3f0d-46b0-a47b-035e56a9068e")
+    @objid ("683ad0ef-86a1-4510-bd65-9bb04301ebdc")
+    public static final String MNAME = "Operation";
+
+    /**
+     * Getter for attribute 'Operation.Concurrency'
+     * 
+     * Metamodel description:
+     * <i>Distinguishes the different invocation modes of an Operation. This typically specifies concurrent modes.</i>
+     */
+    @objid ("b62485d4-5c9c-4621-ae4a-c91be925de59")
     boolean isConcurrency();
 
-    @objid ("656c7c05-af1d-451e-9201-02d3157c8069")
+    /**
+     * Setter for attribute 'Operation.Concurrency'
+     * 
+     * Metamodel description:
+     * <i>Distinguishes the different invocation modes of an Operation. This typically specifies concurrent modes.</i>
+     */
+    @objid ("c9dea730-0c5f-4c09-a2e4-df865f4c30ee")
     void setConcurrency(boolean value);
 
-    @objid ("643c3c89-2c3b-4672-b94c-59f9d10de4f6")
+    /**
+     * Getter for attribute 'Operation.Final'
+     * 
+     * Metamodel description:
+     * <i>Final operations cannot be redefined. Some OO languages, such as Java, optimize final operations.</i>
+     */
+    @objid ("f7f983b2-d8a5-4a4e-91d7-a083dd5bb54c")
     boolean isFinal();
 
-    @objid ("60931686-8bd9-450e-856f-4168eaa2e215")
+    /**
+     * Setter for attribute 'Operation.Final'
+     * 
+     * Metamodel description:
+     * <i>Final operations cannot be redefined. Some OO languages, such as Java, optimize final operations.</i>
+     */
+    @objid ("7cb53159-d44e-496a-bea7-efe2822b618e")
     void setFinal(boolean value);
 
-    @objid ("a51816f9-6faf-48f4-89e8-973462318f30")
+    /**
+     * Getter for attribute 'Operation.Passing'
+     * 
+     * Metamodel description:
+     * <i>Method passing mode (in or inout). By default, this is inout. This mode determines whether the message receiver object is updated (inout) or not (in) when the method is invoked.</i>
+     */
+    @objid ("2ba32b4c-e057-47f2-984f-798858803857")
     MethodPassingMode getPassing();
 
-    @objid ("b1077f5a-9a9e-40d9-b0c8-564063954fd8")
+    /**
+     * Setter for attribute 'Operation.Passing'
+     * 
+     * Metamodel description:
+     * <i>Method passing mode (in or inout). By default, this is inout. This mode determines whether the message receiver object is updated (inout) or not (in) when the method is invoked.</i>
+     */
+    @objid ("75d6542f-0b8f-4dae-924a-69964ac6366e")
     void setPassing(MethodPassingMode value);
 
-    @objid ("7638c034-6812-4367-8470-8c2c62b1ab53")
+    /**
+     * Getter for relation 'Operation->OwnedImport'
+     * 
+     * Metamodel description:
+     * <i>Elements imported by the Operation.</i>
+     */
+    @objid ("c43402a4-d781-4d3c-aa2e-7e52ba13bece")
     EList<ElementImport> getOwnedImport();
 
-    @objid ("fad78ad1-3a99-4992-ada6-af596611805e")
+    /**
+     * Filtered Getter for relation 'Operation->OwnedImport'
+     * 
+     * Metamodel description:
+     * <i>Elements imported by the Operation.</i>
+     */
+    @objid ("12218f62-561b-4254-b058-e0b030b97a30")
     <T extends ElementImport> List<T> getOwnedImport(java.lang.Class<T> filterClass);
 
-    @objid ("c952fc7f-45fa-4edb-9911-82a43e303619")
+    /**
+     * Getter for relation 'Operation->Thrown'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6b9d23f2-87df-4d45-95c5-8af1756c4dd4")
     EList<RaisedException> getThrown();
 
-    @objid ("ca90a5f8-f93b-4c0b-b366-238d8e160fee")
+    /**
+     * Filtered Getter for relation 'Operation->Thrown'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("df4b6cd1-490a-486a-94b4-bec9c30001b9")
     <T extends RaisedException> List<T> getThrown(java.lang.Class<T> filterClass);
 
-    @objid ("c016e0d6-6c77-422d-b8bb-5e9febca1596")
+    /**
+     * Getter for relation 'Operation->CallerReceiveTask'
+     * 
+     * Metamodel description:
+     * <i>BPMN task calling this Operation.</i>
+     */
+    @objid ("f7f6fc23-862e-4f74-aec5-c3ab3ab30c49")
     EList<BpmnReceiveTask> getCallerReceiveTask();
 
-    @objid ("f5fb114b-b5d4-425b-b4a7-7bb6839dd2d8")
+    /**
+     * Filtered Getter for relation 'Operation->CallerReceiveTask'
+     * 
+     * Metamodel description:
+     * <i>BPMN task calling this Operation.</i>
+     */
+    @objid ("28776ac0-d171-4cb9-94a3-39cd1b3bc640")
     <T extends BpmnReceiveTask> List<T> getCallerReceiveTask(java.lang.Class<T> filterClass);
 
-    @objid ("5bb16aa3-0b86-4b0a-86be-df3cc3c1909e")
+    /**
+     * Getter for relation 'Operation->Redefinition'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("2f4bb746-5d8f-4202-ba25-5d67c14e5c70")
     EList<Operation> getRedefinition();
 
-    @objid ("5415b446-87f4-42c1-b054-ee87bf4ef38b")
+    /**
+     * Filtered Getter for relation 'Operation->Redefinition'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("12bd4eb2-bb7a-4250-8b44-d70809ad95d1")
     <T extends Operation> List<T> getRedefinition(java.lang.Class<T> filterClass);
 
-    @objid ("bffd5dca-9f30-4db2-a4d2-40fb4b3c6f93")
+    /**
+     * Getter for relation 'Operation->Example'
+     * 
+     * Metamodel description:
+     * <i>Collaborations that illustrate the dynamic of the Operation. A Collaboration can be used to express the initial state of an Operation when it starts running.</i>
+     */
+    @objid ("877a2d85-5fe4-41f0-9a52-b6dbd77add9f")
     EList<Collaboration> getExample();
 
-    @objid ("e74adb8c-2d5e-4047-acc7-be8425e5a136")
+    /**
+     * Filtered Getter for relation 'Operation->Example'
+     * 
+     * Metamodel description:
+     * <i>Collaborations that illustrate the dynamic of the Operation. A Collaboration can be used to express the initial state of an Operation when it starts running.</i>
+     */
+    @objid ("74914542-d1aa-4c7b-aedd-d5723c62aa81")
     <T extends Collaboration> List<T> getExample(java.lang.Class<T> filterClass);
 
-    @objid ("875c020c-f67e-48fd-9bd6-80fdd8f239b7")
+    /**
+     * Getter for relation 'Operation->SRepresentation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4b98e464-9496-4d59-a09e-bda42d11082c")
     EList<Signal> getSRepresentation();
 
-    @objid ("5561625d-b7f3-4b8f-ae4d-97c49e8a6c19")
+    /**
+     * Filtered Getter for relation 'Operation->SRepresentation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e9d2ea93-6fb5-4058-a359-45863003095d")
     <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("19a21f51-72f0-4a30-8227-84bd9f19afd0")
+    /**
+     * Getter for relation 'Operation->OwnedBehavior'
+     * 
+     * Metamodel description:
+     * <i>A behavioral description that implements the behavioral feature. </i>
+     */
+    @objid ("db2b0117-43e7-41f8-8ad3-f92937879971")
     EList<Behavior> getOwnedBehavior();
 
-    @objid ("4bcd625f-81b5-47c4-8325-6db064ac15ad")
+    /**
+     * Filtered Getter for relation 'Operation->OwnedBehavior'
+     * 
+     * Metamodel description:
+     * <i>A behavioral description that implements the behavioral feature. </i>
+     */
+    @objid ("1e11bb32-711a-4a7c-994c-998dc13297e0")
     <T extends Behavior> List<T> getOwnedBehavior(java.lang.Class<T> filterClass);
 
-    @objid ("744e01e5-3aa5-4f0c-8696-845220510d53")
+    /**
+     * Getter for relation 'Operation->BpmnOperationRef'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("bd81babb-5838-445c-82dd-ebad1a2bf7b4")
     EList<BpmnOperation> getBpmnOperationRef();
 
-    @objid ("44830794-3782-4c69-8657-d7991594fcde")
+    /**
+     * Filtered Getter for relation 'Operation->BpmnOperationRef'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1e431378-7e5f-41b8-b6d0-e629ba1cee71")
     <T extends BpmnOperation> List<T> getBpmnOperationRef(java.lang.Class<T> filterClass);
 
-    @objid ("09eabde7-3895-418e-bed4-a9f9bf7adb2e")
+    /**
+     * Getter for relation 'Operation->CallerSendTask'
+     * 
+     * Metamodel description:
+     * <i>BPMN task calling this Operation.</i>
+     */
+    @objid ("5a4b26bb-7cde-412e-9965-403f8bda68ef")
     EList<BpmnSendTask> getCallerSendTask();
 
-    @objid ("4db97b55-2709-4995-b4b1-d29ca8e99180")
+    /**
+     * Filtered Getter for relation 'Operation->CallerSendTask'
+     * 
+     * Metamodel description:
+     * <i>BPMN task calling this Operation.</i>
+     */
+    @objid ("53f107dd-5129-41ff-a72b-6e6c11ae1cd6")
     <T extends BpmnSendTask> List<T> getCallerSendTask(java.lang.Class<T> filterClass);
 
-    @objid ("03da7420-9ead-4928-85a3-a6643ece1a00")
+    /**
+     * Getter for relation 'Operation->IO'
+     * 
+     * Metamodel description:
+     * <i>Defines the parameters making up the Operation.</i>
+     */
+    @objid ("e4efc90a-029a-42af-b456-081dd0922297")
     EList<Parameter> getIO();
 
-    @objid ("8b07aaf7-8976-4062-be88-4a3357476d26")
+    /**
+     * Filtered Getter for relation 'Operation->IO'
+     * 
+     * Metamodel description:
+     * <i>Defines the parameters making up the Operation.</i>
+     */
+    @objid ("2d849f5b-3318-41a3-a888-ad55dbd9db4a")
     <T extends Parameter> List<T> getIO(java.lang.Class<T> filterClass);
 
-    @objid ("c069018e-e686-4b2e-8cba-417dcaa98349")
+    /**
+     * Getter for relation 'Operation->TemplateInstanciation'
+     * 
+     * Metamodel description:
+     * <i>Binds the Operation to the template operation that it instanciates.</i>
+     */
+    @objid ("4d64a480-28df-4cf9-8f79-4654b34885a5")
     EList<TemplateBinding> getTemplateInstanciation();
 
-    @objid ("d7f7c121-4698-46d6-9875-8df74b3d8bb3")
+    /**
+     * Filtered Getter for relation 'Operation->TemplateInstanciation'
+     * 
+     * Metamodel description:
+     * <i>Binds the Operation to the template operation that it instanciates.</i>
+     */
+    @objid ("454f53a9-fc3b-4d21-84f0-89a0b8618094")
     <T extends TemplateBinding> List<T> getTemplateInstanciation(java.lang.Class<T> filterClass);
 
-    @objid ("c10d22cb-c8ff-4920-98ae-07be8dd7803a")
+    /**
+     * Getter for relation 'Operation->Owner'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("afffba3c-b6e1-4c6b-b484-4563331831ab")
     Classifier getOwner();
 
-    @objid ("438c3bf7-fe50-486b-92c6-cfede541ba8d")
+    /**
+     * Setter for relation 'Operation->Owner'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("7f128895-81d8-42ba-a33c-2fba048f1061")
     void setOwner(Classifier value);
 
-    @objid ("25588ddf-2b5e-42b7-8a06-7d41420d19c5")
+    /**
+     * Getter for relation 'Operation->OwnedPackageImport'
+     * 
+     * Metamodel description:
+     * <i>Packages imported by the Operation.</i>
+     */
+    @objid ("1473c8df-c636-455c-8799-2acf3370cb15")
     EList<PackageImport> getOwnedPackageImport();
 
-    @objid ("ddbd2482-8795-4017-98c3-f2cb9a942bdc")
+    /**
+     * Filtered Getter for relation 'Operation->OwnedPackageImport'
+     * 
+     * Metamodel description:
+     * <i>Packages imported by the Operation.</i>
+     */
+    @objid ("280380ff-2b5d-4e62-9094-938d7883e64d")
     <T extends PackageImport> List<T> getOwnedPackageImport(java.lang.Class<T> filterClass);
 
-    @objid ("34bb5814-3f3f-451c-91a8-4398f7744bca")
+    /**
+     * Getter for relation 'Operation->Return'
+     * 
+     * Metamodel description:
+     * <i>Link to the possible return parameter. The return parameter is only distinguished by this association, from the IOParameter.</i>
+     */
+    @objid ("208b8435-ce49-4e77-a85a-8829ceb1ddc3")
     Parameter getReturn();
 
-    @objid ("e4c2b89b-ea2c-439a-8eb4-5d992e560f87")
+    /**
+     * Setter for relation 'Operation->Return'
+     * 
+     * Metamodel description:
+     * <i>Link to the possible return parameter. The return parameter is only distinguished by this association, from the IOParameter.</i>
+     */
+    @objid ("d50b5440-ea21-4f80-920e-96291ee4c243")
     void setReturn(Parameter value);
 
-    @objid ("a35152fe-76d1-4c06-b669-e39d0ea92ef4")
+    /**
+     * Getter for relation 'Operation->InstanciatingBinding'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("0b263c7a-db7a-4f67-92e0-b9cefa4c60dd")
     EList<TemplateBinding> getInstanciatingBinding();
 
-    @objid ("1bcc7419-f7a8-49b0-9a96-3683b6e79cfe")
+    /**
+     * Filtered Getter for relation 'Operation->InstanciatingBinding'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("3ece8736-6d26-4233-b43a-ff6fbd07f509")
     <T extends TemplateBinding> List<T> getInstanciatingBinding(java.lang.Class<T> filterClass);
 
-    @objid ("25fba431-4751-4fea-9412-6763087b0ae5")
+    /**
+     * Getter for relation 'Operation->Usage'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("251a72b4-e609-4ac3-b2c4-2fcb8e4b1e6c")
     EList<Message> getUsage();
 
-    @objid ("997a90f7-26e3-4bec-a38d-d8942b33b799")
+    /**
+     * Filtered Getter for relation 'Operation->Usage'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("53b58667-1f89-4ba0-9f70-885e507da546")
     <T extends Message> List<T> getUsage(java.lang.Class<T> filterClass);
 
-    @objid ("01b517b5-6ef5-4a9d-afd0-2ea1785608d2")
+    /**
+     * Getter for relation 'Operation->Template'
+     * 
+     * Metamodel description:
+     * <i>In case of template operations, this association defines its template parameters.</i>
+     */
+    @objid ("00d8d2d5-16d2-4743-af18-ca27435e5d30")
     EList<TemplateParameter> getTemplate();
 
-    @objid ("313e0a66-1542-4777-9d2c-4fb8840823b8")
+    /**
+     * Filtered Getter for relation 'Operation->Template'
+     * 
+     * Metamodel description:
+     * <i>In case of template operations, this association defines its template parameters.</i>
+     */
+    @objid ("8a0d34db-e0a3-4828-9772-668bf1950c1b")
     <T extends TemplateParameter> List<T> getTemplate(java.lang.Class<T> filterClass);
 
-    @objid ("96975e4d-e358-4e74-b534-0a247659385c")
+    /**
+     * Getter for relation 'Operation->CallerServiceTask'
+     * 
+     * Metamodel description:
+     * <i>BPMN task calling this Operation.</i>
+     */
+    @objid ("05eaa7a7-eef5-4d86-9e6f-8fc8830bc593")
     EList<BpmnServiceTask> getCallerServiceTask();
 
-    @objid ("85242272-7105-4819-bff6-24bed0a0b8cb")
+    /**
+     * Filtered Getter for relation 'Operation->CallerServiceTask'
+     * 
+     * Metamodel description:
+     * <i>BPMN task calling this Operation.</i>
+     */
+    @objid ("51ab950c-56d6-4579-8b22-7e64b08ebae8")
     <T extends BpmnServiceTask> List<T> getCallerServiceTask(java.lang.Class<T> filterClass);
 
-    @objid ("c61bb25e-5231-4c29-ae90-a39b4bd3504b")
+    /**
+     * Getter for relation 'Operation->Occurence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("c69cc5b1-6a19-4873-9e84-83e47bb23eb3")
     EList<Event> getOccurence();
 
-    @objid ("df841459-4a66-4cb2-9fcc-88b159e8c598")
+    /**
+     * Filtered Getter for relation 'Operation->Occurence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("ac27f8c9-f38b-4c69-acd4-2247c9e3de90")
     <T extends Event> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("2bb4a1a3-1b20-4650-8a1f-a6ed9bfc9b20")
+    /**
+     * Getter for relation 'Operation->Invoker'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a1142993-b543-47d2-ab51-e75013604609")
     EList<Transition> getInvoker();
 
-    @objid ("e878dcc9-3ba9-43bd-b7b3-5a50949c3bbd")
+    /**
+     * Filtered Getter for relation 'Operation->Invoker'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("67930c1b-46f6-4a1f-bacd-8f2c98087825")
     <T extends Transition> List<T> getInvoker(java.lang.Class<T> filterClass);
 
-    @objid ("aa086137-ee8f-48b0-8a35-db034422478e")
+    /**
+     * Getter for relation 'Operation->CommunicationUsage'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("0058b02b-7107-4c76-8be0-2cb6ef581375")
     EList<CommunicationMessage> getCommunicationUsage();
 
-    @objid ("790d05fb-f0f7-472f-96fc-61b7f78ddf5a")
+    /**
+     * Filtered Getter for relation 'Operation->CommunicationUsage'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("ed25ad7e-f306-4ed0-b93d-d8d24fc61c14")
     <T extends CommunicationMessage> List<T> getCommunicationUsage(java.lang.Class<T> filterClass);
 
-    @objid ("2b964595-53ac-4492-ad9f-06709d6cbe60")
+    /**
+     * Getter for relation 'Operation->OwnedCollaborationUse'
+     * 
+     * Metamodel description:
+     * <i>Collaboration occurrences owned by the Operation.</i>
+     */
+    @objid ("ccccb6ad-e2fd-449e-ae9c-57435b774916")
     EList<CollaborationUse> getOwnedCollaborationUse();
 
-    @objid ("9bea62ae-5411-4718-b951-e3fc7510f640")
+    /**
+     * Filtered Getter for relation 'Operation->OwnedCollaborationUse'
+     * 
+     * Metamodel description:
+     * <i>Collaboration occurrences owned by the Operation.</i>
+     */
+    @objid ("8df9affc-080e-4aee-850f-7942c16dbdfe")
     <T extends CollaborationUse> List<T> getOwnedCollaborationUse(java.lang.Class<T> filterClass);
 
-    @objid ("7106090e-a37c-4979-a11d-4d570b7413f4")
+    /**
+     * Getter for relation 'Operation->Redefines'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("348e09bd-87cf-4ce2-a23c-a0e9618d99c7")
     Operation getRedefines();
 
-    @objid ("9b2dd95a-e33c-46d7-af7b-5d66bd96b0b4")
+    /**
+     * Setter for relation 'Operation->Redefines'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6db51baa-3519-4281-be14-66f471b1153a")
     void setRedefines(Operation value);
 
-    @objid ("9d832f2d-9253-4cd7-8360-04faffd31802")
+    /**
+     * Getter for relation 'Operation->Caller'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("d911870d-fd3d-4e8a-9093-618c55a46bae")
     EList<BpmnCallActivity> getCaller();
 
-    @objid ("4ab6ac1d-baa6-45f8-81d6-54a4560ca115")
+    /**
+     * Filtered Getter for relation 'Operation->Caller'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("ad53aad8-6842-4464-ab6a-dcd81be5ef74")
     <T extends BpmnCallActivity> List<T> getCaller(java.lang.Class<T> filterClass);
 
-    @objid ("09436e33-c9e9-489a-ad79-792fd66d8f2b")
+    /**
+     * Getter for relation 'Operation->CallingAction'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("25b50f80-3d8e-4030-bff7-21cf2e819886")
     EList<CallOperationAction> getCallingAction();
 
-    @objid ("65b823dc-a292-4e27-8230-fff03f3be2f7")
+    /**
+     * Filtered Getter for relation 'Operation->CallingAction'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("01e41f4d-fd5a-4034-b7c4-2b8a06ed1e34")
     <T extends CallOperationAction> List<T> getCallingAction(java.lang.Class<T> filterClass);
 
-    @objid ("6f109130-0ef5-42c6-9d1b-4200812695ba")
+    /**
+     * Getter for relation 'Operation->EntryPointAction'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("9b6180df-55eb-4b5d-9dfb-f5f22ba07027")
     EList<AcceptCallEventAction> getEntryPointAction();
 
-    @objid ("0bd38014-20a4-48f4-9072-df081a132b8a")
+    /**
+     * Filtered Getter for relation 'Operation->EntryPointAction'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("ea10d70d-ed02-45df-b0ec-1ce0677389cd")
     <T extends AcceptCallEventAction> List<T> getEntryPointAction(java.lang.Class<T> filterClass);
 
 }

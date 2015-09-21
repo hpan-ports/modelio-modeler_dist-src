@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,15 +12,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.smkernel;
 
+import java.util.Collection;
+import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
@@ -133,14 +135,37 @@ class DummyRepositoryObject implements IRepositoryObject {
 
     @objid ("fcaa0c6e-2cec-11e2-81f1-001ec947ccaf")
     @Override
-    public void unload(SmObjectImpl obj) {
+    public Collection<SmObjectImpl> unload(SmObjectImpl obj) {
         // do nothing
+        return Collections.singletonList(obj);
     }
 
     @objid ("dc274964-4868-11e2-91c9-001ec947ccaf")
     @Override
     public boolean isDirty(SmObjectImpl obj) {
         return true;
+    }
+
+    @objid ("c7e03249-9f96-4a50-8a9d-6848ecc239e8")
+    @Override
+    public void attachCreatedObj(SmObjectImpl obj) {
+        throwWrongCall(obj);
+    }
+
+    @objid ("5db9f57f-77fb-4272-b347-7e34874c0308")
+    @Override
+    public String toString() {
+        if (this == instance) {
+            return "<no repository yet>";
+        } else {
+            return super.toString();
+        }
+    }
+
+    @objid ("a08a3b8b-9af6-4301-94d6-b0f708e29c75")
+    @Override
+    public void setToReload(SmObjectImpl obj) {
+        // do nothing
     }
 
 }

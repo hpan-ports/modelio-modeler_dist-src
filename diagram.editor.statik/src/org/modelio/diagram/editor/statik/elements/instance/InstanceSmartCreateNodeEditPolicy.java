@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.instance;
 
@@ -27,8 +27,8 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.policies.DeferringCreateNodePolicy;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.BindableInstance;
+import org.modelio.metamodel.uml.statik.Instance;
 
 /**
  * {@link DeferringCreateNodePolicy} that allows creating "smart" Instances.
@@ -43,11 +43,11 @@ class InstanceSmartCreateNodeEditPolicy extends DeferringCreateNodePolicy {
     @objid ("35434246-55b7-11e2-877f-002564c97630")
     @Override
     protected EditPart getCreateTargetEditPart(final CreateRequest createRequest) {
-        final ModelioCreationContext ctx = (ModelioCreationContext) createRequest.getNewObject();
-        final String metaclassName = ctx.getMetaclass();
-        if (metaclassName.equals("Instance") && ctx.getProperties().containsKey("smart")) {
-            return getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(BindableInstance.class)),
-                                  createRequest.getLocation());
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
+        if (ctx == null) {
+            return super.getCreateTargetEditPart(createRequest);
+        } else if (ctx.getMetaclass().getName().equals(Instance.MNAME) && ctx.getProperties().containsKey("smart")) {
+            return getEditPartFor(BindableInstance.class, createRequest.getLocation());
         } else {
             return super.getCreateTargetEditPart(createRequest);
         }
@@ -56,9 +56,10 @@ class InstanceSmartCreateNodeEditPolicy extends DeferringCreateNodePolicy {
     @objid ("3543424c-55b7-11e2-877f-002564c97630")
     @Override
     protected Command getCreateCommand(final CreateRequest createRequest) {
-        final ModelioCreationContext ctx = (ModelioCreationContext) createRequest.getNewObject();
-        final String metaclassName = ctx.getMetaclass();
-        if (metaclassName.equals("Instance") && ctx.getProperties().containsKey("smart")) {
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
+        if (ctx == null) {
+            return super.getCreateCommand(createRequest);
+        } else if (ctx.getMetaclass().getName().equals(Instance.MNAME) && ctx.getProperties().containsKey("smart")) {
             return new DeferredSmartCreateInstanceCommand(createRequest, getHost());
         } else {
             return super.getCreateCommand(createRequest);

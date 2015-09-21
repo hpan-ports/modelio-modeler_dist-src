@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,27 +12,23 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.elementimport;
 
-import java.util.Collections;
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.ElementImport;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -43,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * @author cmarin
  */
 @objid ("34cab6ba-55b7-11e2-877f-002564c97630")
-public class GmElementImportHeader extends GmDefaultModelElementHeader {
+public class GmElementImportHeader extends GmDefaultModelElementLabel {
     /**
      * Current version of this Gm. Defaults to 0.
      */
@@ -81,18 +77,6 @@ public class GmElementImportHeader extends GmDefaultModelElementHeader {
             return "<<access>>";
     }
 
-    @objid ("34cab6d3-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<Stereotype> filterStereotypes(List<Stereotype> stereotypes) {
-        return stereotypes;
-    }
-
-    @objid ("34cc3d42-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<TaggedValue> filterTags(List<TaggedValue> taggedValues) {
-        return taggedValues;
-    }
-
     @objid ("34cc3d50-55b7-11e2-877f-002564c97630")
     @Override
     public RepresentationMode getRepresentationMode() {
@@ -106,12 +90,6 @@ public class GmElementImportHeader extends GmDefaultModelElementHeader {
             return getParent().getStyleKey(metakey);
         else
             return null;
-    }
-
-    @objid ("34cc3d60-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<StyleKey> getStyleKeys() {
-        return Collections.emptyList();
     }
 
     @objid ("34cc3d69-55b7-11e2-877f-002564c97630")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.linkeditor.view.background;
 
@@ -37,10 +37,10 @@ public class BackgroundLayout extends FreeformLayout {
     @objid ("1b8a1d66-5e33-11e2-b81d-002564c97630")
     private static final int offset = 200;
 
-    @objid ("dc114c0f-1bc7-4011-b8fd-c8fd4f908430")
+    @objid ("17e420b8-4dd4-411b-acee-40a526e63564")
     private Map<IFigure, Rectangle> cachedPositions = new HashMap<>();
 
-    @objid ("becb4281-b11e-4ece-8c82-b51cc965c52c")
+    @objid ("27b984eb-f64f-45a7-a2f6-1034739ba12d")
     private static final Rectangle REFERENCE_RECTANGLE = new Rectangle(0, 0, 100, 50);
 
     @objid ("1b8a1d68-5e33-11e2-b81d-002564c97630")

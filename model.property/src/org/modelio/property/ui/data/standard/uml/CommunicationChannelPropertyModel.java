@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -37,8 +37,8 @@ import org.modelio.vcore.session.impl.CoreSession;
  * <p>
  * WARNING: This data model has been automaticaly generated.
  * <p>
- * MODIFICATION POLICY: If this data model needs to be manualy modified,
- * change the warning message by "This data model has been manually updated"
+ * MODIFICATION POLICY: If this data model needs to be manualy modified, change the warning message by
+ * "This data model has been manually updated"
  */
 @objid ("4a113a1d-5367-4413-b89b-45d93feb5c1e")
 public class CommunicationChannelPropertyModel extends AbstractPropertyModel<CommunicationChannel> {
@@ -47,12 +47,12 @@ public class CommunicationChannelPropertyModel extends AbstractPropertyModel<Com
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for other rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for other rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("90991dd1-3ae7-4608-9af8-1ec6507eef15")
-    private static final String[] PROPERTIES = new String[] {"CommunicationChannel", "Name", "Channel"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "Channel" };
 
     @objid ("193e6504-3d69-458a-9f55-c32424d0d403")
     private StringType labelStringType;
@@ -110,14 +110,14 @@ public class CommunicationChannelPropertyModel extends AbstractPropertyModel<Com
             return CommunicationChannelPropertyModel.PROPERTIES[row];
         case 1: // col 1 is the property value
             switch (row) {
-                case 0: // Header
-                    return "Value";
-                case 1:
-                    return this.theEditedElement.getName();
-                case 2:
-                    return this.theEditedElement.getChannel();
-                default:
-                    return null;
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return this.theEditedElement.getChannel();
+            default:
+                return null;
             }
         default:
             return null;
@@ -127,8 +127,7 @@ public class CommunicationChannelPropertyModel extends AbstractPropertyModel<Com
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -143,14 +142,14 @@ public class CommunicationChannelPropertyModel extends AbstractPropertyModel<Com
             return this.labelStringType;
         case 1: // col 1 is the property value type
             switch (row) {
-                case 0: // Header
-                    return this.labelStringType;
-                case 1:
-                    return this.stringType;
-                case 2:
-                    return this.channelType;
-                default:
-                    return null;
+            case 0: // Header
+                return this.labelStringType;
+            case 1:
+                return this.stringType;
+            case 2:
+                return this.channelType;
+            default:
+                return null;
             }
         default:
             return null;
@@ -173,18 +172,18 @@ public class CommunicationChannelPropertyModel extends AbstractPropertyModel<Com
             return;
         case 1: // col 1 is the property value
             switch (row) {
-                case 0:
-                    return; // Header cannot be modified
-                case 1:
-                    this.theEditedElement.setName((String) value);
-                    break;
-                case 2:
-                    this.theEditedElement.setChannel((Link) value);
-                    break;
-                default:
-                    return;
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                this.theEditedElement.setChannel((Link) value);
+                break;
+            default:
+                return;
             }
-              break;
+            break;
         default:
             return;
         }

@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.ui.text;
 
@@ -41,13 +41,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.modelio.api.Messages;
 import org.modelio.api.app.picking.IPickingClient;
 import org.modelio.api.app.picking.IPickingSession;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.api.plugin.Api;
 import org.modelio.api.ui.dnd.IEditorDropClient;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -87,7 +86,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
             try {
                 onKeyPressed(e);
             } catch (Exception ex) {
-                Modelio.getInstance().getLogService().error(null, ex);
+                Api.LOG.error(ex);
             }
         }
     };
@@ -261,8 +260,8 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
         
             if (elements.isEmpty()) {
                 MessageDialog.openInformation(Display.getDefault().getActiveShell(),
-                                              Messages.getMessage("HybridNotFoundTitle"),
-                                              Messages.getMessage("HybridNotFoundMessage"));
+                                              Api.I18N.getMessage("TextWrapperForIElement.HybridNotFoundTitle"),
+                                              Api.I18N.getMessage("TextWrapperForIElement.HybridNotFoundMessage"));
                 validate(false);
             } else if (elements.size() == 1 && !this.acceptNullValue) {
                 setContent(elements.get(0));
@@ -329,8 +328,9 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
         });
         if (this.selectedElement != null) {
             String text = this.selectedElement.getName();
-            if (this.selectedElement.getCompositionOwner() != null)
+            if (this.selectedElement.getCompositionOwner() != null) {
                 text = text + "  (from " + ((ModelElement) this.selectedElement.getCompositionOwner()).getName() + ")";
+            }
             this.textField.setData(this.selectedElement);
             this.textField.setText(text);
         }
@@ -346,8 +346,9 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
         if (content != null) {
             ModelElement me = (ModelElement) content;
             String text = me.getName();
-            if (me.getCompositionOwner() != null)
+            if (me.getCompositionOwner() != null) {
                 text = text + "  (from " + ((ModelElement) me.getCompositionOwner()).getName() + ")";
+            }
             // update text and data
             this.textField.setData(content);
             this.textField.setText(text);
@@ -398,7 +399,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
 
     @objid ("5bf4f8ac-911c-11e0-9de7-002564c97630")
     private void initDropTarget() {
-        /* TODO 
+        /* TODO
         EditorDropListener dropListener = new EditorDropListener(this);
         
         int operations = DND.DROP_MOVE | DND.DROP_COPY;
@@ -488,20 +489,20 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
 
     @objid ("6b3f5259-9746-11e0-bb39-002564c97630")
     private void updateTooltip() {
-        StringBuffer helpTooltip = new StringBuffer();
+        StringBuilder helpTooltip = new StringBuilder();
         if (this.allowedMetaclasses.size() > 1) {
-            helpTooltip.append(Messages.getMessage("AcceptedTypes"));
+            helpTooltip.append(Api.I18N.getMessage("TextWrapperForIElement.AcceptedTypes"));
         } else if (this.allowedMetaclasses.size() == 1) {
-            helpTooltip.append(Messages.getMessage("AcceptedType"));
+            helpTooltip.append(Api.I18N.getMessage("TextWrapperForIElement.AcceptedType"));
         }
         helpTooltip.append("\n");
         for (Class<? extends MObject> clazz : this.allowedMetaclasses) {
             helpTooltip.append("    ");
-            helpTooltip.append(Metamodel.getMClass(clazz).getName());
+            helpTooltip.append(clazz.getSimpleName());
             helpTooltip.append("\n");
         }
         helpTooltip.append("\n");
-        helpTooltip.append(Messages.getMessage("HybridCellEditorTootip"));
+        helpTooltip.append(Api.I18N.getMessage("TextWrapperForIElement.HybridCellEditorTootip"));
         
         this.textField.setToolTipText(helpTooltip.toString());
     }

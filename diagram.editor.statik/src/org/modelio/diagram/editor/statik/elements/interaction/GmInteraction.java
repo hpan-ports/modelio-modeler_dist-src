@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.interaction;
 
@@ -26,7 +26,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.persistence.IDiagramReader;
@@ -67,6 +67,9 @@ public class GmInteraction extends GmPortContainer {
     @objid ("5e64fedb-5bd5-11e2-9e33-00137282c51b")
      static final GmInteractionImageStyleKeys IMAGE_KEYS = new GmInteractionImageStyleKeys();
 
+    @objid ("cc59209b-2785-42b7-b3d3-2fc55fd15ce7")
+     static final GmInteractionUserImageStyleKeys USERIMAGE_KEYS = new GmInteractionUserImageStyleKeys();
+
     /**
      * Constructor.
      * @param diagram the diagram in which the callBehavior is unmasked.
@@ -81,7 +84,7 @@ public class GmInteraction extends GmPortContainer {
         GmInteractionPrimaryNode mainNode = new GmInteractionPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(diagram, ref);
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
         
@@ -130,6 +133,8 @@ public class GmInteraction extends GmPortContainer {
             switch (mode) {
                 case IMAGE:
                     return IMAGE_KEYS.getStyleKey(metakey);
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKey(metakey);
                 case SIMPLE:
                     return SIMPLE_KEYS.getStyleKey(metakey);
                 case STRUCTURED:
@@ -148,6 +153,8 @@ public class GmInteraction extends GmPortContainer {
             switch (mode) {
                 case IMAGE:
                     return IMAGE_KEYS.getStyleKeys();
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKeys();
                 case SIMPLE:
                     return SIMPLE_KEYS.getStyleKeys();
                 case STRUCTURED:
@@ -197,7 +204,7 @@ public class GmInteraction extends GmPortContainer {
         super.read(in);
         this.element = (Interaction) resolveRef(this.getRepresentedRef());
         
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(getDiagram(), getRepresentedRef());
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
         
@@ -240,7 +247,7 @@ public class GmInteraction extends GmPortContainer {
     public boolean isSatellite(final GmNodeModel childNode) {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
-                || IMAGE_LABEL_ROLE.equals(role);
+                                                        || IMAGE_LABEL_ROLE.equals(role);
     }
 
     /**

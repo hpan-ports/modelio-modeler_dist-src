@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.plugin;
 
@@ -66,7 +66,6 @@ import org.modelio.diagram.elements.gmfactory.GmLinkFactory;
 import org.modelio.diagram.elements.gmfactory.GmNodeFactory;
 import org.modelio.diagram.styles.core.FactoryStyle;
 import org.modelio.diagram.styles.core.StyleLoader;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.ActivityDiagram;
 import org.osgi.framework.BundleContext;
 
@@ -78,12 +77,12 @@ public class ActivityProcessor {
     @objid ("2ed7892c-58a7-11e2-9574-002564c97630")
     @Execute
     private void execute(IDiagramConfigurerRegistry configurerRegistry) {
-        configurerRegistry.registerDiagramConfigurer(Metamodel.getMClass(ActivityDiagram.class).getName(), null, new ActivityDiagramConfigurer());
+        configurerRegistry.registerDiagramConfigurer(ActivityDiagram.MNAME, null, new ActivityDiagramConfigurer());
         
         // Register our edit part factory
         declareFactories();
         
-        // Declare our supported StyleKeys 
+        // Declare our supported StyleKeys
         declareStyleProviders();
         
         // Load the default values. Do it only here, after key providers registration.
@@ -95,11 +94,9 @@ public class ActivityProcessor {
         ModelioEditPartFactory.getInstance().registerFactory(ActivityDiagramEditPartFactory.class.getName(),
                 ActivityDiagramEditPartFactory.getInstance());
         
-        GmLinkFactory.getInstance().registerFactory(ActivityGmLinkFactory.class.getName(),
-                ActivityGmLinkFactory.getInstance());
+        GmLinkFactory.getInstance().registerFactory(ActivityGmLinkFactory.class.getName(), ActivityGmLinkFactory.getInstance());
         
-        GmNodeFactory.getInstance().registerFactory(ActivityGmNodeFactory.class.getName(),
-                ActivityGmNodeFactory.getInstance());
+        GmNodeFactory.getInstance().registerFactory(ActivityGmNodeFactory.class.getName(), ActivityGmNodeFactory.getInstance());
     }
 
     @objid ("2ed78933-58a7-11e2-9574-002564c97630")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.linktovoid;
 
@@ -37,7 +37,9 @@ import org.modelio.gproject.model.IElementNamer;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -50,9 +52,6 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("7ec96bd9-1dec-11e2-8cad-001ec947c8cc")
 public class CreateLinkToVoidCommand extends Command {
-    @objid ("96083f7e-10e7-4cd3-8a8c-e8d09d15a768")
-    private Dimension destinationLocation;
-
     @objid ("7ec96bdd-1dec-11e2-8cad-001ec947c8cc")
     private final ModelioCreationContext context;
 
@@ -73,6 +72,9 @@ public class CreateLinkToVoidCommand extends Command {
      */
     @objid ("7ec96be6-1dec-11e2-8cad-001ec947c8cc")
     private Object srcAnchorModel;
+
+    @objid ("97e53577-ef1e-4958-a1d6-7e2b2c0353fe")
+    private Dimension destinationLocation;
 
     /**
      * Creates a node creation command.
@@ -148,17 +150,18 @@ public class CreateLinkToVoidCommand extends Command {
     @objid ("7ecbce0f-1dec-11e2-8cad-001ec947c8cc")
     protected MObject createElement(final IModelFactory modelFactory, IElementNamer elementNamer) {
         // Create the MObject...
-        this.createdElement = modelFactory.createElement(this.context.getMetaclass());
+        MClass mc = this.context.getMetaclass();
+        this.createdElement = modelFactory.createElement(mc);
         
         // ... and attach it to its parent.
         try {
-            this.parentElement.mGet(this.parentElement.getMClass().getDependency(this.context.getDependency())).add(
-                    this.createdElement);
+            this.parentElement.mGet(this.context.getDependency()).add(this.createdElement);
         } catch (Exception e) {
             // FIXME: use a finer type of exception.
             // The dependency indicated in the context cannot be used: try
             // to find a valid one.
-            final MDependency compositionDep = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, this.createdElement);
+            MExpert expert = mc.getMetamodel().getMExpert();
+            final MDependency compositionDep = expert.getDefaultCompositionDep(this.parentElement, this.createdElement);
             if (compositionDep != null) {
                 this.parentElement.mGet(compositionDep).add(this.createdElement);
             } else {
@@ -189,13 +192,14 @@ public class CreateLinkToVoidCommand extends Command {
     @objid ("7ecbce1d-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public boolean canExecute() {
-        if (!MTools.getAuthTool().canModify(this.sourceNode.getDiagram().getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(this.sourceNode.getDiagram().getRelatedElement())) {
             return false;
+        }
         
         final MObject newElement = this.context.getElementToUnmask();
         
         if (newElement == null) {
-            return MTools.getAuthTool().canAdd(this.parentElement, this.context.getMetaclass());
+            return MTools.getAuthTool().canAdd(this.parentElement, this.context.getMetaclass().getName());
         } else {
             return true;
         }

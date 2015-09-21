@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.figures;
 
@@ -48,7 +48,7 @@ public class ExpansionNodeFigure extends ShapedFigure {
         super();
         setSize(100, 100);
         setShaper(new ExpansionNodeShaper());
-        this.setOpaque(true);
+        setOpaque(true);
         this.shapedBorder = new ShapedBorder(this.penOptions.lineColor,
                                              this.penOptions.lineWidth,
                                              this.shaper);
@@ -75,33 +75,37 @@ public class ExpansionNodeFigure extends ShapedFigure {
     }
 
     /**
-     * Sets the reference border for this figure and returns the newOrientation of the figure.
+     * Sets the reference border for this figure and returns the new orientation of the figure.
      * @param b the border on which this figure will be "attached".
      * @return the new {@link Orientation} of the figure.
      */
     @objid ("2a6c19cc-55b6-11e2-877f-002564c97630")
     public Orientation setReferenceBorder(Border b) {
         ExpansionNodeShaper expansionNodeShaper = (ExpansionNodeShaper) this.shaper;
-        Orientation newOrientation = Orientation.Undefined;
+        Orientation newOrientation = getOrientation(b);
+        expansionNodeShaper.setOrientation(newOrientation);
+        return newOrientation;
+    }
+
+    /**
+     * @param b a border
+     * @return the orientation for the given border.
+     */
+    @objid ("9b4361ff-4f92-4506-8116-ae389ce37834")
+    public static Orientation getOrientation(Border b) {
         switch (b) {
             case North:
             case South:
                 // Attached to top or bottom border: draw figure horizontally
-                newOrientation = Orientation.WestEast;
-                break;
+                return Orientation.WestEast;
             case East:
             case West:
                 // Attached to left or right border: draw figure vertically
-                newOrientation = Orientation.NorthSouth;
-                break;
+                return Orientation.NorthSouth;
             default:
                 // Should not happen, but better be safe
-                newOrientation = Orientation.Undefined;
-        
-                break;
+                return Orientation.Undefined;
         }
-        expansionNodeShaper.setOrientation(newOrientation);
-        return newOrientation;
     }
 
 }

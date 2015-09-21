@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.index.jdbm;
 
@@ -408,29 +408,29 @@ final class SecondaryKeyHelper {
         
         final SecondaryTreeMap<Integer, K, V> inverseMap = secondaryTreeMap(recordName,hashExtractor,ComparableComparator.INSTANCE,base,null, keysSerializer);
         return new InverseHashView<K, V>() {
-            @Override
-            public K findKeyForValue(V val) {
-                Iterable<K> keys = inverseMap.get(new Integer(val.hashCode()));
-                if(keys == null) return null;
-                for(K k:keys){
-                    if(val.equals(inverseMap.getPrimaryValue(k)))
-                        return k;
-                }
-                return null;
-            }
-        
-            @Override
-            public Iterable<K> findKeysForValue(V val) {
-                Iterable<K> keys = inverseMap.get(new Integer(val.hashCode()));
-                List<K> ret = new ArrayList<>();
-                if(keys == null) return null;
-                for(K k:keys){
-                    if(val.equals(inverseMap.getPrimaryValue(k)))
-                        ret.add(k);
-                }
-        return ret;
+                    @Override
+                    public K findKeyForValue(V val) {
+                        Iterable<K> keys = inverseMap.get(new Integer(val.hashCode()));
+                        if(keys == null) return null;
+                        for(K k:keys){
+                            if(val.equals(inverseMap.getPrimaryValue(k)))
+                                return k;
+                        }
+                        return null;
                     }
-                };
+                
+                    @Override
+                    public Iterable<K> findKeysForValue(V val) {
+                        Iterable<K> keys = inverseMap.get(new Integer(val.hashCode()));
+                        List<K> ret = new ArrayList<>();
+                        if(keys == null) return null;
+                        for(K k:keys){
+                            if(val.equals(inverseMap.getPrimaryValue(k)))
+                                ret.add(k);
+                        }
+                return ret;
+                            }
+                        };
     }
 
     @objid ("d5ac71cf-6231-11e1-b31a-001ec947ccaf")
@@ -438,34 +438,34 @@ final class SecondaryKeyHelper {
         if(keys==null)
             return new ArrayList<>();
         return new Iterable<V>(){
-        
-            @Override
-            public Iterator<V> iterator() {
-                return new Iterator<V>(){
-                    
-                    Iterator<K> iter = keys.iterator();
-        
+                
                     @Override
-                    public boolean hasNext() {
-                        return this.iter.hasNext();
-                    }
-        
-                    @Override
-                    public V next() {
-                        try {
-        return b.find(this.iter.next());
-                                } catch (IOException e) {
-        throw new IOError(e);
-                                }
+                    public Iterator<V> iterator() {
+                        return new Iterator<V>(){
+                            
+                            Iterator<K> iter = keys.iterator();
+                
+                            @Override
+                            public boolean hasNext() {
+                                return this.iter.hasNext();
                             }
                 
                             @Override
-                            public void remove() {
-                                this.iter.remove();                        
-                            }};
-                    }
-                    
-                };
+                            public V next() {
+                                try {
+                return b.find(this.iter.next());
+                                        } catch (IOException e) {
+                throw new IOError(e);
+                                        }
+                                    }
+                        
+                                    @Override
+                                    public void remove() {
+                                        this.iter.remove();                        
+                                    }};
+                            }
+                            
+                        };
     }
 
 }

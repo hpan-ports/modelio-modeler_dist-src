@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.linktovoid;
 
@@ -96,8 +96,9 @@ public class LinkToVoidFinishCreationEditPolicy extends AbstractLinkToVoidCreati
         super.showTargetConnectionFeedback(request);
         
         final Request req = (Request) request;
-        if (req.getType() != REQ_LINKTOVOID_END)
+        if (req.getType() != REQ_LINKTOVOID_END) {
             return;
+        }
         
         // Additional feedback: highlight the node.
         RectangleFigure highlight = (RectangleFigure) req.getExtendedData().get(HIGHLIGHTKEY);
@@ -136,8 +137,9 @@ public class LinkToVoidFinishCreationEditPolicy extends AbstractLinkToVoidCreati
     @Override
     public EditPart getTargetEditPart(Request request) {
         if (REQ_LINKTOVOID_END.equals(request.getType()) ||
-            REQ_LINKTOVOID_RECONNECT_TARGET.equals(request.getType()))
+                REQ_LINKTOVOID_RECONNECT_TARGET.equals(request.getType())) {
             return getHost();
+        }
         return null;
     }
 
@@ -181,14 +183,14 @@ public class LinkToVoidFinishCreationEditPolicy extends AbstractLinkToVoidCreati
      */
     @objid ("7ed55782-1dec-11e2-8cad-001ec947c8cc")
     public static class DisconnectLinkCommand extends Command {
-        @objid ("194c6ebe-6131-4c9b-af58-c7716212d871")
-        private Dimension anchor;
-
         @objid ("7ed5578a-1dec-11e2-8cad-001ec947c8cc")
         private final GmLink gmLink;
 
         @objid ("7ed5578c-1dec-11e2-8cad-001ec947c8cc")
         private final GmNodeModel newTargetNode;
+
+        @objid ("73b47436-3d22-435e-b2cf-ffb043348cb7")
+        private Dimension anchor;
 
         /**
          * Create the command.
@@ -204,8 +206,9 @@ public class LinkToVoidFinishCreationEditPolicy extends AbstractLinkToVoidCreati
         @objid ("7ed55795-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public boolean canExecute() {
-            if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement()))
+            if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement())) {
                 return false;
+            }
             
             if (this.gmLink.getFrom() instanceof GmModel) {
                 // The source and the link elements must be modifiable
@@ -252,15 +255,17 @@ public class LinkToVoidFinishCreationEditPolicy extends AbstractLinkToVoidCreati
             
             if (oldDest != null) {
                 // Disconnect the link
-                MTools.getModelTool().setTarget(link, oldDest, null);
+                link.getMClass().getMetamodel().getMExpert().setTarget(link, oldDest, null);
             }
             
             // Update gm model
-            if (oldTargetNode != null)
+            if (oldTargetNode != null) {
                 oldTargetNode.removeEndingLink(this.gmLink);
+            }
             
-            if (this.newTargetNode != null)
+            if (this.newTargetNode != null) {
                 this.newTargetNode.addEndingLink(this.gmLink);
+            }
         }
 
     }

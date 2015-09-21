@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,24 +12,36 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.infrastructure.matrix;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.infrastructure.matrix.MatrixValueDefinitionData;
 import org.modelio.metamodel.impl.uml.infrastructure.ElementImpl;
+import org.modelio.metamodel.impl.uml.infrastructure.matrix.MatrixValueDefinitionData;
 import org.modelio.metamodel.uml.infrastructure.ExternProcessor;
 import org.modelio.metamodel.uml.infrastructure.matrix.MatrixDefinition;
 import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
@@ -42,66 +54,78 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("2fb6d68e-b51f-429d-a006-2a9a07892168")
 public class MatrixValueDefinitionImpl extends ElementImpl implements MatrixValueDefinition {
-    @objid ("db4accff-bba4-4810-972b-8709b7fd47d2")
+    @objid ("505ee4b1-6527-4748-a108-571a8d8779e0")
     @Override
     public ExternProcessor getProcessor() {
-        return (ExternProcessor) getDepVal(MatrixValueDefinitionData.Metadata.ProcessorDep());
+        Object obj = getDepVal(((MatrixValueDefinitionSmClass)getClassOf()).getProcessorDep());
+        return (obj instanceof ExternProcessor)? (ExternProcessor)obj : null;
     }
 
-    @objid ("ec7f5a77-75bb-4a87-a426-b4bda021828e")
+    @objid ("80414f13-164e-4205-b2a0-b205186e74be")
     @Override
     public void setProcessor(ExternProcessor value) {
-        appendDepVal(MatrixValueDefinitionData.Metadata.ProcessorDep(), (SmObjectImpl)value);
+        appendDepVal(((MatrixValueDefinitionSmClass)getClassOf()).getProcessorDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d82b9bbb-2000-441c-94c2-6f7984778520")
+    @objid ("3147e4cf-d474-488d-8c29-b71f3c6deb9c")
     @Override
     public PropertyTable getParameters() {
-        return (PropertyTable) getDepVal(MatrixValueDefinitionData.Metadata.ParametersDep());
+        Object obj = getDepVal(((MatrixValueDefinitionSmClass)getClassOf()).getParametersDep());
+        return (obj instanceof PropertyTable)? (PropertyTable)obj : null;
     }
 
-    @objid ("7c091e40-e14d-4b0f-9b7f-9281f329a936")
+    @objid ("d648acfa-d7b1-440c-b789-7f0ce45a2ce0")
     @Override
     public void setParameters(PropertyTable value) {
-        appendDepVal(MatrixValueDefinitionData.Metadata.ParametersDep(), (SmObjectImpl)value);
+        appendDepVal(((MatrixValueDefinitionSmClass)getClassOf()).getParametersDep(), (SmObjectImpl)value);
     }
 
-    @objid ("317059ba-c52b-4619-bf33-50fd71a2d56c")
+    @objid ("68fb882f-047d-47b4-9c84-7287f0711f23")
     @Override
     public MatrixDefinition getMatrix() {
-        return (MatrixDefinition) getDepVal(MatrixValueDefinitionData.Metadata.MatrixDep());
+        Object obj = getDepVal(((MatrixValueDefinitionSmClass)getClassOf()).getMatrixDep());
+        return (obj instanceof MatrixDefinition)? (MatrixDefinition)obj : null;
     }
 
-    @objid ("0873fada-9712-42f6-b40f-85249df0aa23")
+    @objid ("ff128357-5b13-4bf6-8541-d3eb9060c334")
     @Override
     public void setMatrix(MatrixDefinition value) {
-        appendDepVal(MatrixValueDefinitionData.Metadata.MatrixDep(), (SmObjectImpl)value);
+        appendDepVal(((MatrixValueDefinitionSmClass)getClassOf()).getMatrixDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d130a0b8-7b78-4a09-92ef-991904040be6")
+    @objid ("f9ed8164-1aad-42a0-9bd4-f3663c2cfba4")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(MatrixValueDefinitionData.Metadata.MatrixDep());
+        // Matrix
+        obj = (SmObjectImpl)this.getDepVal(((MatrixValueDefinitionSmClass)getClassOf()).getMatrixDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bb2545ee-bad6-4384-a9a3-12aa4a79ce1e")
+    @objid ("cef19e11-5d0f-41b3-8c66-3a2c5a3193a0")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(MatrixValueDefinitionData.Metadata.MatrixDep());
-        if (obj != null)
-          return new SmDepVal(MatrixValueDefinitionData.Metadata.MatrixDep(), obj);
+        SmDependency dep;
+        
+        // Matrix
+        dep = ((MatrixValueDefinitionSmClass)getClassOf()).getMatrixDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("60892b17-21c7-4d15-9497-84e960e22bc8")
+    @objid ("eb3601f1-7cc6-4aac-bc68-d4759bf51ab1")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitMatrixValueDefinition(this);

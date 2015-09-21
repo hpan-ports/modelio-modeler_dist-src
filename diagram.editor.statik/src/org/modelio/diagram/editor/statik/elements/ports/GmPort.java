@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.ports;
 
@@ -62,6 +62,9 @@ public class GmPort extends GmPortContainer {
     @objid ("62ccb725-5bd5-11e2-9e33-00137282c51b")
     private static final GmPortImageStyleKeys IMAGE_KEYS = new GmPortImageStyleKeys();
 
+    @objid ("f8980ab0-00d7-4d6a-8498-b0b85259adf9")
+    private static final GmPortUserImageStyleKeys USERIMAGE_KEYS = new GmPortUserImageStyleKeys();
+
     /**
      * Constructor.
      * @param diagram the diagram in which the Port is unmasked.
@@ -92,6 +95,8 @@ public class GmPort extends GmPortContainer {
             switch (mode) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKey(metakey);
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKey(metakey);
             case SIMPLE:
             case STRUCTURED:
                 return STRUCTURED_KEYS.getStyleKey(metakey);
@@ -109,6 +114,8 @@ public class GmPort extends GmPortContainer {
             switch (mode) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKeys();
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKeys();
             case SIMPLE:
             case STRUCTURED:
                 return STRUCTURED_KEYS.getStyleKeys();

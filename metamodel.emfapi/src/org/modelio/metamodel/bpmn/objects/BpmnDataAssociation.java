@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.bpmn.objects;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.events.BpmnCatchEvent;
 import org.modelio.metamodel.bpmn.events.BpmnThrowEvent;
@@ -35,66 +39,201 @@ import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
 import org.modelio.metamodel.bpmn.objects.BpmnSequenceFlowDataAssociation;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
+/**
+ * BpmnDataAssociation v0.0.9054
+ * 
+ * 
+ * Data Associations are used to move data between Data Objects, Properties, and inputs and outputs of Activities, Processes, and GlobalTasks. Tokens do not flow along a Data Association, and as a result they have no direct effect on the flow of the Process.
+ * 
+ * The purpose of retrieving data from Data Objects or Process Data Inputs is to fill the Activities inputs and later push the output values from the execution of the Activity back into Data Objects or Process Data Outputs.
+ * 
+ * The DataAssociation class is a BaseElement contained by an Activity or Event, used to model how data is pushed into or pulled from item-aware elements. DataAssociation elements may have one or more sources and a target; the source of the association is copied into the target.
+ * 
+ * NOTE: Voir ownership. Discutter du pattern "targetref" quand la fl�che d�signe une activit�
+ */
 @objid ("00047c84-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnDataAssociation extends BpmnBaseElement {
-    @objid ("5270ee70-bef4-4ad0-99a6-85630097d970")
+    @objid ("beb76e9b-5e42-4150-9b57-96e8753b6093")
+    public static final String MNAME = "BpmnDataAssociation";
+
+    /**
+     * Getter for attribute 'BpmnDataAssociation.Assignment'
+     * 
+     * Metamodel description:
+     * <i>Specifies one or more data elements Assignments. By using an Assignment, single data structure elements can be assigned from the source structure to the target structure.</i>
+     */
+    @objid ("b6eef81f-185d-4ef5-8dfb-e7d138566db0")
     String getAssignment();
 
-    @objid ("0b949b61-6813-4725-9bc5-4bd05a532d62")
+    /**
+     * Setter for attribute 'BpmnDataAssociation.Assignment'
+     * 
+     * Metamodel description:
+     * <i>Specifies one or more data elements Assignments. By using an Assignment, single data structure elements can be assigned from the source structure to the target structure.</i>
+     */
+    @objid ("1bc58ac0-91be-45ee-b52c-bc373ae0427b")
     void setAssignment(String value);
 
-    @objid ("9c26aadf-c3dc-4caa-8fe8-c6b327f3e74b")
+    /**
+     * Getter for attribute 'BpmnDataAssociation.Transfomation'
+     * 
+     * Metamodel description:
+     * <i>Specifies an optional transformation Expression. The actual scope of visible data for that Expression is defined by the source and target of the specific data association types.</i>
+     */
+    @objid ("d580f17c-a887-472a-b917-4430feede587")
     String getTransfomation();
 
-    @objid ("0af377d2-26cb-42d2-873c-fc3a7334528f")
+    /**
+     * Setter for attribute 'BpmnDataAssociation.Transfomation'
+     * 
+     * Metamodel description:
+     * <i>Specifies an optional transformation Expression. The actual scope of visible data for that Expression is defined by the source and target of the specific data association types.</i>
+     */
+    @objid ("d9fcdd33-119e-4000-bcfa-fc40a1d0705e")
     void setTransfomation(String value);
 
-    @objid ("3f4153e8-ef81-4aab-b6ef-b7522b3c44b5")
+    /**
+     * Getter for attribute 'BpmnDataAssociation.Language'
+     * 
+     * Metamodel description:
+     * <i>Language used for the assignment expression.</i>
+     */
+    @objid ("f0bfedcf-24b1-4226-b7bf-5e636f5a2d0d")
     String getLanguage();
 
-    @objid ("3f04b20c-17fa-49a9-bcff-f138222c4611")
+    /**
+     * Setter for attribute 'BpmnDataAssociation.Language'
+     * 
+     * Metamodel description:
+     * <i>Language used for the assignment expression.</i>
+     */
+    @objid ("0def77fd-b26e-42b1-9e5d-88aff50ad59f")
     void setLanguage(String value);
 
-    @objid ("a99e2b11-a312-4958-836b-c9627094043e")
+    /**
+     * Getter for relation 'BpmnDataAssociation->SourceRef'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("84fca6f2-47e1-41cb-a2e4-7f367e9265f5")
     EList<BpmnItemAwareElement> getSourceRef();
 
-    @objid ("dc3398a5-01e0-4e25-8c08-75d7d7f0bafb")
+    /**
+     * Filtered Getter for relation 'BpmnDataAssociation->SourceRef'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("c825ed8b-f636-4651-91a9-b8872c255b0d")
     <T extends BpmnItemAwareElement> List<T> getSourceRef(java.lang.Class<T> filterClass);
 
-    @objid ("fc03ad64-140f-452e-a8c3-6ce1fa9b7a45")
+    /**
+     * Getter for relation 'BpmnDataAssociation->TargetRef'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("73cfba6b-5389-46bf-98b9-0d0f2ba1c99d")
     BpmnItemAwareElement getTargetRef();
 
-    @objid ("03890877-b11d-41c8-a72b-4ef50ee94aea")
+    /**
+     * Setter for relation 'BpmnDataAssociation->TargetRef'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("2fdd9af3-4afd-4055-97c1-45addcfc9640")
     void setTargetRef(BpmnItemAwareElement value);
 
-    @objid ("8449e3ab-b69e-4456-a073-35ac2abfe39c")
+    /**
+     * Getter for relation 'BpmnDataAssociation->EndingActivity'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("9789ae0e-7ce1-4040-9be3-e001416a6821")
     BpmnActivity getEndingActivity();
 
-    @objid ("a4fea852-3220-4a79-8e3e-023848cc8b3e")
+    /**
+     * Setter for relation 'BpmnDataAssociation->EndingActivity'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6dd41ff3-67dc-42c3-bea9-1cdfb9626c7f")
     void setEndingActivity(BpmnActivity value);
 
-    @objid ("c4560843-ce13-45c1-8ae0-8ad0c7f40262")
+    /**
+     * Getter for relation 'BpmnDataAssociation->StartingActivity'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("3871316d-9ac8-4740-aeee-ae422c39b1e7")
     BpmnActivity getStartingActivity();
 
-    @objid ("1c59792a-46f7-41ae-a519-c14c0df745c8")
+    /**
+     * Setter for relation 'BpmnDataAssociation->StartingActivity'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("ddb9c52c-4071-41e3-ab27-c4785a8bbfe4")
     void setStartingActivity(BpmnActivity value);
 
-    @objid ("5d7f7b1c-5e4b-4acd-bc7b-692e0f30f4cb")
+    /**
+     * Getter for relation 'BpmnDataAssociation->StartingEvent'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("23e62601-7428-4f57-a02f-c70f8c369d44")
     BpmnThrowEvent getStartingEvent();
 
-    @objid ("8ff71a9f-7285-4c96-a423-0a531c8a4e27")
+    /**
+     * Setter for relation 'BpmnDataAssociation->StartingEvent'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("da23bf38-7d6a-4c16-8d98-1de24f54d8ec")
     void setStartingEvent(BpmnThrowEvent value);
 
-    @objid ("98a82143-13b9-4103-96fc-5deeca3b654f")
+    /**
+     * Getter for relation 'BpmnDataAssociation->VisualShortCut'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("b9fe814c-6937-40c2-9e7e-bb5e53d23727")
     EList<BpmnSequenceFlowDataAssociation> getVisualShortCut();
 
-    @objid ("32013430-7703-4c3e-9706-95bbc350308e")
+    /**
+     * Filtered Getter for relation 'BpmnDataAssociation->VisualShortCut'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("99a5a2fe-bc6c-492e-9fc3-6fbc46be5e41")
     <T extends BpmnSequenceFlowDataAssociation> List<T> getVisualShortCut(java.lang.Class<T> filterClass);
 
-    @objid ("f5471d64-7ba0-4224-8940-7c48e90ea7be")
+    /**
+     * Getter for relation 'BpmnDataAssociation->EndingEvent'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("64aee167-aed3-4205-b512-588c09070430")
     BpmnCatchEvent getEndingEvent();
 
-    @objid ("e05af63f-179f-47ce-b843-0639fdc041d2")
+    /**
+     * Setter for relation 'BpmnDataAssociation->EndingEvent'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("008fe665-8e4d-43a3-853f-a4533cc2552f")
     void setEndingEvent(BpmnCatchEvent value);
 
 }

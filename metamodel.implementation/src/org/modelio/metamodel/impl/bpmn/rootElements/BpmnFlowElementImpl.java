@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -34,7 +46,7 @@ import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
 import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
 import org.modelio.metamodel.bpmn.rootElements.BpmnGroup;
-import org.modelio.metamodel.data.bpmn.rootElements.BpmnFlowElementData;
+import org.modelio.metamodel.impl.bpmn.rootElements.BpmnFlowElementData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -43,98 +55,116 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0079514e-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnFlowElementImpl extends BpmnBaseElementImpl implements BpmnFlowElement {
-    @objid ("761acb21-fa00-49e5-9991-8c207b453295")
+    @objid ("2428c3c6-14f9-400c-896d-11d6b1988a11")
     @Override
     public EList<BpmnGroup> getGroups() {
-        return new SmList<>(this, BpmnFlowElementData.Metadata.GroupsDep());
+        return new SmList<>(this, ((BpmnFlowElementSmClass)getClassOf()).getGroupsDep());
     }
 
-    @objid ("abfcd65f-af36-410e-8bae-6927206f9bc2")
+    @objid ("08313942-e842-47ca-bfd9-3628565d32dc")
     @Override
     public <T extends BpmnGroup> List<T> getGroups(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnGroup element : getGroups()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8792d353-bdc9-46c4-aac4-ba1f9a60c75b")
+    @objid ("ce086aae-1f33-4e95-aa07-6d8015c8b94e")
     @Override
     public BpmnSubProcess getSubProcess() {
-        return (BpmnSubProcess) getDepVal(BpmnFlowElementData.Metadata.SubProcessDep());
+        Object obj = getDepVal(((BpmnFlowElementSmClass)getClassOf()).getSubProcessDep());
+        return (obj instanceof BpmnSubProcess)? (BpmnSubProcess)obj : null;
     }
 
-    @objid ("a16b71e5-be19-4ae8-9ba6-1649bee1c059")
+    @objid ("0cf0ba47-c16f-4d04-9d9c-1b03b382207a")
     @Override
     public void setSubProcess(BpmnSubProcess value) {
-        appendDepVal(BpmnFlowElementData.Metadata.SubProcessDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnFlowElementSmClass)getClassOf()).getSubProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8e328b99-fc77-4eba-b6c8-20b44a3748d0")
+    @objid ("ed39a752-1599-4b8f-ad0d-d85e9980711d")
     @Override
     public EList<BpmnLane> getLane() {
-        return new SmList<>(this, BpmnFlowElementData.Metadata.LaneDep());
+        return new SmList<>(this, ((BpmnFlowElementSmClass)getClassOf()).getLaneDep());
     }
 
-    @objid ("d7a22c4c-e077-449c-880f-238d353b3533")
+    @objid ("06a32616-c4d9-4ada-b5a1-918f951773ad")
     @Override
     public <T extends BpmnLane> List<T> getLane(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnLane element : getLane()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("40b325a4-2ace-4c0c-bde8-564734fe63f3")
+    @objid ("e2998360-fb9e-4607-ac6b-6045b2d3f2a1")
     @Override
     public BpmnProcess getContainer() {
-        return (BpmnProcess) getDepVal(BpmnFlowElementData.Metadata.ContainerDep());
+        Object obj = getDepVal(((BpmnFlowElementSmClass)getClassOf()).getContainerDep());
+        return (obj instanceof BpmnProcess)? (BpmnProcess)obj : null;
     }
 
-    @objid ("b6b5e756-b5d5-4016-ad12-99a94ddfec54")
+    @objid ("0c620ec8-6e37-450a-87b6-b6a669fa71e8")
     @Override
     public void setContainer(BpmnProcess value) {
-        appendDepVal(BpmnFlowElementData.Metadata.ContainerDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnFlowElementSmClass)getClassOf()).getContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("91651167-2933-4b16-ad39-1a35d1b32590")
+    @objid ("3064c19a-d198-40a9-a434-413086cac7ff")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnFlowElementData.Metadata.SubProcessDep());
+        // SubProcess
+        obj = (SmObjectImpl)this.getDepVal(((BpmnFlowElementSmClass)getClassOf()).getSubProcessDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnFlowElementData.Metadata.ContainerDep());
+        // Container
+        obj = (SmObjectImpl)this.getDepVal(((BpmnFlowElementSmClass)getClassOf()).getContainerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("c4d0ff77-e0db-473e-a3a6-7426d6201811")
+    @objid ("fd12206d-9d81-40b3-9005-42b465dd274a")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnFlowElementData.Metadata.SubProcessDep());
-        if (obj != null)
-          return new SmDepVal(BpmnFlowElementData.Metadata.SubProcessDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(BpmnFlowElementData.Metadata.ContainerDep());
-        if (obj != null)
-          return new SmDepVal(BpmnFlowElementData.Metadata.ContainerDep(), obj);
+        SmDependency dep;
+        
+        // SubProcess
+        dep = ((BpmnFlowElementSmClass)getClassOf()).getSubProcessDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // Container
+        dep = ((BpmnFlowElementSmClass)getClassOf()).getContainerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("c5b9e363-2b13-4315-af8c-b890d3968e9e")
+    @objid ("829cacb2-a6f2-42a5-8df3-b44707614034")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnFlowElement(this);

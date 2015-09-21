@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,13 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 9024, by Modeliosoft
+ Generator version: 3.0.01.9022
+ Generated on: 28 janv. 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 0.0.9024, by Modeliosoft
+ Generator version: 3.2.10.9023
+ Generated on: Mar 19, 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.visitors;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -37,6 +52,8 @@ import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
+import org.modelio.metamodel.analyst.Risk;
+import org.modelio.metamodel.analyst.RiskContainer;
 import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
@@ -309,1721 +326,1736 @@ import org.modelio.metamodel.uml.statik.TemplateBinding;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 
+/**
+ * This class is an implementation of IModelVisitor whose visit() methods simply return <code>null</code>.
+ */
 @objid ("00106c06-4f2c-1032-829a-001ec947cd2a")
 public class AbstractModelVisitor implements IModelVisitor {
-    @objid ("2c9de21b-c7e4-4606-bd84-dc52c1bcaf38")
-    @Override
-    public Object visitAbstraction(Abstraction obj) {
-        	return null;
-    }
-
-    @objid ("3d6562f3-0acb-4f96-b29e-53b6121a4983")
-    @Override
-    public Object visitConstraint(Constraint obj) {
-        	return null;
-    }
-
-    @objid ("a267dca1-2a60-4cfd-aca1-b14909e3512a")
-    @Override
-    public Object visitDependency(Dependency obj) {
-        	return null;
-    }
-
-    @objid ("e3abb38c-32c8-416b-861f-578e259fd1fc")
-    @Override
-    public Object visitElement(Element obj) {
-        	return null;
-    }
-
-    @objid ("566457be-1b03-4cfd-8a31-000aad63fdbf")
-    @Override
-    public Object visitModelElement(ModelElement obj) {
-        	return null;
-    }
-
-    @objid ("2e1834d1-43b6-47e4-96bd-4f5a62716f34")
-    @Override
-    public Object visitModelTree(ModelTree obj) {
-        	return null;
-    }
-
-    @objid ("db148498-5bf3-4500-ac7a-8f9c17c60728")
-    @Override
-    public Object visitNote(Note obj) {
-        	return null;
-    }
-
-    @objid ("90f2c833-a921-4266-88ef-0f520a8226f4")
-    @Override
-    public Object visitNoteType(NoteType obj) {
-        	return null;
-    }
-
-    @objid ("efec64a6-758e-497c-bf85-7120401f7c23")
-    @Override
-    public Object visitProfile(Profile obj) {
-        	return null;
-    }
-
-    @objid ("df5fbf49-d662-465b-afce-d6a76a835818")
-    @Override
-    public Object visitStereotype(Stereotype obj) {
-        	return null;
-    }
-
-    @objid ("926f436e-245b-4244-b027-aea2b1dc3050")
-    @Override
-    public Object visitSubstitution(Substitution obj) {
-        	return null;
-    }
-
-    @objid ("a5230e2c-172d-44ea-b454-e4d4af387ebc")
-    @Override
-    public Object visitTagParameter(TagParameter obj) {
-        	return null;
-    }
-
-    @objid ("8d665c5a-86cd-464f-8114-2ae17e24593a")
-    @Override
-    public Object visitTagType(TagType obj) {
-        	return null;
-    }
-
-    @objid ("8b3111a1-5ea2-445d-bc8b-228528552c08")
-    @Override
-    public Object visitTaggedValue(TaggedValue obj) {
-        	return null;
-    }
-
-    @objid ("a8277e83-d878-4d46-9c99-c62c43225fe3")
-    @Override
-    public Object visitUsage(Usage obj) {
-        	return null;
-    }
-
-    @objid ("8e6d2f40-3e20-461f-befe-10daa5cf6b30")
-    @Override
-    public Object visitMetaclassReference(MetaclassReference obj) {
-        	return null;
-    }
-
-    @objid ("8b8ffefe-342d-494d-9ef8-255ebae329bf")
-    @Override
-    public Object visitExternDocument(ExternDocument obj) {
-        	return null;
-    }
-
-    @objid ("e93b6c54-4f0f-49f8-9d3c-2026bcdb99e8")
-    @Override
-    public Object visitExternDocumentType(ExternDocumentType obj) {
-        	return null;
-    }
-
-    @objid ("e4c07f78-f4af-4145-80e3-912200ab052e")
-    @Override
-    public Object visitEnumeratedPropertyType(EnumeratedPropertyType obj) {
-        	return null;
-    }
-
-    @objid ("44236f7d-4b75-4806-ab7b-be974a612987")
-    @Override
-    public Object visitLocalPropertyTable(LocalPropertyTable obj) {
-        	return null;
-    }
-
-    @objid ("9479c08d-f1b1-4f9b-a2f6-b92a44a30c0e")
-    @Override
-    public Object visitPropertyDefinition(PropertyDefinition obj) {
-        	return null;
-    }
-
-    @objid ("359bbf73-7573-4afa-92af-c42afc6ae0e8")
-    @Override
-    public Object visitPropertyEnumerationLitteral(PropertyEnumerationLitteral obj) {
-        	return null;
-    }
-
-    @objid ("012605c7-7c95-439c-9de6-7a35c9c108d3")
-    @Override
-    public Object visitPropertyTable(PropertyTable obj) {
-        	return null;
-    }
-
-    @objid ("5d746a0c-91c5-4d68-8155-580314bd17f0")
-    @Override
-    public Object visitPropertyTableDefinition(PropertyTableDefinition obj) {
-        	return null;
-    }
-
-    @objid ("4b01cc70-4a45-41f0-94b4-98e300a092d9")
-    @Override
-    public Object visitPropertyType(PropertyType obj) {
-        	return null;
-    }
-
-    @objid ("ccce56ce-a34f-4953-9b34-e8a65f6434ad")
-    @Override
-    public Object visitTypedPropertyTable(TypedPropertyTable obj) {
-        	return null;
-    }
-
-    @objid ("d555fca0-0a92-4f80-a256-5471d806ad4a")
-    @Override
-    public Object visitMatrixDefinition(MatrixDefinition obj) {
-        	return null;
-    }
-
-    @objid ("09529580-fc89-4dcf-914a-9e2f5fd53e65")
-    @Override
-    public Object visitQueryDefinition(QueryDefinition obj) {
-        	return null;
-    }
-
-    @objid ("74778bd3-127c-4704-a3a0-6a0141acbfb8")
-    @Override
-    public Object visitMatrixValueDefinition(MatrixValueDefinition obj) {
-        	return null;
-    }
-
-    @objid ("41ac21ea-cebb-4904-94b8-cc5ffcbe1c88")
-    @Override
-    public Object visitExternProcessor(ExternProcessor obj) {
-        	return null;
-    }
-
-    @objid ("20575941-3167-4455-9a78-bcf1ca3c9ca8")
-    @Override
-    public Object visitArtifact(Artifact obj) {
-        	return null;
-    }
-
-    @objid ("9e3a5e7d-7344-47e9-a08a-432fb0adb227")
-    @Override
-    public Object visitAssociation(Association obj) {
-        	return null;
-    }
-
-    @objid ("89b447e5-e7a8-4806-a320-f8adb75258cb")
-    @Override
-    public Object visitAssociationEnd(AssociationEnd obj) {
-        	return null;
-    }
-
-    @objid ("6e063018-a63b-4f5c-ba66-4b65c17a5998")
-    @Override
-    public Object visitAttribute(Attribute obj) {
-        	return null;
-    }
-
-    @objid ("63a5cce8-7ed3-4ec4-a544-182fe5be49f2")
-    @Override
-    public Object visitAttributeLink(AttributeLink obj) {
-        	return null;
-    }
-
-    @objid ("d4a32e66-86cd-4416-ab8b-45b2dfe70592")
-    @Override
-    public Object visitBehavioralFeature(BehavioralFeature obj) {
-        	return null;
-    }
-
-    @objid ("8ae79dea-3d23-4c99-be70-b79d093b5a05")
-    @Override
-    public Object visitBindableInstance(BindableInstance obj) {
-        	return null;
-    }
-
-    @objid ("ab701743-1b22-4675-af43-38af038b3c89")
-    @Override
-    public Object visitBinding(Binding obj) {
-        	return null;
-    }
-
-    @objid ("446b4e5c-771d-4161-aad5-d5c9c65d9319")
-    @Override
-    public Object visitClass(Class obj) {
-        	return null;
-    }
-
-    @objid ("3d4387b1-82df-4506-82cf-e9c945344ac1")
-    @Override
-    public Object visitClassAssociation(ClassAssociation obj) {
-        	return null;
-    }
-
-    @objid ("19866487-71b6-4ede-b555-4b2bce1e7eb2")
-    @Override
-    public Object visitClassifier(Classifier obj) {
-        	return null;
-    }
-
-    @objid ("ad1d9753-c295-4a31-b007-e7275879878b")
-    @Override
-    public Object visitCollaboration(Collaboration obj) {
-        	return null;
-    }
-
-    @objid ("383ec1fe-f7ef-45c8-a4b2-d4213e0ab638")
-    @Override
-    public Object visitCollaborationUse(CollaborationUse obj) {
-        	return null;
-    }
-
-    @objid ("20e21743-a9ba-40ca-a74e-7c49af47ebc4")
-    @Override
-    public Object visitComponent(Component obj) {
-        	return null;
-    }
-
-    @objid ("4f01e8fe-057e-4346-be29-30da612d9c7e")
-    @Override
-    public Object visitComponentRealization(ComponentRealization obj) {
-        	return null;
-    }
-
-    @objid ("7f8db255-1fe7-4a74-8792-154e0ff63c08")
-    @Override
-    public Object visitConnector(Connector obj) {
-        	return null;
-    }
-
-    @objid ("1e5cdfdf-5dd7-4cf0-a9de-4b46b21179f2")
-    @Override
-    public Object visitConnectorEnd(ConnectorEnd obj) {
-        	return null;
-    }
-
-    @objid ("806695dd-7571-40ee-a736-2786570002c9")
-    @Override
-    public Object visitDataType(DataType obj) {
-        	return null;
-    }
-
-    @objid ("c67526f2-49b0-47e1-9aae-34540c3038f4")
-    @Override
-    public Object visitElementImport(ElementImport obj) {
-        	return null;
-    }
-
-    @objid ("770d9d07-bd6b-4d01-9b4f-e76aab13593b")
-    @Override
-    public Object visitElementRealization(ElementRealization obj) {
-        	return null;
-    }
-
-    @objid ("f88ab17c-66d9-4858-8b79-57146f46dca3")
-    @Override
-    public Object visitEnumeration(Enumeration obj) {
-        	return null;
-    }
-
-    @objid ("6bb0839b-0a48-437c-9379-ce830522b677")
-    @Override
-    public Object visitEnumerationLiteral(EnumerationLiteral obj) {
-        	return null;
-    }
-
-    @objid ("c7c5c748-c1ed-446a-bf9e-6ea3c87c3ab3")
-    @Override
-    public Object visitFeature(Feature obj) {
-        	return null;
-    }
-
-    @objid ("cf983390-c4ea-47e6-9f70-28071087562d")
-    @Override
-    public Object visitGeneralClass(GeneralClass obj) {
-        	return null;
-    }
-
-    @objid ("471053de-85c5-4387-a534-68fb5d12b885")
-    @Override
-    public Object visitGeneralization(Generalization obj) {
-        	return null;
-    }
-
-    @objid ("12b44e77-8470-4efb-a31d-be52f37035ba")
-    @Override
-    public Object visitInstance(Instance obj) {
-        	return null;
-    }
-
-    @objid ("e37225c6-176d-462e-9939-fb93c1f2ef85")
-    @Override
-    public Object visitInterface(Interface obj) {
-        	return null;
-    }
-
-    @objid ("e0bb00fd-cda0-47c6-85fc-6fdac977f710")
-    @Override
-    public Object visitInterfaceRealization(InterfaceRealization obj) {
-        	return null;
-    }
-
-    @objid ("24bb4a09-cfaf-4bc0-a84c-c6f04b41163f")
-    @Override
-    public Object visitLink(Link obj) {
-        	return null;
-    }
-
-    @objid ("36f71bbd-7f02-4800-9d05-ab817c23c1b3")
-    @Override
-    public Object visitLinkEnd(LinkEnd obj) {
-        	return null;
-    }
-
-    @objid ("45ac3262-905a-452b-8b81-ee9e221d5c2c")
-    @Override
-    public Object visitManifestation(Manifestation obj) {
-        	return null;
-    }
-
-    @objid ("3a6822b0-3185-422e-89c4-dc0b33f937ae")
-    @Override
-    public Object visitNameSpace(NameSpace obj) {
-        	return null;
-    }
-
-    @objid ("b182c0de-b217-42bd-94fe-84251cae4b34")
-    @Override
-    public Object visitNamespaceUse(NamespaceUse obj) {
-        	return null;
-    }
-
-    @objid ("a224c41b-3086-46b3-aa8f-acb475cd1da3")
-    @Override
-    public Object visitNaryAssociationEnd(NaryAssociationEnd obj) {
-        	return null;
-    }
-
-    @objid ("5db461dc-ac80-4fd0-92b1-db89708024c8")
-    @Override
-    public Object visitNaryAssociation(NaryAssociation obj) {
-        	return null;
-    }
-
-    @objid ("39263082-415f-4d11-a317-8e32c4ffc6fd")
-    @Override
-    public Object visitNaryConnector(NaryConnector obj) {
-        	return null;
-    }
-
-    @objid ("e9bc3973-8710-4328-b124-75db84023c11")
-    @Override
-    public Object visitNaryConnectorEnd(NaryConnectorEnd obj) {
-        	return null;
-    }
-
-    @objid ("8bc533d0-c271-4580-92a1-65d931cd13ea")
-    @Override
-    public Object visitNaryLink(NaryLink obj) {
-        	return null;
-    }
-
-    @objid ("e3ac1ed0-afbb-4537-b017-204f28f013fd")
-    @Override
-    public Object visitNaryLinkEnd(NaryLinkEnd obj) {
-        	return null;
-    }
-
-    @objid ("17d4505a-9801-4824-b5b0-fcd8a6fe35c7")
-    @Override
-    public Object visitNode(Node obj) {
-        	return null;
-    }
-
-    @objid ("f519f148-4a73-4c4e-bfd6-0bedd264d372")
-    @Override
-    public Object visitOperation(Operation obj) {
-        	return null;
-    }
-
-    @objid ("b3ebbe83-16aa-4e05-9224-6fa9077b4d1e")
-    @Override
-    public Object visitPackage(Package obj) {
-        	return null;
-    }
-
-    @objid ("73bd084e-b0e9-44c5-b5b9-cd381e0dd6a7")
-    @Override
-    public Object visitPackageImport(PackageImport obj) {
-        	return null;
-    }
-
-    @objid ("b3b4db25-dffd-4411-90db-be96da2c9acb")
-    @Override
-    public Object visitPackageMerge(PackageMerge obj) {
-        	return null;
-    }
-
-    @objid ("cdec729a-43ed-4625-bd87-9a4595db7750")
-    @Override
-    public Object visitParameter(Parameter obj) {
-        	return null;
-    }
-
-    @objid ("7fb3cbdd-4f52-4d24-b96b-0e937b525586")
-    @Override
-    public Object visitPort(Port obj) {
-        	return null;
-    }
-
-    @objid ("d4399ad7-078a-4236-af25-4f19f9b5c2c7")
-    @Override
-    public Object visitProvidedInterface(ProvidedInterface obj) {
-        	return null;
-    }
-
-    @objid ("3d06b828-5957-425c-82fa-605e37bc43cf")
-    @Override
-    public Object visitRaisedException(RaisedException obj) {
-        	return null;
-    }
-
-    @objid ("fd5f5958-5a17-40f5-80c3-6d0461fa3104")
-    @Override
-    public Object visitRequiredInterface(RequiredInterface obj) {
-        	return null;
-    }
-
-    @objid ("a08a8105-5e60-4be3-93a2-8fa3d55cfa8a")
-    @Override
-    public Object visitStructuralFeature(StructuralFeature obj) {
-        	return null;
-    }
-
-    @objid ("9e5a6aa5-5d47-47ff-a745-eaa86ffaf116")
-    @Override
-    public Object visitTemplateBinding(TemplateBinding obj) {
-        	return null;
-    }
-
-    @objid ("28698806-1448-4ee8-ab75-7002d9718ef8")
-    @Override
-    public Object visitTemplateParameter(TemplateParameter obj) {
-        	return null;
-    }
-
-    @objid ("18c1049f-2e91-4381-abf7-d5a20cdcd5b7")
-    @Override
-    public Object visitTemplateParameterSubstitution(TemplateParameterSubstitution obj) {
-        	return null;
-    }
-
-    @objid ("54773ba9-cd07-4585-959b-ebc0b99af04d")
-    @Override
-    public Object visitAcceptCallEventAction(AcceptCallEventAction obj) {
-        	return null;
-    }
-
-    @objid ("a87685d3-fe59-4fa3-b6ed-aa1c2410c400")
-    @Override
-    public Object visitAcceptChangeEventAction(AcceptChangeEventAction obj) {
-        	return null;
-    }
-
-    @objid ("b51cabf3-61cf-4a97-b056-32d7577072b5")
-    @Override
-    public Object visitAcceptSignalAction(AcceptSignalAction obj) {
-        	return null;
-    }
-
-    @objid ("3b2964b4-a82e-46f2-8886-faf4fe1f8279")
-    @Override
-    public Object visitAcceptTimeEventAction(AcceptTimeEventAction obj) {
-        	return null;
-    }
-
-    @objid ("26545785-ff84-4cfd-810c-1e23695b6be2")
-    @Override
-    public Object visitActivity(Activity obj) {
-        	return null;
-    }
-
-    @objid ("e85e12ca-f0e2-4181-a22b-5ffc10075062")
-    @Override
-    public Object visitActivityAction(ActivityAction obj) {
-        	return null;
-    }
-
-    @objid ("01a019da-0695-4ed4-a666-df7f614a8958")
-    @Override
-    public Object visitActivityEdge(ActivityEdge obj) {
-        	return null;
-    }
-
-    @objid ("85bc88c5-c19f-4f83-85a8-55e38420a656")
-    @Override
-    public Object visitActivityFinalNode(ActivityFinalNode obj) {
-        	return null;
-    }
-
-    @objid ("140b3e4d-5e8c-4d46-bc9f-cca0daa1ef1c")
-    @Override
-    public Object visitActivityGroup(ActivityGroup obj) {
-        	return null;
-    }
-
-    @objid ("6d5cf58d-812e-4aab-b7b1-851fcc651d6c")
-    @Override
-    public Object visitActivityNode(ActivityNode obj) {
-        	return null;
-    }
-
-    @objid ("9c0297ad-1e6d-4b02-a3ad-9790c3f9bb72")
-    @Override
-    public Object visitActivityParameterNode(ActivityParameterNode obj) {
-        	return null;
-    }
-
-    @objid ("bfaa4eed-1986-413c-9014-5cd44c399534")
-    @Override
-    public Object visitActivityPartition(ActivityPartition obj) {
-        	return null;
-    }
-
-    @objid ("a2841a8a-91a9-4c58-929d-7248be0c9164")
-    @Override
-    public Object visitCallAction(CallAction obj) {
-        	return null;
-    }
-
-    @objid ("4c55ed4e-ca74-4066-a3d2-b6adf4386165")
-    @Override
-    public Object visitCallBehaviorAction(CallBehaviorAction obj) {
-        	return null;
-    }
-
-    @objid ("f2036a73-0fdd-4e8a-b949-0b9b0abb9a1a")
-    @Override
-    public Object visitCallOperationAction(CallOperationAction obj) {
-        	return null;
-    }
-
-    @objid ("6a7fb507-4e2f-4905-8de0-b8c6473f1c99")
-    @Override
-    public Object visitCentralBufferNode(CentralBufferNode obj) {
-        	return null;
-    }
-
-    @objid ("4eba9714-2f9e-476b-819c-698032375022")
-    @Override
-    public Object visitClause(Clause obj) {
-        	return null;
-    }
-
-    @objid ("5fdb3040-cf45-4ec4-8e58-bf7793a3cf5b")
-    @Override
-    public Object visitConditionalNode(ConditionalNode obj) {
-        	return null;
-    }
-
-    @objid ("6da14fff-272c-4e36-8598-7ef5d7473152")
-    @Override
-    public Object visitControlFlow(ControlFlow obj) {
-        	return null;
-    }
-
-    @objid ("dd33ba36-2178-40e2-8003-9ada061b6949")
-    @Override
-    public Object visitControlNode(ControlNode obj) {
-        	return null;
-    }
-
-    @objid ("90c3700c-bc73-4805-935f-5cc270a25fd6")
-    @Override
-    public Object visitDataStoreNode(DataStoreNode obj) {
-        	return null;
-    }
-
-    @objid ("f1e34188-46fe-4f02-a586-de1d61aa5648")
-    @Override
-    public Object visitDecisionMergeNode(DecisionMergeNode obj) {
-        	return null;
-    }
-
-    @objid ("78f63f01-bd23-4594-bdbc-4bcb75984e7b")
-    @Override
-    public Object visitExceptionHandler(ExceptionHandler obj) {
-        	return null;
-    }
-
-    @objid ("04949de8-8fde-4376-a000-96b73fb4f191")
-    @Override
-    public Object visitExpansionNode(ExpansionNode obj) {
-        	return null;
-    }
-
-    @objid ("648e90b4-1b26-4d81-8b98-f9e8d2d65c76")
-    @Override
-    public Object visitExpansionRegion(ExpansionRegion obj) {
-        	return null;
-    }
-
-    @objid ("f6448bf5-623d-4c01-839e-32b72206e0e4")
-    @Override
-    public Object visitFinalNode(FinalNode obj) {
-        	return null;
-    }
-
-    @objid ("122a3fce-ee4f-43a0-bc44-cb02023b230a")
-    @Override
-    public Object visitFlowFinalNode(FlowFinalNode obj) {
-        	return null;
-    }
-
-    @objid ("5953d12d-c8c6-4e7f-852d-eb845fe5db8f")
-    @Override
-    public Object visitForkJoinNode(ForkJoinNode obj) {
-        	return null;
-    }
-
-    @objid ("67a720cb-9399-41cb-bdcb-2e3676b3b644")
-    @Override
-    public Object visitInitialNode(InitialNode obj) {
-        	return null;
-    }
-
-    @objid ("7fd81816-441f-431b-8812-1dc262b3bc81")
-    @Override
-    public Object visitInputPin(InputPin obj) {
-        	return null;
-    }
-
-    @objid ("76f302b9-db3d-429d-b213-48eeb824887e")
-    @Override
-    public Object visitInstanceNode(InstanceNode obj) {
-        	return null;
-    }
-
-    @objid ("2b5450e5-ed0e-484a-9ae3-9ec0665c9719")
-    @Override
-    public Object visitInterruptibleActivityRegion(InterruptibleActivityRegion obj) {
-        	return null;
-    }
-
-    @objid ("199ba629-b9f4-4a55-b723-a81cc09d6aae")
-    @Override
-    public Object visitLoopNode(LoopNode obj) {
-        	return null;
-    }
-
-    @objid ("c7f28dc1-1157-4e6e-a95f-9231d52a2107")
-    @Override
-    public Object visitMessageFlow(MessageFlow obj) {
-        	return null;
-    }
-
-    @objid ("9619f6db-b103-4ccd-a769-dd296adf1eb5")
-    @Override
-    public Object visitObjectFlow(ObjectFlow obj) {
-        	return null;
-    }
-
-    @objid ("53cd02b2-1a8c-4a89-9c95-d3b4d0c5f2b0")
-    @Override
-    public Object visitObjectNode(ObjectNode obj) {
-        	return null;
-    }
-
-    @objid ("2fd49cbb-15e7-41c2-a7d0-69ce2dd8ae42")
-    @Override
-    public Object visitOpaqueAction(OpaqueAction obj) {
-        	return null;
-    }
-
-    @objid ("8fcad23a-9940-4aaf-912a-f06670a92b23")
-    @Override
-    public Object visitOutputPin(OutputPin obj) {
-        	return null;
-    }
-
-    @objid ("4d9463fd-273d-4ab9-993b-c7a19eeeb7b7")
-    @Override
-    public Object visitPin(Pin obj) {
-        	return null;
-    }
-
-    @objid ("ddeb3852-e57d-4538-8128-59e6ae55dbea")
-    @Override
-    public Object visitSendSignalAction(SendSignalAction obj) {
-        	return null;
-    }
-
-    @objid ("1d0e364d-3dc0-4b95-bfe5-21079caed5d2")
-    @Override
-    public Object visitStructuredActivityNode(StructuredActivityNode obj) {
-        	return null;
-    }
-
-    @objid ("5e6d2bb7-f022-41b6-9cc9-a5bb41136d8f")
-    @Override
-    public Object visitValuePin(ValuePin obj) {
-        	return null;
-    }
-
-    @objid ("503d1d76-ae3b-4b18-be29-51d74b88c192")
-    @Override
-    public Object visitBehavior(Behavior obj) {
-        	return null;
-    }
-
-    @objid ("c4857f64-f52e-41f2-a780-a19204850672")
-    @Override
-    public Object visitBehaviorParameter(BehaviorParameter obj) {
-        	return null;
-    }
-
-    @objid ("f54e6b37-a319-4c75-b6e4-b34b5c13480f")
-    @Override
-    public Object visitOpaqueBehavior(OpaqueBehavior obj) {
-        	return null;
-    }
-
-    @objid ("612ae2e0-73d1-40d0-a8af-d9b2a6874376")
-    @Override
-    public Object visitSignal(Signal obj) {
-        	return null;
-    }
-
-    @objid ("6f816751-78e9-4b80-b6a0-b0449d4302d0")
-    @Override
-    public Object visitEvent(Event obj) {
-        	return null;
-    }
-
-    @objid ("d3516b1c-8b10-43ab-bacd-a6921a61a1aa")
-    @Override
-    public Object visitCombinedFragment(CombinedFragment obj) {
-        	return null;
-    }
-
-    @objid ("b168c0a7-6e19-46d9-a84d-c16881c8e6ca")
-    @Override
-    public Object visitDurationConstraint(DurationConstraint obj) {
-        	return null;
-    }
-
-    @objid ("9c945a99-dd2a-430f-b3dc-ca7bf7e841a9")
-    @Override
-    public Object visitExecutionOccurenceSpecification(ExecutionOccurenceSpecification obj) {
-        	return null;
-    }
-
-    @objid ("b02cbc4b-1e1b-49bd-ad7b-ffa4843f66c2")
-    @Override
-    public Object visitExecutionSpecification(ExecutionSpecification obj) {
-        	return null;
-    }
-
-    @objid ("025429dc-c98d-4cc0-86e2-bc1bcf51d98a")
-    @Override
-    public Object visitGate(Gate obj) {
-        	return null;
-    }
-
-    @objid ("93749b05-1f07-49f0-973f-cc168a7936db")
-    @Override
-    public Object visitGeneralOrdering(GeneralOrdering obj) {
-        	return null;
-    }
-
-    @objid ("08b4bb0c-fd8c-4f89-96ad-b9e2c4d13c89")
-    @Override
-    public Object visitInteraction(Interaction obj) {
-        	return null;
-    }
-
-    @objid ("acdd4a34-db40-4b60-9d0f-85fe26f007c9")
-    @Override
-    public Object visitInteractionFragment(InteractionFragment obj) {
-        	return null;
-    }
-
-    @objid ("b251d796-62cb-4afa-9b01-032be2299eec")
-    @Override
-    public Object visitInteractionOperand(InteractionOperand obj) {
-        	return null;
-    }
-
-    @objid ("da40ea0c-e854-4993-83fe-eba4444f4c0b")
-    @Override
-    public Object visitInteractionUse(InteractionUse obj) {
-        	return null;
-    }
-
-    @objid ("ac5da836-eee3-4155-912f-0b4b2ec6a337")
-    @Override
-    public Object visitLifeline(Lifeline obj) {
-        	return null;
-    }
-
-    @objid ("03efcecd-8453-42d9-94a3-b5f0593a0949")
-    @Override
-    public Object visitMessage(Message obj) {
-        	return null;
-    }
-
-    @objid ("7204da07-2f69-444f-9bbe-3fc121f99e6d")
-    @Override
-    public Object visitMessageEnd(MessageEnd obj) {
-        	return null;
-    }
-
-    @objid ("8e2c89c6-4428-4b40-b069-de77583c1cd6")
-    @Override
-    public Object visitOccurrenceSpecification(OccurrenceSpecification obj) {
-        	return null;
-    }
-
-    @objid ("5b1a1a51-f8c5-4a40-851c-1f5fdfae6a7a")
-    @Override
-    public Object visitPartDecomposition(PartDecomposition obj) {
-        	return null;
-    }
-
-    @objid ("5b9ad33d-8d9f-4b2c-9944-205b85152066")
-    @Override
-    public Object visitStateInvariant(StateInvariant obj) {
-        	return null;
-    }
-
-    @objid ("18190c00-0932-4d38-9661-6a8cfe7f1e58")
-    @Override
-    public Object visitTerminateSpecification(TerminateSpecification obj) {
-        	return null;
-    }
-
-    @objid ("b71adffb-4937-4b0a-b494-22864de7fb61")
-    @Override
-    public Object visitAbstractPseudoState(AbstractPseudoState obj) {
-        	return null;
-    }
-
-    @objid ("dbc71d6d-70df-41b9-86d7-f86f66aa0388")
-    @Override
-    public Object visitChoicePseudoState(ChoicePseudoState obj) {
-        	return null;
-    }
-
-    @objid ("282fee19-49f2-451e-9d64-44164cab8cb3")
-    @Override
-    public Object visitConnectionPointReference(ConnectionPointReference obj) {
-        	return null;
-    }
-
-    @objid ("6c1132fd-9dbe-4081-8491-cf336a9144a2")
-    @Override
-    public Object visitDeepHistoryPseudoState(DeepHistoryPseudoState obj) {
-        	return null;
-    }
-
-    @objid ("af8c331f-ee00-425d-a42c-c0ab58b22984")
-    @Override
-    public Object visitEntryPointPseudoState(EntryPointPseudoState obj) {
-        	return null;
-    }
-
-    @objid ("879f780e-b3a5-4eb9-9d6c-11b95bd4593e")
-    @Override
-    public Object visitExitPointPseudoState(ExitPointPseudoState obj) {
-        	return null;
-    }
-
-    @objid ("e9526985-96e7-48d5-9988-2da5566eb4ee")
-    @Override
-    public Object visitForkPseudoState(ForkPseudoState obj) {
-        	return null;
-    }
-
-    @objid ("cb07ab9a-7bef-4268-9960-cd5a2241cab2")
-    @Override
-    public Object visitInitialPseudoState(InitialPseudoState obj) {
-        	return null;
-    }
-
-    @objid ("04138a59-77ca-4647-8640-559d80825035")
-    @Override
-    public Object visitInternalTransition(InternalTransition obj) {
-        	return null;
-    }
-
-    @objid ("9e3dd3a7-915e-4dd6-be14-052dcb99cb03")
-    @Override
-    public Object visitJoinPseudoState(JoinPseudoState obj) {
-        	return null;
-    }
-
-    @objid ("f1f19ee8-755a-4d85-9601-9e620c5c6174")
-    @Override
-    public Object visitJunctionPseudoState(JunctionPseudoState obj) {
-        	return null;
-    }
-
-    @objid ("eca806ea-a8f5-4a1b-894e-2f88de274065")
-    @Override
-    public Object visitShallowHistoryPseudoState(ShallowHistoryPseudoState obj) {
-        	return null;
-    }
-
-    @objid ("118d85a1-17f0-46c7-957d-335cdffc937d")
-    @Override
-    public Object visitState(State obj) {
-        	return null;
-    }
-
-    @objid ("27afeb97-26a4-4816-8af6-8a3de5932e09")
-    @Override
-    public Object visitStateMachine(StateMachine obj) {
-        	return null;
-    }
-
-    @objid ("214c9019-77e7-4cc4-807b-00a331b56a26")
-    @Override
-    public Object visitStateVertex(StateVertex obj) {
-        	return null;
-    }
-
-    @objid ("f032dcff-b816-44b1-a356-6193ace71496")
-    @Override
-    public Object visitTerminatePseudoState(TerminatePseudoState obj) {
-        	return null;
-    }
-
-    @objid ("12e4718b-5633-4462-a7d4-8f0edab8c113")
-    @Override
-    public Object visitTransition(Transition obj) {
-        	return null;
-    }
-
-    @objid ("50218600-818d-41a6-9318-1afdc3dab004")
-    @Override
-    public Object visitFinalState(FinalState obj) {
-        	return null;
-    }
-
-    @objid ("0b72d142-ee13-4aeb-b7d6-cff35f55a9aa")
-    @Override
-    public Object visitRegion(Region obj) {
-        	return null;
-    }
-
-    @objid ("828947fe-6166-482b-9c33-4379c6c2c747")
-    @Override
-    public Object visitActor(Actor obj) {
-        	return null;
-    }
-
-    @objid ("4ba81232-c711-45d6-9dd1-807cb71ed79a")
-    @Override
-    public Object visitUseCase(UseCase obj) {
-        	return null;
-    }
-
-    @objid ("a4f069f1-54a2-4ae9-9a37-40edf7c8d543")
-    @Override
-    public Object visitUseCaseDependency(UseCaseDependency obj) {
-        	return null;
-    }
-
-    @objid ("5e9524aa-66e3-4cc7-b4af-d005a58fdf3a")
-    @Override
-    public Object visitExtensionPoint(ExtensionPoint obj) {
-        	return null;
-    }
-
-    @objid ("cad668f0-473a-4ddd-a19b-4064154806d0")
-    @Override
-    public Object visitAnalystItem(AnalystItem obj) {
-        	return null;
-    }
-
-    @objid ("3e461d01-8862-4a22-bd9b-0290b8034ba0")
-    @Override
-    public Object visitAnalystElement(AnalystElement obj) {
-        	return null;
-    }
-
-    @objid ("4d42ff4b-4df9-4211-a870-804ac6f4fb5b")
-    @Override
-    public Object visitAnalystContainer(AnalystContainer obj) {
-        	return null;
-    }
-
-    @objid ("8e59b631-a2cc-4d03-bd1d-78e846fa96df")
-    @Override
-    public Object visitAnalystProject(AnalystProject obj) {
-        	return null;
-    }
-
-    @objid ("a851577b-3728-455c-b479-bc60781e14b4")
-    @Override
-    public Object visitAnalystPropertyTable(AnalystPropertyTable obj) {
-        	return null;
-    }
-
-    @objid ("d471efb0-d3da-4d4d-88a9-639f78336813")
-    @Override
-    public Object visitBusinessRule(BusinessRule obj) {
-        	return null;
-    }
-
-    @objid ("09eb3ea8-b3ea-4504-b59b-1c7b3bd7d834")
-    @Override
-    public Object visitBusinessRuleContainer(BusinessRuleContainer obj) {
-        	return null;
-    }
-
-    @objid ("b4f112d0-5540-41ac-95fe-d8bf84f5b3f3")
-    @Override
-    public Object visitDictionary(Dictionary obj) {
-        	return null;
-    }
-
-    @objid ("497edf68-9550-484b-89db-b505bb49df25")
-    @Override
-    public Object visitGoal(Goal obj) {
-        	return null;
-    }
-
-    @objid ("18150e97-489a-45ac-a4c6-1ac1b278a2f1")
-    @Override
-    public Object visitGoalContainer(GoalContainer obj) {
-        	return null;
-    }
-
-    @objid ("1be02df3-92dc-447f-936c-7cd8a79cafaa")
-    @Override
-    public Object visitPropertyContainer(PropertyContainer obj) {
-        	return null;
-    }
-
-    @objid ("5b6d775d-86bb-43cf-a4f3-3281f4b16ca9")
-    @Override
-    public Object visitRequirement(Requirement obj) {
-        	return null;
-    }
-
-    @objid ("ba8c7e66-895e-4818-8543-0b4500eac54d")
-    @Override
-    public Object visitRequirementContainer(RequirementContainer obj) {
-        	return null;
-    }
-
-    @objid ("3ad5abcd-cc64-49cb-a4f5-caaeef24fdc9")
-    @Override
-    public Object visitTerm(Term obj) {
-        	return null;
-    }
-
-    @objid ("e449a259-52ab-4eb4-854d-bc50878def17")
-    @Override
-    public Object visitGenericAnalystContainer(GenericAnalystContainer obj) {
-        	return null;
-    }
-
-    @objid ("fd641140-2a7b-4dc6-896f-fc35fc5002fb")
-    @Override
-    public Object visitGenericAnalystElement(GenericAnalystElement obj) {
-        	return null;
-    }
-
-    @objid ("1682377e-7c8c-4134-a228-754ca852baac")
-    @Override
-    public Object visitInformationFlow(InformationFlow obj) {
-        	return null;
-    }
-
-    @objid ("08fd6be1-a7f1-4692-83bb-87178e4b5cdd")
-    @Override
-    public Object visitInformationItem(InformationItem obj) {
-        	return null;
-    }
-
-    @objid ("7b6269e1-547e-4b94-a48e-ce9ef9e1b5c1")
-    @Override
-    public Object visitDataFlow(DataFlow obj) {
-        	return null;
-    }
-
-    @objid ("a6dd5c87-4e5a-43fa-a0fc-c9980ba1f4c7")
-    @Override
-    public Object visitCommunicationInteraction(CommunicationInteraction obj) {
-        	return null;
-    }
-
-    @objid ("9dc632ae-44f1-42a7-8e65-985e13496284")
-    @Override
-    public Object visitCommunicationNode(CommunicationNode obj) {
-        	return null;
-    }
-
-    @objid ("edede1c3-2eca-4f5e-a8df-0b08549f1825")
-    @Override
-    public Object visitCommunicationMessage(CommunicationMessage obj) {
-        	return null;
-    }
-
-    @objid ("f524288f-4ff7-47e5-b567-72a2e4dc842e")
-    @Override
-    public Object visitCommunicationChannel(CommunicationChannel obj) {
-        	return null;
-    }
-
-    @objid ("83a34ecc-386a-486c-bc5a-408f64d8093e")
-    @Override
-    public Object visitBpmnCollaboration(BpmnCollaboration obj) {
-        	return null;
-    }
-
-    @objid ("62e545d6-955a-4b74-8f72-c2aa4be24ba5")
-    @Override
-    public Object visitBpmnLane(BpmnLane obj) {
-        	return null;
-    }
-
-    @objid ("fcf4be52-a0cb-4d43-9e09-e6a68406d893")
-    @Override
-    public Object visitBpmnLaneSet(BpmnLaneSet obj) {
-        	return null;
-    }
-
-    @objid ("a23ee507-8864-4263-b30b-07aaa09bf4bc")
-    @Override
-    public Object visitBpmnParticipant(BpmnParticipant obj) {
-        	return null;
-    }
-
-    @objid ("3ded6641-235d-4206-8cae-98981e508990")
-    @Override
-    public Object visitBpmnProcess(BpmnProcess obj) {
-        	return null;
-    }
-
-    @objid ("31b725a7-72e5-45d4-81e8-f43db0316d70")
-    @Override
-    public Object visitBpmnAssociation(BpmnAssociation obj) {
-        	return null;
-    }
-
-    @objid ("eea5019f-fe81-4c87-9102-6a35d4634e14")
-    @Override
-    public Object visitBpmnBaseElement(BpmnBaseElement obj) {
-        	return null;
-    }
-
-    @objid ("b6ad5d10-4bb5-4328-9436-8a55b1b0914d")
-    @Override
-    public Object visitBpmnArtifact(BpmnArtifact obj) {
-        	return null;
-    }
-
-    @objid ("177e764a-5d3d-466c-ba39-458f4770578d")
-    @Override
-    public Object visitBpmnFlowElement(BpmnFlowElement obj) {
-        	return null;
-    }
-
-    @objid ("588c56c1-e27f-4cd1-bd66-195b118ab375")
-    @Override
-    public Object visitBpmnFlowNode(BpmnFlowNode obj) {
-        	return null;
-    }
-
-    @objid ("0d2406b2-7dad-4a47-9041-df762d074a45")
-    @Override
-    public Object visitBpmnGroup(BpmnGroup obj) {
-        	return null;
-    }
-
-    @objid ("4f8ffda1-8f6b-4ff6-bddd-5d71b59be613")
-    @Override
-    public Object visitBpmnRootElement(BpmnRootElement obj) {
-        	return null;
-    }
-
-    @objid ("380b4e91-b653-4186-8a95-89ccdad158c9")
-    @Override
-    public Object visitBpmnBehavior(BpmnBehavior obj) {
-        	return null;
-    }
-
-    @objid ("a9933f0b-d6f7-44a6-a739-7c25866e4680")
-    @Override
-    public Object visitBpmnMessage(BpmnMessage obj) {
-        	return null;
-    }
-
-    @objid ("90515be0-ef1a-40b7-ba78-394c1deb600e")
-    @Override
-    public Object visitBpmnMessageFlow(BpmnMessageFlow obj) {
-        	return null;
-    }
-
-    @objid ("65b9b04a-46af-42d2-95ab-54752c0530aa")
-    @Override
-    public Object visitBpmnSequenceFlow(BpmnSequenceFlow obj) {
-        	return null;
-    }
-
-    @objid ("e6485c6b-e8f2-4da7-9d6c-dd71815570be")
-    @Override
-    public Object visitBpmnActivity(BpmnActivity obj) {
-        	return null;
-    }
-
-    @objid ("72de13a4-c82a-428e-8b32-d00622eafffc")
-    @Override
-    public Object visitBpmnAdHocSubProcess(BpmnAdHocSubProcess obj) {
-        	return null;
-    }
-
-    @objid ("789f3e42-283d-4067-8d43-240b36671b95")
-    @Override
-    public Object visitBpmnBusinessRuleTask(BpmnBusinessRuleTask obj) {
-        	return null;
-    }
-
-    @objid ("7715e867-8375-4cd1-8760-1f72b9208a7a")
-    @Override
-    public Object visitBpmnCallActivity(BpmnCallActivity obj) {
-        	return null;
-    }
-
-    @objid ("ee358500-ac97-4ffb-9101-3887ad713d48")
-    @Override
-    public Object visitBpmnComplexBehaviorDefinition(BpmnComplexBehaviorDefinition obj) {
-        	return null;
-    }
-
-    @objid ("01647dac-ca90-45f9-a0b5-92254adb8be4")
-    @Override
-    public Object visitBpmnLoopCharacteristics(BpmnLoopCharacteristics obj) {
-        	return null;
-    }
-
-    @objid ("ce016ef4-b927-4aca-824b-9cf021880820")
-    @Override
-    public Object visitBpmnManualTask(BpmnManualTask obj) {
-        	return null;
-    }
-
-    @objid ("ce31aef1-f81c-4a58-884a-4faa711ae882")
-    @Override
-    public Object visitBpmnMultiInstanceLoopCharacteristics(BpmnMultiInstanceLoopCharacteristics obj) {
-        	return null;
-    }
-
-    @objid ("ad53a84b-587d-4663-851c-6e5441df8d4a")
-    @Override
-    public Object visitBpmnReceiveTask(BpmnReceiveTask obj) {
-        	return null;
-    }
-
-    @objid ("61e7ba02-135e-4f9e-8561-3abf78183140")
-    @Override
-    public Object visitBpmnScriptTask(BpmnScriptTask obj) {
-        	return null;
-    }
-
-    @objid ("670a3a9b-8270-4f39-8d1e-3f921f39cd21")
-    @Override
-    public Object visitBpmnSendTask(BpmnSendTask obj) {
-        	return null;
-    }
-
-    @objid ("fabcbe80-7834-45b7-9210-578507ecc6b3")
-    @Override
-    public Object visitBpmnServiceTask(BpmnServiceTask obj) {
-        	return null;
-    }
-
-    @objid ("d249be7f-b230-49fc-97a5-e1081850c1d2")
-    @Override
-    public Object visitBpmnStandardLoopCharacteristics(BpmnStandardLoopCharacteristics obj) {
-        	return null;
-    }
-
-    @objid ("1e31f04b-f33b-4b12-9b56-b008afd9d1df")
-    @Override
-    public Object visitBpmnSubProcess(BpmnSubProcess obj) {
-        	return null;
-    }
-
-    @objid ("289e7669-7584-47f9-82bc-88d09ccf9268")
-    @Override
-    public Object visitBpmnTask(BpmnTask obj) {
-        	return null;
-    }
-
-    @objid ("91dbab60-8ceb-436b-b702-ea0613e6e212")
-    @Override
-    public Object visitBpmnTransaction(BpmnTransaction obj) {
-        	return null;
-    }
-
-    @objid ("799d87c5-af87-4e27-a7f9-2c71976a6382")
-    @Override
-    public Object visitBpmnUserTask(BpmnUserTask obj) {
-        	return null;
-    }
-
-    @objid ("383022fb-aa02-48d1-81bb-094c28eb1708")
-    @Override
-    public Object visitBpmnBoundaryEvent(BpmnBoundaryEvent obj) {
-        	return null;
-    }
-
-    @objid ("d6cfac92-83e7-465b-a3b8-73c1e2f48e4f")
-    @Override
-    public Object visitBpmnCancelEventDefinition(BpmnCancelEventDefinition obj) {
-        	return null;
-    }
-
-    @objid ("7df7adf9-8b81-4ffb-9496-0591d4e31df3")
-    @Override
-    public Object visitBpmnCatchEvent(BpmnCatchEvent obj) {
-        	return null;
-    }
-
-    @objid ("e70588e8-a1dd-4c3e-84aa-ad2fb81a1055")
-    @Override
-    public Object visitBpmnCompensateEventDefinition(BpmnCompensateEventDefinition obj) {
-        	return null;
-    }
-
-    @objid ("c0b70001-f82f-48a8-a91a-abdc02bcd724")
-    @Override
-    public Object visitBpmnConditionalEventDefinition(BpmnConditionalEventDefinition obj) {
-        	return null;
-    }
-
-    @objid ("4615334a-8e7b-46cd-9ac2-bcb7ba2cbb84")
-    @Override
-    public Object visitBpmnEndEvent(BpmnEndEvent obj) {
-        	return null;
-    }
-
-    @objid ("d1b00c1f-3c59-484c-afbc-1148ed6d8eb0")
-    @Override
-    public Object visitBpmnErrorEventDefinition(BpmnErrorEventDefinition obj) {
-        	return null;
-    }
-
-    @objid ("e1e02c24-7be5-41fb-9173-a4aa58c4988e")
-    @Override
-    public Object visitBpmnEscalationEventDefinition(BpmnEscalationEventDefinition obj) {
-        	return null;
-    }
-
-    @objid ("35498c80-4ec4-428d-8f9b-683433dc2e5c")
-    @Override
-    public Object visitBpmnEvent(BpmnEvent obj) {
-        	return null;
-    }
-
-    @objid ("46a15f9f-7be6-4406-974d-ba8ea04a846b")
-    @Override
-    public Object visitBpmnEventDefinition(BpmnEventDefinition obj) {
-        	return null;
-    }
-
-    @objid ("1e0f8ff4-461d-475b-965c-230dbfe23577")
-    @Override
-    public Object visitBpmnImplicitThrowEvent(BpmnImplicitThrowEvent obj) {
-        	return null;
-    }
-
-    @objid ("42332119-ce5d-4eed-b70f-47ef56eaa59d")
-    @Override
-    public Object visitBpmnIntermediateCatchEvent(BpmnIntermediateCatchEvent obj) {
-        	return null;
-    }
-
-    @objid ("dcd2d332-fdcf-469b-842c-940349d76dac")
-    @Override
-    public Object visitBpmnIntermediateThrowEvent(BpmnIntermediateThrowEvent obj) {
-        	return null;
-    }
-
-    @objid ("e4cee627-4e29-4d9e-9355-d15352ee98be")
-    @Override
-    public Object visitBpmnLinkEventDefinition(BpmnLinkEventDefinition obj) {
-        	return null;
-    }
-
-    @objid ("bf098815-51cf-47d5-a2d3-5f3cb560dd7a")
-    @Override
-    public Object visitBpmnMessageEventDefinition(BpmnMessageEventDefinition obj) {
-        	return null;
-    }
-
-    @objid ("0037fe6d-ea6f-4c24-ad0d-94c079c9ea18")
-    @Override
-    public Object visitBpmnSignalEventDefinition(BpmnSignalEventDefinition obj) {
-        	return null;
-    }
-
-    @objid ("230b90a5-cc59-4889-9151-cdea6d0a6bb1")
-    @Override
-    public Object visitBpmnStartEvent(BpmnStartEvent obj) {
-        	return null;
-    }
-
-    @objid ("d80568d8-7150-463d-b86f-a39d2aea25d1")
-    @Override
-    public Object visitBpmnTerminateEventDefinition(BpmnTerminateEventDefinition obj) {
-        	return null;
-    }
-
-    @objid ("efbe77f5-d09c-4185-a447-797af10cae5d")
-    @Override
-    public Object visitBpmnThrowEvent(BpmnThrowEvent obj) {
-        	return null;
-    }
-
-    @objid ("f940817d-b6f5-4648-8e1a-156d3f1c770c")
-    @Override
-    public Object visitBpmnTimerEventDefinition(BpmnTimerEventDefinition obj) {
-        	return null;
-    }
-
-    @objid ("b62beb28-d256-4cd5-b254-19e6e9487ed5")
-    @Override
-    public Object visitBpmnComplexGateway(BpmnComplexGateway obj) {
-        	return null;
-    }
-
-    @objid ("80548109-099d-426a-8996-33a9bea8be80")
-    @Override
-    public Object visitBpmnEventBasedGateway(BpmnEventBasedGateway obj) {
-        	return null;
-    }
-
-    @objid ("efb495c7-890d-4ca2-bad1-273720efa09d")
-    @Override
-    public Object visitBpmnExclusiveGateway(BpmnExclusiveGateway obj) {
-        	return null;
-    }
-
-    @objid ("0513874f-c84d-44b0-9fe9-db6f2a2c0d92")
-    @Override
-    public Object visitBpmnGateway(BpmnGateway obj) {
-        	return null;
-    }
-
-    @objid ("83bb5ee2-c32a-4b2e-a721-0510c61256d8")
-    @Override
-    public Object visitBpmnInclusiveGateway(BpmnInclusiveGateway obj) {
-        	return null;
-    }
-
-    @objid ("960ce5df-23d2-4a0d-8d79-445280a60419")
-    @Override
-    public Object visitBpmnParallelGateway(BpmnParallelGateway obj) {
-        	return null;
-    }
-
-    @objid ("03c0dd1c-56b4-4114-a665-402cb849d17a")
-    @Override
-    public Object visitBpmnDataObject(BpmnDataObject obj) {
-        	return null;
-    }
-
-    @objid ("3c302c17-27e7-4cf2-95a3-bbf03b149020")
-    @Override
-    public Object visitBpmnDataStore(BpmnDataStore obj) {
-        	return null;
-    }
-
-    @objid ("c83375b5-c420-432c-9ff6-43dc9deefa85")
-    @Override
-    public Object visitBpmnDataAssociation(BpmnDataAssociation obj) {
-        	return null;
-    }
-
-    @objid ("3be0c110-b17e-41bc-95fb-bf66e596f0f3")
-    @Override
-    public Object visitBpmnSequenceFlowDataAssociation(BpmnSequenceFlowDataAssociation obj) {
-        	return null;
-    }
-
-    @objid ("643c5d5a-b873-4310-99d5-c154109ee0a7")
-    @Override
-    public Object visitBpmnDataOutput(BpmnDataOutput obj) {
-        	return null;
-    }
-
-    @objid ("e9914738-4644-40b7-8fbb-aacc748daea8")
-    @Override
-    public Object visitBpmnDataInput(BpmnDataInput obj) {
-        	return null;
-    }
-
-    @objid ("00b01bab-3659-40e6-b115-3eff50e5fb26")
-    @Override
-    public Object visitBpmnItemAwareElement(BpmnItemAwareElement obj) {
-        	return null;
-    }
-
-    @objid ("db9d98a5-078c-4738-ba86-baf5774663d7")
-    @Override
-    public Object visitBpmnItemDefinition(BpmnItemDefinition obj) {
-        	return null;
-    }
-
-    @objid ("fcc7f076-1122-437a-8169-480757ab63df")
-    @Override
-    public Object visitBpmnDataState(BpmnDataState obj) {
-        	return null;
-    }
-
-    @objid ("a2c75b9f-0f2d-4087-86a0-bcfeb73ab42f")
-    @Override
-    public Object visitBpmnResource(BpmnResource obj) {
-        	return null;
-    }
-
-    @objid ("0892a232-6829-4385-8897-6470020367bd")
-    @Override
-    public Object visitBpmnResourceParameter(BpmnResourceParameter obj) {
-        	return null;
-    }
-
-    @objid ("c687856a-97db-4d52-89bc-fcd91dfb4eb2")
-    @Override
-    public Object visitBpmnResourceRole(BpmnResourceRole obj) {
-        	return null;
-    }
-
-    @objid ("d8b209a9-b614-49b1-b786-908eeabd6313")
-    @Override
-    public Object visitBpmnResourceParameterBinding(BpmnResourceParameterBinding obj) {
-        	return null;
-    }
-
-    @objid ("43f75ab5-911b-4617-8526-2732086ef684")
-    @Override
-    public Object visitBpmnOperation(BpmnOperation obj) {
-        	return null;
-    }
-
-    @objid ("baf0d0e5-01b3-410e-a52a-ff44ac8c17e4")
-    @Override
-    public Object visitBpmnInterface(BpmnInterface obj) {
-        	return null;
-    }
-
-    @objid ("80dfaaef-0eb1-41d7-9e65-4aaf5f6d4c0a")
-    @Override
-    public Object visitBpmnEndPoint(BpmnEndPoint obj) {
-        	return null;
-    }
-
-    @objid ("fe745995-e342-426d-a013-fdad019c9f01")
+    @objid ("43c573a4-6aba-420e-9478-76f59874c7ca")
     @Override
     public Object visitAbstractDiagram(AbstractDiagram obj) {
         	return null;
     }
 
-    @objid ("3f7f9c0c-7968-400d-8339-f667ea3fe71d")
+    @objid ("1f0ea924-b5b3-4ddf-a3ca-47189d4eaa25")
+    @Override
+    public Object visitAbstractPseudoState(AbstractPseudoState obj) {
+        	return null;
+    }
+
+    @objid ("88122872-0319-41e8-975e-89624ce6ad15")
+    @Override
+    public Object visitAbstraction(Abstraction obj) {
+        	return null;
+    }
+
+    @objid ("5ecfe302-9516-44be-97d8-fd7b4b493868")
+    @Override
+    public Object visitAcceptCallEventAction(AcceptCallEventAction obj) {
+        	return null;
+    }
+
+    @objid ("51b0de23-4c39-458b-baa7-b40b7ba7a068")
+    @Override
+    public Object visitAcceptChangeEventAction(AcceptChangeEventAction obj) {
+        	return null;
+    }
+
+    @objid ("dfc33de9-0166-45c7-bedd-c5f68ec8b03e")
+    @Override
+    public Object visitAcceptSignalAction(AcceptSignalAction obj) {
+        	return null;
+    }
+
+    @objid ("2e1a0ad1-ee38-41c6-9b3a-9ec67e164421")
+    @Override
+    public Object visitAcceptTimeEventAction(AcceptTimeEventAction obj) {
+        	return null;
+    }
+
+    @objid ("42a1ecb9-5bd9-4c1e-8a8d-4b8c82b87ac6")
+    @Override
+    public Object visitActivity(Activity obj) {
+        	return null;
+    }
+
+    @objid ("84cbae8c-0ca6-469b-91dd-63019f802f88")
+    @Override
+    public Object visitActivityAction(ActivityAction obj) {
+        	return null;
+    }
+
+    @objid ("b1df34d1-b519-46e0-9c1b-072e4b569b89")
     @Override
     public Object visitActivityDiagram(ActivityDiagram obj) {
         	return null;
     }
 
-    @objid ("8a5d5fbe-6f07-44c6-afd5-50e4912f662f")
+    @objid ("4f04792e-e36f-409d-8823-4bf2445a419c")
+    @Override
+    public Object visitActivityEdge(ActivityEdge obj) {
+        	return null;
+    }
+
+    @objid ("0415dfb2-d957-4b7d-989c-2b6ee54edf5c")
+    @Override
+    public Object visitActivityFinalNode(ActivityFinalNode obj) {
+        	return null;
+    }
+
+    @objid ("a110f9fe-ff78-4e1c-b638-f4d5c98afab3")
+    @Override
+    public Object visitActivityGroup(ActivityGroup obj) {
+        	return null;
+    }
+
+    @objid ("0ee00ae8-1539-4b7d-bb1c-755626496f2a")
+    @Override
+    public Object visitActivityNode(ActivityNode obj) {
+        	return null;
+    }
+
+    @objid ("134dd501-40f9-4a14-ae89-4e70c7f7b5d0")
+    @Override
+    public Object visitActivityParameterNode(ActivityParameterNode obj) {
+        	return null;
+    }
+
+    @objid ("47c0f68f-6c57-4b02-ab3c-d9b4aee53e6a")
+    @Override
+    public Object visitActivityPartition(ActivityPartition obj) {
+        	return null;
+    }
+
+    @objid ("4f56dd40-b0de-4462-8c39-ca0083449e4a")
+    @Override
+    public Object visitActor(Actor obj) {
+        	return null;
+    }
+
+    @objid ("6e646ef8-a017-423c-adf4-4e77fbd07692")
+    @Override
+    public Object visitAnalystContainer(AnalystContainer obj) {
+        	return null;
+    }
+
+    @objid ("488e6f9c-650b-4f26-8019-db4a194f358a")
+    @Override
+    public Object visitAnalystElement(AnalystElement obj) {
+        	return null;
+    }
+
+    @objid ("be31c531-51aa-450c-af98-d96cb8d60b20")
+    @Override
+    public Object visitAnalystItem(AnalystItem obj) {
+        	return null;
+    }
+
+    @objid ("09d8d12c-7a4c-4ce7-b9de-2bb52d5cbb45")
+    @Override
+    public Object visitAnalystProject(AnalystProject obj) {
+        	return null;
+    }
+
+    @objid ("f2b8d80c-608d-4124-b79d-44aebaecd083")
+    @Override
+    public Object visitAnalystPropertyTable(AnalystPropertyTable obj) {
+        	return null;
+    }
+
+    @objid ("4b7c4d14-45c0-4f9d-aeda-3bc4a69c6453")
+    @Override
+    public Object visitArtifact(Artifact obj) {
+        	return null;
+    }
+
+    @objid ("993d11fe-7452-461f-9abf-47989274eed9")
+    @Override
+    public Object visitAssociation(Association obj) {
+        	return null;
+    }
+
+    @objid ("c5cd0882-8099-462b-a0c7-5c088eaf660e")
+    @Override
+    public Object visitAssociationEnd(AssociationEnd obj) {
+        	return null;
+    }
+
+    @objid ("342ba5c8-c661-4b14-b7c5-44445c18a557")
+    @Override
+    public Object visitAttribute(Attribute obj) {
+        	return null;
+    }
+
+    @objid ("472eb16a-56c6-43f3-bc8d-4ee9a7772710")
+    @Override
+    public Object visitAttributeLink(AttributeLink obj) {
+        	return null;
+    }
+
+    @objid ("a9a78dd0-f4ff-4b00-9c29-174e05d118b2")
+    @Override
+    public Object visitBehavior(Behavior obj) {
+        	return null;
+    }
+
+    @objid ("8a7ac603-a35f-4346-bf16-ec6513f0ffd6")
     @Override
     public Object visitBehaviorDiagram(BehaviorDiagram obj) {
         	return null;
     }
 
-    @objid ("49648175-c367-4f59-bc92-ba13faf4985c")
+    @objid ("6f1eca3a-fb80-4569-83c0-79d5a6020b15")
     @Override
-    public Object visitClassDiagram(ClassDiagram obj) {
+    public Object visitBehaviorParameter(BehaviorParameter obj) {
         	return null;
     }
 
-    @objid ("2eb4ab38-3631-485d-8e2a-bde2e4ec22e4")
+    @objid ("d26d4b49-1797-429b-8242-f466dbe874c2")
     @Override
-    public Object visitCommunicationDiagram(CommunicationDiagram obj) {
+    public Object visitBehavioralFeature(BehavioralFeature obj) {
         	return null;
     }
 
-    @objid ("5d637ed1-927e-46d3-80fc-369e77060581")
+    @objid ("4414176d-84e7-45e1-b1a8-34db2484a074")
     @Override
-    public Object visitDeploymentDiagram(DeploymentDiagram obj) {
+    public Object visitBindableInstance(BindableInstance obj) {
         	return null;
     }
 
-    @objid ("1ef7e7d8-86df-4106-8369-933f031c357b")
+    @objid ("dd0f2770-f132-4de2-85cf-983c699de0cb")
     @Override
-    public Object visitDiagramSet(DiagramSet obj) {
+    public Object visitBinding(Binding obj) {
         	return null;
     }
 
-    @objid ("8d735194-e626-41e0-9f97-1dcdf45be7c2")
+    @objid ("5461904d-07fb-4312-935c-c499c04c5ee6")
     @Override
-    public Object visitSequenceDiagram(SequenceDiagram obj) {
+    public Object visitBpmnActivity(BpmnActivity obj) {
         	return null;
     }
 
-    @objid ("d1b44f35-d05a-48e6-9881-c10733480489")
+    @objid ("d7ca0121-f2d9-4c32-90e4-94bfc82a8c09")
     @Override
-    public Object visitStateMachineDiagram(StateMachineDiagram obj) {
+    public Object visitBpmnAdHocSubProcess(BpmnAdHocSubProcess obj) {
         	return null;
     }
 
-    @objid ("85d50ac7-3278-4a63-aeb2-adfd9b1c1e68")
+    @objid ("44b09168-96e1-4c08-88e0-8c47e06e0958")
     @Override
-    public Object visitStaticDiagram(StaticDiagram obj) {
+    public Object visitBpmnArtifact(BpmnArtifact obj) {
         	return null;
     }
 
-    @objid ("fc2a58d6-0d3b-4a3b-b24b-b89a34ff94aa")
+    @objid ("e5673e6a-31cc-486a-a2c6-9d70cf601862")
     @Override
-    public Object visitUseCaseDiagram(UseCaseDiagram obj) {
+    public Object visitBpmnAssociation(BpmnAssociation obj) {
         	return null;
     }
 
-    @objid ("55663fbc-de32-4366-939f-b25ddf23bd75")
+    @objid ("f225675c-eebb-4c9c-916b-5e8a7e6824ef")
     @Override
-    public Object visitObjectDiagram(ObjectDiagram obj) {
+    public Object visitBpmnBaseElement(BpmnBaseElement obj) {
         	return null;
     }
 
-    @objid ("633e0130-5a23-43b0-9a69-b9a4adb356e0")
+    @objid ("7ce9d0d3-d88c-4026-b938-d857910c94a3")
     @Override
-    public Object visitCompositeStructureDiagram(CompositeStructureDiagram obj) {
+    public Object visitBpmnBehavior(BpmnBehavior obj) {
         	return null;
     }
 
-    @objid ("666654b9-2838-4ce8-93ca-d02617613151")
+    @objid ("aa5d0a31-0dad-46ac-9739-fe1b37e925fb")
+    @Override
+    public Object visitBpmnBoundaryEvent(BpmnBoundaryEvent obj) {
+        	return null;
+    }
+
+    @objid ("e80736bd-b21b-43a5-a6b9-a4634fb9d981")
+    @Override
+    public Object visitBpmnBusinessRuleTask(BpmnBusinessRuleTask obj) {
+        	return null;
+    }
+
+    @objid ("b0584d20-8cab-4287-b372-7b71f571f8c0")
+    @Override
+    public Object visitBpmnCallActivity(BpmnCallActivity obj) {
+        	return null;
+    }
+
+    @objid ("778a49f1-3417-4adb-a0ed-5ec3a6ca4d31")
+    @Override
+    public Object visitBpmnCancelEventDefinition(BpmnCancelEventDefinition obj) {
+        	return null;
+    }
+
+    @objid ("5b52ba38-39a6-408c-949e-53686f5b0ccd")
+    @Override
+    public Object visitBpmnCatchEvent(BpmnCatchEvent obj) {
+        	return null;
+    }
+
+    @objid ("f6e8c7e5-a758-4540-8b17-ae7bfc68ebed")
+    @Override
+    public Object visitBpmnCollaboration(BpmnCollaboration obj) {
+        	return null;
+    }
+
+    @objid ("2c0069c0-20df-41d8-baba-33e72b754d5b")
+    @Override
+    public Object visitBpmnCompensateEventDefinition(BpmnCompensateEventDefinition obj) {
+        	return null;
+    }
+
+    @objid ("ae91a6d9-7e5d-45b8-9b3e-a292b28d44c6")
+    @Override
+    public Object visitBpmnComplexBehaviorDefinition(BpmnComplexBehaviorDefinition obj) {
+        	return null;
+    }
+
+    @objid ("ef1f853c-1383-4e1b-a4d9-f9d74b312260")
+    @Override
+    public Object visitBpmnComplexGateway(BpmnComplexGateway obj) {
+        	return null;
+    }
+
+    @objid ("01a73d6d-1976-4d76-afd8-9ecd5a2a3613")
+    @Override
+    public Object visitBpmnConditionalEventDefinition(BpmnConditionalEventDefinition obj) {
+        	return null;
+    }
+
+    @objid ("c22e0a9c-f4fe-4c2d-8701-4c6a4fe0ac01")
+    @Override
+    public Object visitBpmnDataAssociation(BpmnDataAssociation obj) {
+        	return null;
+    }
+
+    @objid ("bc708943-f5af-4e88-8714-7db371bce322")
+    @Override
+    public Object visitBpmnDataInput(BpmnDataInput obj) {
+        	return null;
+    }
+
+    @objid ("cec4e4a3-18eb-41a5-b95b-b033dee62991")
+    @Override
+    public Object visitBpmnDataObject(BpmnDataObject obj) {
+        	return null;
+    }
+
+    @objid ("e08adb7e-3535-4ea0-bfe0-930be3ffca73")
+    @Override
+    public Object visitBpmnDataOutput(BpmnDataOutput obj) {
+        	return null;
+    }
+
+    @objid ("9769e602-5dfa-433b-9cd9-609110bdfeb2")
+    @Override
+    public Object visitBpmnDataState(BpmnDataState obj) {
+        	return null;
+    }
+
+    @objid ("6fefc31a-d849-49a4-8578-3ddd1a70f98d")
+    @Override
+    public Object visitBpmnDataStore(BpmnDataStore obj) {
+        	return null;
+    }
+
+    @objid ("b16c3f13-5dd3-4c0c-b68b-abf587129fda")
+    @Override
+    public Object visitBpmnEndEvent(BpmnEndEvent obj) {
+        	return null;
+    }
+
+    @objid ("35619571-6b03-434a-a002-8087cf955a17")
+    @Override
+    public Object visitBpmnEndPoint(BpmnEndPoint obj) {
+        	return null;
+    }
+
+    @objid ("80c4b7b7-d025-4e48-a803-dd0cdcf257bc")
+    @Override
+    public Object visitBpmnErrorEventDefinition(BpmnErrorEventDefinition obj) {
+        	return null;
+    }
+
+    @objid ("4e9a24c6-1abd-425e-9799-a4d082a467d5")
+    @Override
+    public Object visitBpmnEscalationEventDefinition(BpmnEscalationEventDefinition obj) {
+        	return null;
+    }
+
+    @objid ("3e2da1c2-3e0e-45f0-8e88-fe7518dd89c0")
+    @Override
+    public Object visitBpmnEvent(BpmnEvent obj) {
+        	return null;
+    }
+
+    @objid ("40acba82-e29c-416e-8854-ce0bcc8a2336")
+    @Override
+    public Object visitBpmnEventBasedGateway(BpmnEventBasedGateway obj) {
+        	return null;
+    }
+
+    @objid ("95aad726-5837-4892-a685-939a0370b578")
+    @Override
+    public Object visitBpmnEventDefinition(BpmnEventDefinition obj) {
+        	return null;
+    }
+
+    @objid ("b50c8213-1adb-47e6-baeb-390431c93fd0")
+    @Override
+    public Object visitBpmnExclusiveGateway(BpmnExclusiveGateway obj) {
+        	return null;
+    }
+
+    @objid ("48bfb33b-7b46-4d27-9c16-6a5b6f4ecc1d")
+    @Override
+    public Object visitBpmnFlowElement(BpmnFlowElement obj) {
+        	return null;
+    }
+
+    @objid ("8032a19b-a576-445a-b2e4-4970212d5d4c")
+    @Override
+    public Object visitBpmnFlowNode(BpmnFlowNode obj) {
+        	return null;
+    }
+
+    @objid ("5e43e48c-5740-4ede-a9c3-65ac63c87853")
+    @Override
+    public Object visitBpmnGateway(BpmnGateway obj) {
+        	return null;
+    }
+
+    @objid ("47645ac0-d457-47e8-a32a-3fea356302b7")
+    @Override
+    public Object visitBpmnGroup(BpmnGroup obj) {
+        	return null;
+    }
+
+    @objid ("1c87da5d-f12f-4879-86da-3950073e9e97")
+    @Override
+    public Object visitBpmnImplicitThrowEvent(BpmnImplicitThrowEvent obj) {
+        	return null;
+    }
+
+    @objid ("88948ad8-f9a2-4e84-b9cb-3ae41ce27a85")
+    @Override
+    public Object visitBpmnInclusiveGateway(BpmnInclusiveGateway obj) {
+        	return null;
+    }
+
+    @objid ("d3526f1d-a5d0-4630-b105-e9941ffb2522")
+    @Override
+    public Object visitBpmnInterface(BpmnInterface obj) {
+        	return null;
+    }
+
+    @objid ("57010966-9b84-4a3c-81e8-7c339f4a76e1")
+    @Override
+    public Object visitBpmnIntermediateCatchEvent(BpmnIntermediateCatchEvent obj) {
+        	return null;
+    }
+
+    @objid ("c50ac867-969c-4e02-8c79-ff218530c98a")
+    @Override
+    public Object visitBpmnIntermediateThrowEvent(BpmnIntermediateThrowEvent obj) {
+        	return null;
+    }
+
+    @objid ("b85f99f7-d68a-416f-b0b2-abe046c9c7e6")
+    @Override
+    public Object visitBpmnItemAwareElement(BpmnItemAwareElement obj) {
+        	return null;
+    }
+
+    @objid ("e93c0d11-8386-4a5d-8e44-9ddcdab380fe")
+    @Override
+    public Object visitBpmnItemDefinition(BpmnItemDefinition obj) {
+        	return null;
+    }
+
+    @objid ("a62958a6-7784-48e4-9dc2-992bad91868c")
+    @Override
+    public Object visitBpmnLane(BpmnLane obj) {
+        	return null;
+    }
+
+    @objid ("b21bf3cd-05c7-403f-bf44-fb9969f39eef")
+    @Override
+    public Object visitBpmnLaneSet(BpmnLaneSet obj) {
+        	return null;
+    }
+
+    @objid ("f6450560-39a0-4c46-82c1-ffb5c028e55f")
+    @Override
+    public Object visitBpmnLinkEventDefinition(BpmnLinkEventDefinition obj) {
+        	return null;
+    }
+
+    @objid ("23f2ae05-70cc-42ac-a9b1-9b1f35e8db38")
+    @Override
+    public Object visitBpmnLoopCharacteristics(BpmnLoopCharacteristics obj) {
+        	return null;
+    }
+
+    @objid ("a9050dc3-8f0a-40a3-8b1e-8c3f91f4f895")
+    @Override
+    public Object visitBpmnManualTask(BpmnManualTask obj) {
+        	return null;
+    }
+
+    @objid ("1a1fc577-bb25-4c01-8dbb-7466b4e9a41d")
+    @Override
+    public Object visitBpmnMessage(BpmnMessage obj) {
+        	return null;
+    }
+
+    @objid ("0f35b92a-51e0-406d-b7d6-0be2b1ff1d0f")
+    @Override
+    public Object visitBpmnMessageEventDefinition(BpmnMessageEventDefinition obj) {
+        	return null;
+    }
+
+    @objid ("559b8bcd-4b89-4760-9480-b56f71cc0d5d")
+    @Override
+    public Object visitBpmnMessageFlow(BpmnMessageFlow obj) {
+        	return null;
+    }
+
+    @objid ("591d0d80-2179-4f59-8bc2-f33f815b2e89")
+    @Override
+    public Object visitBpmnMultiInstanceLoopCharacteristics(BpmnMultiInstanceLoopCharacteristics obj) {
+        	return null;
+    }
+
+    @objid ("6ef934c5-1ab3-48a4-b692-417413e0ffa4")
+    @Override
+    public Object visitBpmnOperation(BpmnOperation obj) {
+        	return null;
+    }
+
+    @objid ("99fbd1ac-25cd-457c-991e-a2b065313d17")
+    @Override
+    public Object visitBpmnParallelGateway(BpmnParallelGateway obj) {
+        	return null;
+    }
+
+    @objid ("e16d1b87-82af-49ff-b97d-139dc9645790")
+    @Override
+    public Object visitBpmnParticipant(BpmnParticipant obj) {
+        	return null;
+    }
+
+    @objid ("a07dfc48-b944-4fb2-b9db-8c2a820cabe0")
+    @Override
+    public Object visitBpmnProcess(BpmnProcess obj) {
+        	return null;
+    }
+
+    @objid ("13c31e2c-0980-4435-98a4-66859c6832df")
     @Override
     public Object visitBpmnProcessCollaborationDiagram(BpmnProcessCollaborationDiagram obj) {
         	return null;
     }
 
-    @objid ("4b881f40-6d27-4266-85bd-847672fcfead")
+    @objid ("d36e7b4f-e489-4e5c-badc-3fd471f1dda3")
+    @Override
+    public Object visitBpmnReceiveTask(BpmnReceiveTask obj) {
+        	return null;
+    }
+
+    @objid ("f78b1303-6d48-49aa-96f6-90376885a970")
+    @Override
+    public Object visitBpmnResource(BpmnResource obj) {
+        	return null;
+    }
+
+    @objid ("0b96ac7f-316a-47ba-b1c8-f74fa3952d05")
+    @Override
+    public Object visitBpmnResourceParameter(BpmnResourceParameter obj) {
+        	return null;
+    }
+
+    @objid ("558cc21c-660b-4c38-b125-b3d733e50cc4")
+    @Override
+    public Object visitBpmnResourceParameterBinding(BpmnResourceParameterBinding obj) {
+        	return null;
+    }
+
+    @objid ("068fddf8-5f30-4fd7-b103-2c66ea05ae6b")
+    @Override
+    public Object visitBpmnResourceRole(BpmnResourceRole obj) {
+        	return null;
+    }
+
+    @objid ("aea46a55-3a70-4273-a3c7-9f8227a3bba0")
+    @Override
+    public Object visitBpmnRootElement(BpmnRootElement obj) {
+        	return null;
+    }
+
+    @objid ("79755f87-74e3-4f50-9304-941314386d61")
+    @Override
+    public Object visitBpmnScriptTask(BpmnScriptTask obj) {
+        	return null;
+    }
+
+    @objid ("0aa6381f-6974-4c30-b5bd-c37ccd5c7175")
+    @Override
+    public Object visitBpmnSendTask(BpmnSendTask obj) {
+        	return null;
+    }
+
+    @objid ("df30dba4-2f04-49dd-af50-c44edd8be427")
+    @Override
+    public Object visitBpmnSequenceFlow(BpmnSequenceFlow obj) {
+        	return null;
+    }
+
+    @objid ("2e3851f0-d39f-4fa0-b380-275e3b2a8424")
+    @Override
+    public Object visitBpmnSequenceFlowDataAssociation(BpmnSequenceFlowDataAssociation obj) {
+        	return null;
+    }
+
+    @objid ("1fbdab18-f0f1-4eeb-9390-b4690689fe94")
+    @Override
+    public Object visitBpmnServiceTask(BpmnServiceTask obj) {
+        	return null;
+    }
+
+    @objid ("86985532-df8d-4dfd-b42f-43ff5b2899bb")
+    @Override
+    public Object visitBpmnSignalEventDefinition(BpmnSignalEventDefinition obj) {
+        	return null;
+    }
+
+    @objid ("c204ec6d-eaae-4dde-8c1e-d39f5a131cce")
+    @Override
+    public Object visitBpmnStandardLoopCharacteristics(BpmnStandardLoopCharacteristics obj) {
+        	return null;
+    }
+
+    @objid ("d98a2a1e-2d30-42da-8f3d-ae8fe0c468b7")
+    @Override
+    public Object visitBpmnStartEvent(BpmnStartEvent obj) {
+        	return null;
+    }
+
+    @objid ("80dc5ff9-e40c-4a0b-b5c0-053cde204741")
+    @Override
+    public Object visitBpmnSubProcess(BpmnSubProcess obj) {
+        	return null;
+    }
+
+    @objid ("68cb1a14-fd0d-443d-989b-b39cca8a1576")
     @Override
     public Object visitBpmnSubProcessDiagram(BpmnSubProcessDiagram obj) {
         	return null;
     }
 
-    @objid ("42575134-79d5-47cc-98df-e24bfd6187c7")
+    @objid ("7a54ced9-54a7-47f3-98bd-16a7ed13ece8")
     @Override
-    public Object visitModuleParameter(ModuleParameter obj) {
+    public Object visitBpmnTask(BpmnTask obj) {
         	return null;
     }
 
-    @objid ("14f8268a-7618-4ded-bc59-97cf1ffbfe01")
+    @objid ("1c942756-89f3-46d7-9d5f-96e63d8cd5a3")
+    @Override
+    public Object visitBpmnTerminateEventDefinition(BpmnTerminateEventDefinition obj) {
+        	return null;
+    }
+
+    @objid ("cd218100-1aa2-4e3d-84b8-0a5e5db6200e")
+    @Override
+    public Object visitBpmnThrowEvent(BpmnThrowEvent obj) {
+        	return null;
+    }
+
+    @objid ("65374876-24be-4c71-a615-306b73ec4178")
+    @Override
+    public Object visitBpmnTimerEventDefinition(BpmnTimerEventDefinition obj) {
+        	return null;
+    }
+
+    @objid ("410d52ed-d442-42f7-812e-91d86e1ae1c0")
+    @Override
+    public Object visitBpmnTransaction(BpmnTransaction obj) {
+        	return null;
+    }
+
+    @objid ("a866ae37-1f3a-4a6f-8186-9167e3123d34")
+    @Override
+    public Object visitBpmnUserTask(BpmnUserTask obj) {
+        	return null;
+    }
+
+    @objid ("55ab0cd6-8235-4411-b31c-dc473de344be")
+    @Override
+    public Object visitBusinessRule(BusinessRule obj) {
+        	return null;
+    }
+
+    @objid ("8b3bc540-f917-4d9f-993f-b337531e415d")
+    @Override
+    public Object visitBusinessRuleContainer(BusinessRuleContainer obj) {
+        	return null;
+    }
+
+    @objid ("226ab5a5-3a57-4d93-b31a-7d46eb602014")
+    @Override
+    public Object visitCallAction(CallAction obj) {
+        	return null;
+    }
+
+    @objid ("1c0b60a8-5d32-4b78-a171-30b86bbe8ddf")
+    @Override
+    public Object visitCallBehaviorAction(CallBehaviorAction obj) {
+        	return null;
+    }
+
+    @objid ("931fffe1-ac25-43f9-9f64-521c59f63c4d")
+    @Override
+    public Object visitCallOperationAction(CallOperationAction obj) {
+        	return null;
+    }
+
+    @objid ("a568b0d6-b323-471e-88a9-1f7792c1bc6c")
+    @Override
+    public Object visitCentralBufferNode(CentralBufferNode obj) {
+        	return null;
+    }
+
+    @objid ("63cd8545-1548-44d4-a85c-6a5c8bf5fb9a")
+    @Override
+    public Object visitChoicePseudoState(ChoicePseudoState obj) {
+        	return null;
+    }
+
+    @objid ("24c6bdb2-1b42-4f5b-a190-12768814602c")
+    @Override
+    public Object visitClass(Class obj) {
+        	return null;
+    }
+
+    @objid ("4007221c-93e9-4189-98d3-55b161203dd6")
+    @Override
+    public Object visitClassAssociation(ClassAssociation obj) {
+        	return null;
+    }
+
+    @objid ("22a9c3e3-3b2a-4486-a0c9-c82dc8a5bc3d")
+    @Override
+    public Object visitClassDiagram(ClassDiagram obj) {
+        	return null;
+    }
+
+    @objid ("08badbe7-9f68-40b4-894c-f11d4b29a35c")
+    @Override
+    public Object visitClassifier(Classifier obj) {
+        	return null;
+    }
+
+    @objid ("5a8faa2e-46e1-4de7-b922-70e9036263c8")
+    @Override
+    public Object visitClause(Clause obj) {
+        	return null;
+    }
+
+    @objid ("14783ad1-a02f-48f5-b201-9ddd92249e73")
+    @Override
+    public Object visitCollaboration(Collaboration obj) {
+        	return null;
+    }
+
+    @objid ("61bfef80-06dd-4d32-97bf-cecd547a9755")
+    @Override
+    public Object visitCollaborationUse(CollaborationUse obj) {
+        	return null;
+    }
+
+    @objid ("2553f0cf-14d6-4037-b08b-494f6c777f0c")
+    @Override
+    public Object visitCombinedFragment(CombinedFragment obj) {
+        	return null;
+    }
+
+    @objid ("677522a4-85d6-45c5-92af-e7d0f05234e9")
+    @Override
+    public Object visitCommunicationChannel(CommunicationChannel obj) {
+        	return null;
+    }
+
+    @objid ("a9acb5dc-e420-447a-8d8b-60a8f4c5f8e5")
+    @Override
+    public Object visitCommunicationDiagram(CommunicationDiagram obj) {
+        	return null;
+    }
+
+    @objid ("24508ecc-fcd5-45a2-8eb2-2dee73620282")
+    @Override
+    public Object visitCommunicationInteraction(CommunicationInteraction obj) {
+        	return null;
+    }
+
+    @objid ("df9b1347-eeea-4991-9ad1-926c91684dfb")
+    @Override
+    public Object visitCommunicationMessage(CommunicationMessage obj) {
+        	return null;
+    }
+
+    @objid ("ebd3cc98-aed0-4b3e-8608-1c507b48279f")
+    @Override
+    public Object visitCommunicationNode(CommunicationNode obj) {
+        	return null;
+    }
+
+    @objid ("ac80b43c-e74b-426c-b83d-8346b40d2a5f")
+    @Override
+    public Object visitComponent(Component obj) {
+        	return null;
+    }
+
+    @objid ("7efda445-3622-4492-affc-1273308e06c7")
+    @Override
+    public Object visitComponentRealization(ComponentRealization obj) {
+        	return null;
+    }
+
+    @objid ("ad8bf68f-8716-462d-890e-9c93953568a8")
+    @Override
+    public Object visitCompositeStructureDiagram(CompositeStructureDiagram obj) {
+        	return null;
+    }
+
+    @objid ("52fbdece-f00c-413e-81d8-71e036a44620")
+    @Override
+    public Object visitConditionalNode(ConditionalNode obj) {
+        	return null;
+    }
+
+    @objid ("7e2fd921-1442-446b-b4c7-9d6ed348a6e0")
+    @Override
+    public Object visitConnectionPointReference(ConnectionPointReference obj) {
+        	return null;
+    }
+
+    @objid ("58b6c599-04d4-41fc-8f42-cf68d40326be")
+    @Override
+    public Object visitConnector(Connector obj) {
+        	return null;
+    }
+
+    @objid ("4896f6eb-9ed9-4a96-8804-a7fddb5205d4")
+    @Override
+    public Object visitConnectorEnd(ConnectorEnd obj) {
+        	return null;
+    }
+
+    @objid ("71f61f62-f299-483a-a4bf-acaeac2ea9f6")
+    @Override
+    public Object visitConstraint(Constraint obj) {
+        	return null;
+    }
+
+    @objid ("af0847e6-3ccd-4177-9660-abd668e61bf0")
+    @Override
+    public Object visitControlFlow(ControlFlow obj) {
+        	return null;
+    }
+
+    @objid ("74f0284a-b7be-413a-b9df-2bb604e72af8")
+    @Override
+    public Object visitControlNode(ControlNode obj) {
+        	return null;
+    }
+
+    @objid ("d95c18e8-fc00-4e4d-b9a5-f0fab2404b2d")
+    @Override
+    public Object visitDataFlow(DataFlow obj) {
+        	return null;
+    }
+
+    @objid ("5fb2ccea-2594-4bdc-a85f-3f1476d948a6")
+    @Override
+    public Object visitDataStoreNode(DataStoreNode obj) {
+        	return null;
+    }
+
+    @objid ("54231130-18ce-4392-98e8-c3f2bdb0c02c")
+    @Override
+    public Object visitDataType(DataType obj) {
+        	return null;
+    }
+
+    @objid ("b062ce8a-9baf-4984-b489-77f82d9697cf")
+    @Override
+    public Object visitDecisionMergeNode(DecisionMergeNode obj) {
+        	return null;
+    }
+
+    @objid ("2b5beaf4-8d95-4880-a438-218d7f070c63")
+    @Override
+    public Object visitDeepHistoryPseudoState(DeepHistoryPseudoState obj) {
+        	return null;
+    }
+
+    @objid ("e1068a49-e8e5-46b2-9513-f1461c602e52")
+    @Override
+    public Object visitDependency(Dependency obj) {
+        	return null;
+    }
+
+    @objid ("d33c8376-9fd4-4d2d-a7e4-ad0a9c8461a2")
+    @Override
+    public Object visitDeploymentDiagram(DeploymentDiagram obj) {
+        	return null;
+    }
+
+    @objid ("3de5ec64-efa2-4057-a675-910994a29a8e")
+    @Override
+    public Object visitDiagramSet(DiagramSet obj) {
+        	return null;
+    }
+
+    @objid ("e42490df-3b9a-4f1f-b34a-73fcf884497d")
+    @Override
+    public Object visitDictionary(Dictionary obj) {
+        	return null;
+    }
+
+    @objid ("4fc9cdeb-1c5a-45e2-b71c-e2df3f0032f8")
+    @Override
+    public Object visitDurationConstraint(DurationConstraint obj) {
+        	return null;
+    }
+
+    @objid ("2378405e-d403-4b6f-a9b1-289cbd0861c0")
+    @Override
+    public Object visitElement(Element obj) {
+        	return null;
+    }
+
+    @objid ("66193d79-fd16-4c47-ac21-5679dc74b605")
+    @Override
+    public Object visitElementImport(ElementImport obj) {
+        	return null;
+    }
+
+    @objid ("3cfc9bba-d0fb-41c6-a9ac-daa869f41894")
+    @Override
+    public Object visitElementRealization(ElementRealization obj) {
+        	return null;
+    }
+
+    @objid ("bfe2b550-9cee-4bc0-8fa2-e20661be7a27")
+    @Override
+    public Object visitEntryPointPseudoState(EntryPointPseudoState obj) {
+        	return null;
+    }
+
+    @objid ("7e214d31-ec38-4be3-86ab-f3cd1ec26cc2")
+    @Override
+    public Object visitEnumeratedPropertyType(EnumeratedPropertyType obj) {
+        	return null;
+    }
+
+    @objid ("a4067fc8-4bc8-4165-b262-63817632b522")
+    @Override
+    public Object visitEnumeration(Enumeration obj) {
+        	return null;
+    }
+
+    @objid ("080f58c3-77ca-46d5-a164-b32017f55cef")
+    @Override
+    public Object visitEnumerationLiteral(EnumerationLiteral obj) {
+        	return null;
+    }
+
+    @objid ("a47338b5-4814-48c0-8159-1546a7f638e7")
+    @Override
+    public Object visitEvent(Event obj) {
+        	return null;
+    }
+
+    @objid ("4a24a0c5-61cf-4b5c-b0e9-669fe2a433a5")
+    @Override
+    public Object visitExceptionHandler(ExceptionHandler obj) {
+        	return null;
+    }
+
+    @objid ("7cba5755-1814-4b0e-9f9d-d80679b91737")
+    @Override
+    public Object visitExecutionOccurenceSpecification(ExecutionOccurenceSpecification obj) {
+        	return null;
+    }
+
+    @objid ("8a9f6225-5449-4bcd-a931-5eb15c23f284")
+    @Override
+    public Object visitExecutionSpecification(ExecutionSpecification obj) {
+        	return null;
+    }
+
+    @objid ("9a6549ab-1307-40c2-8eb6-9ad29e3d9749")
+    @Override
+    public Object visitExitPointPseudoState(ExitPointPseudoState obj) {
+        	return null;
+    }
+
+    @objid ("c5becf05-9576-42ab-9d9d-ae33a92a3ad8")
+    @Override
+    public Object visitExpansionNode(ExpansionNode obj) {
+        	return null;
+    }
+
+    @objid ("5eccd0f1-42c1-4957-ac67-f743656d95d1")
+    @Override
+    public Object visitExpansionRegion(ExpansionRegion obj) {
+        	return null;
+    }
+
+    @objid ("13254594-e0e1-4a1c-a9be-2a13a5af3cea")
+    @Override
+    public Object visitExtensionPoint(ExtensionPoint obj) {
+        	return null;
+    }
+
+    @objid ("744062f3-16f1-4da2-b50c-0f90290e14cf")
+    @Override
+    public Object visitExternDocument(ExternDocument obj) {
+        	return null;
+    }
+
+    @objid ("17d497ed-2004-4f9f-b1e3-fff6689f2e07")
+    @Override
+    public Object visitExternDocumentType(ExternDocumentType obj) {
+        	return null;
+    }
+
+    @objid ("1121c142-6dd9-4761-bc9c-85e040a7dcd0")
+    @Override
+    public Object visitExternProcessor(ExternProcessor obj) {
+        	return null;
+    }
+
+    @objid ("d7b57293-50ce-4fe9-a3be-8dbb41454d7c")
+    @Override
+    public Object visitFeature(Feature obj) {
+        	return null;
+    }
+
+    @objid ("8bc7d6f3-c87b-4fec-bd0c-0c839bdde56c")
+    @Override
+    public Object visitFinalNode(FinalNode obj) {
+        	return null;
+    }
+
+    @objid ("e3a29bbe-5367-4125-bd06-c80d7873c98d")
+    @Override
+    public Object visitFinalState(FinalState obj) {
+        	return null;
+    }
+
+    @objid ("21f734e2-48fb-4fac-9376-fb88719cdc32")
+    @Override
+    public Object visitFlowFinalNode(FlowFinalNode obj) {
+        	return null;
+    }
+
+    @objid ("172129ba-d61d-43b3-8394-681669fd592e")
+    @Override
+    public Object visitForkJoinNode(ForkJoinNode obj) {
+        	return null;
+    }
+
+    @objid ("861b0f2e-ae03-4fe8-8afc-7e8d8996b494")
+    @Override
+    public Object visitForkPseudoState(ForkPseudoState obj) {
+        	return null;
+    }
+
+    @objid ("ac388131-0472-45f0-a1cc-c3cd83bcd9f3")
+    @Override
+    public Object visitGate(Gate obj) {
+        	return null;
+    }
+
+    @objid ("deea5288-7e78-45b6-838d-897d8c0474a9")
+    @Override
+    public Object visitGeneralClass(GeneralClass obj) {
+        	return null;
+    }
+
+    @objid ("045aab82-e4df-48c1-aa52-74e46f511182")
+    @Override
+    public Object visitGeneralOrdering(GeneralOrdering obj) {
+        	return null;
+    }
+
+    @objid ("d4d332c4-badf-49a8-889c-6f20d5b3a248")
+    @Override
+    public Object visitGeneralization(Generalization obj) {
+        	return null;
+    }
+
+    @objid ("f917590d-d8ff-42dc-a67e-cfdc60c364d1")
+    @Override
+    public Object visitGenericAnalystContainer(GenericAnalystContainer obj) {
+        	return null;
+    }
+
+    @objid ("b6456cc9-747e-4bc7-97a3-e836bf821b16")
+    @Override
+    public Object visitGenericAnalystElement(GenericAnalystElement obj) {
+        	return null;
+    }
+
+    @objid ("684809a9-f55a-4e36-80ae-8e1345d3ce2f")
+    @Override
+    public Object visitGoal(Goal obj) {
+        	return null;
+    }
+
+    @objid ("57a802b5-f9f7-4aa4-be29-74c265afad15")
+    @Override
+    public Object visitGoalContainer(GoalContainer obj) {
+        	return null;
+    }
+
+    @objid ("cc3726a7-b163-40f4-874a-2125fcd99212")
+    @Override
+    public Object visitInformationFlow(InformationFlow obj) {
+        	return null;
+    }
+
+    @objid ("748f2d4f-2ebe-47a6-82e5-b27b41f441c8")
+    @Override
+    public Object visitInformationItem(InformationItem obj) {
+        	return null;
+    }
+
+    @objid ("ab4617f3-3102-437c-9672-97f2423f98bb")
+    @Override
+    public Object visitInitialNode(InitialNode obj) {
+        	return null;
+    }
+
+    @objid ("7d95c2a6-0dad-4796-9eea-7adc15bfbb85")
+    @Override
+    public Object visitInitialPseudoState(InitialPseudoState obj) {
+        	return null;
+    }
+
+    @objid ("a8d9328a-287f-4390-864f-3fcd3b463db9")
+    @Override
+    public Object visitInputPin(InputPin obj) {
+        	return null;
+    }
+
+    @objid ("89992211-6399-4aae-8cea-0e57cf7835ed")
+    @Override
+    public Object visitInstance(Instance obj) {
+        	return null;
+    }
+
+    @objid ("ec6827f8-8a50-4dd5-83ba-209bc3ecc250")
+    @Override
+    public Object visitInstanceNode(InstanceNode obj) {
+        	return null;
+    }
+
+    @objid ("64fb6586-3f52-4ce8-a99c-8be9c7a753b7")
+    @Override
+    public Object visitInteraction(Interaction obj) {
+        	return null;
+    }
+
+    @objid ("967c54ce-ce2d-4b25-bad6-de16196a91af")
+    @Override
+    public Object visitInteractionFragment(InteractionFragment obj) {
+        	return null;
+    }
+
+    @objid ("57eb186c-c782-48c6-b543-f5526113c289")
+    @Override
+    public Object visitInteractionOperand(InteractionOperand obj) {
+        	return null;
+    }
+
+    @objid ("11f97a41-a1e8-41b9-ae35-6d8df3201386")
+    @Override
+    public Object visitInteractionUse(InteractionUse obj) {
+        	return null;
+    }
+
+    @objid ("83d7aa3e-6358-4a98-921f-d9acb7d31fda")
+    @Override
+    public Object visitInterface(Interface obj) {
+        	return null;
+    }
+
+    @objid ("feeee0e7-9f21-4962-a7c8-2fafdd3b967c")
+    @Override
+    public Object visitInterfaceRealization(InterfaceRealization obj) {
+        	return null;
+    }
+
+    @objid ("9116376e-37c1-46a1-bc03-32bb51a25845")
+    @Override
+    public Object visitInternalTransition(InternalTransition obj) {
+        	return null;
+    }
+
+    @objid ("037f4bb3-1b68-4aaf-8786-197c96fa4963")
+    @Override
+    public Object visitInterruptibleActivityRegion(InterruptibleActivityRegion obj) {
+        	return null;
+    }
+
+    @objid ("e0617d83-999c-4910-99ae-57b98e7ff3d9")
+    @Override
+    public Object visitJoinPseudoState(JoinPseudoState obj) {
+        	return null;
+    }
+
+    @objid ("d47fafc6-22aa-404f-9aec-b0ef6c120165")
+    @Override
+    public Object visitJunctionPseudoState(JunctionPseudoState obj) {
+        	return null;
+    }
+
+    @objid ("3a14ce59-6900-4fbc-93f3-42173e62237d")
+    @Override
+    public Object visitLifeline(Lifeline obj) {
+        	return null;
+    }
+
+    @objid ("2dc828c5-7269-4ffd-ba2e-e113377e5c3e")
+    @Override
+    public Object visitLink(Link obj) {
+        	return null;
+    }
+
+    @objid ("e9c96f5f-770e-4d00-ba7e-779066576c08")
+    @Override
+    public Object visitLinkEnd(LinkEnd obj) {
+        	return null;
+    }
+
+    @objid ("1d570ca0-e4bd-4609-870b-d5ab0be2605e")
+    @Override
+    public Object visitLocalPropertyTable(LocalPropertyTable obj) {
+        	return null;
+    }
+
+    @objid ("e5a3fa82-ad86-4074-8fd7-a0598c0b4a7e")
+    @Override
+    public Object visitLoopNode(LoopNode obj) {
+        	return null;
+    }
+
+    @objid ("b665017d-397b-4e0f-ba7b-55421b82380f")
+    @Override
+    public Object visitManifestation(Manifestation obj) {
+        	return null;
+    }
+
+    @objid ("06c533eb-2879-43ca-a60e-93f96b7bad09")
+    @Override
+    public Object visitMatrixDefinition(MatrixDefinition obj) {
+        	return null;
+    }
+
+    @objid ("b18dba70-9e87-4fbb-bb2d-aa1d657df0af")
+    @Override
+    public Object visitMatrixValueDefinition(MatrixValueDefinition obj) {
+        	return null;
+    }
+
+    @objid ("63289bc3-b665-4b3c-b501-d94d26d15d5a")
+    @Override
+    public Object visitMessage(Message obj) {
+        	return null;
+    }
+
+    @objid ("d76ff55f-93cf-4f0f-aefb-e05ca5d6f80a")
+    @Override
+    public Object visitMessageEnd(MessageEnd obj) {
+        	return null;
+    }
+
+    @objid ("4b0bfd7b-1197-46b7-b03b-6f6b9bf77d15")
+    @Override
+    public Object visitMessageFlow(MessageFlow obj) {
+        	return null;
+    }
+
+    @objid ("ede45ff6-c345-4364-b161-9f4dcd0c0d25")
+    @Override
+    public Object visitMetaclassReference(MetaclassReference obj) {
+        	return null;
+    }
+
+    @objid ("1fbc9df1-c448-4d08-9293-db905352806e")
+    @Override
+    public Object visitModelElement(ModelElement obj) {
+        	return null;
+    }
+
+    @objid ("f5222906-0b2f-4dbd-b07c-b6b68ea6373a")
+    @Override
+    public Object visitModelTree(ModelTree obj) {
+        	return null;
+    }
+
+    @objid ("a6ff1c80-dc19-4e2b-bfeb-0f6341414ce7")
     @Override
     public Object visitModuleComponent(ModuleComponent obj) {
         	return null;
     }
 
-    @objid ("f43e6eee-391f-4042-8e32-d695a44dde69")
+    @objid ("e14811f2-f98c-4c4b-a9ec-6a45613ce4b7")
+    @Override
+    public Object visitModuleParameter(ModuleParameter obj) {
+        	return null;
+    }
+
+    @objid ("cc3466a4-0202-493a-a83b-cec31c0baa55")
+    @Override
+    public Object visitNameSpace(NameSpace obj) {
+        	return null;
+    }
+
+    @objid ("a8df6e5a-6c4b-4a0f-a9ab-d83e542d2c3c")
+    @Override
+    public Object visitNamespaceUse(NamespaceUse obj) {
+        	return null;
+    }
+
+    @objid ("598b87af-6721-44b7-9362-a63fb863c07e")
+    @Override
+    public Object visitNaryAssociation(NaryAssociation obj) {
+        	return null;
+    }
+
+    @objid ("7bb43bac-a71c-41d1-8ea9-d336c693d672")
+    @Override
+    public Object visitNaryAssociationEnd(NaryAssociationEnd obj) {
+        	return null;
+    }
+
+    @objid ("37e7a5f6-21fc-4fa7-991b-c84adb69260e")
+    @Override
+    public Object visitNaryConnector(NaryConnector obj) {
+        	return null;
+    }
+
+    @objid ("0d58951b-7490-4d41-a99d-fe316c8cc9bb")
+    @Override
+    public Object visitNaryConnectorEnd(NaryConnectorEnd obj) {
+        	return null;
+    }
+
+    @objid ("85c6265a-3bde-417f-a902-f9c51a6637c1")
+    @Override
+    public Object visitNaryLink(NaryLink obj) {
+        	return null;
+    }
+
+    @objid ("a3223157-2ee8-44ad-b125-376dfa97c29c")
+    @Override
+    public Object visitNaryLinkEnd(NaryLinkEnd obj) {
+        	return null;
+    }
+
+    @objid ("d772f34e-b297-4358-84db-0919a2305351")
+    @Override
+    public Object visitNode(Node obj) {
+        	return null;
+    }
+
+    @objid ("eb4f0c6d-0bc4-464a-a68f-3a55d5382bfe")
+    @Override
+    public Object visitNote(Note obj) {
+        	return null;
+    }
+
+    @objid ("78e21c01-77d8-429b-8987-ebe62e92d38d")
+    @Override
+    public Object visitNoteType(NoteType obj) {
+        	return null;
+    }
+
+    @objid ("153544eb-40ea-4200-bff8-455c37bcdd97")
+    @Override
+    public Object visitObjectDiagram(ObjectDiagram obj) {
+        	return null;
+    }
+
+    @objid ("7ce9dc25-707f-489f-b01e-575e87ab5d19")
+    @Override
+    public Object visitObjectFlow(ObjectFlow obj) {
+        	return null;
+    }
+
+    @objid ("572e4081-60f2-4b2f-a2d5-4d3d04f2f6fc")
+    @Override
+    public Object visitObjectNode(ObjectNode obj) {
+        	return null;
+    }
+
+    @objid ("5214239b-cb3e-42c1-85cd-95b602771665")
+    @Override
+    public Object visitOccurrenceSpecification(OccurrenceSpecification obj) {
+        	return null;
+    }
+
+    @objid ("b245717a-068c-42d1-bd40-cb2bfc21ab2d")
+    @Override
+    public Object visitOpaqueAction(OpaqueAction obj) {
+        	return null;
+    }
+
+    @objid ("544bd847-a942-4424-9e2d-9c4679abe957")
+    @Override
+    public Object visitOpaqueBehavior(OpaqueBehavior obj) {
+        	return null;
+    }
+
+    @objid ("1c2a6af5-2e72-49ec-a5d4-b4b953aea2a4")
+    @Override
+    public Object visitOperation(Operation obj) {
+        	return null;
+    }
+
+    @objid ("b9fe13e6-c5fe-4475-8a69-d99943981254")
+    @Override
+    public Object visitOutputPin(OutputPin obj) {
+        	return null;
+    }
+
+    @objid ("7d9cd572-a5d9-4e4c-bf86-2816f7867d9e")
+    @Override
+    public Object visitPackage(Package obj) {
+        	return null;
+    }
+
+    @objid ("9a2f4d14-c35b-4f25-92bb-d10156006d06")
+    @Override
+    public Object visitPackageImport(PackageImport obj) {
+        	return null;
+    }
+
+    @objid ("70a2f233-5197-449e-ac50-5130e1ebe465")
+    @Override
+    public Object visitPackageMerge(PackageMerge obj) {
+        	return null;
+    }
+
+    @objid ("f0525e3f-d41b-4e75-b8cc-b981cc95369a")
+    @Override
+    public Object visitParameter(Parameter obj) {
+        	return null;
+    }
+
+    @objid ("22ba62c2-1d9c-4037-88a8-92b95249aa17")
+    @Override
+    public Object visitPartDecomposition(PartDecomposition obj) {
+        	return null;
+    }
+
+    @objid ("a7fd3540-4356-4497-bc3b-acf134d43bf2")
+    @Override
+    public Object visitPin(Pin obj) {
+        	return null;
+    }
+
+    @objid ("b9aaf815-a8d1-4f14-90a9-daaa47e0d170")
+    @Override
+    public Object visitPort(Port obj) {
+        	return null;
+    }
+
+    @objid ("aedb0b2c-44fb-4a39-bd0b-18bffd9ef85e")
+    @Override
+    public Object visitProfile(Profile obj) {
+        	return null;
+    }
+
+    @objid ("e38c3f55-4501-4298-a466-b9a8db63ed90")
     @Override
     public Object visitProject(Project obj) {
+        	return null;
+    }
+
+    @objid ("97385917-1c59-4b57-9dae-7325bd19091a")
+    @Override
+    public Object visitPropertyContainer(PropertyContainer obj) {
+        	return null;
+    }
+
+    @objid ("89454e23-30c8-42ab-ae00-10f906dc7e60")
+    @Override
+    public Object visitPropertyDefinition(PropertyDefinition obj) {
+        	return null;
+    }
+
+    @objid ("9526bf74-28e1-4f4f-a968-bb34b7fee649")
+    @Override
+    public Object visitPropertyEnumerationLitteral(PropertyEnumerationLitteral obj) {
+        	return null;
+    }
+
+    @objid ("9405592b-3b12-4b8e-ab8a-aa645cda9985")
+    @Override
+    public Object visitPropertyTable(PropertyTable obj) {
+        	return null;
+    }
+
+    @objid ("60916c85-3274-490b-96f5-0ae7c8808145")
+    @Override
+    public Object visitPropertyTableDefinition(PropertyTableDefinition obj) {
+        	return null;
+    }
+
+    @objid ("50fcd010-53fb-46e2-9007-9c4865411241")
+    @Override
+    public Object visitPropertyType(PropertyType obj) {
+        	return null;
+    }
+
+    @objid ("0b8b7c9c-d6a7-41a0-92c5-f03773b4e39a")
+    @Override
+    public Object visitProvidedInterface(ProvidedInterface obj) {
+        	return null;
+    }
+
+    @objid ("5cac67f6-5d9e-4733-b237-ea2bda3c3e3e")
+    @Override
+    public Object visitQueryDefinition(QueryDefinition obj) {
+        	return null;
+    }
+
+    @objid ("8cf97601-12ce-4cf0-8273-ee72d86cd361")
+    @Override
+    public Object visitRaisedException(RaisedException obj) {
+        	return null;
+    }
+
+    @objid ("759dbe23-71a0-446b-a110-fe7057bfcbf2")
+    @Override
+    public Object visitRegion(Region obj) {
+        	return null;
+    }
+
+    @objid ("9dea582d-d884-461d-9780-25b6c8990b27")
+    @Override
+    public Object visitRequiredInterface(RequiredInterface obj) {
+        	return null;
+    }
+
+    @objid ("8ba73c23-ffe2-4f44-b12e-5f5b2580528a")
+    @Override
+    public Object visitRequirement(Requirement obj) {
+        	return null;
+    }
+
+    @objid ("6ad4024b-2b1c-4a68-9563-d3116190e39f")
+    @Override
+    public Object visitRequirementContainer(RequirementContainer obj) {
+        	return null;
+    }
+
+    @objid ("564599da-8496-41ae-a7c2-42c56df540ee")
+    @Override
+    public Object visitRisk(Risk obj) {
+        	return null;
+    }
+
+    @objid ("17a298b4-26fe-415f-8c85-196d1f317b87")
+    @Override
+    public Object visitRiskContainer(RiskContainer obj) {
+        	return null;
+    }
+
+    @objid ("af358cff-e3a9-4668-8dc3-9ce916b91e09")
+    @Override
+    public Object visitSendSignalAction(SendSignalAction obj) {
+        	return null;
+    }
+
+    @objid ("ab03065d-8546-417c-9dfe-e739d9796523")
+    @Override
+    public Object visitSequenceDiagram(SequenceDiagram obj) {
+        	return null;
+    }
+
+    @objid ("da2bda27-7c92-4dee-9e6d-2741a28cfacf")
+    @Override
+    public Object visitShallowHistoryPseudoState(ShallowHistoryPseudoState obj) {
+        	return null;
+    }
+
+    @objid ("c069cdb6-7beb-4583-b673-c1c73112f3f1")
+    @Override
+    public Object visitSignal(Signal obj) {
+        	return null;
+    }
+
+    @objid ("9b5867bb-c4df-410e-98ab-ba4ef800f2b8")
+    @Override
+    public Object visitState(State obj) {
+        	return null;
+    }
+
+    @objid ("4c59b18b-ac03-4f68-8fcc-66f40faaa3d8")
+    @Override
+    public Object visitStateInvariant(StateInvariant obj) {
+        	return null;
+    }
+
+    @objid ("1793435b-b58d-4902-b4ae-b61b76709742")
+    @Override
+    public Object visitStateMachine(StateMachine obj) {
+        	return null;
+    }
+
+    @objid ("ea0a93c4-b06f-4d47-ae29-16f487cf267d")
+    @Override
+    public Object visitStateMachineDiagram(StateMachineDiagram obj) {
+        	return null;
+    }
+
+    @objid ("18fb464a-a5a7-4c30-9d6f-98e101f0a5aa")
+    @Override
+    public Object visitStateVertex(StateVertex obj) {
+        	return null;
+    }
+
+    @objid ("bcb61241-83bd-4837-b01e-54d294a04ee9")
+    @Override
+    public Object visitStaticDiagram(StaticDiagram obj) {
+        	return null;
+    }
+
+    @objid ("721b055d-ad1c-4c9d-a7e0-c886997bf8a1")
+    @Override
+    public Object visitStereotype(Stereotype obj) {
+        	return null;
+    }
+
+    @objid ("805d37f1-89b4-4487-8968-829ce50813eb")
+    @Override
+    public Object visitStructuralFeature(StructuralFeature obj) {
+        	return null;
+    }
+
+    @objid ("ef0bfa90-2033-4aa3-aaa2-fbab6686b84a")
+    @Override
+    public Object visitStructuredActivityNode(StructuredActivityNode obj) {
+        	return null;
+    }
+
+    @objid ("78794e30-b842-4914-a90c-a17e8761070f")
+    @Override
+    public Object visitSubstitution(Substitution obj) {
+        	return null;
+    }
+
+    @objid ("3efa55c5-8517-4926-b13e-b14b60296109")
+    @Override
+    public Object visitTagParameter(TagParameter obj) {
+        	return null;
+    }
+
+    @objid ("3dd00903-60a2-4b3c-a635-40ed4267b65f")
+    @Override
+    public Object visitTagType(TagType obj) {
+        	return null;
+    }
+
+    @objid ("6ffacf97-e8d1-49b4-b3e8-5a45402b2db9")
+    @Override
+    public Object visitTaggedValue(TaggedValue obj) {
+        	return null;
+    }
+
+    @objid ("6f6bee66-31fa-49af-a4d9-e2e535b76207")
+    @Override
+    public Object visitTemplateBinding(TemplateBinding obj) {
+        	return null;
+    }
+
+    @objid ("68965f07-e0de-4c6b-a907-15ca95cf59ea")
+    @Override
+    public Object visitTemplateParameter(TemplateParameter obj) {
+        	return null;
+    }
+
+    @objid ("b623ba96-0687-407c-8e92-c462f047dd8f")
+    @Override
+    public Object visitTemplateParameterSubstitution(TemplateParameterSubstitution obj) {
+        	return null;
+    }
+
+    @objid ("d6cec0b6-5adf-4a64-8dee-a97a1485d44c")
+    @Override
+    public Object visitTerm(Term obj) {
+        	return null;
+    }
+
+    @objid ("7e841009-44ae-4cab-b19c-f9a1f901e694")
+    @Override
+    public Object visitTerminatePseudoState(TerminatePseudoState obj) {
+        	return null;
+    }
+
+    @objid ("bb4d2e6f-9eed-4be2-b43f-1e9fa7a70703")
+    @Override
+    public Object visitTerminateSpecification(TerminateSpecification obj) {
+        	return null;
+    }
+
+    @objid ("345bbc6f-e8fe-4a05-b65a-e3b78d398b0d")
+    @Override
+    public Object visitTransition(Transition obj) {
+        	return null;
+    }
+
+    @objid ("bb38e731-d647-479b-9561-2aa4fc18cb51")
+    @Override
+    public Object visitTypedPropertyTable(TypedPropertyTable obj) {
+        	return null;
+    }
+
+    @objid ("86bcfa03-b5a5-4000-a918-9ee65e357d0c")
+    @Override
+    public Object visitUsage(Usage obj) {
+        	return null;
+    }
+
+    @objid ("9b92f053-1961-447c-8a19-bac74f1aa54a")
+    @Override
+    public Object visitUseCase(UseCase obj) {
+        	return null;
+    }
+
+    @objid ("38d24108-065d-4b96-9508-c1155d495d7a")
+    @Override
+    public Object visitUseCaseDependency(UseCaseDependency obj) {
+        	return null;
+    }
+
+    @objid ("178c983a-2dff-4f85-929f-0a6b9846dd69")
+    @Override
+    public Object visitUseCaseDiagram(UseCaseDiagram obj) {
+        	return null;
+    }
+
+    @objid ("b44217ea-3442-461c-834f-4ed2a7b2ed2b")
+    @Override
+    public Object visitValuePin(ValuePin obj) {
         	return null;
     }
 

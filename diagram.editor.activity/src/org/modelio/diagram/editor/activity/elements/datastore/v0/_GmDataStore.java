@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.datastore.v0;
 
@@ -31,10 +31,11 @@ import org.modelio.diagram.editor.activity.elements.activitynodeheader.GmActivit
 import org.modelio.diagram.editor.activity.elements.datastore.GmDataStoreImageStyleKeys;
 import org.modelio.diagram.editor.activity.elements.datastore.GmDataStoreSimpleStyleKeys;
 import org.modelio.diagram.editor.activity.elements.datastore.GmDataStoreStructuredStyleKeys;
+import org.modelio.diagram.editor.activity.elements.datastore.GmDataStoreUserImageStyleKeys;
 import org.modelio.diagram.editor.activity.elements.objectnode.GmObjectNodeStateLabel;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.node.IImageableNode;
@@ -80,10 +81,13 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
     private GmActivityNodeHeader header;
 
     @objid ("d1ce65a9-55c0-11e2-9337-002564c97630")
-    private GmDefaultFlatHeader imageModeHeader;
+    private GmDefaultModelElementLabel imageModeHeader;
 
     @objid ("d1ce65aa-55c0-11e2-9337-002564c97630")
     private GmElementLabel objectNodeStateLabel;
+
+    @objid ("b37cba50-b48e-4969-91bd-0700190e4006")
+    private static GmDataStoreUserImageStyleKeys USERIMAGE_KEYS = new GmDataStoreUserImageStyleKeys();
 
     /**
      * Default constructor.
@@ -98,7 +102,7 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
         this.header = new GmActivityNodeHeader(diagram, ref);
         this.header.setShowMetaclassIcon(true);
         super.addChild(this.header);
-        this.imageModeHeader = new GmDefaultFlatHeader(diagram, ref);
+        this.imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         addChild(this.imageModeHeader);
         this.objectNodeStateLabel = new GmObjectNodeStateLabel(diagram, ref);
         addChild(this.objectNodeStateLabel);
@@ -127,8 +131,9 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
     @objid ("2a36b1e6-55b6-11e2-877f-002564c97630")
     @Override
     public GmCompositeNode getCompositeFor(Class<? extends MObject> metaclass) {
-        if (canCreate(metaclass))
+        if (canCreate(metaclass)) {
             return this;
+        }
         //else
         return null;
     }
@@ -153,12 +158,14 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
     @Override
     public StyleKey getStyleKey(MetaKey metakey) {
         StyleKey ret = STRUCTKEYS.getStyleKey(metakey);
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         
         ret = SIMPLEKEYS.getStyleKey(metakey);
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         
         ret = IMAGEKEYS.getStyleKey(metakey);
         return ret;
@@ -167,7 +174,7 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
     @objid ("2a36b207-55b6-11e2-877f-002564c97630")
     @Override
     public List<StyleKey> getStyleKeys() {
-        RepresentationMode mode = this.getRepresentationMode();
+        RepresentationMode mode = getRepresentationMode();
         switch (mode) {
             case SIMPLE:
                 return SIMPLEKEYS.getStyleKeys();
@@ -175,6 +182,8 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
                 return STRUCTKEYS.getStyleKeys();
             case IMAGE:
                 return IMAGEKEYS.getStyleKeys();
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKeys();
             default:
                 return Collections.emptyList();
         }
@@ -211,7 +220,7 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
         String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -226,7 +235,7 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
     public List<GmNodeModel> getVisibleChildren() {
         // Returned result depends on current representation mode:
         List<GmNodeModel> ret;
-        switch (this.getRepresentationMode()) {
+        switch (getRepresentationMode()) {
             case IMAGE: {
                 ret = new ArrayList<>(1);
                 ret.add(this.imageModeHeader);
@@ -263,21 +272,21 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
     private void read_1(IDiagramReader in) {
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
-        this.element = (DataStoreNode) resolveRef(this.getRepresentedRef());
-                
-        this.imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(1);
+        this.element = (DataStoreNode) resolveRef(getRepresentedRef());
+        
+        this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(1);
         this.objectNodeStateLabel = (GmElementLabel) this.getChildren().get(2);
     }
 
     @objid ("2a383896-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
-        // In version 0, objectNodeStateLabel did not exist, 
+        // In version 0, objectNodeStateLabel did not exist,
         // so we have to create it instead of reading it.
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
-        this.element = (DataStoreNode) resolveRef(this.getRepresentedRef());
-                
-        this.imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(1);
+        this.element = (DataStoreNode) resolveRef(getRepresentedRef());
+        
+        this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(1);
         this.objectNodeStateLabel = new GmObjectNodeStateLabel(getDiagram(), getRepresentedRef());
         addChild(this.objectNodeStateLabel);
     }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.smkernel;
 
@@ -140,10 +140,11 @@ public final class SmStatus implements IRStatus, IPStatus {
         long status = bitdef | toMask(bitdef);
         long invalid = bitdef & GMASK;
         
-        if (invalid == 0)
+        if (invalid == 0) {
             return toString(status);
-        else
+        } else {
             return toString(status) + " invalid mask bits:" + toString(invalid | fromMask(invalid));
+        }
     }
 
     /**
@@ -234,12 +235,12 @@ public final class SmStatus implements IRStatus, IPStatus {
         long status = astatus;
         
         // The mask bits must not overlap
-        assert ((trueFlags & falseFlags) == 0) : flagsToString((trueFlags & falseFlags));     
-        assert ((falseFlags & undefFlags) == 0) : flagsToString((falseFlags & undefFlags));     
-        assert ((trueFlags & undefFlags) == 0) : flagsToString((trueFlags & undefFlags));     
+        assert ((trueFlags & falseFlags) == 0) : flagsToString((trueFlags & falseFlags));
+        assert ((falseFlags & undefFlags) == 0) : flagsToString((falseFlags & undefFlags));
+        assert ((trueFlags & undefFlags) == 0) : flagsToString((trueFlags & undefFlags));
         
         // The bit defs must not contain any mask bit
-        assert (((trueFlags| falseFlags| undefFlags) & SmStatus.GMASK) == 0) : 
+        assert (((trueFlags| falseFlags| undefFlags) & SmStatus.GMASK) == 0) :
             flagsToString((trueFlags| falseFlags| undefFlags));
         
         final long origFalseFlags = getFalseFlags(status);
@@ -324,12 +325,12 @@ public final class SmStatus implements IRStatus, IPStatus {
         long status = astatus;
         
         // The mask bits must not overlap
-        assert ((trueFlags & falseFlags) == 0) : flagsToString((trueFlags & falseFlags));     
-        assert ((falseFlags & undefFlags) == 0) : flagsToString((falseFlags & undefFlags));     
-        assert ((trueFlags & undefFlags) == 0) : flagsToString((trueFlags & undefFlags));     
+        assert ((trueFlags & falseFlags) == 0) : flagsToString((trueFlags & falseFlags));
+        assert ((falseFlags & undefFlags) == 0) : flagsToString((falseFlags & undefFlags));
+        assert ((trueFlags & undefFlags) == 0) : flagsToString((trueFlags & undefFlags));
         
         // The bit defs must not contain any mask bit
-        assert (((trueFlags| falseFlags| undefFlags) & SmStatus.GMASK) == 0) : 
+        assert (((trueFlags| falseFlags| undefFlags) & SmStatus.GMASK) == 0) :
             flagsToString((trueFlags| falseFlags| undefFlags));
         
         if (trueFlags != 0) {
@@ -360,6 +361,24 @@ public final class SmStatus implements IRStatus, IPStatus {
     @objid ("0056953c-2c99-1f20-85a5-001ec947cd2a")
     public static String toString(long status) {
         StringBuilder s = new StringBuilder();
+        
+        // Memory management
+        dumpIfSet(status, SHELL, "SHELL, ", s);
+        dumpIfSet(status, RAMC, "RAMC, ", s);
+        dumpIfSet(status, DELETED, "DELETED, ", s);
+        dumpIfSet(status, BEINGDELETED, "BEINGDELETED, ", s);
+        dumpIfSet(status, LOADING, "LOADING, ", s);
+        dumpIfSet(status, RESTORED_FROM_SWAP, "RESTORED_FROM_SWAP, ", s);
+        
+        // CMS management
+        dump(status, CMSSYNC, "CMSSYNC, ", s);
+        dump(status, CMSMODIFIED, "CMSMODIFIED, ", s);
+        dump(status, CMSMANAGED, "CMSMANAGED, ", s);
+        dump(status, CMSREADONLY, "CMSREADONLY, ", s);
+        dumpIfSet(status, CMSTOADD, "CMSTOADD, ", s);
+        dumpIfSet(status, CMSTODELETE, "CMSTODELETE, ", s);
+        dumpIfSet(status, CMSCONFLICT, "CMSCONFLICT, ", s);
+        
         // Access rights
         dump(status, USERVISIBLE, "USERVISIBLE, ", s);
         dump(status, USERBROWSE, "USERBROWSE, ", s);
@@ -373,22 +392,6 @@ public final class SmStatus implements IRStatus, IPStatus {
         dump(status, OBJECTVISIBLE, "OBJECTVISIBLE, ", s);
         dump(status, OBJECTWRITE, "OBJECTWRITE, ", s);
         
-        // CMS management
-        dump(status, CMSSYNC, "CMSSYNC, ", s);
-        dump(status, CMSMODIFIED, "CMSMODIFIED, ", s);
-        dump(status, CMSMANAGED, "CMSMANAGED, ", s);
-        dump(status, CMSREADONLY, "CMSREADONLY, ", s);
-        dumpIfSet(status, CMSTOADD, "CMSTOADD, ", s);
-        dumpIfSet(status, CMSTODELETE, "CMSTODELETE, ", s);
-        dumpIfSet(status, CMSCONFLICT, "CMSCONFLICT, ", s);
-        
-        // Memory management
-        dumpIfSet(status, SHELL, "SHELL, ", s);
-        dumpIfSet(status, RAMC, "RAMC, ", s);
-        dumpIfSet(status, DELETED, "DELETED, ", s);
-        dumpIfSet(status, BEINGDELETED, "BEINGDELETED, ", s);
-        dumpIfSet(status, LOADING, "LOADING, ", s);
-        dumpIfSet(status, RESTORED_FROM_SWAP, "RESTORED_FROM_SWAP, ", s);
         
         if (s.length() > 0) {
             // remove the last ", "

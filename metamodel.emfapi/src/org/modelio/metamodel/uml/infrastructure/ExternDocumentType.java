@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,72 +12,169 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 
+/**
+ * ExternDocumentType v0.0.9054
+ * 
+ * 
+ * Rich note type
+ */
 @objid ("0092fefa-c4be-1fd8-97fe-001ec947cd2a")
 public interface ExternDocumentType extends ModelElement {
+    @objid ("d1c4843e-82ee-452a-8992-b2828f5c0e7b")
+    public static final String MNAME = "ExternDocumentType";
+
     @objid ("1cb032b7-9ac9-46f1-b30f-f2f395b83488")
     ModuleComponent getModule();
 
-    @objid ("79c4a97e-08d4-41d5-ab14-453b466f122e")
+    /**
+     * Getter for attribute 'ExternDocumentType.IsHidden'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("ea1eee54-45ad-4f72-b6e1-b8967e77f07c")
     boolean isIsHidden();
 
-    @objid ("78f42b95-fca3-4ccb-89d3-f2ac7ee50f5d")
+    /**
+     * Setter for attribute 'ExternDocumentType.IsHidden'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("80017fae-88d8-474d-8ccb-bd0811b8c42f")
     void setIsHidden(boolean value);
 
-    @objid ("61144824-cffd-43d0-89e5-c5ac5b441d3d")
+    /**
+     * Getter for attribute 'ExternDocumentType.LabelKey'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1a68936c-59ca-435b-af45-bfc0802163bc")
     String getLabelKey();
 
-    @objid ("0a86881f-63b5-4e6d-9485-20e16bae7410")
+    /**
+     * Setter for attribute 'ExternDocumentType.LabelKey'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a8302269-ca0c-41ce-a3cc-0bdd996d32ec")
     void setLabelKey(String value);
 
-    @objid ("b8ae62f6-8678-4aea-9f7c-9ab1330bb41e")
+    /**
+     * Getter for attribute 'ExternDocumentType.Icon'
+     * 
+     * Metamodel description:
+     * <i>Optional icon for the browser and diagram</i>
+     */
+    @objid ("1c381b0c-8e5e-4de0-9da5-0e5373ee4ac7")
     String getIcon();
 
-    @objid ("637ee0ac-6e69-4104-9fc8-fb095cea8123")
+    /**
+     * Setter for attribute 'ExternDocumentType.Icon'
+     * 
+     * Metamodel description:
+     * <i>Optional icon for the browser and diagram</i>
+     */
+    @objid ("f2268439-0c14-414c-8044-fd0ea037088a")
     void setIcon(String value);
 
-    @objid ("eecf9f5e-80e9-45da-af0d-fc8bf4f79394")
+    /**
+     * Getter for attribute 'ExternDocumentType.Image'
+     * 
+     * Metamodel description:
+     * <i>Big image for the diagram in image mode.</i>
+     */
+    @objid ("8ba4a12b-0616-4366-ba32-6a42990d9a61")
     String getImage();
 
-    @objid ("c309b1fd-9ffb-4d0d-a1e4-c5a25f262d5b")
+    /**
+     * Setter for attribute 'ExternDocumentType.Image'
+     * 
+     * Metamodel description:
+     * <i>Big image for the diagram in image mode.</i>
+     */
+    @objid ("6cba58cc-558c-4e51-b173-aa4bc0890602")
     void setImage(String value);
 
-    @objid ("91ce91e3-0cc4-4e35-b310-8225372278a7")
+    /**
+     * Getter for relation 'ExternDocumentType->OwnerStereotype'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("53b4ce81-59fd-4813-b375-137db2ef46ba")
     Stereotype getOwnerStereotype();
 
-    @objid ("d3187fab-8a32-472a-8875-b29b4a979826")
+    /**
+     * Setter for relation 'ExternDocumentType->OwnerStereotype'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6178b37a-fc65-41a3-8717-2a3ba0193860")
     void setOwnerStereotype(Stereotype value);
 
-    @objid ("a7d47da1-9a3c-4082-89b4-5a86e61f6322")
+    /**
+     * Getter for relation 'ExternDocumentType->TypedDoc'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("c765f44e-a027-4e81-9b05-c31fc97217d9")
     EList<ExternDocument> getTypedDoc();
 
-    @objid ("4a7019c9-1cd9-4058-a454-015bba056f5b")
+    /**
+     * Filtered Getter for relation 'ExternDocumentType->TypedDoc'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("bbc1d815-430b-44a8-aa82-a843573f13f5")
     <T extends ExternDocument> List<T> getTypedDoc(java.lang.Class<T> filterClass);
 
-    @objid ("4b0e31a3-3289-44b4-826b-bb506be8238c")
+    /**
+     * Getter for relation 'ExternDocumentType->OwnerReference'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("915676a4-44b4-42c8-bdf5-b9db25fd4ef1")
     MetaclassReference getOwnerReference();
 
-    @objid ("f43e9c15-e500-4164-a89f-0145ffd1e8d9")
+    /**
+     * Setter for relation 'ExternDocumentType->OwnerReference'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f2ec28be-2b67-450f-8337-a403092c1075")
     void setOwnerReference(MetaclassReference value);
 
 }

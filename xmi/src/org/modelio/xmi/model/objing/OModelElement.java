@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,25 +12,23 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
 import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.IModelerModuleTagTypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 /**
@@ -63,9 +61,9 @@ public class OModelElement extends OElement implements IOElement {
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         if (ecoreElt instanceof org.eclipse.uml2.uml.NamedElement){
-            setName((org.eclipse.uml2.uml.NamedElement) ecoreElt); 
-            setVisibility((org.eclipse.uml2.uml.NamedElement) ecoreElt); 
-        }     
+            setName((org.eclipse.uml2.uml.NamedElement) ecoreElt);
+            setVisibility((org.eclipse.uml2.uml.NamedElement) ecoreElt);
+        }
         
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             this.setVisibilityEAnnotation(ecoreElt);
@@ -82,23 +80,9 @@ public class OModelElement extends OElement implements IOElement {
             ecoreElt.setName(name);
     }
 
-    @objid ("812863d9-f30f-487b-86fe-b3c7bc8d5493")
-    private void setEcoreIds(final org.eclipse.uml2.uml.Element ecoreElt) {
-        ModelElement obElt = ((ModelElement)getObjingElement());
-        
-        for (TaggedValue tag : obElt.getTag()){
-            if (tag.getDefinition().getName().equals(IModelerModuleTagTypes.MODELELEMENT_ECOREID) 
-                    && (tag.getQualifier() != null)){
-        
-                ObjingEAnnotation.setEcoreId(ecoreElt, tag.getQualifier().getValue());
-                break;
-            }
-        }
-    }
-
     @objid ("88726831-e30d-45d0-b2df-fc1502cedb1d")
     private void setVisibilityEAnnotation(final org.eclipse.uml2.uml.Element ecoreElt) {
-        Element objElement = getObjingElement(); 
+        Element objElement = getObjingElement();
         if (objElement instanceof NameSpace)
             ObjingEAnnotation.setVisibility(ecoreElt, ((NameSpace)objElement ).getVisibility().ordinal());
         
@@ -139,11 +123,6 @@ public class OModelElement extends OElement implements IOElement {
                 break;
             }
         }
-    }
-
-    @objid ("76f3f3b6-18a2-4dd5-98a0-ee5f1b2e4895")
-    private void setUUUIds(final org.eclipse.uml2.uml.Element ecoreElt) {
-        ObjingEAnnotation.setUUId(ecoreElt, ((ModelElement)getObjingElement()).getUuid().toString());
     }
 
 }

@@ -6,35 +6,58 @@
 </extension>
 
 <extension point="org.eclipse.core.expressions.definitions">
-	<definition id="diagram.auto.test.classstructure.id">
-		<test property="diagram.auto.test.classstructure"/>
-	</definition>
-	<definition id="diagram.auto.test.dependencies.id">
-		<test property="diagram.auto.test.dependencies"/>
-	</definition>
-	<definition id="diagram.auto.test.inheritance.id">
-		<test property="diagram.auto.test.inheritance"/>
-	</definition>
-	<definition id="diagram.auto.test.packagstructure.id">
-		<test property="diagram.auto.test.packagstructure"/>
-	</definition>
-	<definition id="diagram.auto.test.subpackagstructure.id">
-		<test property="diagram.auto.test.subpackagstructure"/>
-	</definition>
 	<definition id="diagram.auto.test.updatediagram.id">
 		<test property="diagram.auto.test.updatediagram"/>
 	</definition>
  </extension>
- 
+
  <extension
        point="org.eclipse.core.expressions.propertyTesters">
     <propertyTester
           class="org.modelio.diagram.diagramauto.handlers.properties.CommandVisiblePropertyTester"
           id="diagram.auto.propertyTester.updatevisible"
           namespace="diagram.auto.test"
-          properties="classstructure, dependencies, inheritance, packagstructure, subpackagstructure, updatediagram"
+          properties="updatediagram"
           type="org.eclipse.jface.viewers.ISelection">
     </propertyTester>
  </extension>
 
+	<extension point="org.modelio.creation.wizard.contributor">
+		<creation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/uml.png"
+				contributor="org.modelio.diagram.diagramauto.handlers.ClassArchitectureDiagram">
+		</creation>
+		<creation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/uml.png"
+				contributor="org.modelio.diagram.diagramauto.handlers.ClassStructureDiagram">
+		</creation>
+		<creation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/uml.png"
+				contributor="org.modelio.diagram.diagramauto.handlers.DependencyDiagram">
+		</creation>
+		<creation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/uml.png"
+				contributor="org.modelio.diagram.diagramauto.handlers.InheritanceDiagram">
+		</creation>
+		<creation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/uml.png"
+				contributor="org.modelio.diagram.diagramauto.handlers.PackageStructureDiagram">
+		</creation>
+		<creation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/uml.png"
+				contributor="org.modelio.diagram.diagramauto.handlers.SubPackageStructureDiagram">
+		</creation>
+	</extension>
 </plugin>

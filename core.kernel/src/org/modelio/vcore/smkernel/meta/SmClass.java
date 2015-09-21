@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,37 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.smkernel.meta;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.EClass;
-import org.modelio.vbasic.log.Log;
-import org.modelio.vcore.smkernel.IPStatus;
-import org.modelio.vcore.smkernel.IRStatus;
-import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.ISmObjectFactory;
 import org.modelio.vcore.smkernel.mapi.MAttribute;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MDependency;
-import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
-import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaAssociation;
-import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaAttribute;
-import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 
 /**
  * A <code>SmClass</code> describes a semantic type, ie a metamodel metaclass.
@@ -53,24 +42,19 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
  * <p>
  * SmClass instances are build at run-time from the Java class that defines their meta-class. The Java reflection API along with
  * Java annotations are used to find out what are the SmAttribute and SmDependency instances to declare on the SmClass instance.
- * <p>
- * Meta class annotations are defined in {@link SmaMetaClass}.
  * 
  * @author phv
  */
 @objid ("008435a0-ed97-1f1f-85a5-001ec947cd2a")
-public final class SmClass extends SmElement implements MClass {
+public abstract class SmClass extends SmElement implements MClass {
     /**
-     * Whether the represented metaclass is abstract or not.
+     * The matching EMF class.
      */
-    @objid ("0083eb86-ed97-1f1f-85a5-001ec947cd2a")
-    private boolean isAbstract;
+    @objid ("cdf5f020-9b5a-4863-813a-6b86a75ff98c")
+    private EClass emfAdapter;
 
-    /**
-     * Whether the represented metaclass is a 'cms node' or not.
-     */
-    @objid ("0083ec80-ed97-1f1f-85a5-001ec947cd2a")
-    private boolean isCmsNode = false;
+    @objid ("b51291e5-6200-4c32-903d-ea001fa1f82c")
+    private int hashCode;
 
     /**
      * The integer-based identifier of the metaclass.
@@ -78,22 +62,55 @@ public final class SmClass extends SmElement implements MClass {
     @objid ("0083ed70-ed97-1f1f-85a5-001ec947cd2a")
     private short metaclassId;
 
-    /**
-     * The parent SmClass of this SmClass. The inheritance relation between SmClass instances reproduces the inheritance relation
-     * between metaclasses.
-     */
-    @objid ("008404ea-ed97-1f1f-85a5-001ec947cd2a")
-    private SmClass parentClass;
+    @objid ("006ca804-4412-1f74-8a7a-001ec947cd2a")
+    private final List<SmAttribute> allAttributes = new ArrayList<>();
 
     /**
-     * The children SmClass of this SmClass.
-     * <p>
-     * The inheritance relation between SmClass instances reproduces the inheritance relation between metaclasses. To compute this
-     * list of 'sub-classes' the inheritance tree is flattened so that all possible sub-classes, whatever the depth in the
-     * inheritance tree, are listed.
+     * Self and inherited composition and shared composition dependencies.
      */
-    @objid ("00840814-ed97-1f1f-85a5-001ec947cd2a")
-    private final List<SmClass> subClasses = new ArrayList<>();
+    @objid ("ef7c6080-bea9-11e1-b576-001ec947ccaf")
+    private final List<SmDependency> allComponentAndSharedDep = new ArrayList<>();
+
+    /**
+     * Self and inherited composition dependencies.
+     */
+    @objid ("005e8648-4939-1f74-8a7a-001ec947cd2a")
+    private final List<SmDependency> allComponentDep = new ArrayList<>();
+
+    @objid ("00548684-45d1-1f74-8a7a-001ec947cd2a")
+    private final List<SmDependency> allDependencies = new ArrayList<>();
+
+    /**
+     * Self and inherited reference dependencies.
+     */
+    @objid ("005ec806-4939-1f74-8a7a-001ec947cd2a")
+    private final List<SmDependency> allReferenceDep = new ArrayList<>();
+
+    /**
+     * Self and inherited shared composition dependencies.
+     */
+    @objid ("f2e7fb12-bfa2-11e1-b511-001ec947ccaf")
+    private final List<SmDependency> allSharedDep = new ArrayList<>();
+
+    @objid ("784b616b-b708-4154-8e14-6ebcadd072e8")
+    private SmMetamodel metamodel;
+
+    @objid ("005144b0-fd1a-1f27-a7da-001ec947cd2a")
+    private ISmObjectFactory objectFactory;
+
+    /**
+     * The metamodel fragment providing the meta class
+     */
+    @objid ("555abb1a-a45d-4b8c-9e83-f112bbda1cb0")
+    private final ISmMetamodelFragment origin;
+
+    /**
+     * The parent SmClass of this SmClass.
+     * <p>
+     * The inheritance relation between SmClass instances reproduces the inheritance relation between metaclasses.
+     */
+    @objid ("008404ea-ed97-1f1f-85a5-001ec947cd2a")
+    protected SmClass parentClass;
 
     /**
      * The SmAttribute instances representing the meta-attributes of the metaclass.
@@ -101,23 +118,17 @@ public final class SmClass extends SmElement implements MClass {
     @objid ("00840026-ed97-1f1f-85a5-001ec947cd2a")
     private final List<SmAttribute> selfAttributes = new ArrayList<>();
 
-    @objid ("006ca804-4412-1f74-8a7a-001ec947cd2a")
-    private List<SmAttribute> allAttributes = null;
-
-    @objid ("00840288-ed97-1f1f-85a5-001ec947cd2a")
-    private final List<SmDependency> selfDependencies = new ArrayList<>();
-
-    @objid ("00548684-45d1-1f74-8a7a-001ec947cd2a")
-    private List<SmDependency> allDependencies = null;
+    /**
+     * Composition and shared composition dependencies.
+     */
+    @objid ("ef7c607b-bea9-11e1-b576-001ec947ccaf")
+    private final List<SmDependency> selfComponentAndSharedDep = new ArrayList<>();
 
     @objid ("0084017a-ed97-1f1f-85a5-001ec947cd2a")
     private final List<SmDependency> selfComponentDep = new ArrayList<>();
 
-    /**
-     * Self and inherited composition dependencies.
-     */
-    @objid ("005e8648-4939-1f74-8a7a-001ec947cd2a")
-    private List<SmDependency> allComponentDep = null;
+    @objid ("00840288-ed97-1f1f-85a5-001ec947cd2a")
+    private final List<SmDependency> selfDependencies = new ArrayList<>();
 
     /**
      * Self reference dependencies.
@@ -126,246 +137,48 @@ public final class SmClass extends SmElement implements MClass {
     private final List<SmDependency> selfReferenceDep = new ArrayList<>();
 
     /**
-     * Self and inherited reference dependencies.
-     */
-    @objid ("005ec806-4939-1f74-8a7a-001ec947cd2a")
-    private List<SmDependency> allReferenceDep = null;
-
-    @objid ("005144b0-fd1a-1f27-a7da-001ec947cd2a")
-    private ISmObjectFactory objectFactory;
-
-    /**
-     * Composition and shared composition dependencies.
-     */
-    @objid ("ef7c607b-bea9-11e1-b576-001ec947ccaf")
-    private final List<SmDependency> selfComponentAndSharedDep = new ArrayList<>();
-
-    /**
-     * Self and inherited composition and shared composition dependencies.
-     */
-    @objid ("ef7c6080-bea9-11e1-b576-001ec947ccaf")
-    private List<SmDependency> allComponentAndSharedDep = null;
-
-    /**
-     * The interface implemented by all objects of this metaclass.
-     */
-    @objid ("ef7ec2d6-bea9-11e1-b576-001ec947ccaf")
-    private Class<? extends MObject> javaInterface;
-
-    /**
      * Shared composition dependencies.
      */
     @objid ("f2e7fb0e-bfa2-11e1-b511-001ec947ccaf")
     private final List<SmDependency> selfSharedDep = new ArrayList<>();
 
     /**
-     * Self and inherited shared composition dependencies.
-     */
-    @objid ("f2e7fb12-bfa2-11e1-b511-001ec947ccaf")
-    private List<SmDependency> allSharedDep = null;
-
-    /**
-     * The matching EMF class.
-     */
-    @objid ("c7147cf5-389a-4fc2-9c78-495cc088b1db")
-    private EClass emfAdapter;
-
-    /**
-     * Get a SmClass from its ID.
-     * @param classid the class id.
-     * @return the found class
-     */
-    @objid ("00571246-fd1a-1f27-a7da-001ec947cd2a")
-    public static SmClass getClass(final short classid) {
-        return SmMetamodel.getClass(classid);
-    }
-
-    /**
-     * Get the SmClass instance of a meta class given its name.
+     * The children SmClass of this SmClass.
      * <p>
-     * This method DOES NOT create the SmClass instance if it does not already exist.
-     * @param name the name of the metaclass whose SmClass is to be returned
-     * @return a unique SmClass instance for the meta class named <code>name</code>, null if not found.
+     * The inheritance relation between SmClass instances reproduces the inheritance relation between metaclasses.
      */
-    @objid ("0083f306-ed97-1f1f-85a5-001ec947cd2a")
-    public static SmClass getClass(final String name) {
-        return SmMetamodel.getClass(name);
-    }
+    @objid ("00840814-ed97-1f1f-85a5-001ec947cd2a")
+    private final List<SmClass> subClasses = new ArrayList<>();
 
     /**
-     * Get the SmClass instance of a meta class given its interface.
-     * <p>
-     * This method DOES NOT create the SmClass instance if it does not already exist.
-     * @param metaclass the interface implemented by elements of this metaclass.
-     * @return a unique SmClass instance for the meta class named <code>name</code>, <code>null</code> if not found.
-     * @throws java.lang.IllegalArgumentException if the class is not an interface.
+     * <s>Two <code>SmClass</code> are the same if they have the same name and their metamodel fragment are
+     * {@link ISmMetamodelFragment#equals(Object) equal}.</s>
+     * 
+     * Since Modelio 3.4, Test for a strict equality of instances
      */
-    @objid ("f71d6457-cb3e-11e1-87f1-001ec947ccaf")
-    public static SmClass getClass(final Class<? extends MObject> metaclass) throws IllegalArgumentException {
-        if (!metaclass.isInterface()) {
-            throw new IllegalArgumentException(metaclass + " is not an interface.");
-        }
-        
-        // look for already registered metaclass or create and register a new
-        // one
-        return SmMetamodel.getClass(metaclass);
-    }
-
-    /**
-     * Get the list of all the currently registered SmClass instances.
-     * @return the list of the currently registered SmClass instances.
-     */
-    @objid ("0083f554-ed97-1f1f-85a5-001ec947cd2a")
-    public static List<SmClass> getRegisteredClasses() {
-        return SmClass.SmMetamodel.getRegisteredClasses();
-    }
-
-    /**
-     * Get the SmClass instance representing a given meta class.
-     * <p>
-     * The meta class must be passed as an {@link SmaMetaClass annotated} Java class defining the meta class structure. This method
-     * creates the SmClass instance if it does not already exist.
-     * @param dataClass the java class defining the meta class data.
-     * @return a unique SmClass instance for the meta class, <code>null</code> if the passed java class does not actually define a
-     * meta class (bad, missing or inconsistent java annotations)
-     */
-    @objid ("0083f70c-ed97-1f1f-85a5-001ec947cd2a")
-    public static SmClass getSmClassFor(final Class<? extends ISmObjectData> dataClass) {
-        SmaMetaClass mca = dataClass.getAnnotation(SmaMetaClass.class);
-        if (mca == null) {
-            return null;
-        }
-        
-        // look for already registered metaclass or create and register a new
-        // one
-        SmClass smClass = SmMetamodel.getClass(mca.mmClass().getSimpleName());
-        if (smClass == null) {
-            smClass = SmClass.create(dataClass);
-        }
-        return smClass;
-    }
-
-    /**
-     * Instantiate a new SmClass for the given metamodel interface.
-     * <p>
-     * The interface must be an {@link SmaMetaClass annotated} Java class defining the meta class structure.
-     * @param metaclass a metamodel interface.
-     * @return the created SmClass.
-     * @throws java.lang.IllegalArgumentException if the interface does not have the {@link SmaMetaClass} annotation.
-     */
-    @objid ("0083fbda-ed97-1f1f-85a5-001ec947cd2a")
-    private static SmClass create(final Class<? extends ISmObjectData> metaclass) throws IllegalArgumentException {
-        if (Log.ENABLED) {
-            Log.trace("SmClass - create SmClass for '%s'", metaclass.getName());
-        }
-        
-        SmaMetaClass sma = metaclass.getAnnotation(SmaMetaClass.class);
-        if (sma == null) {
-            throw new IllegalArgumentException(metaclass+" is non semantic java class");
-        }
-        
-        // New instance
-        SmClass cls = new SmClass();
-        cls.setName(sma.mmClass().getSimpleName());
-        cls.javaInterface = sma.mmClass();
-        
-        // Register the metaclass and give it its 'metaclassId' value
-        cls.metaclassId = SmMetamodel.registerClass(cls, cls.getName());
-        
-        // Set flags
-        cls.initSmFlags(sma);
-        
-        cls.isAbstract = Modifier.isAbstract(metaclass.getModifiers());
-        cls.isCmsNode = sma.cmsnode();
-        
-        try {
-            cls.setFactory(sma.factory().newInstance());
-        } catch (InstantiationException e) {
-            throw new Error(e);
-        } catch (IllegalAccessException e) {
-            throw new Error(e);
-        }
-        
-        @SuppressWarnings("unchecked")
-        SmClass parentClass = SmClass.getSmClassFor((Class<? extends ISmObjectData>) metaclass.getSuperclass());
-        cls.parentClass = parentClass;
-        if (parentClass != null) {
-            parentClass.subClasses.add(cls);
-        }
-        
-        // Declared Attributes and assocs
-        for (Field field : metaclass.getDeclaredFields()) {
-            SmaMetaAttribute smaAtt = field.getAnnotation(SmaMetaAttribute.class);
-            if (smaAtt != null) {
-                try {
-                    SmAttribute smAtt = smaAtt.smAttributeClass().newInstance();
-                    smAtt.init(smaAtt.metaName(), cls, smaAtt);
-                    cls.selfAttributes.add(smAtt);
-                } catch (InstantiationException e) {
-                    throw new Error(e);
-                } catch (IllegalAccessException e) {
-                    throw new Error(e);
-                }
-            }
-        
-            SmaMetaAssociation smaAssoc = field.getAnnotation(SmaMetaAssociation.class);
-            if (smaAssoc != null) {
-                try {
-                    SmDependency smAssoc = smaAssoc.smAssociationClass().newInstance();
-                    smAssoc.init(smaAssoc.metaName(), cls, smaAssoc);
-        
-                    cls.selfDependencies.add(smAssoc);
-        
-                    if (smAssoc.isComponent()) {
-                        cls.selfComponentDep.add(smAssoc);
-                        cls.selfComponentAndSharedDep.add(smAssoc);
-                    } else if (smAssoc.isSharedComposition()) {
-                        cls.selfComponentAndSharedDep.add(smAssoc);
-                        cls.selfSharedDep.add(smAssoc);
-                    } else if (smAssoc.isPartOf()) {
-                        cls.selfReferenceDep.add(smAssoc);
-                    }
-        
-                } catch (InstantiationException e) {
-                    throw new Error(e);
-                } catch (IllegalAccessException e) {
-                    throw new Error(e);
-                }
-        
-            }
-        }
-        
-        // Log class definition
-        if (Log.ENABLED) {
-            Log.trace("SMCLASS LOADED DEFINITION (from java class '%s')", metaclass.getName());
-            Log.trace("  name='%s', id=%d", cls.getName(), cls.metaclassId);
-            Log.trace("  parent='%s'", (cls.parentClass != null) ? cls.parentClass.getName() : "none");
-            Log.trace("  FEATURES:");
-            for (SmAttribute smAtt : cls.getSelfAttDef()) {
-                Log.trace("      . %s", smAtt.toString());
-            }
-            for (SmDependency smDep : cls.getSelfDepDef()) {
-                Log.trace("    --> %s", smDep.toString());
-            }
-            Log.trace("---");
-        }
-        return cls;
-    }
-
-    /**
-     * Private constructor
-     */
-    @objid ("0083fb12-ed97-1f1f-85a5-001ec947cd2a")
-    private SmClass() {
-    }
-
     @objid ("86233e2f-7d84-11e1-bee3-001ec947ccaf")
     @Override
     public boolean equals(final Object obj) {
-        if (!(obj instanceof SmClass)) {
-            return false;
+        return this == obj;
+    }
+
+    /**
+     * The 'extEquals' stands for "extended equals".<br/>
+     * If both <i>this</i> and <i>other</i> SmClass belong to the same MM Fragment they are simply compared for strict equality.<br/>
+     * If <i>this</i> and <i>other</i> SmClass belong to different fragment the returned value is equivalent to
+     * <i>this.hasBase(other)</i>; ie this inherits from other.
+     * 
+     * The typical usage of 'extEquals' is to compare metaclasses in checkers or audit rules while taking into account the extension
+     * metamodel fragments and their resulting extended inheritance tree!
+     * @param other @return
+     */
+    @objid ("3e6f6405-4e05-4a63-a127-2c3f8d894b0a")
+    public boolean extEquals(SmClass other) {
+        if (getOrigin() == other.getOrigin()) {
+            return (equals(other));
+        } else {
+            return hasBase(other);
         }
-        return ((SmClass) obj).getName().equals(getName());
     }
 
     /**
@@ -434,15 +247,21 @@ public final class SmClass extends SmElement implements MClass {
      */
     @objid ("0083f1e4-ed97-1f1f-85a5-001ec947cd2a")
     public List<SmClass> getAllSubClasses() {
-        List<SmClass> results = new ArrayList<>();
+        final List<SmClass> results = new ArrayList<>();
         
         // Add direct sub classes
         results.addAll(this.subClasses);
         
-        for (SmClass c : this.subClasses) {
+        for (final SmClass c : this.subClasses) {
             results.addAll(c.getAllSubClasses());
         }
         return results;
+    }
+
+    @objid ("00034a76-4c5f-1ffc-8433-001ec947cd2a")
+    @Override
+    public MAttribute getAttribute(final String name) {
+        return getAttributeDef(name);
     }
 
     /**
@@ -455,12 +274,54 @@ public final class SmClass extends SmElement implements MClass {
     @objid ("0083f27a-ed97-1f1f-85a5-001ec947cd2a")
     public SmAttribute getAttributeDef(final String att_name) {
         // TODO optimization of the name lookup ?!
-        for (SmAttribute att : this.allAttributes) {
+        for (final SmAttribute att : this.allAttributes) {
             if (att.getName().equals(att_name)) {
                 return att;
             }
         }
         return null;
+    }
+
+    @objid ("000420e0-4c5f-1ffc-8433-001ec947cd2a")
+    @Override
+    public List<MAttribute> getAttributes(boolean includeInherited) {
+        final ArrayList<MAttribute> results = new ArrayList<>();
+        
+        if (includeInherited) {
+            for (final MAttribute dep : getAllAttDef()) {
+                results.add(dep);
+            }
+        } else {
+        
+            for (final MAttribute dep : getSelfAttDef()) {
+                results.add(dep);
+            }
+        }
+        return results;
+    }
+
+    @objid ("0003d806-4c5f-1ffc-8433-001ec947cd2a")
+    @Override
+    public List<MDependency> getDependencies(boolean includeInherited) {
+        final ArrayList<MDependency> results = new ArrayList<>();
+        
+        if (includeInherited) {
+            for (final MDependency dep : getAllDepDef()) {
+                results.add(dep);
+            }
+        } else {
+        
+            for (final MDependency dep : getSelfDepDef()) {
+                results.add(dep);
+            }
+        }
+        return results;
+    }
+
+    @objid ("000391d4-4c5f-1ffc-8433-001ec947cd2a")
+    @Override
+    public MDependency getDependency(final String name) {
+        return getDependencyDef(name);
     }
 
     /**
@@ -472,7 +333,7 @@ public final class SmClass extends SmElement implements MClass {
      */
     @objid ("0083f3a6-ed97-1f1f-85a5-001ec947cd2a")
     public SmDependency getDependencyDef(final String dep_name) {
-        for (SmDependency dep : this.allDependencies) {
+        for (final SmDependency dep : this.allDependencies) {
             if (dep.getName().equals(dep_name)) {
                 return dep;
             }
@@ -500,13 +361,10 @@ public final class SmClass extends SmElement implements MClass {
         return this.metaclassId;
     }
 
-    /**
-     * Get the interface implemented by all objects of this metaclass.
-     * @return The java interface.
-     */
-    @objid ("ef9437f6-bea9-11e1-b576-001ec947ccaf")
-    public Class<? extends MObject> getJavaInterface() {
-        return this.javaInterface;
+    @objid ("4fd793dd-3830-48de-8a76-7b27689d7fa8")
+    @Override
+    public MMetamodel getMetamodel() {
+        return this.metamodel;
     }
 
     /**
@@ -519,12 +377,29 @@ public final class SmClass extends SmElement implements MClass {
     }
 
     /**
+     * Get the metamodel fragment owning this metaclass.
+     * @return the metamodel fragment.
+     */
+    @objid ("8dda2d7a-5750-4d6c-b375-b3c525533a9c")
+    @Override
+    public ISmMetamodelFragment getOrigin() {
+        // Automatically generated method. Please do not modify this code.
+        return this.origin;
+    }
+
+    /**
      * Get the parent class.
      * @return the parent class.
      */
     @objid ("00840936-ed97-1f1f-85a5-001ec947cd2a")
     public SmClass getParent() {
         return this.parentClass;
+    }
+
+    @objid ("1669a3a2-6951-4641-8845-b913afe0bbb1")
+    @Override
+    public String getQualifiedName() {
+        return getOrigin().getName() + QUALIFIER_SEP + getName();
     }
 
     /**
@@ -545,19 +420,43 @@ public final class SmClass extends SmElement implements MClass {
         return this.selfDependencies;
     }
 
+    @objid ("0004a236-4c5f-1ffc-8433-001ec947cd2a")
+    @Override
+    public List<MClass> getSub(boolean recursive) {
+        final ArrayList<MClass> results = new ArrayList<>();
+        if (recursive) {
+            for (final MClass c : getAllSubClasses()) {
+                results.add(c);
+            }
+        } else {
+            for (final MClass c : this.subClasses) {
+                results.add(c);
+            }
+        }
+        return results;
+    }
+
+    @objid ("00046a1e-4c5f-1ffc-8433-001ec947cd2a")
+    @Override
+    public MClass getSuper() {
+        return this.parentClass;
+    }
+
     /**
-     * Check that <code>this</code> metaclass is a sub-metaclass of <code>parent</code> metaclass.
      * @param parent a metamodel class
      * @return <code>true</code> if <code>this</code> class inherits from the given class. <code>false</code> otherwise.
      */
     @objid ("0083f7ac-ed97-1f1f-85a5-001ec947cd2a")
     @Override
     public boolean hasBase(MClass parent) {
-        SmClass cls = this;
-        while (cls != parent && cls != null) {
-                    cls = cls.parentClass;
+        if (parent == null) {
+            return false;
+        } else {
+            return parent.getJavaInterface().isAssignableFrom(getJavaInterface());
         }
-        return (cls == parent);
+        /*
+         * SmClass cls = this; while (cls != null && !cls.equals(parent)) { cls = cls.parentClass; } return cls == parent;
+         */
     }
 
     /**
@@ -577,117 +476,49 @@ public final class SmClass extends SmElement implements MClass {
     @objid ("86233e2a-7d84-11e1-bee3-001ec947ccaf")
     @Override
     public int hashCode() {
-        return getName().hashCode();
-    }
-
-    @objid ("0083f9f0-ed97-1f1f-85a5-001ec947cd2a")
-    @Override
-    public boolean isAbstract() {
-        return this.isAbstract;
-    }
-
-    @objid ("0083fa7c-ed97-1f1f-85a5-001ec947cd2a")
-    @Override
-    public boolean isCmsNode() {
-        return this.isCmsNode;
-    }
-
-    @objid ("00034a76-4c5f-1ffc-8433-001ec947cd2a")
-    @Override
-    public MAttribute getAttribute(final String name) {
-        return getAttributeDef(name);
-    }
-
-    @objid ("000420e0-4c5f-1ffc-8433-001ec947cd2a")
-    @Override
-    public List<MAttribute> getAttributes(boolean includeInherited) {
-        ArrayList<MAttribute> results = new ArrayList<>();
+        if (this.hashCode == 0) {
+            // Compute hash code now
+            final int prime = 31;
+            int result = 1;
         
-        if (includeInherited) {
-            for (MAttribute dep : getAllAttDef()) {
-                results.add(dep);
-            }
-        } else {
+            String lname = getName();
+            ISmMetamodelFragment lorigin = getOrigin();
         
-            for (MAttribute dep : getSelfAttDef()) {
-                results.add(dep);
-            }
+            result = prime * result + ((lname == null) ? 0 : lname.hashCode());
+            result = prime * result + ((lorigin == null) ? 0 : lorigin.hashCode());
+            this.hashCode = result;
         }
-        return results;
+        return this.hashCode;
     }
 
-    @objid ("0004a236-4c5f-1ffc-8433-001ec947cd2a")
+    @objid ("c966f3dc-21c9-4969-878b-331bbd8127e1")
     @Override
-    public List<MClass> getSub(boolean recursive) {
-        ArrayList<MClass> results = new ArrayList<>();
-        if (recursive) {
-            for (MClass c : getAllSubClasses()) {
-                results.add(c);
-            }
-        } else {
-            for (MClass c : this.subClasses) {
-                results.add(c);
-            }
-        }
-        return results;
-    }
-
-    @objid ("0003d806-4c5f-1ffc-8433-001ec947cd2a")
-    @Override
-    public List<MDependency> getDependencies(boolean includeInherited) {
-        ArrayList<MDependency> results = new ArrayList<>();
-        
-        if (includeInherited) {
-            for (MDependency dep : getAllDepDef()) {
-                results.add(dep);
-            }
-        } else {
-        
-            for (MDependency dep : getSelfDepDef()) {
-                results.add(dep);
-            }
-        }
-        return results;
-    }
-
-    @objid ("000391d4-4c5f-1ffc-8433-001ec947cd2a")
-    @Override
-    public MDependency getDependency(final String name) {
-        return getDependencyDef(name);
-    }
-
-    @objid ("00046a1e-4c5f-1ffc-8433-001ec947cd2a")
-    @Override
-    public MClass getSuper() {
-        return this.parentClass;
+    public boolean isFake() {
+        return false;
     }
 
     /**
+     * Load the metaclass content.
+     * @param m the metamodel asking for loading.
+     */
+    @objid ("0083fbda-ed97-1f1f-85a5-001ec947cd2a")
+    public abstract void load(SmMetamodel m);
+
+    /**
      * Finish the class initialization.
+     * <p>
+     * This method must be called once.
      */
     @objid ("00715c6e-4412-1f74-8a7a-001ec947cd2a")
     public void postInit() {
-        // flatten attributes and dependencies
-        this.allAttributes = new ArrayList<>(this.selfAttributes);
-        this.allDependencies = new ArrayList<>(this.selfDependencies);
-        this.allComponentDep = new ArrayList<>(this.selfComponentDep);
-        this.allReferenceDep = new ArrayList<>(this.selfReferenceDep);
-        this.allSharedDep = new ArrayList<>(this.selfSharedDep);
-        this.allComponentAndSharedDep = new ArrayList<>(this.selfComponentAndSharedDep);
-        
         SmClass parent = getParent();
         
-        while (parent != null) {
-            this.allAttributes.addAll(parent.selfAttributes);
-        
-            this.allDependencies.addAll(parent.selfDependencies);
-            this.allComponentDep.addAll(parent.selfComponentDep);
-            this.allSharedDep.addAll(parent.selfSharedDep);
-            this.allReferenceDep.addAll(parent.selfReferenceDep);
-            this.allComponentAndSharedDep.addAll(parent.selfComponentAndSharedDep);
-        
-            parent = parent.getParent();
+        // register subclass in parent
+        if (parent != null) {
+            parent.subClasses.add(this);
         }
+        
+        initCache();
     }
 
     /**
@@ -705,73 +536,130 @@ public final class SmClass extends SmElement implements MClass {
         return getName() + " SmClass";
     }
 
-    @objid ("0056c9b2-fd1a-1f27-a7da-001ec947cd2a")
-    private void setFactory(final ISmObjectFactory objectFactory) {
-        this.objectFactory = objectFactory;
+    /**
+     * Note: package visibility, method to used only locally
+     * @param id
+     */
+    @objid ("ec5ce1d3-b0aa-4486-bda6-68eed1ad47d9")
+    void setMetaclassId(short id) {
+        this.metaclassId = id;
     }
 
     /**
-     * Registry of SmClasses.
+     * Initialize the metamodel.
+     * <p>
+     * This method must be called once for each SmClass.
+     * @param metamodel the metamodel.
      */
-    @objid ("00841110-ed97-1f1f-85a5-001ec947cd2a")
-    private static class SmMetamodel {
-        /**
-         * All registered metaclass as a table to provide a direct indexed access. This is the reference list of all known
-         * metaclasses. Do not use this data field directly.
-         */
-        @objid ("00840d82-ed97-1f1f-85a5-001ec947cd2a")
-        private static final ArrayList<SmClass> _registeredClasses = new ArrayList<>();
+    @objid ("ab0d29a0-d4f1-4346-bde6-8e413dea6f38")
+    void setMetamodel(SmMetamodel metamodel) {
+        assert (this.metamodel == null);
+        
+        this.metamodel = metamodel;
+    }
 
-        /**
-         * A cache of registered metaclass to provide a fast acccess by name. This cache can only be maintained in synch with the
-         * registered classes table above as long as it is not directly manipulated. Only use the provided accessors.
-         */
-        @objid ("00840f12-ed97-1f1f-85a5-001ec947cd2a")
-        private static final HashMap<String, SmClass> _cache = new HashMap<>();
+    /**
+     * Package visibility C'tor (usage reserved for Metamodel class)
+     * @param interf
+     * @param name
+     * @param mmFragment
+     */
+    @objid ("0083fb12-ed97-1f1f-85a5-001ec947cd2a")
+    protected SmClass(ISmMetamodelFragment origin) {
+        this.origin = origin;
+    }
 
-        /**
-         * A cache of registered metaclass to provide a fast acccess by name. This cache can only be maintained in synch with the
-         * registered classes table above as long as it is not directly manipulated. Only use the provided accessors.
-         */
-        @objid ("f7222903-cb3e-11e1-87f1-001ec947ccaf")
-        private static final HashMap<Class<? extends MObject>, SmClass> _interfaceCache = new HashMap<>();
+    /**
+     * Register an attribute.
+     * @param att an attribute
+     */
+    @objid ("232293ad-b284-4e0f-b537-97a2325d66d7")
+    protected final void registerAttribute(SmAttribute att) {
+        checkNoPostInit();
+        
+        this.selfAttributes.add(att);
+    }
 
-        @objid ("00837188-ed97-1f1f-85a5-001ec947cd2a")
-        public static List<SmClass> getRegisteredClasses() {
-            return Collections.unmodifiableList(_registeredClasses);
+    /**
+     * Register a dependency.
+     * @param dep a dependency.
+     */
+    @objid ("cbb63344-16ef-4d9c-b6e5-dfc1b729e28b")
+    protected final void registerDependency(SmDependency dep) {
+        checkNoPostInit();
+        
+        this.selfDependencies.add(dep);
+        
+        if (dep.isComponent()) {
+            this.selfComponentDep.add(dep);
+            this.selfComponentAndSharedDep.add(dep);
+        } else if (dep.isSharedComposition()) {
+            this.selfComponentAndSharedDep.add(dep);
+            this.selfSharedDep.add(dep);
+        } else if (dep.isPartOf()) {
+            this.selfReferenceDep.add(dep);
         }
+    }
 
-        @objid ("00837232-ed97-1f1f-85a5-001ec947cd2a")
-        public static SmClass getClass(final String name) {
-            return _cache.get(name);
+    /**
+     * Initialize the object factory.
+     * <p>
+     * Must be called once for each SmClass.
+     * @param iSmObjectFactory the object factory.
+     */
+    @objid ("d0e6502b-d210-4983-9def-37b5b4167233")
+    protected final void registerFactory(ISmObjectFactory iSmObjectFactory) {
+        if (this.objectFactory != null) {
+            throw new IllegalStateException(this + " object factory already initialized to " + this.objectFactory);
         }
+        
+        this.objectFactory = iSmObjectFactory;
+    }
 
-        /**
-         * Register a SmClass.
-         * @param smClass the SmClass to register
-         * @param name the metamodel name of the metaclass (from {@link SmaMetaClass} mmType())
-         * @return the class id
-         */
-        @objid ("008372d2-ed97-1f1f-85a5-001ec947cd2a")
-        public static short registerClass(final SmClass smClass, final String name) {
-            int id = _registeredClasses.size();
-            
-            _registeredClasses.add(smClass);
-            _cache.put(name, smClass);
-            _interfaceCache.put(smClass.getJavaInterface(), smClass);
-            return (short) id;
+    @objid ("b6a848da-03a0-468e-832c-17636715421f")
+    protected void checkNoPostInit() {
+        if (!this.allDependencies.isEmpty()) {
+            throw new IllegalStateException("postInit() already called" + this);
         }
+    }
 
-        @objid ("0056a28e-fd1a-1f27-a7da-001ec947cd2a")
-        public static SmClass getClass(final short classid) {
-            return _registeredClasses.get(classid);
+    @objid ("d61e55b3-d003-479c-a4c0-20851b4bcb38")
+    protected void initCache() {
+        this.allAttributes.clear();
+        this.allDependencies.clear();
+        this.allComponentDep.clear();
+        this.allReferenceDep.clear();
+        this.allSharedDep.clear();
+        this.allComponentAndSharedDep.clear();
+        
+        // initialize flatten attributes and dependencies
+        this.allAttributes.addAll(this.selfAttributes);
+        this.allDependencies.addAll(this.selfDependencies);
+        this.allComponentDep.addAll(this.selfComponentDep);
+        this.allReferenceDep.addAll(this.selfReferenceDep);
+        this.allSharedDep.addAll(this.selfSharedDep);
+        this.allComponentAndSharedDep.addAll(this.selfComponentAndSharedDep);
+        
+        // flatten attributes and dependencies
+        SmClass parent = getParent();
+        while (parent != null) {
+            this.allAttributes.addAll(parent.selfAttributes);
+        
+            this.allDependencies.addAll(parent.selfDependencies);
+            this.allComponentDep.addAll(parent.selfComponentDep);
+            this.allSharedDep.addAll(parent.selfSharedDep);
+            this.allReferenceDep.addAll(parent.selfReferenceDep);
+            this.allComponentAndSharedDep.addAll(parent.selfComponentAndSharedDep);
+        
+            parent = parent.getParent();
         }
-
-        @objid ("f7248b56-cb3e-11e1-87f1-001ec947ccaf")
-        public static SmClass getClass(Class<? extends MObject> metaclass) {
-            return _interfaceCache.get(metaclass);
-        }
-
+        
+        ((ArrayList<?>) this.allAttributes).trimToSize();
+        ((ArrayList<?>) this.allDependencies).trimToSize();
+        ((ArrayList<?>) this.allComponentDep).trimToSize();
+        ((ArrayList<?>) this.allSharedDep).trimToSize();
+        ((ArrayList<?>) this.allReferenceDep).trimToSize();
+        ((ArrayList<?>) this.allComponentAndSharedDep).trimToSize();
     }
 
 }

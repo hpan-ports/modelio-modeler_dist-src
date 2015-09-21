@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Api
 Bundle-SymbolicName: org.modelio.api;singleton:=true
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Require-Bundle: org.modelio.core.kernel,
  org.modelio.core.utils,
  org.modelio.metamodel.emfapi,
@@ -18,9 +18,10 @@ Require-Bundle: org.modelio.core.kernel,
  org.modelio.core.project,
  org.eclipse.help.base;bundle-version="4.0.0",
  org.modelio.core.help,
- org.modelio.ui
-Export-Package: org.modelio.api,
- org.modelio.api.app,
+ org.modelio.ui,
+ org.modelio.log,
+ org.eclipse.ui.forms
+Export-Package: org.modelio.api.app,
  org.modelio.api.app.navigation,
  org.modelio.api.app.picking,
  org.modelio.api.astyle,
@@ -40,15 +41,23 @@ Export-Package: org.modelio.api,
  org.modelio.api.modelio,
  org.modelio.api.module,
  org.modelio.api.module.commands,
- org.modelio.api.module.contrib,
  org.modelio.api.module.paramEdition,
  org.modelio.api.module.propertiesPage,
  org.modelio.api.module.script,
+ org.modelio.api.pattern,
+ org.modelio.api.plugin,
  org.modelio.api.ui,
+ org.modelio.api.ui.contributor,
  org.modelio.api.ui.diagramcreation,
  org.modelio.api.ui.dnd,
- org.modelio.api.ui.text
+ org.modelio.api.ui.form,
+ org.modelio.api.ui.form.fields,
+ org.modelio.api.ui.form.models,
+ org.modelio.api.ui.labelprovider,
+ org.modelio.api.ui.text,
+ org.modelio.metamodel
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: res/,
  .
+Bundle-Activator: org.modelio.api.plugin.Api

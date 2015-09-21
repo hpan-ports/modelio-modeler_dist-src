@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.linkeditor.view.background;
 
@@ -51,13 +51,11 @@ import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
-import org.modelio.core.ui.CoreFontRegistry;
+import org.modelio.api.module.IMdaExpert;
 import org.modelio.core.ui.images.ModuleI18NService;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.linkeditor.options.LinkEditorOptions;
 import org.modelio.linkeditor.view.LinkEditorView;
 import org.modelio.linkeditor.view.node.GraphNode;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -65,15 +63,17 @@ import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.ElementImport;
 import org.modelio.metamodel.uml.statik.Generalization;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
+import org.modelio.ui.CoreFontRegistry;
 import org.modelio.ui.UIFont;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MExpert;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * Drop Edit Policy used on the background of the LinkEditor to handle creation
- * by D&D.
+ * Drop Edit Policy used on the background of the LinkEditor to handle creation by D&D.
  * 
  * @author fpoyer
  */
@@ -106,13 +106,16 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
     @objid ("1b914193-5e33-11e2-b81d-002564c97630")
     @Override
     protected Command getCreateCommand(final CreateRequest request) {
+        BackgroundEditPart ep = (BackgroundEditPart) getHost();
+        IMdaExpert mdaExpert = ep.getMdaExpert();
+        
         // Extracting the dropped elements
         MObject[] droppedElements = (MObject[]) request.getExtendedData().get(LinkEditorDropTargetListener.DROPPED_ELEMENTS);
         if (droppedElements != null && droppedElements.length > 0 && LinkEditorView.getOptions().isPinned()) {
             // determine whether it is "to" or "from"
-            boolean isFrom = this.getSide(request);
+            boolean isFrom = getSide(request);
             // extracting the type of link to create...
-            List<Object> newLinkTypes = DropEditPolicy.getNewLinkType(this.getCenterNode().getData(), droppedElements, isFrom);
+            List<Object> newLinkTypes = getNewLinkType(getCenterNode().getData(), droppedElements, isFrom);
             if (newLinkTypes.size() == 0) {
                 // No valid types, nothing possible
                 return UnexecutableCommand.INSTANCE;
@@ -120,9 +123,9 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             CompoundCommand command = new CompoundCommand();
             for (MObject element : droppedElements) {
                 if (isFrom) {
-                    command.add(new CreateLinkCommand(element, this.getCenterNode().getData(), newLinkTypes));
+                    command.add(new CreateLinkCommand(element, getCenterNode().getData(), newLinkTypes, mdaExpert));
                 } else {
-                    command.add(new CreateLinkCommand(this.getCenterNode().getData(), element, newLinkTypes));
+                    command.add(new CreateLinkCommand(getCenterNode().getData(), element, newLinkTypes, mdaExpert));
                 }
                 // Subsequent commands will use choice made by first command
                 // (transmitted through a private static variable).
@@ -134,12 +137,12 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
     }
 
     /**
-     * Returns the type of new link to be created. If current options give an
-     * ambiguous answer, an popup is opened to ask user to resolve it.
+     * Returns the type of new link to be created. If current options give an ambiguous answer, an popup is opened to ask user to
+     * resolve it.
      * @return the type of new link to be created.
      */
     @objid ("1b91419e-5e33-11e2-b81d-002564c97630")
-    private static List<Object> getNewLinkType(final MObject centerElement, final MObject[] droppedElements, final boolean isFrom) {
+    private List<Object> getNewLinkType(final MObject centerElement, final MObject[] droppedElements, final boolean isFrom) {
         if (droppedElements.length == 0) {
             return Collections.emptyList();
         }
@@ -153,35 +156,42 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
                 return Collections.emptyList();
             }
         }
+        
+        BackgroundEditPart ep = (BackgroundEditPart) getHost();
+        IMdaExpert mdaExpert = ep.getMdaExpert();
+        
+        MMetamodel mm = centerElement.getMClass().getMetamodel();
+        MExpert mExpert = mm.getMExpert();
+        
         List<Object> types = new ArrayList<>();
         if (options.isAssociationShown()) {
         
-            if ((isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(AssociationEnd.class), droppedElements[0].getMClass(),
+            if ((isFrom && mExpert.canLink(mm.getMClass(AssociationEnd.class), droppedElements[0].getMClass(),
                     centerElement.getMClass()))
-                    || (!isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(AssociationEnd.class), centerElement.getMClass(),
+                    || (!isFrom && mExpert.canLink(mm.getMClass(AssociationEnd.class), centerElement.getMClass(),
                             droppedElements[0].getMClass()))) {
                 types.add(AssociationEnd.class);
             }
         }
         if (options.isImportShown()) {
-            if ((isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(ElementImport.class), droppedElements[0].getMClass(),
+            if ((isFrom && mExpert.canLink(mm.getMClass(ElementImport.class), droppedElements[0].getMClass(),
                     centerElement.getMClass()))
-                    || (!isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(ElementImport.class), centerElement.getMClass(),
+                    || (!isFrom && mExpert.canLink(mm.getMClass(ElementImport.class), centerElement.getMClass(),
                             droppedElements[0].getMClass()))) {
                 types.add(ElementImport.class);
             }
         }
         if (options.isInheritanceShown()) {
-            if ((isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(Generalization.class), droppedElements[0].getMClass(),
+            if ((isFrom && mExpert.canLink(mm.getMClass(Generalization.class), droppedElements[0].getMClass(),
                     centerElement.getMClass()))
-                    || (!isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(Generalization.class), centerElement.getMClass(),
+                    || (!isFrom && mExpert.canLink(mm.getMClass(Generalization.class), centerElement.getMClass(),
                             droppedElements[0].getMClass()))) {
         
                 types.add(Generalization.class);
             }
-            if ((isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(InterfaceRealization.class), droppedElements[0].getMClass(),
+            if ((isFrom && mExpert.canLink(mm.getMClass(InterfaceRealization.class), droppedElements[0].getMClass(),
                     centerElement.getMClass()))
-                    || (!isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(InterfaceRealization.class), centerElement.getMClass(),
+                    || (!isFrom && mExpert.canLink(mm.getMClass(InterfaceRealization.class), centerElement.getMClass(),
                             droppedElements[0].getMClass()))) {
                 types.add(InterfaceRealization.class);
             }
@@ -190,23 +200,27 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             // Take stereotype filter into account.
             if (options.isDependencyFiltered() && options.getDependencyFilter() != null) {
                 for (Stereotype stereo : options.getDependencyFilter()) {
-                    if ((isFrom && MTools.getLinkTool().canLink(stereo, Metamodel.getMClass(Dependency.class), droppedElements[0], centerElement))
-                            || (!isFrom && MTools.getLinkTool().canLink(stereo, Metamodel.getMClass(Dependency.class), centerElement, droppedElements[0]))) {
+        
+                    if ((isFrom && mdaExpert.canLink(stereo, mm.getMClass(Dependency.class), droppedElements[0], centerElement))
+                            || (!isFrom && mdaExpert.canLink(stereo, mm.getMClass(Dependency.class), centerElement,
+                                    droppedElements[0]))) {
                         types.add(stereo);
                     }
                 }
-            } else if ((isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(Dependency.class), droppedElements[0].getMClass(),
+            } else if ((isFrom && mExpert.canLink(mm.getMClass(Dependency.class), droppedElements[0].getMClass(),
                     centerElement.getMClass()))
-                    || (!isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(Dependency.class), centerElement.getMClass(),
+                    || (!isFrom && mExpert.canLink(mm.getMClass(Dependency.class), centerElement.getMClass(),
                             droppedElements[0].getMClass()))) {
                 types.add(Dependency.class);
             }
         }
+        
         if (options.isTraceShown()) {
-                final Stereotype type = getStereotype(CoreSession.getSession(centerElement).getModel(), "ModelerModule", "trace", Metamodel.getMClass(Dependency.class));
-                if (type != null) {
+            final Stereotype type = getStereotype(CoreSession.getSession(centerElement).getModel(), "ModelerModule", "trace",
+                    mm.getMClass(Dependency.class));
+            if (type != null) {
                 types.add(type);
-                }
+            }
         }
         return types;
     }
@@ -225,15 +239,15 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             return;
         }
         CreateRequest createRequest = (CreateRequest) request;
-        GraphNode centerNode = this.getCenterNode();
-        GraphicalEditPart centerNodeEditPart = (GraphicalEditPart) this.getHost().getViewer().getEditPartRegistry().get(centerNode);
+        GraphNode centerNode = getCenterNode();
+        GraphicalEditPart centerNodeEditPart = (GraphicalEditPart) getHost().getViewer().getEditPartRegistry().get(centerNode);
         IFigure centerNodeFigure = centerNodeEditPart.getFigure();
         this.dummyChopBoxAnchor.setOwner(centerNodeFigure);
         // update the XY anchor position.
         this.dummyXYAnchor.setLocation(createRequest.getLocation());
         
         // determine wether it is "to" or "from"
-        boolean isFrom = this.getSide(createRequest);
+        boolean isFrom = getSide(createRequest);
         
         if (this.connectionFeedback == null) {
             // add the "link" feedback.
@@ -245,25 +259,25 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             // extracting the type of link to create...
             // Extracting the dropped elements
             MObject[] droppedElements = (MObject[]) request.getExtendedData().get(LinkEditorDropTargetListener.DROPPED_ELEMENTS);
-            List<Object> newLinkTypes = DropEditPolicy.getNewLinkType(this.getCenterNode().getData(), droppedElements, isFrom);
+            List<Object> newLinkTypes = getNewLinkType(getCenterNode().getData(), droppedElements, isFrom);
             if (newLinkTypes.size() == 1) {
                 Object newLinkType = newLinkTypes.get(0);
                 if (newLinkType == AssociationEnd.class) {
-                    this.decorateAssociation(this.connectionFeedback);
+                    decorateAssociation(this.connectionFeedback);
                 } else if (newLinkType == ElementImport.class) {
-                    this.decorateElementImport(this.connectionFeedback);
+                    decorateElementImport(this.connectionFeedback);
                 } else if (newLinkType == Generalization.class || newLinkType == InterfaceRealization.class) {
-                    this.decorateGeneralization(this.connectionFeedback);
+                    decorateGeneralization(this.connectionFeedback);
                 } else if (newLinkType == Dependency.class) {
-                    this.decorateDependency(this.connectionFeedback, null);
+                    decorateDependency(this.connectionFeedback, null);
                 } else if (newLinkType instanceof Stereotype) {
-                    this.decorateDependency(this.connectionFeedback, (Stereotype) newLinkType);
+                    decorateDependency(this.connectionFeedback, (Stereotype) newLinkType);
                 }
             } else {
                 // TODO: decorate undefined type (leading to type selection
                 // popup on drop).
             }
-            this.getFeedbackLayer().add(this.connectionFeedback);
+            getFeedbackLayer().add(this.connectionFeedback);
         }
         if (isFrom) {
             this.connectionFeedback.setSourceAnchor(this.dummyXYAnchor);
@@ -272,8 +286,8 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             this.connectionFeedback.setSourceAnchor(this.dummyChopBoxAnchor);
             this.connectionFeedback.setTargetAnchor(this.dummyXYAnchor);
         }
-        this.getFeedbackLayer().remove(this.connectionFeedback);
-        this.getFeedbackLayer().add(this.connectionFeedback);
+        getFeedbackLayer().remove(this.connectionFeedback);
+        getFeedbackLayer().add(this.connectionFeedback);
         
         super.showLayoutTargetFeedback(request);
     }
@@ -283,14 +297,14 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
     public void deactivate() {
         super.deactivate();
         if (this.connectionFeedback != null) {
-            this.getFeedbackLayer().remove(this.connectionFeedback);
+            getFeedbackLayer().remove(this.connectionFeedback);
             this.connectionFeedback = null;
         }
     }
 
     @objid ("1b93a2e4-5e33-11e2-b81d-002564c97630")
     private boolean getSide(final CreateRequest request) {
-        GraphNode centerNode = this.getCenterNode();
+        GraphNode centerNode = getCenterNode();
         if (LinkEditorView.getOptions().isLayoutOrientationVertical()) {
             if (request.getLocation().y < (centerNode.y + (centerNode.height / 2))) {
                 return false;
@@ -310,7 +324,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
     @Override
     protected void eraseLayoutTargetFeedback(final Request request) {
         if (this.connectionFeedback != null) {
-            this.getFeedbackLayer().remove(this.connectionFeedback);
+            getFeedbackLayer().remove(this.connectionFeedback);
             this.connectionFeedback = null;
         }
         super.eraseLayoutTargetFeedback(request);
@@ -324,7 +338,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
         // default creation is PRIVATE
         role.setText(DropEditPolicy.OPENING + "access" + DropEditPolicy.CLOSING);
         
-        role.setFont(CoreFontRegistry.getScaledFont(Display.getDefault().getSystemFont(), UIFont.SMALL_SIZE));
+        role.setFont(CoreFontRegistry.getModifiedFont(Display.getDefault().getSystemFont(), 0, UIFont.SMALL_SIZE));
         ConnectionLocator constraint = new ConnectionLocator(fig, ConnectionLocator.MIDDLE);
         constraint.setGap(2);
         constraint.setRelativePosition(PositionConstants.NORTH);
@@ -341,7 +355,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             if (stereoLabel != null && !stereoLabel.isEmpty()) {
                 Label role = new Label();
                 role.setText(DropEditPolicy.OPENING + stereoLabel + DropEditPolicy.CLOSING);
-                role.setFont(CoreFontRegistry.getScaledFont(Display.getDefault().getSystemFont(), UIFont.SMALL_SIZE));
+                role.setFont(CoreFontRegistry.getModifiedFont(Display.getDefault().getSystemFont(), 0, UIFont.SMALL_SIZE));
                 ConnectionLocator constraint = new ConnectionLocator(fig, ConnectionLocator.MIDDLE);
                 constraint.setGap(2);
                 constraint.setRelativePosition(PositionConstants.NORTH);
@@ -360,7 +374,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
         Label role = new Label();
         // TODO: correct text
         role.setText("associationEnd");
-        role.setFont(CoreFontRegistry.getScaledFont(Display.getDefault().getSystemFont(), UIFont.SMALL_SIZE));
+        role.setFont(CoreFontRegistry.getModifiedFont(Display.getDefault().getSystemFont(), 0, UIFont.SMALL_SIZE));
         ConnectionLocator constraint = new ConnectionLocator(fig, ConnectionLocator.TARGET);
         constraint.setGap(5);
         constraint.setRelativePosition(PositionConstants.NORTH_WEST);
@@ -369,7 +383,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
         Label card = new Label();
         // correct text
         card.setText("[0..1]");
-        card.setFont(CoreFontRegistry.getScaledFont(Display.getDefault().getSystemFont(), UIFont.SMALL_SIZE));
+        card.setFont(CoreFontRegistry.getModifiedFont(Display.getDefault().getSystemFont(), 0, UIFont.SMALL_SIZE));
         constraint = new ConnectionLocator(fig, ConnectionLocator.TARGET);
         constraint.setGap(5);
         constraint.setRelativePosition(PositionConstants.SOUTH_WEST);
@@ -396,18 +410,18 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
      */
     @objid ("1b93a30e-5e33-11e2-b81d-002564c97630")
     private GraphNode getCenterNode() {
-        GraphNode centerNode = ((BackgroundModel) this.getHost().getModel()).getCenter();
+        GraphNode centerNode = ((BackgroundModel) getHost().getModel()).getCenter();
         return centerNode;
     }
 
     @objid ("a31a487a-e70a-4fa8-ae7c-afb23717ea59")
-    public static Stereotype getStereotype(IModel iModel, String moduleName, String stereotypeName, MClass metaclass) {
+    private static Stereotype getStereotype(IModel iModel, String moduleName, String stereotypeName, MClass metaclass) {
         Pattern p = Pattern.compile((moduleName == null || moduleName.isEmpty()) ? ".*" : moduleName);
         
         for (Stereotype type : iModel.findByAtt(Stereotype.class, "Name", stereotypeName)) {
             ModuleComponent module = type.getModule();
             if (module != null) {
-                MClass steClass = Metamodel.getMClass(type.getBaseClassName());
+                MClass steClass = module.getMClass().getMetamodel().getMClass(type.getBaseClassName());
                 if (metaclass.hasBase(steClass) && p.matcher(module.getName()).matches()) {
                     return type;
                 }

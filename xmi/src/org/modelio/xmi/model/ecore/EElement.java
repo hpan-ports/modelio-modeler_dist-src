@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.ecore;
 
@@ -63,17 +63,17 @@ public class EElement implements IEElement {
         if (object != null){
             if (object instanceof ModelElement){
                 ModelElement modelElement = (ModelElement) object;
-                if ((modelElement.getTag() != null) && (modelElement.getTag().size() == 0) 
+                if ((modelElement.getTag() != null) && (modelElement.getTag().size() == 0)
                         && (modelElement.getExtension().size() == 0))
                     for ( Object stereo : this.ecoreElt.getAppliedStereotypes()){
                         setStereotype(modelElement, (org.eclipse.uml2.uml.Stereotype) stereo);
-                    }                    
-               
+                    }
+        
             }else if (object instanceof List<?>){
                 for (Object createdElt : (List<?>) object){
                     if (createdElt instanceof ModelElement){
                         ModelElement modelElement = (ModelElement) createdElt;
-                        if ((modelElement.getTag() != null) && (modelElement.getTag().size() == 0) 
+                        if ((modelElement.getTag() != null) && (modelElement.getTag().size() == 0)
                                 && (modelElement.getExtension().size() == 0))
                             for (Object stereo : this.ecoreElt.getAppliedStereotypes()){
                                 setStereotype(modelElement, (org.eclipse.uml2.uml.Stereotype) stereo);
@@ -136,7 +136,7 @@ public class EElement implements IEElement {
         ProfileUtils.createObjProfile(stereotype.getProfile());
         ProfileUtils.addExtension(objElement, stereotype);
         
-        List<Property> listStereotypeProperties = new ArrayList<Property>();
+        List<Property> listStereotypeProperties = new ArrayList<>();
         
         for ( Object attribute : stereotype.getOwnedAttributes()){
             if ((attribute instanceof Property ) && (!(((Property)attribute).getAssociation() instanceof ExtensionImpl)))
@@ -171,7 +171,7 @@ public class EElement implements IEElement {
             if ((taggedValueId != null ) && (!taggedValueId.equals(""))){
         
                 Object propertyValue  = this.ecoreElt.getValue(stereotype, propertyName);
-                if ( propertyValue != null  ){            
+                if ( propertyValue != null  ){
                     if (propertyValue.equals(true)){
                         createTaggedValue(tagType, objModelElement);
                     }else if (!(propertyValue.equals(false))){
@@ -186,7 +186,7 @@ public class EElement implements IEElement {
         
                     TaggedValue taggedValue = createTaggedValue(tagType, objModelElement);
         
-                    if (!value.equals(true) &&  (property.getType() != null)){ 
+                    if (!value.equals(true) &&  (property.getType() != null)){
         
                         String currentEcoreTypeName = ecoreType.getName();
         
@@ -207,12 +207,12 @@ public class EElement implements IEElement {
                                 }
                             }
         
-                        }else if ((ecoreType instanceof org.eclipse.uml2.uml.Class) 
-                                && (EcoreModelNavigation.isMetaclass( (org.eclipse.uml2.uml.Class)ecoreType)) 
+                        }else if ((ecoreType instanceof org.eclipse.uml2.uml.Class)
+                                && (EcoreModelNavigation.isMetaclass( (org.eclipse.uml2.uml.Class)ecoreType))
                                 &&(value instanceof org.eclipse.uml2.uml.Element)){
         
-                            if(value instanceof org.eclipse.uml2.uml.NamedElement) {   
-                                model.createTagParameter(((org.eclipse.uml2.uml.NamedElement)value).getName(), taggedValue); 
+                            if(value instanceof org.eclipse.uml2.uml.NamedElement) {
+                                model.createTagParameter(((org.eclipse.uml2.uml.NamedElement)value).getName(), taggedValue);
                             }else{
                                 model.createTagParameter(value.toString(), taggedValue);
                             }
@@ -221,12 +221,12 @@ public class EElement implements IEElement {
                             model.createTagParameter(((EnumerationLiteralImpl)value).getName(), taggedValue);
                         }else{
                             model.createTagParameter(value.toString(), taggedValue);
-                        }   
-                    } 
+                        }
+                    }
         
                 }
         
-            }   
+            }
         }
     }
 
@@ -241,7 +241,7 @@ public class EElement implements IEElement {
         
         for (Property attribute : listStereotypeProperties){
             String ecoreTaggedValueId = ObjingEAnnotation.getTaggedValue(attribute);
-            if (!ObjingEAnnotation.isTagParameter(attribute) 
+            if (!ObjingEAnnotation.isTagParameter(attribute)
                     && (ecoreTaggedValueId != null)
                     && (ecoreTaggedValueId.equals(taggedValueId))
                     &&(tagType.getName().equals(attribute.getName()))){
@@ -260,10 +260,10 @@ public class EElement implements IEElement {
         listStereotypeProperties.removeAll(toBeRemoved);
         toBeRemoved.clear();
         
-        //TagParameter 
+        //TagParameter
         
         for (Property attribute :  listStereotypeProperties){
-            if (ObjingEAnnotation.isTagParameter(attribute) 
+            if (ObjingEAnnotation.isTagParameter(attribute)
                     && (ObjingEAnnotation.getTaggedValue(attribute).equals(taggedValueId))
                     &&(tagType.getName().equals(attribute.getName()))){
         

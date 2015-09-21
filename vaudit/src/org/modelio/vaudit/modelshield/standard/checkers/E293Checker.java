@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.vaudit.modelshield.internal.ModelError;
@@ -33,6 +32,7 @@ import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityCh
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
 import org.modelio.vcore.smkernel.mapi.MDependency;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * E210:
@@ -51,12 +51,12 @@ public class E293Checker extends DepCardinalityChecker {
 
     @objid ("3f3df38c-8e8d-48fd-9d24-e421ab8beb8c")
     @Override
-    public void register(final Plan plan) {
+    public void register(final Plan plan, SmMetamodel smMetamodel) {
         // trigger=create, metaclass=Association, feature=null
-        plan.registerChecker(this, Metamodel.getMClass(AssociationEnd.class), TriggerType.Create, null);
+        plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Create, null);
         
         // trigger=create, metaclass=Association, feature=Connection
-        plan.registerChecker(this, Metamodel.getMClass(AssociationEnd.class), TriggerType.Update, DEPNAME);
+        plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Update, DEPNAME);
     }
 
     @objid ("ca7880cf-4ab2-422b-a056-4e39f34dfa17")

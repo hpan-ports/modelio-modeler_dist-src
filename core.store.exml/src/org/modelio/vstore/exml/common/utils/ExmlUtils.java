@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.utils;
 
@@ -31,8 +31,6 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vcore.smkernel.meta.SmDependency;
-import org.modelio.vcore.smkernel.meta.SmMultipleDependency;
-import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 
 /**
  * EXML utilities.
@@ -42,7 +40,8 @@ public final class ExmlUtils {
     /**
      * Get all objects contained in the given CMS node using generic navigation.
      * <p>
-     * Child CMS nodes are excluded.
+     * The given CMS node and Child CMS nodes are excluded.
+     * The returned list may be freely modified.
      * @param cmsNode a CMS node object
      * @return all contained objects.
      */
@@ -79,6 +78,7 @@ public final class ExmlUtils {
      * <li> shared composition dependencies
      * <li> 'partof' dependencies that are not opposites of strong or shared composition.
      * </ul>
+     * The returned list may be freely modified.
      * @param object a model object
      * @return all SmDependency to serialize.
      */
@@ -90,10 +90,11 @@ public final class ExmlUtils {
         
         for (SmDependency dep : allDeps) {
             // Serialize :
-            // - component dependencies 
+            // - component dependencies
             // - and 'partof' dependencies that are not composition opposites
-            if (ExmlUtils.isDepComponent(dep) || (dep.isPartOf() && ! dep.isCompositionOpposite()))
+            if (ExmlUtils.isDepComponent(dep) || (dep.isPartOf() && ! dep.isCompositionOpposite())) {
                 deps.add(dep);
+            }
         }
         return deps;
     }
@@ -156,15 +157,19 @@ public final class ExmlUtils {
      */
     @objid ("8265a510-b4ac-4983-b6f0-966e4f61982c")
     public static boolean isComposition(SmObjectImpl src, SmDependency dep, SmObjectImpl dest) {
-        if (dep.isComponent())
+        if (dep.isComponent()) {
             return true;
-        if (!dep.isSharedComposition())
+        }
+        if (!dep.isSharedComposition()) {
             return false;
+        }
         return src.equals(dest.getCompositionOwner());
     }
 
     /**
      * Get composition children already in memory using generic way.
+     * <p>
+     * The returned list may be freely modified.
      * @param obj a model object
      * @return its loaded composition children
      */
@@ -174,10 +179,10 @@ public final class ExmlUtils {
         
         for (SmDependency dep : obj.getClassOf().getAllComponentAndSharedDepDef()) {
             if (dep.isMultiple()) {
-                List<SmObjectImpl> depVal = ((SmMultipleDependency)dep).getValueList(obj.getData());
+                Collection<SmObjectImpl> depVal = dep.getValueAsCollection(obj.getData());
                 results.addAll(depVal);
             } else {
-                SmObjectImpl depVal = ((SmSingleDependency)dep).getValue(obj.getData());
+                SmObjectImpl depVal = (SmObjectImpl) dep.getValue(obj.getData());
                 if (depVal != null) {
                     results.add(depVal);
                 }

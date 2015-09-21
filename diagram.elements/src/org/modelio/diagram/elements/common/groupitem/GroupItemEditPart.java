@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.groupitem;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.EditPolicy;
-import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
+import org.modelio.diagram.elements.common.label.modelelement.ModelElementLabelEditPart;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
@@ -36,7 +36,7 @@ import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPolic
  * <p>
  */
 @objid ("7e5e21e0-1dec-11e2-8cad-001ec947c8cc")
-public class GroupItemEditPart extends ModelElementFlatHeaderEditPart {
+public class GroupItemEditPart extends ModelElementLabelEditPart {
     /**
      * Default constructor.
      */

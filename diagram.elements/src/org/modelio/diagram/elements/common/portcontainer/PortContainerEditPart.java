@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.portcontainer;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LayoutListener.Stub;
-import org.eclipse.draw2d.LayoutListener;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -36,13 +38,15 @@ import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.modelio.diagram.elements.common.freezone.TranslateChildrenOnResizeEditPolicy;
 import org.modelio.diagram.elements.common.portcontainer.PortConstraint.Border;
+import org.modelio.diagram.elements.core.commands.NoopCommand;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DelegatingEditPolicy;
+import org.modelio.diagram.elements.plugin.DiagramElements;
 
 /**
  * Edit part for port container.
@@ -51,14 +55,14 @@ import org.modelio.diagram.elements.core.policies.DelegatingEditPolicy;
  */
 @objid ("7eef9176-1dec-11e2-8cad-001ec947c8cc")
 public class PortContainerEditPart extends GmNodeEditPart {
-    @objid ("7eef917a-1dec-11e2-8cad-001ec947c8cc")
-    protected boolean dirty = false;
+    @objid ("e0104c2e-4370-4c75-962a-39fb60efdf6f")
+    private static final boolean DEBUG = false;
 
-    @objid ("7eef9178-1dec-11e2-8cad-001ec947c8cc")
-     ChildNodesInitialLayouter postLayouter = null;
+    @objid ("f1312d1a-3870-4e16-8cda-e6e523874d01")
+    private boolean dragPolicyInstalled;
 
-    @objid ("7eef9179-1dec-11e2-8cad-001ec947c8cc")
-     PostLayoutAutoResizer postLayoutAutoResizer = null;
+    @objid ("4a5dbe79-1185-4fa6-9e64-8d27064e115c")
+    private List<Command> postRefreshCommands = new ArrayList<>(0);
 
     /**
      * C'tor.
@@ -68,12 +72,12 @@ public class PortContainerEditPart extends GmNodeEditPart {
         super();
         // Add a listener that will provoke self resize on child addition and
         // subtraction.
-        this.addEditPartListener(new EditPartListener.Stub() {
+        addEditPartListener(new EditPartListener.Stub() {
             @Override
             public void childAdded(EditPart child, int index) {
                 GmPortContainer pc = (GmPortContainer) getModel();
                 if (pc.getMainNode() != child.getModel()) {
-                    forcePostLayoutAutoResize();
+                    scheduleAutoResize();
                 }
             }
         
@@ -81,29 +85,58 @@ public class PortContainerEditPart extends GmNodeEditPart {
             public void removingChild(EditPart child, int index) {
                 GmPortContainer pc = (GmPortContainer) getModel();
                 if (pc.getMainNode() != child.getModel()) {
-                    forcePostLayoutAutoResize();
+                    scheduleAutoResize();
                 }
             }
         
         });
     }
 
+    @objid ("af389dea-f46c-4eb8-97b6-d14a167108c7")
+    @Override
+    public void activate() {
+        super.activate();
+        
+        // Run post refresh commands if everything is ready.
+        runPostRefreshCommands();
+    }
+
+    /**
+     * @return the {@link GmPortContainer} model.
+     */
+    @objid ("83260f20-8bba-4700-b1f3-e29503e597d7")
+    public GmPortContainer getPortContainerModel() {
+        return (GmPortContainer) getModel();
+    }
+
+    /**
+     * Return one that will keep the bounds of
+     * the container correct and instead resize the main node (if any).
+     */
     @objid ("7eef917e-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public SelectionEditPolicy getPreferredDragRolePolicy(String requestType) {
-        // If asked for a RESIZE policy, return one that will keep the bounds of
-        // the container correct and instead resize the main node (if any).
-        if (REQ_RESIZE.equals(requestType)) {
-            return new AutoSizeEditPolicy();
+        return new AutoSizeEditPolicy2();
+    }
+
+    @objid ("354dc083-3c1e-4507-b9ab-2c2171c2c5eb")
+    @Override
+    public void installEditPolicy(Object key, EditPolicy editPolicy) {
+        super.installEditPolicy(key, editPolicy);
+        
+        if (key.equals(EditPolicy.PRIMARY_DRAG_ROLE)) {
+            this.dragPolicyInstalled = (editPolicy != null);
         }
-        return super.getPreferredDragRolePolicy(requestType);
+        
+        // Run post refresh commands if everything is ready.
+        runPostRefreshCommands();
     }
 
     /**
      * Provoke the self resize of the container by sending a RESIZE request (with resize delta being (0,0)) on the
      * container.
      */
-    @objid ("7eef9186-1dec-11e2-8cad-001ec947c8cc")
+    @objid ("bcbc430d-7050-47b8-8fe6-85c2bd65450f")
     void autoResize() {
         // Request a "fake" resize of container, so that it can adapts
         // itself to its new child.
@@ -112,6 +145,15 @@ public class PortContainerEditPart extends GmNodeEditPart {
         resizeContainerRequest.setSizeDelta(new Dimension(0, 0));
         Command resizeContainerCommand = getCommand(resizeContainerRequest);
         if (resizeContainerCommand != null && resizeContainerCommand.canExecute()) {
+        
+            if (DEBUG) {
+                if (DiagramElements.LOG.isDebugEnabled()) {
+                    Throwable t = new Throwable("Auto resizing "+this);
+        
+                    DiagramElements.LOG.debug("%s : \n\t%s\n\t%s\n\t%s", t.getMessage(), t.getStackTrace()[0], t.getStackTrace()[1], t.getStackTrace()[2]);
+                }
+            }
+        
             resizeContainerCommand.execute();
         }
     }
@@ -131,48 +173,56 @@ public class PortContainerEditPart extends GmNodeEditPart {
             // it can use it for handle bounds and for laying out the ports.
             isMainNode = true;
             portContainerFigure.setMainNodeFigure(childFigure);
-            ((PortContainerLayout) portContainerFigure.getLayoutManager()).setMainNodeFigure(childFigure);
+            portContainerFigure.getPortContainerLayout().setMainNodeFigure(childFigure);
+        
+            if (childModel.getLayoutData() == null) {
+                // The main node constraint needs to be initialized first
+                this.postRefreshCommands.add(0, new MainNodeInitializeCommand(childFigure, childModel));
+            }
+        
         } else if (pc.isSatellite(childModel)) {
             // Override the IDragTrackerProvider of the child EditPart to use a
             // custom one that will handle the fact that a satellite should not
             // be reparented.
             ((GmNodeEditPart) childEditPart).setDragTrackerProvider(new SatelliteDragTrackerProvider(childEditPart));
         } else {
-            assert (pc.isPort(childModel)) : "unsupported type of child: " +
-                                                                                           childModel.getRoleInComposition();
+            assert (pc.isPort(childModel)) : String.format("Unsupported type of child role '%s' for %s",
+                    childModel.getRoleInComposition(), childModel);
         }
         
+        // Some child layout data need to be initialized once the figures have been layouted.
         if (childModel.getLayoutData() != null) {
-            if (childModel.getLayoutData() instanceof Integer) {
-                // Specific case of a satellite placed "ex nihilo", wait for the layout to have been applied at least once before placing the satellite.
-                getPostLayouter().addLayouter(new ChildSatelliteInitialLayouter(childFigure, childModel));
+          if (childModel.getLayoutData() instanceof Integer) {
+               // Specific case of a satellite placed "ex nihilo": schedule the satellite placement.
+              this.postRefreshCommands.add(new ChildSatelliteInitializeCommand(childFigure, childModel));
         
             } else if (pc.isPort(childModel)) {
-        
                 if (childModel.getLayoutData() instanceof Rectangle) {
-                    final Rectangle oldConstraint = (Rectangle) childModel.getLayoutData();
-        
+                    // Changes the temporary Rectangle constraint to a PortConstraint
+                    Rectangle oldConstraint = (Rectangle) childModel.getLayoutData();
+                    Border referenceBorder = portContainerFigure.getPortContainerLayout().determineReferenceBorder(portContainerFigure,
+                                                                                                                                     oldConstraint);
                     final PortConstraint newConstraint = new PortConstraint();
                     newConstraint.setRequestedBounds(oldConstraint);
-        
-                    Border referenceBorder = ((PortContainerLayout) portContainerFigure.getLayoutManager()).determineReferenceBorder(portContainerFigure,
-                                                                                                                                     oldConstraint);
                     newConstraint.setReferenceBorder(referenceBorder);
         
                     childModel.setLayoutData(newConstraint);
                 } else if (childModel.getLayoutData() instanceof Border) {
-                    getPostLayouter().addLayouter(new ChildPortInitialLayouter(childFigure, childModel));
+                    // Specific case of a port placed "ex nihilo":
+                    // Schedule change of Border to a PortConstraint
+                    this.postRefreshCommands.add(new ChildPortInitializeCommand(childFigure, childModel));
                 }
             }
         }
         
         // Actually add the child.
-        // Same as calling :
-        // super.addChildVisual(childEditPart, index);
-        // Except we do get the constraint right now instead of later.
+        // Quite same as calling super.addChildVisual(childEditPart, index)
+        // except we do set the constraint right now instead of later.
         if (isMainNode) {
+            // Insert main node in first position
             getContentPane().add(childFigure, childModel.getLayoutData(), 0);
         } else {
+            // Insert other nodes at requested position
             getContentPane().add(childFigure, childModel.getLayoutData(), index);
         }
     }
@@ -184,6 +234,7 @@ public class PortContainerEditPart extends GmNodeEditPart {
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new PortContainerEditPolicy());
         installEditPolicy("Delegation", new DelegatingEditPolicy());
         installEditPolicy("satellite selection", new SatelliteChildrenSelectionPolicy());
+        installEditPolicy(TranslateChildrenOnResizeEditPolicy.class, null);
     }
 
     @objid ("7eef9194-1dec-11e2-8cad-001ec947c8cc")
@@ -194,20 +245,52 @@ public class PortContainerEditPart extends GmNodeEditPart {
         // Style independent properties.
         fig.setLayoutManager(new PortContainerLayout());
         
-        // DEBUG
-        // fig.setOpaque(true);
-        // fig.setBackgroundColor(ColorConstants.red);
-        
         // Style dependent properties.
         refreshFromStyle(fig, getModelStyle());
         
-        fig.addLayoutListener(new LayoutListener.Stub() {
-            @Override
-            public void postLayout(IFigure container) {
-                PortContainerEditPart.this.dirty = false;
-            }
-        });
+        
+        //  Layout debugging
+        if (DEBUG) {
+            fig.setBorder(new LineBorder(ColorConstants.red));
+        
+            // debug : log bounds changes
+            /*
+            PortContainerEditPart thisEp = this;
+            fig.addFigureListener(new FigureListener() {
+                private Rectangle oldBounds;
+                @Override
+                public void figureMoved(IFigure source) {
+                    Rectangle newBounds = source.getBounds();
+                    if (this.oldBounds == null ) {
+                        this.oldBounds = newBounds.getCopy();
+                    } else if (! this.oldBounds.equals(newBounds)) {
+                        if (this.oldBounds.x() > newBounds.x()) {
+                            DiagramElements.LOG.debug("   PortContainerEditPart.FigureListener: %s \n\t\tLEFT moved from %s \n\t\t to %s", thisEp, this.oldBounds, newBounds);
+                        } else {
+                            DiagramElements.LOG.debug("   PortContainerEditPart.FigureListener: %s \n\t\t moved from %s \n\t\t to %s", thisEp, this.oldBounds, newBounds);
+                        }
+                        this.oldBounds.setBounds(newBounds);
+                    }
+                }
+            });*/
+        }
         return fig;
+    }
+
+    /**
+     * @return the port container figure.
+     */
+    @objid ("efdadfd6-4090-414c-a63e-cfee3149ffb5")
+    protected PortContainerFigure getPortContainerFigure() {
+        return (PortContainerFigure) getFigure();
+    }
+
+    @objid ("4d22181b-77e7-4377-b9f0-c35a47169be6")
+    @Override
+    protected void refreshChildren() {
+        super.refreshChildren();
+        
+        runPostRefreshCommands();
     }
 
     @objid ("7eef919b-1dec-11e2-8cad-001ec947c8cc")
@@ -220,17 +303,6 @@ public class PortContainerEditPart extends GmNodeEditPart {
                            .setConstraint(portContainerFigure, portContainerModel.getLayoutData());
         
         super.refreshVisuals();
-        
-        // Additionally force refresh of main node edit part
-        GmNodeModel mainNode = portContainerModel.getMainNode();
-        if (mainNode != null) {
-            AbstractGraphicalEditPart mainNodeEditPart = (AbstractGraphicalEditPart) getViewer().getEditPartRegistry()
-                                                                                                .get(mainNode);
-            if (mainNodeEditPart != null) {
-                mainNodeEditPart.refresh();
-            }
-        }
-        this.dirty = true;
     }
 
     @objid ("7ef1f3ab-1dec-11e2-8cad-001ec947c8cc")
@@ -239,8 +311,9 @@ public class PortContainerEditPart extends GmNodeEditPart {
         // Just watch out for the main node:
         GmPortContainer pc = (GmPortContainer) getModel();
         if (pc.getMainNode() == childEditPart.getModel()) {
-            ((PortContainerFigure) getFigure()).setMainNodeFigure(null);
-            ((PortContainerLayout) getFigure().getLayoutManager()).setMainNodeFigure(null);
+            PortContainerFigure pcFig = (PortContainerFigure) getFigure();
+            pcFig.setMainNodeFigure(null);
+            pcFig.getPortContainerLayout().setMainNodeFigure(null);
         }
         
         // Actually remove the child.
@@ -248,25 +321,167 @@ public class PortContainerEditPart extends GmNodeEditPart {
     }
 
     /**
-     * Get the post layout listener used to initialize some Ports and satellite node constraint.
-     * @return the post layouter.
+     * Run all commands added to {@link #postRefreshCommands}.
+     * <p>
+     * Figures layout is triggered before each command execution.
+     * Triggers an {@link #autoResize()} after all commands have been run.
+     * <p>
+     * Post refresh commands are run only if the edit part is active and has a drag policy.
      */
-    @objid ("7ef1f3b1-1dec-11e2-8cad-001ec947c8cc")
-    private ChildNodesInitialLayouter getPostLayouter() {
-        if (this.postLayouter == null) {
-            this.postLayouter = new ChildNodesInitialLayouter();
-            this.getFigure().addLayoutListener(this.postLayouter);
+    @objid ("f7866f43-ca1d-4313-a70e-485f206e951b")
+    protected void runPostRefreshCommands() {
+        // Run post refresh commands only if the edit part is active and has a drag policy.
+        if (isActive() && this.dragPolicyInstalled && ! this.postRefreshCommands.isEmpty()) {
+            UpdateManager updateManager = getFigure().getUpdateManager();
+        
+            // Try 3 times to consume commands
+            for (int i=0; i<3 && ! this.postRefreshCommands.isEmpty(); i++) {
+                for (Iterator<Command> it = this.postRefreshCommands.iterator(); it.hasNext();) {
+                    Command command = it.next();
+                    if (command.canExecute()) {
+                        updateManager.performValidation();
+        
+                        command.execute();
+                        it.remove();
+                    }
+                }
+            }
+        
+            // Log not run commands, there should be none here.
+            if (! this.postRefreshCommands.isEmpty()) {
+                DiagramElements.LOG.debug("%d post refresh commands not executable:", this.postRefreshCommands.size());
+                for (Command command : this.postRefreshCommands) {
+                    DiagramElements.LOG.debug("  - %s", command);
+                }
+            }
+        
+            updateManager.performValidation();
+            autoResize();
         }
-        return this.postLayouter;
     }
 
-    @objid ("7ef1f3b6-1dec-11e2-8cad-001ec947c8cc")
-    void forcePostLayoutAutoResize() {
-        if (this.postLayoutAutoResizer == null) {
-            this.postLayoutAutoResizer = new PostLayoutAutoResizer();
-            this.getFigure().addLayoutListener(this.postLayoutAutoResizer);
+    @objid ("e0b075ce-2785-4157-977d-f4feab1d405b")
+    protected void scheduleAutoResize() {
+        this.postRefreshCommands.add(new NoopCommand());
+    }
+
+    /**
+     * Sets the port initial bounds if not defined.
+     * <p>
+     * Computes the initial location of a port based on the bounds of the main node, a placement constraint
+     * expressed as a value from {@link PortConstraint.Border} and the preferred size of the satellite.
+     * 
+     * @author cmarin from previous FPO post layout listener
+     * @since 3.4
+     */
+    @objid ("7a6ff4f1-af57-44fe-b13e-53807a7b983f")
+    private class ChildPortInitializeCommand extends Command {
+        @objid ("1a46aab2-8fcb-460f-9ba3-5f1eb8f324fb")
+        private final IFigure childFigure;
+
+        @objid ("aef36c05-a055-440a-b608-2b692fb2be92")
+        private final GmNodeModel childModel;
+
+        /**
+         * Converts an Integer (interpreted as a value from {@link PositionConstants} to a Rectangle.
+         * @param childFigure the child figure for which to convert the constraint.
+         * @param childModel the child model for which to convert the constraint.
+         */
+        @objid ("14ef886c-5f6d-4852-b91c-8b8dd48c7662")
+        public ChildPortInitializeCommand(final IFigure childFigure, final GmNodeModel childModel) {
+            this.childFigure = childFigure;
+            this.childModel = childModel;
         }
-        return;
+
+        @objid ("5da65000-b1f0-405d-a0ac-ece1af0533dc")
+        @Override
+        public boolean canExecute() {
+            Rectangle mainConstraint = getPortContainerFigure().getPortContainerLayout().getMainNodeConstraint();
+            return mainConstraint != null;
+        }
+
+        @objid ("6868fc14-4c07-4ada-8705-c5dd0a784e80")
+        @Override
+        public void execute() {
+            final PortContainerFigure container = getPortContainerFigure();
+            
+            // Avoid setting a constraint when the figure isn't attached to 'container'
+            if (this.childFigure.getParent() == container) {
+                if (this.childModel.getLayoutData() instanceof Border) {
+                    final Border portConstraint = (Border) this.childModel.getLayoutData();
+                    final PortConstraint newConstraint = computeRectangleFromBorder(container, portConstraint);
+            
+                    this.childModel.setLayoutData(newConstraint);
+                    container.setConstraint(this.childFigure, newConstraint);
+                }
+            }
+        }
+
+        /**
+         * Converts a {@link Border} to a Rectangle.
+         * @param container the PortContainerFigure
+         * @return the new rectangle constraint.
+         */
+        @objid ("1cbd2644-c1d7-4ccd-8d9d-389036904859")
+        private PortConstraint computeRectangleFromBorder(PortContainerFigure container, final Border placement) {
+            // Let's suppose that it is a placement constraint from
+            // PositionConstants, and we'll place the child around the main
+            // node's figure.
+            Rectangle newRect = new Rectangle(0, 0, -1, -1);
+            // 1 - Get the bounds of the main node (default to (0, 0, 0, 0) if
+            // not found).
+            Rectangle mainNodeBounds = container.getPortContainerLayout().getMainNodeConstraint();
+            if (mainNodeBounds == null) {
+                mainNodeBounds = new Rectangle(0, 0, 0, 0);
+            }
+            
+            // 2 - define a constraint around the main node bounds (default to EAST).
+            Dimension childPreferredSize = this.childFigure.getPreferredSize();
+            newRect.setLocation(computePortInitialLocation(mainNodeBounds, placement, childPreferredSize));
+            
+            PortConstraint newConstraint = new PortConstraint();
+            newConstraint.setReferenceBorder(placement);
+            newConstraint.setRequestedBounds(newRect);
+            return newConstraint;
+        }
+
+        /**
+         * Computes the initial location of a port based on the bounds of the main node, a placement constraint
+         * expressed as a value from {@link Border} and the preferred size of the satellite.
+         * @param mainNodeBounds the bounds of the main node.
+         * @param placement the border on which the port should be.
+         * @param childSize the preferred size of the Port
+         * @return the initial location of center of the Port.
+         */
+        @objid ("49875440-5608-4b23-9d5d-6cc13c46478c")
+        private Point computePortInitialLocation(final Rectangle mainNodeBounds, final Border placement, final Dimension childSize) {
+            switch (placement) {
+                case SouthEast:
+                    return mainNodeBounds.getBottomRight();
+            
+                case South:
+                    return mainNodeBounds.getBottom().translate(-childSize.width / 2, 0);
+            
+                case SouthWest:
+                    return mainNodeBounds.getBottomLeft().translate(-childSize.width, 0);
+            
+                case West:
+                    return mainNodeBounds.getLeft().translate(-childSize.width, -childSize.height / 2);
+                case NorthWest:
+                    return mainNodeBounds.getTopLeft().translate(-childSize.width, -childSize.height);
+            
+                case North:
+                    return mainNodeBounds.getTop().translate(-childSize.width / 2, -childSize.height);
+            
+                case NorthEast:
+                    return mainNodeBounds.getTopRight().translate(0, -childSize.height);
+            
+                case East:
+                default:
+                    return mainNodeBounds.getRight().translate(0, -childSize.height / 2);
+            }
+        }
+
     }
 
     /**
@@ -275,14 +490,15 @@ public class PortContainerEditPart extends GmNodeEditPart {
      * Computes the initial location of a satellite based on the bounds of the main node, a placement constraint
      * expressed as a value from {@link PositionConstants} and the preferred size of the satellite.
      * 
-     * @author cmarin
+     * @author cmarin from previous FPO post layout listener
+     * @since 3.4
      */
-    @objid ("7ef1f3b9-1dec-11e2-8cad-001ec947c8cc")
-    private final class ChildSatelliteInitialLayouter extends Stub {
-        @objid ("0ee09691-c24e-4a0e-b25a-56ecd4e8ada7")
+    @objid ("2a47ffa9-e259-4ec4-ba5c-3a0c18c988e5")
+    private class ChildSatelliteInitializeCommand extends Command {
+        @objid ("398fc9db-9120-4935-8b21-81e49b1b5bf9")
         private final IFigure childFigure;
 
-        @objid ("7ef1f3c1-1dec-11e2-8cad-001ec947c8cc")
+        @objid ("58634bcb-3bfc-4fad-90ef-13e470e5473e")
         private final GmNodeModel childModel;
 
         /**
@@ -290,46 +506,54 @@ public class PortContainerEditPart extends GmNodeEditPart {
          * @param childFigure the child figure for which to convert the constraint.
          * @param childModel the child model for which to convert the constraint.
          */
-        @objid ("7ef1f3c3-1dec-11e2-8cad-001ec947c8cc")
-        public ChildSatelliteInitialLayouter(final IFigure childFigure, final GmNodeModel childModel) {
+        @objid ("3aa7e9df-00df-472a-b804-d5aefed70b8c")
+        public ChildSatelliteInitializeCommand(final IFigure childFigure, final GmNodeModel childModel) {
             this.childFigure = childFigure;
             this.childModel = childModel;
         }
 
-        @objid ("7ef1f3cc-1dec-11e2-8cad-001ec947c8cc")
+        @objid ("bcb3d206-066d-4ee7-a4dc-19b20e793665")
         @Override
-        public void postLayout(final IFigure container) {
+        public boolean canExecute() {
+            Rectangle mainConstraint = getPortContainerFigure().getPortContainerLayout().getMainNodeConstraint();
+            return mainConstraint != null;
+        }
+
+        @objid ("112209a9-d518-40e0-ad92-dbd2b155c2eb")
+        @Override
+        public void execute() {
             // Avoid setting a constraint when the figure isn't attached to 'content pane'
-            if (this.childFigure.getParent() == getContentPane()) {
-                Rectangle newConstraint = convertIntConstraintToRectangleConstraint();
+            PortContainerFigure containerFig = getPortContainerFigure();
+            if (this.childFigure.getParent() == containerFig) {
+                Rectangle newConstraint = convertIntConstraintToRectangleConstraint(containerFig);
             
                 this.childModel.setLayoutData(newConstraint);
-                getContentPane().setConstraint(this.childFigure, this.childModel.getLayoutData());
+                containerFig.setConstraint(this.childFigure, this.childModel.getLayoutData());
             }
         }
 
         /**
          * Converts an Integer (interpreted as a value from {@link PositionConstants} to a Rectangle.
+         * @param containerFig
          * @return the new rectangle constraint.
          */
-        @objid ("7ef1f3d3-1dec-11e2-8cad-001ec947c8cc")
-        private Rectangle convertIntConstraintToRectangleConstraint() {
+        @objid ("f78f554e-f7cd-4ff4-b193-b7470f7cc907")
+        private Rectangle convertIntConstraintToRectangleConstraint(PortContainerFigure containerFig) {
             // Let's suppose that it is a placement constraint from
             // PositionConstants, and we'll place the child around the main
             // node's figure.
             Rectangle newConstraint = new Rectangle(0, 0, -1, -1);
             // 1 - Get the bounds of the main node (default to (0, 0, 0, 0) if
             // not found).
-            Rectangle mainNodeBounds = ((PortContainerLayout) getFigure().getLayoutManager()).getMainNodeConstraint();
+            Rectangle mainNodeBounds = ((PortContainerFigure) getFigure()).getPortContainerLayout().getMainNodeConstraint();
             if (mainNodeBounds == null) {
                 mainNodeBounds = new Rectangle(0, 0, 0, 0);
             }
             
-            // 2 - define a constraint around the main node bounds (default to
-            // EAST).
+            // 2 - define a constraint around the main node bounds (default to EAST).
             int placement = ((Integer) this.childModel.getLayoutData()).intValue();
             Dimension childPreferredSize = this.childFigure.getPreferredSize();
-            this.childFigure.translateToAbsolute(childPreferredSize);
+            newConstraint.setSize(childPreferredSize);
             newConstraint.setLocation(computeSatelliteInitialLocation(mainNodeBounds,
                                                                       placement,
                                                                       childPreferredSize));
@@ -348,7 +572,7 @@ public class PortContainerEditPart extends GmNodeEditPart {
          * @param childPreferredSize the preferred size of the satellite
          * @return the initial location of the satellite.
          */
-        @objid ("7ef1f3da-1dec-11e2-8cad-001ec947c8cc")
+        @objid ("b08a3e42-6fa6-4ccf-b243-b9186945c586")
         private Point computeSatelliteInitialLocation(Rectangle mainNodeBounds, int placement, Dimension childPreferredSize) {
             switch (placement) {
                 case PositionConstants.SOUTH_EAST:
@@ -383,178 +607,35 @@ public class PortContainerEditPart extends GmNodeEditPart {
     }
 
     /**
-     * Sets the port initial bounds if not defined.
+     * Initialize the main node constraint when not already set.
+     * <p>
+     * This command should be run before other initialization commands,
+     * that need the main node constraint to be set.
+     * 
+     * @author cmarin
+     * @since 3.4
      */
-    @objid ("7ef1f3e7-1dec-11e2-8cad-001ec947c8cc")
-    private final class ChildPortInitialLayouter extends Stub {
-        @objid ("81502cbe-8c0f-4eb1-a905-08ffa9460ca0")
+    @objid ("1e3b095a-60b2-435d-986f-072c0d2bcd21")
+    private class MainNodeInitializeCommand extends Command {
+        @objid ("a2bcb315-35d1-4cec-b52d-97e507f9bd7c")
         private final IFigure childFigure;
 
-        @objid ("7ef1f3ef-1dec-11e2-8cad-001ec947c8cc")
+        @objid ("68f71680-0e1b-44f5-ae9f-881ac0df8aa5")
         private final GmNodeModel childModel;
 
-        /**
-         * Converts an Integer (interpreted as a value from {@link PositionConstants} to a Rectangle.
-         * @param childFigure the child figure for which to convert the constraint.
-         * @param childModel the child model for which to convert the constraint.
-         */
-        @objid ("7ef1f3f1-1dec-11e2-8cad-001ec947c8cc")
-        public ChildPortInitialLayouter(final IFigure childFigure, final GmNodeModel childModel) {
+        @objid ("24cd5d57-62d9-4ad5-8707-d7fd15edd702")
+        public MainNodeInitializeCommand(final IFigure childFigure, final GmNodeModel childModel) {
             this.childFigure = childFigure;
             this.childModel = childModel;
         }
 
-        @objid ("7ef1f3fa-1dec-11e2-8cad-001ec947c8cc")
+        @objid ("35c5dbef-6420-4cb4-add9-b02146f44ef9")
         @Override
-        public void postLayout(final IFigure container) {
-            // Avoid setting a constraint when the figure isn't attached to 'container'
-            if (this.childFigure.getParent() == container) {
-                if (this.childModel.getLayoutData() instanceof Border) {
-                    final Border portConstraint = (Border) this.childModel.getLayoutData();
-                    final PortConstraint newConstraint = computeRectangleFromBorder(portConstraint);
-            
-                    this.childModel.setLayoutData(newConstraint);
-                    container.setConstraint(this.childFigure, newConstraint);
-                }
+        public void execute() {
+            if (this.childModel.getLayoutData() == null) {
+                final Rectangle newConstraint = new Rectangle().setSize(getFigure().getSize());
+                this.childModel.setLayoutData(newConstraint);
             }
-        }
-
-        /**
-         * Converts an Integer (interpreted as a value from {@link PositionConstants} to a Rectangle.
-         * @return the new rectangle constraint.
-         */
-        @objid ("7ef45608-1dec-11e2-8cad-001ec947c8cc")
-        private PortConstraint computeRectangleFromBorder(final Border placement) {
-            // Let's suppose that it is a placement constraint from
-            // PositionConstants, and we'll place the child around the main
-            // node's figure.
-            Rectangle newRect = new Rectangle(0, 0, -1, -1);
-            // 1 - Get the bounds of the main node (default to (0, 0, 0, 0) if
-            // not found).
-            Rectangle mainNodeBounds = ((PortContainerLayout) getFigure().getLayoutManager()).getMainNodeConstraint();
-            if (mainNodeBounds == null) {
-                mainNodeBounds = new Rectangle(0, 0, 0, 0);
-            }
-            
-            // 2 - define a constraint around the main node bounds (default to
-            // EAST).
-            Dimension childPreferredSize = this.childFigure.getPreferredSize();
-            this.childFigure.translateToAbsolute(childPreferredSize);
-            newRect.setLocation(computePortInitialLocation(mainNodeBounds, placement, childPreferredSize));
-            
-            PortConstraint newConstraint = new PortConstraint();
-            newConstraint.setReferenceBorder(placement);
-            newConstraint.setRequestedBounds(newRect);
-            return newConstraint;
-        }
-
-        /**
-         * Computes the initial location of a satellite based on the bounds of the main node, a placement constraint
-         * expressed as a value from {@link PositionConstants} and the preferred size of the satellite.
-         * @param mainNodeBounds the bounds of the main node.
-         * @param placement the border on which the port should be.
-         * @param childSize the preferred size of the Port
-         * @return the initial location of center of the Port.
-         */
-        @objid ("7ef4560f-1dec-11e2-8cad-001ec947c8cc")
-        private Point computePortInitialLocation(final Rectangle mainNodeBounds, final Border placement, final Dimension childSize) {
-            switch (placement) {
-                case SouthEast:
-                    return mainNodeBounds.getBottomRight();
-            
-                case South:
-                    return mainNodeBounds.getBottom().translate(-childSize.width / 2, 0);
-            
-                case SouthWest:
-                    return mainNodeBounds.getBottomLeft().translate(-childSize.width, 0);
-            
-                case West:
-                    return mainNodeBounds.getLeft().translate(-childSize.width, -childSize.height / 2);
-                case NorthWest:
-                    return mainNodeBounds.getTopLeft().translate(-childSize.width, -childSize.height);
-            
-                case North:
-                    return mainNodeBounds.getTop().translate(-childSize.width / 2, -childSize.height);
-            
-                case NorthEast:
-                    return mainNodeBounds.getTopRight().translate(0, -childSize.height);
-            
-                case East:
-                default:
-                    return mainNodeBounds.getRight().translate(0, -childSize.height / 2);
-            }
-        }
-
-    }
-
-    /**
-     * Set some child nodes initial constraint.
-     */
-    @objid ("7ef4561f-1dec-11e2-8cad-001ec947c8cc")
-    private class ChildNodesInitialLayouter extends Stub {
-        @objid ("63e12c1b-1e83-11e2-8cad-001ec947c8cc")
-        private Collection<LayoutListener> initializers = new ArrayList<>();
-
-        @objid ("7ef45628-1dec-11e2-8cad-001ec947c8cc")
-        public ChildNodesInitialLayouter() {
-        }
-
-        @objid ("7ef4562a-1dec-11e2-8cad-001ec947c8cc")
-        public void addLayouter(final LayoutListener l) {
-            this.initializers.add(l);
-        }
-
-        @objid ("7ef45630-1dec-11e2-8cad-001ec947c8cc")
-        @Override
-        public void postLayout(final IFigure container) {
-            // Postpone until the main node is initialized.
-            Rectangle mainNodeBounds = ((PortContainerLayout) container.getLayoutManager()).getMainNodeConstraint();
-            if (mainNodeBounds == null)
-                return;
-            
-            // In all case, remove this listener
-            container.removeLayoutListener(this);
-            PortContainerEditPart.this.postLayouter = null;
-            
-            // Run all registered initializers
-            for (LayoutListener l : this.initializers) {
-                l.postLayout(container);
-            }
-            this.initializers.clear();
-            
-            // Auto resize the port container
-            forcePostLayoutAutoResize();
-        }
-
-    }
-
-    /**
-     * Helper class that will force a call to {@link PortContainerEditPolicy#autoResize} after the port container has
-     * been layouted at least once.
-     * 
-     * @author fpoyer
-     */
-    @objid ("7ef45637-1dec-11e2-8cad-001ec947c8cc")
-    private class PostLayoutAutoResizer extends Stub {
-        @objid ("7ef4563b-1dec-11e2-8cad-001ec947c8cc")
-        public PostLayoutAutoResizer() {
-            super();
-        }
-
-        @objid ("7ef4563d-1dec-11e2-8cad-001ec947c8cc")
-        @Override
-        public void postLayout(final IFigure container) {
-            // Postpone until the main node is initialized.
-            Rectangle mainNodeBounds = ((PortContainerLayout) container.getLayoutManager()).getMainNodeConstraint();
-            if (mainNodeBounds == null)
-                return;
-            
-            // In all case, remove this listener
-            container.removeLayoutListener(this);
-            PortContainerEditPart.this.postLayoutAutoResizer = null;
-            
-            // Auto resize the port container
-            autoResize();
         }
 
     }

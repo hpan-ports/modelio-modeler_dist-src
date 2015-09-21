@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.module.commands;
 
@@ -31,12 +31,11 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.core.di.extensions.EventTopic;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.commands.MCommandsFactory;
 import org.eclipse.e4.ui.model.application.commands.MHandler;
-import org.eclipse.swt.widgets.Display;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
 import org.modelio.app.core.events.ModelioEventTopics;
@@ -130,48 +129,34 @@ public class ModuleCommandsRegistry {
     @SuppressWarnings("static-method")
     @Inject
     @Optional
-    void onModuleStarted(@EventTopic(ModelioEventTopics.MODULE_STARTED) final IRTModule module) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                // For each IModuleAction provided by this module, create a corresponding MCommand and a MHandler to be used as the default
-                // handler if no handler more specific is defined.
-                for (ActionLocation location : ActionLocation.values()) {
-                    for (IModuleAction action : module.getActions(location)) {
-                        // Requesting the command corresponding to this module.action couple will cause its creation if it doesn't exist
-                        // already.
-                        MCommand command = getCommand(module, action);
-                        createAndActivateHandler(command, module, action);
-                    }
-                }
+    void onModuleStarted(@UIEventTopic(ModelioEventTopics.MODULE_STARTED) final IRTModule module) {
+        // For each IModuleAction provided by this module, create a corresponding MCommand and a MHandler to be used as the default
+        // handler if no handler more specific is defined.
+        for (ActionLocation location : ActionLocation.values()) {
+            for (IModuleAction action : module.getActions(location)) {
+                // Requesting the command corresponding to this module.action couple will cause its creation if it doesn't exist
+                // already.
+                MCommand command = getCommand(module, action);
+                createAndActivateHandler(command, module, action);
             }
-        });
+        }
     }
 
     @objid ("4f5eb83a-1449-11e2-a678-001ec947c8cc")
     @SuppressWarnings("static-method")
     @Inject
     @Optional
-    void onModuleStopped(@EventTopic(ModelioEventTopics.MODULE_STOPPED) final IRTModule module) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                // For each IModuleAction provided by this module, remove and delete the corresponding MCommand and default MHandler.
-                for (ActionLocation location : ActionLocation.values()) {
-                    for (IModuleAction action : module.getActions(location)) {
-                        MCommand command = getCommand(module, action);
-                        // Remove the default MHandler from the application
-                        deactivateAndRemoveHandler(command);
-                        // Remove the MCommands from the application
-                        removeCommand(command);
-                    }
-                }
+    void onModuleStopped(@UIEventTopic(ModelioEventTopics.MODULE_STOPPED) final IRTModule module) {
+        // For each IModuleAction provided by this module, remove and delete the corresponding MCommand and default MHandler.
+        for (ActionLocation location : ActionLocation.values()) {
+            for (IModuleAction action : module.getActions(location)) {
+                MCommand command = getCommand(module, action);
+                // Remove the default MHandler from the application
+                deactivateAndRemoveHandler(command);
+                // Remove the MCommands from the application
+                removeCommand(command);
             }
-        });
+        }
     }
 
     @objid ("4f5eb83f-1449-11e2-a678-001ec947c8cc")

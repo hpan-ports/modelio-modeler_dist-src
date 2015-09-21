@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.clause;
 
@@ -53,7 +53,7 @@ public class GmClause extends GmCompositeNode {
      * Current version of this Gm. Defaults to 0.
      */
     @objid ("2a045771-55b6-11e2-877f-002564c97630")
-    private final int minorVersion = 0;
+    private static final int minorVersion = 0;
 
     @objid ("2a045774-55b6-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
@@ -97,16 +97,17 @@ public class GmClause extends GmCompositeNode {
         if (child.getRelatedElement() instanceof ActivityNode &&
             ((ActivityNode) child.getRelatedElement()).getCompositionOwner().equals(this.element)) {
             this.innerZone.addChild(child);
-        } else
+        } else {
             super.addChild(child);
+        }
     }
 
     @objid ("2a05ddeb-55b6-11e2-877f-002564c97630")
     @Override
     public boolean canCreate(Class<? extends MObject> type) {
         return ActivityNode.class.isAssignableFrom(type) &&
-               !Pin.class.isAssignableFrom(type) &&
-               !ActivityParameterNode.class.isAssignableFrom(type);
+                                                       !Pin.class.isAssignableFrom(type) &&
+                                                       !ActivityParameterNode.class.isAssignableFrom(type);
     }
 
     @objid ("2a05ddf3-55b6-11e2-877f-002564c97630")
@@ -187,6 +188,7 @@ public class GmClause extends GmCompositeNode {
     }
 
     @objid ("2a0764a0-55b6-11e2-877f-002564c97630")
+    @SuppressWarnings("static-access")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
@@ -202,7 +204,7 @@ public class GmClause extends GmCompositeNode {
         super.read(in);
         this.test = (GmElementLabel) this.getChildren().get(0);
         this.innerZone = (GmBodyFreeZone) this.getChildren().get(1);
-        this.element = (Clause) resolveRef(this.getRepresentedRef());
+        this.element = (Clause) resolveRef(getRepresentedRef());
     }
 
     @objid ("2a0764ab-55b6-11e2-877f-002564c97630")
@@ -217,12 +219,13 @@ public class GmClause extends GmCompositeNode {
      * @author cmarin
      */
     @objid ("2a0764b0-55b6-11e2-877f-002564c97630")
+    @SuppressWarnings("hiding")
     public static final class GmTest extends GmElementLabel {
         /**
          * Current version of this Gm. Defaults to 0.
          */
         @objid ("2a0764b5-55b6-11e2-877f-002564c97630")
-        private final int minorVersion = 0;
+        private static final int minorVersion = 0;
 
         @objid ("2a08eb19-55b6-11e2-877f-002564c97630")
         private static final int MAJOR_VERSION = 0;
@@ -250,8 +253,9 @@ public class GmClause extends GmCompositeNode {
         public String computeLabel() {
             final String ret = ((Clause) getRelatedElement()).getTest();
             
-            if (ret.isEmpty())
+            if (ret.isEmpty()) {
                 return "Test: ...";
+            }
             return "Test: " + ret;
         }
 
@@ -260,20 +264,21 @@ public class GmClause extends GmCompositeNode {
         public IEditableText getEditableText() {
             final Clause aClause = ((Clause) getRelatedElement());
             
-            if (aClause == null)
+            if (aClause == null) {
                 return null;
+            }
             return new IEditableText() {
-            
-                @Override
-                public void setText(String text) {
-                    aClause.setTest(text);
-                }
-            
-                @Override
-                public String getText() {
-            return aClause.getTest();
-                            }
-                        };
+                                                
+                                                                            @Override
+                                                                            public void setText(String text) {
+                                                                                aClause.setTest(text);
+                                                                            }
+                                                
+                                                                            @Override
+                                                                            public String getText() {
+                                                                        return aClause.getTest();
+                                                                                        }
+                                                                                    };
         }
 
         @objid ("2a08eb33-55b6-11e2-877f-002564c97630")
@@ -297,6 +302,7 @@ public class GmClause extends GmCompositeNode {
         }
 
         @objid ("2a08eb39-55b6-11e2-877f-002564c97630")
+        @SuppressWarnings("static-access")
         @Override
         public void write(IDiagramWriter out) {
             super.write(out);

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -40,7 +40,7 @@ public class OManifestation extends OElement implements IOElement {
 
     @objid ("2fd8b226-497c-4495-b694-8aad8358ed39")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (AbstractObjingModelNavigation.isManifestationMappable(objingElement)) {
+        if (AbstractObjingModelNavigation.isManifestationMappable(this.objingElement)) {
             return UMLFactory.eINSTANCE.createManifestation();
         } else {
         //            XMILogs.getInstance().writelnInLog(org.eclipse.uml2.uml.Messages.getString("logFile.warning.export.noumlmanifestation", objingElement.getName()));
@@ -51,21 +51,21 @@ public class OManifestation extends OElement implements IOElement {
     @objid ("5bc148c4-82cc-4302-822e-33c918d7b527")
     public OManifestation(Manifestation param) {
         super(param);
-        objingElement = param;
+        this.objingElement = param;
     }
 
     @objid ("7252135f-4657-4219-bda2-af54ed689df0")
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        Artifact objingArtifact = objingElement.getOwner();
+        Artifact objingArtifact = this.objingElement.getOwner();
         
         if (objingArtifact != null) {
             // Gets the ecore owner org.eclipse.uml2.uml.Artifact element:
-            ecoreArtifact = (org.eclipse.uml2.uml.Artifact) genProp.getMappedElement(objingArtifact);
+            this.ecoreArtifact = (org.eclipse.uml2.uml.Artifact) genProp.getMappedElement(objingArtifact);
         
-            if (ecoreArtifact != null) {
-                EList<org.eclipse.uml2.uml.Manifestation> ecoreManifList = ecoreArtifact.getManifestations();
+            if (this.ecoreArtifact != null) {
+                EList<org.eclipse.uml2.uml.Manifestation> ecoreManifList = this.ecoreArtifact.getManifestations();
                 if (!ecoreManifList.contains(ecoreElt))
                     ecoreManifList.add((org.eclipse.uml2.uml.Manifestation)ecoreElt);
             }
@@ -80,15 +80,15 @@ public class OManifestation extends OElement implements IOElement {
 
     @objid ("948e7065-8318-4973-93c6-73ab608e2d28")
     private void setName(org.eclipse.uml2.uml.Manifestation manifestation) {
-        if (AbstractObjingModelNavigation.isNotNullOrEmpty(objingElement.getName()))
-            manifestation.setName(objingElement.getName());
+        if (AbstractObjingModelNavigation.isNotNullOrEmpty(this.objingElement.getName()))
+            manifestation.setName(this.objingElement.getName());
     }
 
     @objid ("20b7ad5f-5e18-4ec7-aecc-fcdb61b78887")
     private void setUtilizedElement(org.eclipse.uml2.uml.Manifestation manifestation) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        ModelElement objingUtilizedElt = objingElement.getUtilizedElement();
+        ModelElement objingUtilizedElt = this.objingElement.getUtilizedElement();
         
         if (objingUtilizedElt != null) {
             // Gets the ecore utilized element:
@@ -98,8 +98,8 @@ public class OManifestation extends OElement implements IOElement {
             if (ecoreUtilizedElt instanceof org.eclipse.uml2.uml.PackageableElement) {
                 manifestation
                 .setUtilizedElement((org.eclipse.uml2.uml.PackageableElement) ecoreUtilizedElt);
-            } else if (ecoreArtifact != null) {
-                ecoreArtifact.getManifestations().remove(manifestation);
+            } else if (this.ecoreArtifact != null) {
+                this.ecoreArtifact.getManifestations().remove(manifestation);
                 /*
                  * if (objingUtilizedElt instanceof NameSpace) { UMLPath path =
                  * new UMLPath((NameSpace)objingUtilizedElt);

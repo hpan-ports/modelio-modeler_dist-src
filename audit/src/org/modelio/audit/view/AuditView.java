@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.view;
 
@@ -27,10 +27,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.ui.di.Focus;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
-import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
-import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
 import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.swt.widgets.Composite;
@@ -122,8 +120,8 @@ public class AuditView {
             }else{
                 this.view.refresh(auditService.getAuditEngine().getAuditDiagnostic());
             }
-            
-           
+        
+        
         
         }
     }
@@ -136,18 +134,11 @@ public class AuditView {
     @objid ("8825a5b5-5b52-4679-96e7-05de3ba2f3e7")
     @Inject
     @Optional
-    public void onProjectClosed(@EventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject closedProject) {
-        //FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+    public void onProjectClosed(@UIEventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject closedProject) {
         if (closedProject != null) {
-            Display.getDefault().asyncExec(new Runnable() {
-        
-                @Override
-                public void run() {
-                    AuditView.this.project = null;
-                    AuditView.this.modelService = null;
-                    AuditView.this.view.dispose();
-                }
-            });
+            AuditView.this.project = null;
+            AuditView.this.modelService = null;
+            AuditView.this.view.dispose();
         }
     }
 

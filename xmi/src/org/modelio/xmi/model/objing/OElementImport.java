@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -32,9 +32,6 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("41f10e59-7437-40f9-9d86-4728b40c14fd")
 public class OElementImport extends OElement implements IOElement {
-    @objid ("b6fce071-8ed0-4a28-b69c-2c049dff1653")
-    private ElementImport objingElement = null;
-
     @objid ("e10edbe9-51b5-4232-8758-9d3b4bf299a6")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createElementImport();
@@ -43,33 +40,32 @@ public class OElementImport extends OElement implements IOElement {
     @objid ("90b9243a-c22b-4bd2-aece-b4d5f1816100")
     public OElementImport(ElementImport element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("f2a57055-37e3-499c-8143-f1cbb2be25cb")
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         org.eclipse.uml2.uml.ElementImport ecoreEltImport = (org.eclipse.uml2.uml.ElementImport) ecoreElt;
-                
+        
         ModelElement objingImportingElt = AbstractObjingModelNavigation
-                .getImportingElement(this.objingElement);
-        NameSpace objingImportedElt = this.objingElement.getImportedElement();
-                
+                .getImportingElement(getObjingElement());
+        NameSpace objingImportedElt = getObjingElement().getImportedElement();
+        
         if (objingImportingElt != null && objingImportedElt != null) {
-                
+        
             // Gets or creates the ecore importing element (the "owner"):
-            org.eclipse.uml2.uml.Element ecoreImportingElt = (org.eclipse.uml2.uml.Element) genProp
+            org.eclipse.uml2.uml.Element ecoreImportingElt = genProp
                     .getMappedElement(objingImportingElt);
-                
+        
             // Gets or creates the ecore imported element (the element to
             // import):
-            org.eclipse.uml2.uml.Element ecoreImportedElt = (org.eclipse.uml2.uml.Element) genProp
+            org.eclipse.uml2.uml.Element ecoreImportedElt = genProp
                     .getMappedElement(objingImportedElt);
-                
+        
             if (ecoreImportingElt != null && ecoreImportedElt != null) {
                 ((org.eclipse.uml2.uml.Namespace) ecoreImportingElt).getElementImports().add(
                         (org.eclipse.uml2.uml.ElementImport)ecoreElt);
-                
+        
                 // In UML2, an element import is defined as a directed
                 // relationship between an
                 // importing namespace and a packageable element.
@@ -103,7 +99,7 @@ public class OElementImport extends OElement implements IOElement {
         // not clash with any
         // other member name in the importing Package. By default, no alias is
         // used.
-        String name = objingElement.getName();
+        String name = getObjingElement().getName();
         // If the name is "", then we don't export the name:
         if (!"".equals(name))
             ecoreElt.setAlias(name);
@@ -113,7 +109,7 @@ public class OElementImport extends OElement implements IOElement {
     private void setVisibility(org.eclipse.uml2.uml.ElementImport ecoreElt) {
         // Note that in theory, the visibility of an org.eclipse.uml2.uml.ElementImport is either
         // public or private.
-        switch (objingElement.getVisibility()) {
+        switch (getObjingElement().getVisibility()) {
         case PACKAGEVISIBILITY:
             ecoreElt.setVisibility(org.eclipse.uml2.uml.VisibilityKind.PACKAGE_LITERAL);
             break;
@@ -133,6 +129,12 @@ public class OElementImport extends OElement implements IOElement {
             // a visibility not setted corresponds to a PUBLIC visibility.
             break;
         }
+    }
+
+    @objid ("e8f09ca3-f2d2-4c2d-ba15-dba3fa940568")
+    @Override
+    public ElementImport getObjingElement() {
+        return (ElementImport) super.getObjingElement();
     }
 
 }

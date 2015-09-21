@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.handlers;
 
@@ -52,9 +52,9 @@ public class ExportXMI {
     @Execute
     public void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IProgressService progressService, IProjectService projectService, IMModelServices modelServices) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        genProp.initialize(modelServices);      
+        genProp.initialize(modelServices, projectService.getSession().getMetamodel());
         genProp.setTimeDisplayerActivated(false);
-        genProp.setRootElement(this.selectedPackage);   
+        genProp.setRootElement(this.selectedPackage);
         
         
         final SwtWizardExport dialog = new SwtWizardExport(activeShell, progressService, projectService);
@@ -66,7 +66,7 @@ public class ExportXMI {
     @CanExecute
     public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         if (selection.size() == 1)
-            if ((selection.getFirstElement() instanceof Package)  
+            if ((selection.getFirstElement() instanceof Package)
                 && (!(selection.getFirstElement() instanceof Profile))){
                 this.selectedPackage = (Package) selection.getFirstElement() ;
                 final MStatus status =  this.selectedPackage.getStatus();
@@ -78,9 +78,9 @@ public class ExportXMI {
     @objid ("0aeb5e59-fc8f-4655-9622-774aa665326c")
     public static boolean isVisible(List<MObject> selectedElements) {
         return ((! selectedElements.isEmpty())
-                        && (selectedElements.size() == 1)
-                             && !(selectedElements.get(0) instanceof Profile)
-                             && (selectedElements.get(0) instanceof Package));
+                                && (selectedElements.size() == 1)
+                                     && !(selectedElements.get(0) instanceof Profile)
+                                     && (selectedElements.get(0) instanceof Package));
     }
 
 }

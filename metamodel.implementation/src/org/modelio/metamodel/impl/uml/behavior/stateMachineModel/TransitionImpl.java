@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.stateMachineModel.TransitionData;
+import org.modelio.metamodel.impl.uml.behavior.stateMachineModel.TransitionData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
@@ -44,162 +56,177 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0055e47a-c4bf-1fd8-97fe-001ec947cd2a")
 public class TransitionImpl extends ModelElementImpl implements Transition {
-    @objid ("bb169885-9222-4b1f-9159-672af0cec6a8")
+    @objid ("18947626-2d06-4ae9-9c11-1a64db7fdba3")
     @Override
     public String getEffect() {
-        return (String) getAttVal(TransitionData.Metadata.EffectAtt());
+        return (String) getAttVal(((TransitionSmClass)getClassOf()).getEffectAtt());
     }
 
-    @objid ("435ec0fa-9626-434e-b923-3c06e4582e37")
+    @objid ("8a099ed7-a86b-4362-ac46-730cbf746730")
     @Override
     public void setEffect(String value) {
-        setAttVal(TransitionData.Metadata.EffectAtt(), value);
+        setAttVal(((TransitionSmClass)getClassOf()).getEffectAtt(), value);
     }
 
-    @objid ("47e951f6-b2c0-4f87-96bb-3746501025f3")
+    @objid ("9b3e780c-2e6a-4e79-8b6b-30f86fb4532c")
     @Override
     public String getReceivedEvents() {
-        return (String) getAttVal(TransitionData.Metadata.ReceivedEventsAtt());
+        return (String) getAttVal(((TransitionSmClass)getClassOf()).getReceivedEventsAtt());
     }
 
-    @objid ("ff3ee9df-18f3-449c-a0ce-656cd2380f76")
+    @objid ("2753204b-7dd7-4661-8a11-605ed8482b37")
     @Override
     public void setReceivedEvents(String value) {
-        setAttVal(TransitionData.Metadata.ReceivedEventsAtt(), value);
+        setAttVal(((TransitionSmClass)getClassOf()).getReceivedEventsAtt(), value);
     }
 
-    @objid ("685b7410-fb9e-4548-be99-b532901b92fe")
+    @objid ("f71357e6-c7e6-400d-9810-4c24bfbc0f14")
     @Override
     public String getSentEvents() {
-        return (String) getAttVal(TransitionData.Metadata.SentEventsAtt());
+        return (String) getAttVal(((TransitionSmClass)getClassOf()).getSentEventsAtt());
     }
 
-    @objid ("9270612c-a8e0-4eb9-a501-62d298c14365")
+    @objid ("3b0d0d28-2499-4750-bb1f-d2e3d3576785")
     @Override
     public void setSentEvents(String value) {
-        setAttVal(TransitionData.Metadata.SentEventsAtt(), value);
+        setAttVal(((TransitionSmClass)getClassOf()).getSentEventsAtt(), value);
     }
 
-    @objid ("a24cf9cb-84c0-447a-95d9-6349e275f9a7")
+    @objid ("37961bf2-cf1a-480f-8d2c-d2f2a7c2de3a")
     @Override
     public String getGuard() {
-        return (String) getAttVal(TransitionData.Metadata.GuardAtt());
+        return (String) getAttVal(((TransitionSmClass)getClassOf()).getGuardAtt());
     }
 
-    @objid ("997a49eb-02b1-4f05-a131-bd481940c196")
+    @objid ("77c185e6-8c26-4bd8-a6cf-42d8a1841586")
     @Override
     public void setGuard(String value) {
-        setAttVal(TransitionData.Metadata.GuardAtt(), value);
+        setAttVal(((TransitionSmClass)getClassOf()).getGuardAtt(), value);
     }
 
-    @objid ("cba23d04-f2b3-409c-bae3-2a3027ec7c03")
+    @objid ("41065c2b-1312-4d1d-bd27-19a6c9024741")
     @Override
     public String getPostCondition() {
-        return (String) getAttVal(TransitionData.Metadata.PostConditionAtt());
+        return (String) getAttVal(((TransitionSmClass)getClassOf()).getPostConditionAtt());
     }
 
-    @objid ("07be5cfd-0151-4c4c-9bb9-11ceaf39daf8")
+    @objid ("86ca281d-8f48-461f-8497-03b0c7a8e883")
     @Override
     public void setPostCondition(String value) {
-        setAttVal(TransitionData.Metadata.PostConditionAtt(), value);
+        setAttVal(((TransitionSmClass)getClassOf()).getPostConditionAtt(), value);
     }
 
-    @objid ("c333650c-4462-4335-b049-ab36206869a9")
+    @objid ("baf57cea-216d-4849-9da0-aa168620e9bd")
     @Override
     public Operation getProcessed() {
-        return (Operation) getDepVal(TransitionData.Metadata.ProcessedDep());
+        Object obj = getDepVal(((TransitionSmClass)getClassOf()).getProcessedDep());
+        return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("086b31ee-6d9b-41d1-bd3f-27fa08c6b5db")
+    @objid ("58dd44d5-02bb-49ce-88d6-c00f21a5c8bb")
     @Override
     public void setProcessed(Operation value) {
-        appendDepVal(TransitionData.Metadata.ProcessedDep(), (SmObjectImpl)value);
+        appendDepVal(((TransitionSmClass)getClassOf()).getProcessedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("281272a3-68f1-46a9-a161-4b8fc4df4618")
+    @objid ("be8c4222-8bcc-49e8-ae65-51de9832930d")
     @Override
     public Event getTrigger() {
-        return (Event) getDepVal(TransitionData.Metadata.TriggerDep());
+        Object obj = getDepVal(((TransitionSmClass)getClassOf()).getTriggerDep());
+        return (obj instanceof Event)? (Event)obj : null;
     }
 
-    @objid ("31d7a687-3f30-470a-b9e4-668a1e25c63d")
+    @objid ("8cf10e91-4733-4938-b818-4350d005e7b0")
     @Override
     public void setTrigger(Event value) {
-        appendDepVal(TransitionData.Metadata.TriggerDep(), (SmObjectImpl)value);
+        appendDepVal(((TransitionSmClass)getClassOf()).getTriggerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("362d0ca1-2e76-4ae2-b5ee-f984f4f56e4d")
+    @objid ("2cc3dfc4-10c4-4213-9584-2ff7cf81347b")
     @Override
     public Behavior getBehaviorEffect() {
-        return (Behavior) getDepVal(TransitionData.Metadata.BehaviorEffectDep());
+        Object obj = getDepVal(((TransitionSmClass)getClassOf()).getBehaviorEffectDep());
+        return (obj instanceof Behavior)? (Behavior)obj : null;
     }
 
-    @objid ("fc0bbf0a-9e45-4445-9d4b-a6d3c646adae")
+    @objid ("2e154a1d-9baf-47d4-8009-723d1c477147")
     @Override
     public void setBehaviorEffect(Behavior value) {
-        appendDepVal(TransitionData.Metadata.BehaviorEffectDep(), (SmObjectImpl)value);
+        appendDepVal(((TransitionSmClass)getClassOf()).getBehaviorEffectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2dcdc14f-f9a4-4a56-8bad-8eeb48cdbe81")
+    @objid ("8bd58778-2c4c-4b37-a16d-367eb8a5342d")
     @Override
     public StateVertex getTarget() {
-        return (StateVertex) getDepVal(TransitionData.Metadata.TargetDep());
+        Object obj = getDepVal(((TransitionSmClass)getClassOf()).getTargetDep());
+        return (obj instanceof StateVertex)? (StateVertex)obj : null;
     }
 
-    @objid ("54c34965-9b5e-4db9-9429-552083f3b7f9")
+    @objid ("627ace7d-49e0-4c24-911b-7c618077b67a")
     @Override
     public void setTarget(StateVertex value) {
-        appendDepVal(TransitionData.Metadata.TargetDep(), (SmObjectImpl)value);
+        appendDepVal(((TransitionSmClass)getClassOf()).getTargetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("09b1ac0d-8524-48b6-ad0a-123d496399a1")
+    @objid ("e0fc6274-7e12-43c6-b930-be98ae5007d6")
     @Override
     public StateVertex getSource() {
-        return (StateVertex) getDepVal(TransitionData.Metadata.SourceDep());
+        Object obj = getDepVal(((TransitionSmClass)getClassOf()).getSourceDep());
+        return (obj instanceof StateVertex)? (StateVertex)obj : null;
     }
 
-    @objid ("fc2c92e7-51dc-43f1-b770-6a72ba3ccea7")
+    @objid ("2ab7a57c-2a3f-4d59-a30c-ca8132f3b2d9")
     @Override
     public void setSource(StateVertex value) {
-        appendDepVal(TransitionData.Metadata.SourceDep(), (SmObjectImpl)value);
+        appendDepVal(((TransitionSmClass)getClassOf()).getSourceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9850969f-34f1-41ce-9919-b30129e14135")
+    @objid ("8d3cfbcb-ff1b-46a0-baaf-785cc4605740")
     @Override
     public Signal getEffects() {
-        return (Signal) getDepVal(TransitionData.Metadata.EffectsDep());
+        Object obj = getDepVal(((TransitionSmClass)getClassOf()).getEffectsDep());
+        return (obj instanceof Signal)? (Signal)obj : null;
     }
 
-    @objid ("5c0980f7-a17b-4e75-a27e-2e765d28e0fb")
+    @objid ("753366bb-45c2-4817-a631-1a87e672f68c")
     @Override
     public void setEffects(Signal value) {
-        appendDepVal(TransitionData.Metadata.EffectsDep(), (SmObjectImpl)value);
+        appendDepVal(((TransitionSmClass)getClassOf()).getEffectsDep(), (SmObjectImpl)value);
     }
 
-    @objid ("849334f5-9427-4668-9b19-45567c4a168d")
+    @objid ("825225a6-6ebc-4620-9305-895f714731ff")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(TransitionData.Metadata.SourceDep());
+        // Source
+        obj = (SmObjectImpl)this.getDepVal(((TransitionSmClass)getClassOf()).getSourceDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("ebf8fef0-c786-4241-bcb0-52d2037f7f21")
+    @objid ("a1c5c09a-c17c-48b4-ba29-c753c0278601")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(TransitionData.Metadata.SourceDep());
-        if (obj != null)
-          return new SmDepVal(TransitionData.Metadata.SourceDep(), obj);
+        SmDependency dep;
+        
+        // Source
+        dep = ((TransitionSmClass)getClassOf()).getSourceDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("09c27e02-de74-4fae-9ef2-75e66a4ca70f")
+    @objid ("1dbaa4b0-aea7-4df8-be65-b382f5dbf74f")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTransition(this);

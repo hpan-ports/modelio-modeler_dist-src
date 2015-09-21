@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.transmuter;
 
 import java.util.ArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.bpmn.events.BpmnEndEvent;
 import org.modelio.metamodel.bpmn.events.BpmnEvent;
 import org.modelio.metamodel.bpmn.events.BpmnEventDefinition;
@@ -36,6 +35,7 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 // isShell = false isRamc = false
@@ -66,24 +66,25 @@ public class BpmnEventTransmuter implements ITransmuter {
     @Override
     public MObject transmute(IMModelServices modelServices) {
         MObject owner = this.element.getCompositionOwner();
+        MExpert mExpert = owner.getMClass().getMetamodel().getMExpert();
         
         // Create the Element...
         final IModelFactory modelFactory = modelServices.getModelFactory();
         MObject newElement = modelFactory.createElement(this.metaclass);
         
-        // The new element must be attached to its parent using the composition dependency 
-        // provided by the context. 
+        // The new element must be attached to its parent using the composition dependency
+        // provided by the context.
         // If the context provides a null dependency, use the default dependency recommended by the metamodel
-        MDependency effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(owner, newElement);
+        MDependency effectiveDependency = mExpert.getDefaultCompositionDep(owner, newElement);
         // ... and attach it to its parent.
         
         try {
             owner.mGet(effectiveDependency).add(newElement);
         } catch (Exception e) {
-            //TODO : use a more accurate Exception...
+            // TODO : use a more accurate Exception...
             // The dependency indicated in the context cannot be used: try
             // to find a valid one!
-            MDependency compositionDep = MTools.getMetaTool().getDefaultCompositionDep(owner, newElement);
+            MDependency compositionDep = mExpert.getDefaultCompositionDep(owner, newElement);
             if (compositionDep != null) {
                 owner.mGet(compositionDep).add(newElement);
             } else {
@@ -138,15 +139,15 @@ public class BpmnEventTransmuter implements ITransmuter {
             for (BpmnEventDefinition definition : new ArrayList<>(oldEvent.getEventDefinitions())) {
                 newEvent.getEventDefinitions().add(definition);
             }
-            
-            if (oldEvent.getOutgoingFlow().size() >0) {
-                for(BpmnMessageFlow flow : new ArrayList<>(oldEvent.getOutgoingFlow())) {
+        
+            if (oldEvent.getOutgoingFlow().size() > 0) {
+                for (BpmnMessageFlow flow : new ArrayList<>(oldEvent.getOutgoingFlow())) {
                     newEvent.getOutgoingFlow().add(flow);
                 }
             }
-            
-            if (oldEvent.getIncomingFlow().size() >0) {
-                for(BpmnMessageFlow flow : new ArrayList<>(oldEvent.getIncomingFlow())) {
+        
+            if (oldEvent.getIncomingFlow().size() > 0) {
+                for (BpmnMessageFlow flow : new ArrayList<>(oldEvent.getIncomingFlow())) {
                     newEvent.getIncomingFlow().add(flow);
                 }
             }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link.extensions;
 
@@ -28,13 +28,19 @@ import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 
 /**
- * Repositions a GmNode attached to a {@link GmLink} when the GmLink is moved. Provides for alignment at the start
+ * Repositions a GmNode attached to a {@link GmLink} when the GmLink is moved.
+ * <p>
+ * Provides for alignment at the start
  * (source), middle, or end (target) of the Connection.
  * 
  * @see org.eclipse.draw2d.ConnectionLocator
+ * @deprecated does not handle fire size constraint.
+ * Seems to not be used since long before Modelio 3.3.
+ * Might be deleted.
  */
 @objid ("8004221c-1dec-11e2-8cad-001ec947c8cc")
-public class GmConnectionLocator implements IGmLocator {
+@Deprecated
+public class GmConnectionLocator extends GmAbstractLocator {
     /**
      * The alignment. Possible values are {@link org.eclipse.draw2d.ConnectionLocator#SOURCE SOURCE},
      * {@link org.eclipse.draw2d.ConnectionLocator#MIDDLE MIDDLE}, and
@@ -89,15 +95,11 @@ public class GmConnectionLocator implements IGmLocator {
         return this.relativePosition;
     }
 
-    @objid ("80042235-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public boolean isExternal(IDiagramWriter out) {
-        return false;
-    }
-
     @objid ("8004223b-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void read(IDiagramReader in) {
+        super.read(in);
+        
         this.alignment = (Integer) in.readProperty("align");
         this.gap = (Integer) in.readProperty("gap");
         this.relativePosition = (Integer) in.readProperty("pos");
@@ -115,7 +117,9 @@ public class GmConnectionLocator implements IGmLocator {
     }
 
     /**
-     * Sets the gap between the reference point and the figure being placed. Only used if getRelativePosition() returns
+     * Sets the gap between the reference point and the figure being placed.
+     * <p>
+     * Only used if {@link #getRelativePosition()} returns
      * something other than {@link PositionConstants#CENTER}.
      * @param i The gap
      */
@@ -138,6 +142,8 @@ public class GmConnectionLocator implements IGmLocator {
     @objid ("8004224b-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
+        super.write(out);
+        
         out.writeProperty("align", this.alignment);
         out.writeProperty("gap", this.gap);
         out.writeProperty("pos", this.relativePosition);
@@ -147,6 +153,33 @@ public class GmConnectionLocator implements IGmLocator {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    /**
+     * Default constructor.
+     */
+    @objid ("43dfc86c-5d05-4806-8616-1a48e61d426f")
+    public GmConnectionLocator() {
+        super();
+    }
+
+    /**
+     * Copy constructor.
+     * @param src the object to copy.
+     */
+    @objid ("fe2ae304-5ee7-43a2-8b1b-db18eed6ab77")
+    public GmConnectionLocator(GmConnectionLocator src) {
+        super(src);
+        
+        this.alignment = src.alignment;
+        this.gap = src.gap;
+        this.relativePosition = src.relativePosition;
+    }
+
+    @objid ("3edc6e93-4ed8-459a-990b-5006402bfcd7")
+    @Override
+    public IGmLocator copy() {
+        return new GmConnectionLocator(this);
     }
 
 }

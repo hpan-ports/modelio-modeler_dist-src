@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.model.search.engine.searchers.model;
 
 import java.util.ArrayList;
@@ -14,7 +35,6 @@ import org.modelio.model.search.engine.ISearchCriteria;
 import org.modelio.model.search.engine.ISearchEngine;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
-import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -24,15 +44,9 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <li>a set of metaclasses defining the nature of the searched elements
  * <li>several boolean flags (eg: include/exclude RAMC)</li>
  * <li>a stereotype</li>
- * 
- * @author phv
  */
 @objid ("000693d4-c59e-10ab-8258-001ec947cd2a")
 public class ModelSearchEngine implements ISearchEngine {
-    @objid ("0007643a-c59e-10ab-8258-001ec947cd2a")
-    public ModelSearchEngine() {
-    }
-
     @objid ("00078a00-c59e-10ab-8258-001ec947cd2a")
     @Override
     public List<Element> search(ICoreSession session, ISearchCriteria params) {
@@ -43,7 +57,7 @@ public class ModelSearchEngine implements ISearchEngine {
         final Set<MObject> rawResults = new HashSet<>();
         
         // Collect raw results
-        for (final MClass metaclass : criteria.getMetaclasses()) {
+        for (final Class<? extends MObject> metaclass : criteria.getMetaclasses()) {
             rawResults.addAll(session.getModel().findByClass(metaclass, IModel.NODELETED));
         }
         

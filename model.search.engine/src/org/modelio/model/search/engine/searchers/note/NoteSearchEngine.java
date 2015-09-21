@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.model.search.engine.searchers.note;
 
 import java.util.ArrayList;
@@ -6,7 +27,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.model.search.engine.ISearchCriteria;
@@ -34,12 +54,12 @@ public class NoteSearchEngine implements ISearchEngine {
     @objid ("d6d902b9-55bb-4f40-8569-a01adc99707a")
     @Override
     public List<Element> search(ICoreSession session, ISearchCriteria params) {
-        assert (params instanceof NoteSearchCriteria2);
+        assert (params instanceof NoteSearchCriteria);
         
-        final NoteSearchCriteria2 criteria = (NoteSearchCriteria2) params;
+        final NoteSearchCriteria criteria = (NoteSearchCriteria) params;
         
         // Collect raw results
-        final Collection<? extends MObject> rawResults = session.getModel().findByClass(Metamodel.getMClass(Note.class), IModel.NODELETED);
+        final Collection<? extends MObject> rawResults = session.getModel().findByClass(session.getMetamodel().getMClass(Note.class), IModel.NODELETED);
         final List<Element> filteredResults = new ArrayList<>();
         
         try {

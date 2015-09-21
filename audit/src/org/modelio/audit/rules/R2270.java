@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.rules;
 
@@ -35,7 +35,6 @@ import org.modelio.audit.engine.impl.AuditTrigger;
 import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.plugin.Audit;
 import org.modelio.audit.service.AuditSeverity;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.Operation;
@@ -69,11 +68,11 @@ public class R2270 extends AbstractRule {
     @Override
     public void autoRegister(IAuditPlan plan) {
         // This cover the case of moving or deleting a Collaboration, which triggers an UPDATE on the old parent.
-        plan.registerRule(Metamodel.getMClass(Operation.class).getName(), this, AuditTrigger.UPDATE);
+        plan.registerRule(Operation.MNAME, this, AuditTrigger.UPDATE);
         
         // This cover the case of [creating|moving] a Collaboration [under|to] a new parent.
         // It also covers the case of renaming a Collaboration.
-        plan.registerRule(Metamodel.getMClass(Collaboration.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(Collaboration.MNAME, this, AuditTrigger.CREATE |
                                                               AuditTrigger.MOVE |
                                                               AuditTrigger.UPDATE);
     }

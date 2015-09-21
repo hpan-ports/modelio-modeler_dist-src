@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.ramc.core.packaging;
 
@@ -28,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Map;
@@ -38,6 +39,7 @@ import org.modelio.gproject.ramc.core.model.ModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor.ExportedFileEntry;
 import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.version.Version;
+import org.modelio.vcore.smkernel.mapi.MMetamodelFragment;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -59,6 +61,9 @@ class Metadatas {
 
     @objid ("63d147eb-f1da-4338-a0a7-4dd686d074a7")
     private List<MRef> roots = new ArrayList<>();
+
+    @objid ("8217b9f6-b086-4a4e-bab3-394884f91a1d")
+    private Collection<MMetamodelFragment> mmFragments;
 
     /**
      * initialize the meta datas.
@@ -107,6 +112,9 @@ class Metadatas {
             // Contributors
             writeMetadataContributors(metadataWriter);
         
+            // Contributors
+            writeMetadataMetamodels(metadataWriter);
+        
             // Roots
             writeMetadataRoots(metadataWriter);
         
@@ -131,9 +139,8 @@ class Metadatas {
         buffer.append("<ram-component manifest-version=\"" + MANIFEST_VERSION + "\"\n");
         buffer.append("               name=\"" + this.ramc.getName() +
                 "\" version=\"" + ramcVersion.getMajorVersion() +
-                "\" release=\"" + ramcVersion.getMinorVersion() + 
-                "\" clevel=\"" + ramcVersion.getBuildVersion() + 
-                "\" metamodel=\"" + ramcVersion.getMetamodelVersion() +
+                "\" release=\"" + ramcVersion.getMinorVersion() +
+                "\" clevel=\"" + ramcVersion.getBuildVersion() +
                 "\">\n");
         
         buffer.append("    <description>\n");
@@ -199,6 +206,21 @@ class Metadatas {
     @objid ("aa085837-52e2-4ad0-ad5c-39b0a4ae6426")
     List<MRef> getRoots() {
         return this.roots;
+    }
+
+    @objid ("90cac1e7-bf74-4878-bc3e-d890c2cb46b9")
+    private void writeMetadataMetamodels(BufferedWriter metadata) throws IOException {
+        metadata.append("    <metamodels>\n");
+        
+        for (MMetamodelFragment entry : this.mmFragments) {
+            metadata.append("      <metamodel name=\"" + entry.getName() + "\" version=\"" + entry.getVersion() + "\"/>\n");
+        }
+        metadata.append("    </metamodels>\n");
+    }
+
+    @objid ("544c1a00-5615-49b6-a9ce-aa52239599b9")
+    public void setUsedMetamodelFragments(Collection<MMetamodelFragment> fragments) {
+        this.mmFragments = fragments;
     }
 
 }

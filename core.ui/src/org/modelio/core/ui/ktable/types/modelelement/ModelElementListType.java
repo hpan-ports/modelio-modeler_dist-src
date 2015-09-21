@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.ktable.types.modelelement;
 
@@ -51,8 +51,8 @@ public class ModelElementListType extends SingleElementType {
     }
 
     @objid ("8def2b55-c068-11e1-8c0a-002564c97630")
-    public ModelElementListType(boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses, List<ModelElement> elements) {
-        super(acceptNullValue, allowedClasses);
+    public ModelElementListType(boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses, List<ModelElement> elements, ICoreSession session) {
+        super(acceptNullValue, allowedClasses, session);
         this.elements = elements;
     }
 
@@ -67,7 +67,7 @@ public class ModelElementListType extends SingleElementType {
     public DefaultCellRenderer getRenderer() {
         ModelElementListCellRenderer modelElementRenderer = new ModelElementListCellRenderer(DefaultCellRenderer.INDICATION_FOCUS);
         modelElementRenderer.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_BLUE));
-        modelElementRenderer.setAlignment(SWTX.ALIGN_HORIZONTAL_CENTER | SWTX.ALIGN_VERTICAL_CENTER);
+        modelElementRenderer.setAlignment(SWTX.ALIGN_HORIZONTAL_LEFT | SWTX.ALIGN_VERTICAL_CENTER);
         return modelElementRenderer;
     }
 

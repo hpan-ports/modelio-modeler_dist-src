@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Diagram Elements
 Bundle-SymbolicName: org.modelio.diagram.elements;singleton:=true
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.modelio.log,
  org.modelio.ui,
@@ -63,6 +63,7 @@ Export-Package: org.modelio.diagram.elements.common.abstractdiagram,
  org.modelio.diagram.elements.core.figures.decorations,
  org.modelio.diagram.elements.core.figures.geometry,
  org.modelio.diagram.elements.core.figures.labelum,
+ org.modelio.diagram.elements.core.figures.rotated,
  org.modelio.diagram.elements.core.figures.routers,
  org.modelio.diagram.elements.core.helpers,
  org.modelio.diagram.elements.core.link,

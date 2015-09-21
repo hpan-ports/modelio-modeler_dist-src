@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.stereotype.creator;
 
@@ -33,12 +33,10 @@ import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.modelio.api.model.InvalidTransactionException;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.ModuleParameter;
@@ -49,7 +47,6 @@ import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.property.plugin.ModelProperty;
-import org.modelio.property.stereotype.creator.LocalProfileCreator;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.blob.BlobChangeEvent;
 import org.modelio.vcore.session.api.blob.BlobInfo;
@@ -60,7 +57,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MStatus;
 
 /**
- * "Create stereotype" command.
+ * "Create stereotype" and "Edit stereotype" commands implementation.
  * <p>
  * Creates a stereotype in the local module.<br>
  * Creates the LocalModule with its LocalProfile if there is no local module.
@@ -88,6 +85,10 @@ public class StereotypeEditor {
     @objid ("1919aab2-a9cb-4335-8508-be14e61cd0b1")
     private IMModelServices mmServices;
 
+    /**
+     * @param projectService the project services
+     * @param mmServices the model services for the project
+     */
     @objid ("b525246b-ef2c-4850-9b81-6b96606f1232")
     public StereotypeEditor(IProjectService projectService, IMModelServices mmServices) {
         super();
@@ -208,16 +209,16 @@ public class StereotypeEditor {
         
         IRepository repository = session.getRepositorySupport().getRepository(editedStereotype);
         
-        if (!editedStereotype.getIcon().isEmpty()) {            
+        if (!editedStereotype.getIcon().isEmpty()) {
             Path iconPath = localPath.resolve("tempIcon.png");
-            if (readStereotypeBlob(repository, editedStereotype.getUuid()+ICON, iconPath)) {            
+            if (readStereotypeBlob(repository, editedStereotype.getUuid()+ICON, iconPath)) {
                 dataModel.setExplorerIcon(iconPath.toString());
             }
         }
         
-        if (!editedStereotype.getImage().isEmpty()) {            
+        if (!editedStereotype.getImage().isEmpty()) {
             Path imagePath = localPath.resolve("tempImage.png");
-            if (readStereotypeBlob(repository, editedStereotype.getUuid()+IMAGE, imagePath)) {           
+            if (readStereotypeBlob(repository, editedStereotype.getUuid()+IMAGE, imagePath)) {
                 dataModel.setDiagramImage(imagePath.toString());
             }
         }
@@ -241,7 +242,7 @@ public class StereotypeEditor {
      */
     @objid ("ea52d560-a260-4de5-aa9a-f836e88d224d")
     private void addStereotypeOnSelectedElements(Stereotype stereotype, List<ModelElement> selectedElements, StereotypeEditionDataModel dataModel) {
-        Class<? extends MObject> metaclass = getMetaclass(dataModel.getMetaclassName());
+        Class<? extends MObject> metaclass = stereotype.getMClass().getMetamodel().getMClass(dataModel.getMetaclassName()).getJavaInterface();
         
         if (metaclass == null) {
             return;
@@ -252,11 +253,6 @@ public class StereotypeEditor {
                 element.getExtension().add(stereotype);
             }
         }
-    }
-
-    @objid ("b54e6a56-dad2-4e16-87b5-654c536d9b4c")
-    private Class<? extends MObject> getMetaclass(String stereotypeMetaclass) {
-        return Metamodel.getJavaInterface(Metamodel.getMClass(stereotypeMetaclass));
     }
 
     /**
@@ -274,7 +270,7 @@ public class StereotypeEditor {
         Stereotype stereotype = null;
         
         try (ITransaction transaction = session.getTransactionSupport().createTransaction("Create Stereotype")) {
-            if (ownerProfile == null) {                
+            if (ownerProfile == null) {
                 LocalProfileCreator localModuleCreator = new LocalProfileCreator(this.projectService);
                 ownerProfile = localModuleCreator.execute(fragment);
             }
@@ -282,15 +278,13 @@ public class StereotypeEditor {
                 stereotype = factory.createStereotype();
                 ownerProfile.getDefinedStereotype().add(stereotype);
                 setStereotypeValues(session, stereotype, dataModel);
-                
+        
                 if (dataModel.isApplyStereotype()) {
                     addStereotypeOnSelectedElements(stereotype, selectedElements, dataModel);
                 }
         
                 transaction.commit();
             }
-        } catch (InvalidTransactionException e) {
-            ModelProperty.LOG.error(e);
         }
         return stereotype;
     }
@@ -303,7 +297,7 @@ public class StereotypeEditor {
     @objid ("74d9f5eb-3c8a-40b0-8f85-6f209a05d37f")
     private void editStereotype(Stereotype stereotype, StereotypeEditionDataModel dataModel) {
         ICoreSession session = this.projectService.getSession();
-        try (ITransaction transaction = session.getTransactionSupport().createTransaction("Edit Stereotype")) {      
+        try (ITransaction transaction = session.getTransactionSupport().createTransaction("Edit Stereotype")) {
             setStereotypeValues(session, stereotype, dataModel);
             transaction.commit();
         } catch (Exception e) {
@@ -346,14 +340,16 @@ public class StereotypeEditor {
             IBlobInfo iconBlob;
             iconBlob = repository.readBlobInfo(stereotype.getUuid() + ICON);
             if (iconFile.exists()) {
-                if (iconBlob == null) {                    
+                if (iconBlob == null) {
                     iconBlob = new BlobInfo(stereotype.getUuid() + ICON, "icon for " + stereotype.getName());
                     createStereotypeBlob(repository, iconFile, iconBlob);
                 } else {
                     updateStereotypeBlob(repository, iconFile, iconBlob);
                 }
             } else {
-                if (iconBlob != null) deleteStereotypeBlob(repository, iconBlob);
+                if (iconBlob != null) {
+                    deleteStereotypeBlob(repository, iconBlob);
+                }
             }
         } catch (IOException e) {
             ModelProperty.LOG.error(e);
@@ -372,15 +368,17 @@ public class StereotypeEditor {
             File imageFile = new File(dataModel.getDiagramImage());
             IBlobInfo imageBlob;
             imageBlob = repository.readBlobInfo(stereotype.getUuid() + IMAGE);
-            if (imageFile.exists()) {                  
-                if (imageBlob == null) {                    
+            if (imageFile.exists()) {
+                if (imageBlob == null) {
                     imageBlob = new BlobInfo(stereotype.getUuid() + IMAGE, "image for " + stereotype.getName());
                     createStereotypeBlob(repository, imageFile, imageBlob);
                 } else {
                     updateStereotypeBlob(repository, imageFile, imageBlob);
                 }
             } else {
-                if (imageBlob != null) deleteStereotypeBlob(repository, imageBlob);
+                if (imageBlob != null) {
+                    deleteStereotypeBlob(repository, imageBlob);
+                }
             }
         } catch (IOException e) {
             ModelProperty.LOG.error(e);
@@ -447,7 +445,7 @@ public class StereotypeEditor {
      */
     @objid ("abeb0cb6-a446-4a41-9181-6f5eda1a93c5")
     private void updateStereotypeBlob(IRepository repository, File file, IBlobInfo blob) {
-        if (writeStereotypeBlob(repository, file, blob)) {            
+        if (writeStereotypeBlob(repository, file, blob)) {
             this.updatedBlobs.add(blob);
             ModelProperty.LOG.debug("Blob updated: " + blob.getKey());
         }

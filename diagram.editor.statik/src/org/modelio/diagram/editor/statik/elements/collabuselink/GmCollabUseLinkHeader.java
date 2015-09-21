@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.collabuselink;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.model.IEditableText;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * @author cmarin
  */
 @objid ("348f3465-55b7-11e2-877f-002564c97630")
-public class GmCollabUseLinkHeader extends GmDefaultFlatHeader {
+public class GmCollabUseLinkHeader extends GmDefaultModelElementLabel {
     /**
      * Current version of this Gm. Defaults to 0.
      */
@@ -68,7 +68,7 @@ public class GmCollabUseLinkHeader extends GmDefaultFlatHeader {
      */
     @objid ("348f347a-55b7-11e2-877f-002564c97630")
     @Override
-    protected String computeLabel() {
+    protected String computeMainLabel() {
         return "<<occurrence>>";
     }
 

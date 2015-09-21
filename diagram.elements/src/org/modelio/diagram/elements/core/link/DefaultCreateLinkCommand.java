@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.commands.Command;
+import org.modelio.api.module.IMdaExpert;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.model.IGmLinkable;
 import org.modelio.diagram.elements.core.model.IGmPath;
@@ -30,7 +31,6 @@ import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.elements.core.obfactory.IModelLinkFactory;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MClass;
@@ -67,36 +67,43 @@ public class DefaultCreateLinkCommand extends Command {
     public boolean canExecute() {
         // The diagram must be valid and modifiable.
         final GmAbstractDiagram gmDiagram = this.sourceNode.getDiagram();
-        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement())) {
             return false;
+        }
         
         // If it is an actual creation (and not a simple unmasking).
         if (this.context.getElementToUnmask() == null) {
-            final MObject srcElement = this.sourceNode.getRelatedElement();
-            MClass toCreateMetaclass = Metamodel.getMClass(this.context.getMetaclass());
+            MObject srcElement = this.sourceNode.getRelatedElement();
+            MClass toCreateMetaclass = this.context.getMetaclass();
+            Class<? extends MObject> toCreateInterface = toCreateMetaclass.getJavaInterface();
             Stereotype toCreateStereotype = this.context.getStereotype();
-            Class<? extends MObject> toCreateInterface = Metamodel.getJavaInterface(toCreateMetaclass);
-            
+            IMdaExpert mdaExpert = this.sourceNode.getDiagram().getModelManager().getMdaExpert();
+        
             if (this.targetNode == null) {
                 // The creation experts must allow starting the link
-                if (!MTools.getLinkTool().canSource(toCreateStereotype, toCreateMetaclass, srcElement.getMClass()))
+                if (!mdaExpert.canSource(toCreateStereotype, toCreateMetaclass, srcElement.getMClass())) {
                     return false;
+                }
         
                 // The access right expert must allow the command
-                if (!MTools.getAuthTool().canCreateLinkFrom(toCreateInterface, srcElement))
+                if (!MTools.getAuthTool().canCreateLinkFrom(toCreateInterface, srcElement)) {
                     return false;
+                }
         
             } else {
                 // The creation experts must allow the link
                 final MObject targetEl = this.targetNode.getRelatedElement();
-                if (targetEl == null || targetEl.isShell() || targetEl.isDeleted())
+                if (targetEl == null || targetEl.isShell() || targetEl.isDeleted()) {
                     return false;
-                if (!MTools.getLinkTool().canLink(toCreateStereotype, toCreateMetaclass, srcElement, targetEl))
+                }
+                if (!mdaExpert.canLink(toCreateStereotype, toCreateMetaclass, srcElement, targetEl)) {
                     return false;
-                
+                }
+        
                 // The access right expert must allow the command
-                if (!MTools.getAuthTool().canCreateLink(toCreateInterface, srcElement, targetEl))
+                if (!MTools.getAuthTool().canCreateLink(toCreateInterface, srcElement, targetEl)) {
                     return false;
+                }
             }
         }
         

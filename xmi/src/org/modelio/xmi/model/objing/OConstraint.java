@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -38,13 +38,10 @@ import org.modelio.xmi.util.ObjingEAnnotation;
  */
 @objid ("6d880c0f-a06c-43dc-91ba-e196e796e663")
 public class OConstraint extends OModelElement {
-    @objid ("ef89c7d0-fbba-46a6-86b0-291c18c17907")
-    private Constraint objingElement = null;
-
     @objid ("14724b00-156d-46ea-ad8d-a79ca2f7bf4d")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (this.objingElement.isStereotyped("ModelerModule", "DurationObservation_Constraint")){
+        if (getObjingElement().isStereotyped("ModelerModule", "DurationObservation_Constraint")){
             return UMLFactory.eINSTANCE.createDurationObservation();
         }
         return UMLFactory.eINSTANCE.createConstraint();
@@ -53,7 +50,6 @@ public class OConstraint extends OModelElement {
     @objid ("ee156bcb-35da-4c73-a301-a7418f297e00")
     public OConstraint(Constraint element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("569ce9b9-f093-494b-a234-88b1177de4c0")
@@ -62,7 +58,7 @@ public class OConstraint extends OModelElement {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
         if (ecoreElt instanceof org.eclipse.uml2.uml.Constraint){
-            //Constraint case 
+            //Constraint case
             // Exceptionally sets the Properties of the org.eclipse.uml2.uml.Constraint, as we need to
             // know the Name and Body of the
             // current constraint.
@@ -71,7 +67,7 @@ public class OConstraint extends OModelElement {
             // Gets the ecore constrained elements:
             List <org.eclipse.uml2.uml.Element> ecoreConstrainedElts = new ArrayList <>();
             boolean isMappingPossible = true;
-            List<ModelElement> objingConstrainedElts = this.objingElement
+            List<ModelElement> objingConstrainedElts = getObjingElement()
                     .getConstrainedElement();
             for (ModelElement objingConstrainedElt : objingConstrainedElts) {
                 org.eclipse.uml2.uml.Element ecoreConstrainedElt = genProp
@@ -112,18 +108,18 @@ public class OConstraint extends OModelElement {
         
             }
         }else{
-            if (this.objingElement.getConstrainedElement().size() == 2 ){
+            if (getObjingElement().getConstrainedElement().size() == 2 ){
                 //Duration Observation
-                ModelElement constrainedElt = this.objingElement.getConstrainedElement().get(0);
+                ModelElement constrainedElt = getObjingElement().getConstrainedElement().get(0);
                 org.eclipse.uml2.uml.Element ecoreOwner = genProp
                         .getMappedElement(AbstractObjingModelNavigation.getNearestPackage(constrainedElt));
                 if (ecoreOwner instanceof Package){
                     org.eclipse.uml2.uml.DurationObservation durObs = (org.eclipse.uml2.uml.DurationObservation) ecoreElt;
                     ((org.eclipse.uml2.uml.Package) ecoreOwner).getPackagedElements().add(durObs);
                     durObs.getEvents().add((org.eclipse.uml2.uml.NamedElement) genProp
-                                           .getMappedElement(this.objingElement.getConstrainedElement().get(0)) );
+                                           .getMappedElement(getObjingElement().getConstrainedElement().get(0)) );
                     durObs.getEvents().add((org.eclipse.uml2.uml.NamedElement) genProp
-                                           .getMappedElement(this.objingElement.getConstrainedElement().get(1)) );
+                                           .getMappedElement(getObjingElement().getConstrainedElement().get(1)) );
                     durObs.getFirstEvents().add(true);
                     durObs.getFirstEvents().add(false);
                 }else{
@@ -149,7 +145,7 @@ public class OConstraint extends OModelElement {
     private void setSpecification(org.eclipse.uml2.uml.Constraint ecoreElt) {
         org.eclipse.uml2.uml.LiteralString valueSpecification = UMLFactory.eINSTANCE
                 .createLiteralString();
-        valueSpecification.setValue(this.objingElement.getBody());
+        valueSpecification.setValue(getObjingElement().getBody());
         ecoreElt.setSpecification(valueSpecification);
     }
 
@@ -161,11 +157,17 @@ public class OConstraint extends OModelElement {
 
     @objid ("ca1828ba-3ad2-4ca1-b15e-317b60c7357b")
     private void setName(final org.eclipse.uml2.uml.DurationObservation ecoreElt) {
-        String name = this.objingElement.getName();
+        String name = getObjingElement().getName();
         
         if ((name != null) &&  (!name.equals(""))){
             ecoreElt.setName(name);
         }
+    }
+
+    @objid ("9f6f768c-e405-4179-86a0-aa85c63e9f32")
+    @Override
+    public Constraint getObjingElement() {
+        return (Constraint) super.getObjingElement();
     }
 
 }

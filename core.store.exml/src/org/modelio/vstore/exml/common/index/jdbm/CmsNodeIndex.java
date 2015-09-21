@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,19 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.index.jdbm;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Map;
@@ -35,6 +36,7 @@ import jdbm.RecordManager;
 import jdbm.helper.StoreReference;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vstore.exml.common.index.ICmsNodeIndex;
 import org.modelio.vstore.exml.common.model.ObjId;
 
@@ -43,6 +45,15 @@ import org.modelio.vstore.exml.common.model.ObjId;
  */
 @objid ("e1ee6207-5c83-11e1-863f-001ec947ccaf")
 public class CmsNodeIndex implements ICmsNodeIndex {
+    @objid ("d554d657-7f1a-11e1-ba70-001ec947ccaf")
+    private PrimaryHashMap<ObjId,StoreReference<Collection<ObjId>>> cmsNodeContent;
+
+    @objid ("d554d65c-7f1a-11e1-ba70-001ec947ccaf")
+    private RecordManager db;
+
+    @objid ("d554d652-7f1a-11e1-ba70-001ec947ccaf")
+    private InverseHashView<ObjId,ObjId> inverseParent;
+
     /**
      * 'model object -> CMS node' index.
      * <p>
@@ -59,31 +70,35 @@ public class CmsNodeIndex implements ICmsNodeIndex {
     @objid ("d554d64c-7f1a-11e1-ba70-001ec947ccaf")
     private PrimaryHashMap<ObjId,ObjId> parentIndex;
 
-    @objid ("d554d652-7f1a-11e1-ba70-001ec947ccaf")
-    private InverseHashView<ObjId,ObjId> inverseParent;
+    @objid ("bd00520b-5e3a-42b9-a4cb-817f620e6d00")
+    private final ObjIdCollectionSerializer idCollSerializer;
 
-    @objid ("d554d657-7f1a-11e1-ba70-001ec947ccaf")
-    private PrimaryHashMap<ObjId,StoreReference<Collection<ObjId>>> cmsNodeContent;
-
-    @objid ("d554d65c-7f1a-11e1-ba70-001ec947ccaf")
-    private RecordManager db;
+    @objid ("fdfe958c-883f-4278-ab20-09b7a5eb0026")
+    private final ObjectIndexValueSerializer objIndexValueSerializer;
 
     /**
      * Initialize the index.
+     * @param metamodel
      * @param db the JDBM database string the index.
      */
     @objid ("e1ee620c-5c83-11e1-863f-001ec947ccaf")
-    public CmsNodeIndex(final RecordManager db) {
+    public CmsNodeIndex(final RecordManager db, SmMetamodel metamodel) {
         this.db = db;
-        this.parentIndex = db.hashMap("parentIndex", ObjIdSerializer.instance, ObjIdSerializer.instance);
+        ObjIdSerializer idSerializer = new ObjIdSerializer(metamodel);
+        this.objIndexValueSerializer = new ObjectIndexValueSerializer(idSerializer);
+        this.idCollSerializer = new ObjIdCollectionSerializer(idSerializer);
+        
+        this.parentIndex = db.hashMap("parentIndex", idSerializer, idSerializer);
         
         this.objectsIndex = new HashMap<>();
-        for (SmClass cls : SmClass.getRegisteredClasses()) {
-            PrimaryHashMap<UUID, ObjectIndexValue> idx = db.hashMap("objectsIndex."+cls.getName(), UuidSerializer.instance, ObjectIndexValueSerializer.instance);
-            this.objectsIndex.put(cls, idx);
-        }
         
-        this.cmsNodeContent = db.hashMap("cmsNodeContent", ObjIdSerializer.instance);
+        /* Commented : instantiate the index lazily, this may spare time on open and storage space on disk.
+         * for (SmClass cls : metamodel.getRegisteredMClasses()) {
+            PrimaryHashMap<UUID, ObjectIndexValue> idx = db.hashMap("objectsIndex."+cls.getName(), UuidSerializer.instance, this.objIndexValueSerializer);
+            this.objectsIndex.put(cls, idx);
+        }*/
+        
+        this.cmsNodeContent = db.hashMap("cmsNodeContent", idSerializer);
         
         initReverseIndexes();
         
@@ -105,28 +120,35 @@ public class CmsNodeIndex implements ICmsNodeIndex {
 
     @objid ("e1ee61ff-5c83-11e1-863f-001ec947ccaf")
     @Override
-    public Collection<UUID> getByMClass(final SmClass cls) {
-        return this.objectsIndex.get(cls).keySet();
+    public Collection<UUID> getByMClass(final SmClass cls) throws IOException {
+        PrimaryHashMap<UUID, ObjectIndexValue> clsIndex = findObjectIndex(cls);
+        if (clsIndex == null) {
+            return Collections.emptyList();
+        } else {
+            return clsIndex.keySet();
+        }
     }
 
     @objid ("e1ee6212-5c83-11e1-863f-001ec947ccaf")
     @Override
     public ObjId getCmsNodeOf(final ObjId id) throws IOException {
-        final ObjectIndexValue idxValue = getObjectIndex(id).find(id.id);
-        if (idxValue == null)
+        final ObjectIndexValue idxValue = findObjectIndexEntry(id);
+        if (idxValue == null) {
             return null;
-        else
+        } else {
             return idxValue.cmsNodeId;
+        }
     }
 
     @objid ("e7ff26c9-55ba-11e2-81b0-001ec947ccaf")
     @Override
     public String getName(ObjId id) throws IOException {
-        final ObjectIndexValue idxValue = getObjectIndex(id).find(id.id);
-        if (idxValue == null)
+        final ObjectIndexValue idxValue = findObjectIndexEntry(id);
+        if (idxValue == null) {
             return null;
-        else
+        } else {
             return idxValue.name;
+        }
     }
 
     @objid ("e1ee620f-5c83-11e1-863f-001ec947ccaf")
@@ -146,7 +168,7 @@ public class CmsNodeIndex implements ICmsNodeIndex {
     @objid ("e1ee61fd-5c83-11e1-863f-001ec947ccaf")
     @Override
     public boolean isStored(final ObjId id) throws IOException {
-        return getObjectIndex(id).find(id.id) != null;
+        return findObjectIndexEntry(id) != null;
     }
 
     @objid ("e1ee61fe-5c83-11e1-863f-001ec947ccaf")
@@ -165,15 +187,15 @@ public class CmsNodeIndex implements ICmsNodeIndex {
                     // It spares an index access in most cases.
                     childIndex.put(child.id, val);
                 }
-                    
+        
             }
-            
+        
             // Remove the CMS node content entry
             this.cmsNodeContent.remove(id);
         }
         
         // For non CMS node objects, remove it from the CMS node index
-        final ObjectIndexValue idxVal = getObjectIndex(id).find(id.id);
+        final ObjectIndexValue idxVal = findObjectIndexEntry(id);
         if (idxVal != null) {
             ObjId cmsParent = idxVal.cmsNodeId;
             removeFromCmsNodeContent(cmsParent, id);
@@ -195,21 +217,29 @@ public class CmsNodeIndex implements ICmsNodeIndex {
         if (ref == null) {
             Collection<ObjId> l = new ArrayList<>(1);
             l.add(child);
-            ref = new StoreReference<>(this.db, l, ObjIdCollectionSerializer.instance);
+            ref = new StoreReference<>(this.db, l, this.idCollSerializer);
             this.cmsNodeContent.put(parent, ref);
         } else {
             Collection<ObjId> l = load(ref);
             l.add(child);
-            this.db.update(ref.getRecId(), l, ObjIdCollectionSerializer.instance);
+            this.db.update(ref.getRecId(), l, this.idCollSerializer);
         }
     }
 
     @objid ("86140e47-797c-11e1-9633-001ec947ccaf")
     private void dumpIndex() {
-        System.out.println(" Dumping CmsNodeIndex:");
+        System.out.println(" Dumping CmsNodeIndex.objectsIndex:");
         
         for (Entry<MClass, PrimaryHashMap<UUID, ObjectIndexValue>>  entry: this.objectsIndex.entrySet()) {
-            System.out.println("  " + entry.getValue().size()+" "+entry.getKey().getName());
+            PrimaryHashMap<UUID, ObjectIndexValue> objIndex = entry.getValue();
+            if (objIndex != null) {
+                System.out.println("  " + objIndex.size()+" "+entry.getKey().getName());
+            }
+        }
+        
+        System.out.println("\n\n Dumping CmsNodeIndex.parentIndex:");
+        for (Entry<ObjId, ObjId> i : this.parentIndex.entrySet()) {
+            System.out.println("  "+ i.getKey()+" parent = "+i.getValue());
         }
         
         System.out.println("  " + this.parentIndex.size()+" elements in parentIndex");
@@ -218,24 +248,91 @@ public class CmsNodeIndex implements ICmsNodeIndex {
     }
 
     /**
-     * @param child @return
+     * Get the object index where this metaclass elements should be stored.
+     * <p>
+     * Return <i>null</i> if the index is missing.
+     * @param cls a metaclass
+     * @return its index or <i>null</i>.
+     * @throws java.io.IOException in case of I/O error
+     */
+    @objid ("a30fd2d3-d388-4c6e-ae38-91874118a257")
+    private PrimaryHashMap<UUID,ObjectIndexValue> findObjectIndex(MClass cls) throws IOException {
+        PrimaryHashMap<UUID, ObjectIndexValue> idx = this.objectsIndex.get(cls);
+        if (idx == null && !this.objectsIndex.containsKey(cls)) {
+            long r = this.db.getNamedObject("objectsIndex."+cls.getName());
+            if (r != 0) {
+                // load the index
+                return getClassObjIndex(cls);
+            } else {
+                // remember there is no index for this class
+                this.objectsIndex.put(cls, null);
+            }
+        }
+        return  idx;
+    }
+
+    /**
+     * Find the object index entry.
+     * <p>
+     * Return <i>null</i> if the object is not in the index.
+     * @param id the object identifier
+     * @return the index entry or <i>null</i>.
+     * @throws java.io.IOException in case of I/O error.
+     */
+    @objid ("1cdc4679-716e-4998-8622-b18745d7e5d6")
+    private ObjectIndexValue findObjectIndexEntry(final ObjId id) throws IOException {
+        PrimaryHashMap<UUID, ObjectIndexValue> objectIndex = findObjectIndex(id.classof);
+        if (objectIndex == null) {
+            return null;
+        } else {
+            return objectIndex.find(id.id);
+        }
+    }
+
+    /**
+     * Get the object index for a metaclass.
+     * <p>
+     * The index is created if missing.
+     * @param cls a metaclass
+     * @return the metaclass objects index.
+     */
+    @objid ("483c4f74-89a9-4ff6-93ed-f28dd157cf3d")
+    private PrimaryHashMap<UUID,ObjectIndexValue> getClassObjIndex(MClass cls) {
+        PrimaryHashMap<UUID, ObjectIndexValue> ret = this.objectsIndex.get(cls);
+        if (ret == null) {
+            ret = this.db.hashMap("objectsIndex."+cls.getName(), UuidSerializer.instance, this.objIndexValueSerializer);
+            this.objectsIndex.put(cls, ret);
+        
+        }
+        return ret;
+    }
+
+    /**
+     * Get the object index where this id must be stored.
+     * <p>
+     * Create the index if missing.
+     * @param child an object id
+     * @return its index
      */
     @objid ("690abc29-4b8b-11e2-91c9-001ec947ccaf")
     private PrimaryHashMap<UUID,ObjectIndexValue> getObjectIndex(ObjId child) {
-        return this.objectsIndex.get(child.classof);
+        PrimaryHashMap<UUID, ObjectIndexValue> ret = getClassObjIndex(child.classof);
+        return ret;
     }
 
     @objid ("82d42eb7-5ca7-11e1-863f-001ec947ccaf")
     private void initReverseIndexes() {
-        this.inverseParent = SecondaryKeyHelper.inverseHashView(this.parentIndex, "inverseParent", ObjIdIterableSerializer.instance);
+        ObjIdIterableSerializer s = new ObjIdIterableSerializer(this.idCollSerializer);
+        this.inverseParent = SecondaryKeyHelper.inverseHashView(this.parentIndex, "inverseParent", s);
     }
 
     @objid ("82d690cd-5ca7-11e1-863f-001ec947ccaf")
     private Collection<ObjId> load(final StoreReference<Collection<ObjId>> storeReference) {
-        if (storeReference==null)
+        if (storeReference==null) {
             return null;
-        else
-            return storeReference.get(this.db, ObjIdCollectionSerializer.instance);
+        } else {
+            return storeReference.get(this.db, this.idCollSerializer);
+        }
     }
 
     @objid ("690abc25-4b8b-11e2-91c9-001ec947ccaf")
@@ -248,7 +345,7 @@ public class CmsNodeIndex implements ICmsNodeIndex {
                 ref.remove(this.db);
                 this.cmsNodeContent.remove(cmsParent);
             } else {
-                this.db.update(ref.getRecId(), l, ObjIdCollectionSerializer.instance);
+                this.db.update(ref.getRecId(), l, this.idCollSerializer);
             }
         }
     }

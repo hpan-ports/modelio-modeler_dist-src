@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.clazz;
 
@@ -188,6 +188,12 @@ public final class GmClassStructuredStyleKeys extends StaticAbstractStyleKeyProv
          */
         @objid ("a51aff98-55c2-11e2-9337-002564c97630")
          static final StyleKey SHOWVISIBILITY = createStyleKey("CLASS_OP_SHOWVISIBILITY", MetaKey.OperationGroup.OPSHOWVISIBILITY);
+
+        /**
+         * Display operations visibilities.
+         */
+        @objid ("1eb01cec-5c00-4c6c-b750-6e1f3ba4462c")
+         static final StyleKey WRAPLABEL = createStyleKey("CLASS_OP_WRAPLABEL", MetaKey.OperationGroup.OPWRAPLABEL);
 
     }
 

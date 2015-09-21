@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,29 +12,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.enumliteral;
 
-import java.util.Collections;
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.editor.statik.elements.enumeration.EnumStructuredStyleKeys;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
-import org.modelio.diagram.elements.core.model.IEditableText;
-import org.modelio.diagram.elements.core.node.GmCompositeNode;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
+import org.modelio.diagram.elements.common.label.modelelement.GmModelElementLabel;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.EnumerationLiteral;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -42,10 +37,10 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 /**
  * Represents an {@link Attribute} label.
  * <p>
- * Extends {@link GmModelElementFlatHeader}.
+ * Extends {@link GmModelElementLabel}.
  */
 @objid ("34e3209a-55b7-11e2-877f-002564c97630")
-public class GmEnumLitteral extends GmModelElementFlatHeader {
+public class GmEnumLitteral extends GmDefaultModelElementLabel {
     @objid ("34e3209e-55b7-11e2-877f-002564c97630")
     private EnumerationLiteral element;
 
@@ -78,36 +73,6 @@ public class GmEnumLitteral extends GmModelElementFlatHeader {
         init();
     }
 
-    @objid ("34e320b5-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<Stereotype> filterStereotypes(List<Stereotype> stereotypes) {
-        return stereotypes;
-    }
-
-    @objid ("34e320c3-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<TaggedValue> filterTags(List<TaggedValue> taggedValues) {
-        return taggedValues;
-    }
-
-    @objid ("34e4a746-55b7-11e2-877f-002564c97630")
-    @Override
-    public IEditableText getEditableText() {
-        return new IEditableText() {
-        
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
-                    }
-                
-                    @Override
-                    public void setText(String text) {
-        getRelatedElement().setName(text);
-                    }
-                
-                };
-    }
-
     @objid ("34e4a74d-55b7-11e2-877f-002564c97630")
     @Override
     public StyleKey getStyleKey(MetaKey metakey) {
@@ -123,20 +88,9 @@ public class GmEnumLitteral extends GmModelElementFlatHeader {
         return null;
     }
 
-    /**
-     * Attributes don't have own style key.
-     * <p>
-     * Everything is defined on the owner class.
-     */
-    @objid ("34e4a757-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<StyleKey> getStyleKeys() {
-        return Collections.emptyList();
-    }
-
     @objid ("34e4a761-55b7-11e2-877f-002564c97630")
     @Override
-    protected String computeLabel() {
+    protected String computeMainLabel() {
         return computeSignature(getRelatedElement());
     }
 
@@ -144,20 +98,6 @@ public class GmEnumLitteral extends GmModelElementFlatHeader {
     @Override
     public EnumerationLiteral getRelatedElement() {
         return this.element;
-    }
-
-    /**
-     * Redefined to set its own style cascading from the new parent node style.
-     */
-    @objid ("34e4a76d-55b7-11e2-877f-002564c97630")
-    @Override
-    protected void setParent(GmCompositeNode parent) {
-        if (getParent() != parent) {
-            super.setParent(parent);
-        
-            if (parent != null)
-                getStyle().setCascadedStyle(parent.getStyle());
-        }
     }
 
     @objid ("34e4a774-55b7-11e2-877f-002564c97630")

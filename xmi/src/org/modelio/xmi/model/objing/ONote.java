@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -39,25 +39,22 @@ import org.modelio.xmi.util.SysMLProfileUtils;
  */
 @objid ("095ecaf0-91db-40f8-9f35-5174e7a62172")
 public class ONote extends OElement implements IOElement {
-    @objid ("bfaffe25-8d3a-4b42-941c-7462491932fa")
-    private Note objingElement = null;
-
     @objid ("f09b84c7-a880-476a-b417-93a2e84a1d06")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        ModelElement subject = this.objingElement.getSubject();
+        ModelElement subject = getObjingElement().getSubject();
         org.eclipse.uml2.uml.Element annotatedElement =GenerationProperties.getInstance()
                 .getMappedElement(subject);
         
-        if (this.objingElement.getModel().getName().equals("TimedObservation") && (annotatedElement instanceof org.eclipse.uml2.uml.NamedElement)){
+        if (getObjingElement().getModel().getName().equals("TimedObservation") && (annotatedElement instanceof org.eclipse.uml2.uml.NamedElement)){
             return UMLFactory.eINSTANCE.createTimeObservation();
         
         }else{
              org.eclipse.uml2.uml.Comment ecoreComment = UMLFactory.eINSTANCE.createComment();
-            if ((this.objingElement.getModel() != null ) 
-                    && (((this.objingElement.getModel().getOwnerStereotype() != null ) && (SysMLProfileUtils.isSysML(this.objingElement.getModel().getOwnerStereotype().getOwner()))
-                            || ((this.objingElement.getModel().getOwnerReference() != null ) && (SysMLProfileUtils.isSysML(this.objingElement.getModel().getOwnerReference().getOwnerProfile()))))))
-                GenerationProperties.getInstance().addSysMLExported(this.objingElement);
+            if ((getObjingElement().getModel() != null )
+                    && (((getObjingElement().getModel().getOwnerStereotype() != null ) && (SysMLProfileUtils.isSysML(getObjingElement().getModel().getOwnerStereotype().getOwner()))
+                            || ((getObjingElement().getModel().getOwnerReference() != null ) && (SysMLProfileUtils.isSysML(getObjingElement().getModel().getOwnerReference().getOwnerProfile()))))))
+                GenerationProperties.getInstance().addSysMLExported(getObjingElement());
         
             return ecoreComment;
         
@@ -70,7 +67,6 @@ public class ONote extends OElement implements IOElement {
     @objid ("9dea1ffc-5d4c-4c5f-ad14-780aab9db96f")
     public ONote(final Note element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("4be1d339-b2ea-4ae4-a495-7e75c5d46235")
@@ -78,7 +74,7 @@ public class ONote extends OElement implements IOElement {
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        ModelElement subjectModelElement = this.objingElement.getSubject();
+        ModelElement subjectModelElement = getObjingElement().getSubject();
         
         if (subjectModelElement != null) {
             // Gets or creates the ecore element that owns the Note:
@@ -94,7 +90,7 @@ public class ONote extends OElement implements IOElement {
                         org.eclipse.uml2.uml.TimeObservation timeObs = (org.eclipse.uml2.uml.TimeObservation) ecoreElt;
                         ((org.eclipse.uml2.uml.Package) ecoreOwner).getPackagedElements().add(timeObs);
                         timeObs.setEvent((org.eclipse.uml2.uml.NamedElement) annotatedElement );
-                        
+        
                     }else{
                         ecoreElt.destroy();
                     }
@@ -117,21 +113,21 @@ public class ONote extends OElement implements IOElement {
 
     @objid ("a520f5e8-d478-4e6e-bb2a-89d09887c8d3")
     private void setContents(org.eclipse.uml2.uml.Comment ecoreElt) {
-        ecoreElt.setBody(this.objingElement.getContent());
+        ecoreElt.setBody(getObjingElement().getContent());
     }
 
     @objid ("bee7381f-3331-4772-9506-c09d811c5b68")
     private void setTypeEAnnotation(org.eclipse.uml2.uml.Comment ecoreElt) {
-        NoteType noteType = this.objingElement.getModel();
+        NoteType noteType = getObjingElement().getModel();
         ObjingEAnnotation.setNoteTypeName(ecoreElt, noteType.getName());
     }
 
     @objid ("83494a5d-8a85-4d13-963f-541b134c407d")
     private void setOwnerAnnotation(final org.eclipse.uml2.uml.Comment ecoreElt) {
         if (ecoreElt.getOwner() instanceof org.eclipse.uml2.uml.AssociationClass){
-            if (this.objingElement.getSubject() instanceof Association)
+            if (getObjingElement().getSubject() instanceof Association)
                 ObjingEAnnotation.setOwnedByAssociation(ecoreElt, true);
-            else if (this.objingElement.getSubject() instanceof ClassAssociation){
+            else if (getObjingElement().getSubject() instanceof ClassAssociation){
                 ObjingEAnnotation.setOwnedByAssociationClass(ecoreElt, true);
             }
         }
@@ -139,11 +135,17 @@ public class ONote extends OElement implements IOElement {
 
     @objid ("dfcf25f2-8f34-4c04-a5cc-ffbee21cf8bf")
     private void setName(final org.eclipse.uml2.uml.TimeObservation ecoreElt) {
-        String name = this.objingElement.getName();
+        String name = getObjingElement().getName();
         
         if ((name != null) &&  (!name.equals(""))){
             ecoreElt.setName(name);
         }
+    }
+
+    @objid ("3ddbf38a-2ad6-4fa9-bc89-628736d04afb")
+    @Override
+    public Note getObjingElement() {
+        return (Note) super.getObjingElement();
     }
 
 }

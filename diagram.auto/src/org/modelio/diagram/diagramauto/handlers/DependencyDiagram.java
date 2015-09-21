@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,93 +12,121 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.diagramauto.handlers;
 
+import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.e4.core.di.annotations.CanExecute;
-import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.e4.ui.services.IServiceConstants;
-import org.modelio.app.core.IModelioEventService;
-import org.modelio.app.core.IModelioService;
-import org.modelio.app.core.events.ModelioEvent;
-import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.diagram.diagramauto.diagram.creator.ClassStructureCreator;
+import org.modelio.api.module.commands.CommandScope;
 import org.modelio.diagram.diagramauto.diagram.creator.DependencyCreator;
-import org.modelio.gproject.model.IMModelServices;
+import org.modelio.diagram.diagramauto.plugin.DiagramAuto;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
-import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.vcore.session.api.transactions.ITransaction;
+import org.modelio.metamodel.factory.ExtensionNotFoundException;
+import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.statik.Artifact;
+import org.modelio.metamodel.uml.statik.Class;
+import org.modelio.metamodel.uml.statik.Component;
+import org.modelio.metamodel.uml.statik.DataType;
+import org.modelio.metamodel.uml.statik.Enumeration;
+import org.modelio.metamodel.uml.statik.Interface;
+import org.modelio.metamodel.uml.statik.Node;
+import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.mapi.MStatus;
 
 @objid ("d567ad58-dcd4-4cf6-8288-01056c0ec845")
 public class DependencyDiagram extends AbstractHandler {
-    @objid ("e91aecf9-cb16-4ec7-a57b-373140f77a6b")
-    @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IMModelServices modelServices, IModelioEventService eventService) {
-        List<MObject> selectedElements = getSelection(selection);
-        
-        try (ITransaction transaction = projectService.getSession().getTransactionSupport().createTransaction("DependencyDiagram");) {
-        
-            DependencyCreator dc = new DependencyCreator(modelServices);
-            for (MObject selectedElement : selectedElements) {
-                if (selectedElement instanceof NameSpace) {
-                    AbstractDiagram createDiagram = dc.createDiagram((NameSpace) selectedElement);
-                    eventService.postAsyncEvent(new IModelioService() {
-                        @Override
-                        public String getName() {
-                            return "DependencyDiagram";
-                        }
-                    }, ModelioEvent.EDIT_ELEMENT, createDiagram);
-                }
-            }
-            transaction.commit();
+    @objid ("afab25aa-fb00-4acf-acad-c1f9bd4e5fc4")
+    @Override
+    public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
+        DependencyCreator csc = new DependencyCreator(this.mmServices);
+        AbstractDiagram diagram = csc.createDiagram(diagramContext);
+        diagram.setName(diagramName);
+        try {
+            diagram.putNoteContent("ModelerModule", "description", diagramDescription);
+        } catch (ExtensionNotFoundException e) {
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
+        return diagram;
     }
 
-    @objid ("de53339c-272f-4722-b84f-1beab40939af")
-    @CanExecute
-    public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IMModelServices modelServices) {
-        ClassStructureCreator pc = new ClassStructureCreator(modelServices);
+    @objid ("50fa8899-978c-4113-9188-a6b5177ad5ec")
+    @Override
+    public String getDetails() {
+        return DiagramAuto.I18N.getString("CreationWizard.Dependency.Details");
+    }
+
+    @objid ("40c602d9-6194-4163-abb7-4cfd416220c1")
+    @Override
+    public String getInformation() {
+        return DiagramAuto.I18N.getString("CreationWizard.Dependency.Information");
+    }
+
+    @objid ("23cac369-3403-4e98-a0c0-f96dc79b8350")
+    @Override
+    public String getLabel() {
+        return DiagramAuto.I18N.getString("CreationWizard.Dependency.Name");
+    }
+
+    @objid ("273dc8a6-8c70-4966-9849-623ca72dd675")
+    @Override
+    protected String getPreviewImagePath() {
+        return DiagramAuto.I18N.getString("CreationWizard.Dependency.PreviewImage");
+    }
+
+    @objid ("c882b754-7049-47c3-bc5b-e1f257516348")
+    @Override
+    protected String getIconPath() {
+        return DiagramAuto.I18N.getString("CreationWizard.Dependency.Icon");
+    }
+
+    @objid ("c08ba07b-2fb0-4b12-bf41-701f00b2fbd7")
+    @Override
+    public List<CommandScope> getScopes() {
+        List<CommandScope> allowedScopes = new ArrayList<>();
+        allowedScopes.add(new CommandScope(getMetamodel().getMClass(Artifact.class), null));
+        allowedScopes.add(new CommandScope(getMetamodel().getMClass(Class.class), null));
+        allowedScopes.add(new CommandScope(getMetamodel().getMClass(Component.class), null));
+        allowedScopes.add(new CommandScope(getMetamodel().getMClass(DataType.class), null));
+        allowedScopes.add(new CommandScope(getMetamodel().getMClass(Enumeration.class), null));
+        allowedScopes.add(new CommandScope(getMetamodel().getMClass(Interface.class), null));
+        allowedScopes.add(new CommandScope(getMetamodel().getMClass(Node.class), null));
+        allowedScopes.add(new CommandScope(getMetamodel().getMClass(Package.class), null));
+        return allowedScopes;
+    }
+
+    @objid ("23ec0cb8-c800-4b15-8b29-3f45aaf4038f")
+    @Override
+    public boolean accept(MObject owner) {
+        if (!super.accept(owner)) {
+            return false;
+        }
         
-        List<MObject> selectedElements = getSelection(selection);
+        DependencyCreator pc = new DependencyCreator(this.mmServices);
         
-        for (MObject elt : selectedElements) {
-            if ((elt instanceof NameSpace)) {
-                MStatus elementStatus = elt.getStatus();
-                if (elt.getMClass().isCmsNode() && elementStatus.isCmsManaged()) {
-                    if (elementStatus.isRamc()) {
-                        return false;
-                    }
-                } else if (!elt.isModifiable()) {
-                    return false;
-                }
-        
-                // Deactivate if no context is found
-                if (pc.getAutoDiagramContext((NameSpace) elt) == null) {
-                    return false;
-                }
-        
-                AbstractDiagram existingdiagramauto = pc.getExistingAutoDiagram((NameSpace) elt);
-        
-                // Unmodifiable diagram means the command is disabled
-                if (existingdiagramauto != null && !existingdiagramauto.getStatus().isModifiable()) {
-                    return false;
-                }
-            } else {
+        if ((owner instanceof ModelElement)) {
+            // Deactivate if no context is found
+            if (pc.getAutoDiagramContext((ModelElement) owner) == null) {
                 return false;
             }
+        
+            AbstractDiagram existingdiagramauto = pc.getExistingAutoDiagram((ModelElement) owner);
+        
+            // Unmodifiable diagram means the command is disabled
+            if (existingdiagramauto != null && !existingdiagramauto.getStatus().isModifiable()) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
         }
-        return !selectedElements.isEmpty();
     }
 
 }

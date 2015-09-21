@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -26,16 +26,12 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.LoopNode;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("7bf5ab1e-9918-4613-8f66-81f0ba6cefa7")
-public class OLoopNode extends OStructuredActivityNode implements IOElement {
-    @objid ("350c6bd8-e1fa-474f-b632-9baedf56d290")
-    private LoopNode objingElement = null;
-
+public class OLoopNode extends OStructuredActivityNode {
     @objid ("215ba0b5-a5e8-4ea0-8cdd-621bcecc1621")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createLoopNode();
@@ -44,7 +40,6 @@ public class OLoopNode extends OStructuredActivityNode implements IOElement {
     @objid ("ba577b40-214c-487f-8051-3d1efa05f58b")
     public OLoopNode(LoopNode element) {
         super(element);
-        objingElement = element;
     }
 
     @objid ("0b8276b7-0f77-4cac-81bc-9cb892ed7304")
@@ -58,7 +53,7 @@ public class OLoopNode extends OStructuredActivityNode implements IOElement {
         // Part of the Properties are setted when mapping the super type
         // (org.eclipse.uml2.uml.StructuredActivityNode)
          super.setProperties(ecoreElt);
-         
+        
         // Properties specific to org.eclipse.uml2.uml.LoopNodes:
         setIsTestedFirst((org.eclipse.uml2.uml.LoopNode) ecoreElt);
         setBody((org.eclipse.uml2.uml.LoopNode) ecoreElt);
@@ -68,12 +63,12 @@ public class OLoopNode extends OStructuredActivityNode implements IOElement {
 
     @objid ("701eaf8d-6815-4e10-87a0-40bede47c71c")
     private void setIsTestedFirst(org.eclipse.uml2.uml.LoopNode node) {
-        node.setIsTestedFirst(this.objingElement.isIsTestedFirst());
+        node.setIsTestedFirst(getObjingElement().isIsTestedFirst());
     }
 
     @objid ("45ea780e-20e9-4317-81fc-4b5310fb19fe")
     private void setBody(org.eclipse.uml2.uml.LoopNode node) {
-        for (ActivityNode objingBody : this.objingElement.getBody()) {
+        for (ActivityNode objingBody : getObjingElement().getBody()) {
             org.eclipse.uml2.uml.Element ecoreBody = GenerationProperties.getInstance().getMappedElement(objingBody);
             if (ecoreBody instanceof org.eclipse.uml2.uml.ExecutableNode)
                 node.getBodyParts().add( (org.eclipse.uml2.uml.ExecutableNode)ecoreBody);
@@ -82,7 +77,7 @@ public class OLoopNode extends OStructuredActivityNode implements IOElement {
 
     @objid ("02ea7b77-b61a-45d7-a54f-86cfb6c5114f")
     private void setSetup(org.eclipse.uml2.uml.LoopNode node) {
-        String setup = this.objingElement.getSetup();
+        String setup = getObjingElement().getSetup();
         if (setup.length() > 0) {
              org.eclipse.uml2.uml.ValueSpecificationAction ecoreSetupAction = UMLFactory.eINSTANCE
                     .createValueSpecificationAction();
@@ -98,15 +93,15 @@ public class OLoopNode extends OStructuredActivityNode implements IOElement {
 
     @objid ("e3e8a904-bb5f-433e-8e17-d33c783c544c")
     private void setTest(org.eclipse.uml2.uml.LoopNode node) {
-        String test = this.objingElement.getTest();
+        String test = getObjingElement().getTest();
         
         if (test.length() > 0) {
-            
+        
              org.eclipse.uml2.uml.ValueSpecificationAction ecoreTestAction = UMLFactory.eINSTANCE
                     .createValueSpecificationAction();
-            
+        
             ObjingEAnnotation.setDeleted(ecoreTestAction,true);
-            
+        
             ecoreTestAction.setName(test);
             org.eclipse.uml2.uml.LiteralString value = UMLFactory.eINSTANCE.createLiteralString();
             value.setValue(test);
@@ -120,17 +115,23 @@ public class OLoopNode extends OStructuredActivityNode implements IOElement {
     private void attachActionToActivity(org.eclipse.uml2.uml.ValueSpecificationAction action) {
         // Setting composition relation (attach to  org.eclipse.uml2.uml.Activity)
         Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                .getEnclosingElement(objingElement, SmClass.getClass(Activity.class));
+                .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
         
         if (enclosingActivity != null) {
-            
+        
             org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance().getMappedElement(enclosingActivity);
-            
+        
             if (ecoreActivity instanceof  org.eclipse.uml2.uml.Activity) {
                 ((org.eclipse.uml2.uml.Activity) ecoreActivity).getNodes().add(action);
             }
-            
+        
         }
+    }
+
+    @objid ("b9ceee1d-c5d7-4321-9736-aee054962fb4")
+    @Override
+    public LoopNode getObjingElement() {
+        return (LoopNode) super.getObjingElement();
     }
 
 }

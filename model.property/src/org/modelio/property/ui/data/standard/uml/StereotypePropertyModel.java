@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -34,7 +34,6 @@ import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MClass;
-import org.modelio.vcore.smkernel.meta.SmClass;
 
 /**
  * PropertyDefinition model for {@link Stereotype}.
@@ -42,7 +41,8 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 @objid ("8f8413d3-c068-11e1-8c0a-002564c97630")
 public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
     @objid ("a842f9e8-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"Stereotype", "Name", "Label", "BaseClass", "IsHidden", "ParentStereotype", "Icon", "DiagramImage"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "Label", "BaseClass", "IsHidden",
+            "ParentStereotype", "Icon", "DiagramImage" };
 
     @objid ("8f8413dc-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -61,7 +61,8 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
 
     /**
      * Instantiate the stereotype properties view.
-     * @param model element finder structure.
+     * @param model
+     * element finder structure.
      * @param theEditedElement the current stereotype.
      */
     @objid ("8f8413e1-c068-11e1-8c0a-002564c97630")
@@ -75,7 +76,7 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
         metaclasses.add("");
         
         // Get all metaclasses inheriting ModelElement
-        for (MClass metaclass : SmClass.getClass(ModelElement.class).getSub(true)) {
+        for (MClass metaclass : theEditedElement.getMClass().getMetamodel().getMClass(ModelElement.class).getSub(true)) {
             metaclasses.add(metaclass.getName());
         }
         
@@ -172,7 +173,7 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
             case 3:
                 return this.theEditedElement.getBaseClassName();
             case 4:
-                return this.theEditedElement.isIsHidden()?Boolean.TRUE:Boolean.FALSE;
+                return this.theEditedElement.isIsHidden() ? Boolean.TRUE : Boolean.FALSE;
             case 5:
                 return this.theEditedElement.getParent();
             case 6:
@@ -202,25 +203,25 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
             case 0:
                 return; // Header cannot be modified
             case 1:
-                this.theEditedElement.setName((String)value);
+                this.theEditedElement.setName((String) value);
                 return;
             case 2:
-                this.theEditedElement.setLabelKey((String)value);
+                this.theEditedElement.setLabelKey((String) value);
                 return;
             case 3:
-                this.theEditedElement.setBaseClassName((String)value);
+                this.theEditedElement.setBaseClassName((String) value);
                 return;
             case 4:
                 this.theEditedElement.setIsHidden(((Boolean) value).booleanValue());
                 return;
             case 5:
-                this.theEditedElement.setParent((Stereotype)value);
+                this.theEditedElement.setParent((Stereotype) value);
                 return;
             case 6:
-                this.theEditedElement.setIcon((String)value);
+                this.theEditedElement.setIcon((String) value);
                 return;
             case 7:
-                this.theEditedElement.setImage((String)value);
+                this.theEditedElement.setImage((String) value);
                 return;
             default:
                 return;

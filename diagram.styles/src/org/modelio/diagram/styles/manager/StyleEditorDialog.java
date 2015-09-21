@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.manager;
 
@@ -50,14 +50,10 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -66,32 +62,26 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.core.picking.IModelioPickingService;
-import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.diagram.styles.core.FactoryStyle;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.NamedStyle;
 import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
-import org.modelio.diagram.styles.viewer.StyleViewer;
-import org.modelio.ui.UIColor;
+import org.modelio.diagram.styles.viewer.StyleEditPanel;
+import org.modelio.diagram.styles.viewer.StyleEditPanelUIData;
+import org.modelio.ui.CoreFontRegistry;
 
 /**
  * The style editor dialog is used to edit named styles.
  */
 @objid ("85bc6e0a-1926-11e2-92d2-001ec947c8cc")
 public class StyleEditorDialog extends ModelioDialog {
-    @objid ("85bc6e0c-1926-11e2-92d2-001ec947c8cc")
-     StyleViewer viewer;
-
     @objid ("85bc6e0d-1926-11e2-92d2-001ec947c8cc")
-    private StyleModelProvider model;
+    private StyleEditPanelUIData model;
 
     @objid ("85bed063-1926-11e2-92d2-001ec947c8cc")
     private SashForm mainSash;
-
-    @objid ("85bed064-1926-11e2-92d2-001ec947c8cc")
-    private Label descriptionText;
 
     @objid ("85bed065-1926-11e2-92d2-001ec947c8cc")
     private Button saveButton;
@@ -102,14 +92,22 @@ public class StyleEditorDialog extends ModelioDialog {
     @objid ("85bed067-1926-11e2-92d2-001ec947c8cc")
     private Button restoreButton;
 
-    @objid ("85bed068-1926-11e2-92d2-001ec947c8cc")
-    private Font titleFont;
-
+// @objid("85bed068-1926-11e2-92d2-001ec947c8cc")
+// private Font titleFont;
     @objid ("85bed069-1926-11e2-92d2-001ec947c8cc")
     private Label title;
 
     @objid ("28502f9a-33a9-4a20-8a1c-d1ce87d801e0")
     private IModelioPickingService pickingService;
+
+    @objid ("33d4aab5-b343-4386-9956-a0f1177b1915")
+    private TreeViewer styleViewer;
+
+    @objid ("9806ece0-2d56-4a79-a594-4b4eef17cf49")
+    private StyleEditPanel styleEditPanel;
+
+    @objid ("b076292a-c713-4571-b134-b857028ea636")
+    private Label infos;
 
     /**
      * C'tor.
@@ -122,21 +120,13 @@ public class StyleEditorDialog extends ModelioDialog {
         this.pickingService = pickingService;
         
         final NamedStyle editedStyle = new NamedStyle("new style", FactoryStyle.getInstance());
-        this.model = new StyleModelProvider(editedStyle, null, null, true);
+        this.model = new StyleEditPanelUIData(editedStyle, null, null, true);
         setBlockOnOpen(false);
     }
 
     @objid ("85bed06f-1926-11e2-92d2-001ec947c8cc")
     @Override
     public Control createContentArea(Composite parent) {
-        // prepare a big Font for title
-        FontData[] fontData = parent.getFont().getFontData();
-        for (FontData data : fontData) {
-            data.setHeight((int) (data.getHeight() * 1.4));
-            data.setStyle(data.getStyle() | SWT.BOLD);
-        }
-        this.titleFont = CoreFontRegistry.getFont(fontData);
-        
         // The content area is made of
         // - a tree viewer showing the style hierarchy, on the left
         // - a Style editor panel on the right
@@ -150,24 +140,24 @@ public class StyleEditorDialog extends ModelioDialog {
         this.mainSash.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         
         // Create the TreeViewer
-        createStyleTreeViewer(this.mainSash);
+        createStyleBrowserViewer(this.mainSash);
         
         // Create the StyleViewer
         createStyleEditorPanel(this.mainSash);
         
         //
-        this.viewer.getTreeViewer().addSelectionChangedListener(new StyleViewerSelectionChangedListener(this));
+        this.styleViewer.addSelectionChangedListener(new StyleViewerSelectionChangedListener(this));
         
         this.mainSash.setWeights(new int[] { 20, 80 });
         return this.mainSash;
     }
 
-    @objid ("85c132be-1926-11e2-92d2-001ec947c8cc")
-    private static StyleViewer createStyleViewer(Composite parent, final StyleModelProvider modelProvider, IModelioPickingService pickingService) {
-        // Create table viewer
-        return new StyleViewer(parent, modelProvider, pickingService);
-    }
-
+// @objid("85c132be-1926-11e2-92d2-001ec947c8cc")
+// private static StyleViewer createStyleViewer(Composite parent, final StyleModelProvider modelProvider,
+// IModelioPickingService pickingService) {
+// // Create table viewer
+// return new StyleViewer(parent, modelProvider, pickingService);
+// }
     @objid ("85c3951b-1926-11e2-92d2-001ec947c8cc")
     @Override
     public void init() {
@@ -188,28 +178,31 @@ public class StyleEditorDialog extends ModelioDialog {
      */
     @objid ("85c39522-1926-11e2-92d2-001ec947c8cc")
     void setEditedStyle(IStyle editedStyle) {
-        this.model = (editedStyle != null) ? new StyleModelProvider(editedStyle, null, null, true) : null;
+        this.model = (editedStyle != null) ? new StyleEditPanelUIData(editedStyle, null, null, true) : null;
         
         if (editedStyle != null) {
             this.title
                     .setText(DiagramStyles.I18N.getMessage("EditStylesDialog.CurrentStyle", ((NamedStyle) editedStyle).getName()));
+            this.infos.setText(DiagramStyles.I18N.getMessage("EditStylesDialog.CurrentStyle.provider",
+                    ((NamedStyle) editedStyle).getProvider()));
         } else {
             this.title.setText(" ");
+            this.infos.setText(" ");
         }
         
-        if (this.viewer != null) {
+        if (this.styleViewer != null) {
         
-            final Object[] expandedCategories = this.viewer.getTreeViewer().getExpandedElements();
+            final Object[] expandedCategories = this.styleViewer.getExpandedElements();
         
             // change the data model, this will collapse all categories which is not user friendly :(
-            this.viewer.setModel(this.model);
+            this.styleEditPanel.setInput(this.model);
         
             // try to expand the categories that were previously expanded => this is user friendly :)
-            this.viewer.getTreeViewer().getTree().setRedraw(false);
+            this.styleViewer.getTree().setRedraw(false);
             for (final Object o : expandedCategories) {
-                this.viewer.getTreeViewer().setExpandedState(o, true);
+                this.styleViewer.setExpandedState(o, true);
             }
-            this.viewer.getTreeViewer().getTree().setRedraw(true);
+            this.styleViewer.getTree().setRedraw(true);
         
         }
     }
@@ -218,7 +211,6 @@ public class StyleEditorDialog extends ModelioDialog {
     @Override
     public boolean close() {
         setEditedStyle(null);
-        this.titleFont = null;
         return super.close();
     }
 
@@ -244,66 +236,64 @@ public class StyleEditorDialog extends ModelioDialog {
         if (onlyStyleKeys) {
             if (selectedElements.isEmpty()) {
                 this.restoreButton.setEnabled(false);
-                this.descriptionText.setText("");
+        
             } else if (selectedElements.size() == 1) {
                 this.restoreButton.setEnabled(true);
-                this.descriptionText.setText(((StyleKey) selectedElements.get(0)).getTooltip());
+        
             } else {
                 this.restoreButton.setEnabled(true);
-                this.descriptionText.setText("");
+        
             }
         } else {
             this.restoreButton.setEnabled(false);
-            this.descriptionText.setText("");
+        
         }
     }
 
     @objid ("85c39536-1926-11e2-92d2-001ec947c8cc")
     private Composite createStyleEditorPanel(final Composite parent) {
-        final Composite styleEditorPanel = new Composite(parent, SWT.BORDER);
-        styleEditorPanel.setLayout(new FormLayout());
+        final Composite composite = new Composite(parent, SWT.NONE);
+        GridLayout gl = new GridLayout(1, false);
+        gl.marginHeight = 0;
+        gl.marginWidth = 0;
+        composite.setLayout(gl);
         
-        this.title = new Label(styleEditorPanel, SWT.NONE);
+        this.title = new Label(composite, SWT.NONE);
         this.title.setText("");
-        this.title.setFont(this.titleFont);
-        final FormData fData0 = new FormData();
-        fData0.top = new FormAttachment(0, 10);
-        // fData0.bottom = new FormAttachment(100, -30);
-        fData0.left = new FormAttachment(0, 2);
-        fData0.right = new FormAttachment(100, -2);
-        this.title.setLayoutData(fData0);
+        // Use a big Font for title
+        this.title.setFont(CoreFontRegistry.getModifiedFont(this.title.getFont(), SWT.NONE, 1.4f));
         
-        final SashForm sash = new SashForm(styleEditorPanel, SWT.VERTICAL | SWT.BORDER);
-        final FormData fData1 = new FormData();
-        fData1.top = new FormAttachment(this.title, 10);
-        fData1.bottom = new FormAttachment(100, -30);
-        fData1.left = new FormAttachment(0, 2);
-        fData1.right = new FormAttachment(100, -2);
-        sash.setLayoutData(fData1);
+        GridData gd0 = new GridData(SWT.FILL, SWT.FILL, true, false);
+        gd0.horizontalIndent = 10;
+        gd0.verticalIndent = 4;
+        this.title.setLayoutData(gd0);
+        
+        this.infos = new Label(composite, SWT.NONE);
+        this.infos.setText("");
+        this.infos.setFont(CoreFontRegistry.getModifiedFont(this.infos.getFont(), SWT.ITALIC, 0.8f));
+        gd0 = new GridData(SWT.FILL, SWT.FILL, true, false);
+        gd0.horizontalIndent = 20;
+        gd0.verticalIndent = 2;
+        this.infos.setLayoutData(gd0);
         
         // Add the style viewer table
-        this.viewer = createStyleViewer(sash, this.model, this.pickingService);
-        
-        // Add the description label:
-        this.descriptionText = new Label(sash, SWT.WRAP | SWT.V_SCROLL);
-        // moduleDescriptionText.setEditable(false);
-        this.descriptionText.setForeground(UIColor.LABEL_TIP_FG);
-        
-        sash.setWeights(new int[] { 80, 20 });
+        this.styleEditPanel = new StyleEditPanel();
+        this.styleEditPanel.createPanel(composite);
+        this.styleViewer = this.styleEditPanel.getTreeViewer();
+        final GridData gd1 = new GridData(SWT.FILL, SWT.FILL, true, true);
+        gd1.verticalIndent = 2;
+        ((Control) this.styleEditPanel.getPanel()).setLayoutData(gd1);
+        // this.viewer = createStyleViewer(sash, this.model, this.pickingService);
         
         // Add the toolbar
-        final Composite editionToolbar = createStyleEditorButtons(styleEditorPanel);
-        final FormData fData2 = new FormData();
-        fData2.top = new FormAttachment(sash, 2);
-        fData2.bottom = new FormAttachment(100, -2);
-        fData2.left = new FormAttachment(0, 5);
-        fData2.right = new FormAttachment(100, -2);
-        editionToolbar.setLayoutData(fData2);
-        return styleEditorPanel;
+        final Composite editionToolbar = createStyleEditorButtons(composite);
+        final GridData gd2 = new GridData(SWT.FILL, SWT.BOTTOM, true, false);
+        editionToolbar.setLayoutData(gd2);
+        return composite;
     }
 
     @objid ("85c3953c-1926-11e2-92d2-001ec947c8cc")
-    private TreeViewer createStyleTreeViewer(final Composite parent) {
+    private TreeViewer createStyleBrowserViewer(final Composite parent) {
         final TreeViewer treeView = new TreeViewer(parent, SWT.BORDER);
         treeView.setContentProvider(new StyleTreeContentProvider());
         treeView.setLabelProvider(new StyleTreeLabelProvider());
@@ -430,7 +420,8 @@ public class StyleEditorDialog extends ModelioDialog {
         
             @Override
             public void widgetSelected(SelectionEvent e) {
-                DiagramStyles.getStyleManager().save((NamedStyle) StyleEditorDialog.this.viewer.getEditedStyle());
+                StyleEditPanelUIData data = (StyleEditPanelUIData) StyleEditorDialog.this.styleEditPanel.getInput();
+                DiagramStyles.getStyleManager().save((NamedStyle) data.getStyleData());
             }
         
         });
@@ -448,7 +439,8 @@ public class StyleEditorDialog extends ModelioDialog {
         
             @Override
             public void widgetSelected(SelectionEvent e) {
-                StyleEditorDialog.this.viewer.getEditedStyle().normalize();
+                StyleEditPanelUIData data = (StyleEditPanelUIData) StyleEditorDialog.this.styleEditPanel.getInput();
+                data.getStyleData().normalize();
             }
         
         });
@@ -603,8 +595,9 @@ public class StyleEditorDialog extends ModelioDialog {
         @objid ("85cabc33-1926-11e2-92d2-001ec947c8cc")
         @Override
         public void widgetSelected(final SelectionEvent event) {
-            final IStyle editedStyle = this.styleEditorDialog.viewer.getEditedStyle();
-            final ISelection newSelection = this.styleEditorDialog.viewer.getTreeViewer().getSelection();
+            StyleEditPanelUIData data = (StyleEditPanelUIData) this.styleEditorDialog.styleEditPanel.getInput();
+            final IStyle editedStyle = data.getStyleData();
+            final ISelection newSelection = this.styleEditorDialog.styleViewer.getSelection();
             if (newSelection instanceof IStructuredSelection) {
                 for (final Object o : ((IStructuredSelection) newSelection).toList()) {
                     if (o instanceof StyleKey) {

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.infrastructure.StereotypeData;
+import org.modelio.metamodel.impl.uml.infrastructure.StereotypeData;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -46,6 +58,7 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("008d5b58-c4be-1fd8-97fe-001ec947cd2a")
 public class StereotypeImpl extends ModelElementImpl implements Stereotype {
@@ -56,218 +69,239 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         return  (prof != null) ? prof.getOwnerModule() : null;
     }
 
-    @objid ("79e43e01-7188-43cf-8067-f8eaf6b69b86")
+    @objid ("f346e566-899c-4073-b475-393b1df2d9f6")
     @Override
     public String getImage() {
-        return (String) getAttVal(StereotypeData.Metadata.ImageAtt());
+        return (String) getAttVal(((StereotypeSmClass)getClassOf()).getImageAtt());
     }
 
-    @objid ("c105d1db-a363-4d42-8cc2-0abd7a68a831")
+    @objid ("e919bf56-804a-443a-b920-f76bcaf11659")
     @Override
     public void setImage(String value) {
-        setAttVal(StereotypeData.Metadata.ImageAtt(), value);
+        setAttVal(((StereotypeSmClass)getClassOf()).getImageAtt(), value);
     }
 
-    @objid ("3bc0503c-28ac-45b8-a73f-3981f23a357f")
+    @objid ("3538d9f7-7f64-4c25-bbda-ed7f4079d562")
     @Override
     public String getIcon() {
-        return (String) getAttVal(StereotypeData.Metadata.IconAtt());
+        return (String) getAttVal(((StereotypeSmClass)getClassOf()).getIconAtt());
     }
 
-    @objid ("b19c7320-4c58-4957-84b4-b1a6cc906e7a")
+    @objid ("86715879-db0c-458a-9b3b-3fcbf09a6a93")
     @Override
     public void setIcon(String value) {
-        setAttVal(StereotypeData.Metadata.IconAtt(), value);
+        setAttVal(((StereotypeSmClass)getClassOf()).getIconAtt(), value);
     }
 
-    @objid ("09208ac2-4517-43be-bbee-0dd9f6965752")
+    @objid ("fef34ec6-1bdf-49b4-8474-4f400fee7d29")
     @Override
     public boolean isIsHidden() {
-        return (Boolean) getAttVal(StereotypeData.Metadata.IsHiddenAtt());
+        return (Boolean) getAttVal(((StereotypeSmClass)getClassOf()).getIsHiddenAtt());
     }
 
-    @objid ("d6ef969d-2788-4623-9624-f2ad4a0d218e")
+    @objid ("c00b8254-d593-41b0-8097-cfd67a168ba5")
     @Override
     public void setIsHidden(boolean value) {
-        setAttVal(StereotypeData.Metadata.IsHiddenAtt(), value);
+        setAttVal(((StereotypeSmClass)getClassOf()).getIsHiddenAtt(), value);
     }
 
-    @objid ("214d0c7b-f794-4f22-a3b4-5542f018097d")
+    @objid ("21bda935-3c64-46a7-8249-d58c9af2020c")
     @Override
     public String getLabelKey() {
-        return (String) getAttVal(StereotypeData.Metadata.LabelKeyAtt());
+        return (String) getAttVal(((StereotypeSmClass)getClassOf()).getLabelKeyAtt());
     }
 
-    @objid ("c7d76f3d-f30f-4796-8532-35fbb8e8d16d")
+    @objid ("d13a2f55-93cb-40a9-8d76-0ef47e9c9578")
     @Override
     public void setLabelKey(String value) {
-        setAttVal(StereotypeData.Metadata.LabelKeyAtt(), value);
+        setAttVal(((StereotypeSmClass)getClassOf()).getLabelKeyAtt(), value);
     }
 
-    @objid ("26768663-dffe-42bd-a6ee-d43bf06c63da")
+    @objid ("061ec1a4-8ef2-4602-80ae-a3fdbbac0fd1")
     @Override
     public String getBaseClassName() {
-        return (String) getAttVal(StereotypeData.Metadata.BaseClassNameAtt());
+        return (String) getAttVal(((StereotypeSmClass)getClassOf()).getBaseClassNameAtt());
     }
 
-    @objid ("66dac328-b1f6-4a30-b6e8-3d7bddcb21dd")
+    @objid ("8347cf36-6af8-47e5-bbb7-3881c7255865")
     @Override
     public void setBaseClassName(String value) {
-        setAttVal(StereotypeData.Metadata.BaseClassNameAtt(), value);
+        setAttVal(((StereotypeSmClass)getClassOf()).getBaseClassNameAtt(), value);
     }
 
-    @objid ("10cab678-207b-456b-8f5b-fd0c7bd34b3b")
+    @objid ("94b97ae6-17a7-4871-87c0-3d84503eb333")
     @Override
     public PropertyTableDefinition getDefinedTable() {
-        return (PropertyTableDefinition) getDepVal(StereotypeData.Metadata.DefinedTableDep());
+        Object obj = getDepVal(((StereotypeSmClass)getClassOf()).getDefinedTableDep());
+        return (obj instanceof PropertyTableDefinition)? (PropertyTableDefinition)obj : null;
     }
 
-    @objid ("fe590d7f-94c3-45a8-aed1-34671edbaa82")
+    @objid ("367fd8f9-1e21-4a2e-8477-f3295aec0510")
     @Override
     public void setDefinedTable(PropertyTableDefinition value) {
-        appendDepVal(StereotypeData.Metadata.DefinedTableDep(), (SmObjectImpl)value);
+        appendDepVal(((StereotypeSmClass)getClassOf()).getDefinedTableDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2559057e-7e7d-4fd5-bb2f-103d2e5440db")
+    @objid ("814f744e-b2d3-4902-9eff-0eb6d4be506b")
     @Override
     public EList<ModelElement> getExtendedElement() {
-        return new SmList<>(this, StereotypeData.Metadata.ExtendedElementDep());
+        return new SmList<>(this, ((StereotypeSmClass)getClassOf()).getExtendedElementDep());
     }
 
-    @objid ("1eb3df85-5d81-48b9-9c11-84e7a42e6741")
+    @objid ("755ead34-b233-4294-811b-5cae17128d28")
     @Override
     public <T extends ModelElement> List<T> getExtendedElement(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ModelElement element : getExtendedElement()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("bbabb72c-e4d0-44b6-91a8-ca8a79c17ae5")
+    @objid ("d54dbe00-a357-49fd-a890-6d4c420fa685")
     @Override
     public EList<ExternDocumentType> getDefinedExternDocumentType() {
-        return new SmList<>(this, StereotypeData.Metadata.DefinedExternDocumentTypeDep());
+        return new SmList<>(this, ((StereotypeSmClass)getClassOf()).getDefinedExternDocumentTypeDep());
     }
 
-    @objid ("e8d102e3-04f3-4b8c-bae7-f5a9898b745e")
+    @objid ("9e6e8e91-5a7b-439a-ac28-7e1baa8a65f8")
     @Override
     public <T extends ExternDocumentType> List<T> getDefinedExternDocumentType(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ExternDocumentType element : getDefinedExternDocumentType()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("48a42ffe-dbca-47e6-a5a8-4f59a9961d31")
+    @objid ("7bbf41f9-e730-46ce-85a8-6bfd0cf33e2e")
     @Override
     public Profile getOwner() {
-        return (Profile) getDepVal(StereotypeData.Metadata.OwnerDep());
+        Object obj = getDepVal(((StereotypeSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof Profile)? (Profile)obj : null;
     }
 
-    @objid ("1893ceac-10bf-4f9b-abda-ad6fd9709f78")
+    @objid ("c9673eca-589b-4e76-a52f-70cc7f955ee4")
     @Override
     public void setOwner(Profile value) {
-        appendDepVal(StereotypeData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((StereotypeSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e4f2265a-8128-4c0c-983a-ed5816877259")
+    @objid ("107e8169-c297-4a61-baba-16eb5cd3c912")
     @Override
     public Stereotype getParent() {
-        return (Stereotype) getDepVal(StereotypeData.Metadata.ParentDep());
+        Object obj = getDepVal(((StereotypeSmClass)getClassOf()).getParentDep());
+        return (obj instanceof Stereotype)? (Stereotype)obj : null;
     }
 
-    @objid ("9225b16d-4627-4a70-b9e6-9be22bf077a8")
+    @objid ("d9e6fd19-1415-40f0-8ed4-6d4446e2642f")
     @Override
     public void setParent(Stereotype value) {
-        appendDepVal(StereotypeData.Metadata.ParentDep(), (SmObjectImpl)value);
+        appendDepVal(((StereotypeSmClass)getClassOf()).getParentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b820312b-2391-4345-8803-375026f582d5")
+    @objid ("e1c58b08-57fa-425e-99f3-c064e9e1f9e2")
     @Override
     public EList<TagType> getDefinedTagType() {
-        return new SmList<>(this, StereotypeData.Metadata.DefinedTagTypeDep());
+        return new SmList<>(this, ((StereotypeSmClass)getClassOf()).getDefinedTagTypeDep());
     }
 
-    @objid ("1c7c7a90-a627-4187-9875-08d732cb370b")
+    @objid ("5b836e39-b7ce-48de-ae13-0c2b940f4c6a")
     @Override
     public <T extends TagType> List<T> getDefinedTagType(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final TagType element : getDefinedTagType()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2cd76656-ca18-4de7-9b72-e9eb286314e5")
+    @objid ("9316ba8e-a3b7-44aa-ab9a-e40cc36c3d47")
     @Override
     public EList<Stereotype> getChild() {
-        return new SmList<>(this, StereotypeData.Metadata.ChildDep());
+        return new SmList<>(this, ((StereotypeSmClass)getClassOf()).getChildDep());
     }
 
-    @objid ("e1c96f15-9794-460f-8a45-b0d6a013ee4b")
+    @objid ("157b4ebc-d082-4ff7-9c7e-a2287d014bab")
     @Override
     public <T extends Stereotype> List<T> getChild(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Stereotype element : getChild()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c9f0c3ab-57a5-4aab-b19f-b672c3c4b79c")
+    @objid ("c1652e54-2821-43a8-8c27-de8dcd3cfe60")
     @Override
     public EList<NoteType> getDefinedNoteType() {
-        return new SmList<>(this, StereotypeData.Metadata.DefinedNoteTypeDep());
+        return new SmList<>(this, ((StereotypeSmClass)getClassOf()).getDefinedNoteTypeDep());
     }
 
-    @objid ("8450e746-026e-43eb-becd-227fa0ff928e")
+    @objid ("d56a5761-4c86-45ea-a329-88e76ce9c0bf")
     @Override
     public <T extends NoteType> List<T> getDefinedNoteType(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final NoteType element : getDefinedNoteType()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1771960e-0710-4adc-b6c1-964f2bb73803")
+    @objid ("7a8d3e1c-b369-4926-b757-286465b717ce")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(StereotypeData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((StereotypeSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("a2c57a9c-c263-4d7f-ad83-5a02856efaa8")
+    @objid ("d8bfb486-f848-4956-8294-2a46b8d22bc6")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(StereotypeData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(StereotypeData.Metadata.OwnerDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((StereotypeSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("104d3572-011c-4284-81f8-c88f69bb17c8")
+    @objid ("07a90ac4-2e79-45b8-964f-7f4d87490f8a")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStereotype(this);

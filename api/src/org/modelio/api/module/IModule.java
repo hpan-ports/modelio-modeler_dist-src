@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.module;
 
@@ -24,35 +24,31 @@ import org.eclipse.swt.graphics.Image;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.gproject.ramc.core.model.IModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
-import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
+import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vbasic.version.Version;
-import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * All Modelio module classes must implement this interface.
  * <p>
- * <p>
- * <p>
- * <p>
  * In practice, the Modelio modules implement the {@link IModule} interface .
+ * </p>
  * <p>
- * <p>
- * The {@link IModule} interface is implemented by the <i>MDA Designer</i> tool thanks to the {@code AbstractJavaModule}
- * class.<br>
- * The {@link IModule} can never be used by another module developer.<br>
+ * The {@link IModule} interface is implemented thanks to the {@code AbstractJavaModule}
+ * class.<br/>
+ * The {@link IModule} can never be used by another module developer.<br/>
  * Only the peer module ({@link IPeerModule}) can be accessed, as described below:
- * <p>
+ * </p>
  * <p>
  * <code>
- * IPeerModule module = Modelio.getModelingSession().getPeerModule (MacroPeerModule.class);
+ * IPeerModule module = Modelio.getInstance().getModelingSession().getModuleService().getPeerModule (ModelerModulePeerModule.class);
  * </code>
- * <p>
- * <p>
+ * </p>
  */
 @objid ("01f40414-0000-32a9-0000-000000000000")
 public interface IModule {
@@ -117,8 +113,16 @@ public interface IModule {
     @objid ("d7e1eff0-1d64-4d07-a6b0-00135b260e18")
     String getLabel(String key);
 
+    @objid ("4560c8fb-9887-4389-94ea-34fa6f27a9d0")
+    String getLabel(PropertyDefinition pdef);
+
+    @objid ("cfe16f8a-55b8-430b-805d-4219c4490e4b")
+    String getDescription(PropertyDefinition pdef);
+
     @objid ("d0f20abf-b0ac-404e-ae01-2c75875c3643")
-    ILicenseInfos getLicenseInfos();
+    default ILicenseInfos getLicenseInfos() {
+        return null;
+    }
 
     /**
      * Returns the {@link ModuleComponent} model associated with this module.
@@ -133,7 +137,9 @@ public interface IModule {
      * @return the module configuration.
      */
     @objid ("1f42ee4a-65e6-11e0-9853-001ec947cd2a")
-    IModelComponentContributor getModelComponentContributor(IModelComponent mc);
+    default IModelComponentContributor getModelComponentContributor(@SuppressWarnings("unused") IModelComponent mc) {
+        return null;
+    }
 
     /**
      * Returns the modeling session this module is loaded into.
@@ -164,12 +170,15 @@ public interface IModule {
      * @return The parameters edition model.
      */
     @objid ("f8cddd33-8f94-11dd-bbe0-001ec947ccaf")
-    IParameterEditionModel getParametersEditionModel();
+    default IParameterEditionModel getParametersEditionModel() {
+        return null;
+    }
 
     /**
      * Returns the peer module, connected to this module.
      * <p>
      * The peer module represents the public services of this current module.
+     * </p>
      * @return The associated peer module
      */
     @objid ("01f40414-0000-32c3-0000-000000000000")
@@ -185,14 +194,12 @@ public interface IModule {
     /**
      * Returns the session that is connected to the module.
      * <p>
-     * <p>
      * The developer can:
-     * <p>
-     * 
      * <ul>
      * <li>return <code>this</code> and redefine all the operations directly in the module definition.</li>
      * <li>return an new instance of IModuleSession and implement all the needed operations.</li>
      * </ul>
+     * </p>
      * @see IModuleSession
      * @return the session that is connected to the module
      */
@@ -209,39 +216,37 @@ public interface IModule {
     /**
      * Method automatically called just after the creation of the module.
      * <p>
-     * <p>
-     * 
      * The module is automatically instantiated at the beginning of the mda lifecycle and the constructor implementation
      * is not accessible to the module developer.
+     * </p>
      * <p>
-     * <p>
-     * 
      * The <code>init</code> method allows the developer to execute the desired initialization code at this step. For
      * example, this is the perfect place to register any IViewpoint this module provides.
+     * </p>
      * <p>
-     * <p>
-     * 
      * This method should never be called by the developer because it is already invoked by the tool.
+     * </p>
      */
     @objid ("01f40414-0000-320a-0000-000000000000")
-    void init();
+    default void init() {
+        // Empty default implementation
+    }
 
     /**
      * Method automatically called just before the disposal of the module.
      * <p>
-     * <p>
-     * 
-     * 
      * The <code>uninit</code> method allows the developer to execute the desired un-initialization code at this step.
      * For example, if IViewpoints have been registered in the {@link #init()} method, this method is the perfect place
      * to remove them.
+     * </p>
      * <p>
-     * <p>
-     * 
      * This method should never be called by the developer because it is already invoked by the tool.
+     * </p>
      */
     @objid ("0a40ab62-a354-11e1-abf7-001ec947c8cc")
-    void uninit();
+    default void uninit() {
+        // Empty default implementation
+    }
 
     /**
      * Get the path to the image representing the module.
@@ -249,6 +254,39 @@ public interface IModule {
      */
     @objid ("0bf45a9b-8afe-42fd-b7d0-06cd1a0421d0")
     String getModuleImagePath();
+
+    /**
+     * Define a custom panel for module parameter edition.
+     * Input will be an set as an {@link IParameterEditionModel}.
+     * @return a {@link IPanelProvider}. Might be <code>null</code> to use the standard Modelio implementation.
+     */
+    @objid ("6b937266-fdc7-474b-9245-c3ae085664fd")
+    default IPanelProvider getParametersEditionPanel() {
+        return null;
+    }
+
+    /**
+     * Initialize the parameters model from the <b>module.xml</b> file at module install.
+     * <p>
+     * It might be manually modified later.
+     * </p>
+     * @return The parameters edition model.
+     */
+    @objid ("8e427dd6-3cd8-4ce1-aacd-439bfa71bbbe")
+    default void initParametersEditionModel(@SuppressWarnings("unused") IParameterEditionModel model) {
+        // Empty default implementation
+    }
+
+    /**
+     * Get an expert for a stereotype belonging to this module.
+     * <br/>
+     * Might return <code>null</code>.
+     * @since Modelio 3.4
+     */
+    @objid ("b02ff947-1701-4d18-931d-4c71b50790b1")
+    default IMdaExpert getMdaExpert(@SuppressWarnings("unused") Stereotype st) {
+        return null;
+    }
 
     @objid ("8e52ef63-72a1-11dd-a1d1-001ec947cd2a")
     public enum ImageType {

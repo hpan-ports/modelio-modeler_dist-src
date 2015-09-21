@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link;
 
@@ -41,6 +41,7 @@ import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
+import org.modelio.api.module.IMdaExpert;
 import org.modelio.diagram.elements.core.figures.FigureUtilities2;
 import org.modelio.diagram.elements.core.link.path.ConnectionHelperFactory;
 import org.modelio.diagram.elements.core.link.path.GmPathDataExtractor;
@@ -50,8 +51,7 @@ import org.modelio.diagram.elements.core.model.IGmLinkable;
 import org.modelio.diagram.elements.core.model.IGmPath;
 import org.modelio.diagram.elements.core.requests.CreateLinkConstants;
 import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
-import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -262,26 +262,33 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     @objid ("7fe9e869-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getConnectionCompleteCommand(CreateConnectionRequest req) {
-        // Only handle model element creation requests.
-        if (!(req.getNewObject() instanceof ModelioLinkCreationContext)) {
+        final ModelioLinkCreationContext context = ModelioLinkCreationContext.lookRequest(req);
+        
+        // Only handle link model element creation requests.
+        if (context == null) {
             return null;
         }
         
-        final ModelioLinkCreationContext context = (ModelioLinkCreationContext) req.getNewObject();
         if (context.getElementToUnmask() == null) {
             final MObject sourceElement = ((IGmLinkable) req.getSourceEditPart().getModel()).getRelatedElement();
             final MObject targetElement = ((GmModel) getHost().getModel()).getRelatedElement();
         
+            MExpert expert = context.getMetaclass().getMetamodel().getMExpert();
+        
             // If creation expert does not allow and yet we ended here, this means this policy is opaque, so return non executable
             // command.
-            if (!MTools.getLinkTool().canLink(Metamodel.getMClass(context.getMetaclass()), sourceElement, targetElement)) {
+            if (!expert.canLink(context.getMetaclass(), sourceElement, targetElement)) {
                 return null;
             }
         } else {
             // using an existing model element, make sure it does end on host's model element
             final MObject hostElement = ((GmModel) getHost().getModel()).getRelatedElement();
-            if (hostElement == null || hostElement.isShell() || hostElement.isDeleted()
-                    || !hostElement.equals(MTools.getLinkTool().getTarget(context.getElementToUnmask()))) {
+            if (hostElement == null || hostElement.isShell() || hostElement.isDeleted()) {
+                return null;
+            }
+        
+            final MExpert expert = hostElement.getMClass().getMetamodel().getMExpert();
+            if (!hostElement.equals(expert.getTarget(context.getElementToUnmask()))) {
                 return null;
             }
         }
@@ -298,18 +305,23 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     @objid ("7fe9e873-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getConnectionCreateCommand(CreateConnectionRequest req) {
-        // Only handle model element creation requests.
-        if (!(req.getNewObject() instanceof ModelioLinkCreationContext)) {
+        final ModelioLinkCreationContext context = ModelioLinkCreationContext.lookRequest(req);
+        
+        // Only handle link model element creation requests.
+        if (context == null) {
             return null;
         }
         
-        final ModelioLinkCreationContext context = (ModelioLinkCreationContext) req.getNewObject();
         if (context.getElementToUnmask() == null) {
-            final MObject sourceElement = ((GmModel) getHost().getModel()).getRelatedElement();
+            final GmModel gmModel = (GmModel) getHost().getModel();
+            final MObject sourceElement = gmModel.getRelatedElement();
+            final IMdaExpert mdaExpert = gmModel.getDiagram().getModelManager().getMdaExpert();
+        
             // If creation expert does not allow and yet we ended here, this means this policy is opaque, so return non executable
             // command.
-            if (!MTools.getLinkTool().canSource(context.getStereotype(), Metamodel.getMClass(context.getMetaclass()), sourceElement.getMClass()))
+            if (!mdaExpert.canSource(context.getStereotype(), context.getMetaclass(), sourceElement.getMClass())) {
                 return null;
+            }
         }
         final DefaultCreateLinkCommand command = new DefaultCreateLinkCommand(context);
         
@@ -332,8 +344,9 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
         final GmModel newSourceNodeModel = (GmModel) newSourceNodeEditPart.getModel();
         final ConnectionEditPart connectionEditPart = req.getConnectionEditPart();
         
-        if (!(connectionEditPart.getModel() instanceof GmLink))
+        if (!(connectionEditPart.getModel() instanceof GmLink)) {
             return null;
+        }
         
         final GmLink linkModel = (GmLink) connectionEditPart.getModel();
         
@@ -344,8 +357,9 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
             final MObject linkElement = linkModel.getRelatedElement();
         
             // Ask the MM expert
-            if (!canLink(newSrcElement, targetElement, linkElement))
+            if (!canLink(newSrcElement, targetElement, linkElement)) {
                 return null;
+            }
         }
         
         final DefaultReconnectSourceCommand cmd = new DefaultReconnectSourceCommand(linkModel,
@@ -364,14 +378,16 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
         
         final ConnectionEditPart connectionEditPart = req.getConnectionEditPart();
         
-        if (!(connectionEditPart.getModel() instanceof GmLink))
+        if (!(connectionEditPart.getModel() instanceof GmLink)) {
             return null;
+        }
         
         final GmLink gmLink = (GmLink) connectionEditPart.getModel();
         
         if (newTargetNode != gmLink.getTo()) {
-            if (!canLink(gmLink.getFrom().getRelatedElement(), newTargetNode.getRelatedElement(), gmLink.getRelatedElement()))
+            if (!canLink(gmLink.getFrom().getRelatedElement(), newTargetNode.getRelatedElement(), gmLink.getRelatedElement())) {
                 return null;
+            }
         }
         
         // build the command
@@ -384,10 +400,13 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     @objid ("7fec4a99-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void showCreationFeedback(CreateConnectionRequest request) {
-        // Only handle model element creation requests.
-        if (!(request.getNewObject() instanceof ModelioLinkCreationContext)) {
-            return;
+        final ModelioLinkCreationContext context = ModelioLinkCreationContext.lookRequest(request);
+        
+        // Only handle link model element creation requests.
+        if (context == null) {
+            return ;
         }
+        
         if (request instanceof CreateBendedConnectionRequest) {
             final CreateBendedConnectionRequest req = (CreateBendedConnectionRequest) request;
         
@@ -455,7 +474,8 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
      */
     @objid ("7fec4aa5-1dec-11e2-8cad-001ec947c8cc")
     private static boolean canLink(final MObject newSrcElement, final MObject targetElement, final MObject linkElement) {
-        return MTools.getLinkTool().canLink(linkElement.getMClass(), newSrcElement, targetElement);
+        MExpert expert = newSrcElement.getMClass().getMetamodel().getMExpert();
+        return expert.canLink(linkElement.getMClass(), newSrcElement, targetElement);
     }
 
     /**
@@ -482,8 +502,9 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     private EditPart getReconnectSourceTargetEditPart(final ReconnectRequest request) {
         ConnectionEditPart reconnectedConnectionEP = request.getConnectionEditPart();
         
-        if (! (reconnectedConnectionEP.getModel() instanceof GmLink))
+        if (! (reconnectedConnectionEP.getModel() instanceof GmLink)) {
             return null;
+        }
         
         final GmLink gmLink = (GmLink) reconnectedConnectionEP.getModel();
         final IGmLinkable newSrcNode = (IGmLinkable) getHost().getModel();
@@ -526,8 +547,9 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     private EditPart getReconnectTargetTargetEditPart(final ReconnectRequest request) {
         ConnectionEditPart reconnectedConnectionEP = request.getConnectionEditPart();
         
-        if (! (reconnectedConnectionEP.getModel() instanceof GmLink))
+        if (! (reconnectedConnectionEP.getModel() instanceof GmLink)) {
             return null;
+        }
         
         final GmLink gmLink = (GmLink) reconnectedConnectionEP.getModel();
         final IGmLinkable newTargetNode = (IGmLinkable) getHost().getModel();
@@ -577,19 +599,22 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
      */
     @objid ("7fec4ad5-1dec-11e2-8cad-001ec947c8cc")
     protected EditPart getTargetEditPartConnectionEnd(final CreateConnectionRequest request) {
-        // Only handle model element creation requests.
-        if (!(request.getNewObject() instanceof ModelioLinkCreationContext)) {
+        final ModelioLinkCreationContext context = ModelioLinkCreationContext.lookRequest(request);
+        
+        // Only handle link model element creation requests.
+        if (context == null) {
             return null;
         }
+        
         // If it is an actual creation (and not an unmasking) then the source and target elements must exists and the creation
         // expert must allow (or this instance be opaque).
-        final ModelioLinkCreationContext context = (ModelioLinkCreationContext) request.getNewObject();
         if (context.getElementToUnmask() == null) {
             MObject sourceElement = null;
             final MObject targetElement = ((GmModel) getHost().getModel()).getRelatedElement();
             final IGmLinkable sourceNode = (IGmLinkable) request.getSourceEditPart().getModel();
+            final MExpert expert = context.getMetaclass().getMetamodel().getMExpert();
             if (sourceNode == null || (sourceElement = sourceNode.getRelatedElement()) == null || (targetElement == null)
-                    || (!MTools.getLinkTool().canLink(Metamodel.getMClass(context.getMetaclass()), sourceElement, targetElement))
+                    || (!expert.canLink(context.getMetaclass(), sourceElement, targetElement))
                     && !this.isOpaque) {
                 return null;
             }
@@ -615,16 +640,21 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
         // If it is an actual creation (and not an unmasking) then the source element must exists and the creation expert must allow
         // (or this instance be opaque).
         if (context.getElementToUnmask() == null) {
-            final MObject sourceElement = ((GmModel) getHost().getModel()).getRelatedElement();
+            GmModel gmModel = (GmModel) getHost().getModel();
+            MObject sourceElement = gmModel.getRelatedElement();
+            IMdaExpert mdaExpert = gmModel.getDiagram().getModelManager().getMdaExpert();
             // If source element cannot be found, or if creation expert doesn't allow AND this instance is not "opaque" (see javadoc
             // on private attribute isOpaque for details), return null.
-            if (sourceElement == null)
+            if (sourceElement == null) {
                 return null;
-            if (this.isOpaque)
+            }
+            if (this.isOpaque) {
                 return getHost();
+            }
         
-            if (!MTools.getLinkTool().canSource(context.getStereotype(), Metamodel.getMClass(context.getMetaclass()), sourceElement.getMClass()))
+            if (!mdaExpert.canSource(context.getStereotype(), context.getMetaclass(), sourceElement.getMClass())) {
                 return null;
+            }
         }
         
         // Either this request is actually a request of the unmasking of a link,
@@ -639,7 +669,6 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
      * @return the connection helper.
      */
     @objid ("7feeacf0-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings("unchecked")
     private static IConnectionHelper getUpdatedConnectionHelper(final CreateBendedConnectionRequest req, final Connection connection) {
         IConnectionHelper connHelper = (IConnectionHelper) req.getExtendedData().get(IConnectionHelper.class);
         if (connHelper == null || connHelper.getRoutingMode() != req.getData().getRoutingMode()) {

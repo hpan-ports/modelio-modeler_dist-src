@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.forkjoin;
 
@@ -28,7 +28,6 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.draw2d.geometry.Transposer;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
@@ -37,6 +36,7 @@ import org.modelio.diagram.editor.activity.elements.policies.CreateFlowEditPolic
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.core.figures.RectangularFigure;
+import org.modelio.diagram.elements.core.helpers.RequestHelper;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy;
 import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointRequest;
@@ -51,10 +51,10 @@ import org.modelio.diagram.styles.core.IStyle;
 @objid ("2a7fefda-55b6-11e2-877f-002564c97630")
 public class ForkJoinPrimaryNodeEditPart extends GmNodeEditPart {
     @objid ("33a05cdd-55b6-11e2-877f-002564c97630")
-     ForkOrientation currentOrientation = null;
+    private ForkOrientation currentOrientation = null;
 
     @objid ("2a7fefde-55b6-11e2-877f-002564c97630")
-     Label labelFigure;
+    private Label labelFigure;
 
     /**
      * Creates the Figure to be used as this part's main visuals.
@@ -65,6 +65,7 @@ public class ForkJoinPrimaryNodeEditPart extends GmNodeEditPart {
         // create the figure
         RectangularFigure fig = new RectangularFigure();
         fig.setOpaque(true);
+        
         // set style independent properties
         fig.setPreferredSize(70, 10);
         fig.setMinimumSize(new Dimension(70, 10));
@@ -89,8 +90,8 @@ public class ForkJoinPrimaryNodeEditPart extends GmNodeEditPart {
     @objid ("2a7fefe9-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmForkJoinPrimaryNode forkJoinModel = (GmForkJoinPrimaryNode) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), forkJoinModel.getLayoutData());
+        GmForkJoinPrimaryNode forkJoinModel = (GmForkJoinPrimaryNode) getModel();
+        getFigure().getParent().setConstraint(getFigure(), forkJoinModel.getLayoutData());
     }
 
     @objid ("2a7fefec-55b6-11e2-877f-002564c97630")
@@ -120,7 +121,7 @@ public class ForkJoinPrimaryNodeEditPart extends GmNodeEditPart {
 
     @objid ("2a7feff8-55b6-11e2-877f-002564c97630")
     private void updateOrientation(IFigure aFigure, ForkOrientation orientation) {
-        DefaultNodeResizableEditPolicy resizePolicy = (DefaultNodeResizableEditPolicy) this.getParent()
+        DefaultNodeResizableEditPolicy resizePolicy = (DefaultNodeResizableEditPolicy) getParent()
                                                                                            .getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
         if (resizePolicy != null) {
             resizePolicy.deactivate();
@@ -134,6 +135,7 @@ public class ForkJoinPrimaryNodeEditPart extends GmNodeEditPart {
                     break;
             }
             resizePolicy.activate();
+        
             // rotate the fork join node according to the orientation
             doRotationFigure(aFigure);
         
@@ -143,22 +145,21 @@ public class ForkJoinPrimaryNodeEditPart extends GmNodeEditPart {
 
     @objid ("2a7feffc-55b6-11e2-877f-002564c97630")
     private void doRotationFigure(IFigure aFigure) {
-        Rectangle oldBounds = aFigure.getBounds().getCopy();
-        Transposer transposer = new Transposer();
-        transposer.enable();
-        Rectangle newBounds = transposer.t(oldBounds);
-        int w = (newBounds.width - oldBounds.width);
-        int h = (newBounds.height - oldBounds.height);
+        Rectangle oldBounds = aFigure.getBounds();
+        Point center = oldBounds.getCenter();
+        
+        Rectangle newBounds = oldBounds.getCopy();
+        newBounds.translate(-center.x(), -center.y());
+        newBounds.transpose();
+        newBounds.translate(center);
         
         if (aFigure.getParent() != null) {
             ChangeBoundsRequest resizeRequest = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
-            resizeRequest.setLocation(new Point(0, 0));
-            resizeRequest.setSizeDelta(new Dimension(w, h));
-            resizeRequest.setEditParts(getParent());
+            RequestHelper.setDeltas(resizeRequest, aFigure, newBounds);
             Command command = getParent().getCommand(resizeRequest);
             getViewer().getEditDomain().getCommandStack().execute(command);
         } else {
-            aFigure.setSize(w, h);
+            aFigure.setBounds(newBounds);
         }
     }
 

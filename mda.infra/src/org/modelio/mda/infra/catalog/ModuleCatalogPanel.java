@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.mda.infra.catalog;
 
@@ -28,7 +28,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.TreeMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -51,7 +51,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.modelio.app.core.ModelioEnv;
-import org.modelio.app.preferences.ScopedPreferenceStore;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.catalog.FileModuleStore;
@@ -61,6 +60,11 @@ import org.modelio.mda.infra.plugin.MdaInfra;
 import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vbasic.version.Version;
 
+/**
+ * Panel provider that displays the modules catalog.
+ * <p>
+ * Can be configured to make an action on double clicking a module.
+ */
 @objid ("ec2b1457-8850-4ced-832a-f00a45fa18bc")
 public class ModuleCatalogPanel implements IPanelProvider {
     @objid ("53d4e0bf-5c4d-4d62-baad-19ed7af05943")
@@ -277,7 +281,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
     public void setInput(Object input) {
         if (input instanceof IModuleCatalog) {
             this.controller.setInput((IModuleCatalog) input);
-            this.refresh(true, true);
+            refresh(true, true);
         }
     }
 
@@ -358,7 +362,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
         private CatalogModulesProvider contentProvider;
 
         @objid ("c0c4da98-c93a-4436-a938-6ab6b7cdceea")
-        private ScopedPreferenceStore prefs;
+        private IPreferenceStore prefs;
 
         @objid ("2a400064-6431-4df7-bbe3-83b42bc05628")
         public ModuleCatalogPanelController(ModuleCatalogPanel dialog, ModelioEnv modelioEnv) {
@@ -381,7 +385,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
 
         @objid ("b127bf2b-afed-4911-a4f4-67592d1a2bf4")
         public void init() {
-            this.prefs = new ScopedPreferenceStore(InstanceScope.INSTANCE, MdaInfra.PLUGIN_ID);
+            this.prefs = MdaInfra.PREFERENCES;
             
             this.prefs.setDefault(CatalogUpdatePreferencesPage.CATALOG_SHOW_COMPATIBLE, true);
             this.prefs.setDefault(CatalogUpdatePreferencesPage.CATALOG_SHOW_LATEST, true);
@@ -508,7 +512,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
                                     CatalogModulesProvider.this.panel.refresh(true, true);
                                 }
                             }
-                        });    
+                        });
                     }
                 });
                 loadingThread.setPriority(Thread.MAX_PRIORITY);
@@ -521,8 +525,9 @@ public class ModuleCatalogPanel implements IPanelProvider {
             TreeMap<String, List<IModuleHandle>> results = new TreeMap<>();
             
             for (IModuleHandle mh : this.allModules) {
-                if (mh == null)
+                if (mh == null) {
                     continue;
+                }
                 CompatibilityLevel level = CompatibilityHelper.getCompatibilityLevel(this.modelioVersion,mh.getBinaryVersion());
                 if (this.panel.controller.compatibleOnly && !CompatibilityHelper.isCompatible(level)) {
                     // Skip it
@@ -604,8 +609,9 @@ public class ModuleCatalogPanel implements IPanelProvider {
                 return -1;
             } else if (o1.getVersion().isOlderThan(o2.getVersion())) {
                 return 1;
-            } else
+            } else {
                 return 0;
+            }
         }
 
         @objid ("854c7c0e-45d3-4f2b-b468-7cb9a2c78aac")

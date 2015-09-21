@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.model;
 
@@ -24,6 +24,7 @@ import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 /**
@@ -104,5 +105,11 @@ public interface IMetamodelExtensions {
 
     @objid ("d276e9e7-2ba2-4892-84fc-a7684047e267")
     String getLabel(ExternDocumentType docType);
+
+    @objid ("0487db12-64cd-4375-bb1a-eb4c2e7a2a7f")
+    String getLabel(PropertyDefinition pdef);
+
+    @objid ("56f77f5f-6eca-41c1-b3e6-d9b27854d919")
+    String getDescription(PropertyDefinition pdef);
 
 }

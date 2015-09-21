@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.context;
 
@@ -34,8 +34,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.editor.plugin.DiagramEditor;
-import org.modelio.metamodel.Metamodel;
-import org.modelio.vcore.smkernel.mapi.MClass;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -49,10 +47,10 @@ import org.xml.sax.SAXException;
 @objid ("ab528060-efdf-4ae3-bc2b-6a80e14bdb7c")
 class CreationPopupXmlLoader {
     @objid ("2b0feb3b-a430-4df3-a831-b5721c086970")
-    private Map<MClass, List<CreationPopupEntryDescriptor>> popupEntries;
+    private Map<String, List<CreationPopupEntryDescriptor>> popupEntries;
 
     @objid ("9d71eb98-4fed-4f98-b7e4-3ecb77225396")
-    public Map<MClass, List<CreationPopupEntryDescriptor>> parseCreationPopupEntries(URL url) {
+    public Map<String, List<CreationPopupEntryDescriptor>> parseCreationPopupEntries(URL url) {
         this.popupEntries = new HashMap<>();
         
         try (InputStream xmlStream = url.openStream()) {
@@ -126,12 +124,7 @@ class CreationPopupXmlLoader {
                 entryDescriptor.sourceMetaclass = metaclassName;
                 entryDescriptor.sourceStereotype = stereotypeName;
         
-                MClass mClass = Metamodel.getMClass(metaclassName);
-                if (mClass != null) {
-                    registerPopupEntry(mClass, entryDescriptor);
-                } else {
-                    DiagramEditor.LOG.warning("Invalid creation menu entry, unknown metaclass " + metaclassName);
-                }
+                registerPopupEntry(metaclassName, entryDescriptor);
         
             }
             // if (node.getNodeName().equals("item")) {
@@ -158,7 +151,7 @@ class CreationPopupXmlLoader {
      * @param item the entry to add.
      */
     @objid ("e42ce501-75f8-44ae-bd3a-500b71c69602")
-    private void registerPopupEntry(MClass sourceMetaclass, CreationPopupEntryDescriptor item) {
+    private void registerPopupEntry(String sourceMetaclass, CreationPopupEntryDescriptor item) {
         if (!this.popupEntries.containsKey(sourceMetaclass)) {
             this.popupEntries.put(sourceMetaclass, new ArrayList<CreationPopupEntryDescriptor>());
         }
@@ -200,7 +193,6 @@ class CreationPopupXmlLoader {
         final NamedNodeMap attributes = parameterNode.getAttributes();
         String name = "";
         String value = "";
-        
         
         if (attributes != null) {
             final Node nameNode = attributes.getNamedItem("name");

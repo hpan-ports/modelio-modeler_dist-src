@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.dialogs.dialog.panels.note;
 
@@ -38,10 +38,10 @@ import org.eclipse.swt.widgets.Text;
 import org.modelio.core.ui.MimeServices.MimeType;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.edition.dialogs.plugin.EditionDialogs;
-import org.modelio.edition.html.htmleditor.HtmlComposer;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.ui.UIColor;
+import org.modelio.ui.htmleditor.HtmlComposer;
 import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.session.impl.CoreSession;
@@ -343,38 +343,38 @@ public class NoteEditPanel implements IPanelProvider {
         /**
          * Top level container
          */
-        @objid ("83deb661-140a-4400-a766-2ac815490637")
+        @objid ("20eb393f-4ec8-4e60-9cb9-7a3f939b9c4f")
         private final Composite container;
 
         /**
          * The PLAIN text editor
          */
-        @objid ("b4becc17-b7de-4221-8472-9f9dd74d4f0b")
+        @objid ("43b31b6f-c0bd-43bc-8ac9-fc157534f731")
         private final Text text;
 
-        @objid ("2ab82490-2453-433f-b25a-4bf26c2004ce")
+        @objid ("931b4b5a-e8e2-4d56-a531-f024ece8a82d")
         private final StackLayout stackLayout;
+
+        /**
+         * The Stack used to switch the active editor based on mime mode
+         */
+        @objid ("5a48e015-5895-4ca7-98d5-a484dc734348")
+        private final Composite stack;
+
+        @objid ("08812318-90ac-4a09-9a40-f18595a2e326")
+        private final Label nameLabel;
+
+        /**
+         * The check button that allows to change the mime type of the edited note
+         */
+        @objid ("7e2bf7d0-86b6-415f-9176-725bf914e608")
+        private final Button htmlCheckBox;
 
         /**
          * The view controller
          */
         @objid ("8dd0b7a5-0875-45ec-842e-4c5d42321e42")
         private final NoteEditController controller;
-
-        /**
-         * The Stack used to switch the active editor based on mime mode
-         */
-        @objid ("415bb625-a2fd-495f-9bd3-eeb5d8c0a885")
-        private final Composite stack;
-
-        @objid ("29e6f30a-39c0-4eb8-a60a-69d7822d440c")
-        private final Label nameLabel;
-
-        /**
-         * The check button that allows to change the mime type of the edited note
-         */
-        @objid ("dea46a7b-5719-48ba-9174-8e2f0f34352c")
-        private final Button htmlCheckBox;
 
         /**
          * The HTML editor
@@ -507,6 +507,10 @@ public class NoteEditPanel implements IPanelProvider {
          */
         @objid ("563ac972-67f9-40cd-8ce4-2c550d26ad03")
         public void dispose() {
+            // Make sure HTML note is saved before dispose
+            if (NoteEditView.this.mimeMode == MimeType.HTML) {
+                NoteEditView.this.controller.onSetNoteContent(NoteEditView.this.htmlText.getHtml());
+            }
             this.htmlText.dispose();
         }
 

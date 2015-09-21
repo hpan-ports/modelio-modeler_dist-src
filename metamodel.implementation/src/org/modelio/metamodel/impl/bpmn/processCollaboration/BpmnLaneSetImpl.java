@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.processCollaboration;
 
 import java.util.ArrayList;
@@ -33,7 +45,7 @@ import org.modelio.metamodel.bpmn.activities.BpmnSubProcess;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLaneSet;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
-import org.modelio.metamodel.data.bpmn.processCollaboration.BpmnLaneSetData;
+import org.modelio.metamodel.impl.bpmn.processCollaboration.BpmnLaneSetData;
 import org.modelio.metamodel.impl.bpmn.rootElements.BpmnBaseElementImpl;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
@@ -43,97 +55,117 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0075254c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnLaneSetImpl extends BpmnBaseElementImpl implements BpmnLaneSet {
-    @objid ("94a266c2-7966-446e-af1a-2911d6b0be25")
+    @objid ("7b350fcb-cbe6-47dc-b552-834d3e02840b")
     @Override
     public EList<BpmnLane> getLane() {
-        return new SmList<>(this, BpmnLaneSetData.Metadata.LaneDep());
+        return new SmList<>(this, ((BpmnLaneSetSmClass)getClassOf()).getLaneDep());
     }
 
-    @objid ("dd07c9a0-2401-4665-94ad-6d78b49ae622")
+    @objid ("96b8e8d5-6148-4560-a828-68837f8e9edc")
     @Override
     public <T extends BpmnLane> List<T> getLane(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnLane element : getLane()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6113f301-da64-4053-9a6b-5d26874563e0")
+    @objid ("efa9bdff-f5d1-450f-9c78-f2b32e27acae")
     @Override
     public BpmnProcess getProcess() {
-        return (BpmnProcess) getDepVal(BpmnLaneSetData.Metadata.ProcessDep());
+        Object obj = getDepVal(((BpmnLaneSetSmClass)getClassOf()).getProcessDep());
+        return (obj instanceof BpmnProcess)? (BpmnProcess)obj : null;
     }
 
-    @objid ("a560b629-2e93-46aa-a5df-28de6f92b3fc")
+    @objid ("2833bdeb-7aea-4f52-a272-38600b435c31")
     @Override
     public void setProcess(BpmnProcess value) {
-        appendDepVal(BpmnLaneSetData.Metadata.ProcessDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnLaneSetSmClass)getClassOf()).getProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d2f9e094-64d5-4a20-a15a-c9060423ef33")
+    @objid ("32821463-17b0-4bbc-91c6-1f16536a058f")
     @Override
     public BpmnLane getParentLane() {
-        return (BpmnLane) getDepVal(BpmnLaneSetData.Metadata.ParentLaneDep());
+        Object obj = getDepVal(((BpmnLaneSetSmClass)getClassOf()).getParentLaneDep());
+        return (obj instanceof BpmnLane)? (BpmnLane)obj : null;
     }
 
-    @objid ("f853ab30-5d9d-420e-9d3c-f7c274dea092")
+    @objid ("0a912f39-d02e-4ff2-a31e-b7422624df74")
     @Override
     public void setParentLane(BpmnLane value) {
-        appendDepVal(BpmnLaneSetData.Metadata.ParentLaneDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnLaneSetSmClass)getClassOf()).getParentLaneDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bddc1ab7-c8fe-4b87-9fff-972e03480ceb")
+    @objid ("833a2c17-5b28-4161-87e1-fe8ba8c64d2b")
     @Override
     public BpmnSubProcess getSubProcess() {
-        return (BpmnSubProcess) getDepVal(BpmnLaneSetData.Metadata.SubProcessDep());
+        Object obj = getDepVal(((BpmnLaneSetSmClass)getClassOf()).getSubProcessDep());
+        return (obj instanceof BpmnSubProcess)? (BpmnSubProcess)obj : null;
     }
 
-    @objid ("86510b8b-a550-4bc8-9116-176c5c532114")
+    @objid ("5290cfd5-7054-47e9-bb55-6b33a3d8b191")
     @Override
     public void setSubProcess(BpmnSubProcess value) {
-        appendDepVal(BpmnLaneSetData.Metadata.SubProcessDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnLaneSetSmClass)getClassOf()).getSubProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8d5af7db-2bef-474f-8df1-8f00ff012f15")
+    @objid ("0a6a9809-e8d0-4190-ab29-5a27d3e99abf")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnLaneSetData.Metadata.ProcessDep());
+        // Process
+        obj = (SmObjectImpl)this.getDepVal(((BpmnLaneSetSmClass)getClassOf()).getProcessDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnLaneSetData.Metadata.ParentLaneDep());
+        // ParentLane
+        obj = (SmObjectImpl)this.getDepVal(((BpmnLaneSetSmClass)getClassOf()).getParentLaneDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnLaneSetData.Metadata.SubProcessDep());
+        // SubProcess
+        obj = (SmObjectImpl)this.getDepVal(((BpmnLaneSetSmClass)getClassOf()).getSubProcessDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2d39cdf7-bea0-4631-8cd7-8345082e710d")
+    @objid ("ed0d2d79-4e9f-4281-9c4f-39b7e12431cc")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnLaneSetData.Metadata.ProcessDep());
-        if (obj != null)
-          return new SmDepVal(BpmnLaneSetData.Metadata.ProcessDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(BpmnLaneSetData.Metadata.ParentLaneDep());
-        if (obj != null)
-          return new SmDepVal(BpmnLaneSetData.Metadata.ParentLaneDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(BpmnLaneSetData.Metadata.SubProcessDep());
-        if (obj != null)
-          return new SmDepVal(BpmnLaneSetData.Metadata.SubProcessDep(), obj);
+        SmDependency dep;
+        
+        // Process
+        dep = ((BpmnLaneSetSmClass)getClassOf()).getProcessDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // ParentLane
+        dep = ((BpmnLaneSetSmClass)getClassOf()).getParentLaneDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // SubProcess
+        dep = ((BpmnLaneSetSmClass)getClassOf()).getSubProcessDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("1bf0f47c-1d7b-4e7c-81ef-5ed3b4ec1d9b")
+    @objid ("f4ca13c4-1e8e-4d56-aa48-235387231ceb")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnLaneSet(this);

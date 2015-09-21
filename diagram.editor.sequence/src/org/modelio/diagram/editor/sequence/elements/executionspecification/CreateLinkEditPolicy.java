@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.executionspecification;
 
@@ -34,7 +34,6 @@ import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
 import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 
 /**
@@ -45,9 +44,9 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
     @objid ("d8e37dfa-55b6-11e2-877f-002564c97630")
     @Override
     protected Command getConnectionCompleteCommand(CreateConnectionRequest req) {
-        if (req.getNewObject() instanceof ModelioLinkCreationContext) {
-            ModelioLinkCreationContext context = (ModelioLinkCreationContext) req.getNewObject();
-            if (Metamodel.getMClass(Message.class).getName().equals(context.getMetaclass())) {
+        ModelioLinkCreationContext context = ModelioLinkCreationContext.lookRequest(req);
+        if (context != null) {
+            if (Message.class == context.getJavaClass()) {
         
                 CreateMessageCommand startCommand = (CreateMessageCommand) super.getConnectionCompleteCommand(req);
                 int sourceTime = startCommand.getSourceTime();
@@ -70,9 +69,9 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
     @objid ("d8e37e00-55b6-11e2-877f-002564c97630")
     @Override
     protected Command getConnectionCreateCommand(CreateConnectionRequest req) {
-        if (req.getNewObject() instanceof ModelioLinkCreationContext) {
-            ModelioLinkCreationContext context = (ModelioLinkCreationContext) req.getNewObject();
-            if (Metamodel.getMClass(Message.class).getName().equals(context.getMetaclass())) {
+        ModelioLinkCreationContext context = ModelioLinkCreationContext.lookRequest(req);
+        if (context != null) {
+            if (Message.class == context.getJavaClass()) {
         
                 CreateMessageCommand cmd = new CreateMessageCommand(context);
         
@@ -82,7 +81,7 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
                 tmp.setLocation(req.getLocation().x, req.getLocation().y);
                 getHostFigure().translateToRelative(tmp);
                 cmd.setSourceTime(tmp.y);
-                
+        
                 if (req instanceof CreateBendedConnectionRequest) {
                     cmd.setRequest((CreateBendedConnectionRequest) req);
                 }

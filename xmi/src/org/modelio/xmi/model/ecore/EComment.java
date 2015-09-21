@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.ecore;
 
@@ -31,7 +31,6 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.statik.Class;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.reverse.ReverseProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
@@ -50,11 +49,9 @@ public class EComment extends EElement {
     private Note createNote() {
         IMModelServices mmService = ReverseProperties.getInstance().getMModelServices();
         
-        Note result = mmService.getModelFactory()
-                .createNote();
+        Note result = mmService.getModelFactory().createNote();
         
-        result.setModel(Modelio.getInstance().getModelingSession()
-                .getMetamodelExtensions().findNoteTypes("comment", SmClass.getClass(ModelElement.class)).get(0));
+        result.setModel(Modelio.getInstance().getModelingSession().getMetamodelExtensions().findNoteTypes("comment", result.getMClass().getMetamodel().getMClass(ModelElement.class)).get(0));
         return result;
     }
 
@@ -112,7 +109,7 @@ public class EComment extends EElement {
 
     @objid ("ad241920-7c0e-4196-b7e1-ca476b99b15c")
     public void createNote(Element objingAnnotatedElt, List<Object> objingElt) {
-        if ((objingAnnotatedElt != null) 
+        if ((objingAnnotatedElt != null)
                 && (objingAnnotatedElt instanceof ModelElement)) {
         
             Note objingNote = createNote();
@@ -132,10 +129,10 @@ public class EComment extends EElement {
     @objid ("f31a49d3-e814-4a9c-b3da-c19289b22616")
     private void setModel(Note objingElt) {
         String noteTypeName = ObjingEAnnotation.getNoteTypeName(this.ecoreElement);
-               
+        
         if (!noteTypeName.equals("")){
             List<NoteType> objingNoteType = ReverseProperties.getInstance().getMModelServices().findNoteTypes(noteTypeName, objingElt.getSubject().getMClass());
-           
+        
             if ((objingNoteType != null) && (objingNoteType.size() > 0)) {
                 objingElt.setModel(objingNoteType.get(0));
             }

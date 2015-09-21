@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.interactionModel.InteractionUseData;
+import org.modelio.metamodel.impl.uml.behavior.interactionModel.InteractionUseData;
 import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionUse;
@@ -41,67 +53,76 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00485742-c4bf-1fd8-97fe-001ec947cd2a")
 public class InteractionUseImpl extends InteractionFragmentImpl implements InteractionUse {
-    @objid ("c1a2dad6-7cf1-47e4-9a0f-791c0b3ae505")
+    @objid ("38e26caa-3da3-4c03-a8c9-83074ef15293")
     @Override
     public int getEndLineNumber() {
-        return (Integer) getAttVal(InteractionUseData.Metadata.EndLineNumberAtt());
+        return (Integer) getAttVal(((InteractionUseSmClass)getClassOf()).getEndLineNumberAtt());
     }
 
-    @objid ("b0aa9e36-68c9-4b34-a203-bdbac93fbb7c")
+    @objid ("839b0c55-362b-4231-b982-b64bfc1a51ff")
     @Override
     public void setEndLineNumber(int value) {
-        setAttVal(InteractionUseData.Metadata.EndLineNumberAtt(), value);
+        setAttVal(((InteractionUseSmClass)getClassOf()).getEndLineNumberAtt(), value);
     }
 
-    @objid ("e5cf2db4-5375-4c8c-9613-4cae02af946c")
+    @objid ("98ca6140-0f4f-4a0b-ad4f-1d8e1a5b9f48")
     @Override
     public EList<Gate> getActualGate() {
-        return new SmList<>(this, InteractionUseData.Metadata.ActualGateDep());
+        return new SmList<>(this, ((InteractionUseSmClass)getClassOf()).getActualGateDep());
     }
 
-    @objid ("a1102e77-2c70-406b-8458-17f5bf200932")
+    @objid ("b87d7bd1-db44-4d9b-b70f-6e91adbbafe6")
     @Override
     public <T extends Gate> List<T> getActualGate(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Gate element : getActualGate()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("747346af-ab5a-4be8-a154-4a4f16ea9b72")
+    @objid ("7a14e989-ac68-4a99-aa12-39d1b2fdcdbc")
     @Override
     public Interaction getRefersTo() {
-        return (Interaction) getDepVal(InteractionUseData.Metadata.RefersToDep());
+        Object obj = getDepVal(((InteractionUseSmClass)getClassOf()).getRefersToDep());
+        return (obj instanceof Interaction)? (Interaction)obj : null;
     }
 
-    @objid ("660945f7-c231-406c-abc7-13ecd83897cd")
+    @objid ("055d5b47-d98e-4b07-b4aa-e54a935f6264")
     @Override
     public void setRefersTo(Interaction value) {
-        appendDepVal(InteractionUseData.Metadata.RefersToDep(), (SmObjectImpl)value);
+        appendDepVal(((InteractionUseSmClass)getClassOf()).getRefersToDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ab01d09f-48de-41b5-9392-cba538fe03bc")
+    @objid ("35ec0174-6d32-4bf3-8e3e-a7c4bbb4fb2d")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("b0f874e4-19f2-4086-ba58-ddc05a2a9de3")
+    @objid ("55f8d8c2-cbcb-47d1-8711-2c3518124433")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("da3f1718-dcdd-4132-8e63-2f9b37201d20")
+    @objid ("575f504d-a7cf-4ae3-b405-81e72121e8c0")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInteractionUse(this);

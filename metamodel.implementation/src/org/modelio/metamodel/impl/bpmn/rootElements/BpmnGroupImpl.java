@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -31,7 +43,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
 import org.modelio.metamodel.bpmn.rootElements.BpmnGroup;
-import org.modelio.metamodel.data.bpmn.rootElements.BpmnGroupData;
+import org.modelio.metamodel.impl.bpmn.rootElements.BpmnGroupData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -40,55 +52,63 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("007a5ba2-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnGroupImpl extends BpmnArtifactImpl implements BpmnGroup {
-    @objid ("a4aa95b1-03da-4437-b81b-49c370aa93be")
+    @objid ("66034cfa-7cc0-4af3-bba1-ca684aaad076")
     @Override
     public String getCategory() {
-        return (String) getAttVal(BpmnGroupData.Metadata.CategoryAtt());
+        return (String) getAttVal(((BpmnGroupSmClass)getClassOf()).getCategoryAtt());
     }
 
-    @objid ("70a9db5a-53c8-478d-937f-6ba4619ad9e1")
+    @objid ("ae9165e6-2189-427c-b086-5e5fc8bf38b2")
     @Override
     public void setCategory(String value) {
-        setAttVal(BpmnGroupData.Metadata.CategoryAtt(), value);
+        setAttVal(((BpmnGroupSmClass)getClassOf()).getCategoryAtt(), value);
     }
 
-    @objid ("7283e5a0-7a47-4970-b8d9-04f474ab4d7a")
+    @objid ("8d4239a9-025c-4baa-82f9-1f5fb90f97ab")
     @Override
     public EList<BpmnFlowElement> getCategorized() {
-        return new SmList<>(this, BpmnGroupData.Metadata.CategorizedDep());
+        return new SmList<>(this, ((BpmnGroupSmClass)getClassOf()).getCategorizedDep());
     }
 
-    @objid ("d1cdaa78-bebf-4ada-862a-40abb94572c1")
+    @objid ("9daf2075-b422-4bba-b713-c3e9471b6edf")
     @Override
     public <T extends BpmnFlowElement> List<T> getCategorized(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnFlowElement element : getCategorized()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b35cb8e6-5320-4fa5-912c-e18239aec0e9")
+    @objid ("c5d0371d-549c-4416-8a82-9282ec0a70cc")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("8b3fee87-ef27-4f6f-85fd-b27603dfe99e")
+    @objid ("f4d2fdd1-c2cd-41cf-92bc-5e3f5df41653")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("3a996938-0c7e-4e0d-bdea-2a87bf4e8f46")
+    @objid ("3f884a20-9bfd-44fa-984f-e02c650b568a")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnGroup(this);

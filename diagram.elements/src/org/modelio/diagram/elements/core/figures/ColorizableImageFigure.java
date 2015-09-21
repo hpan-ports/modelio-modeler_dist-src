@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.figures;
 
@@ -33,21 +33,19 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * A colorizable figure based on the alpha mask of a png file. The drawn
- * colorized image is build by applying the alpha mask of the original image on
- * a filled colored rectangle of the same size as the image.<br>
- * This class does not manage the lifecycle of the image, this is left to the
- * caller.
+ * A colorizable figure based on the alpha mask of a png file. The drawn colorized image is build by applying the alpha mask of the
+ * original image on a filled colored rectangle of the same size as the image.<br>
+ * This class does not manage the lifecycle of the image, this is left to the caller.
  */
 @objid ("7f6b8bc1-1dec-11e2-8cad-001ec947c8cc")
 public class ColorizableImageFigure extends Figure {
     @objid ("f0549d29-c6e7-4c1d-987b-946e9055e907")
     private int pixelColor;
 
-    @objid ("8b88eae6-a5ce-4c84-a4df-f7f3e909ed67")
+    @objid ("24b76083-e063-4a30-aa5d-ff282896313c")
     private Image originalImage;
 
-    @objid ("efb2eb53-8bad-4e99-a635-eeb12a01258e")
+    @objid ("784b7507-918a-4237-a647-811fba344cf7")
     private Color color;
 
     /**
@@ -85,9 +83,11 @@ public class ColorizableImageFigure extends Figure {
 
     @objid ("7f6b8bd4-1dec-11e2-8cad-001ec947c8cc")
     @Override
-    protected void finalize() {
+    protected void finalize() throws Throwable {
         this.originalImage = null;
         this.color = null;
+        
+        super.finalize();
     }
 
     @objid ("7f6b8bd7-1dec-11e2-8cad-001ec947c8cc")
@@ -109,9 +109,9 @@ public class ColorizableImageFigure extends Figure {
             Image image = new Image(this.originalImage.getDevice(), this.originalImage.getImageData());
             GC gc = new GC(image);
             gc.setBackground(this.color);
-        //            gc.setXORMode(true);
+            // gc.setXORMode(true);
             gc.fillRectangle(image.getBounds());
-            gc.dispose(); 
+            gc.dispose();
             return image;
         }
     }
@@ -133,8 +133,8 @@ public class ColorizableImageFigure extends Figure {
     public void setColor(final Color color) {
         this.color = color;
         this.pixelColor = (color.getRed() << 16) + (color.getGreen() << 8) + color.getBlue();
-        //        System.out.println("color = " + color);
-        //        System.out.printf("pixelcolor = %x \n", pixelColor);
+        // System.out.println("color = " + color);
+        // System.out.printf("pixelcolor = %x \n", pixelColor);
     }
 
     @objid ("d4eee5b8-51f3-400e-93d5-03194782aff5")
@@ -142,8 +142,7 @@ public class ColorizableImageFigure extends Figure {
         System.out.println(title);
         
         ImageData data = img.getImageData();
-        System.out.printf(" h=%d, w=%d, d=%d bits per pixel\n", data.height,
-                data.width, data.depth);
+        System.out.printf(" h=%d, w=%d, d=%d bits per pixel\n", data.height, data.width, data.depth);
         
         System.out.printf(" alpha: %d\n", data.alpha);
         System.out.printf(" bytesPerLine: %d\n", data.bytesPerLine);
@@ -153,12 +152,9 @@ public class ColorizableImageFigure extends Figure {
         System.out.printf(" scanLinePad: %d\n", data.scanlinePad);
         System.out.printf(" transparentPixel: %d\n", data.transparentPixel);
         System.out.printf(" type: %d\n", data.type);
-        System.out.printf(" data: %s %d bytes\n", data.data, (data.data != null)
-                ? data.data.length : -1);
-        System.out.printf(" alphaData: %s %d bytes\n", data.alphaData,
-                (data.alphaData != null) ? data.alphaData.length : -1);
-        System.out.printf(" maskData: %s %d bytes \n", data.maskData,
-                (data.maskData != null) ? data.maskData.length : -1);
+        System.out.printf(" data: %s %d bytes\n", data.data, (data.data != null) ? data.data.length : -1);
+        System.out.printf(" alphaData: %s %d bytes\n", data.alphaData, (data.alphaData != null) ? data.alphaData.length : -1);
+        System.out.printf(" maskData: %s %d bytes \n", data.maskData, (data.maskData != null) ? data.maskData.length : -1);
         System.out.printf(" palette: %s\n", data.palette);
         
         System.out.println();

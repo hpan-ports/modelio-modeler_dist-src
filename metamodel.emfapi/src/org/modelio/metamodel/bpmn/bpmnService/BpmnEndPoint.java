@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,31 +12,56 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.bpmn.bpmnService;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnParticipant;
 import org.modelio.metamodel.bpmn.rootElements.BpmnRootElement;
 
+/**
+ * BpmnEndPoint v0.0.9054
+ * 
+ * 
+ * null
+ */
 @objid ("000e89b8-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnEndPoint extends BpmnRootElement {
-    @objid ("e36e3c51-026b-4086-bd8e-491186f06785")
+    @objid ("4c835b76-03b0-42e9-afa0-449cc2f36af2")
+    public static final String MNAME = "BpmnEndPoint";
+
+    /**
+     * Getter for relation 'BpmnEndPoint->ParticipantRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f95d8ad2-c445-4630-a4f0-95b36d6c15ea")
     EList<BpmnParticipant> getParticipantRefs();
 
-    @objid ("7cb2d694-458d-449f-b66d-6bfd5cdb4868")
+    /**
+     * Filtered Getter for relation 'BpmnEndPoint->ParticipantRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("035d40f0-b434-40a6-a348-3d29a0d6ccf1")
     <T extends BpmnParticipant> List<T> getParticipantRefs(java.lang.Class<T> filterClass);
 
 }

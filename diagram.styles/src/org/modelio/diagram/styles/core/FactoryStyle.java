@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.core;
 
@@ -36,10 +36,10 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * Factory settings for style property values. This class must define a VALID value for each StyleKey.
  * <p>
  * <b>Important note about Fonts and Colors:</b><br>
- * Fonts and Colors of the factory style must not be allocated from the DiagramElement plugin font and color factories,
- * as these factories have a lifecycle bound to the session duration (they are cleaned up, disposing their ressources on
- * session close). FactoryStyle is statically initialised and its lifecycle is that of the application itself. It does
- * not dispose its graphics ressources (not needed).
+ * Fonts and Colors of the factory style must not be allocated from the DiagramElement plugin font and color factories, as these
+ * factories have a lifecycle bound to the session duration (they are cleaned up, disposing their ressources on session close).
+ * FactoryStyle is statically initialised and its lifecycle is that of the application itself. It does not dispose its graphics
+ * ressources (not needed).
  * </p>
  */
 @objid ("85479aee-1926-11e2-92d2-001ec947c8cc")
@@ -70,8 +70,8 @@ public class FactoryStyle implements IStyle, IPersistent {
     }
 
     /**
-     * Modelio plugin implementing diagrams can declare their {@link AbstractStyleKeyProvider} classes to the FactoryStyle so
-     * that their {@link StyleKey} instances are known by the FactoryStyle.
+     * Modelio plugin implementing diagrams can declare their {@link AbstractStyleKeyProvider} classes to the FactoryStyle so that
+     * their {@link StyleKey} instances are known by the FactoryStyle.
      * @param styleProvider the style key provider to register.
      * @throws java.lang.IllegalArgumentException if the style provider instantiation failed. A nested exception is then provided.
      */
@@ -89,15 +89,15 @@ public class FactoryStyle implements IStyle, IPersistent {
     }
 
     /**
-     * Modelio plugin implementing diagrams can declare their {@link AbstractStyleKeyProvider} instances to the FactoryStyle so
-     * that their {@link StyleKey} instances are known by the FactoryStyle.
+     * Modelio plugin implementing diagrams can declare their {@link AbstractStyleKeyProvider} instances to the FactoryStyle so that
+     * their {@link StyleKey} instances are known by the FactoryStyle.
      * @param styleProvider the style key provider to register.
      * @throws java.lang.IllegalArgumentException if the style provider instantiation failed. A nested exception is then provided.
      */
     @objid ("e5d1eeb1-e81e-428f-b47e-d030c2dc3cc8")
     public void declareProvider(AbstractStyleKeyProvider styleProvider) throws IllegalArgumentException {
         // Fake using instance.
-        // This will force class loading and  members initialization
+        // This will force class loading and members initialization
         styleProvider.getStyleKeys();
     }
 
@@ -109,12 +109,11 @@ public class FactoryStyle implements IStyle, IPersistent {
     @objid ("8549fd40-1926-11e2-92d2-001ec947c8cc")
     @Override
     public boolean getBoolean(StyleKey propertyKey) {
-        if (this.getProperty(propertyKey) instanceof Boolean)
+        if (this.getProperty(propertyKey) instanceof Boolean) {
             return ((Boolean) this.getProperty(propertyKey)).booleanValue();
-        //return  false;
-        throw new IllegalArgumentException("Style property key " +
-                propertyKey +
-                " does not match a boolean value");
+        }
+        // return false;
+        throw new IllegalArgumentException("Style property key " + propertyKey + " does not match a boolean value");
     }
 
     @objid ("8549fd46-1926-11e2-92d2-001ec947c8cc")
@@ -131,8 +130,9 @@ public class FactoryStyle implements IStyle, IPersistent {
     @objid ("8549fd4b-1926-11e2-92d2-001ec947c8cc")
     @Override
     public Color getColor(StyleKey propertyKey) {
-        if (this.getProperty(propertyKey) instanceof Color)
+        if (this.getProperty(propertyKey) instanceof Color) {
             return (Color) this.getProperty(propertyKey);
+        }
         throw new IllegalArgumentException("Style property key " + propertyKey + " does not match a color");
     }
 
@@ -144,8 +144,9 @@ public class FactoryStyle implements IStyle, IPersistent {
     @objid ("8549fd51-1926-11e2-92d2-001ec947c8cc")
     @Override
     public Font getFont(StyleKey propertyKey) {
-        if (this.getProperty(propertyKey) instanceof Font)
+        if (this.getProperty(propertyKey) instanceof Font) {
             return (Font) this.getProperty(propertyKey);
+        }
         throw new IllegalArgumentException("Style property key " + propertyKey + " does not match a font");
     }
 
@@ -155,8 +156,9 @@ public class FactoryStyle implements IStyle, IPersistent {
      */
     @objid ("8549fd2e-1926-11e2-92d2-001ec947c8cc")
     public static FactoryStyle getInstance() {
-        if (_instance == null)
+        if (_instance == null) {
             _instance = new FactoryStyle();
+        }
         return _instance;
     }
 
@@ -168,12 +170,11 @@ public class FactoryStyle implements IStyle, IPersistent {
     @objid ("8549fd57-1926-11e2-92d2-001ec947c8cc")
     @Override
     public int getInteger(StyleKey propertyKey) {
-        if (this.getProperty(propertyKey) instanceof Integer)
+        if (this.getProperty(propertyKey) instanceof Integer) {
             return ((Integer) this.getProperty(propertyKey)).intValue();
+        }
         
-        throw new IllegalArgumentException("Style property key " +
-                propertyKey +
-                " does not match a integer value");
+        throw new IllegalArgumentException("Style property key " + propertyKey + " does not match a integer value");
     }
 
     @objid ("8549fd5d-1926-11e2-92d2-001ec947c8cc")
@@ -205,13 +206,12 @@ public class FactoryStyle implements IStyle, IPersistent {
             value = FactoryStyleDefaults.getDefaultValue(propertyKey);
         }
         
-        assert (value != null || propertyKey.getType()==MRef.class) : "No factory setting for property " + propertyKey;
+        assert (value != null || propertyKey.getType() == MRef.class) : "No factory setting for property " + propertyKey;
         return (T) value;
     }
 
     /**
-     * Inject the values defined in 'properties' into the FactoryStyle settings overriding existing values when
-     * required.
+     * Inject the values defined in 'properties' into the FactoryStyle settings overriding existing values when required.
      * @param defaultValues the values to inject in the FactoryStyle
      */
     @objid ("854c5f84-1926-11e2-92d2-001ec947c8cc")
@@ -244,7 +244,7 @@ public class FactoryStyle implements IStyle, IPersistent {
     @objid ("854ec207-1926-11e2-92d2-001ec947c8cc")
     @Override
     public void normalize() {
-        // TODO Auto-generated method stub
+        // nothing to do
     }
 
     @objid ("854ec1e6-1926-11e2-92d2-001ec947c8cc")
@@ -271,8 +271,9 @@ public class FactoryStyle implements IStyle, IPersistent {
     @objid ("854ec1ef-1926-11e2-92d2-001ec947c8cc")
     @Override
     public void removeProperty(StyleKey key) {
-        if (this.properties != null)
+        if (this.properties != null) {
             this.properties.remove(key);
+        }
     }
 
     /**
@@ -318,6 +319,12 @@ public class FactoryStyle implements IStyle, IPersistent {
         // setup the ultimate default provider
         this.factoryStyleDefaults = new FactoryStyleDefaults();
         this.properties = new HashMap<>();
+    }
+
+    @objid ("b7df0492-2542-41f3-b21c-1e9af92af9c3")
+    @Override
+    public void normalize(StyleKey skey) {
+        // nothing to do
     }
 
 }

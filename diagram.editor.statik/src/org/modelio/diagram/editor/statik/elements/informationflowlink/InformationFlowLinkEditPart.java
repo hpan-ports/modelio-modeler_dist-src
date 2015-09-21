@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.informationflowlink;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PolylineDecoration;
@@ -30,21 +29,15 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.swt.SWT;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
-import org.modelio.diagram.elements.core.figures.IPenOptionsSupport;
-import org.modelio.diagram.elements.core.figures.LinkFigure;
-import org.modelio.diagram.elements.core.figures.RoundedLinkFigure;
 import org.modelio.diagram.elements.core.figures.decorations.DefaultPolygonDecoration;
 import org.modelio.diagram.elements.core.figures.decorations.DefaultPolylineDecoration;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
-import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.GmLinkEditPart;
 import org.modelio.diagram.elements.core.link.extensions.FractionalConnectionLocator;
-import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointRequest;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPolicy;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.MetaKey;
-import org.modelio.diagram.styles.core.StyleKey.LinePattern;
 import org.modelio.diagram.styles.core.StyleKey;
 
 /**
@@ -97,7 +90,7 @@ public class InformationFlowLinkEditPart extends GmLinkEditPart {
         
         if (gmModel.getHeader() != null) {
             gmModel.getHeader().setShowLabel(style.getBoolean(gmModel.getStyleKey(MetaKey.SHOWLABEL)));
-            
+        
         } else System.out.println("NULL");
         
         if (this.deco != null) {

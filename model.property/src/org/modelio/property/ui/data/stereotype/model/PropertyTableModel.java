@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.stereotype.model;
 
@@ -28,6 +28,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ExtensionNotFoundException;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.factory.ModelFactory;
 import org.modelio.metamodel.mda.ModuleComponent;
@@ -36,10 +37,11 @@ import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
+import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
-import org.modelio.metamodel.uml.infrastructure.properties.PropertyTable;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyEnumerationLitteral;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
-import org.modelio.metamodel.uml.infrastructure.properties.TypedPropertyTable;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 import org.modelio.property.plugin.ModelProperty;
 import org.modelio.property.ui.data.stereotype.body.IPropertyStyle;
 import org.modelio.property.ui.data.stereotype.body.PropertyAdapter;
@@ -64,7 +66,7 @@ public class PropertyTableModel implements IPropertyModel2 {
     public PropertyTableModel(ModelElement editedElement, Stereotype stereotype, IMModelServices modelService) {
         this.editedElement = editedElement;
         this.tagModel = new TagDataHelper(editedElement, stereotype, modelService);
-        this.tableModel = new PropertyTableHelper(stereotype.getDefinedTable());
+        this.tableModel = new PropertyTableHelper(stereotype);
     }
 
     @objid ("f38a1545-175c-4f9f-b50d-9176530979c6")
@@ -92,7 +94,7 @@ public class PropertyTableModel implements IPropertyModel2 {
                 if (label==null || label.isEmpty()) {
                     label = "!"+type.getName()+"!";
                 }
-                
+        
                 if (type.isIsHidden()) {
                     final String hiddenString = ModelProperty.I18N.getString("AnnotationView.PropertyPanel.Hidden");
                     return TAG_MARKER + hiddenString + label;
@@ -102,7 +104,12 @@ public class PropertyTableModel implements IPropertyModel2 {
             } else if (isProperty(row)) {
                 // Row Header
                 final PropertyDefinition pdef = this.tableModel.getProperties().get(row - this.tagModel.getTagTypes().size() -1);
-                return pdef.getName();
+                String label = ModuleI18NService.getLabel(pdef);
+                if (label==null || label.isEmpty()) {
+                    label = "!"+pdef.getName()+"!";
+                }
+        
+                return label;
             } else {
                 throw new InvalidParameterException("Invalid row number");
             }
@@ -117,20 +124,14 @@ public class PropertyTableModel implements IPropertyModel2 {
                 final PropertyDefinition pdef = this.tableModel.getProperties().get(row - this.tagModel.getTagTypes().size() -1);
         
                 // Get property table
-                TypedPropertyTable typedTable = null;
-                for (PropertyTable table : this.editedElement.getProperties()) {
-                    if (table instanceof TypedPropertyTable && this.tableModel.getPropertyTable().equals(((TypedPropertyTable)table).getType())) {
-                        typedTable = (TypedPropertyTable) table;
-                        break;
-                    }
+                String value;
+                try {
+                    value = this.editedElement.getProperty(this.tableModel.getStereotype().getModule().getName(), this.tableModel.getStereotype().getName(), pdef.getName());
+                    return PropertyAdapter.convertToObject(pdef, value);
+                } catch (ExtensionNotFoundException e) {
+                    throw new InvalidParameterException("Invalid PropertyDefinition");
                 }
-                
-                String value = null;
-                if (typedTable != null) {
-                    value = typedTable.getProperty(pdef);
-                }
-                
-                return PropertyAdapter.convertToObject(pdef, value);
+        
             } else {
                 throw new InvalidParameterException("Invalid row number");
             }
@@ -154,21 +155,11 @@ public class PropertyTableModel implements IPropertyModel2 {
                 final PropertyDefinition pdef = this.tableModel.getProperties().get(row - this.tagModel.getTagTypes().size() -1);
                 final String svalue = PropertyAdapter.convertToString(pdef, value);
         
-                // Get property table
-                TypedPropertyTable typedTable = null;
-                for (PropertyTable table : this.editedElement.getProperties()) {
-                    if ((table instanceof TypedPropertyTable) && this.tableModel.getPropertyTable().equals(((TypedPropertyTable)table).getType())) {
-                        typedTable = (TypedPropertyTable) table;
-                        break;
-                    }
+                try {
+                    this.editedElement.setProperty(this.tableModel.getStereotype().getModule().getName(), this.tableModel.getStereotype().getName(), pdef.getName(), svalue);
+                } catch (ExtensionNotFoundException e) {
+                    throw new InvalidParameterException("Invalid PropertyDefinition");
                 }
-                if (typedTable == null) {
-                    // No table, create one
-                    typedTable = ModelFactory.getFactory(this.editedElement).createTypedPropertyTable();
-                    typedTable.setOwner(this.editedElement);
-                    typedTable.setType(this.tableModel.getPropertyTable());
-                }
-                typedTable.setProperty(pdef, svalue);
             }
         }
     }
@@ -176,7 +167,19 @@ public class PropertyTableModel implements IPropertyModel2 {
     @objid ("a12651a5-eacc-4155-8241-fa7842f3663e")
     @Override
     public boolean isEditable(int row, int col) {
-        return (col == 0) ? false : this.editedElement.isModifiable();
+        if (col == 0) {
+            return false;
+        }
+        
+        if (!this.editedElement.isModifiable()) {
+            return false;
+        }
+        
+        if (isProperty(row)) {
+            final PropertyDefinition pdef = this.tableModel.getProperties().get(row - this.tagModel.getTagTypes().size() -1);
+            return pdef.isIsEditable();
+        }
+        return true;
     }
 
     @objid ("43168280-8425-40e8-9328-2b29e9240808")
@@ -221,6 +224,21 @@ public class PropertyTableModel implements IPropertyModel2 {
     @objid ("3e3944c9-ca93-4765-9730-e32c206663b2")
     @Override
     public List<String> getPossibleValues(int row, int col) {
+        if (col > 0 && row > 0 && isProperty(row)) {
+            final PropertyDefinition pdef = this.tableModel.getProperties().get(row - this.tagModel.getTagTypes().size() -1);
+            PropertyType type = pdef.getType();
+            if (type instanceof EnumeratedPropertyType) {
+                List<PropertyEnumerationLitteral> litterals = ((EnumeratedPropertyType) type).getLitteral();
+                List<String> ret = new ArrayList<>(litterals.size());
+        
+                for (PropertyEnumerationLitteral l : litterals) {
+                    ret.add(l.getName());
+                }
+        
+                return ret;
+            }
+        }
+        
         // Nothing to do
         return null;
     }
@@ -250,25 +268,50 @@ public class PropertyTableModel implements IPropertyModel2 {
 
     @objid ("37f76f25-b120-4a80-b113-24dd50fc2a8f")
     private static class PropertyTableHelper {
-        @objid ("b555f26a-dfb9-4ff1-961f-a042a524d089")
-        private PropertyTableDefinition propertyTable;
+        @objid ("45cfe03f-14fa-4de0-b700-3450d4d0cda3")
+        private Stereotype stereotype;
 
         @objid ("265ee32f-0da6-452f-9209-02ed694510b9")
-        public PropertyTableHelper(PropertyTableDefinition propertyTable) {
-            this.propertyTable = propertyTable;
+        public PropertyTableHelper(Stereotype stereotype) {
+            this.stereotype = stereotype;
         }
 
         @objid ("05dfdc3b-8e29-4f11-bd0e-a8ccfe66a1ee")
         public List<PropertyDefinition> getProperties() {
-            if (this.propertyTable == null) {
+            if (this.stereotype == null) {
                 return Collections.emptyList();
             }
-            return this.propertyTable.getOwned();
+            
+            List<PropertyDefinition> result = new ArrayList<>();
+            
+            PropertyTableDefinition propertyTable = this.stereotype.getDefinedTable();
+            if (propertyTable != null) {
+                result.addAll(propertyTable.getOwned());
+            }
+            
+            for(Stereotype supperSter : getSuperStereotype(this.stereotype)){
+                PropertyTableDefinition superTable = supperSter.getDefinedTable();
+                if(superTable != null)
+                    result.addAll(superTable.getOwned());
+            }
+            return result;
         }
 
-        @objid ("a823b072-a8ce-4587-8ca6-da1ea6c4b43c")
-        public PropertyTableDefinition getPropertyTable() {
-            return this.propertyTable;
+        @objid ("5e153b40-982e-4a27-8c61-7e28bf0e9aff")
+        private List<Stereotype> getSuperStereotype(Stereotype stereotype) {
+            List<Stereotype> result = new ArrayList<>();
+            
+            Stereotype current = stereotype;
+            while(current.getParent() != null){
+                current = current.getParent();
+                result.add(current);
+            }
+            return result;
+        }
+
+        @objid ("42fdb977-0c3b-4f77-b75b-40ef39eb1907")
+        public Stereotype getStereotype() {
+            return this.stereotype;
         }
 
     }
@@ -370,7 +413,7 @@ public class PropertyTableModel implements IPropertyModel2 {
                 updateBooleanTaggedValue(this.typedElement, tagType, (Boolean) value);
             } else if (paramNumber == 1) {
                 updateStringTaggedValue(this.typedElement, tagType, (String) value);
-            } else { 
+            } else {
                 // paramNumber > 1 and paramNumber == -1 (param number no limit)
                 updateStringlistTaggedValue(this.typedElement, tagType, (List<String>) value);
             }
@@ -496,8 +539,9 @@ public class PropertyTableModel implements IPropertyModel2 {
             
             if (value == null) {
                 // Delete the tag if no more value
-                if (tag != null)
+                if (tag != null) {
                     tag.delete();
+                }
                 return;
             } else {
                 // Create the tagged value if necessary
@@ -514,7 +558,7 @@ public class PropertyTableModel implements IPropertyModel2 {
                     cpt++;
                 }
             
-                // Delete spare parameter                
+                // Delete spare parameter
                 while (oldParameters.size() > 1) {
                     oldParameters.get(oldParameters.size() - 1).delete();
                 }
@@ -543,8 +587,9 @@ public class PropertyTableModel implements IPropertyModel2 {
             
             if (values == null || values.isEmpty()) {
                 // Delete the tag if no more value
-                if (tag != null)
+                if (tag != null) {
                     tag.delete();
+                }
                 return;
             } else {
                 // Create the tagged value if necessary
@@ -562,7 +607,7 @@ public class PropertyTableModel implements IPropertyModel2 {
                     cpt++;
                 }
             
-                // Delete spare parameter                
+                // Delete spare parameter
                 while (oldParameters.size() > newSize) {
                     oldParameters.get(oldParameters.size() - 1).delete();
                 }

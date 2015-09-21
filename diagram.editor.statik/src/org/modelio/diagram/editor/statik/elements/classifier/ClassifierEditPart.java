@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.classifier;
 
@@ -25,7 +25,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.CompoundBorder;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 import org.modelio.diagram.editor.statik.elements.innerclass.GmInnerClass;
@@ -38,6 +37,7 @@ import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.common.resizablegroup.GmResizableGroup;
 import org.modelio.diagram.elements.core.figures.GradientFigure;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.ToolbarLayoutWithGrab;
 import org.modelio.diagram.elements.core.figures.borders.ShadowBorder;
 import org.modelio.diagram.elements.core.figures.borders.ZoomableLineBorder;
@@ -87,7 +87,7 @@ public class ClassifierEditPart extends GmNodeEditPart {
         installEditPolicy("Constraint creation", new ConstraintLinkEditPolicy(false));
         
         GmNodeModel model = (GmNodeModel) getModel();
-        // FIXME : Some Gm that don't represent a Classifier use this edit part 
+        // FIXME : Some Gm that don't represent a Classifier use this edit part
         // only to have the separation line between the zones.
         if (model.getRelatedElement() instanceof Classifier) {
             installEditPolicy("N-ary assoc", new AcceptNAssocEditPolicy(true));
@@ -108,13 +108,14 @@ public class ClassifierEditPart extends GmNodeEditPart {
         
         // Set style independent properties
         classFigure.setOpaque(true);
-        classFigure.setPreferredSize(new Dimension(150, 100));
         
         final ToolbarLayoutWithGrab layout = new ToolbarLayoutWithGrab();
         layout.setHorizontal(false);
         layout.setStretchMinorAxis(true);
         
         classFigure.setLayoutManager(layout);
+        
+        MinimumSizeLayout.apply(classFigure, 100, 80);
         
         // Set style dependent properties
         refreshFromStyle(classFigure, getModelStyle());

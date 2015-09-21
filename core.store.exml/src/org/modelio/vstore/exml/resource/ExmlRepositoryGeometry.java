@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.resource;
 
 import java.io.File;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -68,7 +69,7 @@ public class ExmlRepositoryGeometry implements IExmlRepositoryGeometry {
      */
     @objid ("d715624d-1ceb-11e2-8eb9-001ec947ccaf")
     private static String getPath(final MRef ref) {
-        return MODEL_STORAGE_PATH+ "/" + ref.mc + "/" + ref.uuid + EXT_EXML;
+        return MODEL_STORAGE_PATH+ "/" + getSimpleName(ref.mc) + "/" + ref.uuid + EXT_EXML;
     }
 
     /**
@@ -91,9 +92,9 @@ public class ExmlRepositoryGeometry implements IExmlRepositoryGeometry {
     @objid ("d715625c-1ceb-11e2-8eb9-001ec947ccaf")
     @Override
     public boolean isModelFile(final File file) {
-        return (file != null) 
-                && (file.getName().endsWith(EXT_EXML)) 
-                && (!file.getName().endsWith(EXT_LOCAL_EXML));
+        return (file != null)
+                                        && (file.getName().endsWith(EXT_EXML))
+                                        && (!file.getName().endsWith(EXT_LOCAL_EXML));
     }
 
     @objid ("d7156264-1ceb-11e2-8eb9-001ec947ccaf")
@@ -121,7 +122,7 @@ public class ExmlRepositoryGeometry implements IExmlRepositoryGeometry {
      */
     @objid ("f87ea2d2-b268-4024-9cbf-53b0586f311f")
     private static String getLocalPath(final MRef ref) {
-        return MODEL_STORAGE_PATH+ "/" + ref.mc + "/" + ref.uuid + EXT_LOCAL_EXML;
+        return MODEL_STORAGE_PATH+ "/" + getSimpleName(ref.mc) + "/" + ref.uuid + EXT_LOCAL_EXML;
     }
 
     @objid ("c57b0408-6501-43d6-8c5a-3a023e1c8bae")
@@ -140,6 +141,26 @@ public class ExmlRepositoryGeometry implements IExmlRepositoryGeometry {
     @Override
     public File getBlobsDirectory() {
         return new File(this.repositoryPath, BLOBS_DIRNAME);
+    }
+
+    @objid ("666fd4ae-afa3-41ca-a4a6-be2df4e3d8f0")
+    private static String getSimpleName(String qname) {
+        int i = qname.lastIndexOf('.');
+        if (i == -1) {
+            return qname;
+        } else {
+            return qname.substring(i+1);
+        }
+    }
+
+    /**
+     * Get the directory name where the metaclass instances are stored.
+     * @param cls a metaclass
+     * @return its directory name.
+     */
+    @objid ("86366fee-50b2-4f74-86d7-7fd98cc14feb")
+    public static String getMetaclassDirectoryName(MClass cls) {
+        return cls.getName();
     }
 
 }

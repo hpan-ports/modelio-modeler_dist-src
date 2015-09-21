@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.message;
 
@@ -35,6 +35,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polygon;
 import org.eclipse.draw2d.XYAnchor;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.gef.ConnectionEditPart;
@@ -90,9 +91,9 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
     @objid ("d966b79d-55b6-11e2-877f-002564c97630")
     @Override
     public void eraseSourceFeedback(final Request request) {
-        if (REQ_RECONNECT_TARGET.equals(request.getType()) || REQ_RECONNECT_SOURCE.equals(request.getType()))
+        if (REQ_RECONNECT_TARGET.equals(request.getType()) || REQ_RECONNECT_SOURCE.equals(request.getType())) {
             eraseConnectionMoveFeedback((ReconnectRequest) request);
-        else if (REQ_MOVE.equals(request.getType())) {
+        } else if (REQ_MOVE.equals(request.getType())) {
             eraseChangeBoundsFeedback((ChangeBoundsRequest) request);
         }
     }
@@ -127,9 +128,9 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
     @objid ("d966b7a9-55b6-11e2-877f-002564c97630")
     @Override
     public void showSourceFeedback(final Request request) {
-        if (REQ_RECONNECT_SOURCE.equals(request.getType()) || REQ_RECONNECT_TARGET.equals(request.getType()))
+        if (REQ_RECONNECT_SOURCE.equals(request.getType()) || REQ_RECONNECT_TARGET.equals(request.getType())) {
             showConnectionMoveFeedback((ReconnectRequest) request);
-        else if (REQ_MOVE.equals(request.getType())) {
+        } else if (REQ_MOVE.equals(request.getType())) {
             showChangeBoundsFeedback((ChangeBoundsRequest) request);
         }
     }
@@ -210,20 +211,23 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
     @objid ("d966b7cb-55b6-11e2-877f-002564c97630")
     protected void showConnectionMoveFeedback(final ReconnectRequest request) {
         NodeEditPart node = null;
-        if (request.getTarget() instanceof NodeEditPart)
+        if (request.getTarget() instanceof NodeEditPart) {
             node = (NodeEditPart) request.getTarget();
+        }
         if (this.originalSourceAnchor == null) {
-            if (request.isMovingStartAnchor())
+            if (request.isMovingStartAnchor()) {
                 this.originalSourceAnchor = getConnection().getSourceAnchor();
-            else
+            } else {
                 this.originalSourceAnchor = getConnection().getTargetAnchor();
+            }
         }
         ConnectionAnchor anchor = null;
         if (node != null) {
-            if (request.isMovingStartAnchor())
+            if (request.isMovingStartAnchor()) {
                 anchor = node.getSourceConnectionAnchor(request);
-            else
+            } else {
                 anchor = node.getTargetConnectionAnchor(request);
+            }
         }
         FeedbackHelper helper = getFeedbackHelper(request);
         helper.update(anchor, request.getLocation());
@@ -329,10 +333,11 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
     @objid ("d9683e3d-55b6-11e2-877f-002564c97630")
     @Override
     public boolean understandsRequest(final Request request) {
-        if (REQ_MOVE.equals(request.getType()))
+        if (REQ_MOVE.equals(request.getType())) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     @objid ("d9683e43-55b6-11e2-877f-002564c97630")
@@ -351,15 +356,22 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
             GraphicalEditPart editPart = (GraphicalEditPart) obj;
             if (editPart != null) {
                 GmModel model = (GmModel) editPart.getModel();
+        
+                Dimension moveDelta = new Dimension(request.getMoveDelta().x, request.getMoveDelta().y);
+                editPart.getFigure().translateToRelative(moveDelta);
+        
                 if (model.getRelatedElement() instanceof MessageEnd) {
                     updateVariablesForMessageEnd((MessageEnd) model.getRelatedElement(),
-                                                 request.getMoveDelta().y);
+                                                 moveDelta.height);
                 } else if (model.getRelatedElement() instanceof ExecutionSpecification) {
+                    Dimension sizeDelta = request.getSizeDelta();
+                    editPart.getFigure().translateToRelative(sizeDelta);
+        
                     updateVariablesForExecutionSpecification((ExecutionSpecification) model.getRelatedElement(),
-                                                             request.getMoveDelta().y,
-                                                             request.getSizeDelta().height);
+                                                             moveDelta.height,
+                                                             sizeDelta.height);
                 } else if (model.getRelatedElement() instanceof Message) {
-                    updateVariablesForMessage(request.getMoveDelta().y, (Message) model.getRelatedElement());
+                    updateVariablesForMessage(moveDelta.height, (Message) model.getRelatedElement());
                 }
         
             }
@@ -470,8 +482,9 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         @objid ("d969c4df-55b6-11e2-877f-002564c97630")
         @Override
         public void validate() {
-            if (isValid())
+            if (isValid()) {
                 return;
+            }
             PointList points = getConnection().getPoints().getCopy();
             getConnection().translateToAbsolute(points);
             //points = StrokePointList.strokeList(points, 5);

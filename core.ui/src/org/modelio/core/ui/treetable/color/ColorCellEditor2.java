@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.treetable.color;
 
@@ -92,15 +92,15 @@ public class ColorCellEditor2 extends DialogCellEditor {
     @objid ("6b298f83-1eba-11e2-9382-bc305ba4815c")
     protected Control createContents(Composite cell) {
         Color bg = cell.getBackground();
-        composite = new Composite(cell, getStyle());
-        composite.setBackground(bg);
-        composite.setLayout(new ColorCellLayout());
-        colorLabel = new Label(composite, SWT.LEFT);
-        colorLabel.setBackground(bg);
-        rgbLabel = new Label(composite, SWT.LEFT);
-        rgbLabel.setBackground(bg);
-        rgbLabel.setFont(cell.getFont());
-        return composite;
+        this.composite = new Composite(cell, getStyle());
+        this.composite.setBackground(bg);
+        this.composite.setLayout(new ColorCellLayout());
+        this.colorLabel = new Label(this.composite, SWT.LEFT);
+        this.colorLabel.setBackground(bg);
+        this.rgbLabel = new Label(this.composite, SWT.LEFT);
+        this.rgbLabel.setBackground(bg);
+        this.rgbLabel.setFont(cell.getFont());
+        return this.composite;
     }
 
     @objid ("6b2c0080-1eba-11e2-9382-bc305ba4815c")
@@ -127,16 +127,16 @@ public class ColorCellEditor2 extends DialogCellEditor {
             rgb = new RGB(0, 0, 0);
         }
         // XXX: Workaround for 1FMQ0P3: SWT:ALL - TableItem.setImage doesn't work if using the identical image."
-        if (image != null) {
-            image.dispose();
+        if (this.image != null) {
+            this.image.dispose();
         }
         
-        ImageData id = createColorImage(colorLabel.getParent().getParent(), rgb);
+        ImageData id = createColorImage(this.colorLabel.getParent().getParent(), rgb);
         ImageData mask = id.getTransparencyMask();
-        image = new Image(colorLabel.getDisplay(), id, mask);
-        colorLabel.setImage(image);
+        this.image = new Image(this.colorLabel.getDisplay(), id, mask);
+        this.colorLabel.setImage(this.image);
         
-        rgbLabel.setText("(" + rgb.red + "," + rgb.green + "," + rgb.blue + ")");//$NON-NLS-4$//$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
+        this.rgbLabel.setText("(" + rgb.red + "," + rgb.green + "," + rgb.blue + ")");//$NON-NLS-4$//$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
     }
 
     /**
@@ -215,9 +215,9 @@ public class ColorCellEditor2 extends DialogCellEditor {
 
     @objid ("6b2d11f2-1eba-11e2-9382-bc305ba4815c")
     public void dispose() {
-        if (image != null) {
-            image.dispose();
-            image = null;
+        if (this.image != null) {
+            this.image.dispose();
+            this.image = null;
         }
         super.dispose();
     }
@@ -232,22 +232,22 @@ public class ColorCellEditor2 extends DialogCellEditor {
             if (wHint != SWT.DEFAULT && hHint != SWT.DEFAULT) {
                 return new Point(wHint, hHint);
             }
-            Point colorSize = colorLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT, force);
-            Point rgbSize = rgbLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT, force);
+            Point colorSize = ColorCellEditor2.this.colorLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT, force);
+            Point rgbSize = ColorCellEditor2.this.rgbLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT, force);
             return new Point(colorSize.x + GAP + rgbSize.x, Math.max(colorSize.y, rgbSize.y));
         }
 
         @objid ("6b2dd540-1eba-11e2-9382-bc305ba4815c")
         public void layout(final Composite editor, final boolean force) {
             Rectangle bounds = editor.getClientArea();
-            Point colorSize = colorLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT, force);
-            Point rgbSize = rgbLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT, force);
+            Point colorSize = ColorCellEditor2.this.colorLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT, force);
+            Point rgbSize = ColorCellEditor2.this.rgbLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT, force);
             int ty = (bounds.height - rgbSize.y) / 2;
             if (ty < 0) {
                 ty = 0;
             }
-            colorLabel.setBounds(-1, 0, colorSize.x, colorSize.y);
-            rgbLabel.setBounds(colorSize.x + GAP - 1, ty, bounds.width - colorSize.x - GAP, bounds.height);
+            ColorCellEditor2.this.colorLabel.setBounds(-1, 0, colorSize.x, colorSize.y);
+            ColorCellEditor2.this.rgbLabel.setBounds(colorSize.x + GAP - 1, ty, bounds.width - colorSize.x - GAP, bounds.height);
         }
 
     }

@@ -3,14 +3,13 @@
 
 	<parent>
 		<groupId>org.modelio</groupId>
-		<artifactId>modelio</artifactId>
-		<version>3.3.0-SNAPSHOT</version>
+		<artifactId>modelio-parent</artifactId>
+		<version>3.4.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
 	</parent>
 
 	<groupId>org.modelio</groupId>
-	<artifactId>org.modelio.core.feature</artifactId>
-	<version>3.3.0-SNAPSHOT</version>
-	
+	<artifactId>org.modelio.core.feature</artifactId>	
 	<packaging>eclipse-feature</packaging>
 		
 	<build>

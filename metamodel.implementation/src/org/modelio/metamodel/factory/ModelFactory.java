@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.metamodel.factory;
 
@@ -27,7 +27,6 @@ import java.util.WeakHashMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.vcore.session.api.ICoreSession;
-import org.modelio.vcore.session.api.repository.IRepositorySupport;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -37,15 +36,9 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("6d72d916-5c99-400e-bafa-be356b2eb5ab")
 public class ModelFactory {
     /**
-     * The model element initializer used by all factories.
-     */
-    @objid ("991492c3-c87e-4c0e-b252-f1a7dbaa7c34")
-    public static final ElementInitializer INITIALIZER = new ElementInitializer();
-
-    /**
      * Factory cache.
      */
-    @objid ("8c7cddfa-9d52-472e-9b21-8c84ca87db82")
+    @objid ("d53a0d90-56ba-465e-90d8-537cd9489100")
     private static final Map<ICoreSession, SoftReference<IModelFactory>> factories = new WeakHashMap<>();
 
     /**
@@ -66,15 +59,11 @@ public class ModelFactory {
     @objid ("78b3e181-8be6-4414-987b-6793b53cafa0")
     public static IModelFactory getFactory(ICoreSession session) {
         SoftReference<IModelFactory> ref = factories.get(session);
-        if (ref != null && ref.get() != null)
+        if (ref != null && ref.get() != null) {
             return ref.get();
+        }
         
-        IRepositorySupport repoSupport = session.getRepositorySupport();
-        ModelFactoryImpl ret = new ModelFactoryImpl(session.getModel().getGenericFactory(), 
-                repoSupport.getRepository(IRepositorySupport.REPOSITORY_KEY_SCRATCH),
-                repoSupport.getRepository(IRepositorySupport.REPOSITORY_KEY_LOCAL),
-                session.getModel(),
-                INITIALIZER);
+        ModelFactoryImpl ret = new ModelFactoryImpl(session);
         
         factories.put(session, new SoftReference<IModelFactory>(ret));
         return ret;

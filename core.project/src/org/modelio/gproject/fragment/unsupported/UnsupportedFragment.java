@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.fragment.unsupported;
 
@@ -32,11 +32,12 @@ import org.modelio.gproject.data.project.FragmentDescriptor;
 import org.modelio.gproject.data.project.FragmentType;
 import org.modelio.gproject.data.project.GAuthConf;
 import org.modelio.gproject.data.project.GProperties;
-import org.modelio.gproject.data.project.VersionDescriptors;
+import org.modelio.gproject.data.project.MetamodelDescriptor;
 import org.modelio.gproject.fragment.FragmentState;
 import org.modelio.gproject.fragment.Fragments;
 import org.modelio.gproject.fragment.IFragmentFactory;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.fragment.migration.IFragmentMigrator;
 import org.modelio.gproject.gproject.FragmentConflictException;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectEvent;
@@ -133,8 +134,8 @@ public class UnsupportedFragment implements IProjectFragment {
 
     @objid ("d69e9fd4-cecc-4ef7-8d10-f2134d8ef4f9")
     @Override
-    public void mount(GProject aProject, IModelioProgress aMonitor) {
-        this.project = aProject;
+    public void mount(IModelioProgress aMonitor) {
+        // nothing to do
     }
 
     @objid ("faf37e99-97b6-4d16-a148-d32b9ad8dc0e")
@@ -192,15 +193,21 @@ public class UnsupportedFragment implements IProjectFragment {
         }
     }
 
-    @objid ("e68369af-c8d1-4f28-8256-b78b9bb1bee7")
+    @objid ("28b1d530-b1bf-4a0d-b5e8-2d1e9a4b2c1f")
     @Override
-    public void migrate(GProject project, IModelioProgress aMonitor) throws IOException {
+    public MetamodelDescriptor getRequiredMetamodelDescriptor() throws IOException {
         throw new IOException(this.downCause.getLocalizedMessage(), this.downCause);
     }
 
-    @objid ("28b1d530-b1bf-4a0d-b5e8-2d1e9a4b2c1f")
+    @objid ("6db8b8eb-2b3d-403f-82e0-ad4af968b15c")
     @Override
-    public VersionDescriptors getMetamodelVersion() throws IOException {
+    public void setProject(GProject project) {
+        this.project = project;
+    }
+
+    @objid ("1fcbfce8-9882-4a6a-8ea8-e61c60310a5d")
+    @Override
+    public IFragmentMigrator getMigrator(MetamodelDescriptor targetMetamodel) throws IOException {
         throw new IOException(this.downCause.getLocalizedMessage(), this.downCause);
     }
 

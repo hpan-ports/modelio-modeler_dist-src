@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.activitydiagramview;
 
@@ -60,6 +60,9 @@ public class GmActivityDiagramView extends GmAbstractDiagramView {
     @objid ("299e1b77-55b6-11e2-877f-002564c97630")
     private static final ActivityDiagramViewImageStyleKeys IMAGE_KEYS = new ActivityDiagramViewImageStyleKeys();
 
+    @objid ("19a4f784-f893-4def-bfa3-649e4dcb1192")
+    private static final ActivityDiagramViewUserImageStyleKeys USERIMAGE_KEYS = new ActivityDiagramViewUserImageStyleKeys();
+
     /**
      * For deserialization only.
      */
@@ -89,12 +92,14 @@ public class GmActivityDiagramView extends GmAbstractDiagramView {
     @Override
     public StyleKey getStyleKey(MetaKey metakey) {
         StyleKey ret = STRUCTURED_KEYS.getStyleKey(metakey);
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         
         ret = SIMPLE_KEYS.getStyleKey(metakey);
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         
         ret = IMAGE_KEYS.getStyleKey(metakey);
         return ret;
@@ -104,6 +109,8 @@ public class GmActivityDiagramView extends GmAbstractDiagramView {
     @Override
     public List<StyleKey> getStyleKeys() {
         switch (getRepresentationMode()) {
+        case USER_IMAGE:
+            return USERIMAGE_KEYS.getStyleKeys();
         case IMAGE:
             return IMAGE_KEYS.getStyleKeys();
         case SIMPLE:

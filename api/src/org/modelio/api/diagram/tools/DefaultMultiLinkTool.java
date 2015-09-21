@@ -1,27 +1,26 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.diagram.tools;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.modelio.api.diagram.IDiagramGraphic;
 import org.modelio.api.diagram.IDiagramHandle;
 import org.modelio.api.diagram.IDiagramLink.LinkRouterKind;
@@ -110,14 +109,7 @@ public abstract class DefaultMultiLinkTool extends DefaultDiagramTool implements
     public abstract boolean acceptLastElement(final IDiagramHandle diagramHandle, List<IDiagramGraphic> otherNodes, IDiagramGraphic targetNode);
 
     /**
-     * Construct a DefaultMultiLinkCommand and initialize it by passing the <code>name</code>, the <code>bitmap path</code> and the
-     * <code>tooltip</code> of the command.
-     * @param name
-     * the name of the command.
-     * @param bitmap
-     * the absolute path of the command bitmap.
-     * @param tooltip
-     * the tooltip text of the command.
+     * Construct a DefaultMultiLinkCommand .
      */
     @objid ("a3e4e361-0ecc-11e2-96c4-002564c97630")
     public DefaultMultiLinkTool() {

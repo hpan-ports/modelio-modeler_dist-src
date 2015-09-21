@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.interactionModel.CombinedFragmentData;
+import org.modelio.metamodel.impl.uml.behavior.interactionModel.CombinedFragmentData;
 import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperand;
@@ -42,74 +54,84 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00437f1a-c4bf-1fd8-97fe-001ec947cd2a")
 public class CombinedFragmentImpl extends InteractionFragmentImpl implements CombinedFragment {
-    @objid ("e0f0cc21-f0e9-44fe-82cd-fb9339defc34")
+    @objid ("3b3c47ee-d2d3-4f50-a756-b9feacea95de")
     @Override
     public InteractionOperator getOperator() {
-        return (InteractionOperator) getAttVal(CombinedFragmentData.Metadata.OperatorAtt());
+        return (InteractionOperator) getAttVal(((CombinedFragmentSmClass)getClassOf()).getOperatorAtt());
     }
 
-    @objid ("e313607b-78f5-4c59-9ff0-80af215d3e67")
+    @objid ("6de892c5-101d-489e-bdb3-4133e416c970")
     @Override
     public void setOperator(InteractionOperator value) {
-        setAttVal(CombinedFragmentData.Metadata.OperatorAtt(), value);
+        setAttVal(((CombinedFragmentSmClass)getClassOf()).getOperatorAtt(), value);
     }
 
-    @objid ("ac02e4bd-efa7-497a-aa83-75b7a14ca776")
+    @objid ("f6b8f77a-4643-4026-858a-90a201a829b1")
     @Override
     public EList<InteractionOperand> getOperand() {
-        return new SmList<>(this, CombinedFragmentData.Metadata.OperandDep());
+        return new SmList<>(this, ((CombinedFragmentSmClass)getClassOf()).getOperandDep());
     }
 
-    @objid ("eb720ac5-d26b-4c76-a37b-93f6ec5e7aff")
+    @objid ("cb28449c-58c2-4586-bda6-1fd9965c93a4")
     @Override
     public <T extends InteractionOperand> List<T> getOperand(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final InteractionOperand element : getOperand()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("439d5b40-0cfe-4340-99f7-284f7e7dee8e")
+    @objid ("dd92118b-ecac-4b7a-b9a4-ee7aa0808753")
     @Override
     public EList<Gate> getFragmentGate() {
-        return new SmList<>(this, CombinedFragmentData.Metadata.FragmentGateDep());
+        return new SmList<>(this, ((CombinedFragmentSmClass)getClassOf()).getFragmentGateDep());
     }
 
-    @objid ("3eb19463-25be-4311-8287-ef2903bf658d")
+    @objid ("b45c0522-8b29-4cb1-b130-fda96392e6bd")
     @Override
     public <T extends Gate> List<T> getFragmentGate(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Gate element : getFragmentGate()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("fe0203bf-0089-47e1-9832-97a961c706ff")
+    @objid ("335d672b-0240-4547-b70d-fc348478e47e")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("f6c1299f-b70d-4a98-9c10-3d27009e1a93")
+    @objid ("cff47059-371b-43b0-8ece-fa883806adbb")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("13ea294d-cafc-4cb2-81ae-b93cf16bda09")
+    @objid ("65db39af-4257-4f8c-97c9-a28c35a8f6b8")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCombinedFragment(this);

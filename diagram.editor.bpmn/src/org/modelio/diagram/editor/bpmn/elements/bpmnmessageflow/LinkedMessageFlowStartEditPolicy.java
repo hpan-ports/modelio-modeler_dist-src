@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnmessageflow;
 
@@ -30,6 +30,7 @@ import org.modelio.diagram.editor.bpmn.elements.bpmnmessage.CreateLinkedBpmnMess
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.helpers.AnchorModelHelper;
+import org.modelio.metamodel.bpmn.flows.BpmnMessage;
 import org.modelio.metamodel.bpmn.flows.BpmnMessageFlow;
 
 /**
@@ -40,8 +41,8 @@ public class LinkedMessageFlowStartEditPolicy extends LinkedNodeStartCreationEdi
     @objid ("616ff6ab-55b6-11e2-877f-002564c97630")
     @Override
     protected Command getConnectionCreateCommand(final CreateConnectionRequest request) {
-        final ModelioCreationContext context = (ModelioCreationContext) request.getNewObject();
-        if (context.getMetaclass().equals("BpmnMessage")) {
+        final ModelioCreationContext context = ModelioCreationContext.fromRequest(request);
+        if (context.getJavaClass() == BpmnMessage.class) {
             final EditPart nodeEditPart = getHost();
             final CreateLinkedBpmnMessageCommand cmd = new CreateLinkedBpmnMessageCommand(context);
             cmd.setSource(nodeEditPart);
@@ -63,8 +64,9 @@ public class LinkedMessageFlowStartEditPolicy extends LinkedNodeStartCreationEdi
             }
         
             if (REQ_LINKEDNODE_START.equals(request.getType()) ||
-                    REQ_RECONNECT_SOURCE.equals(request.getType()))
+                    REQ_RECONNECT_SOURCE.equals(request.getType())) {
                 return getHost();
+            }
         }
         return null;
     }

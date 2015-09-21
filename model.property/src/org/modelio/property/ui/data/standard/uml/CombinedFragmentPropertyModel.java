@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -41,12 +41,12 @@ public class CombinedFragmentPropertyModel extends AbstractPropertyModel<Combine
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a6a5092e-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"CombinedFragment", "Operator"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Operator" };
 
     @objid ("8ee65c95-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -60,7 +60,7 @@ public class CombinedFragmentPropertyModel extends AbstractPropertyModel<Combine
     @objid ("8ee65c97-c068-11e1-8c0a-002564c97630")
     public CombinedFragmentPropertyModel(CombinedFragment theEditedElement) {
         super(theEditedElement);
-                    
+        
         this.labelStringType = new StringType(false);
         this.operatorType = new EnumType(InteractionOperator.class);
     }
@@ -101,12 +101,12 @@ public class CombinedFragmentPropertyModel extends AbstractPropertyModel<Combine
             return CombinedFragmentPropertyModel.PROPERTIES[row];
         case 1: // col 1 is the property value
             switch (row) {
-                case 0: // Header
-                    return "Value";
-                case 1:
-                    return this.theEditedElement.getOperator();
-                default:
-                    return null;
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getOperator();
+            default:
+                return null;
             }
         default:
             return null;
@@ -116,8 +116,7 @@ public class CombinedFragmentPropertyModel extends AbstractPropertyModel<Combine
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -132,12 +131,12 @@ public class CombinedFragmentPropertyModel extends AbstractPropertyModel<Combine
             return this.labelStringType;
         case 1: // col 1 is the property value type
             switch (row) {
-                case 0: // Header
-                    return this.labelStringType;
-                case 1:
-                    return this.operatorType;
-                default:
-                    return null;
+            case 0: // Header
+                return this.labelStringType;
+            case 1:
+                return this.operatorType;
+            default:
+                return null;
             }
         default:
             return null;
@@ -160,15 +159,15 @@ public class CombinedFragmentPropertyModel extends AbstractPropertyModel<Combine
             return;
         case 1: // col 1 is the property value
             switch (row) {
-                case 0:
-                    return; // Header cannot be modified
-                case 1:
-                    this.theEditedElement.setOperator((InteractionOperator) value);
-                    break;
-                default:
-                    return;
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setOperator((InteractionOperator) value);
+                break;
+            default:
+                return;
             }
-              break;
+            break;
         default:
             return;
         }

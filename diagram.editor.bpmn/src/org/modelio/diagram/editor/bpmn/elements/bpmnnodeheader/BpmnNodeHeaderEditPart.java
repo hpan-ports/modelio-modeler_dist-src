@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnnodeheader;
 
@@ -26,6 +26,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.diagram.elements.common.header.GmModelElementHeader;
+import org.modelio.diagram.elements.common.header.IHeaderFigure;
 import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
 import org.modelio.diagram.elements.common.header.WrappedHeaderFigure;
 import org.modelio.diagram.styles.core.StyleKey.ShowStereotypeMode;
@@ -52,7 +53,7 @@ public class BpmnNodeHeaderEditPart extends ModelElementHeaderEditPart {
 
     @objid ("617c2b7a-55b6-11e2-877f-002564c97630")
     @Override
-    protected void refreshMetaclassIcon(final WrappedHeaderFigure headerFigure, final GmModelElementHeader gm, ShowStereotypeMode mode) {
+    protected void refreshMetaclassIcon(final IHeaderFigure headerFigure, final GmModelElementHeader gm, ShowStereotypeMode mode) {
         //FIXME ?
         // The redefinition of the icons should not be processed here (it is a design mistake)
         // Instead the getMetaClassIcon() on the GM should have been redefined. Unfortunately getMetaClassIcon() returns only one image (not a list)...

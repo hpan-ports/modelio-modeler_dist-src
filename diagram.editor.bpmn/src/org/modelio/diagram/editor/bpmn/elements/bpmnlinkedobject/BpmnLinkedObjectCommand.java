@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnlinkedobject;
 
@@ -37,7 +37,6 @@ import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.gproject.model.IElementConfigurator;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.events.BpmnCatchEvent;
 import org.modelio.metamodel.bpmn.events.BpmnThrowEvent;
@@ -47,6 +46,7 @@ import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -82,8 +82,9 @@ public class BpmnLinkedObjectCommand extends CreateLinkedNodeCommand {
         //        GmNodeModel target = null;
         
         if (newElement == null) {
-            ModelManager modelManager = diagram.getModelManager();
-            
+            final ModelManager modelManager = diagram.getModelManager();
+            final MExpert expert = this.context.getMetaclass().getMetamodel().getMExpert();
+        
             // Create the Element...
             final IModelFactory modelFactory = modelManager.getModelFactory(diagram.getRelatedElement());
             newElement = (BpmnItemAwareElement) modelFactory.createElement(this.context.getMetaclass());
@@ -91,13 +92,10 @@ public class BpmnLinkedObjectCommand extends CreateLinkedNodeCommand {
             // The new element must be attached to its parent using the composition dependency
             // provided by the context.
             // If the context provides a null dependency, use the default dependency recommended by the metamodel
-            String effectiveDependencyName = this.context.getDependency();
-            MDependency effectiveDependency = null;
-            if (effectiveDependencyName != null) {
-                effectiveDependency = this.parentElement.getMClass().getDependency(effectiveDependencyName);
-            }
+            MDependency effectiveDependency = this.context.getDependency();
             if (effectiveDependency == null) {
-                effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, newElement);
+                effectiveDependency = expert
+                        .getDefaultCompositionDep(this.parentElement, newElement);
             }
         
             // ... and attach it to its parent.
@@ -107,7 +105,7 @@ public class BpmnLinkedObjectCommand extends CreateLinkedNodeCommand {
                 // FIXME: use a more accurate type of exception.
                 // The dependency indicated in the context cannot be used: try
                 // to find a valid one!
-                MDependency compositionDep = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, newElement);
+                MDependency compositionDep = expert.getDefaultCompositionDep(this.parentElement, newElement);
                 if (compositionDep != null) {
                     this.parentElement.mGet(compositionDep).add(newElement);
                 } else {
@@ -121,10 +119,10 @@ public class BpmnLinkedObjectCommand extends CreateLinkedNodeCommand {
                 ((ModelElement) newElement).getExtension().add(this.context.getStereotype());
         
             }
-            
+        
             // Set default name
             newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
-            
+        
          // Configure element from properties
             final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
             elementConfigurer.configure(modelManager.getModelFactory(newElement), newElement, this.context.getProperties());
@@ -167,13 +165,19 @@ public class BpmnLinkedObjectCommand extends CreateLinkedNodeCommand {
         if (this.sourceNode != this.destNode) {
             for (BpmnDataAssociation link : dataAssociation) {
                 if (newElement instanceof BpmnDataOutput) {
-                    GmLink gmlink = diagram.unmaskLink(link, this.sourceNode, createdNode, new GmPath());
-                    gmlink.setSourceAnchor(new GmLinkAnchor(this.sourceAnchorLocation));
-                    gmlink.setTargetAnchor(new GmLinkAnchor(new Dimension(0, 10)));
+                    GmPath gmpath = new GmPath();
+                    gmpath.setSourceAnchor(new GmLinkAnchor(this.sourceAnchorLocation));
+                    gmpath.setTargetAnchor(new GmLinkAnchor(new Dimension(0, 10)));
+        
+                    @SuppressWarnings("unused")
+                    GmLink gmlink = diagram.unmaskLink(link, this.sourceNode, createdNode, gmpath);
                 } else {
-                    GmLink gmlink = diagram.unmaskLink(link, createdNode, this.sourceNode, new GmPath());
-                    gmlink.setSourceAnchor(new GmLinkAnchor(this.sourceAnchorLocation));
-                    gmlink.setTargetAnchor(new GmLinkAnchor(new Dimension(0, 10)));
+                    GmPath gmpath = new GmPath();
+                    gmpath.setSourceAnchor(new GmLinkAnchor(this.sourceAnchorLocation));
+                    gmpath.setTargetAnchor(new GmLinkAnchor(new Dimension(0, 10)));
+        
+                    @SuppressWarnings("unused")
+                    GmLink gmlink = diagram.unmaskLink(link, createdNode, this.sourceNode, gmpath);
                 }
         
             }

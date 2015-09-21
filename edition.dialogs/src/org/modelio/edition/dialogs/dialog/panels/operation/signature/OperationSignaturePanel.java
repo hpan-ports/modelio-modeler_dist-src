@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.dialogs.dialog.panels.operation.signature;
 
@@ -28,25 +28,25 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.edition.dialogs.dialog.panels.operation.OperationModel;
 import org.modelio.metamodel.uml.statik.Parameter;
+import org.modelio.ui.CoreFontRegistry;
 import org.modelio.ui.panel.IPanelProvider;
 
 @objid ("093046bf-e6b1-43f3-b586-0ebfb9763635")
 public class OperationSignaturePanel implements IPanelProvider {
-    @objid ("3cfe2de5-29ab-46ce-8200-bf30d59ee2bb")
-    private OperationModel opModel;
-
-    @objid ("a75efe37-e159-4469-ac40-ff17b0208b12")
+    @objid ("087c3794-a0a6-4903-9a52-c45cc5f683e4")
     private Composite container;
 
-    @objid ("bea1bddd-e545-4e08-80bd-e146fcb5ca40")
+    @objid ("9a02ccea-13ca-4b2b-845d-9cac73a39d92")
     private Label previewLabel;
 
-    @objid ("7c8bafa4-136d-4b8c-b97e-1a3fd5a00d87")
+    @objid ("9a91e880-ccd1-493e-a057-93e9f90a7dd2")
      Label previewIcon;
+
+    @objid ("3cfe2de5-29ab-46ce-8200-bf30d59ee2bb")
+    private OperationModel opModel;
 
     @objid ("cd5bb156-2e3d-4087-b592-62a0408245a4")
     @Override

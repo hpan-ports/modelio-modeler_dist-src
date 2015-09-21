@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,45 +12,91 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateVertex;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
+/**
+ * Region v0.0.9054
+ */
 @objid ("0056e10e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Region extends ModelElement {
-    @objid ("95315de8-c6b6-4a4e-8885-48eaca544917")
+    @objid ("7c7db1f5-af16-40cb-959e-4559e678955b")
+    public static final String MNAME = "Region";
+
+    /**
+     * Getter for relation 'Region->Parent'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("7a994160-5464-4749-9909-511b6e52a81b")
     State getParent();
 
-    @objid ("d37f8921-deff-4ca6-a467-f1dd680f0f4c")
+    /**
+     * Setter for relation 'Region->Parent'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("3d7edbd9-2e76-4260-bc34-1929a293bbf3")
     void setParent(State value);
 
-    @objid ("e34125b2-c429-4be8-b790-da83fbec27c5")
+    /**
+     * Getter for relation 'Region->Represented'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("fbe52355-675e-4368-a06d-4073a33bf57d")
     StateMachine getRepresented();
 
-    @objid ("0aa85ea3-9ac6-4beb-8d1c-be7f5cdcdad0")
+    /**
+     * Setter for relation 'Region->Represented'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("a380bce6-5ae6-486f-bc45-ce4811dab02b")
     void setRepresented(StateMachine value);
 
-    @objid ("0393e910-6b61-4e62-8e56-47db68107f0e")
+    /**
+     * Getter for relation 'Region->Sub'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("8ec7d81f-1469-4c7b-a970-d5c2be215e2b")
     EList<StateVertex> getSub();
 
-    @objid ("1e867a29-1c1e-4a4a-ad3d-fceb9026b16f")
+    /**
+     * Filtered Getter for relation 'Region->Sub'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("21728a7b-469b-4bf1-860f-b63eb9e92e44")
     <T extends StateVertex> List<T> getSub(java.lang.Class<T> filterClass);
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.nsuse;
 
@@ -43,7 +43,7 @@ import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.api.repository.IRepositorySupport;
 import org.modelio.vcore.session.api.transactions.ITransaction;
-import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Initialize the namespace uses (blue links) on a project.
@@ -91,18 +91,19 @@ public class NSUseInitializer {
         if (nsUseRepo != null) {
             // Test whether namespace uses have been computed
             NsUseState nsState = new NsUseState(nsUseRepo, this.openedProject.getProperties());
-            boolean needRebuild = !nsState.isInitialized(); 
+            boolean needRebuild = !nsState.isInitialized();
         
-            if (needRebuild && !nsUseRepo.findByClass(SmClass.getClass(NamespaceUse.class)).isEmpty()) {
+            SmMetamodel mm = this.openedProject.getSession().getMetamodel();
+            if (needRebuild && !nsUseRepo.findByClass(mm.getMClass(NamespaceUse.class)).isEmpty()) {
                 //TODO to be removed: Ascendent compat: The above test took too much time time
                 nsState.setInitialized();
                 needRebuild = false;
             }
-            
+        
             needRebuild |= projectContentChanged(this.openedProject, nsState);
-            
+        
             NSUseUpdater nsUseUpdater = new NSUseUpdater(this.openedProject, nsUseRepo);
-            
+        
             // Rebuild blue links if needed
             if (needRebuild) {
                 if (!buildNsUses(nsUseUpdater, nsState))
@@ -110,17 +111,17 @@ public class NSUseInitializer {
                 else
                     nsState.setInitialized();
             }
-            
+        
             if (nsUseUpdater != null) {
                 // Register the namespace uses (blue links) builder on transaction commit
                 this.coreSession.getTransactionSupport().setClosureHandler(nsUseUpdater);
-                
+        
                 // Register repository change listener that updates namespace uses
-                NsUseRepositoryChangeListener changesHandler = new NsUseRepositoryChangeListener(nsUseRepo, nsUseUpdater, this.coreSession.getTransactionSupport(), this.progressService, this.statusReporter, nsState);
+                NsUseRepositoryChangeListener changesHandler = new NsUseRepositoryChangeListener(nsUseRepo, nsUseUpdater, this.coreSession, this.progressService, this.statusReporter, nsState);
                 this.coreSession.getRepositorySupport().addRepositoryChangeListener(changesHandler);
                 this.openedProject.getMonitorSupport().addMonitor(changesHandler);
         
-            } 
+            }
         }
     }
 
@@ -145,7 +146,7 @@ public class NSUseInitializer {
                     t.commit();
                 } catch (IOException e) {
                     throw new InvocationTargetException(e, getMsg(e));
-                } 
+                }
             }
         };
         
@@ -160,11 +161,11 @@ public class NSUseInitializer {
                     NSUseInitializer.this.progressService.run(title , true, true, runnable);
                     ret [0] = true;
                 } catch (InterruptedException e) {
-                    String msg = Vaudit.I18N.getMessage("ModelShield.NSUseBuildCanceled"); 
+                    String msg = Vaudit.I18N.getMessage("ModelShield.NSUseBuildCanceled");
                     String msg2 = Vaudit.I18N.getMessage("ModelShield.NSUseBuildCanceled.2");
                     NSUseInitializer.this.statusReporter.show(StatusReporter.WARNING, msg, null, msg2);
                 } catch (InvocationTargetException e) {
-                    String msg = Vaudit.I18N.getMessage("ModelShield.NSUseBuildFailed"); 
+                    String msg = Vaudit.I18N.getMessage("ModelShield.NSUseBuildFailed");
                     String msg2 = Vaudit.I18N.getMessage("ModelShield.NSUseBuildCanceled.2");
                     NSUseInitializer.this.statusReporter.show(StatusReporter.WARNING, msg, e.getCause(), msg2);
                 }
@@ -178,7 +179,7 @@ public class NSUseInitializer {
             try {
                 this.openedProject.save(null);
             } catch (IOException e) {
-                String msg = Vaudit.I18N.getMessage("ModelShield.NSUseBuildCanceled"); 
+                String msg = Vaudit.I18N.getMessage("ModelShield.NSUseBuildCanceled");
                 String msg2 = Vaudit.I18N.getMessage("ModelShield.NSUseBuildCanceled.2");
                 this.statusReporter.show(StatusReporter.WARNING, msg, e, msg2);
                 return false;
@@ -208,7 +209,7 @@ public class NSUseInitializer {
                 if (! handled.contains(f))
                     return true;
             }
-            
+        
             // test all handled fragments are still here
             for (String fid : handled) {
                 if (!projFragmentIds.contains(fid))

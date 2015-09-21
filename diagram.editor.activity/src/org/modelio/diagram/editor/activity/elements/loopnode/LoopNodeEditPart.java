@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.loopnode;
 
@@ -30,10 +30,12 @@ import org.modelio.diagram.editor.activity.elements.policies.CreateFlowEditPolic
 import org.modelio.diagram.editor.activity.elements.policies.SmartDropEditPolicy;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.RoundedBoxFigure;
 import org.modelio.diagram.elements.core.figures.ToolbarLayoutWithGrab;
 import org.modelio.diagram.elements.core.figures.borders.TLBRBorder;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
+import org.modelio.diagram.elements.core.policies.AutoExpandLayoutEditPolicy;
 import org.modelio.diagram.elements.core.policies.DelegatingEditPolicy;
 import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
 import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointRequest;
@@ -62,7 +64,7 @@ public class LoopNodeEditPart extends GmNodeEditPart {
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
         
         if (index > 0) {
-            final RoundedBoxFigure roundedBoxFigure = (RoundedBoxFigure) this.getFigure();
+            final RoundedBoxFigure roundedBoxFigure = (RoundedBoxFigure) getFigure();
             final TLBRBorder upperBorder = new TLBRBorder(roundedBoxFigure.getLineColor(),
                                                           roundedBoxFigure.getLineWidth(),
                                                           true,
@@ -80,10 +82,11 @@ public class LoopNodeEditPart extends GmNodeEditPart {
     protected void createEditPolicies() {
         super.createEditPolicies();
         
+        installEditPolicy("delegate", new DelegatingEditPolicy());
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new AutoExpandLayoutEditPolicy());
         installEditPolicy(EditPolicy.NODE_ROLE, new CreateFlowEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                           new LinkedNodeStartCreationEditPolicy());
-        installEditPolicy(EditPolicy.LAYOUT_ROLE, new DelegatingEditPolicy());
         installEditPolicy(ModelElementDropRequest.TYPE, new SmartDropEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
     }
@@ -99,7 +102,7 @@ public class LoopNodeEditPart extends GmNodeEditPart {
         fig.setLayoutManager(layout);
         
         // set style independent properties
-        fig.setPreferredSize(250, 200);
+        MinimumSizeLayout.apply(fig, 150, 100);
         
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
@@ -115,8 +118,8 @@ public class LoopNodeEditPart extends GmNodeEditPart {
     @objid ("2ac620cc-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmLoopNodePrimaryNode loopnodeModel = (GmLoopNodePrimaryNode) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), loopnodeModel.getLayoutData());
+        GmLoopNodePrimaryNode loopnodeModel = (GmLoopNodePrimaryNode) getModel();
+        getFigure().getParent().setConstraint(getFigure(), loopnodeModel.getLayoutData());
     }
 
     @objid ("2ac620d0-55b6-11e2-877f-002564c97630")

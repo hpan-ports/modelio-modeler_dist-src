@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.handlers.copy;
 
@@ -38,11 +38,9 @@ import org.modelio.core.ui.copy.PasteElementObject;
 import org.modelio.core.ui.copy.PasteElementTransfer;
 import org.modelio.core.ui.copy.TransferItem;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.property.PropertyView;
 import org.modelio.property.ui.ModelPropertyPanelProvider;
-import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Copy selected stereotype(s) into the clipboard.
@@ -80,9 +78,11 @@ public class CopyStereotypeHandler {
             return false;
         }
         
-        List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
-        if (selectedElements.isEmpty()) return false;
-        for (ModelElement element : selectedElements) {            
+        List<Object> selectedElements = propertyPanel.getSelectedTypeItems();
+        if (selectedElements.isEmpty()) {
+            return false;
+        }
+        for (Object element : selectedElements) {
             if (!(element instanceof Stereotype)) {
                 return false;
             }
@@ -100,12 +100,12 @@ public class CopyStereotypeHandler {
     public final void execute(@Named(IServiceConstants.ACTIVE_PART) final MPart part, Display currentDisplay) {
         ModelPropertyPanelProvider propertyPanel = ((PropertyView) part.getObject()).getPanel();
         
-        List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
+        List<Object> selectedElements = propertyPanel.getSelectedTypeItems();
         
         PasteElementObject toCopy = new PasteElementObject(PasteType.COPY);
         
-        for (MObject element : selectedElements) {
-            toCopy.addTransferedItems(new TransferItem(element, propertyPanel.getInput()));
+        for (Object element : selectedElements) {
+            toCopy.addTransferedItems(new TransferItem((Stereotype) element, propertyPanel.getInput()));
         }
         
         Clipboard clipboard= new Clipboard(currentDisplay);

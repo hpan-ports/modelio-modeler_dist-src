@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Rich notes edition
 Bundle-SymbolicName: org.modelio.editors.richnote;singleton:=true
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Bundle-Vendor: Modeliosoft
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.core.runtime,
@@ -28,7 +28,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.modelio.metamodel.emfapi,
  org.modelio.ui,
  org.eclipse.e4.ui.di,
- de.kupzog.ktable
+ de.kupzog.ktable,
+ org.modelio.core.help
 Import-Package: javax.annotation;version="1.1.0",
  javax.inject;version="1.0.0"
 Export-Package: org.modelio.editors.richnote.api,

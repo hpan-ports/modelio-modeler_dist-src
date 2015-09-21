@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Diagram Editor
 Bundle-SymbolicName: org.modelio.diagram.editor;singleton:=true
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.modelio.log,
  org.modelio.ui,
@@ -18,7 +18,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.ui.workbench,
  org.eclipse.e4.core.contexts,
  org.eclipse.e4.ui.di,
- org.modelio.app.core,
  org.eclipse.gef,
  org.modelio.metamodel.emfapi,
  org.modelio.diagram.styles,
@@ -36,7 +35,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.ui.model.workbench,
  org.eclipse.emf.common,
  org.modelio.metamodel.emfapi,
- org.modelio.module.browser.commands
+ org.modelio.module.browser.commands,
+ org.modelio.core.help,
+ org.modelio.app.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: res/,
  .

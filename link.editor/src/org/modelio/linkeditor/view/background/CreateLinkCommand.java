@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.linkeditor.view.background;
 
@@ -26,13 +26,12 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Display;
+import org.modelio.api.module.IMdaExpert;
 import org.modelio.gproject.model.IElementNamer;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.linkeditor.view.LinkEditorView;
 import org.modelio.linkeditor.view.background.typeselection.TypeSelectionModel;
 import org.modelio.linkeditor.view.background.typeselection.TypeSelectionPopup;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -46,6 +45,8 @@ import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.vcore.smkernel.mapi.MExpert;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -67,45 +68,52 @@ public class CreateLinkCommand extends Command {
     @objid ("c7084642-49cd-4e19-b243-54eb56ec8376")
     private static Object linkTypeToUse = null;
 
+    @objid ("8acdaf42-e7ce-4519-9661-eb06c8e17180")
+    private IMdaExpert mdaExpert;
+
     /**
      * C'tor.
+     * @param mdaExpert
      * @param from the origin
      * @param to the destination
      * @param newLinkTypes the type(s) of the link to create, can be any mix of {@link AssociationEnd}.class, {@link ElementImport} .class,
      * {@link Generalization}.class, {@link Dependency}.class and Stereotype(s) that can be applied to a dependency;
      */
     @objid ("e6088f98-5efd-11e2-a8be-00137282c51b")
-    public CreateLinkCommand(final MObject from, final MObject to, final List<Object> newLinkTypes) {
+    public CreateLinkCommand(final MObject from, final MObject to, final List<Object> newLinkTypes, IMdaExpert mdaExpert) {
         this.from = from;
         this.to = to;
         this.newLinkTypes = newLinkTypes;
+        this.mdaExpert = mdaExpert;
         CreateLinkCommand.linkTypeToUse = null;
     }
 
     @objid ("e6088fa3-5efd-11e2-a8be-00137282c51b")
     @Override
     public boolean canExecute() {
+        MMetamodel mm = this.from.getMClass().getMetamodel();
+        MExpert mExpert = mm.getMExpert();
         boolean isFromModifiable = this.from.getStatus().isModifiable();
         boolean canLink = true;
+        
         if (this.newLinkTypes.size() == 0) {
             canLink = true;
         } else if (this.newLinkTypes.size() == 1) {
             Object newLinkType = this.newLinkTypes.get(0);
             if (newLinkType instanceof Class) {
                 if (AssociationEnd.class.isAssignableFrom((Class<?>) newLinkType)) {
-                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(AssociationEnd.class), this.from, this.to);
+                    canLink = mExpert.canLink(mm.getMClass(AssociationEnd.class), this.from, this.to);
                 } else if (Dependency.class.isAssignableFrom((Class<?>) newLinkType)) {
-                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(Dependency.class), this.from, this.to);
+                    canLink = mExpert.canLink(mm.getMClass(Dependency.class), this.from, this.to);
                 } else if (ElementImport.class.isAssignableFrom((Class<?>) newLinkType)) {
-                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(ElementImport.class), this.from, this.to);
+                    canLink = mExpert.canLink(mm.getMClass(ElementImport.class), this.from, this.to);
                 } else if (Generalization.class.isAssignableFrom((Class<?>) newLinkType)) {
-                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(Generalization.class), this.from, this.to);
+                    canLink = mExpert.canLink(mm.getMClass(Generalization.class), this.from, this.to);
                 } else if (InterfaceRealization.class.isAssignableFrom((Class<?>) newLinkType)) {
-                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(InterfaceRealization.class), this.from, this.to);
+                    canLink = mExpert.canLink(mm.getMClass(InterfaceRealization.class), this.from, this.to);
                 }
             } else if (newLinkType instanceof Stereotype) {
-                canLink = MTools.getLinkTool().canLink(((Stereotype) newLinkType), Metamodel.getMClass(Dependency.class),
-                        this.from, this.to);
+                canLink = this.mdaExpert.canLink(((Stereotype) newLinkType), mm.getMClass(Dependency.class), this.from, this.to);
             }
         }
         // else {

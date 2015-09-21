@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.diagramauto.handlers.properties;
 
@@ -51,18 +51,12 @@ public class CommandVisiblePropertyTester extends PropertyTester {
             return false;
         }
         
-        final IStructuredSelection selection = (IStructuredSelection) receiver;        
+        final IStructuredSelection selection = (IStructuredSelection) receiver;
         Object element = selection.getFirstElement();
-        switch (property) {        
+        switch (property) {
             case "packagstructure":
             case "subpackagstructure":
                 if (selection.size() == 1 &&  element instanceof Package && !(element instanceof Profile)) {
-                    return ((MObject)element).getMClass().isCmsNode();
-                }
-                return false;
-            case "classstructure":
-            case "inheritance":
-                if (selection.size() == 1 && element instanceof Classifier && !(element instanceof ModuleComponent)) {
                     return ((MObject)element).getMClass().isCmsNode();
                 }
                 return false;

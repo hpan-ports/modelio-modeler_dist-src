@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -30,9 +30,6 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("58a55940-9498-4658-b941-f5e8412560ac")
 public class OAcceptSignalAction extends OActivityNode {
-    @objid ("6d6b6299-b4d6-4877-a1c9-566ff3421eef")
-    private AcceptSignalAction objingElement = null;
-
     @objid ("3358b0d2-1da9-42b6-adcf-cafe100bbb08")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -42,7 +39,6 @@ public class OAcceptSignalAction extends OActivityNode {
     @objid ("0cff6ca0-b0fe-4f13-bff2-c1d9420677ab")
     public OAcceptSignalAction(AcceptSignalAction element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("7b4ef53e-6ff9-42ba-9c6d-0d5750ee31c6")
@@ -61,7 +57,7 @@ public class OAcceptSignalAction extends OActivityNode {
 
     @objid ("88a57a71-7731-4bde-bfe4-de8d7a37755f")
     private void setAccepted(org.eclipse.uml2.uml.AcceptEventAction action) {
-        for (Signal objingSignal : this.objingElement.getAccepted()) {
+        for (Signal objingSignal : getObjingElement().getAccepted()) {
             org.eclipse.uml2.uml.Element ecoreSignal = GenerationProperties.getInstance().getMappedElement(objingSignal);
             if (ecoreSignal instanceof  org.eclipse.uml2.uml.Signal) {
                 org.eclipse.uml2.uml.Trigger trigger = UMLFactory.eINSTANCE.createTrigger();
@@ -86,6 +82,12 @@ public class OAcceptSignalAction extends OActivityNode {
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             ObjingEAnnotation.setSignal(ecoreElt, "signal");
         }
+    }
+
+    @objid ("ea0444c4-1a2a-4b2e-9361-76bd4a9b443f")
+    @Override
+    public AcceptSignalAction getObjingElement() {
+        return (AcceptSignalAction) super.getObjingElement();
     }
 
 }

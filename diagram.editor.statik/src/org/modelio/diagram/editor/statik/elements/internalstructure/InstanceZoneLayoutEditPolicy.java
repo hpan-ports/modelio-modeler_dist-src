@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.internalstructure;
 
@@ -30,11 +30,11 @@ import org.modelio.diagram.elements.common.freezone.DefaultFreeZoneLayoutEditPol
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.Instance;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -66,7 +66,7 @@ public class InstanceZoneLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
 
     @objid ("35942159-55b7-11e2-877f-002564c97630")
     private CreateRequest getModifiedRequest(CreateRequest req) {
-        ModelioCreationContext context = (ModelioCreationContext) req.getNewObject();
+        ModelioCreationContext context = ModelioCreationContext.fromRequest(req);
         
         if ("true".equals(context.getProperties().get("smart"))) {
         
@@ -76,8 +76,10 @@ public class InstanceZoneLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
             if (targetElement instanceof Instance ||
                 targetElement instanceof Classifier ||
                 targetElement instanceof Collaboration) {
+                MMetamodel mm = targetElement.getMClass().getMetamodel();
+        
                 // Ask to create a BindableInstance
-                ModelioCreationContext newContext = new ModelioCreationContext(Metamodel.getMClass(BindableInstance.class).getName(),
+                ModelioCreationContext newContext = new ModelioCreationContext(mm.getMClass(BindableInstance.class),
                                                                                context.getDependency(),
                                                                                context.getStereotype());
         

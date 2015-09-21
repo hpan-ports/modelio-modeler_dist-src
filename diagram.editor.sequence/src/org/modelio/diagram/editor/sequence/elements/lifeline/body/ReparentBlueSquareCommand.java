@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.lifeline.body;
 
@@ -27,11 +27,11 @@ import org.eclipse.gef.commands.Command;
 import org.modelio.diagram.editor.sequence.elements.executionoccurencespecification.GmExecutionOccurenceSpecification;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecification;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -69,7 +69,8 @@ public class ReparentBlueSquareCommand extends Command {
     @objid ("d9376a49-55b6-11e2-877f-002564c97630")
     @Override
     public boolean canExecute() {
-        final ExecutionOccurenceSpecification childElement = (ExecutionOccurenceSpecification) this.reparentedChild.getRelatedElement();
+        final ExecutionOccurenceSpecification childElement = (ExecutionOccurenceSpecification) this.reparentedChild
+                .getRelatedElement();
         
         if (childElement == null || !childElement.getStatus().isModifiable()) {
             return false;
@@ -89,9 +90,12 @@ public class ReparentBlueSquareCommand extends Command {
             return false;
         }
         
+        MMetamodel mm = childElement.getMClass().getMetamodel();
+        
         boolean sameParentInObModel = newParent.equals(oldParent);
-        return sameParentInObModel ||
-               (oldParent.getStatus().isModifiable() && newParent.getStatus().isModifiable() && MTools.getMetaTool().canCompose(newParent, childElement, "CoveredBy"));
+        return sameParentInObModel
+                                        || (oldParent.getStatus().isModifiable() && newParent.getStatus().isModifiable() && mm.getMExpert().canCompose(
+                                                newParent, childElement, "CoveredBy"));
     }
 
     @objid ("d9376a4e-55b6-11e2-877f-002564c97630")
@@ -108,7 +112,7 @@ public class ReparentBlueSquareCommand extends Command {
         
             MDependency mDep = oldParentElement.getMClass().getDependency(oldParentDep);
             List<MObject> children = oldParentElement.mGet(mDep);
-            
+        
             children.remove(childElement);
             if (childElement.getStarted() != null) {
                 children.remove(childElement.getStarted());
@@ -169,7 +173,8 @@ public class ReparentBlueSquareCommand extends Command {
             } catch (Exception e) {
                 // Maybe new parent is not using the same dependency for composition
                 // Try to find a fitting dependency
-                MDependency defaultCompositionDep = MTools.getMetaTool().getDefaultCompositionDep(newParentElement, childElement);
+                MMetamodel mm = newParentElement.getMClass().getMetamodel();
+                MDependency defaultCompositionDep = mm.getMExpert().getDefaultCompositionDep(newParentElement, childElement);
                 List<MObject> children = newParentElement.mGet(defaultCompositionDep);
                 children.add(childElement);
                 if (childElement.getStarted() != null) {

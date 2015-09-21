@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,34 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.informationitem;
 
-import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.header.GmModelElementHeader;
+import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
 import org.modelio.diagram.elements.core.model.IGmObject;
-import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.IStyle;
-import org.modelio.diagram.styles.core.MetaKey;
-import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 import org.modelio.diagram.styles.core.StyleKey.ShowNameMode;
 import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.informationFlow.InformationItem;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -55,7 +49,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * - a stereotype icons bar <br>
  */
 @objid ("3510e79b-55b7-11e2-877f-002564c97630")
-public class GmInformationItemHeader extends GmModelElementHeader {
+public class GmInformationItemHeader extends GmDefaultModelElementHeader {
     /**
      * Current version of this Gm. Defaults to 0.
      */
@@ -84,53 +78,10 @@ public class GmInformationItemHeader extends GmModelElementHeader {
         init();
     }
 
-    @objid ("35126e07-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<Stereotype> filterStereotypes(List<Stereotype> stereotypes) {
-        return stereotypes;
-    }
-
-    @objid ("35126e15-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<TaggedValue> filterTags(List<TaggedValue> taggedValues) {
-        return taggedValues;
-    }
-
     @objid ("35126e23-55b7-11e2-877f-002564c97630")
     @Override
     public InformationItem getRelatedElement() {
         return (InformationItem) super.getRelatedElement();
-    }
-
-    /**
-     * Delegates to the parent.
-     */
-    @objid ("35126e2a-55b7-11e2-877f-002564c97630")
-    @Override
-    public RepresentationMode getRepresentationMode() {
-        if (getParent() == null)
-            return RepresentationMode.STRUCTURED;
-        return getParent().getRepresentationMode();
-    }
-
-    /**
-     * Delegates to the parent.
-     */
-    @objid ("35126e32-55b7-11e2-877f-002564c97630")
-    @Override
-    public StyleKey getStyleKey(MetaKey metakey) {
-        if (getParent() == null)
-            return null;
-        return getParent().getStyleKey(metakey);
-    }
-
-    /**
-     * The header does not have own style keys.
-     */
-    @objid ("35126e3d-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<StyleKey> getStyleKeys() {
-        return Collections.emptyList();
     }
 
     @objid ("3513f4a2-55b7-11e2-877f-002564c97630")
@@ -168,19 +119,6 @@ public class GmInformationItemHeader extends GmModelElementHeader {
                 return computeSimpleLabel();
         
         }
-    }
-
-    /**
-     * Redefined to set its own style cascading from the new parent node style.
-     */
-    @objid ("3513f4b3-55b7-11e2-877f-002564c97630")
-    @Override
-    protected void setParent(GmCompositeNode parent) {
-        if (parent != null && getParent() != parent) {
-            getStyle().setCascadedStyle(parent.getStyle());
-        }
-        
-        super.setParent(parent);
     }
 
     @objid ("3513f4ba-55b7-11e2-877f-002564c97630")

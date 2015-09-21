@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.stateMachineModel.StateVertexData;
+import org.modelio.metamodel.impl.uml.behavior.stateMachineModel.StateVertexData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateVertex;
@@ -42,80 +54,94 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0054c0ea-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class StateVertexImpl extends ModelElementImpl implements StateVertex {
-    @objid ("35f4b3b3-914a-43c2-ba7e-db64b1df84f6")
+    @objid ("7029f98b-bece-4269-a9c2-0c73a5902957")
     @Override
     public EList<Transition> getOutGoing() {
-        return new SmList<>(this, StateVertexData.Metadata.OutGoingDep());
+        return new SmList<>(this, ((StateVertexSmClass)getClassOf()).getOutGoingDep());
     }
 
-    @objid ("8b17f53b-4906-4809-8efe-b66f1bc613f5")
+    @objid ("a9577c31-e3cf-4a96-9978-e4e2a6e275ae")
     @Override
     public <T extends Transition> List<T> getOutGoing(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Transition element : getOutGoing()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("03d6b0ed-01f7-49b3-a141-48117e4f40db")
+    @objid ("7b1d948f-687a-4ec4-8976-6075d64d99ec")
     @Override
     public EList<Transition> getIncoming() {
-        return new SmList<>(this, StateVertexData.Metadata.IncomingDep());
+        return new SmList<>(this, ((StateVertexSmClass)getClassOf()).getIncomingDep());
     }
 
-    @objid ("8a435044-7241-49c0-9479-8c0288984d9f")
+    @objid ("8b67b633-1469-4fed-ab39-fa157351837f")
     @Override
     public <T extends Transition> List<T> getIncoming(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Transition element : getIncoming()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("70bc88d0-cef0-4380-b4b4-c7d6a34bfa23")
+    @objid ("65198c9f-9c35-46dc-be07-fd817e32a039")
     @Override
     public Region getParent() {
-        return (Region) getDepVal(StateVertexData.Metadata.ParentDep());
+        Object obj = getDepVal(((StateVertexSmClass)getClassOf()).getParentDep());
+        return (obj instanceof Region)? (Region)obj : null;
     }
 
-    @objid ("e1507164-3297-47b5-b63b-1a1d4b0fd1ef")
+    @objid ("77bb665a-ba49-4118-8657-a57ce5d4d600")
     @Override
     public void setParent(Region value) {
-        appendDepVal(StateVertexData.Metadata.ParentDep(), (SmObjectImpl)value);
+        appendDepVal(((StateVertexSmClass)getClassOf()).getParentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0cdeccdb-d972-4e4e-9df5-344d6eb54935")
+    @objid ("92cce006-ba71-48d4-a04f-dd19751a6845")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(StateVertexData.Metadata.ParentDep());
+        // Parent
+        obj = (SmObjectImpl)this.getDepVal(((StateVertexSmClass)getClassOf()).getParentDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("39eb6fc5-d5f4-4b98-bdc2-c46fb885ad78")
+    @objid ("ae8e4b8d-9ae5-4311-a03d-680a3f115c73")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(StateVertexData.Metadata.ParentDep());
-        if (obj != null)
-          return new SmDepVal(StateVertexData.Metadata.ParentDep(), obj);
+        SmDependency dep;
+        
+        // Parent
+        dep = ((StateVertexSmClass)getClassOf()).getParentDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("b4918fa1-2c6d-4bcc-8f4c-161fac05a25d")
+    @objid ("23eb966e-e0f6-44cc-9916-c6b9b219a34a")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStateVertex(this);

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.diagrams;
 
@@ -152,9 +152,9 @@ public class BpmnDiagramElementDropEditPolicy extends DiagramElementDropEditPoli
     @objid ("61ee9c69-55b6-11e2-877f-002564c97630")
     private Command getMessageDropCommand(final Point dropLocation, final MObject toUnmask) {
         return new UnmaskBpmnMessageCommand((BpmnMessage) toUnmask,
-                (AbstractDiagramEditPart) getHost(),
-                new Rectangle(dropLocation, new Dimension(-1, -1)),
-                dropLocation);
+                                                (AbstractDiagramEditPart) getHost(),
+                                                new Rectangle(dropLocation, new Dimension(-1, -1)),
+                                                dropLocation);
     }
 
     @objid ("61ee9c73-55b6-11e2-877f-002564c97630")
@@ -176,7 +176,8 @@ public class BpmnDiagramElementDropEditPolicy extends DiagramElementDropEditPoli
     }
 
     @objid ("61ee9c87-55b6-11e2-877f-002564c97630")
-    protected static MObject getComposition(final MObject element) {
+    @Override
+    protected MObject getComposition(final MObject element) {
         if (element instanceof BpmnBoundaryEvent) {
             BpmnBoundaryEvent event = (BpmnBoundaryEvent) element;
             return event.getAttachedToRef();

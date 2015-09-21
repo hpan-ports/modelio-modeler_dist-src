@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -29,7 +29,7 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("e478e605-d488-4760-98bb-fff5c2cc114f")
-public class OGate extends OOccurrenceSpecification implements IOElement {
+public class OGate extends OOccurrenceSpecification {
     @objid ("a29536b9-d88f-4370-8c52-34814d6fee89")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createGate();
@@ -42,7 +42,7 @@ public class OGate extends OOccurrenceSpecification implements IOElement {
 
     @objid ("ffd8edfa-c1c4-49c6-91c6-df4b0eb4a726")
     public List<String> getEcoreClassName() {
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
     @objid ("a42ef361-5dad-4aa6-b67c-b6b23f7c1859")

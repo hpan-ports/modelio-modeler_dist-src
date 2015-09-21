@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.policies;
 
@@ -33,10 +33,10 @@ import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.GroupRequest;
 import org.modelio.diagram.elements.core.commands.DeferredCreateCommand;
 import org.modelio.diagram.elements.core.commands.DeferredGroupCommand;
+import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.figures.FigureUtilities2;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -82,13 +82,13 @@ public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
             final Object model = part.getModel();
             if (model instanceof GmModel) {
                 final GmModel gm = (GmModel) model;
-                final String metaclassName = gm.getRepresentedRef().mc;
-                final EditPart target = getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)),
+                final EditPart target = getEditPartFor(gm.getRelatedMClass().getJavaInterface(),
                         req.getLocation());
-                if (ret == null)
+                if (ret == null) {
                     ret = target;
-                else if (ret != target)
+                } else if (ret != target) {
                     return null;
+                }
             }
         }
         return ret;
@@ -110,10 +110,9 @@ public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
     @Override
     protected EditPart getCreateTargetEditPart(CreateRequest createRequest) {
         // Creation request, only one element is involved
-        final Object newObjectType = createRequest.getNewObjectType();
-        if (newObjectType instanceof String) {
-            final String metaclassName = (String) newObjectType;
-            return getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)), createRequest.getLocation());
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
+        if (ctx != null) {
+            return getEditPartFor(ctx.getMetaclass().getJavaInterface(), createRequest.getLocation());
         } else {
             return null;
         }
@@ -142,12 +141,14 @@ public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
         final GmCompositeNode gmTargetChild = gmNode.getCompositeFor(metaclass);
         
         // If no one can contain the element, return null to forward to the parent.
-        if (gmTargetChild == null)
+        if (gmTargetChild == null) {
             return null;
+        }
         
         // If the child is not visible, return the host so that we will make the child visible.
-        if (!gmTargetChild.isVisible())
+        if (!gmTargetChild.isVisible()) {
             return getHost();
+        }
         
         // Return the edit part of the child node.
         final EditPart p = (EditPart) getHost().getRoot().getViewer().getEditPartRegistry().get(gmTargetChild);

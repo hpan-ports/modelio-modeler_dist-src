@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.interactionModel.MessageEndData;
+import org.modelio.metamodel.impl.uml.behavior.interactionModel.MessageEndData;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -39,48 +51,56 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0049f7c8-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class MessageEndImpl extends OccurrenceSpecificationImpl implements MessageEnd {
-    @objid ("7dc9c04b-5e6c-46f8-8a67-34067c922b56")
+    @objid ("abd466ce-44eb-4db1-a412-1df3cd39ee51")
     @Override
     public Message getReceivedMessage() {
-        return (Message) getDepVal(MessageEndData.Metadata.ReceivedMessageDep());
+        Object obj = getDepVal(((MessageEndSmClass)getClassOf()).getReceivedMessageDep());
+        return (obj instanceof Message)? (Message)obj : null;
     }
 
-    @objid ("e4e3e8b0-b8eb-44dd-a8f3-5cc0f3af52e9")
+    @objid ("aee78ea8-be53-492c-b6df-2a65bbb14d55")
     @Override
     public void setReceivedMessage(Message value) {
-        appendDepVal(MessageEndData.Metadata.ReceivedMessageDep(), (SmObjectImpl)value);
+        appendDepVal(((MessageEndSmClass)getClassOf()).getReceivedMessageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a632f056-8d63-4751-a158-574f046cf3dd")
+    @objid ("41ab33e2-7c3b-4c83-bafa-dc0b43c23ae6")
     @Override
     public Message getSentMessage() {
-        return (Message) getDepVal(MessageEndData.Metadata.SentMessageDep());
+        Object obj = getDepVal(((MessageEndSmClass)getClassOf()).getSentMessageDep());
+        return (obj instanceof Message)? (Message)obj : null;
     }
 
-    @objid ("a25e9fc1-a68d-480c-a9b9-867e13632956")
+    @objid ("eccd92e4-359d-4dab-bf7e-6868ec41b60c")
     @Override
     public void setSentMessage(Message value) {
-        appendDepVal(MessageEndData.Metadata.SentMessageDep(), (SmObjectImpl)value);
+        appendDepVal(((MessageEndSmClass)getClassOf()).getSentMessageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a3d29150-bbf4-4d72-8feb-0f163c62e70d")
+    @objid ("72d19980-78a8-43a2-a22a-e64cf35354cf")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("3df54692-c106-4829-9d0e-dd03a7377c7b")
+    @objid ("541b7ad4-3d87-467d-a49f-53256ffc693e")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("3a358c39-a88d-42a4-81da-9ed5f43d7ef3")
+    @objid ("ea12d3a8-7319-4dfb-9a35-a9b0f6eadc9b")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitMessageEnd(this);

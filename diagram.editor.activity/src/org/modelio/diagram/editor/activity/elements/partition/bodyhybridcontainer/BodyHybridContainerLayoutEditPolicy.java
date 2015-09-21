@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.partition.bodyhybridcontainer;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -38,13 +39,12 @@ import org.modelio.diagram.editor.activity.elements.partition.bodyhybridcontaine
 import org.modelio.diagram.editor.activity.elements.partitioncontainer.PartitionContainerLayoutEditPolicy;
 import org.modelio.diagram.elements.common.freezone.DefaultFreeZoneLayoutEditPolicy;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 
 /**
- * Very specific hybrid edit policy that behave either like a default free zone layout edit policy OR like a partition
- * container layout edit policy, depending on the nature of the current children of the Gm.
+ * Very specific hybrid edit policy that behave either like a default free zone layout edit policy OR like a partition container
+ * layout edit policy, depending on the nature of the current children of the Gm.
  * 
  * @author fpoyer
  */
@@ -79,20 +79,28 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         this.freeZonePolicy = new DefaultFreeZoneLayoutEditPolicy();
         this.partitionContainerPolicy = new PartitionContainerLayoutEditPolicy() {
             @Override
-            protected void getResizeContainerCommand(ChangeBoundsRequest request, CompoundCommand compound) {
+            protected void getResizeContainerCommand(ChangeBoundsRequest request, CompoundCommand compound, Dimension constraintDelta) {
                 // Ask that container parent is resized (not container itself,
                 // as it is only meant to be a child)
                 ChangeBoundsRequest resizeContainerRequest = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
                 resizeContainerRequest.setEditParts(getHost().getParent());
                 resizeContainerRequest.setLocation(request.getLocation());
                 resizeContainerRequest.setResizeDirection(request.getResizeDirection());
-                Dimension sizeDelta = request.getSizeDelta().getCopy();
+        
+                Dimension sizeDelta = resizeContainerRequest.getSizeDelta();
+                sizeDelta.setSize(constraintDelta);
                 // Only ask to be resized in the "major" axis.
-                if (isHorizontal())
+                if (isHorizontal()) {
                     sizeDelta.height = 0;
-                else
+                } else {
                     sizeDelta.width = 0;
-                resizeContainerRequest.setSizeDelta(sizeDelta);
+                }
+        
+                Point moveDelta = resizeContainerRequest.getMoveDelta();
+                moveDelta.setLocation(
+                        (int) Math.signum(moveDelta.x) *  Math.abs(constraintDelta.width),
+                        (int) Math.signum(moveDelta.y) *  Math.abs(constraintDelta.height));
+        
         
                 Command parentCommand = getHost().getParent().getCommand(resizeContainerRequest);
                 compound.add(parentCommand);
@@ -105,21 +113,21 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     public void activate() {
         super.activate();
         switch (this.behaviour) {
-            case HYBRID: {
-                this.freeZonePolicy.activate();
-                this.partitionContainerPolicy.activate();
-                break;
-            }
-            case FREE_ZONE: {
-                this.freeZonePolicy.activate();
-                this.partitionContainerPolicy.deactivate();
-                break;
-            }
-            case PARTITION_CONTAINER: {
-                this.freeZonePolicy.deactivate();
-                this.partitionContainerPolicy.activate();
-                break;
-            }
+        case HYBRID: {
+            this.freeZonePolicy.activate();
+            this.partitionContainerPolicy.activate();
+            break;
+        }
+        case FREE_ZONE: {
+            this.freeZonePolicy.activate();
+            this.partitionContainerPolicy.deactivate();
+            break;
+        }
+        case PARTITION_CONTAINER: {
+            this.freeZonePolicy.deactivate();
+            this.partitionContainerPolicy.activate();
+            break;
+        }
         }
     }
 
@@ -127,19 +135,19 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     @Override
     public void deactivate() {
         switch (this.behaviour) {
-            case HYBRID: {
-                this.freeZonePolicy.deactivate();
-                this.partitionContainerPolicy.deactivate();
-                break;
-            }
-            case FREE_ZONE: {
-                this.freeZonePolicy.deactivate();
-                break;
-            }
-            case PARTITION_CONTAINER: {
-                this.partitionContainerPolicy.deactivate();
-                break;
-            }
+        case HYBRID: {
+            this.freeZonePolicy.deactivate();
+            this.partitionContainerPolicy.deactivate();
+            break;
+        }
+        case FREE_ZONE: {
+            this.freeZonePolicy.deactivate();
+            break;
+        }
+        case PARTITION_CONTAINER: {
+            this.partitionContainerPolicy.deactivate();
+            break;
+        }
         }
         super.deactivate();
     }
@@ -149,20 +157,21 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     public void eraseSourceFeedback(Request request) {
         super.eraseSourceFeedback(request);
         switch (this.behaviour) {
-            case HYBRID: {
-                LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-                if (editPolicy != null)
-                    editPolicy.eraseSourceFeedback(request);
-                break;
+        case HYBRID: {
+            LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
+            if (editPolicy != null) {
+                editPolicy.eraseSourceFeedback(request);
             }
-            case FREE_ZONE: {
-                this.freeZonePolicy.eraseSourceFeedback(request);
-                break;
-            }
-            case PARTITION_CONTAINER: {
-                this.partitionContainerPolicy.eraseSourceFeedback(request);
-                break;
-            }
+            break;
+        }
+        case FREE_ZONE: {
+            this.freeZonePolicy.eraseSourceFeedback(request);
+            break;
+        }
+        case PARTITION_CONTAINER: {
+            this.partitionContainerPolicy.eraseSourceFeedback(request);
+            break;
+        }
         }
     }
 
@@ -171,20 +180,21 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     public void eraseTargetFeedback(Request request) {
         super.eraseTargetFeedback(request);
         switch (this.behaviour) {
-            case HYBRID: {
-                LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-                if (editPolicy != null)
-                    editPolicy.eraseTargetFeedback(request);
-                break;
+        case HYBRID: {
+            LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
+            if (editPolicy != null) {
+                editPolicy.eraseTargetFeedback(request);
             }
-            case FREE_ZONE: {
-                this.freeZonePolicy.eraseTargetFeedback(request);
-                break;
-            }
-            case PARTITION_CONTAINER: {
-                this.partitionContainerPolicy.eraseTargetFeedback(request);
-                break;
-            }
+            break;
+        }
+        case FREE_ZONE: {
+            this.freeZonePolicy.eraseTargetFeedback(request);
+            break;
+        }
+        case PARTITION_CONTAINER: {
+            this.partitionContainerPolicy.eraseTargetFeedback(request);
+            break;
+        }
         }
     }
 
@@ -193,20 +203,21 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     public Command getCommand(Request request) {
         Command command = null;
         switch (this.behaviour) {
-            case HYBRID: {
-                LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-                if (editPolicy != null)
-                    command = editPolicy.getCommand(request);
-                break;
+        case HYBRID: {
+            LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
+            if (editPolicy != null) {
+                command = editPolicy.getCommand(request);
             }
-            case FREE_ZONE: {
-                command = this.freeZonePolicy.getCommand(request);
-                break;
-            }
-            case PARTITION_CONTAINER: {
-                command = this.partitionContainerPolicy.getCommand(request);
-                break;
-            }
+            break;
+        }
+        case FREE_ZONE: {
+            command = this.freeZonePolicy.getCommand(request);
+            break;
+        }
+        case PARTITION_CONTAINER: {
+            command = this.partitionContainerPolicy.getCommand(request);
+            break;
+        }
         }
         return command;
     }
@@ -216,20 +227,21 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     public EditPart getTargetEditPart(Request request) {
         EditPart targetEditPart = null;
         switch (this.behaviour) {
-            case HYBRID: {
-                LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-                if (editPolicy != null)
-                    targetEditPart = editPolicy.getTargetEditPart(request);
-                break;
+        case HYBRID: {
+            LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
+            if (editPolicy != null) {
+                targetEditPart = editPolicy.getTargetEditPart(request);
             }
-            case FREE_ZONE: {
-                targetEditPart = this.freeZonePolicy.getTargetEditPart(request);
-                break;
-            }
-            case PARTITION_CONTAINER: {
-                targetEditPart = this.partitionContainerPolicy.getTargetEditPart(request);
-                break;
-            }
+            break;
+        }
+        case FREE_ZONE: {
+            targetEditPart = this.freeZonePolicy.getTargetEditPart(request);
+            break;
+        }
+        case PARTITION_CONTAINER: {
+            targetEditPart = this.partitionContainerPolicy.getTargetEditPart(request);
+            break;
+        }
         }
         return targetEditPart;
     }
@@ -246,20 +258,21 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     @Override
     public void showSourceFeedback(Request request) {
         switch (this.behaviour) {
-            case HYBRID: {
-                LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-                if (editPolicy != null)
-                    editPolicy.showSourceFeedback(request);
-                break;
+        case HYBRID: {
+            LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
+            if (editPolicy != null) {
+                editPolicy.showSourceFeedback(request);
             }
-            case FREE_ZONE: {
-                this.freeZonePolicy.showSourceFeedback(request);
-                break;
-            }
-            case PARTITION_CONTAINER: {
-                this.partitionContainerPolicy.showSourceFeedback(request);
-                break;
-            }
+            break;
+        }
+        case FREE_ZONE: {
+            this.freeZonePolicy.showSourceFeedback(request);
+            break;
+        }
+        case PARTITION_CONTAINER: {
+            this.partitionContainerPolicy.showSourceFeedback(request);
+            break;
+        }
         }
     }
 
@@ -267,20 +280,21 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     @Override
     public void showTargetFeedback(Request request) {
         switch (this.behaviour) {
-            case HYBRID: {
-                LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-                if (editPolicy != null)
-                    editPolicy.showTargetFeedback(request);
-                break;
+        case HYBRID: {
+            LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
+            if (editPolicy != null) {
+                editPolicy.showTargetFeedback(request);
             }
-            case FREE_ZONE: {
-                this.freeZonePolicy.showTargetFeedback(request);
-                break;
-            }
-            case PARTITION_CONTAINER: {
-                this.partitionContainerPolicy.showTargetFeedback(request);
-                break;
-            }
+            break;
+        }
+        case FREE_ZONE: {
+            this.freeZonePolicy.showTargetFeedback(request);
+            break;
+        }
+        case PARTITION_CONTAINER: {
+            this.partitionContainerPolicy.showTargetFeedback(request);
+            break;
+        }
         }
     }
 
@@ -288,19 +302,20 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     @Override
     public boolean understandsRequest(Request request) {
         switch (this.behaviour) {
-            case HYBRID: {
-                LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-                if (editPolicy != null)
-                    return editPolicy.understandsRequest(request);
-                // else
-                return false;
+        case HYBRID: {
+            LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
+            if (editPolicy != null) {
+                return editPolicy.understandsRequest(request);
             }
-            case FREE_ZONE: {
-                return this.freeZonePolicy.understandsRequest(request);
-            }
-            case PARTITION_CONTAINER: {
-                return this.partitionContainerPolicy.understandsRequest(request);
-            }
+            // else
+            return false;
+        }
+        case FREE_ZONE: {
+            return this.freeZonePolicy.understandsRequest(request);
+        }
+        case PARTITION_CONTAINER: {
+            return this.partitionContainerPolicy.understandsRequest(request);
+        }
         }
         return false;
     }
@@ -316,33 +331,35 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             Behaviour previousBehaviour = this.behaviour;
             this.behaviour = value;
             switch (this.behaviour) {
-                case HYBRID: {
-                    if (previousBehaviour.equals(Behaviour.PARTITION_CONTAINER))
-                        this.freeZonePolicy.activate();
-                    if (previousBehaviour.equals(Behaviour.FREE_ZONE))
-                        this.partitionContainerPolicy.activate();
-                    break;
+            case HYBRID: {
+                if (previousBehaviour.equals(Behaviour.PARTITION_CONTAINER)) {
+                    this.freeZonePolicy.activate();
                 }
-                case FREE_ZONE: {
-                    if (previousBehaviour.equals(Behaviour.PARTITION_CONTAINER)) {
-                        this.partitionContainerPolicy.deactivate();
-                        this.freeZonePolicy.activate();
-                    }
-                    if (previousBehaviour.equals(Behaviour.HYBRID)) {
-                        this.partitionContainerPolicy.deactivate();
-                    }
-                    break;
+                if (previousBehaviour.equals(Behaviour.FREE_ZONE)) {
+                    this.partitionContainerPolicy.activate();
                 }
-                case PARTITION_CONTAINER: {
-                    if (previousBehaviour.equals(Behaviour.FREE_ZONE)) {
-                        this.freeZonePolicy.deactivate();
-                        this.partitionContainerPolicy.activate();
-                    }
-                    if (previousBehaviour.equals(Behaviour.HYBRID)) {
-                        this.freeZonePolicy.deactivate();
-                    }
-                    break;
+                break;
+            }
+            case FREE_ZONE: {
+                if (previousBehaviour.equals(Behaviour.PARTITION_CONTAINER)) {
+                    this.partitionContainerPolicy.deactivate();
+                    this.freeZonePolicy.activate();
                 }
+                if (previousBehaviour.equals(Behaviour.HYBRID)) {
+                    this.partitionContainerPolicy.deactivate();
+                }
+                break;
+            }
+            case PARTITION_CONTAINER: {
+                if (previousBehaviour.equals(Behaviour.FREE_ZONE)) {
+                    this.freeZonePolicy.deactivate();
+                    this.partitionContainerPolicy.activate();
+                }
+                if (previousBehaviour.equals(Behaviour.HYBRID)) {
+                    this.freeZonePolicy.deactivate();
+                }
+                break;
+            }
             }
         }
     }
@@ -351,12 +368,11 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     private LayoutEditPolicy getPolicyInvolvedWith(Request request) {
         if (RequestConstants.REQ_CREATE.equals(request.getType())) {
             return getPolicyInvolvedWith((CreateRequest) request);
-        } else if (RequestConstants.REQ_ADD.equals(request.getType()) ||
-                   RequestConstants.REQ_RESIZE_CHILDREN.equals(request.getType()) ||
-                   RequestConstants.REQ_MOVE_CHILDREN.equals(request.getType()) ||
-                   RequestConstants.REQ_RESIZE.equals(request.getType()) ||
-                   RequestConstants.REQ_MOVE.equals(request.getType()) ||
-                   RequestConstants.REQ_CLONE.equals(request.getType())) {
+        } else if (RequestConstants.REQ_ADD.equals(request.getType())
+                || RequestConstants.REQ_RESIZE_CHILDREN.equals(request.getType())
+                || RequestConstants.REQ_MOVE_CHILDREN.equals(request.getType())
+                || RequestConstants.REQ_RESIZE.equals(request.getType()) || RequestConstants.REQ_MOVE.equals(request.getType())
+                || RequestConstants.REQ_CLONE.equals(request.getType())) {
             return getPolicyInvolvedWith((ChangeBoundsRequest) request);
         }
         return null;
@@ -364,19 +380,20 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
 
     /**
      * <p>
-     * This Request analysis method is used when in hybrid mode, to determine which policy should handle a specific
-     * request.
+     * This Request analysis method is used when in hybrid mode, to determine which policy should handle a specific request.
      * </p>
      * <p>
-     * Basically, if the request concerns the creation of sub partitions, then the partition container policy should
-     * handle it. Otherwise, the free zone policy is concerned.
+     * Basically, if the request concerns the creation of sub partitions, then the partition container policy should handle it.
+     * Otherwise, the free zone policy is concerned.
      * </p>
      * @param request @return
      */
     @objid ("2afa01fe-55b6-11e2-877f-002564c97630")
     private LayoutEditPolicy getPolicyInvolvedWith(CreateRequest request) {
-        final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-        if (ctx.getMetaclass().equals(Metamodel.getMClass(ActivityPartition.class).getName())) {
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(request);
+        if (ctx == null) {
+            return null;
+        } else if (ctx.getJavaClass() == ActivityPartition.class) {
             // Anything concerning IActiviPartition may only be handled by
             // partitionContainer policy.
             // Get the specific property "kind" from the tool, to know exactly
@@ -384,38 +401,38 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             // an inner partition.
             PartitionToolKind kind = PartitionToolKind.valueOf((String) ctx.getProperties().get("kind"));
             switch (kind) {
-                case INNER: {
-                    // Inner partition we can handle
-                    return this.partitionContainerPolicy;
-                }
-                case SIBLING:
-                case HORIZONTAL_CONTAINER:
-                case VERTICAL_CONTAINER: {
-                    // Sibling partitions we should not handle, cause if we
-                    // where to handle it, that would mean that this partition
-                    // would already have sub partitions, and then we wouldn't
-                    // end in this method, since we would already be in
-                    // partition
-                    // container mode.
-                    // Partition container creation is only processed by the
-                    // diagram background.
-                    return null;
-                }
+            case INNER: {
+                // Inner partition we can handle
+                return this.partitionContainerPolicy;
+            }
+            case SIBLING:
+            case HORIZONTAL_CONTAINER:
+            case VERTICAL_CONTAINER: {
+                // Sibling partitions we should not handle, cause if we
+                // where to handle it, that would mean that this partition
+                // would already have sub partitions, and then we wouldn't
+                // end in this method, since we would already be in
+                // partition
+                // container mode.
+                // Partition container creation is only processed by the
+                // diagram background.
+                return null;
+            }
+            default:
+                return null;
             }
         } else {
             return this.freeZonePolicy;
         }
-        return null;
     }
 
     /**
      * <p>
-     * This Request analysis method is used when in hybrid mode, to determine which policy should handle a specific
-     * request.
+     * This Request analysis method is used when in hybrid mode, to determine which policy should handle a specific request.
      * </p>
      * <p>
-     * Basically, if the request concerns the addition/cloning of sub partitions, then the partition container policy
-     * should handle it. Otherwise, the free zone policy is concerned.
+     * Basically, if the request concerns the addition/cloning of sub partitions, then the partition container policy should handle
+     * it. Otherwise, the free zone policy is concerned.
      * </p>
      * @param request @return
      */
@@ -426,10 +443,11 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         boolean allPartitions = (request.getEditParts().get(0) instanceof PartitionEditPart);
         for (Object editPartObj : request.getEditParts()) {
             // Check for inconsistency
-            if (allPartitions && !(editPartObj instanceof PartitionEditPart))
+            if (allPartitions && !(editPartObj instanceof PartitionEditPart)) {
                 return null;
-            else if (!allPartitions && (editPartObj instanceof PartitionEditPart))
+            } else if (!allPartitions && (editPartObj instanceof PartitionEditPart)) {
                 return null;
+            }
         }
         // Everything of the same type, return corresponding policy.
         return allPartitions ? this.partitionContainerPolicy : this.freeZonePolicy;

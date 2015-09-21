@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.project.core.services;
 
@@ -80,6 +80,7 @@ import org.modelio.gproject.gproject.FragmentConflictException;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
 import org.modelio.gproject.gproject.GProjectConfigurer.Failure;
+import org.modelio.gproject.gproject.GProjectConfigurer;
 import org.modelio.gproject.gproject.GProjectEvent;
 import org.modelio.gproject.gproject.GProjectEventType;
 import org.modelio.gproject.gproject.GProjectFactory;
@@ -87,7 +88,8 @@ import org.modelio.gproject.gproject.IProjectMonitor;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.gproject.model.MModelServices;
 import org.modelio.gproject.module.IModuleCatalog;
-import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IModuleManagementService;
+import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.factory.ModelFactory;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
@@ -98,6 +100,8 @@ import org.modelio.vbasic.files.Unzipper;
 import org.modelio.vbasic.files.Zipper;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.session.api.transactions.ITransaction;
+import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.AccessDeniedException;
 import org.modelio.vcore.smkernel.mapi.MRef;
 import org.osgi.service.event.Event;
@@ -175,7 +179,7 @@ class ProjectService implements IProjectService, EventHandler {
 
     @objid ("971ad6d9-026d-11e2-8189-001ec947ccaf")
     @Override
-    public void openProject(ProjectDescriptor projectToOpen, IAuthData authData, IProgressMonitor monitor) throws IOException, GProjectAuthenticationException {
+    public void openProject(ProjectDescriptor projectToOpen, IAuthData authData, IProgressMonitor monitor) throws GProjectAuthenticationException, IOException {
         if (this.project != null) {
             throw new IllegalStateException("A project is already opened.");
         }
@@ -185,19 +189,17 @@ class ProjectService implements IProjectService, EventHandler {
         }
         
         final String taskName = AppProjectCore.I18N.getMessage("ProjectService.open.task", projectToOpen.getName());
-        final SubMonitor mon = SubMonitor.convert(monitor, taskName, 200);
+        final SubMonitor mon = SubMonitor.convert(monitor, taskName, 250);
         mon.subTask(taskName);
         
         // Get the module catalog used by the application.
         final IModuleCatalog moduleCatalog = getModuleCatalog();
         
         final ProjectMonitor projectMonitor = new ProjectMonitor();
-        this.project = GProjectFactory.openProject(projectToOpen, authData, moduleCatalog,
+        this.project = GProjectFactory.loadProject(projectToOpen, authData, moduleCatalog,
                 projectMonitor, new ModelioProgressAdapter(mon.newChild(50)));
         
         try (ProjectCloser closer = new ProjectCloser()) {
-        
-            this.session = this.project.getSession();
         
             // Project preferences
             this.prefsStore = new GProjectPreferenceStore(this.project);
@@ -206,31 +208,43 @@ class ProjectService implements IProjectService, EventHandler {
             // model service
             final MModelServices modelServices = new MModelServices(this.project);
             this.context.set(IMModelServices.class, modelServices);
-            
-            // Check for migration
-            migrateFragments(mon, 50);
-            mon.setWorkRemaining(100);
-        
-            // Fire PROJECT_OPENING
-            this.context.get(IModelioEventService.class).postSyncEvent(this, ModelioEvent.PROJECT_OPENING, this.project);
-        
-            // Start all modules
-            IModuleService moduleService = this.context.get(IModuleService.class);
-            moduleService.startAllModules(this.project, mon.newChild(50));
         
             // Synchronize the project against server
             try {
-                ProjectSynchronizer projectSynchronizer = new ProjectSynchronizer(this.project, moduleService);
-                projectSynchronizer.synchronize(mon.newChild(50));
-                if (! projectSynchronizer.getFailures().isEmpty())
+                ProjectPreOpenSynchronizer projectSynchronizer = new ProjectPreOpenSynchronizer(this.project);
+                projectSynchronizer.synchronize(new ModelioProgressAdapter(mon.newChild(50)));
+                if (! projectSynchronizer.getFailures().isEmpty()) {
                     reportSynchronizationFailures(projectSynchronizer);
+                }
             } catch (IOException e) {
                 reportSynchronizationFail(e);
             }
         
+            // open the project
+            this.project.getMonitorSupport().addMonitor(projectMonitor);
+            this.project.open(new ModelioProgressAdapter(mon.newChild(50)));
+            this.session = this.project.getSession();
+        
+            // Check for migration
+            migrateFragments(mon, 50);
+            mon.setWorkRemaining(102);
+        
+            // Fire PROJECT_OPENING
+            // note: most of ModelioEvent.PROJECT_OPENING listeners need a CoreSession
+            this.context.get(IModelioEventService.class).postSyncEvent(this, ModelioEvent.PROJECT_OPENING, this.project);
+        
             // Configure project preferences
             installProjectPreferencesDefaults();
             installProjectPreferences();
+        
+            // Start all modules
+            IModuleManagementService moduleService = this.context.get(IModuleManagementService.class);
+            moduleService.startAllModules(this.project, mon.newChild(50));
+        
+            // Post process migrations
+            new TodoRunner(this.project, moduleService).execute(new ModelioProgressAdapter(mon.newChild(50)));
+            // Save local project descriptor with done to-do removed
+            this.project.save(new ModelioProgressAdapter(mon.newChild(2)));
         
             // Fire PROJECT_OPENED
             this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.PROJECT_OPENED, this.project);
@@ -269,9 +283,10 @@ class ProjectService implements IProjectService, EventHandler {
         this.context.get(IModelioEventService.class).postSyncEvent(this, ModelioEvent.PROJECT_CLOSING, projectToClose);
         
         // FIXME use the current monitor...
-        IModuleService moduleService = this.context.get(IModuleService.class);
-        if (moduleService != null)
+        IModuleManagementService moduleService = this.context.get(IModuleManagementService.class);
+        if (moduleService != null) {
             moduleService.stopAllModules(this.project);
+        }
         
         this.project.close();
         this.project = null;
@@ -287,8 +302,8 @@ class ProjectService implements IProjectService, EventHandler {
         ((MModelServices) s).invalidateProject(null);
         this.context.remove(IMModelServices.class);
         
-        // remove IModuleService from context
-        this.context.remove(IModuleService.class);
+        // remove IModuleManagementService from context
+        this.context.remove(IModuleManagementService.class);
         
         this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.PROJECT_CLOSED, null);
     }
@@ -301,15 +316,15 @@ class ProjectService implements IProjectService, EventHandler {
         try {
             final String taskName = AppProjectCore.I18N.getMessage("ProjectService.save.task", this.project.getName());
             SubMonitor m = SubMonitor.convert(monitor, taskName,1000);
-            
+        
             this.context.set(IProgressMonitor.class, m.newChild(50));
             this.context.get(IModelioEventService.class).postSyncEvent(this, ModelioEvent.PROJECT_SAVING, this.project);
             this.context.remove(IProgressMonitor.class);
-            
+        
             this.project.save(new ModelioProgressAdapter(m.newChild(900)));
-            
+        
             this.prefsStore.save();
-            
+        
             this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.PROJECT_SAVED, this.project);
         } catch (final IOException e) {
             throw e;
@@ -359,7 +374,7 @@ class ProjectService implements IProjectService, EventHandler {
 
     @objid ("0089dd7a-8c65-103c-a520-001ec947cd2a")
     @Override
-    public void deleteProject(ProjectDescriptor projectToDelete) throws IOException, FileSystemException {
+    public void deleteProject(ProjectDescriptor projectToDelete) throws FileSystemException, IOException {
         // TODO this is a quite naive implementation
         // should deal with project path for delegating project
         
@@ -396,7 +411,7 @@ class ProjectService implements IProjectService, EventHandler {
             if (projectConf.length == 1) {
                 projectName = projectConf[0].getName().substring(0, projectConf[0].getName().indexOf("/"));
                 if (getWorkspace().resolve(projectName).toFile().exists()) { // Checks for an already existing project
-                    if (!MessageDialog.openQuestion(null, AppProjectCore.I18N.getString("CannotImportExistingProjectTitle"), AppProjectCore.I18N.getMessage("CannotImportExistingProjectMsg", projectName))) {                    
+                    if (!MessageDialog.openQuestion(null, AppProjectCore.I18N.getString("CannotImportExistingProjectTitle"), AppProjectCore.I18N.getMessage("CannotImportExistingProjectMsg", projectName))) {
                         return;
                     }
                 }
@@ -425,7 +440,7 @@ class ProjectService implements IProjectService, EventHandler {
         if (progressService != null) {
             try {
                 final String title = AppProjectCore.I18N.getString("CreateProject.ProgressDialog.title");
-                
+        
                 progressService.run(title, false, false, new IRunnableWithProgress() {
                     @Override
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
@@ -542,8 +557,8 @@ class ProjectService implements IProjectService, EventHandler {
         Path defaultPath = Paths.get(System.getProperty("user.home"), "modelio", "workspace");
         if (!Files.exists(defaultPath, LinkOption.NOFOLLOW_LINKS)) {
             (new File(defaultPath.toString())).mkdirs(); // create if the
-                                                            // default workspace
-                                                            // doesn't exist.
+            // default workspace
+            // doesn't exist.
         }
         return defaultPath;
     }
@@ -588,11 +603,13 @@ class ProjectService implements IProjectService, EventHandler {
 
     @objid ("cb61fb6e-713f-480a-8fe4-42c7e06a13ec")
     private void installProjectPreferences() {
+        IModelFactory factory = ModelFactory.getFactory(this.session);
+        
         // Setup the model factory initializer
-        ModelFactory.INITIALIZER.setDefaultAttributeType(ProjectPreferencesHelper.getAttributeDefaultType(this));
-        ModelFactory.INITIALIZER.setDefaultAttributeVisibility(ProjectPreferencesHelper.getAttributeDefaultVisibility(this));
-        ModelFactory.INITIALIZER.setDefaultParameterType(ProjectPreferencesHelper.getParameterDefaultType(this));
-        ModelFactory.INITIALIZER.setDefaultReturnType(ProjectPreferencesHelper.getReturnDefaultType(this));
+        factory.setDefaultValue("DEFAULT_ATTRIBUTE_TYPE", ProjectPreferencesHelper.getAttributeDefaultType(this));
+        factory.setDefaultValue("DEFAULT_ATTRIBUTE_VISIBILITY", ProjectPreferencesHelper.getAttributeDefaultVisibility(this));
+        factory.setDefaultValue("DEFAULT_PARAMETER_TYPE", ProjectPreferencesHelper.getParameterDefaultType(this));
+        factory.setDefaultValue("DEFAULT_RETURN_TYPE", ProjectPreferencesHelper.getReturnDefaultType(this));
         
         // Setup a listener for changes that will reconfigure the INITIALIZER
         // when project preferences change
@@ -601,35 +618,36 @@ class ProjectService implements IProjectService, EventHandler {
             public void propertyChange(PropertyChangeEvent event) {
                 String name = event.getProperty();
         
-                if (name.endsWith(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY))
-                    ModelFactory.INITIALIZER.setDefaultAttributeType(ProjectPreferencesHelper
-                            .getAttributeDefaultType(ProjectService.this));
-                else if (name.endsWith(ProjectPreferencesKeys.ATT_DEFAULT_VIS_PREFKEY))
-                    ModelFactory.INITIALIZER.setDefaultAttributeVisibility(ProjectPreferencesHelper
-                            .getAttributeDefaultVisibility(ProjectService.this));
-                else if (name.endsWith(ProjectPreferencesKeys.PARAM_DEFAULT_TYPE_PREFKEY))
-                    ModelFactory.INITIALIZER.setDefaultParameterType(ProjectPreferencesHelper
-                            .getParameterDefaultType(ProjectService.this));
-                else if (name.endsWith(ProjectPreferencesKeys.RETURN_DEFAULT_TYPE_PREFKEY))
-                    ModelFactory.INITIALIZER.setDefaultReturnType(ProjectPreferencesHelper
-                            .getReturnDefaultType(ProjectService.this));
+                if (name.endsWith(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY)) {
+                    factory.setDefaultValue("DEFAULT_ATTRIBUTE_TYPE", ProjectPreferencesHelper.getAttributeDefaultType(ProjectService.this));
+                } else if (name.endsWith(ProjectPreferencesKeys.ATT_DEFAULT_VIS_PREFKEY)) {
+                    factory.setDefaultValue("DEFAULT_ATTRIBUTE_VISIBILITY", ProjectPreferencesHelper.getAttributeDefaultVisibility(ProjectService.this));
+                } else if (name.endsWith(ProjectPreferencesKeys.PARAM_DEFAULT_TYPE_PREFKEY)) {
+                    factory.setDefaultValue("DEFAULT_PARAMETER_TYPE", ProjectPreferencesHelper.getParameterDefaultType(ProjectService.this));
+                } else if (name.endsWith(ProjectPreferencesKeys.RETURN_DEFAULT_TYPE_PREFKEY)) {
+                    factory.setDefaultValue("DEFAULT_RETURN_TYPE", ProjectPreferencesHelper.getReturnDefaultType(ProjectService.this));
+                }
             }
         });
     }
 
     @objid ("7b203cde-7d61-4515-88a8-cb2cc182b426")
     private void installProjectPreferencesDefaults() {
-        DataType stringDataType = this.project.getSession().getModel()
-                .findById(DataType.class, UUID.fromString("00000004-0000-000d-0000-000000000000"));
-        DataType integerDataType = this.project.getSession().getModel()
-                .findById(DataType.class, UUID.fromString("00000004-0000-0009-0000-000000000000"));
+        CoreSession coreSession = (CoreSession)this.project.getSession();
+        try (ITransaction t = coreSession.getTransactionSupport().createTransaction("Create default preference DataTypes")) {
+            // PredefinedTypes might not be deployed yet, use a shell object if they are missing
+            DataType stringDataType = (DataType) coreSession.getSmFactory().getObjectReference(
+                    this.session.getMetamodel().getMClass(DataType.class),
+                    UUID.fromString("00000004-0000-000d-0000-000000000000"),
+                    "string");
+            DataType integerDataType = (DataType) coreSession.getSmFactory().getObjectReference(
+                    this.session.getMetamodel().getMClass(DataType.class),
+                    UUID.fromString("00000004-0000-0009-0000-000000000000"),
+                    "integer");
+            t.commit();
         
-        // During project creation the project might be opened once without
-        // modeler module because of some configuration defect. In this case it is not possible to set the default
-        // values, just do nothing to avoid stopping here where things would be difficult to understand by the user. 
-        if (stringDataType != null && integerDataType != null) {
             // Define default values if not already defined
-            IPreferenceStore store = this.getProjectPreferences(ProjectPreferencesKeys.NODE_ID);
+            IPreferenceStore store = getProjectPreferences(ProjectPreferencesKeys.NODE_ID);
             if (store.getDefaultString(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY).isEmpty()) {
                 store.setDefault(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY, new MRef(stringDataType).toString());
                 store.setToDefault(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY);
@@ -654,7 +672,7 @@ class ProjectService implements IProjectService, EventHandler {
                 } else {
                     defaultValue ="application/vnd.openxmlformats-officedocument.wordprocessingml.document";
                 }
-                
+        
                 store.setDefault(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY, defaultValue);
                 store.setToDefault(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY);
             }
@@ -708,7 +726,7 @@ class ProjectService implements IProjectService, EventHandler {
     }
 
     @objid ("41d09262-e599-4095-b93d-6e639bd3bc9a")
-    private void reportSynchronizationFailures(ProjectSynchronizer projectSynchronizer) {
+    private void reportSynchronizationFailures(GProjectConfigurer projectSynchronizer) {
         // TODO detect batch mode and not display dialog box
         // TODO make a better dialog
         final StringBuilder sb = new StringBuilder();
@@ -722,24 +740,26 @@ class ProjectService implements IProjectService, EventHandler {
             .append(" - ")
             .append(f.getSourceIdentifier())
             .append(": ");
-            
+        
             Throwable cause = f.getCause();
-            if (cause instanceof IOException)
+            if (cause instanceof IOException) {
                 sb.append(FileUtils.getLocalizedMessage((IOException) cause));
-            else if (cause instanceof AccessDeniedException)
+            } else if (cause instanceof AccessDeniedException) {
                 sb.append(cause.getLocalizedMessage());
-            else if (cause instanceof RuntimeException)
+            } else if (cause instanceof RuntimeException) {
                 sb.append(cause.toString());
-            else 
+            } else {
                 sb.append(cause.getLocalizedMessage());
+            }
         }
         
         // Get a shell
         Shell shell = (Shell) this.context.getActive(IServiceConstants.ACTIVE_SHELL);
         if (shell == null) {
             IShellProvider sp = this.context.getActive(IShellProvider.class);
-            if (sp != null)
+            if (sp != null) {
                 shell = sp.getShell();
+            }
         }
         
         final Shell fshell = shell;
@@ -749,7 +769,7 @@ class ProjectService implements IProjectService, EventHandler {
         
         Display d = shell != null ? shell.getDisplay() : Display.getDefault();
         d.syncExec(new Runnable() {
-            
+        
             @Override
             public void run() {
                 MessageDialog.openWarning(fshell, title, sb.toString());
@@ -777,7 +797,7 @@ class ProjectService implements IProjectService, EventHandler {
         public void handleProjectEvent(GProjectEvent ev) {
             switch (ev.type) {
             case FRAGMENT_DOWN:
-                
+            
                 if (this.openInProgress && ev.throwable instanceof FragmentMigrationNeededException) {
                     // don't report migration needs because dialog asks for migration
                     // on project opening.
@@ -794,22 +814,24 @@ class ProjectService implements IProjectService, EventHandler {
                     reportAsStatus(ev);
                 }
                 getContext().get(IModelioEventService.class).postAsyncEvent(ProjectService.this, ModelioEvent.FRAGMENT_DOWN, ev.fragment);
-                
+            
                 break;
             case WARNING:
                 if (ev.throwable != null) {
                     AppProjectCore.LOG.warning(ev.throwable);
                 } else if (ev.message != null) {
-                    if (ev.fragment != null)
+                    if (ev.fragment != null) {
                         AppProjectCore.LOG.warning("%s : %s", ev.fragment.getId(), ev.message);
-                    else
+                    } else {
                         AppProjectCore.LOG.warning(ev.message);
+                    }
                 }
                 break;
             case FRAGMENT_STATE_CHANGED:
                 AppProjectCore.LOG.debug("'%s' fragment state changed to '%s'.",ev.fragment.getId(), ev.fragment.getState().toString());
-                if (ev.fragment.getState()==FragmentState.UP_FULL || ev.fragment.getState()==FragmentState.UP_LIGHT)
+                if (ev.fragment.getState()==FragmentState.UP_FULL || ev.fragment.getState()==FragmentState.UP_LIGHT) {
                     getContext().get(IModelioEventService.class).postAsyncEvent(ProjectService.this, ModelioEvent.FRAGMENT_UP, ev.fragment);
+                }
                 break;
             default:
                 if (ev.message != null) {
@@ -825,16 +847,17 @@ class ProjectService implements IProjectService, EventHandler {
 
         @objid ("ff9cf99a-5c5e-47ba-8ea7-57daa521a97b")
         String getMessage(GProjectEvent ev) {
-            if (ev.message != null && !ev.message.isEmpty())
+            if (ev.message != null && !ev.message.isEmpty()) {
                 return ev.message;
-            else if (ev.throwable == null)
+            } else if (ev.throwable == null) {
                 return AppProjectCore.I18N.getMessage("ProjectService.noEventMessage");
-            else if (ev.throwable instanceof FileSystemException)
+            } else if (ev.throwable instanceof FileSystemException) {
                 return FileUtils.getLocalizedMessage((FileSystemException) ev.throwable);
-            else if (ev.throwable instanceof RuntimeException)
+            } else if (ev.throwable instanceof RuntimeException) {
                 return ev.throwable.toString(); // some runtime exceptions have no message at all
-            else 
+            } else {
                 return ev.throwable.getLocalizedMessage();
+            }
         }
 
         @objid ("357af83e-da98-41b2-8095-e74ddcdffa42")
@@ -880,8 +903,9 @@ class ProjectService implements IProjectService, EventHandler {
         @objid ("be54458f-6225-4ced-aba2-963ce44de6f0")
         @Override
         public void close() {
-            if (!this.abort)
+            if (!this.abort) {
                 closeProject(getOpenedProject());
+            }
         }
 
         @objid ("d8c4e9a6-9abb-44b7-a308-7c0d155518b6")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,37 +12,76 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Binding;
 
+/**
+ * ConnectorEnd v0.0.9054
+ * 
+ * 
+ * A ConnectorEnd is an endpoint of a Connector, which attaches the Connector to a connectable element. 
+ * 
+ * In Modelio, a ConnectorEnd is a LinkEnd and can be bound to another element.
+ */
 @objid ("00068bc8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ConnectorEnd extends LinkEnd {
-    @objid ("e97d7726-a61c-49b2-a868-2ad1e7e1a503")
+    @objid ("3f188e33-28ab-4061-8e80-4b2dd6e7e897")
+    public static final String MNAME = "ConnectorEnd";
+
+    /**
+     * Getter for relation 'ConnectorEnd->Representation'
+     * 
+     * Metamodel description:
+     * <i>Binding between ConnectorsEnds, used in CollaborationUse.</i>
+     */
+    @objid ("70459a37-263d-4b57-9e83-0c6bdb5380e7")
     EList<Binding> getRepresentation();
 
-    @objid ("53d706da-303d-4828-b59f-9db150a73dfa")
+    /**
+     * Filtered Getter for relation 'ConnectorEnd->Representation'
+     * 
+     * Metamodel description:
+     * <i>Binding between ConnectorsEnds, used in CollaborationUse.</i>
+     */
+    @objid ("2d1c9522-d91e-4934-8439-78cb4549fd33")
     <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("2fbd745b-48fc-4813-89a5-c861631044ce")
+    /**
+     * Getter for relation 'ConnectorEnd->RepresentedFeature'
+     * 
+     * Metamodel description:
+     * <i>Expresses that the ConnectorEnd represents an element in a more accurate context (such as within an instance or a class internal structure). </i>
+     */
+    @objid ("a080d9a0-3363-4554-ab7f-c0f24525a40e")
     ModelElement getRepresentedFeature();
 
-    @objid ("b745c226-1236-4624-ab17-450785c95916")
+    /**
+     * Setter for relation 'ConnectorEnd->RepresentedFeature'
+     * 
+     * Metamodel description:
+     * <i>Expresses that the ConnectorEnd represents an element in a more accurate context (such as within an instance or a class internal structure). </i>
+     */
+    @objid ("93d5f52b-2fe2-4d2b-8d99-cbdaad4fe7bf")
     void setRepresentedFeature(ModelElement value);
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.templatecontainer;
 
@@ -32,8 +32,6 @@ import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.gproject.model.IElementConfigurator;
-import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.NameSpace;
@@ -68,12 +66,13 @@ public class CreateTemplateParameterEditPolicy extends AbstractEditPolicy {
             if (elementToUnmask instanceof TemplateParameter) {
                 return true;
             } else if (elementToUnmask == null) {
-                MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
-                Class<? extends MObject> interfaceToCreate = Metamodel.getJavaInterface(metaclassToCreate);
+                MClass metaclassToCreate = ctx.getMetaclass();
+                Class<? extends MObject> interfaceToCreate = metaclassToCreate.getJavaInterface();
                 if (TemplateParameter.class.isAssignableFrom(interfaceToCreate)) {
                     final MObject hostElement = getHostElement();
                     final MClass hostMetaclass = hostElement.getMClass();
-                    return MTools.getMetaTool().canCompose(hostMetaclass,metaclassToCreate,null);
+        
+                    return hostMetaclass.getMetamodel().getMExpert().canCompose(hostMetaclass, metaclassToCreate, null);
                 }
             }
         }
@@ -101,11 +100,11 @@ public class CreateTemplateParameterEditPolicy extends AbstractEditPolicy {
                 // Nothing to redefine
             };
         } else if (elementToUnmask == null && hostElement != null) {
-            
-            final MClass metaclassToCreate =Metamodel.getMClass(ctx.getMetaclass());
-            
-            if (TemplateParameter.class.isAssignableFrom(Metamodel.getJavaInterface(metaclassToCreate))) {
-                final boolean returnCommand = MTools.getMetaTool().canCompose(hostElement.getMClass(), metaclassToCreate, null);
+        
+            final MClass metaclassToCreate =ctx.getMetaclass();
+        
+            if (TemplateParameter.class.isAssignableFrom(metaclassToCreate.getJavaInterface())) {
+                final boolean returnCommand = metaclassToCreate.getMetamodel().getMExpert().canCompose(hostElement.getMClass(), metaclassToCreate, null);
         
                 if (returnCommand) {
                     return new CreateTemplateParameterCommand(getHostCompositeNode(), ctx);
@@ -167,10 +166,11 @@ public class CreateTemplateParameterEditPolicy extends AbstractEditPolicy {
                 final IModelFactory modelFactory = modelManager.getModelFactory(diagram.getRelatedElement());
                 newElement = modelFactory.createTemplateParameter();
             
-                if (this.parentElement instanceof NameSpace)
+                if (this.parentElement instanceof NameSpace) {
                     newElement.setParameterized((NameSpace) this.parentElement);
-                else
+                } else {
                     newElement.setParameterizedOperation((Operation) this.parentElement);
+                }
             
                 // Attach the stereotype if needed.
                 if (this.context.getStereotype() != null) {
@@ -179,7 +179,7 @@ public class CreateTemplateParameterEditPolicy extends AbstractEditPolicy {
             
                 // Set default name
                 newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
-                
+            
                 // Configure element
                 IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
                 elementConfigurer.configure(modelFactory, newElement, this.context.getProperties());

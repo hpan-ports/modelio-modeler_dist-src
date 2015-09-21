@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,49 +12,114 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.analyst;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.Term;
 
+/**
+ * Dictionary v0.0.9054
+ * 
+ * 
+ * A Dictionary can contain Terms and other Dictionaries. Its purpose can be described in the Text attribute. 
+ * 
+ * A Dictionary belongs to its parent Dictionary, except for the root Dictionary, which belongs to the AnalystProject.
+ * 
+ * A Dictionary can be typed. In this case, all owned dictionaries and terms must have the same type. It then also has a default PropertyValueSet, which stores all PropertySet property default values (see PropertyValue). This default PropertyValueSet is then used to initialize new Term property values and Dictionary default values.
+ */
 @objid ("005b9e06-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Dictionary extends AnalystContainer {
-    @objid ("49d95a3d-e498-45e1-bd25-73e6d955e5c2")
+    @objid ("095aad5b-8826-487e-adf1-9925ad289360")
+    public static final String MNAME = "Dictionary";
+
+    /**
+     * Getter for relation 'Dictionary->OwnedDictionary'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("113ea5af-f86b-487c-9974-041a95949b15")
     EList<Dictionary> getOwnedDictionary();
 
-    @objid ("0c18bb1c-f481-44b5-9481-c37a2b086481")
+    /**
+     * Filtered Getter for relation 'Dictionary->OwnedDictionary'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("79796059-9853-4af8-9dcd-3869be4dcb9f")
     <T extends Dictionary> List<T> getOwnedDictionary(java.lang.Class<T> filterClass);
 
-    @objid ("e6a3e40c-6362-401e-badb-d34ba340c65d")
+    /**
+     * Getter for relation 'Dictionary->OwnerDictionary'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6d2558c2-cd3b-4aac-832c-de950391faca")
     Dictionary getOwnerDictionary();
 
-    @objid ("e7e45747-c32c-4e9e-9d7c-0c60b883575f")
+    /**
+     * Setter for relation 'Dictionary->OwnerDictionary'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("28b54559-4957-424f-85f6-09ffd6b7d4ae")
     void setOwnerDictionary(Dictionary value);
 
-    @objid ("12173e5d-fbf7-4bd9-9213-2a705bed4a85")
+    /**
+     * Getter for relation 'Dictionary->OwnerProject'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("8e656ac1-6027-4ebe-87de-e15b4d4ea668")
     AnalystProject getOwnerProject();
 
-    @objid ("e7903638-9f5a-4017-967a-04cfde41c019")
+    /**
+     * Setter for relation 'Dictionary->OwnerProject'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1a5be801-ac42-4c9e-bb7a-8d9507216687")
     void setOwnerProject(AnalystProject value);
 
-    @objid ("73c511be-4ec4-4632-9c23-d71a45ad677f")
+    /**
+     * Getter for relation 'Dictionary->OwnedTerm'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("fe5715f5-636a-4ca6-9a6d-9900851d81b4")
     EList<Term> getOwnedTerm();
 
-    @objid ("2b8da143-7d0a-4fb4-85f5-6551fa51314e")
+    /**
+     * Filtered Getter for relation 'Dictionary->OwnedTerm'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e39d458c-ed32-49c2-b59a-255f8d122196")
     <T extends Term> List<T> getOwnedTerm(java.lang.Class<T> filterClass);
 
 }

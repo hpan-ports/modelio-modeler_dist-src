@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.diagramauto.diagram.layout;
 
@@ -39,7 +39,7 @@ import org.modelio.api.diagram.InvalidSourcePointException;
 @objid ("578596b5-501f-4968-a428-7d1157e48096")
 public class CircleLayout {
     @objid ("2b58ff6a-0dbf-473e-aeb9-16c335ef1da1")
-    public void layout(final IDiagramHandle dh, final List<IDiagramNode> contentDgs) throws InvalidSourcePointException, InvalidDestinationPointException, InvalidPointsPathException {
+    public void layout(final IDiagramHandle dh, final List<IDiagramNode> contentDgs) throws InvalidDestinationPointException, InvalidPointsPathException, InvalidSourcePointException {
         int maxWidth = 0;
         int maxHeight = 0;
         

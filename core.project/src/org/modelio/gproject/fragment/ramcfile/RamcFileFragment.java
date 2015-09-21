@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.fragment.ramcfile;
 
@@ -34,25 +34,26 @@ import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.FragmentType;
 import org.modelio.gproject.data.project.GAuthConf;
 import org.modelio.gproject.data.project.GProperties;
-import org.modelio.gproject.data.project.VersionDescriptor;
-import org.modelio.gproject.data.project.VersionDescriptors;
-import org.modelio.gproject.data.ramc.IModelComponentInfos.VersionedItem;
+import org.modelio.gproject.data.project.MetamodelDescriptor;
 import org.modelio.gproject.data.ramc.IModelComponentInfos;
 import org.modelio.gproject.data.ramc.ModelComponentArchive;
 import org.modelio.gproject.data.ramc.ModelRef;
 import org.modelio.gproject.fragment.AbstractFragment;
+import org.modelio.gproject.fragment.FragmentMigrationNeededException;
+import org.modelio.gproject.fragment.VersionHelper;
 import org.modelio.gproject.gproject.GProjectEvent;
 import org.modelio.gproject.plugin.CoreProject;
-import org.modelio.metamodel.Metamodel;
+import org.modelio.metamodel.StandardMetamodel;
 import org.modelio.vbasic.files.Unzipper;
 import org.modelio.vbasic.net.UriPathAccess;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
+import org.modelio.vbasic.version.Version;
+import org.modelio.vbasic.version.VersionedItem;
 import org.modelio.vcore.session.api.IAccessManager;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.impl.permission.BasicAccessManager;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vstore.exml.local.ExmlBase;
 import org.modelio.vstore.exml.resource.LocalExmlResourceProvider;
 
@@ -168,7 +169,7 @@ public class RamcFileFragment extends AbstractFragment {
         
             IModelComponentInfos infos = ModelComponentArchive.getRamcDirectoryInfos(getContentDirectory());
             for (ModelRef mref : infos.getRoots()) {
-                MObject obj = getRepository().findById(SmClass.getClass(mref.mc), mref.uuid);
+                MObject obj = getRepository().findById(getProjectMetamodel().getMClass(mref.mc), mref.uuid);
                 if (obj != null) {
                     this.roots.add(obj);
                 }
@@ -220,7 +221,7 @@ public class RamcFileFragment extends AbstractFragment {
                 SubProgress mon = SubProgress.convert(monitor,2);
                 mon.subTask(CoreProject.getMessage("RamcFileFragment.ExtractRamcFrom", getId(), this.uri));
                 new Unzipper().unzip(acc.getPath(), localRamcPath, mon.newChild(1));
-                
+        
                 // Deploy exported files
                 mon.subTask(CoreProject.getMessage("RamcFileFragment.DeployRamcFiles", getId(), this.uri));
                 new ModelComponentArchive(localRamcPath, false).installExportedFiles(getProject().getProjectPath(), mon.newChild(1));
@@ -260,49 +261,56 @@ public class RamcFileFragment extends AbstractFragment {
 
     @objid ("39044ea2-7a39-47c3-b400-404b03190ea0")
     @Override
-    public VersionDescriptors getMetamodelVersion() throws IOException {
-        VersionDescriptor v = new VersionDescriptor();
-        v.setName("Modelio");
-        v.setVersion(getInformations().getVersion().getMetamodelVersion());
+    public MetamodelDescriptor getRequiredMetamodelDescriptor() throws IOException {
+        MetamodelDescriptor mmDesc = new MetamodelDescriptor();
         
-        if (v.getVersion() == 0) {
-            // Version not written, start guess mode
-            // Look for module versions 
-            int mm = 0;
-            for (VersionedItem m : getInformations().getContributingModules()) {
-                int lmm = m.getVersion().getMetamodelVersion();
-                if (lmm > mm)
-                    mm = lmm;
-            }
-            
-            if (mm == 0) {
-                // Ensure it is Modelio 3
-                Path modelio2_model = getContentDirectory().resolve("model.xml");
-                if (Files.isRegularFile(modelio2_model)) {
-                    // Assume last Modelio 2.2 - 8020 :  24/04/2012
-                    mm = 8020;
-                }
-            }
-            v.setVersion(mm);
+        boolean found = false;
+        for (VersionedItem<?> versionedItem : getInformations().getRequiredMetamodelFragments()) {
+            VersionedItem<Void> v = new VersionedItem<>(versionedItem.getName(), versionedItem.getVersion());
+            mmDesc.addDescriptor(v);
+            found = true;
         }
-        return new VersionDescriptors(v);
+        
+        if (! found) {
+            // Old RAMC with no metamodel version info
+            Version v;
+            Path modelio2_model = getContentDirectory().resolve("model.xml");
+            if (Files.isRegularFile(modelio2_model)) {
+                // Assume last Modelio 2.2 - 8020 :  24/04/2012
+                v = VersionHelper.convert(8020);
+            } else {
+                // Set to Modelio 2.0 by default
+                v = VersionHelper.convert(8000);
+            }
+        
+            mmDesc.addDescriptor(new VersionedItem<Void>(StandardMetamodel.NAME, v));
+        }
+        return mmDesc;
     }
 
     @objid ("8638f6a8-b7d6-4dbd-bcf2-e5907332d8a0")
     @Override
-    protected void checkMmVersion() throws IOException {
-        VersionDescriptors fragmentVersion = getMetamodelVersion();
-        if (! fragmentVersion.isSame(getLastMmVersion())) {
-            // last compatible version 9017
-            // first incompatible version 9016
-            final int mmVersion = fragmentVersion.getMmVersion();
-            final String fragLabel = getId()+" v"+getInformations().getVersion();
-            if (mmVersion == 0)
-                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, CoreProject.getMessage("RamcFileFragment.UnspecifiedMmVersion", fragLabel, fragmentVersion)));
-            else if (mmVersion < 9017 || mmVersion > Integer.parseInt(Metamodel.VERSION)) {
-                throw new IOException(CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, getLastMmVersion()));
-            } else
-                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, CoreProject.getMessage("RamcFileFragment.DifferentMmVersion", fragLabel, fragmentVersion)));
+    protected void checkMmVersion() throws FragmentMigrationNeededException, IOException {
+        MetamodelDescriptor neededVersions = getRequiredMetamodelDescriptor();
+        MetamodelDescriptor curMmVersions = getCurrentMmDescriptor();
+        if (! neededVersions.isSame(curMmVersions)) {
+            for (VersionedItem<?> neededVersion : neededVersions) {
+                if (neededVersion.getName().equals(StandardMetamodel.NAME)) {
+                    // last compatible version 9017
+                    // first incompatible version 9016
+                    final Version mmVersion = neededVersion.getVersion();
+                    final String fragLabel = getId()+" v"+getInformations().getVersion();
+                    if (mmVersion == null) {
+                        getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, CoreProject.getMessage("RamcFileFragment.UnspecifiedMmVersion", fragLabel, neededVersions)));
+                    } else if (mmVersion.isOlderThan(VersionHelper.convert(9017)) || mmVersion.isNewerThan(new Version(StandardMetamodel.VERSION))) {
+                        throw new IOException(CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), neededVersions, curMmVersions));
+                    } else {
+                        getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, CoreProject.getMessage("RamcFileFragment.DifferentMmVersion", fragLabel, neededVersions)));
+                    }
+                } else {
+                    super.checkRequiredMmFragment(neededVersion, curMmVersions);
+                }
+            }
         }
     }
 

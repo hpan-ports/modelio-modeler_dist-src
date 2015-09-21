@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.policies;
 
@@ -28,10 +28,10 @@ import org.modelio.diagram.elements.core.link.DefaultCreateLinkCommand;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
 import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.Generalization;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -58,6 +58,8 @@ public class SmartGeneralizationEditPolicy extends DefaultCreateLinkEditPolicy {
             MObject sourceElement = ((GmNodeModel) request.getSourceEditPart().getModel()).getRelatedElement();
             MObject targetElement = targetNodeModel.getRelatedElement();
         
+            MMetamodel mm = sourceElement.getMClass().getMetamodel();
+        
             if (sourceElement == targetElement) {
                 // No self inheritance allowed
                 return null;
@@ -66,13 +68,13 @@ public class SmartGeneralizationEditPolicy extends DefaultCreateLinkEditPolicy {
                 return null;
             } else if (!(sourceElement instanceof Interface) && (targetElement instanceof Interface)) {
                 // Create an interface realization
-                ModelioLinkCreationContext newContext = new ModelioLinkCreationContext(Metamodel.getMClass(InterfaceRealization.class).getName(),
+                ModelioLinkCreationContext newContext = new ModelioLinkCreationContext(mm.getMClass(InterfaceRealization.class),
                                                                                        context.getStereotype());
                 newContext.setProperties(context.getProperties());
                 startCommand.setContext(newContext);
             } else {
                 // Create a generalization
-                ModelioLinkCreationContext newContext = new ModelioLinkCreationContext(Metamodel.getMClass(Generalization.class).getName(),
+                ModelioLinkCreationContext newContext = new ModelioLinkCreationContext(mm.getMClass(Generalization.class),
                                                                                        context.getStereotype());
                 newContext.setProperties(context.getProperties());
                 startCommand.setContext(newContext);

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.gproject;
 
@@ -70,7 +70,7 @@ public class ProjectWriter {
         
         URI uri = getRelativeUri(projectFragment.getUri());
         fd.setUri(uri);
-        fd.setScope(projectFragment.getScope()); 
+        fd.setScope(projectFragment.getScope());
         
         fd.setProperties(new GProperties(projectFragment.getProperties()));
         fd.setAuthDescriptor(writeAuth(projectFragment.getAuthConfiguration()));
@@ -83,20 +83,23 @@ public class ProjectWriter {
      */
     @objid ("eed9bfb6-9a71-11e1-ac83-001ec947ccaf")
     public ProjectDescriptor writeProject() {
-        if (this.project == null)
+        if (this.project == null) {
             throw new IllegalStateException();
+        }
         
         ProjectDescriptor out = new ProjectDescriptor();
         out.setName(this.project.getName());
         out.setPath(this.project.getProjectDataPath());
         out.setType(this.project.getType().name());
         
-        if (this.project.getRemoteLocation() != null)
+        if (this.project.getRemoteLocation() != null) {
             out.setRemoteLocation(this.project.getRemoteLocation().toString());
+        }
         
         // Write properties
         
         out.setProperties(new GProperties(this.project.getProperties()));
+        out.setTodo(this.project.getTodo());
         
         out.setAuthDescriptor(writeAuth(this.project.getAuthConfiguration()));
         
@@ -121,7 +124,7 @@ public class ProjectWriter {
     public ModuleDescriptor writeModuleDescriptor(final GModule m) {
         ModuleDescriptor d = new ModuleDescriptor();
         d.setName( m.getName());
-        d.setScope(m.getScope()); 
+        d.setScope(m.getScope());
         d.setActivated(m.isActivated());
         
         d.setVersion( m.getVersion());
@@ -136,18 +139,20 @@ public class ProjectWriter {
 
     @objid ("b46c8a50-0baa-11e2-bed6-001ec947ccaf")
     private URI getRelativeUri(URI uri) {
-        if (uri == null)
+        if (uri == null) {
             return null;
-        else
+        } else {
             return this.project.getProjectDataPath().toUri().relativize(uri);
+        }
     }
 
     @objid ("2edd7fb7-8fbf-417d-9063-d46f55c20ab8")
     private AuthDescriptor writeAuth(GAuthConf auth) {
-        if (auth == null)
+        if (auth == null) {
             return new AuthDescriptor(new NoneAuthData(), DefinitionScope.LOCAL);
-        else
+        } else {
             return new AuthDescriptor(auth.getAuthData(), auth.getScope());
+        }
     }
 
     /**

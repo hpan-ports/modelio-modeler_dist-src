@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.requiredinterface;
 
@@ -31,7 +31,6 @@ import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.GmPath;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.statik.NaryConnector;
 import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
@@ -58,12 +57,12 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
         final MObject el = gmLink.getRelatedElement();
         if (el instanceof RequiredInterface) {
             final ReconnectRequiredInterfaceCommand cmd = new ReconnectRequiredInterfaceCommand(gmLink,
-                                                                                                newTargetNode);
+                    newTargetNode);
         
             return cmd;
         } else if (el instanceof ProvidedInterface) {
             final ReconnectProvidedInterfaceCommand cmd = new ReconnectProvidedInterfaceCommand(gmLink,
-                                                                                                newTargetNode);
+                    newTargetNode);
         
             return cmd;
         }
@@ -73,17 +72,22 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
     @objid ("367c103a-55b7-11e2-877f-002564c97630")
     @Override
     protected Command getConnectionCompleteCommand(final CreateConnectionRequest request) {
-        if (isHandled(request))
+        if (isHandled(request)) {
             return new CreateConnectedConnectionCommand(request, getHost(), request.getLocation());
-        else
+        } else {
             return null;
+        }
     }
 
     @objid ("367c1040-55b7-11e2-877f-002564c97630")
     private boolean isHandled(final CreateConnectionRequest r) {
-        ModelioCreationContext ctx = (ModelioCreationContext) r.getNewObject();
-        Class<? extends MObject> c = Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
-        return (ProvidedInterface.class.isAssignableFrom(c) || RequiredInterface.class.isAssignableFrom(c));
+        ModelioCreationContext ctx = ModelioCreationContext.lookRequest(r);
+        if (ctx != null) {
+            Class<? extends MObject> c = ctx.getMetaclass().getJavaInterface();
+            return (ProvidedInterface.class.isAssignableFrom(c) || RequiredInterface.class.isAssignableFrom(c));
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -152,8 +156,7 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
          */
         @objid ("367d96c5-55b7-11e2-877f-002564c97630")
         private void disconnect(final RequiredInterface link) {
-            MTools.getModelTool().setTarget(link, null, null);
-            //LinkServices.RequiredInterfaceService.removeTarget(link);
+            link.getMClass().getMetamodel().getMExpert().setTarget(link, null, null);
         }
 
         /**
@@ -165,7 +168,7 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
         @objid ("367d96cc-55b7-11e2-877f-002564c97630")
         private boolean isRequiredConnectedTo(final RequiredInterface link, final MObject target) {
             for (NaryLinkEnd l : link.getNaryProvider()) {
-                
+            
                 if (target.equals(l.getNaryLink())) {
                     return true;
                 }
@@ -176,16 +179,18 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
         @objid ("367d96d9-55b7-11e2-877f-002564c97630")
         @Override
         public boolean canExecute() {
-            if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement()))
+            if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement())) {
                 return false;
+            }
             
             final RequiredInterface requiredLink = (RequiredInterface) this.gmLink.getRepresentedElement();
             final MObject target = this.gmTarget.getRelatedElement();
             
             if (this.gmTarget instanceof GmLollipopConnection) {
                 if (!isRequiredConnectedTo(requiredLink, target)) {
-                    if (!MTools.getAuthTool().canModify(requiredLink) || !MTools.getAuthTool().canModify(target))
+                    if (!MTools.getAuthTool().canModify(requiredLink) || !MTools.getAuthTool().canModify(target)) {
                         return false;
+                    }
             
                     return canDisconnect(requiredLink);
             
@@ -198,13 +203,15 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
 
         @objid ("367d96de-55b7-11e2-877f-002564c97630")
         private boolean canDisconnect(final RequiredInterface requiredLink) {
-            if (!MTools.getAuthTool().canModify(requiredLink))
+            if (!MTools.getAuthTool().canModify(requiredLink)) {
                 return false;
+            }
             
             for (NaryLinkEnd end : requiredLink.getNaryProvider()) {
                 final NaryLink l = end.getNaryLink();
-                if (l != null && l.isValid() && !l.getStatus().isModifiable())
+                if (l != null && l.isValid() && !l.getStatus().isModifiable()) {
                     return false;
+                }
             }
             return true;
         }
@@ -277,7 +284,7 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
          */
         @objid ("367f1d5c-55b7-11e2-877f-002564c97630")
         private void disconnect(final ProvidedInterface link) {
-            MTools.getModelTool().setTarget(link, null, null);
+            link.getMClass().getMetamodel().getMExpert().setTarget(link, null, null);
         }
 
         /**
@@ -299,16 +306,18 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
         @objid ("367f1d70-55b7-11e2-877f-002564c97630")
         @Override
         public boolean canExecute() {
-            if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement()))
+            if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement())) {
                 return false;
+            }
             
             final ProvidedInterface providedLink = (ProvidedInterface) this.gmLink.getRepresentedElement();
             final MObject target = this.gmTarget.getRelatedElement();
             
             if (this.gmTarget instanceof GmLollipopConnection) {
                 if (!isProvidedConnectedTo(providedLink, target)) {
-                    if (!MTools.getAuthTool().canModify(providedLink) || !MTools.getAuthTool().canModify(target))
+                    if (!MTools.getAuthTool().canModify(providedLink) || !MTools.getAuthTool().canModify(target)) {
                         return false;
+                    }
             
                     return canDisconnect(providedLink);
             
@@ -321,13 +330,15 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
 
         @objid ("367f1d75-55b7-11e2-877f-002564c97630")
         private boolean canDisconnect(final ProvidedInterface providedLink) {
-            if (!MTools.getAuthTool().canModify(providedLink))
+            if (!MTools.getAuthTool().canModify(providedLink)) {
                 return false;
+            }
             
             for (NaryLinkEnd end : providedLink.getNaryConsumer()) {
                 final NaryLink l = end.getNaryLink();
-                if (l != null && l.isValid() && !l.getStatus().isModifiable())
+                if (l != null && l.isValid() && !l.getStatus().isModifiable()) {
                     return false;
+                }
             }
             return true;
         }

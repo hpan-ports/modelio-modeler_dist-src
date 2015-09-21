@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R1170</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R1170"></a>
+<h1 >R1170<a href="#R1170" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>The target <em>Pin</em> of a <em>CallOperationAction</em> must be typed by the
+<em>Classifier</em> which owns the called <em>Operation</em>.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>The target <em>Pin</em> of a <em>CallOperationAction</em> must be typed by the <em>Classifier</em>
+which owns the called <em>Operation</em>.</p>
+
+<p>The target <em>Pin</em> represents the target object to which the request is sent.
+The <em>Classifier</em> of the target object is used to dynamically determine the
+behaviour to invoke. This object constitutes the context of the execution of</p>
+
+<p>the <em>Operation</em>.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>When you get a R1170 warning, check that the target <em>Pin</em> of the incriminated
+<em>CallOperationAction</em> is typed by the <em>Classifier</em> defining the <em>Operation</em>
+referenced by the <em>CallOperationAction</em>.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

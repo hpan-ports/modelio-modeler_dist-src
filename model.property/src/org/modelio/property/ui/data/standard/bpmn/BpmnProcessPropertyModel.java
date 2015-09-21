@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.bpmn;
 
@@ -48,7 +48,7 @@ public class BpmnProcessPropertyModel extends AbstractPropertyModel<BpmnProcess>
      * </ul>
      */
     @objid ("a60a4fd3-c068-11e1-8c0a-002564c97630")
-    private static final String[] properties = new String[] { "Process", "Name", "ProcessType", "Closed", "Executable" };
+    private static final String[] properties = new String[] { "Property", "Name", "ProcessType", "Closed", "Executable" };
 
     /**
      * Create a new <i>BpmnProcess</i> data model from an <i>BpmnProcess</i>.
@@ -90,25 +90,25 @@ public class BpmnProcessPropertyModel extends AbstractPropertyModel<BpmnProcess>
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return BpmnProcessPropertyModel.properties[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getName();
-                    case 2:
-                        return this.theEditedElement.getProcessType();
-                    case 3:
-                        return this.theEditedElement.isIsClosed() ? Boolean.TRUE : Boolean.FALSE;
-                    case 4:
-                        return this.theEditedElement.getIsExecutable();
-                    default:
-                        return null;
-                }
+        case 0: // col 0 is the property key
+            return BpmnProcessPropertyModel.properties[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return this.theEditedElement.getProcessType();
+            case 3:
+                return this.theEditedElement.isIsClosed() ? Boolean.TRUE : Boolean.FALSE;
+            case 4:
+                return this.theEditedElement.getIsExecutable();
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -126,25 +126,25 @@ public class BpmnProcessPropertyModel extends AbstractPropertyModel<BpmnProcess>
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return new StringType(false);
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return new StringType(false);
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return new StringType(false);
-                    case 1:
-                        return new StringType(true);
-                    case 2:
-                        return new EnumType(BpmnProcessType.class);
-                    case 3:
-                        return new BooleanType();
-                    case 4:
-                        return new EnumType(OptionalBoolean.class);
-                    default:
-                        return null;
-                }
+            case 1:
+                return new StringType(true);
+            case 2:
+                return new EnumType(BpmnProcessType.class);
+            case 3:
+                return new BooleanType();
+            case 4:
+                return new EnumType(OptionalBoolean.class);
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -160,30 +160,30 @@ public class BpmnProcessPropertyModel extends AbstractPropertyModel<BpmnProcess>
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
-                return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setName((String) value);
-                        break;
-                    case 2:
-                        this.theEditedElement.setProcessType((BpmnProcessType) value);
-                        break;
-                    case 3:
-                        this.theEditedElement.setIsClosed((Boolean) value);
-                        break;
-                    case 4:
-                        this.theEditedElement.setIsExecutable((OptionalBoolean) value);
-                        break;
-                    default:
-                        return;
-                }
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                this.theEditedElement.setProcessType((BpmnProcessType) value);
+                break;
+            case 3:
+                this.theEditedElement.setIsClosed((Boolean) value);
+                break;
+            case 4:
+                this.theEditedElement.setIsExecutable((OptionalBoolean) value);
                 break;
             default:
                 return;
+            }
+            break;
+        default:
+            return;
         }
     }
 

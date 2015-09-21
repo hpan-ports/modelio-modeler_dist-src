@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -48,21 +48,18 @@ public class ONaryAssociationEnd extends OFeature {
     @objid ("3dcf8b9a-0e45-4f29-8308-d023f82cf5e5")
     private boolean isLinkedToClassAssociation;
 
-    @objid ("d65803ad-a01d-4076-8c00-051c346b0bff")
-    private NaryAssociationEnd objingElement = null;
-
     @objid ("05f1806f-f60a-4dac-83dc-eca24622760d")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        NaryAssociation assoc = this.objingElement.getNaryAssociation();
+        NaryAssociation assoc = getObjingElement().getNaryAssociation();
         
         if (! AbstractObjingModelNavigation.isOwnedByActor(assoc)) {
-            if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EXTENSIONEND)){
+            if (getObjingElement().isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EXTENSIONEND)){
                 return  UMLFactory.eINSTANCE.createExtensionEnd();
             }
             return UMLFactory.eINSTANCE.createProperty();
         
-        }else{ 
+        }else{
             String message = Xmi.I18N.getMessage("error.export.assocBetweenActors",
                     assoc.getName());
             XMILogs.getInstance().writelnInLog(message);
@@ -81,8 +78,7 @@ public class ONaryAssociationEnd extends OFeature {
     @objid ("a82d6b8c-f34b-4409-bb50-d9c6570da00a")
     public ONaryAssociationEnd(final NaryAssociationEnd element) {
         super(element);
-        this.objingElement = element;
-        if (AbstractObjingModelNavigation.isIsClassAssociation(this.objingElement))
+        if (AbstractObjingModelNavigation.isIsClassAssociation(getObjingElement()))
             this.isLinkedToClassAssociation = true;
         else
             this.isLinkedToClassAssociation = false;
@@ -95,7 +91,7 @@ public class ONaryAssociationEnd extends OFeature {
             linkEcoreProperty((Property) ecoreElt);
         // If the Class representing the current ClassAssociation represents
         // other ClassAssociations, the ClassAssociation is not valid for export:
-        else if (AbstractObjingModelNavigation.isRepresentedByAUniqueClass(this.objingElement.getNaryAssociation()
+        else if (AbstractObjingModelNavigation.isRepresentedByAUniqueClass(getObjingElement().getNaryAssociation()
                 .getLinkToClass()))
             linkEcorePropertyLinkedToAC((Property) ecoreElt);
         else
@@ -126,7 +122,7 @@ public class ONaryAssociationEnd extends OFeature {
         // have navigable ends.
         
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
-            setAccessModeEAnnotation(ecoreProp); 
+            setAccessModeEAnnotation(ecoreProp);
             setAbstractEAnnotation(ecoreElt);
         }
         
@@ -143,7 +139,7 @@ public class ONaryAssociationEnd extends OFeature {
 
     @objid ("b2b3cebe-8aae-460a-ad77-fd6e013035ad")
     private void setMin(Property ecoreProp) {
-        String objingMultMin = this.objingElement.getMultiplicityMin();
+        String objingMultMin = getObjingElement().getMultiplicityMin();
         
         // If objingMultMin is "" then we don't set a lower multiplicity for the
         // UML2 element.
@@ -154,7 +150,7 @@ public class ONaryAssociationEnd extends OFeature {
             else {
                 StringConverter.setFilterEnabled(true);
                 Integer min = StringConverter.getInteger(objingMultMin);
-                if (min != null){ 
+                if (min != null){
                     if (min != 1)
                         ecoreProp.setLower(min);
                 }else {
@@ -169,7 +165,7 @@ public class ONaryAssociationEnd extends OFeature {
                             "String", "\"" + objingMultMin + "\"", "Integer",
                             contextualMsg);
                     logs.writelnInLog(message);
-                    GenerationProperties.getInstance().getReportModel().addInfo(message, this.objingElement);
+                    GenerationProperties.getInstance().getReportModel().addInfo(message, getObjingElement());
                 }
             }
         }
@@ -177,7 +173,7 @@ public class ONaryAssociationEnd extends OFeature {
 
     @objid ("429df0c9-ef6f-484d-9510-abd2e9190013")
     private void setMax(Property ecoreProp) {
-        String objingMultMax = this.objingElement.getMultiplicityMax();
+        String objingMultMax = getObjingElement().getMultiplicityMax();
         
         // If objingMultMax is "" then we don't set an upper multiplicity for
         // the UML2 element.
@@ -188,7 +184,7 @@ public class ONaryAssociationEnd extends OFeature {
             else {
                 StringConverter.setFilterEnabled(true);
                 Integer max = StringConverter.getInteger(objingMultMax);
-                if (max != null){ 
+                if (max != null){
                     if (max != 1)
                         ecoreProp.setUpper(max);
                 }else {
@@ -203,7 +199,7 @@ public class ONaryAssociationEnd extends OFeature {
                             contextualMsg);
                     logs.writelnInLog(message);
         
-                    GenerationProperties.getInstance().getReportModel().addInfo(message, this.objingElement);
+                    GenerationProperties.getInstance().getReportModel().addInfo(message, getObjingElement());
                 }
             }
         }
@@ -211,7 +207,7 @@ public class ONaryAssociationEnd extends OFeature {
 
     @objid ("286a633e-26df-481c-b799-66a5090bef7a")
     private void setAccessModeEAnnotation(Property ecoreProp) {
-        switch (this.objingElement.getChangeable()) {
+        switch (getObjingElement().getChangeable()) {
         case READ:
             ObjingEAnnotation.setAccessMode(ecoreProp,
                     ObjingEAnnotation.READ_VALUE);
@@ -240,17 +236,17 @@ public class ONaryAssociationEnd extends OFeature {
 
     @objid ("ee28c9fd-2cf3-4bdb-ae21-d88f0265af04")
     private void setStatic(Property ecoreProp) {
-        ecoreProp.setIsStatic(this.objingElement.isIsClass());
+        ecoreProp.setIsStatic(getObjingElement().isIsClass());
     }
 
     @objid ("42a4e447-2b6a-4ee6-8948-9bf23482082e")
     private void setOrdered(Property ecoreProp) {
-        ecoreProp.setIsOrdered(this.objingElement.isIsOrdered());
+        ecoreProp.setIsOrdered(getObjingElement().isIsOrdered());
     }
 
     @objid ("6882a573-4abd-437d-b553-5860082bf8cf")
     private void setUnique(Property ecoreProp) {
-        if (this.objingElement.isIsUnique())
+        if (getObjingElement().isIsUnique())
             ecoreProp.setIsUnique(true);
     }
 
@@ -259,7 +255,7 @@ public class ONaryAssociationEnd extends OFeature {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
         // Link to the Ecore org.eclipse.uml2.uml.Association:
-        NaryAssociation objingAssoc = this. objingElement.getNaryAssociation();
+        NaryAssociation objingAssoc = getObjingElement().getNaryAssociation();
         org.eclipse.uml2.uml.Association ecoreAssoc = (org.eclipse.uml2.uml.Association) genProp.getMappedElement(objingAssoc);
         
         if (ecoreAssoc != null) {
@@ -268,7 +264,7 @@ public class ONaryAssociationEnd extends OFeature {
         
             // Sets the org.eclipse.uml2.uml.Association as owner of the Property:
             if (!ecoreAssoc.getOwnedEnds().contains(ecoreProperty)){
-                ecoreAssoc.getOwnedEnds().add(ecoreProperty);                    
+                ecoreAssoc.getOwnedEnds().add(ecoreProperty);
             }
         }
     }
@@ -278,7 +274,7 @@ public class ONaryAssociationEnd extends OFeature {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
         // Link to the Ecore org.eclipse.uml2.uml.AssociationClass if it has already been created:
-        NaryAssociation objingAssoc = this.objingElement.getNaryAssociation();
+        NaryAssociation objingAssoc = getObjingElement().getNaryAssociation();
         org.eclipse.uml2.uml.AssociationClass ecoreAssocClass = (org.eclipse.uml2.uml.AssociationClass) genProp
                 .getMappedElement(objingAssoc);
         
@@ -297,8 +293,8 @@ public class ONaryAssociationEnd extends OFeature {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
         // Case of a N ary association: the type of the current Property
-        // is given by its related org.eclipse.uml2.uml.Classifier 
-        Classifier objingOwner = this.objingElement.getOwner();
+        // is given by its related org.eclipse.uml2.uml.Classifier
+        Classifier objingOwner = getObjingElement().getOwner();
         org.eclipse.uml2.uml.Type ecoreType =  (org.eclipse.uml2.uml.Type) genProp.getMappedElement(objingOwner);
         
         if (ecoreType != null) {
@@ -363,7 +359,7 @@ public class ONaryAssociationEnd extends OFeature {
     private void attachNavigableEndLinkedToAC(Property ecoreProperty) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        Classifier objingOwner = this.objingElement.getOwner();
+        Classifier objingOwner = getObjingElement().getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
@@ -391,7 +387,7 @@ public class ONaryAssociationEnd extends OFeature {
 
     @objid ("076f6cf7-f6b5-43d2-8f15-415e7365a667")
     private void setReadOnly(Property ecoreProp) {
-        switch (this.objingElement.getChangeable()) {
+        switch (getObjingElement().getChangeable()) {
         case READ:
         
             ecoreProp.setIsReadOnly(true);
@@ -405,7 +401,7 @@ public class ONaryAssociationEnd extends OFeature {
     private void attachClassifierEnd(final Property ecoreProperty, final org.eclipse.uml2.uml.Association ecoreAssoc) {
         ecoreAssoc.getMemberEnds().add(ecoreProperty);
         
-        Classifier objingOwner = this.objingElement.getOwner();
+        Classifier objingOwner = getObjingElement().getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
@@ -451,6 +447,12 @@ public class ONaryAssociationEnd extends OFeature {
                         + ecoreOwner.getClass().getSimpleName() + ") Not Found");
             }
         }
+    }
+
+    @objid ("5691298e-5a1c-4700-b162-ae2e4c778d49")
+    @Override
+    public NaryAssociationEnd getObjingElement() {
+        return (NaryAssociationEnd) super.getObjingElement();
     }
 
 }

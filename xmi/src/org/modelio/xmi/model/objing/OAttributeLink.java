@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -42,9 +42,6 @@ import org.modelio.xmi.util.XMILogs;
 
 @objid ("8fc2ec1e-92d8-4b52-a8c3-1f24dc43fc71")
 public class OAttributeLink extends OElement implements IOElement {
-    @objid ("4cad3c36-5b02-4fd2-9d92-1415b33c1717")
-    private AttributeLink objingElement = null;
-
     @objid ("b7904d8d-26de-402e-bc6d-f24f15eb1653")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -54,13 +51,12 @@ public class OAttributeLink extends OElement implements IOElement {
     @objid ("2ef10730-2330-4592-8ed0-008257942105")
     public OAttributeLink(AttributeLink element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("67e25991-9834-456d-99a9-e743cc87af12")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        Instance objOwner = this.objingElement.getAttributed();
+        Instance objOwner = getObjingElement().getAttributed();
         org.eclipse.uml2.uml.Element temp = GenerationProperties.getInstance().getMappedElement(objOwner);
         
         if (temp instanceof InstanceSpecification){
@@ -79,7 +75,7 @@ public class OAttributeLink extends OElement implements IOElement {
             setEAnnotationValue(ecoreElt);
             ObjingEAnnotation.setAttributeLink(ecoreElt, true);
             setEAnnotationName(ecoreElt);
-            Instance objOwner =  this.objingElement.getAttributed();
+            Instance objOwner =  getObjingElement().getAttributed();
         
             ObjingEAnnotation.setOwner(ecoreElt, objOwner.getUuid().toString());
         }
@@ -87,7 +83,7 @@ public class OAttributeLink extends OElement implements IOElement {
 
     @objid ("84a7d5b4-a55c-4d4e-bf42-a4c1bc213d4b")
     private void setDefiningFeature(org.eclipse.uml2.uml.Slot slot) {
-        Attribute objingFeature = this.objingElement.getBase();
+        Attribute objingFeature = getObjingElement().getBase();
         
         if (objingFeature != null) {
         
@@ -102,12 +98,12 @@ public class OAttributeLink extends OElement implements IOElement {
 
     @objid ("5ed11a74-ac93-4495-a785-6bd682227710")
     private void setEAnnotationValue(org.eclipse.uml2.uml.Element ecoreElt) {
-        ObjingEAnnotation.setValue(ecoreElt, this.objingElement.getValue());
+        ObjingEAnnotation.setValue(ecoreElt, getObjingElement().getValue());
     }
 
     @objid ("82a99660-2da4-4417-bc16-faf51bd1b527")
     private void setEAnnotationName(org.eclipse.uml2.uml.Element ecoreElt) {
-        ObjingEAnnotation.setName(ecoreElt, this.objingElement.getName());
+        ObjingEAnnotation.setName(ecoreElt, getObjingElement().getName());
     }
 
     @objid ("dccf83aa-511f-4eea-81cc-42dd0e04f69c")
@@ -119,17 +115,17 @@ public class OAttributeLink extends OElement implements IOElement {
 
     @objid ("99cf5c4d-2030-44aa-88ba-7c68de1191de")
     private void setExpressionOfValue(final org.eclipse.uml2.uml.Slot slot) {
-        if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
+        if (AbstractObjingModelNavigation.haveInstanceValue(getObjingElement())){
             InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
             InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                    AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
+                    AbstractObjingModelNavigation.getInstanceValue(getObjingElement()));
             value.setInstance(inst);
             slot.getValues().add(value);
         }else{
-            Attribute attribut =  this.objingElement.getBase();
+            Attribute attribut =  getObjingElement().getBase();
             if (attribut != null){
                 GeneralClass type = attribut.getType();
-                String value = this.objingElement.getValue();
+                String value = getObjingElement().getValue();
                 GeneralClass objingType = attribut.getType();
         
                 // If objingValue is "" then we don't set a default value for the UML2
@@ -141,7 +137,7 @@ public class OAttributeLink extends OElement implements IOElement {
                         IUMLTypes umlTypes = Modelio.getInstance()
                                 .getModelingSession().getModel().getUmlTypes();
         
-                        if ((AbstractObjingModelNavigation.OBJING_NULL_VALUE != null) 
+                        if ((AbstractObjingModelNavigation.OBJING_NULL_VALUE != null)
                                 && (AbstractObjingModelNavigation.OBJING_NULL_VALUE.equals(value.toLowerCase())
                                         && (type instanceof DataType))){
         
@@ -168,8 +164,8 @@ public class OAttributeLink extends OElement implements IOElement {
         
                             XMILogs logs = XMILogs.getInstance();
                             String contextualMsg = Xmi.I18N.getMessage(
-                                    "logFile.exception.stringConverter.defaultValue", 
-                                    this.objingElement.getName(),
+                                    "logFile.exception.stringConverter.defaultValue",
+                                    getObjingElement().getName(),
                                     "AttributeLink"
                                     );
         
@@ -178,7 +174,7 @@ public class OAttributeLink extends OElement implements IOElement {
                                     "String", "\"" + value + "\"",
                                     "Boolean");
                             logs.writelnInLog(message);
-                            GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement,  message);
+                            GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement(),  message);
         
         
                         }
@@ -204,14 +200,14 @@ public class OAttributeLink extends OElement implements IOElement {
                                 XMILogs logs = XMILogs.getInstance();
                                 String contextualMsg = Xmi.I18N.getMessage(
                                         "logFile.exception.stringConverter.defaultValue",
-                                        this.objingElement.getName(),
+                                        getObjingElement().getName(),
                                         "AttributeLink"  );
         
                                 String message = Xmi.I18N.getMessage("logFile.exception.stringConverter.defaultMsg",
                                         "String", "\"" + value + "\"",
                                         "Integer");
                                 logs.writelnInLog(message);
-                                GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement,  message);
+                                GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement(),  message);
         
                             }
                         } else if (((umlTypes.getCHAR() != null) && (umlTypes.getCHAR().equals(objingType)))
@@ -242,10 +238,10 @@ public class OAttributeLink extends OElement implements IOElement {
                             }else{
                                 XMILogs logs = XMILogs.getInstance();
                                 String contextualMsg = Xmi.I18N.getMessage(
-                                        "logFile.warning.wrongLiteral", value,  objingType.getName());                                
+                                        "logFile.warning.wrongLiteral", value,  objingType.getName());
         
                                 logs.writelnInLog(contextualMsg);
-                                GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement);
+                                GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement());
         
                                  org.eclipse.uml2.uml.OpaqueExpression opaqueExpr = UMLFactory.eINSTANCE.createOpaqueExpression();
                                  org.eclipse.uml2.uml.ValueSpecification result = slot.createValue(null, null, opaqueExpr.eClass());
@@ -265,6 +261,12 @@ public class OAttributeLink extends OElement implements IOElement {
                 }
             }
         }
+    }
+
+    @objid ("aa5495b8-249c-4852-9a56-eee3edd45ad7")
+    @Override
+    public AttributeLink getObjingElement() {
+        return (AttributeLink) super.getObjingElement();
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.nattable.editors;
 
@@ -31,18 +31,18 @@ public class ListDisplayConverter extends DisplayConverter {
     @objid ("8bfede16-d8d8-43db-a4c4-ab80fefb50a5")
     @Override
     public Object canonicalToDisplayValue(Object canonicalValue) {
-        final List list = (List) canonicalValue;
+        final List<?> list = (List<?>) canonicalValue;
         if (list != null) {
-            Iterator it = list.iterator();
+            Iterator<?> it = list.iterator();
             if (! it.hasNext())
                 return "";
         
             StringBuilder sb = new StringBuilder();
-            for (Object obj : list) {
+            do {
                 sb.append(it.next());
                 if (it.hasNext())
                     sb.append(',').append(' ');
-            }
+            } while (it.hasNext());
             return sb.toString();
         } else {
             return "";

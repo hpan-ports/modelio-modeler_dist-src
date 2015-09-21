@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -30,7 +42,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBehavior;
 import org.modelio.metamodel.bpmn.rootElements.BpmnRootElement;
-import org.modelio.metamodel.data.bpmn.rootElements.BpmnRootElementData;
+import org.modelio.metamodel.impl.bpmn.rootElements.BpmnRootElementData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -39,42 +51,52 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("007ad76c-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnRootElementImpl extends BpmnBaseElementImpl implements BpmnRootElement {
-    @objid ("d3fd86fe-af8a-4733-8c93-e690a7d29d1c")
+    @objid ("1839d703-8a36-42e7-9da4-2378755979e3")
     @Override
     public BpmnBehavior getOwner() {
-        return (BpmnBehavior) getDepVal(BpmnRootElementData.Metadata.OwnerDep());
+        Object obj = getDepVal(((BpmnRootElementSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof BpmnBehavior)? (BpmnBehavior)obj : null;
     }
 
-    @objid ("27b5757d-98f0-48ce-bd90-218acbf2744e")
+    @objid ("aa716497-be03-4280-9736-e9603577e2b5")
     @Override
     public void setOwner(BpmnBehavior value) {
-        appendDepVal(BpmnRootElementData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnRootElementSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("49ce1056-3154-4f50-a5da-831ddd689715")
+    @objid ("1331cef0-3223-459a-8b61-8141083d7091")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnRootElementData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((BpmnRootElementSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7e600dd6-4edf-4fdb-9571-9e8dae8a3bdb")
+    @objid ("17885744-7707-4d0c-a445-f12c9a0d4795")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnRootElementData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(BpmnRootElementData.Metadata.OwnerDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((BpmnRootElementSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("161abe16-2d40-44a5-88a8-5f844559055a")
+    @objid ("75125637-41b9-452f-80ca-5e7b5f4f6e15")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnRootElement(this);

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnstartevent;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.core.model.GmModel;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.events.BpmnEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnStartEvent;
 
@@ -42,20 +41,20 @@ public class BpmnStartEventImageService {
             if (start_event.isIsInterrupting()) {
                 if (definitions.size() == 1) {
                     BpmnEventDefinition definition = definitions.get(0);
-                    return Metamodel.getMClass(BpmnStartEvent.class).getName() + "_ni_" + definition.getMClass().getName();
+                    return BpmnStartEvent.MNAME + "_ni_" + definition.getMClass().getName();
                 } else if (definitions.size() > 1) {
-                    return Metamodel.getMClass(BpmnStartEvent.class).getName() + "_ni_Multiple";
+                    return BpmnStartEvent.MNAME + "_ni_Multiple";
                 }
             } else {
                 if (definitions.size() == 1) {
                     BpmnEventDefinition definition = definitions.get(0);
-                    return Metamodel.getMClass(BpmnStartEvent.class).getName() + "_" + definition.getMClass().getName();
+                    return BpmnStartEvent.MNAME + "_" + definition.getMClass().getName();
                 } else if (definitions.size() > 1) {
-                    return Metamodel.getMClass(BpmnStartEvent.class).getName() + "_Multiple";
+                    return BpmnStartEvent.MNAME + "_Multiple";
                 }
             }
         }
-        return Metamodel.getMClass(BpmnStartEvent.class).getName();
+        return BpmnStartEvent.MNAME;
     }
 
     @objid ("61b7ae0f-55b6-11e2-877f-002564c97630")

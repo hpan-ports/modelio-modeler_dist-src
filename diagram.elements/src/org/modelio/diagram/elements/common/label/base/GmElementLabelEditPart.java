@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,19 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.label.base;
 
 import java.beans.PropertyChangeEvent;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PositionConstants;
@@ -40,22 +41,19 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.diagram.elements.common.edition.DirectEditManager2;
-import org.modelio.diagram.elements.core.figures.GradientFigure;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
+import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DefaultElementDirectEditPolicy;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.MetaKey;
-import org.modelio.diagram.styles.core.StyleKey.FillMode;
 import org.modelio.diagram.styles.core.StyleKey;
 
 /**
  * EditPart for {@link GmElementLabel} around connection links or inside GmGroups..
  * <p>
  * Creates a {@link Label} as figure.
- * 
- * @author cmarin
  */
 @objid ("7e90337a-1dec-11e2-8cad-001ec947c8cc")
 public class GmElementLabelEditPart extends GmNodeEditPart {
@@ -93,10 +91,10 @@ public class GmElementLabelEditPart extends GmNodeEditPart {
                     final Rectangle rect2 = label.getTextBounds().getCopy();
         
                     label.translateToAbsolute(rect);
-                    // label.translateToAbsolute(rect2);
         
-                    cellEditor.getControl().setBounds(rect.x, rect.y + (rect.height / 2) - (rect2.height / 2),
-                            Math.max(rect2.width, rect.width), rect2.height);
+                    int minWidth = FigureUtilities.getStringExtents("abcdefghijklmn...", cellEditor.getControl().getFont()).width();
+                    int width = Math.max(Math.max(rect2.width, rect.width), minWidth);
+                    cellEditor.getControl().setBounds(rect.x, rect.y + (rect.height / 2) - (rect2.height / 2), width, rect2.height);
                 }
             };
         
@@ -124,35 +122,20 @@ public class GmElementLabelEditPart extends GmNodeEditPart {
     }
 
     /**
-     * Added the handling of LABEL property change events: updates the visual and requests a resize to preferred size if available.
+     * Added the handling of {@link IGmObject#PROPERTY_LABEL} property change events: <ul>
+     * <li>updates the visual
+     * <li>and requests a resize to preferred size if available.
+     * </ul>
      */
     @objid ("7e903389-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IGmObject.PROPERTY_LABEL)) {
-            // Take note of the current size.
-            final IFigure aFigure = getFigure();
-            Dimension currentSize = aFigure.getSize();
-            aFigure.translateToAbsolute(currentSize);
-        
             refreshVisuals();
         
             // If preferred size if not the same as current size, check if it is
             // possible to resize this figure to its preferred size.
-            Dimension updatedPrefSize = aFigure.getPreferredSize().getCopy();
-            aFigure.translateToAbsolute(updatedPrefSize);
-            Dimension.SINGLETON.width = 0;
-            Dimension.SINGLETON.height = 0;
-            if (!Dimension.SINGLETON.equals(currentSize) && !updatedPrefSize.equals(currentSize)) {
-                ChangeBoundsRequest changeBoundsRequest = new ChangeBoundsRequest(REQ_RESIZE);
-                changeBoundsRequest.setEditParts(this);
-                changeBoundsRequest.setSizeDelta(new Dimension(updatedPrefSize.width - currentSize.width, updatedPrefSize.height
-                        - currentSize.height));
-                Command resizeCommand = getCommand(changeBoundsRequest);
-                if (resizeCommand != null && resizeCommand.canExecute()) {
-                    resizeCommand.execute();
-                }
-            }
+            tryFitToPreferredSize();
         } else {
             super.propertyChange(evt);
         }
@@ -216,11 +199,40 @@ public class GmElementLabelEditPart extends GmNodeEditPart {
 
     @objid ("7e9295b2-1dec-11e2-8cad-001ec947c8cc")
     protected void updateVisibility(IFigure aFigure) {
-        final boolean visible = ((GmElementLabel) getModel()).isVisible();
+        final boolean visible = ((GmNodeModel) getModel()).isVisible();
         if (visible)
             aFigure.setVisible(true);
         else
             aFigure.setVisible(false);
+    }
+
+    /**
+     * If preferred size if not the same as current size, ask if it is
+     * possible to resize this figure to its preferred size.
+     */
+    @objid ("fab5af59-5531-4ae7-b4da-ed144f0bc0d4")
+    private void tryFitToPreferredSize() {
+        final IFigure fig = getFigure();
+        // Get the current size.
+        Dimension currentSize = fig.getSize();
+        
+        // ask for preferred size in within current width
+        Dimension updatedPrefSize = fig.getPreferredSize(fig.getSize().width(), -1).getCopy();
+        
+        if (!currentSize.equals(0, 0) && !updatedPrefSize.equals(currentSize)) {
+            fig.translateToAbsolute(currentSize);
+            fig.translateToAbsolute(updatedPrefSize);
+        
+            ChangeBoundsRequest changeBoundsRequest = new ChangeBoundsRequest(REQ_RESIZE);
+            changeBoundsRequest.setEditParts(this);
+            changeBoundsRequest.setSizeDelta(new Dimension(updatedPrefSize.width - currentSize.width,
+                    updatedPrefSize.height
+                    - currentSize.height));
+            Command resizeCommand = getCommand(changeBoundsRequest);
+            if (resizeCommand != null && resizeCommand.canExecute()) {
+                resizeCommand.execute();
+            }
+        }
     }
 
 }

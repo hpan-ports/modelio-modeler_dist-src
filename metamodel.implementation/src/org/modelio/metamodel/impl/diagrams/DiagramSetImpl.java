@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -29,9 +41,9 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.diagrams.DiagramSetData;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.DiagramSet;
+import org.modelio.metamodel.impl.diagrams.DiagramSetData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -42,98 +54,116 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("006e3d9a-c4bf-1fd8-97fe-001ec947cd2a")
 public class DiagramSetImpl extends ModelElementImpl implements DiagramSet {
-    @objid ("8fc7bf03-b7a3-4393-892e-76805ef28abd")
+    @objid ("40c14112-a1c2-4044-82cd-358eeef08f8d")
     @Override
     public EList<DiagramSet> getSub() {
-        return new SmList<>(this, DiagramSetData.Metadata.SubDep());
+        return new SmList<>(this, ((DiagramSetSmClass)getClassOf()).getSubDep());
     }
 
-    @objid ("bbcd22d7-c35a-4877-89b4-c83e5e7bb3ef")
+    @objid ("c28ec291-103c-46e1-9c8e-614a9f7209b7")
     @Override
     public <T extends DiagramSet> List<T> getSub(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final DiagramSet element : getSub()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("61d1151e-0433-4085-989a-28dc810d3ad3")
+    @objid ("34f43426-bdd6-421f-ac3c-16b2d715cf27")
     @Override
     public DiagramSet getParent() {
-        return (DiagramSet) getDepVal(DiagramSetData.Metadata.ParentDep());
+        Object obj = getDepVal(((DiagramSetSmClass)getClassOf()).getParentDep());
+        return (obj instanceof DiagramSet)? (DiagramSet)obj : null;
     }
 
-    @objid ("4a026f3c-bfcf-4062-89a0-95cbc6172fbe")
+    @objid ("e8db08ad-f2b0-44c9-b53b-139aa60786ae")
     @Override
     public void setParent(DiagramSet value) {
-        appendDepVal(DiagramSetData.Metadata.ParentDep(), (SmObjectImpl)value);
+        appendDepVal(((DiagramSetSmClass)getClassOf()).getParentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2668ff83-6075-456b-889c-a7a067747c81")
+    @objid ("02fe8781-d118-456d-9dc1-f36a79533785")
     @Override
     public EList<AbstractDiagram> getReferencedDiagram() {
-        return new SmList<>(this, DiagramSetData.Metadata.ReferencedDiagramDep());
+        return new SmList<>(this, ((DiagramSetSmClass)getClassOf()).getReferencedDiagramDep());
     }
 
-    @objid ("7a336e9a-ff2f-4cc8-9e08-2238b96aa0d2")
+    @objid ("c66bbf8d-e1c2-4350-8c14-0f99cb81e675")
     @Override
     public <T extends AbstractDiagram> List<T> getReferencedDiagram(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final AbstractDiagram element : getReferencedDiagram()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("132dd3a8-2991-4511-8633-436d6c104078")
+    @objid ("e2f9b09c-0683-45ab-aeb6-696422790160")
     @Override
     public Project getOwner() {
-        return (Project) getDepVal(DiagramSetData.Metadata.OwnerDep());
+        Object obj = getDepVal(((DiagramSetSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof Project)? (Project)obj : null;
     }
 
-    @objid ("8ce410d6-9d56-43a4-a314-33a8f02c329e")
+    @objid ("386f0584-2b03-4b50-983f-7d1a9cd76ab1")
     @Override
     public void setOwner(Project value) {
-        appendDepVal(DiagramSetData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((DiagramSetSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d31edfdc-5e84-4d75-8b85-b8b973f76355")
+    @objid ("1292ff2b-2c71-4f6c-9f95-598fc976cc32")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(DiagramSetData.Metadata.ParentDep());
+        // Parent
+        obj = (SmObjectImpl)this.getDepVal(((DiagramSetSmClass)getClassOf()).getParentDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(DiagramSetData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((DiagramSetSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bc855ae7-3709-46b3-b415-b1ce8f1d51c5")
+    @objid ("fb94192c-d58a-42e1-8dc9-74ff6635615a")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(DiagramSetData.Metadata.ParentDep());
-        if (obj != null)
-          return new SmDepVal(DiagramSetData.Metadata.ParentDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(DiagramSetData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(DiagramSetData.Metadata.OwnerDep(), obj);
+        SmDependency dep;
+        
+        // Parent
+        dep = ((DiagramSetSmClass)getClassOf()).getParentDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // Owner
+        dep = ((DiagramSetSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("6fab4129-c89e-4cae-a19f-7c5f57e25f15")
+    @objid ("9bcd22de-e684-4877-842a-b568ad364b1a")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDiagramSet(this);

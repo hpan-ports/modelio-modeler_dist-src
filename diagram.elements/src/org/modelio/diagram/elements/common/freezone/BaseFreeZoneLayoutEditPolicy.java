@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,23 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.freezone;
 
+import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.PrecisionRectangle;
+import org.eclipse.draw2d.LayoutManager;
+import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
@@ -33,9 +37,11 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.handles.HandleBounds;
+import org.eclipse.gef.requests.BendpointRequest;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.elements.core.commands.DefaultCloneElementCommand;
@@ -43,6 +49,8 @@ import org.modelio.diagram.elements.core.commands.DefaultCreateElementCommand;
 import org.modelio.diagram.elements.core.commands.DefaultReparentElementCommand;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.commands.NodeChangeLayoutCommand;
+import org.modelio.diagram.elements.core.commands.PostLayoutCommand;
+import org.modelio.diagram.elements.core.figures.ChainedLayout;
 import org.modelio.diagram.elements.core.figures.FigureUtilities2;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
@@ -50,22 +58,36 @@ import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy;
 import org.modelio.diagram.elements.drawings.core.GmDrawing;
-import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
-import org.modelio.metamodel.experts.meta.IMetaTool;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MExpert;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * Specialization of the XYLayoutEditPolicy providing actual commands for usual requests and handling DROP requests. Also provides a
- * smart (colored) feedback.
+ * Specialization of the XYLayoutEditPolicy providing:<ul>
+ * <li> actual commands for usual requests and handling DROP requests. Also provides
+ * <li> a smart (colored) feedback.
+ * <li> an intersection removal helper to use on children move/resize.
+ * </ul>
  */
 @objid ("7e30d540-1dec-11e2-8cad-001ec947c8cc")
 public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     @objid ("e252b106-9395-4fb4-8791-79781bea7fb0")
     protected IFigure highlight = null;
+
+    @objid ("4f316319-4cd5-4a24-a431-21852da155d1")
+    private XYLayout xyLayout;
+
+    /**
+     * Request key to get the intersection remover helper in a request extended data.
+     */
+    @objid ("459ba26d-b74f-4506-a2a1-61d0ed308424")
+    private Object intersectionsRemoverKey = new Object() {
+    	@Override
+		public String toString() {return "Intersection remover for "+BaseFreeZoneLayoutEditPolicy.this.toString();}
+    };
 
     @objid ("7e333790-1dec-11e2-8cad-001ec947c8cc")
     @Override
@@ -77,6 +99,12 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
                 this.highlight = null;
             }
         }
+        
+        // Workaround GEF bug in super() where REQ_RESIZE_CHILDREN is tested instead of REQ_RESIZE
+        if (REQ_RESIZE.equals(request.getType())) {
+            eraseLayoutTargetFeedback(request);
+        }
+        
         
         super.eraseTargetFeedback(request);
     }
@@ -124,13 +152,19 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             // create the highlight figure if it does not exists
             if (this.highlight == null) {
                 // create a highlight figure
-                this.highlight = FigureUtilities2.createHighlightFigure(getFeedbackLayer(), getHostFigure(), hightlightType);
+                this.highlight = FigureUtilities2.createHighlightFigure(getFeedbackLayer(), getTargetFeedbackFigure(request), hightlightType);
                 // add the highlight figure to the feedback layer
                 getFeedbackLayer().add(this.highlight);
             }
             // configure the highlight figure
             FigureUtilities2.updateHighlightType(this.highlight, hightlightType);
         }
+        
+        // Workaround GEF bug in super() where REQ_RESIZE_CHILDREN is tested instead of REQ_RESIZE
+        if (REQ_RESIZE.equals(request.getType())) {
+            showLayoutTargetFeedback(request);
+        }
+        
         super.showTargetFeedback(request);
     }
 
@@ -147,32 +181,29 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
         if (hostElement == null) {
             return false;
         }
-        return MTools.getMetaTool().canCompose(hostElement.getMClass(), Metamodel.getMClass(metaclass), null)
-                        && getHostCompositeNode().canCreate(metaclass);
+        MMetamodel mm = hostElement.getMClass().getMetamodel();
+        return mm.getMExpert().canCompose(hostElement.getMClass(), mm.getMClass(metaclass), null)
+                                                                                                                                && getHostCompositeNode().canCreate(metaclass);
     }
 
+    /**
+     * @deprecated Don't call or override, see {@link #createAddCommand(ChangeBoundsRequest, EditPart, Object)} instead.
+     */
     @objid ("7e3337ae-1dec-11e2-8cad-001ec947c8cc")
     @Deprecated
     @Override
-    protected Command createAddCommand(EditPart child, Object constraint) {
-        if (child.getModel() instanceof GmNodeModel)
-            return new DefaultReparentElementCommand(getHostElement(), getHostCompositeNode(), (GmNodeModel) child.getModel(), constraint);
-        else
-            return null;
+    protected final Command createAddCommand(EditPart child, Object constraint) {
+        throw new UnsupportedOperationException();
     }
 
+    /**
+     * @deprecated Don't call or override, see {@link #createChangeConstraintCommand(ChangeBoundsRequest, EditPart, Object)} instead.
+     */
     @objid ("7e3337b9-1dec-11e2-8cad-001ec947c8cc")
     @Deprecated
     @Override
-    protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
-        // if child is a 'node' it usually can be resized and/or moved
-        if (child instanceof GmNodeEditPart || child.getModel() instanceof GmDrawing) {
-            final NodeChangeLayoutCommand command = new NodeChangeLayoutCommand();
-            command.setModel(child.getModel());
-            command.setConstraint(constraint);
-            return command;
-        }
-        return null;
+    protected final Command createChangeConstraintCommand(EditPart child, Object constraint) {
+        throw new UnsupportedOperationException();
     }
 
     @objid ("7e3337c4-1dec-11e2-8cad-001ec947c8cc")
@@ -218,23 +249,25 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     @Override
     protected Command getCloneCommand(ChangeBoundsRequest request) {
         if (getHost().getModel() instanceof GmCompositeNode) {
-            IMetaTool metaUtils = MTools.getMetaTool();
-            
+            MObject targetElement = getHostElement();
+            MExpert metaUtils = targetElement.getMClass().getMetamodel().getMExpert();
+        
             final GmCompositeNode hostModel = getHostCompositeNode();
             final CompoundCommand command = new CompoundCommand();
             for (final Object editPartObj : request.getEditParts()) {
-                final EditPart editPart = (EditPart) editPartObj;
-                if (editPart.getModel() instanceof GmModel) {
-                    final GmModel gmModel = (GmModel) editPart.getModel();
-                    if(getHostElement() instanceof BpmnLane && gmModel.getRelatedElement() instanceof BpmnFlowElement){
-                         final Object requestConstraint = getConstraintForClone((GraphicalEditPart) editPart, request);
-                         command.add(new BpmnCloneFlowElementCommand(hostModel, (BpmnLane) getHostElement(), (BpmnFlowElement)gmModel.getRelatedElement(),
+                final GraphicalEditPart copiedEPart = (GraphicalEditPart) editPartObj;
+                if (copiedEPart.getModel() instanceof GmModel) {
+                    final GmModel copiedGmModel = (GmModel) copiedEPart.getModel();
+                    final MObject copiedElement = copiedGmModel.getRelatedElement();
+                    if(targetElement instanceof BpmnLane && copiedElement instanceof BpmnFlowElement){
+                         final Object requestConstraint = translateToModelConstraint(getConstraintFor(request, copiedEPart));
+                         command.add(new BpmnCloneFlowElementCommand(hostModel, (BpmnLane) targetElement, (BpmnFlowElement)copiedElement,
                                  requestConstraint));
-                    } else if (metaUtils.canCompose(getHostElement(), gmModel.getRelatedElement(), null)) {
-                        final Object requestConstraint = getConstraintForClone((GraphicalEditPart) editPart, request);
-                        command.add(new DefaultCloneElementCommand(hostModel, getHostElement(), gmModel.getRelatedElement(),
+                    } else if (metaUtils.canCompose(targetElement, copiedElement, null)) {
+                        final Object requestConstraint = translateToModelConstraint(getConstraintFor(request, copiedEPart));
+                        command.add(new DefaultCloneElementCommand(hostModel, targetElement, copiedElement,
                                 requestConstraint));
-                    } 
+                    }
                 }
             }
             return command.unwrap();
@@ -242,11 +275,17 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
         return null;
     }
 
+    /**
+     * Generates a draw2d constraint for the given CreateRequest.
+     * <p>
+     * Redefined to making sure that the constraint doesn't violate the "min size".
+     */
     @objid ("7e359a34-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Object getConstraintFor(final CreateRequest request) {
-        // Just making sure that the constraint doesn't violate the "min size".
         Object constraint = super.getConstraintFor(request);
+        
+        // Just making sure that the constraint doesn't violate the "min size".
         if (constraint instanceof Rectangle) {
             Rectangle rectConstraint = (Rectangle) constraint;
             if (rectConstraint.width != -1 && rectConstraint.width < 8) {
@@ -259,35 +298,12 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
         return constraint;
     }
 
-    /**
-     * Returns the correct rectangle bounds for the new clone's location. Handles the HandleBounds to avoid errors with
-     * PortContainers.
-     * @param part the graphical edit part representing the object to be cloned.
-     * @param request the changeboundsrequest that knows where to place the new object.
-     * @return the bounds that will be used for the new object.
-     */
-    @objid ("7e359a26-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected Object getConstraintForClone(final GraphicalEditPart part, final ChangeBoundsRequest request) {
-        IFigure figure = part.getFigure();
-        Rectangle bounds = new PrecisionRectangle(getEffectiveBounds(figure));
-        
-        figure.translateToAbsolute(bounds);
-        bounds = request.getTransformedRectangle(bounds);
-        
-        ((GraphicalEditPart) getHost()).getContentPane().translateToRelative(bounds);
-        bounds.translate(getLayoutOrigin().getNegated());
-        return getConstraintFor(bounds);
-    }
-
     @objid ("7e3337d8-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getCreateCommand(CreateRequest request) {
         final MObject hostElement = getHostElement();
-        final Object newObject = request.getNewObject();
-        if (newObject instanceof ModelioCreationContext) {
-            final ModelioCreationContext ctx = (ModelioCreationContext) newObject;
-        
+        final ModelioCreationContext ctx = (ModelioCreationContext.lookRequest(request));
+        if (ctx != null) {
             final MObject elementToUnmask = ctx.getElementToUnmask();
             final GmCompositeNode gmParentNode = getHostCompositeNode();
             if (elementToUnmask != null) {
@@ -298,10 +314,11 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
                     return null;
                 }
             } else if (hostElement != null) {
-                MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
+                MClass metaclassToCreate = ctx.getMetaclass();
         
-                if (gmParentNode.canCreate(Metamodel.getJavaInterface(metaclassToCreate))) {
-                    if (MTools.getMetaTool().canCompose(hostElement.getMClass(), metaclassToCreate, null)) {
+                if (gmParentNode.canCreate(metaclassToCreate.getJavaInterface())) {
+                    MExpert expert = metaclassToCreate.getMetamodel().getMExpert();
+                    if (expert.canCompose(hostElement.getMClass(), metaclassToCreate, null)) {
                         final Object requestConstraint = getConstraintFor(request);
                         return new DefaultCreateElementCommand(hostElement, gmParentNode, ctx, requestConstraint);
                     }
@@ -313,16 +330,24 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
 
     /**
      * Retrieves the child's current constraint from the <code>LayoutManager</code>.
+     * <p>
+     * The returned constraint may be a reference and must not be modified.
      * @param child the child
-     * @return the current constraint
+     * @return the current constraint by reference.
      */
     @objid ("7e37fc51-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Rectangle getCurrentConstraintFor(GraphicalEditPart child) {
         IFigure fig = child.getFigure();
-        Object constraint = fig.getParent().getLayoutManager().getConstraint(fig);
-        if (constraint instanceof Rectangle) {
-            return (Rectangle) constraint;
+        IFigure parentFig = fig.getParent();
+        if (parentFig != null) {
+            LayoutManager parentLayout = parentFig.getLayoutManager();
+            if (parentLayout != null) {
+                Object constraint = parentLayout.getConstraint(fig);
+                if (constraint instanceof Rectangle) {
+                    return (Rectangle) constraint;
+                }
+            }
         }
         return null;
     }
@@ -330,7 +355,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     @objid ("7e359a1c-1dec-11e2-8cad-001ec947c8cc")
     protected Rectangle getEffectiveBounds(final IFigure figure) {
         return (figure instanceof HandleBounds) ? ((HandleBounds) figure).getHandleBounds().getCopy() : figure.getBounds()
-                        .getCopy();
+                                                                                                                                .getCopy();
     }
 
     /**
@@ -368,10 +393,8 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
      */
     @objid ("7e359a01-1dec-11e2-8cad-001ec947c8cc")
     private EditPart getTargetEditPart(CreateRequest createRequest) {
-        final Object newObject = createRequest.getNewObject();
-        if (newObject instanceof ModelioCreationContext) {
-            final ModelioCreationContext ctx = (ModelioCreationContext) newObject;
-        
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
+        if (ctx != null) {
             if (ctx.getElementToUnmask() != null) {
                 if (getHostCompositeNode().canUnmask(ctx.getElementToUnmask())) {
                     return getHost();
@@ -380,7 +403,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
                 }
             }
         
-            if (canHandle(Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass())))) {
+            if (canHandle(ctx.getMetaclass().getJavaInterface())) {
                 return getHost();
             }
         }
@@ -400,10 +423,9 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             final EditPart editPart = (EditPart) editPartObj;
             if (editPart.getModel() instanceof GmModel) {
                 final GmModel gmModel = (GmModel) editPart.getModel();
-                final String metaclassName = gmModel.getRepresentedRef().mc;
                 // If there is at least 1 element that this policy cannot
                 // handle, do not handle the request at all!
-                if (!canHandle(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)))
+                if (!canHandle(gmModel.getRelatedMClass().getJavaInterface())
                         && !(editPart instanceof ConnectionEditPart)) {
                     return null;
                 }
@@ -435,6 +457,148 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             }
         }
         return false;
+    }
+
+    /**
+     * Build the commands to avoid new nodes and links intersections based on the intersections remover.
+     * @param helper the intersections remover.
+     * @param finalCommand the compound command the built ones will be added to.
+     */
+    @objid ("5e3821cf-9119-4fac-ba5c-6219b90a7aaa")
+    protected void createAvoidNewIntersectionsCommands(INewIntersectionsRemover helper, CompoundCommand finalCommand) {
+        Collection<ChangeBoundsRequest> requests = helper.getNodeRequests();
+        Collection<BendpointRequest> bpRequests = helper.getBendPointRequests();
+        
+        // build commands for initial and added requests
+        for (ChangeBoundsRequest pushRequest : requests) {
+            Command cmd = super.getChangeConstraintCommand(pushRequest);
+            helper.addCommand(cmd);
+        }
+        
+        // build commands for moved bend points
+        for (BendpointRequest bpRequest : bpRequests) {
+            Command cmd = bpRequest.getSource().getCommand(bpRequest);
+            helper.addCommand(cmd);
+        }
+        
+        finalCommand.add(helper.createExecuteCommand());
+    }
+
+    /**
+     * Get the intersection removal helper for this host stored in the given request
+     * extended data.
+     * <p>
+     * Add one if not already present.
+     * <p>
+     * The NewIntersectionsRemover is put in requests extended data and passed to request created from initial requests.
+     * Each container having a BaseFreeZoneLayoutEditPolicy may have its own NewIntersectionsRemover in the request.
+     * This allows using the same remover for all moved elements edit part on multiple selection moves.
+     * @param request the request to parse.
+     * @return the host intersection remover.
+     */
+    @objid ("676595f3-30f4-4a95-98da-7645ff3401c3")
+    protected INewIntersectionsRemover getIntersectionsRemover(ChangeBoundsRequest request) {
+        List<?> involved = request.getEditParts();
+        
+        // first look for existing helper for this container
+        NewIntersectionsRemover helper = (NewIntersectionsRemover) request.getExtendedData().get(this.intersectionsRemoverKey);
+        
+        // Helper not found, create one
+        if (helper == null) {
+            helper = new NewIntersectionsRemover();
+            request.getExtendedData().put(this.intersectionsRemoverKey, helper);
+        
+            List<GraphicalEditPart> children = getHost().getChildren();
+            for (GraphicalEditPart child : children) {
+                if (! involved.contains(child)) {
+                    IFigure f = child.getFigure();
+                    Rectangle oldRect = f.getBounds().getCopy();
+                    f.translateToAbsolute(oldRect);
+                    helper.addMovableNode(child, oldRect);
+                }
+            }
+        }
+        
+        
+        Point layoutOrigin = getLayoutOrigin();
+        for (int i = 0; i < involved.size(); i++) {
+            GraphicalEditPart movedEp = (GraphicalEditPart) involved.get(i);
+            IFigure f = movedEp.getFigure();
+        
+            Rectangle oldRect = f.getBounds().getCopy();
+            f.translateToAbsolute(oldRect);
+        
+            Rectangle newRect = getNewAbsBounds(request, layoutOrigin, movedEp);
+        
+            helper.addBoundsChange(movedEp , oldRect, newRect);
+        }
+        return helper;
+    }
+
+    @objid ("39105322-7197-4c6e-996e-6eda6c8d4367")
+    protected Rectangle getNewAbsBounds(ChangeBoundsRequest request, Point layoutOrigin, GraphicalEditPart child) {
+        Rectangle constraint = (Rectangle) getConstraintFor(request, child);
+        Dimension childPrefSize = child.getFigure().getPreferredSize();
+        if (constraint.width() == -1) {
+            constraint.width = childPrefSize.width();
+        }
+        
+        if (constraint.height() == -1) {
+            constraint.height = childPrefSize.height();
+        }
+        
+        constraint.translate(layoutOrigin);
+        child.getFigure().translateToAbsolute(constraint);
+        return constraint;
+    }
+
+    /**
+     * Redefined to handle {@link ChainedLayout} layout managers.
+     * @return the {@link XYLayout} layout manager set on the
+     * {@link LayoutEditPolicy#getLayoutContainer() container}
+     */
+    @objid ("54dcf5ad-90db-45e0-8558-c1e4917cad1c")
+    @Override
+    protected XYLayout getXYLayout() {
+        if (this.xyLayout == null) {
+            LayoutManager layout = ChainedLayout.getRootLayout(getLayoutContainer());
+            this.xyLayout = (XYLayout) layout;
+        }
+        return this.xyLayout;
+    }
+
+    /**
+     * Used by {@link #showTargetFeedback(Request)} to know which figure must be highlighted.
+     * @param request the request sent to {@link #showTargetFeedback(Request)}
+     * @return the figure to highlight.
+     */
+    @objid ("e3ba1dab-4a3c-427f-9627-4bff5a92edfd")
+    protected IFigure getTargetFeedbackFigure(Request request) {
+        return getHostFigure();
+    }
+
+    @objid ("238e38f1-ceaa-4907-b28c-b63b2dcf0bb9")
+    @Override
+    protected Command createAddCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
+        if (child.getModel() instanceof GmNodeModel) {
+            return new DefaultReparentElementCommand(getHostElement(), getHostCompositeNode(), (GmNodeModel) child.getModel(), constraint);
+        } else {
+            return null;
+        }
+    }
+
+    @objid ("ae931583-dba3-4778-aad1-9399f482e27b")
+    @Override
+    protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
+        // if child is a 'node' it usually can be resized and/or moved
+        if (child instanceof GmNodeEditPart || child.getModel() instanceof GmDrawing) {
+            final NodeChangeLayoutCommand command = new NodeChangeLayoutCommand();
+            command.setModel(child.getModel());
+            command.setConstraint(constraint);
+        
+            return new PostLayoutCommand(command, request);
+        }
+        return null;
     }
 
 }

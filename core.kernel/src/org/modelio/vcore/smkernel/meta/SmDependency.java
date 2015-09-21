@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.smkernel.meta;
 
+import java.util.Arrays;
+import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.EReference;
+import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MDependency;
 import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
-import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaAssociation;
 
 /**
  * A SmDependency represents a type of relation between two SmClass instances.
@@ -81,13 +83,6 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaAssociation;
 @objid ("0084376c-ed97-1f1f-85a5-001ec947cd2a")
 public abstract class SmDependency extends SmFeature implements MDependency {
     /**
-     * Tells whether modifiying this dependency content should be considered
-     * as modifying the source model object.
-     */
-    @objid ("1c50a995-01a4-4c2c-9eba-728c0bfcb0a5")
-    private boolean modifyObject;
-
-    /**
      * Tells whether this dependency is a way to get an object composition owner.
      * <p>
      * The opposite dependency is either a composition or a shared composition.
@@ -95,8 +90,26 @@ public abstract class SmDependency extends SmFeature implements MDependency {
     @objid ("b5b3c411-69ff-41ba-ac6d-92fa1743d9b1")
     private boolean compositionOpposite;
 
+    /**
+     * Tells whether modifiying this dependency content should be considered as modifying the source model object.
+     */
+    @objid ("1c50a995-01a4-4c2c-9eba-728c0bfcb0a5")
+    private boolean modifyObject;
+
     @objid ("71e213a0-2984-49a3-802a-9be387f989e5")
     private boolean postInit;
+
+    /**
+     * The dependency type checker. Must never be null.
+     */
+    @objid ("000bda92-df81-1fe9-93a7-001ec947cd2a")
+    protected SmDependencyTypeChecker checker;
+
+    /**
+     * The EMF adapter dependency.
+     */
+    @objid ("d7fec45f-ef06-4c2a-a9b6-4f735cc72367")
+    private EReference emfAdapter;
 
     /**
      * The dependency owner
@@ -111,48 +124,13 @@ public abstract class SmDependency extends SmFeature implements MDependency {
     private SmClass target;
 
     /**
-     * The dependency type checker. Must never be null.
-     */
-    @objid ("000bda92-df81-1fe9-93a7-001ec947cd2a")
-    protected SmDependencyTypeChecker checker;
-
-    /**
-     * The EMF adapter dependency.
-     */
-    @objid ("d7fec45f-ef06-4c2a-a9b6-4f735cc72367")
-    private EReference emfAdapter;
-
-    @objid ("008426b4-ed97-1f1f-85a5-001ec947cd2a")
-    protected SmDependency() {
-        this.checker = new DefaultTypeChecker(this);
-    }
-
-    /**
      * Add/set value to the dependency. This method is specialized by subclasses.
      * @param obj the model object to modify
      * @param value the model object to add
      * @return <code>true</code> if the value was added, <code>false</code> if the value was already present.
      */
     @objid ("00830112-ed97-1f1f-85a5-001ec947cd2a")
-    public abstract boolean add(final SmObjectImpl obj, final SmObjectImpl value);
-
-    /**
-     * Insert a value in the dependency. This method is specialized by subclasses.
-     * @param obj The object to modify
-     * @param value The value to add
-     * @param index The index where the value must be inserted.
-     */
-    @objid ("008304aa-ed97-1f1f-85a5-001ec947cd2a")
-    public abstract void insert(final SmObjectImpl obj, final SmObjectImpl value, final int index);
-
-    /**
-     * Remove value from the dependency. This method is specialized by subclasses.
-     * @param obj the source model object
-     * @param value the value to remove
-     * @return true if the value was removed, <code>false</code> if the value was absent.
-     */
-    @objid ("0082fd66-ed97-1f1f-85a5-001ec947cd2a")
-    public abstract boolean remove(final SmObjectImpl obj, final SmObjectImpl value);
+    public abstract boolean add(final ISmObjectData obj, final SmObjectImpl value);
 
     /**
      * This method returns <code>true</code> if a modification to the dependency must be considered as also modifying its owner.
@@ -160,9 +138,40 @@ public abstract class SmDependency extends SmFeature implements MDependency {
      */
     @objid ("00841f3e-ed97-1f1f-85a5-001ec947cd2a")
     public boolean doModifyObject() {
-        if (!this.postInit)
+        if (!this.postInit) {
             postInit();
+        }
         return this.modifyObject;
+    }
+
+    /**
+     * Get the dependency type checker.
+     * @return the dependency checker.
+     */
+    @objid ("44ea0a02-2cda-11e2-81f1-001ec947ccaf")
+    public SmDependencyTypeChecker getChecker() {
+        return this.checker;
+    }
+
+    /**
+     * Get the EMF adapter for this dependency.
+     * @return the EMF dependency.
+     */
+    @objid ("efae71ca-bea9-11e1-b576-001ec947ccaf")
+    public EReference getEmfAdapter() {
+        return this.emfAdapter;
+    }
+
+    @objid ("0093d0c8-4c5e-1ffc-8433-001ec947cd2a")
+    @Override
+    public int getMaxCardinality() {
+        return getMax();
+    }
+
+    @objid ("00939aea-4c5e-1ffc-8433-001ec947cd2a")
+    @Override
+    public int getMinCardinality() {
+        return getMin();
     }
 
     /**
@@ -170,6 +179,12 @@ public abstract class SmDependency extends SmFeature implements MDependency {
      */
     @objid ("00842010-ed97-1f1f-85a5-001ec947cd2a")
     public SmClass getOwner() {
+        return this.owner;
+    }
+
+    @objid ("0092c548-4c5e-1ffc-8433-001ec947cd2a")
+    @Override
+    public MClass getSource() {
         return this.owner;
     }
 
@@ -181,6 +196,12 @@ public abstract class SmDependency extends SmFeature implements MDependency {
     @Override
     public abstract SmDependency getSymetric();
 
+    @objid ("0092fa54-4c5e-1ffc-8433-001ec947cd2a")
+    @Override
+    public MClass getTarget() {
+        return this.target;
+    }
+
     /**
      * @return the target of the dependency.
      */
@@ -190,55 +211,53 @@ public abstract class SmDependency extends SmFeature implements MDependency {
     }
 
     /**
-     * Initialize the dependency.
-     * @param name its name
-     * @param owner the source metamodel class
-     * @param sma the java annotation on the attribute declaration.
+     * Get the dependency value.
+     * <p>
+     * This getter accessor is redefined by specialized classes to access the proper data field.
+     * @param object the model object data.
+     * @return the dependency content.
      */
-    @objid ("008420ba-ed97-1f1f-85a5-001ec947cd2a")
+    @objid ("30d6c922-bb4f-4b56-a069-e55ff11882c8")
+    public abstract Object getValue(final ISmObjectData object);
+
+    /**
+     * Get the dependency value.
+     * <p>
+     * This getter accessor is redefined by specialized classes to access the proper data field.
+     * @param object the model object data.
+     * @return the dependency content.
+     */
+    @objid ("e8ce6e12-e0d5-4236-86bf-3e9350eb5cc8")
+    public abstract Collection<SmObjectImpl> getValueAsCollection(final ISmObjectData object);
+
+    /**
+     * @param name the dependency name
+     * @param source the owner class (the source)
+     * @param target the target meta class
+     * @param cardMin the minimum cardinality
+     * @param cardMax the maximum cardinality
+     * @param flags {@link SmDirective the directives} to add
+     */
+    @objid ("c0d3fba6-7fb0-4afa-993a-67c998b8e91e")
     @SuppressWarnings("hiding")
-    public void init(final String name, final SmClass owner, final SmaMetaAssociation sma) {
+    public void init(final String name, final SmClass source, SmClass target, int cardMin, int cardMax, SmDirective... flags) {
         setName(name);
+        setMin(cardMin);
+        setMax(cardMax);
         
-        // Init semantic flags
-        initSmFlags(sma);
-        
-        this.owner = owner;
-        this.target = SmClass.getSmClassFor(sma.typeDataClass());
-        
-        setMin(sma.min());
-        setMax(sma.max());
-        if (sma.max() == -1) {
-            this.smFlags.add(SmDirective.SMCDMULTIPLE);
-        }
-        
-        // Compute flags from annotation attributes
-        if (sma.component()) {
-            this.smFlags.add(SmDirective.SMCDCOMPONENT);
-        }
-        
-        if (sma.partof()) {
-            this.smFlags.add(SmDirective.SMCDPARTOF);
-        }
-        
-        if (sma.performanceRisk()) {
-            this.smFlags.add(SmDirective.SMCDDYNAMIC);
-        }
-        
-        if (sma.sharedComponent()) {
-            this.smFlags.add(SmDirective.SMCDSHAREDCOMPONENT);
-        }
-        
-        if (sma.istodelete()) {
-            this.smFlags.add(SmDirective.SMCDTODELETE);
-        }
-        
-        // Simulate a symmetric dependency
-        // if (smFlags.contains(SmDirective.SYMETRIC)) {
-        // SmDependency symDep = createSymetricDependency(this);
-        // this.target.purDependency.add(symDep);
-        // }
+        this.owner = source;
+        this.target = target;
+        initSmFlags(Arrays.asList(flags));
     }
+
+    /**
+     * Insert a value in the dependency. This method is specialized by subclasses.
+     * @param obj The object to modify
+     * @param value The value to add
+     * @param index The index where the value must be inserted.
+     */
+    @objid ("008304aa-ed97-1f1f-85a5-001ec947cd2a")
+    public abstract void insert(final ISmObjectData obj, final SmObjectImpl value, final int index);
 
     /**
      * Tells whether this dependency is a composition.
@@ -247,6 +266,26 @@ public abstract class SmDependency extends SmFeature implements MDependency {
     @objid ("00842146-ed97-1f1f-85a5-001ec947cd2a")
     public boolean isComponent() {
         return this.smFlags.contains(SmDirective.SMCDCOMPONENT);
+    }
+
+    @objid ("00932f9c-4c5e-1ffc-8433-001ec947cd2a")
+    @Override
+    public boolean isComposition() {
+        return isComponent();
+    }
+
+    /**
+     * Tells whether this dependency is a way to get an object composition owner.
+     * <p>
+     * The opposite dependency is either a composition or a shared composition.
+     * @return <code>true</code> if the dependency is a composition opposite.
+     */
+    @objid ("c289b8ec-e325-4041-b8a9-1a0380cbe46e")
+    public boolean isCompositionOpposite() {
+        if (!this.postInit) {
+            postInit();
+        }
+        return this.compositionOpposite;
     }
 
     /**
@@ -262,6 +301,17 @@ public abstract class SmDependency extends SmFeature implements MDependency {
     @objid ("008421e6-ed97-1f1f-85a5-001ec947cd2a")
     public boolean isDynamic() {
         return this.smFlags.contains(SmDirective.SMCDDYNAMIC);
+    }
+
+    /**
+     * @return <code>true</code> if the dependency is ordered, else <code>false</code>.
+     */
+    @objid ("6b0d94ab-5c78-11e1-b6d1-001ec947ccaf")
+    @SuppressWarnings("static-method")
+    public boolean isOrdered() {
+        return true;
+        // TODO add non ordered associations if needed.
+        // return this.smFlags.contains(SmDirective.SMCDORDERED);
     }
 
     /**
@@ -316,15 +366,48 @@ public abstract class SmDependency extends SmFeature implements MDependency {
      */
     @objid ("00830cc0-ed97-1f1f-85a5-001ec947cd2a")
     @SuppressWarnings("static-method")
-    public void moveRef(final SmObjectImpl refered, final SmObjectImpl ref, final int offset) {
+    public void moveRef(final ISmObjectData refered, final SmObjectImpl ref, final int offset) {
         // TODO To be implemented
         throw new UnsupportedOperationException("To be implemented.");
+    }
+
+    /**
+     * Remove value from the dependency. This method is specialized by subclasses.
+     * @param obj the source model object
+     * @param value the value to remove
+     * @return true if the value was removed, <code>false</code> if the value was absent.
+     */
+    @objid ("0082fd66-ed97-1f1f-85a5-001ec947cd2a")
+    public abstract boolean remove(final ISmObjectData obj, final SmObjectImpl value);
+
+    /**
+     * @param value the dependency content type checker.
+     */
+    @objid ("007905b8-e20e-1fe9-93a7-001ec947cd2a")
+    public void setChecker(final SmDependencyTypeChecker value) {
+        // Automatically generated method. Please delete this comment before
+        // entering specific code.
+        this.checker = value;
+    }
+
+    /**
+     * Initialize the EMF adapter for this dependency.
+     * @param emfAdapter the EMF dependency.
+     */
+    @objid ("efae71cf-bea9-11e1-b576-001ec947ccaf")
+    public void setEmfAdapter(EReference emfAdapter) {
+        this.emfAdapter = emfAdapter;
     }
 
     @objid ("00786716-eb1b-1f22-8c06-001ec947cd2a")
     @Override
     public String toString() {
         return getName() + ": " + getType().getName() + " [" + getMin() + ".." + getMax() + "]";
+    }
+
+    @objid ("008426b4-ed97-1f1f-85a5-001ec947cd2a")
+    protected SmDependency() {
+        this.checker = new DefaultTypeChecker(this);
     }
 
     /**
@@ -357,97 +440,6 @@ public abstract class SmDependency extends SmFeature implements MDependency {
     }
 
     /**
-     * @return <code>true</code> if the dependency is ordered, else <code>false</code>.
-     */
-    @objid ("6b0d94ab-5c78-11e1-b6d1-001ec947ccaf")
-    @SuppressWarnings("static-method")
-    public boolean isOrdered() {
-        return true;
-        // TODO add non ordered associations if needed.
-        // return this.smFlags.contains(SmDirective.SMCDORDERED);
-    }
-
-    /**
-     * Get the EMF adapter for this dependency.
-     * @return the EMF dependency.
-     */
-    @objid ("efae71ca-bea9-11e1-b576-001ec947ccaf")
-    public EReference getEmfAdapter() {
-        return this.emfAdapter;
-    }
-
-    /**
-     * Initialize the EMF adapter for this dependency.
-     * @param emfAdapter the EMF dependency.
-     */
-    @objid ("efae71cf-bea9-11e1-b576-001ec947ccaf")
-    public void setEmfAdapter(EReference emfAdapter) {
-        this.emfAdapter = emfAdapter;
-    }
-
-    /**
-     * @param value the dependency content type checker.
-     */
-    @objid ("007905b8-e20e-1fe9-93a7-001ec947cd2a")
-    public void setChecker(final SmDependencyTypeChecker value) {
-        // Automatically generated method. Please delete this comment before
-        // entering specific code.
-        this.checker = value;
-    }
-
-    @objid ("0092c548-4c5e-1ffc-8433-001ec947cd2a")
-    @Override
-    public MClass getSource() {
-        return this.owner;
-    }
-
-    @objid ("0092fa54-4c5e-1ffc-8433-001ec947cd2a")
-    @Override
-    public MClass getTarget() {
-        return this.target;
-    }
-
-    @objid ("00932f9c-4c5e-1ffc-8433-001ec947cd2a")
-    @Override
-    public boolean isComposition() {
-        return isComponent();
-    }
-
-    @objid ("00939aea-4c5e-1ffc-8433-001ec947cd2a")
-    @Override
-    public int getMinCardinality() {
-        return getMin();
-    }
-
-    @objid ("0093d0c8-4c5e-1ffc-8433-001ec947cd2a")
-    @Override
-    public int getMaxCardinality() {
-        return getMax();
-    }
-
-    /**
-     * Get the dependency type checker.
-     * @return the dependency checker.
-     */
-    @objid ("44ea0a02-2cda-11e2-81f1-001ec947ccaf")
-    public SmDependencyTypeChecker getChecker() {
-        return this.checker;
-    }
-
-    /**
-     * Tells whether this dependency is a way to get an object composition owner.
-     * <p>
-     * The opposite dependency is either a composition or a shared composition.
-     * @return <code>true</code> if the dependency is a composition opposite.
-     */
-    @objid ("c289b8ec-e325-4041-b8a9-1a0380cbe46e")
-    public boolean isCompositionOpposite() {
-        if (!this.postInit)
-            postInit();
-        return this.compositionOpposite;
-    }
-
-    /**
      * Post initialization.
      * <p>
      * To be called after all the metamodel is loaded.
@@ -457,8 +449,8 @@ public abstract class SmDependency extends SmFeature implements MDependency {
         this.modifyObject = isPartOf() || isComponent();
         
         final SmDependency opposite = getSymetric();
-        if (opposite!= null) {
-            this.compositionOpposite = opposite.isComponent() | opposite.isSharedComposition(); 
+        if (opposite != null) {
+            this.compositionOpposite = opposite.isComponent() | opposite.isSharedComposition();
             this.modifyObject |= this.compositionOpposite;
         }
         
@@ -490,12 +482,6 @@ public abstract class SmDependency extends SmFeature implements MDependency {
         @Override
         public boolean checkType(SmObjectImpl obj, Object value) {
             return value == null || this.smDep.getType().getJavaInterface().isAssignableFrom(value.getClass());
-        }
-
-        @objid ("008cdc78-e207-1fe9-93a7-001ec947cd2a")
-        @Override
-        public void register() {
-            // nothing to do here
         }
 
     }

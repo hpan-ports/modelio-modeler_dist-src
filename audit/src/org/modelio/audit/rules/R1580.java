@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.rules;
 
@@ -33,7 +33,6 @@ import org.modelio.audit.engine.impl.AuditEntry;
 import org.modelio.audit.engine.impl.AuditTrigger;
 import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.service.AuditSeverity;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.Feature;
@@ -67,9 +66,9 @@ public class R1580 extends AbstractRule {
     @objid ("d21b1ce9-e05f-4664-b74d-2036c345bc13")
     @Override
     public void autoRegister(IAuditPlan plan) {
-        plan.registerRule(Metamodel.getMClass(Attribute.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(AssociationEnd.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Operation.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(Attribute.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(AssociationEnd.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(Operation.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
     }
 
     /**

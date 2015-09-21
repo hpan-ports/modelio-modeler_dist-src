@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.gui;
 
@@ -70,7 +70,7 @@ public class ExportProfileThread extends AbstractXMIThread implements IRunnableW
         try {
         
             genProp.setReportModel(ReportManager.getNewReport());
-            this.progressBar.setNumberElement(this.service.countModelTrees((genProp.getSelectedPackage())) * 2);
+            this.progressBar.setNumberElement(this.service.countModelTrees((genProp.getRootElement())) * 2);
             this.progressBar.setLabel(Xmi.I18N.getString("progressBar.content.export.XMIFileInit"));
         
             resource = this.service.createResource(genProp.getFilePath());
@@ -79,21 +79,21 @@ public class ExportProfileThread extends AbstractXMIThread implements IRunnableW
             if (!this.error){
                 FormatExport versionExport = genProp.getExportVersion();
                 if (!versionExport.equals(FormatExport.EMF300)){
-                    XMIFileUtils.changeToUML(genProp.getFilePath(), genProp.getTempFolder());
-                }  
+                    XMIFileUtils.changeToUML(genProp.getFilePath());
+                }
             }
             this.progressBar.addFinalValue();
         
         } catch (AbortProcessException e) {
             cancelation();
         } catch (Exception e) {
+            Xmi.LOG.error(e);
             errorMessage = e.getMessage();
             if (errorMessage == null){
                 errorMessage = Xmi.I18N.getString("fileChooser.dialog.export.errorMessage");
             }
-            Xmi.LOG.error(e);    
             this.progressBar.addFinalValue();
-          
+        
         }finally {
             if (resource != null)
                 resource.unload();

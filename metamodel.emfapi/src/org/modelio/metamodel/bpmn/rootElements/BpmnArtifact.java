@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,43 +12,92 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.bpmn.rootElements;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.activities.BpmnSubProcess;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnCollaboration;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
 
+/**
+ * BpmnArtifact v0.0.9054
+ * 
+ * 
+ * BPMN provides modelers with the capability of showing additional information about a Process that is not directly related to the Sequence Flow or Message Flow of the Process.
+ * At this point, BPMN provides three (3) standard Artifacts: Associations, Groups, and Text Annotations
+ */
 @objid ("00787d78-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnArtifact extends BpmnBaseElement {
-    @objid ("42c64ac4-e2f1-45a2-94b3-d1dc3e1eacba")
+    @objid ("6345482f-6e68-47b7-b365-351f7357df10")
+    public static final String MNAME = "BpmnArtifact";
+
+    /**
+     * Getter for relation 'BpmnArtifact->SubProcess'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("9f078447-e09f-4ed4-bf83-9eca7eea4413")
     BpmnSubProcess getSubProcess();
 
-    @objid ("1587cd0c-9cfa-441b-afba-5aa44284c063")
+    /**
+     * Setter for relation 'BpmnArtifact->SubProcess'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e34929a2-398e-4664-9610-3d6634dae340")
     void setSubProcess(BpmnSubProcess value);
 
-    @objid ("67d09172-e270-46f9-85d4-02b408c6b743")
+    /**
+     * Getter for relation 'BpmnArtifact->Collaboration'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1b4fd99e-c8d8-4f29-ae71-b01506cee060")
     BpmnCollaboration getCollaboration();
 
-    @objid ("7fa0f46e-6146-4017-84b4-99f60ebbacd4")
+    /**
+     * Setter for relation 'BpmnArtifact->Collaboration'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("b7304420-5e59-4164-beeb-5c71a4c87abb")
     void setCollaboration(BpmnCollaboration value);
 
-    @objid ("20588351-14f9-44a7-8d36-de3e272de3e2")
+    /**
+     * Getter for relation 'BpmnArtifact->Process'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("fe5e78eb-c0c1-4702-8c15-8281c5465708")
     BpmnProcess getProcess();
 
-    @objid ("ba633eb0-8159-41fc-b34c-b16a31ad636f")
+    /**
+     * Setter for relation 'BpmnArtifact->Process'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("46b996f0-c29b-40ad-9daa-2afa004a9c2a")
     void setProcess(BpmnProcess value);
 
 }

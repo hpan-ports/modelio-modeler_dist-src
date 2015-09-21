@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,30 +12,56 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Enumeration;
 
+/**
+ * EnumerationLiteral v0.0.9054
+ * 
+ * 
+ * An EnumerationLiteral is a possible value of an enumeration. The Name of the EnumerationLiteral represents its symbolic value. 
+ * 
+ * An EnumerationLiteral belongs to its Enumeration.
+ */
 @objid ("000a43ee-c4bf-1fd8-97fe-001ec947cd2a")
 public interface EnumerationLiteral extends ModelElement {
-    @objid ("90c049a8-4271-49ba-a04a-c7dcaac3325e")
+    @objid ("ca0b744d-ed84-497f-95d3-c6f68f2c73f1")
+    public static final String MNAME = "EnumerationLiteral";
+
+    /**
+     * Getter for relation 'EnumerationLiteral->Valuated'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("81fc12f5-7b02-427a-a751-ddd9fd76857f")
     Enumeration getValuated();
 
-    @objid ("95ba57d1-9b4f-4823-84d5-ff4508725e73")
+    /**
+     * Setter for relation 'EnumerationLiteral->Valuated'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e47785ad-12e1-4c69-a8fd-b0ef05307df6")
     void setValuated(Enumeration value);
 
 }

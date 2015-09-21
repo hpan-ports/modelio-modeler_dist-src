@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.module;
 
@@ -63,7 +63,7 @@ public interface IModuleCatalog {
      * Use {@link FileUtils#getLocalizedMessage(FileSystemException)} to get a human readable error message.
      */
     @objid ("d94b6811-37da-11e2-8ba4-002564c97630")
-    IModuleHandle findModule(String moduleName, String moduleVersion, IModelioProgress monitor) throws IOException, FileSystemException;
+    IModuleHandle findModule(String moduleName, String moduleVersion, IModelioProgress monitor) throws FileSystemException, IOException;
 
     /**
      * Get all module handles available in the cache.
@@ -86,6 +86,6 @@ public interface IModuleCatalog {
      * Use {@link FileUtils#getLocalizedMessage(FileSystemException)} to get a human readable error message.
      */
     @objid ("dfca57f0-e642-4c58-9b44-601a44fdefc2")
-    void removeModule(IModuleHandle mh) throws IOException, FileSystemException;
+    void removeModule(IModuleHandle mh) throws FileSystemException, IOException;
 
 }

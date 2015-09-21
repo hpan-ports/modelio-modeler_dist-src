@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.figures.borders;
 
@@ -113,22 +113,27 @@ public class TLBRBorder extends LineBorder {
         
         ZoomDrawer.setLineWidth(graphics, width);
         
-        if (getColor() != null)
+        if (getColor() != null) {
             graphics.setForegroundColor(getColor());
+        }
         graphics.setLineStyle(getStyle());
         
-        if (this.drawTop)
+        if (this.drawTop) {
             graphics.drawLine(tempRect.x, tempRect.y + halfWidth, tempRect.right(), tempRect.y + halfWidth);
-        if (this.drawLeft)
+        }
+        if (this.drawLeft) {
             graphics.drawLine(tempRect.x + halfWidth, tempRect.y, tempRect.x + halfWidth, tempRect.bottom());
-        if (this.drawBottom)
+        }
+        if (this.drawBottom) {
             graphics.drawLine(tempRect.x, tempRect.bottom() - halfWidth, tempRect.right(), tempRect.bottom() -
                                                                                            halfWidth);
-        if (this.drawRight)
+        }
+        if (this.drawRight) {
             graphics.drawLine(tempRect.right() - halfWidth,
                               tempRect.y,
                               tempRect.right() - halfWidth,
                               tempRect.bottom());
+        }
     }
 
     /**
@@ -165,6 +170,35 @@ public class TLBRBorder extends LineBorder {
     @objid ("7f66c6f1-1dec-11e2-8cad-001ec947c8cc")
     public void setDrawRight(final boolean drawRight) {
         this.drawRight = drawRight;
+    }
+
+    @objid ("9ea24459-ae04-4b64-9a70-e6546689a1bc")
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getClass().getSimpleName());
+        builder.append(" [draw=");
+        if(this.drawTop) {
+            builder.append("top");
+        }
+        if(this.drawLeft) {
+            builder.append(" left");
+        }
+        if(this.drawBottom) {
+            builder.append(" bottom");
+        }
+        if(this.drawRight) {
+            builder.append(" right");
+        }
+        
+        builder.append(", ");
+        builder.append("color=");
+        builder.append(getColor());
+        builder.append(", ");
+        builder.append("width=");
+        builder.append(getWidth());
+        builder.append("]");
+        return builder.toString();
     }
 
 }

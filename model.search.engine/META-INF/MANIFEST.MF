@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Model Search Engine
 Bundle-SymbolicName: org.modelio.model.search.engine
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Bundle-Vendor: Modeliosoft
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.core.runtime,
@@ -13,5 +13,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.modelio.core.kernel,
  org.eclipse.emf.ecore;bundle-version="2.9.0"
 Export-Package: org.modelio.model.search.engine,
+ org.modelio.model.search.engine.searchers.inherit,
  org.modelio.model.search.engine.searchers.model,
  org.modelio.model.search.engine.searchers.note

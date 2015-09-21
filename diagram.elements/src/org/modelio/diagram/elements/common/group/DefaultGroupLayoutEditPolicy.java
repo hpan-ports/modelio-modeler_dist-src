@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.group;
 
@@ -43,9 +43,8 @@ import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DefaultNodeNonResizableEditPolicy;
-import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 
 /**
  * Edit policy that allows to create and remove elements from a {@link GroupFigure}.
@@ -124,10 +123,10 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
     @objid ("7e4fd3ec-1dec-11e2-8cad-001ec947c8cc")
     protected boolean canHandle(MClass metaclass) {
         final GmCompositeNode node = (GmCompositeNode) getHost().getModel();
-        if (!node.canCreate(Metamodel.getJavaInterface(metaclass))) {
+        if (!node.canCreate(metaclass.getJavaInterface())) {
             return false;
         }
-        return MTools.getMetaTool().canCompose(node.getRelatedElement(), metaclass, null);
+        return metaclass.getMetamodel().getMExpert().canCompose(node.getRelatedElement(), metaclass, null);
     }
 
     @objid ("7e4fd3d5-1dec-11e2-8cad-001ec947c8cc")
@@ -183,9 +182,8 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
                 final EditPart editPart = (EditPart) editPartObj;
                 if (editPart.getModel() instanceof GmModel) {
                     final GmModel gmModel = (GmModel) editPart.getModel();
-                    final String metaclassToCreateName = gmModel.getRepresentedRef().mc;
-                    final MClass metaclassToCreate = Metamodel.getMClass(metaclassToCreateName);
-                    final boolean returnCommand = MTools.getMetaTool().canCompose(hostModel.getRelatedElement(), metaclassToCreate, null);
+                    final MClass metaclassToCreate = gmModel.getRelatedMClass();
+                    final boolean returnCommand = metaclassToCreate.getMetamodel().getMExpert().canCompose(hostModel.getRelatedElement(), metaclassToCreate, null);
                     if (returnCommand) {
                         command.add(new DefaultCloneElementCommand(hostModel, hostModel.getRelatedElement(), gmModel
                                 .getRelatedElement(), Integer.valueOf(-1)));
@@ -201,12 +199,13 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
     @objid ("7e4fd3cb-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getCreateCommand(CreateRequest request) {
-        if (request.getNewObjectType() instanceof String) {
-            final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-            final MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(request);
+        if (ctx != null) {
+            final MClass mc = ctx.getMetaclass();
+            final MExpert expert = mc.getMetamodel().getMExpert();
         
             final GmCompositeNode gmGroup = (GmCompositeNode) getHost().getModel();
-            final boolean returnCommand = MTools.getMetaTool().canCompose(gmGroup.getRelatedElement(), metaclassToCreate, null);
+            final boolean returnCommand = expert.canCompose(gmGroup.getRelatedElement(), mc, null);
             if (returnCommand) {
         
                 return new DefaultCreateElementCommand(gmGroup, ctx, Integer.valueOf(-1));
@@ -234,9 +233,9 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
      */
     @objid ("7e4fd3fe-1dec-11e2-8cad-001ec947c8cc")
     private EditPart getTargetEditPart(CreateRequest createRequest) {
-        if (createRequest.getNewObject() instanceof ModelioCreationContext) {
-            final ModelioCreationContext ctx = (ModelioCreationContext) createRequest.getNewObject();
-            if (canHandle(Metamodel.getMClass(ctx.getMetaclass()))) {
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
+        if (ctx != null) {
+            if (canHandle(ctx.getMetaclass())) {
                 return getHost();
             }
             return null;
@@ -256,10 +255,9 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
             final EditPart editPart = (EditPart) editPartObj;
             if (editPart.getModel() instanceof GmModel) {
                 final GmModel gmModel = (GmModel) editPart.getModel();
-                final String metaclass = gmModel.getRepresentedRef().mc;
                 // If there is at least 1 element that this policy cannot
                 // handle, do not handle the request at all!
-                if (!canHandle(Metamodel.getMClass(metaclass))
+                if (!canHandle(gmModel.getRelatedMClass())
                         && !(editPart instanceof ConnectionEditPart)) {
                     return null;
                 }

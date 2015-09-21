@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,15 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.local.loader.sax;
 
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
@@ -35,7 +36,6 @@ import org.modelio.vstore.exml.common.ILoadHelper;
 import org.modelio.vstore.exml.common.model.ExmlTags;
 import org.modelio.vstore.exml.common.model.IllegalReferenceException;
 import org.modelio.vstore.exml.common.model.ObjId;
-import org.modelio.vstore.exml.common.model.ObjRef;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
@@ -80,7 +80,6 @@ class DataModel implements ExmlTags {
 
     /**
      * initialize the loader
-     * @param loadCache the cache of this repository already loaded objects
      * @param loadHelper a load helper
      */
     @objid ("2af7926a-3faf-11e2-87cb-001ec947ccaf")
@@ -130,59 +129,51 @@ class DataModel implements ExmlTags {
     @objid ("2af792ac-3faf-11e2-87cb-001ec947ccaf")
     void addDepForeignObj(ObjId objid) {
         if (objid != null) {
-            SmObjectImpl obj = this.loadHelper.getObject(objid);
-            if (obj == null)
+            SmObjectImpl obj = this.loadHelper.getLoadedObject(objid);
+            if (obj == null) {
                 obj = this.loadHelper.getForeignObject(this.modelLoader, objid);
+            }
         
-            if (obj != null)
+            if (obj != null) {
                 getCurrent().addToDep (obj);
+            }
         }
     }
 
     @objid ("2af9f4ac-3faf-11e2-87cb-001ec947ccaf")
-    void addDepId(final ObjId refid) throws DuplicateObjectException, IllegalReferenceException {
+    void addDepId(final ObjId refid) throws DuplicateObjectException, IOException, IllegalReferenceException {
         if (refid != null) {
-            SmObjectImpl obj = this.loadHelper.getObject(refid);
-            if (obj == null)
-                obj = this.loadHelper.getRefObject(this.modelLoader,refid, refid);
+            SmObjectImpl obj = this.loadHelper.getLoadedObject(refid);
+            if (obj == null) {
+                obj = this.loadHelper.getRefObject(this.modelLoader,refid);
+            }
         
             getCurrent().addToDep (obj);
         }
     }
 
     @objid ("2af792a9-3faf-11e2-87cb-001ec947ccaf")
-    void addDepRefObj(ObjRef ref) throws IllegalReferenceException, DuplicateObjectException {
-        SmObjectImpl obj = this.loadHelper.getObject(ref.id);
+    void addDepRefObj(ObjId ref) throws DuplicateObjectException, IOException, IllegalReferenceException {
+        SmObjectImpl obj = this.loadHelper.getLoadedObject(ref);
         
-        if (obj == null && this.version==1 && !this.loadHelper.isStored(ref.id))
-            obj = this.loadHelper.getForeignObject(this.modelLoader, ref.id);
-        
-        if (obj == null)
-            obj = this.loadHelper.getRefObject(this.modelLoader,ref.id, ref.pid);
+        if (obj == null) {
+            obj = this.loadHelper.getRefObject(this.modelLoader,ref);
+        }
         
         this.currentModel.addToDep (obj);
     }
 
     @objid ("2af9f4a8-3faf-11e2-87cb-001ec947ccaf")
-    void addExtDepId(final ObjId refid) throws IllegalReferenceException, DuplicateObjectException {
+    void addExtDepId(final ObjId refid) throws DuplicateObjectException, IOException, IllegalReferenceException {
         if (refid != null) {
-            SmObjectImpl ref = this.loadHelper.getObject(refid);
+            SmObjectImpl ref = this.loadHelper.getLoadedObject(refid);
         
-            if (ref == null && this.version==1 && !this.loadHelper.isStored(refid))
-                ref = this.loadHelper.getForeignObject(this.modelLoader, refid);
-        
-            if (ref == null)
-                ref = this.loadHelper.getRefObject(this.modelLoader, refid, refid);
+            if (ref == null) {
+                ref = this.loadHelper.getRefObject(this.modelLoader, refid);
+            }
         
             getCurrent().addToDep (ref);
         }
-    }
-
-    @objid ("2af79273-3faf-11e2-87cb-001ec947ccaf")
-    SmClass convertObsoleteClass(String xclassof) {
-        if ("Module".equals(xclassof))
-            return SmClass.getClass("ModuleComponent");
-        return null;
     }
 
     @objid ("2af9f4be-3faf-11e2-87cb-001ec947ccaf")
@@ -233,7 +224,7 @@ class DataModel implements ExmlTags {
             return pushRootOBJECT(objid);
         } else {
             boolean isNew = false;
-            SmObjectImpl obj = this.loadHelper.getObject(objid);
+            SmObjectImpl obj = this.loadHelper.getLoadedObject(objid);
         
             if (obj != null) {
                 // Already loaded from this repository
@@ -242,7 +233,7 @@ class DataModel implements ExmlTags {
             } else if (this.loadHelper.isStored(objid)) {
                 // Not loaded but present in repository
                 try {
-                    obj = this.loadHelper.createObject(this.modelLoader, objid);
+                    obj = this.loadHelper.createCmsNodeObject(this.modelLoader, objid);
                     obj.setRepositoryObject(this.nodeStorageHandler);
                     isNew = true;
                     this.currentModel = new ObjectDataModel(this, obj, isNew);
@@ -267,26 +258,27 @@ class DataModel implements ExmlTags {
 
     @objid ("2af9f4b0-3faf-11e2-87cb-001ec947ccaf")
     private final SmObjectImpl pushRootOBJECT(ObjId objid) throws SAXParseException {
-        if (objid == null) 
+        if (objid == null) {
             return null;
+        }
         
         boolean isNew = false;
-        SmObjectImpl obj = this.loadHelper.getObject(objid);
+        SmObjectImpl obj = this.loadHelper.getLoadedObject(objid);
         
         if (obj != null) {
             assert (obj.getClassOf().isCmsNode());
-            
+        
             this.nodeStorageHandler = (ExmlStorageHandler) (obj.getRepositoryObject());
             this.nodeStorageHandler.setLoaded(true);
         } else {
             try {
-                obj = this.loadHelper.createObject(this.modelLoader, objid);
+                obj = this.loadHelper.createCmsNodeObject(this.modelLoader, objid);
             } catch (DuplicateObjectException e) {
                 throw new SAXParseException(e.getLocalizedMessage(), getLocator(), e);
             }
         
             assert (obj.getClassOf().isCmsNode());
-            
+        
             this.nodeStorageHandler = this.loadHelper.createStorageHandler(obj, true);
             obj.setRepositoryObject(this.nodeStorageHandler);
             isNew = true;
@@ -332,6 +324,11 @@ class DataModel implements ExmlTags {
     @objid ("ddf3cc54-407a-11e2-87cb-001ec947ccaf")
     public void setDependencyContentHook(IDependencyContentHook depContentHook) {
         this.depContentHook = depContentHook;
+    }
+
+    @objid ("ad92dc8e-708f-434f-88e5-cd7f55ac1c55")
+    SmClass getSmClass(String xclassof) {
+        return this.loadHelper.getSmClass(xclassof);
     }
 
 }

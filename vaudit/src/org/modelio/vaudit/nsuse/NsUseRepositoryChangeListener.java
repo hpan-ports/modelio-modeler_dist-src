@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.nsuse;
 
@@ -45,15 +45,16 @@ import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vcore.model.CompositionGetter.IStopFilter;
 import org.modelio.vcore.model.CompositionGetter;
+import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.api.repository.IRepositoryChangeEvent;
 import org.modelio.vcore.session.api.repository.IRepositoryChangeListener;
 import org.modelio.vcore.session.api.transactions.ITransaction;
-import org.modelio.vcore.session.api.transactions.ITransactionSupport;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Repository and project change listener that computes namespace use links
@@ -71,7 +72,7 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
      final NSUseUpdater updater;
 
     @objid ("3aeb1069-f3bc-4248-b8c5-f5671e8263a1")
-     final ITransactionSupport tm;
+     final ICoreSession coreSession;
 
     @objid ("b9e2b29c-2e09-496d-b78d-459b34f3b9e0")
     private final StatusReporter statusReporter;
@@ -80,10 +81,10 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
     private final NsUseState state;
 
     @objid ("997bc160-2e7f-4e0e-b603-dce94830f7c1")
-    NsUseRepositoryChangeListener(IRepository nsUseRepo, NSUseUpdater updater, ITransactionSupport tm, IModelioProgressService progressService, StatusReporter statusReporter, NsUseState state) {
+    NsUseRepositoryChangeListener(IRepository nsUseRepo, NSUseUpdater updater, ICoreSession coreSession, IModelioProgressService progressService, StatusReporter statusReporter, NsUseState state) {
         this.nsUseRepo = nsUseRepo;
         this.updater = updater;
-        this.tm = tm;
+        this.coreSession = coreSession;
         this.progressService = progressService;
         this.statusReporter = statusReporter;
         this.state = state;
@@ -115,7 +116,7 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
     private void processUndefinedEvent(final IRepositoryChangeEvent event) {
         final String jobName = Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.Updating");
         final IRepository repo = event.getRepository();
-        IRunnableWithProgress job = new RebuildUsesForRepository(jobName, repo);
+        IRunnableWithProgress job = new RebuildUsesForRepository(jobName, repo, this.coreSession.getMetamodel());
         
         runJob(job, jobName);
     }
@@ -128,7 +129,7 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
             @Override
             public void run(IProgressMonitor monitor) {
                 final SubProgress amonitor = ModelioProgressAdapter.convert(monitor, jobName, 6);
-                
+        
                 Collection<Element> toRebuild = new HashSet<>();
         
                 IRepository repo = event.getRepository();
@@ -150,12 +151,12 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
                 final String label = Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.UpdatingN", String.valueOf(toRebuild.size()));
                 monitor.setTaskName(label);
         
-                try (ITransaction t = NsUseRepositoryChangeListener.this.tm.createTransaction(label, 20, TimeUnit.SECONDS)){
+                try (ITransaction t = NsUseRepositoryChangeListener.this.coreSession.getTransactionSupport().createTransaction(label, 20, TimeUnit.SECONDS)){
                     NsUseRepositoryChangeListener.this.updater.rebuild(toRebuild, amonitor.newChild(3));
         
                     amonitor.setTaskName(Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.Cleaning"));
                     NsUseRepositoryChangeListener.this.updater.cleanNamespaceUses(amonitor.newChild(2));
-                    
+        
                     t.commit();
                 }
             }
@@ -165,8 +166,8 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
     }
 
     @objid ("b2d143c8-c06b-4a0c-822c-cc838522ccae")
-    static MObject findByRef(IRepository repo, MRef ref) {
-        final SmClass cls = SmClass.getClass(ref.mc);
+    private MObject findByRef(IRepository repo, MRef ref) {
+        final SmClass cls = this.coreSession.getMetamodel().getMClass(ref.mc);
         if (cls == null)
             return null;
         return repo.findById(cls, ref.uuid);
@@ -176,7 +177,7 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
     private void processCmsNodeEvent(final IRepositoryChangeEvent event) {
         final String jobName = Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.Updating");
         final IRunnableWithProgress job = new IRunnableWithProgress() {
-            
+        
             @Override
             public void run(IProgressMonitor monitor) {
                 final SubProgress amonitor = ModelioProgressAdapter.convert(monitor, jobName, 6);
@@ -201,29 +202,28 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
                     if (obj instanceof Element)
                         toRebuild.add((Element) obj);
                 }
-                
+        
                 for (SmObjectImpl cmsNode : smToRebuild) {
                     if (cmsNode instanceof Element)
                         toRebuild.add((Element) cmsNode);
                 }
-                
+        
                 amonitor.worked(1);
                 if (toRebuild.isEmpty())
                     return;
-                
-                
+        
+        
                 final String label = Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.UpdatingN", String.valueOf(toRebuild.size()));
                 amonitor.setTaskName(label);
         
-                try (ITransaction t = NsUseRepositoryChangeListener.this.tm.createTransaction(label, 20, TimeUnit.SECONDS)){
+                try (ITransaction t = NsUseRepositoryChangeListener.this.coreSession.getTransactionSupport().createTransaction(label, 20, TimeUnit.SECONDS)){
                     NsUseRepositoryChangeListener.this.updater.rebuild(toRebuild, amonitor.newChild(3));
         
                     amonitor.subTask(Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.Cleaning"));
                     NsUseRepositoryChangeListener.this.updater.cleanNamespaceUses(amonitor.newChild(2));
-                    
+        
                     t.commit();
                 }
-                
             }
         };
         
@@ -235,7 +235,7 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
         final IModelioProgressService progressSvc = this.progressService;
         final StatusReporter reporter = this.statusReporter;
         Display.getDefault().syncExec(new Runnable() {
-            
+        
             @Override
             public void run() {
                 try {
@@ -252,8 +252,8 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
                     Vaudit.LOG.error(e);
                 } catch (RuntimeException e) {
                     Vaudit.LOG.error(e);
-                    
-                    
+        
+        
                     String message = Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.UpdateFailed", e.toString());
                     reporter.show(StatusReporter.ERROR, message, e.getCause());
                 }
@@ -272,7 +272,7 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
         case FRAGMENT_ADDED:
             onFragmentAdded(ev.fragment);
             break;
-            
+        
         case FRAGMENT_REMOVED:
             onFragmentRemoved(ev.fragment);
             break;
@@ -293,7 +293,7 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
         
         final String jobName = Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.Updating");
         final IRepository repo = newFragment.getRepository();
-        IRunnableWithProgress job = new RebuildUsesForRepository(jobName, repo);
+        IRunnableWithProgress job = new RebuildUsesForRepository(jobName, repo, this.coreSession.getMetamodel());
         
         runJob(job, jobName);
         
@@ -317,27 +317,27 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
         
         final String jobName = Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.Cleaning");
         final IRunnableWithProgress job = new IRunnableWithProgress() {
-            
+        
             @Override
             public void run(IProgressMonitor monitor) {
                 final SubProgress amonitor = ModelioProgressAdapter.convert(monitor, jobName, 6);
         
-                try (ITransaction t = NsUseRepositoryChangeListener.this.tm.createTransaction(jobName, 20, TimeUnit.SECONDS)){
+                try (ITransaction t = NsUseRepositoryChangeListener.this.coreSession.getTransactionSupport().createTransaction(jobName, 20, TimeUnit.SECONDS)){
                     NsUseRepositoryChangeListener.this.updater.cleanNamespaceUses(amonitor);
-                    
+        
                     t.commit();
                 }
             }
         };
         
-        runJob(job, jobName);  
+        runJob(job, jobName);
         
         handledFragments.remove(removedFragment.getId());
         this.state.setHandledFragments(handledFragments);
     }
 
     @objid ("5d036d6e-46fe-491f-a061-d0ea279d9f51")
-    private static class NonCmsNodeFilter implements IStopFilter {
+    private static final class NonCmsNodeFilter implements IStopFilter {
         @objid ("f04083c3-1484-427e-a97b-53f01aa165b2")
         public static final NonCmsNodeFilter instance = new NonCmsNodeFilter();
 
@@ -357,10 +357,14 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
         @objid ("d587e922-770d-433b-8e6d-b03dda6e8c60")
         private final IRepository repo;
 
+        @objid ("4a984a05-a408-422b-8f64-87e851ca4159")
+        private final SmClass elementSmClass;
+
         @objid ("6601f654-0f64-455d-a954-a4623bd46782")
-        public RebuildUsesForRepository(String jobName, IRepository repo) {
+        public RebuildUsesForRepository(String jobName, IRepository repo, SmMetamodel smMetamodel) {
             this.jobName = jobName;
             this.repo = repo;
+            this.elementSmClass = smMetamodel.getMClass(Element.class);
         }
 
         @objid ("970b66d2-c345-47c6-954c-2af6b7c7dfeb")
@@ -368,22 +372,22 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
         public void run(IProgressMonitor monitor) {
             final SubProgress amonitor = ModelioProgressAdapter.convert(monitor, this.jobName, 6);
             
-            final Collection<MObject> all = this.repo.findByClass(SmClass.getClass(Element.class));
+            final Collection<MObject> all = this.repo.findByClass(this.elementSmClass);
             Collection<Element> toRebuild  = new CastedCollection<>(all);
             
             amonitor.worked(1);
             if (toRebuild.isEmpty())
                 return;
-                  
+            
             final String label = Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.UpdatingN", String.valueOf(toRebuild.size()));
             monitor.setTaskName(label);
-                  
-            try (ITransaction t = NsUseRepositoryChangeListener.this.tm.createTransaction(label, 20, TimeUnit.SECONDS)){
+            
+            try (ITransaction t = NsUseRepositoryChangeListener.this.coreSession.getTransactionSupport().createTransaction(label, 20, TimeUnit.SECONDS)){
                 NsUseRepositoryChangeListener.this.updater.rebuild(toRebuild, amonitor.newChild(3));
-                  
+            
                 amonitor.setTaskName(Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.Cleaning"));
                 NsUseRepositoryChangeListener.this.updater.cleanNamespaceUses(amonitor.newChild(2));
-                
+            
                 t.commit();
             }
         }
@@ -404,24 +408,24 @@ class NsUseRepositoryChangeListener implements IRepositoryChangeListener, IProje
         @Override
         public Iterator<T> iterator() {
             return new Iterator<T>() {
-                private Iterator<MObject> it = CastedCollection.this.all.iterator();
-                
-                @Override
-                public void remove() {
-                    this.it.remove();
-                }
-                
-                @SuppressWarnings("unchecked")
-                @Override
-                public T next() {
-                    return (T) this.it.next();
-                }
-                
-                @Override
-                public boolean hasNext() {
-            return this.it.hasNext();
-                            }
-                        };
+                                        private Iterator<MObject> it = CastedCollection.this.all.iterator();
+                        
+                                        @Override
+                                        public void remove() {
+                                            this.it.remove();
+                                        }
+                        
+                                        @SuppressWarnings("unchecked")
+                                        @Override
+                                        public T next() {
+                                            return (T) this.it.next();
+                                        }
+                        
+                                        @Override
+                                        public boolean hasNext() {
+                                    return this.it.hasNext();
+                                                    }
+                                                };
         }
 
         @objid ("46a1e755-f0f9-4fd4-8877-922e0c435e6f")

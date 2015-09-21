@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.node;
 
@@ -31,6 +31,7 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
@@ -521,6 +522,18 @@ public abstract class GmNodeEditPart extends AbstractGraphicalEditPart implement
             }
         }
         super.removeNotify();
+    }
+
+    @objid ("ed1a83b6-6745-467c-8462-f838feb49769")
+    @Override
+    public String toString() {
+        Rectangle bounds = this.figure != null ? this.figure.getBounds() : null;
+        
+        if (isActive()) {
+            return String.format("%s [model=%s, bounds=%s]", getClass().getSimpleName(), getModel(), bounds);
+        } else {
+            return String.format("inactive %s [model=%s]", getClass().getSimpleName(), getModel());
+        }
     }
 
 }

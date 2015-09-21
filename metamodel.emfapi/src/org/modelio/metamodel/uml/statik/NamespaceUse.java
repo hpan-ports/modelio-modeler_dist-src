@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,43 +12,92 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.NameSpace;
 
+/**
+ * NamespaceUse v0.0.9054
+ * 
+ * 
+ * null
+ */
 @objid ("0012264a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NamespaceUse extends Element {
-    @objid ("cd9e259f-5317-4cc6-8ef4-2ba371acd592")
+    @objid ("07a61baa-32f4-4ef4-be8f-667f2f446958")
+    public static final String MNAME = "NamespaceUse";
+
+    /**
+     * Getter for relation 'NamespaceUse->User'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("d1fae855-5ca1-40c4-8f4a-8c8fc03cd98b")
     NameSpace getUser();
 
-    @objid ("2ae3fa5d-b58a-406c-a6d3-6663aab128b2")
+    /**
+     * Setter for relation 'NamespaceUse->User'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("5472ed21-4615-41c1-bc56-e984e01d49e1")
     void setUser(NameSpace value);
 
-    @objid ("1083590e-d703-454e-a69f-8ac13c5a1ff0")
+    /**
+     * Getter for relation 'NamespaceUse->Used'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("3f850c4e-5017-49d9-beb2-300e086a82ea")
     NameSpace getUsed();
 
-    @objid ("fa56391b-0303-4973-81a6-768dca9d2528")
+    /**
+     * Setter for relation 'NamespaceUse->Used'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("32543259-2e61-48f9-8c76-80040468f22d")
     void setUsed(NameSpace value);
 
-    @objid ("dbbf205f-b940-4322-af89-06c405412b46")
+    /**
+     * Getter for relation 'NamespaceUse->Cause'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("c55a5f7d-283f-4e22-b862-049e68d00dd6")
     EList<Element> getCause();
 
-    @objid ("18b4be9b-d4fe-4a2f-a39d-5ab6a36ad265")
+    /**
+     * Filtered Getter for relation 'NamespaceUse->Cause'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("15bbbd6b-eb7c-41b6-9052-9602a7cbca1c")
     <T extends Element> List<T> getCause(java.lang.Class<T> filterClass);
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,34 +12,25 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmndataobject;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
-import org.modelio.diagram.elements.core.model.IEditableText;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
-import org.modelio.diagram.styles.core.IStyle;
-import org.modelio.diagram.styles.core.MetaKey;
-import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
-import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.metamodel.bpmn.objects.BpmnDataState;
 import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
 import org.modelio.metamodel.bpmn.objects.BpmnItemDefinition;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -49,7 +40,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * This class has been subclassed for each {@link BpmnItemAwareElement} sub-class for nothing (yet).
  */
 @objid ("60d452f9-55b6-11e2-877f-002564c97630")
-public class GmBpmnDataLabel extends GmModelElementFlatHeader {
+public class GmBpmnDataLabel extends GmDefaultModelElementLabel {
     @objid ("60d452ff-55b6-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
 
@@ -77,64 +68,10 @@ public class GmBpmnDataLabel extends GmModelElementFlatHeader {
         // serialization
     }
 
-    @objid ("60d5d966-55b6-11e2-877f-002564c97630")
-    @Override
-    public List<Stereotype> filterStereotypes(final List<Stereotype> stereotypes) {
-        // Check the current representation mode
-        final StyleKey key = getStyleKey(MetaKey.REPMODE);
-        if (key != null) {
-            // For image mode, filter the first image stereotype
-            if (getStyle().getProperty(key) == RepresentationMode.IMAGE) {
-                for (Stereotype stereo : stereotypes) {
-                    if (!stereo.getIcon().isEmpty()) {
-                        List<Stereotype> ret = new ArrayList<>(stereotypes);
-                        ret.remove(stereo);
-                        return ret;
-                    }
-                }
-            }
-        }
-        return stereotypes;
-    }
-
-    @objid ("60d5d975-55b6-11e2-877f-002564c97630")
-    @Override
-    public List<TaggedValue> filterTags(final List<TaggedValue> taggedValues) {
-        return taggedValues;
-    }
-
-    @objid ("60d5d984-55b6-11e2-877f-002564c97630")
-    @Override
-    public IEditableText getEditableText() {
-        if (getRelatedElement() == null)
-            return null;
-        return new IEditableText() {
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
-                    }
-        
-                    @Override
-                    public void setText(String text) {
-        getRelatedElement().setName(text);
-                    }
-                };
-    }
-
     @objid ("60d76013-55b6-11e2-877f-002564c97630")
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
-    }
-
-    @objid ("60d5d98b-55b6-11e2-877f-002564c97630")
-    @Override
-    public boolean isVisible() {
-        final StyleKey key = getParent().getStyleKey(MetaKey.SHOWLABEL);
-        if (key == null)
-            return true;
-        else
-            return getStyle().getProperty(key);
     }
 
     @objid ("60d76002-55b6-11e2-877f-002564c97630")
@@ -157,23 +94,6 @@ public class GmBpmnDataLabel extends GmModelElementFlatHeader {
         }
     }
 
-    @objid ("60d5d994-55b6-11e2-877f-002564c97630")
-    @Override
-    public void styleChanged(final IStyle changedStyle) {
-        fireVisibilityChanged();
-        super.styleChanged(changedStyle);
-    }
-
-    @objid ("60d75ff9-55b6-11e2-877f-002564c97630")
-    @Override
-    public void styleChanged(final StyleKey property, final Object newValue) {
-        final StyleKey key = getParent().getStyleKey(MetaKey.SHOWLABEL);
-        if (key != null && key.equals(property))
-            fireVisibilityChanged();
-        else
-            super.styleChanged(property, newValue);
-    }
-
     @objid ("60d76008-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
@@ -187,7 +107,7 @@ public class GmBpmnDataLabel extends GmModelElementFlatHeader {
 
     @objid ("60d5d98f-55b6-11e2-877f-002564c97630")
     @Override
-    protected String computeLabel() {
+    protected String computeMainLabel() {
         String mlabel = null;
         String reference = null;
         
@@ -221,7 +141,7 @@ public class GmBpmnDataLabel extends GmModelElementFlatHeader {
             Boolean showrepresented = getStyle().getProperty(GmBpmnDataObjectStyleKeys.SHOWREPRESENTED);
             if (Boolean.TRUE.equals(showrepresented)) {
                 // Begin with the element name if :
-                // - the element has a name that does not begin with the default name 
+                // - the element has a name that does not begin with the default name
                 // - or the element represents no UML element.
                 if (! isDefaultLabel(mlabel, element)) {
                     s.append(mlabel);
@@ -241,9 +161,9 @@ public class GmBpmnDataLabel extends GmModelElementFlatHeader {
         } else if (mlabel != null) {
             // No represented element, just append the name
             s.append(mlabel);
-        } 
+        }
         
-        // Add state 
+        // Add state
         String stateName = getInStateName(element);
         
         if (stateName != null) {
@@ -270,7 +190,7 @@ public class GmBpmnDataLabel extends GmModelElementFlatHeader {
             stateName = dataState.getName();
         }
         
-        if (inState != null) 
+        if (inState != null)
             stateName = inState.getName();
         return stateName;
     }

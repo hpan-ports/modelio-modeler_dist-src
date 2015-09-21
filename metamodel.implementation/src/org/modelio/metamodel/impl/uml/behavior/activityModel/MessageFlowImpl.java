@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.activityModel.MessageFlowData;
+import org.modelio.metamodel.impl.uml.behavior.activityModel.MessageFlowData;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.metamodel.uml.behavior.activityModel.MessageFlow;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -39,54 +51,65 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00381364-c4bf-1fd8-97fe-001ec947cd2a")
 public class MessageFlowImpl extends ActivityEdgeImpl implements MessageFlow {
-    @objid ("dd7ee74c-d532-4578-8ca3-7a29d36ffa81")
+    @objid ("2b0eeab1-3343-455a-905a-a278e517a281")
     @Override
     public ActivityPartition getTargetPartition() {
-        return (ActivityPartition) getDepVal(MessageFlowData.Metadata.TargetPartitionDep());
+        Object obj = getDepVal(((MessageFlowSmClass)getClassOf()).getTargetPartitionDep());
+        return (obj instanceof ActivityPartition)? (ActivityPartition)obj : null;
     }
 
-    @objid ("9301ed36-799d-4a92-99ca-74af5c7ae640")
+    @objid ("8b979251-9179-4197-83b9-cb2f9afbed62")
     @Override
     public void setTargetPartition(ActivityPartition value) {
-        appendDepVal(MessageFlowData.Metadata.TargetPartitionDep(), (SmObjectImpl)value);
+        appendDepVal(((MessageFlowSmClass)getClassOf()).getTargetPartitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("895bd692-fbcb-4574-a079-069533e3e77e")
+    @objid ("8c0867a4-87e1-4171-ae25-888a150d592f")
     @Override
     public ActivityPartition getSourcePartition() {
-        return (ActivityPartition) getDepVal(MessageFlowData.Metadata.SourcePartitionDep());
+        Object obj = getDepVal(((MessageFlowSmClass)getClassOf()).getSourcePartitionDep());
+        return (obj instanceof ActivityPartition)? (ActivityPartition)obj : null;
     }
 
-    @objid ("db4df072-3dc5-4f25-8a53-47251f137a5f")
+    @objid ("bc0ceee3-8452-4676-923d-e0974c8834f5")
     @Override
     public void setSourcePartition(ActivityPartition value) {
-        appendDepVal(MessageFlowData.Metadata.SourcePartitionDep(), (SmObjectImpl)value);
+        appendDepVal(((MessageFlowSmClass)getClassOf()).getSourcePartitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8b827f82-9de7-4c1f-b999-39a07a91687c")
+    @objid ("61e0adb1-962b-42a4-861f-df633e9a3bc5")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(MessageFlowData.Metadata.SourcePartitionDep());
+        // SourcePartition
+        obj = (SmObjectImpl)this.getDepVal(((MessageFlowSmClass)getClassOf()).getSourcePartitionDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("89749f29-ce8f-4e48-9f86-365c86228e0b")
+    @objid ("9354f08a-6c32-41ba-9aa3-4fbc58f83619")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(MessageFlowData.Metadata.SourcePartitionDep());
-        if (obj != null)
-          return new SmDepVal(MessageFlowData.Metadata.SourcePartitionDep(), obj);
+        SmDependency dep;
+        
+        // SourcePartition
+        dep = ((MessageFlowSmClass)getClassOf()).getSourcePartitionDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("33332fdf-7580-4e14-8dcb-7e6160d57910")
+    @objid ("5af518c9-12b0-447c-9c03-92f303a7ac19")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitMessageFlow(this);

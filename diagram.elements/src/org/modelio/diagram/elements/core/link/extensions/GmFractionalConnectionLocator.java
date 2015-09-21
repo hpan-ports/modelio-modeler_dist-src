@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link.extensions;
 
@@ -32,7 +32,7 @@ import org.modelio.diagram.persistence.IDiagramWriter;
  * @author cmarin
  */
 @objid ("80042256-1dec-11e2-8cad-001ec947c8cc")
-public class GmFractionalConnectionLocator implements IGmLocator {
+public class GmFractionalConnectionLocator extends GmAbstractLocator {
     @objid ("80042258-1dec-11e2-8cad-001ec947c8cc")
     private double fraction;
 
@@ -123,12 +123,6 @@ public class GmFractionalConnectionLocator implements IGmLocator {
         return this.vDistance;
     }
 
-    @objid ("80068494-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public boolean isExternal(IDiagramWriter out) {
-        return false;
-    }
-
     /**
      * Get the rotatable figures orientation.
      * @return true : toward the target, false: toward the source
@@ -141,6 +135,8 @@ public class GmFractionalConnectionLocator implements IGmLocator {
     @objid ("8006849f-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void read(IDiagramReader in) {
+        super.read(in);
+        
         this.fraction = (Double) in.readProperty("fraction");
         this.uDistance = (Integer) in.readProperty("u");
         this.vDistance = (Integer) in.readProperty("v");
@@ -186,6 +182,8 @@ public class GmFractionalConnectionLocator implements IGmLocator {
     @objid ("800684b7-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
+        super.write(out);
+        
         out.writeProperty("fraction", this.fraction);
         out.writeProperty("u", this.uDistance);
         out.writeProperty("v", this.vDistance);
@@ -196,6 +194,25 @@ public class GmFractionalConnectionLocator implements IGmLocator {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    /**
+     * Copy constructor.
+     * @param src the object to copy.
+     */
+    @objid ("7ad4ab1e-3171-4cb9-bdec-e50aed7d34e1")
+    public GmFractionalConnectionLocator(GmFractionalConnectionLocator src) {
+        super(src);
+        
+        this.fraction = src.fraction;
+        this.uDistance = src.uDistance;
+        this.vDistance = src.vDistance;
+    }
+
+    @objid ("6664b0eb-f1ad-4253-94ed-a1b9dcf749ec")
+    @Override
+    public IGmLocator copy() {
+        return new GmFractionalConnectionLocator(this);
     }
 
 }

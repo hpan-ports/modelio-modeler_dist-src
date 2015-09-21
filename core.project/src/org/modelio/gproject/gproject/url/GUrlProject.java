@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.gproject.url;
 
@@ -66,8 +66,8 @@ public class GUrlProject extends GRemoteProject {
 
     @objid ("32961a91-0d61-11e2-8e4b-001ec947ccaf")
     @Override
-    protected void initialize(ProjectDescriptor projectDescriptor, IAuthData authData, IModuleCatalog aModuleCatalog, IModelioProgress aProgress) throws IOException {
-        super.initialize(projectDescriptor, authData, aModuleCatalog, aProgress);
+    protected void load(ProjectDescriptor projectDescriptor, IAuthData authData, IModuleCatalog aModuleCatalog, IModelioProgress aProgress) throws IOException {
+        super.load(projectDescriptor, authData, aModuleCatalog, aProgress);
         
         this.remoteUri = getRemoteUri(projectDescriptor);
     }
@@ -115,7 +115,7 @@ public class GUrlProject extends GRemoteProject {
         ProjectDescriptor currentDesc = new ProjectWriter(this).writeProject();
         DescriptorServices.removeLocalPart(currentDesc);
         
-        // Remove the trailing '/' from the remote location 
+        // Remove the trailing '/' from the remote location
         URI u = this.remoteUri;
         String path = this.remoteUri.getRawPath();
         
@@ -124,7 +124,7 @@ public class GUrlProject extends GRemoteProject {
                 path = path.substring(0, path.length()-1);
                 u = new URI(u.getScheme(), u.getUserInfo(), u.getHost(), u.getPort(),
                         path, u.getQuery(), u.getFragment());
-                
+        
                 currentDesc.setRemoteLocation(u.toString());
             } catch (URISyntaxException | IndexOutOfBoundsException e) {
                 Log.trace(e);

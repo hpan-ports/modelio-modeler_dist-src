@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.behavior.usecaseModel.Actor;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
@@ -39,6 +38,7 @@ import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.TypeChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * E252:
@@ -64,29 +64,29 @@ public class E252Checker extends TypeChecker {
 
     @objid ("008ce9d4-e472-1f69-b3fb-001ec947cd2a")
     @Override
-    public void register(final Plan plan) {
+    public void register(final Plan plan, SmMetamodel smMetamodel) {
+        addRequiredType(smMetamodel.getMClass(Class.class));
+        addRequiredType(smMetamodel.getMClass(Actor.class));
+        addRequiredType(smMetamodel.getMClass(Interface.class));
+        addRequiredType(smMetamodel.getMClass(UseCase.class));
+        addRequiredType(smMetamodel.getMClass(Component.class));
+        addRequiredType(smMetamodel.getMClass(Node.class));
+        addRequiredType(smMetamodel.getMClass(DataType.class));
+        addRequiredType(smMetamodel.getMClass(Artifact.class));
+        addRequiredType(smMetamodel.getMClass(Signal.class));
+        addRequiredType(smMetamodel.getMClass(AssociationEnd.class));
+        addRequiredType(smMetamodel.getMClass(Enumeration.class));
+        
         // trigger=create, metaclass=Attribute, feature=null
-        plan.registerChecker(this, Metamodel.getMClass(Attribute.class), TriggerType.Create, null);
+        plan.registerChecker(this, smMetamodel.getMClass(Attribute.class), TriggerType.Create, null);
         
         // trigger=move, metaclass=Attribute, feature=
-        plan.registerChecker(this, Metamodel.getMClass(Attribute.class), TriggerType.Move, null);
+        plan.registerChecker(this, smMetamodel.getMClass(Attribute.class), TriggerType.Move, null);
     }
 
     @objid ("0086f056-8c25-1f70-90c1-001ec947cd2a")
     public E252Checker() {
         super(ERRORID);
-        
-        addRequiredType(Metamodel.getMClass(Class.class));
-        addRequiredType(Metamodel.getMClass(Actor.class));
-        addRequiredType(Metamodel.getMClass(Interface.class));
-        addRequiredType(Metamodel.getMClass(UseCase.class));
-        addRequiredType(Metamodel.getMClass(Component.class));
-        addRequiredType(Metamodel.getMClass(Node.class));
-        addRequiredType(Metamodel.getMClass(DataType.class));
-        addRequiredType(Metamodel.getMClass(Artifact.class));
-        addRequiredType(Metamodel.getMClass(Signal.class));
-        addRequiredType(Metamodel.getMClass(AssociationEnd.class));
-        addRequiredType(Metamodel.getMClass(Enumeration.class));
     }
 
     @objid ("00872ab2-8c25-1f70-90c1-001ec947cd2a")

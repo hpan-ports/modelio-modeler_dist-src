@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vbasic.files;
 
@@ -66,7 +66,7 @@ public final class FileUtils {
      * {@linkplain FileUtils#getLocalizedMessage(FileSystemException)} to get a user friendly error message.
      */
     @objid ("0028e5a6-b977-1ffa-8e11-001ec947cd2a")
-    public static long computeSize(Path path) throws IOException, FileSystemException {
+    public static long computeSize(Path path) throws FileSystemException, IOException {
         DirectorySizeVisitor dsv = new DirectorySizeVisitor();
         dsv.compute(path);
         return dsv.totalSize;
@@ -111,7 +111,7 @@ public final class FileUtils {
      * @throws java.nio.file.InvalidPathException - if a Path object cannot be constructed from the abstract path (see FileSystem.getPath)
      */
     @objid ("e9ac671b-8541-11e1-afeb-001ec947ccaf")
-    public static void createDir(final File dir) throws SecurityException, FileSystemException, InvalidPathException, IOException, FileAlreadyExistsException {
+    public static void createDir(final File dir) throws FileAlreadyExistsException, FileSystemException, IOException, InvalidPathException, SecurityException {
         Files.createDirectories(dir.toPath());
     }
 
@@ -135,7 +135,7 @@ public final class FileUtils {
      * exception)</i>
      */
     @objid ("00974b68-bdb5-1ffa-8e11-001ec947cd2a")
-    public static void delete(final Path path) throws SecurityException, IOException, FileSystemException, DirectoryNotEmptyException, NoSuchFileException {
+    public static void delete(final Path path) throws DirectoryNotEmptyException, FileSystemException, IOException, NoSuchFileException, SecurityException {
         if (Files.isDirectory(path)) {
             Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                 @Override
@@ -177,7 +177,7 @@ public final class FileUtils {
      * @throws java.nio.file.NoSuchFileException if the file does not exist <i>(optional specific exception)</i>
      */
     @objid ("e9ac6713-8541-11e1-afeb-001ec947ccaf")
-    public static void delete(final String path) throws DirectoryNotEmptyException, IOException, SecurityException, NoSuchFileException, FileSystemException {
+    public static void delete(final String path) throws DirectoryNotEmptyException, FileSystemException, IOException, NoSuchFileException, SecurityException {
         delete(Paths.get(path));
     }
 
@@ -193,7 +193,7 @@ public final class FileUtils {
      * Call {@linkplain #getLocalizedMessage(FileSystemException)} to get a user friendly error message.
      */
     @objid ("e9ac671a-8541-11e1-afeb-001ec947ccaf")
-    public static void delete(final File file) throws IOException, FileSystemException {
+    public static void delete(final File file) throws FileSystemException, IOException {
         delete(file.toPath());
     }
 
@@ -336,7 +336,7 @@ public final class FileUtils {
      * Call {@linkplain #getLocalizedMessage(FileSystemException)} to get a user friendly error message.
      */
     @objid ("f6e65269-ea70-406d-aa88-687082d8f3fd")
-    public static String readWhole(Path file, String charset) throws IOException, FileSystemException {
+    public static String readWhole(Path file, String charset) throws FileSystemException, IOException {
         try (InputStream is = new BufferedInputStream(Files.newInputStream(file))) {
             return readWhole(is, charset);
         }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnadhocsubprocess;
 
@@ -30,7 +30,7 @@ import org.modelio.diagram.editor.bpmn.elements.bpmnnodefooter.GmBpmnNodeFooter;
 import org.modelio.diagram.editor.bpmn.elements.bpmnnodeheader.GmBpmnNodeHeader;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsubprocess.GmBpmnBodyFreeZone;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNoStyleCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -120,14 +120,14 @@ public class GmBpmnAdHocSubProcessPrimaryNode extends GmNoStyleCompositeNode imp
     @Override
     public boolean canCreate(Class<? extends MObject> type) {
         return BpmnBaseElement.class.isAssignableFrom(type) &&
-                !BpmnBoundaryEvent.class.isAssignableFrom(type);
+                                                !BpmnBoundaryEvent.class.isAssignableFrom(type);
     }
 
     @objid ("60806660-55b6-11e2-877f-002564c97630")
     @Override
     public boolean canUnmask(MObject el) {
         return el instanceof BpmnBaseElement &&
-                ((BpmnBaseElement) el).getCompositionOwner().equals(getRelatedElement());
+                                                ((BpmnBaseElement) el).getCompositionOwner().equals(getRelatedElement());
     }
 
     @objid ("60806668-55b6-11e2-877f-002564c97630")
@@ -220,7 +220,7 @@ public class GmBpmnAdHocSubProcessPrimaryNode extends GmNoStyleCompositeNode imp
             }
         }
         this.footer.refreshFromObModel();
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -283,7 +283,7 @@ public class GmBpmnAdHocSubProcessPrimaryNode extends GmNoStyleCompositeNode imp
         this.innerZone = (GmBpmnBodyFreeZone) this.getChildren().get(1);
         this.footer = (GmBpmnNodeFooter) this.getChildren().get(2);
         
-        GmDefaultFlatHeader imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(3);
+        GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(3);
         imageModeHeader.delete();
     }
 

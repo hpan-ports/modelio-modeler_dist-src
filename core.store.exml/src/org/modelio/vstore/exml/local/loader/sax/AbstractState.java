@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.local.loader.sax;
 
@@ -50,13 +50,15 @@ public abstract class AbstractState implements ExmlTags {
      * method to take specific actions for each chunk of character data
      * (such as adding the data to a node or buffer, or printing it to
      * a file).</p>
-     * @see org.xml.sax.ContentHandler#characters
      * @param chars The characters.
      * @param start The start position in the character array.
      * @param length The number of characters to use from the
      * character array.
      * @exception org.xml.sax.SAXException Any SAX exception, possibly
      * wrapping another exception.
+     * 
+     * 
+     * @see org.xml.sax.ContentHandler#characters [op] characters 
      */
     @objid ("2af5301c-3faf-11e2-87cb-001ec947ccaf")
     public void characters(final char[] chars, final int start, final int length) throws SAXException {
@@ -70,7 +72,6 @@ public abstract class AbstractState implements ExmlTags {
      * method in a subclass to take specific actions at the end of
      * each element (such as finalising a tree node or writing
      * output to a file).</p>
-     * @see org.xml.sax.ContentHandler#endElement
      * @param uri The Namespace URI, or the empty string if the
      * element has no Namespace URI or if Namespace
      * processing is not being performed.
@@ -81,6 +82,9 @@ public abstract class AbstractState implements ExmlTags {
      * empty string if qualified names are not available.
      * @exception org.xml.sax.SAXException Any SAX exception, possibly
      * wrapping another exception.
+     * 
+     * 
+     * @see org.xml.sax.ContentHandler#endElement [op] endElement 
      */
     @objid ("2af53027-3faf-11e2-87cb-001ec947ccaf")
     public void endElement(final String uri, final String localName, final String qName) throws SAXException {
@@ -94,7 +98,6 @@ public abstract class AbstractState implements ExmlTags {
      * method in a subclass to take specific actions at the start of
      * each element (such as allocating a new tree node or writing
      * output to a file).</p>
-     * @see org.xml.sax.ContentHandler#startElement
      * @param uri The Namespace URI, or the empty string if the
      * element has no Namespace URI or if Namespace
      * processing is not being performed.
@@ -108,6 +111,9 @@ public abstract class AbstractState implements ExmlTags {
      * Attributes object.
      * @exception org.xml.sax.SAXException Any SAX exception, possibly
      * wrapping another exception.
+     * 
+     * 
+     * @see org.xml.sax.ContentHandler#startElement [op] startElement 
      */
     @objid ("2af53011-3faf-11e2-87cb-001ec947ccaf")
     public void startElement(final String uri, final String localName, final String qName, final Attributes attrs) throws SAXException {
@@ -144,9 +150,7 @@ public abstract class AbstractState implements ExmlTags {
         final String xclassof = att.getValue(ATT_ID_MC);
         final String xuid = att.getValue(ATT_ID_UID);
         
-        SmClass classof = SmClass.getClass(xclassof);
-        if (classof == null)
-            classof = getDataModel().convertObsoleteClass(xclassof);
+        SmClass classof = getDataModel().getSmClass(xclassof);
         
         if (classof == null) {
             //TODO remake message

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,55 +12,21 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model.api.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.gproject.model.copy.CopyMachine;
 import org.modelio.gproject.model.facilities.CompositionInitializer;
 import org.modelio.gproject.model.importer.core.IImportReport;
-import org.modelio.metamodel.bpmn.activities.BpmnActivity;
-import org.modelio.metamodel.bpmn.activities.BpmnTask;
-import org.modelio.metamodel.bpmn.events.BpmnCatchEvent;
-import org.modelio.metamodel.bpmn.events.BpmnEvent;
-import org.modelio.metamodel.bpmn.events.BpmnThrowEvent;
-import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
-import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
-import org.modelio.metamodel.bpmn.processCollaboration.BpmnParticipant;
-import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
-import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
-import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
-import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
-import org.modelio.metamodel.uml.behavior.activityModel.InputPin;
-import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
-import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
-import org.modelio.metamodel.uml.behavior.stateMachineModel.StateVertex;
-import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
-import org.modelio.metamodel.uml.statik.Artifact;
-import org.modelio.metamodel.uml.statik.BindableInstance;
-import org.modelio.metamodel.uml.statik.Class;
-import org.modelio.metamodel.uml.statik.Classifier;
-import org.modelio.metamodel.uml.statik.Connector;
-import org.modelio.metamodel.uml.statik.ConnectorEnd;
-import org.modelio.metamodel.uml.statik.Instance;
-import org.modelio.metamodel.uml.statik.Interface;
-import org.modelio.metamodel.uml.statik.Link;
-import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.metamodel.uml.statik.NaryAssociation;
-import org.modelio.metamodel.uml.statik.NaryConnector;
-import org.modelio.metamodel.uml.statik.NaryLink;
-import org.modelio.metamodel.uml.statik.Operation;
-import org.modelio.metamodel.uml.statik.Package;
-import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.SmDepVal;
 import org.modelio.vcore.smkernel.SmObjectImpl;
@@ -71,30 +37,6 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("7e9c041b-1eb2-11e2-8009-002564c97630")
 public class ModelTool implements IModelTool {
-    @objid ("7e9c0421-1eb2-11e2-8009-002564c97630")
-    @Override
-    public MObject getSource(MObject aLink) {
-        return MTools.getLinkTool().getSource(aLink);
-    }
-
-    @objid ("7e9c0427-1eb2-11e2-8009-002564c97630")
-    @Override
-    public MObject getTarget(MObject aLink) {
-        return MTools.getLinkTool().getTarget(aLink);
-    }
-
-    @objid ("7ea58981-1eb2-11e2-8009-002564c97630")
-    @Override
-    public void setSource(MObject link, final MObject oldSource, MObject newSource) throws IllegalArgumentException {
-        MTools.getLinkTool().setSource(link, oldSource, newSource);
-    }
-
-    @objid ("7ea58988-1eb2-11e2-8009-002564c97630")
-    @Override
-    public void setTarget(MObject link, final MObject oldTarget, MObject newTarget) throws IllegalArgumentException {
-        MTools.getLinkTool().setTarget(link, oldTarget, newTarget);
-    }
-
     @objid ("14bc773f-152b-412a-a074-1fb7378b9343")
     @Override
     public MObject cloneElement(MObject toClone) {
@@ -166,18 +108,7 @@ public class ModelTool implements IModelTool {
         if (ok) {
         
             if (!parentInitiliazer.execute (smObject, compositionDepVal.dep)) {
-                // TODO error message
-                //GetAbsoluteSymbol sym;
-                //String msg; 
-                //         msg.pformat (RC2::getRC("messages.properties").getString("CannotMoveObject").c_str(),
-                //         sym.get(smObject).c_str(),
-                //         RC2::getRC("classof.properties").getString(smObject.ClassOf.Name).c_str(),
-                //         sym.get(newParent).c_str(),
-                //         RC2::getRC("classof.properties").getString(newParent.ClassOf.Name).c_str());
-                //        
-                //         OLog::error(msg);
-        
-                throw new RuntimeException("CannotMoveObject");
+                throw new RuntimeException("Cannot move object" + smObject.getName());
             }
         }
     }
@@ -213,7 +144,7 @@ public class ModelTool implements IModelTool {
         List<List<SmObjectImpl>> listsToCopy = new ArrayList<>();
         for (List<? extends MObject> list : toCopy) {
             List<SmObjectImpl> smObjectsToCopy = new ArrayList<>();
-            
+        
             for (MObject mObject : list) {
                 smObjectsToCopy.add((SmObjectImpl) mObject);
         
@@ -221,7 +152,7 @@ public class ModelTool implements IModelTool {
                     refSession = CoreSession.getSession(mObject);
                 }
             }
-            
+        
             listsToCopy.add(smObjectsToCopy);
         }
         
@@ -238,11 +169,11 @@ public class ModelTool implements IModelTool {
         // Fill the returned list in the appropriate order
         for (List<? extends MObject> list : toCopy) {
             List<MObject> copies = new ArrayList<>();
-            
+        
             for (MObject ref : list) {
                 copies.add(report.getCreatedObject((SmObjectImpl) ref));
             }
-            
+        
             ret.add(copies);
         }
         return ret;

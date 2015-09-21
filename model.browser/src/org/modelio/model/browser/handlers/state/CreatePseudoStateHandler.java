@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.model.browser.handlers.state;
 
+import java.util.Arrays;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.DeepHistoryPseudoState;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.EntryPointPseudoState;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.ExitPointPseudoState;
@@ -36,9 +37,13 @@ import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.model.browser.handlers.CreateElementHandler;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("8b4990d7-c9d8-11e1-b479-001ec947c8cc")
 public class CreatePseudoStateHandler extends CreateElementHandler {
+    @objid ("4a3070bf-d1e8-49e7-be1b-8724e863fede")
+    private static final List<Class<?>> allowedMetaclasses = Arrays.asList(EntryPointPseudoState.class, ExitPointPseudoState.class,  ShallowHistoryPseudoState.class, DeepHistoryPseudoState.class);
+
     @objid ("4e4e5932-ccde-11e1-97e5-001ec947c8cc")
     private StateMachine getEnclosingStateMachine(State s) {
         State state = s;
@@ -67,11 +72,8 @@ public class CreatePseudoStateHandler extends CreateElementHandler {
     }
 
     @objid ("4e4e5945-ccde-11e1-97e5-001ec947c8cc")
-    private boolean isAllowed(String metaclass) {
-        return !((Metamodel.getMClass(EntryPointPseudoState.class).getName().equals(metaclass)) 
-                                || (Metamodel.getMClass(ExitPointPseudoState.class).getName().equals(metaclass))
-                                || (Metamodel.getMClass(ShallowHistoryPseudoState.class).getName().equals(metaclass)) 
-                                || (Metamodel.getMClass(DeepHistoryPseudoState.class).getName().equals(metaclass)));
+    private boolean isAllowed(MClass metaclass) {
+        return allowedMetaclasses.contains(metaclass.getJavaInterface());
     }
 
     @objid ("4e4e594a-ccde-11e1-97e5-001ec947c8cc")
@@ -79,14 +81,15 @@ public class CreatePseudoStateHandler extends CreateElementHandler {
         if (owner instanceof StateMachine) {
             // Entry and Exit points are added to the StateMachine, and not to
             // the TopRegion
-            if ((Metamodel.getMClass(EntryPointPseudoState.class) == metaclass) || (Metamodel.getMClass(ExitPointPseudoState.class) == metaclass)) {
+            Class<? extends MObject> jinterface = metaclass.getJavaInterface();
+            if (jinterface == EntryPointPseudoState.class || jinterface == ExitPointPseudoState.class) {
                 return owner;
             }
         
             // If top region doesn't exist yet, create it.
             StateMachine stateMachine = (StateMachine) owner;
             if (stateMachine.getTop() == null) {
-                Region topRegion = this.mmServices.getModelFactory(owner).createRegion();
+                Region topRegion = this.mmServices.getModelFactory().createRegion();
                 stateMachine.setTop(topRegion);
             }
             return stateMachine.getTop();
@@ -108,7 +111,7 @@ public class CreatePseudoStateHandler extends CreateElementHandler {
         } else if (owner instanceof StateMachine) {
             stateMachine = (StateMachine) owner;
         }
-        if (stateMachine != null && stateMachine.getKind() == KindOfStateMachine.PROTOCOL && !isAllowed(metaclass.getName())) {
+        if (stateMachine != null && stateMachine.getKind() == KindOfStateMachine.PROTOCOL && !isAllowed(metaclass)) {
             return false;
         }
         return super.doCanExecute(owner, metaclass, dependency, stereotype);
@@ -123,8 +126,8 @@ public class CreatePseudoStateHandler extends CreateElementHandler {
 
     @objid ("5264b0c9-9598-452b-9d45-cbaf242634ae")
     @Override
-    protected Element getSelectedElement(final Object selection, final MClass metaclass) {
-        Element selectedOwner = super.getSelectedElement(selection,metaclass);
+    protected Element getNewElementOwner(final Object selection, final MClass metaclass) {
+        Element selectedOwner = super.getNewElementOwner(selection,metaclass);
         Element selectedElement = getEffectiveOwner(selectedOwner, metaclass);
         return selectedElement;
     }

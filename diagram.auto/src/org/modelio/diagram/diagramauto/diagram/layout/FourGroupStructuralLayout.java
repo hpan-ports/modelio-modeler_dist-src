@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.diagramauto.diagram.layout;
 
@@ -147,7 +147,7 @@ public class FourGroupStructuralLayout {
     }
 
     @objid ("6d1e8590-1144-45e1-a227-b644ec070f7a")
-    public void layout(final IDiagramNode mainDG, final List<IDiagramNode> topDgs, final List<IDiagramNode> bottomDgs, final List<IDiagramNode> leftDgs, final List<IDiagramNode> rightDgs, final List<IDiagramLink> linkDgs) throws InvalidDestinationPointException, InvalidSourcePointException, InvalidPointsPathException {
+    public void layout(final IDiagramNode mainDG, final List<IDiagramNode> topDgs, final List<IDiagramNode> bottomDgs, final List<IDiagramNode> leftDgs, final List<IDiagramNode> rightDgs, final List<IDiagramLink> linkDgs) throws InvalidDestinationPointException, InvalidPointsPathException, InvalidSourcePointException {
         //System.out.println("   Sizes:");
         
         // compute top group width, horizontal group

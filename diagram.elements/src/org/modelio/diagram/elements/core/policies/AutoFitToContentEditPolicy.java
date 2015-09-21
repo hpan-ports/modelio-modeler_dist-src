@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.policies;
 
@@ -43,28 +43,52 @@ public class AutoFitToContentEditPolicy extends GraphicalEditPolicy {
     @objid ("924e56ac-1e83-11e2-8cad-001ec947c8cc")
     public static final String ROLE = "Auto fit to content";
 
+    @objid ("4e8b3e40-3231-47ec-93c3-e670958cfaf3")
+    private boolean fitHorizontal;
+
+    @objid ("91dcf457-3846-4479-8ff9-32b1511b5f1a")
+    private boolean fitVertical;
+
     @objid ("80b4902a-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public Command getCommand(final Request request) {
         final Object reqType = request.getType();
         
-        if (REQ_ADD.equals(reqType))
+        if (REQ_ADD.equals(reqType)) {
             return getFitCommand();
+        }
         
-        if (REQ_ORPHAN_CHILDREN.equals(reqType))
+        if (REQ_ORPHAN_CHILDREN.equals(reqType)) {
             return getFitCommand();
+        }
         
-        if (REQ_MOVE_CHILDREN.equals(reqType))
+        if (REQ_MOVE_CHILDREN.equals(reqType)) {
             return getFitCommand();
+        }
         
-        if (REQ_CREATE.equals(reqType))
+        if (REQ_RESIZE_CHILDREN.equals(reqType)) {
             return getFitCommand();
+        }
+        
+        if (REQ_CREATE.equals(reqType)) {
+            return getFitCommand();
+        }
         return null;
     }
 
     @objid ("80b49035-1dec-11e2-8cad-001ec947c8cc")
     private Command getFitCommand() {
-        return new FitToContentCommand((GraphicalEditPart) getHost());
+        return new FitToContentCommand((GraphicalEditPart) getHost(), this.fitHorizontal, this.fitVertical);
+    }
+
+    /**
+     * @param fitHorizontal whether to fit horizontally
+     * @param fitVertical whether to fit vertically
+     */
+    @objid ("8a371f8b-c41a-45d0-a97e-2a7ed48541c3")
+    public AutoFitToContentEditPolicy(boolean fitHorizontal, boolean fitVertical) {
+        this.fitHorizontal = fitHorizontal;
+        this.fitVertical = fitVertical;
     }
 
 }

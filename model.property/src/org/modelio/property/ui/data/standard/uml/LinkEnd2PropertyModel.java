@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -31,14 +31,10 @@ import org.modelio.core.ui.ktable.types.bool.BooleanType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.ghost.GhostType;
 import org.modelio.core.ui.ktable.types.list.EditableListType;
-import org.modelio.core.ui.ktable.types.modelelement.ModelElementListType;
 import org.modelio.core.ui.ktable.types.text.StringType;
-import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
-import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.LinkEnd;
-import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
@@ -55,12 +51,13 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for other rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for other rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a77420c8-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"LinkEnd", "LinkName", "Link.Base", "Linked", "Name", "MultiplicityMin", "MultiplicityMax", "IsNavigable", "IsOrdered", "IsUnique"};
+    private static final String[] PROPERTIES = new String[] { "Property", "LinkName", "Link.Base", "Linked", "Name",
+            "MultiplicityMin", "MultiplicityMax", "IsNavigable", "IsOrdered", "IsUnique" };
 
     @objid ("8f416d09-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -126,8 +123,9 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         } else if (col == 1) {
             return getPropertyValue(row, this.theEditedElement);
         } else {
-            if (row == 1)
+            if (row == 1) {
                 return ""; // Link name
+            }
         }
         return "";
     }
@@ -141,13 +139,13 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
     @objid ("8f416d1f-c068-11e1-8c0a-002564c97630")
     private Object getPropertyValue(int row, LinkEnd aLinkEnd) {
         // Default value for non editable cells
-        if (row > 7 && ! aLinkEnd.isNavigable()) {
+        if (row > 7 && !aLinkEnd.isNavigable()) {
             return "N/A";
         }
         
         switch (row) {
         case 0: // Title
-            Instance type = aLinkEnd.getTarget()!=null ? aLinkEnd.getTarget() : aLinkEnd.getOpposite().getSource();
+            Instance type = aLinkEnd.getTarget() != null ? aLinkEnd.getTarget() : aLinkEnd.getOpposite().getSource();
             if (type != null) {
                 if (aLinkEnd == this.theEditedElement) {
                     return MessageFormat.format(MetamodelLabels.getString("Title.to"), type.getName());
@@ -164,7 +162,7 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
             if (aLinkEnd != null) {
                 Instance relatedInstance = aLinkEnd.getTarget();
                 return relatedInstance;
-            } 
+            }
             // else
             return null;
         case 4:
@@ -175,10 +173,10 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
             return aLinkEnd.getMultiplicityMax();
         case 7:
             return aLinkEnd.isNavigable();
-        case 8 :
-            return aLinkEnd.isIsOrdered()?Boolean.TRUE:Boolean.FALSE;
-        case 9 :
-            return aLinkEnd.isIsUnique()?Boolean.TRUE:Boolean.FALSE;
+        case 8:
+            return aLinkEnd.isIsOrdered() ? Boolean.TRUE : Boolean.FALSE;
+        case 9:
+            return aLinkEnd.isIsUnique() ? Boolean.TRUE : Boolean.FALSE;
         default:
             return null;
         }
@@ -194,8 +192,8 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         // Non editable case
-        if ((col == 1 && row > 7 && !this.theEditedElement.getOpposite().isNavigable()) ||
-                (col == 2 && row > 7 && !this.theEditedElement.isNavigable())) {
+        if ((col == 1 && row > 7 && !this.theEditedElement.getOpposite().isNavigable())
+                || (col == 2 && row > 7 && !this.theEditedElement.isNavigable())) {
             return this.ghostType;
         }
         
@@ -253,8 +251,9 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         switch (col) {
         
         case 0: // col 0 is the property name
-            if (row == 0)
+            if (row == 0) {
                 return MessageFormat.format(MetamodelLabels.getString("Title.LinkEnd"), this.theEditedElement.getName());
+            }
             // else
             return LinkEnd2PropertyModel.PROPERTIES[row];
         
@@ -262,13 +261,13 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
             LinkEnd relatedEnd = this.theEditedElement.getOpposite();
             if (relatedEnd != null) {
                 return getPropertyValue(row, relatedEnd);
-            } 
+            }
             // else
             return null;
         
         case 2:
             if (row == 1) {
-                return "";      // Link name display only in the second column
+                return ""; // Link name display only in the second column
             }
             return getPropertyValue(row, this.theEditedElement);
         
@@ -288,7 +287,7 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
             return relatedEnd.isModifiable();
         } else if (col == 2) {
             if (row == 1) {
-                return false;      // Link name is only editable in the second column
+                return false; // Link name is only editable in the second column
             }
             return this.theEditedElement.isModifiable();
         }
@@ -304,10 +303,16 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
             linkEnd.getLink().setName(String.valueOf(value));
             break;
         case 2:
-            final AssociationEnd model = (AssociationEnd) value;
-            linkEnd.setModel(model);
-            linkEnd.getOpposite().setModel(model.getOpposite());
-            linkEnd.getLink().setModel(model.getAssociation());
+            if (value == null) {
+                linkEnd.setModel(null);
+                linkEnd.getOpposite().setModel(null);
+                linkEnd.getLink().setModel(null);
+            } else {
+                final AssociationEnd model = (AssociationEnd) value;
+                linkEnd.setModel(model);
+                linkEnd.getOpposite().setModel(model.getOpposite());
+                linkEnd.getLink().setModel(model.getAssociation());
+            }
             break;
         case 3:
             linkEnd.setTarget((Instance) value, true);
@@ -359,32 +364,7 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
 
     @objid ("8d0dd793-0e69-420b-a07b-6e9c589f74d4")
     private IPropertyType getBaseAssociationType(LinkEnd editedEnd) {
-        List<ModelElement> availableEnds = new ArrayList<>();
-        
-        Instance source = editedEnd.getOwner();
-        Instance target = editedEnd.getOpposite().getOwner();
-        NameSpace sourceBase = source.getBase();
-        NameSpace targetBase = target.getBase();
-        if (sourceBase != null && sourceBase instanceof Classifier && targetBase != null && targetBase instanceof Classifier) {
-            for (AssociationEnd end : ((Classifier)sourceBase).getOwnedEnd()) {
-                if (end.getOpposite().getOwner().equals(targetBase)) {
-                    if (!availableEnds.contains(end)) {
-                        availableEnds.add(end);
-                    }
-                }
-            }
-        
-            for (AssociationEnd end : ((Classifier)sourceBase).getTargetingEnd()) {
-                if (end.getOwner().equals(targetBase)) {
-                    if (!availableEnds.contains(end.getOpposite())) {
-                        availableEnds.add(end.getOpposite());
-                    }
-                }
-            }
-        }
-        
-        ModelElementListType type = new ModelElementListType(true, AssociationEnd.class, availableEnds, CoreSession.getSession(this.theEditedElement));
-        return type;
+        return LinkUtils.getBaseAssociationType(editedEnd);
     }
 
 }

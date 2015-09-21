@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.bpmn;
 
@@ -60,7 +60,7 @@ public class BpmnBoundaryEventPropertyModel extends AbstractPropertyModel<BpmnBo
      * </ul>
      */
     @objid ("a5a3f4b1-c068-11e1-8c0a-002564c97630")
-    private static final String[] properties = new String[] { "BoundaryEvent", "Name","Type", "ParallelMultiple", "CancelActivity" };
+    private static final String[] properties = new String[] { "Property", "Name", "Type", "ParallelMultiple", "CancelActivity" };
 
     @objid ("aa15324a-d004-11e1-9020-002564c97630")
     private IMModelServices modelService;
@@ -270,7 +270,7 @@ public class BpmnBoundaryEventPropertyModel extends AbstractPropertyModel<BpmnBo
             BpmnEventDefinition event_definition = modelFactory.createBpmnMessageEventDefinition();
             event_definition.setName(mmService.getElementNamer().getBaseName(event_definition.getMClass()));
             event_definition.setDefined(this.theEditedElement);
-            
+        
             event_definition = modelFactory.createBpmnSignalEventDefinition();
             event_definition.setName(mmService.getElementNamer().getBaseName(event_definition.getMClass()));
             event_definition.setDefined(this.theEditedElement);

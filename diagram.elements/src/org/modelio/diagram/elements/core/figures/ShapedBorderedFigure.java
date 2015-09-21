@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.figures;
 
@@ -51,7 +51,7 @@ public class ShapedBorderedFigure extends ShapedFigure {
     public ShapedBorderedFigure(final IShaper aShaper) {
         super(aShaper);
         setSize(30, 40);
-        this.setOpaque(true);
+        setOpaque(true);
         
         setShaper(aShaper);
     }
@@ -101,6 +101,25 @@ public class ShapedBorderedFigure extends ShapedFigure {
             super.setLinePattern(lineStyle);
             this.shapedBorder.setStyle(lineStyle.toSWTConstant());
         }
+    }
+
+    /**
+     * Copy constructor.
+     * <p>
+     * Copy the border.
+     * @param orig the original
+     */
+    @objid ("8c2d393d-a181-479c-a5f8-ec4e489ac438")
+    public ShapedBorderedFigure(ShapedBorderedFigure orig) {
+        super(orig);
+        
+        updateBorder();
+    }
+
+    @objid ("1beb0cf5-321b-4242-af94-4a543ea6d45d")
+    @Override
+    public ShapedBorderedFigure getCopy() {
+        return new ShapedBorderedFigure(this);
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.decisionmerge;
 
@@ -79,8 +79,9 @@ public class InputBehaviourTextEditPart extends GmNodeEditPart {
     public void performRequest(Request req) {
         if (req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
         
-            if (((GmModel) getModel()).getEditableText() == null)
+            if (((GmModel) getModel()).getEditableText() == null) {
                 return;
+            }
         
             final CellEditorLocator cellEditorLocator = new CellEditorLocator() {
                 @Override
@@ -101,7 +102,7 @@ public class InputBehaviourTextEditPart extends GmNodeEditPart {
         
                 @Override
                 protected void initCellEditor() {
-                    final TextCellEditor textEdit = (TextCellEditor) this.getCellEditor();
+                    final TextCellEditor textEdit = (TextCellEditor) getCellEditor();
                     textEdit.setStyle(SWT.CENTER);
                     textEdit.setValue(((GmModel) getModel()).getEditableText().getText());
         
@@ -142,7 +143,7 @@ public class InputBehaviourTextEditPart extends GmNodeEditPart {
             if (!currentSize.isEmpty() && !updatedPrefSize.equals(currentSize)) {
                 final ChangeBoundsRequest changeBoundsRequest = new ChangeBoundsRequest(REQ_RESIZE);
                 changeBoundsRequest.setEditParts(this);
-                changeBoundsRequest.setSizeDelta(updatedPrefSize.getDifference(currentSize));
+                changeBoundsRequest.setSizeDelta(updatedPrefSize.getShrinked(currentSize));
         
                 final Command resizeCommand = getCommand(changeBoundsRequest);
                 if (resizeCommand != null && resizeCommand.canExecute()) {
@@ -159,8 +160,9 @@ public class InputBehaviourTextEditPart extends GmNodeEditPart {
     protected void createEditPolicies() {
         super.createEditPolicies();
         
-        if (((GmModel) getModel()).getEditableText() != null)
+        if (((GmModel) getModel()).getEditableText() != null) {
             installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DefaultElementDirectEditPolicy());
+        }
     }
 
     @objid ("2a477af0-55b6-11e2-877f-002564c97630")
@@ -172,8 +174,9 @@ public class InputBehaviourTextEditPart extends GmNodeEditPart {
         labelFigure.setText(model.getText());
         
         final Object layoutData = model.getLayoutData();
-        if (layoutData != null)
+        if (layoutData != null) {
             labelFigure.getParent().setConstraint(labelFigure, layoutData);
+        }
     }
 
 }

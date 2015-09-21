@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.dialogs.dialog.panels.operation.params;
 
@@ -47,26 +47,26 @@ import org.modelio.ui.panel.IPanelProvider;
 
 @objid ("45eb4159-1cae-4674-a4c2-6b2937b1a0e4")
 public class OperationParametersPanel implements IPanelProvider {
+    @objid ("7cbd0897-32e3-45e4-8efd-7ddd467f08d4")
+    private Composite container;
+
+    @objid ("fb75b149-672d-4a1f-9c56-79850145c010")
+    private Button addButton;
+
+    @objid ("e49837ef-5665-495a-839e-9fba4eefd2e6")
+     Button removeButton;
+
+    @objid ("4c628f66-c743-49ad-a97a-8e6a52896aca")
+     Button moveUpButton;
+
+    @objid ("413663dd-d4ad-4623-b269-f69247974493")
+     Button moveDownButton;
+
     @objid ("e1697af3-bef1-4d54-93db-99c023c97089")
     private OperationModel opModel;
 
-    @objid ("0d16d15a-f9eb-4635-8117-407cc2a7e5aa")
-    private Composite container;
-
     @objid ("b89d81ff-a02b-4ab8-a0b1-e83183626498")
     private KTable parametersTable;
-
-    @objid ("7e853cb0-9f37-4e87-b636-6b628ef1009a")
-    private Button addButton;
-
-    @objid ("bf5dba0f-8477-41db-ae0c-e3ec418f99a9")
-     Button removeButton;
-
-    @objid ("f75e8e48-4b31-4ea5-b3d4-e911f3ed7b47")
-     Button moveUpButton;
-
-    @objid ("10300d44-c8cd-4151-9086-988c5971ffaf")
-     Button moveDownButton;
 
     @objid ("f54a3ef9-d532-4722-bf89-18bf08b5a725")
     @Override

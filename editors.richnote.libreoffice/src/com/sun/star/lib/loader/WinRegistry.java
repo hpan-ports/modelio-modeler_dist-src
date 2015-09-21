@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package com.sun.star.lib.loader;
 
@@ -134,7 +134,7 @@ public class WinRegistry {
      * @return the value name(s) plus the value(s)
      */
     @objid ("b460b944-7563-4b8e-9b4c-3e29639bf9c8")
-    public static Map<String, String> readStringValues(int hkey, String key) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    public static Map<String, String> readStringValues(int hkey, String key) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         if (hkey == HKEY_LOCAL_MACHINE) {
             return readStringValues(systemRoot, hkey, key);
         } else if (hkey == HKEY_CURRENT_USER) {
@@ -154,7 +154,7 @@ public class WinRegistry {
      * @return the value name(s)
      */
     @objid ("8f34e668-8097-41d8-afd6-21284882806e")
-    public static List<String> readStringSubKeys(int hkey, String key) throws InvocationTargetException, IllegalArgumentException, IllegalAccessException {
+    public static List<String> readStringSubKeys(int hkey, String key) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         if (hkey == HKEY_LOCAL_MACHINE) {
             return readStringSubKeys(systemRoot, hkey, key);
         } else if (hkey == HKEY_CURRENT_USER) {
@@ -200,7 +200,7 @@ public class WinRegistry {
      * @throws InvocationTargetException
      */
     @objid ("3133f11b-b092-471a-bb4f-4585ac2fd364")
-    public static void writeStringValue(int hkey, String key, String valueName, String value) throws IllegalAccessException, InvocationTargetException, IllegalArgumentException {
+    public static void writeStringValue(int hkey, String key, String valueName, String value) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         if (hkey == HKEY_LOCAL_MACHINE) {
             writeStringValue(systemRoot, hkey, key, valueName, value);
         } else if (hkey == HKEY_CURRENT_USER) {
@@ -219,7 +219,7 @@ public class WinRegistry {
      * @throws InvocationTargetException
      */
     @objid ("54d377fe-fc04-4c9b-9557-cfa568da586e")
-    public static void deleteKey(int hkey, String key) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    public static void deleteKey(int hkey, String key) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         int rc = -1;
         if (hkey == HKEY_LOCAL_MACHINE) {
             rc = deleteKey(systemRoot, hkey, key);
@@ -241,7 +241,7 @@ public class WinRegistry {
      * @throws InvocationTargetException
      */
     @objid ("2b32fdfe-2c5d-4eb7-83bf-041a6cf69355")
-    public static void deleteValue(int hkey, String key, String value) throws IllegalAccessException, InvocationTargetException, IllegalArgumentException {
+    public static void deleteValue(int hkey, String key, String value) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         int rc = -1;
         if (hkey == HKEY_LOCAL_MACHINE) {
             rc = deleteValue(systemRoot, hkey, key, value);
@@ -255,7 +255,7 @@ public class WinRegistry {
 
 // =====================
     @objid ("7cfeff5b-9a5e-478a-a80b-7964829e473f")
-    private static int deleteValue(Preferences root, int hkey, String key, String value) throws InvocationTargetException, IllegalAccessException, IllegalArgumentException {
+    private static int deleteValue(Preferences root, int hkey, String key, String value) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         int[] handles = (int[]) regOpenKey.invoke(root, new Object[] { new Integer(hkey), toCstr(key),
                 new Integer(KEY_ALL_ACCESS) });
         if (handles[1] != REG_SUCCESS) {
@@ -268,13 +268,13 @@ public class WinRegistry {
     }
 
     @objid ("f58f9a66-b6a0-4d74-b4e8-10918ea89cb9")
-    private static int deleteKey(Preferences root, int hkey, String key) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    private static int deleteKey(Preferences root, int hkey, String key) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         int rc = ((Integer) regDeleteKey.invoke(root, new Object[] { new Integer(hkey), toCstr(key) })).intValue();
         return rc; // can REG_NOTFOUND, REG_ACCESSDENIED, REG_SUCCESS
     }
 
     @objid ("ad928444-42ac-4b19-87f9-a4dc2923e70a")
-    private static String readString(Preferences root, int hkey, String key, String value) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    private static String readString(Preferences root, int hkey, String key, String value) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         int[] handles = (int[]) regOpenKey.invoke(root, new Object[] { new Integer(hkey), toCstr(key),
                 new Integer(KEY_READ) });
         if (handles[1] != REG_SUCCESS) {
@@ -287,7 +287,7 @@ public class WinRegistry {
     }
 
     @objid ("74746a35-b973-4b0d-8634-881f359da527")
-    private static Map<String, String> readStringValues(Preferences root, int hkey, String key) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    private static Map<String, String> readStringValues(Preferences root, int hkey, String key) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         HashMap<String, String> results = new HashMap<String, String>();
         int[] handles = (int[]) regOpenKey.invoke(root, new Object[] { new Integer(hkey), toCstr(key),
                 new Integer(KEY_READ) });
@@ -309,7 +309,7 @@ public class WinRegistry {
     }
 
     @objid ("6e21c715-ce2c-4359-8545-f196b55eddd4")
-    private static List<String> readStringSubKeys(Preferences root, int hkey, String key) throws InvocationTargetException, IllegalAccessException, IllegalArgumentException {
+    private static List<String> readStringSubKeys(Preferences root, int hkey, String key) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         List<String> results = new ArrayList<String>();
         int[] handles = (int[]) regOpenKey.invoke(root, new Object[] { new Integer(hkey), toCstr(key),
                 new Integer(KEY_READ) });
@@ -330,7 +330,7 @@ public class WinRegistry {
     }
 
     @objid ("69a5ffbe-939e-468d-ae92-06f6c05d944f")
-    private static int[] createKey(Preferences root, int hkey, String key) throws InvocationTargetException, IllegalAccessException, IllegalArgumentException {
+    private static int[] createKey(Preferences root, int hkey, String key) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         return (int[]) regCreateKeyEx.invoke(root, new Object[] { new Integer(hkey), toCstr(key) });
     }
 

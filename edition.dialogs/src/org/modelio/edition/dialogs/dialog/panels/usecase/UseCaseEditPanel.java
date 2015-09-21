@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.dialogs.dialog.panels.usecase;
 
@@ -33,13 +33,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
+import org.modelio.api.ui.form.fields.NoteField;
+import org.modelio.api.ui.form.fields.StringField;
+import org.modelio.api.ui.form.fields.TextField;
+import org.modelio.api.ui.form.models.IFormFieldData;
+import org.modelio.api.ui.form.models.IFormFieldType;
+import org.modelio.api.ui.form.models.NoteFieldData;
 import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.core.ui.form.fields.NoteField;
-import org.modelio.core.ui.form.fields.StringField;
-import org.modelio.core.ui.form.fields.TextField;
-import org.modelio.core.ui.form.models.IFormFieldData;
-import org.modelio.core.ui.form.models.IFormFieldType;
-import org.modelio.core.ui.form.models.NoteFieldData;
 import org.modelio.edition.dialogs.plugin.EditionDialogs;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
@@ -213,7 +213,7 @@ public class UseCaseEditPanel implements IPanelProvider {
         this.name.setHelpText(EditionDialogs.I18N.getString("UseCaseEditPanel.ucName.help"));
         this.name.setVertical(false);
         
-        final CTabFolder folder = new CTabFolder(comp, SWT.BORDER|SWT.TOP);
+        final CTabFolder folder = new CTabFolder(comp, SWT.BORDER | SWT.TOP);
         folder.setTabHeight(-1);
         final GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         gd.verticalIndent = 8;
@@ -353,8 +353,42 @@ public class UseCaseEditPanel implements IPanelProvider {
 
         @objid ("10c16a17-f479-4e2f-96a0-199dfcf43bc0")
         @Override
-        public void setValue(Object obj) {
-            setValue(obj.toString());
+        public void setValue(Object value) {
+            if (this.uc == null || this.uc.isModifiable() == false) {
+                return;
+            }
+            
+            try (ITransaction t = CoreSession.getSession(this.uc).getTransactionSupport().createTransaction("")) {
+                switch (this.fid) {
+                case NAME:
+                    this.uc.setName(value.toString());
+                    break;
+                case CONSTRAINTS:
+                    this.uc.putNoteContent("ModelerModule", "constraint", value.toString());
+                    break;
+                case DESCRIPTION:
+                    this.uc.putNoteContent("ModelerModule", "description", value.toString());
+                    break;
+                case EXCEPTIONS:
+                    this.uc.putNoteContent("ModelerModule", "exception", value.toString());
+                    break;
+                case NFCONSTRAINTS:
+                    this.uc.putNoteContent("ModelerModule", "non-functional constraint", value.toString());
+                    break;
+                case POSTCOND:
+                    this.uc.putNoteContent("ModelerModule", "postcondition", value.toString());
+                    break;
+                case PRECOND:
+                    this.uc.putNoteContent("ModelerModule", "precondition", value.toString());
+                    break;
+                default:
+                    break;
+            
+                }
+                t.commit();
+            } catch (final ExtensionNotFoundException e) {
+                EditionDialogs.LOG.error(e);
+            }
         }
 
         @objid ("f6b0a2c3-20ae-4fe9-9147-4bf791dac8af")
@@ -425,53 +459,7 @@ public class UseCaseEditPanel implements IPanelProvider {
                         };
         }
 
-        @objid ("ad6ef9c2-39ec-499d-8dbc-6b8dd16407e6")
-        @Override
-        public void setValue(String value) {
-            if (this.uc == null || this.uc.isModifiable() == false) {
-                return;
-            }
-            
-            try (ITransaction t = CoreSession.getSession(this.uc).getTransactionSupport().createTransaction("")) {
-                switch (this.fid) {
-                case NAME:
-                    this.uc.setName(value);
-                    break;
-                case CONSTRAINTS:
-                    this.uc.putNoteContent("ModelerModule", "constraint", value);
-                    break;
-                case DESCRIPTION:
-                    this.uc.putNoteContent("ModelerModule", "description", value);
-                    break;
-                case EXCEPTIONS:
-                    this.uc.putNoteContent("ModelerModule", "exception", value);
-                    break;
-                case NFCONSTRAINTS:
-                    this.uc.putNoteContent("ModelerModule", "non-functional constraint", value);
-                    break;
-                case POSTCOND:
-                    this.uc.putNoteContent("ModelerModule", "postcondition", value);
-                    break;
-                case PRECOND:
-                    this.uc.putNoteContent("ModelerModule", "precondition", value);
-                    break;
-                default:
-                    break;
-            
-                }
-                t.commit();
-            } catch (final ExtensionNotFoundException e) {
-                EditionDialogs.LOG.error(e);
-            }
-        }
-
-        @objid ("fa82038c-4c64-4106-8582-ec1a7dcf6617")
-        @Override
-        public String getValueAsString() {
-            final Object value = getValue();
-            return value!=null ? (String)value : "";
-        }
-
+//
         @objid ("f2bc0b0b-f7f3-4460-b5ea-e13b84693292")
         enum FieldID {
             NAME,

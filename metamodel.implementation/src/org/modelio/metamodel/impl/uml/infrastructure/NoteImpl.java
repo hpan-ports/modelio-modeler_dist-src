@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.infrastructure.NoteData;
+import org.modelio.metamodel.impl.uml.infrastructure.NoteData;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
@@ -40,78 +52,89 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("008a098a-c4be-1fd8-97fe-001ec947cd2a")
 public class NoteImpl extends ModelElementImpl implements Note {
-    @objid ("d1370379-d76d-4832-ad14-b9b5716974b9")
+    @objid ("a7db2164-f4b4-495c-b408-f88e34fda79f")
     @Override
     public String getContent() {
-        return (String) getAttVal(NoteData.Metadata.ContentAtt());
+        return (String) getAttVal(((NoteSmClass)getClassOf()).getContentAtt());
     }
 
-    @objid ("48f847af-886a-4531-9ad9-4b7a2b766db4")
+    @objid ("4dc7b6f1-41bf-4825-ba8f-2e699e390fdc")
     @Override
     public void setContent(String value) {
-        setAttVal(NoteData.Metadata.ContentAtt(), value);
+        setAttVal(((NoteSmClass)getClassOf()).getContentAtt(), value);
     }
 
-    @objid ("8103656b-4a2f-48cf-a705-be0fc02e72c6")
+    @objid ("ea47bc02-4c0b-4750-b60e-75ddd1d1c0ea")
     @Override
     public String getMimeType() {
-        return (String) getAttVal(NoteData.Metadata.MimeTypeAtt());
+        return (String) getAttVal(((NoteSmClass)getClassOf()).getMimeTypeAtt());
     }
 
-    @objid ("0196be7c-6287-459b-b2ea-6cd7cc93a2b1")
+    @objid ("0e063ce1-aa5f-4450-b067-5141d99af885")
     @Override
     public void setMimeType(String value) {
-        setAttVal(NoteData.Metadata.MimeTypeAtt(), value);
+        setAttVal(((NoteSmClass)getClassOf()).getMimeTypeAtt(), value);
     }
 
-    @objid ("9898b7b8-8f19-4f48-9544-7605df7ff204")
+    @objid ("2901ef0e-9c60-4f59-9aae-418641740097")
     @Override
     public NoteType getModel() {
-        return (NoteType) getDepVal(NoteData.Metadata.ModelDep());
+        Object obj = getDepVal(((NoteSmClass)getClassOf()).getModelDep());
+        return (obj instanceof NoteType)? (NoteType)obj : null;
     }
 
-    @objid ("27cca8b6-b1a0-47be-9688-7ec0af3a106e")
+    @objid ("070f8e73-de64-4910-ac51-05cd5936ef13")
     @Override
     public void setModel(NoteType value) {
-        appendDepVal(NoteData.Metadata.ModelDep(), (SmObjectImpl)value);
+        appendDepVal(((NoteSmClass)getClassOf()).getModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("88c7c6db-d94e-4e8f-9a5e-3b42e2342d2c")
+    @objid ("e6f3da1d-66b0-43f2-a7c4-fa6a4279a911")
     @Override
     public ModelElement getSubject() {
-        return (ModelElement) getDepVal(NoteData.Metadata.SubjectDep());
+        Object obj = getDepVal(((NoteSmClass)getClassOf()).getSubjectDep());
+        return (obj instanceof ModelElement)? (ModelElement)obj : null;
     }
 
-    @objid ("75e34a61-cb7b-422d-990a-6eb6dd669434")
+    @objid ("1af0813c-e525-4037-b28e-f7881f4865f9")
     @Override
     public void setSubject(ModelElement value) {
-        appendDepVal(NoteData.Metadata.SubjectDep(), (SmObjectImpl)value);
+        appendDepVal(((NoteSmClass)getClassOf()).getSubjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2b35195c-b8fa-4d87-8d71-ef54be642156")
+    @objid ("cb67f934-3ef7-4c04-9d74-a4981ddcd1bf")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(NoteData.Metadata.SubjectDep());
+        // Subject
+        obj = (SmObjectImpl)this.getDepVal(((NoteSmClass)getClassOf()).getSubjectDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7b2e3a6e-d62b-4244-8e58-6a51aed909ce")
+    @objid ("3ca16d96-9eff-4e08-8f26-a7742ea86423")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(NoteData.Metadata.SubjectDep());
-        if (obj != null)
-          return new SmDepVal(NoteData.Metadata.SubjectDep(), obj);
+        SmDependency dep;
+        
+        // Subject
+        dep = ((NoteSmClass)getClassOf()).getSubjectDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("a464b65b-48e8-4676-bea5-18df17610547")
+    @objid ("c05332d9-badd-4a15-bb24-ee7e4c52d2b5")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNote(this);

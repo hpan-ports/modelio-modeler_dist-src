@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,21 +12,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.diagramauto.handlers;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.api.diagram.autodiagram.IDiagramCreator;
 import org.modelio.app.core.IModelioEventService;
 import org.modelio.app.core.IModelioService;
@@ -48,7 +51,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MStatus;
 
 @objid ("a08a4aea-1e8b-40e4-9828-fc22f403587c")
-public class UpdateAutomaticDiagram extends AbstractHandler {
+public class UpdateAutomaticDiagram {
     @objid ("e7d6baf6-1889-4461-8265-33f0d99278aa")
     @Execute
     public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IMModelServices modelServices, IModelioEventService eventService) {
@@ -137,6 +140,25 @@ public class UpdateAutomaticDiagram extends AbstractHandler {
             return spsc;
         }
         return null;
+    }
+
+    @objid ("9861ff7c-449b-4f07-9fb0-8009bf06e709")
+    protected List<MObject> getSelection(Object selection) {
+        List<MObject> selectedElements = new ArrayList<>();
+        
+        if (selection instanceof MObject) {
+            selectedElements.add((MObject) selection);
+        } else if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() >= 1) {
+            Object[] elements = ((IStructuredSelection) selection).toArray();
+            for (Object element : elements) {
+                if (element instanceof MObject) {
+                    selectedElements.add((MObject) element);
+                } else if (element instanceof IAdaptable) {
+                    selectedElements.add((MObject) ((IAdaptable) element).getAdapter(MObject.class));
+                }
+            }
+        }
+        return selectedElements;
     }
 
 }

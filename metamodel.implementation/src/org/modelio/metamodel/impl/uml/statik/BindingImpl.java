@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,24 +12,36 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.BindingData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.statik.BindingData;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.Binding;
@@ -44,90 +56,104 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("000191ae-c4bf-1fd8-97fe-001ec947cd2a")
 public class BindingImpl extends ModelElementImpl implements Binding {
-    @objid ("341ea510-4853-48c6-bbd6-14b605479c70")
+    @objid ("bf5ab0e2-8346-46f5-a24b-1ab09930bd00")
     @Override
     public ConnectorEnd getConnectorEndRole() {
-        return (ConnectorEnd) getDepVal(BindingData.Metadata.ConnectorEndRoleDep());
+        Object obj = getDepVal(((BindingSmClass)getClassOf()).getConnectorEndRoleDep());
+        return (obj instanceof ConnectorEnd)? (ConnectorEnd)obj : null;
     }
 
-    @objid ("2f8545fc-a831-4b42-8a45-a5d13916313c")
+    @objid ("93731d2d-5f4b-45d9-bf0f-08054496e2b0")
     @Override
     public void setConnectorEndRole(ConnectorEnd value) {
-        appendDepVal(BindingData.Metadata.ConnectorEndRoleDep(), (SmObjectImpl)value);
+        appendDepVal(((BindingSmClass)getClassOf()).getConnectorEndRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b29d3cc3-17d7-428f-a80c-a1f0003df48f")
+    @objid ("2b252618-820d-482a-97e2-e0c6ca3080c1")
     @Override
     public NaryConnector getConnectorRole() {
-        return (NaryConnector) getDepVal(BindingData.Metadata.ConnectorRoleDep());
+        Object obj = getDepVal(((BindingSmClass)getClassOf()).getConnectorRoleDep());
+        return (obj instanceof NaryConnector)? (NaryConnector)obj : null;
     }
 
-    @objid ("c202a645-ec36-457d-beb2-710cade8d5ef")
+    @objid ("f92f47f5-d291-40ed-96a9-86f73f54e4aa")
     @Override
     public void setConnectorRole(NaryConnector value) {
-        appendDepVal(BindingData.Metadata.ConnectorRoleDep(), (SmObjectImpl)value);
+        appendDepVal(((BindingSmClass)getClassOf()).getConnectorRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("411db4d0-7763-44b5-8c1c-69d71c38f12c")
+    @objid ("a595e746-fccc-4d22-80ba-af2e96e016cf")
     @Override
     public BindableInstance getRole() {
-        return (BindableInstance) getDepVal(BindingData.Metadata.RoleDep());
+        Object obj = getDepVal(((BindingSmClass)getClassOf()).getRoleDep());
+        return (obj instanceof BindableInstance)? (BindableInstance)obj : null;
     }
 
-    @objid ("e164df97-50a2-4a9d-a1a2-875466bea722")
+    @objid ("864e76be-6b52-4987-bbe5-54043f93e664")
     @Override
     public void setRole(BindableInstance value) {
-        appendDepVal(BindingData.Metadata.RoleDep(), (SmObjectImpl)value);
+        appendDepVal(((BindingSmClass)getClassOf()).getRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c0fc5b80-d853-47d6-9f0c-76983c7e53f9")
+    @objid ("a1851fad-b502-4602-ad38-865bf31028db")
     @Override
     public ModelElement getRepresentedFeature() {
-        return (ModelElement) getDepVal(BindingData.Metadata.RepresentedFeatureDep());
+        Object obj = getDepVal(((BindingSmClass)getClassOf()).getRepresentedFeatureDep());
+        return (obj instanceof ModelElement)? (ModelElement)obj : null;
     }
 
-    @objid ("a88f75db-11ed-4345-896f-99cbd754aaf6")
+    @objid ("8ee854eb-0c44-4505-9077-1fe510aec407")
     @Override
     public void setRepresentedFeature(ModelElement value) {
-        appendDepVal(BindingData.Metadata.RepresentedFeatureDep(), (SmObjectImpl)value);
+        appendDepVal(((BindingSmClass)getClassOf()).getRepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8980bcb2-d45e-49ef-b168-d593f805719d")
+    @objid ("86407f13-59c6-4565-af8e-3e1636398718")
     @Override
     public CollaborationUse getOwner() {
-        return (CollaborationUse) getDepVal(BindingData.Metadata.OwnerDep());
+        Object obj = getDepVal(((BindingSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof CollaborationUse)? (CollaborationUse)obj : null;
     }
 
-    @objid ("74d44597-4c0e-4e17-a99a-bc9183ad3ba9")
+    @objid ("b7f25e61-dadc-4f6b-8bcd-9f9506f47f6c")
     @Override
     public void setOwner(CollaborationUse value) {
-        appendDepVal(BindingData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((BindingSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bb6c5a4c-7fda-4b2b-96d9-a63eab6be309")
+    @objid ("59748c76-4851-4acf-8e79-49845cd1ba1d")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BindingData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((BindingSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7ae9a58d-f1fa-4fcd-bce4-ce6e0da2da92")
+    @objid ("15630851-43ec-4396-b5b4-e054699b06b6")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BindingData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(BindingData.Metadata.OwnerDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((BindingSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("9c58cbd5-2381-4baf-bd47-d101cef4c65d")
+    @objid ("fa12e170-0d1e-48b1-8674-c44568f6c749")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBinding(this);

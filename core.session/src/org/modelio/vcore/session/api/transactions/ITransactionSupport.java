@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.api.transactions;
 
@@ -29,25 +29,24 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * <p>
  * The main method is {@link #createTransaction(String)} that creates a model transaction.
  * Typical usage is:
- * <pre>
- * CoreSession session = ... ;
- * try (ITransaction t = session.getTransactionSupport().createTransaction("do something")) {
+ * <pre><code>
+ * try (ITransaction t = session.createTransaction("do something")) {
  * // code
  * ...
  * 
  * // Commit transaction
  * t.commit();
  * }
- * </pre>
+ * </code></pre>
  */
 @objid ("0041edc6-5572-10c8-842f-001ec947cd2a")
 public interface ITransactionSupport {
     /**
      * Create a new model transaction.
      * <p>
-     * A transaction <b>must</b> be used in a <i>try-with-resource</i> statement,
+     * A transaction <b>must</b> be used in a  <b><i>try-with-resource</i></b> statement,
      * typically the following way:
-     * <pre>
+     * <pre><code>
      * try (ITransaction t = session.createTransaction("do something")) {
      * // code
      * ...
@@ -55,7 +54,7 @@ public interface ITransactionSupport {
      * // Commit transaction
      * t.commit();
      * }
-     * </pre>
+     * </code></pre>
      * <p>
      * Only one thread can use a transaction at a time. If another thread already runs a transaction,
      * this thread will wait 2 seconds for the other transaction to finish.
@@ -76,9 +75,9 @@ public interface ITransactionSupport {
     /**
      * Create a new Transaction, waits for the specified time if a concurrent transaction is already running.
      * <p>
-     * A transaction <b>must</b> be used in a <i>try-with-resource</i> statement,
+     * A transaction <b>must</b> be used in a <b><i>try-with-resource</i></b> statement,
      * typically the following way:
-     * <pre>
+     * <pre><code>
      * try (ITransaction t = session.createTransaction("do something", 2, TimeUnit.SECONDS)) {
      * // code
      * ...
@@ -86,7 +85,7 @@ public interface ITransactionSupport {
      * // Commit transaction
      * t.commit();
      * }
-     * </pre>
+     * </code></pre>
      * <p>
      * Only one thread can use a transaction at a time. If another thread already runs a transaction,
      * this thread will wait the specified time for the other transaction to finish.
@@ -112,6 +111,10 @@ public interface ITransactionSupport {
     @objid ("001ba4b8-575b-10c8-842f-001ec947cd2a")
     void setTransactionValidator(final ITransactionValidator value);
 
+    /**
+     * Set the {@link ITransactionClosureHandler} that updates namespace uses before commiting.
+     * @param transactionClosureHandler the closure handler.
+     */
     @objid ("29e7c01f-7e51-4b75-b995-590f142f29e4")
     void setClosureHandler(ITransactionClosureHandler transactionClosureHandler);
 

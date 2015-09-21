@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.metamodel.bpmn.activities;
 
@@ -25,10 +25,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.Enumerator;
 
+/**
+ * MultiInstanceBehavior v0.0.9054
+ * 
+ * 
+ * Acts as a shortcut for specifying when events SHALL be thrown from an Activity instance that is about to complete. It can assume values of None, One, All, and Complex, resulting in the following behavior:
+ * - None: the EventDefinition which is associated through the noneEvent association will be thrown for each instance completing;
+ * - One: the EventDefinition referenced through the oneEvent association will be thrown upon the first instance completing;
+ * - All: no Event is ever thrown; a token is produced after completion of all instances
+ * - Complex: the complexBehaviorDefinitions are consulted to determine if and which Events to throw.
+ * 
+ * For the behaviors of none and one, a default SignalEventDefinition will be thrown which automatically carries the current runtime attributes of the MI Activity.
+ */
 @objid ("00556e64-91e1-1f74-804b-001ec947cd2a")
-public enum MultiInstanceBehavior implements Enumerator {
+public enum MultiInstanceBehavior {
     NONEBEHAVIOR (0, "NoneBehavior", "NoneBehavior"),
     ONEBEHAVIOR (1, "OneBehavior", "OneBehavior"),
     ALLBEHAVIOR (2, "AllBehavior", "AllBehavior"),

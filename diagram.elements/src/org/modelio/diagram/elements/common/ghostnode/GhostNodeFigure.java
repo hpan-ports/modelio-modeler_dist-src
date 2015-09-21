@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.ghostnode;
 
@@ -37,13 +37,13 @@ import org.eclipse.draw2d.MarginBorder;
  */
 @objid ("7e4b0f48-1dec-11e2-8cad-001ec947c8cc")
 public class GhostNodeFigure extends Figure {
-    @objid ("55c1623e-9b19-4415-8f0d-72234ecbb150")
+    @objid ("da05f4e9-401e-4cd4-9d12-f9e406285c39")
     private Label metaclassLabel;
 
-    @objid ("035c7699-4645-41fe-8581-0ab41456dfbe")
+    @objid ("b232b775-01ac-41c4-a4f3-6b7af1b77ec9")
     private Label nameLabel;
 
-    @objid ("2254237a-65f8-4e35-be29-16ca6277f3a1")
+    @objid ("da23fd28-89cf-42b4-ab0e-dc74952bd416")
     private Label idLabel;
 
     /**

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,54 +12,130 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.infrastructure;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
+/**
+ * ExternDocument v0.0.9054
+ * 
+ * 
+ * Represents a rich note stored outside the database.
+ * <p>
+ * The rich note has a specified MIME type that allows choosing an adequate editor to modify it. It may have or not a path telling where it is stored. It may also have an abstract containing a resume, statistics or other informations telling what the document contains without having to open it.
+ */
 @objid ("00924014-c4be-1fd8-97fe-001ec947cd2a")
 public interface ExternDocument extends ModelElement {
-    @objid ("92694de5-84c7-48c4-ab0f-d0e7223b6fc4")
+    @objid ("acca581d-b03e-4636-9743-71d576790c1f")
+    public static final String MNAME = "ExternDocument";
+
+    /**
+     * Getter for attribute 'ExternDocument.MimeType'
+     * 
+     * Metamodel description:
+     * <i>MIME type of the rich note.</i>
+     */
+    @objid ("cbe906c9-1909-4197-98bd-b53c5a4bd4a7")
     String getMimeType();
 
-    @objid ("3d43a0a1-0fd4-4b9a-8e42-9ff82e23f40c")
+    /**
+     * Setter for attribute 'ExternDocument.MimeType'
+     * 
+     * Metamodel description:
+     * <i>MIME type of the rich note.</i>
+     */
+    @objid ("610d35e7-4a8c-45c9-b793-89f8b4f434bc")
     void setMimeType(String value);
 
-    @objid ("eeb0988e-f10c-44f1-8648-75b5796d42d7")
+    /**
+     * Getter for attribute 'ExternDocument.Path'
+     * 
+     * Metamodel description:
+     * <i>Path of the rich note if stored elsewhere than the default location. Can be relative to the model fragment location.</i>
+     */
+    @objid ("30d51e80-50f5-41b1-a3b2-dd308ba412bd")
     String getPath();
 
-    @objid ("aa822cf8-454a-4f31-83e9-8d2fb124f222")
+    /**
+     * Setter for attribute 'ExternDocument.Path'
+     * 
+     * Metamodel description:
+     * <i>Path of the rich note if stored elsewhere than the default location. Can be relative to the model fragment location.</i>
+     */
+    @objid ("1e92a9dd-4430-4ecf-bbfb-07387e351656")
     void setPath(String value);
 
-    @objid ("c2433baa-023d-419d-90fa-56b25689c325")
+    /**
+     * Getter for attribute 'ExternDocument.Abstract'
+     * 
+     * Metamodel description:
+     * <i>An Abstract/Resume of the rich note.
+     * Tells what the rich note contains without having to open it.</i>
+     */
+    @objid ("c6b213b2-3d13-4a76-a686-279e6c96b1ff")
     String getAbstract();
 
-    @objid ("d26b8343-24a5-4c2b-a36a-5ad059eb541e")
+    /**
+     * Setter for attribute 'ExternDocument.Abstract'
+     * 
+     * Metamodel description:
+     * <i>An Abstract/Resume of the rich note.
+     * Tells what the rich note contains without having to open it.</i>
+     */
+    @objid ("d3ec1489-84d5-411c-9e03-f052fa5fd88e")
     void setAbstract(String value);
 
-    @objid ("4dc7ddfc-c8e1-46b3-848c-6d89cd5ab498")
+    /**
+     * Getter for relation 'ExternDocument->Type'
+     * 
+     * Metamodel description:
+     * <i>Semantic function of the rich note.</i>
+     */
+    @objid ("d07d3a12-fe5d-4d26-9ff8-3a587f27e782")
     ExternDocumentType getType();
 
-    @objid ("3bcf4a71-3a26-45a3-9432-cf91b819831b")
+    /**
+     * Setter for relation 'ExternDocument->Type'
+     * 
+     * Metamodel description:
+     * <i>Semantic function of the rich note.</i>
+     */
+    @objid ("27c2d341-8325-4949-a59e-22a662fe0a23")
     void setType(ExternDocumentType value);
 
-    @objid ("20508009-4ac2-4b28-81db-f616a7e56bf7")
+    /**
+     * Getter for relation 'ExternDocument->Subject'
+     * 
+     * Metamodel description:
+     * <i>Model element owning the rich note.</i>
+     */
+    @objid ("a1272d34-62c9-4138-81db-7a14570f22e1")
     ModelElement getSubject();
 
-    @objid ("0ac64cf6-fd4b-4ae1-b331-f2bea7d7f4d8")
+    /**
+     * Setter for relation 'ExternDocument->Subject'
+     * 
+     * Metamodel description:
+     * <i>Model element owning the rich note.</i>
+     */
+    @objid ("f2675fe5-b91b-4c0e-a988-0b8d7b951dd4")
     void setSubject(ModelElement value);
 
 }

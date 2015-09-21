@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.local.save;
 
@@ -26,7 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.SmObjectImpl;
-import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 import org.modelio.vstore.exml.common.utils.ExmlUtils;
 
@@ -53,8 +52,9 @@ class DependencyAnalyzer {
     @objid ("fd21f733-5986-11e1-991a-001ec947ccaf")
     private void doGetDependentObjects(final SmObjectImpl object, ElementDependencies deps, Collection<SmObjectImpl> recursionContext) {
         // If 'object' is already in context, do not process it again (avoid looping)
-        if (recursionContext.contains(object))
+        if (recursionContext.contains(object)) {
             return;
+        }
         
         recursionContext.add(object);
         
@@ -80,10 +80,11 @@ class DependencyAnalyzer {
                 //      - if owned by current node, process its dependencies
                 //      - else handle it as a reference dependency
                 for ( SmObjectImpl target : depTargets) {
-                    if (ExmlUtils.isComposition(object, dep, target)) 
+                    if (ExmlUtils.isComposition(object, dep, target)) {
                         processComponent(object, deps, recursionContext, target);
-                    else
+                    } else {
                         processReference(object, deps, target);
+                    }
                 }
         
             } else {
@@ -122,10 +123,6 @@ class DependencyAnalyzer {
             deps.refNodes.add(target);
         } else {
             deps.refDeps.add(target);
-            MObject parentCmsNode = ExmlUtils.getParentCmsNode(target);
-            if (parentCmsNode!= null) {
-                deps.refNodes.add(parentCmsNode);
-            }
         }
     }
 

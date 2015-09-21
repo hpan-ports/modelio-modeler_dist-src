@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.diagram.browser.handlers.copy;
 
 import java.util.ArrayList;
@@ -28,6 +49,7 @@ import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.api.transactions.ITransaction;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -43,6 +65,7 @@ public class PasteElementHandler {
     /**
      * Available only when the selection contains only one modifiable element.
      * @param selection the current modelio selection.
+     * @param currentDisplay the SWT display
      * @return true if the handler can be executed.
      */
     @objid ("b1f0a32e-54c7-11e2-ae63-002564c97630")
@@ -65,8 +88,9 @@ public class PasteElementHandler {
         if (pastedObject == null) {
             return false;
         }
-            
+        
         final ICoreSession session = this.projectService.getSession();
+        MExpert expert = session.getMetamodel().getMExpert();
         
         final List<TransferItem> items = pastedObject.getTransferedItems();
         final List<TransferItem> pastedStereotypeItems = getStereotypesItemsToCopy(items);
@@ -76,27 +100,28 @@ public class PasteElementHandler {
             for (MObject pasted : pastedElements) {
                 switch(pastedObject.getPasteType()) {
                 case CUT:
-                    if (!MTools.getAuthTool().canAddTo(pasted, dest)) {                        
+                    if (!MTools.getAuthTool().canAddTo(pasted, dest)) {
                         return false;
                     }
-                    if (!MTools.getMetaTool().canCompose(dest, pasted, null)) {
+                    if (!expert.canCompose(dest, pasted, null)) {
                         return false;
                     }
                     break;
                 case COPY:
                 default:
-                    if (!MTools.getAuthTool().canAdd(dest, pasted.getMClass().getName())) {                        
+                    if (!MTools.getAuthTool().canAdd(dest, pasted.getMClass().getName())) {
                         return false;
                     }
-                    if (!MTools.getMetaTool().canCompose(dest, pasted, null)) {
+                    if (!expert.canCompose(dest, pasted, null)) {
                         return false;
                     }
                     break;
                 }
             }
-            
-            if (! pastedStereotypeItems.isEmpty() && !dest.getStatus().isModifiable())
+        
+            if (! pastedStereotypeItems.isEmpty() && !dest.getStatus().isModifiable()) {
                 return false;
+            }
         }
         return true;
     }
@@ -130,6 +155,7 @@ public class PasteElementHandler {
         // Must have one element
         List<MObject> selectedElements = getSelectedElements(selection);
         if (selectedElements.size() == 1) {
+            MExpert expert = session.getMetamodel().getMExpert();
             final MObject targetElement = selectedElements.get(0);
         
             Clipboard clipboard = new Clipboard(currentDisplay);
@@ -143,13 +169,14 @@ public class PasteElementHandler {
                 return;
             }
         
-            for (MObject element : pastedElements) {
-                if (!canBeParentOf(targetElement, element)) {
+            for (MObject pastedEl : pastedElements) {
+        
+                if (!expert.canCompose(targetElement, pastedEl, null)) {
                     return;
                 }
         
-                if (element instanceof Parameter) {
-                    Parameter parameter = (Parameter) element;
+                if (pastedEl instanceof Parameter) {
+                    Parameter parameter = (Parameter) pastedEl;
                     if (targetElement instanceof Operation && parameter.getReturned() != null) {
                         Operation targetOperation = (Operation) targetElement;
                         if (targetOperation.getReturn() != null) {
@@ -194,7 +221,7 @@ public class PasteElementHandler {
         
                 try (ITransaction transaction = session.getTransactionSupport().createTransaction("Cut")) {
                     for (TransferItem item : items) {
-                        if (!item.getTransferedElementRef().mc.equals("Stereotype")) {                            
+                        if (!item.getTransferedElementRef().mc.equals(Stereotype.MNAME)) {
                             MRef oldParentRef = item.getOldParentRef();
                             MObject oldParent = session.getModel().findByRef(oldParentRef);
                             if (!pastedElements.isEmpty()) {
@@ -276,17 +303,6 @@ public class PasteElementHandler {
             return true;
         }
         return isParentOf(parentCandidate, parent);
-    }
-
-    /**
-     * Tells whether 'child' can be owned by 'parent'.
-     * @param owner The future parent element
-     * @param composed a child element
-     * @return true only if parent can contain the child.
-     */
-    @objid ("b1f30485-54c7-11e2-ae63-002564c97630")
-    private static boolean canBeParentOf(final MObject owner, final MObject composed) {
-        return MTools.getMetaTool().canCompose(owner, composed, null);
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.vaudit.modelshield.IErrorReport;
@@ -33,6 +32,7 @@ import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * E266:
@@ -66,12 +66,12 @@ public class E266Checker implements IChecker {
 
     @objid ("00966f2c-e472-1f69-b3fb-001ec947cd2a")
     @Override
-    public void register(final Plan plan) {
+    public void register(final Plan plan, SmMetamodel smMetamodel) {
         // trigger=*, metaclass=ActivityPartition, feature=SubPartition
-        plan.registerChecker(this, Metamodel.getMClass(ActivityPartition.class), TriggerType.AnyTrigger, "SubPartition");
+        plan.registerChecker(this, smMetamodel.getMClass(ActivityPartition.class), TriggerType.AnyTrigger, "SubPartition");
         
         // trigger=*, metaclass=ActivityPartition, feature=ContainedNode
-        plan.registerChecker(this, Metamodel.getMClass(ActivityPartition.class), TriggerType.AnyTrigger, "ContainedNode");
+        plan.registerChecker(this, smMetamodel.getMClass(ActivityPartition.class), TriggerType.AnyTrigger, "ContainedNode");
     }
 
 }

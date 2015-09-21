@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -31,9 +31,6 @@ import org.modelio.xmi.util.NotFoundException;
 
 @objid ("80a79102-55c2-4b91-9bca-2fae8d2cdbe1")
 public class OActivityGroup extends OModelElement {
-    @objid ("01e850b3-1923-444b-8943-e4ab2723cf00")
-    private ActivityGroup objingElement = null;
-
     @objid ("6808eaa4-86ce-4719-93e0-7e939d964fd1")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -43,15 +40,14 @@ public class OActivityGroup extends OModelElement {
     @objid ("e77b4c20-3921-45af-bb75-81edbb084a6c")
     public OActivityGroup(final ActivityPartition element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("b9ec14df-7b6a-4bc2-a9d2-46054d1f0fb3")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        MObject objingOwner = this.objingElement.getCompositionOwner();
+        MObject objingOwner = getObjingElement().getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
-                
+        
         if (ecoreOwner != null) {
             if (objingOwner instanceof ActivityPartition)
                 attachToActivityPartition(ecoreElt, ecoreOwner);
@@ -88,6 +84,12 @@ public class OActivityGroup extends OModelElement {
             throw new NotFoundException("Owner Class ("
                     + ecoreOwner.getClass().getSimpleName() + ") Not Found");
         }
+    }
+
+    @objid ("6b14e80e-07a9-4691-9d68-d56856199814")
+    @Override
+    public ActivityGroup getObjingElement() {
+        return (ActivityGroup) super.getObjingElement();
     }
 
 }

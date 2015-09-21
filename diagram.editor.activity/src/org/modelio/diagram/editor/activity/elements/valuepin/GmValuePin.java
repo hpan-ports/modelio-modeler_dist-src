@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.valuepin;
 
@@ -66,6 +66,9 @@ public class GmValuePin extends GmPortContainer {
     @objid ("31b81f7f-58a2-11e2-9574-002564c97630")
     private static final GmValuePinImageStyleKeys IMAGE_KEYS = new GmValuePinImageStyleKeys();
 
+    @objid ("119642e4-0043-4abb-964b-a204f20cb9ad")
+    private static final GmValuePinUserImageStyleKeys USERIMAGE_KEYS = new GmValuePinUserImageStyleKeys();
+
     /**
      * Constructor.
      * @param diagram the diagram in which the valuePin is unmasked.
@@ -108,6 +111,8 @@ public class GmValuePin extends GmPortContainer {
             switch (mode) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKey(metakey);
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKey(metakey);
             case SIMPLE:
                 return SIMPLE_KEYS.getStyleKey(metakey);
             case STRUCTURED:
@@ -126,6 +131,8 @@ public class GmValuePin extends GmPortContainer {
             switch (mode) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKeys();
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKeys();
             case SIMPLE:
                 return SIMPLE_KEYS.getStyleKeys();
             case STRUCTURED:
@@ -189,7 +196,7 @@ public class GmValuePin extends GmPortContainer {
     @objid ("2b6b3a40-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.element = (ValuePin) resolveRef(this.getRepresentedRef());
+        this.element = (ValuePin) resolveRef(getRepresentedRef());
     }
 
     @objid ("2b6b3a45-55b6-11e2-877f-002564c97630")

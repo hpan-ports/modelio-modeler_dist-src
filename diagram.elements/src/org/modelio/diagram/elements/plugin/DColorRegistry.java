@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.plugin;
 
@@ -30,10 +30,10 @@ import org.eclipse.swt.widgets.Display;
 
 @objid ("810cc71f-1dec-11e2-8cad-001ec947c8cc")
 public class DColorRegistry {
-    @objid ("0d79bf91-6304-4b54-b597-0d32730ad269")
+    @objid ("b5d018c3-9d80-401f-8b50-c1edc61255db")
     public Map<String, Color> colors = new HashMap<>();
 
-    @objid ("a002a021-7955-41e7-b25d-d86571379d04")
+    @objid ("338d96c7-039c-4546-a82c-12511c074aa0")
     private Display display;
 
     @objid ("810cc725-1dec-11e2-8cad-001ec947c8cc")

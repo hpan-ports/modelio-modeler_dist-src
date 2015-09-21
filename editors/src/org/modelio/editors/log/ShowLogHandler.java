@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.editors.log;
 
@@ -28,7 +28,7 @@ import org.modelio.api.editor.EditorType;
 import org.modelio.editors.service.EditionManager;
 
 /**
- * Handler for the "Show Log" command. Opens a read only text editor on the modelio.log file in {user.home}/.modelio/3.2.
+ * <p>Handler for the &quot;Show Log&quot; command. Opens a read only text editor on the modelio.log file in {user.home}/.modelio/3.2.</p>
  */
 @objid ("a29e2c00-4307-4bb9-86f2-523e5d0eb9c1")
 public class ShowLogHandler {
@@ -36,7 +36,7 @@ public class ShowLogHandler {
     @Execute
     public void execute() {
         String userPath = System.getProperty("user.home");
-        File logFile = new File(userPath, "/.modelio/3.3/modelio.log");
+        File logFile = new File(userPath, "/.modelio/3.4/modelio.log");
         EditionManager.services().openEditor(null, logFile, EditorType.TXTEditor, true);
     }
 

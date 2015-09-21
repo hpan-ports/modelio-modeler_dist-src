@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -27,7 +27,6 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.Link;
-import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
@@ -38,9 +37,6 @@ import org.modelio.xmi.util.XMILogs;
 
 @objid ("fbb72fc7-d37d-41cd-b234-c67dadb617b8")
 public class OLink extends OModelElement {
-    @objid ("8cfcf13f-ae9b-4c0a-bb34-85a38ad999b3")
-    private Link objingElement = null;
-
     @objid ("aa62f2ae-a55a-4259-9624-9d0c63278e89")
     private Element linkOwner = null;
 
@@ -57,16 +53,15 @@ public class OLink extends OModelElement {
         }
         
         XMILogs xmilogs = XMILogs.getInstance();
-        xmilogs.writelnInLog(Xmi.I18N.getMessage("logFile.warning.unsupportedExport", 
-                this.objingElement.getName(), 
-                this.objingElement.getClass().getName()));
+        xmilogs.writelnInLog(Xmi.I18N.getMessage("logFile.warning.unsupportedExport",
+                getObjingElement().getName(),
+                getObjingElement().getClass().getName()));
         return null;
     }
 
     @objid ("d6197858-76be-4945-8e5a-ba275cd5cb03")
     public OLink(Link element) {
         super(element);
-        this.objingElement = element;
         this.linkOwner = AbstractObjingModelNavigation.getLinkOwner(element);
         this.connectorOwner = AbstractObjingModelNavigation.getConnectorOwner(element);
     }
@@ -99,14 +94,14 @@ public class OLink extends OModelElement {
 
     @objid ("08c3c5a7-37c0-4d26-b939-ce16df0a330d")
     private void setName(InstanceSpecification connector) {
-        String eltName = this.objingElement.getName();
+        String eltName = getObjingElement().getName();
         if (AbstractObjingModelNavigation.isNotNullOrEmpty(eltName))
             connector.setName(eltName);
     }
 
     @objid ("a528125d-1d14-4a40-9137-f4e6a45c1b26")
     private void setBase(InstanceSpecification connector) {
-        Association base = this.objingElement.getModel();
+        Association base = getObjingElement().getModel();
         
         if (base != null){
             org.eclipse.uml2.uml.Element type = GenerationProperties.getInstance().getMappedElement(base);
@@ -154,7 +149,7 @@ public class OLink extends OModelElement {
                         "logFile.exception.stringConverter.haveNotOwner",
                         ecoreElt.getClass().toString());
                 logs.writelnInLog(message);
-                GenerationProperties.getInstance().getReportModel().addWarning(message, this.objingElement);
+                GenerationProperties.getInstance().getReportModel().addWarning(message, getObjingElement());
             }
         }
     }
@@ -162,12 +157,11 @@ public class OLink extends OModelElement {
     @objid ("45d7a5b3-1159-450a-b867-e709848b8549")
     private void setConnectorProperties(org.eclipse.uml2.uml.Connector ecoreElt) {
         setBase(ecoreElt);
-        setKind(ecoreElt);
     }
 
     @objid ("93316ddb-20b3-4418-930d-b53c7753ae80")
     private void setBase(org.eclipse.uml2.uml.Connector ecoreElt) {
-        Element temp = this.objingElement.getModel();
+        Element temp = getObjingElement().getModel();
         if (temp != null){
             org.eclipse.uml2.uml.Element ecoreType = GenerationProperties.getInstance().getMappedElement(temp);
             if (ecoreType instanceof org.eclipse.uml2.uml.Association)
@@ -176,18 +170,10 @@ public class OLink extends OModelElement {
         }
     }
 
-    @objid ("c90f9624-2851-4143-bd68-c0565900654e")
-    private void setKind(org.eclipse.uml2.uml.Connector ecoreElt) {
-        boolean assembly = true;
-        
-        for (LinkEnd end : this.objingElement.getLinkEnd()){
-            if (end.isNavigable())
-                assembly = false;
-        
-        }
-        
-        if (!assembly)
-            ecoreElt.setKind(org.eclipse.uml2.uml.ConnectorKind.DELEGATION_LITERAL);
+    @objid ("6118497a-87e2-43a2-afe3-86bf89738dd1")
+    @Override
+    public Link getObjingElement() {
+        return (Link) super.getObjingElement();
     }
 
 }

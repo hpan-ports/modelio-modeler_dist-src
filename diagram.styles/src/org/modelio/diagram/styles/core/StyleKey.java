@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.core;
 
@@ -190,18 +190,23 @@ public class StyleKey {
     @objid ("858335a7-1926-11e2-92d2-001ec947c8cc")
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (this.getClass() != obj.getClass())
+        }
+        if (this.getClass() != obj.getClass()) {
             return false;
+        }
         StyleKey other = (StyleKey) obj;
         if (this.id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!this.id.equals(other.id))
+            }
+        } else if (!this.id.equals(other.id)) {
             return false;
+        }
         return true;
     }
 
@@ -233,7 +238,7 @@ public class StyleKey {
      */
     @objid ("858335b7-1926-11e2-92d2-001ec947c8cc")
     public boolean match(StyleKey k) {
-        return (this.equals(k)) || (this.metakey != null && (this.metakey.equals(k.metakey)));
+        return (equals(k)) || (this.metakey != null && (this.metakey.equals(k.metakey)));
     }
 
     @objid ("858335bd-1926-11e2-92d2-001ec947c8cc")
@@ -253,8 +258,9 @@ public class StyleKey {
     @objid ("abef35ab-465b-4112-86b7-ff622bb2b57c")
     public void validate(Object value) throws IllegalArgumentException {
         // Accepts null only for MRef
-        if (value == null && getType() == MRef.class)
+        if (value == null && getType() == MRef.class) {
             return;
+        }
         
         // Check the value type matches the style key type
         if (!getType().isInstance(value)) {
@@ -390,7 +396,11 @@ public class StyleKey {
          * Stereotype image mode. Nodes should display a big image representing the first stereotype that defines a
          * diagram image. A default image is defined for elements where no stereotype defines a diagram image.
          */
-        IMAGE;
+        IMAGE,
+        /**
+         * User defined image mode. Nodes should display a big image representing the image defined in the {userDiagramImage} tagged value. A default image is defined for elements where there is no user diagram image.
+         */
+        USER_IMAGE;
     }
 
     /**
@@ -429,7 +439,7 @@ public class StyleKey {
          */
         @objid ("85859831-1926-11e2-92d2-001ec947c8cc")
         public int toSWTConstant() {
-            return this.ordinal() + 1;
+            return ordinal() + 1;
         }
 
         /**

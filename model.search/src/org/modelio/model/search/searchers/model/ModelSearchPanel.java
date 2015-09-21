@@ -1,14 +1,27 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.model.search.searchers.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.nebula.jface.tablecomboviewer.TableComboViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -24,16 +37,15 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.modelio.metamodel.Metamodel;
+import org.modelio.core.ui.selectmetaclass.MetaclassSelector;
+import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.model.search.ISearchController;
 import org.modelio.model.search.ISearchPanel;
-import org.modelio.model.search.dialog.SearchDialog.MetaclassLabelProvider;
 import org.modelio.model.search.engine.ISearchCriteria;
 import org.modelio.model.search.engine.searchers.model.ModelSearchCriteria;
 import org.modelio.model.search.plugin.ModelSearch;
 import org.modelio.vcore.session.api.ICoreSession;
-import org.modelio.vcore.smkernel.mapi.MClass;
-import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Model search criteria panel. It is composed of:
@@ -68,12 +80,16 @@ public class ModelSearchPanel implements ISearchPanel {
     protected ISearchController searchController;
 
     @objid ("9270f8ab-7da1-4484-8926-ef3078bf6b99")
-    private TableComboViewer metaclassCombo;
+    private MetaclassSelector metaclassSelector;
+
+    @objid ("7c80a2ea-df62-4629-9fe0-48077daeabac")
+    private SmMetamodel metamodel;
 
     @objid ("adea39e7-a628-4e28-86df-a75b20afd176")
     @Override
     public void initialize(Composite parent, ICoreSession session, ISearchController theSearchController) {
         this.searchController = theSearchController;
+        this.metamodel = session.getMetamodel();
         
         this.topGroup = new Group(parent, SWT.NONE);
         this.topGroup.setText(ModelSearch.I18N.getString("ModelSearch.CriteriaGroup.label")); //$NON-NLS-1$
@@ -118,7 +134,7 @@ public class ModelSearchPanel implements ISearchPanel {
         this.textfield.addKeyListener(new KeyListener() {
             @Override
             public void keyReleased(KeyEvent e) {
-                if (e.keyCode == SWT.CR || e.keyCode == SWT.KEYPAD_CR ) {
+                if (e.keyCode == SWT.CR || e.keyCode == SWT.KEYPAD_CR) {
                     ModelSearchPanel.this.searchController.runSearch();
                 }
             }
@@ -139,24 +155,10 @@ public class ModelSearchPanel implements ISearchPanel {
         final Label metaclassLabel = new Label(this.topGroup, SWT.NONE);
         metaclassLabel.setText(ModelSearch.I18N.getString("ModelSearch.MetaclassSelector.label")); //$NON-NLS-1$
         
-        this.metaclassCombo = new TableComboViewer(this.topGroup, SWT.READ_ONLY | SWT.BORDER);
+        this.metaclassSelector = new MetaclassSelector(this.topGroup, SWT.BORDER, this.metamodel);
         gridData = new GridData(SWT.FILL, SWT.FILL, true, false);
         gridData.horizontalSpan = 2;
-        this.metaclassCombo.getTableCombo().setLayoutData(gridData);
-        // set the content and label provider
-        this.metaclassCombo.setContentProvider(ArrayContentProvider.getInstance());
-        this.metaclassCombo.setLabelProvider(new MetaclassLabelProvider());
-        this.metaclassCombo.getTableCombo().setToolTipText(ModelSearch.I18N.getString("ModelSearch.MetaclassSelector.tooltip"));
-        
-        final List<MClass> allMetaclasses = new ArrayList<MClass>(SmClass.getRegisteredClasses());
-        Collections.sort(allMetaclasses, new Comparator<MClass>() {
-            @Override
-            public int compare(MClass o1, MClass o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
-        
-        this.metaclassCombo.setInput(allMetaclasses);
+        this.metaclassSelector.getControl().setLayoutData(gridData);
         
         // The 'include ramc' option
         final Label includeRamcLabel = new Label(this.topGroup, SWT.NONE);
@@ -183,7 +185,7 @@ public class ModelSearchPanel implements ISearchPanel {
         defaultCriteria.setExpression(".*");
         defaultCriteria.setStereotype("");
         defaultCriteria.setIncludeRamc(false);
-        defaultCriteria.addMetaclass(Metamodel.getMClass("NameSpace"));
+        defaultCriteria.addMetaclass(this.metamodel.getMClass(NameSpace.class));
         setCriteria(defaultCriteria);
     }
 
@@ -199,7 +201,7 @@ public class ModelSearchPanel implements ISearchPanel {
         this.searchCriteria.reset();
         this.searchCriteria.setExpression(this.textfield.getText());
         this.searchCriteria.setIncludeRamc(this.includeRamcCheckBox.getSelection());
-        this.searchCriteria.addMetaclass((MClass) ((IStructuredSelection) this.metaclassCombo.getSelection()).getFirstElement());
+        this.searchCriteria.addMetaclass(this.metaclassSelector.getSelected());
         this.searchCriteria.setStereotype(this.stereotypeText.getText().trim());
         this.searchCriteria.setCaseSensitive(this.caseSensitiveCheckBox.getSelection());
         return this.searchCriteria;
@@ -216,14 +218,10 @@ public class ModelSearchPanel implements ISearchPanel {
         this.textfield.setText(criteria.getExpression());
         this.includeRamcCheckBox.setSelection(criteria.isIncludeRamc());
         
-        this.metaclassCombo.setSelection(new StructuredSelection(criteria.getMetaclasses()));
+        this.metaclassSelector.setSelected(this.metamodel.getMClass(criteria.getMetaclasses().get(0)));
         
         this.stereotypeText.setText(criteria.getStereotype());
         this.caseSensitiveCheckBox.setSelection(this.searchCriteria.isCaseSensitive());
-    }
-
-    @objid ("69907fa1-dbf4-4b13-9838-96b04aa4b855")
-    public ModelSearchPanel() {
     }
 
 }

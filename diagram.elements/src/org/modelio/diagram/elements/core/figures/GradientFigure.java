@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.figures;
 
@@ -48,7 +48,7 @@ public class GradientFigure extends Figure implements IBrushOptionsSupport, IPen
     @objid ("7fa261ba-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public Rectangle getHandleBounds() {
-        return this.getBounds().getCopy();
+        return getBounds().getCopy();
     }
 
     /**
@@ -63,14 +63,14 @@ public class GradientFigure extends Figure implements IBrushOptionsSupport, IPen
     @objid ("7fa261c4-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void paintFigure(Graphics graphics) {
-        if (this.isOpaque() && this.brushOptions.fillColor != null) {
+        if (isOpaque() && this.brushOptions.fillColor != null) {
             Color base = this.brushOptions.fillColor;
-            Color gradientColor = this.brushOptions.useGradient ? this.computeGradientColor(base) : base;
+            Color gradientColor = this.brushOptions.useGradient ? computeGradientColor(base) : base;
             graphics.setBackgroundColor(gradientColor);
             graphics.setForegroundColor(base);
             graphics.setAlpha(this.brushOptions.alpha);
-            
-            tempRect = this.getBounds();
+        
+            tempRect = getBounds();
             if (this.brushOptions.useGradient) {
                 graphics.fillGradient(tempRect, false);
                 gradientColor.dispose();
@@ -94,7 +94,7 @@ public class GradientFigure extends Figure implements IBrushOptionsSupport, IPen
     @Override
     public void setFillColor(Color fillColor) {
         if (this.brushOptions.fillColor != fillColor) {
-            this.setBackgroundColor(fillColor);
+            setBackgroundColor(fillColor);
             this.brushOptions.fillColor = fillColor;
             this.repaint();
         }
@@ -209,6 +209,26 @@ public class GradientFigure extends Figure implements IBrushOptionsSupport, IPen
     @Override
     public int getFillAlpha() {
         return this.brushOptions.alpha;
+    }
+
+    /**
+     * Copy constructor.
+     * <p>
+     * Copy only what can be safely be copied, skip layout manager, Border and composition hierarchy.
+     * @param orig the original figure.
+     */
+    @objid ("e98df5b2-c891-4034-a851-af50e389a784")
+    public GradientFigure(GradientFigure orig) {
+        // No copy constructor on Figure ;-(
+        super();
+        
+        // Figure copy constructor emulation
+        this.bounds.setBounds(orig.getBounds());
+        // don't set border nor layout manager : we usually have no copy constructor for them.
+        
+        // GradientFigure specific
+        this.brushOptions = new BrushOptions(orig.brushOptions);
+        this.penOptions = new PenOptions(orig.penOptions);
     }
 
 }

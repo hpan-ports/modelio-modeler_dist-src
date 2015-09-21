@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.editingsupport.checkbox;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.graphics.Image;
+import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
-import org.modelio.diagram.styles.viewer.StyleViewer;
+import org.modelio.diagram.styles.viewer.StyleEditPanelUIData;
 
 /**
  * Provide checkbox label
@@ -35,7 +37,7 @@ import org.modelio.diagram.styles.viewer.StyleViewer;
 @objid ("858cbf02-1926-11e2-92d2-001ec947c8cc")
 public class CheckboxLabelProvider extends ColumnLabelProvider {
     @objid ("858cbf04-1926-11e2-92d2-001ec947c8cc")
-    private StyleViewer viewer;
+    private TreeViewer viewer;
 
     @objid ("858cbf05-1926-11e2-92d2-001ec947c8cc")
     private static final Image CHECKED = DiagramStyles.getImageDescriptor("icons/checked.gif").createImage();
@@ -44,7 +46,7 @@ public class CheckboxLabelProvider extends ColumnLabelProvider {
     private static final Image UNCHECKED = DiagramStyles.getImageDescriptor("icons/unchecked.gif").createImage();
 
     @objid ("858cbf09-1926-11e2-92d2-001ec947c8cc")
-    public CheckboxLabelProvider(StyleViewer viewer) {
+    public CheckboxLabelProvider(TreeViewer viewer) {
         this.viewer = viewer;
     }
 
@@ -53,10 +55,11 @@ public class CheckboxLabelProvider extends ColumnLabelProvider {
     public Image getImage(Object element) {
         StyleKey skey = (StyleKey) element;
         
-        if (this.viewer.getEditedStyle().getBoolean(skey))
+        if (this.getEditedStyle().getBoolean(skey)) {
             return CHECKED;
-        else
+        } else {
             return UNCHECKED;
+        }
     }
 
     @objid ("858cbf11-1926-11e2-92d2-001ec947c8cc")
@@ -69,6 +72,11 @@ public class CheckboxLabelProvider extends ColumnLabelProvider {
     @Override
     public String getText(Object element) {
         return null;
+    }
+
+    @objid ("791fd922-34d4-402f-82ac-d7cedfbfb4d8")
+    private IStyle getEditedStyle() {
+        return ((StyleEditPanelUIData) this.viewer.getInput()).getStyleData();
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard;
 
@@ -72,9 +72,11 @@ public class StandardPropertyPanel implements IPropertyPanel {
             this.typedElement = newInput.getTypedElement();
             IProjectService projectService = newInput.getProjectService();
             ICoreSession session = projectService != null ? projectService.getSession() : null;
-            final DataModelFactory f = new DataModelFactory(newInput.getModelService(), projectService, newInput.getActivationService(), session != null ? session.getModel() : null);
+            final DataModelFactory f = new DataModelFactory(newInput.getModelService(), projectService,
+                    newInput.getActivationService(), session != null ? session.getModel() : null);
             final IPropertyModel data = f.getPropertyModel(this.typedElement);
-            final KTableModel model = this.propertyModelFactory.getIPropertyModel(session, newInput.getPickingService(), this.table, data);
+            final KTableModel model = this.propertyModelFactory.getIPropertyModel(session, newInput.getPickingService(),
+                    this.table, data);
             this.table.setModel(model);
         }
     }

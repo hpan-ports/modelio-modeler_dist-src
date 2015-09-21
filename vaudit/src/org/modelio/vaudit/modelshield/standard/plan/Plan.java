@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield.standard.plan;
 
@@ -77,9 +77,11 @@ public class Plan {
             return metaclassPlan.getReorderCheckers();
         case Update:
             return metaclassPlan.getUpdateCheckers(feature);
+        case AnyTrigger:
+            return metaclassPlan.getAllCheckers();
         default:
             assert (false);
-            return Collections.emptyList();
+            return metaclassPlan.getAllCheckers();
         }
     }
 
@@ -100,8 +102,13 @@ public class Plan {
         @objid ("00453008-f904-1f61-8473-001ec947cd2a")
         private final Map<String, List<IChecker>> updateCheckers = new HashMap<>();
 
+        @objid ("b1775f3e-87b2-49a0-bcf1-005749b756d2")
+        private final List<IChecker> allCheckers = new ArrayList<>();
+
         @objid ("0045593e-f904-1f61-8473-001ec947cd2a")
         public void registerRule(final IChecker checker, final TriggerType trigger, final String feature) {
+            this.allCheckers.add(checker);
+            
             switch (trigger) {
             case Create:
                 this.createCheckers.add(checker);
@@ -170,6 +177,11 @@ public class Plan {
             } else {
                 return this.updateCheckers.get(feature);
             }
+        }
+
+        @objid ("33e89de6-e980-423b-9789-e851b6c8592b")
+        public List<IChecker> getAllCheckers() {
+            return this.allCheckers;
         }
 
     }

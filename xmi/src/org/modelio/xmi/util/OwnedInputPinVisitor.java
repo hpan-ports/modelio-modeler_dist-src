@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.util;
 
@@ -36,16 +36,16 @@ public class OwnedInputPinVisitor {
 
     @objid ("194fb678-ac70-4b52-b5af-8d279638dc4b")
     public OwnedInputPinVisitor() {
-        getter = new InputPinGetter();
-        inputPinList = null;
+        this.getter = new InputPinGetter();
+        this.inputPinList = null;
     }
 
     @objid ("4f076c13-ef3c-44ff-810a-ff53b1970c80")
     public List<InputPin> getInputPinList(org.eclipse.uml2.uml.Element owner) {
-        if (inputPinList != null)
-            inputPinList = null;
-        getter.accept(owner);
-        return inputPinList;
+        if (this.inputPinList != null)
+            this.inputPinList = null;
+        this.getter.accept(owner);
+        return this.inputPinList;
     }
 
     @objid ("c3fdcfa6-f778-468d-93c2-eddeb232eee8")
@@ -58,7 +58,7 @@ public class OwnedInputPinVisitor {
         @objid ("fc19dc1b-e39c-45e1-90e1-fff32e3c6f80")
         @Override
         public Object caseAction(org.eclipse.uml2.uml.Action owner) {
-            inputPinList = owner.getInputs();
+            OwnedInputPinVisitor.this.inputPinList = owner.getInputs();
             return 42;
         }
 
@@ -95,28 +95,28 @@ public class OwnedInputPinVisitor {
         @objid ("9432413b-0223-4474-ac65-32992132a4f7")
         @Override
         public Object caseInvocationAction(org.eclipse.uml2.uml.InvocationAction owner) {
-            inputPinList = owner.getArguments();
+            OwnedInputPinVisitor.this.inputPinList = owner.getArguments();
             return 42;
         }
 
         @objid ("3ae91cce-2bd9-40d2-b578-b6834bdff20e")
         @Override
         public Object caseLinkAction(org.eclipse.uml2.uml.LinkAction owner) {
-            inputPinList = owner.getInputValues();
+            OwnedInputPinVisitor.this.inputPinList = owner.getInputValues();
             return 42;
         }
 
         @objid ("fd472e1f-b2fc-4164-9029-12160f5815b8")
         @Override
         public Object caseLoopNode(org.eclipse.uml2.uml.LoopNode owner) {
-            inputPinList = owner.getLoopVariableInputs();
+            OwnedInputPinVisitor.this.inputPinList = owner.getLoopVariableInputs();
             return 42;
         }
 
         @objid ("80a656a3-2a26-42da-9173-b15579affad9")
         @Override
         public Object caseOpaqueAction(org.eclipse.uml2.uml.OpaqueAction owner) {
-            inputPinList = owner.getInputValues();
+            OwnedInputPinVisitor.this.inputPinList = owner.getInputValues();
             return 42;
         }
 
@@ -171,7 +171,7 @@ public class OwnedInputPinVisitor {
         @objid ("4d06c078-b211-497d-a781-4a0a085bf66d")
         @Override
         public Object caseReplyAction(org.eclipse.uml2.uml.ReplyAction owner) {
-            inputPinList = owner.getReplyValues();
+            OwnedInputPinVisitor.this.inputPinList = owner.getReplyValues();
             return 42;
         }
 
@@ -202,7 +202,7 @@ public class OwnedInputPinVisitor {
         @objid ("d00174c2-2275-47cc-b347-48baee59f3b2")
         @Override
         public Object caseStructuredActivityNode(org.eclipse.uml2.uml.StructuredActivityNode owner) {
-            inputPinList = owner.getInputs();
+            OwnedInputPinVisitor.this.inputPinList = owner.getInputs();
             return 42;
         }
 

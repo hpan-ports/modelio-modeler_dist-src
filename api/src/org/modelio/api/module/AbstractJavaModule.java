@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.module;
 
@@ -36,10 +36,7 @@ import org.eclipse.swt.widgets.Display;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.api.module.ILicenseInfos.Status;
-import org.modelio.api.module.paramEdition.DefaultParametersEditionModel;
 import org.modelio.api.module.script.IScriptService;
-import org.modelio.gproject.ramc.core.model.IModelComponent;
-import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -47,6 +44,8 @@ import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
 import org.modelio.vbasic.version.Version;
 
 /**
@@ -56,12 +55,6 @@ import org.modelio.vbasic.version.Version;
  */
 @objid ("a0456ff1-479d-11df-a533-001ec947ccaf")
 public abstract class AbstractJavaModule implements IModule {
-    @objid ("c16c9761-1b60-4ffe-ae88-13eb6e4ed015")
-    protected ImageRegistry imageRegistry;
-
-    @objid ("6cb39783-51ae-42a6-8ad9-922f905d82d3")
-    private Image moduleImage;
-
     @objid ("a047d2d7-479d-11df-a533-001ec947ccaf")
     private final IModuleUserConfiguration configuration;
 
@@ -74,14 +67,26 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("a047d254-479d-11df-a533-001ec947ccaf")
     private final IModelingSession modelingSession;
 
-    @objid ("a047d256-479d-11df-a533-001ec947ccaf")
-    protected IParameterEditionModel parameterEditionModel = null;
-
     @objid ("e0323981-edf0-11e1-82c2-001ec947ccaf")
     private ModuleComponent moduleComponent;
 
     @objid ("fdd785e3-7c11-4a4e-81a2-5d16c5db84c2")
     private final ResourceBundle I18N;
+
+    @objid ("330bbbb9-ca82-4ef6-8eee-1a7f06fff535")
+    protected ImageRegistry imageRegistry;
+
+    @objid ("8047e099-ccb0-4d44-888b-9bac21d1848b")
+    private Image moduleImage;
+
+    @objid ("bcfa4f47-7aac-4624-86a6-d03efa8099ef")
+    protected IParameterEditionModel parameterEditionModel = null;
+
+    /**
+     * Parameter edition model computed from module.xml .
+     */
+    @objid ("4de73e92-fb7f-4a75-b1bd-dce13d4df2e9")
+    private IParameterEditionModel fallBackParameterEditionModel = null;
 
     /**
      * Main constructor, to instantiate a new module.
@@ -110,18 +115,23 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("a047d2c2-479d-11df-a533-001ec947ccaf")
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         AbstractJavaModule other = (AbstractJavaModule) obj;
         if (this.moduleComponent == null) {
-            if (other.moduleComponent != null)
+            if (other.moduleComponent != null) {
                 return false;
-        } else if (!this.moduleComponent.equals(other.moduleComponent))
+            }
+        } else if (!this.moduleComponent.equals(other.moduleComponent)) {
             return false;
+        }
         return true;
     }
 
@@ -191,7 +201,7 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("a047d266-479d-11df-a533-001ec947ccaf")
     private ImageDescriptor getImageDescriptor(Stereotype stereotype, ImageType imageType) {
         // If the stereotype is not owned by the current module we return null.
-        if (!this.isStereotypeOwner(stereotype)) {
+        if (!isStereotypeOwner(stereotype)) {
             return null;
         }
         
@@ -308,29 +318,6 @@ public abstract class AbstractJavaModule implements IModule {
     }
 
     /**
-     * Get the parameters model as it must be shown in the module parameters edition dialog.
-     * @return The parameters edition model.
-     */
-    @objid ("a047d251-479d-11df-a533-001ec947ccaf")
-    @Override
-    public IParameterEditionModel getParametersEditionModel() {
-        if (this.parameterEditionModel == null)
-            this.parameterEditionModel = new DefaultParametersEditionModel(this);
-        return this.parameterEditionModel;
-    }
-
-    /**
-     * Get the ModelComponent contributor associated to this module.
-     * @see IModelComponentContributor
-     * @return the module configuration.
-     */
-    @objid ("757687e3-65e6-11e0-9853-001ec947cd2a")
-    @Override
-    public IModelComponentContributor getModelComponentContributor(IModelComponent mc) {
-        return null;
-    }
-
-    /**
      * Returns the minimum Modelio version that authorize the Module to be activated.
      * @return The minimum Modelio version
      */
@@ -348,7 +335,7 @@ public abstract class AbstractJavaModule implements IModule {
     @Override
     public Version getVersion() {
         return new Version(this.moduleComponent.getMajVersion() + "." + this.moduleComponent.getMinVersion() + "."
-                                        + this.moduleComponent.getMinMinVersion());
+                                                        + this.moduleComponent.getMinMinVersion());
     }
 
     @objid ("a0457027-479d-11df-a533-001ec947ccaf")
@@ -367,7 +354,7 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("a045700f-479d-11df-a533-001ec947ccaf")
     private static String getImageKey(Stereotype stereotype, ImageType imageType) {
         return "module." + stereotype.getCompositionOwner().getName() + "." + stereotype.getBaseClassName() + "."
-                                        + stereotype.getName() + "." + imageType.name();
+                                                        + stereotype.getName() + "." + imageType.name();
     }
 
     /**
@@ -451,16 +438,19 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("df3e4b34-2623-4b44-9752-f76656be1e4e")
     @Override
     public String getLabel(final String key) {
-        if (this.I18N == null)
+        if (this.I18N == null) {
             return key;
-        if (key == null)
+        }
+        if (key == null) {
             return "";
+        }
         try {
             if (key.startsWith("%")) {
                 return this.I18N.getString(key.substring(1));
             }
         } catch (MissingResourceException e) {
             // MdaInfra.LOG.warning("Missing Resource :" + value);
+            System.out.println("Missing Resource :" + key);
         }
         return key;
     }
@@ -488,32 +478,70 @@ public abstract class AbstractJavaModule implements IModule {
         return new LicenseInfos(Status.FREE, null, "");
     }
 
-    @objid ("b94d549d-34be-44da-ad77-2f2c7f1b6d60")
-    @Override
-    public void init() {
-    }
-
     @objid ("76129bb9-06df-437d-903c-f08d241d7025")
     @Override
     public void uninit() {
-        if(this.moduleImage !=  null){
-            this.moduleImage.dispose();
+        if (this.moduleImage !=  null) {
+            Display.getDefault().syncExec(() -> {
+                this.moduleImage.dispose();
+            });
+            this.moduleImage = null;
         }
     }
 
     @objid ("947ecfb3-ac67-40c1-8296-07733f7718a3")
     private void loadModuleImage() {
-        try{
-            String relativePath = getModuleImagePath();
-            final Path moduleDirectory = getConfiguration().getModuleResourcesPath();
-            Path imageFile = moduleDirectory.resolve(relativePath.substring(1));
-                   
-            if (Files.isRegularFile(imageFile)) {
-                this.moduleImage =  new Image(null, imageFile.toFile().getAbsolutePath());
+        Display.getDefault().syncExec(() -> {
+            try {
+                String relativePath = getModuleImagePath();
+                Path moduleDirectory = getConfiguration().getModuleResourcesPath();
+                Path imageFile = moduleDirectory.resolve(relativePath.substring(1));
+        
+                if (Files.isRegularFile(imageFile)) {
+                    this.moduleImage = new Image(null, imageFile.toAbsolutePath().toString());
+                }
+            } catch (RuntimeException e) {
+                Modelio.getInstance().getLogService().error(this, e.getMessage());
             }
-        }catch(Exception e){
-              
+        });
+    }
+
+    /**
+     * Get the parameters model as it must be shown in the module parameters edition dialog.
+     * <p>
+     * This default implementation returns a parameter model computed from the 'module.xml' file unless
+     * the module implementation filled the {@link #parameterEditionModel} member.
+     */
+    @objid ("4e7d7262-245a-40c9-be26-309040530e0a")
+    @Override
+    public IParameterEditionModel getParametersEditionModel() {
+        if (this.parameterEditionModel != null) {
+            return this.parameterEditionModel;
+        } else {
+            return this.fallBackParameterEditionModel;
         }
+    }
+
+    /**
+     * Register the given parameter model as the fall back parameter edition model if the module implementation
+     * does not define a custom one.
+     */
+    @objid ("39ff30ac-98ec-4522-be81-9a77cad6ddbb")
+    @Override
+    public final void initParametersEditionModel(IParameterEditionModel model) {
+        this.fallBackParameterEditionModel = model;
+    }
+
+    @objid ("717bdd02-df39-4cbe-8de4-012cb82de21c")
+    public String getLabel(PropertyDefinition pdef) {
+        PropertyTableDefinition table = pdef.getOwner();
+        return getLabel("%propertydefinition." + (table != null ? table.getName() : "") + "." + pdef.getName() + ".label");
+    }
+
+    @objid ("2bb93868-f771-45e5-92b3-4eec78c740ae")
+    public String getDescription(PropertyDefinition pdef) {
+        PropertyTableDefinition table = pdef.getOwner();
+        return getLabel("%propertydefinition." + (table != null ? table.getName() : "") + "." + pdef.getName() + ".description");
     }
 
 }

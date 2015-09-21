@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.model.search.dialog;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -8,13 +29,12 @@ import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.model.search.ISearchController;
 import org.modelio.model.search.ISearchPanel;
-import org.modelio.model.search.engine.ISearchCriteria;
 import org.modelio.model.search.engine.ISearchEngine;
 import org.modelio.model.search.plugin.ModelSearch;
 import org.modelio.vcore.session.api.ICoreSession;
 
 @objid ("c879a116-1844-4677-b0f0-e903f625a7eb")
-public class SearchController implements ISearchController {
+class SearchController implements ISearchController {
     @objid ("dedd6c80-6f41-43c4-a7ac-12470500f62e")
     private static final String SEARCHTOOL_EXTENSION_ID = "org.modelio.model.search.searchtool";
 
@@ -50,24 +70,30 @@ public class SearchController implements ISearchController {
         final ISearchEngine engine = this.searchDialog.getActiveEngine();
         
         if (panel != null && engine != null) {
-            doRunSearch(this.session, engine, panel);
+            doRunSearch(engine, panel);
         }
     }
 
     @objid ("955a8e12-ab81-4818-8d32-42a580b3ed6b")
-    private void doRunSearch(final ICoreSession session, final ISearchEngine engine, final ISearchPanel panel) {
+    private void doRunSearch(final ISearchEngine engine, final ISearchPanel panel) {
+        final ICoreSession curSession = SearchController.this.session;
+        final SearchDialog dialog = SearchController.this.searchDialog;
+        
         BusyIndicator.showWhile(null, new Runnable() {
             @Override
             public void run() {
-                final SearchDialog dialog = SearchController.this.searchDialog;
                 final Display display = dialog.getShell().getDisplay();
         
+                // Reset results
                 dialog.showResults(panel, null);
         
+                // Wait for dialog to be ready
                 while (display.readAndDispatch()) {
-                    ;
+                    // noop
                 }
-                dialog.showResults(panel, engine.search(session, panel.getCriteria()));
+        
+                // Compute and display results
+                dialog.showResults(panel, engine.search(curSession, panel.getCriteria()));
             }
         });
     }
@@ -81,11 +107,11 @@ public class SearchController implements ISearchController {
         try {
             panel = elt.createExecutableExtension("panel");
             engine =  elt.createExecutableExtension("engine");
-            
+        
             if (panel instanceof ISearchPanel && engine instanceof ISearchEngine) {
                 dlg.registerSearchTool(label, (ISearchPanel)panel, (ISearchEngine)engine);
             }
-            
+        
             } catch (CoreException e) {
                 ModelSearch.LOG.error(e);
             }

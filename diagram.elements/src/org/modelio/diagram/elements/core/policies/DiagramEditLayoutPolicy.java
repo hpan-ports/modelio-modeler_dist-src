@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.policies;
 
@@ -25,7 +25,11 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.modelio.diagram.elements.common.freezone.BaseFreeZoneLayoutEditPolicy;
+import org.modelio.diagram.elements.common.freezone.INewIntersectionsRemover;
 import org.modelio.diagram.elements.drawings.layer.GmDrawingLayer;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
@@ -75,9 +79,30 @@ public class DiagramEditLayoutPolicy extends BaseFreeZoneLayoutEditPolicy {
     @Override
     protected EditPolicy createChildEditPolicy(EditPart child) {
         // No edit policy for drawing layers
-        if (child.getModel() instanceof GmDrawingLayer)
+        if (child.getModel() instanceof GmDrawingLayer) {
             return null;
+        }
         return super.createChildEditPolicy(child);
+    }
+
+    /**
+     * Redefined to avoid intersections during resize.
+     */
+    @objid ("f8075492-f05f-4e29-96dc-9efd83861f94")
+    @Override
+    protected Command getChangeConstraintCommand(ChangeBoundsRequest request) {
+        CompoundCommand finalCommand = new CompoundCommand();
+        
+        // Call super to get the child resize command
+        Command cmd = super.getChangeConstraintCommand(request);
+        finalCommand.add(cmd);
+        
+        INewIntersectionsRemover helper = getIntersectionsRemover(request);
+        
+        // build commands for initial and added requests
+        // build commands for moved bend points
+        createAvoidNewIntersectionsCommands(helper, finalCommand);
+        return finalCommand.isEmpty() ? null : finalCommand.unwrap();
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.storage.serialized;
 
@@ -31,8 +31,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -47,15 +49,18 @@ import org.modelio.vcore.session.api.repository.StorageErrorSupport;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
 import org.modelio.vcore.session.impl.storage.StorageException;
+import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.SmLiveId;
 import org.modelio.vcore.smkernel.SmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.SmObjectSmClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vcore.smkernel.meta.SmDependency;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Repository implementation where each object is saved in one file using java serialization.
@@ -302,7 +307,7 @@ public class SerializedRepository implements IRepository {
 
     @objid ("0070e98c-fd1a-1f27-a7da-001ec947cd2a")
     boolean isLoaded(final SmObjectImpl obj) {
-        return this.loaded2.contains(obj);
+        return this.loaded2.contains(obj) && !isToReload(obj);
     }
 
     @objid ("0071110a-fd1a-1f27-a7da-001ec947cd2a")
@@ -401,16 +406,24 @@ public class SerializedRepository implements IRepository {
     private SmObjectImpl getImpl(IModelLoader loader, final SmClass cls, final Path f) throws IOException, DuplicateObjectException {
         SmObjectImpl impl = this.loaded.get(f);
         if (impl != null) {
+            if (isToReload(impl)) {
+                reload(loader, impl, f);
+            }
+        
+            return impl;
+        } else {
+        
+            SmObjectData d = load(f);
+        
+            impl = loader.createLoadedObject(cls, d.getUuid(), d);
+        
+            this.loaded.put(f, impl);
+            this.loaded2.add(impl);
+        
+            d.setRFlags(IRStatus.REPO_LOADED,0 , 0);
+        
             return impl;
         }
-        
-        SmObjectData d = load(f);
-        
-        impl = loader.createLoadedObject(cls, d.getUuid(), d);
-        
-        this.loaded.put(f, impl);
-        this.loaded2.add(impl);
-        return impl;
     }
 
     @objid ("aaf3a33d-c063-11e1-b511-001ec947ccaf")
@@ -475,8 +488,9 @@ public class SerializedRepository implements IRepository {
                 throw new IOException(e.getLocalizedMessage(), e);
             }
             return iis;
-        } else
+        } else {
             return null;
+        }
     }
 
     @objid ("089bbed9-366a-48a2-91c9-fcd7ee797c72")
@@ -497,15 +511,72 @@ public class SerializedRepository implements IRepository {
     public IBlobInfo readBlobInfo(String key) throws IOException {
         Path blobPath = getBlobPath(key);
         if (Files.isRegularFile(blobPath)) {
-            
+        
             try (ObjectInputStream iis = new ObjectInputStream(Files.newInputStream(blobPath));) {
                 // Read & return blob info
                 return (IBlobInfo) iis.readObject();
             } catch (ClassNotFoundException e) {
                 throw new IOException(e.getLocalizedMessage(), e);
             }
-        } else
+        } else {
             return null;
+        }
+    }
+
+    @objid ("eaea7315-0f93-43d6-a90b-7360ce38d737")
+    SmMetamodel getMetamodel() {
+        return this.modelLoaderProvider.getMetamodel();
+    }
+
+    @objid ("3c8fddc0-da66-4628-af48-431b7bc44076")
+    @Override
+    public void addCreatedObject(SmObjectImpl newObject) {
+        addObject(newObject);
+    }
+
+    @objid ("fa06b2d4-f122-4a85-8595-f1c559d2d8b2")
+    void setToReload(SmObjectImpl obj) {
+        // remove loaded flag
+        obj.getData().setRFlags(0, IRStatus.REPO_LOADED, 0);
+    }
+
+    @objid ("ca57dd33-9bf6-4db3-819f-d46ef616f9b7")
+    private void reload(IModelLoader loader, SmObjectImpl impl, Path f) throws IOException {
+        SmObjectData srcData = load(f);
+        SmObjectSmClass cls = srcData.getClassOf();
+        
+        for (SmAttribute smAttribute : cls.getAllAttDef()) {
+            loader.loadAttribute(impl, smAttribute, smAttribute.getValue(srcData));
+        }
+        
+        for (SmDependency dep : cls.getAllDepDef()) {
+            if (dep.isComponent() || dep.isPartOf() ||dep.isSharedComposition()) {
+                if (! dep.isMultiple()) {
+                    SmObjectImpl readValue = (SmObjectImpl) dep.getValue(srcData);
+                    SmObjectImpl realo = loader.loadForeignObject(readValue.getClassOf(), readValue.getUuid(), readValue.getName());
+        
+                    loader.loadDependency(impl, dep, Collections.singletonList(realo));
+                } else {
+                    Collection<SmObjectImpl> readcontent = dep.getValueAsCollection(srcData);
+        
+                    // as the read objects may be a copy of real data, look for the real objects
+                    List<SmObjectImpl> newcontent = new ArrayList<>(readcontent.size());
+                    for (SmObjectImpl ro : readcontent) {
+                        SmObjectImpl realo = loader.loadForeignObject(ro.getClassOf(), ro.getUuid(), ro.getName());
+                        newcontent.add(realo);
+                    }
+        
+                    loader.loadDependency(impl, dep, newcontent);
+                }
+            }
+        }
+        
+        impl.getData().setRFlags(IRStatus.REPO_LOADED, 0, 0);
+    }
+
+    @objid ("526911cb-4f09-4554-b78b-19a48dcea2a1")
+    private boolean isToReload(SmObjectImpl impl) {
+        return impl.hasStatus(IRStatus.REPO_LOADED);
     }
 
     @objid ("00706c14-fd1a-1f27-a7da-001ec947cd2a")

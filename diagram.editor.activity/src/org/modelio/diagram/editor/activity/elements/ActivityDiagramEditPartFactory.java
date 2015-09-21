@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements;
 
@@ -45,8 +45,6 @@ import org.modelio.diagram.editor.activity.elements.activityfinal.GmActivityFina
 import org.modelio.diagram.editor.activity.elements.activitynodeheader.ActivityNodeHeaderEditPart;
 import org.modelio.diagram.editor.activity.elements.activitynodeheader.GmActivityNodeHeader;
 import org.modelio.diagram.editor.activity.elements.callbehavior.CallBehaviorEditPart;
-import org.modelio.diagram.editor.activity.elements.callbehavior.GmBehaviorFlatLabel;
-import org.modelio.diagram.editor.activity.elements.callbehavior.GmBehaviorLabel;
 import org.modelio.diagram.editor.activity.elements.callbehavior.GmCallBehavior;
 import org.modelio.diagram.editor.activity.elements.callbehavior.GmCallBehaviorPrimaryNode;
 import org.modelio.diagram.editor.activity.elements.callevent.CallEventEditPart;
@@ -56,8 +54,6 @@ import org.modelio.diagram.editor.activity.elements.callevent.GmCallEventPrimary
 import org.modelio.diagram.editor.activity.elements.callevent.GmCalledOperationLabel;
 import org.modelio.diagram.editor.activity.elements.calloperation.CallOperationEditPart;
 import org.modelio.diagram.editor.activity.elements.calloperation.GmCallOperation;
-import org.modelio.diagram.editor.activity.elements.calloperation.GmCallOperationFlatLabel;
-import org.modelio.diagram.editor.activity.elements.calloperation.GmCallOperationLabel;
 import org.modelio.diagram.editor.activity.elements.calloperation.GmCallOperationPrimaryNode;
 import org.modelio.diagram.editor.activity.elements.centralbuffer.CentralBufferEditPart;
 import org.modelio.diagram.editor.activity.elements.centralbuffer.GmCentralBuffer;
@@ -87,7 +83,6 @@ import org.modelio.diagram.editor.activity.elements.decisionmerge.GmInputBehavio
 import org.modelio.diagram.editor.activity.elements.decisionmerge.InputBehaviourTextEditPart;
 import org.modelio.diagram.editor.activity.elements.exceptionhandler.ExceptionHandlerEditPart;
 import org.modelio.diagram.editor.activity.elements.exceptionhandler.GmExceptionHandler;
-import org.modelio.diagram.editor.activity.elements.exceptionhandler.GmExceptionHandlerHeader;
 import org.modelio.diagram.editor.activity.elements.expansionnode.ExpansionNodeEditPart;
 import org.modelio.diagram.editor.activity.elements.expansionnode.GmExpansionNode;
 import org.modelio.diagram.editor.activity.elements.expansionnode.GmExpansionNodePrimaryNode;
@@ -153,7 +148,6 @@ import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
 import org.modelio.diagram.elements.common.label.base.GmElementLabelEditPart;
 import org.modelio.diagram.elements.common.label.base.NonEditableItalicLabelEditPart;
-import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
 import org.modelio.diagram.elements.common.portcontainer.PortContainerEditPart;
 import org.modelio.diagram.elements.common.resizablegroup.ResizableGroupEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -331,18 +325,6 @@ public class ActivityDiagramEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model.getClass() == GmBehaviorLabel.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmBehaviorFlatLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
             // Call operation
             if (model.getClass() == GmCallOperation.class) {
                 editPart = new PortContainerEditPart();
@@ -352,18 +334,6 @@ public class ActivityDiagramEditPartFactory implements EditPartFactory {
             
             if (model.getClass() == GmCallOperationPrimaryNode.class) {
                 editPart = new CallOperationEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmCallOperationLabel.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmCallOperationFlatLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -435,12 +405,6 @@ public class ActivityDiagramEditPartFactory implements EditPartFactory {
             }
             if (model.getClass() == GmExceptionHandler.class) {
                 editPart = new ExceptionHandlerEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmExceptionHandlerHeader.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }

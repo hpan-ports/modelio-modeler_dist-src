@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.model;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
-import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Cache of model objects.
@@ -55,12 +55,17 @@ public class MObjectCache {
     @objid ("4fe90ea4-7c19-4d9b-a547-75c3dd69c767")
     private ConcurrentMap<MClass,IMClassCache> caches = null;
 
+    @objid ("08448b81-ff4c-474f-a38c-020b42d67aca")
+    private SmMetamodel metamodel;
+
     /**
      * Creates a new cache.
+     * @param metamodel the metamodel
      */
     @objid ("006e8a20-0d1e-1f20-85a5-001ec947cd2a")
-    public MObjectCache() {
-        this.caches = new ConcurrentHashMap<>(SmClass.getRegisteredClasses().size()/2, 0.95f, 1);
+    public MObjectCache(SmMetamodel metamodel) {
+        this.metamodel = metamodel;
+        this.caches = new ConcurrentHashMap<>(metamodel.getRegisteredMClasses().size()/2, 0.95f, 1);
     }
 
     /**
@@ -91,21 +96,21 @@ public class MObjectCache {
     public Collection<SmObjectImpl> asCollection() {
         final Map<MClass, IMClassCache> theCaches = MObjectCache.this.caches;
         return new AbstractCollection<SmObjectImpl>() {
-        
-            @Override
-            public Iterator<SmObjectImpl> iterator() {
-                return getIterator();
-            }
-        
-            @Override
-            public int size() { 
-                int s = 0;
-                for (Map.Entry<MClass, IMClassCache> entry : theCaches.entrySet()) {
-                    s += entry.getValue().size();
-                }
-        return s;
-                    }
-                };
+                
+                            @Override
+                            public Iterator<SmObjectImpl> iterator() {
+                                return getIterator();
+                            }
+                
+                            @Override
+                            public int size() {
+                                int s = 0;
+                                for (Map.Entry<MClass, IMClassCache> entry : theCaches.entrySet()) {
+                                    s += entry.getValue().size();
+                                }
+                                return s;
+                            }
+                        };
     }
 
     /**
@@ -202,7 +207,7 @@ public class MObjectCache {
      */
     @objid ("7d46074c-1c43-11e2-8eb9-001ec947ccaf")
     public MObject findByRef(MRef ref) {
-        MClass cls = SmClass.getClass(ref.mc);
+        MClass cls = this.metamodel.getMClass(ref.mc);
         if (cls == null)
             return null;
         else
@@ -219,11 +224,11 @@ public class MObjectCache {
     @objid ("bd96ad7d-92d7-11e1-81e9-001ec947ccaf")
     public Iterable<SmObjectImpl> getIterable() {
         return new Iterable<SmObjectImpl>() {
-            @Override
-            public Iterator<SmObjectImpl> iterator() {
-        return getIterator();
-                    }
-                };
+                            @Override
+                            public Iterator<SmObjectImpl> iterator() {
+                        return getIterator();
+                                    }
+                                };
     }
 
     /**
@@ -285,6 +290,14 @@ public class MObjectCache {
             }
         }
         return found;
+    }
+
+    /**
+     * @return the metamodel
+     */
+    @objid ("e56ff4bb-d54f-455e-a64f-e1fbf8e5ee5b")
+    public SmMetamodel getMetamodel() {
+        return this.metamodel;
     }
 
     /**

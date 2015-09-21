@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.metamodel.factory;
 
@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.AnalystPropertyTable;
 import org.modelio.metamodel.analyst.BusinessRule;
@@ -39,6 +38,8 @@ import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
+import org.modelio.metamodel.analyst.Risk;
+import org.modelio.metamodel.analyst.RiskContainer;
 import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
@@ -283,25 +284,31 @@ import org.modelio.metamodel.uml.statik.RequiredInterface;
 import org.modelio.metamodel.uml.statik.TemplateBinding;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
+import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.api.repository.IRepository;
+import org.modelio.vcore.session.api.repository.IRepositorySupport;
 import org.modelio.vcore.session.impl.GenericFactory;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * High level model element creation factory.
  */
 @objid ("f255145e-9b6d-4199-a69a-9ef874e43cac")
 public class ModelFactoryImpl implements IModelFactory {
-    @objid ("2e25530a-705a-4920-a912-463f7bfb7f46")
-    private final GenericFactory genericFactory;
-
+    /**
+     * The model element initializer used by the factory.
+     */
     @objid ("7d4b156f-307b-4844-85a2-81d072c85dca")
     private final IElementInitializer elementInitializer;
 
-    @objid ("4d0de911-c668-4581-b4e2-bb14891c3d05")
-    private final IRepository scratchRepository;
+    @objid ("a86a9407-7d2a-49a3-829e-a9cc6947ae5e")
+    private ExtensionCache extensionCache;
+
+    @objid ("2e25530a-705a-4920-a912-463f7bfb7f46")
+    private final GenericFactory genericFactory;
 
     @objid ("6ed7b612-6452-47b4-aa3b-ef085c54b241")
     private final IModel iModel;
@@ -309,23 +316,30 @@ public class ModelFactoryImpl implements IModelFactory {
     @objid ("5e16f535-e682-48f6-8083-91a2c91964f7")
     private final IRepository localRepository;
 
-    @objid ("a86a9407-7d2a-49a3-829e-a9cc6947ae5e")
-    private ExtensionCache extensionCache = new ExtensionCache();
+    @objid ("c270f0bb-bcf1-4dfa-8b1a-cc7186cc847e")
+    private SmMetamodel metamodel;
+
+    @objid ("4d0de911-c668-4581-b4e2-bb14891c3d05")
+    private final IRepository scratchRepository;
 
     @objid ("344046c3-c674-4643-944c-e8feced3d7e8")
-    ModelFactoryImpl(GenericFactory genericFactory, IRepository scratchRepo, IRepository localRepo, IModel iModel, IElementInitializer elementInitializer) {
-        this.genericFactory = genericFactory;
-        this.scratchRepository = scratchRepo;
-        this.localRepository = localRepo;
-        this.elementInitializer = elementInitializer;
-        this.iModel = iModel;
+    ModelFactoryImpl(ICoreSession session) {
+        this.iModel = session.getModel();
+        this.genericFactory = session.getModel().getGenericFactory();
+        this.scratchRepository = session.getRepositorySupport().getRepository(IRepositorySupport.REPOSITORY_KEY_SCRATCH);
+        this.localRepository = session.getRepositorySupport().getRepository(IRepositorySupport.REPOSITORY_KEY_LOCAL);
+        
+        this.metamodel = session.getMetamodel();
+        this.extensionCache = new ExtensionCache(this.metamodel);
+        
+        this.elementInitializer = new ElementInitializer(this, session);
     }
 
     @objid ("e45f8be1-f906-43f9-a86e-dfb9d6309208")
     @Override
     public Abstraction createAbstraction() {
         Abstraction newElement = this.genericFactory.create(Abstraction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -333,7 +347,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public AcceptCallEventAction createAcceptCallEventAction() {
         AcceptCallEventAction newElement = this.genericFactory.create(AcceptCallEventAction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -341,7 +355,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public AcceptChangeEventAction createAcceptChangeEventAction() {
         AcceptChangeEventAction newElement = this.genericFactory.create(AcceptChangeEventAction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -349,7 +363,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public AcceptSignalAction createAcceptSignalAction() {
         AcceptSignalAction newElement = this.genericFactory.create(AcceptSignalAction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -357,7 +371,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public AcceptTimeEventAction createAcceptTimeEventAction() {
         AcceptTimeEventAction newElement = this.genericFactory.create(AcceptTimeEventAction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -365,7 +379,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Activity createActivity() {
         Activity newElement = this.genericFactory.create(Activity.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -373,7 +387,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ActivityDiagram createActivityDiagram() {
         ActivityDiagram newElement = this.genericFactory.create(ActivityDiagram.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -383,7 +397,7 @@ public class ModelFactoryImpl implements IModelFactory {
         ActivityDiagram newElement = this.genericFactory.create(ActivityDiagram.class, contextElement);
         newElement.setName(name);
         newElement.setOrigin(contextElement);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -391,7 +405,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ActivityFinalNode createActivityFinalNode() {
         ActivityFinalNode newElement = this.genericFactory.create(ActivityFinalNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -399,7 +413,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ActivityParameterNode createActivityParameterNode() {
         ActivityParameterNode newElement = this.genericFactory.create(ActivityParameterNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -407,7 +421,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ActivityPartition createActivityPartition() {
         ActivityPartition newElement = this.genericFactory.create(ActivityPartition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -415,7 +429,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Actor createActor() {
         Actor newElement = this.genericFactory.create(Actor.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -425,7 +439,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Actor newElement = this.genericFactory.create(Actor.class, owner);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -438,8 +452,21 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("0dca8764-fe51-4fb4-8830-90f9699284c8")
+    @Override
+    public Actor createActor(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Actor.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createActor(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("42c914ae-7c80-47ea-ab22-e5b4a01cec02")
@@ -468,7 +495,14 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public AnalystProject createAnalystProject() {
         AnalystProject newElement = this.genericFactory.create(AnalystProject.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("70e6e4ec-387d-4e68-a359-6aaed028b611")
+    @Override
+    public AnalystPropertyTable createAnalystPropertyTable() {
+        AnalystPropertyTable newElement = this.genericFactory.create(AnalystPropertyTable.class, this.scratchRepository);
         return newElement;
     }
 
@@ -476,7 +510,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Artifact createArtifact() {
         Artifact newElement = this.genericFactory.create(Artifact.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -486,7 +520,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Artifact newElement = this.genericFactory.create(Artifact.class, this.scratchRepository);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -499,15 +533,28 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("ffb90d07-3c2c-4ba6-8aa4-528e1f3b2d68")
+    @Override
+    public Artifact createArtifact(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Artifact.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createArtifact(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("6f179107-8a5d-4fa7-9248-78891079705e")
     @Override
     public Association createAssociation() {
         Association newElement = this.genericFactory.create(Association.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -537,7 +584,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public AssociationEnd createAssociationEnd() {
         AssociationEnd newElement = this.genericFactory.create(AssociationEnd.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -545,7 +592,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Attribute createAttribute() {
         Attribute newElement = this.genericFactory.create(Attribute.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -555,7 +602,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Attribute newElement = this.genericFactory.create(Attribute.class, owner);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         newElement.setType(type);
         return newElement;
     }
@@ -569,16 +616,29 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         newElement.setType(type);
         return newElement;
+    }
+
+    @objid ("97a37f51-8c66-4f08-a227-4b2b0339b647")
+    @Override
+    public Attribute createAttribute(String name, GeneralClass type, Classifier owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Attribute.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createAttribute(name, type, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("00d0b6d8-57f8-4375-8fce-ae126e8f1415")
     @Override
     public AttributeLink createAttributeLink() {
         AttributeLink newElement = this.genericFactory.create(AttributeLink.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -586,7 +646,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BehaviorParameter createBehaviorParameter() {
         BehaviorParameter newElement = this.genericFactory.create(BehaviorParameter.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -594,7 +654,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BindableInstance createBindableInstance() {
         BindableInstance newElement = this.genericFactory.create(BindableInstance.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -602,7 +662,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Binding createBinding() {
         Binding newElement = this.genericFactory.create(Binding.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -610,7 +670,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnActivity createBpmnActivity() {
         BpmnActivity newElement = this.genericFactory.create(BpmnActivity.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -618,7 +678,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnAdHocSubProcess createBpmnAdHocSubProcess() {
         BpmnAdHocSubProcess newElement = this.genericFactory.create(BpmnAdHocSubProcess.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -626,7 +686,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnAssociation createBpmnAssociation() {
         BpmnAssociation newElement = this.genericFactory.create(BpmnAssociation.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -634,7 +694,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnBehavior createBpmnBehavior() {
         BpmnBehavior newElement = this.genericFactory.create(BpmnBehavior.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -642,7 +702,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnBoundaryEvent createBpmnBoundaryEvent() {
         BpmnBoundaryEvent newElement = this.genericFactory.create(BpmnBoundaryEvent.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -650,7 +710,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnBusinessRuleTask createBpmnBusinessRuleTask() {
         BpmnBusinessRuleTask newElement = this.genericFactory.create(BpmnBusinessRuleTask.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -658,7 +718,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnCallActivity createBpmnCallActivity() {
         BpmnCallActivity newElement = this.genericFactory.create(BpmnCallActivity.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -666,7 +726,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnCancelEventDefinition createBpmnCancelEventDefinition() {
         BpmnCancelEventDefinition newElement = this.genericFactory.create(BpmnCancelEventDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -674,7 +734,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnCollaboration createBpmnCollaboration() {
         BpmnCollaboration newElement = this.genericFactory.create(BpmnCollaboration.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -683,7 +743,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnCompensateEventDefinition createBpmnCompensateEventDefinition() {
         BpmnCompensateEventDefinition newElement = this.genericFactory.create(BpmnCompensateEventDefinition.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -692,7 +752,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnComplexBehaviorDefinition createBpmnComplexBehaviorDefinition() {
         BpmnComplexBehaviorDefinition newElement = this.genericFactory.create(BpmnComplexBehaviorDefinition.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -700,7 +760,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnComplexGateway createBpmnComplexGateway() {
         BpmnComplexGateway newElement = this.genericFactory.create(BpmnComplexGateway.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -709,7 +769,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnConditionalEventDefinition createBpmnConditionalEventDefinition() {
         BpmnConditionalEventDefinition newElement = this.genericFactory.create(BpmnConditionalEventDefinition.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -717,7 +777,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnDataAssociation createBpmnDataAssociation() {
         BpmnDataAssociation newElement = this.genericFactory.create(BpmnDataAssociation.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -725,7 +785,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnDataInput createBpmnDataInput() {
         BpmnDataInput newElement = this.genericFactory.create(BpmnDataInput.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -733,7 +793,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnDataObject createBpmnDataObject() {
         BpmnDataObject newElement = this.genericFactory.create(BpmnDataObject.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -741,7 +801,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnDataOutput createBpmnDataOutput() {
         BpmnDataOutput newElement = this.genericFactory.create(BpmnDataOutput.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -749,7 +809,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnDataState createBpmnDataState() {
         BpmnDataState newElement = this.genericFactory.create(BpmnDataState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -757,7 +817,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnDataStore createBpmnDataStore() {
         BpmnDataStore newElement = this.genericFactory.create(BpmnDataStore.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -765,7 +825,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnEndEvent createBpmnEndEvent() {
         BpmnEndEvent newElement = this.genericFactory.create(BpmnEndEvent.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -773,7 +833,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnEndPoint createBpmnEndPoint() {
         BpmnEndPoint newElement = this.genericFactory.create(BpmnEndPoint.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -781,7 +841,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnErrorEventDefinition createBpmnErrorEventDefinition() {
         BpmnErrorEventDefinition newElement = this.genericFactory.create(BpmnErrorEventDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -790,7 +850,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnEscalationEventDefinition createBpmnEscalationEventDefinition() {
         BpmnEscalationEventDefinition newElement = this.genericFactory.create(BpmnEscalationEventDefinition.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -798,7 +858,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnEventBasedGateway createBpmnEventBasedGateway() {
         BpmnEventBasedGateway newElement = this.genericFactory.create(BpmnEventBasedGateway.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -806,7 +866,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnExclusiveGateway createBpmnExclusiveGateway() {
         BpmnExclusiveGateway newElement = this.genericFactory.create(BpmnExclusiveGateway.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -814,7 +874,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnGroup createBpmnGroup() {
         BpmnGroup newElement = this.genericFactory.create(BpmnGroup.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -822,7 +882,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnImplicitThrowEvent createBpmnImplicitThrowEvent() {
         BpmnImplicitThrowEvent newElement = this.genericFactory.create(BpmnImplicitThrowEvent.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -830,7 +890,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnInclusiveGateway createBpmnInclusiveGateway() {
         BpmnInclusiveGateway newElement = this.genericFactory.create(BpmnInclusiveGateway.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -838,7 +898,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnInterface createBpmnInterface() {
         BpmnInterface newElement = this.genericFactory.create(BpmnInterface.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -847,7 +907,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnIntermediateCatchEvent createBpmnIntermediateCatchEvent() {
         BpmnIntermediateCatchEvent newElement = this.genericFactory
                 .create(BpmnIntermediateCatchEvent.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -856,7 +916,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnIntermediateThrowEvent createBpmnIntermediateThrowEvent() {
         BpmnIntermediateThrowEvent newElement = this.genericFactory
                 .create(BpmnIntermediateThrowEvent.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -864,7 +924,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnItemDefinition createBpmnItemDefinition() {
         BpmnItemDefinition newElement = this.genericFactory.create(BpmnItemDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -872,7 +932,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnLane createBpmnLane() {
         BpmnLane newElement = this.genericFactory.create(BpmnLane.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -880,7 +940,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnLaneSet createBpmnLaneSet() {
         BpmnLaneSet newElement = this.genericFactory.create(BpmnLaneSet.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -888,7 +948,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnLinkEventDefinition createBpmnLinkEventDefinition() {
         BpmnLinkEventDefinition newElement = this.genericFactory.create(BpmnLinkEventDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -896,7 +956,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnManualTask createBpmnManualTask() {
         BpmnManualTask newElement = this.genericFactory.create(BpmnManualTask.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -904,7 +964,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnMessage createBpmnMessage() {
         BpmnMessage newElement = this.genericFactory.create(BpmnMessage.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -913,7 +973,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnMessageEventDefinition createBpmnMessageEventDefinition() {
         BpmnMessageEventDefinition newElement = this.genericFactory
                 .create(BpmnMessageEventDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -921,7 +981,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnMessageFlow createBpmnMessageFlow() {
         BpmnMessageFlow newElement = this.genericFactory.create(BpmnMessageFlow.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -930,7 +990,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnMultiInstanceLoopCharacteristics createBpmnMultiInstanceLoopCharacteristics() {
         BpmnMultiInstanceLoopCharacteristics newElement = this.genericFactory.create(BpmnMultiInstanceLoopCharacteristics.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -938,7 +998,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnOperation createBpmnOperation() {
         BpmnOperation newElement = this.genericFactory.create(BpmnOperation.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -946,7 +1006,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnParallelGateway createBpmnParallelGateway() {
         BpmnParallelGateway newElement = this.genericFactory.create(BpmnParallelGateway.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -954,7 +1014,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnParticipant createBpmnParticipant() {
         BpmnParticipant newElement = this.genericFactory.create(BpmnParticipant.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -962,7 +1022,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnProcess createBpmnProcess() {
         BpmnProcess newElement = this.genericFactory.create(BpmnProcess.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -971,7 +1031,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnProcessCollaborationDiagram createBpmnProcessCollaborationDiagram() {
         BpmnProcessCollaborationDiagram newElement = this.genericFactory.create(BpmnProcessCollaborationDiagram.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -979,7 +1039,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnReceiveTask createBpmnReceiveTask() {
         BpmnReceiveTask newElement = this.genericFactory.create(BpmnReceiveTask.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -987,7 +1047,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnResource createBpmnResource() {
         BpmnResource newElement = this.genericFactory.create(BpmnResource.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -995,7 +1055,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnResourceParameter createBpmnResourceParameter() {
         BpmnResourceParameter newElement = this.genericFactory.create(BpmnResourceParameter.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1004,7 +1064,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnResourceParameterBinding createBpmnResourceParameterBinding() {
         BpmnResourceParameterBinding newElement = this.genericFactory.create(BpmnResourceParameterBinding.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1012,7 +1072,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnResourceRole createBpmnResourceRole() {
         BpmnResourceRole newElement = this.genericFactory.create(BpmnResourceRole.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1020,7 +1080,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnScriptTask createBpmnScriptTask() {
         BpmnScriptTask newElement = this.genericFactory.create(BpmnScriptTask.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1028,7 +1088,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnSendTask createBpmnSendTask() {
         BpmnSendTask newElement = this.genericFactory.create(BpmnSendTask.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1036,7 +1096,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnSequenceFlow createBpmnSequenceFlow() {
         BpmnSequenceFlow newElement = this.genericFactory.create(BpmnSequenceFlow.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1045,7 +1105,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnSequenceFlowDataAssociation createBpmnSequenceFlowDataAssociation() {
         BpmnSequenceFlowDataAssociation newElement = this.genericFactory.create(BpmnSequenceFlowDataAssociation.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1053,7 +1113,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnServiceTask createBpmnServiceTask() {
         BpmnServiceTask newElement = this.genericFactory.create(BpmnServiceTask.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1061,7 +1121,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnSignalEventDefinition createBpmnSignalEventDefinition() {
         BpmnSignalEventDefinition newElement = this.genericFactory.create(BpmnSignalEventDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1070,7 +1130,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnStandardLoopCharacteristics createBpmnStandardLoopCharacteristics() {
         BpmnStandardLoopCharacteristics newElement = this.genericFactory.create(BpmnStandardLoopCharacteristics.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1078,7 +1138,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnStartEvent createBpmnStartEvent() {
         BpmnStartEvent newElement = this.genericFactory.create(BpmnStartEvent.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1086,7 +1146,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnSubProcess createBpmnSubProcess() {
         BpmnSubProcess newElement = this.genericFactory.create(BpmnSubProcess.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1094,7 +1154,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnSubProcessDiagram createBpmnSubProcessDiagram() {
         BpmnSubProcessDiagram newElement = this.genericFactory.create(BpmnSubProcessDiagram.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1102,7 +1162,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnTask createBpmnTask() {
         BpmnTask newElement = this.genericFactory.create(BpmnTask.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1111,7 +1171,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public BpmnTerminateEventDefinition createBpmnTerminateEventDefinition() {
         BpmnTerminateEventDefinition newElement = this.genericFactory.create(BpmnTerminateEventDefinition.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1119,7 +1179,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnTimerEventDefinition createBpmnTimerEventDefinition() {
         BpmnTimerEventDefinition newElement = this.genericFactory.create(BpmnTimerEventDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1127,7 +1187,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnTransaction createBpmnTransaction() {
         BpmnTransaction newElement = this.genericFactory.create(BpmnTransaction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1135,7 +1195,53 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public BpmnUserTask createBpmnUserTask() {
         BpmnUserTask newElement = this.genericFactory.create(BpmnUserTask.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("e7cfaf38-41db-4ab1-9c12-ec85162d3ba3")
+    @Override
+    public BusinessRule createBusinessRule() {
+        BusinessRule newElement = this.genericFactory.create(BusinessRule.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("b36fe6d1-783a-413d-a3ab-a1d2f9260b88")
+    @Override
+    public BusinessRule createBusinessRule(String name, BusinessRuleContainer owner) {
+        BusinessRule newElement = this.genericFactory.create(BusinessRule.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("ff3822c9-bf7b-4441-95ae-dbadf3d03e32")
+    @Override
+    public BusinessRule createBusinessRule(String name, BusinessRule owner) {
+        BusinessRule newElement = this.genericFactory.create(BusinessRule.class, this.scratchRepository);
+        newElement.setParentRule(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("d3f13285-b14b-4985-abb7-c1d944536f0c")
+    @Override
+    public BusinessRuleContainer createBusinessRuleContainer() {
+        BusinessRuleContainer newElement = this.genericFactory.create(BusinessRuleContainer.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("454745f9-a1da-4c6f-96de-0a43722e3345")
+    @Override
+    public BusinessRuleContainer createBusinessRuleContainer(String name, BusinessRuleContainer owner) {
+        BusinessRuleContainer newElement = this.genericFactory.create(BusinessRuleContainer.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1143,7 +1249,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public CallBehaviorAction createCallBehaviorAction() {
         CallBehaviorAction newElement = this.genericFactory.create(CallBehaviorAction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1151,7 +1257,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public CallOperationAction createCallOperationAction() {
         CallOperationAction newElement = this.genericFactory.create(CallOperationAction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1159,7 +1265,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public CentralBufferNode createCentralBufferNode() {
         CentralBufferNode newElement = this.genericFactory.create(CentralBufferNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1167,7 +1273,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ChoicePseudoState createChoicePseudoState() {
         ChoicePseudoState newElement = this.genericFactory.create(ChoicePseudoState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1175,7 +1281,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Class createClass() {
         Class newElement = this.genericFactory.create(Class.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1185,7 +1291,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Class newElement = this.genericFactory.create(Class.class, owner);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1198,15 +1304,28 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("5d0af5a4-d33b-4b11-8e8c-5de2fda94ef8")
+    @Override
+    public Class createClass(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Class.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createClass(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("a9f4bbad-63fd-49a9-a41b-9e59fad1c769")
     @Override
     public ClassAssociation createClassAssociation() {
         ClassAssociation newElement = this.genericFactory.create(ClassAssociation.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1214,7 +1333,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ClassDiagram createClassDiagram() {
         ClassDiagram newElement = this.genericFactory.create(ClassDiagram.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1227,7 +1346,7 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1235,7 +1354,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Clause createClause() {
         Clause newElement = this.genericFactory.create(Clause.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1243,7 +1362,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Collaboration createCollaboration() {
         Collaboration newElement = this.genericFactory.create(Collaboration.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1251,7 +1370,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public CollaborationUse createCollaborationUse() {
         CollaborationUse newElement = this.genericFactory.create(CollaborationUse.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1259,7 +1378,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public CombinedFragment createCombinedFragment() {
         CombinedFragment newElement = this.genericFactory.create(CombinedFragment.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1268,7 +1387,15 @@ public class ModelFactoryImpl implements IModelFactory {
     public CombinedFragment createCombinedFragment(InteractionOperator operator) {
         CombinedFragment newElement = this.genericFactory.create(CombinedFragment.class, this.scratchRepository);
         newElement.setOperator(operator);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("f8eb1232-dc89-4d99-8dd0-8b1580909b3c")
+    @Override
+    public CommunicationChannel createCommunicationChannel() {
+        CommunicationChannel newElement = this.genericFactory.create(CommunicationChannel.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1276,7 +1403,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public CommunicationDiagram createCommunicationDiagram() {
         CommunicationDiagram newElement = this.genericFactory.create(CommunicationDiagram.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1286,7 +1413,7 @@ public class ModelFactoryImpl implements IModelFactory {
         CommunicationDiagram newElement = this.genericFactory.create(CommunicationDiagram.class, diagramContext);
         newElement.setName(name);
         newElement.setOrigin(diagramContext);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1299,7 +1426,7 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1307,7 +1434,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public CommunicationInteraction createCommunicationInteraction() {
         CommunicationInteraction newElement = this.genericFactory.create(CommunicationInteraction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1315,7 +1442,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public CommunicationMessage createCommunicationMessage() {
         CommunicationMessage newElement = this.genericFactory.create(CommunicationMessage.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1323,7 +1450,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public CommunicationNode createCommunicationNode() {
         CommunicationNode newElement = this.genericFactory.create(CommunicationNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1331,7 +1458,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Component createComponent() {
         Component newElement = this.genericFactory.create(Component.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1341,7 +1468,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Component newElement = this.genericFactory.create(Component.class, owner);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1354,7 +1481,38 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("56b3b772-d1a2-4a85-b816-ba4a0633d3eb")
+    @Override
+    public Component createComponent(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Component.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createComponent(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
+    }
+
+    @objid ("e17ca827-d01f-423e-880a-a292d4ca39c7")
+    @Override
+    public ComponentRealization createComponentRealization() {
+        ComponentRealization newElement = this.genericFactory.create(ComponentRealization.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("aad14085-0adf-43f4-a613-bfcda428df25")
+    @Override
+    public ComponentRealization createComponentRealization(Classifier source, Component destination) {
+        ComponentRealization newElement = this.genericFactory.create(ComponentRealization.class, this.scratchRepository);
+        newElement.setRealizingClassifier(source);
+        newElement.setAbstraction(destination);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1362,7 +1520,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public CompositeStructureDiagram createCompositeStructureDiagram() {
         CompositeStructureDiagram newElement = this.genericFactory.create(CompositeStructureDiagram.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1375,7 +1533,7 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1405,7 +1563,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ConditionalNode createConditionalNode() {
         ConditionalNode newElement = this.genericFactory.create(ConditionalNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1413,7 +1571,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ModuleParameter createConfigParam() {
         ModuleParameter newElement = this.genericFactory.create(ModuleParameter.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1421,15 +1579,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ConnectionPointReference createConnectionPointReference() {
         ConnectionPointReference newElement = this.genericFactory.create(ConnectionPointReference.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("c257a9be-009b-4206-a688-0f5ba87179b9")
-    @Override
-    public ConnectorEnd createConnectorEnd() {
-        ConnectorEnd newElement = this.genericFactory.create(ConnectorEnd.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1454,11 +1604,27 @@ public class ModelFactoryImpl implements IModelFactory {
         return newConnector;
     }
 
+    @objid ("ecb3ec08-a67b-43b3-9b34-29756e3c0d46")
+    @Override
+    public Connector createConnector() {
+        Connector newElement = this.genericFactory.create(Connector.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("c257a9be-009b-4206-a688-0f5ba87179b9")
+    @Override
+    public ConnectorEnd createConnectorEnd() {
+        ConnectorEnd newElement = this.genericFactory.create(ConnectorEnd.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
     @objid ("a9943ca7-6cf9-4145-a4d7-39f93affa7a8")
     @Override
     public Constraint createConstraint() {
         Constraint newElement = this.genericFactory.create(Constraint.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1466,7 +1632,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ControlFlow createControlFlow() {
         ControlFlow newElement = this.genericFactory.create(ControlFlow.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1474,7 +1640,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public DataFlow createDataFlow() {
         DataFlow newElement = this.genericFactory.create(DataFlow.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1482,7 +1648,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public DataStoreNode createDataStoreNode() {
         DataStoreNode newElement = this.genericFactory.create(DataStoreNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1490,7 +1656,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public DataType createDataType() {
         DataType newElement = this.genericFactory.create(DataType.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1500,7 +1666,7 @@ public class ModelFactoryImpl implements IModelFactory {
         DataType newElement = this.genericFactory.create(DataType.class, this.scratchRepository);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1513,15 +1679,28 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("681f17bd-47a8-4d82-b0af-982f2ff95e92")
+    @Override
+    public DataType createDataType(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(DataType.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createDataType(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("722f7798-5840-4afa-93c2-5d45b0eca5de")
     @Override
     public DecisionMergeNode createDecisionMergeNode() {
         DecisionMergeNode newElement = this.genericFactory.create(DecisionMergeNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1529,7 +1708,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public DeepHistoryPseudoState createDeepHistoryPseudoState() {
         DeepHistoryPseudoState newElement = this.genericFactory.create(DeepHistoryPseudoState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1537,7 +1716,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Dependency createDependency() {
         Dependency newElement = this.genericFactory.create(Dependency.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1550,15 +1729,28 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("e13d0016-5bcf-4ad1-a5ab-821b43a5d475")
+    @Override
+    public Dependency createDependency(ModelElement source, ModelElement destination, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Dependency.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createDependency(source, destination, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("00a5a2b1-34af-4337-81e9-ec48e351b849")
     @Override
     public DeploymentDiagram createDeploymentDiagram() {
         DeploymentDiagram newElement = this.genericFactory.create(DeploymentDiagram.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1568,7 +1760,7 @@ public class ModelFactoryImpl implements IModelFactory {
         DeploymentDiagram newElement = this.genericFactory.create(DeploymentDiagram.class, this.scratchRepository);
         newElement.setName(name);
         newElement.setOrigin(diagramContext);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1581,7 +1773,7 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1589,7 +1781,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public DiagramSet createDiagramSet() {
         DiagramSet newElement = this.genericFactory.create(DiagramSet.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1599,7 +1791,7 @@ public class ModelFactoryImpl implements IModelFactory {
         DiagramSet newElement = this.genericFactory.create(DiagramSet.class, this.scratchRepository);
         newElement.setName(name);
         owner.getSub().add(newElement);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1607,7 +1799,17 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Dictionary createDictionary() {
         Dictionary newElement = this.genericFactory.create(Dictionary.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("66d7e549-ccf4-4b42-9c57-032a4cb170e5")
+    @Override
+    public Dictionary createDictionary(String name, Dictionary owner) {
+        Dictionary newElement = this.genericFactory.create(Dictionary.class, this.scratchRepository);
+        newElement.setOwnerDictionary(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1615,7 +1817,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public DurationConstraint createDurationConstraint() {
         DurationConstraint newElement = this.genericFactory.create(DurationConstraint.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1623,7 +1825,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public <T extends Element> T createElement(java.lang.Class<T> metaclass) {
         T newElement = this.genericFactory.create(metaclass, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1631,7 +1833,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Element createElement(String metaclassName) {
         Element newElement = (Element) this.genericFactory.create(metaclassName, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1639,7 +1841,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Element createElement(MClass metaclass) {
         Element newElement = (Element) this.genericFactory.create(metaclass, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1647,7 +1849,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Element createElement(MClass metaclass, Element owner, MDependency dependency) {
         Element newElement = (Element) this.genericFactory.create(metaclass, owner, dependency);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1655,18 +1857,17 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Element createElement(String metaclassName, Element owner, String dependencyName) {
         // TODO for all createElement generic methods, process errors (unknown
-        // dep unknow metaclass, null objects ... )
+        // dep unknown metaclass, null objects ... )
         Element newElement = (Element) this.genericFactory.create(metaclassName, owner, dependencyName);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
     @objid ("fd0df3aa-b516-49af-88f3-221a246236ef")
     @Override
     public <T extends Element> T createElement(java.lang.Class<T> metaclass, Element owner, String dependencyName) {
-        @SuppressWarnings("unchecked")
-        T newElement = (T) this.genericFactory.create(Metamodel.getMClass(metaclass).getName(), owner, dependencyName);
-        this.elementInitializer.initialize(this, newElement);
+        T newElement = this.genericFactory.create(metaclass, owner, dependencyName);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1674,7 +1875,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ElementImport createElementImport() {
         ElementImport newElement = this.genericFactory.create(ElementImport.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1684,7 +1885,7 @@ public class ModelFactoryImpl implements IModelFactory {
         ElementImport newElement = this.genericFactory.create(ElementImport.class, source);
         newElement.setImportingNameSpace(source);
         newElement.setImportedElement(destination);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1694,7 +1895,7 @@ public class ModelFactoryImpl implements IModelFactory {
         ElementImport newElement = this.genericFactory.create(ElementImport.class, source);
         newElement.setImportingOperation(source);
         newElement.setImportedElement(destination);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1702,7 +1903,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ElementRealization createElementRealization() {
         ElementRealization newElement = this.genericFactory.create(ElementRealization.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1710,7 +1911,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public EntryPointPseudoState createEntryPointPseudoState() {
         EntryPointPseudoState newElement = this.genericFactory.create(EntryPointPseudoState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1718,7 +1919,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public EnumeratedPropertyType createEnumeratedPropertyType() {
         EnumeratedPropertyType newElement = this.genericFactory.create(EnumeratedPropertyType.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1726,7 +1927,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Enumeration createEnumeration() {
         Enumeration newElement = this.genericFactory.create(Enumeration.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1736,7 +1937,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Enumeration newElement = this.genericFactory.create(Enumeration.class, owner);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1749,15 +1950,28 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("b1063a8e-3115-47a3-9f9b-e9a8a255efbd")
+    @Override
+    public Enumeration createEnumeration(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Enumeration.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createEnumeration(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("0933ad89-28e1-43ba-889e-c0b6ab730940")
     @Override
     public EnumerationLiteral createEnumerationLiteral() {
         EnumerationLiteral newElement = this.genericFactory.create(EnumerationLiteral.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1767,7 +1981,7 @@ public class ModelFactoryImpl implements IModelFactory {
         EnumerationLiteral newElement = this.genericFactory.create(EnumerationLiteral.class, owner);
         newElement.setName(name);
         newElement.setValuated(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1780,15 +1994,29 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("80673d17-8b5f-448f-9235-0afd64b1ec1c")
+    @Override
+    public EnumerationLiteral createEnumerationLiteral(String name, Enumeration owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName,
+                this.metamodel.getMClass(EnumerationLiteral.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createEnumerationLiteral(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("c720ce0f-f2c7-48a1-b754-5b04b936f8c3")
     @Override
     public Event createEvent() {
         Event newElement = this.genericFactory.create(Event.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1796,7 +2024,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ExceptionHandler createExceptionHandler() {
         ExceptionHandler newElement = this.genericFactory.create(ExceptionHandler.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1805,7 +2033,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public ExecutionOccurenceSpecification createExecutionOccurenceSpecification() {
         ExecutionOccurenceSpecification newElement = this.genericFactory.create(ExecutionOccurenceSpecification.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1813,7 +2041,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ExecutionSpecification createExecutionSpecification() {
         ExecutionSpecification newElement = this.genericFactory.create(ExecutionSpecification.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1821,7 +2049,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ExitPointPseudoState createExitPointPseudoState() {
         ExitPointPseudoState newElement = this.genericFactory.create(ExitPointPseudoState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1829,7 +2057,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ExpansionNode createExpansionNode() {
         ExpansionNode newElement = this.genericFactory.create(ExpansionNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1837,7 +2065,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ExpansionRegion createExpansionRegion() {
         ExpansionRegion newElement = this.genericFactory.create(ExpansionRegion.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1847,7 +2075,7 @@ public class ModelFactoryImpl implements IModelFactory {
         UseCaseDependency newElement = this.genericFactory.create(UseCaseDependency.class, source);
         newElement.setOrigin(source);
         newElement.setTarget(destination);
-        List<Stereotype> stereotypes = findStereotype("ModelerModule", "extend", Metamodel.getMClass(UseCaseDependency.class));
+        List<Stereotype> stereotypes = findStereotype("ModelerModule", "extend", this.metamodel.getMClass(UseCaseDependency.class));
         if (stereotypes.size() == 0) {
             throw new ExtensionNotFoundException("'extend' stereotype not found");
         } else if (stereotypes.size() == 1) {
@@ -1855,7 +2083,7 @@ public class ModelFactoryImpl implements IModelFactory {
         } else {
             throw new InvalidParameterException("'extend' stereotype is not unique in module 'ModelerModule'");
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1863,7 +2091,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ExtensionPoint createExtensionPoint() {
         ExtensionPoint newElement = this.genericFactory.create(ExtensionPoint.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1871,7 +2099,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ExternDocument createExternDocument() {
         ExternDocument newElement = this.genericFactory.create(ExternDocument.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1880,17 +2108,39 @@ public class ModelFactoryImpl implements IModelFactory {
     public ExternDocument createExternDocument(ExternDocumentType externDocumentType, final ModelElement owner, final String mimeType) {
         ExternDocument newElement = this.genericFactory.create(ExternDocument.class, owner);
         newElement.setSubject(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         newElement.setMimeType(mimeType);
         newElement.setType(externDocumentType);
         return newElement;
+    }
+
+    @objid ("8e995c68-fd7a-4d94-a31e-40ceef5ca871")
+    @Override
+    public ExternDocument createExternDocument(final String moduleName, final String documentRole, final ModelElement owner, final String mimeType) throws ExtensionNotFoundException {
+        List<ExternDocumentType> externDocumentTypes = findExternDocumentType(moduleName, documentRole, owner.getMClass());
+        if (externDocumentTypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + documentRole + "' extern document type not found");
+        } else if (externDocumentTypes.size() == 1) {
+            return createExternDocument(externDocumentTypes.get(0), owner, mimeType);
+        } else {
+            throw new InvalidParameterException("'" + documentRole + "' extern document type is not unique in module '"
+                    + moduleName + "'");
+        }
     }
 
     @objid ("f746dad2-245c-4785-a152-f03eab288e43")
     @Override
     public ExternDocumentType createExternDocumentType() {
         ExternDocumentType newElement = this.genericFactory.create(ExternDocumentType.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("779637ff-ef98-4754-9e7a-79f97e7941ca")
+    @Override
+    public ExternProcessor createExternProcessor() {
+        ExternProcessor newElement = this.genericFactory.create(ExternProcessor.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1898,7 +2148,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public FinalState createFinalState() {
         FinalState newElement = this.genericFactory.create(FinalState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1906,7 +2156,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public FlowFinalNode createFlowFinalNode() {
         FlowFinalNode newElement = this.genericFactory.create(FlowFinalNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1914,7 +2164,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ForkJoinNode createForkJoinNode() {
         ForkJoinNode newElement = this.genericFactory.create(ForkJoinNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1922,7 +2172,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ForkPseudoState createForkPseudoState() {
         ForkPseudoState newElement = this.genericFactory.create(ForkPseudoState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1930,7 +2180,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Gate createGate() {
         Gate newElement = this.genericFactory.create(Gate.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1939,7 +2189,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public Gate createGate(String name) {
         Gate newElement = this.genericFactory.create(Gate.class, this.scratchRepository);
         newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1947,7 +2197,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public GeneralOrdering createGeneralOrdering() {
         GeneralOrdering newElement = this.genericFactory.create(GeneralOrdering.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1955,7 +2205,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Generalization createGeneralization() {
         Generalization newElement = this.genericFactory.create(Generalization.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1965,7 +2215,139 @@ public class ModelFactoryImpl implements IModelFactory {
         Generalization newElement = this.genericFactory.create(Generalization.class, source);
         newElement.setSubType(source);
         newElement.setSuperType(destination);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("b379b90c-c0fa-452c-8e43-13d9ee8866b7")
+    @Override
+    public GenericAnalystContainer createGenericAnalystContainer() {
+        GenericAnalystContainer newElement = this.genericFactory.create(GenericAnalystContainer.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("dd16f0b2-7ade-42fb-bf69-fd62c31f265a")
+    @Override
+    public GenericAnalystContainer createGenericAnalystContainer(String name, GenericAnalystContainer owner, Stereotype ste) {
+        GenericAnalystContainer newElement = this.genericFactory.create(GenericAnalystContainer.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        newElement.getExtension().add(ste);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("7ca75971-e345-4525-ae8b-f0907b743f95")
+    @Override
+    public GenericAnalystContainer createGenericAnalystContainer(String name, GenericAnalystContainer owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        GenericAnalystContainer newElement = this.genericFactory.create(GenericAnalystContainer.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        newElement.addStereotype(moduleName, stereotypeName);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("6762b3e1-8331-4c7c-86f5-9d9f33971bec")
+    @Override
+    public GenericAnalystElement createGenericAnalystElement() {
+        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("4f3b7f24-b3d5-4708-984a-20ff7f2d32ef")
+    @Override
+    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystElement owner, Stereotype ste) {
+        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
+        newElement.setParentElement(owner);
+        newElement.setName(name);
+        if (ste != null) {
+            newElement.getExtension().add(ste);
+        }
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("80614aeb-90cd-45eb-80f9-c9f6897a03ce")
+    @Override
+    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystContainer owner, Stereotype ste) {
+        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        if (ste != null) {
+            newElement.getExtension().add(ste);
+        }
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("d2850449-cf2d-48f2-a63c-e1e9e4613f5d")
+    @Override
+    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystContainer owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        newElement.addStereotype(moduleName, stereotypeName);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("07c4828b-27f6-47bc-8235-edc87097526a")
+    @Override
+    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystElement owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
+        newElement.setParentElement(owner);
+        newElement.setName(name);
+        newElement.addStereotype(moduleName, stereotypeName);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("e7873e1b-37d5-4b27-8ac2-e35f1f5bd6cd")
+    @Override
+    public Goal createGoal() {
+        Goal newElement = this.genericFactory.create(Goal.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("4d8a1be0-7d96-4fb0-b2aa-30cdd1276563")
+    @Override
+    public Goal createGoal(String name, Goal owner) {
+        Goal newElement = this.genericFactory.create(Goal.class, this.scratchRepository);
+        newElement.setParentGoal(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("dd88b952-a228-44c9-83aa-3635c5b72b79")
+    @Override
+    public Goal createGoal(String name, GoalContainer owner) {
+        Goal newElement = this.genericFactory.create(Goal.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("db4983c1-99f8-4b33-abae-cf482bafc7b3")
+    @Override
+    public GoalContainer createGoalContainer() {
+        GoalContainer newElement = this.genericFactory.create(GoalContainer.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("a255717e-2c9a-4101-b095-467940f51acc")
+    @Override
+    public GoalContainer createGoalContainer(String name, GoalContainer owner) {
+        GoalContainer newElement = this.genericFactory.create(GoalContainer.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -1975,7 +2357,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Parameter newElement = this.genericFactory.create(Parameter.class, owner);
         newElement.setName(name);
         newElement.setComposed(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         newElement.setType(type);
         return newElement;
     }
@@ -1989,9 +2371,22 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         newElement.setType(type);
         return newElement;
+    }
+
+    @objid ("863e4df2-a6eb-44c9-8865-8af1b7b2545f")
+    @Override
+    public Parameter createIOParameter(String name, GeneralClass type, Operation owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Parameter.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createIOParameter(name, type, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("45856a45-57cc-4d43-8f54-3ac4eaf2085d")
@@ -2000,7 +2395,7 @@ public class ModelFactoryImpl implements IModelFactory {
         UseCaseDependency newElement = this.genericFactory.create(UseCaseDependency.class, source);
         newElement.setOrigin(source);
         newElement.setTarget(destination);
-        List<Stereotype> stereotypes = findStereotype("ModelerModule", "include", Metamodel.getMClass(UseCaseDependency.class));
+        List<Stereotype> stereotypes = findStereotype("ModelerModule", "include", this.metamodel.getMClass(UseCaseDependency.class));
         if (stereotypes.size() == 0) {
             throw new ExtensionNotFoundException("'include' stereotype not found");
         } else if (stereotypes.size() == 1) {
@@ -2008,7 +2403,7 @@ public class ModelFactoryImpl implements IModelFactory {
         } else {
             throw new InvalidParameterException("'include' stereotype is not unique in module 'ModelerModule'");
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2016,7 +2411,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public InformationFlow createInformationFlow() {
         InformationFlow newElement = this.genericFactory.create(InformationFlow.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2024,7 +2419,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public InformationItem createInformationItem() {
         InformationItem newElement = this.genericFactory.create(InformationItem.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2032,7 +2427,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public InitialNode createInitialNode() {
         InitialNode newElement = this.genericFactory.create(InitialNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2040,7 +2435,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public InitialPseudoState createInitialPseudoState() {
         InitialPseudoState newElement = this.genericFactory.create(InitialPseudoState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2048,7 +2443,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public InputPin createInputPin() {
         InputPin newElement = this.genericFactory.create(InputPin.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2056,7 +2451,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Instance createInstance() {
         Instance newElement = this.genericFactory.create(Instance.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2066,7 +2461,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Instance newElement = this.genericFactory.create(Instance.class, this.scratchRepository);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2074,7 +2469,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public InstanceNode createInstanceNode() {
         InstanceNode newElement = this.genericFactory.create(InstanceNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2082,7 +2477,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Interaction createInteraction() {
         Interaction newElement = this.genericFactory.create(Interaction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2090,7 +2485,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public InteractionOperand createInteractionOperand() {
         InteractionOperand newElement = this.genericFactory.create(InteractionOperand.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2099,7 +2494,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public InteractionOperand createInteractionOperand(String guard) {
         InteractionOperand newElement = this.genericFactory.create(InteractionOperand.class, this.scratchRepository);
         newElement.setGuard(guard);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2107,7 +2502,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public InteractionUse createInteractionUse() {
         InteractionUse newElement = this.genericFactory.create(InteractionUse.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2116,7 +2511,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public InteractionUse createInteractionUse(Interaction refered) {
         InteractionUse newElement = this.genericFactory.create(InteractionUse.class, this.scratchRepository);
         newElement.setRefersTo(refered);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2124,7 +2519,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Interface createInterface() {
         Interface newElement = this.genericFactory.create(Interface.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2134,7 +2529,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Interface newElement = this.genericFactory.create(Interface.class, owner);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2147,15 +2542,28 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("461e0905-c616-4f83-99d8-397395004631")
+    @Override
+    public Interface createInterface(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Interface.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createInterface(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("91f6202c-b28d-47d2-b666-3229178b7165")
     @Override
     public InterfaceRealization createInterfaceRealization() {
         InterfaceRealization newElement = this.genericFactory.create(InterfaceRealization.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2165,7 +2573,7 @@ public class ModelFactoryImpl implements IModelFactory {
         InterfaceRealization newElement = this.genericFactory.create(InterfaceRealization.class, source);
         newElement.setImplementer(source);
         newElement.setImplemented(destination);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2173,7 +2581,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public InternalTransition createInternalTransition() {
         InternalTransition newElement = this.genericFactory.create(InternalTransition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2182,7 +2590,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public InterruptibleActivityRegion createInterruptibleActivityRegion() {
         InterruptibleActivityRegion newElement = this.genericFactory.create(InterruptibleActivityRegion.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2190,7 +2598,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public JoinPseudoState createJoinPseudoState() {
         JoinPseudoState newElement = this.genericFactory.create(JoinPseudoState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2198,7 +2606,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public JunctionPseudoState createJunctionPseudoState() {
         JunctionPseudoState newElement = this.genericFactory.create(JunctionPseudoState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2206,7 +2614,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Lifeline createLifeline() {
         Lifeline newElement = this.genericFactory.create(Lifeline.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2216,7 +2624,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Lifeline newElement = this.genericFactory.create(Lifeline.class, owner);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2226,16 +2634,8 @@ public class ModelFactoryImpl implements IModelFactory {
         Lifeline newElement = this.genericFactory.create(Lifeline.class, owner);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         newElement.setRepresented(represented);
-        return newElement;
-    }
-
-    @objid ("bbf34d3f-470c-4874-a813-fce95f8dc6c3")
-    @Override
-    public LinkEnd createLinkEnd() {
-        final LinkEnd newElement = this.genericFactory.create(LinkEnd.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
         return newElement;
     }
 
@@ -2260,11 +2660,34 @@ public class ModelFactoryImpl implements IModelFactory {
         return newLink;
     }
 
+    @objid ("294833d8-1ac5-4964-82b2-0116c9bdcda4")
+    @Override
+    public Link createLink() {
+        Link newElement = this.genericFactory.create(Link.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("bbf34d3f-470c-4874-a813-fce95f8dc6c3")
+    @Override
+    public LinkEnd createLinkEnd() {
+        final LinkEnd newElement = this.genericFactory.create(LinkEnd.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("f2e73bfe-063b-4c2f-b49c-22449fb89c02")
+    @Override
+    public LocalPropertyTable createLocalPropertyTable() {
+        LocalPropertyTable newElement = this.genericFactory.create(LocalPropertyTable.class, this.localRepository);
+        return newElement;
+    }
+
     @objid ("621aadc8-3f1b-40d6-b11e-f829fec42862")
     @Override
     public LoopNode createLoopNode() {
         LoopNode newElement = this.genericFactory.create(LoopNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2272,7 +2695,23 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Manifestation createManifestation() {
         Manifestation newElement = this.genericFactory.create(Manifestation.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("b1e92e78-5d17-47ec-9229-e85efc0c73ff")
+    @Override
+    public MatrixDefinition createMatrixDefinition() {
+        MatrixDefinition newElement = this.genericFactory.create(MatrixDefinition.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("18d6ea08-cee1-4ae1-bde9-4dd045d590fc")
+    @Override
+    public MatrixValueDefinition createMatrixValueDefinition() {
+        MatrixValueDefinition newElement = this.genericFactory.create(MatrixValueDefinition.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2280,7 +2719,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Message createMessage() {
         Message newElement = this.genericFactory.create(Message.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2288,7 +2727,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Message createMessage(MessageSort sort) {
         Message newElement = this.genericFactory.create(Message.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         newElement.setSortOfMessage(sort);
         return newElement;
     }
@@ -2298,7 +2737,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public Message createMessage(MessageSort sort, Operation invoked) {
         Message newElement = this.genericFactory.create(Message.class, this.scratchRepository);
         newElement.setInvoked(invoked);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         newElement.setSortOfMessage(sort);
         return newElement;
     }
@@ -2307,7 +2746,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Message createMessage(String name, MessageSort sort) {
         Message newElement = this.genericFactory.create(Message.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         newElement.setSortOfMessage(sort);
         return newElement;
     }
@@ -2316,7 +2755,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public MessageFlow createMessageFlow() {
         MessageFlow newElement = this.genericFactory.create(MessageFlow.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2324,7 +2763,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public MetaclassReference createMetaclassReference() {
         MetaclassReference newElement = this.genericFactory.create(MetaclassReference.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2332,7 +2771,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ModuleComponent createModule() {
         ModuleComponent newElement = this.genericFactory.create(ModuleComponent.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2340,7 +2779,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public NamespaceUse createNamespaceUse() {
         NamespaceUse newElement = this.genericFactory.create(NamespaceUse.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2348,7 +2787,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public NaryAssociation createNaryAssociation() {
         NaryAssociation newElement = this.genericFactory.create(NaryAssociation.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2361,7 +2800,7 @@ public class ModelFactoryImpl implements IModelFactory {
             newEnd.setOwner(end);
             newElement.getNaryEnd().add(newEnd);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2369,7 +2808,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public NaryAssociationEnd createNaryAssociationEnd() {
         NaryAssociationEnd newElement = this.genericFactory.create(NaryAssociationEnd.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2377,7 +2816,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public NaryConnector createNaryConnector() {
         NaryConnector newElement = this.genericFactory.create(NaryConnector.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2392,7 +2831,15 @@ public class ModelFactoryImpl implements IModelFactory {
             newElement.getNaryLinkEnd().add(newEnd);
         }
         
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("eb459333-6c5d-4d6b-9d5c-19d183a8f1f9")
+    @Override
+    public NaryConnectorEnd createNaryConnectorEnd() {
+        NaryConnectorEnd newElement = this.genericFactory.create(NaryConnectorEnd.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2400,7 +2847,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public NaryLink createNaryLink() {
         final NaryLink newElement = this.genericFactory.create(NaryLink.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2415,7 +2862,15 @@ public class ModelFactoryImpl implements IModelFactory {
             newElement.getNaryLinkEnd().add(newEnd);
         }
         
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("b113251c-b233-4156-828e-df5e4a4ffd9b")
+    @Override
+    public NaryLinkEnd createNaryLinkEnd() {
+        final NaryLinkEnd newElement = this.genericFactory.create(NaryLinkEnd.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2423,7 +2878,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Node createNode() {
         Node newElement = this.genericFactory.create(Node.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2431,7 +2886,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Note createNote() {
         Note newElement = this.genericFactory.create(Note.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2442,15 +2897,34 @@ public class ModelFactoryImpl implements IModelFactory {
         newElement.setSubject(owner);
         newElement.setContent(content);
         newElement.setModel(noteType);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("70704dab-b85d-46b0-a22c-72e5e90e215f")
+    @Override
+    public Note createNote(String moduleName, String noteTypeName, ModelElement owner, String content) throws ExtensionNotFoundException {
+        NoteType type = this.extensionCache.getNoteType(moduleName, noteTypeName, owner.getMClass());
+        
+        if (type == null) {
+            List<NoteType> noteTypes = findNoteType(moduleName, noteTypeName, owner.getMClass());
+            if (noteTypes.size() == 0) {
+                throw new ExtensionNotFoundException("'" + noteTypeName + "' note type not found");
+            } else if (noteTypes.size() == 1) {
+                type = noteTypes.get(0);
+                this.extensionCache.add(moduleName, owner.getMClass(), type);
+            } else {
+                throw new InvalidParameterException("'" + noteTypeName + "' note type is not unique in module '" + moduleName + "'");
+            }
+        }
+        return createNote(type, owner, content);
     }
 
     @objid ("99f1ea21-dfb2-4b96-96e4-8d09a630aa60")
     @Override
     public NoteType createNoteType() {
         NoteType newElement = this.genericFactory.create(NoteType.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2458,7 +2932,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ObjectDiagram createObjectDiagram() {
         ObjectDiagram newElement = this.genericFactory.create(ObjectDiagram.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2468,7 +2942,7 @@ public class ModelFactoryImpl implements IModelFactory {
         ObjectDiagram newElement = this.genericFactory.create(ObjectDiagram.class, diagramContext);
         newElement.setName(name);
         newElement.setOrigin(diagramContext);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2481,7 +2955,7 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2489,7 +2963,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ObjectFlow createObjectFlow() {
         ObjectFlow newElement = this.genericFactory.create(ObjectFlow.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2497,7 +2971,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public OpaqueAction createOpaqueAction() {
         OpaqueAction newElement = this.genericFactory.create(OpaqueAction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2505,7 +2979,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public OpaqueBehavior createOpaqueBehavior() {
         OpaqueBehavior newElement = this.genericFactory.create(OpaqueBehavior.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2513,7 +2987,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Operation createOperation() {
         Operation newElement = this.genericFactory.create(Operation.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2523,7 +2997,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Operation newElement = this.genericFactory.create(Operation.class, owner);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2536,15 +3010,28 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("b21166e8-ce50-4c64-84cf-a0fdcc18bb57")
+    @Override
+    public Operation createOperation(String name, Classifier owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Operation.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createOperation(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("cd807d5b-242b-4a34-8818-679f67cb35dc")
     @Override
     public OutputPin createOutputPin() {
         OutputPin newElement = this.genericFactory.create(OutputPin.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2552,7 +3039,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Package createPackage() {
         Package newElement = this.genericFactory.create(Package.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2562,7 +3049,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Package newElement = this.genericFactory.create(Package.class, owner);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2575,15 +3062,28 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("a62f35fa-f7d1-499d-a9b9-f9f42eb7122b")
+    @Override
+    public Package createPackage(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Package.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createPackage(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("de0c1408-0fcc-489d-ad71-8c6f610d9fd7")
     @Override
     public PackageImport createPackageImport() {
         PackageImport newElement = this.genericFactory.create(PackageImport.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2593,7 +3093,7 @@ public class ModelFactoryImpl implements IModelFactory {
         PackageImport newElement = this.genericFactory.create(PackageImport.class, source);
         newElement.setImportingNameSpace(source);
         newElement.setImportedPackage(destination);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2603,7 +3103,7 @@ public class ModelFactoryImpl implements IModelFactory {
         PackageImport newElement = this.genericFactory.create(PackageImport.class, source);
         newElement.setImportingOperation(source);
         newElement.setImportedPackage(destination);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2611,7 +3111,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public PackageMerge createPackageMerge() {
         PackageMerge newElement = this.genericFactory.create(PackageMerge.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2619,7 +3119,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Parameter createParameter() {
         Parameter newElement = this.genericFactory.create(Parameter.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2627,7 +3127,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public PartDecomposition createPartDecomposition() {
         PartDecomposition newElement = this.genericFactory.create(PartDecomposition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2636,7 +3136,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public PartDecomposition createPartDecomposition(Interaction refered) {
         PartDecomposition newElement = this.genericFactory.create(PartDecomposition.class, this.scratchRepository);
         newElement.setRefersTo(refered);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2644,7 +3144,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Port createPort() {
         Port newElement = this.genericFactory.create(Port.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2654,7 +3154,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Port newElement = this.genericFactory.create(Port.class, owner);
         newElement.setName(name);
         newElement.setCluster(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2664,7 +3164,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Port newElement = this.genericFactory.create(Port.class, owner);
         newElement.setName(name);
         newElement.setInternalOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2672,7 +3172,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Profile createProfile() {
         Profile newElement = this.genericFactory.create(Profile.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2680,15 +3180,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Project createProject() {
         Project newElement = this.genericFactory.create(Project.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("35630d7f-8ea6-457f-adc1-922c8b69c442")
-    @Override
-    public PropertyDefinition createPropertyDefinition() {
-        PropertyDefinition newElement = this.genericFactory.create(PropertyDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2696,7 +3188,15 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public PropertyContainer createPropertyContainer() {
         PropertyContainer newElement = this.genericFactory.create(PropertyContainer.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("35630d7f-8ea6-457f-adc1-922c8b69c442")
+    @Override
+    public PropertyDefinition createPropertyDefinition() {
+        PropertyDefinition newElement = this.genericFactory.create(PropertyDefinition.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2705,7 +3205,14 @@ public class ModelFactoryImpl implements IModelFactory {
     public PropertyEnumerationLitteral createPropertyEnumerationLitteral() {
         PropertyEnumerationLitteral newElement = this.genericFactory.create(PropertyEnumerationLitteral.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("ba488406-f7c4-4714-9011-e4c1edf6da07")
+    @Override
+    public PropertyTable createPropertyTable() {
+        PropertyTable newElement = this.genericFactory.create(PropertyTable.class, this.scratchRepository);
         return newElement;
     }
 
@@ -2713,7 +3220,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public PropertyTableDefinition createPropertyTableDefinition() {
         PropertyTableDefinition newElement = this.genericFactory.create(PropertyTableDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2721,15 +3228,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public PropertyType createPropertyType() {
         PropertyType newElement = this.genericFactory.create(PropertyType.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("54739c8c-189a-48e3-b2dc-b4a7cf27621a")
-    @Override
-    public TypedPropertyTable createTypedPropertyTable() {
-        TypedPropertyTable newElement = this.genericFactory.create(TypedPropertyTable.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2737,7 +3236,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ProvidedInterface createProvidedInterface() {
         ProvidedInterface newElement = this.genericFactory.create(ProvidedInterface.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2749,7 +3248,15 @@ public class ModelFactoryImpl implements IModelFactory {
         for (Interface interface1 : interfaces) {
             newElement.getProvidedElement().add(interface1);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("70ebbe78-22ea-4b24-83c7-cb454421fb6b")
+    @Override
+    public QueryDefinition createQueryDefinition() {
+        QueryDefinition newElement = this.genericFactory.create(QueryDefinition.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2757,7 +3264,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public RaisedException createRaisedException() {
         RaisedException newElement = this.genericFactory.create(RaisedException.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2765,7 +3272,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Region createRegion() {
         Region newElement = this.genericFactory.create(Region.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2773,7 +3280,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public RequiredInterface createRequiredInterface() {
         RequiredInterface newElement = this.genericFactory.create(RequiredInterface.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2782,7 +3289,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public RequiredInterface createRequiredInterface(Port owner, List<Interface> interfaces) {
         RequiredInterface newElement = this.genericFactory.create(RequiredInterface.class, owner);
         newElement.setRequiring(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         for (Interface interface1 : interfaces) {
             newElement.getRequiredElement().add(interface1);
         }
@@ -2793,7 +3300,27 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Requirement createRequirement() {
         Requirement newElement = this.genericFactory.create(Requirement.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("97762b20-95b0-4e85-b5e1-00d2322f51bf")
+    @Override
+    public Requirement createRequirement(String name, Requirement owner) {
+        Requirement newElement = this.genericFactory.create(Requirement.class, this.scratchRepository);
+        newElement.setParentRequirement(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("a599c54d-3d63-423e-a48a-28d27d2ec44c")
+    @Override
+    public Requirement createRequirement(String name, RequirementContainer owner) {
+        Requirement newElement = this.genericFactory.create(Requirement.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2801,7 +3328,17 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public RequirementContainer createRequirementContainer() {
         RequirementContainer newElement = this.genericFactory.create(RequirementContainer.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("ceba26bd-dd32-4b4e-a0f5-2f3880a72eda")
+    @Override
+    public RequirementContainer createRequirementContainer(String name, RequirementContainer owner) {
+        RequirementContainer newElement = this.genericFactory.create(RequirementContainer.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2811,7 +3348,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Parameter newElement = this.genericFactory.create(Parameter.class, owner);
         newElement.setReturned(owner);
         newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         newElement.setType(type);
         return newElement;
     }
@@ -2825,8 +3362,67 @@ public class ModelFactoryImpl implements IModelFactory {
         if (stereotype != null) {
             newElement.getExtension().add(stereotype);
         }
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         newElement.setType(type);
+        return newElement;
+    }
+
+    @objid ("0ccdd41f-b11f-4c67-b5e3-3827041be582")
+    @Override
+    public Parameter createReturnParameter(String name, GeneralClass type, Operation owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(Parameter.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createReturnParameter(name, type, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
+    }
+
+    @objid ("9ea5cfae-9887-4ab8-90bb-baf3b5f17b96")
+    @Override
+    public Risk createRisk() {
+        Risk newElement = this.genericFactory.create(Risk.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("e8ae307f-ba92-4b35-af5d-9edf752c97b6")
+    @Override
+    public Risk createRisk(String name, Risk owner) {
+        Risk newElement = this.genericFactory.create(Risk.class, this.scratchRepository);
+        newElement.setParentRisk(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("72709997-3552-4ff0-be2a-83f29cd90488")
+    @Override
+    public Risk createRisk(String name, RiskContainer owner) {
+        Risk newElement = this.genericFactory.create(Risk.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("789bb162-22f4-474b-8ee1-f304280b0856")
+    @Override
+    public RiskContainer createRiskContainer() {
+        RiskContainer newElement = this.genericFactory.create(RiskContainer.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("c4d08b11-82c1-422e-9baa-8840b96e71a7")
+    @Override
+    public RiskContainer createRiskContainer(String name, RiskContainer owner) {
+        RiskContainer newElement = this.genericFactory.create(RiskContainer.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2834,7 +3430,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public SendSignalAction createSendSignalAction() {
         SendSignalAction newElement = this.genericFactory.create(SendSignalAction.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2842,7 +3438,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public SequenceDiagram createSequenceDiagram() {
         SequenceDiagram newElement = this.genericFactory.create(SequenceDiagram.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2852,7 +3448,7 @@ public class ModelFactoryImpl implements IModelFactory {
         SequenceDiagram newElement = this.genericFactory.create(SequenceDiagram.class, contextElement);
         newElement.setName(name);
         newElement.setOrigin(contextElement);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2860,7 +3456,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ShallowHistoryPseudoState createShallowHistoryPseudoState() {
         ShallowHistoryPseudoState newElement = this.genericFactory.create(ShallowHistoryPseudoState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2868,7 +3464,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Signal createSignal() {
         Signal newElement = this.genericFactory.create(Signal.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2876,7 +3472,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public State createState() {
         State newElement = this.genericFactory.create(State.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2884,7 +3480,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public StateInvariant createStateInvariant() {
         StateInvariant newElement = this.genericFactory.create(StateInvariant.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2893,7 +3489,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public StateInvariant createStateInvariant(String body) {
         StateInvariant newElement = this.genericFactory.create(StateInvariant.class, this.scratchRepository);
         newElement.setBody(body);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2903,7 +3499,7 @@ public class ModelFactoryImpl implements IModelFactory {
         StateMachine newElement = this.genericFactory.create(StateMachine.class, this.scratchRepository);
         Region region = createRegion();
         newElement.setTop(region);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2911,7 +3507,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public StateMachineDiagram createStateMachineDiagram() {
         StateMachineDiagram newElement = this.genericFactory.create(StateMachineDiagram.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2922,7 +3518,7 @@ public class ModelFactoryImpl implements IModelFactory {
         newElement.setName(name);
         newElement.setOrigin(diagramContext);
         attachStereotype(newElement, stereotype);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2930,7 +3526,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public StaticDiagram createStaticDiagram() {
         StaticDiagram newElement = this.genericFactory.create(StaticDiagram.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2941,15 +3537,28 @@ public class ModelFactoryImpl implements IModelFactory {
         newElement.setName(name);
         newElement.setOrigin(contextElement);
         attachStereotype(newElement, stereotype);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("6eeadc3e-f13d-4239-9ecb-b0785b6d1893")
+    @Override
+    public StaticDiagram createStaticDiagram(String name, ModelElement owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(StaticDiagram.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createStaticDiagram(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("e7fdef6a-9af4-4c4d-b1ff-5382a7c722a1")
     @Override
     public Stereotype createStereotype() {
         Stereotype newElement = this.genericFactory.create(Stereotype.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2957,7 +3566,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public StructuredActivityNode createStructuredActivityNode() {
         StructuredActivityNode newElement = this.genericFactory.create(StructuredActivityNode.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2965,7 +3574,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Substitution createSubstitution() {
         Substitution newElement = this.genericFactory.create(Substitution.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2973,7 +3582,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public TagParameter createTagParameter() {
         TagParameter newElement = this.genericFactory.create(TagParameter.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2983,7 +3592,7 @@ public class ModelFactoryImpl implements IModelFactory {
         TagParameter newElement = this.genericFactory.create(TagParameter.class, owner);
         newElement.setValue(value);
         newElement.setAnnoted(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2991,7 +3600,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public TagType createTagType() {
         TagType newElement = this.genericFactory.create(TagType.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -2999,7 +3608,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public TaggedValue createTaggedValue() {
         TaggedValue newElement = this.genericFactory.create(TaggedValue.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3022,11 +3631,21 @@ public class ModelFactoryImpl implements IModelFactory {
         return createTaggedValue(type, owner);
     }
 
+    @objid ("506bd8fd-612a-4549-8652-d67a461afd7f")
+    @Override
+    public TaggedValue createTaggedValue(TagType tagType, ModelElement owner) {
+        TaggedValue newElement = this.genericFactory.create(TaggedValue.class, owner);
+        newElement.setAnnoted(owner);
+        this.elementInitializer.initialize(newElement);
+        newElement.setDefinition(tagType);
+        return newElement;
+    }
+
     @objid ("ccd4e66d-8302-4ebe-899f-bff83d9695d6")
     @Override
     public TemplateBinding createTemplateBinding() {
         TemplateBinding newElement = this.genericFactory.create(TemplateBinding.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3034,7 +3653,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public TemplateParameter createTemplateParameter() {
         TemplateParameter newElement = this.genericFactory.create(TemplateParameter.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3043,7 +3662,7 @@ public class ModelFactoryImpl implements IModelFactory {
     public TemplateParameterSubstitution createTemplateParameterSubstitution() {
         TemplateParameterSubstitution newElement = this.genericFactory.create(TemplateParameterSubstitution.class,
                 this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3051,7 +3670,17 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Term createTerm() {
         Term newElement = this.genericFactory.create(Term.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("66d19174-d6b0-400e-8c5b-3b5078774e08")
+    @Override
+    public Term createTerm(String name, Dictionary owner) {
+        Term newElement = this.genericFactory.create(Term.class, this.scratchRepository);
+        newElement.setOwnerDictionary(owner);
+        newElement.setName(name);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3059,7 +3688,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public TerminatePseudoState createTerminatePseudoState() {
         TerminatePseudoState newElement = this.genericFactory.create(TerminatePseudoState.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3067,7 +3696,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public TerminateSpecification createTerminateSpecification() {
         TerminateSpecification newElement = this.genericFactory.create(TerminateSpecification.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3075,7 +3704,15 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Transition createTransition() {
         Transition newElement = this.genericFactory.create(Transition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
+        return newElement;
+    }
+
+    @objid ("54739c8c-189a-48e3-b2dc-b4a7cf27621a")
+    @Override
+    public TypedPropertyTable createTypedPropertyTable() {
+        TypedPropertyTable newElement = this.genericFactory.create(TypedPropertyTable.class, this.scratchRepository);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3083,7 +3720,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public Usage createUsage() {
         Usage newElement = this.genericFactory.create(Usage.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3093,7 +3730,7 @@ public class ModelFactoryImpl implements IModelFactory {
         Usage newElement = this.genericFactory.create(Usage.class, source);
         newElement.setImpacted(source);
         newElement.setDependsOn(destination);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3101,7 +3738,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public UseCase createUseCase() {
         UseCase newElement = this.genericFactory.create(UseCase.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3111,7 +3748,7 @@ public class ModelFactoryImpl implements IModelFactory {
         UseCase newElement = this.genericFactory.create(UseCase.class, this.scratchRepository);
         newElement.setName(name);
         newElement.setOwner(owner);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3122,15 +3759,28 @@ public class ModelFactoryImpl implements IModelFactory {
         newElement.setName(name);
         newElement.setOwner(owner);
         attachStereotype(newElement, stereotype);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
+    }
+
+    @objid ("7769a321-3c24-4904-9475-2518fb477d84")
+    @Override
+    public UseCase createUseCase(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(UseCase.class));
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            return createUseCase(name, owner, stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     @objid ("45ead6b6-f8a8-42dc-8b81-bbae0b6d739b")
     @Override
     public UseCaseDependency createUseCaseDependency() {
         UseCaseDependency newElement = this.genericFactory.create(UseCaseDependency.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3138,7 +3788,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public UseCaseDiagram createUseCaseDiagram() {
         UseCaseDiagram newElement = this.genericFactory.create(UseCaseDiagram.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3148,7 +3798,7 @@ public class ModelFactoryImpl implements IModelFactory {
         UseCaseDiagram newElement = this.genericFactory.create(UseCaseDiagram.class, diagramContext);
         newElement.setName(name);
         newElement.setOrigin(diagramContext);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3159,7 +3809,7 @@ public class ModelFactoryImpl implements IModelFactory {
         newElement.setName(name);
         newElement.setOrigin(diagramContext);
         attachStereotype(newElement, stereotype);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
@@ -3167,101 +3817,54 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public ValuePin createValuePin() {
         ValuePin newElement = this.genericFactory.create(ValuePin.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
+        this.elementInitializer.initialize(newElement);
         return newElement;
     }
 
-    @objid ("fbe6a821-0ca9-49df-ac7a-eb81cac78992")
-    @SuppressWarnings("static-method")
-    private void attachStereotype(ModelElement newElement, final Stereotype stereotype) {
-        if (stereotype != null) {
-            newElement.getExtension().add(stereotype);
+    @objid ("f68cd3bb-68af-4c14-9b22-3cbab8f10921")
+    @Override
+    public List<ExternDocumentType> findExternDocumentType(String moduleName, String externDocumentType, MClass metaclass) {
+        Pattern p = Pattern.compile((moduleName == null || moduleName.isEmpty()) ? ".*" : moduleName);
+        List<ExternDocumentType> ret = new ArrayList<>();
+        for (ExternDocumentType type : this.iModel.findByAtt(ExternDocumentType.class, "Name", externDocumentType)) {
+            ModuleComponent module = type.getModule();
+            if (module != null) {
+                MClass steClass = getBaseClass(type.getOwnerReference(), type.getOwnerStereotype());
+                if (steClass != null && metaclass.hasBase(steClass) && p.matcher(module.getName()).matches()) {
+                    ret.add(type);
+                }
+            }
         }
+        return ret;
     }
 
-    @objid ("ba488406-f7c4-4714-9011-e4c1edf6da07")
+    @objid ("8753769c-1a5e-4a5e-8110-c5ad8d931e68")
     @Override
-    public PropertyTable createPropertyTable() {
-        PropertyTable newElement = this.genericFactory.create(PropertyTable.class, this.scratchRepository);
-        return newElement;
+    public List<ExternDocumentType> findExternDocumentType(String moduleName, String externDocumentType, java.lang.Class<ModelElement> javaClass) {
+        return findExternDocumentType(moduleName, externDocumentType, this.metamodel.getMClass(javaClass));
     }
 
-    @objid ("f2e73bfe-063b-4c2f-b49c-22449fb89c02")
+    @objid ("cfa42419-2bb0-4526-9a23-c377f079e6eb")
     @Override
-    public LocalPropertyTable createLocalPropertyTable() {
-        LocalPropertyTable newElement = this.genericFactory.create(LocalPropertyTable.class, this.localRepository);
-        return newElement;
+    public List<NoteType> findNoteType(String moduleName, String noteType, MClass metaclass) {
+        Pattern p = Pattern.compile((moduleName == null || moduleName.isEmpty()) ? ".*" : moduleName);
+        List<NoteType> ret = new ArrayList<>();
+        for (NoteType type : this.iModel.findByAtt(NoteType.class, "Name", noteType)) {
+            ModuleComponent module = type.getModule();
+            if (module != null) {
+                MClass steClass = getBaseClass(type.getOwnerReference(), type.getOwnerStereotype());
+                if (steClass != null && metaclass.hasBase(steClass) && p.matcher(module.getName()).matches()) {
+                    ret.add(type);
+                }
+            }
+        }
+        return ret;
     }
 
-    @objid ("70e6e4ec-387d-4e68-a359-6aaed028b611")
+    @objid ("577b24ea-9fb9-4eae-be82-ea03a1a7a4d3")
     @Override
-    public AnalystPropertyTable createAnalystPropertyTable() {
-        AnalystPropertyTable newElement = this.genericFactory.create(AnalystPropertyTable.class, this.scratchRepository);
-        return newElement;
-    }
-
-    @objid ("eb459333-6c5d-4d6b-9d5c-19d183a8f1f9")
-    @Override
-    public NaryConnectorEnd createNaryConnectorEnd() {
-        NaryConnectorEnd newElement = this.genericFactory.create(NaryConnectorEnd.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("b113251c-b233-4156-828e-df5e4a4ffd9b")
-    @Override
-    public NaryLinkEnd createNaryLinkEnd() {
-        final NaryLinkEnd newElement = this.genericFactory.create(NaryLinkEnd.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("e7873e1b-37d5-4b27-8ac2-e35f1f5bd6cd")
-    @Override
-    public Goal createGoal() {
-        Goal newElement = this.genericFactory.create(Goal.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("db4983c1-99f8-4b33-abae-cf482bafc7b3")
-    @Override
-    public GoalContainer createGoalContainer() {
-        GoalContainer newElement = this.genericFactory.create(GoalContainer.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("e7cfaf38-41db-4ab1-9c12-ec85162d3ba3")
-    @Override
-    public BusinessRule createBusinessRule() {
-        BusinessRule newElement = this.genericFactory.create(BusinessRule.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("d3f13285-b14b-4985-abb7-c1d944536f0c")
-    @Override
-    public BusinessRuleContainer createBusinessRuleContainer() {
-        BusinessRuleContainer newElement = this.genericFactory.create(BusinessRuleContainer.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("ecb3ec08-a67b-43b3-9b34-29756e3c0d46")
-    @Override
-    public Connector createConnector() {
-        Connector newElement = this.genericFactory.create(Connector.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("294833d8-1ac5-4964-82b2-0116c9bdcda4")
-    @Override
-    public Link createLink() {
-        Link newElement = this.genericFactory.create(Link.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
+    public List<NoteType> findNoteType(String moduleName, String noteType, java.lang.Class<ModelElement> javaClass) {
+        return findNoteType(moduleName, noteType, this.metamodel.getMClass(javaClass));
     }
 
     @objid ("a87cf758-09c2-4700-a0fc-3489b9a5a218")
@@ -3284,6 +3887,12 @@ public class ModelFactoryImpl implements IModelFactory {
         return ret;
     }
 
+    @objid ("28c02e14-f435-49f6-bb2e-79ae5a948208")
+    @Override
+    public List<Stereotype> findStereotype(String moduleName, String stereotypeName, java.lang.Class<ModelElement> javaClass) {
+        return findStereotype(moduleName, stereotypeName, this.metamodel.getMClass(javaClass));
+    }
+
     @objid ("b5187226-b786-4151-8676-ee5157b597fc")
     @Override
     public List<TagType> findTagType(String moduleName, String tagType, MClass metaclass) {
@@ -3301,558 +3910,39 @@ public class ModelFactoryImpl implements IModelFactory {
         return ret;
     }
 
-    @objid ("cfa42419-2bb0-4526-9a23-c377f079e6eb")
+    @objid ("364b28eb-c40d-4b33-9c44-23cd1ae21ff9")
     @Override
-    public List<NoteType> findNoteType(String moduleName, String noteType, MClass metaclass) {
-        Pattern p = Pattern.compile((moduleName == null || moduleName.isEmpty()) ? ".*" : moduleName);
-        List<NoteType> ret = new ArrayList<>();
-        for (NoteType type : this.iModel.findByAtt(NoteType.class, "Name", noteType)) {
-            ModuleComponent module = type.getModule();
-            if (module != null) {
-                MClass steClass = getBaseClass(type.getOwnerReference(), type.getOwnerStereotype());
-                if (steClass != null && metaclass.hasBase(steClass) && p.matcher(module.getName()).matches()) {
-                    ret.add(type);
-                }
-            }
-        }
-        return ret;
+    public List<TagType> findTagType(String moduleName, String tagType, java.lang.Class<ModelElement> javaClass) {
+        return findTagType(moduleName, tagType, this.metamodel.getMClass(javaClass));
     }
 
-    @objid ("f68cd3bb-68af-4c14-9b22-3cbab8f10921")
+    @objid ("ab64d3c5-50e5-4da7-a0c7-ca3a6d79e133")
     @Override
-    public List<ExternDocumentType> findExternDocumentType(String moduleName, String externDocumentType, MClass metaclass) {
-        Pattern p = Pattern.compile((moduleName == null || moduleName.isEmpty()) ? ".*" : moduleName);
-        List<ExternDocumentType> ret = new ArrayList<>();
-        for (ExternDocumentType type : this.iModel.findByAtt(ExternDocumentType.class, "Name", externDocumentType)) {
-            ModuleComponent module = type.getModule();
-            if (module != null) {
-                MClass steClass = getBaseClass(type.getOwnerReference(), type.getOwnerStereotype());
-                if (steClass != null && metaclass.hasBase(steClass) && p.matcher(module.getName()).matches()) {
-                    ret.add(type);
-                }
-            }
-        }
-        return ret;
+    public void setDefaultValue(String key, Object value) {
+        this.elementInitializer.setDefaultValue(key, value);
     }
 
-    @objid ("506bd8fd-612a-4549-8652-d67a461afd7f")
-    @Override
-    public TaggedValue createTaggedValue(TagType tagType, ModelElement owner) {
-        TaggedValue newElement = this.genericFactory.create(TaggedValue.class, owner);
-        newElement.setAnnoted(owner);
-        this.elementInitializer.initialize(this, newElement);
-        newElement.setDefinition(tagType);
-        return newElement;
-    }
-
-    @objid ("0dca8764-fe51-4fb4-8830-90f9699284c8")
-    @Override
-    public Actor createActor(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Actor.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createActor(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+    @objid ("fbe6a821-0ca9-49df-ac7a-eb81cac78992")
+    @SuppressWarnings("static-method")
+    private void attachStereotype(ModelElement newElement, final Stereotype stereotype) {
+        if (stereotype != null) {
+            newElement.getExtension().add(stereotype);
         }
-    }
-
-    @objid ("ffb90d07-3c2c-4ba6-8aa4-528e1f3b2d68")
-    @Override
-    public Artifact createArtifact(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Artifact.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createArtifact(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("97a37f51-8c66-4f08-a227-4b2b0339b647")
-    @Override
-    public Attribute createAttribute(String name, GeneralClass type, Classifier owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Attribute.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createAttribute(name, type, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("5d0af5a4-d33b-4b11-8e8c-5de2fda94ef8")
-    @Override
-    public Class createClass(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Class.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createClass(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("56b3b772-d1a2-4a85-b816-ba4a0633d3eb")
-    @Override
-    public Component createComponent(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Component.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createComponent(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("681f17bd-47a8-4d82-b0af-982f2ff95e92")
-    @Override
-    public DataType createDataType(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(DataType.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createDataType(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("e13d0016-5bcf-4ad1-a5ab-821b43a5d475")
-    @Override
-    public Dependency createDependency(ModelElement source, ModelElement destination, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Dependency.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createDependency(source, destination, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("b1063a8e-3115-47a3-9f9b-e9a8a255efbd")
-    @Override
-    public Enumeration createEnumeration(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Enumeration.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createEnumeration(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("80673d17-8b5f-448f-9235-0afd64b1ec1c")
-    @Override
-    public EnumerationLiteral createEnumerationLiteral(String name, Enumeration owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(EnumerationLiteral.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createEnumerationLiteral(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("863e4df2-a6eb-44c9-8865-8af1b7b2545f")
-    @Override
-    public Parameter createIOParameter(String name, GeneralClass type, Operation owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Parameter.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createIOParameter(name, type, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("461e0905-c616-4f83-99d8-397395004631")
-    @Override
-    public Interface createInterface(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Interface.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createInterface(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("b21166e8-ce50-4c64-84cf-a0fdcc18bb57")
-    @Override
-    public Operation createOperation(String name, Classifier owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Operation.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createOperation(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("a62f35fa-f7d1-499d-a9b9-f9f42eb7122b")
-    @Override
-    public Package createPackage(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Package.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createPackage(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("0ccdd41f-b11f-4c67-b5e3-3827041be582")
-    @Override
-    public Parameter createReturnParameter(String name, GeneralClass type, Operation owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(Parameter.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createReturnParameter(name, type, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("6eeadc3e-f13d-4239-9ecb-b0785b6d1893")
-    @Override
-    public StaticDiagram createStaticDiagram(String name, ModelElement owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(StaticDiagram.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createStaticDiagram(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("7769a321-3c24-4904-9475-2518fb477d84")
-    @Override
-    public UseCase createUseCase(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        List<Stereotype> stereotypes = findStereotype(moduleName, stereotypeName, Metamodel.getMClass(UseCase.class));
-        if (stereotypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
-        } else if (stereotypes.size() == 1) {
-            return createUseCase(name, owner, stereotypes.get(0));
-        } else {
-            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
-        }
-    }
-
-    @objid ("8e995c68-fd7a-4d94-a31e-40ceef5ca871")
-    @Override
-    public ExternDocument createExternDocument(final String moduleName, final String documentRole, final ModelElement owner, final String mimeType) throws ExtensionNotFoundException {
-        List<ExternDocumentType> externDocumentTypes = findExternDocumentType(moduleName, documentRole, owner.getMClass());
-        if (externDocumentTypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + documentRole + "' extern document type not found");
-        } else if (externDocumentTypes.size() == 1) {
-            return createExternDocument(externDocumentTypes.get(0), owner, mimeType);
-        } else {
-            throw new InvalidParameterException("'" + documentRole + "' extern document type is not unique in module '"
-                    + moduleName + "'");
-        }
-    }
-
-    @objid ("70704dab-b85d-46b0-a22c-72e5e90e215f")
-    @Override
-    public Note createNote(String moduleName, String noteTypeName, ModelElement owner, String content) throws ExtensionNotFoundException {
-        NoteType type = this.extensionCache.getNoteType(moduleName, noteTypeName, owner.getMClass());
-        
-        if (type == null) {
-            List<NoteType> noteTypes = findNoteType(moduleName, noteTypeName, owner.getMClass());
-            if (noteTypes.size() == 0) {
-                throw new ExtensionNotFoundException("'" + noteTypeName + "' note type not found");
-            } else if (noteTypes.size() == 1) {
-                type = noteTypes.get(0);
-                this.extensionCache.add(moduleName, owner.getMClass(), type);
-            } else {
-                throw new InvalidParameterException("'" + noteTypeName + "' note type is not unique in module '" + moduleName + "'");
-            }
-        }
-        return createNote(type, owner, content);
     }
 
     @objid ("4e9af36e-cdb2-4700-8d49-b1d6a29c76f9")
-    private static MClass getBaseClass(String baseName) {
-        return Metamodel.getMClass(baseName);
+    private MClass getBaseClass(String baseName) {
+        return this.metamodel.getMClass(baseName);
     }
 
     @objid ("1800f917-d44f-46d6-9851-7f8a05c6131a")
-    private static MClass getBaseClass(MetaclassReference classRef, Stereotype ste) {
+    private MClass getBaseClass(MetaclassReference classRef, Stereotype ste) {
         if (ste != null) {
             return getBaseClass(ste.getBaseClassName());
         } else if (classRef != null) {
             return getBaseClass(classRef.getReferencedClassName());
         }
         return null;
-    }
-
-    @objid ("a255717e-2c9a-4101-b095-467940f51acc")
-    @Override
-    public GoalContainer createGoalContainer(String name, GoalContainer owner) {
-        GoalContainer newElement = this.genericFactory.create(GoalContainer.class, this.scratchRepository);
-        newElement.setOwnerContainer(owner);
-        newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("66d19174-d6b0-400e-8c5b-3b5078774e08")
-    @Override
-    public Term createTerm(String name, Dictionary owner) {
-        Term newElement = this.genericFactory.create(Term.class, this.scratchRepository);
-        newElement.setOwnerDictionary(owner);
-        newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("454745f9-a1da-4c6f-96de-0a43722e3345")
-    @Override
-    public BusinessRuleContainer createBusinessRuleContainer(String name, BusinessRuleContainer owner) {
-        BusinessRuleContainer newElement = this.genericFactory.create(BusinessRuleContainer.class, this.scratchRepository);
-        newElement.setOwnerContainer(owner);
-        newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("97762b20-95b0-4e85-b5e1-00d2322f51bf")
-    @Override
-    public Requirement createRequirement(String name, Requirement owner) {
-        Requirement newElement = this.genericFactory.create(Requirement.class, this.scratchRepository);
-        newElement.setParentRequirement(owner);
-        newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("a599c54d-3d63-423e-a48a-28d27d2ec44c")
-    @Override
-    public Requirement createRequirement(String name, RequirementContainer owner) {
-        Requirement newElement = this.genericFactory.create(Requirement.class, this.scratchRepository);
-        newElement.setOwnerContainer(owner);
-        newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("ceba26bd-dd32-4b4e-a0f5-2f3880a72eda")
-    @Override
-    public RequirementContainer createRequirementContainer(String name, RequirementContainer owner) {
-        RequirementContainer newElement = this.genericFactory.create(RequirementContainer.class, this.scratchRepository);
-        newElement.setOwnerContainer(owner);
-        newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("b36fe6d1-783a-413d-a3ab-a1d2f9260b88")
-    @Override
-    public BusinessRule createBusinessRule(String name, BusinessRuleContainer owner) {
-        BusinessRule newElement = this.genericFactory.create(BusinessRule.class, this.scratchRepository);
-        newElement.setOwnerContainer(owner);
-        newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("ff3822c9-bf7b-4441-95ae-dbadf3d03e32")
-    @Override
-    public BusinessRule createBusinessRule(String name, BusinessRule owner) {
-        BusinessRule newElement = this.genericFactory.create(BusinessRule.class, this.scratchRepository);
-        newElement.setParentRule(owner);
-        newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("66d7e549-ccf4-4b42-9c57-032a4cb170e5")
-    @Override
-    public Dictionary createDictionary(String name, Dictionary owner) {
-        Dictionary newElement = this.genericFactory.create(Dictionary.class, this.scratchRepository);
-        newElement.setOwnerDictionary(owner);
-        newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("4d8a1be0-7d96-4fb0-b2aa-30cdd1276563")
-    @Override
-    public Goal createGoal(String name, Goal owner) {
-        Goal newElement = this.genericFactory.create(Goal.class, this.scratchRepository);
-        newElement.setParentGoal(owner);
-        newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("dd88b952-a228-44c9-83aa-3635c5b72b79")
-    @Override
-    public Goal createGoal(String name, GoalContainer owner) {
-        Goal newElement = this.genericFactory.create(Goal.class, this.scratchRepository);
-        newElement.setOwnerContainer(owner);
-        newElement.setName(name);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("f8eb1232-dc89-4d99-8dd0-8b1580909b3c")
-    @Override
-    public CommunicationChannel createCommunicationChannel() {
-        CommunicationChannel newElement = this.genericFactory.create(CommunicationChannel.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("b1e92e78-5d17-47ec-9229-e85efc0c73ff")
-    @Override
-    public MatrixDefinition createMatrixDefinition() {
-        MatrixDefinition newElement = this.genericFactory.create(MatrixDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("70ebbe78-22ea-4b24-83c7-cb454421fb6b")
-    @Override
-    public QueryDefinition createQueryDefinition() {
-        QueryDefinition newElement = this.genericFactory.create(QueryDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("18d6ea08-cee1-4ae1-bde9-4dd045d590fc")
-    @Override
-    public MatrixValueDefinition createMatrixValueDefinition() {
-        MatrixValueDefinition newElement = this.genericFactory.create(MatrixValueDefinition.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("779637ff-ef98-4754-9e7a-79f97e7941ca")
-    @Override
-    public ExternProcessor createExternProcessor() {
-        ExternProcessor newElement = this.genericFactory.create(ExternProcessor.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("6762b3e1-8331-4c7c-86f5-9d9f33971bec")
-    @Override
-    public GenericAnalystElement createGenericAnalystElement() {
-        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("b379b90c-c0fa-452c-8e43-13d9ee8866b7")
-    @Override
-    public GenericAnalystContainer createGenericAnalystContainer() {
-        GenericAnalystContainer newElement = this.genericFactory.create(GenericAnalystContainer.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("4f3b7f24-b3d5-4708-984a-20ff7f2d32ef")
-    @Override
-    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystElement owner, Stereotype ste) {
-        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
-        newElement.setParentElement(owner);
-        newElement.setName(name);
-        if (ste != null) {
-            newElement.getExtension().add(ste);
-        }
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("80614aeb-90cd-45eb-80f9-c9f6897a03ce")
-    @Override
-    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystContainer owner, Stereotype ste) {
-        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
-        newElement.setOwnerContainer(owner);
-        newElement.setName(name);
-        if (ste != null) {
-            newElement.getExtension().add(ste);
-        }
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("d2850449-cf2d-48f2-a63c-e1e9e4613f5d")
-    @Override
-    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystContainer owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
-        newElement.setOwnerContainer(owner);
-        newElement.setName(name);
-        newElement.addStereotype(moduleName, stereotypeName);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("07c4828b-27f6-47bc-8235-edc87097526a")
-    @Override
-    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystElement owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
-        newElement.setParentElement(owner);
-        newElement.setName(name);
-        newElement.addStereotype(moduleName, stereotypeName);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("dd16f0b2-7ade-42fb-bf69-fd62c31f265a")
-    @Override
-    public GenericAnalystContainer createGenericAnalystContainer(String name, GenericAnalystContainer owner, Stereotype ste) {
-        GenericAnalystContainer newElement = this.genericFactory.create(GenericAnalystContainer.class, this.scratchRepository);
-        newElement.setOwnerContainer(owner);
-        newElement.setName(name);
-        newElement.getExtension().add(ste);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("7ca75971-e345-4525-ae8b-f0907b743f95")
-    @Override
-    public GenericAnalystContainer createGenericAnalystContainer(String name, GenericAnalystContainer owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
-        GenericAnalystContainer newElement = this.genericFactory.create(GenericAnalystContainer.class, this.scratchRepository);
-        newElement.setOwnerContainer(owner);
-        newElement.setName(name);
-        newElement.addStereotype(moduleName, stereotypeName);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("e17ca827-d01f-423e-880a-a292d4ca39c7")
-    @Override
-    public ComponentRealization createComponentRealization() {
-        ComponentRealization newElement = this.genericFactory.create(ComponentRealization.class, this.scratchRepository);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
-    }
-
-    @objid ("aad14085-0adf-43f4-a613-bfcda428df25")
-    @Override
-    public ComponentRealization createComponentRealization(Classifier source, Component destination) {
-        ComponentRealization newElement = this.genericFactory.create(ComponentRealization.class, this.scratchRepository);
-        newElement.setRealizingClassifier(source);
-        newElement.setAbstraction(destination);
-        this.elementInitializer.initialize(this, newElement);
-        return newElement;
     }
 
 }

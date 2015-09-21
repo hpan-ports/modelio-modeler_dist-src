@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.state.elements.state;
 
@@ -34,6 +34,7 @@ import org.modelio.diagram.editor.state.plugin.DiagramEditorState;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.core.figures.GradientFigure;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.RoundedBoxFigure;
 import org.modelio.diagram.elements.core.figures.ToolbarLayoutWithGrab;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
@@ -96,7 +97,7 @@ public class StateEditPart extends GmNodeEditPart {
         fig.add(container, BorderLayout.CENTER);
         
         // set style independent properties
-        fig.setPreferredSize(100, 50); // TODO: Find a nice initial size
+        MinimumSizeLayout.apply(fig, 100, 50);
         
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
@@ -116,8 +117,8 @@ public class StateEditPart extends GmNodeEditPart {
     @objid ("f58a1640-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmStatePrimaryNode stateModel = (GmStatePrimaryNode) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), stateModel.getLayoutData());
+        GmStatePrimaryNode stateModel = (GmStatePrimaryNode) getModel();
+        getFigure().getParent().setConstraint(getFigure(), stateModel.getLayoutData());
         // If inner states are not shown and this state is composite, show the icon.
         State state = (State) stateModel.getRelatedElement();
         if (!getModelStyle().getBoolean(GmStateStructuredStyleKeys.SHOWINNER) &&

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.permission;
 
@@ -26,7 +26,6 @@ import org.modelio.vcore.session.impl.handles.IAccessHandle;
 import org.modelio.vcore.smkernel.AccessDeniedException;
 import org.modelio.vcore.smkernel.IPStatus;
 import org.modelio.vcore.smkernel.IRStatus;
-import org.modelio.vcore.smkernel.SmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MStatus;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
@@ -113,7 +112,7 @@ public class DefaultAccessHandle implements IAccessHandle {
         
         if (!modifiable) {
             if (!obj.getClassOf().hasDirectiveInGraph(SmDirective.NOREADONLY)) {
-                if (att == SmObjectData.Metadata.statusAtt() || att.hasDirective(SmDirective.NOREADONLY)) {
+                if (att == obj.getClassOf().statusAtt() || att.hasDirective(SmDirective.NOREADONLY)) {
                     return modifiable;
                 } else {
                     throw createReadOnlyObjectException(obj);
@@ -140,12 +139,12 @@ public class DefaultAccessHandle implements IAccessHandle {
         final boolean modifiable = isModifiable(obj);
         if (!modifiable) {
             if (!obj.getClassOf().hasDirectiveInGraph(SmDirective.NOREADONLY)) {
-                // Allow add a non managed CMS node to a locked CMS node 
-                if ((dep.isComposition() || dep.isSharedComposition()) && 
-                        val != null && 
+                // Allow add a non managed CMS node to a locked CMS node
+                if ((dep.isComposition() || dep.isSharedComposition()) &&
+                        val != null &&
                         val.getMClass().isCmsNode() &&
                         !val.getStatus().isCmsManaged() &&
-                        obj.hasStatus(IRStatus.RMASK_MODIFIABLE_REQUIRED, IPStatus.PMASK_MODIFIABLE_REQUIRED, MASK_FORBIDDEN_ADD_TO_CMS, 0)) {                       
+                        obj.hasStatus(IRStatus.RMASK_MODIFIABLE_REQUIRED, IPStatus.PMASK_MODIFIABLE_REQUIRED, MASK_FORBIDDEN_ADD_TO_CMS, 0)) {
                     return modifiable;
                 } else if (dep.doModifyObject() || dep.isSharedComposition()) {
                     throw createReadOnlyObjectException(obj);

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.bpmn;
 
@@ -62,7 +62,8 @@ public class BpmnDataOutputPropertyModel extends AbstractPropertyModel<BpmnDataO
      * </ul>
      */
     @objid ("a5c08528-c068-11e1-8c0a-002564c97630")
-    private static final String[] properties = new String[] { "DataOutput", "Name","GeneralClass","State","Instance","AssociationEnd","Attribute","ItemDefinition","Parameter" };
+    private static final String[] properties = new String[] { "Property", "Name", "GeneralClass", "State", "Instance",
+            "AssociationEnd", "Attribute", "ItemDefinition", "Parameter" };
 
     @objid ("15e28ba7-16da-11e2-aa0d-002564c97630")
     private IModel model;
@@ -108,33 +109,33 @@ public class BpmnDataOutputPropertyModel extends AbstractPropertyModel<BpmnDataO
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return BpmnDataOutputPropertyModel.properties[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getName();
-                    case 2:
-                        return this.theEditedElement.getType();
-                    case 3:
-                         return this.theEditedElement.getInState();
-                    case 4:
-                        return this.theEditedElement.getRepresentedInstance();
-                    case 5:
-                        return this.theEditedElement.getRepresentedAssociationEnd();
-                    case 6:
-                        return this.theEditedElement.getRepresentedAttribute();
-                    case 7:
-                        return this.theEditedElement.getItemSubjectRef();
-                    case 8:
-                        return this.theEditedElement.getRepresentedParameter();
-                    default:
-                        return null;
-                }
+        case 0: // col 0 is the property key
+            return BpmnDataOutputPropertyModel.properties[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return this.theEditedElement.getType();
+            case 3:
+                return this.theEditedElement.getInState();
+            case 4:
+                return this.theEditedElement.getRepresentedInstance();
+            case 5:
+                return this.theEditedElement.getRepresentedAssociationEnd();
+            case 6:
+                return this.theEditedElement.getRepresentedAttribute();
+            case 7:
+                return this.theEditedElement.getItemSubjectRef();
+            case 8:
+                return this.theEditedElement.getRepresentedParameter();
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -152,34 +153,34 @@ public class BpmnDataOutputPropertyModel extends AbstractPropertyModel<BpmnDataO
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return new StringType(false);
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return new StringType(false);
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return new StringType(false);
-                    case 1:
-                        return new StringType(true);
-                    case 2:
-                        return new SingleElementType(true, GeneralClass.class, CoreSession.getSession(this.theEditedElement));
-                    case 3:    
-                        return getInStateType();
-                    case 4:
-                        return new SingleElementType(true, Instance.class, CoreSession.getSession(this.theEditedElement));
-                    case 5:
-                        return new SingleElementType(true, AssociationEnd.class, CoreSession.getSession(this.theEditedElement));
-                    case 6:
-                        return new SingleElementType(true, Attribute.class, CoreSession.getSession(this.theEditedElement));
-                    case 7:
-                        return new SingleElementType(true, BpmnItemDefinition.class, CoreSession.getSession(this.theEditedElement));
-                    case 8:
-                        return new SingleElementType(true, Parameter.class, CoreSession.getSession(this.theEditedElement));
-                        
-                    default:
-                        return null;
-                }
+            case 1:
+                return new StringType(true);
+            case 2:
+                return new SingleElementType(true, GeneralClass.class, CoreSession.getSession(this.theEditedElement));
+            case 3:
+                return getInStateType();
+            case 4:
+                return new SingleElementType(true, Instance.class, CoreSession.getSession(this.theEditedElement));
+            case 5:
+                return new SingleElementType(true, AssociationEnd.class, CoreSession.getSession(this.theEditedElement));
+            case 6:
+                return new SingleElementType(true, Attribute.class, CoreSession.getSession(this.theEditedElement));
+            case 7:
+                return new SingleElementType(true, BpmnItemDefinition.class, CoreSession.getSession(this.theEditedElement));
+            case 8:
+                return new SingleElementType(true, Parameter.class, CoreSession.getSession(this.theEditedElement));
+        
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -195,67 +196,67 @@ public class BpmnDataOutputPropertyModel extends AbstractPropertyModel<BpmnDataO
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
-                return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setName((String) value);
-                        break;
-                    case 2:
-                        this.theEditedElement.setType((GeneralClass)value);
-                        this.theEditedElement.setRepresentedInstance(null);
-                        this.theEditedElement.setRepresentedAssociationEnd(null);
-                        this.theEditedElement.setRepresentedAttribute(null);
-                        this.theEditedElement.setRepresentedParameter(null);
-                        break;
-                    case 3:
-                        this.theEditedElement.setInState((State)value);
-                        break;
-                    case 4:
-                        this.theEditedElement.setType(null);
-                        this.theEditedElement.setRepresentedInstance((Instance) value);
-                        this.theEditedElement.setRepresentedAssociationEnd(null);
-                        this.theEditedElement.setRepresentedAttribute(null);
-                        this.theEditedElement.setRepresentedParameter(null);
-                        break;
-                    case 5:
-                        this.theEditedElement.setType(null);
-                        this.theEditedElement.setRepresentedInstance(null);
-                        this.theEditedElement.setRepresentedAssociationEnd((AssociationEnd) value);
-                        this.theEditedElement.setRepresentedAttribute(null);
-                        this.theEditedElement.setRepresentedParameter(null);
-                        break;
-                    case 9:
-                        this.theEditedElement.setType(null);
-                        this.theEditedElement.setRepresentedInstance(null);
-                        this.theEditedElement.setRepresentedAssociationEnd(null);
-                        this.theEditedElement.setRepresentedAttribute((Attribute) value);
-                        this.theEditedElement.setRepresentedParameter(null);
-                        break;
-                    case 7:
-                        this.theEditedElement.setType(null);
-                        this.theEditedElement.setItemSubjectRef((BpmnItemDefinition)value);
-                        this.theEditedElement.setRepresentedInstance(null);
-                        this.theEditedElement.setRepresentedAssociationEnd(null);
-                        this.theEditedElement.setRepresentedAttribute(null);
-                        this.theEditedElement.setRepresentedParameter(null);
-                        break;
-                    case 8:
-                        this.theEditedElement.setType(null);
-                        this.theEditedElement.setRepresentedInstance(null);
-                        this.theEditedElement.setRepresentedAssociationEnd(null);
-                        this.theEditedElement.setRepresentedAttribute(null);
-                        this.theEditedElement.setRepresentedParameter((Parameter) value);
-                        break;
-                    default:
-                        return;
-                }
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                this.theEditedElement.setType((GeneralClass) value);
+                this.theEditedElement.setRepresentedInstance(null);
+                this.theEditedElement.setRepresentedAssociationEnd(null);
+                this.theEditedElement.setRepresentedAttribute(null);
+                this.theEditedElement.setRepresentedParameter(null);
+                break;
+            case 3:
+                this.theEditedElement.setInState((State) value);
+                break;
+            case 4:
+                this.theEditedElement.setType(null);
+                this.theEditedElement.setRepresentedInstance((Instance) value);
+                this.theEditedElement.setRepresentedAssociationEnd(null);
+                this.theEditedElement.setRepresentedAttribute(null);
+                this.theEditedElement.setRepresentedParameter(null);
+                break;
+            case 5:
+                this.theEditedElement.setType(null);
+                this.theEditedElement.setRepresentedInstance(null);
+                this.theEditedElement.setRepresentedAssociationEnd((AssociationEnd) value);
+                this.theEditedElement.setRepresentedAttribute(null);
+                this.theEditedElement.setRepresentedParameter(null);
+                break;
+            case 9:
+                this.theEditedElement.setType(null);
+                this.theEditedElement.setRepresentedInstance(null);
+                this.theEditedElement.setRepresentedAssociationEnd(null);
+                this.theEditedElement.setRepresentedAttribute((Attribute) value);
+                this.theEditedElement.setRepresentedParameter(null);
+                break;
+            case 7:
+                this.theEditedElement.setType(null);
+                this.theEditedElement.setItemSubjectRef((BpmnItemDefinition) value);
+                this.theEditedElement.setRepresentedInstance(null);
+                this.theEditedElement.setRepresentedAssociationEnd(null);
+                this.theEditedElement.setRepresentedAttribute(null);
+                this.theEditedElement.setRepresentedParameter(null);
+                break;
+            case 8:
+                this.theEditedElement.setType(null);
+                this.theEditedElement.setRepresentedInstance(null);
+                this.theEditedElement.setRepresentedAssociationEnd(null);
+                this.theEditedElement.setRepresentedAttribute(null);
+                this.theEditedElement.setRepresentedParameter((Parameter) value);
                 break;
             default:
                 return;
+            }
+            break;
+        default:
+            return;
         }
     }
 
@@ -268,7 +269,8 @@ public class BpmnDataOutputPropertyModel extends AbstractPropertyModel<BpmnDataO
         
         List<ModelElement> availableStates = getAvailableStates(referencedClass);
         
-        ModelElementListType type = new ModelElementListType(true, State.class, availableStates, CoreSession.getSession(this.theEditedElement));
+        ModelElementListType type = new ModelElementListType(true, State.class, availableStates,
+                CoreSession.getSession(this.theEditedElement));
         return type;
     }
 
@@ -295,8 +297,8 @@ public class BpmnDataOutputPropertyModel extends AbstractPropertyModel<BpmnDataO
         
         // Add states from owned classes
         for (GeneralClass sub : referencedClass.getOwnedElement(GeneralClass.class)) {
-           states.addAll(getAvailableStates(sub));
-            }
+            states.addAll(getAvailableStates(sub));
+        }
         return states;
     }
 
@@ -308,7 +310,7 @@ public class BpmnDataOutputPropertyModel extends AbstractPropertyModel<BpmnDataO
         List<ModelElement> states = new ArrayList<>();
         for (State s : region.getSub(State.class)) {
             states.add(s);
-            
+        
             for (Region subRegion : s.getOwnedRegion()) {
                 states.addAll(getAvailableStates(subRegion));
             }

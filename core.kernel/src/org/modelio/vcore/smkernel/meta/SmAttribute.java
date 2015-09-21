@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,43 +12,32 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.smkernel.meta;
 
+import java.util.Arrays;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.EAttribute;
 import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MAttribute;
-import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaAttribute;
+import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 /**
- * Cette classe permet d'acc?der ? un attribut d'un objet.\CR\ Elle v?rifie la coherence du type.\CR\ Elle peut tracer ses
- * appels.\CR\ Elle provoque une erreur.\CR\ si le type est erron?.\CR\ si l'attribut est inaccessible.\CR\
- * 
- * \CHAP>\ G?n?ration de d?finition d'un attribut en C++. La d?finition d'un attribut d'un ?l?ment s?mantique se traduit par la
- * cr?ation d'une instance de la classe \BSmAttributB\ en C++.\CR\
- * 
- * \CHAP>\Exemple de G?n?ration de la d?finition de l'attribut \B<Attribute>B\ de la classe \B<Class>B\ du type \B<Type>B\.
- * 
- * SmAttribute* <Class><Attribute>()\CR\ {\CR\ static SmAttribute* member=NULL;
- * 
- * if(member == NULL) { member = new SmAttribute();
- * 
- * //==== Definition de l'attribut ================== member->init("<Attribute>",<Class>Class(),<Type>Class()); member->GetRoutine =
- * get_<Class><Attribute>; member->SetRoutine = set_<Class><Attribute>; member->CardRoutine = card_<Class><Attribute>;
- * 
- * member->Min = 0; member->Max = 1;
- * 
- * //==== Definition des directives s'il y en a ===== .... SmDirective *dir_<directive> = new SmDirective;
- * dir_<directive>->init("<directive>"); ... Ajouter les parametres de directives .. member->append(dir_<directive>); } return
- * member;\CR\ }
+ * Cette classe permet d'acceder a un attribut d'un objet.
+ * <p>
+ * Elle verifie la coherence du type.
+ * Elle provoque une erreur si le type est errone.
+ * <p>
+ * Generation de definition d'un attribut en Java. La definition d'un attribut d'un element semantique se traduit par la
+ * creation d'une instance de la classe SmAttribut en Java.
+ * <p>
  */
 @objid ("008436ae-ed97-1f1f-85a5-001ec947cd2a")
 public abstract class SmAttribute extends SmFeature implements MAttribute {
@@ -117,21 +106,22 @@ public abstract class SmAttribute extends SmFeature implements MAttribute {
 
     /**
      * Initialize the attribute.
+     * @param type
      * @param name the attribute name
      * @param owner the owner
-     * @param sma the attribute annotations.
+     * @param flags the directives.
      */
     @objid ("0084199e-ed97-1f1f-85a5-001ec947cd2a")
     @SuppressWarnings("hiding")
-    public void init(final String name, final SmClass owner, final SmaMetaAttribute sma) {
+    public void init(final String name, final SmClass owner, Class<?> type, SmDirective... flags) {
         setName(name);
-        initSmFlags(sma);
         // phv: semantic attribute cannot be multiple for now (Jan 2012)
         setMin(0);
         setMax(1);
         this.owner = owner;
-        this.type = sma.type();
+        this.type = type;
         this.isNameAtt = name.equalsIgnoreCase("name");
+        this.initSmFlags(Arrays.asList(flags));
     }
 
     /**

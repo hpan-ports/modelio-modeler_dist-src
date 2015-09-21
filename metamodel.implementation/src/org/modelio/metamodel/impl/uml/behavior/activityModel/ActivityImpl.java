@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.activityModel.ActivityData;
+import org.modelio.metamodel.impl.uml.behavior.activityModel.ActivityData;
 import org.modelio.metamodel.impl.uml.behavior.commonBehaviors.BehaviorImpl;
 import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityGroup;
@@ -42,86 +54,96 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00263040-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActivityImpl extends BehaviorImpl implements Activity {
-    @objid ("1d3b4dc5-a84b-4522-ad9c-e2d9c77e5385")
+    @objid ("80211946-0de7-4b82-b424-6d0e6362f8a2")
     @Override
     public boolean isIsSingleExecution() {
-        return (Boolean) getAttVal(ActivityData.Metadata.IsSingleExecutionAtt());
+        return (Boolean) getAttVal(((ActivitySmClass)getClassOf()).getIsSingleExecutionAtt());
     }
 
-    @objid ("531bf044-9b12-41e8-8060-a7e9fea529ca")
+    @objid ("b3fdbfa4-d794-4537-bf42-95b7e0c6fd66")
     @Override
     public void setIsSingleExecution(boolean value) {
-        setAttVal(ActivityData.Metadata.IsSingleExecutionAtt(), value);
+        setAttVal(((ActivitySmClass)getClassOf()).getIsSingleExecutionAtt(), value);
     }
 
-    @objid ("bd918676-3e6f-4000-adbd-624368e783d4")
+    @objid ("d34ce69b-4a96-4f90-a841-75542de5fc90")
     @Override
     public boolean isIsReadOnly() {
-        return (Boolean) getAttVal(ActivityData.Metadata.IsReadOnlyAtt());
+        return (Boolean) getAttVal(((ActivitySmClass)getClassOf()).getIsReadOnlyAtt());
     }
 
-    @objid ("e6488c7f-b8f8-423c-939d-ab218b1f17c4")
+    @objid ("ed931239-1ef0-40c2-a30b-fb0e309a38a5")
     @Override
     public void setIsReadOnly(boolean value) {
-        setAttVal(ActivityData.Metadata.IsReadOnlyAtt(), value);
+        setAttVal(((ActivitySmClass)getClassOf()).getIsReadOnlyAtt(), value);
     }
 
-    @objid ("49d4668e-bc82-4c5d-b926-4f160aa43072")
+    @objid ("a2c99d3c-2ae2-48e3-9091-f7daa9328866")
     @Override
     public EList<ActivityGroup> getOwnedGroup() {
-        return new SmList<>(this, ActivityData.Metadata.OwnedGroupDep());
+        return new SmList<>(this, ((ActivitySmClass)getClassOf()).getOwnedGroupDep());
     }
 
-    @objid ("63329d59-655a-489f-a0f5-41583a550e30")
+    @objid ("7599f3f7-4bea-421d-96ae-5b97255d68d2")
     @Override
     public <T extends ActivityGroup> List<T> getOwnedGroup(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ActivityGroup element : getOwnedGroup()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9a2debc3-e5f6-40bc-b662-eb6d5a900543")
+    @objid ("115c2d88-a506-476c-9319-112e0f665fa7")
     @Override
     public EList<ActivityNode> getOwnedNode() {
-        return new SmList<>(this, ActivityData.Metadata.OwnedNodeDep());
+        return new SmList<>(this, ((ActivitySmClass)getClassOf()).getOwnedNodeDep());
     }
 
-    @objid ("83c8af5e-30cc-446d-97f1-863374c00da2")
+    @objid ("0bf115d2-a45e-4647-a213-90bb76062d9d")
     @Override
     public <T extends ActivityNode> List<T> getOwnedNode(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ActivityNode element : getOwnedNode()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("da010570-3aa6-4f76-86eb-c8aa263b0e55")
+    @objid ("7277c6f3-4b62-427e-9ebe-b9ea29b54de3")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2dcc07eb-3b10-4723-8dce-f8560ae51689")
+    @objid ("27ff57ad-4427-47e4-88f7-b7af5509f241")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("83886185-a713-407f-ad56-da1421f7b47a")
+    @objid ("e8cfcabd-4d57-403e-8092-335749720aa5")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivity(this);

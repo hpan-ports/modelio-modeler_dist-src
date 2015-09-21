@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.analyst;
 
 import java.util.ArrayList;
@@ -32,7 +44,7 @@ import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.GenericAnalystContainer;
 import org.modelio.metamodel.analyst.GenericAnalystElement;
-import org.modelio.metamodel.data.analyst.GenericAnalystContainerData;
+import org.modelio.metamodel.impl.analyst.GenericAnalystContainerData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -41,98 +53,116 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("2dcbabc7-1ffe-4eae-a040-8300156dfdc3")
 public class GenericAnalystContainerImpl extends AnalystContainerImpl implements GenericAnalystContainer {
-    @objid ("b5307b8e-7831-455c-a00c-daee728e4418")
+    @objid ("fb9304db-aa55-4e8a-be5a-a32ac7743271")
     @Override
     public EList<GenericAnalystElement> getOwnedElement() {
-        return new SmList<>(this, GenericAnalystContainerData.Metadata.OwnedElementDep());
+        return new SmList<>(this, ((GenericAnalystContainerSmClass)getClassOf()).getOwnedElementDep());
     }
 
-    @objid ("a98af9fd-58fa-4e69-8d8c-fb70228a8e73")
+    @objid ("087e642c-6e10-4ff5-bcdd-abec6252f372")
     @Override
     public <T extends GenericAnalystElement> List<T> getOwnedElement(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final GenericAnalystElement element : getOwnedElement()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("44f7e7a2-19f1-4a7c-bfeb-37b74a219d6e")
+    @objid ("56cc19cd-760d-4562-8d12-0d3f61c30282")
     @Override
     public GenericAnalystContainer getOwnerContainer() {
-        return (GenericAnalystContainer) getDepVal(GenericAnalystContainerData.Metadata.OwnerContainerDep());
+        Object obj = getDepVal(((GenericAnalystContainerSmClass)getClassOf()).getOwnerContainerDep());
+        return (obj instanceof GenericAnalystContainer)? (GenericAnalystContainer)obj : null;
     }
 
-    @objid ("4a6d07e0-3f66-47e8-b078-cae21165ba1a")
+    @objid ("00ef1836-cc33-44a2-ad69-8335c0a3a8f0")
     @Override
     public void setOwnerContainer(GenericAnalystContainer value) {
-        appendDepVal(GenericAnalystContainerData.Metadata.OwnerContainerDep(), (SmObjectImpl)value);
+        appendDepVal(((GenericAnalystContainerSmClass)getClassOf()).getOwnerContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4ad89364-e687-46dd-9086-35ff8636976c")
+    @objid ("088fbb7e-79fd-4238-ae0c-05522cf10c4c")
     @Override
     public EList<GenericAnalystContainer> getOwnedContainer() {
-        return new SmList<>(this, GenericAnalystContainerData.Metadata.OwnedContainerDep());
+        return new SmList<>(this, ((GenericAnalystContainerSmClass)getClassOf()).getOwnedContainerDep());
     }
 
-    @objid ("ea7af386-40e2-422f-9bd4-4e6e55857728")
+    @objid ("5314d3e0-2844-4868-a7df-7f73e7e648fb")
     @Override
     public <T extends GenericAnalystContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final GenericAnalystContainer element : getOwnedContainer()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("09a25128-3682-4b21-947b-abcef7660af4")
+    @objid ("f2706a7a-815c-454a-b6ce-e64f615f587c")
     @Override
     public AnalystProject getOwnerProject() {
-        return (AnalystProject) getDepVal(GenericAnalystContainerData.Metadata.OwnerProjectDep());
+        Object obj = getDepVal(((GenericAnalystContainerSmClass)getClassOf()).getOwnerProjectDep());
+        return (obj instanceof AnalystProject)? (AnalystProject)obj : null;
     }
 
-    @objid ("8efd8849-b573-431d-9e4f-0e33b29980f9")
+    @objid ("ff592cb6-ffe6-4055-92e4-b0ade7d18007")
     @Override
     public void setOwnerProject(AnalystProject value) {
-        appendDepVal(GenericAnalystContainerData.Metadata.OwnerProjectDep(), (SmObjectImpl)value);
+        appendDepVal(((GenericAnalystContainerSmClass)getClassOf()).getOwnerProjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bda845c6-f51b-45c0-98f1-458a1fc98b12")
+    @objid ("61bac717-c4c4-40cd-a617-116cf8e72b9e")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(GenericAnalystContainerData.Metadata.OwnerContainerDep());
+        // OwnerContainer
+        obj = (SmObjectImpl)this.getDepVal(((GenericAnalystContainerSmClass)getClassOf()).getOwnerContainerDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(GenericAnalystContainerData.Metadata.OwnerProjectDep());
+        // OwnerProject
+        obj = (SmObjectImpl)this.getDepVal(((GenericAnalystContainerSmClass)getClassOf()).getOwnerProjectDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("64de3491-0000-4ccd-840e-63646915219f")
+    @objid ("e846c14a-5574-440d-af15-d36a700506f3")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(GenericAnalystContainerData.Metadata.OwnerContainerDep());
-        if (obj != null)
-          return new SmDepVal(GenericAnalystContainerData.Metadata.OwnerContainerDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(GenericAnalystContainerData.Metadata.OwnerProjectDep());
-        if (obj != null)
-          return new SmDepVal(GenericAnalystContainerData.Metadata.OwnerProjectDep(), obj);
+        SmDependency dep;
+        
+        // OwnerContainer
+        dep = ((GenericAnalystContainerSmClass)getClassOf()).getOwnerContainerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // OwnerProject
+        dep = ((GenericAnalystContainerSmClass)getClassOf()).getOwnerProjectDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("75832a6c-79c1-4e25-ae71-aa04a63c5a7a")
+    @objid ("c1cf1238-83ff-470b-b25a-afb6a37e3ceb")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGenericAnalystContainer(this);

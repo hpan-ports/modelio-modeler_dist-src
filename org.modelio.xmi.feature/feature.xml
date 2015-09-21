@@ -2,7 +2,7 @@
 <feature
       id="org.modelio.xmi.feature"
       label="Script"
-      version="3.3.0.qualifier"
+      version="3.4.0.qualifier"
       provider-name="modelio.org">
 
    <copyright>

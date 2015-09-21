@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vbasic.progress;
 
@@ -54,6 +54,7 @@ public class NullProgress implements IModelioProgress {
      * @see IProgressMonitor#beginTask(String, int)
      */
     @objid ("c98cef61-a5a3-11e1-aa98-001ec947ccaf")
+    @Override
     public void beginTask(String name, int totalWork) {
         // do nothing
     }
@@ -65,6 +66,7 @@ public class NullProgress implements IModelioProgress {
      * @see IProgressMonitor#done()
      */
     @objid ("c98cef66-a5a3-11e1-aa98-001ec947ccaf")
+    @Override
     public void done() {
         // do nothing
     }
@@ -75,6 +77,7 @@ public class NullProgress implements IModelioProgress {
      * @see IProgressMonitor#internalWorked(double)
      */
     @objid ("c98cef69-a5a3-11e1-aa98-001ec947ccaf")
+    @Override
     public void internalWorked(double work) {
         // do nothing
     }
@@ -88,8 +91,9 @@ public class NullProgress implements IModelioProgress {
      * @see IProgressMonitor#setCanceled(boolean)
      */
     @objid ("c98cef6d-a5a3-11e1-aa98-001ec947ccaf")
+    @Override
     public boolean isCanceled() {
-        return cancelled;
+        return this.cancelled;
     }
 
     /**
@@ -100,6 +104,7 @@ public class NullProgress implements IModelioProgress {
      * @see IProgressMonitor#setCanceled(boolean)
      */
     @objid ("c98f516a-a5a3-11e1-aa98-001ec947ccaf")
+    @Override
     public void setCanceled(boolean cancelled) {
         this.cancelled = cancelled;
     }
@@ -111,6 +116,7 @@ public class NullProgress implements IModelioProgress {
      * @see IProgressMonitor#setTaskName(String)
      */
     @objid ("c98f516e-a5a3-11e1-aa98-001ec947ccaf")
+    @Override
     public void setTaskName(String name) {
         // do nothing
     }
@@ -122,6 +128,7 @@ public class NullProgress implements IModelioProgress {
      * @see IProgressMonitor#subTask(String)
      */
     @objid ("c98f5172-a5a3-11e1-aa98-001ec947ccaf")
+    @Override
     public void subTask(String name) {
         // do nothing
     }
@@ -133,6 +140,7 @@ public class NullProgress implements IModelioProgress {
      * @see IProgressMonitor#worked(int)
      */
     @objid ("c98f5176-a5a3-11e1-aa98-001ec947ccaf")
+    @Override
     public void worked(int work) {
         // do nothing
     }

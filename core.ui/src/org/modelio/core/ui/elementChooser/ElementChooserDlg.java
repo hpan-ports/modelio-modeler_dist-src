@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.elementChooser;
 
@@ -81,14 +81,14 @@ public class ElementChooserDlg extends ModelioDialog {
         GridData data = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
         composite.setLayoutData(data);
         composite.setFont(parent.getFont());
-                
+        
         GridLayout compositeLayout = new GridLayout(3, false);
         compositeLayout.marginWidth = 3;
         compositeLayout.marginHeight = 3;
         compositeLayout.verticalSpacing = 0;
         compositeLayout.horizontalSpacing = 0;
         composite.setLayout(compositeLayout);
-                
+        
         // Create left viewer:
         // --------------------
         Composite leftViewerComposite = new Composite(composite, SWT.NONE);
@@ -96,10 +96,10 @@ public class ElementChooserDlg extends ModelioDialog {
         leftViewerComposite.setLayoutData(leftViewerCompositeData);
         FormLayout leftViewerLayout = new FormLayout();
         leftViewerComposite.setLayout(leftViewerLayout);
-                
+        
         this.leftViewerLabel = new Label(leftViewerComposite, SWT.NONE);
         this.leftViewerLabel.setText(this.driver.getLeftLabel());
-                
+        
         this.leftViewer = this.driver.createViewer(leftViewerComposite);
         FormData leftViewerData = new FormData();
         leftViewerData.left = new FormAttachment(0, 0);
@@ -107,7 +107,7 @@ public class ElementChooserDlg extends ModelioDialog {
         leftViewerData.top = new FormAttachment(this.leftViewerLabel, 3);
         leftViewerData.bottom = new FormAttachment(100, 0);
         this.leftViewer.getControl().setLayoutData(leftViewerData);
-                
+        
         // Validate the box on double click
         this.leftViewer.addDoubleClickListener(new IDoubleClickListener() {
             @Override
@@ -124,13 +124,13 @@ public class ElementChooserDlg extends ModelioDialog {
         getShell().setText(this.driver.getShellTitle());
         setTitle(this.driver.getTitle());
         setMessage(this.driver.getMessage());
-                
+        
         Shell parentShell = getShell().getParent().getShell();
         Point shellLocation = parentShell.getLocation();
         getShell().setSize(500, 500);
         getShell().setLocation(shellLocation.x + 300, shellLocation.y + 300);
         setLogoImage(null);
-                
+        
         this.driver.init(this.input);
     }
 
@@ -148,17 +148,16 @@ public class ElementChooserDlg extends ModelioDialog {
 
     @objid ("26cbb81e-186f-11e2-bc4e-002564c97630")
     @Override
-    @SuppressWarnings("unchecked")
     protected void okPressed() {
         ISelection selection = this.leftViewer.getSelection();
         List<Object> selectedElements = null;
-                
+        
         if (selection instanceof IStructuredSelection) {
             IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-                
+        
             selectedElements = structuredSelection.toList();
         }
-                
+        
         this.driver.performFinish(this.leftViewer, selectedElements);
         super.okPressed();
     }

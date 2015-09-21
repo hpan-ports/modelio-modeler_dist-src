@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.modelio;
 
@@ -36,6 +36,7 @@ import org.modelio.api.model.IModelManipulationService;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.api.module.IModuleService;
 import org.modelio.api.module.script.IScriptService;
+import org.modelio.api.pattern.IPatternService;
 
 /**
  * This class a the class that represents the modelio application.
@@ -188,6 +189,14 @@ public abstract class Modelio {
      */
     @objid ("39f5ab6e-027a-4e69-be7b-ece0a6f8b723")
     public abstract <I> void registerService(Class<I> serviceInterface, I service);
+
+    /**
+     * Get the service to export/apply patterns.
+     * @return the pattern service
+     * @since 3.4
+     */
+    @objid ("085fbccf-df54-454d-9324-9b8c6c9310d0")
+    public abstract IPatternService getPatternService();
 
     /**
      * Redirects all written data to the Modelio log service.

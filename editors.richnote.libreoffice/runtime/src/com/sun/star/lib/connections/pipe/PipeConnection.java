@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package com.sun.star.lib.connections.pipe;
 
@@ -151,35 +151,35 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
      * JNI implementation to create the pipe
      */
     @objid ("e745b96a-ebf3-4593-a2db-6dda8e2d2810")
-    private native int createJNI(final String name) throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+    private native int createJNI(final String name) throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
 ;
 
     /**
      * JNI implementation to read from the pipe
      */
     @objid ("3ab894dc-743d-4f4b-ab79-188726a89b98")
-    private native int readJNI(final byte[][] bytes, final int nBytesToRead) throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+    private native int readJNI(final byte[][] bytes, final int nBytesToRead) throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
 ;
 
     /**
      * JNI implementation to write to the pipe
      */
     @objid ("362ac1f2-3852-46ce-8941-3c6a2014b8a9")
-    private native void writeJNI(final byte[] aData) throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+    private native void writeJNI(final byte[] aData) throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
 ;
 
     /**
      * JNI implementation to flush the pipe
      */
     @objid ("5599cd50-2851-46bf-af16-ee8ab002746e")
-    private native void flushJNI() throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+    private native void flushJNI() throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
 ;
 
     /**
      * JNI implementation to close the pipe
      */
     @objid ("9f53575c-adc7-4ee9-8f6a-1afbfa7a4cb3")
-    private native void closeJNI() throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+    private native void closeJNI() throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
 ;
 
     /**
@@ -193,7 +193,7 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
      */
     @objid ("59c2d7cf-d945-4b49-86fd-79ea45da561d")
     @Override
-    public int read(final byte[][] bytes, final int nBytesToRead) throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException {
+    public int read(final byte[][] bytes, final int nBytesToRead) throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException {
         if (this._bFirstRead) {
             this._bFirstRead = false;
         
@@ -210,7 +210,7 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
      */
     @objid ("e1d44d1a-8d7e-4cdc-b58f-502182e37709")
     @Override
-    public void write(final byte[] aData) throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException {
+    public void write(final byte[] aData) throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException {
         writeJNI(aData);
     }
 
@@ -221,7 +221,7 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
      */
     @objid ("3dc565b8-465a-4908-877e-8a330b8fea40")
     @Override
-    public void flush() throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException {
+    public void flush() throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException {
         flushJNI();
     }
 
@@ -232,7 +232,7 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
      */
     @objid ("c81b24bd-b009-4543-bf14-89c108d7e2d5")
     @Override
-    public void close() throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException {
+    public void close() throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException {
         if (DEBUG)
             System.out.print("PipeConnection::close() ");
         closeJNI();

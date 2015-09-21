@@ -2,11 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Kernel
 Bundle-SymbolicName: org.modelio.core.kernel
-Bundle-Version: 3.3.0.qualifier
-Export-Package:  org.modelio.vcore.model,
+Bundle-Version: 3.4.0.qualifier
+Export-Package: org.modelio.vcore.model,
  org.modelio.vcore.model.filter,
  org.modelio.vcore.smkernel,
  org.modelio.vcore.smkernel.mapi,
+ org.modelio.vcore.smkernel.mapi.fake,
  org.modelio.vcore.smkernel.meta,
  org.modelio.vcore.smkernel.meta.smannotations,
  org.modelio.vcore.swap,

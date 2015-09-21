@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -27,7 +27,6 @@ import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.Clause;
 import org.modelio.metamodel.uml.behavior.activityModel.ConditionalNode;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.NotFoundException;
@@ -54,7 +53,7 @@ public class OClause extends OElement implements IOElement {
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         ConditionalNode objingOwner = ((Clause) getObjingElement()).getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = this.genProp.getMappedElement(objingOwner);
-                
+        
         if (ecoreOwner instanceof org.eclipse.uml2.uml.ConditionalNode) {
             ((org.eclipse.uml2.uml.ConditionalNode) ecoreOwner).getClauses().add( (org.eclipse.uml2.uml.Clause)ecoreElt);
         } else {
@@ -112,7 +111,7 @@ public class OClause extends OElement implements IOElement {
     private void attachActionToActivity(org.eclipse.uml2.uml.ValueSpecificationAction action) {
         // Setting composition relation (attach to  org.eclipse.uml2.uml.Activity)
         Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                .getEnclosingElement(((Clause) getObjingElement()), SmClass.getClass(Activity.class));
+                .getEnclosingElement((getObjingElement()), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
         if (enclosingActivity != null) {
             org.eclipse.uml2.uml.Element ecoreActivity = this.genProp.getMappedElement(enclosingActivity);
             if (ecoreActivity instanceof  org.eclipse.uml2.uml.Activity) {

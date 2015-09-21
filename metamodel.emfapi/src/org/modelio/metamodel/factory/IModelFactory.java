@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.metamodel.factory;
 
@@ -35,6 +35,8 @@ import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
+import org.modelio.metamodel.analyst.Risk;
+import org.modelio.metamodel.analyst.RiskContainer;
 import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
@@ -360,7 +362,7 @@ public interface IModelFactory {
     ActivityParameterNode createActivityParameterNode();
 
     /**
-     * @return a  new {@link ActivityPartition}.
+     * @return a new {@link ActivityPartition}.
      */
     @objid ("8091c6d2-2f67-4e63-97c1-2aa5685c2345")
     ActivityPartition createActivityPartition();
@@ -971,7 +973,7 @@ public interface IModelFactory {
 
     /**
      * Creates an empty, unnamed {@link Class UML class}.
-     * @return a  new Class.
+     * @return a new Class.
      */
     @objid ("2cf6bb7d-ff45-4cd7-94e5-39392096c1d4")
     Class createClass();
@@ -1364,7 +1366,8 @@ public interface IModelFactory {
 
     /**
      * Create an element from its java class.
-     * @param <T>  the java class representing the metaclass.
+     * @param <T>
+     * the java class representing the metaclass.
      * @param metaclass the java class representing the metaclass.
      * @return A new element representing this metaclass in the Model.
      */
@@ -1391,8 +1394,8 @@ public interface IModelFactory {
      * Creates a new model element from a metaclass and ownership relation.
      * @param metaclass the metaclass.
      * @param owner the element that will own the new one.
-     * @param dependency the dependency to use to attach the element from the owner to the new one.
-     * Must be a dependency from the owner element metaclass.
+     * @param dependency the dependency to use to attach the element from the owner to the new one. Must be a dependency from the owner
+     * element metaclass.
      * @return the new element.
      */
     @objid ("5f3d822a-2de2-4340-8fcd-657253485f66")
@@ -1402,8 +1405,8 @@ public interface IModelFactory {
      * Creates a new model element from a metaclass and ownership relation.
      * @param metaclassName the metaclass name.
      * @param owner the element that will own the new one.
-     * @param dependencyName the name of the dependency to use to attach the element from the owner to the new one.
-     * Must be a dependency from the owner element metaclass.
+     * @param dependencyName the name of the dependency to use to attach the element from the owner to the new one. Must be a dependency from
+     * the owner element metaclass.
      * @return the new element.
      */
     @objid ("7bb1139a-0306-4067-bf2f-3492dcaa2368")
@@ -1411,11 +1414,12 @@ public interface IModelFactory {
 
     /**
      * Creates a new model element from a metaclass and ownership relation.
-     * @param <T>  the metaclass java interface.
+     * @param <T>
+     * the metaclass java interface.
      * @param metaclass the metaclass java interface.
      * @param owner the element that will own the new one.
-     * @param dependencyName the name of the dependency to use to attach the element from the owner to the new one.
-     * Must be a dependency from the owner element metaclass.
+     * @param dependencyName the name of the dependency to use to attach the element from the owner to the new one. Must be a dependency from
+     * the owner element metaclass.
      * @return the new element.
      */
     @objid ("f5d43d8e-7186-496d-8b90-29a5d3a3b6ed")
@@ -2019,8 +2023,7 @@ public interface IModelFactory {
     /**
      * Creates a new {@link NamespaceUse} link.
      * <p>
-     * These link are not meant to be created by a normal user nor a module.
-     * Only Modelio code is meant to call this method.
+     * These link are not meant to be created by a normal user nor a module. Only Modelio code is meant to call this method.
      * @return a new {@link NamespaceUse}.
      */
     @objid ("c15e460b-a09b-4e62-aad8-c2fd9a0a176a")
@@ -2436,6 +2439,27 @@ public interface IModelFactory {
     Parameter createReturnParameter(String name, GeneralClass type, Operation owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
 
     /**
+     * @return a new {@link Risk}.
+     */
+    @objid ("0cf676b0-c1cc-4655-ab10-2a8d6cf0107b")
+    Risk createRisk();
+
+    @objid ("184046d6-b197-4c50-96ad-b21d2508d2f4")
+    Risk createRisk(String name, Risk owner);
+
+    @objid ("204583b5-f35b-4305-9150-d12fa93789a5")
+    Risk createRisk(String name, RiskContainer owner);
+
+    /**
+     * @return a new {@link RiskContainer}.
+     */
+    @objid ("e0b84b2d-3e51-4f6a-9883-0697b3893237")
+    RiskContainer createRiskContainer();
+
+    @objid ("a380eb01-9e4a-497c-bdf4-274ead0b1261")
+    RiskContainer createRiskContainer(String name, RiskContainer owner);
+
+    /**
      * @return a new {@link SendSignalAction}.
      */
     @objid ("4f22a7bd-3e0b-4ca0-87c1-3887f2fa2eb4")
@@ -2449,7 +2473,7 @@ public interface IModelFactory {
     SequenceDiagram createSequenceDiagram();
 
     /**
-     * Create a  {@linkplain SequenceDiagram sequence diagram}.
+     * Create a {@linkplain SequenceDiagram sequence diagram}.
      * 
      * The returned object is a SequenceDiagram named by 'name'.
      * @param name the name of the SequenceDiagram to be created.
@@ -2721,13 +2745,28 @@ public interface IModelFactory {
     @objid ("e39c7de9-286a-4afa-b6c0-26e8745ee026")
     List<ExternDocumentType> findExternDocumentType(String moduleName, String externDocumentType, MClass metaclass);
 
+    @objid ("89a1790f-9ae5-495d-8d60-3ca32f73654e")
+    List<ExternDocumentType> findExternDocumentType(String moduleName, String externDocumentType, java.lang.Class<ModelElement> javaClass);
+
     @objid ("5598f41f-dc3b-405e-a938-8ef5f7a56e79")
     List<NoteType> findNoteType(String moduleName, String noteType, MClass metaclass);
+
+    @objid ("84e969b8-b586-47ce-a0b6-9320884c49e2")
+    List<NoteType> findNoteType(String moduleName, String noteType, java.lang.Class<ModelElement> javaClass);
 
     @objid ("1a6aa4b9-663f-44f1-a9d1-6416e6780e8c")
     List<Stereotype> findStereotype(String moduleName, String stereotypeName, MClass metaclass);
 
+    @objid ("87e78f56-05e4-43b9-8f40-8db0ddb27e76")
+    List<Stereotype> findStereotype(String moduleName, String stereotypeName, java.lang.Class<ModelElement> javaClass);
+
     @objid ("b65f2250-ee6b-4c94-b099-a49881011a5a")
     List<TagType> findTagType(String moduleName, String tagType, MClass metaclass);
+
+    @objid ("bb1c6db1-26e5-419f-bf5b-8a77b5a7a824")
+    List<TagType> findTagType(String moduleName, String tagType, java.lang.Class<ModelElement> javaClass);
+
+    @objid ("65fad498-0619-4e72-b25e-f0367a2f4745")
+    void setDefaultValue(String key, Object value);
 
 }

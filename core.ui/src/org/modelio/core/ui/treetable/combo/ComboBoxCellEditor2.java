@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.treetable.combo;
 
@@ -166,19 +166,19 @@ class ComboBoxCellEditor2 extends CellEditor {
     @Override
     public void activate(final ColumnViewerEditorActivationEvent activationEvent) {
         super.activate(activationEvent);
-        if (activationStyle != SWT.NONE) {
+        if (this.activationStyle != SWT.NONE) {
             boolean dropDown = false;
             if ((activationEvent.eventType == ColumnViewerEditorActivationEvent.MOUSE_CLICK_SELECTION || activationEvent.eventType == ColumnViewerEditorActivationEvent.MOUSE_DOUBLE_CLICK_SELECTION) &&
-                (activationStyle & DROP_DOWN_ON_MOUSE_ACTIVATION) != 0) {
+                (this.activationStyle & DROP_DOWN_ON_MOUSE_ACTIVATION) != 0) {
                 dropDown = true;
             } else if (activationEvent.eventType == ColumnViewerEditorActivationEvent.KEY_PRESSED &&
-                       (activationStyle & DROP_DOWN_ON_KEY_ACTIVATION) != 0) {
+                       (this.activationStyle & DROP_DOWN_ON_KEY_ACTIVATION) != 0) {
                 dropDown = true;
             } else if (activationEvent.eventType == ColumnViewerEditorActivationEvent.PROGRAMMATIC &&
-                       (activationStyle & DROP_DOWN_ON_PROGRAMMATIC_ACTIVATION) != 0) {
+                       (this.activationStyle & DROP_DOWN_ON_PROGRAMMATIC_ACTIVATION) != 0) {
                 dropDown = true;
             } else if (activationEvent.eventType == ColumnViewerEditorActivationEvent.TRAVERSAL &&
-                       (activationStyle & DROP_DOWN_ON_TRAVERSE_ACTIVATION) != 0) {
+                       (this.activationStyle & DROP_DOWN_ON_TRAVERSE_ACTIVATION) != 0) {
                 dropDown = true;
             }
         
@@ -198,12 +198,12 @@ class ComboBoxCellEditor2 extends CellEditor {
     @objid ("6b326920-1eba-11e2-9382-bc305ba4815c")
     @Override
     protected Control createControl(final Composite parent) {
-        comboBox = new CCombo(parent, getStyle());
-        comboBox.setFont(parent.getFont());
+        this.comboBox = new CCombo(parent, getStyle());
+        this.comboBox.setFont(parent.getFont());
         
         populateComboBoxItems();
         
-        comboBox.addKeyListener(new KeyAdapter() {
+        this.comboBox.addKeyListener(new KeyAdapter() {
             // hook key pressed - see PR 14201
             @Override
             public void keyPressed(KeyEvent e) {
@@ -211,7 +211,7 @@ class ComboBoxCellEditor2 extends CellEditor {
             }
         });
         
-        comboBox.addSelectionListener(new SelectionAdapter() {
+        this.comboBox.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetDefaultSelected(SelectionEvent event) {
                 applyEditorValueAndDeactivate();
@@ -219,12 +219,12 @@ class ComboBoxCellEditor2 extends CellEditor {
         
             @Override
             public void widgetSelected(SelectionEvent event) {
-                selection = comboBox.getSelectionIndex();
+                ComboBoxCellEditor2.this.selection = ComboBoxCellEditor2.this.comboBox.getSelectionIndex();
                 applyEditorValueAndDeactivate();
             }
         });
         
-        comboBox.addTraverseListener(new TraverseListener() {
+        this.comboBox.addTraverseListener(new TraverseListener() {
             public void keyTraversed(TraverseEvent e) {
                 if (e.detail == SWT.TRAVERSE_ESCAPE || e.detail == SWT.TRAVERSE_RETURN) {
                     e.doit = false;
@@ -232,13 +232,13 @@ class ComboBoxCellEditor2 extends CellEditor {
             }
         });
         
-        comboBox.addFocusListener(new FocusAdapter() {
+        this.comboBox.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
                 ComboBoxCellEditor2.this.focusLost();
             }
         });
-        return comboBox;
+        return this.comboBox;
     }
 
     /**
@@ -249,13 +249,13 @@ class ComboBoxCellEditor2 extends CellEditor {
     @objid ("6b329031-1eba-11e2-9382-bc305ba4815c")
     @Override
     protected Object doGetValue() {
-        return new Integer(selection);
+        return new Integer(this.selection);
     }
 
     @objid ("6b32b742-1eba-11e2-9382-bc305ba4815c")
     @Override
     protected void doSetFocus() {
-        comboBox.setFocus();
+        this.comboBox.setFocus();
     }
 
     /**
@@ -268,11 +268,11 @@ class ComboBoxCellEditor2 extends CellEditor {
     @Override
     public LayoutData getLayoutData() {
         LayoutData layoutData = super.getLayoutData();
-        if ((comboBox == null) || comboBox.isDisposed()) {
+        if ((this.comboBox == null) || this.comboBox.isDisposed()) {
             layoutData.minimumWidth = 60;
         } else {
             // make the comboBox 10 characters wide
-            GC gc = new GC(comboBox);
+            GC gc = new GC(this.comboBox);
             layoutData.minimumWidth = (gc.getFontMetrics().getAverageCharWidth() * 10) + 10;
             gc.dispose();
         }
@@ -296,9 +296,9 @@ class ComboBoxCellEditor2 extends CellEditor {
     @objid ("6b332c72-1eba-11e2-9382-bc305ba4815c")
     @Override
     protected void doSetValue(final Object value) {
-        Assert.isTrue(comboBox != null && (value instanceof Integer));
-        selection = ((Integer) value).intValue();
-        comboBox.select(selection);
+        Assert.isTrue(this.comboBox != null && (value instanceof Integer));
+        this.selection = ((Integer) value).intValue();
+        this.comboBox.select(this.selection);
     }
 
     /**
@@ -306,14 +306,14 @@ class ComboBoxCellEditor2 extends CellEditor {
      */
     @objid ("6b335383-1eba-11e2-9382-bc305ba4815c")
     private void populateComboBoxItems() {
-        if (comboBox != null && items != null) {
-            comboBox.removeAll();
-            for (int i = 0; i < items.length; i++) {
-                comboBox.add(items[i], i);
+        if (this.comboBox != null && this.items != null) {
+            this.comboBox.removeAll();
+            for (int i = 0; i < this.items.length; i++) {
+                this.comboBox.add(this.items[i], i);
             }
         
             setValueValid(true);
-            selection = 0;
+            this.selection = 0;
         }
     }
 
@@ -323,7 +323,7 @@ class ComboBoxCellEditor2 extends CellEditor {
     @objid ("6b337a91-1eba-11e2-9382-bc305ba4815c")
     void applyEditorValueAndDeactivate() {
         // must set the selection before getting value
-        selection = comboBox.getSelectionIndex();
+        this.selection = this.comboBox.getSelectionIndex();
         Object newValue = doGetValue();
         markDirty();
         boolean isValid = isCorrect(newValue);
@@ -331,14 +331,14 @@ class ComboBoxCellEditor2 extends CellEditor {
         
         if (!isValid) {
             // Only format if the 'index' is valid
-            if (items.length > 0 && selection >= 0 && selection < items.length) {
+            if (this.items.length > 0 && this.selection >= 0 && this.selection < this.items.length) {
                 // try to insert the current value into the error message.
-                setErrorMessage(MessageFormat.format(getErrorMessage(), new Object[] { items[selection] }));
+                setErrorMessage(MessageFormat.format(getErrorMessage(), new Object[] { this.items[this.selection] }));
             } else {
                 // Since we don't have a valid index, assume we're using an
                 // 'edit'
                 // combo so format using its text value
-                setErrorMessage(MessageFormat.format(getErrorMessage(), new Object[] { comboBox.getText() }));
+                setErrorMessage(MessageFormat.format(getErrorMessage(), new Object[] { this.comboBox.getText() }));
             }
         }
         

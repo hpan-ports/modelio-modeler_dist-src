@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,28 +12,29 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.linkeditor.options;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Simple class used to store the current state of the LinkEditor options.
- * <p>Relies on {@link IPreferenceStore} for persistence.</p>
+ * <p>
+ * Relies on {@link IPreferenceStore} for persistence.
+ * </p>
  */
 @objid ("1b4c39af-5e33-11e2-b81d-002564c97630")
 public class LinkEditorOptions {
@@ -131,11 +132,12 @@ public class LinkEditorOptions {
     }
 
     /**
-     * @param value <code>true</code> if associations should be shown.
+     * @param value
+     * <code>true</code> if associations should be shown.
      */
     @objid ("1b4c39ce-5e33-11e2-b81d-002564c97630")
     public void setAssociationShown(final boolean isAssociationShown) {
-        if(this.preferences != null) {
+        if (this.preferences != null) {
             this.preferences.setValue(LinkEditorOptions.SHOW_ASSOCIATION, isAssociationShown);
         }
     }
@@ -157,7 +159,7 @@ public class LinkEditorOptions {
      */
     @objid ("1b4c39d8-5e33-11e2-b81d-002564c97630")
     public void setInheritanceShown(final boolean isInheritanceShown) {
-        if(this.preferences != null){            
+        if (this.preferences != null) {
             this.preferences.setValue(SHOW_INHERITANCE, isInheritanceShown);
         }
     }
@@ -179,7 +181,7 @@ public class LinkEditorOptions {
      */
     @objid ("1b4e9b12-5e33-11e2-b81d-002564c97630")
     public void setDependencyShown(final boolean isDependencyShown) {
-        if(this.preferences != null){            
+        if (this.preferences != null) {
             this.preferences.setValue(SHOW_DEPENDENCY, isDependencyShown);
         }
     }
@@ -189,14 +191,14 @@ public class LinkEditorOptions {
      */
     @objid ("1b4e9b17-5e33-11e2-b81d-002564c97630")
     public List<Stereotype> getDependencyFilter() {
-        //Parse stereotypes uuid to build the stereotype list
+        // Parse stereotypes uuid to build the stereotype list
         List<Stereotype> dependencyFilter = new ArrayList<>();
-        if(!getDependencyFilterList().isEmpty()){
+        if (!getDependencyFilterList().isEmpty()) {
             StringTokenizer tokenizer = new StringTokenizer(getDependencyFilterList(), ",");
-            while(tokenizer.hasMoreTokens()){
+            while (tokenizer.hasMoreTokens()) {
                 String stereotypeUuid = tokenizer.nextToken();
-                Stereotype stereotype = (Stereotype) this.modelServices.findById(Metamodel.getMClass(Stereotype.class), UUID.fromString(stereotypeUuid));
-                if(stereotype!=null) {
+                Stereotype stereotype = (Stereotype) this.modelServices.findByRef(new MRef(Stereotype.MNAME, stereotypeUuid));
+                if (stereotype != null) {
                     dependencyFilter.add(stereotype);
                 }
             }
@@ -210,8 +212,8 @@ public class LinkEditorOptions {
     @objid ("1b4e9b1e-5e33-11e2-b81d-002564c97630")
     public void setDependencyFilter(final List<Stereotype> dependencyFilter) {
         StringBuilder builder = new StringBuilder(2000);
-        for(Stereotype s : dependencyFilter){
-            builder.append(s.getUuid()+",");
+        for (Stereotype s : dependencyFilter) {
+            builder.append(s.getUuid() + ",");
         }
         setDependencyFilterList(builder.toString());
     }
@@ -222,7 +224,7 @@ public class LinkEditorOptions {
     @objid ("1b4e9b2f-5e33-11e2-b81d-002564c97630")
     public int getLeftDepth() {
         int value = LEFT_DEPTH_VALUE_DEFAULT;
-        if(this.preferences != null && this.preferences.contains(LEFT_DEPTH_VALUE)) {
+        if (this.preferences != null && this.preferences.contains(LEFT_DEPTH_VALUE)) {
             value = this.preferences.getInt(LEFT_DEPTH_VALUE);
         }
         return value;
@@ -234,7 +236,7 @@ public class LinkEditorOptions {
      */
     @objid ("1b4e9b34-5e33-11e2-b81d-002564c97630")
     public void setLeftDepth(final int fromDepth) {
-        if(this.preferences != null){            
+        if (this.preferences != null) {
             this.preferences.setValue(LEFT_DEPTH_VALUE, fromDepth);
         }
     }
@@ -245,8 +247,8 @@ public class LinkEditorOptions {
     @objid ("1b4e9b39-5e33-11e2-b81d-002564c97630")
     public int getRightDepth() {
         int value = RIGHT_DEPTH_VALUE_DEFAULT;
-        if(this.preferences != null && this.preferences.contains(RIGHT_DEPTH_VALUE)) {
-            value = this.preferences.getInt(RIGHT_DEPTH_VALUE);            
+        if (this.preferences != null && this.preferences.contains(RIGHT_DEPTH_VALUE)) {
+            value = this.preferences.getInt(RIGHT_DEPTH_VALUE);
         }
         return value;
     }
@@ -257,7 +259,7 @@ public class LinkEditorOptions {
      */
     @objid ("1b4e9b3e-5e33-11e2-b81d-002564c97630")
     public void setRightDepth(final int toDepth) {
-        if(this.preferences != null){            
+        if (this.preferences != null) {
             this.preferences.setValue(RIGHT_DEPTH_VALUE, toDepth);
         }
     }
@@ -279,7 +281,7 @@ public class LinkEditorOptions {
      */
     @objid ("1b4e9b48-5e33-11e2-b81d-002564c97630")
     public void setImportShown(final boolean isImportShown) {
-        if(this.preferences != null){            
+        if (this.preferences != null) {
             this.preferences.setValue(SHOW_ELEMENTIMPORT, isImportShown);
         }
     }
@@ -353,7 +355,7 @@ public class LinkEditorOptions {
      */
     @objid ("1b50fc6f-5e33-11e2-b81d-002564c97630")
     public void setDependencyFiltered(final boolean isDependencyFiltered) {
-        if(this.preferences != null){            
+        if (this.preferences != null) {
             this.preferences.setValue(LinkEditorOptions.IS_DEPENDENCY_FILTERED, isDependencyFiltered);
         }
     }
@@ -363,7 +365,7 @@ public class LinkEditorOptions {
      */
     @objid ("1b50fc74-5e33-11e2-b81d-002564c97630")
     public void setPinned(final boolean isPinned) {
-        if(this.preferences != null){            
+        if (this.preferences != null) {
             this.preferences.setValue(IS_PIN_EDITOR_ENABLE, isPinned);
         }
     }
@@ -385,7 +387,7 @@ public class LinkEditorOptions {
      */
     @objid ("1b50fc7e-5e33-11e2-b81d-002564c97630")
     public void setNamespaceUseShown(final boolean isNamespaceUseShown) {
-        if(this.preferences != null){            
+        if (this.preferences != null) {
             this.preferences.setValue(SHOW_NAMESPACEUSE, isNamespaceUseShown);
         }
     }
@@ -407,14 +409,14 @@ public class LinkEditorOptions {
      */
     @objid ("1b50fc88-5e33-11e2-b81d-002564c97630")
     public void setTraceShown(final boolean isTraceShown) {
-        if(this.preferences != null){            
+        if (this.preferences != null) {
             this.preferences.setValue(SHOW_TRACE, isTraceShown);
         }
     }
 
     @objid ("80d5f141-b39e-4cf3-964e-12b96f2ceef2")
     public void changeLayoutOrientation(String orientation) {
-        if(this.preferences != null){          
+        if (this.preferences != null) {
             this.preferences.setValue(ORIENTATION, orientation);
         }
     }
@@ -422,7 +424,7 @@ public class LinkEditorOptions {
     @objid ("b4013fd8-8908-49dc-a8fd-7ab4e891bc53")
     public String getOrientation() {
         String orientation = ORIENTATION_DEFAULT;
-        if(this.preferences != null && this.preferences.contains(ORIENTATION)) {
+        if (this.preferences != null && this.preferences.contains(ORIENTATION)) {
             orientation = this.preferences.getString(ORIENTATION);
         }
         return orientation;
@@ -430,7 +432,7 @@ public class LinkEditorOptions {
 
     @objid ("a8e4f452-d0cb-45c9-bc70-a0ea2063d375")
     private String getDependencyFilterList() {
-        if(this.preferences != null && this.preferences.contains(DEPENDENCY_FILTER_LIST)){
+        if (this.preferences != null && this.preferences.contains(DEPENDENCY_FILTER_LIST)) {
             return this.preferences.getString(DEPENDENCY_FILTER_LIST);
         }
         return "";
@@ -438,7 +440,7 @@ public class LinkEditorOptions {
 
     @objid ("3efd80e1-4008-47e0-9616-ceeaf0202b7e")
     public void setDependencyFilterList(String value) {
-        if(this.preferences != null){
+        if (this.preferences != null) {
             this.preferences.setValue(DEPENDENCY_FILTER_LIST, value);
         }
     }

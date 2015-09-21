@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.images;
 
@@ -42,19 +42,19 @@ import org.modelio.api.module.ILicenseInfos.Status;
 import org.modelio.api.module.IModule;
 import org.modelio.api.module.IModuleSession;
 import org.modelio.api.module.IModuleUserConfiguration;
-import org.modelio.api.module.IParameterEditionModel;
 import org.modelio.api.module.IPeerModule;
 import org.modelio.api.module.LicenseInfos;
 import org.modelio.gproject.gproject.GProject;
-import org.modelio.gproject.ramc.core.model.IModelComponent;
-import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
+import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
 import org.modelio.vbasic.version.Version;
 import org.modelio.vcore.session.api.blob.IBlobChangeEvent;
 import org.modelio.vcore.session.api.blob.IBlobChangeListener;
@@ -149,6 +149,24 @@ public class ModuleI18NService {
         return module.getName();
     }
 
+    @objid ("1efe5b40-7fd2-4e9c-9a7a-8a347ff1e8bc")
+    public static String getLabel(PropertyDefinition pdef) {
+        IModule iModule = startedModules.get(getModule(pdef));
+        if (iModule != null) {
+            return iModule.getLabel(pdef);
+        }
+        return pdef.getName();
+    }
+
+    @objid ("9f6abd2a-6a8d-4370-a184-049e4a385388")
+    public static String getDescription(PropertyDefinition pdef) {
+        IModule iModule = startedModules.get(getModule(pdef));
+        if (iModule != null) {
+            return iModule.getDescription(pdef);
+        }
+        return "";
+    }
+
     /**
      * Returns an Image for a module. The image life cycle is handled by the module.
      * @param moduleComponent the module to get the image from.
@@ -182,6 +200,24 @@ public class ModuleI18NService {
         startedModules.remove(moduleComponent);
     }
 
+    @objid ("bbdc73f0-a48a-4292-8fe6-3932995de5c4")
+    private static ModuleComponent getModule(PropertyDefinition pdef) {
+        PropertyTableDefinition table = pdef.getOwner();
+        if (table == null) {
+            return null;
+        }
+        
+        MetaclassReference ref = table.getOwnerReference();
+        Stereotype st = table.getOwnerStereotype();
+        
+        if (ref != null && ref.getOwnerProfile() != null) {
+            return ref.getOwnerProfile().getOwnerModule();
+        } else if (st != null && st.getOwner() != null) {
+            return st.getOwner().getOwnerModule();
+        } else
+            return null;
+    }
+
     /**
      * Almost empty implementation of IModule, providing the {@link IModule#getImage(Stereotype, ImageType)} method only.
      * <p>
@@ -198,6 +234,22 @@ public class ModuleI18NService {
         @objid ("712b64ee-35da-42d8-b9b7-078fb77dc921")
         private ModuleComponent moduleComponent;
 
+        /**
+         * Default c'tor
+         */
+        @objid ("64712871-e452-45d4-a01e-114a8f47a4e3")
+        LocalModule(ModuleComponent moduleComponent) {
+            this.moduleComponent = moduleComponent;
+            Display.getDefault().syncExec(new Runnable() {
+                @Override
+                public void run() {
+                    LocalModule.this.imageRegistry = new ImageRegistry();
+                }
+            });
+            
+            registerBlobListener(moduleComponent);
+        }
+
         @objid ("87a0f2da-f24e-44d8-a0b0-eac6002267d6")
         @Override
         public IModuleUserConfiguration getConfiguration() {
@@ -208,6 +260,12 @@ public class ModuleI18NService {
         @Override
         public String getDescription() {
             throw new UnsupportedOperationException();
+        }
+
+        @objid ("f4668713-3565-4e73-8a26-5c1d9215dc48")
+        @Override
+        public String getDescription(PropertyDefinition pdef) {
+            return pdef.getNoteContent("ModelerModule", "description");
         }
 
         @objid ("56304137-3a4b-4990-a47d-0b444dcc704a")
@@ -289,6 +347,12 @@ public class ModuleI18NService {
 
         @objid ("5939a62b-1dc6-4898-a347-5efd7570d983")
         @Override
+        public String getLabel(PropertyDefinition propertyDef) {
+            return propertyDef.getName();
+        }
+
+        @objid ("b4ab9227-7123-4b6c-a606-9c16e5e84622")
+        @Override
         public String getLabel(String key) {
             return key;
         }
@@ -303,12 +367,6 @@ public class ModuleI18NService {
         @Override
         public ModuleComponent getModel() {
             return this.moduleComponent;
-        }
-
-        @objid ("899a5b5e-c1f3-4550-ad19-70dee1002f9f")
-        @Override
-        public IModelComponentContributor getModelComponentContributor(IModelComponent mc) {
-            throw new UnsupportedOperationException();
         }
 
         @objid ("5f93136e-b040-4100-9077-29be0f1c9f93")
@@ -332,12 +390,6 @@ public class ModuleI18NService {
         @objid ("d030d713-591d-4a26-a8fd-e97406d18f7a")
         @Override
         public String getName() {
-            throw new UnsupportedOperationException();
-        }
-
-        @objid ("4ba3f5af-79e8-4983-b3ce-a02cbdfba7f8")
-        @Override
-        public IParameterEditionModel getParametersEditionModel() {
             throw new UnsupportedOperationException();
         }
 
@@ -365,12 +417,6 @@ public class ModuleI18NService {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("8595a3f9-6a5c-48fd-ba43-d473759ae3e4")
-        @Override
-        public void init() {
-            throw new UnsupportedOperationException();
-        }
-
         @objid ("d30a7aa5-1a7b-4b94-89fc-21ba24df5d1c")
         public void registerBlobListener(ModuleComponent mc) {
             GProject.getProject(mc).getSession().getBlobSupport().addBlobChangeListener(new IBlobChangeListener() {
@@ -386,28 +432,6 @@ public class ModuleI18NService {
                     }
                 }
             });
-        }
-
-        @objid ("c84f219d-0345-4777-b670-ae78a0038eb5")
-        @Override
-        public void uninit() {
-            throw new UnsupportedOperationException();
-        }
-
-        /**
-         * Default c'tor
-         */
-        @objid ("64712871-e452-45d4-a01e-114a8f47a4e3")
-        LocalModule(ModuleComponent moduleComponent) {
-            this.moduleComponent = moduleComponent;
-            Display.getDefault().syncExec(new Runnable() {
-                @Override
-                public void run() {
-                    LocalModule.this.imageRegistry = new ImageRegistry();
-                }
-            });
-            
-            registerBlobListener(moduleComponent);
         }
 
         @objid ("6108aa40-2da9-472e-8318-b1ba8b33c081")

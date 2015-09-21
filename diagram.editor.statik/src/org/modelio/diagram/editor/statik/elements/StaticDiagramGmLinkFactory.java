@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements;
 
@@ -196,24 +196,24 @@ public class StaticDiagramGmLinkFactory implements IGmLinkFactory {
         @Override
         public Object visitProvidedInterface(final ProvidedInterface theProvidedInterface) {
             return new GmProvidedInterfaceLink(this.diagram,
-                    theProvidedInterface,
-                    new MRef(theProvidedInterface));
+                                                        theProvidedInterface,
+                                                        new MRef(theProvidedInterface));
         }
 
         @objid ("36bc268e-55b7-11e2-877f-002564c97630")
         @Override
         public Object visitRequiredInterface(final RequiredInterface theRequiredInterface) {
             return new GmRequiredInterfaceLink(this.diagram,
-                    theRequiredInterface,
-                    new MRef(theRequiredInterface));
+                                                        theRequiredInterface,
+                                                        new MRef(theRequiredInterface));
         }
 
         @objid ("36bc2697-55b7-11e2-877f-002564c97630")
         @Override
         public Object visitInterfaceRealization(final InterfaceRealization theInterfaceRealization) {
             return new GmInterfaceRealization(this.diagram,
-                    theInterfaceRealization,
-                    new MRef(theInterfaceRealization));
+                                                        theInterfaceRealization,
+                                                        new MRef(theInterfaceRealization));
         }
 
         @objid ("36bdacfe-55b7-11e2-877f-002564c97630")
@@ -232,9 +232,9 @@ public class StaticDiagramGmLinkFactory implements IGmLinkFactory {
         @Override
         public Object visitAssociationEnd(AssociationEnd role) {
             return new GmAssociation(this.diagram,
-                    role,
-                    new MRef(role),
-                    new MRef(role.getAssociation()));
+                                                        role,
+                                                        new MRef(role),
+                                                        new MRef(role.getAssociation()));
         }
 
         @objid ("75ba39e1-96c6-4eae-8501-2ccd74fe6f84")
@@ -254,9 +254,9 @@ public class StaticDiagramGmLinkFactory implements IGmLinkFactory {
         @Override
         public Object visitLinkEnd(LinkEnd role) {
             return new GmInstanceLink(this.diagram,
-                    role,
-                    new MRef(role),
-                    new MRef(role.getLink()));
+                                                        role,
+                                                        new MRef(role),
+                                                        new MRef(role.getLink()));
         }
 
         @objid ("42f8487f-c36f-4bd4-b0c2-f88be0b7ee12")
@@ -272,9 +272,9 @@ public class StaticDiagramGmLinkFactory implements IGmLinkFactory {
             if (role.getConsumer() != null || role.getProvider() != null || role.getOpposite().getConsumer() != null || role.getOpposite().getProvider() != null)
                 return null;
             return new GmConnectorLink(this.diagram,
-                    role,
-                    new MRef(role),
-                    new MRef(role.getLink()));
+                                                        role,
+                                                        new MRef(role),
+                                                        new MRef(role.getLink()));
         }
 
         @objid ("f4e730b6-3faf-41da-b954-cc37980d2059")
@@ -287,18 +287,18 @@ public class StaticDiagramGmLinkFactory implements IGmLinkFactory {
         @Override
         public Object visitAssociation(Association association) {
             return new GmAssociation(this.diagram,
-                    association.getEnd().get(0),
-                    new MRef(association.getEnd().get(0)),
-                    new MRef(association));
+                                                        association.getEnd().get(0),
+                                                        new MRef(association.getEnd().get(0)),
+                                                        new MRef(association));
         }
 
         @objid ("ed32b086-fb63-4501-831a-14e836312cb1")
         @Override
         public Object visitLink(Link link) {
             return new GmInstanceLink(this.diagram,
-                    link.getLinkEnd().get(0),
-                    new MRef(link.getLinkEnd().get(0)),
-                    new MRef(link));
+                                                        link.getLinkEnd().get(0),
+                                                        new MRef(link.getLinkEnd().get(0)),
+                                                        new MRef(link));
         }
 
         @objid ("4a647ddd-07e2-4478-81f0-e6f206191d0e")
@@ -308,9 +308,9 @@ public class StaticDiagramGmLinkFactory implements IGmLinkFactory {
             if (connector.getLinkEnd().get(0).getConsumer() != null ||connector.getLinkEnd().get(0).getProvider() != null || connector.getLinkEnd().get(0).getOpposite().getConsumer() != null || connector.getLinkEnd().get(0).getOpposite().getProvider() != null)
                 return null;
             return new GmConnectorLink(this.diagram,
-                    (ConnectorEnd) connector.getLinkEnd().get(0),
-                    new MRef(connector.getLinkEnd().get(0)),
-                    new MRef(connector));
+                                                        (ConnectorEnd) connector.getLinkEnd().get(0),
+                                                        new MRef(connector.getLinkEnd().get(0)),
+                                                        new MRef(connector));
         }
 
         @objid ("2c47fdb8-ab78-4103-bc2c-0d21a42b9819")

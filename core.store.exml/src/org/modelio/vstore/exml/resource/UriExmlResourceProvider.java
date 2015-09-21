@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.resource;
 
@@ -47,6 +47,7 @@ import org.modelio.vbasic.net.UriUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.repository.BlobServices;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vstore.exml.common.index.IndexOutdatedException;
 import org.modelio.vstore.exml.common.model.ObjId;
 
@@ -97,7 +98,7 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
         this.modelUri = this.url.resolve(IExmlRepositoryGeometry.MODEL_DIRNAME+"/");
         this.stampUrl = this.url.resolve(IStampGeometry.STAMP_DIR_NAME+"/"+IStampGeometry.STAMP_FILE_NAME);
         this.versionUri = this.url.resolve(IExmlRepositoryGeometry.VERSION_PATH);
-              
+        
         this.localIndexDir = localDir.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME);
         this.localIndexStampPath = localDir.resolve(IStampGeometry.LOCAL_INDEX_STAMP_FILE);
     }
@@ -111,13 +112,14 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
             Log.trace(e);
         
             String msg = "Retrieving '"+getName()+"' indexes from '"+this.url+"' ...";
-            
+        
             Log.trace(msg);
             monitor.subTask(msg);
-            
+        
             boolean isLocalDir = Files.isDirectory(this.localIndexDir);
-            if (isLocalDir)
+            if (isLocalDir) {
                 FileUtils.delete(this.localIndexDir);
+            }
         
             Files.createDirectories(this.localIndexDir);
         
@@ -137,7 +139,7 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
                     Files.copy(is, target, StandardCopyOption.REPLACE_EXISTING );
                 }
             }
-            
+        
             Files.write(this.localIndexStampPath, getStamp().getBytes(StandardCharsets.UTF_8));
         }
     }
@@ -156,7 +158,7 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
 
     @objid ("ed737d83-8073-477b-b9a0-b0b186f98df7")
     @Override
-    public void createRepository() throws IOException {
+    public void createRepository(MMetamodel metamodel) throws IOException {
         throw new AccessDeniedException(this.url.toString());
     }
 
@@ -255,28 +257,30 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
 
     @objid ("20b481f8-5901-44ad-b48f-aa386da59c1b")
     private URI getLocalUrl(ObjId id) {
-        return this.modelUri.resolve(id.classof.getName()+"/"+id.id+IExmlRepositoryGeometry.EXT_LOCAL_EXML);
+        return this.modelUri.resolve(getMetaclassDirectoryName(id)+"/"+id.id+IExmlRepositoryGeometry.EXT_LOCAL_EXML);
     }
 
     @objid ("6d23ced5-12b0-425e-9a3a-adcba453712a")
     private URI getUrl(ObjId id) {
-        return this.modelUri.resolve(id.classof.getName()+"/"+id.id+IExmlRepositoryGeometry.EXT_EXML);
+        return this.modelUri.resolve(getMetaclassDirectoryName(id)+"/"+id.id+IExmlRepositoryGeometry.EXT_EXML);
     }
 
     @objid ("d1c951d9-400a-432b-be5d-16b72e4bd7ed")
     private UriConnection openURL(URI anUrl) throws IOException {
         UriConnection connection = UriConnections.createConnection(anUrl);
         
-        if (this.auth != null)
+        if (this.auth != null) {
             connection.setAuthenticationData(this.auth);
+        }
         return connection;
     }
 
     @objid ("2fae883f-10f4-4baa-a1e9-4876bdf3bdc1")
     private void checkLocalIndex() throws IndexOutdatedException, IOException {
         boolean islocalDir = Files.isDirectory(this.localIndexDir);
-        if (! islocalDir)
-            throw new IndexOutdatedException(this.getName()+" indexes not yet copied in '"+this.localIndexDir+"'.");
+        if (! islocalDir) {
+            throw new IndexOutdatedException(getName()+" indexes not yet copied in '"+this.localIndexDir+"'.");
+        }
         
         final String remoteStamp = getStamp();
         //Log.trace("Checking '"+this.getName()+"' repo indexes, remote stamp="+remoteStamp+" ("+this.stampUrl+")");
@@ -332,6 +336,11 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
     @Override
     public boolean isBrowsable() {
         return false;
+    }
+
+    @objid ("da803738-a3c8-489b-8734-45122fdc8976")
+    protected String getMetaclassDirectoryName(ObjId id) {
+        return ExmlRepositoryGeometry.getMetaclassDirectoryName(id.classof);
     }
 
     /**
@@ -393,8 +402,9 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
         @objid ("a65d8448-5825-48e1-8c18-50c1396a6925")
         private UriConnection openURL() throws IOException {
             UriConnection connection = UriConnections.createConnection(this.url);
-            if (this.auth != null)
+            if (this.auth != null) {
                 connection.setAuthenticationData(this.auth);
+            }
             return connection;
         }
 

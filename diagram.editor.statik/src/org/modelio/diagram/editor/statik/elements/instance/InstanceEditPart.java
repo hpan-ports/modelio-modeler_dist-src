@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.instance;
 
@@ -33,6 +33,7 @@ import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.core.figures.ChildFigureLineSeparator;
 import org.modelio.diagram.elements.core.figures.GradientFigure;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.ToolbarLayoutWithGrab;
 import org.modelio.diagram.elements.core.figures.borders.ShadowBorder;
 import org.modelio.diagram.elements.core.figures.borders.TLBRBorder;
@@ -82,8 +83,9 @@ public class InstanceEditPart extends GmNodeEditPart {
         installEditPolicy("nary-link", new AcceptNLinkEditPolicy(true));
         
         GmInstancePrimaryNode model = (GmInstancePrimaryNode) getModel();
-        if (model.getRelatedElement() instanceof BindableInstance)
+        if (model.getRelatedElement() instanceof BindableInstance) {
             installEditPolicy("nary-connector", new AcceptNConnectorEditPolicy(true));
+        }
     }
 
     @objid ("3541bb88-55b7-11e2-877f-002564c97630")
@@ -95,12 +97,12 @@ public class InstanceEditPart extends GmNodeEditPart {
         fig.setOpaque(true);
         
         final ToolbarLayoutWithGrab layout = new ToolbarLayoutWithGrab();
-        layout.setVertical(true);
+        layout.setHorizontal(false);
         layout.setStretchMinorAxis(true);
         
         fig.setLayoutManager(layout);
         
-        fig.setPreferredSize(90, 60);
+        MinimumSizeLayout.apply(fig, 90, 60);
         
         // Set style dependent properties
         refreshFromStyle(fig, getModelStyle());

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.analyst;
 
 import java.util.ArrayList;
@@ -32,7 +44,7 @@ import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.analyst.AnalystElement;
 import org.modelio.metamodel.analyst.Dictionary;
 import org.modelio.metamodel.analyst.Term;
-import org.modelio.metamodel.data.analyst.TermData;
+import org.modelio.metamodel.impl.analyst.TermData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -41,6 +53,7 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00626cea-c4bf-1fd8-97fe-001ec947cd2a")
 public class TermImpl extends AnalystElementImpl implements Term {
@@ -56,76 +69,91 @@ public class TermImpl extends AnalystElementImpl implements Term {
         return getArchivedTermVersion();
     }
 
-    @objid ("3db12e4d-ffb5-4215-b460-f5f9290f633f")
+    @objid ("45038f7c-7a22-4fe4-afb0-8d561ede33c9")
     @Override
     public Dictionary getOwnerDictionary() {
-        return (Dictionary) getDepVal(TermData.Metadata.OwnerDictionaryDep());
+        Object obj = getDepVal(((TermSmClass)getClassOf()).getOwnerDictionaryDep());
+        return (obj instanceof Dictionary)? (Dictionary)obj : null;
     }
 
-    @objid ("4a4b8bcc-27d5-4637-9c22-7917b361b8ce")
+    @objid ("6462f4b6-837c-40dc-8163-44d5696b9e51")
     @Override
     public void setOwnerDictionary(Dictionary value) {
-        appendDepVal(TermData.Metadata.OwnerDictionaryDep(), (SmObjectImpl)value);
+        appendDepVal(((TermSmClass)getClassOf()).getOwnerDictionaryDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3700c443-57a1-4b1d-829b-b84f9a3bb1ba")
+    @objid ("39bbbca2-319a-4e96-ba8c-fe68eb25ad73")
     @Override
     public EList<Term> getArchivedTermVersion() {
-        return new SmList<>(this, TermData.Metadata.ArchivedTermVersionDep());
+        return new SmList<>(this, ((TermSmClass)getClassOf()).getArchivedTermVersionDep());
     }
 
-    @objid ("e53f000d-664e-406a-a45e-302b847ee2d0")
+    @objid ("5af1c453-4d04-4159-b986-b248727a9ea5")
     @Override
     public <T extends Term> List<T> getArchivedTermVersion(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Term element : getArchivedTermVersion()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8c7258bd-68b9-4ad0-8ebc-fb6c8915bc3a")
+    @objid ("a10da153-3be3-4fe8-bbfd-ea4f022eed89")
     @Override
     public Term getLastTermVersion() {
-        return (Term) getDepVal(TermData.Metadata.LastTermVersionDep());
+        Object obj = getDepVal(((TermSmClass)getClassOf()).getLastTermVersionDep());
+        return (obj instanceof Term)? (Term)obj : null;
     }
 
-    @objid ("aec35cb6-0b04-4368-be8c-68b0546f0f06")
+    @objid ("7aeced32-ea64-4819-bebf-dda9aae2bae8")
     @Override
     public void setLastTermVersion(Term value) {
-        appendDepVal(TermData.Metadata.LastTermVersionDep(), (SmObjectImpl)value);
+        appendDepVal(((TermSmClass)getClassOf()).getLastTermVersionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fe2a89a3-70f3-45c2-89bd-de052deee950")
+    @objid ("c58b7057-508b-4d2c-996b-de70ad10eb5b")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(TermData.Metadata.OwnerDictionaryDep());
+        // OwnerDictionary
+        obj = (SmObjectImpl)this.getDepVal(((TermSmClass)getClassOf()).getOwnerDictionaryDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(TermData.Metadata.LastTermVersionDep());
+        // LastTermVersion
+        obj = (SmObjectImpl)this.getDepVal(((TermSmClass)getClassOf()).getLastTermVersionDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("68f6b6bc-edea-4457-bcd8-b2cf6e9af869")
+    @objid ("00aa3dbf-62bc-4eb1-a668-9c056882e446")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(TermData.Metadata.OwnerDictionaryDep());
-        if (obj != null)
-          return new SmDepVal(TermData.Metadata.OwnerDictionaryDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(TermData.Metadata.LastTermVersionDep());
-        if (obj != null)
-          return new SmDepVal(TermData.Metadata.LastTermVersionDep(), obj);
+        SmDependency dep;
+        
+        // OwnerDictionary
+        dep = ((TermSmClass)getClassOf()).getOwnerDictionaryDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // LastTermVersion
+        dep = ((TermSmClass)getClassOf()).getLastTermVersionDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("6c09dbea-b99c-4d2a-ad71-4831a443c592")
+    @objid ("26039e63-0cac-48f0-b238-dcb050fb1940")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTerm(this);

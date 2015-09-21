@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.script.macro.catalogdialog;
 
@@ -33,6 +33,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -42,7 +44,8 @@ import org.eclipse.swt.widgets.TableItem;
 import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.script.plugin.Script;
-import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 
 @objid ("00696928-c497-106a-bf4f-001ec947cd2a")
 class MetaclassChooserDialog extends ModelioDialog {
@@ -55,16 +58,16 @@ class MetaclassChooserDialog extends ModelioDialog {
     @objid ("a3ad7f4f-882a-4fe0-aa40-2dfcb8257a4a")
     private static final String HELP_TOPIC = "/org.modelio.documentation.modeler/html/Modeler-_modeler_modelio_settings_macros_catalog.html";
 
-    @objid ("00699628-c497-106a-bf4f-001ec947cd2a")
+    @objid ("6a4e9d44-2a6c-4c7c-a09e-4589bdbf17a7")
     private Button addButton;
 
-    @objid ("00699740-c497-106a-bf4f-001ec947cd2a")
+    @objid ("19d9250d-4ad8-49a2-a462-0b32d47b5c1f")
     private Button removeButton;
 
-    @objid ("006d0038-071b-106c-bf4f-001ec947cd2a")
+    @objid ("9ed6bcc9-4faf-4c33-aeaa-5c8bfecccb35")
     private Table leftTree;
 
-    @objid ("006d0952-071b-106c-bf4f-001ec947cd2a")
+    @objid ("196f1a1d-a94c-4189-8fa5-9c129471f32b")
     private Table rightTree;
 
     @objid ("006aab6c-c497-106a-bf4f-001ec947cd2a")
@@ -114,11 +117,12 @@ class MetaclassChooserDialog extends ModelioDialog {
     }
 
     @objid ("00697b8e-c497-106a-bf4f-001ec947cd2a")
-    public MetaclassChooserDialog(Shell parentShell, Collection<String> initValues) {
+    public MetaclassChooserDialog(Shell parentShell, Collection<String> initValues, MMetamodel metamodel) {
         super(parentShell);
-        
-        for (SmClass smClass : SmClass.getRegisteredClasses()) {
-            this.leftValues.add(smClass.getName());
+        if (metamodel != null) {
+            for (MClass smClass : metamodel.getRegisteredMClasses()) {
+                this.leftValues.add(smClass.getName());
+            }
         }
         this.rightValues.addAll(initValues);
         
@@ -149,7 +153,7 @@ class MetaclassChooserDialog extends ModelioDialog {
 
     @objid ("0069aaf0-c497-106a-bf4f-001ec947cd2a")
     private Image getMetaclassImage(String s) {
-        return MetamodelImageService.getIcon(SmClass.getClass(s));
+        return MetamodelImageService.getIcon(s);
     }
 
     @objid ("0069ada2-c497-106a-bf4f-001ec947cd2a")
@@ -181,13 +185,11 @@ class MetaclassChooserDialog extends ModelioDialog {
         
         // Buttons
         Composite buttonsGroup = new Composite(composite, SWT.NONE);
-        new Composite(buttonsGroup, SWT.NONE);
-        
+        buttonsGroup.setLayout(new GridLayout(1, true));
         this.addButton = new Button(buttonsGroup, SWT.PUSH);
+        this.addButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
         this.removeButton = new Button(buttonsGroup, SWT.PUSH);
-        
-        new Composite(buttonsGroup, SWT.NONE);
-        GridLayoutFactory.swtDefaults().generateLayout(buttonsGroup);
+        this.removeButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
         
         this.addButton.addSelectionListener(new AddButtonSelectionListener());
         this.addButton.setText(Script.I18N.getString("MetaclassChooserDialog.AddButton"));

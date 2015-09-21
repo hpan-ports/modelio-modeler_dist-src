@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.staticdiagramview;
 
@@ -60,6 +60,9 @@ public class GmStaticDiagramView extends GmAbstractDiagramView {
     @objid ("64fa9d6a-5bd5-11e2-9e33-00137282c51b")
     private static final StaticDiagramViewImageStyleKeys IMAGE_KEYS = new StaticDiagramViewImageStyleKeys();
 
+    @objid ("caf7c885-6051-4033-ae56-d1dbe1b17d2d")
+    private static final StaticDiagramViewUserImageStyleKeys USERIMAGE_KEYS = new StaticDiagramViewUserImageStyleKeys();
+
     /**
      * For deserialization only.
      */
@@ -91,6 +94,8 @@ public class GmStaticDiagramView extends GmAbstractDiagramView {
         switch (getRepresentationMode()) {
         case IMAGE:
             return IMAGE_KEYS.getStyleKey(metakey);
+        case USER_IMAGE:
+            return USERIMAGE_KEYS.getStyleKey(metakey);
         case SIMPLE:
             return SIMPLE_KEYS.getStyleKey(metakey);
         case STRUCTURED:
@@ -106,6 +111,8 @@ public class GmStaticDiagramView extends GmAbstractDiagramView {
         switch (getRepresentationMode()) {
         case IMAGE:
             return IMAGE_KEYS.getStyleKeys();
+        case USER_IMAGE:
+            return USERIMAGE_KEYS.getStyleKeys();
         case SIMPLE:
             return SIMPLE_KEYS.getStyleKeys();
         case STRUCTURED:

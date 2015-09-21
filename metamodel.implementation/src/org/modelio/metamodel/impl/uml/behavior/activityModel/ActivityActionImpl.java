@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.activityModel.ActivityActionData;
+import org.modelio.metamodel.impl.uml.behavior.activityModel.ActivityActionData;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
 import org.modelio.metamodel.uml.behavior.activityModel.ExceptionHandler;
 import org.modelio.metamodel.uml.behavior.activityModel.InputPin;
@@ -42,105 +54,117 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0026b060-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ActivityActionImpl extends ActivityNodeImpl implements ActivityAction {
-    @objid ("b3dfe331-f3c7-4967-8390-c10a73f9dc86")
+    @objid ("3835350b-eaab-4c1a-a8d0-592b131524e8")
     @Override
     public boolean isIsMultipleInstance() {
-        return (Boolean) getAttVal(ActivityActionData.Metadata.IsMultipleInstanceAtt());
+        return (Boolean) getAttVal(((ActivityActionSmClass)getClassOf()).getIsMultipleInstanceAtt());
     }
 
-    @objid ("41c9cbff-1589-4312-b433-4d40ab6f0f84")
+    @objid ("4e33ac56-f8e6-4252-b0d9-24a14542085d")
     @Override
     public void setIsMultipleInstance(boolean value) {
-        setAttVal(ActivityActionData.Metadata.IsMultipleInstanceAtt(), value);
+        setAttVal(((ActivityActionSmClass)getClassOf()).getIsMultipleInstanceAtt(), value);
     }
 
-    @objid ("b745d521-b56d-4481-a06e-3e74a637f3cf")
+    @objid ("8fd671b0-1258-4a24-9ed9-a77797c71e56")
     @Override
     public boolean isIsCompensation() {
-        return (Boolean) getAttVal(ActivityActionData.Metadata.IsCompensationAtt());
+        return (Boolean) getAttVal(((ActivityActionSmClass)getClassOf()).getIsCompensationAtt());
     }
 
-    @objid ("340fb3b0-b9dd-4065-be61-1918a4dcc53f")
+    @objid ("23c7f268-d7e8-4b8e-b550-1e154d2c0578")
     @Override
     public void setIsCompensation(boolean value) {
-        setAttVal(ActivityActionData.Metadata.IsCompensationAtt(), value);
+        setAttVal(((ActivityActionSmClass)getClassOf()).getIsCompensationAtt(), value);
     }
 
-    @objid ("b0b3e4f4-4408-4ace-b7ff-f9b34c7e7625")
+    @objid ("3c4c9460-7880-47aa-b7f9-98cc90667bb5")
     @Override
     public EList<OutputPin> getOutput() {
-        return new SmList<>(this, ActivityActionData.Metadata.OutputDep());
+        return new SmList<>(this, ((ActivityActionSmClass)getClassOf()).getOutputDep());
     }
 
-    @objid ("4f8fe607-5f99-4fea-8c22-7e50279b351f")
+    @objid ("9e6a7a4c-36ba-47d8-bf04-2a0713981ce5")
     @Override
     public <T extends OutputPin> List<T> getOutput(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final OutputPin element : getOutput()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("81512b65-a663-451a-bf8a-2d608712ad97")
+    @objid ("e59d59b8-36f3-48af-afae-cb7407f9aaa1")
     @Override
     public EList<InputPin> getInput() {
-        return new SmList<>(this, ActivityActionData.Metadata.InputDep());
+        return new SmList<>(this, ((ActivityActionSmClass)getClassOf()).getInputDep());
     }
 
-    @objid ("264b27de-5084-4ae3-9ff5-a7b204935d0e")
+    @objid ("3e2c789e-53fa-4a50-97da-6decf1159bcc")
     @Override
     public <T extends InputPin> List<T> getInput(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final InputPin element : getInput()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("930d4ea9-da79-4067-bcec-68e0115c293f")
+    @objid ("49326a99-a137-490d-939d-f3cde6404523")
     @Override
     public EList<ExceptionHandler> getHandler() {
-        return new SmList<>(this, ActivityActionData.Metadata.HandlerDep());
+        return new SmList<>(this, ((ActivityActionSmClass)getClassOf()).getHandlerDep());
     }
 
-    @objid ("f1ad479c-62c1-4589-a58e-813d4ff92971")
+    @objid ("afc5af6e-69a9-44ae-b655-52b91e1ede03")
     @Override
     public <T extends ExceptionHandler> List<T> getHandler(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ExceptionHandler element : getHandler()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("092b3345-0fbe-4333-8db4-e68473fc2c8f")
+    @objid ("3c4cb3c7-2e70-4f0e-9792-8777cfa21778")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("ef5cc8b5-3424-47e4-b392-cf39b3784ed0")
+    @objid ("2182989b-5bf7-4602-855a-deedb508806a")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("041ddb4c-ae89-4933-98bf-c492b5ee9120")
+    @objid ("f4553901-d248-4c2c-8108-07a40fb42c5f")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityAction(this);

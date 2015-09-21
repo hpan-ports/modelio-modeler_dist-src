@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -79,9 +79,9 @@ public class ConstraintFinalizationEditPolicy extends MultiPointCreationEditPoli
         getHostFigure().translateToRelative(Point.SINGLETON);
         Rectangle requestRect = new Rectangle(Point.SINGLETON, new Dimension(-1, -1));
         return new CreateConstraintCommand(sourceModels,
-                                           (GmCompositeNode) getHost().getModel(),
-                                           ctx,
-                                           requestRect);
+                                                                           (GmCompositeNode) getHost().getModel(),
+                                                                           ctx,
+                                                                           requestRect);
     }
 
     @objid ("7e084d7f-1dec-11e2-8cad-001ec947c8cc")

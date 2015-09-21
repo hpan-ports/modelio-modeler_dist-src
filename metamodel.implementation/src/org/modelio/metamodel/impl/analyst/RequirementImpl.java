@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.analyst;
 
 import java.util.ArrayList;
@@ -32,7 +44,7 @@ import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.analyst.AnalystElement;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
-import org.modelio.metamodel.data.analyst.RequirementData;
+import org.modelio.metamodel.impl.analyst.RequirementData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -41,6 +53,7 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("6beac79a-2be8-48f3-a776-0b680b64164a")
 public class RequirementImpl extends AnalystElementImpl implements Requirement {
@@ -56,113 +69,134 @@ public class RequirementImpl extends AnalystElementImpl implements Requirement {
         return getArchivedRequirementVersion();
     }
 
-    @objid ("fb9238d2-d406-4701-a461-cba539d55727")
+    @objid ("7725dfea-ac09-4d17-974d-a7cc58d912d9")
     @Override
     public EList<Requirement> getSubRequirement() {
-        return new SmList<>(this, RequirementData.Metadata.SubRequirementDep());
+        return new SmList<>(this, ((RequirementSmClass)getClassOf()).getSubRequirementDep());
     }
 
-    @objid ("5bcfa8c3-aeb3-48c0-a680-e284fa28edbe")
+    @objid ("2c8c6af6-7002-48ec-87f2-29ac2b8aade8")
     @Override
     public <T extends Requirement> List<T> getSubRequirement(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Requirement element : getSubRequirement()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a4d04d7b-9b96-48a3-8941-70d19cbfba2c")
+    @objid ("3b056119-f9e4-4c73-b4ae-2cb3956e972a")
     @Override
     public RequirementContainer getOwnerContainer() {
-        return (RequirementContainer) getDepVal(RequirementData.Metadata.OwnerContainerDep());
+        Object obj = getDepVal(((RequirementSmClass)getClassOf()).getOwnerContainerDep());
+        return (obj instanceof RequirementContainer)? (RequirementContainer)obj : null;
     }
 
-    @objid ("b3f44cdf-93bd-4b98-a8bc-1d296b82e95d")
+    @objid ("ffc971a0-e385-48e7-b315-c505668b6d23")
     @Override
     public void setOwnerContainer(RequirementContainer value) {
-        appendDepVal(RequirementData.Metadata.OwnerContainerDep(), (SmObjectImpl)value);
+        appendDepVal(((RequirementSmClass)getClassOf()).getOwnerContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b34e22f1-8711-4570-8780-90f4484d68d6")
+    @objid ("82b41db3-31d2-4490-b5eb-582008e39b08")
     @Override
     public Requirement getParentRequirement() {
-        return (Requirement) getDepVal(RequirementData.Metadata.ParentRequirementDep());
+        Object obj = getDepVal(((RequirementSmClass)getClassOf()).getParentRequirementDep());
+        return (obj instanceof Requirement)? (Requirement)obj : null;
     }
 
-    @objid ("5e17da95-abc2-43fb-bbd0-80f9b823ab91")
+    @objid ("49edc677-d6f0-47bd-a330-fa7d1ac98bb6")
     @Override
     public void setParentRequirement(Requirement value) {
-        appendDepVal(RequirementData.Metadata.ParentRequirementDep(), (SmObjectImpl)value);
+        appendDepVal(((RequirementSmClass)getClassOf()).getParentRequirementDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2c982634-0c36-4039-9c27-9741b7acb982")
+    @objid ("60ad298b-103f-4e4f-b967-7e8720defcca")
     @Override
     public EList<Requirement> getArchivedRequirementVersion() {
-        return new SmList<>(this, RequirementData.Metadata.ArchivedRequirementVersionDep());
+        return new SmList<>(this, ((RequirementSmClass)getClassOf()).getArchivedRequirementVersionDep());
     }
 
-    @objid ("b6e86aa0-0a03-4ce3-872f-fadcaae4c79e")
+    @objid ("4a82e6e0-908e-40fb-99d1-5ebc734c039f")
     @Override
     public <T extends Requirement> List<T> getArchivedRequirementVersion(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Requirement element : getArchivedRequirementVersion()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6385981f-9712-4b88-a635-207041fc2b70")
+    @objid ("b4783ecd-d664-4f2a-be57-e70fd3bd490f")
     @Override
     public Requirement getLastRequirementVersion() {
-        return (Requirement) getDepVal(RequirementData.Metadata.LastRequirementVersionDep());
+        Object obj = getDepVal(((RequirementSmClass)getClassOf()).getLastRequirementVersionDep());
+        return (obj instanceof Requirement)? (Requirement)obj : null;
     }
 
-    @objid ("38859d58-91a9-4309-9444-d88ad9a32bb2")
+    @objid ("f8988018-9e4c-4161-9e68-0732cea2fdf3")
     @Override
     public void setLastRequirementVersion(Requirement value) {
-        appendDepVal(RequirementData.Metadata.LastRequirementVersionDep(), (SmObjectImpl)value);
+        appendDepVal(((RequirementSmClass)getClassOf()).getLastRequirementVersionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3115d0eb-db43-46c3-adc8-ce55a20774ef")
+    @objid ("75a7f3be-59b1-48e3-ba69-f04594165c03")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(RequirementData.Metadata.OwnerContainerDep());
+        // OwnerContainer
+        obj = (SmObjectImpl)this.getDepVal(((RequirementSmClass)getClassOf()).getOwnerContainerDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(RequirementData.Metadata.ParentRequirementDep());
+        // ParentRequirement
+        obj = (SmObjectImpl)this.getDepVal(((RequirementSmClass)getClassOf()).getParentRequirementDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(RequirementData.Metadata.LastRequirementVersionDep());
+        // LastRequirementVersion
+        obj = (SmObjectImpl)this.getDepVal(((RequirementSmClass)getClassOf()).getLastRequirementVersionDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d6574677-16a0-41e6-8901-f43d3be0d072")
+    @objid ("f439c921-c6af-448d-895c-fe5a57bb5736")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(RequirementData.Metadata.OwnerContainerDep());
-        if (obj != null)
-          return new SmDepVal(RequirementData.Metadata.OwnerContainerDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(RequirementData.Metadata.ParentRequirementDep());
-        if (obj != null)
-          return new SmDepVal(RequirementData.Metadata.ParentRequirementDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(RequirementData.Metadata.LastRequirementVersionDep());
-        if (obj != null)
-          return new SmDepVal(RequirementData.Metadata.LastRequirementVersionDep(), obj);
+        SmDependency dep;
+        
+        // OwnerContainer
+        dep = ((RequirementSmClass)getClassOf()).getOwnerContainerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // ParentRequirement
+        dep = ((RequirementSmClass)getClassOf()).getParentRequirementDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // LastRequirementVersion
+        dep = ((RequirementSmClass)getClassOf()).getLastRequirementVersionDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("e9ca3a21-3d1b-4e41-a142-83f5caaa3f09")
+    @objid ("d56e28cc-50db-4828-af57-37e3b3b5d495")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitRequirement(this);

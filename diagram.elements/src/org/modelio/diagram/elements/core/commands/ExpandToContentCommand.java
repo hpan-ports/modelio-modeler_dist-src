@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.commands;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
@@ -58,8 +57,9 @@ public class ExpandToContentCommand extends Command {
     public void execute() {
         final Command resizeCommand = getResizeCommand();
         
-        if (resizeCommand != null && resizeCommand.canExecute())
+        if (resizeCommand != null && resizeCommand.canExecute()) {
             resizeCommand.execute();
+        }
     }
 
     /**
@@ -70,18 +70,29 @@ public class ExpandToContentCommand extends Command {
     private Command getResizeCommand() {
         final IFigure fig = this.editPart.getFigure();
         
+        //fig.getUpdateManager().performValidation();
+        
         final Dimension oldSize = fig.getSize();
         final Dimension newSize = fig.getPreferredSize();
         final Dimension diff = newSize.getShrinked(oldSize);
         
-        if (diff.isEmpty())
-            return null;
+        if (diff.width() < 0 ) {
+            diff.setWidth(0);
+        }
+        if (diff.height() < 0 ) {
+            diff.setHeight(0);
+        }
         
-        final ChangeBoundsRequest req = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
+        if (diff.equals(0, 0)) {
+            return NoopCommand.INSTANCE;
+        }
+        
+        // Send directly a request to the parent
+        fig.translateToAbsolute(diff); // request coords are in absolute coordinates
+        final ChangeBoundsRequest req = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE_CHILDREN);
         req.setEditParts(this.editPart);
         req.setSizeDelta(diff);
-        req.setMoveDelta(new Point(0, 0));
-        return this.editPart.getCommand(req);
+        return this.editPart.getParent().getCommand(req);
     }
 
     @objid ("7f40a165-1dec-11e2-8cad-001ec947c8cc")

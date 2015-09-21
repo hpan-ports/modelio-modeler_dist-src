@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.linkednode;
 
@@ -47,6 +47,7 @@ import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -102,16 +103,18 @@ public class CreateLinkedNodeCommand extends Command {
         if (newElement == null) {
             newElement = createElement(diagram.getModelManager().getModelFactory(this.parentElement), diagram.getModelManager().getModelServices().getElementNamer());
         
-            if (newElement == null)
+            if (newElement == null) {
                 return;
+            }
         }
         
         // Get the new element bounds
         final Rectangle rect;
-        if (this.size != null)
+        if (this.size != null) {
             rect = new Rectangle(this.location, this.size);
-        else
+        } else {
             rect = new Rectangle(this.location, new Dimension(-1, -1));
+        }
         
         // Show the new element in the diagram (ie create its Gm )
         final GmNodeModel createdNode = diagram.unmask(this.destNode, newElement, rect);
@@ -194,12 +197,13 @@ public class CreateLinkedNodeCommand extends Command {
         
         // ... and attach it to its parent.
         try {
-            this.parentElement.mGet(this.parentElement.getMClass().getDependency(this.context.getDependency())).add(newElement);
+            this.parentElement.mGet(this.context.getDependency()).add(newElement);
         } catch (Exception e) {
             // FIXME: use a finer type of exception.
             // The dependency indicated in the context cannot be used: try
             // to find a valid one!
-            final MDependency compositionDep = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, newElement);
+            final MExpert expert = this.context.getMetaclass().getMetamodel().getMExpert();
+            final MDependency compositionDep = expert.getDefaultCompositionDep(this.parentElement, newElement);
             if (compositionDep != null) {
                 this.parentElement.mGet(compositionDep).add(newElement);
             } else {
@@ -221,13 +225,14 @@ public class CreateLinkedNodeCommand extends Command {
     @objid ("7eb8bb56-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public boolean canExecute() {
-        if (!MTools.getAuthTool().canModify(this.sourceNode.getDiagram().getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(this.sourceNode.getDiagram().getRelatedElement())) {
             return false;
+        }
         
         final MObject newElement = this.context.getElementToUnmask();
         
         if (newElement == null) {
-            return MTools.getAuthTool().canAdd(this.parentElement, this.context.getMetaclass());
+            return MTools.getAuthTool().canAdd(this.parentElement, this.context.getMetaclass().getName());
         } else {
             return true;
         }
@@ -264,8 +269,9 @@ public class CreateLinkedNodeCommand extends Command {
             // Find the right edit part to connect the link to.
             targetPart = findTargetAnchorEditPart(request);
         }
-        if (targetPart != null)
+        if (targetPart != null) {
             request.setTargetEditPart(targetPart);
+        }
         return request;
     }
 
@@ -285,8 +291,9 @@ public class CreateLinkedNodeCommand extends Command {
         };
         
         EditPart ret = viewer.findObjectAtExcluding(request.getLocation(), Collections.emptyList(), conditional);
-        if (ret != null)
+        if (ret != null) {
             ret = ret.getTargetEditPart(request);
+        }
         return ret;
     }
 

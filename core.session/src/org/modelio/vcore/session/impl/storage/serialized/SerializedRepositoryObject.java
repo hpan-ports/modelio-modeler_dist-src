@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.storage.serialized;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.modelio.vcore.model.DuplicateObjectException;
@@ -94,7 +96,7 @@ class SerializedRepositoryObject implements IRepositoryObject {
     @objid ("00736112-fd1a-1f27-a7da-001ec947cd2a")
     @Override
     public void loadAtt(SmObjectImpl obj, SmAttribute att) {
-        if (!this.repository.isLoaded(obj))
+        if (!this.repository.isLoaded(obj)) {
             try {
                 this.repository.load(obj);
             } catch (DuplicateObjectException e) {
@@ -102,6 +104,7 @@ class SerializedRepositoryObject implements IRepositoryObject {
             } catch (IOException e) {
                 this.repository.getErrorSupport().fireError(e);
             }
+        }
     }
 
     @objid ("00738156-fd1a-1f27-a7da-001ec947cd2a")
@@ -134,14 +137,27 @@ class SerializedRepositoryObject implements IRepositoryObject {
 
     @objid ("f4bac59b-08b1-11e2-b33c-001ec947ccaf")
     @Override
-    public void unload(SmObjectImpl obj) {
+    public Collection<SmObjectImpl> unload(SmObjectImpl obj) {
         this.repository.unload(obj);
+        return Collections.singletonList(obj);
     }
 
     @objid ("dbab5051-4868-11e2-91c9-001ec947ccaf")
     @Override
     public boolean isDirty(SmObjectImpl obj) {
         return this.repository.isDirty(obj);
+    }
+
+    @objid ("52bf0d71-c19c-4d84-86e1-dbe7442c691d")
+    @Override
+    public void attachCreatedObj(SmObjectImpl obj) {
+        attach(obj);
+    }
+
+    @objid ("93eec304-9a60-47db-9910-8237cf18bfda")
+    @Override
+    public void setToReload(SmObjectImpl obj) {
+        this.repository.setToReload(obj);
     }
 
 }

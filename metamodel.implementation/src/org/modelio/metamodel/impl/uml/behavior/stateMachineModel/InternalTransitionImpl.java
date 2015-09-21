@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.stateMachineModel.InternalTransitionData;
+import org.modelio.metamodel.impl.uml.behavior.stateMachineModel.InternalTransitionData;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.InternalTransition;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -39,42 +51,52 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00517a98-c4bf-1fd8-97fe-001ec947cd2a")
 public class InternalTransitionImpl extends TransitionImpl implements InternalTransition {
-    @objid ("2b70813c-528b-43c2-b445-2dae28267852")
+    @objid ("7da1018a-ec1c-467b-8f71-d22f61ec4946")
     @Override
     public State getSComposed() {
-        return (State) getDepVal(InternalTransitionData.Metadata.SComposedDep());
+        Object obj = getDepVal(((InternalTransitionSmClass)getClassOf()).getSComposedDep());
+        return (obj instanceof State)? (State)obj : null;
     }
 
-    @objid ("b639b5e9-58c5-4249-8a04-58651b1866b2")
+    @objid ("5b74773d-54ed-41bb-8434-c00640bd0a5d")
     @Override
     public void setSComposed(State value) {
-        appendDepVal(InternalTransitionData.Metadata.SComposedDep(), (SmObjectImpl)value);
+        appendDepVal(((InternalTransitionSmClass)getClassOf()).getSComposedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0d6b1a6f-eeb2-42fc-9ac0-3570970320e3")
+    @objid ("19e29155-18fb-45a6-aaf8-2e4e87a6d91e")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(InternalTransitionData.Metadata.SComposedDep());
+        // SComposed
+        obj = (SmObjectImpl)this.getDepVal(((InternalTransitionSmClass)getClassOf()).getSComposedDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("65eeeac8-1650-41f6-8107-643c782bcec9")
+    @objid ("96dfd18c-c9f0-48b1-baaf-95c4c107408a")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(InternalTransitionData.Metadata.SComposedDep());
-        if (obj != null)
-          return new SmDepVal(InternalTransitionData.Metadata.SComposedDep(), obj);
+        SmDependency dep;
+        
+        // SComposed
+        dep = ((InternalTransitionSmClass)getClassOf()).getSComposedDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("288a2921-4b13-41d1-b89a-64b0752b1286")
+    @objid ("39f94bcf-8759-4c36-964f-5d36bfe4e502")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInternalTransition(this);

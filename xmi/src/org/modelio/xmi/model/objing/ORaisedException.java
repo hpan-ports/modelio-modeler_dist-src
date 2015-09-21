@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -39,8 +39,8 @@ public class ORaisedException extends OElement implements IOElement {
         // created. The exception is added to the related  org.eclipse.uml2.uml.Operation:
         GenerationProperties genProp = GenerationProperties.getInstance();
                 
-        Operation objingThrower = objingElement.getThrower();
-        Classifier objingThrownType = objingElement.getThrownType();
+        Operation objingThrower = this.objingElement.getThrower();
+        Classifier objingThrownType = this.objingElement.getThrownType();
          org.eclipse.uml2.uml.Operation ecoreThrower = null;
                 
         if (objingThrower != null && objingThrownType != null) {
@@ -67,7 +67,7 @@ public class ORaisedException extends OElement implements IOElement {
     @objid ("7db31c13-fab9-4acb-925f-9ed4e37ceb60")
     public ORaisedException(RaisedException element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("7502076a-afd5-484e-8398-adfd3e095e26")

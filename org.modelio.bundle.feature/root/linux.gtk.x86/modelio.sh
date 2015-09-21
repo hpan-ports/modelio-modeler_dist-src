@@ -6,30 +6,24 @@
 #  -nl en/fr              : define the user interface language
 #  -clean                 : Clean the cached data.
 #  -workspace dir_path    : Open th modelio session which using the
-#                           "dir_path" directory as workspace data. 
-#  -project  proj_name    : Open directly the project_name with modelio 
-#  -bash script_name.py : Execute a Jython script
+#                           "dir_path" directory as workspace data.
+#  -project  proj_name    : Open directly the project_name with modelio
+#  -create proj_name      : Create a new project named proj_name
+#  -batch script_name.py  : Execute a Jython script
+#  -param key=val         : Set the key variable with the val value.
+#                           This variable is available in jython script.
 #
 ###########################################################################
 
 main()
 {
-	export MODELIO_PATH="`getModelioInstallPath $0`"
-	export PATH=${PATH}:"${MODELIO_PATH}"
-	export SWT_GTK3=0
-	export UBUNTU_MENUPROXY=0
-	
-	####
-	# Use Xulrunner if it is present in bundle directory.
-	xulpath=`getXulrunnerInstallPath "${MODELIO_PATH}"`
-	if [ -n "${xulpath}" ] ; then
-		export GRE_HOME="${xulpath}"
-		export MOZILLA_FIVE_HOME="${GRE_HOME}"
-		export LD_LIBRARY_PATH="${GRE_HOME}":${LD_LIBRARY_PATH}
-	else
-		unset MOZILLA_FIVE_HOME
-		unset GRE_HOME
-	fi
+	MODELIO_PATH="`getModelioInstallPath $0`"
+	SWT_GTK3=0
+	UBUNTU_MENUPROXY=0
+	LIBOVERLAY_SCROLLBAR=0
+	GDK_NATIVE_WINDOWS=1
+	PATH=${PATH}:"${MODELIO_PATH}"
+	export SWT_GTK3 UBUNTU_MENUPROXY LIBOVERLAY_SCROLLBAR GDK_NATIVE_WINDOWS PATH
 
 	####
 	# Run
@@ -52,15 +46,5 @@ getModelioInstallPath()
 	echo $(dirname "${FULL_PATH}")
 }
 
-getXulrunnerInstallPath()
-{
-	mpath="$1"
-	xulrunner_path="${mpath}/bundle/xulrunner"
-	if [ -x "${xulrunner_path}/xulrunner-bin" ] ; then
-		echo "${xulrunner_path}"
-	else
-		echo ""
-	fi
-}
-
 main $*
+

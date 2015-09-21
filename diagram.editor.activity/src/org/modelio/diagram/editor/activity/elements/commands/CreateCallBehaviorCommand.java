@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.commands;
 
@@ -30,11 +30,11 @@ import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.model.GmModel;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.CallBehaviorAction;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -82,13 +82,13 @@ public class CreateCallBehaviorCommand extends Command {
         final CallBehaviorAction el = factory.createCallBehaviorAction();
         
         // Attach to its parent
-        final MDependency effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, el);
+        MExpert mExpert = this.parentElement.getMClass().getMetamodel().getMExpert();
+        final MDependency effectiveDependency = mExpert.getDefaultCompositionDep(this.parentElement, el);
         
-        if (effectiveDependency == null)
-            throw new IllegalStateException("Cannot find a composition dependency to attach " +
-                                            el.toString() +
-                                            " to " +
-                                            this.parentElement.toString());
+        if (effectiveDependency == null) {
+            throw new IllegalStateException("Cannot find a composition dependency to attach " + el.toString() + " to "
+                    + this.parentElement.toString());
+        }
         
         this.parentElement.mGet(effectiveDependency).add(el);
         
@@ -114,16 +114,15 @@ public class CreateCallBehaviorCommand extends Command {
         creationRequest.setFactory(gmCreationContext);
         
         final Command cmd = this.editPart.getTargetEditPart(creationRequest).getCommand(creationRequest);
-        if (cmd != null && cmd.canExecute())
+        if (cmd != null && cmd.canExecute()) {
             cmd.execute();
+        }
     }
 
     @objid ("2a0d7efc-55b6-11e2-877f-002564c97630")
     @Override
     public boolean canExecute() {
-        return this.parentElement != null &&
-               this.parentElement.isValid() &&
-               this.parentElement.getStatus().isModifiable();
+        return this.parentElement != null && this.parentElement.isValid() && this.parentElement.getStatus().isModifiable();
     }
 
 }

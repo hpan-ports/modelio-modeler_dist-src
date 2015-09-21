@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link;
 
@@ -25,6 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.commands.Command;
 import org.modelio.diagram.elements.core.model.IGmLinkable;
 import org.modelio.gproject.model.api.MTools;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -58,8 +59,9 @@ public class DefaultReconnectSourceCommand extends Command {
     @Override
     public boolean canExecute() {
         // The diagram must be modifiable
-        if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement())) {
             return false;
+        }
         
         // If the source changes, The old and new source and the link elements must be modifiable
         final IGmLinkable oldSrcNode = this.gmLink.getFrom();
@@ -100,17 +102,18 @@ public class DefaultReconnectSourceCommand extends Command {
         if (oldSourceNode != this.newSrcNode) {
             final MObject link = this.gmLink.getRelatedElement();
             final MObject newSource = this.newSrcNode.getRelatedElement();
+            final MExpert expert = link.getMClass().getMetamodel().getMExpert();
             if (oldSourceNode != null) {
                 final MObject oldSource = oldSourceNode.getRelatedElement();
                 if (!newSource.equals(oldSource)) {
                     // Update Ob model
-                    MTools.getModelTool().setSource(link, oldSource, newSource);
+                    expert.setSource(link, oldSource, newSource);
                 }
         
                 // Update gm model
                 oldSourceNode.removeStartingLink(this.gmLink);
             } else {
-                MTools.getModelTool().setSource(link, null, newSource);
+                expert.setSource(link, null, newSource);
             }
             this.newSrcNode.addStartingLink(this.gmLink);
         }

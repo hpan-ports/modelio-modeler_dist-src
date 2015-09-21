@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,51 +12,115 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.bpmn.rootElements;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.activities.BpmnSubProcess;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
 import org.modelio.metamodel.bpmn.rootElements.BpmnGroup;
 
+/**
+ * BpmnFlowElement v0.0.9054
+ * 
+ * 
+ * FlowElement is the abstract super class for all elements that can appear in a Process flow, which are FlowNodes - which consist of Activities, Choreography Activities  Gateways, and Events - Data Objects, Data Associations, and Sequence Flow.
+ * 
+ * Ownership:
+ * A FlowElement belongs to an Element Container or a SubProcess
+ */
 @objid ("00792098-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnFlowElement extends BpmnBaseElement {
-    @objid ("0918f0a3-2ab2-4d81-83d6-176878383200")
+    @objid ("d25790a6-4d9f-44eb-a3ca-4051562f0be8")
+    public static final String MNAME = "BpmnFlowElement";
+
+    /**
+     * Getter for relation 'BpmnFlowElement->Groups'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("7c23cbeb-c54f-4d1e-b824-c0af3cec945c")
     EList<BpmnGroup> getGroups();
 
-    @objid ("fbf5dfb5-13cd-4546-9440-32890684063b")
+    /**
+     * Filtered Getter for relation 'BpmnFlowElement->Groups'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("854dda84-2a92-4b0e-b433-422adbb02e88")
     <T extends BpmnGroup> List<T> getGroups(java.lang.Class<T> filterClass);
 
-    @objid ("3fb35454-d77a-42d8-9484-28ab0af3c4a0")
+    /**
+     * Getter for relation 'BpmnFlowElement->SubProcess'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("3175b192-38f7-4d52-8036-efaeef59bf4f")
     BpmnSubProcess getSubProcess();
 
-    @objid ("e854e434-7c52-4f9b-9e78-9cf8eea1a14b")
+    /**
+     * Setter for relation 'BpmnFlowElement->SubProcess'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("fdaea8be-97c9-4f99-b493-3b9aab270ad9")
     void setSubProcess(BpmnSubProcess value);
 
-    @objid ("222078e7-2372-4542-a68e-16b3e5ae6241")
+    /**
+     * Getter for relation 'BpmnFlowElement->Lane'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6b23987f-274d-4df7-8885-e39693269544")
     EList<BpmnLane> getLane();
 
-    @objid ("49c67969-cdf9-405f-abfc-6d1b5be83a8e")
+    /**
+     * Filtered Getter for relation 'BpmnFlowElement->Lane'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("088d4238-1eec-4114-898e-24e5d0cf929c")
     <T extends BpmnLane> List<T> getLane(java.lang.Class<T> filterClass);
 
-    @objid ("4660f4fa-8933-4c3b-80f2-8f1b9c9376c5")
+    /**
+     * Getter for relation 'BpmnFlowElement->Container'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("2a6ec1ab-2215-4306-9ad5-0aaaa94c67b8")
     BpmnProcess getContainer();
 
-    @objid ("6879d386-1d2d-409e-bc2a-d30f483d73c1")
+    /**
+     * Setter for relation 'BpmnFlowElement->Container'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("2e8b1a23-6ff4-4a21-ad29-fe333346bee1")
     void setContainer(BpmnProcess value);
 
 }

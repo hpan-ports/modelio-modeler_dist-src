@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl;
 
@@ -28,8 +28,6 @@ import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmDependency;
-import org.modelio.vcore.smkernel.meta.SmMultipleDependency;
-import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 
 /**
  * The DeletedMetaObject is the special meta object used for deleted objects
@@ -59,6 +57,7 @@ public class DeletedMetaObject implements IMetaOf {
     @objid ("0005131a-0dbb-1f20-85a5-001ec947cd2a")
     @Override
     public void createObject(SmObjectImpl obj) {
+        // This code should never ever be called.
         throw throwDeletedObject(obj);
     }
 
@@ -85,12 +84,7 @@ public class DeletedMetaObject implements IMetaOf {
     @Override
     public Object getObjDepVal(SmObjectImpl obj, SmDependency dep) {
         ISmObjectData data = obj.getData();
-        
-        if (dep.isMultiple()) {
-            return ((SmMultipleDependency) dep).getValueList(data);
-        } else {
-            return ((SmSingleDependency) dep).getValue(data);
-        }
+        return dep.getValue(data);
     }
 
     @objid ("000506fe-0dbb-1f20-85a5-001ec947cd2a")
@@ -153,8 +147,8 @@ public class DeletedMetaObject implements IMetaOf {
 
     /**
      * Builds an AccessDeniedException for the given model object.
-     * @throws AccessDeniedException a ready to throw exception
      * @param smObject a model object
+     * @return AccessDeniedException a ready to throw exception
      */
     @objid ("e81e329b-3558-11e2-a87b-001ec947ccaf")
     private static AccessDeniedException throwDeletedObject(final SmObjectImpl smObject) {
@@ -165,6 +159,13 @@ public class DeletedMetaObject implements IMetaOf {
     @Override
     public void objStatusChanged(SmObjectImpl obj, long oldStatus, long newStatus) {
         // ignore
+    }
+
+    @objid ("86e6803c-a2ba-40fe-bb3a-20f36523c054")
+    @Override
+    public void importObject(SmObjectImpl obj) {
+        // This code should never ever be called.
+        throw throwDeletedObject(obj);
     }
 
 }

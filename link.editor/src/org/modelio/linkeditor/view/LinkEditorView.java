@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.linkeditor.view;
 
@@ -37,6 +37,7 @@ import org.eclipse.draw2d.GraphicsSource;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.ui.di.Focus;
@@ -135,6 +136,25 @@ public class LinkEditorView implements CommandStackListener {
     @objid ("8574796d-78f7-4205-91a3-c08d0602bd89")
     private static final String POPUPID = "org.modelio.linkeditor.popupmenu";
 
+    @objid ("15fa82d6-cb9f-4b15-ad8b-5f1069936bcb")
+    @Inject
+    private EMenuService menuService;
+
+    @objid ("b471259b-1325-41e8-a63d-125fc5654c69")
+    @Inject
+    private EModelService eModelService;
+
+    @objid ("f3bf5ffe-7dbe-4c9e-8ef8-dda49ca3edfa")
+    @Inject
+    @Optional
+    private MApplication application;
+
+    @objid ("0c336b4f-2ab0-4fe9-ba8c-5b75462adfa8")
+    private static MToolBar toolbar;
+
+    @objid ("e09066a1-c368-4a27-9a06-c3abba4bfa68")
+    private MMenu menu;
+
     @objid ("1ba44c85-5e33-11e2-b81d-002564c97630")
     private MObject currentSelection;
 
@@ -143,6 +163,7 @@ public class LinkEditorView implements CommandStackListener {
 
     /**
      * FIXME CHM this shouldn't be static...
+     * 
      * @see org.modelio.linkeditor.view.background.CreateLinkCommand#execute()
      */
     @objid ("d4aed2a9-5efd-11e2-a8be-00137282c51b")
@@ -150,42 +171,23 @@ public class LinkEditorView implements CommandStackListener {
     @Optional
     public static IMModelServices modelServices;
 
-    @objid ("81054bf8-e7db-4ad5-b9f8-49cbe55d38d4")
-    private EditDomain editDomain;
-
-    @objid ("e3571523-4096-4585-9997-d2b08d571337")
-    private SelectionSynchronizer synchronizer;
-
 // FIXME CHM this shouldn't be static...
     @objid ("8fe48f6f-e2f9-45a2-a58f-354a734b3d12")
-    private static LinkEditorOptions options = new LinkEditorOptions(null,null);
-
-    @objid ("43f311f1-376c-4f92-b7d4-6b1f98ced3a9")
-    @Inject
-    private EMenuService menuService;
-
-    @objid ("9b195c92-ac77-40b0-8fcb-3bd008c58df3")
-    @Inject
-    private Shell activeShell;
-
-    @objid ("1eada249-9f7a-45db-b3f4-d7b716f25be1")
-    @Inject
-    private EModelService eModelService;
-
-    @objid ("2ef4ad13-1583-46df-bec9-5a4246524b75")
-    @Inject
-    @Optional
-    private MApplication application;
-
-    @objid ("12712677-9bf0-4b6a-ba0d-807546c4668e")
-    private static MToolBar toolbar;
-
-    @objid ("a8992ae6-4faf-415f-9f4c-6915389d9ae8")
-    private MMenu menu;
+    private static LinkEditorOptions options = new LinkEditorOptions(null, null);
 
     @objid ("6ef267ce-960b-4a58-ad8a-71e047c73176")
     @Inject
      IModelioNavigationService navigationService;
+
+    @objid ("a90cec6b-d3be-4ff5-89bf-dcc64753c8ba")
+    private EditDomain editDomain;
+
+    @objid ("14bfe445-e7a5-4e45-a55d-8dc15d2e2613")
+    private SelectionSynchronizer synchronizer;
+
+    @objid ("e71116c0-acf0-4984-b8ac-81d1e77cbcdd")
+    @Inject
+    private Shell activeShell;
 
     /**
      * This method changes the contents of the view. It is usually called when the selected element changes in the application.
@@ -236,7 +238,7 @@ public class LinkEditorView implements CommandStackListener {
             }
         }
         // Notifies the view to display new content (and this we made sure it
-        // has been emptied before, new content will be centred correctly).
+        // has been emptied before, new content will be centered correctly).
         display.syncExec(new Runnable() {
             @Override
             public void run() {
@@ -247,7 +249,7 @@ public class LinkEditorView implements CommandStackListener {
     }
 
     @objid ("1ba6adda-5e33-11e2-b81d-002564c97630")
-    private void createControls(final Composite parent) {
+    private void createControls(final Composite parent, IEclipseContext ctx) {
         Composite panel = new Composite(parent, SWT.NONE);
         GridLayout gl = new GridLayout(1, true);
         gl.horizontalSpacing = 0;
@@ -257,7 +259,11 @@ public class LinkEditorView implements CommandStackListener {
         panel.setLayout(gl);
         
         // Add the GEF viewer on top
-        this.createGraphicalViewer(panel);
+        this.graphicalViewer = this.createGraphicalViewer(panel, ctx);
+        // Register viewer into the domain
+        this.getEditDomain().addViewer(this.graphicalViewer);
+        
+        // Set layout data for the viewer
         GridData viewerLayoutData = new GridData();
         viewerLayoutData.grabExcessHorizontalSpace = true;
         viewerLayoutData.grabExcessVerticalSpace = true;
@@ -285,13 +291,12 @@ public class LinkEditorView implements CommandStackListener {
      * configured. Subclasses should extend or override this method as needed.
      */
     @objid ("1ba6ade8-5e33-11e2-b81d-002564c97630")
-    protected void configureGraphicalViewer() {
-        final GraphicalViewer viewer = this.getGraphicalViewer();
+    protected void configureGraphicalViewer(final GraphicalViewer viewer, IEclipseContext ctx) {
         viewer.getControl().setBackground(ColorConstants.listBackground);
         
         // Set the root edit part
         viewer.setRootEditPart(this.rootEditPart);
-        viewer.setEditPartFactory(new LinkEditorEditPartFactory(LinkEditorView.modelServices));
+        viewer.setEditPartFactory(new LinkEditorEditPartFactory(ctx));
         
         // Configure the edit domain
         // Set the active and default tool
@@ -331,74 +336,20 @@ public class LinkEditorView implements CommandStackListener {
 
     /**
      * Creates the GraphicalViewer on the specified <code>Composite</code>.
+     * @param ctx
      * @param parent the parent composite
      */
     @objid ("1ba6adee-5e33-11e2-b81d-002564c97630")
-    protected void createGraphicalViewer(final Composite parent) {
-        // XXX Hack: we need to specialize the GraphicsSource to avoid calling
-        // the
-        // Canvas#update() method in the GraphicsSource#getGraphics(Rectangle)
-        // method.
-        //
-        // This hack is needed to avoid SWT/GEF bug 137786
-        // (see https://bugs.eclipse.org/bugs/show_bug.cgi?id=137786 ) where
-        // drag over
-        // feedback (ie the drag feedback provided by the drag source) and drag
-        // under
-        // feedback (ie the feedback provided by the drop target) interfere with
-        // each
-        // other, causing flickering and more importantly ugly graphical
-        // artifacts.
-        //
-        // In order to be able to specialize the GraphicsSource, we need to
-        // specialize
-        // the LightWeightSystem, and to do that we need in turn to specialize
-        // the GraphicalViewer.
-        
-        final GraphicalViewer viewer = new ScrollingGraphicalViewer() {
-            @Override
-            protected LightweightSystem createLightweightSystem() {
-                return new LightweightSystem() {
-                    @Override
-                    public void setControl(final Canvas c) {
-                        super.setControl(c);
-                        this.getUpdateManager().setGraphicsSource(new GraphicsSource() {
-                            @Override
-                            public Graphics getGraphics(Rectangle r) {
-                                c.redraw(r.x, r.y, r.width, r.height, false);
-                                // The actual hack is the following code
-                                // line: in original GEF code a call is
-                                // made to the #update() method of the c
-                                // Canvas.
-                                // But calling #update() at this point
-                                // causes SWT to redraw the drag over
-                                // feedback which in turn causes GEF to
-                                // redraw the drag under feedback etc.
-                                // The final result is flickering
-                                // (because of constant erase and
-                                // redraw) and
-                                // graphical artifacts.
-                                // Commenting this line however seems to
-                                // have no side effect (so far).
-                                // c.update();
-                                return null;
-                            }
-        
-                            @Override
-                            public void flushGraphics(Rectangle region) {
-                                // Nothing to do.
-                            }
-                        });
-                    }
-                };
-            }
-        };
-        // XXX end of Hack
+    protected GraphicalViewer createGraphicalViewer(final Composite parent, IEclipseContext ctx) {
+        // Need to use a hacked ScrollingGraphicalViewer to circumvent SWT/GEF bug 137786 (see
+        // https://bugs.eclipse.org/bugs/show_bug.cgi?id=137786 )
+        final GraphicalViewer viewer = new HackedScrollingGraphicalViewer();
         viewer.createControl(parent);
-        this.setGraphicalViewer(viewer);
-        this.configureGraphicalViewer();
-        this.hookGraphicalViewer();
-        this.initializeGraphicalViewer();
+        
+        this.configureGraphicalViewer(viewer, ctx);
+        this.hookGraphicalViewer(viewer);
+        this.initializeGraphicalViewer(viewer);
+        
         viewer.addDropTargetListener(new LinkEditorDropTargetListener(viewer, this.projectService));
         this.focusListener = new FocusListener() {
         
@@ -415,6 +366,7 @@ public class LinkEditorView implements CommandStackListener {
             }
         };
         viewer.getControl().addFocusListener(this.focusListener);
+        return viewer;
     }
 
     @objid ("1ba6adf3-5e33-11e2-b81d-002564c97630")
@@ -430,8 +382,9 @@ public class LinkEditorView implements CommandStackListener {
         // Unregister as a model change listener.
         if (this.modelChangeListener != null) {
             ICoreSession session = this.projectService.getSession();
-            if (session != null)
+            if (session != null) {
                 session.getModelChangeSupport().removeModelChangeListener(this.modelChangeListener);
+            }
             this.modelChangeListener = null;
         }
         
@@ -449,7 +402,8 @@ public class LinkEditorView implements CommandStackListener {
 
     /**
      * Adapt the instance to another supported type.
-     * @param <T> the type to adapt to
+     * @param <T>
+     * the type to adapt to
      * @param type the type to adapt to
      * @return the instance of the asked type or <code>null</code>.
      */
@@ -457,7 +411,8 @@ public class LinkEditorView implements CommandStackListener {
     @SuppressWarnings("unchecked")
     public <T> T getAdapter(final Class<T> type) {
         if (type == ZoomManager.class) {
-            ScalableFreeformRootEditPart scalableFreeformRootEditPart = (ScalableFreeformRootEditPart) this.getGraphicalViewer().getRootEditPart();
+            ScalableFreeformRootEditPart scalableFreeformRootEditPart = (ScalableFreeformRootEditPart) this.getGraphicalViewer()
+                    .getRootEditPart();
             return (T) scalableFreeformRootEditPart.getZoomManager();
         }
         if (type == GraphicalViewer.class) {
@@ -508,27 +463,29 @@ public class LinkEditorView implements CommandStackListener {
      */
     @objid ("1ba90f2d-5e33-11e2-b81d-002564c97630")
     protected SelectionSynchronizer getSelectionSynchronizer() {
-        if (this.synchronizer == null)
+        if (this.synchronizer == null) {
             this.synchronizer = new SelectionSynchronizer();
+        }
         return this.synchronizer;
     }
 
     /**
      * Hooks the GraphicalViewer to the rest of the Editor. By default, the viewer is added to the SelectionSynchronizer, which can
      * be used to keep 2 or more EditPartViewers in sync.
+     * @param viewer
      */
     @objid ("1ba90f3b-5e33-11e2-b81d-002564c97630")
-    protected void hookGraphicalViewer() {
-        this.getSelectionSynchronizer().addViewer(this.getGraphicalViewer());
+    protected void hookGraphicalViewer(GraphicalViewer viewer) {
+        this.getSelectionSynchronizer().addViewer(viewer);
         
-        this.getGraphicalViewer().addSelectionChangedListener(new ISelectionChangedListener() {
+        viewer.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 LinkEditorView.this.selectionService.setSelection(event.getSelection());
             }
         });
         
-        this.getSelectionSynchronizer().addViewer(this.getGraphicalViewer());
+        this.getSelectionSynchronizer().addViewer(viewer);
     }
 
     /**
@@ -554,13 +511,14 @@ public class LinkEditorView implements CommandStackListener {
 
     /**
      * Override to set the contents of the GraphicalViewer after it has been created.
+     * @param viewer
      * @see #createGraphicalViewer(Composite)
      */
     @objid ("1ba90f47-5e33-11e2-b81d-002564c97630")
-    protected void initializeGraphicalViewer() {
+    protected void initializeGraphicalViewer(GraphicalViewer viewer) {
         // Set the viewer content
         BackgroundModel backgroundModel = new BackgroundModel();
-        this.getGraphicalViewer().setContents(backgroundModel);
+        viewer.setContents(backgroundModel);
     }
 
     /**
@@ -570,16 +528,6 @@ public class LinkEditorView implements CommandStackListener {
     @objid ("1ba90f51-5e33-11e2-b81d-002564c97630")
     protected void setEditDomain(final EditDomain ed) {
         this.editDomain = ed;
-    }
-
-    /**
-     * Sets the graphicalViewer for this EditorPart.
-     * @param viewer the graphical viewer
-     */
-    @objid ("1ba90f58-5e33-11e2-b81d-002564c97630")
-    protected void setGraphicalViewer(final GraphicalViewer viewer) {
-        this.getEditDomain().addViewer(viewer);
-        this.graphicalViewer = viewer;
     }
 
     /**
@@ -625,13 +573,13 @@ public class LinkEditorView implements CommandStackListener {
      */
     @objid ("d4aed2ab-5efd-11e2-a8be-00137282c51b")
     @PostConstruct
-    void postConstruct(Composite composite, MPart part, IProjectService theProjectService, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
-        this.projectService = theProjectService;
+    void postConstruct(Composite composite, MPart part, IEclipseContext ctx, IProjectService theProjectService, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+        this.projectService = ctx.get(IProjectService.class);
         
         // Create the MPart
         this.createPart(part);
         // Create the GUI controls
-        this.createControls(composite);
+        this.createControls(composite, ctx);
         
         // Sometimes, the view is instantiated only after the project is opened
         // project preferences maybe null if there is no opened project
@@ -639,8 +587,9 @@ public class LinkEditorView implements CommandStackListener {
         if (project != null) {
             onProjectOpened(project);
         
-            if (selection != null)
+            if (selection != null) {
                 onSelectionChange(selection);
+            }
         } else {
             // No project has been opened yet, initialize preferences with default values
             configureOptions(getProjectPreferences());
@@ -658,8 +607,8 @@ public class LinkEditorView implements CommandStackListener {
     /**
      * Get the link editor options.
      * <p>
-     * TODO : this method and the {@link #options} attribute should not be static,
-     * but EdgeEditPart and others don't have reference to the LinkEditorView instance.
+     * TODO : this method and the {@link #options} attribute should not be static, but EdgeEditPart and others don't have reference
+     * to the LinkEditorView instance.
      * @see org.modelio.linkeditor.view.edge.EdgeEditPart
      * @return the link editor options.
      * 
@@ -712,8 +661,7 @@ public class LinkEditorView implements CommandStackListener {
                 } else if (selectedElement instanceof MObject) {
                     setCurrentSelection((MObject) selectedElement);
                 } else if (selectedElement instanceof IAdaptable) {
-                    MObject element = (MObject) ((IAdaptable) selectedElement)
-                            .getAdapter(MObject.class);
+                    MObject element = (MObject) ((IAdaptable) selectedElement).getAdapter(MObject.class);
                     setCurrentSelection(element);
                 }
             }
@@ -741,7 +689,7 @@ public class LinkEditorView implements CommandStackListener {
     @Inject
     @Optional
     void onProjectClosed(@EventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject project) {
-        configureOptions(null); //set options back to default
+        configureOptions(null); // set options back to default
         this.setCurrentSelection(null);
         this.refreshFromCurrentSelection();
         // Unregister as a model change listener.
@@ -765,8 +713,10 @@ public class LinkEditorView implements CommandStackListener {
 
     /**
      * Configure toolbar by loading a local copy of some options from the platform preference store.
-     * @param theModelServices the model services
-     * @param theOptions the editor options
+     * @param theModelServices
+     * the model services
+     * @param theOptions
+     * the editor options
      */
     @objid ("c7203f3d-9ad0-4b2f-8b3f-0833ee992d7f")
     public static void configureToolbar() {
@@ -777,37 +727,51 @@ public class LinkEditorView implements CommandStackListener {
         
         final LinkEditorOptions theOptions = LinkEditorView.options;
         
-        Map<String, MToolBarElement> toolbarElements = buildToolbarElementsMap();  
+        Map<String, MToolBarElement> toolbarElements = buildToolbarElementsMap();
         
-        //Association
-        ((MHandledToolItem)toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowAssociation")).setSelected(theOptions.isAssociationShown()); 
+        // Association
+        ((MHandledToolItem) toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowAssociation")).setSelected(theOptions
+                .isAssociationShown());
         
-        //Dependency filter
-        ((MHandledToolItem)toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ApplyDependencyFilter")).setSelected(theOptions.isDependencyFiltered());
+        // Dependency filter
+        ((MHandledToolItem) toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ApplyDependencyFilter"))
+                .setSelected(theOptions.isDependencyFiltered());
         
-        //Dependency
-        ((MHandledToolItem)toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowDependency")).setSelected(theOptions.isDependencyShown());
+        // Dependency
+        ((MHandledToolItem) toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowDependency")).setSelected(theOptions
+                .isDependencyShown());
         
-        //Import
-        ((MHandledToolItem)toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowImportElement")).setSelected(theOptions.isImportShown());
+        // Import
+        ((MHandledToolItem) toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowImportElement")).setSelected(theOptions
+                .isImportShown());
         
-        //Inheritance
-        ((MHandledToolItem)toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowInheritance")).setSelected(theOptions.isInheritanceShown());
+        // Inheritance
+        ((MHandledToolItem) toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowInheritance")).setSelected(theOptions
+                .isInheritanceShown());
         
-        //NamespaceUse
-        ((MHandledToolItem)toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowNamespaceUse")).setSelected(theOptions.isNamespaceUseShown());
+        // NamespaceUse
+        ((MHandledToolItem) toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowNamespaceUse")).setSelected(theOptions
+                .isNamespaceUseShown());
         
-        //Pin
-        ((MHandledToolItem)toolbarElements.get("org.modelio.linkeditor.handledtoolitem.PinEditor")).setSelected(theOptions.isPinned());
+        // Pin
+        ((MHandledToolItem) toolbarElements.get("org.modelio.linkeditor.handledtoolitem.PinEditor")).setSelected(theOptions
+                .isPinned());
         
-        //Trace
-        ((MHandledToolItem)toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowTrace")).setSelected(theOptions.isTraceShown());
+        // Trace
+        ((MHandledToolItem) toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowTrace")).setSelected(theOptions
+                .isTraceShown());
         
-        LeftDepthSpinner leftSpinner = ((LeftDepthSpinner)((MToolControl)toolbarElements.get("org.modelio.linkeditor.toolcontrol.LeftDepthSpinner")).getObject());
-        if (leftSpinner != null) leftSpinner.setSpinnerValue(theOptions.getLeftDepth());
+        LeftDepthSpinner leftSpinner = ((LeftDepthSpinner) ((MToolControl) toolbarElements
+                .get("org.modelio.linkeditor.toolcontrol.LeftDepthSpinner")).getObject());
+        if (leftSpinner != null) {
+            leftSpinner.setSpinnerValue(theOptions.getLeftDepth());
+        }
         
-        RightDepthSpinner rightSpinner = ((RightDepthSpinner)((MToolControl)toolbarElements.get("org.modelio.linkeditor.toolcontrol.RightDepthSpinner")).getObject());
-        if (rightSpinner != null) rightSpinner.setSpinnerValue(theOptions.getRightDepth());
+        RightDepthSpinner rightSpinner = ((RightDepthSpinner) ((MToolControl) toolbarElements
+                .get("org.modelio.linkeditor.toolcontrol.RightDepthSpinner")).getObject());
+        if (rightSpinner != null) {
+            rightSpinner.setSpinnerValue(theOptions.getRightDepth());
+        }
     }
 
     /**
@@ -818,16 +782,19 @@ public class LinkEditorView implements CommandStackListener {
     private void configureViewMenu(LinkEditorOptions theOptions) {
         Map<String, MMenuElement> menuElements = buildMenuElementsMap();
         
-        MHandledMenuItem horizontalMenuItem = (MHandledMenuItem)menuElements.get("org.modelio.linkeditor.viewmenu.SetHorizontalOrientationLayout");
-        MHandledMenuItem verticalMenuItem = (MHandledMenuItem)menuElements.get("org.modelio.linkeditor.viewmenu.SetVerticalOrientationLayout");
-        MHandledMenuItem autoMenuItem = (MHandledMenuItem)menuElements.get("org.modelio.linkeditor.viewmenu.SetAutoOrientationLayout");
+        MHandledMenuItem horizontalMenuItem = (MHandledMenuItem) menuElements
+                .get("org.modelio.linkeditor.viewmenu.SetHorizontalOrientationLayout");
+        MHandledMenuItem verticalMenuItem = (MHandledMenuItem) menuElements
+                .get("org.modelio.linkeditor.viewmenu.SetVerticalOrientationLayout");
+        MHandledMenuItem autoMenuItem = (MHandledMenuItem) menuElements
+                .get("org.modelio.linkeditor.viewmenu.SetAutoOrientationLayout");
         horizontalMenuItem.setEnabled(false);
         verticalMenuItem.setEnabled(false);
         autoMenuItem.setEnabled(false);
         
-        //Orientation        
+        // Orientation
         String orientation = theOptions.getOrientation();
-        switch(orientation){
+        switch (orientation) {
         case "Horizontal":
             horizontalMenuItem.setSelected(true);
             break;
@@ -842,7 +809,7 @@ public class LinkEditorView implements CommandStackListener {
     @objid ("0a29c2ff-5cbd-436f-8ac0-e1c2c9ca0b4b")
     private static Map<String, MToolBarElement> buildToolbarElementsMap() {
         Map<String, MToolBarElement> toolbarElements = new HashMap<>();
-        for (MToolBarElement element : toolbar.getChildren()) {           
+        for (MToolBarElement element : toolbar.getChildren()) {
             toolbarElements.put(element.getElementId(), element);
         }
         return toolbarElements;
@@ -851,7 +818,7 @@ public class LinkEditorView implements CommandStackListener {
     @objid ("6f27d845-9edb-49ea-b73b-e82a255f0a58")
     private Map<String, MMenuElement> buildMenuElementsMap() {
         Map<String, MMenuElement> menuElements = new HashMap<>();
-        for (MMenuElement element : this.menu.getChildren()) {           
+        for (MMenuElement element : this.menu.getChildren()) {
             menuElements.put(element.getElementId(), element);
         }
         return menuElements;
@@ -859,16 +826,70 @@ public class LinkEditorView implements CommandStackListener {
 
     @objid ("684ec700-5ba3-47f9-9a37-024fa6cf118f")
     protected IPreferenceStore getProjectPreferences() {
-        if (this.projectService != null && this.projectService.getOpenedProject() != null) {            
-            return this.projectService.getProjectPreferences(LinkEditor.PLUGIN_ID); 
+        if (this.projectService != null && this.projectService.getOpenedProject() != null) {
+            return this.projectService.getProjectPreferences(LinkEditor.PLUGIN_ID);
         }
         return null;
     }
 
     @objid ("13fb35ea-2f7a-4b1b-bf0b-49b56552398b")
     public void refreshPinnedBackground() {
-        BackgroundModel model = (BackgroundModel)(this.getGraphicalViewer().getContents().getModel());
+        BackgroundModel model = (BackgroundModel) (this.getGraphicalViewer().getContents().getModel());
         model.contentChanged();
+    }
+
+// end HackedScrollingGraphicalViewer
+    /**
+     * XXX Hack: we need to specialize the GraphicsSource to avoid calling the Canvas#update() method in the
+     * GraphicsSource#getGraphics(Rectangle) method.
+     * 
+     * This hack is needed to avoid SWT/GEF bug 137786 (see https://bugs.eclipse.org/bugs/show_bug.cgi?id=137786 ) where drag over
+     * feedback (ie the drag feedback provided by the drag source) and drag under feedback (ie the feedback provided by the drop
+     * target) interfere with each other, causing flickering and more importantly ugly graphical artifacts.
+     * 
+     * In order to be able to specialize the GraphicsSource, we need to specialize the LightWeightSystem, and to do that we need in
+     * turn to specialize the GraphicalViewer.
+     */
+    @objid ("b97cdcc3-3aca-438c-a715-9b7b4f298351")
+    private static class HackedScrollingGraphicalViewer extends ScrollingGraphicalViewer {
+        @objid ("3db3a05b-715c-4e49-8a74-44cdd44119e1")
+        @Override
+        protected LightweightSystem createLightweightSystem() {
+            return new LightweightSystem() {
+                                        @Override
+                                        public void setControl(final Canvas c) {
+                                            super.setControl(c);
+                                            this.getUpdateManager().setGraphicsSource(new GraphicsSource() {
+                                                @Override
+                                                public Graphics getGraphics(Rectangle r) {
+                                                    c.redraw(r.x, r.y, r.width, r.height, false);
+                                                    // The actual hack is the following code
+                                                    // line: in original GEF code a call is
+                                                    // made to the #update() method of the c
+                                                    // Canvas.
+                                                    // But calling #update() at this point
+                                                    // causes SWT to redraw the drag over
+                                                    // feedback which in turn causes GEF to
+                                                    // redraw the drag under feedback etc.
+                                                    // The final result is flickering
+                                                    // (because of constant erase and
+                                                    // redraw) and
+                                                    // graphical artifacts.
+                                                    // Commenting this line however seems to
+                                                    // have no side effect (so far).
+                                                    // c.update();
+                                                    return null;
+                                                }
+            
+                                                @Override
+                                                public void flushGraphics(Rectangle region) {
+                                                    // Nothing to do.
+                                                }
+                                            });
+                                        }
+                                    };
+        }
+
     }
 
 }

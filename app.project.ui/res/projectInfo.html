@@ -13,7 +13,7 @@
 	{
 		//windowOnLoadFunction
 	}
-	
+
 	function sendEmailTo() {
 		window.open('mailto:$project_contact?subject=$mail_subject');
 	}
@@ -43,6 +43,10 @@
 				<td><label>[#ProjectInfoHtmlPage.lbl_storage_path#]</label></td>
 				<td><input class="readonlyInput" type="text" value="$project_storage_path" readonly="readonly"></input></td>
 			</tr>
+			<tr>
+				<td><label>[#ProjectInfoHtmlPage.lbl_remote_location#]</label></td>
+				<td><input class="readonlyInput" type="text" value="$project_remote_location" readonly="readonly"></input></td>
+			</tr>
 		</table>
 	</div>
 	</div>
@@ -68,7 +72,7 @@
 			</table>
 		</div>
 	</div>
-	
+
 	<div id="AccordionContainerLibraries" class="AccordionContainer">
 		<div onclick="runAccordion('Libraries');" class="AccordionHeader">
 		<div class="AccordionTitle acc-opened" id="AccordionLibrariesTitle" onselectstart="return true;">
@@ -91,7 +95,7 @@
 			</table>
 		</div>
 	</div>
-	
+
 	<div id="AccordionContainerModules" class="AccordionContainer">
 		<div onclick="runAccordion('Modules');" class="AccordionHeader">
 		<div class="AccordionTitle acc-opened" id="AccordionModulesTitle" onselectstart="return true;">
@@ -113,8 +117,8 @@
 				-->
 			</table>
 		</div>
-	</div>	
+	</div>
 </div>
 </body>
 
-</html> 
+</html>

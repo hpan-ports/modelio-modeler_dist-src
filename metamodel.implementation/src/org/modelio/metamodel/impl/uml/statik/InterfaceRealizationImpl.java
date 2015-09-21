@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,24 +12,36 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.InterfaceRealizationData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.statik.InterfaceRealizationData;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
 import org.modelio.metamodel.uml.statik.NameSpace;
@@ -41,54 +53,65 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("000f221a-c4bf-1fd8-97fe-001ec947cd2a")
 public class InterfaceRealizationImpl extends ModelElementImpl implements InterfaceRealization {
-    @objid ("4a00d90a-78b1-403d-ab26-0264588ce25d")
+    @objid ("ca25a2a4-64f9-45dd-819c-4f31d69021f5")
     @Override
     public Interface getImplemented() {
-        return (Interface) getDepVal(InterfaceRealizationData.Metadata.ImplementedDep());
+        Object obj = getDepVal(((InterfaceRealizationSmClass)getClassOf()).getImplementedDep());
+        return (obj instanceof Interface)? (Interface)obj : null;
     }
 
-    @objid ("13aa08d2-e1af-4b0c-9e40-9da9b7bc70af")
+    @objid ("5890a45b-07c2-4720-ab2c-3ed96bde2b0d")
     @Override
     public void setImplemented(Interface value) {
-        appendDepVal(InterfaceRealizationData.Metadata.ImplementedDep(), (SmObjectImpl)value);
+        appendDepVal(((InterfaceRealizationSmClass)getClassOf()).getImplementedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ced57221-d490-4517-a659-aba1de5e7dc2")
+    @objid ("d7615427-f2f7-4fce-9728-7ddf4ce7f973")
     @Override
     public NameSpace getImplementer() {
-        return (NameSpace) getDepVal(InterfaceRealizationData.Metadata.ImplementerDep());
+        Object obj = getDepVal(((InterfaceRealizationSmClass)getClassOf()).getImplementerDep());
+        return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("21164cd7-9d9f-40cf-88cb-798bee571872")
+    @objid ("a798dc6a-2b99-40a3-9386-e893f610a98e")
     @Override
     public void setImplementer(NameSpace value) {
-        appendDepVal(InterfaceRealizationData.Metadata.ImplementerDep(), (SmObjectImpl)value);
+        appendDepVal(((InterfaceRealizationSmClass)getClassOf()).getImplementerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("85544757-11a9-4387-bedb-bc563e4f707b")
+    @objid ("9d46cb0a-d66a-4516-ae2d-d46175748f37")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(InterfaceRealizationData.Metadata.ImplementerDep());
+        // Implementer
+        obj = (SmObjectImpl)this.getDepVal(((InterfaceRealizationSmClass)getClassOf()).getImplementerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("518d6bdc-0d61-401b-be67-5b0eccf5b348")
+    @objid ("b8e51f9c-fa5d-4151-a36d-20b1dc76ec43")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(InterfaceRealizationData.Metadata.ImplementerDep());
-        if (obj != null)
-          return new SmDepVal(InterfaceRealizationData.Metadata.ImplementerDep(), obj);
+        SmDependency dep;
+        
+        // Implementer
+        dep = ((InterfaceRealizationSmClass)getClassOf()).getImplementerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("0a0afdd2-e4a8-46d0-a654-e15669b4f47a")
+    @objid ("492bb55b-489f-4702-b425-09572e830ed6")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInterfaceRealization(this);

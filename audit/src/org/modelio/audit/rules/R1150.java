@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.rules;
 
@@ -35,7 +35,6 @@ import org.modelio.audit.engine.impl.AuditTrigger;
 import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.plugin.Audit;
 import org.modelio.audit.service.AuditSeverity;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
 import org.modelio.metamodel.uml.behavior.activityModel.CallOperationAction;
 import org.modelio.metamodel.uml.behavior.activityModel.InputPin;
@@ -64,11 +63,11 @@ public class R1150 extends AbstractRule {
     @objid ("b0f19a08-3ab4-4d93-984e-03ef2bf24cef")
     @Override
     public void autoRegister(IAuditPlan plan) {
-        plan.registerRule(Metamodel.getMClass(CallOperationAction.class).getName(), this,
+        plan.registerRule(CallOperationAction.MNAME, this,
                 AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(SendSignalAction.class).getName(), this,
+        plan.registerRule(SendSignalAction.MNAME, this,
                 AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(InputPin.class).getName(), this, AuditTrigger.UPDATE
+        plan.registerRule(InputPin.MNAME, this, AuditTrigger.UPDATE
                 | AuditTrigger.MOVE);
     }
 

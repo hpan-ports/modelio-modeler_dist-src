@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml.templateparameter;
 
@@ -55,8 +55,7 @@ class TypeTemplateParameterPropertyModel extends AbstractPropertyModel<TemplateP
      * </ul>
      */
     @objid ("a86db368-c068-11e1-8c0a-002564c97630")
-    private static final String[] properties = new String[] { "TemplateParameter",
-            "IsValueParameter", "Name", "DefaultType", };
+    private static final String[] properties = new String[] { "Property", "IsValueParameter", "Name", "DefaultType", };
 
     @objid ("fb2f4318-c5d4-11e1-8f21-002564c97630")
     private StringType labelStringType;
@@ -116,27 +115,28 @@ class TypeTemplateParameterPropertyModel extends AbstractPropertyModel<TemplateP
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return TypeTemplateParameterPropertyModel.properties[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return TemplateKind.TypeTemplate;
-                    case 2:
-                        return this.theEditedElement.getName();
-                    case 3:
-                        Object ret = this.theEditedElement.getDefaultType();
-                        if (ret != null)
-                            return ret;
-                        ret = this.theEditedElement.getDefaultValue();
-                        return ret;
-                    default:
-                        return null;
+        case 0: // col 0 is the property key
+            return TypeTemplateParameterPropertyModel.properties[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return TemplateKind.TypeTemplate;
+            case 2:
+                return this.theEditedElement.getName();
+            case 3:
+                Object ret = this.theEditedElement.getDefaultType();
+                if (ret != null) {
+                    return ret;
                 }
+                ret = this.theEditedElement.getDefaultValue();
+                return ret;
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -154,23 +154,23 @@ class TypeTemplateParameterPropertyModel extends AbstractPropertyModel<TemplateP
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return this.labelStringType;
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return this.labelStringType;
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return this.labelStringType;
-                    case 1: // Is value parameter
-                        return this.templateKindType;
-                    case 2: // Name
-                        return this.stringType;
-                    case 3: // default value
-                        return this.defaultType;
-                    default:
-                        return null;
-                }
+            case 1: // Is value parameter
+                return this.templateKindType;
+            case 2: // Name
+                return this.stringType;
+            case 3: // default value
+                return this.defaultType;
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -186,49 +186,53 @@ class TypeTemplateParameterPropertyModel extends AbstractPropertyModel<TemplateP
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
-                return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        if (value == TemplateKind.ValueTemplate)
-                            this.theEditedElement.setIsValueParameter(true);
-                        break;
-                    case 2:
-                        this.theEditedElement.setName((String) value);
-                        break;
-                    case 3:
-                        // Erase old value or exit if old value is new value
-                        ModelElement old1 = this.theEditedElement.getDefaultType();
-                        if (old1 != null) {
-                            if (old1.equals(value))
-                                return;
-                            this.theEditedElement.setDefaultType(null);
-                        } else {
-                            String old2 = this.theEditedElement.getDefaultValue();
-                            if (old2 != null && !old2.equals("")) {
-                                if (old2.equals(value))
-                                    return;
-                                this.theEditedElement.setDefaultValue("");
-                            }
-                        }
-        
-                        if (value != null) {
-                            // Set new value
-                            if (ModelElement.class.isAssignableFrom(value.getClass()))
-                                this.theEditedElement.setDefaultType((ModelElement) value);
-                            else if (String.class.isAssignableFrom(value.getClass()))
-                                this.theEditedElement.setDefaultValue((String) value);
-                        }
-                        break;
-                    default:
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                if (value == TemplateKind.ValueTemplate) {
+                    this.theEditedElement.setIsValueParameter(true);
+                }
+                break;
+            case 2:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 3:
+                // Erase old value or exit if old value is new value
+                ModelElement old1 = this.theEditedElement.getDefaultType();
+                if (old1 != null) {
+                    if (old1.equals(value)) {
                         return;
+                    }
+                    this.theEditedElement.setDefaultType(null);
+                } else {
+                    String old2 = this.theEditedElement.getDefaultValue();
+                    if (old2 != null && !old2.equals("")) {
+                        if (old2.equals(value)) {
+                            return;
+                        }
+                        this.theEditedElement.setDefaultValue("");
+                    }
+                }
+        
+                if (value != null) {
+                    // Set new value
+                    if (ModelElement.class.isAssignableFrom(value.getClass())) {
+                        this.theEditedElement.setDefaultType((ModelElement) value);
+                    } else if (String.class.isAssignableFrom(value.getClass())) {
+                        this.theEditedElement.setDefaultValue((String) value);
+                    }
                 }
                 break;
             default:
                 return;
+            }
+            break;
+        default:
+            return;
         }
     }
 

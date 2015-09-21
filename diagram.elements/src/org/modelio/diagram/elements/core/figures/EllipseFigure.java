@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.figures;
 
@@ -30,9 +30,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.diagram.elements.core.figures.borders.ShapedBorder;
 import org.modelio.diagram.styles.core.StyleKey.LinePattern;
+import org.modelio.ui.CoreFontRegistry;
 
 /**
  * A Filled ellipse figure with an optional label on its center.
@@ -76,11 +76,6 @@ public class EllipseFigure extends ShapedFigure {
         if (oldBounds == null || oldBounds.width != rect.width || oldBounds.height != rect.height) {
             super.setBounds(rect);
             computeFont(getClientArea());
-        
-            // Make line width proportional to figure size.
-            //int lw = Math.min(rect.width , rect.height) / 20;
-            //if (lw > 0)
-            //    setLineWidth(lw);
         } else {
             super.setBounds(rect);
         }
@@ -119,9 +114,9 @@ public class EllipseFigure extends ShapedFigure {
     @Override
     public void setLineWidth(int lineWidth) {
         if (this.penOptions.lineWidth != lineWidth) {
-            if (lineWidth == 0)
+            if (lineWidth == 0) {
                 setBorder(null);
-            else {
+            } else {
                 setBorder(this.shapedBorder);
                 this.shapedBorder.setWidth(lineWidth);
             }
@@ -141,8 +136,9 @@ public class EllipseFigure extends ShapedFigure {
         super.paintFigure(graphics);
         
         if (this.label != null) {
-            if (this.textSize == null)
+            if (this.textSize == null) {
                 computeFont(getClientArea());
+            }
         
             Dimension delta = getBounds().getSize().getShrinked(this.textSize).scale(0.5);
             Point textLocation = getBounds().getLocation().translate(delta);
@@ -158,8 +154,9 @@ public class EllipseFigure extends ShapedFigure {
     private void computeFont(Rectangle rect) {
         final Font figureFont = getFont();
         
-        if (this.label == null || figureFont == null)
+        if (this.label == null || figureFont == null) {
             return;
+        }
         
         final double maxTextW = rect.width - 2;
         final double maxTextH = rect.height - 2;
@@ -170,10 +167,11 @@ public class EllipseFigure extends ShapedFigure {
         
         double neededZoom = Math.max(zoomH, zoomW);
         
-        if (extents.width * neededZoom > maxTextW)
+        if (extents.width * neededZoom > maxTextW) {
             neededZoom = zoomW;
-        else if (extents.height * neededZoom > maxTextH)
+        } else if (extents.height * neededZoom > maxTextH) {
             neededZoom = zoomH;
+        }
         
         this.textSize = extents.scale(neededZoom);
         
@@ -184,6 +182,30 @@ public class EllipseFigure extends ShapedFigure {
         }
         
         this.textFont = CoreFontRegistry.getFont(fontData);
+    }
+
+    /**
+     * Copy constructor
+     * @param orig the original
+     */
+    @objid ("c7046cdc-de8d-4651-b32a-895345ba6315")
+    public EllipseFigure(EllipseFigure orig) {
+        super(orig);
+        
+        this.shapedBorder = new ShapedBorder(this.penOptions.lineColor,
+                this.penOptions.lineWidth,
+                this.shaper);
+        
+        this.label = orig.label;
+        
+        setOpaque(true);
+        setBorder(this.shapedBorder);
+    }
+
+    @objid ("c7315533-d4ec-4ac6-a28b-c558f160088b")
+    @Override
+    public ShapedFigure getCopy() {
+        return new EllipseFigure(this);
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.ArrayList;
@@ -33,7 +45,7 @@ import org.modelio.metamodel.bpmn.objects.BpmnDataAssociation;
 import org.modelio.metamodel.bpmn.objects.BpmnDataState;
 import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
 import org.modelio.metamodel.bpmn.objects.BpmnItemDefinition;
-import org.modelio.metamodel.data.bpmn.objects.BpmnItemAwareElementData;
+import org.modelio.metamodel.impl.bpmn.objects.BpmnItemAwareElementData;
 import org.modelio.metamodel.impl.bpmn.rootElements.BpmnFlowElementImpl;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
@@ -48,146 +60,163 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00072ee8-c4c0-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnItemAwareElementImpl extends BpmnFlowElementImpl implements BpmnItemAwareElement {
-    @objid ("dfde0725-eb37-4433-9469-b1c409afe0b6")
+    @objid ("f33ad749-e1a1-417e-84b6-43c3ca266a98")
     @Override
     public GeneralClass getType() {
-        return (GeneralClass) getDepVal(BpmnItemAwareElementData.Metadata.TypeDep());
+        Object obj = getDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getTypeDep());
+        return (obj instanceof GeneralClass)? (GeneralClass)obj : null;
     }
 
-    @objid ("02dc0b17-005a-4448-92a6-0827dbfb71f4")
+    @objid ("cd32a93b-80c6-484d-a1a7-ecc19207574b")
     @Override
     public void setType(GeneralClass value) {
-        appendDepVal(BpmnItemAwareElementData.Metadata.TypeDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3ff98104-4a77-4657-bfd0-d602a432f5e3")
+    @objid ("d02bcb3c-09df-42e4-b866-82855ec4d28e")
     @Override
     public EList<BpmnDataAssociation> getTargetOfDataAssociation() {
-        return new SmList<>(this, BpmnItemAwareElementData.Metadata.TargetOfDataAssociationDep());
+        return new SmList<>(this, ((BpmnItemAwareElementSmClass)getClassOf()).getTargetOfDataAssociationDep());
     }
 
-    @objid ("ae19eacc-1a8c-4e54-b3af-e9d08b7179a9")
+    @objid ("0ab29b9f-7daa-4400-9edf-bb3f3387ce44")
     @Override
     public <T extends BpmnDataAssociation> List<T> getTargetOfDataAssociation(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnDataAssociation element : getTargetOfDataAssociation()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f9707ee4-d38d-4188-80be-f7c3a6094787")
+    @objid ("c2ea0b2d-92b7-4a27-852f-b9daf3dca9ce")
     @Override
     public BpmnItemDefinition getItemSubjectRef() {
-        return (BpmnItemDefinition) getDepVal(BpmnItemAwareElementData.Metadata.ItemSubjectRefDep());
+        Object obj = getDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getItemSubjectRefDep());
+        return (obj instanceof BpmnItemDefinition)? (BpmnItemDefinition)obj : null;
     }
 
-    @objid ("b0753450-f984-4722-9d2a-4cd6521ae7a9")
+    @objid ("3b7907ba-fe02-4583-8de7-7b72f0c0b90a")
     @Override
     public void setItemSubjectRef(BpmnItemDefinition value) {
-        appendDepVal(BpmnItemAwareElementData.Metadata.ItemSubjectRefDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getItemSubjectRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e2c0a6e3-be5b-4110-8d1e-e1161f820817")
+    @objid ("3bfa86a8-38ce-4279-8145-885fc3ade3b9")
     @Override
     public State getInState() {
-        return (State) getDepVal(BpmnItemAwareElementData.Metadata.InStateDep());
+        Object obj = getDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getInStateDep());
+        return (obj instanceof State)? (State)obj : null;
     }
 
-    @objid ("d8cd8a0d-cbd5-4313-b383-124cafd18d51")
+    @objid ("db6f42de-4431-4ffb-acc7-2bbea820e745")
     @Override
     public void setInState(State value) {
-        appendDepVal(BpmnItemAwareElementData.Metadata.InStateDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getInStateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("68799e6c-f1d8-40ba-a486-7ac666fc3da2")
+    @objid ("8c3d77f4-fe32-49bc-ba44-a67be60d9635")
     @Override
     public AssociationEnd getRepresentedAssociationEnd() {
-        return (AssociationEnd) getDepVal(BpmnItemAwareElementData.Metadata.RepresentedAssociationEndDep());
+        Object obj = getDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getRepresentedAssociationEndDep());
+        return (obj instanceof AssociationEnd)? (AssociationEnd)obj : null;
     }
 
-    @objid ("88809dfd-8ace-423c-9aa1-8b84c9de62a7")
+    @objid ("f44b4ff0-2764-4755-b7a3-3f82699d4938")
     @Override
     public void setRepresentedAssociationEnd(AssociationEnd value) {
-        appendDepVal(BpmnItemAwareElementData.Metadata.RepresentedAssociationEndDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getRepresentedAssociationEndDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d15c6a34-c838-4a1b-b7ca-461297c2ae2d")
+    @objid ("1b14056e-5240-4338-a81f-549dd77b1b93")
     @Override
     public BpmnDataState getDataState() {
-        return (BpmnDataState) getDepVal(BpmnItemAwareElementData.Metadata.DataStateDep());
+        Object obj = getDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getDataStateDep());
+        return (obj instanceof BpmnDataState)? (BpmnDataState)obj : null;
     }
 
-    @objid ("58504487-f7ce-4a35-b8bd-194a0a90e780")
+    @objid ("3d78525d-ab0c-4205-8e78-6c49e0ed4cf4")
     @Override
     public void setDataState(BpmnDataState value) {
-        appendDepVal(BpmnItemAwareElementData.Metadata.DataStateDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getDataStateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8be8c1a6-70c4-4c4e-bc3f-9ae03c6db84c")
+    @objid ("100ccd0a-c9ee-4a0d-9581-f50bc068c711")
     @Override
     public EList<BpmnDataAssociation> getSourceOfDataAssociation() {
-        return new SmList<>(this, BpmnItemAwareElementData.Metadata.SourceOfDataAssociationDep());
+        return new SmList<>(this, ((BpmnItemAwareElementSmClass)getClassOf()).getSourceOfDataAssociationDep());
     }
 
-    @objid ("cd70ddab-9d01-4866-8486-6e42d0622545")
+    @objid ("e9d77fee-b95c-4699-a7d3-af4a0b2298d4")
     @Override
     public <T extends BpmnDataAssociation> List<T> getSourceOfDataAssociation(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnDataAssociation element : getSourceOfDataAssociation()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("dc3af7fe-2455-4718-a531-b43c03cb690b")
+    @objid ("14ec153e-fa27-464f-a8b0-efce00bdf3ea")
     @Override
     public Attribute getRepresentedAttribute() {
-        return (Attribute) getDepVal(BpmnItemAwareElementData.Metadata.RepresentedAttributeDep());
+        Object obj = getDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getRepresentedAttributeDep());
+        return (obj instanceof Attribute)? (Attribute)obj : null;
     }
 
-    @objid ("81d0763b-898d-481e-8876-585dc3c95867")
+    @objid ("53262112-c685-472c-91dd-f5c5f3a69ff6")
     @Override
     public void setRepresentedAttribute(Attribute value) {
-        appendDepVal(BpmnItemAwareElementData.Metadata.RepresentedAttributeDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getRepresentedAttributeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c3c5365c-4b1e-4b85-9422-2104a341b01c")
+    @objid ("2305cbbc-3649-4069-9ad0-46999cd2b0ab")
     @Override
     public Instance getRepresentedInstance() {
-        return (Instance) getDepVal(BpmnItemAwareElementData.Metadata.RepresentedInstanceDep());
+        Object obj = getDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getRepresentedInstanceDep());
+        return (obj instanceof Instance)? (Instance)obj : null;
     }
 
-    @objid ("db6487fc-3650-44ea-b7ed-a490d75d0090")
+    @objid ("93e99014-6a31-4e03-8007-2ba14421b40d")
     @Override
     public void setRepresentedInstance(Instance value) {
-        appendDepVal(BpmnItemAwareElementData.Metadata.RepresentedInstanceDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnItemAwareElementSmClass)getClassOf()).getRepresentedInstanceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("009cfc45-23f6-464f-9b7c-d0c138d35d53")
+    @objid ("54b1233a-b781-43b7-858d-b2a55941ce82")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("6b7bac97-b079-400d-a95a-3d532a38498e")
+    @objid ("601943b3-7721-4de3-8102-1cdd2ecd1d38")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("6979d6b1-7405-4a81-a132-0d129946c594")
+    @objid ("2a0b3159-e8e5-4c1b-8488-606539eae33b")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnItemAwareElement(this);

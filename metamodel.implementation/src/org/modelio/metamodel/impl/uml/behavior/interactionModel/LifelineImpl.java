@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.interactionModel.LifelineData;
+import org.modelio.metamodel.impl.uml.behavior.interactionModel.LifelineData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionFragment;
@@ -44,97 +56,111 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0048dfe6-c4bf-1fd8-97fe-001ec947cd2a")
 public class LifelineImpl extends ModelElementImpl implements Lifeline {
-    @objid ("161a20b7-3b2a-4749-9707-b8a972da2e7d")
+    @objid ("d611ac58-addc-4f74-9c37-26beca5b7408")
     @Override
     public String getSelector() {
-        return (String) getAttVal(LifelineData.Metadata.SelectorAtt());
+        return (String) getAttVal(((LifelineSmClass)getClassOf()).getSelectorAtt());
     }
 
-    @objid ("91823c47-974f-45e1-94e1-980395ac6786")
+    @objid ("f8637fde-849c-4f64-859a-29804f4b2a9a")
     @Override
     public void setSelector(String value) {
-        setAttVal(LifelineData.Metadata.SelectorAtt(), value);
+        setAttVal(((LifelineSmClass)getClassOf()).getSelectorAtt(), value);
     }
 
-    @objid ("3a669847-40c6-48fd-a787-ca2d17235ff1")
+    @objid ("cd885bf9-5e7b-4e2b-9f27-91d2411809a4")
     @Override
     public EList<InteractionFragment> getCoveredBy() {
-        return new SmList<>(this, LifelineData.Metadata.CoveredByDep());
+        return new SmList<>(this, ((LifelineSmClass)getClassOf()).getCoveredByDep());
     }
 
-    @objid ("9d6c33e5-376c-45c2-9f16-f3ce8bc1246e")
+    @objid ("28152baf-6546-4ebc-a18f-f948169d5a8f")
     @Override
     public <T extends InteractionFragment> List<T> getCoveredBy(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final InteractionFragment element : getCoveredBy()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7768e4e0-9df4-4fcb-8dcd-cfe1faa0cff3")
+    @objid ("9b7ad571-5230-462b-b279-a91e622c5056")
     @Override
     public PartDecomposition getDecomposedAs() {
-        return (PartDecomposition) getDepVal(LifelineData.Metadata.DecomposedAsDep());
+        Object obj = getDepVal(((LifelineSmClass)getClassOf()).getDecomposedAsDep());
+        return (obj instanceof PartDecomposition)? (PartDecomposition)obj : null;
     }
 
-    @objid ("a9251ed5-bc7c-4021-9ee3-f845e3d45e63")
+    @objid ("6bd32fed-22b5-433a-ae21-26d6cd1045ce")
     @Override
     public void setDecomposedAs(PartDecomposition value) {
-        appendDepVal(LifelineData.Metadata.DecomposedAsDep(), (SmObjectImpl)value);
+        appendDepVal(((LifelineSmClass)getClassOf()).getDecomposedAsDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7d05e176-6de8-4256-914a-70b38791090a")
+    @objid ("c68477e6-8031-4b3a-8c7e-062ec3f11761")
     @Override
     public Interaction getOwner() {
-        return (Interaction) getDepVal(LifelineData.Metadata.OwnerDep());
+        Object obj = getDepVal(((LifelineSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof Interaction)? (Interaction)obj : null;
     }
 
-    @objid ("5ea6fed6-4e1c-483d-a3df-9714cecfc4b9")
+    @objid ("d1126a33-2929-497c-83ff-b02e18a577d4")
     @Override
     public void setOwner(Interaction value) {
-        appendDepVal(LifelineData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((LifelineSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("df9299a5-8797-40d5-8ef1-f8b7a9e4baf8")
+    @objid ("dbe85b7f-4d02-4196-8945-a9362c0aef78")
     @Override
     public Instance getRepresented() {
-        return (Instance) getDepVal(LifelineData.Metadata.RepresentedDep());
+        Object obj = getDepVal(((LifelineSmClass)getClassOf()).getRepresentedDep());
+        return (obj instanceof Instance)? (Instance)obj : null;
     }
 
-    @objid ("8bd95bc0-7391-40d2-83bd-4c3f378aa0ab")
+    @objid ("d75dae48-b8b5-45c6-af99-246b796e770a")
     @Override
     public void setRepresented(Instance value) {
-        appendDepVal(LifelineData.Metadata.RepresentedDep(), (SmObjectImpl)value);
+        appendDepVal(((LifelineSmClass)getClassOf()).getRepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1556b14a-917a-467b-85e6-3b60115680be")
+    @objid ("50bc083b-9888-4273-a573-70d6d62f7ecc")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(LifelineData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((LifelineSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("08cf7940-1600-41ec-be3e-eaa491ccd2e0")
+    @objid ("c40d8c75-e28e-4ff9-a945-2ec5e78e8754")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(LifelineData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(LifelineData.Metadata.OwnerDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((LifelineSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("649209e6-7883-4a24-b5bf-bea62d53ed81")
+    @objid ("b5a33c4f-5f79-479a-ba4d-7266f8e71d46")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitLifeline(this);

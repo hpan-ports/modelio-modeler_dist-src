@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.plugin;
 
@@ -65,12 +65,12 @@ import org.modelio.diagram.elements.drawings.text.GmTextDrawing;
 import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MDependency;
 
 /**
  * Parse and provide the palette toolbar of the diagram.
@@ -137,12 +137,9 @@ public class ToolRegistry {
      */
     @objid ("6677fb54-33f7-11e2-95fe-001ec947c8cc")
     public void unregisterTool(String toolId) {
-        // Load all the tools
-        if (this.toolRegistry == null) {
-            initRegistery();
+        if (this.toolRegistry != null) {
+            this.toolRegistry.remove(toolId);
         }
-        
-        this.toolRegistry.remove(toolId);
     }
 
     @objid ("667f2268-33f7-11e2-95fe-001ec947c8cc")
@@ -217,9 +214,9 @@ public class ToolRegistry {
 
     @objid ("7e6bc821-cb11-4a46-8fa0-9f1195226be4")
     private void createDrawingTool(String toolName, Class<? extends Tool> toolClass, CreationFactory context) {
-        String label = DiagramEditor.I18N.getString("Tool."+toolName+".label");
-        String tooltip = DiagramEditor.I18N.getString("Tool."+toolName+".tooltip");
-        String iconPath = DiagramEditor.I18N.getString("Tool."+toolName+".icon");
+        String label = DiagramEditor.I18N.getString("Tool." + toolName + ".label");
+        String tooltip = DiagramEditor.I18N.getString("Tool." + toolName + ".tooltip");
+        String iconPath = DiagramEditor.I18N.getString("Tool." + toolName + ".icon");
         ImageDescriptor icon;
         icon = AbstractUIPlugin.imageDescriptorFromPlugin(DiagramEditor.PLUGIN_ID, iconPath);
         
@@ -239,7 +236,8 @@ public class ToolRegistry {
         
         createDrawingTool("CREATE_DRAWING_TEXT", NodeCreationTool.class, new DrawingObjectFactory(GmTextDrawing.class));
         
-        //createDrawingTool("CREATE_DRAWING_POLYGON", MultiPointCreationTool.class, new DrawingObjectFactory(GmEllipseDrawing.class));
+        // createDrawingTool("CREATE_DRAWING_POLYGON", MultiPointCreationTool.class, new
+        // DrawingObjectFactory(GmEllipseDrawing.class));
         
         createDrawingTool("CREATE_DRAWING_LINE", ConnectionCreationTool.class, new DrawingObjectFactory(GmLineDrawing.class));
     }
@@ -331,12 +329,11 @@ public class ToolRegistry {
             DiagramEditor.LOG.error(e);
             return;
         }
-        if (nodeClass == null || ! GmDrawing.class.isAssignableFrom(nodeClass) ) {
+        if (nodeClass == null || !GmDrawing.class.isAssignableFrom(nodeClass)) {
             DiagramEditor.LOG.error("ToolRegistry: invalid metaclass '" + className + "' for entry '" + id
                     + "'. Entry has been ignored.");
             return;
         }
-        
         
         // configure modelio creation context
         DrawingObjectFactory context = new DrawingObjectFactory(nodeClass);
@@ -359,7 +356,8 @@ public class ToolRegistry {
         String stereotypeName = contextElement.getAttribute("stereotype");
         String routerName = contextElement.getAttribute("router");
         
-        MClass metaclass = Metamodel.getMClass(metaclassName);
+        // Check for existing metaclass
+        MClass metaclass = this.mModelServices.getMetamodel().getMClass(metaclassName);
         if (metaclass == null) {
             DiagramEditor.LOG.error("ToolRegistry: invalid metaclass '" + metaclassName + "' for entry '" + id
                     + "'. Entry has been ignored.");
@@ -374,10 +372,10 @@ public class ToolRegistry {
         }
         
         // Configure modelio creation context
-        final ModelioLinkCreationContext context = new ModelioLinkCreationContext(metaclassName, stereotype);
+        final ModelioLinkCreationContext context = new ModelioLinkCreationContext(metaclass, stereotype);
         context.setProperties(properties);
         
-        if (routerName != null && !routerName.isEmpty()) { // TODO copy from here
+        if (routerName != null && !routerName.isEmpty()) {
             final StyleKey routerStyleKey = StyleKey.getInstance(routerName);
             context.setRoutingModeKey(routerStyleKey);
             properties.put("router", routerStyleKey);
@@ -401,12 +399,14 @@ public class ToolRegistry {
         String stereotypeName = contextElement.getAttribute("stereotype");
         String routerName = contextElement.getAttribute("router");
         
-        MClass metaclass = Metamodel.getMClass(metaclassName);
+        MClass metaclass = this.mModelServices.getMetamodel().getMClass(metaclassName);
         if (metaclass == null) {
             DiagramEditor.LOG.error("ToolRegistry: invalid metaclass '" + metaclassName + "' for entry '" + id
                     + "'. Entry has been ignored.");
             return;
         }
+        
+        MDependency dep = metaclass.getDependency(dependencyName);
         
         Stereotype stereotype = null;
         stereotype = getStereotype(metaclass, stereotypeName);
@@ -416,12 +416,11 @@ public class ToolRegistry {
         }
         
         // configure modelio creation context
-        ModelioCreationContext context = new ModelioCreationContext(metaclassName, dependencyName, stereotype);
+        ModelioCreationContext context = new ModelioCreationContext(metaclass, dep, stereotype);
         context.setProperties(properties);
         
         if (routerName != null && !routerName.isEmpty()) {
             final StyleKey routerStyleKey = StyleKey.getInstance(routerName);
-            // TODO : context.setRoutingModeKey(routerStyleKey);
             properties.put("router", routerStyleKey);
         }
         
@@ -443,12 +442,14 @@ public class ToolRegistry {
         String stereotypeName = contextElement.getAttribute("stereotype");
         String routerName = contextElement.getAttribute("router");
         
-        MClass metaclass = Metamodel.getMClass(metaclassName);
+        MClass metaclass = this.mModelServices.getMetamodel().getMClass(metaclassName);
         if (metaclass == null) {
             DiagramEditor.LOG.error("ToolRegistry: invalid metaclass '" + metaclassName + "' for entry '" + id
                     + "'. Entry has been ignored.");
             return;
         }
+        
+        MDependency dep = metaclass.getDependency(dependencyName);
         
         Stereotype stereotype = null;
         stereotype = getStereotype(metaclass, stereotypeName);
@@ -458,12 +459,11 @@ public class ToolRegistry {
         }
         
         // configure modelio creation context
-        ModelioCreationContext context = new ModelioCreationContext(metaclassName, dependencyName, stereotype);
+        ModelioCreationContext context = new ModelioCreationContext(metaclass, dep, stereotype);
         context.setProperties(properties);
         
         if (routerName != null && !routerName.isEmpty()) {
             final StyleKey routerStyleKey = StyleKey.getInstance(routerName);
-            // TODO : context.setRoutingModeKey(routerStyleKey);
             properties.put("router", routerStyleKey);
         }
         
@@ -483,7 +483,7 @@ public class ToolRegistry {
         String stereotypeName = contextElement.getAttribute("stereotype");
         String routerName = contextElement.getAttribute("router");
         
-        MClass metaclass = Metamodel.getMClass(metaclassName);
+        MClass metaclass = this.mModelServices.getMetamodel().getMClass(metaclassName);
         if (metaclass == null) {
             DiagramEditor.LOG.error("ToolRegistry: invalid metaclass '" + metaclassName + "' for entry '" + id
                     + "'. Entry has been ignored.");
@@ -498,7 +498,7 @@ public class ToolRegistry {
         }
         
         // configure modelio creation context
-        ModelioLinkCreationContext context = new ModelioLinkCreationContext(metaclassName, stereotype);
+        ModelioLinkCreationContext context = new ModelioLinkCreationContext(metaclass, stereotype);
         context.setProperties(properties);
         
         if (routerName != null) {
@@ -522,13 +522,14 @@ public class ToolRegistry {
         String dependencyName = contextElement.getAttribute("dependency");
         String stereotypeName = contextElement.getAttribute("stereotype");
         
-        MClass metaclass = Metamodel.getMClass(metaclassName);
+        MClass metaclass = this.mModelServices.getMetamodel().getMClass(metaclassName);
         if (metaclass == null) {
             DiagramEditor.LOG.error("ToolRegistry: invalid metaclass '" + metaclassName + "' for entry '" + id
                     + "'. Entry has been ignored.");
             return;
         }
         
+        MDependency dep = metaclass.getDependency(dependencyName);
         Stereotype stereotype = getStereotype(metaclass, stereotypeName);
         
         if (icon == null) {
@@ -536,7 +537,7 @@ public class ToolRegistry {
         }
         
         // configure modelio creation context
-        ModelioCreationContext context = new ModelioCreationContext(metaclassName, dependencyName, stereotype);
+        ModelioCreationContext context = new ModelioCreationContext(metaclass, dep, stereotype);
         context.setProperties(properties);
         
         // create and register tool entry
@@ -556,12 +557,14 @@ public class ToolRegistry {
         String dependencyName = contextElement.getAttribute("dependency");
         String stereotypeName = contextElement.getAttribute("stereotype");
         
-        MClass metaclass = Metamodel.getMClass(metaclassName);
+        MClass metaclass = this.mModelServices.getMetamodel().getMClass(metaclassName);
         if (metaclass == null) {
-            DiagramEditor.LOG.error("ToolRegistry: invalid metaclass '" + metaclassName + "' for entry '" + id
+            DiagramEditor.LOG.error("ToolRegistry: invalid '" + metaclassName + "' metaclass for entry '" + id
                     + "'. Entry has been ignored.");
             return;
         }
+        
+        MDependency dep = metaclass.getDependency(dependencyName);
         
         Stereotype stereotype = null;
         stereotype = getStereotype(metaclass, stereotypeName);
@@ -571,7 +574,7 @@ public class ToolRegistry {
         }
         
         // configure modelio creation context
-        ModelioCreationContext context = new ModelioCreationContext(metaclassName, dependencyName, stereotype);
+        ModelioCreationContext context = new ModelioCreationContext(metaclass, dep, stereotype);
         context.setProperties(properties);
         
         // create and register tool entry

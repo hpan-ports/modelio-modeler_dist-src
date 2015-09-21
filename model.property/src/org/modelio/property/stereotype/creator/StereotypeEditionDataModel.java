@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.stereotype.creator;
 
@@ -26,7 +26,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 
 @objid ("81efb0e0-c64f-41dd-925d-84f74ce8b57c")
-public class StereotypeEditionDataModel {
+class StereotypeEditionDataModel {
     @objid ("80dbe471-2daa-439a-8d96-b8a78320c716")
     private String stereotypeName = "";
 
@@ -194,16 +194,16 @@ public class StereotypeEditionDataModel {
 
     @objid ("6993b557-9f7d-426a-91dd-9f114a69586a")
     public Path getDefaultTempIconPath() {
-        if (!this.iconName.isEmpty()) {            
-            return this.projectPath.resolve(".runtime").resolve("modules").resolve("local").resolve("tempIcon"+this.getIconExtension());
+        if (!this.iconName.isEmpty()) {
+            return this.projectPath.resolve(".runtime").resolve("modules").resolve("local").resolve("tempIcon"+getIconExtension());
         }
         return null;
     }
 
     @objid ("cc60609e-50df-4e61-b987-8045ad5c456d")
     public Path getDefaultTempImagePath() {
-        if (!this.imageName.isEmpty()) {            
-            return this.projectPath.resolve(".runtime").resolve("modules").resolve("local").resolve("tempImage"+this.getImageExtension());
+        if (!this.imageName.isEmpty()) {
+            return this.projectPath.resolve(".runtime").resolve("modules").resolve("local").resolve("tempImage"+getImageExtension());
         }
         return null;
     }

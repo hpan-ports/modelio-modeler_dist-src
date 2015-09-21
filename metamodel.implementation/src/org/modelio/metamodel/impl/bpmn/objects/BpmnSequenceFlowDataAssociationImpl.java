@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.ArrayList;
@@ -32,7 +44,7 @@ import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.flows.BpmnSequenceFlow;
 import org.modelio.metamodel.bpmn.objects.BpmnDataAssociation;
 import org.modelio.metamodel.bpmn.objects.BpmnSequenceFlowDataAssociation;
-import org.modelio.metamodel.data.bpmn.objects.BpmnSequenceFlowDataAssociationData;
+import org.modelio.metamodel.impl.bpmn.objects.BpmnSequenceFlowDataAssociationData;
 import org.modelio.metamodel.impl.bpmn.rootElements.BpmnBaseElementImpl;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
@@ -42,61 +54,73 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00054970-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnSequenceFlowDataAssociationImpl extends BpmnBaseElementImpl implements BpmnSequenceFlowDataAssociation {
-    @objid ("dfe6d313-a3de-4a00-b191-630746ced71d")
+    @objid ("c1dddea5-b672-4986-936d-93c064ff8fed")
     @Override
     public BpmnSequenceFlow getConnected() {
-        return (BpmnSequenceFlow) getDepVal(BpmnSequenceFlowDataAssociationData.Metadata.ConnectedDep());
+        Object obj = getDepVal(((BpmnSequenceFlowDataAssociationSmClass)getClassOf()).getConnectedDep());
+        return (obj instanceof BpmnSequenceFlow)? (BpmnSequenceFlow)obj : null;
     }
 
-    @objid ("9f7e8dd7-52c3-495b-becd-e0854e436020")
+    @objid ("693582f1-6020-4ede-a991-0d69d31c9694")
     @Override
     public void setConnected(BpmnSequenceFlow value) {
-        appendDepVal(BpmnSequenceFlowDataAssociationData.Metadata.ConnectedDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnSequenceFlowDataAssociationSmClass)getClassOf()).getConnectedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6ce4b5e8-2ad4-4788-9ec7-eb1a93047fa6")
+    @objid ("3d119bb9-f828-4bd9-a6e2-acbf2be4f811")
     @Override
     public EList<BpmnDataAssociation> getDataAssociation() {
-        return new SmList<>(this, BpmnSequenceFlowDataAssociationData.Metadata.DataAssociationDep());
+        return new SmList<>(this, ((BpmnSequenceFlowDataAssociationSmClass)getClassOf()).getDataAssociationDep());
     }
 
-    @objid ("b1015475-a3cc-409a-be7f-ddff9753331b")
+    @objid ("a83f0554-fff4-40c9-a343-ff34218e9915")
     @Override
     public <T extends BpmnDataAssociation> List<T> getDataAssociation(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnDataAssociation element : getDataAssociation()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("34930a51-adee-4adc-919a-f7d2ce46c394")
+    @objid ("be4376d5-1d85-4ab3-81a8-242bbea5e46c")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnSequenceFlowDataAssociationData.Metadata.ConnectedDep());
+        // Connected
+        obj = (SmObjectImpl)this.getDepVal(((BpmnSequenceFlowDataAssociationSmClass)getClassOf()).getConnectedDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("a35b2682-f119-4ac9-8263-a8cf387f302e")
+    @objid ("5956553f-3ad8-4dc3-81b3-f4583b7a47b5")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnSequenceFlowDataAssociationData.Metadata.ConnectedDep());
-        if (obj != null)
-          return new SmDepVal(BpmnSequenceFlowDataAssociationData.Metadata.ConnectedDep(), obj);
+        SmDependency dep;
+        
+        // Connected
+        dep = ((BpmnSequenceFlowDataAssociationSmClass)getClassOf()).getConnectedDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("eb72ba4c-33a9-47e4-bd69-40aa3c7ced67")
+    @objid ("54dacdda-3936-4acc-b48b-89b4ca29ae13")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnSequenceFlowDataAssociation(this);

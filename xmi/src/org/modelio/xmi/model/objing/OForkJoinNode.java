@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -34,14 +34,13 @@ import org.modelio.metamodel.uml.behavior.activityModel.ControlFlow;
 import org.modelio.metamodel.uml.behavior.activityModel.ForkJoinNode;
 import org.modelio.metamodel.uml.behavior.activityModel.StructuredActivityNode;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("c180f781-5794-4ff7-80fa-cf294c9d0b53")
-public class OForkJoinNode extends OActivityNode implements IOElement {
+public class OForkJoinNode extends OActivityNode {
     @objid ("49816fd2-3219-44dc-a54f-77caad185629")
     private boolean partialCreation = true;
 
@@ -50,9 +49,6 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
 
     @objid ("2fb9433a-a36f-446f-988e-625e9746fb27")
     private boolean isJoinNode = false;
-
-    @objid ("830a91a3-b482-47a0-8168-6e78246f60d0")
-    private ForkJoinNode objingElement = null;
 
     @objid ("86ecb341-ab9d-472b-b76c-6c0f63e88755")
     private org.eclipse.uml2.uml.ForkNode forkNode = null;
@@ -75,8 +71,7 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
     @objid ("eaefdaa8-32b5-4530-a5e5-ffac099480dc")
     public OForkJoinNode(ForkJoinNode element) {
         super(element);
-        this.objingElement = element;
-        this.isJoinNode = (AbstractObjingModelNavigation.isJoinNode(element));         
+        this.isJoinNode = (AbstractObjingModelNavigation.isJoinNode(element));
         this.isForkNode = (AbstractObjingModelNavigation.isForkNode(element));
     }
 
@@ -93,7 +88,7 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
             }
         }
         
-        MObject objingOwner = this.objingElement.getCompositionOwner();
+        MObject objingOwner = getObjingElement().getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
@@ -108,7 +103,7 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
             } else if (objingOwner instanceof Activity) {
                 attachToActivity(ecoreElt, ecoreOwner);
                 if (!this.isJoinNode && !this.isForkNode)
-                    attachToActivity(forkNode, ecoreOwner);
+                    attachToActivity(this.forkNode, ecoreOwner);
             } else if (objingOwner instanceof Clause) {
                 attachToClause(ecoreElt, ecoreOwner, (Clause) objingOwner);
                 if (!this.isJoinNode && !this.isForkNode)
@@ -125,8 +120,8 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
             setJoinSpec((org.eclipse.uml2.uml.JoinNode) ecoreElt);
             setCombineDuplicate((org.eclipse.uml2.uml.JoinNode) ecoreElt);
         }else{
-            ObjingEAnnotation.setJoinSpec(ecoreElt, this.objingElement.getJoinSpec());
-            ObjingEAnnotation.setCombineDuplicate(ecoreElt, this.objingElement.isIsCombineDuplicate());
+            ObjingEAnnotation.setJoinSpec(ecoreElt, getObjingElement().getJoinSpec());
+            ObjingEAnnotation.setCombineDuplicate(ecoreElt, getObjingElement().isIsCombineDuplicate());
         }
         
         
@@ -140,8 +135,8 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
         this.forkNode = UMLFactory.eINSTANCE.createForkNode();
         
         ActivityEdge typeOfEdge = null;
-        List<ActivityEdge> objingInc = this.objingElement.getIncoming();
-        List<ActivityEdge> objingOut = this.objingElement.getOutgoing();
+        List<ActivityEdge> objingInc = getObjingElement().getIncoming();
+        List<ActivityEdge> objingOut = getObjingElement().getOutgoing();
         
         if (objingInc.size() > 0) {
             typeOfEdge = objingInc.get(0);
@@ -156,7 +151,7 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
             ecoreFlow = UMLFactory.eINSTANCE.createObjectFlow();
         
         Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
+                .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
         
         if (enclosingActivity != null) {
             org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
@@ -203,7 +198,7 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
         
             // Setting composition relation
             Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                    .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
+                    .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
             if (enclosingActivity != null) {
                 org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
                         .getMappedElement(enclosingActivity);
@@ -261,7 +256,7 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
         if (!isAttached) {
             // Setting composition relation (in  org.eclipse.uml2.uml.Activity):
             Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                    .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
+                    .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
             if (enclosingActivity != null) {
                 org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
                         .getMappedElement(enclosingActivity);
@@ -277,13 +272,13 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
 
     @objid ("c9538739-e0d4-4949-9173-56983457980a")
     private void setName(org.eclipse.uml2.uml.ControlNode node) {
-        if (AbstractObjingModelNavigation.isNotNullOrEmpty(this.objingElement.getName()))
-            node.setName(this.objingElement.getName());
+        if (AbstractObjingModelNavigation.isNotNullOrEmpty(getObjingElement().getName()))
+            node.setName(getObjingElement().getName());
     }
 
     @objid ("7921b9c4-ae5d-4270-b9cb-b161af49dcad")
     private void setJoinSpec(org.eclipse.uml2.uml.JoinNode node) {
-        String value = this.objingElement.getJoinSpec();
+        String value = getObjingElement().getJoinSpec();
         if ((value != null)&& (!value.equals(""))){
             org.eclipse.uml2.uml.LiteralString joinSpec = UMLFactory.eINSTANCE.createLiteralString();
             joinSpec.setValue(value);
@@ -293,7 +288,13 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
 
     @objid ("33d23768-b0ab-4a29-a8bf-b3ec14b9fa10")
     private void setCombineDuplicate(org.eclipse.uml2.uml.JoinNode node) {
-        node.setIsCombineDuplicate(this.objingElement.isIsCombineDuplicate());
+        node.setIsCombineDuplicate(getObjingElement().isIsCombineDuplicate());
+    }
+
+    @objid ("f967e49e-216c-4b61-b224-41122f420e41")
+    @Override
+    public ForkJoinNode getObjingElement() {
+        return (ForkJoinNode) super.getObjingElement();
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.umlcommon.diagramview;
 
@@ -32,7 +32,6 @@ import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.UpdateManager;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.parts.Thumbnail;
 import org.eclipse.gef.EditPart;
@@ -57,6 +56,7 @@ import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeFinishCreationEditPolicy;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.core.figures.GradientFigure;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.borders.ZoomableLineBorder;
 import org.modelio.diagram.elements.core.link.ConnectionRouterRegistry;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
@@ -149,7 +149,6 @@ public class DiagramViewEditPart extends GmNodeEditPart {
         
         // Set style independent properties
         fig.setOpaque(true);
-        fig.setPreferredSize(new Dimension(150, 100));
         
         // classFigure.setLayoutManager(new BorderLayout());
         
@@ -159,6 +158,8 @@ public class DiagramViewEditPart extends GmNodeEditPart {
         manager.marginHeight = 0;
         manager.marginWidth = 0;
         fig.setLayoutManager(manager);
+        
+        MinimumSizeLayout.apply(fig, 150, 100);
         
         // Set style dependent properties
         refreshFromStyle(fig, getModelStyle());
@@ -184,8 +185,9 @@ public class DiagramViewEditPart extends GmNodeEditPart {
         final GmNodeModel gm = (GmNodeModel) getModel();
         
         final Object layoutData = gm.getLayoutData();
-        if (layoutData != null)
+        if (layoutData != null) {
             fig.getParent().setConstraint(fig, layoutData);
+        }
     }
 
     @objid ("81439d64-1dec-11e2-8cad-001ec947c8cc")
@@ -334,8 +336,9 @@ public class DiagramViewEditPart extends GmNodeEditPart {
                 part = (EditPart) getVisualPartMap().get(figure);
                 figure = figure.getParent();
             }
-            if (part == null)
+            if (part == null) {
                 return getContents();
+            }
             return part;
         }
 
@@ -351,10 +354,11 @@ public class DiagramViewEditPart extends GmNodeEditPart {
         @objid ("b637feef-648a-4132-aec8-56375cbc5c0e")
         @Override
         public Control getControl() {
-            if (this.outerViewer != null)
+            if (this.outerViewer != null) {
                 return this.outerViewer.getControl();
-            else
+            } else {
                 return null;
+            }
         }
 
         @objid ("1032ba8f-b84c-48d9-a14f-413d9e6f5ba7")

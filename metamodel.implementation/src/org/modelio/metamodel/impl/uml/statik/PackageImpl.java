@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -30,7 +42,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnParticipant;
-import org.modelio.metamodel.data.uml.statik.PackageData;
+import org.modelio.metamodel.impl.uml.statik.PackageData;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.metamodel.uml.statik.PackageImport;
@@ -43,130 +55,148 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00157246-c4bf-1fd8-97fe-001ec947cd2a")
 public class PackageImpl extends NameSpaceImpl implements Package {
-    @objid ("33f4ba62-5562-430c-813a-e39015803b4e")
+    @objid ("17599cd6-f7f4-44e4-b94d-0ebc6d05d05c")
     @Override
     public boolean isIsInstantiable() {
-        return (Boolean) getAttVal(PackageData.Metadata.IsInstantiableAtt());
+        return (Boolean) getAttVal(((PackageSmClass)getClassOf()).getIsInstantiableAtt());
     }
 
-    @objid ("496c9c90-2916-4098-bac2-eef2704e282f")
+    @objid ("77d629b6-aaa8-448e-87ca-4a97c45cbf6f")
     @Override
     public void setIsInstantiable(boolean value) {
-        setAttVal(PackageData.Metadata.IsInstantiableAtt(), value);
+        setAttVal(((PackageSmClass)getClassOf()).getIsInstantiableAtt(), value);
     }
 
-    @objid ("fe27bf35-231f-4a79-b968-05aed9c8f66a")
+    @objid ("2918eef6-583d-43ab-84f0-d8333ddef9b8")
     @Override
     public EList<BpmnParticipant> getBpmnRepresents() {
-        return new SmList<>(this, PackageData.Metadata.BpmnRepresentsDep());
+        return new SmList<>(this, ((PackageSmClass)getClassOf()).getBpmnRepresentsDep());
     }
 
-    @objid ("6af717ab-c2c3-434c-b180-f27fff7ee395")
+    @objid ("746886de-ea57-4eb4-9f4f-da1e5c1ae27b")
     @Override
     public <T extends BpmnParticipant> List<T> getBpmnRepresents(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnParticipant element : getBpmnRepresents()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f0e0e6e0-7bb8-4233-90a7-2be7f1601f5c")
+    @objid ("9970c60d-a252-4c8b-8734-53bf9d70f6ab")
     @Override
     public EList<PackageMerge> getReceivingMerge() {
-        return new SmList<>(this, PackageData.Metadata.ReceivingMergeDep());
+        return new SmList<>(this, ((PackageSmClass)getClassOf()).getReceivingMergeDep());
     }
 
-    @objid ("29908973-3e96-4ad3-bc18-faf02edf489c")
+    @objid ("d459212f-7c51-48f5-aa8f-0b838c32615f")
     @Override
     public <T extends PackageMerge> List<T> getReceivingMerge(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final PackageMerge element : getReceivingMerge()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("369a659f-998b-4c2c-b8aa-0e9d8d429107")
+    @objid ("8c20dee1-aff6-4482-87e3-a0c434a31a33")
     @Override
     public Project getRepresented() {
-        return (Project) getDepVal(PackageData.Metadata.RepresentedDep());
+        Object obj = getDepVal(((PackageSmClass)getClassOf()).getRepresentedDep());
+        return (obj instanceof Project)? (Project)obj : null;
     }
 
-    @objid ("2c7d1d3d-f966-4307-b413-f2ba101325a5")
+    @objid ("1ea727f1-aeae-460b-b407-f20a85b38b90")
     @Override
     public void setRepresented(Project value) {
-        appendDepVal(PackageData.Metadata.RepresentedDep(), (SmObjectImpl)value);
+        appendDepVal(((PackageSmClass)getClassOf()).getRepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5f528ae5-ab21-4bea-a6ba-4d4062644e63")
+    @objid ("764cc17d-60f9-4012-9cae-4c692da301fc")
     @Override
     public EList<PackageMerge> getMerge() {
-        return new SmList<>(this, PackageData.Metadata.MergeDep());
+        return new SmList<>(this, ((PackageSmClass)getClassOf()).getMergeDep());
     }
 
-    @objid ("b70f622b-b0cd-4396-83dc-03dd42b0e6ed")
+    @objid ("d10d60db-d51d-430f-830d-0f694ec4ca32")
     @Override
     public <T extends PackageMerge> List<T> getMerge(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final PackageMerge element : getMerge()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a96d34fb-4b7e-4f66-92bd-7a71f6eb97d6")
+    @objid ("fe937c70-c906-4648-bb94-f7fb655ed598")
     @Override
     public EList<PackageImport> getPackageImporting() {
-        return new SmList<>(this, PackageData.Metadata.PackageImportingDep());
+        return new SmList<>(this, ((PackageSmClass)getClassOf()).getPackageImportingDep());
     }
 
-    @objid ("97f357d6-a9af-4bf6-9041-bbca0a2ee478")
+    @objid ("15529600-e2b6-4250-9418-e20e16efc096")
     @Override
     public <T extends PackageImport> List<T> getPackageImporting(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final PackageImport element : getPackageImporting()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cc3b758f-2748-4219-b7a7-20993af85cb9")
+    @objid ("f8b982e1-ada6-46cf-8cd6-865af44c751b")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(PackageData.Metadata.RepresentedDep());
+        // Represented
+        obj = (SmObjectImpl)this.getDepVal(((PackageSmClass)getClassOf()).getRepresentedDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("244359a6-bf8a-4570-9ef8-87a5a6b7b5f1")
+    @objid ("b44df552-3a6a-41e0-a9ad-460eb228115e")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(PackageData.Metadata.RepresentedDep());
-        if (obj != null)
-          return new SmDepVal(PackageData.Metadata.RepresentedDep(), obj);
+        SmDependency dep;
+        
+        // Represented
+        dep = ((PackageSmClass)getClassOf()).getRepresentedDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("d19b4fe8-b2fc-415e-8ebd-033287a1a92b")
+    @objid ("65550f6f-8aef-4585-aa81-d845880ce618")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPackage(this);

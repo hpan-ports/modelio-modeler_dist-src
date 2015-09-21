@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -34,13 +34,10 @@ import org.modelio.xmi.util.NotFoundException;
 
 @objid ("76472803-064d-4d70-b9ad-2415fc160c28")
 public class OArtifact extends ONameSpace {
-    @objid ("df1d3d01-ce4a-4502-b6f1-e129c3e7117e")
-    private Artifact objingElement = null;
-
     @objid ("d59af07b-6bb7-416c-998b-cf8c27326438")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (this.objingElement.isStereotyped("ModelerModule",IModelerModuleStereotypes.UML2DEPLOYMENTSPECIFICATION)){
+        if (getObjingElement().isStereotyped("ModelerModule",IModelerModuleStereotypes.UML2DEPLOYMENTSPECIFICATION)){
             return UMLFactory.eINSTANCE.createDeploymentSpecification();
         }else{
             return UMLFactory.eINSTANCE.createArtifact();
@@ -50,7 +47,6 @@ public class OArtifact extends ONameSpace {
     @objid ("51c0fa88-14bd-4205-9620-abc5c6322239")
     public OArtifact(Artifact param) {
         super(param);
-        this.objingElement = param;
     }
 
     @objid ("9fd48579-a243-43b1-a41c-92842df3b936")
@@ -58,7 +54,7 @@ public class OArtifact extends ONameSpace {
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        ModelTree objingOwner = this.objingElement.getOwner();
+        ModelTree objingOwner = getObjingElement().getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
@@ -77,7 +73,7 @@ public class OArtifact extends ONameSpace {
             } else if (ecoreOwner instanceof org.eclipse.uml2.uml.Artifact) {
                 org.eclipse.uml2.uml.Artifact ownerIsArtifact = (org.eclipse.uml2.uml.Artifact) ecoreOwner;
                 ownerIsArtifact.getNestedArtifacts().add((org.eclipse.uml2.uml.Artifact)ecoreElt);
-               
+        
             } else {
                 ecoreElt.destroy();
                 throw new NotFoundException("Owner Class ("
@@ -96,7 +92,7 @@ public class OArtifact extends ONameSpace {
 
     @objid ("bc03b1e8-8b55-4a65-8f1e-3cc813b9ecdc")
     private void setFileName(org.eclipse.uml2.uml.Artifact artifact) {
-        String fileName = this.objingElement.getFileName();
+        String fileName = getObjingElement().getFileName();
         if (!"".equals(fileName))
             artifact.setFileName(fileName);
     }
@@ -107,7 +103,7 @@ public class OArtifact extends ONameSpace {
         
         List<org.eclipse.uml2.uml.Manifestation> ecoreManifList = new ArrayList<>();
         
-        for (Manifestation objingManif : this.objingElement.getUtilized()) {
+        for (Manifestation objingManif : getObjingElement().getUtilized()) {
             org.eclipse.uml2.uml.Manifestation ecoreManif = (org.eclipse.uml2.uml.Manifestation) genProp
             .getMappedElement(objingManif);
         
@@ -118,6 +114,12 @@ public class OArtifact extends ONameSpace {
         
         if (ecoreManifList.size() > 0)
             artifact.getManifestations().addAll(ecoreManifList);
+    }
+
+    @objid ("841d4c93-031c-46f1-b6a1-eff768ad52aa")
+    @Override
+    public Artifact getObjingElement() {
+        return (Artifact) super.getObjingElement();
     }
 
 }

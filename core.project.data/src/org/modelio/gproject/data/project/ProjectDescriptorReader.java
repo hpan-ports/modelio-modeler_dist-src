@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.data.project;
 
@@ -33,15 +33,21 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import net.sf.practicalxml.DomUtil;
 import net.sf.practicalxml.ParseUtil;
 import net.sf.practicalxml.XmlException;
 import org.modelio.gproject.data.plugin.GProjectData;
+import org.modelio.gproject.data.project.todo.InstallModuleDescriptor;
+import org.modelio.gproject.data.project.todo.RemoveModuleDescriptor;
+import org.modelio.gproject.data.project.todo.TodoActionDescriptor;
+import org.modelio.gproject.data.project.todo.UpdateModuleDescriptor;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.auth.NoneAuthData;
 import org.modelio.vbasic.auth.UserPasswordAuthData;
 import org.modelio.vbasic.files.FileUtils;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.version.Version;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -124,13 +130,15 @@ public class ProjectDescriptorReader {
         // Look for encryption file
         String encryption = "";
         Path encryptionFile = this.localProjectPath.resolve(ProjectDescriptorWriter.CONF_ENCRYPT_FILE);
-        if (Files.isRegularFile(encryptionFile))
+        if (Files.isRegularFile(encryptionFile)) {
             encryption = new String(Files.readAllBytes(encryptionFile));
+        }
         
         // Setup input stream and run parsing
         try (InputStream fis = Files.newInputStream(confFile);
                 InputStream is = getDecryptedInputStream(fis, encryption)) {
             InputSource xmlSource = new InputSource(is);
+            xmlSource.setSystemId(confFile.toUri().toString());
             return read (xmlSource, scope);
         }
     }
@@ -158,9 +166,10 @@ public class ProjectDescriptorReader {
     private void convertProject(final Element p, final long lversion) throws IOException {
         if (lversion == 1) {
             p.setAttribute("type", "LOCAL");
-        } else 
-        throw new IOException("Project descriptor version " + lversion + " not supported by current version "
-                + ProjectDescriptor.serialVersionUID);
+        } else {
+            throw new IOException("Project descriptor version " + lversion + " not supported by current version "
+                    + ProjectDescriptor.serialVersionUID);
+        }
     }
 
     @objid ("a78bd7c4-abbc-11e1-8392-001ec947ccaf")
@@ -172,11 +181,13 @@ public class ProjectDescriptorReader {
         fd.setProperties(decodeProperties(domEl));
         
         String stringUri = domEl.getAttribute("uri");
-        if (stringUri != null && !stringUri.isEmpty()) try {
-            
-            fd.setUri(new URI(stringUri));
-        } catch (URISyntaxException e) {
-            throw new IOException(e);
+        if (stringUri != null && !stringUri.isEmpty()) {
+            try {
+        
+                fd.setUri(new URI(stringUri));
+            } catch (URISyntaxException e) {
+                throw new IOException(e);
+            }
         }
         
         fd.setAuthDescriptor(decodeAuth(domEl));
@@ -202,16 +213,18 @@ public class ProjectDescriptorReader {
         this.projectDesc.setType(p.getAttribute("type"));
         
         // Read project path if specified
-        String projPath = p.getAttribute("path"); 
-        if (projPath!=null && !projPath.isEmpty())
+        String projPath = p.getAttribute("path");
+        if (projPath!=null && !projPath.isEmpty()) {
             this.projectDesc.setPath(Paths.get(projPath));
-        else
+        } else {
             this.projectDesc.setPath(this.localProjectPath);
+        }
         
         // Read project remote path if specified
-        String remotePath = p.getAttribute("remote"); 
-        if (remotePath!=null && !remotePath.isEmpty())
+        String remotePath = p.getAttribute("remote");
+        if (remotePath!=null && !remotePath.isEmpty()) {
             this.projectDesc.setRemoteLocation(remotePath);
+        }
         
         // Read fragments
         for (Element f : DomUtil.getChildren(p, "fragment")) {
@@ -225,6 +238,11 @@ public class ProjectDescriptorReader {
         
         this.projectDesc.setAuthDescriptor(decodeAuth(p));
         this.projectDesc.setProperties(decodeProperties(p));
+        
+        // Read to-do
+        for (Element f : DomUtil.getChildren(p, "todo")) {
+            decodeTodo(f);
+        }
     }
 
     /**
@@ -254,8 +272,9 @@ public class ProjectDescriptorReader {
         
         String archiveLoc = domEl.getAttribute("archive");
         try {
-            if (archiveLoc != null)
+            if (archiveLoc != null) {
                 md.setArchiveLocation(new URI(archiveLoc));
+            }
         } catch (URISyntaxException e) {
             // Compatibility with 1 version : the 'archive' is a local path.
             try {
@@ -277,13 +296,15 @@ public class ProjectDescriptorReader {
 
     @objid ("7296fe4e-c4dd-40ec-97dc-427ba5387f00")
     private DefinitionScope decodeScope(final Element domEl, DefinitionScope defaultValue) throws IOException {
-        if (this.forcedScope != null)
+        if (this.forcedScope != null) {
             return this.forcedScope;
+        }
         
         String ftype = domEl.getAttribute("scope");
         
-        if (ftype==null || ftype.isEmpty())
+        if (ftype==null || ftype.isEmpty()) {
             return defaultValue;
+        }
         
         try {
             return DefinitionScope.valueOf(ftype);
@@ -297,8 +318,9 @@ public class ProjectDescriptorReader {
         AuthDescriptor authDesc = null;
         
         for (Element authNode : DomUtil.getChildren(domEl, "auth")) {
-            if (authDesc != null)
+            if (authDesc != null) {
                 throw new IOException("More than one <auth> tag on the same node: "+domEl);
+            }
         
             authDesc = new AuthDescriptor();
             authDesc.setScope(decodeScope(authNode, this.defaultScope));
@@ -313,8 +335,9 @@ public class ProjectDescriptorReader {
             }
         }
         
-        if (authDesc == null)
+        if (authDesc == null) {
             authDesc = new AuthDescriptor(null, DefinitionScope.LOCAL);
+        }
         return authDesc;
     }
 
@@ -325,13 +348,14 @@ public class ProjectDescriptorReader {
     @objid ("d1767cec-0e77-4445-bfb3-c6ba579105e8")
     private IAuthData createAuthData(String scheme) {
         // if scheme is null, empty or InheritedAuthData.SCHEME_ID auth is inherited from project.
-        if (scheme == null)
+        if (scheme == null) {
             return new InheritedAuthData();
+        }
         
         switch (scheme) {
         case AuthDescriptor.AUTH_TYPE_ASK:
             return null;
-            
+        
         case "":
         case InheritedAuthData.SCHEME_ID:
             return new InheritedAuthData();
@@ -343,25 +367,27 @@ public class ProjectDescriptorReader {
             return new UserPasswordAuthData();
         
         default:
-            return new UnknownAuthData(scheme); 
+            return new UnknownAuthData(scheme);
         }
     }
 
     @objid ("4364e312-14c6-4774-bdfc-09a1128485ce")
     private InputStream getDecryptedInputStream(final InputStream is, String encryption) throws IOException {
-        if (encryption.equals("base64"))
+        if (encryption.equals("base64")) {
             return new Base64DecoderInputStream(is);
-        else if (encryption.isEmpty())
+        } else if (encryption.isEmpty()) {
             return is;
-        else
+        } else {
             throw new IOException("Unsupported encryption:"+encryption);
+        }
     }
 
     @objid ("1997ee4e-d569-11e1-9f03-001ec947ccaf")
     private static FragmentType decodeFragmentType(final Element domEl) throws IOException {
         String ftype = domEl.getAttribute("type");
-        if (ftype==null || ftype.isEmpty())
+        if (ftype==null || ftype.isEmpty()) {
             return null;
+        }
         
         try {
             return FragmentType.valueOf(ftype);
@@ -372,8 +398,9 @@ public class ProjectDescriptorReader {
 
     @objid ("0083bdba-f36a-11e1-9173-001ec947ccaf")
     private static Version readVersion(final String s) throws IOException {
-        if (s==null || s.isEmpty())
+        if (s==null || s.isEmpty()) {
             return null;
+        }
         
         try {
             return new Version(s);
@@ -384,9 +411,69 @@ public class ProjectDescriptorReader {
 
     @objid ("844beed5-2ebd-4c0b-8ad4-ec5ecd707623")
     private static boolean readBoolean(final String s, boolean defaultVal) {
-        if (s==null || s.isEmpty())
+        if (s==null || s.isEmpty()) {
             return defaultVal;
+        }
         return Boolean.parseBoolean(s);
+    }
+
+    @objid ("ee35785f-74b2-4a90-b7fb-3dcd6b6a8cc8")
+    private void decodeTodo(Element f) throws IOException {
+        List<TodoActionDescriptor> actionsList = this.projectDesc.getTodo().getActions();
+        for (Element action : DomUtil.getChildren(f)) {
+            TodoActionDescriptor desc = null;
+            switch (action.getTagName()) {
+            case "install_module":
+                desc = decodeTodoInstallModule(f);
+                break;
+            case "update_module":
+                desc = decodeTodoUpdateModule(f);
+                break;
+            case "remove_module":
+                desc = decodeTodoRemoveModule(f);
+                break;
+            default:
+                Log.warning("Unknown to-do tag: "+action.getTagName());
+            }
+        
+            if (desc != null) {
+                actionsList.add(desc);
+            }
+        }
+    }
+
+    @objid ("8e8f168a-3b9d-44a4-bbfc-c2cd7e51d763")
+    private TodoActionDescriptor decodeTodoRemoveModule(Element f) {
+        RemoveModuleDescriptor d = new RemoveModuleDescriptor();
+        d.setModuleName(f.getAttribute("name"));
+        return d;
+    }
+
+    @objid ("68fadfd2-e1d4-4276-9990-43dc4efa3b65")
+    private TodoActionDescriptor decodeTodoUpdateModule(Element f) throws IOException {
+        UpdateModuleDescriptor d = new UpdateModuleDescriptor();
+        d.setOldModuleName(f.getAttribute("old_module"));
+        for (Element element : DomUtil.getChildren(f, "new_module")) {
+            d.setNewModuleDescriptor(decodeModule(element));
+        }
+        return null;
+    }
+
+    @objid ("4bfb0048-456e-430d-ab3d-ae59810f9502")
+    private TodoActionDescriptor decodeTodoInstallModule(Element f) throws IOException {
+        InstallModuleDescriptor d = new InstallModuleDescriptor();
+        
+        for (Element element : DomUtil.getChildren(f, "new_module")) {
+            d.setDescriptor(decodeModule(element));
+        }
+        
+        if (d.getModuleDescriptor() != null) {
+            return d;
+        } else {
+            Log.warning("'%s' project descriptor has an empty Todo/InstallModule module.\nTodo=%s",
+                    this.projectDesc.getName(), f.getParentNode().getChildNodes());
+            return null;
+        }
     }
 
     /**

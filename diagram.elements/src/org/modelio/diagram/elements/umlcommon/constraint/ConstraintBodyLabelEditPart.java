@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,35 +12,37 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.umlcommon.constraint;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.diagram.elements.common.edition.DirectEditManager2;
 import org.modelio.diagram.elements.common.edition.MultilineTextCellEditor;
 import org.modelio.diagram.elements.common.header.GmModelElementHeader;
 import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
 import org.modelio.diagram.elements.common.header.WrappedHeaderFigure;
+import org.modelio.diagram.elements.core.figures.labelum.LabelumFigure;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IEditableText;
 import org.modelio.diagram.styles.core.IStyle;
@@ -63,15 +65,19 @@ public class ConstraintBodyLabelEditPart extends ModelElementHeaderEditPart {
             final CellEditorLocator cellEditorLocator = new CellEditorLocator() {
                 @Override
                 public void relocate(CellEditor cellEditor) {
-                    TextFlow label = getMainLabelFigure();
+                    Font font = cellEditor.getControl().getFont();
+        
+                    LabelumFigure label = getMainLabelFigure();
                     final Rectangle rect = label.getBounds().getCopy();
-                    final Dimension textSize = TextUtilities.INSTANCE.getTextExtents(label.getText(), cellEditor.getControl()
-                            .getFont());
+                    final Dimension textSize = TextUtilities.INSTANCE.getTextExtents(label.getText(), font);
         
                     label.translateToAbsolute(rect);
         
-                    cellEditor.getControl().setBounds(rect.x, rect.y + (rect.height / 2) - textSize.height / 2,
-                            Math.max(textSize.width, rect.width), textSize.height);
+                    int minWidth = FigureUtilities.getStringExtents("abcdefghijklmn...", font).width();
+                    int width = Math.max(Math.max(textSize.width, rect.width), minWidth);
+        
+                    cellEditor.getControl().setBounds(rect.x, rect.y + (rect.height / 2) - textSize.height / 2, width, textSize.height);
+                    System.out.println(cellEditor.getControl().getBounds());
         
                 }
         

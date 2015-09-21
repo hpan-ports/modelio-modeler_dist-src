@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.service.impl;
 
@@ -33,8 +33,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.core.services.statusreporter.StatusReporter;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.audit.engine.AuditEngine;
 import org.modelio.audit.engine.CheckElementRunner;
@@ -56,10 +56,6 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("7ddbb117-45fb-11e2-9b4d-bc305ba4815c")
 @Creatable
 public class AuditService implements IAuditService {
-    @objid ("f9c3e796-3f01-48b8-8a7f-740a9a544411")
-    @Inject
-    private StatusReporter errReporter;
-
     @objid ("7ddbb11a-45fb-11e2-9b4d-bc305ba4815c")
     private AuditEngine auditEngine;
 
@@ -81,6 +77,10 @@ public class AuditService implements IAuditService {
     @objid ("120a6490-2457-4db5-bd68-fe88d72a209b")
     private Map<String, Thread> threadMap;
 
+    @objid ("0fc6094e-ecc2-47bd-9612-45a9520f1e0b")
+    @Inject
+    private StatusReporter errReporter;
+
     @objid ("7ddbb11c-45fb-11e2-9b4d-bc305ba4815c")
     @Override
     public void setConfigurationFile(File confFile) {
@@ -94,7 +94,7 @@ public class AuditService implements IAuditService {
     public void restart() {
         try {
             loadModel();
-            
+        
             // Generate the plan
             AuditPlan auditPlan = getProjectConfigurator().createPlan();
             auditPlan.dump(Platform.getLogFileLocation());
@@ -133,27 +133,26 @@ public class AuditService implements IAuditService {
     @objid ("7ddbb12d-45fb-11e2-9b4d-bc305ba4815c")
     @Inject
     @Optional
-    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENING) final GProject project) {
-        //FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        if(project != null){    
+    void onProjectOpened(@UIEventTopic(ModelioEventTopics.PROJECT_OPENING) final GProject project) {
+        if(project != null){
             this.openedProject = project;
-            
+        
             try {
                 // Ensure the configuration file exists.
                 // Do migration of needed
                 ensureConfigurationFile();
-                
+        
                 // Load the model
                 loadModel();
         
                 // Generate the plan
                 AuditPlan auditPlan = getProjectConfigurator().createPlan();
                 // auditPlan.dump(Platform.getLogFileLocation());
-                
+        
                 // Init the audit engine, set the plan and start
                 this.auditEngine.setPlan(auditPlan, project.getSession());
                 this.auditEngine.start(this.openedProject.getSession());
-                
+        
             } catch (FileSystemException e) {
                 this.errReporter.show(StatusReporter.ERROR, FileUtils.getLocalizedMessage(e), e);
             } catch (IOException e) {
@@ -169,12 +168,11 @@ public class AuditService implements IAuditService {
     @objid ("7dde127a-45fb-11e2-9b4d-bc305ba4815c")
     @Optional
     @Inject
-    void onProjectClosing(@EventTopic(ModelioEventTopics.PROJECT_CLOSING) final GProject closedProject) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+    void onProjectClosing(@UIEventTopic(ModelioEventTopics.PROJECT_CLOSING) final GProject closedProject) {
         if(closedProject != null){
             // Standard audit
             this.auditEngine.stop(closedProject.getSession());
-            this.openedProject = null;        
+            this.openedProject = null;
         }
     }
 
@@ -193,7 +191,7 @@ public class AuditService implements IAuditService {
         this.modelController = new AuditModelController();
         this.geometry = new Geometry();
         this.oldGeometry = new ObsoleteGeometry();
-        this.threadMap= new HashMap<String,Thread>();
+        this.threadMap= new HashMap<>();
     }
 
     @objid ("36b7f133-5e97-483e-aeb0-9965120a1037")
@@ -253,13 +251,13 @@ public class AuditService implements IAuditService {
         if (curDefault == null || !curDefault.isFile()) {
             File oldDefault = this.oldGeometry.getFactorySettingsFile();
             File newRulesFile = this.openedProject.getProjectDataPath().resolve("auditdefinitions.properties").toFile();
-            
+        
             Audit.LOG.info("Migration: extract rules from '"+oldDefault+"' to '"+newRulesFile+"'");
-            
+        
             OldAuditConfigurator oldconf = new OldAuditConfigurator(oldDefault);
             AuditModelController newconf = new AuditModelController();
             newconf.applyAuditConfiguration(oldconf.createPrefModel());
-            
+        
             newconf.writeConfiguration(this.geometry.getDefaultProjectConfigurationFile());
             newconf.writeRuleDefinitions(newRulesFile);
         }
@@ -278,7 +276,7 @@ public class AuditService implements IAuditService {
                 OldAuditConfigurator oldconf = new OldAuditConfigurator(readFile);
                 AuditModelController newconf = new AuditModelController();
                 newconf.applyAuditConfiguration(oldconf.createPrefModel());
-                
+        
                 newconf.writeConfiguration(newFile);
                 readFile.delete();
             }
@@ -349,7 +347,7 @@ public class AuditService implements IAuditService {
         checkerThread.setName("CHECKER");
         checkerThread.start();
         
-        threadMap.put(jobId, checkerThread);
+        this.threadMap.put(jobId, checkerThread);
     }
 
     @objid ("4685e5e3-6ef7-477f-bb73-16e3caccf244")
@@ -366,7 +364,7 @@ public class AuditService implements IAuditService {
 
     @objid ("4b695881-32ea-4ce1-b7ef-fd4ebe5b0272")
     public void interuptCheck(String jobId) {
-        Thread checkerThread= threadMap.get(jobId);
+        Thread checkerThread= this.threadMap.get(jobId);
         if(checkerThread != null){
             checkerThread.interrupt();
         }

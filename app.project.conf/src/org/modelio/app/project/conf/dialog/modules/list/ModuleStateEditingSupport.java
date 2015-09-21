@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.project.conf.dialog.modules.list;
 
@@ -32,10 +32,9 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.modelio.api.module.ModuleException;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.gproject.module.GModule;
-import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IModuleManagementService;
+import org.modelio.mda.infra.service.IRTModule.ModuleRuntimeState;
 import org.modelio.mda.infra.service.IRTModule;
-import org.modelio.mda.infra.service.ModuleRuntimeState;
-import org.modelio.metamodel.mda.ModuleComponent;
 
 /**
  * ModuleStateEditingSupport provides EditingSupport implementation for the module state.
@@ -76,13 +75,10 @@ class ModuleStateEditingSupport extends EditingSupport {
     @Override
     protected Object getValue(Object element) {
         if (element instanceof GModule) {
-            IModuleService moduleService = this.applicationContext.get(IModuleService.class);
-            ModuleComponent moduleElement = ((GModule) element).getModuleElement();
-            if (moduleElement != null) {
-                IRTModule iModule = moduleService.getIRTModule(moduleElement);
-                if (iModule != null && iModule.getState() == ModuleRuntimeState.Started) {
-                    return true;
-                }
+            IModuleManagementService moduleService = this.applicationContext.get(IModuleManagementService.class);
+            IRTModule iModule = moduleService.getIRTModule((GModule) element);
+            if (iModule != null && iModule.getState() == ModuleRuntimeState.Started) {
+                return true;
             }
         }
         return false;
@@ -92,7 +88,7 @@ class ModuleStateEditingSupport extends EditingSupport {
     @Override
     protected void setValue(Object element, Object value) {
         if (element instanceof GModule) {
-            IModuleService moduleService = this.applicationContext.get(IModuleService.class);
+            IModuleManagementService moduleService = this.applicationContext.get(IModuleManagementService.class);
             GModule gModule = (GModule) element;
         
             try {
@@ -110,7 +106,7 @@ class ModuleStateEditingSupport extends EditingSupport {
                 MessageDialog.openError(this.viewer.getControl().getShell(), title, message);
             }
         }
-            
+        
         this.viewer.setSelection(new StructuredSelection(element));
     }
 

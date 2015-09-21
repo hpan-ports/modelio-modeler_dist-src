@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.api.tools;
 
@@ -28,6 +28,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.tools.CreationTool;
 import org.modelio.api.diagram.IDiagramGraphic;
 import org.modelio.api.diagram.tools.IBoxTool;
@@ -67,25 +68,25 @@ public class BoxTool extends CreationTool {
     @Override
     protected org.eclipse.gef.EditPartViewer.Conditional getTargetingConditional() {
         return new EditPartViewer.Conditional() {
-            @SuppressWarnings("synthetic-access")
-            @Override
-            public boolean evaluate(EditPart editpart) {
-                if (BoxTool.super.getTargetingConditional().evaluate(editpart)) {
-                    return doAccept(editpart);
-                }
-        return false;
-                    }
-                };
+                            @SuppressWarnings("synthetic-access")
+                            @Override
+                            public boolean evaluate(EditPart editpart) {
+                                if (BoxTool.super.getTargetingConditional().evaluate(editpart)) {
+                                    return doAccept(editpart);
+                                }
+                        return false;
+                                    }
+                                };
     }
 
     @objid ("d7a6b122-d81d-41ae-ac0e-6493aff4bad9")
     @Override
     protected void executeCurrentCommand() {
-        if (this.getTargetEditPart() == null) {
+        if (getTargetEditPart() == null) {
             return;
         }
         
-        GmModel targetModel = (GmModel) this.getTargetEditPart().getModel();
+        GmModel targetModel = (GmModel) getTargetEditPart().getModel();
         initDiagramHandle(targetModel);
         
         IDiagramGraphic dg = null;
@@ -94,18 +95,18 @@ public class BoxTool extends CreationTool {
             targetModel = targetModel.getParent();
         }
         
-        Point where = this.getCreateRequest().getLocation();
-        Dimension size = (this.getCreateRequest().getSize() != null) ? this.getCreateRequest().getSize()
+        Point where = getCreateRequest().getLocation();
+        Dimension size = (getCreateRequest().getSize() != null) ? getCreateRequest().getSize()
                 : new Dimension(-1, -1);
         Rectangle rect = new Rectangle(where, size);
         
-        ((GraphicalEditPart) this.getTargetEditPart().getViewer().getContents()).getFigure()
+        ((GraphicalEditPart) getTargetEditPart().getViewer().getContents()).getFigure()
         .translateToRelative(rect);
         
         // Delegate the execution to the BoxCommand handler
         this.boxCommand.actionPerformed(this.diagramHandle, dg, rect);
         
-        this.setCurrentCommand(null);
+        setCurrentCommand(null);
     }
 
     @objid ("986d25a0-fee5-4f66-a2ed-e65b7090dd16")
@@ -144,8 +145,9 @@ public class BoxTool extends CreationTool {
             boolean changed = getTargetEditPart() != editPart;
             setTargetEditPart(editPart);
             return changed;
-        } else
+        } else {
             return false;
+        }
     }
 
     @objid ("7eb9a6ac-bbde-4660-9fd5-1651c8bde123")
@@ -159,8 +161,9 @@ public class BoxTool extends CreationTool {
             targetModel = targetModel.getParent();
         }
         
-        if (dg == null)
+        if (dg == null) {
             return false;
+        }
         return BoxTool.this.boxCommand.acceptElement(this.diagramHandle, dg);
     }
 
@@ -169,7 +172,7 @@ public class BoxTool extends CreationTool {
         if (this.diagramHandle == null) {
             // Create a diagram handle on the opened editor (there must be one: we are in one of its tools!).
             AbstractDiagram diagram = (AbstractDiagram) targetModel.getDiagram().getRelatedElement();
-            IDiagramEditor editor = (IDiagramEditor) DiagramEditorsManager.getInstance().get(diagram).getObject(); 
+            IDiagramEditor editor = (IDiagramEditor) DiagramEditorsManager.getInstance().get(diagram).getObject();
         
             this.diagramHandle = DiagramHandle.create(editor);
         }
@@ -182,6 +185,14 @@ public class BoxTool extends CreationTool {
         if (this.diagramHandle != null) {
             this.diagramHandle.close();
             this.diagramHandle = null;
+        }
+    }
+
+    @objid ("d3a515ba-1ca0-4e82-b2c9-19f720af7eab")
+    @Override
+    protected void enforceConstraintsForSizeOnDropCreate(CreateRequest request) {
+        if (getTargetEditPart() != null) {
+            super.enforceConstraintsForSizeOnDropCreate(request);
         }
     }
 

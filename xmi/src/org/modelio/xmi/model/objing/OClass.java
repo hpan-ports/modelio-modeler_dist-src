@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -52,7 +52,7 @@ public class OClass extends ONameSpace {
     @objid ("e68fdbf9-a34e-43c7-b174-069dc278ddef")
     private org.eclipse.uml2.uml.Element getOrCreateEcoreAssociationClass() {
         return GenerationProperties.getInstance()
-                        .getMappedElement((getObjingElement()));
+                                .getMappedElement((getObjingElement()));
     }
 
     @objid ("1157bb84-fe52-46b4-a871-77dace7d1d03")
@@ -67,7 +67,7 @@ public class OClass extends ONameSpace {
         // The "isIsClassAssociation" test may be done on sub-classes, like
         // "Component" that inherits from "Class".
         this.isIsClassAssociation = (AbstractObjingModelNavigation.isIsClassAssociation((Class) getObjingElement()));
-            
+        
         if (!this.isIsClassAssociation)
             linkEcoreClass( (org.eclipse.uml2.uml.Class) ecoreElt);
     }
@@ -107,7 +107,11 @@ public class OClass extends ONameSpace {
     private void linkEcoreClass(org.eclipse.uml2.uml.Class ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        ModelTree objingOwner = ((Class)getObjingElement()).getOwner();
+        ModelTree objingOwner = ((Class) getObjingElement()).getOwner();
+        
+        if (objingOwner == null)
+            objingOwner = ((Class)getObjingElement()).getOwnerTemplateParameter();
+        
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {

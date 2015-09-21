@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.state.elements;
 
@@ -65,7 +65,6 @@ import org.modelio.diagram.editor.state.elements.shallowhistory.GmShallowHistory
 import org.modelio.diagram.editor.state.elements.shallowhistory.ShallowHistoryEditPart;
 import org.modelio.diagram.editor.state.elements.state.GmRegionsGroup;
 import org.modelio.diagram.editor.state.elements.state.GmState;
-import org.modelio.diagram.editor.state.elements.state.GmStateLabel;
 import org.modelio.diagram.editor.state.elements.state.GmStatePrimaryNode;
 import org.modelio.diagram.editor.state.elements.state.RegionsGroupEditPart;
 import org.modelio.diagram.editor.state.elements.state.StateEditPart;
@@ -77,12 +76,9 @@ import org.modelio.diagram.editor.state.elements.terminal.GmTerminalPrimaryNode;
 import org.modelio.diagram.editor.state.elements.terminal.TerminalEditPart;
 import org.modelio.diagram.editor.state.elements.transition.GmTransition;
 import org.modelio.diagram.editor.state.elements.transition.GmTransitionGuardLabel;
-import org.modelio.diagram.editor.state.elements.transition.GmTransitionMainLabel;
 import org.modelio.diagram.editor.state.elements.transition.GmTransitionPostConditionLabel;
 import org.modelio.diagram.editor.state.elements.transition.TransitionEditPart;
-import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
 import org.modelio.diagram.elements.common.label.base.GmElementLabelEditPart;
-import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
 import org.modelio.diagram.elements.common.portcontainer.PortContainerEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.umlcommon.diagramview.DiagramViewEditPart;
@@ -351,12 +347,6 @@ public class StateDiagramEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model.getClass() == GmTransitionMainLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
             if (model.getClass() == GmTransitionGuardLabel.class) {
                 editPart = new GmElementLabelEditPart();
                 editPart.setModel(model);
@@ -365,12 +355,6 @@ public class StateDiagramEditPartFactory implements EditPartFactory {
             
             if (model.getClass() == GmTransitionPostConditionLabel.class) {
                 editPart = new GmElementLabelEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmStateLabel.class) {
-                editPart = new ModelElementHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }

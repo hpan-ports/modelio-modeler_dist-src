@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.fragment;
 
@@ -30,7 +30,8 @@ import org.modelio.gproject.data.project.FragmentDescriptor;
 import org.modelio.gproject.data.project.FragmentType;
 import org.modelio.gproject.data.project.GAuthConf;
 import org.modelio.gproject.data.project.GProperties;
-import org.modelio.gproject.data.project.VersionDescriptors;
+import org.modelio.gproject.data.project.MetamodelDescriptor;
+import org.modelio.gproject.fragment.migration.IFragmentMigrator;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectEvent;
 import org.modelio.gproject.gproject.GProjectEventType;
@@ -65,10 +66,78 @@ public interface IProjectFragment {
     void delete() throws IOException;
 
     /**
+     * Get the fragment authentication configuration if needed.
+     * May be <code>null</code>.
+     * @return authentication data.
+     */
+    @objid ("3da5c624-a576-4396-8f7d-4e2082ec9617")
+    GAuthConf getAuthConfiguration();
+
+    /**
+     * Get the error that caused the fragment to be in the down state.
+     * @return the down state cause.
+     */
+    @objid ("6a83f283-d66d-11e1-9f03-001ec947ccaf")
+    Throwable getDownError();
+
+    /**
      * @return the fragment identifier.
      */
     @objid ("225ed221-8ed5-11e1-be7e-001ec947ccaf")
     String getId();
+
+    /**
+     * Get the service that will migrate the fragment to the current metamodel version.
+     * @param targetMetamodel the target metamodel
+     * @return the fragment migration service.
+     * @throws java.io.IOException if the migration is not possible
+     */
+    @objid ("416d6dfa-51b6-43b1-bf7c-3ba566c97794")
+    IFragmentMigrator getMigrator(MetamodelDescriptor targetMetamodel) throws IOException;
+
+    /**
+     * Get the fragment specific properties.
+     * <p>
+     * The available properties are implementation dependent.
+     * @return the fragment properties.
+     */
+    @objid ("49c0ef8e-ab3f-11e1-8392-001ec947ccaf")
+    GProperties getProperties();
+
+    /**
+     * @return the model repository
+     */
+    @objid ("c1811634-95da-11e1-ac83-001ec947ccaf")
+    IRepository getRepository();
+
+    /**
+     * Get the fragment required metamodel as a descriptor.
+     * @return the required metamodel fragments.
+     * @throws java.io.IOException in case of I/O failure reading the version
+     */
+    @objid ("de579a41-ffb4-48f7-9ef6-592270f353d7")
+    MetamodelDescriptor getRequiredMetamodelDescriptor() throws IOException;
+
+    /**
+     * Get the root elements of the fragment.
+     * @return the root elements of the fragment.
+     */
+    @objid ("573e06b7-c1f7-11e1-8e7a-001ec947ccaf")
+    Collection<MObject> getRoots();
+
+    /**
+     * Get the fragment definition scope: local or shared by a server.
+     * @return the fragment scope.
+     */
+    @objid ("6376a977-3004-11e2-8f81-001ec947ccaf")
+    DefinitionScope getScope();
+
+    /**
+     * Get the state of the fragment.
+     * @return the fragment state.
+     */
+    @objid ("6a83f280-d66d-11e1-9f03-001ec947ccaf")
+    FragmentState getState();
 
     /**
      * Get the fragment type identifier.
@@ -94,56 +163,7 @@ public interface IProjectFragment {
      * reported and that the operation cannot be cancelled.
      */
     @objid ("225ed222-8ed5-11e1-be7e-001ec947ccaf")
-    void mount(GProject project, IModelioProgress aMonitor);
-
-    /**
-     * Release all resources allocated by the fragment.
-     */
-    @objid ("225ed223-8ed5-11e1-be7e-001ec947ccaf")
-    void unmount();
-
-    /**
-     * Get the fragment specific properties.
-     * <p>
-     * The available properties are implementation dependent.
-     * @return the fragment properties.
-     */
-    @objid ("49c0ef8e-ab3f-11e1-8392-001ec947ccaf")
-    GProperties getProperties();
-
-    /**
-     * @return the model repository
-     */
-    @objid ("c1811634-95da-11e1-ac83-001ec947ccaf")
-    IRepository getRepository();
-
-    /**
-     * Get the root elements of the fragment.
-     * @return the root elements of the fragment.
-     */
-    @objid ("573e06b7-c1f7-11e1-8e7a-001ec947ccaf")
-    Collection<MObject> getRoots();
-
-    /**
-     * Get the state of the fragment.
-     * @return the fragment state.
-     */
-    @objid ("6a83f280-d66d-11e1-9f03-001ec947ccaf")
-    FragmentState getState();
-
-    /**
-     * Get the error that caused the fragment to be in the down state.
-     * @return the down state cause.
-     */
-    @objid ("6a83f283-d66d-11e1-9f03-001ec947ccaf")
-    Throwable getDownError();
-
-    /**
-     * Get the fragment definition scope: local or shared by a server.
-     * @return the fragment scope.
-     */
-    @objid ("6376a977-3004-11e2-8f81-001ec947ccaf")
-    DefinitionScope getScope();
+    void mount(IModelioProgress aMonitor);
 
     /**
      * Reconfigure the fragment from the given descriptor.
@@ -161,14 +181,6 @@ public interface IProjectFragment {
     void reconfigure(FragmentDescriptor fd, IModelioProgress aMonitor);
 
     /**
-     * Get the fragment authentication configuration if needed.
-     * May be <code>null</code>.
-     * @return authentication data.
-     */
-    @objid ("3da5c624-a576-4396-8f7d-4e2082ec9617")
-    GAuthConf getAuthConfiguration();
-
-    /**
      * Set the fragment in "down" state, with the cause.
      * <p>
      * Fires a {@link GProjectEventType#FRAGMENT_DOWN FRAGMENT_DOWN} {@link GProjectEvent event}.
@@ -178,23 +190,18 @@ public interface IProjectFragment {
     void setDown(Throwable error);
 
     /**
-     * Migrate the fragment if needed.
-     * @param project the project where the fragment would be mount.
-     * @param aMonitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
-     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
-     * reported and that the operation cannot be cancelled.
-     * @throws java.io.IOException in case of failure
-     * @throws org.modelio.gproject.fragment.FragmentAuthenticationException in case of authentication failure
+     * initialize the project owning this fragment.
+     * <p>
+     * This method is called just after the fragment instantiation.
+     * @param project the project where the fragment will be mount.
      */
-    @objid ("9e66041e-6273-422e-8ddd-c67a8f6bfbf3")
-    void migrate(GProject project, IModelioProgress aMonitor) throws FragmentAuthenticationException, IOException;
+    @objid ("a958715e-54f6-4abe-9119-a77d1fa76bd3")
+    void setProject(GProject project);
 
     /**
-     * Get the fragment metamodel versions.
-     * @return the fragment metamodel versions.
-     * @throws java.io.IOException in case of I/O failure reading the version
+     * Release all resources allocated by the fragment.
      */
-    @objid ("de579a41-ffb4-48f7-9ef6-592270f353d7")
-    VersionDescriptors getMetamodelVersion() throws IOException;
+    @objid ("225ed223-8ed5-11e1-be7e-001ec947ccaf")
+    void unmount();
 
 }

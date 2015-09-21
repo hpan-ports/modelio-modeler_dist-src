@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.label.base;
 
@@ -32,9 +32,7 @@ import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmSimpleNode;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
-import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.MetaKey;
-import org.modelio.diagram.styles.core.ProxyStyle;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -46,17 +44,17 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("7e8dd0e8-1dec-11e2-8cad-001ec947c8cc")
 public abstract class GmElementLabel extends GmSimpleNode {
-    /**
-     * Current version of this Gm. Defaults to 0.
-     */
-    @objid ("7e8dd0eb-1dec-11e2-8cad-001ec947c8cc")
-    private final int minorVersion = 0;
-
     @objid ("7e8dd0ee-1dec-11e2-8cad-001ec947c8cc")
     private static final int MAJOR_VERSION = 0;
 
     @objid ("9073e2bb-1e83-11e2-8cad-001ec947c8cc")
     protected String label = null;
+
+    /**
+     * Current version of this Gm. Defaults to 0.
+     */
+    @objid ("7e8dd0eb-1dec-11e2-8cad-001ec947c8cc")
+    private final int minorVersion = 0;
 
     /**
      * Constructor for deserialization only.
@@ -89,6 +87,12 @@ public abstract class GmElementLabel extends GmSimpleNode {
         return this.label;
     }
 
+    @objid ("7e903375-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    public int getMajorVersion() {
+        return MAJOR_VERSION;
+    }
+
     @objid ("7e8dd0fd-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public final RepresentationMode getRepresentationMode() {
@@ -107,8 +111,9 @@ public abstract class GmElementLabel extends GmSimpleNode {
     @Override
     public List<StyleKey> getStyleKeys() {
         if (getParent() == null)
-        return Collections.emptyList();
-        return getParent().getStyleKeys();
+            return Collections.emptyList();
+        else
+            return getParent().getStyleKeys();
     }
 
     @objid ("7e903351-1dec-11e2-8cad-001ec947c8cc")
@@ -147,6 +152,17 @@ public abstract class GmElementLabel extends GmSimpleNode {
         super.setParentLink(parentLink);
     }
 
+    @objid ("7e90336e-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    public void write(IDiagramWriter out) {
+        super.write(out);
+        
+        // Write version of this Gm if different of 0.
+        if (this.minorVersion != 0) {
+            out.writeProperty("GmElementLabel." + MINOR_VERSION_PROPERTY, Integer.valueOf(this.minorVersion));
+        }
+    }
+
     /**
      * Computes the displayed element symbol.
      * <p>
@@ -173,6 +189,11 @@ public abstract class GmElementLabel extends GmSimpleNode {
         }
     }
 
+    @objid ("7e903372-1dec-11e2-8cad-001ec947c8cc")
+    private void read_0(IDiagramReader in) {
+        super.read(in);
+    }
+
     /**
      * Sets the displayed label text.
      * <p>
@@ -193,28 +214,6 @@ public abstract class GmElementLabel extends GmSimpleNode {
             return true;
         }
         return false;
-    }
-
-    @objid ("7e90336e-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public void write(IDiagramWriter out) {
-        super.write(out);
-        
-        // Write version of this Gm if different of 0.
-        if (this.minorVersion != 0) {
-            out.writeProperty("GmElementLabel." + MINOR_VERSION_PROPERTY, Integer.valueOf(this.minorVersion));
-        }
-    }
-
-    @objid ("7e903372-1dec-11e2-8cad-001ec947c8cc")
-    private void read_0(IDiagramReader in) {
-        super.read(in);
-    }
-
-    @objid ("7e903375-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public int getMajorVersion() {
-        return MAJOR_VERSION;
     }
 
 }

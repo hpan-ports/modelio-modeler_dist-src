@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.rules;
 
@@ -33,7 +33,6 @@ import org.modelio.audit.engine.impl.AuditEntry;
 import org.modelio.audit.engine.impl.AuditTrigger;
 import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.service.AuditSeverity;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.Dictionary;
 import org.modelio.metamodel.analyst.Requirement;
@@ -105,53 +104,53 @@ public class R2050 extends AbstractRule {
     @objid ("b5db5129-0bb0-492c-bff9-4c2cb42aadc1")
     @Override
     public void autoRegister(IAuditPlan plan) {
-        plan.registerRule(Metamodel.getMClass(AnalystProject.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Artifact.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Attribute.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(AttributeLink.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(org.modelio.metamodel.uml.statik.Class.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Collaboration.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(CollaborationUse.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Component.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(DataType.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Dictionary.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Enumeration.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(EnumerationLiteral.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(EnumeratedPropertyType.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Event.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Interface.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Link.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Node.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(NoteType.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Operation.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(org.modelio.metamodel.uml.statik.Package.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Parameter.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Project.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(PropertyDefinition.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(PropertyEnumerationLitteral.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(PropertyTableDefinition.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(PropertyType.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Requirement.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(RequirementContainer.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Signal.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(StateMachine.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Stereotype.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(TagType.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Term.class).getName(), this, AuditTrigger.UPDATE);
+        plan.registerRule(AnalystProject.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Artifact.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Attribute.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(AttributeLink.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(org.modelio.metamodel.uml.statik.Class.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Collaboration.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(CollaborationUse.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Component.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(DataType.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Dictionary.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Enumeration.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(EnumerationLiteral.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(EnumeratedPropertyType.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Event.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Interface.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Link.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Node.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(NoteType.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Operation.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(org.modelio.metamodel.uml.statik.Package.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Parameter.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Project.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(PropertyDefinition.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(PropertyEnumerationLitteral.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(PropertyTableDefinition.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(PropertyType.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Requirement.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(RequirementContainer.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Signal.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(StateMachine.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Stereotype.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(TagType.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Term.MNAME, this, AuditTrigger.UPDATE);
         
         //Diagram.Behavior
-        plan.registerRule(Metamodel.getMClass(ActivityDiagram.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnProcessCollaborationDiagram.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnSubProcessDiagram.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(CommunicationDiagram.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(SequenceDiagram.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(StateMachineDiagram.class).getName(), this, AuditTrigger.UPDATE);
+        plan.registerRule(ActivityDiagram.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(BpmnProcessCollaborationDiagram.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(BpmnSubProcessDiagram.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(CommunicationDiagram.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(SequenceDiagram.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(StateMachineDiagram.MNAME, this, AuditTrigger.UPDATE);
         
         //Diagram.Static
-        plan.registerRule(Metamodel.getMClass(ClassDiagram.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(DeploymentDiagram.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(ObjectDiagram.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(UseCaseDiagram.class).getName(), this, AuditTrigger.UPDATE);
+        plan.registerRule(ClassDiagram.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(DeploymentDiagram.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(ObjectDiagram.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(UseCaseDiagram.MNAME, this, AuditTrigger.UPDATE);
     }
 
     /**

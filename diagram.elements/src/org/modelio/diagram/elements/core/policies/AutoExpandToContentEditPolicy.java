@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.policies;
 
@@ -34,25 +34,35 @@ import org.modelio.diagram.elements.core.commands.ExpandToContentCommand;
  * This policy should be installed with the {@link AutoFitToContentEditPolicy#ROLE} role.
  * 
  * @author cmarin
+ * @deprecated use {@link AutoExpandLayoutEditPolicy} or make your layout policy use {@link AutoExpandHelper}.
  */
 @objid ("80b22dc4-1dec-11e2-8cad-001ec947c8cc")
+@Deprecated
 public class AutoExpandToContentEditPolicy extends GraphicalEditPolicy {
     @objid ("80b22dc8-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public Command getCommand(final Request request) {
         final Object reqType = request.getType();
         
-        if (REQ_ADD.equals(reqType))
+        if (REQ_ADD.equals(reqType)) {
             return getFitCommand();
+        }
         
-        if (REQ_ORPHAN_CHILDREN.equals(reqType))
+        if (REQ_ORPHAN_CHILDREN.equals(reqType)) {
             return getFitCommand();
+        }
         
-        if (REQ_MOVE_CHILDREN.equals(reqType))
+        if (REQ_MOVE_CHILDREN.equals(reqType)) {
             return getFitCommand();
+        }
         
-        if (REQ_CREATE.equals(reqType))
+        if (REQ_RESIZE_CHILDREN.equals(reqType)) {
             return getFitCommand();
+        }
+        
+        if (REQ_CREATE.equals(reqType)) {
+            return getFitCommand();
+        }
         return null;
     }
 

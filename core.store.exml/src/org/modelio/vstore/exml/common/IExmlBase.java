@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -56,7 +57,7 @@ public interface IExmlBase extends IRepository {
      * @throws java.io.IOException in case of I/O error.
      */
     @objid ("fd21f513-5986-11e1-991a-001ec947ccaf")
-    List<ObjId> getCmsNodeUsers(SmObjectImpl cmsNode) throws IOException;
+    List<ObjId> getObjectUserCmsNodes(SmObjectImpl cmsNode) throws IOException;
 
     /**
      * @return the loaded objects cache
@@ -144,9 +145,11 @@ public interface IExmlBase extends IRepository {
     /**
      * Unload and forget a whole CMS node.
      * @param handler the CMS node handler to unload
+     * @return all the objects that are effectively unloaded.
+     * The returned list may be freely modified.
      */
     @objid ("f2e63b29-7849-4a22-9b5f-f7dfa9fe3999")
-    void unloadCmsNode(ExmlStorageHandler handler);
+    Collection<SmObjectImpl> unloadCmsNode(ExmlStorageHandler handler);
 
     /**
      * Tells whether the object has been detached from this repository since last save.
@@ -155,5 +158,17 @@ public interface IExmlBase extends IRepository {
      */
     @objid ("be62e324-e7c9-427e-878a-60a327ad90b8")
     SmObjectImpl getDetachedObject(ObjId id);
+
+    /**
+     * Find an object from its ID in the repository.
+     * @param id an object ID.
+     * @param modelLoader the model loader to use to load the model object
+     * @return the found model object or <code>null</code>.
+     * @throws org.modelio.vcore.model.DuplicateObjectException if another object with the same identifier already exists
+     * in another repository.
+     * @throws java.io.IOException in case of I/O error.
+     */
+    @objid ("9922f96b-a6ca-46bf-843e-fa3cfb58f12b")
+    SmObjectImpl findByObjId(final ObjId id, IModelLoader modelLoader) throws DuplicateObjectException, IOException;
 
 }

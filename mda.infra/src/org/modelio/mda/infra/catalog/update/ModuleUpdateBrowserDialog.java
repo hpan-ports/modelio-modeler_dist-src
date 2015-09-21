@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.mda.infra.catalog.update;
 
@@ -121,7 +121,7 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
         
         moduleTableViewer.setInput(this.modulesToUpdate);
         
-        for (int i = 0 ; i < moduleTable.getColumnCount(); i++) {
+        for (int i = 0; i < moduleTable.getColumnCount(); i++) {
             final TableColumn col = moduleTable.getColumn(i);
             col.pack();
         
@@ -143,7 +143,10 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
                         final Object obj = structuredSelection.getFirstElement();
                         if (obj instanceof ModuleUpdateDescriptor) {
                             final String url = ((ModuleUpdateDescriptor) obj).getLink();
-                            ModuleUpdateBrowserDialog.this.browser.setUrl(url);
+                            if (url != null && !url.isEmpty()) {
+                                ModuleUpdateBrowserDialog.this.browser.setUrl(url);
+                            }
+        
                         }
                     }
                 }
@@ -224,14 +227,16 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
                             }
                         }
                         final int modulesToUpdateSum = selectedModules.size();
-                        monitor.beginTask(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.UpdateProgressTitle"), modulesToUpdateSum*5);
-                        for (int i=0; i<modulesToUpdateSum; i++) {
+                        monitor.beginTask(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.UpdateProgressTitle"),
+                                modulesToUpdateSum * 5);
+                        for (int i = 0; i < modulesToUpdateSum; i++) {
                             if (monitor.isCanceled()) {
-                                break;  // if monitor is canceled
+                                break; // if monitor is canceled
                             }
                             final ModuleUpdateDescriptor desc = selectedModules.get(i);
-                            //Keys {0}:counter {1}:sum of modules {2}:module file name
-                            monitor.subTask(MdaInfra.I18N.getMessage("ModuleUpdateBrowserDialog.UpdateModulesProgressSubTask", String.valueOf(i+1), String.valueOf(modulesToUpdateSum), desc.getName()));
+                            // Keys {0}:counter {1}:sum of modules {2}:module file name
+                            monitor.subTask(MdaInfra.I18N.getMessage("ModuleUpdateBrowserDialog.UpdateModulesProgressSubTask",
+                                    String.valueOf(i + 1), String.valueOf(modulesToUpdateSum), desc.getName()));
                             monitor.worked(1);
         
                             try (UriPathAccess pathAccess = new UriPathAccess(URIUtil.fromString(desc.getDownloadLink()), null)) {
@@ -272,7 +277,6 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
         getShell().setText(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.ShellTitle")); //$NON-NLS-1$);
         setTitle(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.Title")); //$NON-NLS-1$
         
-        
         final String configuredUpdateSite = ModuleUpdateChecker.getConfiguredUpdateSite();
         setMessage(MdaInfra.I18N.getMessage("ModuleUpdateBrowserDialog.Message", configuredUpdateSite)); //$NON-NLS-1$
         
@@ -280,11 +284,11 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
         final int width = 1100;
         final int height = 800;
         
-        final Rectangle refBounds = this.getShell().getParent().getBounds();
-        this.getShell().setMinimumSize(width, height);
-        this.getShell().layout(true);
+        final Rectangle refBounds = getShell().getParent().getBounds();
+        getShell().setMinimumSize(width, height);
+        getShell().layout(true);
         
-        this.getShell().setBounds(refBounds.x + (refBounds.width - width) / 2, refBounds.y + (refBounds.height - height) / 2,
+        getShell().setBounds(refBounds.x + (refBounds.width - width) / 2, refBounds.y + (refBounds.height - height) / 2,
                 width, height);
     }
 
@@ -344,7 +348,7 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
                 return UNCHECKED;
             }
         });
-        updateCol.setEditingSupport(new EditingSupport (tableViewer) {
+        updateCol.setEditingSupport(new EditingSupport(tableViewer) {
             @Override
             protected Object getValue(Object element) {
                 return ((ModuleUpdateDescriptor) element).isToUpdate();
@@ -353,7 +357,7 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
             @Override
             protected void setValue(Object element, Object value) {
                 ((ModuleUpdateDescriptor) element).setToUpdate((Boolean) value);
-                this.getViewer().refresh(element, true);
+                getViewer().refresh(element, true);
             }
         
             @Override

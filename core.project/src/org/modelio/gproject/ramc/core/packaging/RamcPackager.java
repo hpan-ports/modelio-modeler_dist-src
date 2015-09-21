@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.ramc.core.packaging;
 
@@ -33,13 +33,13 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.gproject.ramc.core.model.ModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor.ExportedFileEntry;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.files.Zipper;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vbasic.version.Version;
+import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.session.impl.permission.BasicAccessManager;
@@ -74,11 +74,22 @@ public class RamcPackager {
     @objid ("d3a3c170-cb72-11e1-87f1-001ec947ccaf")
     private Path workPath;
 
+    /**
+     * @param gproject the project
+     * @param artifact the RAMC artifact
+     * @param archivePath the archive path
+     */
     @objid ("7ebc81ec-ccc1-4db4-90a8-2f1a06e60ba5")
     public RamcPackager(GProject gproject, Artifact artifact, final Path archivePath) {
         this(gproject, artifact, archivePath, new ArrayList<IModelComponentContributor>());
     }
 
+    /**
+     * @param gproject the project
+     * @param artifact the RAMC artifact
+     * @param archivePath the archive path
+     * @param contributors the RAMC contributors
+     */
     @objid ("c2e03ffa-a5b8-11e1-aa98-001ec947ccaf")
     public RamcPackager(GProject gproject, Artifact artifact, final Path archivePath, List<IModelComponentContributor> contributors) {
         this.archivePath = archivePath;
@@ -89,16 +100,20 @@ public class RamcPackager {
         
         // Force the metamodel version to the current one.
         Version v = this.ramc.getVersion();
-        v = new Version(v.getMajorVersion(), v.getMinorVersion(), v.getBuildVersion(), Integer.parseInt(Metamodel.VERSION));
+        v = new Version(v.getMajorVersion(), v.getMinorVersion(), v.getBuildVersion());
         this.ramc.setRamcVersion(v);
     }
 
+    /**
+     * Run the packaging.
+     * @throws IOException
+     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility
+     * to call done() on the given monitor. Accepts <i>null</i>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
+     */
     @objid ("c2e03ffd-a5b8-11e1-aa98-001ec947ccaf")
     public void run(final IModelioProgress monitor) throws IOException {
-        SubProgress subMonitor = SubProgress.convert(monitor, /*
-                                                             * peerMdacs.size()*10
-                                                             * +
-                                                             */40);
+        SubProgress subMonitor = SubProgress.convert(monitor, 40);
         
         this.workPath = Files.createTempDirectory("ramc-export");
         Path modelPath = this.workPath.resolve("model");
@@ -127,15 +142,16 @@ public class RamcPackager {
         SubProgress subMonitor = SubProgress.convert(monitor, 60);
         subMonitor.subTask(CoreProject.I18N.getString("RamcPackager.ExportModel"));
         
-        CoreSession targetSession = new CoreSession();
+        ICoreSession srcSession = this.gproject.getSession();
+        CoreSession targetSession = new CoreSession(srcSession.getMetamodel());
         try {
             ExmlBase targetRepository = new ExmlBase(modelPath);
-            targetRepository.create();
+            targetRepository.create(targetSession.getMetamodel());
             targetSession.getRepositorySupport().connectRepository(targetRepository, new BasicAccessManager(),
                     subMonitor.newChild(10));
         
             // Configure the exporter
-            ModelExporter exporter = new ModelExporter(targetSession, targetRepository);
+            ModelExporter exporter = new ModelExporter(srcSession, targetSession, targetRepository);
             exporter.configureModelExporter(this.ramc, this.includeArtifact, this.contributors);
             subMonitor.worked(10);
         
@@ -149,7 +165,7 @@ public class RamcPackager {
         
             // Save the exported repository
             targetSession.save(subMonitor.newChild(10));
-            
+        
             // Compress the indexes, they have plenty holes
             targetRepository.getMaintenance().compressIndexes(subMonitor.newChild(10));
         } finally {
@@ -165,7 +181,7 @@ public class RamcPackager {
     }
 
     @objid ("c2e04000-a5b8-11e1-aa98-001ec947ccaf")
-    private static void createCompressedArchive(Path dataPath, Path archive, IModelioProgress subMonitor) throws ZipException, IOException {
+    private static void createCompressedArchive(Path dataPath, Path archive, IModelioProgress subMonitor) throws IOException, ZipException {
         subMonitor.subTask(MessageFormat.format(CoreProject.I18N.getString("RamcPackager.ArchiveModelComponent"),
                 archive.toString()));
         
@@ -191,6 +207,9 @@ public class RamcPackager {
         return exportedFiles;
     }
 
+    /**
+     * @param onOff true to include the RAMC artifact in the archive.
+     */
     @objid ("fcc9a043-0eee-4d43-aa9a-720f28bba6a5")
     public void setIncludeArtifact(boolean onOff) {
         this.includeArtifact = onOff;

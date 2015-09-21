@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard;
 
@@ -36,6 +36,8 @@ import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
+import org.modelio.metamodel.analyst.Risk;
+import org.modelio.metamodel.analyst.RiskContainer;
 import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
@@ -279,6 +281,8 @@ import org.modelio.property.ui.data.standard.analyst.GoalContainerPropertyModel;
 import org.modelio.property.ui.data.standard.analyst.GoalPropertyModel;
 import org.modelio.property.ui.data.standard.analyst.RequirementContainerPropertyModel;
 import org.modelio.property.ui.data.standard.analyst.RequirementPropertyModel;
+import org.modelio.property.ui.data.standard.analyst.RiskContainerPropertyModel;
+import org.modelio.property.ui.data.standard.analyst.RiskPropertyModel;
 import org.modelio.property.ui.data.standard.analyst.TermPropertyModel;
 import org.modelio.property.ui.data.standard.bpmn.BpmnActivityPropertyModel;
 import org.modelio.property.ui.data.standard.bpmn.BpmnAdHocSubProcessPropertyModel;
@@ -354,6 +358,7 @@ import org.modelio.property.ui.data.standard.bpmn.BpmnThrowEventPropertyModel;
 import org.modelio.property.ui.data.standard.bpmn.BpmnTimerEventDefinitionPropertyModel;
 import org.modelio.property.ui.data.standard.bpmn.BpmnTransactionPropertyModel;
 import org.modelio.property.ui.data.standard.bpmn.BpmnUserTaskPropertyModel;
+import org.modelio.property.ui.data.standard.common.DynamicPropertyModel;
 import org.modelio.property.ui.data.standard.uml.*;
 import org.modelio.property.ui.data.standard.uml.templateparameter.TemplateParameterPropertyModel;
 import org.modelio.vcore.session.api.model.IModel;
@@ -366,14 +371,14 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
  */
 @objid ("8e67b6eb-c068-11e1-8c0a-002564c97630")
 class DataModelFactory extends DefaultModelVisitor {
+    @objid ("c2f9e4d4-7127-4121-a1fa-b1557754c54d")
+    private IActivationService activationService;
+
     @objid ("aa96e6b4-d004-11e1-9020-002564c97630")
     private IModel model;
 
     @objid ("aa96e6b5-d004-11e1-9020-002564c97630")
     private IMModelServices modelService;
-
-    @objid ("c2f9e4d4-7127-4121-a1fa-b1557754c54d")
-    private IActivationService activationService;
 
     @objid ("5fe9b3de-6a50-4410-a9bc-f7028e4eee97")
     private IProjectService projectService;
@@ -394,13 +399,15 @@ class DataModelFactory extends DefaultModelVisitor {
     @objid ("8e693d48-c068-11e1-8c0a-002564c97630")
     public IPropertyModel getPropertyModel(Element element) {
         if (element != null) {
-            // TODO handle dynamic metaclasses
-            //if (element.getMClass().isDynamic) {
-            //return new DynamicPropertyModel(element);
-            //} else {
-              return (IPropertyModel) ((SmObjectImpl)element).accept(this);
-            //}
+            if (element.getMClass().getOrigin().isExtension()) {
+                // Dynamic metaclass, use a dynamic property model
+                return new DynamicPropertyModel(element);
+            } else {
+                // Use a standard UML property model
+                return (IPropertyModel) ((SmObjectImpl)element).accept(this);
+            }
         }
+        
         // No element means no property model
         return null;
     }
@@ -481,6 +488,12 @@ class DataModelFactory extends DefaultModelVisitor {
     @Override
     public Object visitArtifact(Artifact theArtifact) {
         return new ArtifactPropertyModel(theArtifact);
+    }
+
+    @objid ("6c00d4a9-d2c0-4ee3-b901-4d18c0c2ebd9")
+    @Override
+    public Object visitAssociation(Association theAssociation) {
+        return new AssociationPropertyModel(theAssociation);
     }
 
     @objid ("8e6ac414-c068-11e1-8c0a-002564c97630")
@@ -1077,6 +1090,12 @@ class DataModelFactory extends DefaultModelVisitor {
         return new ComponentPropertyModel(theComponent);
     }
 
+    @objid ("d9debde9-52b6-4b8a-bc70-0ec31fb51aaa")
+    @Override
+    public Object visitComponentRealization(ComponentRealization obj) {
+        return new ComponentRealizationPropertyModel(obj);
+    }
+
     @objid ("8e81a74d-c068-11e1-8c0a-002564c97630")
     @Override
     public Object visitCompositeStructureDiagram(final CompositeStructureDiagram theCompositeStructureDiagram) {
@@ -1093,6 +1112,12 @@ class DataModelFactory extends DefaultModelVisitor {
     @Override
     public Object visitConnectionPointReference(ConnectionPointReference theConnectionPointReference) {
         return new ConnectionPointReferencePropertyModel(theConnectionPointReference);
+    }
+
+    @objid ("a0e46c7a-ad1b-4318-87c8-6f345daa9d65")
+    @Override
+    public Object visitConnector(Connector theConnector) {
+        return new ConnectorPropertyModel(theConnector);
     }
 
     @objid ("8e81a76f-c068-11e1-8c0a-002564c97630")
@@ -1311,6 +1336,25 @@ class DataModelFactory extends DefaultModelVisitor {
         return new GeneralizationPropertyModel(theGeneralization, this.model);
     }
 
+    @objid ("86bd513f-3a37-4b23-ab76-7083da703bbc")
+    @Override
+    public Object visitGenericAnalystContainer(GenericAnalystContainer obj) {
+        return new GenericAnalystContainerPropertyModel(obj,
+                                                                this.modelService,
+                                                                this.model,
+                                                                this.projectService,
+                                                                this.activationService);
+    }
+
+    @objid ("5b48a8c8-4d09-4375-8637-2d514bac1cf1")
+    @Override
+    public Object visitGenericAnalystElement(GenericAnalystElement obj) {
+        return new GenericAnalystElementPropertyModel(obj,
+                                                                this.modelService,
+                                                                this.projectService,
+                                                                this.activationService);
+    }
+
     @objid ("87693c23-a446-4b51-a111-c94731b8903e")
     @Override
     public Object visitGoal(Goal theRequirement) {
@@ -1425,6 +1469,12 @@ class DataModelFactory extends DefaultModelVisitor {
         return new LifelinePropertyModel(theLifeline);
     }
 
+    @objid ("61172982-c280-41b7-9471-7ced71fc05eb")
+    @Override
+    public Object visitLink(Link theLink) {
+        return new LinkPropertyModel(theLink);
+    }
+
     @objid ("8e927026-c068-11e1-8c0a-002564c97630")
     @Override
     public Object visitLinkEnd(LinkEnd theLinkEnd) {
@@ -1441,6 +1491,18 @@ class DataModelFactory extends DefaultModelVisitor {
     @Override
     public Object visitManifestation(Manifestation theManifestation) {
         return new ManifestationPropertyModel(theManifestation);
+    }
+
+    @objid ("90284b61-c748-41ad-809d-60ffd82f4666")
+    @Override
+    public Object visitMatrixDefinition(MatrixDefinition theMatrixDefinition) {
+        return new MatrixDefinitionPropertyModel(theMatrixDefinition);
+    }
+
+    @objid ("ef67f434-317d-4e07-92e7-2178eddb4034")
+    @Override
+    public Object visitMatrixValueDefinition(MatrixValueDefinition theMatrixValueDefinition) {
+        return new MatrixValueDefinitionPropertyModel(theMatrixValueDefinition);
     }
 
     @objid ("8e92703e-c068-11e1-8c0a-002564c97630")
@@ -1470,7 +1532,7 @@ class DataModelFactory extends DefaultModelVisitor {
     @objid ("8e81a75e-c068-11e1-8c0a-002564c97630")
     @Override
     public Object visitModuleParameter(ModuleParameter theConfigParam) {
-        return new ConfigParamPropertyModel(theConfigParam);
+        return new ModuleParameterPropertyModel(theConfigParam);
     }
 
     @objid ("8e93f6de-c068-11e1-8c0a-002564c97630")
@@ -1483,6 +1545,12 @@ class DataModelFactory extends DefaultModelVisitor {
     @Override
     public Object visitNaryAssociation(NaryAssociation obj) {
         return new AssociationEndNPropertyModel(obj.getNaryEnd().get(0));
+    }
+
+    @objid ("959bc5f3-767c-4401-af7d-a5256a567c89")
+    @Override
+    public Object visitNaryLink(NaryLink obj) {
+        return new LinkEndNPropertyModel(obj.getNaryLinkEnd().get(0));
     }
 
     @objid ("d53c9390-0338-435d-8460-b8f9a0c00087")
@@ -1629,6 +1697,12 @@ class DataModelFactory extends DefaultModelVisitor {
         return new ProvidedInterfacePropertyModel(theProvidedInterface, this.model);
     }
 
+    @objid ("545403ad-ced3-4229-9a9c-d3176f45071c")
+    @Override
+    public Object visitQueryDefinition(QueryDefinition theQueryDefinition) {
+        return new QueryDefinitionPropertyModel(theQueryDefinition, this.model);
+    }
+
     @objid ("8e9d1e91-c068-11e1-8c0a-002564c97630")
     @Override
     public Object visitRaisedException(RaisedException theRaisedException) {
@@ -1651,6 +1725,18 @@ class DataModelFactory extends DefaultModelVisitor {
     @Override
     public Object visitRequirementContainer(RequirementContainer theRequirementContainer) {
         return new RequirementContainerPropertyModel(theRequirementContainer, this.modelService, this.model, this.projectService, this.activationService);
+    }
+
+    @objid ("4709511a-3185-4f1a-9ac6-3b5ee5d06a0e")
+    @Override
+    public Object visitRisk(Risk theRisk) {
+        return new RiskPropertyModel(theRisk, this.modelService, this.projectService, this.activationService);
+    }
+
+    @objid ("76737afc-d057-4253-afd5-763651176e88")
+    @Override
+    public Object visitRiskContainer(RiskContainer theRiskContainer) {
+        return new RiskContainerPropertyModel(theRiskContainer, this.modelService, this.model, this.projectService, this.activationService);
     }
 
     @objid ("8e9ea52d-c068-11e1-8c0a-002564c97630")
@@ -1801,73 +1887,6 @@ class DataModelFactory extends DefaultModelVisitor {
     @Override
     public Object visitValuePin(ValuePin theValuePin) {
         return new ValuePinPropertyModel(theValuePin);
-    }
-
-    @objid ("61172982-c280-41b7-9471-7ced71fc05eb")
-    @Override
-    public Object visitLink(Link theLink) {
-        return new LinkPropertyModel(theLink);
-    }
-
-    @objid ("a0e46c7a-ad1b-4318-87c8-6f345daa9d65")
-    @Override
-    public Object visitConnector(Connector theConnector) {
-        return new ConnectorPropertyModel(theConnector);
-    }
-
-    @objid ("6c00d4a9-d2c0-4ee3-b901-4d18c0c2ebd9")
-    @Override
-    public Object visitAssociation(Association theAssociation) {
-        return new AssociationPropertyModel(theAssociation);
-    }
-
-    @objid ("545403ad-ced3-4229-9a9c-d3176f45071c")
-    @Override
-    public Object visitQueryDefinition(QueryDefinition theQueryDefinition) {
-        return new QueryDefinitionPropertyModel(theQueryDefinition, this.model);
-    }
-
-    @objid ("90284b61-c748-41ad-809d-60ffd82f4666")
-    @Override
-    public Object visitMatrixDefinition(MatrixDefinition theMatrixDefinition) {
-        return new MatrixDefinitionPropertyModel(theMatrixDefinition);
-    }
-
-    @objid ("ef67f434-317d-4e07-92e7-2178eddb4034")
-    @Override
-    public Object visitMatrixValueDefinition(MatrixValueDefinition theMatrixValueDefinition) {
-        return new MatrixValueDefinitionPropertyModel(theMatrixValueDefinition);
-    }
-
-    @objid ("5b48a8c8-4d09-4375-8637-2d514bac1cf1")
-    @Override
-    public Object visitGenericAnalystElement(GenericAnalystElement obj) {
-        return new GenericAnalystElementPropertyModel(obj, 
-                this.modelService, 
-                this.projectService, 
-                this.activationService);
-    }
-
-    @objid ("86bd513f-3a37-4b23-ab76-7083da703bbc")
-    @Override
-    public Object visitGenericAnalystContainer(GenericAnalystContainer obj) {
-        return new GenericAnalystContainerPropertyModel(obj, 
-                this.modelService, 
-                this.model, 
-                this.projectService, 
-                this.activationService);
-    }
-
-    @objid ("959bc5f3-767c-4401-af7d-a5256a567c89")
-    @Override
-    public Object visitNaryLink(NaryLink obj) {
-        return new LinkEndNPropertyModel(obj.getNaryLinkEnd().get(0));
-    }
-
-    @objid ("d9debde9-52b6-4b8a-bc70-0ec31fb51aaa")
-    @Override
-    public Object visitComponentRealization(ComponentRealization obj) {
-        return new ComponentRealizationPropertyModel(obj);
     }
 
 }

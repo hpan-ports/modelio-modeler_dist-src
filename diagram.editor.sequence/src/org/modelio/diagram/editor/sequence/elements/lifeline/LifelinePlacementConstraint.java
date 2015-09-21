@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.lifeline;
 
@@ -93,7 +93,7 @@ public class LifelinePlacementConstraint extends PlacementConstraint {
         if (getWidth() < preferredWidth) {
             setWidth(preferredWidth);
         }
-        Rectangle ret = new Rectangle(getX(), getY(), getWidth(), this.getHeight());
+        Rectangle ret = new Rectangle(getX(), getY(), getWidth(), getHeight());
         this.tmpFig = null;
         return ret;
     }
@@ -115,7 +115,7 @@ public class LifelinePlacementConstraint extends PlacementConstraint {
     @objid ("d94e4dae-55b6-11e2-877f-002564c97630")
     @Override
     protected int getHeight() {
-        // Explore the lifeline to see if it is covered by an ExecutionOccurenceSpecification that receives a 
+        // Explore the lifeline to see if it is covered by an ExecutionOccurenceSpecification that receives a
         // Destruction Message. If it does, return its line number. Otherwise return last line of interaction + a delta;
         for (ExecutionOccurenceSpecification blueSquare : this.lifeline.getCoveredBy(ExecutionOccurenceSpecification.class)) {
             if (blueSquare.getReceivedMessage() != null &&
@@ -176,6 +176,29 @@ public class LifelinePlacementConstraint extends PlacementConstraint {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("73439b74-3f76-42be-bf5c-b5a4156ab48e")
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getClass().getSimpleName());
+        builder.append(" [");
+        if (this.lifeline != null) {
+            builder.append("lifeline=");
+            builder.append(this.lifeline);
+            builder.append(", ");
+        }
+        builder.append("loc()=(");
+        builder.append(getX());
+        builder.append(", ");
+        builder.append(getY());
+        builder.append("), size()=(");
+        builder.append(getWidth());
+        builder.append(", ");
+        builder.append(getHeight());
+        builder.append(")]");
+        return builder.toString();
     }
 
 }

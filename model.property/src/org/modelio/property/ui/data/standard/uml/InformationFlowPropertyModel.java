@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -56,12 +56,13 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a73fc288-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"InformationFlow", "Name", "Conveyed", "InformationSource", "Owner", "InformationTarget", "Realizing"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "Conveyed", "InformationSource", "Owner",
+            "InformationTarget", "Realizing" };
 
     @objid ("8f24ec26-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -91,20 +92,22 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
     public InformationFlowPropertyModel(InformationFlow theEditedElement, IModel model) {
         super(theEditedElement);
         
+        ICoreSession session = CoreSession.getSession(this.theEditedElement);
+        
         this.labelStringType = new StringType(false);
         this.stringType = new StringType(true);
         this.conveyedType = new MultipleElementType(true, theEditedElement, "Conveyed", Classifier.class, model);
-        ICoreSession session = CoreSession.getSession(this.theEditedElement);
         this.informationSourceType = new SingleElementType(false, ModelElement.class, session);
         this.ownerType = new SingleElementType(true, NameSpace.class, session);
         this.informationTargetType = new SingleElementType(false, ModelElement.class, session);
-        List<java.lang.Class<? extends MObject>> realizingTypes = new ArrayList<>(); 
+        
+        List<java.lang.Class<? extends MObject>> realizingTypes = new ArrayList<>();
         realizingTypes.add(ActivityEdge.class);
         realizingTypes.add(CommunicationMessage.class);
         realizingTypes.add(LinkEnd.class);
         realizingTypes.add(Message.class);
         realizingTypes.add(StructuralFeature.class);
-        this.realizingType = new SingleElementType(true, realizingTypes);
+        this.realizingType = new SingleElementType(true, realizingTypes, session);
     }
 
     /**
@@ -143,34 +146,34 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
             return InformationFlowPropertyModel.PROPERTIES[row];
         case 1: // col 1 is the property value
             switch (row) {
-                case 0: // Header
-                    return "Value";
-                case 1:
-                    return this.theEditedElement.getName();
-                case 2:
-                    return this.theEditedElement.getConveyed();
-                case 3:
-                {
-                    EList< ModelElement > sources = this.theEditedElement.getInformationSource();
-                    if (  sources != null && sources.size() > 0 )
-                        return sources.get(0);
-                    // else
-                    return null;
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return this.theEditedElement.getConveyed();
+            case 3: {
+                EList<ModelElement> sources = this.theEditedElement.getInformationSource();
+                if (sources != null && sources.size() > 0) {
+                    return sources.get(0);
                 }
-                case 4:
-                    return this.theEditedElement.getOwner();
-                case 5:
-                {
-                    EList< ModelElement > targets = this.theEditedElement.getInformationTarget();
-                    if (  targets != null && targets.size() > 0 )
-                        return targets.get(0);
-                    // else
-                    return null;
+                // else
+                return null;
+            }
+            case 4:
+                return this.theEditedElement.getOwner();
+            case 5: {
+                EList<ModelElement> targets = this.theEditedElement.getInformationTarget();
+                if (targets != null && targets.size() > 0) {
+                    return targets.get(0);
                 }
-                case 6:
-                    return getRealizing();
-                default:
-                    return null;
+                // else
+                return null;
+            }
+            case 6:
+                return getRealizing();
+            default:
+                return null;
             }
         default:
             return null;
@@ -180,8 +183,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -196,22 +198,22 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
             return this.labelStringType;
         case 1: // col 1 is the property value type
             switch (row) {
-                case 0: // Header
-                    return this.labelStringType;
-                case 1:
-                    return this.stringType;
-                case 2:
-                    return this.conveyedType;
-                case 3:
-                    return this.informationSourceType;
-                case 4:
-                    return this.ownerType;
-                case 5:
-                    return this.informationTargetType;
-                case 6:
-                    return this.realizingType;
-                default:
-                    return null;
+            case 0: // Header
+                return this.labelStringType;
+            case 1:
+                return this.stringType;
+            case 2:
+                return this.conveyedType;
+            case 3:
+                return this.informationSourceType;
+            case 4:
+                return this.ownerType;
+            case 5:
+                return this.informationTargetType;
+            case 6:
+                return this.realizingType;
+            default:
+                return null;
             }
         default:
             return null;
@@ -235,37 +237,49 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
             return;
         case 1: // col 1 is the property value
             switch (row) {
-                case 0:
-                    return; // Header cannot be modified
-                case 1:
-                    this.theEditedElement.setName((String) value);
-                    break;
-                case 2:
-                    for (Classifier s : new ArrayList<>(this.theEditedElement.getConveyed())) {
-                        this.theEditedElement.getConveyed().remove(s);
-                    }
-                    List<Classifier> newcontent = (List<Classifier>)value;
-                    for (Classifier s : newcontent)
-                        this.theEditedElement.getConveyed().add(s);
-                    break;
-                case 3:
-                    this.theEditedElement.getInformationSource().remove(this.theEditedElement.getInformationSource().get(0));
-                    this.theEditedElement.getInformationSource().add((ModelElement) value);
-                    break;
-                case 4:
-                    this.theEditedElement.setOwner((NameSpace) value);
-                    break;
-                case 5:
-                    this.theEditedElement.getInformationTarget().remove(this.theEditedElement.getInformationSource().get(0));
-                    this.theEditedElement.getInformationTarget().add((ModelElement) value);
-                    break;
-                case 6:
-                    setRealizing(this.theEditedElement, value);
-                    break;
-                default:
-                    return;
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                // IModelFactory factory = ModelFactory.getFactory(this.theEditedElement);
+        
+                this.theEditedElement.getConveyed().clear();
+                List<Classifier> newcontent = (List<Classifier>) value;
+                for (Classifier c : newcontent) {
+                    // if (! (c instanceof InformationItem)) {
+                    // Smart interaction:
+                    // do not add a classifier but create an InformationItem representing it
+                    // InformationItem item = factory.createInformationItem();
+                    // item.setOwner(this.theEditedElement.getOwner());
+                    // item.setName(c.getName());
+                    // item.getRepresented().add(c);
+                    //
+                    // this.theEditedElement.getConveyed().add(item);
+                    // } else {
+                    this.theEditedElement.getConveyed().add(c);
+                    // }
+                }
+                break;
+            case 3:
+                this.theEditedElement.getInformationSource().clear();
+                this.theEditedElement.getInformationSource().add((ModelElement) value);
+                break;
+            case 4:
+                this.theEditedElement.setOwner((NameSpace) value);
+                break;
+            case 5:
+                this.theEditedElement.getInformationTarget().clear();
+                this.theEditedElement.getInformationTarget().add((ModelElement) value);
+                break;
+            case 6:
+                setRealizing(this.theEditedElement, value);
+                break;
+            default:
+                return;
             }
-              break;
+            break;
         default:
             return;
         }
@@ -281,44 +295,48 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
         
         EList<StructuralFeature> featureList = this.theEditedElement.getRealizingFeature();
         if (featureList.size() > 0) {
-             ret = featureList.get(0);
-             if (ret != null)
-                 return ret;
+            ret = featureList.get(0);
+            if (ret != null) {
+                return ret;
+            }
         }
         
         EList<LinkEnd> linkList = this.theEditedElement.getRealizingLink();
         if (linkList.size() > 0) {
-             ret = linkList.get(0);
-             if (ret != null)
-                 return ret;
+            ret = linkList.get(0);
+            if (ret != null) {
+                return ret;
+            }
         }
         
         EList<ActivityEdge> edgeList = this.theEditedElement.getRealizingActivityEdge();
         if (edgeList.size() > 0) {
-             ret = edgeList.get(0);
-             if (ret != null)
-                 return ret;
+            ret = edgeList.get(0);
+            if (ret != null) {
+                return ret;
+            }
         }
         
-         EList<Message> messageList = this.theEditedElement.getRealizingMessage();
-         if (messageList.size() > 0) {
-             ret = messageList.get(0);
-             if (ret != null)
-                 return ret;
-         }
-         
-         EList<CommunicationMessage> communicationMessageList = this.theEditedElement.getRealizingCommunicationMessage();
-         if (communicationMessageList.size() > 0) {
-             ret = communicationMessageList.get(0);
-             if (ret != null)
-                 return ret;
-         }
+        EList<Message> messageList = this.theEditedElement.getRealizingMessage();
+        if (messageList.size() > 0) {
+            ret = messageList.get(0);
+            if (ret != null) {
+                return ret;
+            }
+        }
+        
+        EList<CommunicationMessage> communicationMessageList = this.theEditedElement.getRealizingCommunicationMessage();
+        if (communicationMessageList.size() > 0) {
+            ret = communicationMessageList.get(0);
+            if (ret != null) {
+                return ret;
+            }
+        }
         return null;
     }
 
     /**
-     * Set the InstanceNode realizing elements.
-     * This method set the right dependency and clears the otheEditedElement.
+     * Set the InstanceNode realizing elements. This method set the right dependency and clears the otheEditedElement.
      * @param theEditedElement the instance node
      * @param value the new represented element
      */
@@ -328,51 +346,63 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
         EList<StructuralFeature> featureList = theEditedElement.getRealizingFeature();
         if (featureList.size() > 0) {
             StructuralFeature old1 = featureList.get(0);
-            if (old1.equals(value)) return;
+            if (old1.equals(value)) {
+                return;
+            }
             theEditedElement.getRealizingFeature().remove(old1);
-        } 
+        }
         
-         EList<LinkEnd> linkList = theEditedElement.getRealizingLink();
-         if (linkList.size() > 0) {
-             LinkEnd old1 = linkList.get(0);
-             if (old1.equals(value)) return;
-             theEditedElement.getRealizingLink().remove(old1);
-         } 
-         
-         EList<ActivityEdge> edgeList = theEditedElement.getRealizingActivityEdge();
-         if (edgeList.size() > 0) {
-             ActivityEdge old3 = edgeList.get(0);
-             if (old3.equals(value)) return;
-             theEditedElement.getRealizingActivityEdge().remove(old3);
-         }
-         
-         EList<Message> messageList = theEditedElement.getRealizingMessage();
-         if (messageList.size() > 0) {
-             Message old4 = messageList.get(0);
-             if (old4.equals(value)) return;
-             theEditedElement.getRealizingMessage().remove(old4);
-         }
-         
-         EList<CommunicationMessage> communicationMessageList = theEditedElement.getRealizingCommunicationMessage();
-         if (communicationMessageList.size() > 0) {
-             CommunicationMessage old5 = communicationMessageList.get(0);
-             if (old5.equals(value)) return;
-             theEditedElement.getRealizingCommunicationMessage().remove(old5);
-         }
-         
-         if (value != null) {
-             // Set new value
-             if (LinkEnd.class.isAssignableFrom(value.getClass()))
-                 theEditedElement.getRealizingLink().add((LinkEnd) value);
-             if (StructuralFeature.class.isAssignableFrom(value.getClass()))
-                 theEditedElement.getRealizingFeature().add((StructuralFeature) value);
-             else if (ActivityEdge.class.isAssignableFrom(value.getClass()))
-                 theEditedElement.getRealizingActivityEdge().add((ActivityEdge) value);
-             else if (Message.class.isAssignableFrom(value.getClass()))
-                 theEditedElement.getRealizingMessage().add((Message) value);
-             else if (CommunicationMessage.class.isAssignableFrom(value.getClass()))
-                 theEditedElement.getRealizingCommunicationMessage().add((CommunicationMessage) value);
-         }
+        EList<LinkEnd> linkList = theEditedElement.getRealizingLink();
+        if (linkList.size() > 0) {
+            LinkEnd old1 = linkList.get(0);
+            if (old1.equals(value)) {
+                return;
+            }
+            theEditedElement.getRealizingLink().remove(old1);
+        }
+        
+        EList<ActivityEdge> edgeList = theEditedElement.getRealizingActivityEdge();
+        if (edgeList.size() > 0) {
+            ActivityEdge old3 = edgeList.get(0);
+            if (old3.equals(value)) {
+                return;
+            }
+            theEditedElement.getRealizingActivityEdge().remove(old3);
+        }
+        
+        EList<Message> messageList = theEditedElement.getRealizingMessage();
+        if (messageList.size() > 0) {
+            Message old4 = messageList.get(0);
+            if (old4.equals(value)) {
+                return;
+            }
+            theEditedElement.getRealizingMessage().remove(old4);
+        }
+        
+        EList<CommunicationMessage> communicationMessageList = theEditedElement.getRealizingCommunicationMessage();
+        if (communicationMessageList.size() > 0) {
+            CommunicationMessage old5 = communicationMessageList.get(0);
+            if (old5.equals(value)) {
+                return;
+            }
+            theEditedElement.getRealizingCommunicationMessage().remove(old5);
+        }
+        
+        if (value != null) {
+            // Set new value
+            if (LinkEnd.class.isAssignableFrom(value.getClass())) {
+                theEditedElement.getRealizingLink().add((LinkEnd) value);
+            }
+            if (StructuralFeature.class.isAssignableFrom(value.getClass())) {
+                theEditedElement.getRealizingFeature().add((StructuralFeature) value);
+            } else if (ActivityEdge.class.isAssignableFrom(value.getClass())) {
+                theEditedElement.getRealizingActivityEdge().add((ActivityEdge) value);
+            } else if (Message.class.isAssignableFrom(value.getClass())) {
+                theEditedElement.getRealizingMessage().add((Message) value);
+            } else if (CommunicationMessage.class.isAssignableFrom(value.getClass())) {
+                theEditedElement.getRealizingCommunicationMessage().add((CommunicationMessage) value);
+            }
+        }
     }
 
 }

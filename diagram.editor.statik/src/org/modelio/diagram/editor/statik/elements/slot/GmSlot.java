@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,26 +12,22 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.slot;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
-import org.modelio.diagram.elements.core.model.IEditableText;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.AttributeLink;
 import org.modelio.metamodel.uml.statik.GeneralClass;
@@ -45,7 +41,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * @author cmarin
  */
 @objid ("369c1b3a-55b7-11e2-877f-002564c97630")
-public class GmSlot extends GmModelElementFlatHeader {
+public class GmSlot extends GmDefaultModelElementLabel {
     @objid ("369c1b3e-55b7-11e2-877f-002564c97630")
     private AttributeLink element = null;
 
@@ -76,36 +72,6 @@ public class GmSlot extends GmModelElementFlatHeader {
     @objid ("369da1e7-55b7-11e2-877f-002564c97630")
     public GmSlot() {
         // Empty constructor needed for deserialization.
-    }
-
-    @objid ("369da1ea-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<Stereotype> filterStereotypes(List<Stereotype> stereotypes) {
-        return stereotypes;
-    }
-
-    @objid ("369da1f8-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<TaggedValue> filterTags(List<TaggedValue> taggedValues) {
-        return taggedValues;
-    }
-
-    @objid ("369da206-55b7-11e2-877f-002564c97630")
-    @Override
-    public IEditableText getEditableText() {
-        return new IEditableText() {
-        
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
-                    }
-                
-                    @Override
-                    public void setText(String text) {
-        getRelatedElement().setName(text);
-                    }
-                
-                };
     }
 
     @objid ("369da20d-55b7-11e2-877f-002564c97630")
@@ -142,7 +108,7 @@ public class GmSlot extends GmModelElementFlatHeader {
 
     @objid ("369f2880-55b7-11e2-877f-002564c97630")
     @Override
-    protected String computeLabel() {
+    protected String computeMainLabel() {
         return computeSignature(getRelatedElement());
     }
 
@@ -212,6 +178,15 @@ public class GmSlot extends GmModelElementFlatHeader {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    /**
+     * A slot is a flat label.
+     */
+    @objid ("7d6e160a-1ad4-4d6b-ab49-68a3acdf77cd")
+    @Override
+    public boolean isFlat() {
+        return true;
     }
 
 }

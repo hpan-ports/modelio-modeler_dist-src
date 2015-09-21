@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model.namer.helpers;
 
@@ -35,6 +35,8 @@ import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
+import org.modelio.metamodel.analyst.Risk;
+import org.modelio.metamodel.analyst.RiskContainer;
 import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.bpmn.activities.BpmnSubProcess;
 import org.modelio.metamodel.bpmn.bpmnDiagrams.BpmnProcessCollaborationDiagram;
@@ -841,10 +843,10 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
             for (Element e : theContainer.getOwnedContainer()) {
                 this.results.add(e.getName());
             }
-        } else {                
+        } else {
             AnalystProject theProject = theGoalContainer.getOwnerProject();
             if (theProject != null) {
-                for (Element e : theProject.getRequirementRoot()) {
+                for (Element e : theProject.getGoalRoot()) {
                     this.results.add(e.getName());
                 }
             }
@@ -925,9 +927,6 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
                 this.results.add(e.getName());
             }
         
-            // TODO Add all transitions of sibling states too ?
-            // GetSiblingsVisitor v = new GetSiblingsVisitor();
-        
             for (MObject e : owner.getCompositionChildren()) {
                 if (e instanceof StateVertex) {
                     for (Element e2 : ((StateVertex) e).getOutGoing()) {
@@ -993,7 +992,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
             for (Element e : theContainer.getOwnedContainer()) {
                 this.results.add(e.getName());
             }
-        } else {                
+        } else {
             AnalystProject theProject = theGoalContainer.getOwnerProject();
             if (theProject != null) {
                 for (Element e : theProject.getGoalRoot()) {
@@ -1094,16 +1093,16 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
 
     @objid ("e2a0f2e8-db3d-4078-be01-5e848a4ea9e7")
     @Override
-    public Object visitGenericAnalystContainer(GenericAnalystContainer theGoalContainer) {
-        GenericAnalystContainer theContainer = theGoalContainer.getOwnerContainer();
+    public Object visitGenericAnalystContainer(GenericAnalystContainer theAnalystContainer) {
+        GenericAnalystContainer theContainer = theAnalystContainer.getOwnerContainer();
         if (theContainer != null) {
             for (Element e : theContainer.getOwnedContainer()) {
                 this.results.add(e.getName());
             }
-        } else {                
-            AnalystProject theProject = theGoalContainer.getOwnerProject();
+        } else {
+            AnalystProject theProject = theAnalystContainer.getOwnerProject();
             if (theProject != null) {
-                for (Element e : theProject.getRequirementRoot()) {
+                for (Element e : theProject.getGenericRoot()) {
                     this.results.add(e.getName());
                 }
             }
@@ -1113,17 +1112,55 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
 
     @objid ("b5624e1c-a7d6-4421-bb60-64b9db545d65")
     @Override
-    public Object visitGenericAnalystElement(GenericAnalystElement theRequirementElement) {
-        GenericAnalystContainer theContainer = theRequirementElement.getOwnerContainer();
-        if (theContainer != null) {
-            for (GenericAnalystElement e : theContainer.getOwnedElement()) {
+    public Object visitGenericAnalystElement(GenericAnalystElement theAnalystElement) {
+        GenericAnalystContainer theParentContainer = theAnalystElement.getOwnerContainer();
+        if (theParentContainer != null) {
+            for (GenericAnalystElement e : theParentContainer.getOwnedElement()) {
                 this.results.add(e.getName());
             }
         }
         
-        GenericAnalystElement theRequirement = theRequirementElement.getParentElement();
-        if (theRequirement != null) {
-            for (GenericAnalystElement e : theRequirement.getSubElement()) {
+        GenericAnalystElement theParentElement = theAnalystElement.getParentElement();
+        if (theParentElement != null) {
+            for (GenericAnalystElement e : theParentElement.getSubElement()) {
+                this.results.add(e.getName());
+            }
+        }
+        return null;
+    }
+
+    @objid ("248be87c-c588-4e37-af4c-aea7c7bbdcca")
+    @Override
+    public Object visitRiskContainer(RiskContainer theRiskContainer) {
+        RiskContainer theContainer = theRiskContainer.getOwnerContainer();
+        if (theContainer != null) {
+            for (Element e : theContainer.getOwnedContainer()) {
+                this.results.add(e.getName());
+            }
+        } else {
+            AnalystProject theProject = theRiskContainer.getOwnerProject();
+            if (theProject != null) {
+                for (Element e : theProject.getRiskRoot()) {
+                    this.results.add(e.getName());
+                }
+            }
+        }
+        return null;
+    }
+
+    @objid ("db20313a-48fd-4e4c-810b-63809538c2aa")
+    @Override
+    public Object visitRisk(Risk theRiskElement) {
+        RiskContainer theParentContainer = theRiskElement.getOwnerContainer();
+        if (theParentContainer != null) {
+            for (Risk e : theParentContainer.getOwnedRisk()) {
+                this.results.add(e.getName());
+            }
+        }
+        
+        Risk theParentElement = theRiskElement.getParentRisk();
+        if (theParentElement != null) {
+            for (Risk e : theParentElement.getSubRisk()) {
                 this.results.add(e.getName());
             }
         }

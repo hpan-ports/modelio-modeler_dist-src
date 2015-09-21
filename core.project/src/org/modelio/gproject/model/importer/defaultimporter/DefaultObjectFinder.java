@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model.importer.defaultimporter;
 
@@ -28,10 +28,14 @@ import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.statik.Package;
+import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
+/**
+ * Default implementation of {@link IObjectFinder}.
+ */
 @objid ("00689656-d3aa-108f-8d81-001ec947cd2a")
 public class DefaultObjectFinder implements IObjectFinder {
     @objid ("0068a948-d3aa-108f-8d81-001ec947cd2a")
@@ -57,8 +61,9 @@ public class DefaultObjectFinder implements IObjectFinder {
         if (ret != null && ret.getMClass() != classof) {
             // ClassOf des objets differents, y a probleme
             if (!ret.getUuid().equals(searchedObject.getUuid())) {
-                // Les identifiants sont diff?rents,
+                // Les identifiants sont differents,
                 // ca ne doit jamais arriver.
+        
                 // FIXME error message
                 // String msg;
                 // msg.pformat (RC2::getRC("import.properties").getString("ErrorReplacingDifferentClassObject").cstr(),
@@ -71,10 +76,12 @@ public class DefaultObjectFinder implements IObjectFinder {
                 //
                 // KLog::error(msg.cstr());
                 // throw SmError(msg, SmError::Error, anObject);
-                throw new RuntimeException("ErrorReplacingDifferentClassObject");
+                DuplicateObjectException e = new DuplicateObjectException(searchedObject.getUuid(), searchedObject, ret);
+                throw new RuntimeException("ErrorReplacingDifferentClassObject",e);
             } else {
-                // On a 2 objets de classe differente avec le m?me identifiant.
-                // La base a quelques probl?mes ...
+                // On a 2 objets de classe differente avec le meme identifiant.
+                // La base a quelques problemes ...
+        
                 //String msg;
                 // FIXME error message
                 // msg.pformat
@@ -87,7 +94,8 @@ public class DefaultObjectFinder implements IObjectFinder {
                 //
                 // KLog::error(msg.cstr());
                 // throw SmError(msg, SmError::Error, anObject);
-                throw new RuntimeException("ErrorDifferentClassObjectWithSameIdentifierFound");
+                DuplicateObjectException e = new DuplicateObjectException(searchedObject.getUuid(), searchedObject, ret);
+                throw new RuntimeException("ErrorDifferentClassObjectWithSameIdentifierFound", e);
             }
         }
         return ret;

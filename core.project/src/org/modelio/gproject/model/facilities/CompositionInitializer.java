@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model.facilities;
 
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.analyst.AnalystContainer;
 import org.modelio.metamodel.analyst.AnalystElement;
 import org.modelio.metamodel.analyst.AnalystItem;
@@ -39,6 +38,8 @@ import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
+import org.modelio.metamodel.analyst.Risk;
+import org.modelio.metamodel.analyst.RiskContainer;
 import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnComplexBehaviorDefinition;
@@ -193,7 +194,9 @@ import org.modelio.metamodel.uml.statik.TemplateBinding;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 import org.modelio.metamodel.visitors.DefaultModelVisitor;
+import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 
 /**
@@ -203,11 +206,14 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
  */
 @objid ("01f40498-0000-6d48-0000-000000000000")
 public class CompositionInitializer extends DefaultModelVisitor {
-    @objid ("00152bce-f750-1090-8d81-001ec947cd2a")
-    protected SmDependency smDep;
+    @objid ("ac678916-3718-4d25-8cd0-18514c3e3c73")
+    private MExpert mExpert;
 
     @objid ("0015334e-f750-1090-8d81-001ec947cd2a")
     protected final SmObjectImpl parent;
+
+    @objid ("00152bce-f750-1090-8d81-001ec947cd2a")
+    protected SmDependency smDep;
 
     /**
      * Instantiate a composition initializer.
@@ -229,6 +235,20 @@ public class CompositionInitializer extends DefaultModelVisitor {
     public boolean execute(final SmObjectImpl obj, final SmDependency dep) {
         this.smDep = dep;
         return (boolean) obj.accept(this);
+    }
+
+    @objid ("1303d13f-2b02-11e0-80c5-001ec947ccaf")
+    @Override
+    public Object visitAbstractDiagram(AbstractDiagram theAbstractDiagram) {
+        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
+        // Remove these 2 comment lines before manually modifying the code.
+        
+        if (this.parent instanceof ModelElement) {
+            theAbstractDiagram.setOrigin((ModelElement) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theAbstractDiagram);
+        }
     }
 
     @objid ("01f40498-0000-72ea-0000-000000000000")
@@ -283,6 +303,22 @@ public class CompositionInitializer extends DefaultModelVisitor {
         }
     }
 
+    @objid ("01f40498-0000-70d2-0000-000000000000")
+    @Override
+    public Object visitAnalystProject(AnalystProject theAnalystProject) {
+        return visitModelElement(theAnalystProject);
+    }
+
+    @objid ("54a12604-d3bd-4db1-99c5-98e709f7dc97")
+    @Override
+    public Object visitAnalystPropertyTable(AnalystPropertyTable theTable) {
+        if (this.parent instanceof AnalystItem) {
+            theTable.setAnalystOwner((AnalystItem) this.parent);
+            return true;
+        }
+        return false;
+    }
+
     @objid ("01f40498-0000-6f22-0000-000000000000")
     @Override
     public Object visitAssociationEnd(AssociationEnd theAssociationEnd) {
@@ -291,16 +327,6 @@ public class CompositionInitializer extends DefaultModelVisitor {
             return true;
         } else if (this.parent instanceof AssociationEnd) {
             theAssociationEnd.setOpposite((AssociationEnd) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-6f32-0000-000000000000")
-    @Override
-    public Object visitAttributeLink(AttributeLink theAttributeLink) {
-        if (this.parent instanceof Instance) {
-            theAttributeLink.setAttributed((Instance) this.parent);
             return true;
         }
         return false;
@@ -318,6 +344,16 @@ public class CompositionInitializer extends DefaultModelVisitor {
         } else {
             return visitFeature(theAttribute);
         }
+    }
+
+    @objid ("01f40498-0000-6f32-0000-000000000000")
+    @Override
+    public Object visitAttributeLink(AttributeLink theAttributeLink) {
+        if (this.parent instanceof Instance) {
+            theAttributeLink.setAttributed((Instance) this.parent);
+            return true;
+        }
+        return false;
     }
 
     @objid ("01f40498-0000-73f2-0000-000000000000")
@@ -369,916 +405,6 @@ public class CompositionInitializer extends DefaultModelVisitor {
             return true;
         } else {
             return visitModelElement(theBinding);
-        }
-    }
-
-    @objid ("01f40498-0000-6f52-0000-000000000000")
-    @Override
-    public Object visitClassAssociation(ClassAssociation theClassAssociation) {
-        if (this.parent instanceof NaryAssociation) {
-            theClassAssociation.setNaryAssociationPart((NaryAssociation) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-7342-0000-000000000000")
-    @Override
-    public Object visitClause(Clause theClause) {
-        if (this.parent instanceof ConditionalNode) {
-            theClause.setOwner((ConditionalNode) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theClause);
-        }
-    }
-
-    @objid ("01f40498-0000-6f62-0000-000000000000")
-    @Override
-    public Object visitCollaboration(Collaboration theCollaboration) {
-        // Under Modelio, a collaboration belongs to a UseCase,
-        // a Class, a Package, a Collaboration or an Operation.
-        
-        if (this.parent instanceof Operation) {
-            theCollaboration.setORepresented((Operation) this.parent);
-            return true;
-        } else if (this.parent instanceof Behavior) {
-            theCollaboration.setBRepresented((Behavior) this.parent);
-            return true;
-        } else if (this.parent instanceof Actor || this.parent instanceof Class || this.parent instanceof Collaboration
-                || this.parent instanceof Interface || this.parent instanceof Package || this.parent instanceof Signal
-                || this.parent instanceof UseCase) {
-            theCollaboration.setOwner((ModelTree) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theCollaboration);
-        }
-    }
-
-    @objid ("1944599d-c5df-11dd-93b6-0014222a9f79")
-    @Override
-    public Object visitCollaborationUse(CollaborationUse theCollaborationUse) {
-        // Under Modelio, a collaboration belongs to a UseCase,
-        // a Class, a Package, a Collaboration or an Operation.
-        
-        if (this.parent instanceof Operation) {
-            theCollaborationUse.setORepresented((Operation) this.parent);
-            return true;
-        } else if (this.parent instanceof Class || this.parent instanceof Collaboration || this.parent instanceof Component
-                || this.parent instanceof Node || this.parent instanceof Signal || this.parent instanceof UseCase
-                || this.parent instanceof Actor) {
-            theCollaborationUse.setNRepresented((NameSpace) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theCollaborationUse);
-        }
-    }
-
-    @objid ("01f40498-0000-7572-0000-000000000000")
-    @Override
-    public Object visitCommunicationMessage(CommunicationMessage theCommunicationMessage) {
-        if (this.parent instanceof CommunicationChannel) {
-            theCommunicationMessage.setChannel((CommunicationChannel) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theCommunicationMessage);
-        }
-    }
-
-    @objid ("01f40498-0000-7562-0000-000000000000")
-    @Override
-    public Object visitCommunicationNode(CommunicationNode theCommunicationNode) {
-        if (this.parent instanceof CommunicationInteraction) {
-            theCommunicationNode.setOwner((CommunicationInteraction) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theCommunicationNode);
-        }
-    }
-
-    @objid ("106b5f56-67de-11de-ad13-0014222a9f79")
-    @Override
-    public Object visitModuleParameter(ModuleParameter theConfigParam) {
-        if (this.parent instanceof ModuleComponent) {
-            theConfigParam.setOwner((ModuleComponent) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-74b2-0000-000000000000")
-    @Override
-    public Object visitConnectionPointReference(ConnectionPointReference theConnectionPointReference) {
-        if (this.parent instanceof State) {
-            theConnectionPointReference.setOwnerState((State) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-6e72-0000-000000000000")
-    @Override
-    public Object visitConstraint(Constraint theConstraint) {
-        if (this.parent instanceof ModelElement) {
-            theConstraint.getConstrainedElement().add((ModelElement) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theConstraint);
-        }
-    }
-
-    @objid ("01f40498-0000-70f2-0000-000000000000")
-    @Override
-    public Object visitDataFlow(DataFlow theDataFlow) {
-        if (this.parent instanceof NameSpace) {
-            theDataFlow.setOwner((NameSpace) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-6e7a-0000-000000000000")
-    @Override
-    public Object visitDependency(Dependency theDependency) {
-        if (this.parent instanceof ModelElement) {
-            theDependency.setImpacted((ModelElement) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-7072-0000-000000000000")
-    @Override
-    public Object visitDictionary(Dictionary theDictionary) {
-        if (this.parent instanceof Dictionary) {
-            theDictionary.setOwnerDictionary((Dictionary) this.parent);
-            return true;
-        } else if (this.parent instanceof AnalystProject) {
-            theDictionary.setOwnerProject((AnalystProject) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-6e82-0000-000000000000")
-    @Override
-    public Object visitElement(Element theElement) {
-        // do nothing
-        return false;
-    }
-
-    @objid ("01f40498-0000-6f92-0000-000000000000")
-    @Override
-    public Object visitElementImport(ElementImport theElementImport) {
-        if (this.parent instanceof NameSpace) {
-            theElementImport.setImportingNameSpace((NameSpace) this.parent);
-            return true;
-        } else if (this.parent instanceof Operation) {
-            theElementImport.setImportingOperation((Operation) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-6faa-0000-000000000000")
-    @Override
-    public Object visitEnumerationLiteral(EnumerationLiteral theEnumerationLiteral) {
-        if (this.parent instanceof Enumeration) {
-            theEnumerationLiteral.setValuated((Enumeration) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-7412-0000-000000000000")
-    @Override
-    public Object visitEvent(Event theEvent) {
-        if (this.parent instanceof Behavior) {
-            theEvent.setComposed((Behavior) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-7552-0000-000000000000")
-    @Override
-    public Object visitExtensionPoint(ExtensionPoint theExtensionPoint) {
-        if (this.parent instanceof UseCase) {
-            theExtensionPoint.setOwner((UseCase) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theExtensionPoint);
-        }
-    }
-
-    @objid ("01f40498-0000-6fb2-0000-000000000000")
-    @Override
-    public Object visitFeature(Feature theFeature) {
-        return visitModelElement(theFeature);
-    }
-
-    @objid ("01f40498-0000-743a-0000-000000000000")
-    @Override
-    public Object visitGate(Gate theGate) {
-        if (this.parent instanceof Interaction) {
-            theGate.setOwnerInteraction((Interaction) this.parent);
-            return true;
-        } else if (this.parent instanceof CombinedFragment) {
-            theGate.setOwnerFragment((CombinedFragment) this.parent);
-            return true;
-        } else if (this.parent instanceof InteractionUse) {
-            theGate.setOwnerUse((InteractionUse) this.parent);
-            return true;
-        } else {
-            // Skip InteractionFragment::initComposed()
-            return visitModelElement(theGate);
-        }
-    }
-
-    @objid ("01f40498-0000-6fc2-0000-000000000000")
-    @Override
-    public Object visitGeneralization(Generalization theGeneralization) {
-        if (this.parent instanceof NameSpace) {
-            theGeneralization.setSubType((NameSpace) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theGeneralization);
-        }
-    }
-
-    @objid ("adcbecd8-139b-11de-8798-0014222a9f79")
-    @Override
-    public Object visitInformationFlow(InformationFlow theInformationFlow) {
-        if (this.parent instanceof NameSpace) {
-            theInformationFlow.setOwner((NameSpace) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-738a-0000-000000000000")
-    @Override
-    public Object visitInputPin(InputPin theInputPin) {
-        if (this.parent instanceof ActivityAction) {
-            theInputPin.setInputing((ActivityAction) this.parent);
-            return true;
-        } else {
-            // Skip inheritance to ActivityNode
-            return visitModelElement(theInputPin);
-        }
-    }
-
-    @objid ("01f40498-0000-6fca-0000-000000000000")
-    @Override
-    public Object visitInstance(Instance theInstance) {
-        if (this.parent instanceof NameSpace) {
-            theInstance.setOwner((NameSpace) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theInstance);
-        }
-    }
-
-    @objid ("01f40498-0000-7452-0000-000000000000")
-    @Override
-    public Object visitInteractionFragment(InteractionFragment theInteractionFragment) {
-        if (this.parent instanceof Interaction) {
-            theInteractionFragment.setEnclosingInteraction((Interaction) this.parent);
-            return true;
-        } else if (this.parent instanceof InteractionOperand) {
-            theInteractionFragment.setEnclosingOperand((InteractionOperand) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theInteractionFragment);
-        }
-    }
-
-    @objid ("01f40498-0000-745a-0000-000000000000")
-    @Override
-    public Object visitInteractionOperand(InteractionOperand theInteractionOperand) {
-        if (this.parent instanceof CombinedFragment) {
-            theInteractionOperand.setOwnerFragment((CombinedFragment) this.parent);
-            return true;
-        } else {
-            // Skip InteractionFragment
-            return visitModelElement(theInteractionOperand);
-        }
-    }
-
-    @objid ("01f40498-0000-6fda-0000-000000000000")
-    @Override
-    public Object visitInterfaceRealization(InterfaceRealization theInterfaceRealization) {
-        if (this.parent instanceof NameSpace) {
-            theInterfaceRealization.setImplementer((NameSpace) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theInterfaceRealization);
-        }
-    }
-
-    @objid ("01f40498-0000-74e2-0000-000000000000")
-    @Override
-    public Object visitInternalTransition(InternalTransition theInternalTransition) {
-        if (this.parent instanceof State) {
-            theInternalTransition.setSComposed((State) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-746a-0000-000000000000")
-    @Override
-    public Object visitLifeline(Lifeline theLifeline) {
-        if (this.parent instanceof Interaction) {
-            theLifeline.setOwner((Interaction) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theLifeline);
-        }
-    }
-
-    @objid ("01f40498-0000-6fea-0000-000000000000")
-    @Override
-    public Object visitLinkEnd(LinkEnd theLinkEnd) {
-        if (this.parent instanceof Instance) {
-            theLinkEnd.setSource((Instance) this.parent);
-            return true;
-        } else if (this.parent instanceof LinkEnd) {
-            theLinkEnd.setOpposite((LinkEnd) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-6ff2-0000-000000000000")
-    @Override
-    public Object visitManifestation(Manifestation theManifestation) {
-        if (this.parent instanceof Artifact) {
-            theManifestation.setOwner((Artifact) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-7472-0000-000000000000")
-    @Override
-    public Object visitMessage(Message theMessage) {
-        if (this.parent instanceof MessageEnd) {
-            theMessage.setSendEvent((MessageEnd) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("a2416152-67dd-11de-ad13-0014222a9f79")
-    @Override
-    public Object visitMetaclassReference(MetaclassReference theMetaclassReference) {
-        if (this.parent instanceof Profile) {
-            theMetaclassReference.setOwnerProfile((Profile) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("176c0e63-e0f8-11de-bda3-001ec947ccaf")
-    @Override
-    public Object visitModelElement(ModelElement theModelElement) {
-        if (this.parent instanceof TemplateParameter) {
-            theModelElement.setOwnerTemplateParameter((TemplateParameter) this.parent);
-            return true;
-        } else {
-            return visitElement(theModelElement);
-        }
-    }
-
-    @objid ("01f40498-0000-6eba-0000-000000000000")
-    @Override
-    public Object visitModelTree(ModelTree theModelTree) {
-        if (this.parent instanceof TemplateParameter) {
-            // TemplateParameter case must be before ModelTree because it is a ModelTree
-            theModelTree.setOwnerTemplateParameter((TemplateParameter) this.parent);
-            return true;
-        } else if (this.parent instanceof ModelTree) {
-            theModelTree.setOwner((ModelTree) this.parent);
-            return true;
-        } else if (this.parent instanceof Project) {
-            // If parent is the project, add to the root package
-            Project project = (Project) this.parent;
-            Package rootPackage = project.getModel();
-            if (rootPackage != null) {
-                theModelTree.setOwner(rootPackage);
-                return true;
-            }
-        } else {
-            return visitModelElement(theModelTree);
-        }
-        return false;
-    }
-
-    @objid ("417390b7-9ec3-11de-9e1f-001ec947ccaf")
-    @Override
-    public Object visitModuleComponent(ModuleComponent theModule) {
-        return visitComponent(theModule);
-    }
-
-    @objid ("01f40498-0000-7002-0000-000000000000")
-    @Override
-    public Object visitNamespaceUse(NamespaceUse theNamespaceUse) {
-        if (this.parent instanceof NameSpace) {
-            theNamespaceUse.setUser((NameSpace) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-6ec2-0000-000000000000")
-    @Override
-    public Object visitNote(Note theNote) {
-        theNote.setSubject((ModelElement) this.parent);
-        return true;
-    }
-
-    @objid ("e4278e11-67dd-11de-ad13-0014222a9f79")
-    @Override
-    public Object visitNoteType(NoteType theNoteType) {
-        if (this.parent instanceof MetaclassReference) {
-            theNoteType.setOwnerReference((MetaclassReference) this.parent);
-            return true;
-        } else if (this.parent instanceof Stereotype) {
-            theNoteType.setOwnerStereotype((Stereotype) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-73d2-0000-000000000000")
-    @Override
-    public Object visitOutputPin(OutputPin theOutputPin) {
-        if (this.parent instanceof ActivityAction) {
-            theOutputPin.setOutputing((ActivityAction) this.parent);
-            return true;
-        } else {
-            // Skip inheritance to ObjectNode
-            return visitModelElement(theOutputPin);
-        }
-    }
-
-    @objid ("01f40498-0000-701a-0000-000000000000")
-    @Override
-    public Object visitPackage(Package thePackage) {
-        // TemplateParameter case must be before ModelTree because it is a ModelTree
-        if (this.parent instanceof TemplateParameter) {
-            thePackage.setOwnerTemplateParameter((TemplateParameter) this.parent);
-            return true;
-        } else if (this.parent instanceof ModelTree) {
-            thePackage.setOwner((ModelTree) this.parent);
-            return true;
-        } else {
-            return visitModelTree(thePackage);
-        }
-    }
-
-    @objid ("01f40498-0000-7022-0000-000000000000")
-    @Override
-    public Object visitPackageImport(PackageImport thePackageImport) {
-        if (this.parent instanceof NameSpace) {
-            thePackageImport.setImportingNameSpace((NameSpace) this.parent);
-            return true;
-        } else if (this.parent instanceof Operation) {
-            thePackageImport.setImportingOperation((Operation) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-702a-0000-000000000000")
-    @Override
-    public Object visitPackageMerge(PackageMerge thePackageMerge) {
-        if (this.parent instanceof Package) {
-            thePackageMerge.setReceivingPackage((Package) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-7032-0000-000000000000")
-    @Override
-    public Object visitParameter(Parameter theParameter) {
-        if (this.parent instanceof Operation) {
-            if (this.smDep == null) {
-                this.smDep = (SmDependency) MTools.getMetaTool().getDefaultCompositionDep(this.parent, theParameter);
-            }
-            if ("Returned".equals(this.smDep.getName()) || "Return".equals(this.smDep.getName())) {
-                theParameter.setReturned((Operation) this.parent);
-                return true;
-            } else {
-                theParameter.setComposed((Operation) this.parent);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-748a-0000-000000000000")
-    @Override
-    public Object visitPartDecomposition(PartDecomposition thePartDecomposition) {
-        if (this.parent instanceof Lifeline) {
-            thePartDecomposition.setDecomposed((Lifeline) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("15fcfb58-67db-11de-ad13-0014222a9f79")
-    @Override
-    public Object visitProfile(Profile theProfile) {
-        if (this.parent instanceof ModuleComponent) {
-            theProfile.setOwnerModule((ModuleComponent) this.parent);
-            return true;
-        } else {
-            return visitPackage(theProfile);
-        }
-    }
-
-    @objid ("01f40498-0000-6ed2-0000-000000000000")
-    @Override
-    public Object visitProject(Project theProject) {
-        return visitModelElement(theProject);
-    }
-
-    @objid ("01f40498-0000-708a-0000-000000000000")
-    @Override
-    public Object visitPropertyDefinition(PropertyDefinition theProperty) {
-        if (this.parent instanceof PropertyTableDefinition) {
-            theProperty.setOwner((PropertyTableDefinition) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-7092-0000-000000000000")
-    @Override
-    public Object visitPropertyEnumerationLitteral(PropertyEnumerationLitteral thePropertyEnumerationLitteral) {
-        if (this.parent instanceof EnumeratedPropertyType) {
-            thePropertyEnumerationLitteral.setOwner((EnumeratedPropertyType) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-709a-0000-000000000000")
-    @Override
-    public Object visitPropertyTableDefinition(PropertyTableDefinition thePropertyTableDefinition) {
-        if (this.parent instanceof PropertyContainer) {
-            thePropertyTableDefinition.setOwner((PropertyContainer) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-70a2-0000-000000000000")
-    @Override
-    public Object visitPropertyType(PropertyType thePropertyType) {
-        if (this.parent instanceof PropertyContainer) {
-            thePropertyType.setAnalystOwner((PropertyContainer) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-70b2-0000-000000000000")
-    @Override
-    public Object visitTypedPropertyTable(TypedPropertyTable theTypedPropertyTable) {
-        if (this.parent instanceof ModelElement) {
-            theTypedPropertyTable.setOwner((AnalystContainer) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-7042-0000-000000000000")
-    @Override
-    public Object visitProvidedInterface(ProvidedInterface theProvidedInterface) {
-        if (this.parent instanceof Port) {
-            theProvidedInterface.setProviding((Port) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-704a-0000-000000000000")
-    @Override
-    public Object visitRaisedException(RaisedException theRaisedException) {
-        if (this.parent instanceof Operation) {
-            theRaisedException.setThrower((Operation) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("52baa235-a4de-11dd-81f5-001ec947ccaf")
-    @Override
-    public Object visitRegion(Region theRegion) {
-        if (this.parent instanceof State) {
-            theRegion.setParent((State) this.parent);
-            return true;
-        } else if (this.parent instanceof StateMachine) {
-            // When appending to the state machine, the region is the top region.
-            StateMachine machine = (StateMachine) this.parent;
-            Region topState = machine.getTop();
-            if (topState == null) {
-                theRegion.setRepresented((StateMachine) this.parent);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-7052-0000-000000000000")
-    @Override
-    public Object visitRequiredInterface(RequiredInterface theRequiredInterface) {
-        if (this.parent instanceof Port) {
-            theRequiredInterface.setRequiring((Port) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-70ba-0000-000000000000")
-    @Override
-    public Object visitRequirement(Requirement theRequirementElement) {
-        if (this.parent instanceof RequirementContainer) {
-            theRequirementElement.setOwnerContainer((RequirementContainer) this.parent);
-            AnalystPropertiesHelper.synchronizeAnalystProperties((RequirementContainer) this.parent, Collections.singletonList((AnalystElement)theRequirementElement));
-            return true;
-        }
-        if (this.parent instanceof Requirement) {
-            theRequirementElement.setParentRequirement((Requirement) this.parent);
-            AnalystPropertiesHelper.synchronizeAnalystProperties((Requirement) this.parent, Collections.singletonList((AnalystElement)theRequirementElement));
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-70c2-0000-000000000000")
-    @Override
-    public Object visitRequirementContainer(RequirementContainer theRequirementContainer) {
-        if (this.parent instanceof RequirementContainer) {
-            theRequirementContainer.setOwnerContainer((RequirementContainer) this.parent);
-            return true;
-        } else if (this.parent instanceof AnalystProject) {
-            theRequirementContainer.setOwnerProject((AnalystProject) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-70ca-0000-000000000000")
-    @Override
-    public Object visitBusinessRule(BusinessRule theBusinessRuleElement) {
-        if (this.parent instanceof BusinessRuleContainer) {
-            theBusinessRuleElement.setOwnerContainer((BusinessRuleContainer) this.parent);
-            AnalystPropertiesHelper.synchronizeAnalystProperties((BusinessRuleContainer) this.parent, Collections.singletonList((AnalystElement)theBusinessRuleElement));
-            return true;
-        }
-        if (this.parent instanceof BusinessRule) {
-            theBusinessRuleElement.setParentRule((BusinessRule) this.parent);
-            AnalystPropertiesHelper.synchronizeAnalystProperties((BusinessRule) this.parent, Collections.singletonList((AnalystElement)theBusinessRuleElement));
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-70d2-0000-000000000000")
-    @Override
-    public Object visitAnalystProject(AnalystProject theAnalystProject) {
-        return visitModelElement(theAnalystProject);
-    }
-
-    @objid ("01f40498-0000-751a-0000-000000000000")
-    @Override
-    public Object visitStateVertex(StateVertex theStateVertex) {
-        if (this.parent instanceof Region) {
-            theStateVertex.setParent((Region) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-6eda-0000-000000000000")
-    @Override
-    public Object visitStereotype(Stereotype theStereotype) {
-        if (this.parent instanceof Profile) {
-            theStereotype.setOwner((Profile) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-6f0a-0000-000000000000")
-    @Override
-    public Object visitSubstitution(Substitution theSubstitution) {
-        if (this.parent instanceof Classifier) {
-            theSubstitution.setSubstitutingClassifier((Classifier) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-6ee2-0000-000000000000")
-    @Override
-    public Object visitTagParameter(TagParameter theTagParameter) {
-        if (this.parent instanceof TaggedValue) {
-            theTagParameter.setAnnoted((TaggedValue) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("e387d14c-67dd-11de-ad13-0014222a9f79")
-    @Override
-    public Object visitTagType(TagType theTagType) {
-        if (this.parent instanceof MetaclassReference) {
-            theTagType.setOwnerReference((MetaclassReference) this.parent);
-            return true;
-        } else if (this.parent instanceof Stereotype) {
-            theTagType.setOwnerStereotype((Stereotype) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-6ef2-0000-000000000000")
-    @Override
-    public Object visitTaggedValue(TaggedValue theTaggedValue) {
-        // CMA 27/05/2005: Notes are now ModelElement
-        // if (parent.getMClass().hasBase (NoteClass ()))
-        // res = theTaggedValue.appendDepVal (TaggedValueTxTAnnotedNote (), parent);
-        // else
-        theTaggedValue.setAnnoted((ModelElement) this.parent);
-        return true;
-    }
-
-    @objid ("01f40498-0000-705a-0000-000000000000")
-    @Override
-    public Object visitTemplateBinding(TemplateBinding theTemplateBinding) {
-        if (this.parent instanceof NameSpace) {
-            theTemplateBinding.setBoundElement((NameSpace) this.parent);
-            return true;
-        } else if (this.parent instanceof Operation) {
-            theTemplateBinding.setBoundOperation((Operation) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-7062-0000-000000000000")
-    @Override
-    public Object visitTemplateParameter(TemplateParameter theTemplateParameter) {
-        if (this.parent instanceof NameSpace) {
-            theTemplateParameter.setParameterized((NameSpace) this.parent);
-            return true;
-        } else if (this.parent instanceof Operation) {
-            theTemplateParameter.setParameterizedOperation((Operation) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-752a-0000-000000000000")
-    @Override
-    public Object visitTransition(Transition theTransition) {
-        if (this.parent instanceof StateVertex) {
-            theTransition.setSource((StateVertex) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("01f40498-0000-754a-0000-000000000000")
-    @Override
-    public Object visitUseCaseDependency(UseCaseDependency theUseCaseDependency) {
-        if (this.parent instanceof UseCase) {
-            theUseCaseDependency.setOrigin((UseCase) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("17a0fe38-ec00-11df-9f13-001111ead0dd")
-    @Override
-    public Object visitTemplateParameterSubstitution(TemplateParameterSubstitution theTemplateParameterSubstitution) {
-        if (this.parent instanceof TemplateBinding) {
-            theTemplateParameterSubstitution.setOwner((TemplateBinding) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("ecb9a050-1a73-11e0-9cf7-001ec947ccaf")
-    @Override
-    public Object visitEntryPointPseudoState(EntryPointPseudoState theEntryPointPseudoState) {
-        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
-        // Remove these 2 comment lines before manually modifying the code.
-        
-        if (this.parent instanceof State) {
-            theEntryPointPseudoState.setEntryOf((State) this.parent);
-            return true;
-        } else if (this.parent instanceof StateMachine) {
-            theEntryPointPseudoState.setEntryOfMachine((StateMachine) this.parent);
-            return true;
-        } else {
-            return visitAbstractPseudoState(theEntryPointPseudoState);
-        }
-    }
-
-    @objid ("ecbe64fe-1a73-11e0-9cf7-001ec947ccaf")
-    @Override
-    public Object visitExitPointPseudoState(ExitPointPseudoState theExitPointPseudoState) {
-        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
-        // Remove these 2 comment lines before manually modifying the code.
-        
-        if (this.parent instanceof State) {
-            theExitPointPseudoState.setExitOf((State) this.parent);
-            return true;
-        } else if (this.parent instanceof StateMachine) {
-            theExitPointPseudoState.setExitOfMachine((StateMachine) this.parent);
-            return true;
-        } else {
-            return visitAbstractPseudoState(theExitPointPseudoState);
-        }
-    }
-
-    @objid ("ecc58c03-1a73-11e0-9cf7-001ec947ccaf")
-    @Override
-    public Object visitGeneralOrdering(GeneralOrdering theGeneralOrdering) {
-        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
-        // Remove these 2 comment lines before manually modifying the code.
-        
-        if (this.parent instanceof OccurrenceSpecification) {
-            theGeneralOrdering.setBefore((OccurrenceSpecification) this.parent);
-            return true;
-        } else {
-            return visitElement(theGeneralOrdering);
-        }
-    }
-
-    @objid ("ecdb0112-1a73-11e0-9cf7-001ec947ccaf")
-    @Override
-    public Object visitMessageFlow(MessageFlow theMessageFlow) {
-        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
-        // Remove these 2 comment lines before manually modifying the code.
-        
-        if (this.parent instanceof ActivityPartition) {
-            theMessageFlow.setSourcePartition((ActivityPartition) this.parent);
-            return true;
-        } else {
-            return visitActivityEdge(theMessageFlow);
-        }
-    }
-
-    @objid ("ecf07621-1a73-11e0-9cf7-001ec947ccaf")
-    @Override
-    public Object visitPropertyContainer(PropertyContainer thePropertyContainer) {
-        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
-        // Remove these 2 comment lines before manually modifying the code.
-        
-        if (this.parent instanceof AnalystProject) {
-            thePropertyContainer.setOwnerProject((AnalystProject) this.parent);
-            return true;
-        } else {
-            return visitModelElement(thePropertyContainer);
-        }
-    }
-
-    @objid ("ed0f748c-1a73-11e0-9cf7-001ec947ccaf")
-    @Override
-    public Object visitExpansionNode(ExpansionNode theExpansionNode) {
-        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
-        // Remove these 2 comment lines before manually modifying the code.
-        
-        if (this.parent instanceof ExpansionRegion) {
-            theExpansionNode.setRegionAsInput((ExpansionRegion) this.parent);
-            return true;
-        } else if (this.parent instanceof ExpansionRegion) {
-            theExpansionNode.setRegionAsOutput((ExpansionRegion) this.parent);
-            return true;
-        } else {
-            return visitObjectNode(theExpansionNode);
-        }
-    }
-
-    @objid ("ed0f7493-1a73-11e0-9cf7-001ec947ccaf")
-    @Override
-    public Object visitExceptionHandler(ExceptionHandler theExceptionHandler) {
-        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
-        // Remove these 2 comment lines before manually modifying the code.
-        
-        if (this.parent instanceof ActivityAction) {
-            theExceptionHandler.setProtectedNode((ActivityAction) this.parent);
-            return true;
-        } else {
-            return visitModelElement(theExceptionHandler);
         }
     }
 
@@ -1601,18 +727,158 @@ public class CompositionInitializer extends DefaultModelVisitor {
         }
     }
 
-    @objid ("1303d13f-2b02-11e0-80c5-001ec947ccaf")
+    @objid ("01f40498-0000-70ca-0000-000000000000")
     @Override
-    public Object visitAbstractDiagram(AbstractDiagram theAbstractDiagram) {
-        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
-        // Remove these 2 comment lines before manually modifying the code.
-        
-        if (this.parent instanceof ModelElement) {
-            theAbstractDiagram.setOrigin((ModelElement) this.parent);
+    public Object visitBusinessRule(BusinessRule theBusinessRuleElement) {
+        if (this.parent instanceof BusinessRuleContainer) {
+            theBusinessRuleElement.setOwnerContainer((BusinessRuleContainer) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((BusinessRuleContainer) this.parent, Collections.singletonList((AnalystElement)theBusinessRuleElement));
+            return true;
+        }
+        if (this.parent instanceof BusinessRule) {
+            theBusinessRuleElement.setParentRule((BusinessRule) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((BusinessRule) this.parent, Collections.singletonList((AnalystElement)theBusinessRuleElement));
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("50d50891-7297-4914-857e-a14cb3faf6b3")
+    @Override
+    public Object visitBusinessRuleContainer(BusinessRuleContainer theBusinessRuleContainer) {
+        if (this.parent instanceof BusinessRuleContainer) {
+            theBusinessRuleContainer.setOwnerContainer((BusinessRuleContainer) this.parent);
+            return true;
+        } else if (this.parent instanceof AnalystProject) {
+            theBusinessRuleContainer.setOwnerProject((AnalystProject) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-6f52-0000-000000000000")
+    @Override
+    public Object visitClassAssociation(ClassAssociation theClassAssociation) {
+        if (this.parent instanceof NaryAssociation) {
+            theClassAssociation.setNaryAssociationPart((NaryAssociation) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-7342-0000-000000000000")
+    @Override
+    public Object visitClause(Clause theClause) {
+        if (this.parent instanceof ConditionalNode) {
+            theClause.setOwner((ConditionalNode) this.parent);
             return true;
         } else {
-            return visitModelElement(theAbstractDiagram);
+            return visitModelElement(theClause);
         }
+    }
+
+    @objid ("01f40498-0000-6f62-0000-000000000000")
+    @Override
+    public Object visitCollaboration(Collaboration theCollaboration) {
+        // Under Modelio, a collaboration belongs to a UseCase,
+        // a Class, a Package, a Collaboration or an Operation.
+        
+        if (this.parent instanceof Operation) {
+            theCollaboration.setORepresented((Operation) this.parent);
+            return true;
+        } else if (this.parent instanceof Behavior) {
+            theCollaboration.setBRepresented((Behavior) this.parent);
+            return true;
+        } else if (this.parent instanceof Actor || this.parent instanceof Class || this.parent instanceof Collaboration
+                || this.parent instanceof Interface || this.parent instanceof Package || this.parent instanceof Signal
+                || this.parent instanceof UseCase) {
+            theCollaboration.setOwner((ModelTree) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theCollaboration);
+        }
+    }
+
+    @objid ("1944599d-c5df-11dd-93b6-0014222a9f79")
+    @Override
+    public Object visitCollaborationUse(CollaborationUse theCollaborationUse) {
+        // Under Modelio, a collaboration belongs to a UseCase,
+        // a Class, a Package, a Collaboration or an Operation.
+        
+        if (this.parent instanceof Operation) {
+            theCollaborationUse.setORepresented((Operation) this.parent);
+            return true;
+        } else if (this.parent instanceof Class || this.parent instanceof Collaboration || this.parent instanceof Component
+                || this.parent instanceof Node || this.parent instanceof Signal || this.parent instanceof UseCase
+                || this.parent instanceof Actor) {
+            theCollaborationUse.setNRepresented((NameSpace) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theCollaborationUse);
+        }
+    }
+
+    @objid ("01f40498-0000-7572-0000-000000000000")
+    @Override
+    public Object visitCommunicationMessage(CommunicationMessage theCommunicationMessage) {
+        if (this.parent instanceof CommunicationChannel) {
+            theCommunicationMessage.setChannel((CommunicationChannel) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theCommunicationMessage);
+        }
+    }
+
+    @objid ("01f40498-0000-7562-0000-000000000000")
+    @Override
+    public Object visitCommunicationNode(CommunicationNode theCommunicationNode) {
+        if (this.parent instanceof CommunicationInteraction) {
+            theCommunicationNode.setOwner((CommunicationInteraction) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theCommunicationNode);
+        }
+    }
+
+    @objid ("01f40498-0000-74b2-0000-000000000000")
+    @Override
+    public Object visitConnectionPointReference(ConnectionPointReference theConnectionPointReference) {
+        if (this.parent instanceof State) {
+            theConnectionPointReference.setOwnerState((State) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-6e72-0000-000000000000")
+    @Override
+    public Object visitConstraint(Constraint theConstraint) {
+        if (this.parent instanceof ModelElement) {
+            theConstraint.getConstrainedElement().add((ModelElement) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theConstraint);
+        }
+    }
+
+    @objid ("01f40498-0000-70f2-0000-000000000000")
+    @Override
+    public Object visitDataFlow(DataFlow theDataFlow) {
+        if (this.parent instanceof NameSpace) {
+            theDataFlow.setOwner((NameSpace) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-6e7a-0000-000000000000")
+    @Override
+    public Object visitDependency(Dependency theDependency) {
+        if (this.parent instanceof ModelElement) {
+            theDependency.setImpacted((ModelElement) this.parent);
+            return true;
+        }
+        return false;
     }
 
     @objid ("fa7d67ea-2d47-11e0-80c5-001ec947ccaf")
@@ -1629,6 +895,135 @@ public class CompositionInitializer extends DefaultModelVisitor {
             return true;
         } else {
             return visitModelElement(theDiagramSet);
+        }
+    }
+
+    @objid ("01f40498-0000-7072-0000-000000000000")
+    @Override
+    public Object visitDictionary(Dictionary theDictionary) {
+        if (this.parent instanceof Dictionary) {
+            theDictionary.setOwnerDictionary((Dictionary) this.parent);
+            return true;
+        } else if (this.parent instanceof AnalystProject) {
+            theDictionary.setOwnerProject((AnalystProject) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-6e82-0000-000000000000")
+    @Override
+    public Object visitElement(Element theElement) {
+        // do nothing
+        return false;
+    }
+
+    @objid ("01f40498-0000-6f92-0000-000000000000")
+    @Override
+    public Object visitElementImport(ElementImport theElementImport) {
+        if (this.parent instanceof NameSpace) {
+            theElementImport.setImportingNameSpace((NameSpace) this.parent);
+            return true;
+        } else if (this.parent instanceof Operation) {
+            theElementImport.setImportingOperation((Operation) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("ecb9a050-1a73-11e0-9cf7-001ec947ccaf")
+    @Override
+    public Object visitEntryPointPseudoState(EntryPointPseudoState theEntryPointPseudoState) {
+        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
+        // Remove these 2 comment lines before manually modifying the code.
+        
+        if (this.parent instanceof State) {
+            theEntryPointPseudoState.setEntryOf((State) this.parent);
+            return true;
+        } else if (this.parent instanceof StateMachine) {
+            theEntryPointPseudoState.setEntryOfMachine((StateMachine) this.parent);
+            return true;
+        } else {
+            return visitAbstractPseudoState(theEntryPointPseudoState);
+        }
+    }
+
+    @objid ("01f40498-0000-6faa-0000-000000000000")
+    @Override
+    public Object visitEnumerationLiteral(EnumerationLiteral theEnumerationLiteral) {
+        if (this.parent instanceof Enumeration) {
+            theEnumerationLiteral.setValuated((Enumeration) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-7412-0000-000000000000")
+    @Override
+    public Object visitEvent(Event theEvent) {
+        if (this.parent instanceof Behavior) {
+            theEvent.setComposed((Behavior) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("ed0f7493-1a73-11e0-9cf7-001ec947ccaf")
+    @Override
+    public Object visitExceptionHandler(ExceptionHandler theExceptionHandler) {
+        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
+        // Remove these 2 comment lines before manually modifying the code.
+        
+        if (this.parent instanceof ActivityAction) {
+            theExceptionHandler.setProtectedNode((ActivityAction) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theExceptionHandler);
+        }
+    }
+
+    @objid ("ecbe64fe-1a73-11e0-9cf7-001ec947ccaf")
+    @Override
+    public Object visitExitPointPseudoState(ExitPointPseudoState theExitPointPseudoState) {
+        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
+        // Remove these 2 comment lines before manually modifying the code.
+        
+        if (this.parent instanceof State) {
+            theExitPointPseudoState.setExitOf((State) this.parent);
+            return true;
+        } else if (this.parent instanceof StateMachine) {
+            theExitPointPseudoState.setExitOfMachine((StateMachine) this.parent);
+            return true;
+        } else {
+            return visitAbstractPseudoState(theExitPointPseudoState);
+        }
+    }
+
+    @objid ("ed0f748c-1a73-11e0-9cf7-001ec947ccaf")
+    @Override
+    public Object visitExpansionNode(ExpansionNode theExpansionNode) {
+        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
+        // Remove these 2 comment lines before manually modifying the code.
+        
+        if (this.parent instanceof ExpansionRegion) {
+            theExpansionNode.setRegionAsInput((ExpansionRegion) this.parent);
+            return true;
+        } else if (this.parent instanceof ExpansionRegion) {
+            theExpansionNode.setRegionAsOutput((ExpansionRegion) this.parent);
+            return true;
+        } else {
+            return visitObjectNode(theExpansionNode);
+        }
+    }
+
+    @objid ("01f40498-0000-7552-0000-000000000000")
+    @Override
+    public Object visitExtensionPoint(ExtensionPoint theExtensionPoint) {
+        if (this.parent instanceof UseCase) {
+            theExtensionPoint.setOwner((UseCase) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theExtensionPoint);
         }
     }
 
@@ -1663,116 +1058,63 @@ public class CompositionInitializer extends DefaultModelVisitor {
         }
     }
 
-    @objid ("00169252-f750-1090-8d81-001ec947cd2a")
+    @objid ("01f40498-0000-6fb2-0000-000000000000")
     @Override
-    public Object visitOperation(Operation theOperation) {
-        if (this.parent instanceof Classifier) {
-            theOperation.setOwner((Classifier) this.parent);
+    public Object visitFeature(Feature theFeature) {
+        return visitModelElement(theFeature);
+    }
+
+    @objid ("01f40498-0000-743a-0000-000000000000")
+    @Override
+    public Object visitGate(Gate theGate) {
+        if (this.parent instanceof Interaction) {
+            theGate.setOwnerInteraction((Interaction) this.parent);
+            return true;
+        } else if (this.parent instanceof CombinedFragment) {
+            theGate.setOwnerFragment((CombinedFragment) this.parent);
+            return true;
+        } else if (this.parent instanceof InteractionUse) {
+            theGate.setOwnerUse((InteractionUse) this.parent);
             return true;
         } else {
-            return visitFeature(theOperation);
+            // Skip InteractionFragment::initComposed()
+            return visitModelElement(theGate);
         }
     }
 
-    @objid ("70a7e846-408d-4517-82a3-d921edaf9861")
+    @objid ("ecc58c03-1a73-11e0-9cf7-001ec947ccaf")
     @Override
-    public Object visitGoalContainer(GoalContainer theGoalContainer) {
-        if (this.parent instanceof GoalContainer) {
-            theGoalContainer.setOwnerContainer((GoalContainer) this.parent);
+    public Object visitGeneralOrdering(GeneralOrdering theGeneralOrdering) {
+        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
+        // Remove these 2 comment lines before manually modifying the code.
+        
+        if (this.parent instanceof OccurrenceSpecification) {
+            theGeneralOrdering.setBefore((OccurrenceSpecification) this.parent);
+            return true;
+        } else {
+            return visitElement(theGeneralOrdering);
+        }
+    }
+
+    @objid ("01f40498-0000-6fc2-0000-000000000000")
+    @Override
+    public Object visitGeneralization(Generalization theGeneralization) {
+        if (this.parent instanceof NameSpace) {
+            theGeneralization.setSubType((NameSpace) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theGeneralization);
+        }
+    }
+
+    @objid ("b1b95308-f76e-4dee-9275-4cf9ce19fc95")
+    @Override
+    public Object visitGenericAnalystContainer(GenericAnalystContainer theGenericContainer) {
+        if (this.parent instanceof GenericAnalystContainer) {
+            theGenericContainer.setOwnerContainer((GenericAnalystContainer) this.parent);
             return true;
         } else if (this.parent instanceof AnalystProject) {
-            theGoalContainer.setOwnerProject((AnalystProject) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("50d50891-7297-4914-857e-a14cb3faf6b3")
-    @Override
-    public Object visitBusinessRuleContainer(BusinessRuleContainer theBusinessRuleContainer) {
-        if (this.parent instanceof BusinessRuleContainer) {
-            theBusinessRuleContainer.setOwnerContainer((BusinessRuleContainer) this.parent);
-            return true;
-        } else if (this.parent instanceof AnalystProject) {
-            theBusinessRuleContainer.setOwnerProject((AnalystProject) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("a6320245-9805-4b78-b48b-e6e4f57c1ee9")
-    @Override
-    public Object visitGoal(Goal theGoalElement) {
-        if (this.parent instanceof GoalContainer) {
-            theGoalElement.setOwnerContainer((GoalContainer) this.parent);
-            AnalystPropertiesHelper.synchronizeAnalystProperties((GoalContainer) this.parent, Collections.singletonList((AnalystElement)theGoalElement));
-            return true;
-        }
-        if (this.parent instanceof Goal) {
-            theGoalElement.setParentGoal((Goal) this.parent);
-            AnalystPropertiesHelper.synchronizeAnalystProperties((Goal) this.parent, Collections.singletonList((AnalystElement)theGoalElement));
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("54a12604-d3bd-4db1-99c5-98e709f7dc97")
-    @Override
-    public Object visitAnalystPropertyTable(AnalystPropertyTable theTable) {
-        if (this.parent instanceof AnalystItem) {
-            theTable.setAnalystOwner((AnalystItem) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("fddc53a8-e5dd-4fda-b2f5-bcf1c37fa305")
-    @Override
-    public Object visitTerm(Term theTerm) {
-        if (this.parent instanceof Dictionary) {
-            theTerm.setOwnerDictionary((Dictionary) this.parent);
-            AnalystPropertiesHelper.synchronizeAnalystProperties((Dictionary) this.parent, Collections.singletonList((AnalystElement)theTerm));
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("e2c58ea3-ce75-47ea-8a4d-32cabb1f69a0")
-    @Override
-    public Object visitMatrixDefinition(MatrixDefinition theMatrixDefinition) {
-        if (this.parent instanceof ModelElement) {
-            theMatrixDefinition.setOwner((ModelElement) this.parent);
-            return true;
-        }
-        return false;
-    }
-
-    @objid ("765abde3-4c2e-4382-ac68-39b290fff330")
-    @Override
-    public Object visitQueryDefinition(QueryDefinition theQueryDefinition) {
-        if (this.parent instanceof MatrixDefinition) {
-            if (this.smDep == null) {
-                this.smDep = (SmDependency) MTools.getMetaTool().getDefaultCompositionDep(this.parent, theQueryDefinition);
-            }
-            if ("LinesDefinition".equals(this.smDep.getName()) || "OwnerAsLine".equals(this.smDep.getName())) {
-                theQueryDefinition.setOwnerAsLine((MatrixDefinition) this.parent);
-                return true;
-            } else if ("ColumnsDefinition".equals(this.smDep.getName()) || "OwnerAsCol".equals(this.smDep.getName())) {
-                theQueryDefinition.setOwnerAsCol((MatrixDefinition) this.parent);
-                return true;
-            } else {
-                theQueryDefinition.setOwnerAsDepth((MatrixDefinition) this.parent);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @objid ("1dc6d18a-51a6-4e09-9ff7-bb98d0d6a00d")
-    @Override
-    public Object visitMatrixValueDefinition(MatrixValueDefinition theMatrixValueDefinition) {
-        if (this.parent instanceof MatrixDefinition) {
-            theMatrixValueDefinition.setMatrix((MatrixDefinition) this.parent);
+            theGenericContainer.setOwnerProject((AnalystProject) this.parent);
             return true;
         }
         return false;
@@ -1794,17 +1136,718 @@ public class CompositionInitializer extends DefaultModelVisitor {
         return false;
     }
 
-    @objid ("b1b95308-f76e-4dee-9275-4cf9ce19fc95")
+    @objid ("a6320245-9805-4b78-b48b-e6e4f57c1ee9")
     @Override
-    public Object visitGenericAnalystContainer(GenericAnalystContainer theGenericContainer) {
-        if (this.parent instanceof GenericAnalystContainer) {
-            theGenericContainer.setOwnerContainer((GenericAnalystContainer) this.parent);
+    public Object visitGoal(Goal theGoalElement) {
+        if (this.parent instanceof GoalContainer) {
+            theGoalElement.setOwnerContainer((GoalContainer) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((GoalContainer) this.parent, Collections.singletonList((AnalystElement)theGoalElement));
             return true;
-        } else if (this.parent instanceof AnalystProject) {
-            theGenericContainer.setOwnerProject((AnalystProject) this.parent);
+        }
+        if (this.parent instanceof Goal) {
+            theGoalElement.setParentGoal((Goal) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((Goal) this.parent, Collections.singletonList((AnalystElement)theGoalElement));
             return true;
         }
         return false;
+    }
+
+    @objid ("70a7e846-408d-4517-82a3-d921edaf9861")
+    @Override
+    public Object visitGoalContainer(GoalContainer theGoalContainer) {
+        if (this.parent instanceof GoalContainer) {
+            theGoalContainer.setOwnerContainer((GoalContainer) this.parent);
+            return true;
+        } else if (this.parent instanceof AnalystProject) {
+            theGoalContainer.setOwnerProject((AnalystProject) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("adcbecd8-139b-11de-8798-0014222a9f79")
+    @Override
+    public Object visitInformationFlow(InformationFlow theInformationFlow) {
+        if (this.parent instanceof NameSpace) {
+            theInformationFlow.setOwner((NameSpace) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-738a-0000-000000000000")
+    @Override
+    public Object visitInputPin(InputPin theInputPin) {
+        if (this.parent instanceof ActivityAction) {
+            theInputPin.setInputing((ActivityAction) this.parent);
+            return true;
+        } else {
+            // Skip inheritance to ActivityNode
+            return visitModelElement(theInputPin);
+        }
+    }
+
+    @objid ("01f40498-0000-6fca-0000-000000000000")
+    @Override
+    public Object visitInstance(Instance theInstance) {
+        if (this.parent instanceof NameSpace) {
+            theInstance.setOwner((NameSpace) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theInstance);
+        }
+    }
+
+    @objid ("01f40498-0000-7452-0000-000000000000")
+    @Override
+    public Object visitInteractionFragment(InteractionFragment theInteractionFragment) {
+        if (this.parent instanceof Interaction) {
+            theInteractionFragment.setEnclosingInteraction((Interaction) this.parent);
+            return true;
+        } else if (this.parent instanceof InteractionOperand) {
+            theInteractionFragment.setEnclosingOperand((InteractionOperand) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theInteractionFragment);
+        }
+    }
+
+    @objid ("01f40498-0000-745a-0000-000000000000")
+    @Override
+    public Object visitInteractionOperand(InteractionOperand theInteractionOperand) {
+        if (this.parent instanceof CombinedFragment) {
+            theInteractionOperand.setOwnerFragment((CombinedFragment) this.parent);
+            return true;
+        } else {
+            // Skip InteractionFragment
+            return visitModelElement(theInteractionOperand);
+        }
+    }
+
+    @objid ("01f40498-0000-6fda-0000-000000000000")
+    @Override
+    public Object visitInterfaceRealization(InterfaceRealization theInterfaceRealization) {
+        if (this.parent instanceof NameSpace) {
+            theInterfaceRealization.setImplementer((NameSpace) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theInterfaceRealization);
+        }
+    }
+
+    @objid ("01f40498-0000-74e2-0000-000000000000")
+    @Override
+    public Object visitInternalTransition(InternalTransition theInternalTransition) {
+        if (this.parent instanceof State) {
+            theInternalTransition.setSComposed((State) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-746a-0000-000000000000")
+    @Override
+    public Object visitLifeline(Lifeline theLifeline) {
+        if (this.parent instanceof Interaction) {
+            theLifeline.setOwner((Interaction) this.parent);
+            return true;
+        } else {
+            return visitModelElement(theLifeline);
+        }
+    }
+
+    @objid ("01f40498-0000-6fea-0000-000000000000")
+    @Override
+    public Object visitLinkEnd(LinkEnd theLinkEnd) {
+        if (this.parent instanceof Instance) {
+            theLinkEnd.setSource((Instance) this.parent);
+            return true;
+        } else if (this.parent instanceof LinkEnd) {
+            theLinkEnd.setOpposite((LinkEnd) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-6ff2-0000-000000000000")
+    @Override
+    public Object visitManifestation(Manifestation theManifestation) {
+        if (this.parent instanceof Artifact) {
+            theManifestation.setOwner((Artifact) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("e2c58ea3-ce75-47ea-8a4d-32cabb1f69a0")
+    @Override
+    public Object visitMatrixDefinition(MatrixDefinition theMatrixDefinition) {
+        if (this.parent instanceof ModelElement) {
+            theMatrixDefinition.setOwner((ModelElement) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("1dc6d18a-51a6-4e09-9ff7-bb98d0d6a00d")
+    @Override
+    public Object visitMatrixValueDefinition(MatrixValueDefinition theMatrixValueDefinition) {
+        if (this.parent instanceof MatrixDefinition) {
+            theMatrixValueDefinition.setMatrix((MatrixDefinition) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-7472-0000-000000000000")
+    @Override
+    public Object visitMessage(Message theMessage) {
+        if (this.parent instanceof MessageEnd) {
+            theMessage.setSendEvent((MessageEnd) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("ecdb0112-1a73-11e0-9cf7-001ec947ccaf")
+    @Override
+    public Object visitMessageFlow(MessageFlow theMessageFlow) {
+        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
+        // Remove these 2 comment lines before manually modifying the code.
+        
+        if (this.parent instanceof ActivityPartition) {
+            theMessageFlow.setSourcePartition((ActivityPartition) this.parent);
+            return true;
+        } else {
+            return visitActivityEdge(theMessageFlow);
+        }
+    }
+
+    @objid ("a2416152-67dd-11de-ad13-0014222a9f79")
+    @Override
+    public Object visitMetaclassReference(MetaclassReference theMetaclassReference) {
+        if (this.parent instanceof Profile) {
+            theMetaclassReference.setOwnerProfile((Profile) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("176c0e63-e0f8-11de-bda3-001ec947ccaf")
+    @Override
+    public Object visitModelElement(ModelElement theModelElement) {
+        if (this.parent instanceof TemplateParameter) {
+            theModelElement.setOwnerTemplateParameter((TemplateParameter) this.parent);
+            return true;
+        } else {
+            return visitElement(theModelElement);
+        }
+    }
+
+    @objid ("01f40498-0000-6eba-0000-000000000000")
+    @Override
+    public Object visitModelTree(ModelTree theModelTree) {
+        if (this.parent instanceof TemplateParameter) {
+            // TemplateParameter case must be before ModelTree because it is a ModelTree
+            theModelTree.setOwnerTemplateParameter((TemplateParameter) this.parent);
+            return true;
+        } else if (this.parent instanceof ModelTree) {
+            theModelTree.setOwner((ModelTree) this.parent);
+            return true;
+        } else if (this.parent instanceof Project) {
+            // If parent is the project, add to the root package
+            Project project = (Project) this.parent;
+            Package rootPackage = project.getModel();
+            if (rootPackage != null) {
+                theModelTree.setOwner(rootPackage);
+                return true;
+            }
+        } else {
+            return visitModelElement(theModelTree);
+        }
+        return false;
+    }
+
+    @objid ("417390b7-9ec3-11de-9e1f-001ec947ccaf")
+    @Override
+    public Object visitModuleComponent(ModuleComponent theModule) {
+        return visitComponent(theModule);
+    }
+
+    @objid ("106b5f56-67de-11de-ad13-0014222a9f79")
+    @Override
+    public Object visitModuleParameter(ModuleParameter theConfigParam) {
+        if (this.parent instanceof ModuleComponent) {
+            theConfigParam.setOwner((ModuleComponent) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-7002-0000-000000000000")
+    @Override
+    public Object visitNamespaceUse(NamespaceUse theNamespaceUse) {
+        if (this.parent instanceof NameSpace) {
+            theNamespaceUse.setUser((NameSpace) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-6ec2-0000-000000000000")
+    @Override
+    public Object visitNote(Note theNote) {
+        theNote.setSubject((ModelElement) this.parent);
+        return true;
+    }
+
+    @objid ("e4278e11-67dd-11de-ad13-0014222a9f79")
+    @Override
+    public Object visitNoteType(NoteType theNoteType) {
+        if (this.parent instanceof MetaclassReference) {
+            theNoteType.setOwnerReference((MetaclassReference) this.parent);
+            return true;
+        } else if (this.parent instanceof Stereotype) {
+            theNoteType.setOwnerStereotype((Stereotype) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("00169252-f750-1090-8d81-001ec947cd2a")
+    @Override
+    public Object visitOperation(Operation theOperation) {
+        if (this.parent instanceof Classifier) {
+            theOperation.setOwner((Classifier) this.parent);
+            return true;
+        } else {
+            return visitFeature(theOperation);
+        }
+    }
+
+    @objid ("01f40498-0000-73d2-0000-000000000000")
+    @Override
+    public Object visitOutputPin(OutputPin theOutputPin) {
+        if (this.parent instanceof ActivityAction) {
+            theOutputPin.setOutputing((ActivityAction) this.parent);
+            return true;
+        } else {
+            // Skip inheritance to ObjectNode
+            return visitModelElement(theOutputPin);
+        }
+    }
+
+    @objid ("01f40498-0000-701a-0000-000000000000")
+    @Override
+    public Object visitPackage(Package thePackage) {
+        // TemplateParameter case must be before ModelTree because it is a ModelTree
+        if (this.parent instanceof TemplateParameter) {
+            thePackage.setOwnerTemplateParameter((TemplateParameter) this.parent);
+            return true;
+        } else if (this.parent instanceof ModelTree) {
+            thePackage.setOwner((ModelTree) this.parent);
+            return true;
+        } else {
+            return visitModelTree(thePackage);
+        }
+    }
+
+    @objid ("01f40498-0000-7022-0000-000000000000")
+    @Override
+    public Object visitPackageImport(PackageImport thePackageImport) {
+        if (this.parent instanceof NameSpace) {
+            thePackageImport.setImportingNameSpace((NameSpace) this.parent);
+            return true;
+        } else if (this.parent instanceof Operation) {
+            thePackageImport.setImportingOperation((Operation) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-702a-0000-000000000000")
+    @Override
+    public Object visitPackageMerge(PackageMerge thePackageMerge) {
+        if (this.parent instanceof Package) {
+            thePackageMerge.setReceivingPackage((Package) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-7032-0000-000000000000")
+    @Override
+    public Object visitParameter(Parameter theParameter) {
+        if (this.parent instanceof Operation) {
+            if (this.smDep == null) {
+                this.smDep = (SmDependency) getExpert().getDefaultCompositionDep(this.parent, theParameter);
+            }
+            if ("Returned".equals(this.smDep.getName()) || "Return".equals(this.smDep.getName())) {
+                theParameter.setReturned((Operation) this.parent);
+                return true;
+            } else {
+                theParameter.setComposed((Operation) this.parent);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-748a-0000-000000000000")
+    @Override
+    public Object visitPartDecomposition(PartDecomposition thePartDecomposition) {
+        if (this.parent instanceof Lifeline) {
+            thePartDecomposition.setDecomposed((Lifeline) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("15fcfb58-67db-11de-ad13-0014222a9f79")
+    @Override
+    public Object visitProfile(Profile theProfile) {
+        if (this.parent instanceof ModuleComponent) {
+            theProfile.setOwnerModule((ModuleComponent) this.parent);
+            return true;
+        } else {
+            return visitPackage(theProfile);
+        }
+    }
+
+    @objid ("01f40498-0000-6ed2-0000-000000000000")
+    @Override
+    public Object visitProject(Project theProject) {
+        return visitModelElement(theProject);
+    }
+
+    @objid ("ecf07621-1a73-11e0-9cf7-001ec947ccaf")
+    @Override
+    public Object visitPropertyContainer(PropertyContainer thePropertyContainer) {
+        // CODE GENERATED from modelio.binaries.mmServices.facilities.CompositionInitializer.Generate CompositionInitializer macro
+        // Remove these 2 comment lines before manually modifying the code.
+        
+        if (this.parent instanceof AnalystProject) {
+            thePropertyContainer.setOwnerProject((AnalystProject) this.parent);
+            return true;
+        } else {
+            return visitModelElement(thePropertyContainer);
+        }
+    }
+
+    @objid ("01f40498-0000-708a-0000-000000000000")
+    @Override
+    public Object visitPropertyDefinition(PropertyDefinition theProperty) {
+        if (this.parent instanceof PropertyTableDefinition) {
+            theProperty.setOwner((PropertyTableDefinition) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-7092-0000-000000000000")
+    @Override
+    public Object visitPropertyEnumerationLitteral(PropertyEnumerationLitteral thePropertyEnumerationLitteral) {
+        if (this.parent instanceof EnumeratedPropertyType) {
+            thePropertyEnumerationLitteral.setOwner((EnumeratedPropertyType) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-709a-0000-000000000000")
+    @Override
+    public Object visitPropertyTableDefinition(PropertyTableDefinition thePropertyTableDefinition) {
+        if (this.parent instanceof PropertyContainer) {
+            thePropertyTableDefinition.setOwner((PropertyContainer) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-70a2-0000-000000000000")
+    @Override
+    public Object visitPropertyType(PropertyType thePropertyType) {
+        if (this.parent instanceof PropertyContainer) {
+            thePropertyType.setAnalystOwner((PropertyContainer) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-7042-0000-000000000000")
+    @Override
+    public Object visitProvidedInterface(ProvidedInterface theProvidedInterface) {
+        if (this.parent instanceof Port) {
+            theProvidedInterface.setProviding((Port) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("765abde3-4c2e-4382-ac68-39b290fff330")
+    @Override
+    public Object visitQueryDefinition(QueryDefinition theQueryDefinition) {
+        if (this.parent instanceof MatrixDefinition) {
+            if (this.smDep == null) {
+                this.smDep = (SmDependency) getExpert().getDefaultCompositionDep(this.parent, theQueryDefinition);
+            }
+            if ("LinesDefinition".equals(this.smDep.getName()) || "OwnerAsLine".equals(this.smDep.getName())) {
+                theQueryDefinition.setOwnerAsLine((MatrixDefinition) this.parent);
+                return true;
+            } else if ("ColumnsDefinition".equals(this.smDep.getName()) || "OwnerAsCol".equals(this.smDep.getName())) {
+                theQueryDefinition.setOwnerAsCol((MatrixDefinition) this.parent);
+                return true;
+            } else {
+                theQueryDefinition.setOwnerAsDepth((MatrixDefinition) this.parent);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-704a-0000-000000000000")
+    @Override
+    public Object visitRaisedException(RaisedException theRaisedException) {
+        if (this.parent instanceof Operation) {
+            theRaisedException.setThrower((Operation) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("52baa235-a4de-11dd-81f5-001ec947ccaf")
+    @Override
+    public Object visitRegion(Region theRegion) {
+        if (this.parent instanceof State) {
+            theRegion.setParent((State) this.parent);
+            return true;
+        } else if (this.parent instanceof StateMachine) {
+            // When appending to the state machine, the region is the top region.
+            StateMachine machine = (StateMachine) this.parent;
+            Region topState = machine.getTop();
+            if (topState == null) {
+                theRegion.setRepresented((StateMachine) this.parent);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-7052-0000-000000000000")
+    @Override
+    public Object visitRequiredInterface(RequiredInterface theRequiredInterface) {
+        if (this.parent instanceof Port) {
+            theRequiredInterface.setRequiring((Port) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-70ba-0000-000000000000")
+    @Override
+    public Object visitRequirement(Requirement theRequirementElement) {
+        if (this.parent instanceof RequirementContainer) {
+            theRequirementElement.setOwnerContainer((RequirementContainer) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((RequirementContainer) this.parent, Collections.singletonList((AnalystElement)theRequirementElement));
+            return true;
+        }
+        if (this.parent instanceof Requirement) {
+            theRequirementElement.setParentRequirement((Requirement) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((Requirement) this.parent, Collections.singletonList((AnalystElement)theRequirementElement));
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-70c2-0000-000000000000")
+    @Override
+    public Object visitRequirementContainer(RequirementContainer theRequirementContainer) {
+        if (this.parent instanceof RequirementContainer) {
+            theRequirementContainer.setOwnerContainer((RequirementContainer) this.parent);
+            return true;
+        } else if (this.parent instanceof AnalystProject) {
+            theRequirementContainer.setOwnerProject((AnalystProject) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("5f3b6461-cb0d-4716-9846-9ebe43a34c8c")
+    @Override
+    public Object visitRisk(Risk theRiskElement) {
+        if (this.parent instanceof RiskContainer) {
+            theRiskElement.setOwnerContainer((RiskContainer) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((RiskContainer) this.parent, Collections.singletonList((AnalystElement)theRiskElement));
+            return true;
+        }
+        if (this.parent instanceof Risk) {
+            theRiskElement.setParentRisk((Risk) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((Risk) this.parent, Collections.singletonList((AnalystElement)theRiskElement));
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("2d5ed6a1-59fe-4172-9030-32b828c9873c")
+    @Override
+    public Object visitRiskContainer(RiskContainer theRiskContainer) {
+        if (this.parent instanceof RiskContainer) {
+            theRiskContainer.setOwnerContainer((RiskContainer) this.parent);
+            return true;
+        } else if (this.parent instanceof AnalystProject) {
+            theRiskContainer.setOwnerProject((AnalystProject) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-751a-0000-000000000000")
+    @Override
+    public Object visitStateVertex(StateVertex theStateVertex) {
+        if (this.parent instanceof Region) {
+            theStateVertex.setParent((Region) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-6eda-0000-000000000000")
+    @Override
+    public Object visitStereotype(Stereotype theStereotype) {
+        if (this.parent instanceof Profile) {
+            theStereotype.setOwner((Profile) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-6f0a-0000-000000000000")
+    @Override
+    public Object visitSubstitution(Substitution theSubstitution) {
+        if (this.parent instanceof Classifier) {
+            theSubstitution.setSubstitutingClassifier((Classifier) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-6ee2-0000-000000000000")
+    @Override
+    public Object visitTagParameter(TagParameter theTagParameter) {
+        if (this.parent instanceof TaggedValue) {
+            theTagParameter.setAnnoted((TaggedValue) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("e387d14c-67dd-11de-ad13-0014222a9f79")
+    @Override
+    public Object visitTagType(TagType theTagType) {
+        if (this.parent instanceof MetaclassReference) {
+            theTagType.setOwnerReference((MetaclassReference) this.parent);
+            return true;
+        } else if (this.parent instanceof Stereotype) {
+            theTagType.setOwnerStereotype((Stereotype) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-6ef2-0000-000000000000")
+    @Override
+    public Object visitTaggedValue(TaggedValue theTaggedValue) {
+        // CMA 27/05/2005: Notes are now ModelElement
+        // if (parent.getMClass().hasBase (NoteClass ()))
+        // res = theTaggedValue.appendDepVal (TaggedValueTxTAnnotedNote (), parent);
+        // else
+        theTaggedValue.setAnnoted((ModelElement) this.parent);
+        return true;
+    }
+
+    @objid ("01f40498-0000-705a-0000-000000000000")
+    @Override
+    public Object visitTemplateBinding(TemplateBinding theTemplateBinding) {
+        if (this.parent instanceof NameSpace) {
+            theTemplateBinding.setBoundElement((NameSpace) this.parent);
+            return true;
+        } else if (this.parent instanceof Operation) {
+            theTemplateBinding.setBoundOperation((Operation) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-7062-0000-000000000000")
+    @Override
+    public Object visitTemplateParameter(TemplateParameter theTemplateParameter) {
+        if (this.parent instanceof NameSpace) {
+            theTemplateParameter.setParameterized((NameSpace) this.parent);
+            return true;
+        } else if (this.parent instanceof Operation) {
+            theTemplateParameter.setParameterizedOperation((Operation) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("17a0fe38-ec00-11df-9f13-001111ead0dd")
+    @Override
+    public Object visitTemplateParameterSubstitution(TemplateParameterSubstitution theTemplateParameterSubstitution) {
+        if (this.parent instanceof TemplateBinding) {
+            theTemplateParameterSubstitution.setOwner((TemplateBinding) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("fddc53a8-e5dd-4fda-b2f5-bcf1c37fa305")
+    @Override
+    public Object visitTerm(Term theTerm) {
+        if (this.parent instanceof Dictionary) {
+            theTerm.setOwnerDictionary((Dictionary) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((Dictionary) this.parent, Collections.singletonList((AnalystElement)theTerm));
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-752a-0000-000000000000")
+    @Override
+    public Object visitTransition(Transition theTransition) {
+        if (this.parent instanceof StateVertex) {
+            theTransition.setSource((StateVertex) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-70b2-0000-000000000000")
+    @Override
+    public Object visitTypedPropertyTable(TypedPropertyTable theTypedPropertyTable) {
+        if (this.parent instanceof ModelElement) {
+            theTypedPropertyTable.setOwner((AnalystContainer) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("01f40498-0000-754a-0000-000000000000")
+    @Override
+    public Object visitUseCaseDependency(UseCaseDependency theUseCaseDependency) {
+        if (this.parent instanceof UseCase) {
+            theUseCaseDependency.setOrigin((UseCase) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("c6732d83-3a67-4910-8af3-f9e3820199ea")
+    private MExpert getExpert() {
+        if (this.mExpert == null) {
+            this.mExpert = CoreSession.getSession(this.parent).getMetamodel().getMExpert();
+        }
+        return this.mExpert;
     }
 
 }

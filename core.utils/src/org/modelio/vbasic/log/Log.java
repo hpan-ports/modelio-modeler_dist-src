@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,15 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vbasic.log;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
@@ -45,77 +42,108 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  */
 @objid ("00534e22-da4a-1f33-b94f-001ec947cd2a")
 public class Log {
-    @objid ("0009b1cc-e3a3-1f33-b94f-001ec947cd2a")
-    private static final int TRACE = 0;
-
-    @objid ("000ba2b6-e3a3-1f33-b94f-001ec947cd2a")
-    private static final int WARNING = 1;
-
-    @objid ("000bb436-e3a3-1f33-b94f-001ec947cd2a")
-    private static final int ERROR = 2;
-
+    /**
+     * Global flag to enable or disable logging.
+     */
     @objid ("000bddbc-e3a3-1f33-b94f-001ec947cd2a")
     public static final boolean ENABLED = false;
 
     @objid ("000d4ed6-e3a3-1f33-b94f-001ec947cd2a")
-    private static Logger logger = new Logger();
+    private static IBasicLogger logger = new BasicLogger();
 
     /**
      * The logging methods
+     * @param message the message
      */
     @objid ("000bfba8-e3a3-1f33-b94f-001ec947cd2a")
     public static void error(final String message) {
-        logger.log(ERROR, message);
+        logger.error(message);
     }
 
+    /**
+     * @param format see {@link String#format(String, Object...)}
+     * @param args format arguments
+     */
     @objid ("000c595e-e3a3-1f33-b94f-001ec947cd2a")
     public static void error(final String format, final Object... args) {
-        logger.log(ERROR, String.format(format, args));
+        logger.error(format, args);
     }
 
+    /**
+     * Log an exception with its stack trace as error.
+     * @param ex the exception
+     */
     @objid ("000c842e-e3a3-1f33-b94f-001ec947cd2a")
     public static void error(final Throwable ex) {
-        logger.log(ERROR, ex.getMessage());
-        final Writer stackTrace = new StringWriter();
-        ex.printStackTrace(new PrintWriter(stackTrace));
-        logger.log(ERROR, stackTrace.toString());
+        logger.error(ex);
     }
 
+    /**
+     * Log a warning message.
+     * @param message the message
+     */
     @objid ("000c96e4-e3a3-1f33-b94f-001ec947cd2a")
     public static void warning(final String message) {
-        logger.log(WARNING, message);
+        logger.warning(message);
     }
 
+    /**
+     * @param format see {@link String#format(String, Object...)}
+     * @param args format arguments
+     */
     @objid ("000cb2fa-e3a3-1f33-b94f-001ec947cd2a")
     public static void warning(final String format, final Object... args) {
-        logger.log(WARNING, String.format(format, args));
+        logger.warning(format, args);
     }
 
+    /**
+     * Log an exception with its stack trace as warning.
+     * @param ex the exception
+     */
     @objid ("000cddca-e3a3-1f33-b94f-001ec947cd2a")
     public static void warning(final Throwable ex) {
-        logger.log(WARNING, ex.getMessage());
-        final Writer stackTrace = new StringWriter();
-        ex.printStackTrace(new PrintWriter(stackTrace));
-        logger.log(WARNING, stackTrace.toString());
+        logger.warning(ex);
     }
 
+    /**
+     * Log a trace message
+     * @param message the message
+     */
     @objid ("000cf198-e3a3-1f33-b94f-001ec947cd2a")
     public static void trace(final String message) {
-        logger.log(TRACE, message);
+        logger.trace(message);
     }
 
+    /**
+     * @param format see {@link String#format(String, Object...)}
+     * @param args format arguments
+     */
     @objid ("000d0ebc-e3a3-1f33-b94f-001ec947cd2a")
     public static void trace(final String format, final Object... args) {
-        logger.log(TRACE, String.format(format, args));
+        logger.trace(format, args);
     }
 
+    /**
+     * Log an exception with its stack trace as trace.
+     * @param ex the exception
+     */
     @objid ("000d3a9a-e3a3-1f33-b94f-001ec947cd2a")
     public static void trace(final Throwable ex) {
-        logger.log(TRACE, ex.getMessage());
+        logger.trace(ex);
     }
 
     @objid ("000d6cf4-e3a3-1f33-b94f-001ec947cd2a")
     private Log() {
+    }
+
+    /**
+     * Set the service used to log messages.
+     * @param value the logging service.
+     */
+    @objid ("63967127-59d8-471f-a406-dd9ea8bb6787")
+    public static void setLogger(IBasicLogger value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        logger = value;
     }
 
 }

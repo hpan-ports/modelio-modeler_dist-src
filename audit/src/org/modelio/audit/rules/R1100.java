@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.rules;
 
@@ -35,7 +35,6 @@ import org.modelio.audit.engine.impl.AuditTrigger;
 import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.plugin.Audit;
 import org.modelio.audit.service.AuditSeverity;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -70,9 +69,9 @@ public class R1100 extends AbstractRule {
     @objid ("1d3aa5d1-8e73-4dd0-8b08-5383bfb85bfb")
     @Override
     public void autoRegister(IAuditPlan plan) {
-        plan.registerRule(Metamodel.getMClass(ActivityPartition.class).getName(), this,
+        plan.registerRule(ActivityPartition.MNAME, this,
                 AuditTrigger.UPDATE | AuditTrigger.MOVE);
-        plan.registerRule(Metamodel.getMClass(BindableInstance.class).getName(), this, AuditTrigger.UPDATE | AuditTrigger.MOVE);
+        plan.registerRule(BindableInstance.MNAME, this, AuditTrigger.UPDATE | AuditTrigger.MOVE);
     }
 
     /**

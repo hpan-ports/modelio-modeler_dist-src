@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.activityfinal;
 
@@ -66,6 +66,9 @@ public class GmActivityFinal extends GmPortContainer {
     @objid ("2f949ec0-58a2-11e2-9574-002564c97630")
     private static final GmActivityFinalImageStyleKeys IMAGE_KEYS = new GmActivityFinalImageStyleKeys();
 
+    @objid ("86f00d24-fee8-4863-a894-b66f715ca293")
+    private static final GmActivityFinalUserImageStyleKeys USERIMAGE_KEYS = new GmActivityFinalUserImageStyleKeys();
+
     /**
      * Constructor.
      * @param diagram the diagram in which the timeEvent is unmasked.
@@ -109,6 +112,8 @@ public class GmActivityFinal extends GmPortContainer {
             switch (mode) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKey(metakey);
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKey(metakey);
             case SIMPLE:
                 return SIMPLE_KEYS.getStyleKey(metakey);
             case STRUCTURED:
@@ -127,6 +132,8 @@ public class GmActivityFinal extends GmPortContainer {
             switch (mode) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKeys();
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKeys();
             case SIMPLE:
                 return SIMPLE_KEYS.getStyleKeys();
             case STRUCTURED:
@@ -190,7 +197,7 @@ public class GmActivityFinal extends GmPortContainer {
     @objid ("29a8c9c0-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.element = (ActivityFinalNode) resolveRef(this.getRepresentedRef());
+        this.element = (ActivityFinalNode) resolveRef(getRepresentedRef());
     }
 
     @objid ("29a8c9c5-55b6-11e2-877f-002564c97630")

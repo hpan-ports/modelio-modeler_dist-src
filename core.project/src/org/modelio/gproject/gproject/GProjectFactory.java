@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.gproject;
 
@@ -177,7 +177,7 @@ public class GProjectFactory {
         
         // Look for registered factories
         for (IProjectFactory f: factories) {
-            if (f.supports(desc)) { 
+            if (f.supports(desc)) {
                 return f;
             }
         }
@@ -185,7 +185,7 @@ public class GProjectFactory {
     }
 
     /**
-     * Create a GProject from a project descriptor.
+     * Create a GProject from a project descriptor without opening it.
      * @param projectDescriptor the project descriptor
      * @param authData authentication data. If not <i>null</i> this data will override the authentication descriptor.
      * @param moduleCatalog the modules catalog
@@ -198,27 +198,27 @@ public class GProjectFactory {
      * @throws java.io.IOException if the project configuration cannot be read.
      */
     @objid ("6a7e4a8c-371e-4795-94e2-b178e785d6fb")
-    public static GProject openProject(final ProjectDescriptor projectDescriptor, IAuthData authData, IModuleCatalog moduleCatalog, IProjectMonitor eventListener, IModelioProgress monitor) throws IOException {
+    public static GProject loadProject(final ProjectDescriptor projectDescriptor, IAuthData authData, IModuleCatalog moduleCatalog, IProjectMonitor eventListener, IModelioProgress monitor) throws IOException {
         IProjectFactory f = getProjectFactory(projectDescriptor);
         if (f != null) {
-            SubProgress mon = SubProgress.convert(monitor, 50);
-        
             GProject project = f.createProject(projectDescriptor);
-            
-            if (eventListener != null)
+        
+            if (eventListener != null) {
                 project.getMonitorSupport().addMonitor(eventListener);
+            }
         
             // Open project
-            project.open(projectDescriptor, authData, moduleCatalog, mon.newChild(50));
+            project.load(projectDescriptor, authData, moduleCatalog, monitor);
             return project;
         } else {
             // Default case
             GProject project = new GProject();
-            
-            if (eventListener != null)
-                project.getMonitorSupport().addMonitor(eventListener);
         
-            project.open(projectDescriptor, authData, moduleCatalog, monitor);
+            if (eventListener != null) {
+                project.getMonitorSupport().addMonitor(eventListener);
+            }
+        
+            project.load(projectDescriptor, authData, moduleCatalog, monitor);
             return project;
         }
     }
@@ -234,9 +234,47 @@ public class GProjectFactory {
         Path projectDir = desc.getPath();
         
         ProjectLock locker = ProjectLock.get(
-                projectDir.resolve(GProject.RUNTIME_SUBDIR), 
+                projectDir.resolve(GProject.RUNTIME_SUBDIR),
                 desc.getName());
         return locker.test();
+    }
+
+    /**
+     * Create and open a GProject from a project descriptor.
+     * @param projectDescriptor the project descriptor
+     * @param authData authentication data. If not <i>null</i> this data will override the authentication descriptor.
+     * @param moduleCatalog the modules catalog
+     * @param eventListener a project monitor to add immediately on project creation. <br>This monitor will receive events fired while opening the project.
+     * The monitor will remain once the project is open. If it is not your intended behavior you have to remove it manually after this call returns.
+     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility
+     * to call {@link IModelioProgress#done()} on the given monitor. Accepts <i>null</i>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
+     * @return the built GProject.
+     * @throws java.io.IOException if the project configuration cannot be read.
+     */
+    @objid ("21060b19-7f00-448c-8714-c903dca9f190")
+    public static GProject openProject(final ProjectDescriptor projectDescriptor, IAuthData authData, IModuleCatalog moduleCatalog, IProjectMonitor eventListener, IModelioProgress monitor) throws IOException {
+        SubProgress mon = SubProgress.convert(monitor, 300);
+        
+        // Laod the project
+        GProject project = loadProject(projectDescriptor, authData, moduleCatalog, eventListener, mon.newChild(100));
+        
+        // Add the event listener
+        if (eventListener != null) {
+            project.getMonitorSupport().addMonitor(eventListener);
+        }
+        
+        // Open the project
+        project.open(mon.newChild(200));
+        return project;
+    }
+
+    /**
+     * No instance.
+     */
+    @objid ("b9e9ef93-f4b0-4a03-bb48-fc37f1f6cfa5")
+    private GProjectFactory() {
+        // No instance
     }
 
 

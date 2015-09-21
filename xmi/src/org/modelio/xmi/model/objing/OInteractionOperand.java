@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -33,7 +33,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
  * @author ebrosse
  */
 @objid ("aaf9d8b4-c9d2-43d3-b8eb-04f4ef964ddc")
-public class OInteractionOperand extends OInteractionFragment implements IOElement {
+public class OInteractionOperand extends OInteractionFragment {
     @objid ("c856492d-7cde-4733-9790-ce0f24b52b5d")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createInteractionOperand();

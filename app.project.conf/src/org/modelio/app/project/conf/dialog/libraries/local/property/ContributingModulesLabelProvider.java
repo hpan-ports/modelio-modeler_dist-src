@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,15 +12,15 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /**
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.libraries.local.property;
 
@@ -32,10 +32,10 @@ import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.graphics.TextStyle;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
-import org.modelio.gproject.data.ramc.IModelComponentInfos.VersionedItem;
 import org.modelio.gproject.module.GModule;
 import org.modelio.ui.UIColor;
 import org.modelio.vbasic.version.Version;
+import org.modelio.vbasic.version.VersionedItem;
 
 /**
  * @author xzhang
@@ -68,7 +68,7 @@ public class ContributingModulesLabelProvider extends StyledCellLabelProvider {
         Object element = cell.getElement();
         StyledString text = new StyledString();
         if (element instanceof VersionedItem) {
-            text = getStyledText((VersionedItem) element);
+            text = getStyledText((VersionedItem<?>) element);
         }
         cell.setText(text.getString());
         cell.setStyleRanges(text.getStyleRanges());
@@ -76,7 +76,7 @@ public class ContributingModulesLabelProvider extends StyledCellLabelProvider {
     }
 
     @objid ("02882f5c-7169-4844-ae13-f966a48a310f")
-    private StyledString getStyledText(VersionedItem item) {
+    private StyledString getStyledText(VersionedItem<?> item) {
         Version version = item.getVersion();
         String text;
         if (version == null) {
@@ -89,7 +89,7 @@ public class ContributingModulesLabelProvider extends StyledCellLabelProvider {
     }
 
     @objid ("92904d50-6a51-4121-80b8-59d1e90f4e86")
-    private boolean isValidVersioned(VersionedItem item) {
+    private boolean isValidVersioned(VersionedItem<?> item) {
         for (GModule module : this.modules) {
             if (module.getName().equals(item.getName())) {
                 if (!module.getVersion().isOlderThan(item.getVersion())) {

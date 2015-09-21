@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,50 +12,113 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 
+/**
+ * TaggedValue v0.0.9054
+ * 
+ * 
+ * In Modelio, TaggedValues can have parameters, and must comply with TagTypes that define which kind of TaggedValues may exist. 
+ * 
+ * TaggedValues belong to their annotated ModelElement, or to their annotated Note.
+ */
 @objid ("0090006a-c4be-1fd8-97fe-001ec947cd2a")
 public interface TaggedValue extends ModelElement {
-    @objid ("36e2abed-3651-41de-8c11-6dfc75c7388f")
+    @objid ("f662de76-3cab-4ade-a458-98b1e161db99")
+    public static final String MNAME = "TaggedValue";
+
+    /**
+     * Getter for relation 'TaggedValue->Annoted'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("aa18dfda-9e5e-446a-89c9-d29ca4d06b5a")
     ModelElement getAnnoted();
 
-    @objid ("e8363f25-6aac-4a4b-80d1-358e492a23fc")
+    /**
+     * Setter for relation 'TaggedValue->Annoted'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("2986dafe-6b7b-4b26-893c-87e007504c8c")
     void setAnnoted(ModelElement value);
 
-    @objid ("e3712474-87b2-4b9d-bc53-1203689abebc")
+    /**
+     * Getter for relation 'TaggedValue->Actual'
+     * 
+     * Metamodel description:
+     * <i>Parameters of the TaggedValue.</i>
+     */
+    @objid ("558778a3-1f08-45c9-b5ac-fb2e6a02bd1b")
     EList<TagParameter> getActual();
 
-    @objid ("a405746a-f6e8-4e7f-bb57-cfb78d8a377b")
+    /**
+     * Filtered Getter for relation 'TaggedValue->Actual'
+     * 
+     * Metamodel description:
+     * <i>Parameters of the TaggedValue.</i>
+     */
+    @objid ("432ac809-2661-4865-b3b9-4247eb7ce772")
     <T extends TagParameter> List<T> getActual(java.lang.Class<T> filterClass);
 
-    @objid ("4e0d1bdf-1b03-43d1-b38d-dd85c5caf116")
+    /**
+     * Getter for relation 'TaggedValue->Qualifier'
+     * 
+     * Metamodel description:
+     * <i>Current Qualifier of the TaggedValue. A qualifier is a parameter that is placed in first place Tag:Qualifier (Parameters).</i>
+     */
+    @objid ("acc5e1aa-3f6f-44fd-a206-f3349f7d07dc")
     TagParameter getQualifier();
 
-    @objid ("8fed5b19-5a39-4f4e-a12a-26d5cae4b983")
+    /**
+     * Setter for relation 'TaggedValue->Qualifier'
+     * 
+     * Metamodel description:
+     * <i>Current Qualifier of the TaggedValue. A qualifier is a parameter that is placed in first place Tag:Qualifier (Parameters).</i>
+     */
+    @objid ("d1328d40-7fba-48f2-ae44-cc9a73da1ee2")
     void setQualifier(TagParameter value);
 
-    @objid ("6a315a51-ed77-4613-a41c-1d1d273982ec")
+    /**
+     * Getter for relation 'TaggedValue->Definition'
+     * 
+     * Metamodel description:
+     * <i>Determines the TagType that is the model of the current TaggedValue.</i>
+     */
+    @objid ("71eefdf3-2b19-40bd-81b4-23da8314598d")
     TagType getDefinition();
 
-    @objid ("2d0c974e-d15b-4685-8a31-ee3c80fa8e9c")
+    /**
+     * Setter for relation 'TaggedValue->Definition'
+     * 
+     * Metamodel description:
+     * <i>Determines the TagType that is the model of the current TaggedValue.</i>
+     */
+    @objid ("046bac6a-70e4-42a7-9923-363eacd54cf4")
     void setDefinition(TagType value);
 
 }

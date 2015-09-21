@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,20 +12,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.portcontainer;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayoutListener;
+import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.handles.HandleBounds;
+import org.modelio.diagram.elements.core.figures.LayoutListenerSupport;
 
 /**
  * Specialised figure for port containment.
@@ -49,13 +53,13 @@ public class PortContainerFigure extends Figure implements HandleBounds {
             if (this.mainNodeFigure instanceof HandleBounds) {
                 HandleBounds mainNodeHandleBounds = (HandleBounds) this.mainNodeFigure;
                 return mainNodeHandleBounds.getHandleBounds();
+            } else {
+                return this.mainNodeFigure.getBounds();
             }
-            // else
-            return this.mainNodeFigure.getBounds();
         
+        } else {
+            return getBounds();
         }
-        // else
-        return this.getBounds();
     }
 
     /**
@@ -65,14 +69,29 @@ public class PortContainerFigure extends Figure implements HandleBounds {
     @objid ("7ef91ab9-1dec-11e2-8cad-001ec947c8cc")
     public void setMainNodeFigure(IFigure mainNodeFigure) {
         this.mainNodeFigure = mainNodeFigure;
+        
+        if (this.mainNodeFigure != null) {
+            // Fire own listeners when main node moves
+            // to force own HandleBounds users to update:
+            // getHandleBounds() depend on main node.
+            this.mainNodeFigure.addFigureListener(new FigureListener() {
+        
+                @SuppressWarnings("synthetic-access")
+                @Override
+                public void figureMoved(IFigure source) {
+                    fireFigureMoved();
+                }
+            });
+        }
     }
 
     @objid ("7ef91abf-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public boolean containsPoint(int x, int y) {
         for (Object childObj : getChildren()) {
-            if (((IFigure) childObj).containsPoint(x, y))
+            if (((IFigure) childObj).containsPoint(x, y)) {
                 return true;
+            }
         }
         return false;
     }
@@ -80,6 +99,34 @@ public class PortContainerFigure extends Figure implements HandleBounds {
     @objid ("7ef91ac6-1dec-11e2-8cad-001ec947c8cc")
     protected IFigure getMainNodeFigure() {
         return this.mainNodeFigure;
+    }
+
+    @objid ("f43ec8da-a66c-418a-98ee-532969448c6a")
+    @Override
+    public void addLayoutListener(LayoutListener listener) {
+        LayoutListenerSupport.addLayoutListener(this, listener);
+    }
+
+    @objid ("e3aa8aee-a04d-40a2-915e-f772be9e03e4")
+    @Override
+    public void removeLayoutListener(LayoutListener listener) {
+        LayoutListenerSupport.removeListener(this, listener);
+    }
+
+    @objid ("74c91b35-b5f8-4783-97c2-718ad3614a66")
+    @Override
+    public void setLayoutManager(LayoutManager manager) {
+        if (!LayoutListenerSupport.setLayoutManager(this, manager)) {
+            super.setLayoutManager(manager);
+        }
+    }
+
+    /**
+     * @return the {@link PortContainerLayout} layout manager.
+     */
+    @objid ("b818e324-ffbf-40a5-9110-6ccbea68ebb3")
+    public PortContainerLayout getPortContainerLayout() {
+        return (PortContainerLayout) LayoutListenerSupport.getRootLayout(this);
     }
 
 }

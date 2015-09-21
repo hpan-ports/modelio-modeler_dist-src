@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,37 +12,74 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Binding;
 
+/**
+ * NaryConnector v0.0.9054
+ * 
+ * 
+ * null
+ */
 @objid ("0005d2fa-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NaryConnector extends NaryLink {
-    @objid ("6c4a3ed3-8cd4-495c-8b0e-b30dca16d2b1")
+    @objid ("404360f2-803e-461d-83ae-cfdb275045b6")
+    public static final String MNAME = "NaryConnector";
+
+    /**
+     * Getter for relation 'NaryConnector->Representation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("64416d12-2398-4c85-b9ef-18c15cd88794")
     EList<Binding> getRepresentation();
 
-    @objid ("01dd6e16-bfa8-4da6-b24d-843a393c07ca")
+    /**
+     * Filtered Getter for relation 'NaryConnector->Representation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a8cdb350-a00c-4a6d-877d-d7f9fd22378d")
     <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("20c0a369-fa4c-4b71-a7a7-cd17a9796fd4")
+    /**
+     * Getter for relation 'NaryConnector->RepresentedFeature'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("ae7b1293-d825-47f3-87a2-bab26584a675")
     ModelElement getRepresentedFeature();
 
-    @objid ("65f5e079-1e5c-469f-91f0-74a352487d69")
+    /**
+     * Setter for relation 'NaryConnector->RepresentedFeature'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("5fb0dfcb-d0a2-4701-bd63-9338c04ff577")
     void setRepresentedFeature(ModelElement value);
 
 }

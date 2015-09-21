@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.ktable.types.element;
 
@@ -40,7 +40,7 @@ public class SingleElementType extends ElementType {
     private boolean displayOwner = true;
 
     @objid ("16c5e6c4-16da-11e2-aa0d-002564c97630")
-    private ICoreSession session;
+    private final ICoreSession session;
 
     @objid ("8df23890-c068-11e1-8c0a-002564c97630")
     public SingleElementType(boolean acceptNullValue, Class<? extends MObject> allowedClass, ICoreSession session) {
@@ -49,8 +49,9 @@ public class SingleElementType extends ElementType {
     }
 
     @objid ("8df2389b-c068-11e1-8c0a-002564c97630")
-    public SingleElementType(boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses) {
+    public SingleElementType(boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses, ICoreSession session) {
         super(acceptNullValue, allowedClasses);
+        this.session = session;
     }
 
     @objid ("8df238a3-c068-11e1-8c0a-002564c97630")

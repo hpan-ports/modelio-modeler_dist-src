@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,42 +12,99 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.bpmn.rootElements;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.rootElements.BpmnAssociationDirection;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
+/**
+ * BpmnAssociation v0.0.9054
+ * 
+ * 
+ * An Association is used to associate information and Artifacts with Flow Objects. Text and graphical non-Flow Objects can be associated with the Flow Objects and Flow. An Association is also used to show the Activity used for
+ * compensation. 
+ * 
+ * Within Modelio, Text Annotation is implemented by Notes: association is thus not used to connect Notes to Model elements.
+ */
 @objid ("00772770-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnAssociation extends BpmnArtifact {
-    @objid ("8cf5b933-bf09-480f-ba4a-3fd53efc42a9")
+    @objid ("62986613-e6fd-4626-9258-94f70d298819")
+    public static final String MNAME = "BpmnAssociation";
+
+    /**
+     * Getter for attribute 'BpmnAssociation.AssociationDirection'
+     * 
+     * Metamodel description:
+     * <i>associationDirection is an attribute that defines whether or not the Association shows any directionality with an arrowhead. 
+     * The default is None (no arrowhead). 
+     * A value of One means that the arrowhead SHALL be at the Target Object. 
+     * A value of Both means that there SHALL be an arrowhead at both ends of the Association line.</i>
+     */
+    @objid ("d5f2ee56-eafb-48f3-b2f4-17543bd5d9a7")
     BpmnAssociationDirection getAssociationDirection();
 
-    @objid ("b9bcecdf-5a86-4359-8d6f-412c8f4613a8")
+    /**
+     * Setter for attribute 'BpmnAssociation.AssociationDirection'
+     * 
+     * Metamodel description:
+     * <i>associationDirection is an attribute that defines whether or not the Association shows any directionality with an arrowhead. 
+     * The default is None (no arrowhead). 
+     * A value of One means that the arrowhead SHALL be at the Target Object. 
+     * A value of Both means that there SHALL be an arrowhead at both ends of the Association line.</i>
+     */
+    @objid ("2c9d75c9-46e6-483a-9e6b-7458e1c699f5")
     void setAssociationDirection(BpmnAssociationDirection value);
 
-    @objid ("f073da67-ef5d-45e1-89d5-35b904ece689")
+    /**
+     * Getter for relation 'BpmnAssociation->TargetRef'
+     * 
+     * Metamodel description:
+     * <i>The BaseElement that the Association is connecting to.</i>
+     */
+    @objid ("08e4a8db-e894-41b5-a809-2709994c6729")
     BpmnBaseElement getTargetRef();
 
-    @objid ("51d50cf4-ce99-4271-8114-4325c1367e56")
+    /**
+     * Setter for relation 'BpmnAssociation->TargetRef'
+     * 
+     * Metamodel description:
+     * <i>The BaseElement that the Association is connecting to.</i>
+     */
+    @objid ("b7172c24-28fe-4271-9a53-f6e4b0e3e982")
     void setTargetRef(BpmnBaseElement value);
 
-    @objid ("9a3b4aaf-5bda-49c5-a1eb-80ddbeb9e99b")
+    /**
+     * Getter for relation 'BpmnAssociation->SourceRef'
+     * 
+     * Metamodel description:
+     * <i>The BaseElement that the Association is connecting from.</i>
+     */
+    @objid ("b84b3238-35c7-496c-a4cc-0315e8569f1e")
     BpmnBaseElement getSourceRef();
 
-    @objid ("64e06ca5-3f6f-4b17-8253-8b0a0159bc48")
+    /**
+     * Setter for relation 'BpmnAssociation->SourceRef'
+     * 
+     * Metamodel description:
+     * <i>The BaseElement that the Association is connecting from.</i>
+     */
+    @objid ("05e0709c-6435-4eaa-bc48-e72ae4026798")
     void setSourceRef(BpmnBaseElement value);
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.objectnode;
 
@@ -27,7 +27,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.editor.activity.elements.objectnode.v0._GmObjectNode;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -68,6 +68,9 @@ public class GmObjectNode extends GmPortContainer {
     @objid ("2dbae93c-58a2-11e2-9574-002564c97630")
     private static GmObjectNodeImageStyleKeys IMAGEKEYS = new GmObjectNodeImageStyleKeys();
 
+    @objid ("7c923377-6423-4eae-982f-370dd794748e")
+    private static GmObjectNodeUserImageStyleKeys USERIMAGE_KEYS = new GmObjectNodeUserImageStyleKeys();
+
     /**
      * Default constructor.
      * @param diagram the diagram in which this gm is unmasked.
@@ -83,7 +86,7 @@ public class GmObjectNode extends GmPortContainer {
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
         
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(diagram, ref);
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
@@ -107,14 +110,21 @@ public class GmObjectNode extends GmPortContainer {
     @Override
     public StyleKey getStyleKey(MetaKey metakey) {
         StyleKey ret = STRUCTKEYS.getStyleKey(metakey);
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         
         ret = SIMPLEKEYS.getStyleKey(metakey);
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         
-        ret = IMAGEKEYS.getStyleKey(metakey);
+        ret = USERIMAGE_KEYS.getStyleKey(metakey);
+        if (ret != null) {
+            return ret;
+        }
+        
+               ret = IMAGEKEYS.getStyleKey(metakey);
         return ret;
     }
 
@@ -129,6 +139,8 @@ public class GmObjectNode extends GmPortContainer {
                     return STRUCTKEYS.getStyleKeys();
                 case IMAGE:
                     return IMAGEKEYS.getStyleKeys();
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKeys();
                 default:
                     return Collections.emptyList();
             }
@@ -204,7 +216,7 @@ public class GmObjectNode extends GmPortContainer {
     @objid ("2ad0cf3c-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.element = (ObjectNode) resolveRef(this.getRepresentedRef());
+        this.element = (ObjectNode) resolveRef(getRepresentedRef());
     }
 
     @objid ("2ad25599-55b6-11e2-877f-002564c97630")
@@ -278,7 +290,7 @@ public class GmObjectNode extends GmPortContainer {
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
         
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);

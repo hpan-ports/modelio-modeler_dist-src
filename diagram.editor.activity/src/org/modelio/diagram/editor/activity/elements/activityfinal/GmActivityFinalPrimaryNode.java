@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.activityfinal;
 
@@ -85,16 +85,16 @@ public class GmActivityFinalPrimaryNode extends GmNoStyleSimpleNode implements I
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
-                    }
-        
-                    @Override
-                    public void setText(String text) {
-        getRelatedElement().setName(text);
-                    }
-                };
+                                            @Override
+                                            public String getText() {
+                                        return getRelatedElement().getName();
+                                                    }
+                                        
+                                                    @Override
+                                                    public void setText(String text) {
+                                        getRelatedElement().setName(text);
+                                                    }
+                                                };
     }
 
     @objid ("29abd6fe-55b6-11e2-877f-002564c97630")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.api.dg.common;
 
@@ -151,7 +151,7 @@ public class DiagramElementLayerDG extends DiagramAbstractNode implements IDiagr
 
     @objid ("961d27df-0e79-4b3f-bac6-d3c2f2721add")
     @Override
-    public void moveToLayer(IDiagramLayer newLayer) throws UnsupportedOperationException, IllegalArgumentException {
+    public void moveToLayer(IDiagramLayer newLayer) throws IllegalArgumentException, UnsupportedOperationException {
         throw new UnsupportedOperationException("Layers cannot be moved.");
     }
 

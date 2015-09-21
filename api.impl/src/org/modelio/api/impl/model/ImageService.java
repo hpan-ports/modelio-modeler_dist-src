@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.api.impl.model;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -7,7 +28,6 @@ import org.modelio.api.module.IPeerModule;
 import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
 
 /**
  * This class implements the API to get the image of a model element.
@@ -60,7 +80,7 @@ public class ImageService implements IImageService {
     @objid ("f1537e43-1a44-4f07-9da5-687e2bacd67d")
     @Override
     public Image getMetaclassImage(final Class<? extends MObject> metaclass) {
-        return MetamodelImageService.getIcon(SmClass.getClass(metaclass));
+        return MetamodelImageService.getIcon(metaclass.getSimpleName());
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.ktable.types.hybrid;
 
@@ -33,7 +33,6 @@ import org.eclipse.swt.widgets.Control;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.core.ui.hybridtext.HybridTextElement;
 import org.modelio.core.ui.hybridtext.IHybridTextElementSelectionListener;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IMObjectFilter;
@@ -168,13 +167,13 @@ public class HybridCellEditor extends KTableCellEditor {
         this.textElement.setAcceptNullValue(this.acceptNullValue);
         this.textElement.setAcceptStringValue(this.acceptStringType);
         for(Class<? extends MObject> c : this.targetClasses) {
-            this.textElement.getAcceptedMetaclasses().add(Metamodel.getMClass(c));
+            this.textElement.getAcceptedMetaclasses().add(this.session.getMetamodel().getMClass(c));
         }
         this.textElement.setFilter(this.elementFilter);
         this.textElement.activatePicking(this.pickingService);
         this.textElement.activateCompletion(this.session);
         this.textElement.addListener(new IHybridTextElementSelectionListener() {
-            
+        
             @Override
             public void selectedElementChanged(Object oldElement, Object newElement) {
                 validate(true);
@@ -191,7 +190,7 @@ public class HybridCellEditor extends KTableCellEditor {
             super.close(true);
         } else if (e.character == SWT.ESC) {
             super.close(false);
-            if (this.textElement != null) {                
+            if (this.textElement != null) {
                 this.textElement.activatePicking(null);
                 this.textElement.activateCompletion(null);
                 this.textElement = null;
@@ -225,7 +224,7 @@ public class HybridCellEditor extends KTableCellEditor {
             if (save) {
                 this.m_Model.setContentAt(this.m_Col, this.m_Row, this.textElement.getValue());
             }
-            
+        
             this.textElement.activatePicking(null);
             this.textElement.activateCompletion(null);
         

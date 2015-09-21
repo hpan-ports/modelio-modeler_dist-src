@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.executionoccurencespecification;
 
@@ -86,6 +86,7 @@ public class ExecutionOccurenceSpecificationEditPart extends GmNodeEditPart impl
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                           new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
+        installEditPolicy("hover", new EosSelectionEditPolicy());
     }
 
     @objid ("d8d7490d-55b6-11e2-877f-002564c97630")
@@ -107,11 +108,11 @@ public class ExecutionOccurenceSpecificationEditPart extends GmNodeEditPart impl
     @Override
     public PlacementConstraint createPlacementConstraint(final GmModel model, final int x, final int y, final int width, final int height) {
         return new ExecutionOccurenceSpecificationPlacementConstraint((ExecutionOccurenceSpecification) model.getRelatedElement(),
-                                                                      x,
-                                                                      y,
-                                                                      width,
-                                                                      height,
-                                                                      (GmSequenceDiagram) model.getDiagram());
+                                                                                                      x,
+                                                                                                      y,
+                                                                                                      width,
+                                                                                                      height,
+                                                                                                      (GmSequenceDiagram) model.getDiagram());
     }
 
     @objid ("d8d8cf82-55b6-11e2-877f-002564c97630")
@@ -130,13 +131,13 @@ public class ExecutionOccurenceSpecificationEditPart extends GmNodeEditPart impl
         if (req instanceof CreateBendedConnectionRequest) {
             CreateBendedConnectionRequest r = (CreateBendedConnectionRequest) req;
             fakePoint.y = r.getData().getSrcPoint().y;
-            this.getFigure().translateToRelative(fakePoint);
+            getFigure().translateToRelative(fakePoint);
         } else {
             DropRequest r = (DropRequest) req;
             fakePoint.y = r.getLocation().y;
-            this.getFigure().translateToRelative(fakePoint);
+            getFigure().translateToRelative(fakePoint);
         }
-        return new MessageEndAnchor(this.getFigure(), fakePoint.y);
+        return new MessageEndAnchor(getFigure(), fakePoint.y);
     }
 
     @objid ("d8d8cf90-55b6-11e2-877f-002564c97630")
@@ -165,16 +166,16 @@ public class ExecutionOccurenceSpecificationEditPart extends GmNodeEditPart impl
         DropRequest r = (DropRequest) req;
         Point fakePoint = Point.SINGLETON;
         fakePoint.y = r.getLocation().y;
-        this.getFigure().translateToRelative(fakePoint);
-        return new MessageEndAnchor(this.getFigure(), fakePoint.y);
+        getFigure().translateToRelative(fakePoint);
+        return new MessageEndAnchor(getFigure(), fakePoint.y);
     }
 
     @objid ("d8d8cf9e-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
         super.refreshVisuals();
-        ExecutionOccurenceSpecificationFigure fig = (ExecutionOccurenceSpecificationFigure) this.getFigure();
-        GmExecutionOccurenceSpecification model = (GmExecutionOccurenceSpecification) this.getModel();
+        ExecutionOccurenceSpecificationFigure fig = (ExecutionOccurenceSpecificationFigure) getFigure();
+        GmExecutionOccurenceSpecification model = (GmExecutionOccurenceSpecification) getModel();
         ExecutionOccurenceSpecification modelElement = (ExecutionOccurenceSpecification) model.getRelatedElement();
         if (modelElement != null &&
             modelElement.isValid() &&
@@ -202,8 +203,9 @@ public class ExecutionOccurenceSpecificationEditPart extends GmNodeEditPart impl
         if (aFigure instanceof IBrushOptionsSupport) {
             final IBrushOptionsSupport brush = (IBrushOptionsSupport) aFigure;
         
-            if (gmModel.getStyleKey(MetaKey.FILLCOLOR) != null)
+            if (gmModel.getStyleKey(MetaKey.FILLCOLOR) != null) {
                 brush.setFillColor(style.getColor(gmModel.getStyleKey(MetaKey.FILLCOLOR)));
+            }
         
             if (gmModel.getStyleKey(MetaKey.FILLMODE) != null) {
                 switch ((FillMode) style.getProperty(gmModel.getStyleKey(MetaKey.FILLMODE))) {

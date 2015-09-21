@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements;
 
@@ -105,11 +105,9 @@ import org.modelio.diagram.editor.bpmn.elements.bpmnparallelgateway.GmBpmnParall
 import org.modelio.diagram.editor.bpmn.elements.bpmnreceivetask.BpmnReceiveTaskEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnreceivetask.GmBpmnReceiveTask;
 import org.modelio.diagram.editor.bpmn.elements.bpmnreceivetask.GmBpmnReceiveTaskPrimaryNode;
-import org.modelio.diagram.editor.bpmn.elements.bpmnreceivetask.GmBpmnReceiveTaskTypeLabel;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsendtask.BpmnSendTaskEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsendtask.GmBpmnSendTask;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsendtask.GmBpmnSendTaskPrimaryNode;
-import org.modelio.diagram.editor.bpmn.elements.bpmnsendtask.GmBpmnSendTaskTypeLabel;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsequenceflow.BpmnSequenceFlowEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsequenceflow.GmBpmnEdgeGuard;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsequenceflow.GmBpmnSequenceFlow;
@@ -145,7 +143,7 @@ import org.modelio.diagram.elements.common.freezone.GmFreeZoneEditPart;
 import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
 import org.modelio.diagram.elements.common.label.base.GmElementLabelEditPart;
-import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
+import org.modelio.diagram.elements.common.label.modelelement.ModelElementLabelEditPart;
 import org.modelio.diagram.elements.common.portcontainer.PortContainerEditPart;
 import org.modelio.diagram.elements.core.link.GmLinkEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -245,12 +243,6 @@ public class BpmnEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model.getClass() == GmBpmnSendTaskTypeLabel.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
             if (model.getClass() == GmBpmnSendTask.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
@@ -259,12 +251,6 @@ public class BpmnEditPartFactory implements EditPartFactory {
             
             if (model.getClass() == GmBpmnReceiveTaskPrimaryNode.class) {
                 editPart = new BpmnReceiveTaskEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmBpmnReceiveTaskTypeLabel.class) {
-                editPart = new ModelElementHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -633,25 +619,25 @@ public class BpmnEditPartFactory implements EditPartFactory {
             }
             
             if (model.getClass() == GmBpmnDataLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
+                editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
             
             if (model.getClass() == GmBpmnMessageLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
+                editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
             
             if (model.getClass() == GmBpmnDataInputLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
+                editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
             
             if (model.getClass() == GmBpmnDataOutputLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
+                editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }

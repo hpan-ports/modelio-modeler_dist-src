@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -30,7 +42,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.activities.AdHocOrdering;
 import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
-import org.modelio.metamodel.data.bpmn.activities.BpmnAdHocSubProcessData;
+import org.modelio.metamodel.impl.bpmn.activities.BpmnAdHocSubProcessData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -39,60 +51,66 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("007e160c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnAdHocSubProcessImpl extends BpmnSubProcessImpl implements BpmnAdHocSubProcess {
-    @objid ("de4c64aa-eac9-4d9d-830c-90bae4ab6ac4")
+    @objid ("e6407621-948e-487b-913b-0b80a54d5919")
     @Override
     public AdHocOrdering getOrdering() {
-        return (AdHocOrdering) getAttVal(BpmnAdHocSubProcessData.Metadata.OrderingAtt());
+        return (AdHocOrdering) getAttVal(((BpmnAdHocSubProcessSmClass)getClassOf()).getOrderingAtt());
     }
 
-    @objid ("6b89cacb-c7a5-4a4e-b22a-e5e70b78229b")
+    @objid ("1562d799-44c0-4bb6-b168-de4da7d5c488")
     @Override
     public void setOrdering(AdHocOrdering value) {
-        setAttVal(BpmnAdHocSubProcessData.Metadata.OrderingAtt(), value);
+        setAttVal(((BpmnAdHocSubProcessSmClass)getClassOf()).getOrderingAtt(), value);
     }
 
-    @objid ("b86899ae-761f-4cd4-8c72-8b089a5e3509")
+    @objid ("6caeab4f-bbc7-433d-86ac-07e1cd70cd7d")
     @Override
     public boolean isCancelRemainingInstances() {
-        return (Boolean) getAttVal(BpmnAdHocSubProcessData.Metadata.CancelRemainingInstancesAtt());
+        return (Boolean) getAttVal(((BpmnAdHocSubProcessSmClass)getClassOf()).getCancelRemainingInstancesAtt());
     }
 
-    @objid ("ab1f4c77-a7e5-42d8-8c22-03fdff048cd5")
+    @objid ("35aa384a-7174-41d7-9e74-30eada1d13f9")
     @Override
     public void setCancelRemainingInstances(boolean value) {
-        setAttVal(BpmnAdHocSubProcessData.Metadata.CancelRemainingInstancesAtt(), value);
+        setAttVal(((BpmnAdHocSubProcessSmClass)getClassOf()).getCancelRemainingInstancesAtt(), value);
     }
 
-    @objid ("c0412ad6-0598-4273-b664-ca1148e74af4")
+    @objid ("fb620e8c-0f4c-469b-91d6-8977083402e2")
     @Override
     public String getCompletionCondition() {
-        return (String) getAttVal(BpmnAdHocSubProcessData.Metadata.CompletionConditionAtt());
+        return (String) getAttVal(((BpmnAdHocSubProcessSmClass)getClassOf()).getCompletionConditionAtt());
     }
 
-    @objid ("8646a8b1-140f-4b7d-98eb-623b31e6921f")
+    @objid ("6d9b4878-4782-480b-a459-c867f07d4284")
     @Override
     public void setCompletionCondition(String value) {
-        setAttVal(BpmnAdHocSubProcessData.Metadata.CompletionConditionAtt(), value);
+        setAttVal(((BpmnAdHocSubProcessSmClass)getClassOf()).getCompletionConditionAtt(), value);
     }
 
-    @objid ("4c4b9221-50b7-4998-9350-2f1695b3e1c6")
+    @objid ("4c057a3d-c672-419b-8779-4ba73b1d1e8a")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("b8d60900-3755-45fb-b6fb-bd0f60836862")
+    @objid ("e767131e-0590-44c0-bc2b-2a9f500f2100")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("d485feee-1477-44b1-aad1-740c9732dded")
+    @objid ("b00dc193-4ab7-4303-ae36-a80fd333b93d")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnAdHocSubProcess(this);

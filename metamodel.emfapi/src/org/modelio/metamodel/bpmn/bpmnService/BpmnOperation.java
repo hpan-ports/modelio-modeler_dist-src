@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.bpmn.bpmnService;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.activities.BpmnReceiveTask;
 import org.modelio.metamodel.bpmn.activities.BpmnSendTask;
 import org.modelio.metamodel.bpmn.activities.BpmnServiceTask;
@@ -37,54 +41,159 @@ import org.modelio.metamodel.bpmn.flows.BpmnMessage;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 import org.modelio.metamodel.uml.statik.Operation;
 
+/**
+ * BpmnOperation v0.0.9054
+ * 
+ * 
+ * null
+ */
 @objid ("000d4990-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnOperation extends BpmnBaseElement {
-    @objid ("943b7466-c7eb-45fd-8e47-be7a4030b1ae")
+    @objid ("69e14f4e-9d83-47d6-804e-63bdbeeb7e7c")
+    public static final String MNAME = "BpmnOperation";
+
+    /**
+     * Getter for relation 'BpmnOperation->Sender'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("76c5fae6-7146-4386-8035-e9cd766f99c5")
     EList<BpmnSendTask> getSender();
 
-    @objid ("17525203-208a-4707-87d8-0d631276f0f9")
+    /**
+     * Filtered Getter for relation 'BpmnOperation->Sender'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("d85fa56c-314d-4ec4-8daa-a68224d5e988")
     <T extends BpmnSendTask> List<T> getSender(java.lang.Class<T> filterClass);
 
-    @objid ("d9a0919b-dc8d-44fc-a3c0-eb749a52bfb8")
+    /**
+     * Getter for relation 'BpmnOperation->InMessageRef'
+     * 
+     * Metamodel description:
+     * <i>specifies the input Message of the Operation. An Operation has exactly one input Message. </i>
+     */
+    @objid ("f491ce5a-2171-4b3f-8a7e-47f1bac0b424")
     BpmnMessage getInMessageRef();
 
-    @objid ("494d7588-736d-4999-bb26-9e868e32591e")
+    /**
+     * Setter for relation 'BpmnOperation->InMessageRef'
+     * 
+     * Metamodel description:
+     * <i>specifies the input Message of the Operation. An Operation has exactly one input Message. </i>
+     */
+    @objid ("1285377e-72aa-42d7-b308-932d90f82031")
     void setInMessageRef(BpmnMessage value);
 
-    @objid ("d8e29502-a01e-426a-bb16-ea04cfe15743")
+    /**
+     * Getter for relation 'BpmnOperation->Caller'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("49a55b64-e5d9-4957-a8c3-721205023b39")
     EList<BpmnServiceTask> getCaller();
 
-    @objid ("04bff37f-3431-4941-8df0-4e8cb715a6b1")
+    /**
+     * Filtered Getter for relation 'BpmnOperation->Caller'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("dd4276d7-bc9d-4936-82f2-90299e3e30fa")
     <T extends BpmnServiceTask> List<T> getCaller(java.lang.Class<T> filterClass);
 
-    @objid ("ddb98c2f-c976-4433-a830-4f51d57a8c2d")
+    /**
+     * Getter for relation 'BpmnOperation->OutMessageRef'
+     * 
+     * Metamodel description:
+     * <i>specifies the output Message of the Operation. An Operation has at most one input Message.</i>
+     */
+    @objid ("03d9b7fa-4751-43b9-9887-46a5ffac81d9")
     BpmnMessage getOutMessageRef();
 
-    @objid ("5be4dfab-9ce9-4dc8-a849-dbf35dc0d209")
+    /**
+     * Setter for relation 'BpmnOperation->OutMessageRef'
+     * 
+     * Metamodel description:
+     * <i>specifies the output Message of the Operation. An Operation has at most one input Message.</i>
+     */
+    @objid ("a8c16f58-2abf-43ca-b17f-09249d17e29e")
     void setOutMessageRef(BpmnMessage value);
 
-    @objid ("c571a014-9dc7-4471-881c-22cd7e33a6dd")
+    /**
+     * Getter for relation 'BpmnOperation->EventDefinition'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("5f5f80a5-df25-4806-8d25-87af0c88114f")
     EList<BpmnMessageEventDefinition> getEventDefinition();
 
-    @objid ("282fb89b-10f3-41cb-ac5f-e736b00f82c9")
+    /**
+     * Filtered Getter for relation 'BpmnOperation->EventDefinition'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("269366b2-52d2-475d-a02b-8fa9ef5038a4")
     <T extends BpmnMessageEventDefinition> List<T> getEventDefinition(java.lang.Class<T> filterClass);
 
-    @objid ("8019e0ce-edae-4558-8a75-442b4d351d0e")
+    /**
+     * Getter for relation 'BpmnOperation->ImplementationRef'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e63dcc6a-6fe1-4a7a-ade3-d4754865bb79")
     Operation getImplementationRef();
 
-    @objid ("99a06a2a-c805-492f-b4ea-f944af9f98c2")
+    /**
+     * Setter for relation 'BpmnOperation->ImplementationRef'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("8b633c87-9332-4ad4-b841-40c618b4f295")
     void setImplementationRef(Operation value);
 
-    @objid ("1af0d39b-c137-4038-8325-17b5a3620697")
+    /**
+     * Getter for relation 'BpmnOperation->BpmnInterfaceRef'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("78c84324-d6d9-4989-92d5-c856f8d94845")
     BpmnInterface getBpmnInterfaceRef();
 
-    @objid ("84025b41-90e7-4cdc-85b4-c11a36fb00ff")
+    /**
+     * Setter for relation 'BpmnOperation->BpmnInterfaceRef'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("79d22768-08d1-4447-97dd-e7107bb4fca1")
     void setBpmnInterfaceRef(BpmnInterface value);
 
-    @objid ("59928f68-064f-4e55-ba26-7769e072737a")
+    /**
+     * Getter for relation 'BpmnOperation->Receiver'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f284836e-c0d2-46b1-a999-4a0be0cd49ff")
     EList<BpmnReceiveTask> getReceiver();
 
-    @objid ("c00f476e-0a6c-4fb4-a142-ff4f7d171231")
+    /**
+     * Filtered Getter for relation 'BpmnOperation->Receiver'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e5c0f592-abb9-456e-9968-a3c790e7bdec")
     <T extends BpmnReceiveTask> List<T> getReceiver(java.lang.Class<T> filterClass);
 
 }

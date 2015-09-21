@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.portbordered;
 
@@ -30,14 +30,14 @@ import org.modelio.diagram.elements.core.figures.GradientFigure;
 
 @objid ("7edc7eb0-1dec-11e2-8cad-001ec947c8cc")
 public class PortBorderedFigure extends GradientFigure {
-    @objid ("291f44ff-9441-44d7-8436-06cc506b7f3e")
-    private Rectangle overallBounds = null;
-
     @objid ("cd5d7142-dfb5-4960-b3a5-e765dabc45a0")
     private IFigure primaryFigure = null;
 
     @objid ("7edc7eb1-1dec-11e2-8cad-001ec947c8cc")
     private PortContainerFigure portContainer;
+
+    @objid ("5e013735-263a-4cb3-bae4-0b7788c3de27")
+    private Rectangle overallBounds = null;
 
     @objid ("7edc7eb8-1dec-11e2-8cad-001ec947c8cc")
     public PortBorderedFigure(IFigure primaryFigure) {

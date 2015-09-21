@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -50,16 +50,13 @@ public class OTransition extends OModelElement {
     @objid ("3a55be12-61d2-4865-a454-6a9468168ca2")
     private boolean isProtocolTransition = false;
 
-    @objid ("e2bc5987-7ea7-47f3-b63e-210af2a6dbf8")
-    private Transition objingElement = null;
-
     @objid ("06b74d5b-7500-4ab1-9e01-490c12620b2a")
     private GenerationProperties genProp = GenerationProperties.getInstance();
 
     @objid ("27d0a3bd-6380-4d92-a933-4f6c20218205")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (!( this.objingElement instanceof InternalTransition)){
+        if (!( getObjingElement() instanceof InternalTransition)){
         
             if (this.isProtocolTransition)
         
@@ -77,15 +74,13 @@ public class OTransition extends OModelElement {
     @objid ("067c4414-3af8-4475-aec1-23ca0b7d47fb")
     public OTransition(Transition param) {
         super(param);
-        this.objingElement = param;
-        this.isProtocolTransition = AbstractObjingModelNavigation
-                .isProtocolTransition(param);
+        this.isProtocolTransition = AbstractObjingModelNavigation.isProtocolTransition(param);
     }
 
     @objid ("6da3591b-cc9f-4793-a748-8ac20c7a3670")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        StateVertex objingOwner = this.objingElement.getSource();
+        StateVertex objingOwner = getObjingElement().getSource();
         org.eclipse.uml2.uml.Region ownerRegion = null;
         
         if (objingOwner != null) {
@@ -138,7 +133,7 @@ public class OTransition extends OModelElement {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         
-        if (this.objingElement instanceof InternalTransition){
+        if (getObjingElement() instanceof InternalTransition){
             setOwner( (org.eclipse.uml2.uml.Transition) ecoreElt);
         
         }else{
@@ -147,11 +142,11 @@ public class OTransition extends OModelElement {
         
         }
         
-        setEffect( (org.eclipse.uml2.uml.Transition)ecoreElt);       
+        setEffect( (org.eclipse.uml2.uml.Transition)ecoreElt);
         setTrigger( (org.eclipse.uml2.uml.Transition) ecoreElt);
         setGuard( (org.eclipse.uml2.uml.Transition) ecoreElt);
         setPostCondition( (org.eclipse.uml2.uml.Transition) ecoreElt);
-        setEffects( (org.eclipse.uml2.uml.Transition)ecoreElt);   
+        setEffects( (org.eclipse.uml2.uml.Transition)ecoreElt);
         setProcessed( (org.eclipse.uml2.uml.Transition) ecoreElt);
         
         if (ecoreElt instanceof org.eclipse.uml2.uml.ProtocolTransition){
@@ -167,7 +162,7 @@ public class OTransition extends OModelElement {
 
     @objid ("3c29161c-455f-43e3-826e-fa865b11cfa0")
     private void setGuard(org.eclipse.uml2.uml.Transition ecoreElt) {
-        String objGuard = this.objingElement.getGuard();
+        String objGuard = getObjingElement().getGuard();
         if ((objGuard != null) && (!objGuard.equals("")) && (ecoreElt.getGuard() == null)){
             org.eclipse.uml2.uml.Constraint guard = UMLFactory.eINSTANCE.createConstraint();
             guard.setName(objGuard);
@@ -185,7 +180,7 @@ public class OTransition extends OModelElement {
 
     @objid ("bb5eb835-93ff-4b0c-bf86-54250869024e")
     private void setEffect(org.eclipse.uml2.uml.Transition ecoreElt) {
-        String effect = this.objingElement.getEffect();
+        String effect = getObjingElement().getEffect();
         if ((effect != null) && (!effect.equals(""))){
             // String Case
             org.eclipse.uml2.uml.OpaqueBehavior opaqueBehavior = UMLFactory.eINSTANCE.createOpaqueBehavior();
@@ -195,7 +190,7 @@ public class OTransition extends OModelElement {
         
             //Behavior Case
         
-            Behavior behavior = this.objingElement.getBehaviorEffect();
+            Behavior behavior = getObjingElement().getBehaviorEffect();
             if (behavior != null){
                 org.eclipse.uml2.uml.Element ecoreBehavior = this.genProp.getMappedElement(behavior);
         
@@ -212,14 +207,14 @@ public class OTransition extends OModelElement {
 
     @objid ("02465362-e4ea-4e56-b4aa-72e951e14f6a")
     private void setSentEvents(org.eclipse.uml2.uml.Element ecoreElt) {
-        String signalString = this.objingElement.getSentEvents();
+        String signalString = getObjingElement().getSentEvents();
         if (signalString != null)
             ObjingEAnnotation.setSignal(ecoreElt, signalString);
     }
 
     @objid ("7622b4d5-6695-4451-bdf0-84b0e0c26c13")
     private void setSource(org.eclipse.uml2.uml.Transition transition) {
-        StateVertex objingSource = this.objingElement.getSource();
+        StateVertex objingSource = getObjingElement().getSource();
         if (objingSource != null) {
             org.eclipse.uml2.uml.Element ecoreSource = this.genProp.getMappedElement(objingSource);
             if (ecoreSource instanceof org.eclipse.uml2.uml.Vertex) {
@@ -231,7 +226,7 @@ public class OTransition extends OModelElement {
 
     @objid ("ed54ec13-8cff-491d-b1a9-5020e2c4126e")
     private void setTarget(org.eclipse.uml2.uml.Transition transition) {
-        StateVertex objingTarget = this.objingElement.getTarget();
+        StateVertex objingTarget = getObjingElement().getTarget();
         if (objingTarget != null) {
             org.eclipse.uml2.uml.Element ecoreTarget = this.genProp.getMappedElement(objingTarget);
             if (ecoreTarget instanceof org.eclipse.uml2.uml.Vertex) {
@@ -242,7 +237,7 @@ public class OTransition extends OModelElement {
 
     @objid ("9f47f02b-bae2-468b-9eba-b3b487c2e748")
     private void setEffects(org.eclipse.uml2.uml.Transition transition) {
-        Signal signal = this.objingElement.getEffects();
+        Signal signal = getObjingElement().getEffects();
         if (signal != null) {
             org.eclipse.uml2.uml. Behavior behavior = transition.getEffect();
             if (behavior == null){
@@ -253,7 +248,7 @@ public class OTransition extends OModelElement {
         
             org.eclipse.uml2.uml.Signal ecoreSignal =  (org.eclipse.uml2.uml.Signal) this.genProp.getMappedElement(signal);
             if (ecoreSignal != null) {
-                Region ownerRegion = this.objingElement.getTarget().getParent();
+                Region ownerRegion = getObjingElement().getTarget().getParent();
         
                 StateMachine objingSM =  AbstractObjingModelNavigation
                         .getOwnerStateMachine(ownerRegion);
@@ -279,7 +274,7 @@ public class OTransition extends OModelElement {
 
     @objid ("ed37a9d2-45e2-454e-8333-36fcec10901a")
     private void setTrigger(org.eclipse.uml2.uml.Transition transition) {
-        Event event = this.objingElement.getTrigger();
+        Event event = getObjingElement().getTrigger();
         if (event != null) {
             setEventTrigger(transition, event);
         }
@@ -288,7 +283,7 @@ public class OTransition extends OModelElement {
     @objid ("72f92d0a-02bd-4554-87d7-1b55a5d6fd99")
     private void setReferred(org.eclipse.uml2.uml.Transition transition) {
         if (transition instanceof org.eclipse.uml2.uml.ProtocolTransition){
-            Event event = this.objingElement.getTrigger();
+            Event event = getObjingElement().getTrigger();
             if (event != null){
                 Object temp = this.genProp.getMappedElement(event);
                 if (temp instanceof  org.eclipse.uml2.uml.Event){
@@ -302,9 +297,9 @@ public class OTransition extends OModelElement {
 
     @objid ("5c9e5d84-d094-4df8-bd5f-9b541139d944")
     private void setPostCondition(final org.eclipse.uml2.uml.Transition ecoreElt) {
-        String objPost = this.objingElement.getPostCondition();
+        String objPost = getObjingElement().getPostCondition();
         if ((objPost != null) && (!objPost.equals(""))){
-            if ((ecoreElt instanceof org.eclipse.uml2.uml.ProtocolTransition) && (this.objingElement.getProcessed() != null)){
+            if ((ecoreElt instanceof org.eclipse.uml2.uml.ProtocolTransition) && (getObjingElement().getProcessed() != null)){
                 org.eclipse.uml2.uml.Constraint post = UMLFactory.eINSTANCE.createConstraint();
                 post.setName(objPost);
                 ((org.eclipse.uml2.uml.ProtocolTransition)ecoreElt).setPostCondition(post);
@@ -321,7 +316,7 @@ public class OTransition extends OModelElement {
 
     @objid ("7d6f234e-0274-4b14-8498-087138ae333b")
     private void setReceivedEvent(final org.eclipse.uml2.uml.Element ecoreElt) {
-        String receivedEvent = this.objingElement.getReceivedEvents();
+        String receivedEvent = getObjingElement().getReceivedEvents();
         if (receivedEvent != null)
             ObjingEAnnotation.setReceivedEvent(ecoreElt, receivedEvent);
     }
@@ -332,7 +327,7 @@ public class OTransition extends OModelElement {
         
         org.eclipse.uml2.uml.Event ecorEvent =  (org.eclipse.uml2.uml.Event) this.genProp.getMappedElement(objingEvent);
         //        org.eclipse.uml2.uml.Trigger trigger = null;
-        //        boolean existTrigger = false; 
+        //        boolean existTrigger = false;
         //        for  (org.eclipse.uml2.uml.Trigger ownedTrigger : sm.getOwnedTriggers()){
         //            if (ownedTrigger.getEvent().equals(ecorEvent)){
         //                trigger = ownedTrigger;
@@ -355,7 +350,7 @@ public class OTransition extends OModelElement {
 
     @objid ("09fc5c0a-4e57-47a2-8b0e-37070a89a34a")
     private void setProcessed(final org.eclipse.uml2.uml.Transition transition) {
-        Operation objingOperation = this.objingElement.getProcessed();
+        Operation objingOperation = getObjingElement().getProcessed();
         
         if (objingOperation != null) {
         
@@ -375,13 +370,19 @@ public class OTransition extends OModelElement {
 
     @objid ("312e13c7-f5aa-4b9d-9c0f-ede9340acf10")
     private void setOwner(final org.eclipse.uml2.uml.Transition ecoreElt) {
-        StateVertex objingSource = ((InternalTransition) this.objingElement).getSComposed();
+        StateVertex objingSource = ((InternalTransition) getObjingElement()).getSComposed();
         
         org.eclipse.uml2.uml.Element ecoreSource = this.genProp.getMappedElement(objingSource);
         if (ecoreSource instanceof org.eclipse.uml2.uml.Vertex) {
             ecoreElt.setSource((Vertex) ecoreSource);
             ecoreElt.setTarget((Vertex) ecoreSource);
         }
+    }
+
+    @objid ("82bc8d83-b6bc-47da-bead-78e7db478a36")
+    @Override
+    public Transition getObjingElement() {
+        return (Transition) super.getObjingElement();
     }
 
 }

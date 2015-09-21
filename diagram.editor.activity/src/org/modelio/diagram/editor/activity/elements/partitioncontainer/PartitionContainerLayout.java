@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.partitioncontainer;
 
@@ -52,33 +52,39 @@ public class PartitionContainerLayout extends ToolbarLayout {
     protected Dimension getChildPreferredSize(IFigure child, int wHint, int hHint) {
         int width = wHint;
         int height = hHint;
+        
         Integer constraint = this.constraints.get(child);
+        
         if (constraint == null || constraint.intValue() == -1) {
             Dimension childPrefSize = child.getPreferredSize(wHint, hHint);
             if (isHorizontal()) {
                 constraint = Integer.valueOf(childPrefSize.width);
+                if (hHint == -1) {
+                    height = childPrefSize.height;
+                }
             } else {
                 constraint = Integer.valueOf(childPrefSize.height);
+                if (wHint == -1) {
+                    width = childPrefSize.width;
+                }
             }
-            //this.constraints.put(child, constraint);
-            if (isHorizontal() && hHint == -1)
-                height = childPrefSize.height;
-            if (!isHorizontal() && wHint == -1)
-                width = childPrefSize.width;
         }
+        
         if (isHorizontal()) {
             return new Dimension(constraint.intValue(), height);
+        } else {
+            return new Dimension(width, constraint.intValue());
         }
-        // else
-        return new Dimension(width, constraint.intValue());
     }
 
     @objid ("2b2ecd79-55b6-11e2-877f-002564c97630")
     @Override
     public void setConstraint(IFigure child, Object constraint) {
         super.setConstraint(child, constraint);
-        if (constraint != null && constraint instanceof Integer)
+        
+        if (constraint instanceof Integer) {
             this.constraints.put(child, (Integer) constraint);
+        }
     }
 
     /**
@@ -114,7 +120,7 @@ public class PartitionContainerLayout extends ToolbarLayout {
          * Calculate sum of preferred heights of all children(totalHeight).
          * Calculate sum of minimum heights of all children(minHeight). Cache
          * Preferred Sizes and Minimum Sizes of all children.
-         * 
+         *
          * totalHeight is the sum of the preferred heights of all children
          * totalMinHeight is the sum of the minimum heights of all children
          * prefMinSumHeight is the sum of the difference between all children's
@@ -142,7 +148,7 @@ public class PartitionContainerLayout extends ToolbarLayout {
          * The total amount that the children must be shrunk is the sum of the
          * preferred Heights of the children minus Max(the available area and
          * the sum of the minimum heights of the children).
-         * 
+         *
          * amntShrinkHeight is the combined amount that the children must shrink
          * amntShrinkCurrentHeight is the amount each child will shrink
          * respectively
@@ -152,8 +158,9 @@ public class PartitionContainerLayout extends ToolbarLayout {
         // If there is more available space than needed to satisfy wishes of all
         // children, make as if last child (if any) request all available space.
         if (amntShrinkHeight < 0) {
-            if (prefSizes.length > 0)
+            if (prefSizes.length > 0) {
                 prefSizes[prefSizes.length - 1].height -= amntShrinkHeight;
+            }
             amntShrinkHeight = 0;
         }
         
@@ -166,12 +173,14 @@ public class PartitionContainerLayout extends ToolbarLayout {
             Rectangle newBounds = new Rectangle(x, y, prefWidth, prefHeight);
         
             child = (IFigure) children.get(i);
-            if (prefMinSumHeight != 0)
+            if (prefMinSumHeight != 0) {
                 amntShrinkCurrentHeight = (prefHeight - minHeight) * amntShrinkHeight / (prefMinSumHeight);
+            }
         
             int width = Math.min(prefWidth, this.transposer.t(child.getMaximumSize()).width);
-            if (this.matchWidth)
+            if (this.matchWidth) {
                 width = this.transposer.t(child.getMaximumSize()).width;
+            }
             width = Math.max(minWidth, Math.min(clientArea.width, width));
             newBounds.width = width;
         

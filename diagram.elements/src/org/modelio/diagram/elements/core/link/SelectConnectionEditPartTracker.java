@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link;
 
@@ -97,10 +97,11 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     @objid ("806aa774-1dec-11e2-8cad-001ec947c8cc")
     public SelectConnectionEditPartTracker(ConnectionEditPart owner) {
         super(owner);
-        if (SWT.getPlatform().equals("carbon"))//$NON-NLS-1$
+        if (SWT.getPlatform().equals("carbon")) {
             this.MODIFIER_NO_SNAPPING = SWT.CTRL;
-        else
+        } else {
             this.MODIFIER_NO_SNAPPING = SWT.ALT;
+        }
     }
 
     @objid ("806aa77a-1dec-11e2-8cad-001ec947c8cc")
@@ -242,11 +243,13 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     @objid ("806d09bd-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected final boolean handleButtonDown(int button) {
-        if (isNavigateEvent(button))
+        if (isNavigateEvent(button)) {
             return handleNavigationEvent();
-            
-        if (!super.handleButtonDown(button))
+        }
+        
+        if (!super.handleButtonDown(button)) {
             return false;
+        }
         
         final LinkFigure connection = getConnection();
         
@@ -267,17 +270,18 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         
             for (int i = 0; i < points.size(); i++) {
                 final Point ptCenter = points.getPoint(i);
-                final Rectangle rect = new Rectangle(ptCenter.x - size.width / 2, 
-                        ptCenter.y - size.height / 2, 
+                final Rectangle rect = new Rectangle(ptCenter.x - size.width / 2,
+                        ptCenter.y - size.height / 2,
                         size.width, size.height);
         
                 if (rect.contains(p)) {
-                    if (i == 0)
+                    if (i == 0) {
                         handleButtonDownOnSource(button);
-                    else if (i == points.size() - 1)
+                    } else if (i == points.size() - 1) {
                         handleButtonDownOnTarget(button);
-                    else
+                    } else {
                         handleButtonDownOnBendpoint(button, i, points);
+                    }
                 }
             }
         
@@ -413,27 +417,31 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         
         if (getCurrentInput().isShiftKeyDown()) {
             float ratio = 0;
-            if (delta.width != 0)
+            if (delta.width != 0) {
                 ratio = (float) delta.height / (float) delta.width;
+            }
         
             ratio = Math.abs(ratio);
             if (ratio > 0.5 && ratio < 1.5) {
                 if (Math.abs(delta.height) > Math.abs(delta.width)) {
-                    if (delta.height > 0)
+                    if (delta.height > 0) {
                         delta.height = Math.abs(delta.width);
-                    else
+                    } else {
                         delta.height = -Math.abs(delta.width);
+                    }
                 } else {
-                    if (delta.width > 0)
+                    if (delta.width > 0) {
                         delta.width = Math.abs(delta.height);
-                    else
+                    } else {
                         delta.width = -Math.abs(delta.height);
+                    }
                 }
             } else {
-                if (Math.abs(delta.width) > Math.abs(delta.height))
+                if (Math.abs(delta.width) > Math.abs(delta.height)) {
                     delta.height = 0;
-                else
+                } else {
                     delta.width = 0;
+                }
             }
         }
         
@@ -461,13 +469,13 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     }
 
     /**
-     * Method eraseSourceFeedback. Show the source drag feedback for the drag occurring within the viewer.
+     * Show the source drag feedback for the drag occurring within the viewer.
      */
     @objid ("806d09da-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings("unchecked")
     private void eraseSourceFeedback() {
-        if (!isShowingFeedback())
+        if (!isShowingFeedback()) {
             return;
+        }
         setShowingFeedback(false);
         
         final List<EditPart> editParts = getOperationSet();
@@ -477,13 +485,16 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     }
 
     /**
-     * Method getSourceRequest.
-     * @return Request
+     * Source request getter.
+     * <p>
+     * Lazily creates the request if needed.
+     * @return the source request.
      */
     @objid ("806d09ea-1dec-11e2-8cad-001ec947c8cc")
     private Request getSourceRequest() {
-        if (this.sourceRequest == null)
+        if (this.sourceRequest == null) {
             this.sourceRequest = createSourceRequest();
+        }
         return this.sourceRequest;
     }
 
@@ -530,6 +541,10 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         return button==1 && currentInput.isControlKeyDown() && currentInput.isAltKeyDown();
     }
 
+    /**
+     * @param button the mouse button
+     * @param segmentIndex the segement index
+     */
     @objid ("a920dd5b-2479-458e-9722-34ba2f211467")
     protected void handleButtonDownOnSegment(int button, int segmentIndex) {
         setIndex(segmentIndex - 1);

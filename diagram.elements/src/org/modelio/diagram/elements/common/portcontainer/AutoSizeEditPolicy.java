@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.portcontainer;
 
-import java.util.HashMap;
-import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
@@ -36,6 +33,8 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy;
 
 /**
+ * {@link PortContainerEditPart} preferred drag policy.
+ * <p>
  * Specialisation that will actually resize the main node while making sure that the container bounds still contains all
  * children (and no more).
  * 
@@ -53,23 +52,22 @@ public class AutoSizeEditPolicy extends DefaultNodeResizableEditPolicy {
         req.setMoveDelta(request.getMoveDelta());
         req.setSizeDelta(request.getSizeDelta());
         req.setLocation(request.getLocation());
+        req.setExtendedData(request.getExtendedData());
         // Adding modified handle bounds to extended data.
-        IFigure containerFigure = getHostFigure();
-        Map<String, Object> map = new HashMap<>();
-        Rectangle newHandleBounds = ((PortContainerLayout) containerFigure.getLayoutManager()).getMainNodeConstraint();
+        PortContainerFigure containerFigure = (PortContainerFigure) getHostFigure();
+        PortContainerLayout portContainerLayout = containerFigure.getPortContainerLayout();
+        Rectangle newHandleBounds = portContainerLayout.getMainNodeConstraint();
         if (newHandleBounds != null) {
-            newHandleBounds = newHandleBounds.getTranslated(((PortContainerLayout) containerFigure.getLayoutManager()).getOrigin(containerFigure));
+            newHandleBounds = newHandleBounds.getTranslated(portContainerLayout.getOrigin(containerFigure));
         } else {
-            newHandleBounds = ((PortContainerFigure) containerFigure).getHandleBounds().getCopy();
+            newHandleBounds = containerFigure.getHandleBounds().getCopy();
         }
         //Rectangle newHandleBounds = ((HandleBounds)containerFigure).getHandleBounds().getCopy();
         containerFigure.translateToAbsolute(newHandleBounds);
         newHandleBounds = request.getTransformedRectangle(newHandleBounds);
-        containerFigure.translateToRelative(newHandleBounds);
+        //containerFigure.translateToRelative(newHandleBounds);
         
-        map.put("newHandleBounds", newHandleBounds);
-        map.putAll(request.getExtendedData());
-        req.setExtendedData(map);
+        req.getExtendedData().put(PortResizeHelper.REQPROP_MAIN_NODE_BOUNDS, newHandleBounds);
         return getHost().getParent().getCommand(req);
     }
 
@@ -79,21 +77,19 @@ public class AutoSizeEditPolicy extends DefaultNodeResizableEditPolicy {
     protected Command getOrphanCommand(final Request req) {
         ChangeBoundsRequest request = (ChangeBoundsRequest) req;
         // Adding modified handle bounds to extended data of request, so that it might be used by the layout policy of the "would be" parent.
-        IFigure containerFigure = getHostFigure();
-        Map<String, Object> map = new HashMap<>();
-        Rectangle newHandleBounds = ((PortContainerLayout) containerFigure.getLayoutManager()).getMainNodeConstraint();
+        PortContainerFigure containerFigure = (PortContainerFigure) getHostFigure();
+        PortContainerLayout portContainerLayout = containerFigure.getPortContainerLayout();
+        Rectangle newHandleBounds = portContainerLayout.getMainNodeConstraint();
         if (newHandleBounds != null) {
-            newHandleBounds = newHandleBounds.getTranslated(((PortContainerLayout) containerFigure.getLayoutManager()).getOrigin(containerFigure));
+            newHandleBounds = newHandleBounds.getTranslated(portContainerLayout.getOrigin(containerFigure));
         } else {
-            newHandleBounds = ((PortContainerFigure) containerFigure).getHandleBounds().getCopy();
+            newHandleBounds = containerFigure.getHandleBounds().getCopy();
         }
         containerFigure.translateToAbsolute(newHandleBounds);
         newHandleBounds = request.getTransformedRectangle(newHandleBounds);
-        containerFigure.translateToRelative(newHandleBounds);
+        //containerFigure.translateToRelative(newHandleBounds);
         
-        map.put("newHandleBounds", newHandleBounds);
-        map.putAll(request.getExtendedData());
-        request.setExtendedData(map);
+        request.getExtendedData().put(PortResizeHelper.REQPROP_MAIN_NODE_BOUNDS, newHandleBounds);
         return super.getOrphanCommand(request);
     }
 

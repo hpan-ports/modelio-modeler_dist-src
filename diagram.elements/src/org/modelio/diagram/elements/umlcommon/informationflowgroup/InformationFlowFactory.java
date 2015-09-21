@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.umlcommon.informationflowgroup;
 
@@ -189,13 +189,15 @@ class InformationFlowFactory {
         InformationFlow createInformationFlow(final Collection<? extends ModelElement> srcs, final Collection<? extends ModelElement> dests) {
             InformationFlow ret = InformationFlowFactory.this.modelFactory.createInformationFlow();
             
-            for (ModelElement e : srcs)
+            for (ModelElement e : srcs) {
                 ret.getInformationSource().add(e);
+            }
             
-            for (ModelElement e : dests)
+            for (ModelElement e : dests) {
                 ret.getInformationTarget().add(e);
+            }
             
-            Collection<MObject> c = new ArrayList<MObject>(srcs);
+            Collection<MObject> c = new ArrayList<>(srcs);
             c.addAll(dests);
             
             ret.setOwner(getCommonNameSpace(c));
@@ -226,8 +228,9 @@ class InformationFlowFactory {
             int max = paths[0].size();
             for (ArrayList<MObject> l : paths) {
                 Collections.reverse(l);
-                if (max > l.size())
+                if (max > l.size()) {
                     max = l.size();
+                }
             }
             
             NameSpace ret = null;
@@ -290,8 +293,9 @@ class InformationFlowFactory {
         @objid ("817810fd-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public Object visitAssociationEnd(final AssociationEnd role) {
-            if (!MTools.getAuthTool().canModify(role.getSource()))
+            if (!MTools.getAuthTool().canModify(role.getSource())) {
                 return false;
+            }
             
             final ArrayList<ModelElement> srcs = new ArrayList<>(1);
             final ArrayList<ModelElement> dests = new ArrayList<>(1);
@@ -304,8 +308,9 @@ class InformationFlowFactory {
         @objid ("81781104-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public Object visitCommunicationMessage(final CommunicationMessage theMessage) {
-            if (!MTools.getAuthTool().canModify(theMessage))
+            if (!MTools.getAuthTool().canModify(theMessage)) {
                 return false;
+            }
             
             final ArrayList<ModelElement> srcs = new ArrayList<>(1);
             final ArrayList<ModelElement> dests = new ArrayList<>(1);
@@ -326,8 +331,9 @@ class InformationFlowFactory {
         @objid ("8178110b-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public Object visitLinkEnd(final LinkEnd role) {
-            if (!MTools.getAuthTool().canModify(role.getSource()))
+            if (!MTools.getAuthTool().canModify(role.getSource())) {
                 return false;
+            }
             
             final ArrayList<ModelElement> srcs = new ArrayList<>(1);
             final ArrayList<ModelElement> dests = new ArrayList<>(1);
@@ -361,8 +367,9 @@ class InformationFlowFactory {
             int max = paths[0].size();
             for (ArrayList<MObject> l : paths) {
                 Collections.reverse(l);
-                if (max > l.size())
+                if (max > l.size()) {
                     max = l.size();
+                }
             }
             
             NameSpace ret = null;
@@ -400,7 +407,7 @@ class InformationFlowFactory {
          */
         @objid ("8175aeb0-1dec-11e2-8cad-001ec947c8cc")
         private boolean canCreateInformationFlow(final Collection<? extends ModelElement> srcs, final Collection<? extends ModelElement> dests) {
-            Collection<MObject> c = new ArrayList<MObject>(srcs);
+            Collection<MObject> c = new ArrayList<>(srcs);
             c.addAll(dests);
             return MTools.getAuthTool().canModify(getCommonNameSpace(c));
         }

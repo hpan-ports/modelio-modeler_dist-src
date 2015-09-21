@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.model;
 
@@ -110,8 +110,9 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
     @Override
     public void delete() {
         firePropertyChange(IGmObject.PROPERTY_DELETE, null, null);
-        if (this.style != null)
+        if (this.style != null) {
             this.style.removeListener(this);
+        }
     }
 
     /**
@@ -145,8 +146,8 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
     @Override
     public final IStyle getStyle() {
         // Lazy initialisation.
-        // Diagram's style is needed as "base" style, 
-        // but during deserialisation it might not yet 
+        // Diagram's style is needed as "base" style,
+        // but during deserialisation it might not yet
         // be available.
         if (this.style == null && getDiagram() != null) {
             this.style = createStyle(getDiagram());
@@ -261,8 +262,9 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
         this.style = (IStyle) in.readProperty("Style");
         this.diagram = (GmAbstractDiagram) in.getRoot();
         
-        if (this.style != null)
+        if (this.style != null) {
             this.style.addListener(this);
+        }
     }
 
     /**
@@ -272,6 +274,12 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
     @Override
     public boolean isEditable() {
         return this.diagram.isEditable();
+    }
+
+    @objid ("bca285a5-e582-4b21-8041-191f61651ea8")
+    @Override
+    public String toString() {
+        return String.format("%s [layout=%s]", getClass().getSimpleName(), getLayoutData());
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.partition.bodyhybridcontainer;
 
@@ -59,10 +59,9 @@ public class BodyHybridContainerEditPart extends PartitionContainerEditPart {
     protected void refreshChildren() {
         // Additional step: update the current layout manager of the figure and
         // the state of the hybrid policies, based on the children in the Gm.
-        if (this.getEditPolicy(EditPolicy.LAYOUT_ROLE) instanceof BodyHybridContainerLayoutEditPolicy) {
+        if (getEditPolicy(EditPolicy.LAYOUT_ROLE) instanceof BodyHybridContainerLayoutEditPolicy) {
             Behaviour newBehaviour = computeBehaviourFromModel();
-            if (!((BodyHybridContainerLayoutEditPolicy) this.getEditPolicy(EditPolicy.LAYOUT_ROLE)).getBehaviour()
-                                                                                                   .equals(newBehaviour)) {
+            if (!getBehaviorFromEditPolicy().equals(newBehaviour)) {
                 updateBehaviour(newBehaviour);
             }
         }
@@ -86,11 +85,11 @@ public class BodyHybridContainerEditPart extends PartitionContainerEditPart {
     @Override
     protected IFigure createFigure() {
         IFigure fig = super.createFigure();
-        // Add a negative margin border so that line borders of children overlap
-        // the line border of parent (avoid multiple lines side by side)
-        fig.setBorder(new MarginBorder(-1));
+        
         // Default to FreeZoneLayout to prevent some problems with policies.
         fig.setLayoutManager(new FreeZoneLayout());
+        
+        refreshBorder(fig, getBehaviorFromEditPolicy());
         return fig;
     }
 
@@ -101,34 +100,39 @@ public class BodyHybridContainerEditPart extends PartitionContainerEditPart {
     @objid ("2af87b3b-55b6-11e2-877f-002564c97630")
     private void updateBehaviour(Behaviour newBehaviour) {
         // Update the layout manager of the figure accordingly.
+        IFigure fig = getFigure();
         switch (newBehaviour) {
             case HYBRID: {
                 // Default to FreeZoneLayout to prevent some problems with
                 // policies.
                 FreeZoneLayout layoutManager = new FreeZoneLayout();
-                getFigure().setLayoutManager(layoutManager);
-                refreshFromStyle(getFigure(), getModelStyle());
+                fig.setLayoutManager(layoutManager);
+                refreshFromStyle(fig, getModelStyle());
                 break;
             }
             case FREE_ZONE: {
                 FreeZoneLayout layoutManager = new FreeZoneLayout();
-                getFigure().setLayoutManager(layoutManager);
-                refreshFromStyle(getFigure(), getModelStyle());
+                fig.setLayoutManager(layoutManager);
+                refreshFromStyle(fig, getModelStyle());
                 break;
             }
             case PARTITION_CONTAINER: {
                 PartitionContainerLayout layoutManager = new PartitionContainerLayout();
                 layoutManager.setSpacing(-1);
                 layoutManager.setStretchMinorAxis(true);
-                getFigure().setLayoutManager(layoutManager);
-                refreshFromStyle(getFigure(), getModelStyle());
+                fig.setLayoutManager(layoutManager);
+        
+                refreshFromStyle(fig, getModelStyle());
                 break;
             }
         }
+        
+        refreshBorder(fig, newBehaviour);
         refreshVisuals();
+        
         // Update state of hybrid policies
-        ((BodyHybridContainerLayoutEditPolicy) this.getEditPolicy(EditPolicy.LAYOUT_ROLE)).setBehaviour(newBehaviour);
-        ((BodyHybridContainerDropEditPolicy) this.getEditPolicy(ModelElementDropRequest.TYPE)).setBehaviour(newBehaviour);
+        ((BodyHybridContainerLayoutEditPolicy) getEditPolicy(EditPolicy.LAYOUT_ROLE)).setBehaviour(newBehaviour);
+        ((BodyHybridContainerDropEditPolicy) getEditPolicy(ModelElementDropRequest.TYPE)).setBehaviour(newBehaviour);
     }
 
     /**
@@ -137,9 +141,9 @@ public class BodyHybridContainerEditPart extends PartitionContainerEditPart {
      */
     @objid ("2af87b3f-55b6-11e2-877f-002564c97630")
     private Behaviour computeBehaviourFromModel() {
-        GmBodyHybridContainer model = (GmBodyHybridContainer) this.getModel();
+        GmBodyHybridContainer model = (GmBodyHybridContainer) getModel();
         if (!model.getChildren(GmPartitionContainer.SUB_PARTITION).isEmpty()) {
-            // There are already some subpartitions: behave like a partition
+            // There are already some sub partitions: behave like a partition
             // container only (do not accept inner nodes anymore).
             return Behaviour.PARTITION_CONTAINER;
         }
@@ -157,9 +161,10 @@ public class BodyHybridContainerEditPart extends PartitionContainerEditPart {
         // On the other hand, go read the "vertical" property to update the
         // layout if necessary.
         IFigure fig = getFigure();
+        
         if (fig.getLayoutManager() instanceof ToolbarLayout) {
             final GmPartitionContainer gmModel = (GmPartitionContainer) getModel();
-            ((ToolbarLayout) fig.getLayoutManager()).setVertical(gmModel.isVertical());
+            ((ToolbarLayout) fig.getLayoutManager()).setHorizontal(!gmModel.isVertical());
         }
     }
 
@@ -184,6 +189,37 @@ public class BodyHybridContainerEditPart extends PartitionContainerEditPart {
             }
         }
         return super.getTargetEditPart(request);
+    }
+
+    @objid ("4863e2bc-c2c9-4c1f-91b6-a95bf768c5b7")
+    private Behaviour getBehaviorFromEditPolicy() {
+        BodyHybridContainerLayoutEditPolicy policy = (BodyHybridContainerLayoutEditPolicy) getEditPolicy(EditPolicy.LAYOUT_ROLE);
+        if (policy != null) {
+            return policy.getBehaviour();
+        } else {
+            return Behaviour.HYBRID;
+        }
+    }
+
+    @objid ("91768e2c-02ec-480a-996c-838967735057")
+    protected void refreshBorder(IFigure fig, Behaviour b) {
+        switch(b) {
+        case FREE_ZONE:
+            fig.setBorder(new MarginBorder(2));
+            break;
+        case HYBRID:
+            fig.setBorder(new MarginBorder(2));
+            break;
+        case PARTITION_CONTAINER:
+            // Add a negative margin border so that line borders of children overlap
+            // the line border of parent (avoid multiple lines side by side)
+            fig.setBorder(new MarginBorder(-1));
+        
+            break;
+        default:
+            break;
+        
+        }
     }
 
     /**

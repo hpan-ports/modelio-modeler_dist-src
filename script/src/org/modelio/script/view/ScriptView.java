@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.script.view;
 
@@ -45,7 +45,7 @@ import org.modelio.api.modelio.Modelio;
 import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.gproject.GProject;
-import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IModuleManagementService;
 import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.script.IInputView;
 import org.modelio.script.engine.core.engine.IScriptRunner;
@@ -102,7 +102,7 @@ public class ScriptView {
     @objid ("007b1e0c-52bf-106c-80fa-001ec947cd2a")
     @Inject
     @Optional
-     IModuleService moduleService;
+     IModuleManagementService moduleService;
 
     @objid ("a5e9c72b-5637-43e9-bb05-6ba993ed2567")
     private ScriptOptions options = new ScriptOptions(null);

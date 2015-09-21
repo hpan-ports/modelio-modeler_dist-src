@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.dialogs.dialog.panels.element;
 
@@ -45,6 +45,9 @@ import org.modelio.ui.panel.IPanelProvider;
 @objid ("1c5bef36-f893-42bd-860a-d0af29f41bc9")
 @Creatable
 public class ElementEditPanel implements IPanelProvider {
+    @objid ("1fc599ab-a180-48fb-99b3-37019f95bb95")
+    private SashForm shform;
+
     @objid ("41dd7515-cd73-491f-a187-6b1102babfc8")
     private ISelectionChangedListener browserSelectionListener;
 
@@ -71,9 +74,6 @@ public class ElementEditPanel implements IPanelProvider {
 
     @objid ("dbdaa92b-b2b0-4c1a-8384-14204852e4f5")
     private ModelPropertyPanelProvider propertyPanel;
-
-    @objid ("be77f521-ba0c-418d-bd53-a3e1acde4951")
-    private SashForm shform;
 
     @objid ("9d478f59-6f8e-4ecf-9659-ee47577c2a51")
     private ElementDescriptionPanel descriptionPanel;

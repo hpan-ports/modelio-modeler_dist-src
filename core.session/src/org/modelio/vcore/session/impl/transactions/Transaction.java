@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.transactions;
 
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
-import java.util.ListIterator;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.session.api.transactions.ITransaction;
@@ -86,6 +85,7 @@ public class Transaction implements IAction, ITransaction {
 
     /**
      * Ajout d'une action dans la transaction
+     * @param action the action to add
      */
     @objid ("006d5010-0d1e-1f20-85a5-001ec947cd2a")
     public void addAction(final IAction action) {
@@ -163,6 +163,7 @@ public class Transaction implements IAction, ITransaction {
 
     /**
      * Verifie si la derniere action est une transaction.
+     * @return <i>true</i> si la derniere action est une transaction.
      */
     @objid ("006d53c6-0d1e-1f20-85a5-001ec947cd2a")
     public boolean isLastActionATransaction() {
@@ -220,7 +221,7 @@ public class Transaction implements IAction, ITransaction {
     @objid ("006d5664-0d1e-1f20-85a5-001ec947cd2a")
     @Override
     public void undo(final boolean rollback) {
-        // Appelle la methode undo sur toutes les actions de la transaction 
+        // Appelle la methode undo sur toutes les actions de la transaction
         // en commencant par fin de la liste
         if (this.undoable)
         {

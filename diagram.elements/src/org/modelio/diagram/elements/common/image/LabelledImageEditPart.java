@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.image;
 
@@ -31,11 +31,8 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.swt.graphics.Image;
 import org.modelio.diagram.elements.core.model.GmAbstractObject;
-import org.modelio.diagram.elements.core.model.ImageServices;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
-import org.modelio.diagram.elements.core.node.IImageableNode;
 import org.modelio.diagram.styles.core.IStyle;
 
 /**
@@ -50,12 +47,15 @@ public class LabelledImageEditPart extends ImageEditPart {
     protected IFigure createFigure() {
         // Create the figure
         ImageFigure fig = (ImageFigure) super.createFigure();
+        
         Figure container = new Figure();
+        
         ToolbarLayout manager = new ToolbarLayout(false);
         manager.setStretchMinorAxis(false);
         manager.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
         container.setLayoutManager(manager);
         container.add(fig, null, 0);
+        
         // set style independent properties
         fig.setTextAlignment(PositionConstants.CENTER);
         fig.setTextPlacement(PositionConstants.SOUTH);
@@ -83,22 +83,20 @@ public class LabelledImageEditPart extends ImageEditPart {
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         if (!(aFigure instanceof ImageFigure)) {
             // bypass the container figure.
-            super.refreshFromStyle((IFigure) aFigure.getChildren().get(0), style);
+            super.refreshFromStyle(getImageFigure(aFigure), style);
         }
     }
 
     @objid ("7e890c49-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void refreshVisuals() {
-        IImageableNode inode = (IImageableNode) this.getModel();
-        ImageFigure fig = (ImageFigure) this.getFigure().getChildren().get(0);
-        Image image = inode.getImage();
-        if (image == null) {
-            // Use default image.
-            image = ImageServices.getNoImageImage();
-        }
-        fig.setImage(image);
-        getFigure().getParent().setConstraint(getFigure(), ((GmAbstractObject) inode).getLayoutData());
+        GmAbstractObject inode = (GmAbstractObject) getModel();
+        IFigure mainFig = getFigure();
+        
+        ImageFigure imageFig = getImageFigure(mainFig);
+        imageFig.setImage(getImage());
+        
+        mainFig.getParent().setConstraint(mainFig, inode.getLayoutData());
     }
 
     @objid ("7e890c4c-1dec-11e2-8cad-001ec947c8cc")
@@ -109,6 +107,16 @@ public class LabelledImageEditPart extends ImageEditPart {
             IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
             getContentPane().add(child, null, 1);
         }
+    }
+
+    /**
+     * Get the image figure from the main figure.
+     * @param mainFig the main figure.
+     * @return the image figure.
+     */
+    @objid ("f56ba4c0-7f97-4808-9fc0-d1769c771d00")
+    protected ImageFigure getImageFigure(IFigure mainFig) {
+        return (ImageFigure) mainFig.getChildren().get(0);
     }
 
 }

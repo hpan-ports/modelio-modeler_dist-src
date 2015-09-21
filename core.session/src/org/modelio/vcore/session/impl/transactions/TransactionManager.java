@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.transactions;
 
@@ -152,7 +152,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
 
     @objid ("006ed048-0d1e-1f20-85a5-001ec947cd2a")
     @Override
-    public ITransaction createTransaction(final String idName) throws TransactionForbiddenException, ConcurrentTransactionException {
+    public ITransaction createTransaction(final String idName) throws ConcurrentTransactionException, TransactionForbiddenException {
         return createTransaction(idName, 2, TimeUnit.SECONDS);
     }
 
@@ -180,7 +180,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
             // commit when no active transaction => error
             if (this.activeTransactions.isEmpty()) {
                 String msg = VCoreSession.getMessage("NoActiveTransactionException", toCommit.getName());
-                
+        
                 throw new EndTransactionNoActiveTransactionException(msg);
             }
         
@@ -204,7 +204,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
             }
         
             // At this stage we are committing a non empty transaction.
-            // If the transaction is session level, 
+            // If the transaction is session level,
             boolean isSession = (this.activeTransactions.size() == 1);
             if (isSession) {
                 // Manage the session handlers for top level transactions
@@ -212,7 +212,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
         
                 // Notify model change handlers.
                 // They may modify the model, create new transactions and
-                // throw exceptions. In the last case the transaction will be rollbacked by the 
+                // throw exceptions. In the last case the transaction will be rollbacked by the
                 // try with resources that the caller MUST use.
                 fireModelChangeHandlers(toCommit, evFact);
         
@@ -223,21 +223,21 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
                     // the transaction will be rollbacked by the try with resources
                     // that the caller MUST use.
                 }
-                
+        
                 // Call the transaction model closure handler who is responsible for adjusting some model elements based on the transaction contents
                 // Typically use to update NameSpaceUse computed model
                 if (this.transactionClosureHandler != null) {
                     this.transactionClosureHandler.commit(toCommit);
                     evFact.updateCommitEvent(toCommit);
                 }
-                
+        
                 // Notify persistent view model change listeners.
-                // They may modify the model, but should only non structural modifications.
+                // They may modify the model, but should make only non structural modifications.
                 // They should not create new transactions.
-                // They may throw exceptions. In this case the transaction will be rollbacked by the 
-                // try with resources that the caller MUST use.
+                // They may throw exceptions. In this case the transaction will be rollbacked by the
+                // try-with-resources that the caller MUST have used to open the transaction.
                 firePersistentViewModelChangeListeners(evFact.getEvent());
-                
+        
                 // Pop the top active session
                 this.activeTransactions.pop();
         
@@ -249,7 +249,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
         
                 // Notify model change listeners.
                 fireChangeListeners(evFact);
-                
+        
             } else {
                 // Just pop the top active transaction
                 this.activeTransactions.pop();
@@ -374,9 +374,9 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
             }
         
             Transaction undoneTransaction = this.undoneTransactions.pop();
-            
+        
             Log.trace("Redo '"+ undoneTransaction.getName()+"'");
-            
+        
             undoneTransaction.redo();
             this.doneTransactions.push(undoneTransaction);
         
@@ -418,7 +418,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
      * @throws org.modelio.vcore.session.api.transactions.EndTransactionNoActiveTransactionException if there is no active transaction
      */
     @objid ("006edaf2-0d1e-1f20-85a5-001ec947cd2a")
-    public void rollback(final Transaction toRollback) throws EndTransactionNoActiveTransactionException, EndTransactionBadIdException {
+    public void rollback(final Transaction toRollback) throws EndTransactionBadIdException, EndTransactionNoActiveTransactionException {
         this.sync.lock();
         try {
             if (!this.actionsRecorded) {
@@ -447,7 +447,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
             // il faut donc enlever de la liste des actions la derniere action cree.
             if (!this.activeTransactions.isEmpty()) {
                 this.activeTransactions.peek().forgetLastAction();
-            } 
+            }
         
             this.transactionOwnerLock.unlock();
         } finally {
@@ -554,7 +554,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
     @Override
     public ITransaction createTransaction(final String trName, long timeout, TimeUnit unit) throws ConcurrentTransactionException, TransactionForbiddenException {
         try {
-        if (!this.sync.tryLock(timeout, unit)) 
+        if (!this.sync.tryLock(timeout, unit))
             throwConcurrentTransactionException(trName, timeout, unit);
         } catch (InterruptedException e) {
             throw new TransactionForbiddenException(e.toString());

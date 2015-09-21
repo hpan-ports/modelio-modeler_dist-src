@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.collab;
 
@@ -27,7 +27,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.editor.statik.elements.collab.v0._GmCollaboration;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -68,6 +68,9 @@ public class GmCollaboration extends GmPortContainer {
     @objid ("345845b9-55b7-11e2-877f-002564c97630")
     private static final CollaborationImageStyleKeys IMAGEKEYS = new CollaborationImageStyleKeys();
 
+    @objid ("59948c17-0479-474a-9228-8afe52702825")
+    private static final CollaborationUserImageStyleKeys USERIMAGE_KEYS = new CollaborationUserImageStyleKeys();
+
     /**
      * Default constructor.
      * @param diagram the diagram in which this gm is unmasked.
@@ -83,7 +86,7 @@ public class GmCollaboration extends GmPortContainer {
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
         
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(diagram, ref);
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         super.addChild(imageModeHeader);
@@ -279,7 +282,7 @@ public class GmCollaboration extends GmPortContainer {
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
         
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(oldVersionGm.getDiagram(),
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(oldVersionGm.getDiagram(),
                                                                       oldVersionGm.getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);

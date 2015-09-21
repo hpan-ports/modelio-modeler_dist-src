@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,36 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.metamodel.factory;
 
 import java.util.HashMap;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Metamodel extension request cache.
  * <p>
  * Used to cache requests to find a single note type, tag type, or stereotype.
  * <p>
- * Extensions that are not valid anymore are removed when found.
- * Extensions have to be added to this cache manually.
+ * Extensions that are not valid anymore are removed when found. Extensions have to be added to this cache manually.
  */
 @objid ("08ad383f-18b9-4718-a73d-36594f2cbe79")
-public class ExtensionCache {
+class ExtensionCache {
     @objid ("2421efc0-ca68-436f-ba41-7085f054d716")
     private Map<Integer, NoteType> nmap = new HashMap<>();
 
@@ -50,6 +49,9 @@ public class ExtensionCache {
 
     @objid ("2b1d8fc0-786c-4db0-be2e-8dda3d500beb")
     private Map<Integer, Stereotype> smap = new HashMap<>();
+
+    @objid ("c9ebbef3-03bd-4561-89b7-7d9d8816099c")
+    private SmMetamodel metamodel;
 
     /**
      * Compute a hash key.
@@ -120,13 +122,11 @@ public class ExtensionCache {
         if (n != null) {
             final ModuleComponent module = n.getModule();
             final MClass foundMClass = getBaseClass(n.getOwnerReference(), n.getOwnerStereotype());
-            if (name.equals(n.getName()) 
-                    && module != null 
-                    && foundMClass != null
-                    && moduleName.equals(module.getName())
-                    && metaclass.hasBase(foundMClass))
+            if (name.equals(n.getName()) && module != null && foundMClass != null && moduleName.equals(module.getName())
+                    && metaclass.hasBase(foundMClass)) {
                 return n;
-            
+            }
+        
             this.nmap.remove(key);
         }
         return null;
@@ -148,13 +148,11 @@ public class ExtensionCache {
         if (n != null) {
             final ModuleComponent module = n.getModule();
             final MClass foundMClass = getBaseClass(n.getOwnerReference(), n.getOwnerStereotype());
-            if (name.equals(n.getName()) 
-                    && module != null 
-                    && foundMClass != null
-                    && moduleName.equals(module.getName())
-                    && metaclass.hasBase(foundMClass))
+            if (name.equals(n.getName()) && module != null && foundMClass != null && moduleName.equals(module.getName())
+                    && metaclass.hasBase(foundMClass)) {
                 return n;
-            
+            }
+        
             this.tmap.remove(key);
         }
         return null;
@@ -171,18 +169,15 @@ public class ExtensionCache {
     public Stereotype getStereotype(String moduleName, String name, MClass metaclass) {
         int key = getKey(moduleName, name, metaclass);
         
-        
         Stereotype n = this.smap.get(key);
         
         if (n != null) {
             final ModuleComponent module = n.getModule();
             final MClass foundMClass = getBaseClass(n.getBaseClassName());
-            if (name.equals(n.getName()) 
-                    && module != null 
-                    && foundMClass != null
-                    && moduleName.equals(module.getName())
-                    && metaclass.hasBase(foundMClass))
+            if (name.equals(n.getName()) && module != null && foundMClass != null && moduleName.equals(module.getName())
+                    && metaclass.hasBase(foundMClass)) {
                 return n;
+            }
         
             this.smap.remove(key);
         }
@@ -190,7 +185,7 @@ public class ExtensionCache {
     }
 
     @objid ("5b47b485-d2f8-4c7b-a9b4-f254856cdaf4")
-    private static MClass getBaseClass(MetaclassReference classRef, Stereotype ste) {
+    private MClass getBaseClass(MetaclassReference classRef, Stereotype ste) {
         if (ste != null) {
             return getBaseClass(ste.getBaseClassName());
         } else if (classRef != null) {
@@ -200,8 +195,13 @@ public class ExtensionCache {
     }
 
     @objid ("f407c4b0-d9b0-468b-8ce0-3bf2a671c86b")
-    private static MClass getBaseClass(String baseName) {
-        return Metamodel.getMClass(baseName);
+    private MClass getBaseClass(String baseName) {
+        return this.metamodel.getMClass(baseName);
+    }
+
+    @objid ("ce0e7f14-857d-4775-9cef-b8f3efd257b6")
+    public ExtensionCache(SmMetamodel metamodel) {
+        this.metamodel = metamodel;
     }
 
 }

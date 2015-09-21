@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -30,7 +42,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.activities.BpmnServiceTask;
 import org.modelio.metamodel.bpmn.bpmnService.BpmnOperation;
-import org.modelio.metamodel.data.bpmn.activities.BpmnServiceTaskData;
+import org.modelio.metamodel.impl.bpmn.activities.BpmnServiceTaskData;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
@@ -40,60 +52,68 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00833fec-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnServiceTaskImpl extends BpmnTaskImpl implements BpmnServiceTask {
-    @objid ("03c82b5c-57f5-41a7-bc10-a23beeed179c")
+    @objid ("538e105e-668c-4448-93e8-432065f9d750")
     @Override
     public String getImplementation() {
-        return (String) getAttVal(BpmnServiceTaskData.Metadata.ImplementationAtt());
+        return (String) getAttVal(((BpmnServiceTaskSmClass)getClassOf()).getImplementationAtt());
     }
 
-    @objid ("4b9f1d71-396e-4249-bff6-eaec315f08c0")
+    @objid ("f832a69f-0b4c-463f-b1ab-f73a6c9105c8")
     @Override
     public void setImplementation(String value) {
-        setAttVal(BpmnServiceTaskData.Metadata.ImplementationAtt(), value);
+        setAttVal(((BpmnServiceTaskSmClass)getClassOf()).getImplementationAtt(), value);
     }
 
-    @objid ("e3904ea2-93fd-44d0-99d5-2fa80b22d4f0")
+    @objid ("57894426-f4d5-43b1-a1b1-775fe50ca604")
     @Override
     public Operation getCalledOperation() {
-        return (Operation) getDepVal(BpmnServiceTaskData.Metadata.CalledOperationDep());
+        Object obj = getDepVal(((BpmnServiceTaskSmClass)getClassOf()).getCalledOperationDep());
+        return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("d8b4ab9f-0ab0-427c-872e-846c89267129")
+    @objid ("b54d31bf-93a4-476e-a36e-24c5dc5cc9f1")
     @Override
     public void setCalledOperation(Operation value) {
-        appendDepVal(BpmnServiceTaskData.Metadata.CalledOperationDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnServiceTaskSmClass)getClassOf()).getCalledOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4a0d692e-d33b-46ef-ba76-2a9c1b3dd9fc")
+    @objid ("4e178a96-6085-47c8-9ccc-02eebe318b6a")
     @Override
     public BpmnOperation getOperationRef() {
-        return (BpmnOperation) getDepVal(BpmnServiceTaskData.Metadata.OperationRefDep());
+        Object obj = getDepVal(((BpmnServiceTaskSmClass)getClassOf()).getOperationRefDep());
+        return (obj instanceof BpmnOperation)? (BpmnOperation)obj : null;
     }
 
-    @objid ("dd9f66c6-4368-425e-b3a6-629aa5aa6d28")
+    @objid ("57f09d07-0d4c-47ba-ac23-dba3af61afef")
     @Override
     public void setOperationRef(BpmnOperation value) {
-        appendDepVal(BpmnServiceTaskData.Metadata.OperationRefDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnServiceTaskSmClass)getClassOf()).getOperationRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("561cc92a-6a63-4d1d-9151-e6f62b771d74")
+    @objid ("b14bb8d0-4292-418b-827f-62469190b387")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("f87fe053-c7dd-4821-a29e-fd1f1146d5fa")
+    @objid ("3618502c-8899-4ab0-8ce3-74b0a47f351d")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("2f6bc295-cfcc-4d21-8002-16e3b313e477")
+    @objid ("58de5ca1-62b2-42dd-b34e-a84835eb99a5")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnServiceTask(this);

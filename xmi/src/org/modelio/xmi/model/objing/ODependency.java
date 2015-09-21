@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -30,7 +30,7 @@ import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("cf21353e-c5a2-4453-a989-24ba2d017de1")
-public class ODependency extends OModelElement implements IOElement {
+public class ODependency extends OModelElement {
     @objid ("d20c4cc4-2c4c-4055-98ee-5b4bd333eed0")
     private Dependency objingElement;
 
@@ -39,32 +39,32 @@ public class ODependency extends OModelElement implements IOElement {
 
     @objid ("2a0938ea-9aef-4787-8753-46fc67ded246")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ASSOCIATIONREFERENCE) 
-                || objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2METHODREFERENCE)
-                || objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2STRUCTURALFEATUREREFERENCE)
-                || objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLASSIFIERREFERENCE)
-                || objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ENDCREATIONDATAREFERENCE)
-                || objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ENDDESTRUCTIONDATAREFERENCE)
-                || objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2INSTANCEVALUE)
-                 || objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EVENT)
-                || objingElement.isStereotyped("ModelerModule",IModelerModuleStereotypes.PART)){
+        if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ASSOCIATIONREFERENCE) 
+                || this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2METHODREFERENCE)
+                || this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2STRUCTURALFEATUREREFERENCE)
+                || this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLASSIFIERREFERENCE)
+                || this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ENDCREATIONDATAREFERENCE)
+                || this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ENDDESTRUCTIONDATAREFERENCE)
+                || this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2INSTANCEVALUE)
+                 || this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EVENT)
+                || this.objingElement.isStereotyped("ModelerModule",IModelerModuleStereotypes.PART)){
             return null;
-        }else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2COMPONENTREALIZATION)){
+        }else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2COMPONENTREALIZATION)){
             return UMLFactory.eINSTANCE.createComponentRealization();
-        }else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2DEPLOYMENT)){
+        }else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2DEPLOYMENT)){
             return UMLFactory.eINSTANCE.createDeployment();
-        }else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2PROTOCOLCONFORMANCE)){
+        }else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2PROTOCOLCONFORMANCE)){
             return UMLFactory.eINSTANCE.createProtocolConformance();
-        }else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ABSTRACTION)){
+        }else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ABSTRACTION)){
             return UMLFactory.eINSTANCE.createAbstraction();
-        }else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.SATISFY)
-                ||objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.VERIFY)
-                ||objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.DERIVE)){
-                    genProp.addSysMLExported(objingElement);
+        }else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.SATISFY)
+                ||this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.VERIFY)
+                ||this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.DERIVE)){
+                    this.genProp.addSysMLExported(this.objingElement);
             return UMLFactory.eINSTANCE.createAbstraction();
         }else{
             org.eclipse.uml2.uml.Dependency ecoreDependency = UMLFactory.eINSTANCE.createDependency();
-            ecoreDependency.setName(objingElement.getName());
+            ecoreDependency.setName(this.objingElement.getName());
             return ecoreDependency;
         }
     }
@@ -72,7 +72,7 @@ public class ODependency extends OModelElement implements IOElement {
     @objid ("a07add4b-7d54-404b-8c7e-b69ee5fed1cc")
     public ODependency(Dependency element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("8094065c-4c49-406f-bae2-96cad2be47e1")
@@ -82,16 +82,16 @@ public class ODependency extends OModelElement implements IOElement {
             // from org.eclipse.uml2.uml.Dependency.
            
                 
-            ModelElement objingClient = objingElement.getImpacted();
-            ModelElement objingSupplier = objingElement.getDependsOn();
+            ModelElement objingClient = this.objingElement.getImpacted();
+            ModelElement objingSupplier = this.objingElement.getDependsOn();
                 
             if (objingClient != null && objingSupplier != null) {
                 // Gets or creates the ecore "Client" element:
-                org.eclipse.uml2.uml.Element ecoreClient = (org.eclipse.uml2.uml.Element) genProp
+                org.eclipse.uml2.uml.Element ecoreClient = this.genProp
                 .getMappedElement(objingClient);
                 
                 // Gets or creates the ecore "Supplier" element:
-                org.eclipse.uml2.uml.Element ecoreSupplier = (org.eclipse.uml2.uml.Element) genProp
+                org.eclipse.uml2.uml.Element ecoreSupplier = this.genProp
                 .getMappedElement(objingSupplier);
                 
                 if (ecoreClient != null && ecoreSupplier != null ) {
@@ -104,7 +104,7 @@ public class ODependency extends OModelElement implements IOElement {
                 
                         org.eclipse.uml2.uml.Package ecorePkg = ecoreClient.getNearestPackage();
                         if (ecorePkg == null) {
-                            genProp.getEcoreModel().getPackagedElements().add(
+                            this.genProp.getEcoreModel().getPackagedElements().add(
                                     ecoreDependency);
                         } else {
                             ecorePkg.getPackagedElements().add(ecoreDependency);
@@ -128,7 +128,7 @@ public class ODependency extends OModelElement implements IOElement {
 
     @objid ("87db91bb-fb88-445d-b795-173eeaae276e")
     private void setFlow(org.eclipse.uml2.uml.Dependency ecoreElt) {
-        if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.FLOW))
+        if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.FLOW))
             ObjingEAnnotation.setFlow(ecoreElt, true);
     }
 

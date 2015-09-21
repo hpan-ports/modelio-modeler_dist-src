@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnlane.hibridcontainer;
 
@@ -38,15 +38,13 @@ import org.modelio.diagram.elements.common.freezone.DefaultFreeZoneLayoutEditPol
 import org.modelio.diagram.elements.core.commands.DefaultCreateElementCommand;
 import org.modelio.diagram.elements.core.commands.DefaultReparentElementCommand;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
-import org.modelio.diagram.elements.core.link.CreateBendedConnectionRequest;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
-import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLaneSet;
 import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -66,9 +64,12 @@ public class BpmnFreeZoneLayoutPolicy extends DefaultFreeZoneLayoutEditPolicy {
     @objid ("6134742d-55b6-11e2-877f-002564c97630")
     @Override
     protected Command getCreateCommand(CreateRequest request) {
-        if (request.getNewObjectType().equals("BpmnLane")) {
+        ModelioCreationContext ctx = ModelioCreationContext.lookRequest(request);
+        
+        if (ctx == null) {
+            return null;
+        } else if (ctx.getMetaclass().getJavaInterface() == BpmnLane.class) {
             MObject hostElement = getHostElement();
-            ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
             MObject elementToUnmask = ctx.getElementToUnmask();
             if (elementToUnmask != null) {
                 if (getHostCompositeNode().canUnmask(elementToUnmask)) {
@@ -89,8 +90,7 @@ public class BpmnFreeZoneLayoutPolicy extends DefaultFreeZoneLayoutEditPolicy {
                     requestConstraint);
         } else {
             MObject hostElement = getHostElement();
-            ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-            MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
+            MClass metaclassToCreate = ctx.getMetaclass();
         
             while (hostElement instanceof BpmnLane) {
                 hostElement = hostElement.getCompositionOwner().getCompositionOwner();
@@ -108,7 +108,8 @@ public class BpmnFreeZoneLayoutPolicy extends DefaultFreeZoneLayoutEditPolicy {
                 }
             }
         
-            boolean returnCommand = MTools.getMetaTool().canCompose(hostElement.getMClass(), metaclassToCreate, null);
+            MExpert expert = hostElement.getMClass().getMetamodel().getMExpert();
+            boolean returnCommand = expert.canCompose(hostElement.getMClass(), metaclassToCreate, null);
         
             if (returnCommand) {
                 Object requestConstraint = getConstraintFor(request);
@@ -123,7 +124,7 @@ public class BpmnFreeZoneLayoutPolicy extends DefaultFreeZoneLayoutEditPolicy {
 
     @objid ("61347433-55b6-11e2-877f-002564c97630")
     @Override
-    protected Command createAddCommand(EditPart child, Object constraint) {
+    protected Command createAddCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
         GmNodeModel gmmodel = (GmNodeModel) child.getModel();
         MObject element = gmmodel.getRelatedElement();
         if (element instanceof BpmnBoundaryEvent) {
@@ -148,7 +149,7 @@ public class BpmnFreeZoneLayoutPolicy extends DefaultFreeZoneLayoutEditPolicy {
     @Override
     public EditPart getTargetEditPart(Request request) {
         if (RequestConstants.REQ_CONNECTION_START.equals(request.getType())) {
-            CreateBendedConnectionRequest crequest = (CreateBendedConnectionRequest) request;
+            CreateConnectionRequest crequest = (CreateConnectionRequest) request;
             if (crequest.getTargetEditPart() instanceof BpmnLaneSetContainerEditPart) {
                 return null;
             }
@@ -159,17 +160,20 @@ public class BpmnFreeZoneLayoutPolicy extends DefaultFreeZoneLayoutEditPolicy {
                 return null;
             }
         } else if (RequestConstants.REQ_CREATE.equals(request.getType())) {
-            CreateRequest crequest = (CreateRequest) request;
-            if (crequest.getNewObjectType().equals(Metamodel.getMClass(BpmnBoundaryEvent.class).getName()) ||
-                    crequest.getNewObjectType().equals(Metamodel.getMClass(BpmnLaneSet.class).getName())) {
-                return null;
+            ModelioCreationContext ctx = ModelioCreationContext.lookRequest((CreateRequest) request);
+            if (ctx != null) {
+                Class<? extends MObject> cls = ctx.getJavaClass();
+                if (cls == BpmnBoundaryEvent.class || cls == BpmnLaneSet.class) {
+                    return null;
+                }
             }
         } else if (RequestConstants.REQ_ADD.equals(request.getType())) {
             ChangeBoundsRequest add_request = (ChangeBoundsRequest) request;
             for (Object element : add_request.getEditParts()) {
                 EditPart editpart = (EditPart) element;
-                if (editpart.getModel() instanceof GmBpmnBoundaryEvent)
+                if (editpart.getModel() instanceof GmBpmnBoundaryEvent) {
                     return null;
+                }
             }
         
         }

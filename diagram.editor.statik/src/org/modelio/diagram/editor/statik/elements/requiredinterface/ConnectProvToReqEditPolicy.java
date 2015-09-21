@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.requiredinterface;
 
@@ -32,7 +32,6 @@ import org.modelio.diagram.editor.statik.elements.providedinterface.ProvidedInte
 import org.modelio.diagram.elements.common.linktovoid.LinkToVoidFinishCreationEditPolicy;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.model.GmModel;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -47,8 +46,9 @@ public class ConnectProvToReqEditPolicy extends LinkToVoidFinishCreationEditPoli
     @objid ("366e548f-55b7-11e2-877f-002564c97630")
     @Override
     protected Command getReconnectTargetCommand(final ReconnectRequest request) {
-        if (!isHandled(request))
+        if (!isHandled(request)) {
             return null;
+        }
         
         final ProvidedInterfaceLinkEditPart provEditPart = (ProvidedInterfaceLinkEditPart) request.getConnectionEditPart();
         final RequiredInterfaceLinkEditPart reqEditPart = (RequiredInterfaceLinkEditPart) request.getTarget();
@@ -62,10 +62,11 @@ public class ConnectProvToReqEditPolicy extends LinkToVoidFinishCreationEditPoli
     @objid ("366e5496-55b7-11e2-877f-002564c97630")
     @Override
     protected Command getConnectionCompleteCommand(final CreateConnectionRequest request) {
-        if (isHandled(request))
+        if (isHandled(request)) {
             return new CreateConnectedConnectionCommand(request, getHost(), request.getLocation());
-        else
+        } else {
             return null;
+        }
     }
 
     @objid ("366e549c-55b7-11e2-877f-002564c97630")
@@ -73,8 +74,9 @@ public class ConnectProvToReqEditPolicy extends LinkToVoidFinishCreationEditPoli
     public EditPart getTargetEditPart(final Request request) {
         if (REQ_LINKTOVOID_END.equals(request.getType())) {
             CreateConnectionRequest r = (CreateConnectionRequest) request;
-            if (isHandled(r))
+            if (isHandled(r)) {
                 return getLinkMoveTargetEditPart();
+            }
         
         } else if (REQ_LINKTOVOID_RECONNECT_TARGET.equals(request.getType())) {
             ReconnectRequest r = (ReconnectRequest) request;
@@ -93,17 +95,22 @@ public class ConnectProvToReqEditPolicy extends LinkToVoidFinishCreationEditPoli
     @objid ("366e54a3-55b7-11e2-877f-002564c97630")
     private EditPart getLinkMoveTargetEditPart() {
         final ConnectionEditPart host = (ConnectionEditPart) getHost();
-        if (host.getTarget() instanceof LollipopConnectionEditPart)
+        if (host.getTarget() instanceof LollipopConnectionEditPart) {
             return host.getTarget();
-        else
+        } else {
             return getHost();
+        }
     }
 
     @objid ("366e54a7-55b7-11e2-877f-002564c97630")
     private boolean isHandled(final CreateConnectionRequest r) {
-        ModelioCreationContext ctx = (ModelioCreationContext) r.getNewObject();
-        Class<? extends MObject> c = Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
-        return (ProvidedInterface.class.isAssignableFrom(c));
+        ModelioCreationContext ctx = ModelioCreationContext.lookRequest(r);
+        if (ctx != null) {
+            Class<? extends MObject> c = ctx.getMetaclass().getJavaInterface();
+            return (ProvidedInterface.class.isAssignableFrom(c));
+        } else {
+            return false;
+        }
     }
 
     @objid ("366e54ad-55b7-11e2-877f-002564c97630")

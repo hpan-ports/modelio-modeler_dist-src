@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.packaze;
 
@@ -28,7 +28,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.editor.statik.elements.packaze.v0._GmPackage;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -85,6 +85,12 @@ public class GmPackage extends GmPortContainer {
     public static GmPackageImageStyleKeys IMAGE_KEYS = new GmPackageImageStyleKeys();
 
     /**
+     * Image mode style keys.
+     */
+    @objid ("e014ebd6-dd0e-40c6-9542-58b86af61eec")
+    public static GmPackageUserImageStyleKeys USERIMAGE_KEYS = new GmPackageUserImageStyleKeys();
+
+    /**
      * Creates a GmPackage.
      * @param diagram The diagram.
      * @param thePackage The represented package, may be <tt>null</tt>
@@ -98,7 +104,7 @@ public class GmPackage extends GmPortContainer {
         GmPackagePrimaryNode primary = new GmPackagePrimaryNode(diagram, ref);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(diagram, ref);
+        GmDefaultModelElementLabel  imageModeHeader = new GmDefaultModelElementLabel (diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
@@ -147,6 +153,8 @@ public class GmPackage extends GmPortContainer {
                     return STRUCTURED_KEYS.getStyleKeys();
                 case IMAGE:
                     return IMAGE_KEYS.getStyleKeys();
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKeys();
                 case SIMPLE:
                     return SIMPLE_KEYS.getStyleKeys();
                 default:
@@ -255,7 +263,7 @@ public class GmPackage extends GmPortContainer {
     @Override
     public boolean isSatellite(final GmNodeModel childNode) {
         return BODY_CONTENT_AS_SATELLITE.equals(childNode.getRoleInComposition()) ||
-               IMAGE_MODE_HEADER.equals(childNode.getRoleInComposition());
+                                                       IMAGE_MODE_HEADER.equals(childNode.getRoleInComposition());
     }
 
     /**
@@ -301,7 +309,7 @@ public class GmPackage extends GmPortContainer {
         GmPackagePrimaryNode primary = new GmPackagePrimaryNode(oldVersionGm);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(oldVersionGm.getDiagram(),
+        GmDefaultModelElementLabel  imageModeHeader = new GmDefaultModelElementLabel (oldVersionGm.getDiagram(),
                                                                       oldVersionGm.getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);

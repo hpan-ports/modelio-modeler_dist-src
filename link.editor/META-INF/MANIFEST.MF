@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Link Editor
 Bundle-SymbolicName: org.modelio.link.editor;singleton:=true
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Bundle-Vendor: modelio.org
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -30,7 +30,8 @@ Require-Bundle: org.eclipse.swt,
  org.modelio.app.ui,
  org.eclipse.e4.ui.workbench.swt,
  org.eclipse.e4.core.di.extensions;bundle-version="0.11.100",
- org.eclipse.e4.ui.model.workbench
+ org.eclipse.e4.ui.model.workbench,
+ org.modelio.mda.infra;bundle-version="3.4.0"
 Bundle-Activator: org.modelio.linkeditor.plugin.LinkEditor
 Bundle-ClassPath: res/,
  .

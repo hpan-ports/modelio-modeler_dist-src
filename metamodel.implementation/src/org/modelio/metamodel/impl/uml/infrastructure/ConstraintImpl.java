@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,33 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 9024, by Modeliosoft
+ Generator version: 3.0.01.9022
+ Generated on: 28 janv. 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 9024, by Modeliosoft
+ Generator version: 3.2.07.9022
+ Generated on: Mar 9, 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -29,7 +46,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.infrastructure.ConstraintData;
+import org.modelio.metamodel.impl.uml.infrastructure.ConstraintData;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -47,35 +64,37 @@ public class ConstraintImpl extends ModelElementImpl implements Constraint {
     @objid ("006b6ba6-4224-10bf-bd58-001ec947cd2a")
     @Override
     public SmObjectImpl getCompositionOwner() {
-        List<SmObjectImpl> list = this.getDepValList(ConstraintData.Metadata.ConstrainedElementDep());
-        if (list.isEmpty())
+        List<SmObjectImpl> list = this.getDepValList(((ConstraintSmClass) getClassOf()).getConstrainedElementDep());
+        if (list.isEmpty()) {
             return super.getCompositionOwner();
-        else
+        } else {
             return list.get(0);
+        }
     }
 
     @objid ("006b90fe-4224-10bf-bd58-001ec947cd2a")
     @Override
     public SmDepVal getCompositionRelation() {
-        List<SmObjectImpl> list = this.getDepValList(ConstraintData.Metadata.ConstrainedElementDep());
-        if (list.isEmpty())
+        List<SmObjectImpl> list = this.getDepValList(((ConstraintSmClass) getClassOf()).getConstrainedElementDep());
+        if (list.isEmpty()) {
             return super.getCompositionRelation();
-        else
-          return new SmDepVal(ConstraintData.Metadata.ConstrainedElementDep(), list.get(0));
+        } else {
+            return new SmDepVal(((ConstraintSmClass) getClassOf()).getConstrainedElementDep(), list.get(0));
+        }
     }
 
     @objid ("dc0243f1-0d07-41a0-a075-8956cb67cd32")
     @Override
     public void afterEraseDepVal(SmDependency dep, SmObjectImpl value) {
-        if (dep == ConstraintData.Metadata.ConstrainedElementDep()) {
+        if (dep == ((ConstraintSmClass) getClassOf()).getConstrainedElementDep()) {
             // Workaround bug where the storage handle is not updated
             EList<ModelElement> remainingOwners = getConstrainedElement();
-            if (! remainingOwners.isEmpty()) {
+            if (!remainingOwners.isEmpty()) {
                 // Remove and add again the first remaining owner.
                 // Note : this will trigger recursively the removal & addition of all other owners.
                 ModelElement r = remainingOwners.get(0);
                 r.getConstraintDefinition().remove(this);
-                
+        
                 r.getConstraintDefinition().add(this);
             }
         }
@@ -83,62 +102,65 @@ public class ConstraintImpl extends ModelElementImpl implements Constraint {
         super.afterEraseDepVal(dep, value);
     }
 
-    @objid ("a99dc2da-5078-449d-8dfd-86a26879a43f")
+    @objid ("8832d486-0883-483f-998f-892ea710ce8a")
     @Override
     public String getBaseClass() {
-        return (String) getAttVal(ConstraintData.Metadata.BaseClassAtt());
+        return (String) getAttVal(((ConstraintSmClass)getClassOf()).getBaseClassAtt());
     }
 
-    @objid ("3c2df05e-277b-4302-a51d-ef82424bb9c6")
+    @objid ("b8592634-2485-48f1-9a04-3865bd8c7438")
     @Override
     public void setBaseClass(String value) {
-        setAttVal(ConstraintData.Metadata.BaseClassAtt(), value);
+        setAttVal(((ConstraintSmClass)getClassOf()).getBaseClassAtt(), value);
     }
 
-    @objid ("2ebec903-b1e3-4a0c-9611-1211c0a3ac4e")
+    @objid ("d2dbcf21-ca30-4d6c-a535-12348e3bf796")
     @Override
     public String getBody() {
-        return (String) getAttVal(ConstraintData.Metadata.BodyAtt());
+        return (String) getAttVal(((ConstraintSmClass)getClassOf()).getBodyAtt());
     }
 
-    @objid ("1d5d8fef-4f7b-450d-82bc-42b16a8001f1")
+    @objid ("c5db7488-c4cd-44f0-9dcb-e76191722f81")
     @Override
     public void setBody(String value) {
-        setAttVal(ConstraintData.Metadata.BodyAtt(), value);
+        setAttVal(((ConstraintSmClass)getClassOf()).getBodyAtt(), value);
     }
 
-    @objid ("3eee60f2-37f1-42ff-8bbf-a33937f75896")
+    @objid ("993e57ed-b4da-44a7-a276-3b4ecbed904f")
     @Override
     public String getLanguage() {
-        return (String) getAttVal(ConstraintData.Metadata.LanguageAtt());
+        return (String) getAttVal(((ConstraintSmClass)getClassOf()).getLanguageAtt());
     }
 
-    @objid ("fc0a7c3b-9852-427b-a7f2-1e25cb047365")
+    @objid ("252c5775-8dc4-4cdc-b97d-5691df66961a")
     @Override
     public void setLanguage(String value) {
-        setAttVal(ConstraintData.Metadata.LanguageAtt(), value);
+        setAttVal(((ConstraintSmClass)getClassOf()).getLanguageAtt(), value);
     }
 
-    @objid ("bdb506c0-6bf8-4dd2-9539-a4e54ab5cf2b")
+    @objid ("e8f1208f-dd53-4c7d-b65e-e15973a5b0e2")
     @Override
     public EList<ModelElement> getConstrainedElement() {
-        return new SmList<>(this, ConstraintData.Metadata.ConstrainedElementDep());
+        return new SmList<>(this, ((ConstraintSmClass)getClassOf()).getConstrainedElementDep());
     }
 
-    @objid ("854173f9-e40a-4e82-b518-6dc0658f34e7")
+    @objid ("c1e9e202-34d9-4973-8e28-7a8bdc4fd80f")
     @Override
     public <T extends ModelElement> List<T> getConstrainedElement(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ModelElement element : getConstrainedElement()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d57c04e8-6f42-4502-8cf1-1efd9af6d228")
+    @objid ("60e515d9-443f-4376-a875-399f00e024e2")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitConstraint(this);

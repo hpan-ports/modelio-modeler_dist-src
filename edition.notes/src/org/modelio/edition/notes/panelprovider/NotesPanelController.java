@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.notes.panelprovider;
 
@@ -53,6 +53,7 @@ import org.modelio.vcore.session.api.model.change.IModelChangeListener;
 import org.modelio.vcore.session.api.model.change.IStatusChangeEvent;
 import org.modelio.vcore.session.api.model.change.IStatusChangeListener;
 import org.modelio.vcore.session.api.transactions.ITransaction;
+import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -136,10 +137,14 @@ public class NotesPanelController {
             return;
         } else {
         
-            final GProject newProject = GProject.getProject(elt);
-            if (newProject.getSession() != this.session) {
-                this.session = newProject.getSession();
-                this.modelServices = new MModelServices(newProject);
+            CoreSession newSess = CoreSession.getSession(elt);
+            if (newSess != this.session) {
+                this.session = newSess;
+                GProject newProject = GProject.getProject(elt);
+                if (newProject != null) // there is no GProject on diff/merge
+                    this.modelServices = new MModelServices(newProject);
+                else
+                    this.modelServices = null;
             }
         
             this.currentInput = elt;
@@ -416,7 +421,7 @@ public class NotesPanelController {
 
     @objid ("7c37cdf0-08be-4000-bf65-215e7cd52be5")
     public boolean canAddNote() {
-        return AddNoteHelper.canExecute(this.currentInput, this.view.getSelectedNotes());
+        return AddNoteHelper.canExecute(this.currentInput);
     }
 
     @objid ("f7715626-2cfc-46a0-a787-56f2f8592bb0")

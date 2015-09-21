@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.enumeration;
 
@@ -36,7 +36,7 @@ import org.modelio.diagram.editor.statik.elements.operationgroup.GmOperationGrou
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.group.GmGroup;
 import org.modelio.diagram.elements.common.header.GmModelElementHeader;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNoStyleCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -277,7 +277,7 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
         String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -380,7 +380,7 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
         this.methodGroup.setRoleInComposition(METHOD_GROUP);
         this.innerElements.setRoleInComposition(INNER);
         
-        GmDefaultFlatHeader imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(3);
+        GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(3);
         imageModeHeader.delete();
         
         GmClassifierResizableGroup group = new GmClassifierResizableGroup(getDiagram(), getRepresentedRef());

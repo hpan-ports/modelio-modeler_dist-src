@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.flows;
 
 import java.util.ArrayList;
@@ -32,7 +44,7 @@ import org.modelio.metamodel.bpmn.flows.BpmnMessage;
 import org.modelio.metamodel.bpmn.flows.BpmnMessageFlow;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnCollaboration;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
-import org.modelio.metamodel.data.bpmn.flows.BpmnMessageFlowData;
+import org.modelio.metamodel.impl.bpmn.flows.BpmnMessageFlowData;
 import org.modelio.metamodel.impl.bpmn.rootElements.BpmnBaseElementImpl;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
@@ -42,78 +54,91 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("007c895e-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnMessageFlowImpl extends BpmnBaseElementImpl implements BpmnMessageFlow {
-    @objid ("1f2c8d6e-3618-44b9-993c-1eec7f98069e")
+    @objid ("fdb2e62c-c45b-4fce-8b5b-8382144537fd")
     @Override
     public BpmnMessage getMessageRef() {
-        return (BpmnMessage) getDepVal(BpmnMessageFlowData.Metadata.MessageRefDep());
+        Object obj = getDepVal(((BpmnMessageFlowSmClass)getClassOf()).getMessageRefDep());
+        return (obj instanceof BpmnMessage)? (BpmnMessage)obj : null;
     }
 
-    @objid ("397609e5-13a5-4608-be4c-2ac820248979")
+    @objid ("8d39aa8e-7aba-4239-8a51-79dc8bf21a99")
     @Override
     public void setMessageRef(BpmnMessage value) {
-        appendDepVal(BpmnMessageFlowData.Metadata.MessageRefDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnMessageFlowSmClass)getClassOf()).getMessageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e81cc015-ab02-4148-ab39-bbbb7a3e669d")
+    @objid ("548d7fbc-6c84-44fb-b7da-acf8bf7723d7")
     @Override
     public BpmnBaseElement getSourceRef() {
-        return (BpmnBaseElement) getDepVal(BpmnMessageFlowData.Metadata.SourceRefDep());
+        Object obj = getDepVal(((BpmnMessageFlowSmClass)getClassOf()).getSourceRefDep());
+        return (obj instanceof BpmnBaseElement)? (BpmnBaseElement)obj : null;
     }
 
-    @objid ("08a28355-903f-433d-ba1f-4dc2d601014a")
+    @objid ("1ee3b389-aed0-4a9e-8d91-868c109da181")
     @Override
     public void setSourceRef(BpmnBaseElement value) {
-        appendDepVal(BpmnMessageFlowData.Metadata.SourceRefDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnMessageFlowSmClass)getClassOf()).getSourceRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8b17801a-22b2-4c31-b160-4938ea779422")
+    @objid ("d04a522d-569b-41cb-bf92-139800e36e1d")
     @Override
     public BpmnBaseElement getTargetRef() {
-        return (BpmnBaseElement) getDepVal(BpmnMessageFlowData.Metadata.TargetRefDep());
+        Object obj = getDepVal(((BpmnMessageFlowSmClass)getClassOf()).getTargetRefDep());
+        return (obj instanceof BpmnBaseElement)? (BpmnBaseElement)obj : null;
     }
 
-    @objid ("de26a830-a2a2-4c10-b53b-2fb13c5f5ade")
+    @objid ("2a0fbec4-a36f-467d-aceb-b129f3e1a4e7")
     @Override
     public void setTargetRef(BpmnBaseElement value) {
-        appendDepVal(BpmnMessageFlowData.Metadata.TargetRefDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnMessageFlowSmClass)getClassOf()).getTargetRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("24550814-22bf-41fd-b7ec-f876e04ba8b8")
+    @objid ("2fb10343-0a00-419c-9406-01408baa7523")
     @Override
     public BpmnCollaboration getCollaboration() {
-        return (BpmnCollaboration) getDepVal(BpmnMessageFlowData.Metadata.CollaborationDep());
+        Object obj = getDepVal(((BpmnMessageFlowSmClass)getClassOf()).getCollaborationDep());
+        return (obj instanceof BpmnCollaboration)? (BpmnCollaboration)obj : null;
     }
 
-    @objid ("1792fe43-f927-4278-a57d-d52089512e7e")
+    @objid ("83a55fcd-28f7-4b41-9edc-15b1c8c84a72")
     @Override
     public void setCollaboration(BpmnCollaboration value) {
-        appendDepVal(BpmnMessageFlowData.Metadata.CollaborationDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnMessageFlowSmClass)getClassOf()).getCollaborationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a0981bcf-d7d6-4363-ac20-6c4851bf4532")
+    @objid ("324a49a0-963a-4825-8d2f-cf9db892f990")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnMessageFlowData.Metadata.CollaborationDep());
+        // Collaboration
+        obj = (SmObjectImpl)this.getDepVal(((BpmnMessageFlowSmClass)getClassOf()).getCollaborationDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("4377c58c-af58-4961-9f39-d54a602e8764")
+    @objid ("62b863a6-c200-4555-a1d6-ac8a56ec0b90")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnMessageFlowData.Metadata.CollaborationDep());
-        if (obj != null)
-          return new SmDepVal(BpmnMessageFlowData.Metadata.CollaborationDep(), obj);
+        SmDependency dep;
+        
+        // Collaboration
+        dep = ((BpmnMessageFlowSmClass)getClassOf()).getCollaborationDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("564330f3-fb5a-49bf-a053-ba45e480921f")
+    @objid ("7bc4dce1-4efb-4552-83bb-87e881f2866d")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnMessageFlow(this);

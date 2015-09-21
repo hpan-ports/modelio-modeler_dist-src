@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link.rake;
 
@@ -47,7 +47,7 @@ import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
 import org.modelio.diagram.elements.core.model.IGmLinkable;
 import org.modelio.diagram.elements.core.model.IGmPath;
 import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
-import org.modelio.metamodel.Metamodel;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -89,8 +89,9 @@ public class CreateRakeLinkEditPolicy extends GraphicalNodeEditPolicy {
     @objid ("8059f6f6-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getReconnectSourceCommand(ReconnectRequest request) {
-        if (!isHandled(request))
+        if (!isHandled(request)) {
             return null;
+        }
         
         ConnectionEditPart toReconnect = request.getConnectionEditPart();
         Point loc = request.getLocation();
@@ -105,8 +106,9 @@ public class CreateRakeLinkEditPolicy extends GraphicalNodeEditPolicy {
     @objid ("8059f700-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getReconnectTargetCommand(ReconnectRequest request) {
-        if (!isHandled(request))
+        if (!isHandled(request)) {
             return null;
+        }
         
         final ConnectionEditPart toReconnect = request.getConnectionEditPart();
         Point loc = request.getLocation().getCopy();
@@ -176,8 +178,9 @@ public class CreateRakeLinkEditPolicy extends GraphicalNodeEditPolicy {
     @objid ("805c593f-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void showTargetFeedback(final Request request) {
-        if (!isHandled(request))
+        if (!isHandled(request)) {
             return;
+        }
     }
 
     @objid ("805c5946-1dec-11e2-8cad-001ec947c8cc")
@@ -194,10 +197,11 @@ public class CreateRakeLinkEditPolicy extends GraphicalNodeEditPolicy {
         
         } else if (request instanceof CreateConnectionRequest && model instanceof GmLink) {
             // Test the metaclass
-            Class<? extends MObject> toCreate = getMetaclass((CreateConnectionRequest) request);
+            MClass toCreate = getMetaclass((CreateConnectionRequest) request);
             MObject repEl = ((GmLink) model).getRelatedElement();
-            if (toCreate!= null && Metamodel.getMClass(toCreate) == repEl.getMClass())
+            if (toCreate!= null && toCreate == repEl.getMClass()) {
                 return true;
+            }
         
             return false;
         }
@@ -205,14 +209,14 @@ public class CreateRakeLinkEditPolicy extends GraphicalNodeEditPolicy {
     }
 
     @objid ("805c594e-1dec-11e2-8cad-001ec947c8cc")
-    private Class<? extends MObject> getMetaclass(final CreateConnectionRequest request) {
+    private MClass getMetaclass(final CreateConnectionRequest request) {
         Object factory = request.getNewObject();
         if (factory instanceof ModelioLinkCreationContext) {
             ModelioLinkCreationContext ctx = (ModelioLinkCreationContext) factory;
-            return Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
+            return ctx.getMetaclass();
         } else if (factory instanceof ModelioCreationContext) {
             ModelioCreationContext ctx = (ModelioCreationContext) factory;
-            return Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
+            return ctx.getMetaclass();
         } else {
             return null;
         }
@@ -304,9 +308,10 @@ public class CreateRakeLinkEditPolicy extends GraphicalNodeEditPolicy {
         // If another policy handles the request answer false.
         activated = false;
         try {
-            Command cmd = this.getHost().getCommand(request);
-            if (cmd != null && cmd.canExecute())
+            Command cmd = getHost().getCommand(request);
+            if (cmd != null && cmd.canExecute()) {
                 return false;
+            }
         } finally {
             activated = true;
         }

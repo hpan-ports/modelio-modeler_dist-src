@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.communicationModel;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.communicationModel.CommunicationChannelData;
+import org.modelio.metamodel.impl.uml.behavior.communicationModel.CommunicationChannelData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationMessage;
@@ -44,116 +56,133 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("3d66beff-bc9e-42aa-84dd-28f34e3a9a10")
 public class CommunicationChannelImpl extends ModelElementImpl implements CommunicationChannel {
-    @objid ("c02c99d5-2303-4814-b7e2-c76627bffeb9")
+    @objid ("0b853b6d-d9b7-4ac0-962e-81c645b00925")
     @Override
     public EList<CommunicationMessage> getStartToEndMessage() {
-        return new SmList<>(this, CommunicationChannelData.Metadata.StartToEndMessageDep());
+        return new SmList<>(this, ((CommunicationChannelSmClass)getClassOf()).getStartToEndMessageDep());
     }
 
-    @objid ("5b8eba79-8ce5-4823-9bdd-4a51f896fa5d")
+    @objid ("33ad0960-b182-460a-8561-0da5beaaee56")
     @Override
     public <T extends CommunicationMessage> List<T> getStartToEndMessage(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final CommunicationMessage element : getStartToEndMessage()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b30549b4-a9d8-4c7c-a239-1344f6002093")
+    @objid ("be535cab-1986-4faf-8a6c-9aacd213f3ea")
     @Override
     public Link getChannel() {
-        return (Link) getDepVal(CommunicationChannelData.Metadata.ChannelDep());
+        Object obj = getDepVal(((CommunicationChannelSmClass)getClassOf()).getChannelDep());
+        return (obj instanceof Link)? (Link)obj : null;
     }
 
-    @objid ("621221cd-a48f-4989-8545-56e56d2edaba")
+    @objid ("47f52d70-5699-4f43-b57d-2f682c56f3d4")
     @Override
     public void setChannel(Link value) {
-        appendDepVal(CommunicationChannelData.Metadata.ChannelDep(), (SmObjectImpl)value);
+        appendDepVal(((CommunicationChannelSmClass)getClassOf()).getChannelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e8925de8-79e3-48af-86e9-a1942ebf1882")
+    @objid ("e963d91b-eb79-41ae-b362-76768405894b")
     @Override
     public CommunicationNode getStart() {
-        return (CommunicationNode) getDepVal(CommunicationChannelData.Metadata.StartDep());
+        Object obj = getDepVal(((CommunicationChannelSmClass)getClassOf()).getStartDep());
+        return (obj instanceof CommunicationNode)? (CommunicationNode)obj : null;
     }
 
-    @objid ("43d7c503-b384-4561-891c-f7f10751f556")
+    @objid ("30f82a67-17c7-4c18-9c57-b136e1d6b77d")
     @Override
     public void setStart(CommunicationNode value) {
-        appendDepVal(CommunicationChannelData.Metadata.StartDep(), (SmObjectImpl)value);
+        appendDepVal(((CommunicationChannelSmClass)getClassOf()).getStartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("19cd47dc-917e-4f19-9b75-33f09b555a26")
+    @objid ("d9f2658e-8188-4ac9-9464-bb9136c9bd50")
     @Override
     public NaryLink getNaryChannel() {
-        return (NaryLink) getDepVal(CommunicationChannelData.Metadata.NaryChannelDep());
+        Object obj = getDepVal(((CommunicationChannelSmClass)getClassOf()).getNaryChannelDep());
+        return (obj instanceof NaryLink)? (NaryLink)obj : null;
     }
 
-    @objid ("a3b98283-6582-4379-a413-70456822aad2")
+    @objid ("869c617f-85dd-463c-9bf8-e65148bd391d")
     @Override
     public void setNaryChannel(NaryLink value) {
-        appendDepVal(CommunicationChannelData.Metadata.NaryChannelDep(), (SmObjectImpl)value);
+        appendDepVal(((CommunicationChannelSmClass)getClassOf()).getNaryChannelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("cd16fe5e-4a49-42cb-8a47-859aedabf448")
+    @objid ("02d5e4ea-aaa5-4cf0-99ad-8cf0c8a04f30")
     @Override
     public EList<CommunicationMessage> getEndToStartMessage() {
-        return new SmList<>(this, CommunicationChannelData.Metadata.EndToStartMessageDep());
+        return new SmList<>(this, ((CommunicationChannelSmClass)getClassOf()).getEndToStartMessageDep());
     }
 
-    @objid ("8ca61bc9-329f-4fea-a8cd-3bfea4c10ae6")
+    @objid ("dfc7c4e6-d23e-441d-b1ff-b3a34c8bbe28")
     @Override
     public <T extends CommunicationMessage> List<T> getEndToStartMessage(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final CommunicationMessage element : getEndToStartMessage()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6fbadd60-34c8-4945-ab60-f18f87601ded")
+    @objid ("8ebe71c2-4e7c-481d-a07c-fd5093a0b487")
     @Override
     public CommunicationNode getEnd() {
-        return (CommunicationNode) getDepVal(CommunicationChannelData.Metadata.EndDep());
+        Object obj = getDepVal(((CommunicationChannelSmClass)getClassOf()).getEndDep());
+        return (obj instanceof CommunicationNode)? (CommunicationNode)obj : null;
     }
 
-    @objid ("8101ff7d-b099-4fb2-a304-c13fae5f55ca")
+    @objid ("3ac7c957-35a4-4879-8c89-f6d0a2b26b8d")
     @Override
     public void setEnd(CommunicationNode value) {
-        appendDepVal(CommunicationChannelData.Metadata.EndDep(), (SmObjectImpl)value);
+        appendDepVal(((CommunicationChannelSmClass)getClassOf()).getEndDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6145306e-ec0e-4a01-b3ff-999d6d237c8b")
+    @objid ("ff0916ae-42eb-4a74-810e-906958c9f615")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(CommunicationChannelData.Metadata.StartDep());
+        // Start
+        obj = (SmObjectImpl)this.getDepVal(((CommunicationChannelSmClass)getClassOf()).getStartDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("937098ed-d9d5-4cdc-a85a-0a51b75a5439")
+    @objid ("9cd46c58-30e5-4cbf-89da-43fa2d849416")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(CommunicationChannelData.Metadata.StartDep());
-        if (obj != null)
-          return new SmDepVal(CommunicationChannelData.Metadata.StartDep(), obj);
+        SmDependency dep;
+        
+        // Start
+        dep = ((CommunicationChannelSmClass)getClassOf()).getStartDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("ebb370a7-81e3-4b6a-9ce5-2e787f42b6ab")
+    @objid ("4b078a07-62cc-4874-9edd-0064b23584a6")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCommunicationChannel(this);

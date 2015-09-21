@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.transactions.events;
 
@@ -31,7 +31,6 @@ import org.modelio.vcore.session.impl.transactions.smAction.IAction;
 import org.modelio.vcore.session.impl.transactions.smAction.MoveDependencyAction;
 import org.modelio.vcore.session.impl.transactions.smAction.SetAttributeAction;
 import org.modelio.vcore.session.impl.transactions.smAction.smActionInteractions.IActionVisitor;
-import org.modelio.vcore.smkernel.SmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmDependency;
@@ -91,7 +90,7 @@ class ModelChangeActionVisitor implements IActionVisitor {
         SmObjectImpl refered = action.getRefered();
         
         // Forget created then deleted elements
-        if (refered.isDeleted()) 
+        if (refered.isDeleted())
             return;
         
         // If the element is already in the list of created elements, it has not
@@ -99,11 +98,11 @@ class ModelChangeActionVisitor implements IActionVisitor {
         if (this.event.createdElements.contains(refered))
             return;
         
-        if (action.getAtt() == SmObjectData.Metadata.statusAtt()) {
+        if (action.getAtt() == refered.getClassOf().statusAtt()) {
             // populate the status change event
             long oldStatus = (long) action.getOldValue();
             long newStatus = (Long) refered.getAttVal(action.getAtt());
-            
+        
             this.statusEvent.add(refered, oldStatus, newStatus);
         
         } else {

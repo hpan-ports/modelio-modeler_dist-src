@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -47,12 +47,12 @@ public class ElementImportPropertyModel extends AbstractPropertyModel<ElementImp
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a6eed3c8-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"ElementImport", "Alias", "Visibility", "ImportedElement"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Alias", "Visibility", "ImportedElement" };
 
     @objid ("8f07ee45-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -137,8 +137,7 @@ public class ElementImportPropertyModel extends AbstractPropertyModel<ElementImp
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -213,15 +212,15 @@ public class ElementImportPropertyModel extends AbstractPropertyModel<ElementImp
             if (element instanceof NameSpace) {
                 NameSpace type = (NameSpace) element;
             
-                if (type instanceof Package && (type.getName().equals("_predefinedTypes") 
-                                                  || type.getName().equals("_S_PredefinedTypes"))) {
+                if (type instanceof Package
+                        && (type.getName().equals("_predefinedTypes") || type.getName().equals("_S_PredefinedTypes"))) {
                     return false;
                 } else if (type.getName().equals("undefined")) {
                     return false;
                 } else {
                     return true;
                 }
-            } 
+            }
             // else
             return false;
         }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.versioned.save;
 
@@ -58,8 +58,9 @@ class LocalSaver implements AutoCloseable, ExmlTags {
     @Override
     public void close() throws XMLStreamException {
         try {
-            if (this.currentObj != null)
+            if (this.currentObj != null) {
                 this.out.writeEndElement();
+            }
         
             this.out.writeEndDocument();
         } finally {
@@ -72,7 +73,7 @@ class LocalSaver implements AutoCloseable, ExmlTags {
         if (this.currentObj == null) {
             this.out.writeStartElement(TAG_OBJECT);
             dumpID(TAG_ID, object);
-            
+        
             this.currentObj = object;
         } else if (this.currentObj != object) {
             this.out.writeEndElement();
@@ -80,7 +81,7 @@ class LocalSaver implements AutoCloseable, ExmlTags {
             dumpID(TAG_ID, object);
         
             this.currentObj = object;
-        } 
+        }
         
         this.out.writeStartElement(TAG_COMP);
         this.out.writeAttribute(ATT_RELATION, dep.getName());
@@ -107,16 +108,17 @@ class LocalSaver implements AutoCloseable, ExmlTags {
         this.out.writeStartDocument();
         this.out.writeComment("GENERATED FILE, PLEASE DO NOT EDIT!!!");
         
-        this.out.writeStartElement("EXT");
+        this.out.writeStartElement(TAG_EXT);
         this.out.writeAttribute(ATT_EXT_OBJECT, object.getName());
         this.out.writeAttribute(ATT_EXT_VERSION, Integer.toString(FORMAT_VERSION));
         
-        this.out.writeStartElement(TAG_DEPS);
+        this.out.writeStartElement(TAG_LOCAL_DEPS);
         dumpID(TAG_ID, object);
         
         // dump composed
-        for ( MObject it:collection)
+        for ( MObject it:collection) {
             dumpID(TAG_COMPID, it);
+        }
         this.out.writeEndElement();
     }
 

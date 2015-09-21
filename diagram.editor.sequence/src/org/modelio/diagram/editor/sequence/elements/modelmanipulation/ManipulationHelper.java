@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.modelmanipulation;
 
@@ -96,12 +96,13 @@ public class ManipulationHelper {
         this.predicates.clear();
         
         for (MObject obj : objs) {
-            if (obj instanceof Message)
+            if (obj instanceof Message) {
                 computePredicatesForMessage((Message)obj);
-            else if (obj instanceof MessageEnd)
+            } else if (obj instanceof MessageEnd) {
                 computePredicatesForMessageEnd((MessageEnd) obj);
-            else
+            } else {
                 throw new UnsupportedOperationException(obj.toString());
+            }
         }
     }
 
@@ -124,12 +125,13 @@ public class ManipulationHelper {
             for (Variable v : pr.getVariables()) {
                 MObject el = v.getRef().getElement();
                 final GraphicalEditPart elEditPart = getEditPart(el);
-                if (elEditPart == null)
+                if (elEditPart == null) {
                     continue;
+                }
                 final IFigure elFig = elEditPart.getFigure();
                 Rectangle r = elFig.getBounds().getCopy();
-                elFig.translateToAbsolute(r);
                 r.y = v.getValue() - r.height / 2;
+                elFig.translateToAbsolute(r);
                 fbLayer.translateToRelative(r);
                 RectangleFigure rf = new RectangleFigure();
                 if (! pr.evaluate()) {
@@ -208,8 +210,9 @@ public class ManipulationHelper {
     @objid ("d9683e49-55b6-11e2-877f-002564c97630")
     public boolean checkAllPredicates() {
         for (Predicate predicate : this.predicates) {
-            if (!predicate.evaluate())
+            if (!predicate.evaluate()) {
                 return false;
+            }
         }
         
         // All predicate evaluated to true

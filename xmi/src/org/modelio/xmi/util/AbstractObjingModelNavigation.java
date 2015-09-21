@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,15 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.util;
 
-import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -63,7 +61,6 @@ import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
-import org.modelio.metamodel.uml.infrastructure.Usage;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
@@ -97,7 +94,6 @@ import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.reverse.ReverseProperties;
@@ -163,84 +159,16 @@ public abstract class AbstractObjingModelNavigation {
         return null;
     }
 
-    @objid ("6fdc7a1f-12e6-4c5d-8114-eac4d2ab895b")
-    private static String getJarPath(String pkgName) {
-        File file = null;
-        try {
-            file = getFileFromPackage(pkgName);
-        } catch  (ClassNotFoundException e) {
-           Xmi.LOG.error(e);
-        }
-        
-        if (file != null) {
-            String path = file.getPath();
-        
-            int index = path.indexOf(".jar!");
-            String jarPath = path.substring(0, index + 4);
-            if (jarPath.startsWith("file:/") || jarPath.startsWith("file:\\")){
-                jarPath = jarPath.substring(6);
-            }
-        
-            return jarPath;
-        }
-        return null;
-    }
-
-    @objid ("bf356c20-51dd-4879-bbf0-757bd160e3b3")
-    private static File getFileFromPackage(String pckgname) throws ClassNotFoundException {
-        File directory = null;
-        try {
-            ClassLoader cld = Thread.currentThread().getContextClassLoader();
-            if (cld == null) {
-                throw new ClassNotFoundException("Can't get class loader.");
-            }
-            String path = pckgname.replace('.', '/');
-            URL resource = cld.getResource(path);
-        
-            if (resource == null) {
-                throw new ClassNotFoundException("No resource for " + path);
-            }
-            
-            directory = new File(resource.getFile());
-            return directory;
-            
-        } catch (NullPointerException x) {
-            throw new ClassNotFoundException(pckgname + " (" + directory
-                    + ") does not appear to be a valid package");
-        }
-    }
-
-    @objid ("76b95eb8-354f-4571-9c67-ecc60909ed11")
-    private static String getNamespace(String jarEntryName) {
-        String namespace = jarEntryName;
-        namespace = namespace.replaceAll("/", "\\.");
-        String separator = "/";
-        
-        int index = namespace.lastIndexOf(separator);
-        namespace = namespace.substring(index + 1);
-        
-        if (namespace.endsWith(".class")){
-            namespace = namespace.substring(0, namespace.length() - 6);
-        }
-        return namespace;
-    }
-
-    @objid ("0747258f-adfb-403f-9a37-2d6a6e156003")
-    private static String getSimpleName(String namespace) {
-        int index = namespace.lastIndexOf(".");
-        return namespace.substring(index + 1, namespace.length());
-    }
-
     @objid ("160aa3a6-48e8-428b-9096-7d80a945940c")
     public static boolean isCreate(Operation operation) {
         return isStereotyped(operation, Xmi.I18N
-                                .getString("objing.java.stereotype.constructor"));
+                                                .getString("objing.java.stereotype.constructor"));
     }
 
     @objid ("b51df578-6c62-463e-9008-df45b4781f5a")
     public static boolean isDestroy(Operation operation) {
         return isStereotyped(operation, Xmi.I18N
-                                .getString("objing.java.stereotype.destructor"));
+                                                .getString("objing.java.stereotype.destructor"));
     }
 
     @objid ("a6c1b084-7e85-4e8e-9e72-d53d76db6e34")
@@ -306,7 +234,7 @@ public abstract class AbstractObjingModelNavigation {
         if (objingClass != null) {
             ClassAssociation classAssocList = objingClass
                     .getLinkToAssociation();
-            
+        
             return (classAssocList != null);
         }
         return false;
@@ -336,7 +264,7 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("9f3eef78-6700-47da-8a57-a62f99d31bde")
     public static Stereotype getStereotype(MClass metaclass, String stereotypeName) {
         return Modelio.getInstance().getModelingSession()
-                                .getMetamodelExtensions().getStereotype(stereotypeName, metaclass);
+                                                .getMetamodelExtensions().getStereotype(stereotypeName, metaclass);
     }
 
     @objid ("fe3fec0d-ff09-4a77-acd7-f4292d535aab")
@@ -415,7 +343,7 @@ public abstract class AbstractObjingModelNavigation {
         BindableInstance temp = bindableInstance;
         MObject owner = temp.getCompositionOwner();
         
-        while ((owner != null) && (owner instanceof BindableInstance)){    
+        while ((owner != null) && (owner instanceof BindableInstance)){
             temp = (BindableInstance) owner;
             owner = temp.getCompositionOwner();
         }
@@ -425,7 +353,7 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("64dc957d-913b-480e-bc89-cc56171674a7")
     public static MObject getBindableInstanceOwner(Element instance) {
         MObject owner = instance.getCompositionOwner();
-        while ((owner != null) && (owner instanceof BindableInstance)){    
+        while ((owner != null) && (owner instanceof BindableInstance)){
             owner = owner.getCompositionOwner();
         }
         return owner;
@@ -437,7 +365,7 @@ public abstract class AbstractObjingModelNavigation {
     }
 
     @objid ("41ce3b34-f738-4db0-952f-91e0c8b559d5")
-    public static <T extends MObject> MObject getEnclosingElement(MObject child, MClass typeOfEnclosing) {
+    public static MObject getEnclosingElement(MObject child, MClass typeOfEnclosing) {
         MObject owner = child.getCompositionOwner();
         
         while (owner != null) {
@@ -469,7 +397,7 @@ public abstract class AbstractObjingModelNavigation {
             Behavior behavior = ((CallBehaviorAction) objingOwner)
                     .getCalled();
             if (behavior != null) {
-                paramList.addAll(behavior.getParameter());       
+                paramList.addAll(behavior.getParameter());
             }
         }
         return paramList;
@@ -525,11 +453,11 @@ public abstract class AbstractObjingModelNavigation {
             return false;
         }
         
-        StateMachine sm =  (StateMachine) getEnclosingElement(transition, SmClass.getClass("StateMachine"));
-        return ((!(transition instanceof InternalTransition)) 
-                                && (transition.getProcessed() != null)
-                                && (sm != null)
-                                && (sm.getKind().equals(KindOfStateMachine.PROTOCOL)));
+        StateMachine sm =  (StateMachine) getEnclosingElement(transition, transition.getMClass().getMetamodel().getMClass("StateMachine"));
+        return ((!(transition instanceof InternalTransition))
+                                                && (transition.getProcessed() != null)
+                                                && (sm != null)
+                                                && (sm.getKind().equals(KindOfStateMachine.PROTOCOL)));
     }
 
     @objid ("1188e00d-1028-4b0b-ac54-9e7ab2b2079e")
@@ -571,14 +499,14 @@ public abstract class AbstractObjingModelNavigation {
 
     @objid ("92c15cd9-b89d-42fe-b9cc-20307b6e2f19")
     public static boolean mustBeExported(Stereotype obStereotype) {
-        Profile profile =  obStereotype.getOwner();        
+        Profile profile =  obStereotype.getOwner();
         
-        if (profile.getOwnerModule().getName().equals("ModelerModule")  && profile.getName().equals("default") 
-                && ((obStereotype.getName().equals(IModelerModuleStereotypes.EXTEND)) 
-                        || (obStereotype.getName().equals(IModelerModuleStereotypes.INCLUDE) 
+        if (profile.getOwnerModule().getName().equals("ModelerModule")  && profile.getName().equals("default")
+                && ((obStereotype.getName().equals(IModelerModuleStereotypes.EXTEND))
+                        || (obStereotype.getName().equals(IModelerModuleStereotypes.INCLUDE)
                         || (obStereotype.getName().equals(IModelerModuleStereotypes.REQUIREMENT))
                         || (obStereotype.getName().equals(IModelerModuleStereotypes.REQUIREMENT_CONTAINER))
-                        || (obStereotype.getName().equals(IModelerModuleStereotypes.DERIVE)) 
+                        || (obStereotype.getName().equals(IModelerModuleStereotypes.DERIVE))
                         || (obStereotype.getName().equals(IModelerModuleStereotypes.SATISFY))
                         || (obStereotype.getName().equals(IModelerModuleStereotypes.PART))
                         || (obStereotype.getName().equals(IModelerModuleStereotypes.VERIFY))))){
@@ -644,7 +572,7 @@ public abstract class AbstractObjingModelNavigation {
     public static void attachPort(Element objingElt, org.eclipse.uml2.uml.Port ecoreElement) {
         ReverseProperties revProp = ReverseProperties.getInstance();
         
-        org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();  
+        org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
         
         if (revProp.isRoundtripEnabled() && (ObjingEAnnotation.getOwner(ecoreElement) != null)){
             String ownerId = ObjingEAnnotation.getOwner(ecoreElement);
@@ -668,7 +596,7 @@ public abstract class AbstractObjingModelNavigation {
                     }
                 }
             }
-        } 
+        }
         
         if (ecoreOwner != null) {
             Object objOwner = ReverseProperties.getInstance().getMappedElement(ecoreOwner);
@@ -773,7 +701,7 @@ public abstract class AbstractObjingModelNavigation {
         setRepresentedFeature(objingElt, ecoreElt);
         setMultiplicity(objingElt, ecoreElt);
         
-        if (ReverseProperties.getInstance().isRoundtripEnabled()){        
+        if (ReverseProperties.getInstance().isRoundtripEnabled()){
             setIsConstant(objingElt, ecoreElt);
             setValue(objingElt, ecoreElt);
             setMultiMax(objingElt, ecoreElt);
@@ -878,37 +806,12 @@ public abstract class AbstractObjingModelNavigation {
         return result;
     }
 
-    @objid ("d5ef67f4-ddef-4793-b848-0891659aafb8")
-    private static List<Interface> getAllRequiredInterfaces(final NameSpace parent) {
-        List<Interface> result = new ArrayList<>();
-        
-        result.addAll(getRequiredInterfaces(parent));
-        
-        for (Generalization generalization : parent.getParent()){
-            result.addAll(getAllRequiredInterfaces( generalization.getSuperType()));
-        }
-        return result;
-    }
-
     @objid ("c7439776-0c37-455e-a907-dbc65fb57353")
     private static List<Interface> getProvidedInterfaces(final NameSpace parent) {
         List<Interface> result = new ArrayList<>();
         
         for (InterfaceRealization interfaceRealization : parent.getRealized()){
             result.add(interfaceRealization.getImplemented());
-        }
-        return result;
-    }
-
-    @objid ("6f3086af-3e52-4c51-8427-d4926b23d729")
-    private static List<Interface> getRequiredInterfaces(final NameSpace parent) {
-        List<Interface> result = new ArrayList<>();
-        
-        for (Dependency dependency : parent.getDependsOnDependency()){
-            if ((dependency instanceof Usage)
-                    && (dependency.getDependsOn() instanceof Interface)){
-                result.add((Interface)dependency.getDependsOn());
-            }
         }
         return result;
     }
@@ -926,7 +829,7 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("634bafd1-e9f2-4350-a110-295b26fb9de8")
     public static Instance getInstanceValue(ModelElement elt) {
         for (Dependency dep: elt.getDependsOnDependency()){
-            if (dep.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2INSTANCEVALUE) 
+            if (dep.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2INSTANCEVALUE)
                     && (dep.getDependsOn() instanceof Instance)){
                 return (Instance) dep.getDependsOn();
             }
@@ -945,7 +848,7 @@ public abstract class AbstractObjingModelNavigation {
                 firstOwner = temp;
             }else {
                 if (firstOwner.equals(temp)){
-                    return (firstOwner instanceof GeneralClass) 
+                    return (firstOwner instanceof GeneralClass)
                             || (firstOwner instanceof Collaboration);
                 }else{
                     return false;
@@ -978,9 +881,9 @@ public abstract class AbstractObjingModelNavigation {
             if (firstOwner == null){
                 firstOwner = secondOwner;
             }else {
-                if (!(firstOwner.equals(secondOwner)) 
+                if (!(firstOwner.equals(secondOwner))
                         || ((!(secondOwner instanceof GeneralClass) )
-                                && (!(secondOwner instanceof Collaboration)))){  
+                                && (!(secondOwner instanceof Collaboration)))){
                     return null;
                 }
             }
@@ -1009,13 +912,13 @@ public abstract class AbstractObjingModelNavigation {
         
         while (unsorted.size() > 0){
             temp = unsorted.get(0);
-            
+        
             for (InteractionFragment tested : unsorted){
                 if (temp.getLineNumber() > tested.getLineNumber()) {
                     temp = tested;
                 }
             }
-           
+        
             unsorted.remove(temp);
             result.add(temp);
         }
@@ -1054,9 +957,9 @@ public abstract class AbstractObjingModelNavigation {
             if (firstOwner == null){
                 firstOwner = secondOwner;
             }else {
-                if (!(firstOwner.equals(secondOwner)) 
+                if (!(firstOwner.equals(secondOwner))
                         || ((!(secondOwner instanceof GeneralClass) )
-                                && (!(secondOwner instanceof Collaboration)))){  
+                                && (!(secondOwner instanceof Collaboration)))){
                     return null;
                 }
             }
@@ -1080,10 +983,10 @@ public abstract class AbstractObjingModelNavigation {
 
     @objid ("c55ebfbc-5ec8-411b-9bdc-3fb3e4f94de7")
     public static boolean isSubType(NameSpace superType, NameSpace subType) {
-        for (Generalization generalization : subType.getParent()){          
-            NameSpace currentSuperType = generalization.getSuperType();            
+        for (Generalization generalization : subType.getParent()){
+            NameSpace currentSuperType = generalization.getSuperType();
             if ((superType.equals(currentSuperType)) ||  isSubType(superType, currentSuperType))
-               return true;         
+               return true;
         }
         return false;
     }

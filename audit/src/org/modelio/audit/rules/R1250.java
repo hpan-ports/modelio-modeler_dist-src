@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.rules;
 
@@ -35,7 +35,6 @@ import org.modelio.audit.engine.impl.AuditTrigger;
 import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.plugin.Audit;
 import org.modelio.audit.service.AuditSeverity;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ControlFlow;
@@ -72,15 +71,15 @@ public class R1250 extends AbstractRule {
     @objid ("0b473b09-59d2-421e-b133-1b8f14031886")
     @Override
     public void autoRegister(IAuditPlan plan) {
-        plan.registerRule(Metamodel.getMClass(ForkJoinNode.class).getName(), this,
+        plan.registerRule(ForkJoinNode.MNAME, this,
                 AuditTrigger.UPDATE);
         
         // ActivityEdge
-        plan.registerRule(Metamodel.getMClass(ObjectFlow.class).getName(), this, AuditTrigger.CREATE
+        plan.registerRule(ObjectFlow.MNAME, this, AuditTrigger.CREATE
                 | AuditTrigger.MOVE);
-        plan.registerRule(Metamodel.getMClass(ControlFlow.class).getName(), this, AuditTrigger.CREATE
+        plan.registerRule(ControlFlow.MNAME, this, AuditTrigger.CREATE
                 | AuditTrigger.MOVE);
-        plan.registerRule(Metamodel.getMClass(MessageFlow.class).getName(), this, AuditTrigger.CREATE
+        plan.registerRule(MessageFlow.MNAME, this, AuditTrigger.CREATE
                 | AuditTrigger.MOVE);
     }
 

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.model;
 
@@ -31,6 +31,7 @@ import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.Style;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -124,8 +125,9 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
     public void delete() {
         super.delete();
         
-        if (getDiagram() != null)
+        if (getDiagram() != null) {
             getDiagram().removeGraphicModel(this);
+        }
     }
 
     /**
@@ -227,7 +229,8 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * <p>
      * <strong>Note:</strong> This method should never return <code>null</code> and is not intended to be overridden.
      * </p>
-     * @return a {@link MRef reference} to the represented element if this GmModel is in charge of representing an element.
+     * TODO : this method should be named getRelatedReference().
+     * @return a {@link MRef reference} to the related element.
      */
     @objid ("807dba2b-1dec-11e2-8cad-001ec947c8cc")
     @Override
@@ -262,8 +265,8 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
     @Override
     public void obElementResolved(MObject ev) {
         // Default implementation
-        if (this.getRelatedElement() != null) {
-            this.lastKnownLabel = this.getRelatedElement().getName();
+        if (getRelatedElement() != null) {
+            this.lastKnownLabel = getRelatedElement().getName();
         }
         refreshFromObModel();
     }
@@ -279,8 +282,8 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
     @Override
     public void obElementsUpdated() {
         // Default implementation
-        if (this.getRelatedElement() != null) {
-            this.lastKnownLabel = this.getRelatedElement().getName();
+        if (getRelatedElement() != null) {
+            this.lastKnownLabel = getRelatedElement().getName();
         }
         refreshFromObModel();
     }
@@ -390,9 +393,9 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
     @objid ("80801c62-1dec-11e2-8cad-001ec947c8cc")
     private void init() {
         // If the GmAbstractDiagram is reachable.
-        if (this.getDiagram() != null) {
+        if (getDiagram() != null) {
             // Register element in the diagram
-            this.getDiagram().addGraphicModel(this);
+            getDiagram().addGraphicModel(this);
         }
     }
 
@@ -408,6 +411,39 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    /**
+     * <p>
+     * Get the metaclass of the element this {@link GmModel} is related to.
+     * </p>
+     * <p>
+     * <strong>Note:</strong> This method should never return <code>null</code> and is not intended to be overridden.
+     * </p>
+     * @return the metaclass this GmModel is in charge of relating.
+     */
+    @objid ("023775d9-e397-41d5-bf05-4ee7999674e3")
+    public final MClass getRelatedMClass() {
+        MObject el = getRelatedElement();
+        if (el != null) {
+            return el.getMClass();
+        } else {
+            MRef ref = getRepresentedRef();
+            return getDiagram().getModelManager().getMetamodel().getMClass(ref.mc);
+        }
+    }
+
+    @objid ("cabfcfa6-ff73-4ce7-85be-6c172a490902")
+    @Override
+    public String toString() {
+        Object model = getRelatedElement();
+        if (model == null) {
+            model = getRepresentedRef();
+        }
+        return String.format("%s [model=%s, layout=%s]",
+                        getClass().getSimpleName(),
+                        model,
+                        getLayoutData());
     }
 
 }

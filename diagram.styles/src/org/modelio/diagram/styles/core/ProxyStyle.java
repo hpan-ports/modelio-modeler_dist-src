@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.core;
 
@@ -32,8 +32,8 @@ import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.persistence.IPersistent;
 
 /**
- * This style has no property and delegates all to its cascading style, writing included. Setting a property on the
- * proxy style actually modifies its cascading style.
+ * This style has no property and delegates all to its cascading style, writing included. Setting a property on the proxy style
+ * actually modifies its cascading style.
  */
 @objid ("856b5e3e-1926-11e2-92d2-001ec947c8cc")
 public class ProxyStyle implements IPersistent, IStyle, IStyleChangeListener {
@@ -87,11 +87,11 @@ public class ProxyStyle implements IPersistent, IStyle, IStyleChangeListener {
     @objid ("856dc079-1926-11e2-92d2-001ec947c8cc")
     @Override
     public boolean getBoolean(StyleKey propertyKey) {
-        if (this.getProperty(propertyKey) instanceof Boolean)
+        if (this.getProperty(propertyKey) instanceof Boolean) {
             return (Boolean) this.getProperty(propertyKey);
-        else
-            throw new IllegalArgumentException(getIllegalArgumentMessagePrefix(propertyKey) +
-                                               "a boolean value");
+        } else {
+            throw new IllegalArgumentException(getIllegalArgumentMessagePrefix(propertyKey) + "a boolean value");
+        }
     }
 
     /**
@@ -112,10 +112,11 @@ public class ProxyStyle implements IPersistent, IStyle, IStyleChangeListener {
     @objid ("856dc085-1926-11e2-92d2-001ec947c8cc")
     @Override
     public Color getColor(StyleKey propertyKey) {
-        if (this.getProperty(propertyKey) instanceof Color)
+        if (this.getProperty(propertyKey) instanceof Color) {
             return (Color) this.getProperty(propertyKey);
-        else
+        } else {
             throw new IllegalArgumentException(getIllegalArgumentMessagePrefix(propertyKey) + "a color");
+        }
     }
 
     /**
@@ -126,10 +127,11 @@ public class ProxyStyle implements IPersistent, IStyle, IStyleChangeListener {
     @objid ("856dc08b-1926-11e2-92d2-001ec947c8cc")
     @Override
     public Font getFont(StyleKey propertyKey) {
-        if (this.getProperty(propertyKey) instanceof Font)
+        if (this.getProperty(propertyKey) instanceof Font) {
             return (Font) this.getProperty(propertyKey);
-        else
+        } else {
             throw new IllegalArgumentException(getIllegalArgumentMessagePrefix(propertyKey) + "a font");
+        }
     }
 
     /**
@@ -140,8 +142,9 @@ public class ProxyStyle implements IPersistent, IStyle, IStyleChangeListener {
     @objid ("856dc091-1926-11e2-92d2-001ec947c8cc")
     @Override
     public int getInteger(StyleKey propertyKey) {
-        if (this.getProperty(propertyKey) instanceof Integer)
+        if (this.getProperty(propertyKey) instanceof Integer) {
             return ((Integer) this.getProperty(propertyKey)).intValue();
+        }
         
         throw new IllegalArgumentException(getIllegalArgumentMessagePrefix(propertyKey) + "an integer value");
     }
@@ -189,8 +192,8 @@ public class ProxyStyle implements IPersistent, IStyle, IStyleChangeListener {
     }
 
     /**
-     * Normalizing a style consists in removing from its local definitions the values that are currently the same as the
-     * value in cascaded style.
+     * Normalizing a style consists in removing from its local definitions the values that are currently the same as the value in
+     * cascaded style.
      */
     @objid ("856dc0b5-1926-11e2-92d2-001ec947c8cc")
     @Override
@@ -203,8 +206,9 @@ public class ProxyStyle implements IPersistent, IStyle, IStyleChangeListener {
     public void read(IDiagramReader in) {
         // Read the cascaded style
         this.cascadedStyle = (IStyle) in.readProperty("CascadedStyle");
-        if (this.cascadedStyle != null)
+        if (this.cascadedStyle != null) {
             this.cascadedStyle.addListener(this);
+        }
     }
 
     /**
@@ -248,14 +252,16 @@ public class ProxyStyle implements IPersistent, IStyle, IStyleChangeListener {
             return;
         }
         // Remove listener from parent
-        if (this.cascadedStyle != null)
+        if (this.cascadedStyle != null) {
             this.cascadedStyle.removeListener(this);
+        }
         
         this.cascadedStyle = style;
         
         // Add listener to new parent
-        if (this.cascadedStyle != null)
+        if (this.cascadedStyle != null) {
             this.cascadedStyle.addListener(this);
+        }
         
         this.fireListeners();
     }
@@ -334,6 +340,12 @@ public class ProxyStyle implements IPersistent, IStyle, IStyleChangeListener {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("4b85cad2-c37c-4a50-8177-ffc37e9e5f68")
+    @Override
+    public void normalize(StyleKey skey) {
+        this.cascadedStyle.normalize(skey);
     }
 
 }

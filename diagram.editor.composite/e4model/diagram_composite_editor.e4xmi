@@ -45,6 +45,10 @@
         <tags>popup:org.modelio.popupmenu.cms</tags>
         <tags>popup:org.modelio.diagram.editor.popup</tags>
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_GCFoYoD9EeKKLZZAYaz6Sg" elementId="org.modelio.diagram.editor.composite.menu.createelement" contributionURI="bundleclass://org.modelio.diagram.editor.composite/org.modelio.diagram.editor.composite.editor.CompositeCreationPopupProvider"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_OU5hEB7HEeO9r6b_vtRk6A" elementId="diagram.editor.composite.menuseparator.3"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_MgGUcEFqEeODJ4EDWZysYw" elementId="org.modelio.popupmenu.cms"/>
+        <children xsi:type="menu:DynamicMenuContribution" xmi:id="_hEGOkNdfEeK1QOP0kMMjeA" elementId="org.modelio.diagram.editor.composite.menu.module" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.context.ModuleMenuCreator"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_ApuLMB5gEeWNGttPULvSww" elementId="diagram.editor.composite.menuseparator.4"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_XWTtlIWwEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.composite.handledmenuitem.AddStereotype" label="%AddStereotype.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/addstereotype.png" tooltip="%AddStereotype.tooltip" command="_VdOFAIWwEeKYkaRTRtSF_A"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_s4tr4MR2EeK8YvcDBW3yZQ" elementId="org.modelio.diagram.editor.composite.handledmenuitem.rename" label="%RenameElement.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/rename.png" tooltip="%RenameElement.tooltip" command="_BQ_HMMRkEeKzIKCziwJO6Q"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_OJTVEB7HEeO9r6b_vtRk6A" elementId="diagram.editor.composite.menuseparator.0"/>
@@ -67,13 +71,10 @@
           <children xsi:type="menu:HandledMenuItem" xmi:id="_XWTtqIWwEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.composite.handledmenuitem.UnmaskStructuringLinksAndNodes" label="%UnmaskStructuringLinksAndNodes.label" tooltip="%UnmaskStructuringLinksAndNodes.tooltip" command="_UogDgIWwEeKYkaRTRtSF_A"/>
           <children xsi:type="menu:HandledMenuItem" xmi:id="_XWTtqYWwEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.composite.handledmenuitem.UnmaskStructuringLinks" label="%UnmaskStructuringLinks.label" tooltip="%UnmaskStructuringLinks.tooltip" command="_U5lMcIWwEeKYkaRTRtSF_A"/>
         </children>
-        <children xsi:type="menu:MenuSeparator" xmi:id="_MgGUcEFqEeODJ4EDWZysYw" elementId="org.modelio.popupmenu.cms"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_ORKQkB7HEeO9r6b_vtRk6A" elementId="diagram.editor.composite.menuseparator.2"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_XWTtqoWwEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.composite.handledmenuitem.redrawlink" label="%RedrawLink.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/redrawlink.png" tooltip="%RedrawLink.tooltip" command="_VMux8IWwEeKYkaRTRtSF_A">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_NLt3EO0lEeKWx8-qQ2OLqA" coreExpressionId="org.modelio.diagram.editor.corexp.is-gmlink.id"/>
         </children>
-        <children xsi:type="menu:MenuSeparator" xmi:id="_OU5hEB7HEeO9r6b_vtRk6A" elementId="diagram.editor.composite.menuseparator.3"/>
-        <children xsi:type="menu:DynamicMenuContribution" xmi:id="_hEGOkNdfEeK1QOP0kMMjeA" elementId="org.modelio.diagram.editor.composite.menu.module" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.context.ModuleMenuCreator"/>
       </menus>
       <toolbar xmi:id="_mJtMYGRyEeKpoNjm4nPb8Q" elementId="diagram.editor.composite.toolbar.0">
         <children xsi:type="menu:HandledToolItem" xmi:id="_97Q9EGRyEeKpoNjm4nPb8Q" elementId="org.modelio.diagram.composite.handledtoolitem.ZoomIn" label="%ZoomIn" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/zoom_in.png" tooltip="%ZoomIn" command="_dX-5gGF8EeKZr6syzOEatQ"/>

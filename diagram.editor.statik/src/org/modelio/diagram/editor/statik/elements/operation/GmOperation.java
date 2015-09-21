@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,27 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.operation;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
+import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmModelElementLabel;
+import org.modelio.diagram.elements.core.figures.labelum.ZwspBreakWithIndentTextLayouter;
 import org.modelio.diagram.elements.core.model.IEditableText;
-import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Parameter;
@@ -42,12 +41,12 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 /**
  * Represents an {@link Operation} label.
  * <p>
- * Extends {@link GmModelElementFlatHeader}.
+ * Extends {@link GmModelElementLabel}.
  * 
  * @author cmarin
  */
 @objid ("35f74fba-55b7-11e2-877f-002564c97630")
-public class GmOperation extends GmModelElementFlatHeader {
+public class GmOperation extends GmDefaultModelElementHeader {
     /**
      * Current version of this Gm. Defaults to 0.
      */
@@ -59,6 +58,9 @@ public class GmOperation extends GmModelElementFlatHeader {
 
     @objid ("35f74fc3-55b7-11e2-877f-002564c97630")
     private Operation element = null;
+
+    @objid ("5cfa25ae-aba3-4922-899a-79a594d71c6f")
+    private static final String ZERO_WIDTH_SPACE = ZwspBreakWithIndentTextLayouter.ZERO_WIDTH_SPACE;
 
     @objid ("254c926b-a3b7-4da8-afd1-267285dcae5a")
     public static GmOperationStyleKeys OPERATION_KEYS = new GmOperationStyleKeys();
@@ -123,20 +125,20 @@ public class GmOperation extends GmModelElementFlatHeader {
 
     @objid ("35f8d65a-55b7-11e2-877f-002564c97630")
     @Override
-    protected String computeLabel() {
+    protected String computeMainLabel() {
         final Operation op = getRelatedElement();
         final StringBuilder s = new StringBuilder(100);
         //
-        if (getParent() != null) {        
+        if (getParent() != null) {
             final String svis = computeVisibility(op);
-            final boolean showSig = getStyle().getBoolean(getStyleKey/*Strict*/(MetaKey.OperationGroup.OPSHOWSIGNATURE));
-            
+            final boolean showSig = getStyle().getBoolean(getStyleKey(MetaKey.OperationGroup.OPSHOWSIGNATURE));
+        
             if (showSig) {
                 s.append(svis);
                 s.append(' ');
                 s.append(op.getName());
                 s.append('(');
-                computeSignature(op, s);
+                computeLabelSignature(op, s);
                 s.append(')');
                 final Parameter retp = op.getReturn();
                 if (retp != null) {
@@ -151,7 +153,7 @@ public class GmOperation extends GmModelElementFlatHeader {
                 s.append("()");
             }
         } else {
-            s.append(this.label);
+            s.append(super.computeMainLabel());
         }
         return s.toString();
     }
@@ -160,32 +162,18 @@ public class GmOperation extends GmModelElementFlatHeader {
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-        
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
-                    }
-                
-                    @Override
-                    public void setText(String text) {
-        getRelatedElement().setName(text);
-                    }
-                
-                };
-    }
-
-    /**
-     * Redefined to set its own style cascading from the new parent node style.
-     */
-    @objid ("35f8d666-55b7-11e2-877f-002564c97630")
-    @Override
-    protected void setParent(GmCompositeNode parent) {
-        if (getParent() != parent) {
-            super.setParent(parent);
-        
-            if (parent != null)
-                getStyle().setCascadedStyle(parent.getStyle());
-        }
+                                
+                                            @Override
+                                            public String getText() {
+                                                return getRelatedElement().getName();
+                                            }
+                                
+                                            @Override
+                                            public void setText(String text) {
+                                                getRelatedElement().setName(text);
+                                            }
+                                
+                                        };
     }
 
     @objid ("35f8d66d-55b7-11e2-877f-002564c97630")
@@ -197,6 +185,8 @@ public class GmOperation extends GmModelElementFlatHeader {
             return super.getStyleKey(MetaKey.OperationGroup.OPSHOWTAGS);
         } else if (metakey == MetaKey.SHOWVISIBILITY) {
             return super.getStyleKey(MetaKey.OperationGroup.OPSHOWVISIBILITY);
+        } else if (metakey == MetaKey.WRAPLABEL) {
+            return super.getStyleKey(MetaKey.OperationGroup.OPWRAPLABEL);
         } else if (metakey == MetaKey.OperationGroup.OPSHOWSIGNATURE) {
             return super.getStyleKey(MetaKey.OperationGroup.OPSHOWSIGNATURE);
         }  else {
@@ -210,19 +200,6 @@ public class GmOperation extends GmModelElementFlatHeader {
     @objid ("35f8d676-55b7-11e2-877f-002564c97630")
     public GmOperation() {
         init();
-    }
-
-    @objid ("35f8d679-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<Stereotype> filterStereotypes(List<Stereotype> stereotypes) {
-        // TODO filter <<create>> and <<destroy>>
-        return stereotypes;
-    }
-
-    @objid ("35f8d687-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<TaggedValue> filterTags(List<TaggedValue> taggedValues) {
-        return taggedValues;
     }
 
     @objid ("35fa5cfa-55b7-11e2-877f-002564c97630")
@@ -272,7 +249,7 @@ public class GmOperation extends GmModelElementFlatHeader {
      * @param s the string builder
      */
     @objid ("35fa5d11-55b7-11e2-877f-002564c97630")
-    private void computeSignature(final Operation op, final StringBuilder s) {
+    private void computeLabelSignature(final Operation op, final StringBuilder s) {
         boolean first = true;
         for (Parameter p : op.getIO()) {
             if (first)
@@ -280,6 +257,7 @@ public class GmOperation extends GmModelElementFlatHeader {
             else
                 s.append(", ");
         
+            s.append(ZERO_WIDTH_SPACE);
             s.append(getParameterPassing(p));
             s.append(p.getName());
             s.append(": ");

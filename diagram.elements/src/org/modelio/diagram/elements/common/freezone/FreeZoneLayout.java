@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.freezone;
 
@@ -65,22 +65,28 @@ public class FreeZoneLayout extends XYLayout {
         while (children.hasNext()) {
             IFigure f = (IFigure) children.next();
             Rectangle bounds = (Rectangle) getConstraint(f);
-            if (bounds == null)
+            if (bounds == null) {
                 continue;
+            }
         
-            bounds = bounds.getCopy();
+            // Modifies the constraint if not complete.
+            // The constraint must be modified so that the layout is reproducible
+            // with auto resize edit policies when the preferred size changes.
             if (bounds.width == -1 || bounds.height == -1) {
                 Dimension childPreferredSize = f.getPreferredSize(bounds.width, bounds.height);
-                if (bounds.width == -1)
+                if (bounds.width == -1) {
                     bounds.width = childPreferredSize.width;
-                if (bounds.height == -1)
+                }
+                if (bounds.height == -1) {
                     bounds.height = childPreferredSize.height;
+                }
             }
-            
+        
+            bounds = bounds.getCopy();
             bounds.translate(offset);
-            
+        
             fitChildRectangleInClientArea(clientArea, bounds);
-            
+        
             f.setBounds(bounds);
         }
     }
@@ -91,25 +97,37 @@ public class FreeZoneLayout extends XYLayout {
         // Implementation is the same as calculatePreferredSize, except that all
         // children are "moved" at origin point of the client area (worst case
         // of compression).
-        Rectangle rect = new Rectangle();
+        Rectangle rect = null; //new Rectangle(); // TODO this does not work as specified, should be null here and set at first child.
         ListIterator<?> children = container.getChildren().listIterator();
         while (children.hasNext()) {
             IFigure child = (IFigure) children.next();
             Rectangle r = (Rectangle) this.constraints.get(child);
-            if (r == null)
+            if (r == null) {
                 continue;
-        
-            r = r.getCopy();
-            if (r.width == -1 || r.height == -1) {
-                Dimension childPreferredSize = child.getPreferredSize(r.width, r.height);
-                if (r.width == -1)
-                    r.width = childPreferredSize.width;
-                if (r.height == -1)
-                    r.height = childPreferredSize.height;
             }
         
-            rect.union(r);
+            if (r.width == -1 || r.height == -1) {
+                r = r.getCopy();
+                Dimension childPreferredSize = child.getPreferredSize(r.width, r.height);
+                if (r.width == -1) {
+                    r.width = childPreferredSize.width;
+                }
+                if (r.height == -1) {
+                    r.height = childPreferredSize.height;
+                }
+            }
+        
+            if (rect == null) {
+                rect = r.getCopy();
+            } else {
+                rect.union(r);
+            }
         }
+        
+        if (rect == null) {
+            rect = new Rectangle();
+        }
+        
         Dimension d = rect.getSize();
         Insets insets = container.getInsets();
         return new Dimension(d.width + insets.getWidth(), d.height + insets.getHeight()).union(getBorderPreferredSize(container));

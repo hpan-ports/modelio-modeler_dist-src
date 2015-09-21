@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -44,12 +44,12 @@ public class QueryDefinitionPropertyModel extends AbstractPropertyModel<QueryDef
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for other rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for other rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("0d027a58-4773-455d-8791-b86dcbf3b07b")
-    private static final String[] PROPERTIES = new String[] {"QueryDefinition", "Added"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Added" };
 
     @objid ("074d5805-68b8-4f55-81b2-ec99ff78117a")
     private StringType labelStringType;
@@ -104,12 +104,12 @@ public class QueryDefinitionPropertyModel extends AbstractPropertyModel<QueryDef
             return QueryDefinitionPropertyModel.PROPERTIES[row];
         case 1: // col 1 is the property value
             switch (row) {
-                case 0: // Header
-                    return "Value";
-                case 1:
-                    return this.theEditedElement.getAdded();
-                default:
-                    return null;
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getAdded();
+            default:
+                return null;
             }
         default:
             return null;
@@ -119,8 +119,7 @@ public class QueryDefinitionPropertyModel extends AbstractPropertyModel<QueryDef
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -135,12 +134,12 @@ public class QueryDefinitionPropertyModel extends AbstractPropertyModel<QueryDef
             return this.labelStringType;
         case 1: // col 1 is the property value type
             switch (row) {
-                case 0: // Header
-                    return this.labelStringType;
-                case 1:
-                    return this.elementType;
-                default:
-                    return null;
+            case 0: // Header
+                return this.labelStringType;
+            case 1:
+                return this.elementType;
+            default:
+                return null;
             }
         default:
             return null;
@@ -163,17 +162,17 @@ public class QueryDefinitionPropertyModel extends AbstractPropertyModel<QueryDef
             return;
         case 1: // col 1 is the property value
             switch (row) {
-                case 0:
-                    return; // Header cannot be modified
-                case 1:
-                    this.theEditedElement.getAdded().clear();
-                    this.theEditedElement.getAdded().addAll((List<Element>)value);
-                    
-                    break;
-                default:
-                    return;
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.getAdded().clear();
+                this.theEditedElement.getAdded().addAll((List<Element>) value);
+        
+                break;
+            default:
+                return;
             }
-              break;
+            break;
         default:
             return;
         }

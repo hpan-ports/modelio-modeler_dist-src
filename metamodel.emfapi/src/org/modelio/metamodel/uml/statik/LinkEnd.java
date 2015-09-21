@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
@@ -36,8 +40,21 @@ import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
 
+/**
+ * LinkEnd v0.0.9054
+ * 
+ * 
+ * A LinkEnd is the part of a Link that connects to an Instance. It corresponds to an AssociationEnd of an Association. 
+ * 
+ * In UML 2.0, LinkEnds are implemented as slots. 
+ * 
+ * A LinkEnd belongs to a Link.
+ */
 @objid ("000fb1bc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface LinkEnd extends ModelElement {
+    @objid ("247597e3-22f7-493e-a505-262a2c3f7a84")
+    public static final String MNAME = "LinkEnd";
+
     /**
      * Get the 'graphical owner' related to this end.
      * The owner is the current source or the opposite end's target according to the navigability.
@@ -67,82 +84,238 @@ public interface LinkEnd extends ModelElement {
     @objid ("6d12e031-ad22-449a-9171-6a88d4158b48")
     boolean isNavigable();
 
-    @objid ("d449d7b6-3358-4002-989b-af002a48476a")
+    /**
+     * Getter for attribute 'LinkEnd.IsOrdered'
+     * 
+     * Metamodel description:
+     * <i>Determines if this LinkEnd is ordered.</i>
+     */
+    @objid ("2e82b3a2-33f7-482a-87ae-7be9f41f9494")
     boolean isIsOrdered();
 
-    @objid ("e1e0ad51-824c-4846-8056-d5a43246d60d")
+    /**
+     * Setter for attribute 'LinkEnd.IsOrdered'
+     * 
+     * Metamodel description:
+     * <i>Determines if this LinkEnd is ordered.</i>
+     */
+    @objid ("7bd8c21e-84d8-44dd-8922-4b6c83975895")
     void setIsOrdered(boolean value);
 
-    @objid ("2c26e34a-e057-46db-ad48-2b28f64abdb2")
+    /**
+     * Getter for attribute 'LinkEnd.IsUnique'
+     * 
+     * Metamodel description:
+     * <i>Determines if this LinkEnd is unique.</i>
+     */
+    @objid ("019b2662-3766-4922-8a47-02e34bf38886")
     boolean isIsUnique();
 
-    @objid ("1e0093c1-fe95-4e2f-8c16-18f3c27dd613")
+    /**
+     * Setter for attribute 'LinkEnd.IsUnique'
+     * 
+     * Metamodel description:
+     * <i>Determines if this LinkEnd is unique.</i>
+     */
+    @objid ("2991d806-fcad-43bf-b4b7-39c503f59f52")
     void setIsUnique(boolean value);
 
-    @objid ("e823261e-27b7-4b9e-864b-9e01c4d2dbe6")
+    /**
+     * Getter for attribute 'LinkEnd.MultiplicityMax'
+     * 
+     * Metamodel description:
+     * <i>Maximum value of the Link's multiplicity.</i>
+     */
+    @objid ("e378b34c-5485-48d2-aeca-a8baca6c28b0")
     String getMultiplicityMax();
 
-    @objid ("fbf4254c-cb75-4a0a-a959-160d166b8249")
+    /**
+     * Setter for attribute 'LinkEnd.MultiplicityMax'
+     * 
+     * Metamodel description:
+     * <i>Maximum value of the Link's multiplicity.</i>
+     */
+    @objid ("a2e2d457-2bac-4451-b16c-b5613b73ed86")
     void setMultiplicityMax(String value);
 
-    @objid ("913f2d85-68b1-425e-ba6b-62392add31f3")
+    /**
+     * Getter for attribute 'LinkEnd.MultiplicityMin'
+     * 
+     * Metamodel description:
+     * <i>Minimum value of the Link's multiplicity. When placed on a target end, the multiplicity specifies the number of target instances that may be associated with a single source instance across the given Link.</i>
+     */
+    @objid ("4519670a-2a8d-4b04-a1f4-018b0f78ac70")
     String getMultiplicityMin();
 
-    @objid ("a5e67b60-27fd-4309-a7d9-f306d29f7ff3")
+    /**
+     * Setter for attribute 'LinkEnd.MultiplicityMin'
+     * 
+     * Metamodel description:
+     * <i>Minimum value of the Link's multiplicity. When placed on a target end, the multiplicity specifies the number of target instances that may be associated with a single source instance across the given Link.</i>
+     */
+    @objid ("0c7d9489-d5ac-4e80-925e-41d84d87deb4")
     void setMultiplicityMin(String value);
 
-    @objid ("f1dd2aef-dc30-4e75-86b1-7a62cf79a32a")
+    /**
+     * Getter for relation 'LinkEnd->Link'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("fb880f26-5293-4642-8932-ca134062d620")
     Link getLink();
 
-    @objid ("24720acc-6779-47b0-a10a-16be7d553a28")
+    /**
+     * Setter for relation 'LinkEnd->Link'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("ecf91e49-de5b-431e-ac25-7a4ca63439c6")
     void setLink(Link value);
 
-    @objid ("886d9790-efbd-4202-b3c4-026335a7486d")
+    /**
+     * Getter for relation 'LinkEnd->Target'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("d2a84113-3717-4fc5-a6c1-583a9cf6999f")
     Instance getTarget();
 
-    @objid ("fdee5838-66b5-4828-8196-a8788883b377")
+    /**
+     * Setter for relation 'LinkEnd->Target'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a202b91f-7747-45ce-a327-9555fe32bc81")
     void setTarget(Instance value);
 
-    @objid ("eb88637c-4cd3-477f-9e39-09af6ae26d6a")
+    /**
+     * Getter for relation 'LinkEnd->OppositeOwner'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a9e4928e-d445-4275-aeee-6fa71230d7d9")
     LinkEnd getOppositeOwner();
 
-    @objid ("8ba3673d-b027-4920-83d4-8a036241131d")
+    /**
+     * Setter for relation 'LinkEnd->OppositeOwner'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("d3198f49-a565-4e13-a12b-7b386e192c12")
     void setOppositeOwner(LinkEnd value);
 
-    @objid ("f5a0207c-861f-46bc-a3f9-ca10b7b894df")
+    /**
+     * Getter for relation 'LinkEnd->RealizedInformationFlow'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("132b380b-82dc-4ccc-9695-69f8b2e8f70f")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("4458e1bf-add9-41aa-b350-b407a7475486")
+    /**
+     * Filtered Getter for relation 'LinkEnd->RealizedInformationFlow'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("39954b09-1a15-47e5-8163-2ed27482c1b5")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
-    @objid ("7aee61f5-f9f6-4877-a949-711cece058b9")
+    /**
+     * Getter for relation 'LinkEnd->Model'
+     * 
+     * Metamodel description:
+     * <i>The LinkEnd is an occurrence of this AssociationEnd.</i>
+     */
+    @objid ("f5b8c2c4-8432-4564-8c4a-e23be1435fbc")
     AssociationEnd getModel();
 
-    @objid ("a75999e6-b00f-45ff-8334-2eb1eef5cebf")
+    /**
+     * Setter for relation 'LinkEnd->Model'
+     * 
+     * Metamodel description:
+     * <i>The LinkEnd is an occurrence of this AssociationEnd.</i>
+     */
+    @objid ("a4f89771-2158-447f-a503-965e34f7ac21")
     void setModel(AssociationEnd value);
 
-    @objid ("8e87e4c1-e855-41d9-b120-2d1e94d6b9aa")
+    /**
+     * Getter for relation 'LinkEnd->Consumer'
+     * 
+     * Metamodel description:
+     * <i>Used for Connectors between Ports to designate the RequiredInterface(s) set the LinkEnd is connected to.</i>
+     */
+    @objid ("f449dfc3-4fc4-4f9c-9f72-e2dfbade164c")
     RequiredInterface getConsumer();
 
-    @objid ("4c6e260c-ab73-46a8-8260-4aceb66738e2")
+    /**
+     * Setter for relation 'LinkEnd->Consumer'
+     * 
+     * Metamodel description:
+     * <i>Used for Connectors between Ports to designate the RequiredInterface(s) set the LinkEnd is connected to.</i>
+     */
+    @objid ("97a9867b-6d7b-4dab-a11d-8ef1da92ef7a")
     void setConsumer(RequiredInterface value);
 
-    @objid ("1ad56c91-5503-4e1b-8478-e0ecb557f61d")
+    /**
+     * Getter for relation 'LinkEnd->Opposite'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("01f2a959-16ee-48d8-b9cb-981c4c946291")
     LinkEnd getOpposite();
 
-    @objid ("44dd5da7-871d-4e94-9452-224027116449")
+    /**
+     * Setter for relation 'LinkEnd->Opposite'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("fcefc307-01a5-47e5-a98b-f6532cd8840e")
     void setOpposite(LinkEnd value);
 
-    @objid ("c6b81ff2-5466-4ce2-8384-a6d3c0b30c40")
+    /**
+     * Getter for relation 'LinkEnd->Source'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("777f4745-40be-4ef0-bb04-f1900d1860ef")
     Instance getSource();
 
-    @objid ("51e454f2-b197-4ecf-993e-9c22097fd3f9")
+    /**
+     * Setter for relation 'LinkEnd->Source'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("312a9fbe-9c34-4279-91c2-0a801122150a")
     void setSource(Instance value);
 
-    @objid ("f202b566-33f7-488c-96b4-321493527282")
+    /**
+     * Getter for relation 'LinkEnd->Provider'
+     * 
+     * Metamodel description:
+     * <i>Used for Connectors between Ports to designate the ProvidedInterface(s) set the LinkEnd is connected to.</i>
+     */
+    @objid ("30129d7c-3355-4e8b-b31e-b509f3eb694d")
     ProvidedInterface getProvider();
 
-    @objid ("6984ef85-7138-4785-a465-c9f2c54c5c87")
+    /**
+     * Setter for relation 'LinkEnd->Provider'
+     * 
+     * Metamodel description:
+     * <i>Used for Connectors between Ports to designate the ProvidedInterface(s) set the LinkEnd is connected to.</i>
+     */
+    @objid ("e2f6ff53-f713-4ded-8eec-5d5180a33c12")
     void setProvider(ProvidedInterface value);
 
 }

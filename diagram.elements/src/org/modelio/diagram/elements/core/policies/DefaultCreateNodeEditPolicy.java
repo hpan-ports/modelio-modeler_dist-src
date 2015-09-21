@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.policies;
 
@@ -25,19 +25,16 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.elements.core.commands.DefaultCreateElementCommand;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
-import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -45,7 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * Commands for all of these operations.
  */
 @objid ("80b954e7-1dec-11e2-8cad-001ec947c8cc")
-public class DefaultCreateNodeEditPolicy extends LayoutEditPolicy {
+public class DefaultCreateNodeEditPolicy extends AutoExpandLayoutEditPolicy {
     @objid ("80b954eb-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public EditPart getTargetEditPart(Request request) {
@@ -53,7 +50,9 @@ public class DefaultCreateNodeEditPolicy extends LayoutEditPolicy {
             CreateRequest createRequest = (CreateRequest) request;
             return getCreateTargetEditPart(createRequest);
         }
-        if (REQ_ADD.equals(request.getType()) || REQ_CLONE.equals(request.getType()) || REQ_MOVE.equals(request.getType())) {
+        if (REQ_ADD.equals(request.getType())
+                || REQ_CLONE.equals(request.getType())
+                || REQ_MOVE.equals(request.getType())) {
             ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
             return getChangeBoundsTargetEditPart(changeBoundsRequest);
         }
@@ -70,14 +69,9 @@ public class DefaultCreateNodeEditPolicy extends LayoutEditPolicy {
     @objid ("80b954f5-1dec-11e2-8cad-001ec947c8cc")
     protected boolean canHandle(MClass metaclass) {
         MClass hostMetaclass = getHostElement().getMClass();
-        return MTools.getMetaTool().canCompose(hostMetaclass, metaclass, null)
-                && ((GmCompositeNode) getHost().getModel()).canCreate(Metamodel.getJavaInterface(metaclass));
-    }
-
-    @objid ("80b954fd-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected EditPolicy createChildEditPolicy(EditPart child) {
-        return null;
+        MExpert expert = hostMetaclass.getMetamodel().getMExpert();
+        return expert.canCompose(hostMetaclass, metaclass, null)
+                                                                && ((GmCompositeNode) getHost().getModel()).canCreate(metaclass.getJavaInterface());
     }
 
     /**
@@ -97,9 +91,8 @@ public class DefaultCreateNodeEditPolicy extends LayoutEditPolicy {
             final EditPart editPart = (EditPart) editPartObj;
             if (editPart.getModel() instanceof GmModel) {
                 final GmModel gmModel = (GmModel) editPart.getModel();
-                final String metaclassName = gmModel.getRepresentedRef().mc;
         
-                if (!this.canHandle(Metamodel.getMClass(metaclassName))) {
+                if (!canHandle(gmModel.getRelatedMClass())) {
                     return null;
                 }
             }
@@ -111,15 +104,16 @@ public class DefaultCreateNodeEditPolicy extends LayoutEditPolicy {
     @objid ("80b95511-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getCreateCommand(CreateRequest req) {
-        ModelioCreationContext ctx = (ModelioCreationContext) req.getNewObject();
+        ModelioCreationContext ctx = ModelioCreationContext.fromRequest(req);
         
-        MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
+        MClass metaclassToCreate = ctx.getMetaclass();
         MObject hostElement = getHostElement();
+        MExpert expert = metaclassToCreate.getMetamodel().getMExpert();
         
-        boolean returnCommand = MTools.getMetaTool().canCompose(hostElement.getMClass(), metaclassToCreate, null);
+        boolean returnCommand = expert.canCompose(hostElement.getMClass(), metaclassToCreate, null);
         if (returnCommand) {
             Rectangle requestRect = new Rectangle(req.getLocation(), new Dimension(-1, -1));
-            return new DefaultCreateElementCommand(hostElement, (GmCompositeNode) this.getHost().getModel(), ctx, requestRect);
+            return new DefaultCreateElementCommand(hostElement, (GmCompositeNode) getHost().getModel(), ctx, requestRect);
         }
         return null;
     }
@@ -134,9 +128,9 @@ public class DefaultCreateNodeEditPolicy extends LayoutEditPolicy {
      */
     @objid ("80b9551b-1dec-11e2-8cad-001ec947c8cc")
     protected EditPart getCreateTargetEditPart(CreateRequest createRequest) {
-        if (createRequest.getNewObject() instanceof ModelioCreationContext) {
-            final ModelioCreationContext ctx = (ModelioCreationContext) createRequest.getNewObject();
-            if (!canHandle(Metamodel.getMClass(ctx.getMetaclass()))) {
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
+        if (ctx != null) {
+            if (!canHandle(ctx.getMetaclass())) {
                 return null;
             }
         }
@@ -149,8 +143,9 @@ public class DefaultCreateNodeEditPolicy extends LayoutEditPolicy {
      */
     @objid ("80b95525-1dec-11e2-8cad-001ec947c8cc")
     protected MObject getHostElement() {
-        if (this.getHost().getModel() instanceof GmModel)
-            return ((GmModel) this.getHost().getModel()).getRelatedElement();
+        if (getHost().getModel() instanceof GmModel) {
+            return ((GmModel) getHost().getModel()).getRelatedElement();
+        }
         return null;
     }
 

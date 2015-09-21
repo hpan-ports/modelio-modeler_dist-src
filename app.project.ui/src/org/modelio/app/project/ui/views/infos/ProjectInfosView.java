@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.project.ui.views.infos;
 
@@ -39,7 +39,6 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
-import org.modelio.app.project.ui.plugin.AppProjectIcons;
 import org.modelio.app.project.ui.views.urls.UrlEntry;
 import org.modelio.gproject.data.project.ProjectDescriptor;
 
@@ -122,9 +121,9 @@ public class ProjectInfosView {
         this.projectAdapter = null;
         if (selection != null) {
             List<ProjectDescriptor> projectDescriptors = getSelectedElements(selection);
-            if (projectDescriptors.size() == 1) {        
-                this.projectAdapter = new ProjectAdapter(projectDescriptors.get(0));        
-            }            
+            if (projectDescriptors.size() == 1) {
+                this.projectAdapter = new ProjectAdapter(projectDescriptors.get(0));
+            }
         }
         updateProjectInfoPage();
         updateBrowsers();
@@ -150,7 +149,7 @@ public class ProjectInfosView {
         {
             for (MPart view : this.partService.getParts()) {
                 if (view.getElementId().equals(ProjectPageView.ID)) {
-                    if (!isUrlEntryExist(((ProjectPageView) view.getObject()).getUrl(),view.getLabel(), urls)) {                       
+                    if (!isUrlEntryExist(((ProjectPageView) view.getObject()).getUrl(),view.getLabel(), urls)) {
                         this.partService.hidePart(view, true /*
                          * force removal from
                          * model
@@ -163,7 +162,7 @@ public class ProjectInfosView {
         // create new documentation browsers
         {
             for (UrlEntry entry : urls) {
-                if (!isProjectPageViewExist(entry.url, entry.name)) {                 
+                if (!isProjectPageViewExist(entry.url, entry.name)) {
                     MPart view = MBasicFactory.INSTANCE.createPart();
                     view.setElementId(ProjectPageView.ID);
                     view.setIconURI("platform:/plugin/org.modelio.app.project.ui/icons/url.png");
@@ -186,7 +185,7 @@ public class ProjectInfosView {
             if (this.projectAdapter!=null && this.projectAdapter.getProjectDescriptor()!=null) {
                 ProjectInfoHtmlGenerator htmlPage = new ProjectInfoHtmlGenerator(this.projectAdapter);
                 if (!htmlPage.getPageUrl().equals("")) {
-                    this.projectInfoPage.setUrl(htmlPage.getPageUrl());                
+                    this.projectInfoPage.setUrl(htmlPage.getPageUrl());
                 }
             } else {
                 this.projectInfoPage.setUrl(null);
@@ -197,7 +196,7 @@ public class ProjectInfosView {
     @objid ("ddf76814-abf0-4af4-a07f-d87382f63667")
     private boolean isUrlEntryExist(String url, String name, List<UrlEntry> urls) {
         for (UrlEntry entry : urls) {
-            if (entry.url.equals(url) && entry.name.equals(name)) {                
+            if (entry.url.equals(url) && entry.name.equals(name)) {
                 return true;
             }
         }

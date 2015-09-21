@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.lifeline;
 
@@ -25,6 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.modelio.diagram.editor.sequence.elements.sequencediagram.GmSequenceDiagram;
 import org.modelio.diagram.editor.sequence.elements.sequencediagram.IPlacementConstraintProvider;
@@ -33,6 +34,7 @@ import org.modelio.diagram.elements.core.model.GmAbstractObject;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
+import org.modelio.diagram.elements.core.policies.AutoExpandLayoutEditPolicy;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 
@@ -54,11 +56,11 @@ public class LifelineEditPart extends GmNodeEditPart implements IPlacementConstr
     @Override
     public PlacementConstraint createPlacementConstraint(final GmModel model, final int x, final int y, final int width, final int height) {
         return new LifelinePlacementConstraint((Lifeline) model.getRelatedElement(),
-                                               x,
-                                               y,
-                                               width,
-                                               height,
-                                               (GmSequenceDiagram) model.getDiagram());
+                                                                               x,
+                                                                               y,
+                                                                               width,
+                                                                               height,
+                                                                               (GmSequenceDiagram) model.getDiagram());
     }
 
     @objid ("d94b408d-55b6-11e2-877f-002564c97630")
@@ -87,7 +89,7 @@ public class LifelineEditPart extends GmNodeEditPart implements IPlacementConstr
         lifelineFigure.setLayoutManager(new BorderLayout());
         
         // Set style dependent properties
-        IStyle style = ((GmAbstractObject) this.getModel()).getStyle();
+        IStyle style = ((GmAbstractObject) getModel()).getStyle();
         refreshFromStyle(lifelineFigure, style);
         return lifelineFigure;
     }
@@ -108,6 +110,14 @@ public class LifelineEditPart extends GmNodeEditPart implements IPlacementConstr
         IFigure childFigure = ((GraphicalEditPart) child).getFigure();
         super.reorderChild(child, index);
         setLayoutConstraint(child, childFigure, ((GmAbstractObject) child.getModel()).getLayoutData());
+    }
+
+    @objid ("3f75c074-6fc1-41a5-9692-f14509f56479")
+    @Override
+    protected void createEditPolicies() {
+        super.createEditPolicies();
+        
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new AutoExpandLayoutEditPolicy());
     }
 
 }

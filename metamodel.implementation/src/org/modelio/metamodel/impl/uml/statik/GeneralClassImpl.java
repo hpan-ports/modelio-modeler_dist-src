@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -33,8 +45,7 @@ import org.modelio.metamodel.bpmn.bpmnService.BpmnInterface;
 import org.modelio.metamodel.bpmn.flows.BpmnMessage;
 import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
 import org.modelio.metamodel.bpmn.objects.BpmnItemDefinition;
-import org.modelio.metamodel.data.uml.statik.GeneralClassData;
-import org.modelio.metamodel.mda.ModuleParameter;
+import org.modelio.metamodel.impl.uml.statik.GeneralClassData;
 import org.modelio.metamodel.uml.behavior.activityModel.ExceptionHandler;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
@@ -49,219 +60,223 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("000bf81a-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class GeneralClassImpl extends ClassifierImpl implements GeneralClass {
-    @objid ("11765226-861e-4e4e-a111-734b9ec48b8c")
+    @objid ("f65c5c03-a54f-412a-ac2f-690f008a3251")
     @Override
     public boolean isIsElementary() {
-        return (Boolean) getAttVal(GeneralClassData.Metadata.IsElementaryAtt());
+        return (Boolean) getAttVal(((GeneralClassSmClass)getClassOf()).getIsElementaryAtt());
     }
 
-    @objid ("994b3472-3d65-4f69-8fdf-460297487be4")
+    @objid ("c994418e-5f2c-4903-b17d-da52a20961e9")
     @Override
     public void setIsElementary(boolean value) {
-        setAttVal(GeneralClassData.Metadata.IsElementaryAtt(), value);
+        setAttVal(((GeneralClassSmClass)getClassOf()).getIsElementaryAtt(), value);
     }
 
-    @objid ("9d656b84-0369-43b2-9e20-87768b54e065")
+    @objid ("131690fc-79a5-464c-b314-ab8307f45bef")
     @Override
     public EList<BpmnInterface> getBpmnInterfaceRefs() {
-        return new SmList<>(this, GeneralClassData.Metadata.BpmnInterfaceRefsDep());
+        return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getBpmnInterfaceRefsDep());
     }
 
-    @objid ("d26b9b39-99db-4275-aa6e-daceedcba322")
+    @objid ("b1b41d39-c2b5-419d-a9be-872832b428e1")
     @Override
     public <T extends BpmnInterface> List<T> getBpmnInterfaceRefs(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnInterface element : getBpmnInterfaceRefs()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("428710d9-6ca6-4313-9593-de0551fc60e5")
+    @objid ("b9bbe445-ed42-4a09-96ca-64721ca04fd7")
     @Override
     public EList<Parameter> getOccurence() {
-        return new SmList<>(this, GeneralClassData.Metadata.OccurenceDep());
+        return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getOccurenceDep());
     }
 
-    @objid ("c240def9-d81f-481d-9817-c39cb3d3f633")
+    @objid ("4ba5f125-5056-4acb-96b6-bd8e1c0ed472")
     @Override
     public <T extends Parameter> List<T> getOccurence(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Parameter element : getOccurence()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1bc729be-3515-4487-b106-7e2874371a2d")
+    @objid ("d9c16dde-f0c4-4a2b-bf25-f9ebfa6850a7")
     @Override
     public ExceptionHandler getExceptionInput() {
-        return (ExceptionHandler) getDepVal(GeneralClassData.Metadata.ExceptionInputDep());
+        Object obj = getDepVal(((GeneralClassSmClass)getClassOf()).getExceptionInputDep());
+        return (obj instanceof ExceptionHandler)? (ExceptionHandler)obj : null;
     }
 
-    @objid ("a522d938-6319-4623-974d-ce9fae24e3b1")
+    @objid ("4598c435-633e-4164-a94c-51e53b4c023f")
     @Override
     public void setExceptionInput(ExceptionHandler value) {
-        appendDepVal(GeneralClassData.Metadata.ExceptionInputDep(), (SmObjectImpl)value);
+        appendDepVal(((GeneralClassSmClass)getClassOf()).getExceptionInputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("830cce7e-2111-4cdf-8962-c2908d6d8792")
+    @objid ("a17b64a0-1999-409a-a686-9aedd478a342")
     @Override
     public EList<Attribute> getObject() {
-        return new SmList<>(this, GeneralClassData.Metadata.ObjectDep());
+        return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getObjectDep());
     }
 
-    @objid ("2af6ff92-de1c-4bb2-bb72-a7a851fdd5b4")
+    @objid ("3d7dbf2e-6ce4-4a38-956f-c2c9a0d3a148")
     @Override
     public <T extends Attribute> List<T> getObject(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Attribute element : getObject()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4312c66a-92cd-42b1-97ff-0d43167589c9")
+    @objid ("42e5290c-34f8-453f-8a88-038afaa51b68")
     @Override
     public EList<BpmnMessage> getBpmnMessageRefs() {
-        return new SmList<>(this, GeneralClassData.Metadata.BpmnMessageRefsDep());
+        return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getBpmnMessageRefsDep());
     }
 
-    @objid ("094b977b-ee42-407b-a391-f6e5e71de393")
+    @objid ("1cf0e689-3bcc-4ce0-b714-fc2dbf562fbd")
     @Override
     public <T extends BpmnMessage> List<T> getBpmnMessageRefs(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnMessage element : getBpmnMessageRefs()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c6a11ddc-5ebd-4510-afc2-23f6a5b2be55")
+    @objid ("2781e63a-12a4-41c8-871a-575959995e5f")
     @Override
     public EList<Signal> getSRepresentation() {
-        return new SmList<>(this, GeneralClassData.Metadata.SRepresentationDep());
+        return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getSRepresentationDep());
     }
 
-    @objid ("11f2461a-1980-4737-8f8b-3da95eaf46f3")
+    @objid ("80d3548e-f8ef-4144-bb4d-599edd08648a")
     @Override
     public <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Signal element : getSRepresentation()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8e03ec82-e8d9-47fe-b936-cd027f0a0878")
+    @objid ("802aca50-faf7-4cdc-8b5d-df8b694e02f2")
     @Override
     public EList<BpmnItemDefinition> getBpmnItemDefinitionRefs() {
-        return new SmList<>(this, GeneralClassData.Metadata.BpmnItemDefinitionRefsDep());
+        return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getBpmnItemDefinitionRefsDep());
     }
 
-    @objid ("ae24e79f-49aa-4dd3-8a6e-feaf547785e3")
+    @objid ("5d558ad3-01ea-4dbe-ab59-f76cf095fa76")
     @Override
     public <T extends BpmnItemDefinition> List<T> getBpmnItemDefinitionRefs(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnItemDefinition element : getBpmnItemDefinitionRefs()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("47b5f107-384d-4766-b49f-a3deb8746e78")
+    @objid ("a0b5a031-1eb2-46cd-92dc-d96feb6a63dc")
     @Override
     public EList<ObjectNode> getOccurenceObjectNode() {
-        return new SmList<>(this, GeneralClassData.Metadata.OccurenceObjectNodeDep());
+        return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getOccurenceObjectNodeDep());
     }
 
-    @objid ("dbde88f1-cad6-4442-a26c-e54295871285")
+    @objid ("8ee97ccc-7fab-4e53-97f2-5e3a1d14ad8e")
     @Override
     public <T extends ObjectNode> List<T> getOccurenceObjectNode(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ObjectNode element : getOccurenceObjectNode()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8844a9f2-ef0b-4065-9493-ae8066ca0fd7")
+    @objid ("b35a5343-556c-4adb-93bd-94279f6ae809")
     @Override
     public EList<BpmnItemAwareElement> getBpmnItemAwareRefs() {
-        return new SmList<>(this, GeneralClassData.Metadata.BpmnItemAwareRefsDep());
+        return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getBpmnItemAwareRefsDep());
     }
 
-    @objid ("b6139655-c1ad-45b5-93ac-41c7d917bfd0")
+    @objid ("49c41698-b926-4e8a-a523-7109feb8af0b")
     @Override
     public <T extends BpmnItemAwareElement> List<T> getBpmnItemAwareRefs(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnItemAwareElement element : getBpmnItemAwareRefs()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("76149ce6-dce5-4301-a098-9c78635d7101")
-    @Override
-    public EList<ModuleParameter> getOccurenceConfigParam() {
-        return new SmList<>(this, GeneralClassData.Metadata.OccurenceConfigParamDep());
-    }
-
-    @objid ("d0cedd6c-a337-4366-9960-0d58ed09523a")
-    @Override
-    public <T extends ModuleParameter> List<T> getOccurenceConfigParam(java.lang.Class<T> filterClass) {
-        final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
-        for (final ModuleParameter element : getOccurenceConfigParam()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
-        }
-        return Collections.unmodifiableList(results);
-    }
-
-    @objid ("4cc024c0-9b89-42d5-86fc-f5a6a9be30f6")
+    @objid ("092e62f3-8a3c-4f8d-8337-769b1b9eda78")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("770d812e-988a-4d98-8c7e-4ec251ba02a6")
+    @objid ("89eba9b9-a7c5-44f7-8ff3-b6763a506403")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("4c4377ae-8a53-4ac8-b0b4-8f0ec879f431")
+    @objid ("89645117-4386-4137-9bce-60942262d3d5")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGeneralClass(this);

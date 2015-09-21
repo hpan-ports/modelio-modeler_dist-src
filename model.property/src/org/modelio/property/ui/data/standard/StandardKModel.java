@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard;
 
@@ -26,7 +26,6 @@ import de.kupzog.ktable.KTable;
 import de.kupzog.ktable.KTableCellEditor;
 import de.kupzog.ktable.KTableCellRenderer;
 import de.kupzog.ktable.KTableDefaultModel;
-import de.kupzog.ktable.SWTX;
 import de.kupzog.ktable.renderers.DefaultCellRenderer;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
@@ -43,11 +42,14 @@ import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 
 /**
- * This is the model of the KTable that display the elements properties.
- * It serves as a bridge between an {@link IPropertyModel} and a {@link KTable}.
+ * This is the model of the KTable that display the elements properties. It serves as a bridge between an {@link IPropertyModel} and
+ * a {@link KTable}.
  */
 @objid ("8dd53ab6-c068-11e1-8c0a-002564c97630")
 public class StandardKModel extends KTableDefaultModel {
+    @objid ("4e28aa3d-53f8-41fb-bf94-ee7d9b911dbd")
+    private final int initialRowHeight;
+
     @objid ("8dd53ab8-c068-11e1-8c0a-002564c97630")
     private IPropertyModel data = null;
 
@@ -88,6 +90,14 @@ public class StandardKModel extends KTableDefaultModel {
         // Initialize colors
         this.oddColor = UIColor.TABLE_ODDROW_BG;
         this.evenColor = UIColor.TABLE_EVENROW_BG;
+        
+        // Compute row height based on table font
+        int height = 18; // This will be a minimum
+        GC gc = null;
+        gc = new GC(this.table);
+        height = Math.max(height, gc.getFontMetrics().getHeight() + 4);
+        gc.dispose();
+        this.initialRowHeight = height;
     }
 
     @objid ("8dd53ad6-c068-11e1-8c0a-002564c97630")
@@ -148,8 +158,9 @@ public class StandardKModel extends KTableDefaultModel {
             type = this.data.getTypeAt(row, col);
         }
         
+        // Set alternate background color except for header (row == 0)
         renderer = type.getRenderer();
-        if (renderer != null) {
+        if (row != 0 && renderer != null) {
             renderer.setBackground(row % 2 == 0 ? this.oddColor : this.evenColor);
         }
         return renderer;
@@ -170,13 +181,12 @@ public class StandardKModel extends KTableDefaultModel {
             value = this.data.getValueAt(row, col);
         } catch (final RuntimeException e) {
             ModelProperty.LOG.error(e);
-            return "<!"+e.getClass().getSimpleName()+"!>";
+            return "<!" + e.getClass().getSimpleName() + "!>";
         }
         
         boolean i18n = false;
         String key = null;
         Object label = value;
-        
         
         if (col == 0) {
             key = (String) value;
@@ -234,44 +244,32 @@ public class StandardKModel extends KTableDefaultModel {
         final int colCount = this.data.getColumnNumber();
         final int availableWidth = this.table.getClientArea().width - 18;
         
-        if (column == 0) {
-            return getOptimalColumnWidth(0);
-        } else {
-            final int firstColumnWidth = getOptimalColumnWidth(0);
-            return (availableWidth - firstColumnWidth) / (colCount - 1);
+        switch (colCount) {
+        
+        case 0:
+            // Zero column data model. Unexpected case, assign zero space ?
+            return 0;
+        case 1:
+            // One column data model. Unexpected case, however assign whole available space
+            return availableWidth;
+        
+        default:
+            // More than one column data model. Assign optimal space to first column and equal parts of the remaining space to
+            // other columns
+            if (column == 0) {
+                return getOptimalColumnWidth(0);
+            } else {
+                final int firstColumnWidth = getOptimalColumnWidth(0);
+                return (availableWidth - firstColumnWidth) / (colCount - 1);
+            }
+        
         }
     }
 
     @objid ("8dd6c165-c068-11e1-8c0a-002564c97630")
     @Override
     public int getInitialRowHeight(int row) {
-        if (row == 0) {
-            return 22;
-        }
-        
-        int ret = 18;
-        
-        // Ask each String cells in the row their required height
-        // and return the biggest one with 18 pix minimum
-        GC gc = null;
-        try {
-            for (int col = getFixedColumnCount(); col<getColumnCount(); col++) {
-                final Object val = getContentAt(1, row);
-                if (val instanceof String) {
-                    if (gc==null) {
-                        gc = new GC(this.table);
-                    }
-                    // Assumes the cell renderer uses the default font...
-                    final int cell = SWTX.getCachedStringExtent(gc, val.toString()).y + 2;
-                    ret  = Math.max(cell, ret);
-                }
-            }
-        } finally {
-            if (gc != null) {
-                gc.dispose();
-            }
-        }
-        return ret;
+        return (row == 0) ? this.initialRowHeight + 2 : this.initialRowHeight;
     }
 
     @objid ("8dd6c16b-c068-11e1-8c0a-002564c97630")

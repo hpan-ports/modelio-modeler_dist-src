@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,37 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.bpmn.activities;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
+/**
+ * BpmnManualTask v0.0.9054
+ * 
+ * 
+ * A Manual Task is a Task that is expected to be performed without the aid of any business process execution engine or any application. An example of this could be a telephone technician installing a telephone at a customer location.
+ * A Manual Task is neither executed by nor managed by a business process runtime.
+ * A Manual Task is a Task that is not managed by any business process engine. It can be considered as an unmanaged
+ * Task, unmanaged in the sense of that the business process engine doesn?t track the start and completion of such a Task. An example of this could be a paper based instruction for a telephone technician to install a telephone at a customerlocation.
+ */
 @objid ("008078fc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnManualTask extends BpmnTask {
+    @objid ("b3f7df55-72ee-42be-a8bd-6b6f69afaf4d")
+    public static final String MNAME = "BpmnManualTask";
+
 }

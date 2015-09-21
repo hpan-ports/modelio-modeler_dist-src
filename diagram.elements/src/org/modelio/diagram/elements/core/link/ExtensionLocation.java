@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link;
 
@@ -27,8 +27,10 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * Defines standard locations for link extensions.
  * <p>
  * These constants can be used as key for the
- * {@link GmLink#getExtension().add(String, org.modelio.diagram.elements.core.node.GmNodeModel)
- * GmLink.getExtension().add(key, node)} method. All extension locations defined below are implemented in
+ * {@link GmLink#addExtension(String, org.modelio.diagram.elements.core.node.GmNodeModel)
+ * GmLink.addExtension(String key, node)} method.
+ * <p>
+ * All extension locations defined below are implemented in
  * {@link GmLinkEditPart#addChildVisual(org.eclipse.gef.EditPart, int)}.
  */
 @objid ("7ff10f7e-1dec-11e2-8cad-001ec947c8cc")

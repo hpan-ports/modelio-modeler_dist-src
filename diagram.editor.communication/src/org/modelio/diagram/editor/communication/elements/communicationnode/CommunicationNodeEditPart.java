@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.communication.elements.communicationnode;
 
@@ -83,18 +83,15 @@ public class CommunicationNodeEditPart extends GmNodeEditPart {
     @objid ("7a51496d-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmAbstractObject model = (GmAbstractObject) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), model.getLayoutData());
+        GmAbstractObject model = (GmAbstractObject) getModel();
+        getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
     }
 
     @objid ("7a514970-55b6-11e2-877f-002564c97630")
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
         final IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
-        if (index == 0)
-            getFigure().add(child, BorderLayout.TOP, index);
-        else
-            getFigure().add(child, BorderLayout.CENTER, index);
+        getFigure().add(child, BorderLayout.CENTER, index);
     }
 
     @objid ("7a514975-55b6-11e2-877f-002564c97630")

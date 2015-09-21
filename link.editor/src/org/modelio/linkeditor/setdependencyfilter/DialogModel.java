@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.linkeditor.setdependencyfilter;
 
@@ -32,7 +32,6 @@ import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -71,7 +70,7 @@ class DialogModel {
     public DialogModel(final List<Stereotype> currentFilter, IMModelServices modelServices) {
         this.modelServices = modelServices;
         // Build the list of all stereotypes brought by mdacs for Dependency.
-        List<Stereotype> stereotypes = this.modelServices.findStereotypes(".*", Metamodel.getMClass(Dependency.class));
+        List<Stereotype> stereotypes = this.modelServices.findStereotypes(".*", Dependency.MNAME);
         for (Stereotype stereo : stereotypes) {
             if (!stereo.isIsHidden() && !"trace".equals(stereo.getName())) {
                 ModuleComponent owningModule = stereo.getOwner().getOwnerModule();
@@ -100,7 +99,7 @@ class DialogModel {
     public void addToFilter(final Stereotype stereotype) {
         // Find the module bringing this stereotype.
         ModuleComponent module = stereotype.getOwner().getOwnerModule();
-        assert (module != null) : "Could not find module that brought the stereotype: " +  stereotype.getName();
+        assert (module != null) : "Could not find module that brought the stereotype: " + stereotype.getName();
         
         this.notFilterStereotypes.get(module).remove(stereotype);
         if (this.notFilterStereotypes.get(module).isEmpty()) {
@@ -123,8 +122,7 @@ class DialogModel {
     public void removeFromFilter(final Stereotype stereotype) {
         // Find the module bringing this stereotype.
         ModuleComponent module = stereotype.getOwner().getOwnerModule();
-        assert (module != null) : "Could not find module that brought the stereotype: " +
-        ModuleI18NService.getLabel(stereotype);
+        assert (module != null) : "Could not find module that brought the stereotype: " + ModuleI18NService.getLabel(stereotype);
         
         this.filterStereotypes.get(module).remove(stereotype);
         if (this.filterStereotypes.get(module).isEmpty()) {

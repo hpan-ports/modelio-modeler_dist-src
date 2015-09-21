@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.model.browser.handlers;
 
@@ -34,8 +34,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.analyst.PropertyContainer;
+import org.modelio.metamodel.diagrams.DiagramSet;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.metamodel.uml.statik.Association;
+import org.modelio.metamodel.uml.statik.Link;
+import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -68,12 +72,15 @@ public class DeleteElementHandler {
             return false;
         }
         for (Element element : selectedElements) {
-            MObject owner = element.getCompositionOwner();            
+            MObject owner = element.getCompositionOwner();
             if (owner == null) {
                 return false;
             }
             if (owner instanceof Project) {
-                return false;   // cannot delete if its owner is the root which means it is created by default
+                // cannot delete root package nor root diagram set
+                if (element instanceof Package || element instanceof DiagramSet) {
+                    return false;
+                }
             }
             if (element instanceof PropertyContainer) {
                 return false;
@@ -124,7 +131,9 @@ public class DeleteElementHandler {
         } else if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() >= 1) {
             Object[] elements = ((IStructuredSelection) selection).toArray();
             for (Object element : elements) {
-                if (element instanceof Element) {
+                if (element instanceof Association || element instanceof Link) {
+                    selectedElements.add((Element) ((Element) element).getCompositionOwner());
+                } else if (element instanceof Element) {
                     selectedElements.add((Element) element);
                 } else if (element instanceof IAdaptable) {
                     final Element adapter = (Element) ((IAdaptable) element).getAdapter(Element.class);

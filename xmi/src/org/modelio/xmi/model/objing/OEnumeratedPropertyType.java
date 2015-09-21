@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -50,7 +50,7 @@ public class OEnumeratedPropertyType extends OElement implements IOElement {
 
     @objid ("78c89a58-53f6-450e-b166-b649b4f6ac2c")
     public List<String> getEcoreClassName() {
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
     @objid ("77543dbe-11cc-4ed8-8ba0-3f4c828fc708")

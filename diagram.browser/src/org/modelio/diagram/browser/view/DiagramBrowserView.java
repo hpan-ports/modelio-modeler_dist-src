@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.diagram.browser.view;
 
 import java.util.List;
@@ -6,8 +27,8 @@ import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.ui.di.Focus;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
@@ -128,69 +149,27 @@ public class DiagramBrowserView {
     @objid ("0011a2ce-43b1-10c7-842f-001ec947cd2a")
     @Inject
     @Optional
-    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject, final MPart part, final EMenuService menuService, final IModelioNavigationService navigationService) {
-        // @UIEventTopic doesn't seems to be working here...
+    void onProjectOpened(@UIEventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject, final MPart part, final EMenuService menuService, final IModelioNavigationService navigationService) {
         this.project = openedProject;
         
-        Display.getDefault().asyncExec(() -> {
-            if (DiagramBrowserView.this.diagramBrowserPanelProvider==null) {
-                // diagramBrowserPanelProvider may be null if we click diagram browser view before opening a project
-                initDiagramBrowserPanelProvider(menuService, navigationService);
-            }
-            // install the select browser content provider
-            DiagramBrowserView.this.diagramBrowserPanelProvider.switchBrowserModel(getSelectedContentModel(part));
-            // set the tree input
-            DiagramBrowserView.this.diagramBrowserPanelProvider.setInput(openedProject);
+        if (DiagramBrowserView.this.diagramBrowserPanelProvider==null) {
+            // diagramBrowserPanelProvider may be null if we click diagram browser view before opening a project
+            initDiagramBrowserPanelProvider(menuService, navigationService);
+        }
+        // install the select browser content provider
+        DiagramBrowserView.this.diagramBrowserPanelProvider.switchBrowserModel(getSelectedContentModel(part));
+        // set the tree input
+        DiagramBrowserView.this.diagramBrowserPanelProvider.setInput(openedProject);
         
         
-            // branch a model change listener:
-            DiagramBrowserView.this.modelChangeListener = new DiagramBrowserModelChangeListener(DiagramBrowserView.this.diagramBrowserPanelProvider);
-            if (openedProject != null) {
-                openedProject.getSession().getModelChangeSupport().addModelChangeListener(DiagramBrowserView.this.modelChangeListener);
-                openedProject.getSession().getModelChangeSupport().addStatusChangeListener(DiagramBrowserView.this.modelChangeListener);
-            }
+        // branch a model change listener:
+        DiagramBrowserView.this.modelChangeListener = new DiagramBrowserModelChangeListener(DiagramBrowserView.this.diagramBrowserPanelProvider);
+        if (openedProject != null) {
+            openedProject.getSession().getModelChangeSupport().addModelChangeListener(DiagramBrowserView.this.modelChangeListener);
+            openedProject.getSession().getModelChangeSupport().addStatusChangeListener(DiagramBrowserView.this.modelChangeListener);
+        }
         
-            DiagramBrowserView.this.parent.layout();
-        });
-        
-        // branch application event listeners:
-        // navigate listener
-        // INavigationService navigationService = O.getDefault().getNavigateService();
-        // navigationService.addNavigationListener(this);
-        
-        // double-click listener , it fires a open diagram or validates a picking
-        // this.activateSender = new BrowserActivateSender();
-        // getCommonViewer().getTree().addMouseListener(this.activateSender);
-        
-        //
-        // final IServiceLocator locator = this.getSite();
-        //
-        // final String commandId = "org.modelio.diagram.browser.SwitchBrowserTypeCommandID";
-        // final ICommandService commandService = (ICommandService) locator.getService(ICommandService.class);
-        // final Command command = commandService.getCommand(commandId);
-        // final State state = command.getState(RadioState.STATE_ID);
-        // if (state != null) {
-        // Object stateValue = state.getValue();
-        // if ("flat".equals(stateValue)) {
-        // switchBrowserModel(new FlatModel());
-        // } else if ("byType".equals(stateValue)) {
-        // switchBrowserModel(new ByTypeModel());
-        // } else if ("user".equals(stateValue)) {
-        // switchBrowserModel(new BySetModel());
-        // } else if ("context".equals(stateValue)) {
-        // switchBrowserModel(new ByCtxModel());
-        // } else {
-        // assert (false);
-        // }
-        // } else {
-        // // Fallback, should never happen
-        // try {
-        // HandlerUtil.updateRadioState(command, "user");
-        // } catch (ExecutionException e) {
-        // e.printStackTrace();
-        // }
-        // configureBrowser(new BySetModel());
-        // }
+        DiagramBrowserView.this.parent.layout();
     }
 
     /**
@@ -205,9 +184,7 @@ public class DiagramBrowserView {
     @objid ("0011ecf2-43b1-10c7-842f-001ec947cd2a")
     @Inject
     @Optional
-    void onProjectClosed(@EventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject closedProject) {
-        // @UIEventTopic doesn't seems to be working here...
-        
+    void onProjectClosed(@UIEventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject closedProject) {
         // remove model change listener if session still alive
         if (closedProject != null && closedProject.isOpen()) {
             closedProject.getSession().getModelChangeSupport().removeModelChangeListener(this.modelChangeListener);
@@ -215,11 +192,10 @@ public class DiagramBrowserView {
         }
         this.modelChangeListener = null;
         this.project = null;
-        Display.getDefault().asyncExec(() -> {
-            DiagramBrowserView.this.diagramBrowserPanelProvider.setInput(null);
-            DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().getTree().dispose();
-            DiagramBrowserView.this.diagramBrowserPanelProvider = null;
-        });
+        
+        DiagramBrowserView.this.diagramBrowserPanelProvider.setInput(null);
+        DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().getTree().dispose();
+        DiagramBrowserView.this.diagramBrowserPanelProvider = null;
     }
 
     @objid ("0012503e-43b1-10c7-842f-001ec947cd2a")
@@ -238,37 +214,30 @@ public class DiagramBrowserView {
     @objid ("2869ede2-4ab5-11e2-a4d3-002564c97630")
     @Inject
     @Optional
-    void onNavigateElement(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final List<MObject> elements) {
-        // @UIEventTopic doesn't seems to be working here...
-        Display.getDefault().asyncExec(() -> DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().setSelection(new StructuredSelection(elements)));
+    void onNavigateElement(@UIEventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final List<MObject> elements) {
+        DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().setSelection(new StructuredSelection(elements));
     }
 
     @objid ("2869edea-4ab5-11e2-a4d3-002564c97630")
     @Inject
     @Optional
-    void onPickingStart(@EventTopic(ModelioEventTopics.PICKING_START) final IPickingSession session) {
-        // @UIEventTopic doesn't seems to be working here...
-        Display.getDefault().asyncExec(() -> {
-            if (DiagramBrowserView.this.diagramBrowserPanelProvider != null) {
-                DiagramBrowserView.this.pickingManager = new DiagramBrowserPickingManager(DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel(), session);
-                DiagramBrowserView.this.pickingManager.beginPicking();
-            }
-        });
+    void onPickingStart(@UIEventTopic(ModelioEventTopics.PICKING_START) final IPickingSession session) {
+        if (DiagramBrowserView.this.diagramBrowserPanelProvider != null) {
+            DiagramBrowserView.this.pickingManager = new DiagramBrowserPickingManager(DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel(), session);
+            DiagramBrowserView.this.pickingManager.beginPicking();
+        }
     }
 
     @objid ("2869edf0-4ab5-11e2-a4d3-002564c97630")
     @Inject
     @Optional
     @SuppressWarnings("unused")
-    void onPickingStop(@EventTopic(ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
-        // @UIEventTopic doesn't seems to be working here...
-        Display.getDefault().asyncExec(() -> {
-            if (DiagramBrowserView.this.pickingManager != null) {
-                DiagramBrowserView.this.pickingManager.endPicking();
-                DiagramBrowserView.this.pickingManager.dispose();
-                DiagramBrowserView.this.pickingManager = null;
-            }
-        });
+    void onPickingStop(@UIEventTopic(ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
+        if (DiagramBrowserView.this.pickingManager != null) {
+            DiagramBrowserView.this.pickingManager.endPicking();
+            DiagramBrowserView.this.pickingManager.dispose();
+            DiagramBrowserView.this.pickingManager = null;
+        }
     }
 
     @objid ("2869edf6-4ab5-11e2-a4d3-002564c97630")

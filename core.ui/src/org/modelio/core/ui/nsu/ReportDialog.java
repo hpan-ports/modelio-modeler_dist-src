@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.nsu;
 
@@ -38,13 +38,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.app.core.navigate.IModelioNavigationService;
-import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.core.ui.plugin.CoreUi;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
+import org.modelio.ui.CoreFontRegistry;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
@@ -125,8 +124,8 @@ public class ReportDialog extends ModelioDialog {
             public void selectionChanged(SelectionChangedEvent event) {
                 Element theElement = getSelectedEl(event);
                 if (theElement != null && theElement.isValid()) {
-                    if (navigationService != null)
-                        navigationService.fireNavigate(theElement);
+                    if (ReportDialog.this.navigationService != null)
+                        ReportDialog.this.navigationService.fireNavigate(theElement);
                 }
             }
         

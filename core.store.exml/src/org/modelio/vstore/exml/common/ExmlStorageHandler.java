@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
+import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.StatusState;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 import org.modelio.vstore.exml.common.index.ICmsNodeIndex;
@@ -47,9 +51,6 @@ public class ExmlStorageHandler implements IRepositoryObject {
 
     @objid ("fd21f4d0-5986-11e1-991a-001ec947ccaf")
     private boolean dirty = false;
-
-    @objid ("fd21f4d2-5986-11e1-991a-001ec947ccaf")
-    private boolean usersLoaded;
 
     @objid ("fd21f4e0-5986-11e1-991a-001ec947ccaf")
     private boolean parentLoaded;
@@ -76,7 +77,6 @@ public class ExmlStorageHandler implements IRepositoryObject {
         this.cmsNode = cmsNode;
         this.base = base;
         this.isLoaded = isNodeLoaded;
-        this.usersLoaded = false;
     }
 
     @objid ("fd24575c-5986-11e1-991a-001ec947ccaf")
@@ -88,9 +88,9 @@ public class ExmlStorageHandler implements IRepositoryObject {
     @objid ("fd245802-5986-11e1-991a-001ec947ccaf")
     @Override
     public void attach(final SmObjectImpl obj) {
-        if ( this != obj.getRepositoryObject()) { 
+        if ( this != obj.getRepositoryObject()) {
             this.base.addObject(obj);
-            
+        
             if (!obj.getClassOf().isCmsNode()) {
                 this.dirty = true;
                 obj.setRepositoryObject(this);
@@ -101,8 +101,9 @@ public class ExmlStorageHandler implements IRepositoryObject {
     @objid ("fd24575a-5986-11e1-991a-001ec947ccaf")
     @Override
     public void depValAppended(SmObjectImpl obj, SmDependency dep, SmObjectImpl val) {
-        if (isPersistent(dep))
+        if (isPersistent(dep)) {
             this.dirty = true;
+        }
         
         if ((ExmlUtils.isComposition(obj, dep, val))
                 && !val.getClassOf().isCmsNode() && val.getRepositoryObject() != this) {
@@ -114,15 +115,17 @@ public class ExmlStorageHandler implements IRepositoryObject {
     @objid ("fd245756-5986-11e1-991a-001ec947ccaf")
     @Override
     public void depValErased(SmObjectImpl obj, SmDependency dep, SmObjectImpl val) {
-        if (isPersistent(dep))
+        if (isPersistent(dep)) {
             this.dirty = true;
+        }
     }
 
     @objid ("fd245759-5986-11e1-991a-001ec947ccaf")
     @Override
     public void depValMoved(SmObjectImpl obj, SmDependency dep, SmObjectImpl val) {
-        if (isPersistent(dep))
+        if (isPersistent(dep)) {
             this.dirty = true;
+        }
     }
 
     @objid ("fd24572b-5986-11e1-991a-001ec947ccaf")
@@ -159,8 +162,9 @@ public class ExmlStorageHandler implements IRepositoryObject {
     @objid ("fd245825-5986-11e1-991a-001ec947ccaf")
     @Override
     public final boolean isAttLoaded(SmObjectImpl obj, SmAttribute att) {
-        if (att.isNameAtt())
+        if (att.isNameAtt()) {
             return true;
+        }
         return isLoaded();
     }
 
@@ -173,20 +177,24 @@ public class ExmlStorageHandler implements IRepositoryObject {
             } else {
                 return this.isLoaded;
             }
-        } else if (this.usersLoaded) {
+        } else if (areUsersLoaded(obj)) {
             return true;
         } else if (isInverseDepStored(dep)) {
             try {
-                for (ObjId id : this.base.getCmsNodeUsers(this.cmsNode)) {
+                // Check all users of 'obj' are loaded.
+                for (ObjId id : this.base.getObjectUserCmsNodes(obj)) {
                     SmObjectImpl ref = this.base.getLoadedObject(id);
                     if (ref == null) {
-                        // The object may have moved to another repository
+                        // Not in memory or moved to another repository
                         return this.base.getDetachedObject(id) != null;
+                    } else {
+                        // object is in memory
+                        final IRepositoryObject userRepoHandle = ref.getRepositoryObject();
+                        if(! ((ExmlStorageHandler) userRepoHandle).isLoaded()) {
+                            // At least one of users is not loaded, the dep is not loaded
+                            return false;
+                        }
                     }
-        
-                    final IRepositoryObject userRepoHandle = ref.getRepositoryObject();
-                    if(! ((ExmlStorageHandler) userRepoHandle).isLoaded())
-                        return false;
                 }
             } catch (IOException | RuntimeException e) {
                 this.base.getErrorSupport().fireError(e);
@@ -195,7 +203,7 @@ public class ExmlStorageHandler implements IRepositoryObject {
         
             return true;
         } else {
-            // Dependency not stored, this case shouldn't occur
+            // Inverse dependency not stored either, this case shouldn't occur
             return true;
         }
     }
@@ -239,19 +247,21 @@ public class ExmlStorageHandler implements IRepositoryObject {
                     // It is the dependency from the CMS node to the parent CMS node
                     if (!this.parentLoaded ) {
                         final ObjId  parentId = getParentCmsNode(obj);
-                        if (parentId != null)
+                        if (parentId != null) {
                             this.base.loadCmsNode(parentId, modelLoader);
+                        }
         
                         this.parentLoaded = true;
                     }
                 } else {
                     load ();
                 }
-            } else if (!this.usersLoaded && isInverseDepStored(dep)) {
-                for (ObjId it : this.base.getCmsNodeUsers(this.cmsNode)) {
+            } else if (!areUsersLoaded(obj) &&
+                    isInverseDepStored(dep)) {
+                for (ObjId it : this.base.getObjectUserCmsNodes(obj)) {
                     this.base.loadCmsNode(it, modelLoader);
                 }
-                this.usersLoaded = true;
+                modelLoader.setRStatus(obj, IRStatus.REPO_USERS_LOADED, 0, 0);
             }
         } catch (DuplicateObjectException e) {
             this.base.getErrorSupport().fireError(e);
@@ -280,20 +290,23 @@ public class ExmlStorageHandler implements IRepositoryObject {
 
     @objid ("f4dc263e-08b1-11e2-b33c-001ec947ccaf")
     @Override
-    public final void unload(SmObjectImpl obj) {
-        // Unload the whole CMS node
+    public final Collection<SmObjectImpl> unload(SmObjectImpl obj) {
         if (obj.equals(this.cmsNode)) {
-            this.base.unloadCmsNode(this);
+            // Unload the whole CMS node
+            return this.base.unloadCmsNode(this);
         } else {
             this.base.getLoadCache().removeFromCache(obj);
+            setToReload(this.cmsNode);
+            return Collections.singletonList(obj);
         }
     }
 
     @objid ("fd245806-5986-11e1-991a-001ec947ccaf")
     private boolean isInverseDepStored(SmDependency dep) {
         SmDependency sym = dep.getSymetric();
-        if (sym == null)
+        if (sym == null) {
             return false;
+        }
         return isPersistent(sym);
     }
 
@@ -306,7 +319,7 @@ public class ExmlStorageHandler implements IRepositoryObject {
                 this.base.getErrorSupport().fireError(new IOException("Failed loading "+this+": "+e.getLocalizedMessage(), e));
             } catch (RuntimeException e) {
                 this.base.getErrorSupport().fireError(new IOException("Failed loading "+this+": "+e.toString(), e));
-            } 
+            }
         }
     }
 
@@ -372,6 +385,31 @@ public class ExmlStorageHandler implements IRepositoryObject {
     protected IExmlBase getBase() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.base;
+    }
+
+    @objid ("f26eb894-49b6-4711-ac7e-d7a11cc3cf87")
+    @Override
+    public void attachCreatedObj(SmObjectImpl obj) {
+        if ( this != obj.getRepositoryObject()) {
+            this.base.addCreatedObject(obj);
+        
+            if (!obj.getClassOf().isCmsNode()) {
+                this.dirty = true;
+                obj.setRepositoryObject(this);
+            }
+        }
+    }
+
+    @objid ("f0a06ea8-060f-4e02-9cee-2e9e378ee9ae")
+    @Override
+    public void setToReload(SmObjectImpl obj) {
+        // Set the whole CMS node as to be reloaded
+        this.isLoaded = false;
+    }
+
+    @objid ("a1f03963-0759-4ce9-8ea4-0a76aa868ecd")
+    protected boolean areUsersLoaded(SmObjectImpl obj) {
+        return obj.getData().hasAllStatus(IRStatus.REPO_USERS_LOADED)==StatusState.TRUE;
     }
 
 }

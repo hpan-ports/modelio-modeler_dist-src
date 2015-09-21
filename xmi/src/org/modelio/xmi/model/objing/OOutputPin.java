@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -35,7 +35,7 @@ import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.AttachOutputPinToOwnerVisitor;
 
 @objid ("da4a48c7-e260-42d7-927a-28f672fbb87f")
-public class OOutputPin extends OPin implements IOElement {
+public class OOutputPin extends OPin {
     @objid ("c00c33eb-1dba-4859-9e98-7fe7f91fc323")
     private org.eclipse.uml2.uml.Element ecoreOwnerElt = null;
 
@@ -49,8 +49,8 @@ public class OOutputPin extends OPin implements IOElement {
         ActivityAction objingOwner = ((org.modelio.metamodel.uml.behavior.activityModel.OutputPin)getObjingElement()).getOutputing();
         List<org.modelio.metamodel.uml.behavior.activityModel.OutputPin> objingOutputPinList = objingOwner.getOutput();
         
-        if (ecoreOwnerElt instanceof  org.eclipse.uml2.uml.Action) {
-             org.eclipse.uml2.uml.Action ecoreOwner =  (org.eclipse.uml2.uml.Action) ecoreOwnerElt;
+        if (this.ecoreOwnerElt instanceof  org.eclipse.uml2.uml.Action) {
+             org.eclipse.uml2.uml.Action ecoreOwner =  (org.eclipse.uml2.uml.Action) this.ecoreOwnerElt;
             EList<?> ecoreOutputPinList = ecoreOwner.getOutputs();
         
             if (ecoreOutputPinList != null
@@ -67,17 +67,17 @@ public class OOutputPin extends OPin implements IOElement {
         List<Parameter> objingParamList = AbstractObjingModelNavigation
                 .getRelatedParameters(objingOwner);
         
-        List<org.modelio.metamodel.uml.behavior.activityModel.OutputPin> objingOutputPinList = new ArrayList<org.modelio.metamodel.uml.behavior.activityModel.OutputPin>(
+        List<org.modelio.metamodel.uml.behavior.activityModel.OutputPin> objingOutputPinList = new ArrayList<>(
                 objingOwner.getOutput());
         
-        List<org.modelio.metamodel.uml.behavior.activityModel.OutputPin> objingPinSortedList = new ArrayList<org.modelio.metamodel.uml.behavior.activityModel.OutputPin>();
+        List<org.modelio.metamodel.uml.behavior.activityModel.OutputPin> objingPinSortedList = new ArrayList<>();
         
         for (Parameter param : objingParamList) {
             org.modelio.metamodel.uml.behavior.activityModel.OutputPin matchingPin = getMatchingPin(objingOutputPinList, param);
             if (matchingPin != null) {
                 objingOutputPinList.remove(matchingPin);
                 objingPinSortedList.add(matchingPin);
-            } 
+            }
         }
         return objingPinSortedList;
     }
@@ -85,7 +85,7 @@ public class OOutputPin extends OPin implements IOElement {
     @objid ("e20df4cd-28e6-446a-a22b-771c5cd58150")
     public OOutputPin(org.modelio.metamodel.uml.behavior.activityModel.OutputPin element) {
         super(element);
-        ecoreOwnerElt = GenerationProperties.getInstance().getMappedElement(element.getOutputing());
+        this.ecoreOwnerElt = GenerationProperties.getInstance().getMappedElement(element.getOutputing());
     }
 
     @objid ("2bbf0320-25a9-451a-86a5-c7e2e3a44625")
@@ -105,7 +105,7 @@ public class OOutputPin extends OPin implements IOElement {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         if (ecoreElt instanceof org.eclipse.uml2.uml.ExpansionNode){
-            setOutputRegion((org.eclipse.uml2.uml.ExpansionNode) ecoreElt);        
+            setOutputRegion((org.eclipse.uml2.uml.ExpansionNode) ecoreElt);
         }
         
         setMatched((org.eclipse.uml2.uml.Pin) ecoreElt);
@@ -125,12 +125,12 @@ public class OOutputPin extends OPin implements IOElement {
         
             for (org.modelio.metamodel.uml.behavior.activityModel.OutputPin objingPin : objingPinSortedList) {
                 org.eclipse.uml2.uml.Element ecorePin = GenerationProperties.getInstance().getMappedElement(objingPin);
-                if (ecorePin instanceof org.eclipse.uml2.uml.OutputPin) {                        
+                if (ecorePin instanceof org.eclipse.uml2.uml.OutputPin) {
                     if (ecoreOutputPinList.contains(ecorePin))
                         ecoreOutputPinList.remove(ecorePin);
         
-                    ecoreOutputPinList.add((org.eclipse.uml2.uml.OutputPin)ecorePin);                      
-                }  
+                    ecoreOutputPinList.add((org.eclipse.uml2.uml.OutputPin)ecorePin);
+                }
             }
         }
     }

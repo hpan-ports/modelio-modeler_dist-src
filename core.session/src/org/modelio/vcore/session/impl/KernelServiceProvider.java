@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl;
 
@@ -31,6 +31,7 @@ import org.modelio.vcore.smkernel.ISmObjectDataCache;
 import org.modelio.vcore.smkernel.ISwap;
 import org.modelio.vcore.smkernel.KernelRegistry;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * CoreSession kernel service provider implementation.
@@ -117,7 +118,7 @@ final class KernelServiceProvider implements IKernelServiceProvider {
         }
         
         // Maybe the data is not loaded
-        if (data == null) { 
+        if (data == null) {
             data = this.session.getRepository(oobj).loadObjectData(oobj);
         }
         
@@ -132,6 +133,12 @@ final class KernelServiceProvider implements IKernelServiceProvider {
         
         oobj.initData(data);
         return data;
+    }
+
+    @objid ("91750174-1f9b-4c76-829f-ea6bb3992352")
+    @Override
+    public SmMetamodel getMetamodel() {
+        return this.session.getMetamodel();
     }
 
 }

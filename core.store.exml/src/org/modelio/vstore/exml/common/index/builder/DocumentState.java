@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.index.builder;
 
 import java.io.IOException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vstore.exml.common.model.ExmlTags;
 import org.xml.sax.SAXException;
 
 /**
@@ -40,12 +41,12 @@ class DocumentState extends AbstractState {
     @objid ("fd21f6c2-5986-11e1-991a-001ec947ccaf")
     @Override
     public void startElement(final String uri, final String localName, final String qName, final org.xml.sax.Attributes attrs) throws SAXException {
-        if (localName.equals( "ID"))
+        if (localName.equals( ExmlTags.TAG_ID))
         {
             // Read the CMS node
-            String cuid = attrs.getValue ("uid");
-            String cclassof = attrs.getValue ("mc");
-            String cname = attrs.getValue ("name");
+            String cuid = attrs.getValue (ExmlTags.ATT_ID_UID);
+            String cclassof = attrs.getValue (ExmlTags.ATT_ID_MC);
+            String cname = attrs.getValue (ExmlTags.ATT_ID_NAME);
         
             try {
                 this.stateHandler.setCmsNode (cclassof, cuid, cname);
@@ -54,27 +55,12 @@ class DocumentState extends AbstractState {
             }
         
         }
-        else if (localName.equals( "EXTID"))
-        {
-            this.stateHandler.enterEXTIDState(attrs);
-        }
-        else if (localName.equals( "FOREIGNID"))
-        {
-            String cuid = attrs.getValue ("uid");
-            String cclassof = attrs.getValue ("mc");
-            String cname = attrs.getValue ("name");
-                     
-            try {
-                this.stateHandler.addForeignObject (cclassof, cuid, cname);
-            } catch (IOException e) {
-                this.stateHandler.throwError(e);
-            }
-        }
-        else if (localName.equals( "REFOBJ"))
-        {
-            this.stateHandler.enterREFOBJState();
-        }
-        else if (localName.equals( "OBJECT"))
+        //        else if (localName.equals(ExmlTags.TAG_DEPS_EXTID))
+        //        {
+        //            // Ignore this <= 3.3 tag
+        //            this.stateHandler.enterEXTIDState(attrs);
+        //        }
+        else if (localName.equals(ExmlTags.TAG_OBJECT))
         {
             this.stateHandler.enterOBJECTState();
         }

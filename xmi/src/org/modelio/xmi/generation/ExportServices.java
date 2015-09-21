@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.generation;
 
@@ -48,7 +48,9 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.internal.resource.UMLResourceFactoryImpl;
 import org.eclipse.uml2.uml.resource.UMLResource;
+import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.analyst.Requirement;
+import org.modelio.metamodel.analyst.RequirementContainer;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
@@ -143,7 +145,7 @@ public class ExportServices {
     private void applyProfile() {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        Model model = genProp.getEcoreModel(); 
+        Model model = genProp.getEcoreModel();
         
         for(org.eclipse.uml2.uml.Profile profile : genProp.getExportedProfiles()){
             try{
@@ -207,11 +209,13 @@ public class ExportServices {
             TotalExportMap totalMap = TotalExportMap.getInstance();
             totalMap.clear();
         
-            Package selectedPkg = genProp.getSelectedPackage();
+            Package selectedPkg = (Package) genProp.getRootElement();
         
             List<ModelTree> exportScopeElts = new ArrayList<>();
         
             exportScopeElts.add(selectedPkg);
+        
+        
         
             //create Model
             Model ecoreModel = UMLFactory.eINSTANCE.createModel();
@@ -246,18 +250,27 @@ public class ExportServices {
                     }
         
                     for (Project library :  GenerationProperties.getInstance().getExportedLibrary()){
-                        Package libraryModel = library.getModel(); 
-                        libraryModel.accept(visitObjingModel);              
+                        Package libraryModel = library.getModel();
+                        libraryModel.accept(visitObjingModel);
                         ecoreModel.getPackagedElements().add((org.eclipse.uml2.uml.Package) genProp
                                 .getMappedElement(libraryModel));
                     }
+        
+                    if (selectedPkg.getCompositionOwner() instanceof Project){
+                        for (RequirementContainer reqCont:  Modelio.getInstance().getModelingSession().getRequirementModel().getRootRequirementContainer()){
+        
+                            reqCont.accept(visitObjingModel);
+                            ecoreModel.getPackagedElements().add((org.eclipse.uml2.uml.Package) genProp
+                                    .getMappedElement(reqCont));
+                        }
+                    }
+        
                 }
             }
         
             if (!ecoreRootNull) {
         
-        
-                if(progressBar != null) 
+                if(progressBar != null)
                     progressBar.setLabel(Xmi.I18N.getString("progressBar.content.export.XMIFileSave"));
         
                 resource.getContents().add(ecoreModel);
@@ -268,12 +281,12 @@ public class ExportServices {
                 //save stereotype
                 profileExport(progressBar);
         
-                applyProfile(); 
+                applyProfile();
         
                 partialMap.clear();
                 totalMap.clear();
         
-                if(progressBar != null) 
+                if(progressBar != null)
                     progressBar.setLabel(Xmi.I18N.getString("progressBar.content.export.XMIFileSave"));
         
                 error = saveRessource(resource);
@@ -286,7 +299,7 @@ public class ExportServices {
                             messageBox.setMessage(Xmi.I18N.getString("info.export.result_failed.inSave"));
                             messageBox.setText(Xmi.I18N.getString("info.export.result_failed"));
                             messageBox.open();
-        //                            ExportServices.this._shell.dispose();
+                            //                            ExportServices.this._shell.dispose();
                         }
                     });
         
@@ -301,7 +314,7 @@ public class ExportServices {
                         messageBox.setMessage(Xmi.I18N.getString("info.export.result_failed"));
                         messageBox.setText(Xmi.I18N.getString("info.export.result_failed.root_null"));
                         messageBox.open();
-        //                        ExportServices.this._shell.dispose();
+                        //                        ExportServices.this._shell.dispose();
                     }
                 });
         
@@ -321,7 +334,7 @@ public class ExportServices {
     @objid ("f6581620-7016-432d-8bab-1fd63090a190")
     private void profileExport(ProgressBarComposite progressBar) {
         for(org.eclipse.uml2.uml.Profile profile : GenerationProperties.getInstance().getExportedProfiles()){
-            if (profile.getOwner() == null) { 
+            if (profile.getOwner() == null) {
         
                 if(progressBar != null) progressBar.setLabel(Xmi.I18N.getMessage("progressBar.content.export.XMIProfileSave", profile.getName()));
         
@@ -350,9 +363,9 @@ public class ExportServices {
                     resourceProfile.save(null);
         
                     if (!GenerationProperties.getInstance().getExportVersion().equals(FormatExport.EMF300))
-                        XMIFileUtils.changeToUML(resourceProfile.getURI().toFileString(), GenerationProperties.getInstance().getTempFolder());
+                        XMIFileUtils.changeToUML(resourceProfile.getURI().toFileString());
         
-                } catch (IOException ioe) {    
+                } catch (IOException ioe) {
                     Xmi.LOG.error(ioe);
                 }
             }
@@ -392,7 +405,7 @@ public class ExportServices {
                 resourceProfile.save(null);
         
                 if (!GenerationProperties.getInstance().getExportVersion().equals(FormatExport.EMF300))
-                    XMIFileUtils.changeToUML(resourceProfile.getURI().toFileString(), GenerationProperties.getInstance().getTempFolder());
+                    XMIFileUtils.changeToUML(resourceProfile.getURI().toFileString());
         
             } catch (IOException ioe) {
                 Xmi.LOG.error(ioe);
@@ -416,7 +429,7 @@ public class ExportServices {
         totalMap.clear();
         
         Model ecoreModel = UMLFactory.eINSTANCE.createModel();
-        ObjingEAnnotation.setExporterVersion(ecoreModel, version);     
+        ObjingEAnnotation.setExporterVersion(ecoreModel, version);
         ObjingEAnnotation.setRoundTrip(ecoreModel, genProp.isRoundtripEnabled());
         
         List<ModelTree> exportScopeElts = new ArrayList<>();
@@ -485,7 +498,7 @@ public class ExportServices {
         if (resource != null) {
             GenerationProperties genProp = GenerationProperties.getInstance();
         
-            Profile rootProfile = (Profile) genProp.getSelectedPackage();
+            Profile rootProfile = (Profile) genProp.getRootElement();
         
             PartialExportMap partialMap = PartialExportMap.getInstance();
             TotalExportMap totalMap = TotalExportMap.getInstance();
@@ -497,23 +510,23 @@ public class ExportServices {
             TotalExportMap.getInstance().put(rootProfile.getUuid().toString(), ecoreProfile);
         
             ScopeChecker scopeChecker = new ScopeChecker(GenerationProperties
-                    .getInstance().getSelectedPackage());
+                    .getInstance().getRootElement());
             GenerationProperties.getInstance().setScopeChecker(scopeChecker);
         
             ProfileExportVisitorImpl profileVisitor = new ProfileExportVisitorImpl(progressBar);
             PExportProfile pprofile = new PExportProfile(rootProfile);
             profileVisitor.visit(pprofile);
         
-            if(progressBar!= null) 
+            if(progressBar!= null)
                 progressBar.setLabel(Xmi.I18N.getString("progressBar.content.export.XMIFileSave"));
         
-            ObjingEAnnotation.setExporterVersion(ecoreProfile, version);  
+            ObjingEAnnotation.setExporterVersion(ecoreProfile, version);
             resource.getContents().add(ecoreProfile);
         
             try {
                 resource.save(null);
             } catch (Exception ioe) {
-                error = true;      
+                error = true;
                 Xmi.LOG.error(ioe);
             }
         
@@ -551,7 +564,7 @@ public class ExportServices {
 
     @objid ("bb4ffffb-65be-40cb-833e-1719c7fec64e")
     private void exportStereotype(ModelElement element, org.eclipse.uml2.uml.Element ecoreElement) {
-        // apply existing stereotypes 
+        // apply existing stereotypes
         
         GenerationProperties genProp  = GenerationProperties.getInstance();
         
@@ -565,7 +578,7 @@ public class ExportServices {
                 try{
                     ecoreElement.applyStereotype(ecoreStereotype);
         
-                }catch(IllegalArgumentException e){       
+                }catch(IllegalArgumentException e){
                     Xmi.LOG.error(e);
                 }
         
@@ -581,7 +594,7 @@ public class ExportServices {
         
                 org.eclipse.uml2.uml.Stereotype ecoreStereotype = (org.eclipse.uml2.uml.Stereotype) genProp.getMappedElement(metaclassReference);
         
-                if ((ecoreStereotype != null) 
+                if ((ecoreStereotype != null)
                         &&  ecoreElement.isStereotypeApplicable(ecoreStereotype)
                         && (!ecoreElement.getAppliedStereotypes().contains(ecoreStereotype)))
                     ecoreElement.applyStereotype(ecoreStereotype);
@@ -617,11 +630,11 @@ public class ExportServices {
                             org.eclipse.uml2.uml.Stereotype satisfyStereotype = sysMLProfile.getOwnedStereotype("Satisfy");
                             genProp.getMappedElement(dependency).applyStereotype(satisfyStereotype);
                             setRequirementsRelated(dependency);
-                        }else if (element.isStereotyped("ModelerModule", IModelerModuleStereotypes.VERIFY)){ 
+                        }else if (element.isStereotyped("ModelerModule", IModelerModuleStereotypes.VERIFY)){
                             org.eclipse.uml2.uml.Stereotype verifyStereotype = sysMLProfile.getOwnedStereotype("Verify");
                             genProp.getMappedElement(dependency).applyStereotype(verifyStereotype);
                             setRequirementsRelated(dependency);
-                        }else if (element.isStereotyped("ModelerModule", IModelerModuleStereotypes.DERIVE)){ 
+                        }else if (element.isStereotyped("ModelerModule", IModelerModuleStereotypes.DERIVE)){
                             org.eclipse.uml2.uml.Stereotype deriveStereotype = sysMLProfile.getOwnedStereotype("DeriveReqt");
                             genProp.getMappedElement(dependency).applyStereotype(deriveStereotype);
                             setRequirementsRelated(dependency);

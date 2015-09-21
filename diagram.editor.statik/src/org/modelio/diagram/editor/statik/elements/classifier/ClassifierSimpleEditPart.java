@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.classifier;
 
@@ -26,7 +26,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.swt.SWT;
-import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.diagram.editor.statik.elements.innerclass.GmInnerClass;
 import org.modelio.diagram.editor.statik.elements.innerclass.GmInnerClassesZone;
 import org.modelio.diagram.editor.statik.elements.namespacinglink.GmCompositionLink;
@@ -43,6 +42,7 @@ import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 import org.modelio.metamodel.uml.statik.Classifier;
+import org.modelio.ui.CoreFontRegistry;
 
 /**
  * Overloading of the {@link NonSelectableSimpleEditPart} to handle satellite children transfer back into body when
@@ -115,7 +115,7 @@ public class ClassifierSimpleEditPart extends NonSelectableSimpleEditPart {
                     if (classifier.isIsAbstract()) {
                         IPenOptionsSupport headerFigure = (IPenOptionsSupport) aFigure;
                         if (headerFigure.getTextFont() != null) {
-                            headerFigure.setTextFont(CoreFontRegistry.getModifiedFont(headerFigure.getTextFont(), SWT.ITALIC));
+                            headerFigure.setTextFont(CoreFontRegistry.getModifiedFont(headerFigure.getTextFont(), SWT.ITALIC, 1));
                         }
                     }
                 }
@@ -142,7 +142,7 @@ public class ClassifierSimpleEditPart extends NonSelectableSimpleEditPart {
         installEditPolicy("RedrawCompositionLinkEditPolicy", new RedrawCompositionLinkEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new SimpleModeOwnedElementCreationEditPolicy());
         
-        // FIXME : Some Gm that don't represent a Classifier use this edit part 
+        // FIXME : Some Gm that don't represent a Classifier use this edit part
         // only to have the separation line between the zones.
         GmCompositeNode model = (GmCompositeNode) getModel();
         if (model.getRelatedElement() instanceof Classifier) {

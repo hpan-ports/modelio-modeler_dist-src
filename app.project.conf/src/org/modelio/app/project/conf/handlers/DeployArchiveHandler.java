@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.project.conf.handlers;
 
@@ -48,7 +48,7 @@ import org.modelio.gproject.data.project.ProjectType;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.gproject.module.catalog.FileModuleStore;
-import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IModuleManagementService;
 import org.modelio.ui.progress.IModelioProgressService;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.SubProgress;
@@ -61,7 +61,7 @@ import org.modelio.vbasic.progress.SubProgress;
 public class DeployArchiveHandler {
     @objid ("92b3a153-caf2-4be4-a075-c8b6a860c6ad")
     @Execute
-    void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell, ModelioEnv modelioEnv, IModuleService moduleSvc, IProjectService projectservice, IModelioProgressService progressService) {
+    void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell, ModelioEnv modelioEnv, IModuleManagementService moduleSvc, IProjectService projectservice, IModelioProgressService progressService) {
         FileDialog dlg = new FileDialog(shell, SWT.OPEN);
         dlg.setFilterNames(new String[] { AppProjectConf.I18N.getString("MDAComponents") }); //$NON-NLS-1$
         dlg.setFilterExtensions(new String[] { "*.jmdac" }); //$NON-NLS-1$
@@ -76,7 +76,7 @@ public class DeployArchiveHandler {
             //AppProjectConf.LOG.debug("DeployArchiveHandler: module path is :"+m);
             paths.add(new File(parentPath, m).toString());
         }
-            
+        
         
         final FileModuleStore catalog = new FileModuleStore(modelioEnv.getModuleCatalogPath());
         
@@ -84,10 +84,10 @@ public class DeployArchiveHandler {
         
         try {
             progressService.run(AppProjectConf.I18N.getString("DeployArchiveHandler.AddModulesProgressTitle"), true, false, runnable);
-            
+        
         } catch (InvocationTargetException e) {
             AppProjectConf.LOG.error(e);
-            MessageDialog.openError(shell, 
+            MessageDialog.openError(shell,
                     AppProjectConf.I18N.getString("DeployArchiveHandler.AddModulesProgressTitle"),
                     e.getCause().getLocalizedMessage());
         } catch (InterruptedException e) {
@@ -121,7 +121,7 @@ public class DeployArchiveHandler {
         private IModuleCatalog catalog;
 
         @objid ("aca8b113-1c17-4dc5-a726-be7fbe0d1e2e")
-         IModuleService moduleSvc;
+         IModuleManagementService moduleSvc;
 
         @objid ("38cb5ba8-70d7-4780-ab1c-75c9f2fdb479")
          GProject project;
@@ -130,7 +130,7 @@ public class DeployArchiveHandler {
         private StringBuilder report = new StringBuilder();
 
         @objid ("0d33a12f-affa-44c3-b873-d746e8aa3828")
-        DeployModule(List<String> paths, IModuleCatalog catalog, IModuleService moduleSvc, GProject project) {
+        DeployModule(List<String> paths, IModuleCatalog catalog, IModuleManagementService moduleSvc, GProject project) {
             this.modules = paths;
             this.catalog = catalog;
             this.moduleSvc = moduleSvc;
@@ -149,21 +149,21 @@ public class DeployArchiveHandler {
                     //Keys {0}:counter {1}:sum of modules {2}:module file name
                     monitor.subTask(AppProjectConf.I18N.getMessage("DeployArchiveHandler.AddModulesProgressSubTask", String.valueOf(i+1), String.valueOf(this.modules.size()), mdacFile.getFileName()));
                     this.catalog.getModuleHandle(mdacFile, mon.newChild(2));
-                    
+            
                     this.moduleSvc.installModule(this.project, mdacFile);
                     mon.worked(1);
-                    
+            
                 } catch (IOException e) {
                     this.report
                     .append(AppProjectConf.I18N.getMessage("DeployArchiveHandler.AddToCatalogFailed",module,FileUtils.getLocalizedMessage(e)))
                     .append("\n\n");
-                    
+            
                     AppProjectConf.LOG.error(e);
                 } catch (ModuleException e) {
                     this.report
                     .append(AppProjectConf.I18N.getMessage("DeployArchiveHandler.DeployModuleFailed",module,e.getLocalizedMessage()))
                     .append("\n\n");
-                    
+            
                     AppProjectConf.LOG.error(e);
                 }
                 i++;

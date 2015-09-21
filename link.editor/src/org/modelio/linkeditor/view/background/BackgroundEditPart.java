@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.linkeditor.view.background;
 
@@ -32,6 +32,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.graph.Edge;
 import org.eclipse.draw2d.graph.EdgeList;
 import org.eclipse.draw2d.graph.Node;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
@@ -43,10 +44,11 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Scrollable;
-import org.modelio.gproject.model.IMModelServices;
+import org.modelio.api.module.IMdaExpert;
 import org.modelio.linkeditor.view.LinkEditorView;
 import org.modelio.linkeditor.view.node.EdgeBus;
 import org.modelio.linkeditor.view.node.GraphNode;
+import org.modelio.mda.infra.service.IModuleService;
 import org.modelio.ui.UIColor;
 
 /**
@@ -68,8 +70,8 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     @objid ("1b87bbf6-5e33-11e2-b81d-002564c97630")
     private static int HORIZONTAL_GAP;
 
-    @objid ("e5f57cc6-5efd-11e2-a8be-00137282c51b")
-    private static IMModelServices modelServices;
+    @objid ("53d7c013-11e3-43ab-87c5-be0d5aa5fb6a")
+    private IEclipseContext context;
 
     @objid ("1b87bbf7-5e33-11e2-b81d-002564c97630")
     @Override
@@ -115,7 +117,8 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
             BackgroundEditPart.VERTICAL_RANK_GAP = -BackgroundEditPart.VERTICAL_GAP / 4 * 3;
             BackgroundEditPart.HORIZONTAL_GAP = (int) (BackgroundEditPart.HORIZONTAL_RANK_GAP * 1.5);
         
-            this.getFigure().setBackgroundColor((LinkEditorView.getOptions().isPinned() ? UIColor.TEXT_WRITABLE_BG : UIColor.POST_IT_BG));
+            this.getFigure().setBackgroundColor(
+                    (LinkEditorView.getOptions().isPinned() ? UIColor.TEXT_WRITABLE_BG : UIColor.POST_IT_BG));
             this.getFigure().getUpdateManager().addInvalidFigure(this.getFigure());
         
             this.refreshChildren();
@@ -134,15 +137,12 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     @objid ("1b87bc17-5e33-11e2-b81d-002564c97630")
     @Override
     protected void createEditPolicies() {
-        // TODO add edit policies for the background (if any?)
         this.installEditPolicy(EditPolicy.LAYOUT_ROLE, new DropEditPolicy());
     }
 
     @objid ("1b87bc1a-5e33-11e2-b81d-002564c97630")
     @Override
     protected IFigure createFigure() {
-        // TODO Create and return a background figure with the correct layout
-        // manager.
         FreeformLayer freeformLayer = new FreeformLayer();
         freeformLayer.setLayoutManager(new FreeformLayout());
         freeformLayer.setOpaque(true);
@@ -156,7 +156,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     protected List<?> getModelChildren() {
         BackgroundModel directedGraph = this.getModel();
         boolean vertical = LinkEditorView.getOptions().isLayoutOrientationVertical();
-        // TODO treelayout
+        
         Node center = directedGraph.getCenter();
         if (center != null) {
             // "blank" layout
@@ -237,11 +237,13 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
                 if (control instanceof Scrollable) {
                     Scrollable c = (Scrollable) control;
                     ScrollBar b = c.getHorizontalBar();
-                    if (b != null /* && b.isVisible() */)
+                    if (b != null /* && b.isVisible() */) {
                         controlSize.y -= b.getSize().y;
+                    }
                     b = c.getVerticalBar();
-                    if (b != null /* && b.isVisible() */)
+                    if (b != null /* && b.isVisible() */) {
                         controlSize.x -= b.getSize().x;
+                    }
                 }
             }
         });
@@ -290,8 +292,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     }
 
     /**
-     * Align the center node on the center of the view or one of its border
-     * depending on the edges existence.
+     * Align the center node on the center of the view or one of its border depending on the edges existence.
      * @param directedGraph the model graph
      */
     @objid ("1b87bc43-5e33-11e2-b81d-002564c97630")
@@ -344,8 +345,14 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     }
 
     @objid ("e5f57cc7-5efd-11e2-a8be-00137282c51b")
-    public BackgroundEditPart(IMModelServices modelServices) {
-        BackgroundEditPart.modelServices = modelServices;
+    public BackgroundEditPart(IEclipseContext context) {
+        this.context = context;
+    }
+
+    @objid ("1eba6e9d-1c12-47a7-a616-8f6afd818102")
+    public IMdaExpert getMdaExpert() {
+        IModuleService moduleService = this.context.get(IModuleService.class);
+        return moduleService != null ? moduleService.getMdaExpert() : null;
     }
 
 }

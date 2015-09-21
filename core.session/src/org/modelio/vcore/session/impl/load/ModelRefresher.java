@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.load;
 
@@ -39,7 +39,6 @@ import org.modelio.vcore.session.impl.transactions.smAction.EraseDependencyActio
 import org.modelio.vcore.session.impl.transactions.smAction.IAction;
 import org.modelio.vcore.session.impl.transactions.smAction.SetAttributeAction;
 import org.modelio.vcore.smkernel.ISmObjectData;
-import org.modelio.vcore.smkernel.SmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmClass;
@@ -102,7 +101,7 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
         // Triggers the refresh event service
         this.refreshEventService.addEvent(this.recordedActions, this.deletedData);
         
-        // Reinitialize 
+        // Reinitialize
         reset();
     }
 
@@ -122,8 +121,9 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
         
         super.loadAttribute(obj, att, newValue);
         
-        if (! Objects.equals(oldVal, newValue))
+        if (! Objects.equals(oldVal, newValue)) {
             this.recordedActions.add(new SetAttributeAction(obj, att, oldVal, newValue));
+        }
     }
 
     @objid ("7d88c8b4-1c43-11e2-8eb9-001ec947ccaf")
@@ -141,8 +141,9 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
         
         // Add orphans objects
         for (SmObjectImpl obj : this.mayBeOrphan) {
-            if (obj.getCompositionOwner() == null)
+            if (obj.getCompositionOwner() == null) {
                 ret.add(obj);
+            }
         }
         return ret;
     }
@@ -170,7 +171,7 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
         
         long objStatus = data.getStatus();
         
-        this.recordedActions.add(new SetAttributeAction(obj, SmObjectData.Metadata.statusAtt(), oldStatus, objStatus));
+        this.recordedActions.add(new SetAttributeAction(obj, obj.getClassOf().statusAtt(), oldStatus, objStatus));
     }
 
     @objid ("3bae9bad-1d7f-42cf-bb22-5cb6afda897a")
@@ -183,7 +184,7 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
         
         long objStatus = data.getStatus();
         
-        this.recordedActions.add(new SetAttributeAction(obj, SmObjectData.Metadata.statusAtt(), oldStatus, objStatus));
+        this.recordedActions.add(new SetAttributeAction(obj, obj.getClassOf().statusAtt(), oldStatus, objStatus));
     }
 
     @objid ("415ceb93-daaa-4e0f-8a01-4b2fd254b537")
@@ -205,11 +206,12 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
     @objid ("caa6dcdf-1331-464c-8d87-21f908249a83")
     boolean eraseObjDepVal(SmObjectImpl obj, SmDependency dep, SmObjectImpl toRemove) {
         // do the job
-        boolean ret = dep.remove(obj, toRemove);
+        boolean ret = dep.remove(obj.getData(), toRemove);
         
         if (ret) {
-            if (dep.isComposition() || dep.isSharedComposition())
+            if (dep.isComposition() || dep.isSharedComposition()) {
                 this.mayBeOrphan.add(toRemove);
+            }
         
             this.recordedActions.add(new EraseDependencyAction(obj, dep, toRemove, 0));
         }
@@ -257,8 +259,9 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
         @objid ("7d8b2b06-1c43-11e2-8eb9-001ec947ccaf")
         @Override
         protected void depValErased(SmObjectImpl obj, SmDependency dep, SmObjectImpl value) {
-            if (dep.isComposition() || dep.isSharedComposition())
+            if (dep.isComposition() || dep.isSharedComposition()) {
                 this.orphanDetection.add(value);
+            }
             
             this.recordedActions.add(new EraseDependencyAction(obj, dep, value, 0));
         }

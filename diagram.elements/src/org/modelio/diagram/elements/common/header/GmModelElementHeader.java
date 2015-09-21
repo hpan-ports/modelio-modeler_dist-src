@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.header;
 
@@ -30,11 +30,17 @@ import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
+import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IEditableText;
 import org.modelio.diagram.elements.core.model.IGmObject;
+import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.node.GmSimpleNode;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
+import org.modelio.diagram.styles.core.IStyle;
+import org.modelio.diagram.styles.core.MetaKey;
+import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
+import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Profile;
@@ -57,7 +63,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * <li>the metaclass keyword
  */
 @objid ("7e62e6b4-1dec-11e2-8cad-001ec947c8cc")
-public abstract class GmModelElementHeader extends GmSimpleNode implements IEditableText {
+public abstract class GmModelElementHeader extends GmSimpleNode {
     @objid ("7e6548f1-1dec-11e2-8cad-001ec947c8cc")
     private static final int MAJOR_VERSION = 0;
 
@@ -126,7 +132,26 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
     @objid ("7e65490b-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public IEditableText getEditableText() {
-        return this;
+        if (getRelatedElement() == null) {
+            return null;
+        }
+        return new IEditableText() {
+        
+                                                                    @Override
+                                                                    public String getText() {
+                                                                        ModelElement relatedElement = getRelatedElement();
+                                                                        if (relatedElement == null) {
+                                                                            return "?";
+                                                                        }
+                                                                        return relatedElement.getName();
+                                                                    }
+        
+                                                                    @Override
+                                                                    public void setText(String text) {
+                                                                        getRelatedElement().setName(text);
+                                                                    }
+        
+                                                                };
     }
 
     /**
@@ -149,10 +174,27 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
         return MAJOR_VERSION;
     }
 
+    /**
+     * @return the metaclass icon that may be displayed on the left side of the header.
+     */
+    @objid ("7e6a0db2-1dec-11e2-8cad-001ec947c8cc")
+    public Image getMetaclassIcon() {
+        return MetamodelImageService.getIcon(getRelatedElement().getMClass());
+    }
+
     @objid ("7e6a0da4-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public ModelElement getRelatedElement() {
         return (ModelElement) super.getRelatedElement();
+    }
+
+    @objid ("7e62e693-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    public RepresentationMode getRepresentationMode() {
+        if (getParent() == null) {
+            return RepresentationMode.STRUCTURED;
+        }
+        return getParent().getRepresentationMode();
     }
 
     /**
@@ -163,39 +205,46 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
      */
     @objid ("7e654910-1dec-11e2-8cad-001ec947c8cc")
     public List<Image> getStereotypeIcons() {
-        if (this.getRelatedElement() != null) {
-            final List<Stereotype> stereotypes = filterStereotypes(this.getRelatedElement().getExtension());
-            final List<Image> ret = new ArrayList<>();
+        if (getRelatedElement() != null) {
+            final List<Stereotype> stereotypes = filterStereotypes(getRelatedElement().getExtension());
+            if (! stereotypes.isEmpty()) {
+                final List<Image> ret = new ArrayList<>(stereotypes.size());
         
-            for (Stereotype s : stereotypes) {
-                final Profile ownerProfile = s.getOwner();
-                if (ownerProfile != null) {
-                    ModuleComponent ownerModule = ownerProfile.getOwnerModule();
-                    final Image im = ModuleI18NService.getIcon(ownerModule, s);
-                    if (im != null) {
-                        ret.add(im);
+                for (Stereotype s : stereotypes) {
+                    final Profile ownerProfile = s.getOwner();
+                    if (ownerProfile != null) {
+                        ModuleComponent ownerModule = ownerProfile.getOwnerModule();
+                        final Image im = ModuleI18NService.getIcon(ownerModule, s);
+                        if (im != null) {
+                            ret.add(im);
+                        }
                     }
                 }
-            }
         
-            return ret;
+                return ret;
+            }
         }
         return Collections.emptyList();
     }
 
     /**
-     * Get all stereotypes labels to display.
-     * <p>
-     * May return one label or many depending on the value passed to {@link #setStackedStereotypes(boolean)} .
-     * @return the tagged stereotypes to display.
+     * Get the stereotypes labels.
+     * @return an array of labels.
      */
-    @objid ("7e654917-1dec-11e2-8cad-001ec947c8cc")
-    public List<String> getStereotypeLabels() {
-        if (this.getRelatedElement() != null) {
-            List<Stereotype> stereotypes = filterStereotypes(this.getRelatedElement().getExtension());
-            if (this.stackedStereotypes)
-                return getStackedStereotypeLabels(stereotypes);
-            return getLinedStereotypeLabels(stereotypes);
+    @objid ("87b82c54-94f2-42f1-a82f-2064e2bd786b")
+    public List<String> getStereotypesLabel() {
+        if (getRelatedElement() != null) {
+            List<Stereotype> stereotypes = filterStereotypes(getRelatedElement().getExtension());
+            if (! stereotypes.isEmpty()) {
+                List<String> labels = new ArrayList<>(stereotypes.size());
+        
+                for (Stereotype s : stereotypes) {
+                    // if there is no label, use the name
+                    // question: should we filter out hidden stereotypes ? if(!s.isIsHidden())
+                    labels.add(ModuleI18NService.getLabel(s));
+                }
+                return labels;
+            }
         }
         return Collections.emptyList();
     }
@@ -208,29 +257,40 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
      */
     @objid ("7e65491e-1dec-11e2-8cad-001ec947c8cc")
     public List<String> getTaggedValueLabels() {
-        List<String> labels = new ArrayList<>();
-        if (this.getRelatedElement() != null) {
-            for (TaggedValue tag : filterTags(this.getRelatedElement().getTag())) {
-                // Ignore hidden tags 
-                final TagType tagType = tag.getDefinition();
-                if (tagType == null || ! tagType.isIsHidden())
-                    labels.add(makeTagLabel(tag));
+        if (getRelatedElement() != null) {
+            List<TaggedValue> tags = filterTags(getRelatedElement().getTag());
+            if (! tags.isEmpty()) {
+                List<String> labels = new ArrayList<>(tags.size());
+                for (TaggedValue tag : tags) {
+                    // Ignore hidden tags
+                    final TagType tagType = tag.getDefinition();
+                    if (tagType == null || ! tagType.isIsHidden()) {
+                        labels.add(makeTagLabel(tag));
+                    }
+                }
+                return labels;
             }
         }
-        return labels;
+        return Collections.emptyList();
     }
 
     /**
-     * Return the represented classifier name.
-     * @return the represented classifier name.
+     * Get whether each stereotype is in its own &lt;&lt; >> or all are in the same &lt;&lt;a, b, c ...>>.
+     * @return <li><i>true</i>: each stereotype is in its &lt;&lt; >>.<br>
+     * <li><i>false</i>: all stereotypes will be in a single &lt;&lt;a, b, c ...>> label
      */
-    @objid ("7e654925-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public String getText() {
-        ModelElement relatedElement = this.getRelatedElement();
-        if (relatedElement == null)
-            return "?";
-        return relatedElement.getName();
+    @objid ("97465298-c7cd-444c-9334-05d73ddabfde")
+    public boolean isDisplayStereotypesAsStack() {
+        return this.stackedStereotypes;
+    }
+
+    /**
+     * Tells whether this label must be displayed on one line or many ones.
+     * @return true to display the label on only one line.
+     */
+    @objid ("c5307c84-1cc3-49f7-b20e-941bb3f4e612")
+    public boolean isFlat() {
+        return false;
     }
 
     /**
@@ -260,6 +320,33 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
     public boolean isShowMetaclassKeyword() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.showMetaclassKeyword;
+    }
+
+    /**
+     * The label visibility may be toggled with {@link MetaKey#SHOWLABEL} style metakey.
+     */
+    @objid ("b56f58f0-0094-41a3-bf02-138bcebeaf89")
+    @Override
+    public boolean isVisible() {
+        GmModel parent = getParent();
+        
+        // No parent ==> invisible
+        if (parent == null) {
+            return false;
+        }
+        
+        // Parent invisible ==> invisible
+        if (parent instanceof GmNodeModel && ! ((GmNodeModel) parent).isVisible()) {
+            return false;
+        }
+        
+        // Visibility depends on "Show label" meta-key if defined
+        StyleKey key = parent.getStyleKey(MetaKey.SHOWLABEL);
+        if (key != null) {
+            return getStyle().getProperty(key);
+        } else {
+            return true;
+        }
     }
 
     @objid ("7e67ab4b-1dec-11e2-8cad-001ec947c8cc")
@@ -340,17 +427,37 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
         this.stackedStereotypes = value;
     }
 
-    /**
-     * Set the represented classifier name in the model.
-     * <p>
-     * This method directly and only modifies the model. The label will then update at then end of the transaction, when the header
-     * will be notified of the change event.
-     * @param newName the new represented classifier name.
-     */
-    @objid ("7e67ab62-1dec-11e2-8cad-001ec947c8cc")
+    @objid ("fcac2129-eb8d-48f6-83fd-924e1e8e05b7")
     @Override
-    public void setText(String newName) {
-        this.getRelatedElement().setName(newName);
+    public void styleChanged(IStyle changedStyle) {
+        fireVisibilityChanged();
+        super.styleChanged(changedStyle);
+    }
+
+    @objid ("cc80b0c2-2c8b-46f2-b8b1-073622eaba71")
+    @Override
+    public void styleChanged(final StyleKey property, final Object newValue) {
+        // Copied from GmModelelementFlatHeader
+        
+        super.styleChanged(property, newValue);
+        
+        // Some keys might change the content of the label
+        GmModel parent = getParent();
+        if (parent != null) {
+            final StyleKey showStereotypesKey = parent.getStyleKey(MetaKey.SHOWSTEREOTYPES);
+            final StyleKey showTagKey = parent.getStyleKey(MetaKey.SHOWTAGS);
+            final StyleKey showLabelKey = parent.getStyleKey(MetaKey.SHOWLABEL);
+        
+            if ((showStereotypesKey != null && showStereotypesKey.equals(property))
+                    || (showTagKey != null && showTagKey.equals(property))) {
+                firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
+            }
+        
+            if (showLabelKey != null && showLabelKey.equals(property)) {
+                fireVisibilityChanged();
+            }
+        
+        }
     }
 
     @objid ("7e67ab8c-1dec-11e2-8cad-001ec947c8cc")
@@ -379,12 +486,7 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
      */
     @objid ("7e67ab67-1dec-11e2-8cad-001ec947c8cc")
     protected String computeMainLabel() {
-        return this.getRelatedElement().getName();
-    }
-
-    @objid ("7e6a0db2-1dec-11e2-8cad-001ec947c8cc")
-    protected Image getMetaclassIcon() {
-        return MetamodelImageService.getIcon(getRelatedElement().getMClass());
+        return getRelatedElement().getName();
     }
 
     @objid ("daf6ae16-f5ef-4356-85a2-0c22d8cf1c82")
@@ -403,7 +505,7 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
      */
     @objid ("7e67ab6c-1dec-11e2-8cad-001ec947c8cc")
     protected boolean updateMainLabelFromObModel() {
-        if (this.getRelatedElement() != null) {
+        if (getRelatedElement() != null) {
             final String newName = computeMainLabel();
             if (this.label == null || !this.label.equals(newName)) {
                 this.label = newName;
@@ -413,43 +515,12 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
         return false;
     }
 
-    @objid ("7e67ab71-1dec-11e2-8cad-001ec947c8cc")
-    private static List<String> getLinedStereotypeLabels(List<Stereotype> stereotypes) {
-        final List<String> labels = new ArrayList<>();
-        final StringBuffer line = new StringBuffer();
-        
-        if (stereotypes.isEmpty())
-            return labels;
-        
-        line.append("<<");
-        for (Stereotype s : stereotypes) {
-            // if there is no label, use the name
-            final String aLabel = ModuleI18NService.getLabel(s);
-            line.append(aLabel);
-            line.append(", ");
-        }
-        line.delete(line.length() - 2, line.length());
-        line.append(">>");
-        labels.add(line.toString());
-        return labels;
-    }
-
-    @objid ("7e67ab7a-1dec-11e2-8cad-001ec947c8cc")
-    private static List<String> getStackedStereotypeLabels(List<Stereotype> stereotypes) {
-        final List<String> labels = new ArrayList<>();
-        for (Stereotype s : stereotypes) {
-            // if there is no label, use the name
-            labels.add("<<" + ModuleI18NService.getLabel(s) + ">>");
-        }
-        return labels;
-    }
-
     /**
      * To be called by the constructor and the {@link #read(IDiagramReader)} methods.
      */
     @objid ("7e67ab83-1dec-11e2-8cad-001ec947c8cc")
     private void init() {
-        if (this.getRelatedElement() != null) {
+        if (getRelatedElement() != null) {
             this.label = computeMainLabel();
         }
     }
@@ -467,8 +538,9 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
         String tagLabel = ModuleI18NService.getLabel(tagType);
         if (tagLabel == null || tagLabel.isEmpty()) {
             tagLabel = tagType.getLabelKey();
-            if (tagLabel == null || tagLabel.isEmpty())
+            if (tagLabel == null || tagLabel.isEmpty()) {
                 tagLabel = tagType.getName();
+            }
         }
         
         Stereotype typeStereotype = tagType.getOwnerStereotype();
@@ -485,11 +557,12 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
             buf.append("(");
             boolean first = true;
             for (TagParameter param : params) {
-                if (first)
+                if (first) {
                     first = false;
-                else
+                } else {
                     buf.append(", ");
-                
+                }
+        
                 buf.append(param.getValue());
             }
             buf.append(")");

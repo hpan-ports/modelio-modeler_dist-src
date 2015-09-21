@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.informationFlow;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.informationFlow.InformationFlowData;
+import org.modelio.metamodel.impl.uml.informationFlow.InformationFlowData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationMessage;
@@ -50,225 +62,254 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("006399b2-c4bf-1fd8-97fe-001ec947cd2a")
 public class InformationFlowImpl extends ModelElementImpl implements InformationFlow {
-    @objid ("968493fa-f01b-4868-bc06-4c5f62ea2767")
+    @objid ("9d7bb2f5-cc1c-40d5-87d9-a7cab68eaa07")
     @Override
     public NameSpace getOwner() {
-        return (NameSpace) getDepVal(InformationFlowData.Metadata.OwnerDep());
+        Object obj = getDepVal(((InformationFlowSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("2d520e3d-1dcd-42d4-90e7-9624d5000e2d")
+    @objid ("437a351a-1490-4dc2-8c5c-848eeabef018")
     @Override
     public void setOwner(NameSpace value) {
-        appendDepVal(InformationFlowData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((InformationFlowSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("992dd138-8d73-4a3b-8c0e-641005ac75d6")
+    @objid ("68ec723c-8d56-4958-8ffc-9d114236808a")
     @Override
     public EList<ModelElement> getInformationSource() {
-        return new SmList<>(this, InformationFlowData.Metadata.InformationSourceDep());
+        return new SmList<>(this, ((InformationFlowSmClass)getClassOf()).getInformationSourceDep());
     }
 
-    @objid ("bc958569-efd9-4da1-b8a0-c8dbba61816a")
+    @objid ("dbe7c5ce-3f1c-48ad-ac12-73b93d6e6f58")
     @Override
     public <T extends ModelElement> List<T> getInformationSource(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ModelElement element : getInformationSource()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d9544cb4-1db4-4354-8dc6-f92f1a5a3042")
+    @objid ("6831ba84-b6cf-41c3-a528-de4832a9efd3")
     @Override
     public EList<ModelElement> getInformationTarget() {
-        return new SmList<>(this, InformationFlowData.Metadata.InformationTargetDep());
+        return new SmList<>(this, ((InformationFlowSmClass)getClassOf()).getInformationTargetDep());
     }
 
-    @objid ("d22371be-422a-4e7f-866e-2d9e5fc73abd")
+    @objid ("1e7a8949-d684-4137-8cf0-f56ebd0aa907")
     @Override
     public <T extends ModelElement> List<T> getInformationTarget(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ModelElement element : getInformationTarget()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4c6f2f8a-a2cf-4e59-9157-d4f0695ddfbb")
+    @objid ("8c6cfa89-2462-4e6c-9165-3e25645bec17")
     @Override
     public EList<ActivityEdge> getRealizingActivityEdge() {
-        return new SmList<>(this, InformationFlowData.Metadata.RealizingActivityEdgeDep());
+        return new SmList<>(this, ((InformationFlowSmClass)getClassOf()).getRealizingActivityEdgeDep());
     }
 
-    @objid ("6d696ec3-5f72-44a3-8018-677373888927")
+    @objid ("1ee9f880-186d-4afd-8a58-1681a4b1fe17")
     @Override
     public <T extends ActivityEdge> List<T> getRealizingActivityEdge(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ActivityEdge element : getRealizingActivityEdge()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f38ae96f-7b4b-4988-ae1c-60451edb079d")
+    @objid ("53e96784-6310-447c-b1c6-af67d3346e37")
     @Override
     public EList<CommunicationMessage> getRealizingCommunicationMessage() {
-        return new SmList<>(this, InformationFlowData.Metadata.RealizingCommunicationMessageDep());
+        return new SmList<>(this, ((InformationFlowSmClass)getClassOf()).getRealizingCommunicationMessageDep());
     }
 
-    @objid ("e15c7b6e-3664-461f-8e04-85cb621614e0")
+    @objid ("5bc92be9-ba51-4e00-b116-9273a9f56abd")
     @Override
     public <T extends CommunicationMessage> List<T> getRealizingCommunicationMessage(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final CommunicationMessage element : getRealizingCommunicationMessage()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6c731c4c-daa0-4133-ac49-c2468d8a0b9f")
+    @objid ("a1d8a351-0d82-4dd6-b6e4-5a7cce8b7f6f")
     @Override
     public EList<StructuralFeature> getRealizingFeature() {
-        return new SmList<>(this, InformationFlowData.Metadata.RealizingFeatureDep());
+        return new SmList<>(this, ((InformationFlowSmClass)getClassOf()).getRealizingFeatureDep());
     }
 
-    @objid ("958ce28f-d43a-4791-8532-794d358abfa6")
+    @objid ("19d4679c-7334-44ee-9e4f-29a268d5b185")
     @Override
     public <T extends StructuralFeature> List<T> getRealizingFeature(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final StructuralFeature element : getRealizingFeature()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e7749683-5146-47b6-8de6-26049581e126")
+    @objid ("f404bbda-0b09-4e4a-9847-71b283e51d63")
     @Override
     public EList<LinkEnd> getRealizingLink() {
-        return new SmList<>(this, InformationFlowData.Metadata.RealizingLinkDep());
+        return new SmList<>(this, ((InformationFlowSmClass)getClassOf()).getRealizingLinkDep());
     }
 
-    @objid ("185ed138-0455-48c0-bec9-21b600afe400")
+    @objid ("42993f7d-db36-4ad6-845b-649182a686e6")
     @Override
     public <T extends LinkEnd> List<T> getRealizingLink(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final LinkEnd element : getRealizingLink()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ff377c41-b638-487f-9785-16cbc78bd464")
+    @objid ("eee369e7-8d87-4407-bd94-4dfa0aed5c26")
     @Override
     public EList<Message> getRealizingMessage() {
-        return new SmList<>(this, InformationFlowData.Metadata.RealizingMessageDep());
+        return new SmList<>(this, ((InformationFlowSmClass)getClassOf()).getRealizingMessageDep());
     }
 
-    @objid ("7994ee28-325a-4807-acdf-de0d5ae8ec0f")
+    @objid ("ad5fe557-2c96-47e2-8d15-494d0a7a8cd4")
     @Override
     public <T extends Message> List<T> getRealizingMessage(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Message element : getRealizingMessage()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d52c4aeb-80a8-4ea7-929b-bc996db7588a")
+    @objid ("d1e719cc-f2ce-4ab6-8218-a16d2944ba07")
     @Override
     public EList<NaryLink> getRealizingNaryLink() {
-        return new SmList<>(this, InformationFlowData.Metadata.RealizingNaryLinkDep());
+        return new SmList<>(this, ((InformationFlowSmClass)getClassOf()).getRealizingNaryLinkDep());
     }
 
-    @objid ("5d4fbee2-5f61-4f73-81af-c0122c7c5234")
+    @objid ("279485dd-becb-446c-84f8-110613d61f24")
     @Override
     public <T extends NaryLink> List<T> getRealizingNaryLink(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final NaryLink element : getRealizingNaryLink()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d94c18d8-73ea-488a-aa96-05ecafb64223")
+    @objid ("48182258-2b45-48d2-aaae-ed9a1012d9de")
     @Override
     public EList<Classifier> getConveyed() {
-        return new SmList<>(this, InformationFlowData.Metadata.ConveyedDep());
+        return new SmList<>(this, ((InformationFlowSmClass)getClassOf()).getConveyedDep());
     }
 
-    @objid ("d1a855ec-036a-418c-8c9f-a9caaf49b98b")
+    @objid ("8e430a0f-52f3-48ad-8e5e-2bdaf5cfd9c9")
     @Override
     public <T extends Classifier> List<T> getConveyed(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Classifier element : getConveyed()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8076f6fa-b017-4ab0-b378-fbca0f68f95a")
+    @objid ("c7b219e0-55b3-4ffd-b647-c45341a10468")
     @Override
     public AssociationEnd getChannel() {
-        return (AssociationEnd) getDepVal(InformationFlowData.Metadata.ChannelDep());
+        Object obj = getDepVal(((InformationFlowSmClass)getClassOf()).getChannelDep());
+        return (obj instanceof AssociationEnd)? (AssociationEnd)obj : null;
     }
 
-    @objid ("e9548bd9-b4e5-43c5-ab8d-7ebd53b9d980")
+    @objid ("65cc6759-49e7-4ebd-9ff1-be8db6aca521")
     @Override
     public void setChannel(AssociationEnd value) {
-        appendDepVal(InformationFlowData.Metadata.ChannelDep(), (SmObjectImpl)value);
+        appendDepVal(((InformationFlowSmClass)getClassOf()).getChannelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f61c3a55-661a-44a6-ba9b-8c912276191c")
+    @objid ("cce880a6-d6aa-4e7d-a8da-5fc7905dcb94")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(InformationFlowData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((InformationFlowSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0a2f71e4-0d8a-4943-93ad-86063947bb09")
+    @objid ("4c57d351-308f-438d-a693-b59044512055")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(InformationFlowData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(InformationFlowData.Metadata.OwnerDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((InformationFlowSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("02e3e852-e7aa-4129-9acc-294cd3ce7f79")
+    @objid ("d50f8cf5-2773-496d-bb61-f97bceabe6dc")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInformationFlow(this);

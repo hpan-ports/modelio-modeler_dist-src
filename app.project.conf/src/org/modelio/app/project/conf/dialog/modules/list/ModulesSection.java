@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.project.conf.dialog.modules.list;
 
@@ -37,6 +37,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -77,18 +78,17 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.gproject.module.IModuleHandle;
-import org.modelio.gproject.module.ModuleId;
 import org.modelio.gproject.module.ModuleSorter;
 import org.modelio.gproject.module.catalog.FileModuleStore;
 import org.modelio.mda.infra.catalog.CompatibilityHelper;
 import org.modelio.mda.infra.catalog.ModuleCatalogPanel;
-import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IModuleManagementService;
+import org.modelio.mda.infra.service.IRTModule.ModuleRuntimeState;
 import org.modelio.mda.infra.service.IRTModule;
-import org.modelio.mda.infra.service.ModuleRuntimeState;
-import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.ui.UIImages;
 import org.modelio.ui.progress.IModelioProgressService;
 import org.modelio.vbasic.collections.TopologicalSorter.CyclicDependencyException;
+import org.modelio.vbasic.version.VersionedItem;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.AccessDeniedException;
 
@@ -139,7 +139,7 @@ public class ModulesSection {
      ModuleCatalogPanel moduleCatalogPanel = null;
 
     @objid ("45bd66ad-956a-46e3-9bf8-0be27611f68b")
-    protected IModuleService moduleService;
+    protected IModuleManagementService moduleService;
 
     @objid ("bc59e504-6e74-4fe2-ba11-2da4a66b0b16")
     protected IModelioProgressService progressService;
@@ -153,7 +153,7 @@ public class ModulesSection {
         this.applicationContext = application;
         this.env = env;
         this.catalogController = new CatalogController();
-        this.moduleService = this.applicationContext.get(IModuleService.class);
+        this.moduleService = this.applicationContext.get(IModuleManagementService.class);
         this.progressService = this.applicationContext.get(IModelioProgressService.class);
     }
 
@@ -224,12 +224,9 @@ public class ModulesSection {
             @Override
             public Image getImage(Object element) {
                 if (element instanceof GModule) {
-                    ModuleComponent moduleElement = ((GModule) element).getModuleElement();
-                    if (moduleElement != null) {
-                        IRTModule iModule = ModulesSection.this.moduleService.getIRTModule(moduleElement);
-                        if (iModule != null && iModule.getState() == ModuleRuntimeState.Started) {
-                            return CHECKED;
-                        }
+                    IRTModule iModule = ModulesSection.this.moduleService.getIRTModule((GModule) element);
+                    if (iModule != null && iModule.getState() == ModuleRuntimeState.Started) {
+                        return CHECKED;
                     }
                 }
                 return UNCHECKED;
@@ -287,15 +284,34 @@ public class ModulesSection {
             @Override
             public String getText(Object element) {
                 if (element instanceof GModule) {
-                    ModuleComponent moduleElement = ((GModule) element).getModuleElement();
-                    if (moduleElement != null) {
-                        IRTModule iModule = ModulesSection.this.moduleService.getIRTModule(moduleElement);
-                        if (iModule != null) {
-                            return AppProjectConf.I18N.getString("ModulesSection." + iModule.getState().name()); //$NON-NLS-1$
+                    IRTModule iModule = ModulesSection.this.moduleService.getIRTModule((GModule) element);
+                    if (iModule != null) {
+                        String state = AppProjectConf.I18N.getString("ModulesSection.state." + iModule.getState().name());
+                        if (iModule.getDownError() != null) {
+                            state += AppProjectConf.I18N.getString("ModulesSection.state.problem");
                         }
+                        return state;
                     }
                 }
-                return AppProjectConf.I18N.getString("ModulesSection.Broken"); //$NON-NLS-1$
+                return AppProjectConf.I18N.getString("ModulesSection.state.Broken"); //$NON-NLS-1$
+            }
+        
+            @Override
+            public String getToolTipText(Object element) {
+                if (element instanceof GModule) {
+                    IRTModule iModule = ModulesSection.this.moduleService.getIRTModule((GModule) element);
+                    if (iModule != null) {
+                        String state = AppProjectConf.I18N.getString("ModulesSection." + iModule.getState().name());
+                        if (iModule.getDownError() != null) {
+                            return state + ": " + iModule.getDownError().getLocalizedMessage();
+                        } else {
+                            return state;
+                        }
+                    } else {
+                        return AppProjectConf.I18N.getString("ModulesSection.state.NoRTModule"); //$NON-NLS-1$
+                    }
+                }
+                return AppProjectConf.I18N.getMessage("ModulesSection.state.NoGModule", element); //$NON-NLS-1$
             }
         
             @Override
@@ -311,22 +327,19 @@ public class ModulesSection {
             @Override
             public String getText(Object element) {
                 if (element instanceof GModule) {
-                    ModuleComponent moduleElement = ((GModule) element).getModuleElement();
-                    if (moduleElement != null) {
-                        IRTModule iModule = ModulesSection.this.moduleService.getIRTModule(moduleElement);
-                        if (iModule != null) {
-                            final ILicenseInfos licenseInfos = iModule.getLicenseInfos();
-                            if (licenseInfos != null) {
-                                Date date = licenseInfos.getDate();
-                                if (date != null) {
-                                    SimpleDateFormat sdf = new SimpleDateFormat(AppProjectConf.I18N.getString("ModulesSection.License.DateFormat"));
-                                    return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".limited", sdf.format(date));
-                                } else {
-                                    return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".unlimited");
-                                }
+                    IRTModule iModule = ModulesSection.this.moduleService.getIRTModule((GModule) element);
+                    if (iModule != null) {
+                        final ILicenseInfos licenseInfos = iModule.getLicenseInfos();
+                        if (licenseInfos != null) {
+                            Date date = licenseInfos.getDate();
+                            if (date != null) {
+                                SimpleDateFormat sdf = new SimpleDateFormat(AppProjectConf.I18N.getString("ModulesSection.License.DateFormat"));
+                                return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".limited", sdf.format(date));
                             } else {
-                                AppProjectConf.LOG.warning("'"+iModule.getName()+"' ("+iModule.getClass().getName()+") module has no license info (state="+iModule.getState()+")");
+                                return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".unlimited");
                             }
+                        } else {
+                            AppProjectConf.LOG.warning("'"+iModule.getName()+"' ("+iModule.getClass().getName()+") module has no license info (state="+iModule.getState()+")");
                         }
                     }
                 }
@@ -390,6 +403,8 @@ public class ModulesSection {
                 setInput(getProjectAdapter());
             }
         });
+        
+        ColumnViewerToolTipSupport.enableFor(this.modulesTable);
         
         // The buttons composite
         Composite btnPanel = toolkit.createComposite(composite, SWT.NONE);
@@ -613,9 +628,9 @@ public class ModulesSection {
     @objid ("b4e655c4-7490-4506-a966-e32523783704")
     private void addMissingDependencies(Map<String, IModuleHandle> modulesToAdd) {
         // Compute all missing dependencies
-        List<ModuleId> dependencies = new ArrayList<>();
+        List<VersionedItem<?>> dependencies = new ArrayList<>();
         for (IModuleHandle module : modulesToAdd.values()) {
-            for (ModuleId dep : module.getDependencies()) {
+            for (VersionedItem<?> dep : module.getDependencies()) {
                 if (!modulesToAdd.containsKey(dep.getName())) {
                     dependencies.add(dep);
                 }
@@ -626,7 +641,7 @@ public class ModulesSection {
             IModuleCatalog catalog = new FileModuleStore(this.env.getModuleCatalogPath());
         
             try {
-                for (ModuleId moduleId : dependencies) {
+                for (VersionedItem<?> moduleId : dependencies) {
                     final IModuleHandle latestModule = catalog.findModule(moduleId.getName(), null, null);
                     if (latestModule != null) {
                         modulesToAdd.put(moduleId.getName(), latestModule);
@@ -648,7 +663,7 @@ public class ModulesSection {
     @objid ("234a564c-79b4-4bfa-a39c-3b0664ac44b3")
     private static class AddModuleHelper {
         @objid ("cdbd5b64-6a82-42f2-8adb-f5bc22324328")
-        public static void run(final GProject project, final IModuleService moduleService, Collection<IModuleHandle> modules, IProgressMonitor monitor, ProjectModel projectAdapter) {
+        public static void run(final GProject project, final IModuleManagementService moduleService, Collection<IModuleHandle> modules, IProgressMonitor monitor, ProjectModel projectAdapter) {
             // Sort the module according to their dependencies
             List<IModuleHandle> sortedModules;
             try {

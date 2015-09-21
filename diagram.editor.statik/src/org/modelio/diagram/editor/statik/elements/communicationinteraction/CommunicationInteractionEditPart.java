@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.communicationinteraction;
 
@@ -29,6 +29,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.RoundedBoxFigure;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
 import org.modelio.diagram.elements.core.model.GmAbstractObject;
@@ -64,7 +65,7 @@ public class CommunicationInteractionEditPart extends GmNodeEditPart {
             throw new IllegalArgumentException("CommunicationInteraction#addChildVisual: unknown index " +
                                                index);
         }
-        this.getFigure().add(child, gmAbstractObject.getLayoutData(), index);
+        getFigure().add(child, gmAbstractObject.getLayoutData(), index);
     }
 
     @objid ("3492418a-55b7-11e2-877f-002564c97630")
@@ -87,7 +88,7 @@ public class CommunicationInteractionEditPart extends GmNodeEditPart {
         // set style independent properties
         fig.setSize(100, 50);
         fig.setRadius(5);
-        fig.setPreferredSize(100, 50);
+        MinimumSizeLayout.apply(fig, 100, 50);
         
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
@@ -109,8 +110,8 @@ public class CommunicationInteractionEditPart extends GmNodeEditPart {
     @objid ("3493c824-55b7-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmCommunicationInteractionPrimaryNode callBehaviorModel = (GmCommunicationInteractionPrimaryNode) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), callBehaviorModel.getLayoutData());
+        GmCommunicationInteractionPrimaryNode callBehaviorModel = (GmCommunicationInteractionPrimaryNode) getModel();
+        getFigure().getParent().setConstraint(getFigure(), callBehaviorModel.getLayoutData());
     }
 
 }

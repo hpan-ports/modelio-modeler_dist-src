@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model;
 
@@ -39,6 +39,7 @@ import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
 import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.factory.IModelFactory;
+import org.modelio.metamodel.factory.ModelFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityParameterNode;
@@ -68,9 +69,6 @@ public class ElementConfigurator implements IElementConfigurator {
     @objid ("9ba6a0e8-6ef8-47f1-b976-29f2b5117786")
     public static final String AGGREGATION = "aggregation";
 
-    @objid ("af9a094d-544e-4695-9e49-af785ce51313")
-    private ElementConfiguratorVisitor visitor;
-
     /**
      * Property name for {@link #configure(IModelFactory, MObject, Map)}
      * to configure activity nodes and activity parameters.
@@ -79,10 +77,23 @@ public class ElementConfigurator implements IElementConfigurator {
     public static final Object COMPLETE = "complete";
 
     @objid ("4cb27afe-9379-478d-88e7-23e973100aab")
+    @SuppressWarnings("deprecation")
     @Override
     public void configure(IModelFactory modelFactory, MObject element, Map<String, Object> properties) {
-        this.visitor = new ElementConfiguratorVisitor(modelFactory, CoreSession.getSession(element).getModel(), properties);
-        element.accept(this.visitor);
+        ElementConfiguratorVisitor visitor = new ElementConfiguratorVisitor(modelFactory, CoreSession.getSession(element).getModel(), properties);
+        element.accept(visitor);
+    }
+
+    @objid ("5a68a67f-18fc-44e5-b55d-961827a29617")
+    @Override
+    public void configure(MObject element, Map<String, Object> properties) {
+        ICoreSession session = CoreSession.getSession(element);
+        ElementConfiguratorVisitor visitor = new ElementConfiguratorVisitor(
+                ModelFactory.getFactory(session),
+                session.getModel(),
+                properties);
+        
+        element.accept(visitor);
     }
 
     @objid ("ddc02cb7-9098-41cd-8fbf-3b83fe4b4fd4")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.index.builder;
 
@@ -27,6 +27,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vstore.exml.common.index.ICmsNodeIndex;
 import org.modelio.vstore.exml.common.index.IUserNodeIndex;
 import org.xml.sax.InputSource;
@@ -49,12 +50,13 @@ public class IndexBuilder {
 
     /**
      * Initialize the index builder.
+     * @param metamodel the metamodel
      * @param parentIndex the parent/child index
      * @param userIndex the used CMS nodes index.
      */
     @objid ("fd21f71a-5986-11e1-991a-001ec947ccaf")
-    public IndexBuilder(ICmsNodeIndex parentIndex, IUserNodeIndex userIndex) {
-        this.defaultHandler = new DocumentContentHandler(parentIndex, userIndex);
+    public IndexBuilder(SmMetamodel metamodel, ICmsNodeIndex parentIndex, IUserNodeIndex userIndex) {
+        this.defaultHandler = new DocumentContentHandler(metamodel, parentIndex, userIndex);
         
         try {
             SAXParserFactory saxFactory = SAXParserFactory.newInstance();
@@ -81,16 +83,16 @@ public class IndexBuilder {
      * @throws org.modelio.vstore.exml.common.index.builder.InvalidExmlException in case of error reading the EXML source.
      */
     @objid ("fd21f719-5986-11e1-991a-001ec947ccaf")
-    public void run(final InputSource is) throws InvalidExmlException, IOException {
+    public void run(final InputSource is) throws IOException, InvalidExmlException {
         this.defaultHandler.resetModel();
         this.defaultHandler.enterDocumentState();
-                 
+        
         // Parse stream
         try  {
             this.xmlReader.parse(is);
         } catch(SAXParseException toCatch) {
             String msg = toCatch.getPublicId()+":"+toCatch.getLineNumber()+":"+toCatch.getColumnNumber()+": "+toCatch.getLocalizedMessage();
-            
+        
             // If no IOException cause, it is a parsing error,
             // if IOException cause it is a JDBM error
             if (toCatch.getCause() instanceof IOException )

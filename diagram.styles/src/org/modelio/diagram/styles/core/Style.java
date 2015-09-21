@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.core;
 
@@ -39,8 +39,8 @@ import org.modelio.diagram.persistence.IPersistent;
 /**
  * The style provides many properties such has the foreground and background color, the font and some display options.
  * <p>
- * A Style holds a local property map where the property value are fetched from. A Style is also attached to a
- * cascadedStyle that is used as a defaulting mechanism when a property value is not available in the local map.
+ * A Style holds a local property map where the property value are fetched from. A Style is also attached to a cascadedStyle that is
+ * used as a defaulting mechanism when a property value is not available in the local map.
  */
 @objid ("857749ec-1926-11e2-92d2-001ec947c8cc")
 public class Style implements IPersistent, IStyle, IStyleChangeListener {
@@ -93,10 +93,8 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         if (this.getProperty(propertyKey) instanceof Boolean) {
             return (Boolean) this.getProperty(propertyKey);
         } else {
-            //    return false;
-            throw new IllegalArgumentException("Style property key " +
-                                               propertyKey +
-                                               " does not match a boolean value");
+            // return false;
+            throw new IllegalArgumentException("Style property key " + propertyKey + " does not match a boolean value");
         }
     }
 
@@ -118,9 +116,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         if (value == null || value instanceof Color) {
             return (Color) value;
         } else {
-            throw new IllegalArgumentException("Style property key " +
-                                               propertyKey +
-                                               " does not match a color");
+            throw new IllegalArgumentException("Style property key " + propertyKey + " does not match a color");
         }
     }
 
@@ -136,10 +132,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         if (value == null || value instanceof Font) {
             return (Font) value;
         } else {
-            throw new IllegalArgumentException(propertyKey +
-                                               "Style property key value '" +
-                                               value +
-                                               "' does not match a font");
+            throw new IllegalArgumentException(propertyKey + "Style property key value '" + value + "' does not match a font");
         }
     }
 
@@ -155,9 +148,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         if (value instanceof Integer) {
             return ((Integer) value).intValue();
         } else {
-            throw new IllegalArgumentException("Style property key " +
-                                               propertyKey +
-                                               " does not match an integer value");
+            throw new IllegalArgumentException("Style property key " + propertyKey + " does not match an integer value");
         }
     }
 
@@ -360,31 +351,14 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
     }
 
     /**
-     * Normalizing a style consists in removing from its local definitions the values that are currently the same as the
-     * value in cascaded style. For Font a special comparison has to be carried out.
+     * Normalizing a style consists in removing from its local definitions the values that are currently the same as the value in
+     * cascaded style. For Font a special comparison has to be carried out.
      */
     @objid ("857c0eb1-1926-11e2-92d2-001ec947c8cc")
     @Override
     public void normalize() {
         for (StyleKey skey : new ArrayList<>(this.getLocalKeys())) {
-            Object localValue = this.getProperty(skey);
-            Object cascadedValue = this.getCascadedStyle().getProperty(skey);
-        
-            if (localValue instanceof Font) {
-                FontData fd1 = ((Font) localValue).getFontData()[0];
-                FontData fd2 = ((Font) cascadedValue).getFontData()[0];
-        
-                if (fd1.getHeight() == fd2.getHeight() &&
-                    fd1.getStyle() == fd2.getStyle() &&
-                    fd1.getName().equals(fd2.getName())) {
-                    this.removeProperty(skey);
-                }
-        
-            } else {
-                if (localValue.equals(cascadedValue)) {
-                    this.removeProperty(skey);
-                }
-            }
+            normalize(skey);
         }
     }
 
@@ -392,6 +366,27 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("ae4220bb-1413-4353-85ad-ac4a50e99e6f")
+    @Override
+    public void normalize(StyleKey skey) {
+        Object localValue = this.getProperty(skey);
+        Object cascadedValue = this.getCascadedStyle().getProperty(skey);
+        
+        if (localValue instanceof Font) {
+            FontData fd1 = ((Font) localValue).getFontData()[0];
+            FontData fd2 = ((Font) cascadedValue).getFontData()[0];
+        
+            if (fd1.getHeight() == fd2.getHeight() && fd1.getStyle() == fd2.getStyle() && fd1.getName().equals(fd2.getName())) {
+                this.removeProperty(skey);
+            }
+        
+        } else {
+            if (localValue.equals(cascadedValue)) {
+                this.removeProperty(skey);
+            }
+        }
     }
 
 }

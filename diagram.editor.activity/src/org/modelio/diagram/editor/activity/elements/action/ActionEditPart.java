@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.action;
 
@@ -30,6 +30,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.modelio.diagram.editor.activity.elements.policies.CreateFlowEditPolicy;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.RoundedBoxFigure;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointRequest;
@@ -51,8 +52,7 @@ public class ActionEditPart extends GmNodeEditPart {
         fig.setLayoutManager(new BorderLayout());
         
         // set style independent properties
-        //fig.setSize(200, 60); // TODO: Find a nice initial size
-        fig.setPreferredSize(90, 60);
+        MinimumSizeLayout.apply(fig, 90, 60);
         
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
@@ -79,8 +79,8 @@ public class ActionEditPart extends GmNodeEditPart {
     @objid ("297f96f5-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        final GmActionPrimaryNode actionModel = (GmActionPrimaryNode) this.getModel();
-        getFigure().getParent().setConstraint(this.getFigure(), actionModel.getLayoutData());
+        final GmActionPrimaryNode actionModel = (GmActionPrimaryNode) getModel();
+        getFigure().getParent().setConstraint(getFigure(), actionModel.getLayoutData());
     }
 
     /**
@@ -92,10 +92,11 @@ public class ActionEditPart extends GmNodeEditPart {
         final IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
         
         final int nbChild = getFigure().getChildren().size();
-        if (nbChild < 1)
+        if (nbChild < 1) {
             getFigure().add(child, BorderLayout.TOP, index);
-        else
+        } else {
             getFigure().add(child, BorderLayout.CENTER, index);
+        }
     }
 
     @objid ("29811d7d-55b6-11e2-877f-002564c97630")

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.modelio.documentation.modeler;singleton=true
+Bundle-Version: 3.4.0
+Bundle-Name: Modeler documentation
+Archiver-Version: Plexus Archiver
+Built-By: integration
+Bundle-Vendor: modelio.org
+Created-By: Apache Maven 3.0.4
+Build-Jdk: 1.8.0_40
+

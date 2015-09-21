@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model.namer.helpers;
 
@@ -29,6 +29,8 @@ import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
+import org.modelio.metamodel.analyst.Risk;
+import org.modelio.metamodel.analyst.RiskContainer;
 import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
 import org.modelio.metamodel.bpmn.activities.BpmnBusinessRuleTask;
 import org.modelio.metamodel.bpmn.activities.BpmnCallActivity;
@@ -1119,6 +1121,18 @@ public class GetDefaultNameVisitor extends DefaultModelVisitor {
     @Override
     public Object visitSubstitution(Substitution obj) {
         return "";
+    }
+
+    @objid ("ca56923c-9c57-4e8a-9eed-829b2b645863")
+    @Override
+    public Object visitRisk(Risk theRisk) {
+        return CoreProject.getMessage("DefaultName.Requirement.Risk");
+    }
+
+    @objid ("26c470fa-31df-4056-8d2c-08ea4d5d4f64")
+    @Override
+    public Object visitRiskContainer(RiskContainer theRiskContainer) {
+        return CoreProject.getMessage("DefaultName.RequirementContainer.RiskContainer");
     }
 
 }

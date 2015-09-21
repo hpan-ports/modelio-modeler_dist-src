@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,21 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.editors.richnote.libreoffice.preferences;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import com.sun.star.lib.loader.InstallationFinder;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.modelio.app.preferences.ScopedPreferenceStore;
 import org.modelio.editors.richnote.libreoffice.plugin.LibreOfficeEditors;
 
 /**
@@ -37,10 +34,9 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
     @objid ("d3c9f008-c5ac-47a6-95ad-69da0564c8f0")
     @Override
     public void initializeDefaultPreferences() {
-        final IPreferenceStore preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, LibreOfficeEditors.PLUGIN_ID);
         String path = InstallationFinder.getPath();
         if (path != null) {
-            preferenceStore.setDefault(PreferenceConstants.P_OOOPATH, path);
+            LibreOfficeEditors.PREFERENCES.setDefault(PreferenceConstants.P_OOOPATH, path);
         }
     }
 

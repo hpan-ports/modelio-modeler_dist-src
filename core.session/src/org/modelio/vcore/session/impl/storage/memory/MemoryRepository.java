@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.storage.memory;
 
@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -49,7 +50,8 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 /**
  * Memory repository.
  * <p>
- * Only remembers what is this repository.
+ * Only remembers what is in this repository.
+ * The implementation currently does not support model reloading.
  */
 @objid ("01856643-929b-11e1-81e9-001ec947ccaf")
 public class MemoryRepository implements IRepository, IRepositoryObject {
@@ -254,7 +256,7 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     @Override
     public void open(final IModelLoaderProvider aModelLoader, IModelioProgress monitor) {
         this.modelLoaderProvider = aModelLoader;
-        this.cache = new MObjectCache();
+        this.cache = new MObjectCache(this.modelLoaderProvider.getMetamodel());
     }
 
     @objid ("bd839b0a-92d7-11e1-81e9-001ec947ccaf")
@@ -265,8 +267,9 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
 
     @objid ("f5392138-08b1-11e2-b33c-001ec947ccaf")
     @Override
-    public void unload(SmObjectImpl obj) {
+    public Collection<SmObjectImpl> unload(SmObjectImpl obj) {
         this.cache.removeFromCache(obj);
+        return Collections.singletonList(obj);
     }
 
     @objid ("db616826-4868-11e2-91c9-001ec947ccaf")
@@ -289,10 +292,11 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     public InputStream readBlob(String key) throws IOException {
         BlobEntry entry = this.blobs.get(key);
         
-        if (entry==null)
+        if (entry==null) {
             return null;
-        else
+        } else {
             return new ByteArrayInputStream(entry.content);
+        }
     }
 
     @objid ("9c1bc37b-ea33-45c8-8eac-3e171e55475b")
@@ -307,7 +311,7 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
                 entry.info = info;
                 entry.content = toByteArray();
                 theBlobs.put(info.getKey(), entry);
-                
+        
                 super.close();
             }
         };
@@ -325,10 +329,39 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     public IBlobInfo readBlobInfo(String key) throws IOException {
         BlobEntry entry = this.blobs.get(key);
         
-        if (entry==null)
+        if (entry==null) {
             return null;
-        else
+        } else {
             return entry.info;
+        }
+    }
+
+    /**
+     * Get a metaclass from its name.
+     * @param name a metaclass name.
+     * @return the metaclass.
+     */
+    @objid ("5685e97a-a516-4a3e-af7a-a4811313d13f")
+    SmClass getMetaclass(String name) {
+        return this.modelLoaderProvider.getMetamodel().getMClass(name);
+    }
+
+    @objid ("c72716f1-2afb-408c-8c05-c37e87bcb65a")
+    @Override
+    public void addCreatedObject(SmObjectImpl newObject) {
+        addObject(newObject);
+    }
+
+    @objid ("501cc008-9f31-4a86-9d97-e549274cf12d")
+    @Override
+    public void attachCreatedObj(SmObjectImpl obj) {
+        attach(obj);
+    }
+
+    @objid ("6ea72e6c-fa2f-4c37-aeef-af1f37339547")
+    @Override
+    public void setToReload(SmObjectImpl obj) {
+        // TODO Auto-generated method stub
     }
 
     @objid ("4003ed8a-815e-45c3-88ec-f10cedb3ea98")

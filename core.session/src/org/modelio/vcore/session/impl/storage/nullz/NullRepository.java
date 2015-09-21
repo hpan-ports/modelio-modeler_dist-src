@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.storage.nullz;
 
@@ -242,8 +242,9 @@ public class NullRepository implements IRepository, IRepositoryObject {
 
     @objid ("f523ac40-08b1-11e2-b33c-001ec947ccaf")
     @Override
-    public void unload(SmObjectImpl obj) {
+    public Collection<SmObjectImpl> unload(SmObjectImpl obj) {
         // nothing to do
+        return Collections.singletonList(obj);
     }
 
     @objid ("dbccb0eb-4868-11e2-91c9-001ec947ccaf")
@@ -269,17 +270,17 @@ public class NullRepository implements IRepository, IRepositoryObject {
     public OutputStream writeBlob(IBlobInfo key) throws IOException {
         // Instantiate a dummy output stream
         return new OutputStream() {
-            
-            @Override
-            public void write(int b) throws IOException {
-                // ignore
-            }
-            
-            @Override
-            public void write(byte[] b, int off, int len) throws IOException {
-                // ignore
-            }
-        };
+                
+                                                    @Override
+                                                    public void write(int b) throws IOException {
+                                                        // ignore
+                                                    }
+                
+                                                    @Override
+                                                    public void write(byte[] b, int off, int len) throws IOException {
+                                                        // ignore
+                                                    }
+                                                };
     }
 
     @objid ("bf054ad0-ac52-4051-8fb3-8e89cade165b")
@@ -292,6 +293,24 @@ public class NullRepository implements IRepository, IRepositoryObject {
     @Override
     public IBlobInfo readBlobInfo(String key) throws IOException {
         return null;
+    }
+
+    @objid ("25b0d1d7-8713-4373-a671-b338b10b6448")
+    @Override
+    public void attachCreatedObj(SmObjectImpl obj) {
+        attach(obj);
+    }
+
+    @objid ("c4632741-aa27-4a20-aed3-102bbe927ed9")
+    @Override
+    public void addCreatedObject(SmObjectImpl newObject) {
+        addObject(newObject);
+    }
+
+    @objid ("6e97bcd5-007e-4c88-bdc4-56d5fc6a8e77")
+    @Override
+    public void setToReload(SmObjectImpl obj) {
+        // nothing to do
     }
 
 }

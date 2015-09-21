@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,21 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.editors.richnote.libreoffice.plugin;
 
 import java.util.ResourceBundle;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.equinox.log.ExtendedLogService;
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
+import org.modelio.core.help.preferences.ScopedPreferenceStore;
 import org.modelio.log.writers.PluginLogger;
 import org.modelio.ui.i18n.BundledMessages;
 import org.osgi.framework.BundleActivator;
@@ -59,6 +62,12 @@ public class LibreOfficeEditors implements BundleActivator {
     @objid ("ae2338f3-806e-491c-8531-7480e4f4ff45")
     public static BundledMessages I18N;
 
+    /**
+     * The LibreOffices preferences.
+     */
+    @objid ("448a5bd9-6081-4da5-9cf7-e5d5a7a7ef17")
+    public static IPersistentPreferenceStore PREFERENCES;
+
     @objid ("a01358a3-0a07-4575-b082-e3ef5287612e")
     @Override
     public void start(BundleContext bundleContext) throws Exception {
@@ -67,6 +76,8 @@ public class LibreOfficeEditors implements BundleActivator {
         ExtendedLogService service = bundleContext.getService(ref);
         LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), PLUGIN_ID));
         I18N = new BundledMessages(LOG, ResourceBundle.getBundle("richnotes_libreoffice"));
+        
+        PREFERENCES = new ScopedPreferenceStore(InstanceScope.INSTANCE, LibreOfficeEditors.PLUGIN_ID);
     }
 
     @objid ("f38e7cd8-6672-4f28-bb06-b412857c3dc4")

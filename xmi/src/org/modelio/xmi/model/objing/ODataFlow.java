@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -28,7 +28,7 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("01f85212-338d-4c60-90d0-4e646cdd7969")
-public class ODataFlow extends OModelElement implements IOElement {
+public class ODataFlow extends OModelElement {
     @objid ("44b3ef31-f324-482c-adab-353559e24df3")
     private DataFlow objingElement;
 
@@ -40,14 +40,14 @@ public class ODataFlow extends OModelElement implements IOElement {
     @objid ("e49cd970-f4f8-4d38-9ac0-ec4e9aeeae4b")
     public ODataFlow(DataFlow element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("c030afdd-d20f-45e2-9c75-7321cfe3643c")
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
                 
-        NameSpace objingOrigin = objingElement.getOrigin();
+        NameSpace objingOrigin = this.objingElement.getOrigin();
                 
         if (objingOrigin != null) {
             org.eclipse.uml2.uml.NamedElement ecoreOrigin = (org.eclipse.uml2.uml.NamedElement) genProp
@@ -72,14 +72,14 @@ public class ODataFlow extends OModelElement implements IOElement {
     private void setDestinationElement(org.eclipse.uml2.uml.InformationFlow ecoreIF) {
         GenerationProperties genProp = GenerationProperties.getInstance();
                 
-        NameSpace objingDestination = objingElement.getDestination();
+        NameSpace objingDestination = this.objingElement.getDestination();
                 
         if (objingDestination != null) {
             org.eclipse.uml2.uml.NamedElement ecoreDestination = (org.eclipse.uml2.uml.NamedElement) genProp
                     .getMappedElement(objingDestination);
                 
             if (ecoreDestination != null)
-                ((org.eclipse.uml2.uml.InformationFlow) ecoreIF).getInformationTargets().add(
+                ecoreIF.getInformationTargets().add(
                         ecoreDestination);
         }
     }

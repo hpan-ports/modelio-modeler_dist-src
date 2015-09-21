@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.images;
 
@@ -38,23 +38,58 @@ import org.modelio.metamodel.visitors.DefaultModelVisitor;
 /**
  * Basic label provider for model elements.
  * <p>
- * Provides the element name as label, the metaclass icon as image and apply text standard
- * decoration (static, abstract).<br>
+ * Provides the element name as label optionally completed by a '(from namespace)' clause, the metaclass icon as image and apply
+ * text standard decoration (static, abstract).<br>
  * This provider can typically be used as a base provider for a {@link ElementDecoratedStyledLabelProvider}.
+ * 
+ * 
  * 
  * @author phv
  */
 @objid ("39807b29-9409-41a9-a853-8482f2952d74")
 public class BasicModelElementLabelProvider extends AbstractModelioElementLabelProvider {
+    @objid ("13eee7c4-4e33-4d6d-9c18-0811b20d4af6")
+    private boolean withFromClause;
+
     @objid ("6d29b7ad-1d8b-4878-9f8f-bc27a891796c")
     private static final StyleRange[] NO_STYLERANGE = new StyleRange[0];
+
+    @objid ("54a7c539-8b8a-4e77-8abb-90752afb2fad")
+    private BasicModelElementLabelService bmels = new BasicModelElementLabelService();
+
+    /**
+     * C'tor
+     * 
+     * <p>
+     * The label provider does not add a '(from namespace)' clause to the element name.<br/>
+     * </p>
+     */
+    @objid ("e78018ef-762d-4be3-aff3-a6449ca76c56")
+    public BasicModelElementLabelProvider() {
+        this(false);
+    }
+
+    /**
+     * C'tor
+     * <p>
+     * If <i>withFromClause</i> is true the label provider adds a '(from namespace)' clause to the element name.
+     * </p>
+     */
+    @objid ("73f4d743-12ab-4e8d-ae04-6d91d6e13b58")
+    public BasicModelElementLabelProvider(boolean withFromClause) {
+        this.withFromClause = withFromClause;
+    }
 
     @objid ("88cbf065-4df5-4c34-a6a8-802db16452c3")
     @Override
     public String getText(Object element) {
-        //return ((Element) element).getName();
-          BasicModelElementLabelService bmels = new BasicModelElementLabelService();
-        return bmels.getLabel((Element)element);
+        StringBuilder label = new StringBuilder(this.bmels.getLabel((Element) element));
+        if (this.withFromClause) {
+            if (((Element) element).getCompositionOwner() != null) {
+                label.append("  (from " + (((Element) element).getCompositionOwner()).getName() + ")");
+            }
+        }
+        return label.toString();
     }
 
     @objid ("11090afc-b3ae-436d-8f40-4c29daf4e13f")
@@ -83,8 +118,9 @@ public class BasicModelElementLabelProvider extends AbstractModelioElementLabelP
 
         @objid ("fad05253-1cb3-40eb-b0b3-ae09ad25860c")
         public String getLabel(Element element) {
-            if (element == null)
+            if (element == null) {
                 return "<null>";
+            }
             element.accept(this);
             return this.label;
         }
@@ -127,7 +163,8 @@ public class BasicModelElementLabelProvider extends AbstractModelioElementLabelP
                 } else {
                     symbol.append(CoreUi.I18N.getString("NoType"), styler);
                 }
-                symbol.append(getParameterMultiplicity(returnParameter).toString(), ElementStyler.getStyler(theOperation, returnParameter));
+                symbol.append(getParameterMultiplicity(returnParameter).toString(),
+                        ElementStyler.getStyler(theOperation, returnParameter));
             }
             
             this.label = symbol.getString();
@@ -169,7 +206,8 @@ public class BasicModelElementLabelProvider extends AbstractModelioElementLabelP
             
                 symbol.append(" : ", styler);
                 if (type != null) {
-                    symbol.append(type.getName(), ElementStyler.getStyler(fromOperation==null?theParameter:fromOperation, type));
+                    symbol.append(type.getName(),
+                            ElementStyler.getStyler(fromOperation == null ? theParameter : fromOperation, type));
                 } else {
                     symbol.append(CoreUi.I18N.getString("NoType"), styler);
                 }

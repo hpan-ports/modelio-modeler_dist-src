@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.usecase.elements.usecase.v0;
 
@@ -37,11 +37,12 @@ import org.modelio.diagram.editor.usecase.elements.usecase.GmExtensionPointGroup
 import org.modelio.diagram.editor.usecase.elements.usecase.GmUseCaseImageStyleKeys;
 import org.modelio.diagram.editor.usecase.elements.usecase.GmUseCaseSimpleStyleKeys;
 import org.modelio.diagram.editor.usecase.elements.usecase.GmUseCaseStructuredStyleKeys;
+import org.modelio.diagram.editor.usecase.elements.usecase.GmUseCaseUserImageStyleKeys;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.freezone.GmFreeZone;
 import org.modelio.diagram.elements.common.group.GmGroup;
 import org.modelio.diagram.elements.common.header.GmModelElementHeader;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.node.IImageableNode;
@@ -118,7 +119,7 @@ public class _GmUseCase extends GmCompositeNode implements IImageableNode {
     private GmGroup extensionPointGroup;
 
     @objid ("d9cbc491-55c2-11e2-9337-002564c97630")
-    private GmDefaultFlatHeader imageModeHeader;
+    private GmDefaultModelElementLabel imageModeHeader;
 
     @objid ("d9cbc492-55c2-11e2-9337-002564c97630")
     private GmGroup internalStructureGroup;
@@ -128,6 +129,9 @@ public class _GmUseCase extends GmCompositeNode implements IImageableNode {
 
     @objid ("7b759ef5-5eff-11e2-b9cc-001ec947c8cc")
     private GmInnerClass innerElements;
+
+    @objid ("3e4a615b-804c-4227-b996-0c392cbed14d")
+    private static final GmUseCaseUserImageStyleKeys USERIMAGE_KEYS = new GmUseCaseUserImageStyleKeys();
 
     @objid ("5e77f6ba-55b7-11e2-877f-002564c97630")
     public _GmUseCase(GmAbstractDiagram diagram, UseCase theUseCase, MRef ref) {
@@ -151,7 +155,7 @@ public class _GmUseCase extends GmCompositeNode implements IImageableNode {
         this.internalStructureZone = new GmInternalStructureZone(diagram, ref);
         this.internalStructureZone.setRoleInComposition(INTERNAL_ZONE);
         
-        this.imageModeHeader = new GmDefaultFlatHeader(diagram, ref);
+        this.imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         this.imageModeHeader.setRoleInComposition(IMAGE_HEADER);
         
         this.innerElements = new GmInnerClass(diagram, ref);
@@ -334,7 +338,7 @@ public class _GmUseCase extends GmCompositeNode implements IImageableNode {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -379,11 +383,11 @@ public class _GmUseCase extends GmCompositeNode implements IImageableNode {
     @objid ("5e797d83-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-                
+        
         this.useCase = (UseCase) resolveRef(getRepresentedRef());
-                
+        
         final List<GmNodeModel> children = getChildren();
-                
+        
         this.header = (GmModelElementHeader) children.get(0);
         this.attributeGroup = (GmGroup) children.get(1);
         this.methodGroup = (GmGroup) children.get(2);
@@ -392,7 +396,7 @@ public class _GmUseCase extends GmCompositeNode implements IImageableNode {
         this.internalStructureZone = (GmFreeZone) children.get(5);
         GmGroup innerGroup = (GmGroup) children.get(6);
         GmFreeZone innerZone = (GmFreeZone) children.get(7);
-        this.imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(8);
+        this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(8);
         
         // Migrate inner group/zone
         removeChild(innerGroup);
@@ -430,7 +434,7 @@ public class _GmUseCase extends GmCompositeNode implements IImageableNode {
         this.internalStructureGroup = (GmGroup) getFirstChild(INTERNAL_GROUP);
         this.internalStructureZone = (GmFreeZone) getFirstChild(INTERNAL_ZONE);
         this.innerElements = (GmInnerClass) getFirstChild(INNER);
-        this.imageModeHeader = (GmDefaultFlatHeader) getFirstChild(IMAGE_HEADER);
+        this.imageModeHeader = (GmDefaultModelElementLabel) getFirstChild(IMAGE_HEADER);
         this.extensionPointGroup = (GmGroup) getFirstChild(EXTENSIONS);
     }
 

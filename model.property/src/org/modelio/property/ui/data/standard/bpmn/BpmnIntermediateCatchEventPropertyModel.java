@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.bpmn;
 
@@ -48,7 +48,7 @@ import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 @objid ("8e355c38-c068-11e1-8c0a-002564c97630")
 public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyModel<BpmnIntermediateCatchEvent> {
     @objid ("a5e69b2b-c068-11e1-8c0a-002564c97630")
-    private static final String[] properties = new String[] { "IntermediateCatchEvent", "Name","Type", "ParallelMultiple" };
+    private static final String[] properties = new String[] { "Property", "Name", "Type", "ParallelMultiple" };
 
     @objid ("aa80031c-d004-11e1-9020-002564c97630")
     private IMModelServices modelService;
@@ -94,23 +94,23 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return BpmnIntermediateCatchEventPropertyModel.properties[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getName();
-                    case 2:
-                        return getType();
-                    case 3:
-                        return this.theEditedElement.isParallelMultiple() ? Boolean.TRUE : Boolean.FALSE;
-                    default:
-                        return null;
-                }
+        case 0: // col 0 is the property key
+            return BpmnIntermediateCatchEventPropertyModel.properties[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return getType();
+            case 3:
+                return this.theEditedElement.isParallelMultiple() ? Boolean.TRUE : Boolean.FALSE;
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -128,23 +128,23 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return new StringType(false);
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return new StringType(false);
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return new StringType(false);
-                    case 1:
-                        return new StringType(true);
-                    case 2:
-                        return new EnumType(getEnumeration());
-                    case 3:
-                        return new BooleanType();
-                    default:
-                        return null;
-                }
+            case 1:
+                return new StringType(true);
+            case 2:
+                return new EnumType(getEnumeration());
+            case 3:
+                return new BooleanType();
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -160,27 +160,27 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
-                return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setName((String) value);
-                        break;
-                    case 2:
-                        setType(this.modelService, (EventType) value);
-                        break;
-                    case 3:
-                        this.theEditedElement.setParallelMultiple((Boolean) value);
-                        break;
-                    default:
-                        return;
-                }
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                setType(this.modelService, (EventType) value);
+                break;
+            case 3:
+                this.theEditedElement.setParallelMultiple((Boolean) value);
                 break;
             default:
                 return;
+            }
+            break;
+        default:
+            return;
         }
     }
 

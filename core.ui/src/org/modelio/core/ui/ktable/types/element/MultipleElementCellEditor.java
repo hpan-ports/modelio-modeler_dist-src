@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,15 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.ktable.types.element;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import de.kupzog.ktable.KTable;
@@ -35,15 +36,18 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.app.core.picking.IModelioPickingService;
+import org.modelio.core.ui.dialog.SelectElementsDialog;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.model.search.engine.searchers.model.ModelSearchCriteria;
+import org.modelio.model.search.engine.searchers.model.ModelSearchEngine;
 import org.modelio.vcore.session.api.model.IMObjectFilter;
 import org.modelio.vcore.session.api.model.IModel;
+import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * This Editor is used to edit a ModelElement multiple dependency field in a dialog box.
- * The editor is opened on a SINGLECLICK.
- * When closing the edition dialog by OK the input is validated otherwise it is canceled.
+ * This Editor is used to edit a ModelElement multiple dependency field in a dialog box. The editor is opened on a SINGLECLICK. When
+ * closing the edition dialog by OK the input is validated otherwise it is canceled.
  */
 @objid ("8dc164ba-c068-11e1-8c0a-002564c97630")
 public class MultipleElementCellEditor extends KTableCellEditor {
@@ -63,7 +67,7 @@ public class MultipleElementCellEditor extends KTableCellEditor {
     private IMObjectFilter elementFilter = null;
 
     @objid ("8dc164c5-c068-11e1-8c0a-002564c97630")
-     ElementEditionDialog dialog = null;
+     SelectElementsDialog dialog = null;
 
     @objid ("8dc164c6-c068-11e1-8c0a-002564c97630")
     protected KeyAdapter keyListener = new KeyAdapter() {
@@ -171,13 +175,43 @@ public class MultipleElementCellEditor extends KTableCellEditor {
         if (!this.active) {
             this.active = true;
         
-            final List<MObject> initialContent = (List<MObject>) this.m_Model.getContentAt(this.m_Col, this.m_Row);
+            final List<MObject> initialContent = new ArrayList<>((List<MObject>) this.m_Model.getContentAt(this.m_Col, this.m_Row));
         
-            this.dialog = ElementEditionDialog.getInstance(table.getShell(), this.session, this.pickingService, this, initialContent, new EditionValidator(this.m_Model, this.m_Col, this.m_Row));
+            // this.dialog = ElementEditionDialog.getInstance(table.getShell(), this.session, this.pickingService, this,
+            // initialContent, new EditionValidator(this.m_Model, this.m_Col, this.m_Row));
+        
+            ModelSearchCriteria c = new ModelSearchCriteria();
+            c.addMetaclass(this.targetClass);
+            c.setFilter(this.elementFilter);
+            c.setCaseSensitive(false);
+            c.setIncludeRamc(true);
+        
+            String targetName;
+            try {
+                targetName = (String) this.getTargetClass().getDeclaredField("MetaclassName").get(this.getTargetClass());
+            } catch (final Exception e) {
+                targetName = "elements";
+            }
+        
+            final String titleKey = this.getEditedElement().getMClass().getName() + this.getFieldName() + targetName;
+        
+            this.dialog = new SelectElementsDialog(table.getShell(), CoreSession.getSession(this.editedElement),
+                    new ModelSearchEngine(), c, titleKey, initialContent);
         
             // Open dialog in modal mode
-            this.dialog.setBlockOnOpen(false);
-            this.dialog.open();
+            this.dialog.setBlockOnOpen(true);
+            int ret = this.dialog.open();
+        
+            if (ret == 0) {
+                List<MObject> newContent = this.dialog.getContent();
+                if (newContent != null) {
+                    this.m_Model.setContentAt(col, row, newContent);
+                }
+                closeEditor(true);
+            } else {
+        
+            }
+        
         }
     }
 
@@ -202,10 +236,11 @@ public class MultipleElementCellEditor extends KTableCellEditor {
         boolean first = true;
         for (final ModelElement me : mcontent) {
             // Append separator
-            if (first)
+            if (first) {
                 first = false;
-            else
+            } else {
                 buf.append(", ");
+            }
         
             // Append 'name (from ...)'
             buf.append(me.getName());

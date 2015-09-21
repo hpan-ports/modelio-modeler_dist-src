@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.handlers;
 
@@ -56,8 +56,8 @@ public class RestyleHandler {
         // Set the active and default tool
         if (primarySelection != null) {
             primarySelection.getViewer()
-                            .getEditDomain()
-                            .setActiveTool(new ClonePropertiesSelectionTool(primarySelection));
+            .getEditDomain()
+            .setActiveTool(new ClonePropertiesSelectionTool(primarySelection));
         }
     }
 
@@ -70,11 +70,12 @@ public class RestyleHandler {
             for (Object selectedObject : selectedObjects) {
                 if (selectedObject instanceof GraphicalEditPart) {
                     GraphicalEditPart editPart = (GraphicalEditPart) selectedObject;
-                    if (editPart.getSelected() == EditPart.SELECTED_PRIMARY)
+                    if (editPart.getSelected() == EditPart.SELECTED_PRIMARY) {
                         primarySelection = editPart;
-                    else
+                    } else {
                         // more than one element selected, deactivate the handler
                         return false;
+                    }
                 }
             }
         }

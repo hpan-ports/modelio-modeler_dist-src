@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,33 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 9024, by Modeliosoft
+ Generator version: 3.0.01.9022
+ Generated on: 28 janv. 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 9024, by Modeliosoft
+ Generator version: 3.2.07.9022
+ Generated on: Mar 9, 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -29,8 +46,8 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.NaryAssociationData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.statik.NaryAssociationData;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
@@ -50,11 +67,12 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
     @objid ("28d8131c-4eda-4e63-8e86-f2ed6bb86858")
     @Override
     public SmObjectImpl getCompositionOwner() {
-        for (SmObjectImpl obj : this.getDepValList(NaryAssociationData.Metadata.NaryEndDep())) {
+        for (SmObjectImpl obj : this.getDepValList(((NaryAssociationSmClass) getClassOf()).getNaryEndDep())) {
             // Avoid infinite composition loops
             SmObjectImpl objOwner = obj.getCompositionOwner();
-            if (objOwner != this && objOwner != null)
+            if (objOwner != this && objOwner != null) {
                 return obj;
+            }
         }
         return super.getCompositionOwner();
     }
@@ -62,11 +80,12 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
     @objid ("82e19039-824a-4fb9-95f0-47b803583c97")
     @Override
     public SmDepVal getCompositionRelation() {
-        for (SmObjectImpl obj : this.getDepValList(NaryAssociationData.Metadata.NaryEndDep())) {
+        for (SmObjectImpl obj : this.getDepValList(((NaryAssociationSmClass) getClassOf()).getNaryEndDep())) {
             // Avoid infinite composition loops
             SmObjectImpl objOwner = obj.getCompositionOwner();
-            if (objOwner != this && objOwner != null)
-                return new SmDepVal(NaryAssociationData.Metadata.NaryEndDep(), obj);
+            if (objOwner != this && objOwner != null) {
+                return new SmDepVal(((NaryAssociationSmClass) getClassOf()).getNaryEndDep(), obj);
+            }
         }
         return super.getCompositionRelation();
     }
@@ -74,10 +93,10 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
     @objid ("9fa0432b-1708-470d-9074-f9fc3d97fa0c")
     @Override
     public void afterEraseDepVal(SmDependency dep, SmObjectImpl value) {
-        if (dep == NaryAssociationData.Metadata.NaryEndDep()) {
+        if (dep == ((NaryAssociationSmClass) getClassOf()).getNaryEndDep()) {
             // Workaround bug where the storage handle is not updated
             EList<NaryAssociationEnd> remainingOwners = getNaryEnd();
-            if (! remainingOwners.isEmpty()) {
+            if (!remainingOwners.isEmpty()) {
                 // Remove and add again the first remaining owner.
                 // Note : this will trigger recursively the removal & addition of all other owners.
                 NaryAssociationEnd r = remainingOwners.get(0);
@@ -89,57 +108,63 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         super.afterEraseDepVal(dep, value);
     }
 
-    @objid ("7f41b186-a777-48ff-be7d-154ace6eee00")
+    @objid ("83f5d9e8-15ff-421c-b669-3cb58ce5860e")
     @Override
     public EList<NaryLink> getOccurence() {
-        return new SmList<>(this, NaryAssociationData.Metadata.OccurenceDep());
+        return new SmList<>(this, ((NaryAssociationSmClass)getClassOf()).getOccurenceDep());
     }
 
-    @objid ("80364607-1cfa-4e82-8f17-e158f62d8968")
+    @objid ("02dc0012-53c7-46e8-864b-5f54aeef5d9b")
     @Override
     public <T extends NaryLink> List<T> getOccurence(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final NaryLink element : getOccurence()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1a2ee738-8554-4232-904a-da89e5d5677c")
+    @objid ("413e2662-0670-4535-8b02-d0a02817d513")
     @Override
     public EList<NaryAssociationEnd> getNaryEnd() {
-        return new SmList<>(this, NaryAssociationData.Metadata.NaryEndDep());
+        return new SmList<>(this, ((NaryAssociationSmClass)getClassOf()).getNaryEndDep());
     }
 
-    @objid ("01172f05-98e1-4c1d-a6b7-4f07fd42fc8a")
+    @objid ("94e52bd4-b211-4f00-b360-8b3ec1bd4506")
     @Override
     public <T extends NaryAssociationEnd> List<T> getNaryEnd(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final NaryAssociationEnd element : getNaryEnd()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1dbc8724-73c4-471f-84a0-7d8fd1a363ba")
+    @objid ("75c42981-6ae7-48e1-b0ac-4cb6624f0ba9")
     @Override
     public ClassAssociation getLinkToClass() {
-        return (ClassAssociation) getDepVal(NaryAssociationData.Metadata.LinkToClassDep());
+        Object obj = getDepVal(((NaryAssociationSmClass)getClassOf()).getLinkToClassDep());
+        return (obj instanceof ClassAssociation)? (ClassAssociation)obj : null;
     }
 
-    @objid ("db956f0c-4559-4de8-b62b-c003e46b4639")
+    @objid ("1c267b08-8e85-4ea3-a661-f92c02ddb418")
     @Override
     public void setLinkToClass(ClassAssociation value) {
-        appendDepVal(NaryAssociationData.Metadata.LinkToClassDep(), (SmObjectImpl)value);
+        appendDepVal(((NaryAssociationSmClass)getClassOf()).getLinkToClassDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2718a345-7153-4fa4-a49f-62913e75bd6c")
+    @objid ("9aa29a7b-0416-42fd-a4c0-b209b1e99fac")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryAssociation(this);

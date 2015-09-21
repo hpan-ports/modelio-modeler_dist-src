@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.module;
 
@@ -27,6 +27,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.collections.TopologicalSorter.CyclicDependencyException;
 import org.modelio.vbasic.collections.TopologicalSorter;
+import org.modelio.vbasic.version.VersionedItem;
 
 /**
  * Utility class to sort {@link GModule} and {@link IModuleHandle} by dependency analysis.
@@ -86,24 +87,26 @@ public final class ModuleSorter {
             Collection<IModuleHandle> ret = new ArrayList<>();
             
             for (IModuleHandle m : this.modules) {
-                if (dependsOn(node, m))
+                if (dependsOn(node, m)) {
                     ret.add(m);
+                }
             }
             return ret;
         }
 
         @objid ("50aaa348-df86-4792-a5f0-f7ec1e34671e")
         static boolean dependsOn(IModuleHandle module1, IModuleHandle module2) {
-            if (module2 == null)
+            if (module2 == null) {
                 return false;
+            }
             
-            for (ModuleId requiredRef : module1.getDependencies()) {
+            for (VersionedItem<?> requiredRef : module1.getDependencies()) {
                 if (module2.getName().equals(requiredRef.getName()) && !module2.getVersion().isOlderThan(requiredRef.getVersion())) {
                     return true;
                 }
             }
             
-            for (ModuleId weakRef : module1.getWeakDependencies()) {
+            for (VersionedItem<?> weakRef : module1.getWeakDependencies()) {
                 if (module2.getName().equals(weakRef.getName()) && !module2.getVersion().isOlderThan(weakRef.getVersion())) {
                     return true;
                 }
@@ -135,24 +138,26 @@ public final class ModuleSorter {
             Collection<GModule> ret = new ArrayList<>();
             
             for (GModule m : this.modules) {
-                if (dependsOn(node, m))
+                if (dependsOn(node, m)) {
                     ret.add(m);
+                }
             }
             return ret;
         }
 
         @objid ("e6666f47-806d-4156-8604-de27a69979e2")
         static boolean dependsOn(GModule module1, GModule module2) {
-            if (module2 == null)
+            if (module2 == null) {
                 return false;
+            }
             
-            for (ModuleId requiredRef : module1.getModuleHandle().getDependencies()) {
+            for (VersionedItem<?> requiredRef : module1.getModuleHandle().getDependencies()) {
                 if (module2.getName().equals(requiredRef.getName()) && !module2.getVersion().isOlderThan(requiredRef.getVersion())) {
                     return true;
                 }
             }
             
-            for (ModuleId weakRef : module1.getModuleHandle().getWeakDependencies()) {
+            for (VersionedItem<?> weakRef : module1.getModuleHandle().getWeakDependencies()) {
                 if (module2.getName().equals(weakRef.getName()) && !module2.getVersion().isOlderThan(weakRef.getVersion())) {
                     return true;
                 }

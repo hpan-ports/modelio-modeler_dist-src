@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.load;
 
@@ -31,7 +31,6 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 import org.modelio.vcore.smkernel.meta.SmMultipleDependency;
-import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 
 /**
  * {@link IMetaOf} that can be used by a {@link org.modelio.vcore.session.api.repository.IRepository IRepository}
@@ -57,15 +56,12 @@ class ModelLoaderMetaObject implements IMetaOf {
     public Object getObjDepVal(SmObjectImpl obj, SmDependency dep) {
         // If object is being loaded in concurrent thread, wait for loading end and
         // delegate to its new meta object.
-        if (concurrentLoading(obj))
+        if (concurrentLoading(obj)) {
             return obj.getMetaOf().getObjDepVal(obj, dep);
+        }
         
         ISmObjectData data = obj.getData();
-        if (dep.isMultiple()) {
-            return ((SmMultipleDependency) dep).getValueList(data);
-        } else {
-            return ((SmSingleDependency) dep).getValue(data);
-        }
+        return dep.getValue(data);
     }
 
     @objid ("bd3fe0c4-2d9b-11e2-8aaa-001ec947ccaf")
@@ -73,9 +69,10 @@ class ModelLoaderMetaObject implements IMetaOf {
     public boolean appendObjDepVal(SmObjectImpl obj, SmDependency dep, SmObjectImpl dep_val) {
         // If object is being loaded in concurrent thread, wait for loading end and
         // delegate to its new meta object.
-        if (concurrentLoading(obj))
+        if (concurrentLoading(obj)) {
             return obj.getMetaOf().appendObjDepVal(obj, dep, dep_val);
-        return dep.add(obj, dep_val);
+        }
+        return dep.add(obj.getData(), dep_val);
     }
 
     @objid ("bd3fe0cc-2d9b-11e2-8aaa-001ec947ccaf")
@@ -83,10 +80,11 @@ class ModelLoaderMetaObject implements IMetaOf {
     public boolean appendObjDepValIndex(SmObjectImpl obj, SmDependency dep, SmObjectImpl dep_val, int index) {
         // If object is being loaded in concurrent thread, wait for loading end and
         // delegate to its new meta object.
-        if (concurrentLoading(obj))
+        if (concurrentLoading(obj)) {
             return obj.getMetaOf().appendObjDepValIndex(obj, dep, dep_val, index);
+        }
         
-        dep.insert(obj, dep_val, index);
+        dep.insert(obj.getData(), dep_val, index);
         return true;
     }
 
@@ -95,9 +93,10 @@ class ModelLoaderMetaObject implements IMetaOf {
     public boolean eraseObjDepVal(SmObjectImpl obj, SmDependency dep, SmObjectImpl dep_val) {
         // If object is being loaded in concurrent thread, wait for loading end and
         // delegate to its new meta object.
-        if (concurrentLoading(obj))
+        if (concurrentLoading(obj)) {
             return obj.getMetaOf().eraseObjDepVal(obj, dep, dep_val);
-        return dep.remove(obj, dep_val);
+        }
+        return dep.remove(obj.getData(), dep_val);
     }
 
     @objid ("bd3fe0dd-2d9b-11e2-8aaa-001ec947ccaf")
@@ -105,10 +104,11 @@ class ModelLoaderMetaObject implements IMetaOf {
     public boolean moveObjDepVal(SmObjectImpl obj, SmDependency dep, SmObjectImpl moving_ref, int offset) {
         // If object is being loaded in concurrent thread, wait for loading end and
         // delegate to its new meta object.
-        if (concurrentLoading(obj))
+        if (concurrentLoading(obj)) {
             return obj.getMetaOf().moveObjDepVal(obj, dep, moving_ref, offset);
+        }
         
-        dep.moveRef(obj, moving_ref, offset);
+        dep.moveRef(obj.getData(), moving_ref, offset);
         return true;
     }
 
@@ -117,8 +117,9 @@ class ModelLoaderMetaObject implements IMetaOf {
     public boolean setObjDepVal(SmObjectImpl obj, SmDependency dep, SmObjectImpl dep_val, int index) {
         // If object is being loaded in concurrent thread, wait for loading end and
         // delegate to its new meta object.
-        if (concurrentLoading(obj))
+        if (concurrentLoading(obj)) {
             return obj.getMetaOf().setObjDepVal(obj, dep, dep_val, index);
+        }
         
         // Do the job on the SmObjectImpl
         if (dep.isMultiple()) {
@@ -135,8 +136,9 @@ class ModelLoaderMetaObject implements IMetaOf {
     public Object getObjAttVal(SmObjectImpl obj, SmAttribute att) {
         // If object is being loaded in concurrent thread, wait for loading end and
         // delegate to its new meta object.
-        if (concurrentLoading(obj))
+        if (concurrentLoading(obj)) {
             return obj.getMetaOf().getObjAttVal(obj, att);
+        }
         return att.getValue(obj.getData());
     }
 
@@ -145,8 +147,9 @@ class ModelLoaderMetaObject implements IMetaOf {
     public boolean setObjAttVal(SmObjectImpl obj, SmAttribute att, Object value) {
         // If object is being loaded in concurrent thread, wait for loading end and
         // delegate to its new meta object.
-        if (concurrentLoading(obj))
+        if (concurrentLoading(obj)) {
             return obj.getMetaOf().setObjAttVal(obj, att, value);
+        }
         
         att.setValue(obj.getData(), value);
         return true;
@@ -163,8 +166,9 @@ class ModelLoaderMetaObject implements IMetaOf {
     public void deleteObject(SmObjectImpl obj) {
         // If object is being loaded in concurrent thread, wait for loading end and
         // delegate to its new meta object.
-        if (concurrentLoading(obj))
+        if (concurrentLoading(obj)) {
             obj.getMetaOf().deleteObject(obj);
+        }
         
         throw new UnsupportedOperationException();
     }
@@ -174,8 +178,9 @@ class ModelLoaderMetaObject implements IMetaOf {
     public void objUndeleted(SmObjectImpl obj) {
         // If object is being loaded in concurrent thread, wait for loading end and
         // delegate to its new meta object.
-        if (concurrentLoading(obj))
+        if (concurrentLoading(obj)) {
             obj.getMetaOf().objUndeleted(obj);
+        }
         
         throw new UnsupportedOperationException();
     }
@@ -191,8 +196,9 @@ class ModelLoaderMetaObject implements IMetaOf {
     public void silentActionRemove(SmObjectImpl obj) {
         // If object is being loaded in concurrent thread, wait for loading end and
         // delegate to its new meta object.
-        if (concurrentLoading(obj))
+        if (concurrentLoading(obj)) {
             obj.getMetaOf().silentActionRemove(obj);
+        }
         
         throw new UnsupportedOperationException();
     }
@@ -245,14 +251,15 @@ class ModelLoaderMetaObject implements IMetaOf {
         } else {
             synchronized(this) {
                 try {
-                    int i = 0; 
+                    int i = 0;
                     ISmObjectData data = obj.getData();
                     // Wait for 50*200ms = 10 seconds checking each 200ms the meta object
                     while (data.getMetaOf() == this && i++ < 50) {
                         wait(200);
                     }
-                    if (data.getMetaOf() == this)
+                    if (data.getMetaOf() == this) {
                         throw createDeadLockException(obj, null);
+                    }
                 } catch (InterruptedException e) {
                     throw createDeadLockException(obj, e);
                 }
@@ -278,6 +285,12 @@ class ModelLoaderMetaObject implements IMetaOf {
             exc.addSuppressed(t);
         }
         return exc;
+    }
+
+    @objid ("aae5164a-2250-4456-a5c1-1064a603d21a")
+    @Override
+    public void importObject(SmObjectImpl obj) {
+        // do nothing
     }
 
 }

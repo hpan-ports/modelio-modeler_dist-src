@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.preferences.ui.labelproviders;
 
@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Display;
 import org.modelio.audit.preferences.model.AuditCategory;
 import org.modelio.audit.preferences.model.AuditRule;
 import org.modelio.core.ui.images.MetamodelImageService;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.RequirementContainer;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBehavior;
 import org.modelio.metamodel.uml.behavior.activityModel.Activity;
@@ -48,31 +47,27 @@ public class FirstLabelProvider extends ColumnLabelProvider {
     @objid ("e88598d5-5d34-440c-8174-43d9873c29bc")
     private static final Color DISABLED_COLOR = new Color(Display.getCurrent(),  160,160,160);
 
-    @objid ("764c2137-717a-411f-b3f9-1df257b7782c")
-    public FirstLabelProvider() {
-    }
-
     @objid ("acc54876-ef32-4fe1-8b7b-07695e6e4d20")
     @Override
     public Image getImage(Object element) {
         if(element instanceof AuditCategory){
             switch (((AuditCategory)element).getName()) {
             case "Activity":
-                return MetamodelImageService.getIcon(Metamodel.getMClass(Activity.class));
+                return MetamodelImageService.getIcon(Activity.MNAME);
             case "Analyst":
-                return MetamodelImageService.getIcon(Metamodel.getMClass(RequirementContainer.class));
+                return MetamodelImageService.getIcon(RequirementContainer.MNAME);
             case "BPMN":
-                return MetamodelImageService.getIcon(Metamodel.getMClass(BpmnBehavior.class));
+                return MetamodelImageService.getIcon(BpmnBehavior.MNAME);
             case "Behaviour":
-                return MetamodelImageService.getIcon(Metamodel.getMClass(Behavior.class));
+                return MetamodelImageService.getIcon(Behavior.MNAME);
             case "Sequence":
-                return MetamodelImageService.getIcon(Metamodel.getMClass(Interaction.class));
+                return MetamodelImageService.getIcon(Interaction.MNAME);
             case "State":
-                return MetamodelImageService.getIcon(Metamodel.getMClass(StateMachine.class));
+                return MetamodelImageService.getIcon(StateMachine.MNAME);
             case "Static":
-                return MetamodelImageService.getIcon(Metamodel.getMClass(org.modelio.metamodel.uml.statik.Class.class));
+                return MetamodelImageService.getIcon(org.modelio.metamodel.uml.statik.Class.MNAME);
             case "UseCase":
-                return MetamodelImageService.getIcon(Metamodel.getMClass(UseCase.class));
+                return MetamodelImageService.getIcon(UseCase.MNAME);
             case "Others":
                 // No icon yet...
             default:
@@ -106,8 +101,8 @@ public class FirstLabelProvider extends ColumnLabelProvider {
         if(element instanceof AuditRule){
             if(((AuditRule)element).enabled){
                 return UIColor.BLACK;
-            }  
-            
+            }
+        
            return DISABLED_COLOR;
         }
         return super.getForeground(element);

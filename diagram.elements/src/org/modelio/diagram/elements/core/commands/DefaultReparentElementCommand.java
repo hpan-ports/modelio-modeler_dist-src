@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.commands;
 
@@ -29,6 +29,7 @@ import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -93,30 +94,37 @@ public class DefaultReparentElementCommand extends Command {
     public boolean canExecute() {
         final MObject childElement = this.reparentedChild.getRelatedElement();
         
-        if (this.newParentElement == null || childElement == null)
+        if (this.newParentElement == null || childElement == null) {
             return false;
+        }
         
-        if (this.newParentElement.equals(childElement))
+        if (this.newParentElement.equals(childElement)) {
             return false;
+        }
         
         // The diagram must be valid and modifiable.
-        if (!MTools.getAuthTool().canModify(this.reparentedChild.getDiagram().getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(this.reparentedChild.getDiagram().getRelatedElement())) {
             return false;
+        }
         
         // The moved element must be modifiable.
-        if (!childElement.getStatus().isModifiable())
+        if (!childElement.getStatus().isModifiable()) {
             return false;
+        }
         
         // The old and new parent elements must be modifiable or
         // both must be CMS nodes.
-        if (!MTools.getAuthTool().canAdd(this.newParentElement, childElement.getMClass().getName()))
+        if (!MTools.getAuthTool().canAdd(this.newParentElement, childElement.getMClass().getName())) {
             return false;
+        }
         
-        if (!MTools.getAuthTool().canAdd(childElement.getCompositionOwner(), childElement.getMClass().getName()))
+        if (!MTools.getAuthTool().canAdd(childElement.getCompositionOwner(), childElement.getMClass().getName())) {
             return false;
+        }
         
         // Ask metamodel experts
-        return MTools.getMetaTool().canCompose(this.newParentElement, childElement, null);
+        final MExpert expert = childElement.getMClass().getMetamodel().getMExpert();
+        return expert.canCompose(this.newParentElement, childElement, null);
     }
 
     @objid ("7f3bdc9a-1dec-11e2-8cad-001ec947c8cc")
@@ -125,8 +133,10 @@ public class DefaultReparentElementCommand extends Command {
         // orphan the underlying {@link MObject element} from its previous
         // {@link MObject#getCompositionOwner() composition owner},
         final MObject childElement = this.reparentedChild.getRelatedElement();
+        final MExpert expert = childElement.getMClass().getMetamodel().getMExpert();
         assert (childElement != null) : "cannot reparent: child element is null";
         final MObject oldParentElement = childElement.getCompositionOwner();
+        
         MDependency oldParentDependency = null;
         for (MDependency dep : oldParentElement.getMClass().getDependencies(true)) {
             if (oldParentElement.mGet(dep).contains(childElement)) {
@@ -151,7 +161,7 @@ public class DefaultReparentElementCommand extends Command {
             // FIXME: use a finer type of exception.
             // Maybe new parent is not using the same dependency for composition
             // Try to find a fitting dependency
-            MDependency newParentDep = MTools.getMetaTool().getDefaultCompositionDep(this.newParentElement, childElement);
+            MDependency newParentDep = expert.getDefaultCompositionDep(this.newParentElement, childElement);
             if (newParentDep != null) {
                 this.newParentElement.mGet(newParentDep).add(childElement);
             }

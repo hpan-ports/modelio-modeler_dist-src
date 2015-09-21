@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.stateMachineModel.RegionData;
+import org.modelio.metamodel.impl.uml.behavior.stateMachineModel.RegionData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
@@ -43,79 +55,95 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0057164c-c4bf-1fd8-97fe-001ec947cd2a")
 public class RegionImpl extends ModelElementImpl implements Region {
-    @objid ("41f80074-9c58-4548-813f-d4a4f7f3d096")
+    @objid ("5d3236d4-0a24-4d37-b3e8-72c864f945ef")
     @Override
     public State getParent() {
-        return (State) getDepVal(RegionData.Metadata.ParentDep());
+        Object obj = getDepVal(((RegionSmClass)getClassOf()).getParentDep());
+        return (obj instanceof State)? (State)obj : null;
     }
 
-    @objid ("9173e033-215a-4b11-8d2d-da540e5f2def")
+    @objid ("4ff508e9-eab7-471b-9c31-21adc4d15896")
     @Override
     public void setParent(State value) {
-        appendDepVal(RegionData.Metadata.ParentDep(), (SmObjectImpl)value);
+        appendDepVal(((RegionSmClass)getClassOf()).getParentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1fbd8324-1e70-43f1-bd29-0b2cf256d14d")
+    @objid ("babd1ca0-90d5-49fa-b9ac-1848849efa39")
     @Override
     public StateMachine getRepresented() {
-        return (StateMachine) getDepVal(RegionData.Metadata.RepresentedDep());
+        Object obj = getDepVal(((RegionSmClass)getClassOf()).getRepresentedDep());
+        return (obj instanceof StateMachine)? (StateMachine)obj : null;
     }
 
-    @objid ("55fdcee6-c29c-43e1-a022-fae21aa819ae")
+    @objid ("405e459a-127a-4361-a864-9652e6a1d213")
     @Override
     public void setRepresented(StateMachine value) {
-        appendDepVal(RegionData.Metadata.RepresentedDep(), (SmObjectImpl)value);
+        appendDepVal(((RegionSmClass)getClassOf()).getRepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("79c70c9d-3d8a-4229-b316-dcad5fcbf002")
+    @objid ("6e242e0e-013e-4ae1-adb2-10fcf3d2314b")
     @Override
     public EList<StateVertex> getSub() {
-        return new SmList<>(this, RegionData.Metadata.SubDep());
+        return new SmList<>(this, ((RegionSmClass)getClassOf()).getSubDep());
     }
 
-    @objid ("18594ddd-33bc-4afd-84f3-74c5e61aa9e0")
+    @objid ("2f596197-b2ec-47fc-a354-2828e52179fe")
     @Override
     public <T extends StateVertex> List<T> getSub(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final StateVertex element : getSub()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ae89a49e-b4ba-452b-b507-df2a77a20f30")
+    @objid ("c8577ad9-d176-4694-b93d-6c4061eaafd5")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(RegionData.Metadata.ParentDep());
+        // Parent
+        obj = (SmObjectImpl)this.getDepVal(((RegionSmClass)getClassOf()).getParentDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(RegionData.Metadata.RepresentedDep());
+        // Represented
+        obj = (SmObjectImpl)this.getDepVal(((RegionSmClass)getClassOf()).getRepresentedDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("8bb3ed7d-13a0-4923-bb66-0a474104260a")
+    @objid ("05663d5a-44bc-407f-8670-b3009c3d5cb7")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(RegionData.Metadata.ParentDep());
-        if (obj != null)
-          return new SmDepVal(RegionData.Metadata.ParentDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(RegionData.Metadata.RepresentedDep());
-        if (obj != null)
-          return new SmDepVal(RegionData.Metadata.RepresentedDep(), obj);
+        SmDependency dep;
+        
+        // Parent
+        dep = ((RegionSmClass)getClassOf()).getParentDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // Represented
+        dep = ((RegionSmClass)getClassOf()).getRepresentedDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("ae17cb0a-f8e6-4c84-83a4-71b8c20555a0")
+    @objid ("9b98e30e-c6cd-4c52-946d-bc194f0bbecf")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitRegion(this);

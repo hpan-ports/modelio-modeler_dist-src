@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.ui;
 
@@ -139,7 +139,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     @objid ("d655ccb5-910f-11e0-9de7-002564c97630")
     private PageContainerFillLayout pageContainerLayout = new PageContainerFillLayout(
-                                                                                      5, 5, 300, 225);
+			5, 5, 300, 225);
 
     /**
      * The wizard the dialog is currently showing.
@@ -301,26 +301,26 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
     @Override
     protected void buttonPressed(final int buttonId) {
         switch (buttonId) {
-            case IDialogConstants.HELP_ID: {
-                helpPressed();
-                break;
-            }
-            case IDialogConstants.BACK_ID: {
-                backPressed();
-                break;
-            }
-            case IDialogConstants.NEXT_ID: {
-                nextPressed();
-                break;
-            }
-            case IDialogConstants.FINISH_ID: {
-                finishPressed();
-                break;
-            }
-            default: {
-                // Nothing to do
+        case IDialogConstants.HELP_ID: {
+            helpPressed();
+            break;
+        }
+        case IDialogConstants.BACK_ID: {
+            backPressed();
+            break;
+        }
+        case IDialogConstants.NEXT_ID: {
+            nextPressed();
+            break;
+        }
+        case IDialogConstants.FINISH_ID: {
+            finishPressed();
+            break;
+        }
+        default: {
+            // Nothing to do
                 // The Cancel button has a listener which calls cancelPressed directly
-            }
+        }
         }
     }
 
@@ -736,8 +736,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
     @objid ("bc1825af-120f-11e2-b5c6-002564c97630")
     public ModelioWizardDialog(final Shell parentShell, final IWizard newWizard) {
         super(parentShell);
-        setShellStyle(SWT.CLOSE | SWT.MAX | SWT.TITLE | SWT.BORDER
-                      | SWT.APPLICATION_MODAL | SWT.RESIZE | getDefaultOrientation());
+        setShellStyle(SWT.CLOSE | SWT.MAX | SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL | SWT.RESIZE | getDefaultOrientation());
         setWizard(newWizard);
         // since VAJava can't initialize an instance var with an anonymous
         // class outside a constructor we do it here:
@@ -764,11 +763,10 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             return new Point(0, 0);
         }
         Point contentSize = pageControl.computeSize(SWT.DEFAULT, SWT.DEFAULT,
-                                                    true);
+                true);
         Rectangle rect = this.pageContainerLayout.getClientArea(this.pageContainer);
         Point containerSize = new Point(rect.width, rect.height);
-        return new Point(Math.max(0, contentSize.x - containerSize.x), Math
-                         .max(0, contentSize.y - containerSize.y));
+        return new Point(Math.max(0, contentSize.x - containerSize.x), Math.max(0, contentSize.y - containerSize.y));
     }
 
     @objid ("bc1a8711-120f-11e2-b5c6-002564c97630")
@@ -801,14 +799,12 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
     protected void createButtonsForButtonBar(final Composite parent) {
         ((GridLayout) parent.getLayout()).makeColumnsEqualWidth = false;
         if (this.wizard.isHelpAvailable()) {
-            this.helpButton = createButton(parent, IDialogConstants.HELP_ID,
-                                           IDialogConstants.HELP_LABEL, false);
+            this.helpButton = createButton(parent, IDialogConstants.HELP_ID, IDialogConstants.HELP_LABEL, false);
         }
         if (this.wizard.needsPreviousAndNextButtons()) {
             createPreviousAndNextButtons(parent);
         }
-        this.finishButton = createButton(parent, IDialogConstants.FINISH_ID,
-                                         IDialogConstants.FINISH_LABEL, true);
+        this.finishButton = createButton(parent, IDialogConstants.FINISH_ID, IDialogConstants.FINISH_LABEL, true);
         this.cancelButton = createCancelButton(parent);
         
         if (parent.getDisplay().getDismissalAlignment() == SWT.RIGHT) {
@@ -825,8 +821,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         int widthHint = convertHorizontalDLUsToPixels(IDialogConstants.BUTTON_WIDTH);
         
         // On large fonts this can make this dialog huge
-        widthHint = Math.min(widthHint,
-                             button.getDisplay().getBounds().width / 5);
+        widthHint = Math.min(widthHint, button.getDisplay().getBounds().width / 5);
         Point minSize = button.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
         data.widthHint = Math.max(widthHint, minSize.x);
         
@@ -903,9 +898,13 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         gd.heightHint = this.pageHeight;
         this.pageContainer.setLayoutData(gd);
         this.pageContainer.setFont(parent.getFont());
+        
         // Insert a progress monitor
         this.progressMonitorPart= createProgressMonitorPart(composite, new GridLayout());
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
+        if (!this.wizard.needsProgressMonitor()) {
+            gridData.exclude = true;
+        }
         this.progressMonitorPart.setLayoutData(gridData);
         this.progressMonitorPart.setVisible(false);
         // Build the separator line
@@ -966,14 +965,11 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         layout.horizontalSpacing = 0;
         layout.verticalSpacing = 0;
         composite.setLayout(layout);
-        GridData data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER
-                                     | GridData.VERTICAL_ALIGN_CENTER);
+        GridData data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER | GridData.VERTICAL_ALIGN_CENTER);
         composite.setLayoutData(data);
         composite.setFont(parent.getFont());
-        this.backButton = createButton(composite, IDialogConstants.BACK_ID,
-                                       IDialogConstants.BACK_LABEL, false);
-        this.nextButton = createButton(composite, IDialogConstants.NEXT_ID,
-                                       IDialogConstants.NEXT_LABEL, false);
+        this.backButton = createButton(composite, IDialogConstants.BACK_ID, IDialogConstants.BACK_LABEL, false);
+        this.nextButton = createButton(composite, IDialogConstants.NEXT_ID, IDialogConstants.NEXT_LABEL, false);
         return composite;
     }
 
@@ -984,11 +980,11 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
     @objid ("bc1ce88d-120f-11e2-b5c6-002564c97630")
     private MessageDialog createWizardClosingDialog() {
         MessageDialog result = new MessageDialog(getShell(),
-                                                 JFaceResources.getString("WizardClosingDialog.title"), //$NON-NLS-1$
-                                                 null,
-                                                 JFaceResources.getString("WizardClosingDialog.message"), //$NON-NLS-1$
-                                                 MessageDialog.QUESTION,
-                                                 new String[] { IDialogConstants.OK_LABEL }, 0) {
+                JFaceResources.getString("WizardClosingDialog.title"), //$NON-NLS-1$
+                null,
+                JFaceResources.getString("WizardClosingDialog.message"), //$NON-NLS-1$
+                MessageDialog.QUESTION,
+                new String[] { IDialogConstants.OK_LABEL }, 0) {
             @Override
             protected int getShellStyle() {
                 return super.getShellStyle() | SWT.SHEET;
@@ -1032,7 +1028,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
     @objid ("bc1f49d4-120f-11e2-b5c6-002564c97630")
     private boolean doPageChanging(final IWizardPage targetPage) {
         PageChangingEvent e = new PageChangingEvent(this, getCurrentPage(),
-                                                    targetPage);
+                targetPage);
         firePageChanging(e);
         // Prevent navigation if necessary
         return e.doit;
@@ -1072,7 +1068,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
      */
     @objid ("bc1f49e4-120f-11e2-b5c6-002564c97630")
     @Override
-    public void run(final boolean fork, final boolean cancelable, final IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
+    public void run(final boolean fork, final boolean cancelable, final IRunnableWithProgress runnable) throws InterruptedException, InvocationTargetException {
         // The operation can only be canceled if it is executed in a separate
         // thread.
         // Otherwise the UI is blocked anyway.
@@ -1085,8 +1081,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             if (!fork) {
                 this.lockedUI = true;
             }
-            ModalContext.run(runnable, fork, getProgressMonitor(), getShell()
-                             .getDisplay());
+            ModalContext.run(runnable, fork, getProgressMonitor(), getShell().getDisplay());
             this.lockedUI = false;
         } finally {
             // explicitly invoke done() on our progress monitor so that its
@@ -1240,8 +1235,8 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             // the page is responsible for ensuring the created control is
             // accessible via getControl.
             Assert.isNotNull(page.getControl(), JFaceResources.format(
-                                                                      JFaceResources.getString("WizardDialog.missingSetControl"), //$NON-NLS-1$
-                                                                      new Object[] { page.getName() }));
+                    JFaceResources.getString("WizardDialog.missingSetControl"), //$NON-NLS-1$
+                    new Object[] { page.getName() }));
             // ensure the dialog is large enough for this page
             updateSize(page);
         }
@@ -1579,7 +1574,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             super.setBlocked(reason);
             if (!ModelioWizardDialog.this.lockedUI) {
                 getBlockedHandler().showBlocked(getShell(), this, reason,
-                                                this.currentTask);
+                        this.currentTask);
             }
         }
 

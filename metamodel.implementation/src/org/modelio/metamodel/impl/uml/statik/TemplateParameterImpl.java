@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.TemplateParameterData;
+import org.modelio.metamodel.impl.uml.statik.TemplateParameterData;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Operation;
@@ -43,139 +55,158 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("001d5f2e-c4bf-1fd8-97fe-001ec947cd2a")
 public class TemplateParameterImpl extends GeneralClassImpl implements TemplateParameter {
-    @objid ("8fd6ed64-f86a-4238-a009-f05df57a9c63")
+    @objid ("358f76fd-8456-4fe0-bc1b-5beb846826db")
     @Override
     public String getDefaultValue() {
-        return (String) getAttVal(TemplateParameterData.Metadata.DefaultValueAtt());
+        return (String) getAttVal(((TemplateParameterSmClass)getClassOf()).getDefaultValueAtt());
     }
 
-    @objid ("ad2c08f8-12e7-4600-98a0-19e7e72286cc")
+    @objid ("2e2ca9d8-ca38-4937-8e1f-25e5c6a75fbd")
     @Override
     public void setDefaultValue(String value) {
-        setAttVal(TemplateParameterData.Metadata.DefaultValueAtt(), value);
+        setAttVal(((TemplateParameterSmClass)getClassOf()).getDefaultValueAtt(), value);
     }
 
-    @objid ("a2821ae2-6860-4eb3-a090-7a8d36ee9142")
+    @objid ("6568c3c0-f447-43e2-900a-515e7b227997")
     @Override
     public boolean isIsValueParameter() {
-        return (Boolean) getAttVal(TemplateParameterData.Metadata.IsValueParameterAtt());
+        return (Boolean) getAttVal(((TemplateParameterSmClass)getClassOf()).getIsValueParameterAtt());
     }
 
-    @objid ("588a67eb-0478-4fb3-94a5-144d51f0b26f")
+    @objid ("a1691c33-02c7-4c4d-88f1-14e9068adc8e")
     @Override
     public void setIsValueParameter(boolean value) {
-        setAttVal(TemplateParameterData.Metadata.IsValueParameterAtt(), value);
+        setAttVal(((TemplateParameterSmClass)getClassOf()).getIsValueParameterAtt(), value);
     }
 
-    @objid ("307b28da-c6a8-465d-b5ff-a854bff6474c")
+    @objid ("8f581ed9-4fc4-447c-9d31-3d2d576ab9dc")
     @Override
     public EList<TemplateParameterSubstitution> getParameterSubstitution() {
-        return new SmList<>(this, TemplateParameterData.Metadata.ParameterSubstitutionDep());
+        return new SmList<>(this, ((TemplateParameterSmClass)getClassOf()).getParameterSubstitutionDep());
     }
 
-    @objid ("82160b1c-7cf5-4033-91e1-42bce4a3ce46")
+    @objid ("5cbb5f49-8c41-49e8-a06c-2a41ddda9e8e")
     @Override
     public <T extends TemplateParameterSubstitution> List<T> getParameterSubstitution(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final TemplateParameterSubstitution element : getParameterSubstitution()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("14652a3e-853a-4e66-843a-fad12af1bed8")
+    @objid ("e4b330fc-741e-438b-b340-947f087c98fc")
     @Override
     public ModelElement getType() {
-        return (ModelElement) getDepVal(TemplateParameterData.Metadata.TypeDep());
+        Object obj = getDepVal(((TemplateParameterSmClass)getClassOf()).getTypeDep());
+        return (obj instanceof ModelElement)? (ModelElement)obj : null;
     }
 
-    @objid ("5189ff45-2b73-413f-a202-bc07c6042542")
+    @objid ("05827368-42d5-4830-9771-2c4ba1f11400")
     @Override
     public void setType(ModelElement value) {
-        appendDepVal(TemplateParameterData.Metadata.TypeDep(), (SmObjectImpl)value);
+        appendDepVal(((TemplateParameterSmClass)getClassOf()).getTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0cd10a33-5ec9-47d4-a6a7-b8e6ceb50df5")
+    @objid ("93e97697-1749-4e5b-b11d-ef69192674ae")
     @Override
     public NameSpace getParameterized() {
-        return (NameSpace) getDepVal(TemplateParameterData.Metadata.ParameterizedDep());
+        Object obj = getDepVal(((TemplateParameterSmClass)getClassOf()).getParameterizedDep());
+        return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("41fca8d4-e342-4507-b1b1-9fdfbf0e2d82")
+    @objid ("97e5dc66-4426-495d-b054-8e23fdaea6a9")
     @Override
     public void setParameterized(NameSpace value) {
-        appendDepVal(TemplateParameterData.Metadata.ParameterizedDep(), (SmObjectImpl)value);
+        appendDepVal(((TemplateParameterSmClass)getClassOf()).getParameterizedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4e6a726a-06e0-4bc3-bb55-67a15ad210b3")
+    @objid ("95635c1d-cd6b-4e39-bc49-423cb6add2db")
     @Override
     public ModelElement getOwnedParameterElement() {
-        return (ModelElement) getDepVal(TemplateParameterData.Metadata.OwnedParameterElementDep());
+        Object obj = getDepVal(((TemplateParameterSmClass)getClassOf()).getOwnedParameterElementDep());
+        return (obj instanceof ModelElement)? (ModelElement)obj : null;
     }
 
-    @objid ("8cf4ef88-b808-4424-b3f3-2f06bb608792")
+    @objid ("a2580288-dc7b-463c-bd51-a99bda729318")
     @Override
     public void setOwnedParameterElement(ModelElement value) {
-        appendDepVal(TemplateParameterData.Metadata.OwnedParameterElementDep(), (SmObjectImpl)value);
+        appendDepVal(((TemplateParameterSmClass)getClassOf()).getOwnedParameterElementDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b5838410-d7f5-499b-b916-349a323fb2e3")
+    @objid ("573385ac-e9a7-4be0-855a-4f466d2a126a")
     @Override
     public ModelElement getDefaultType() {
-        return (ModelElement) getDepVal(TemplateParameterData.Metadata.DefaultTypeDep());
+        Object obj = getDepVal(((TemplateParameterSmClass)getClassOf()).getDefaultTypeDep());
+        return (obj instanceof ModelElement)? (ModelElement)obj : null;
     }
 
-    @objid ("f15d8e89-90f3-44c0-89a9-a1cd5e404e24")
+    @objid ("26c88129-d592-4184-8c6b-389a4084f833")
     @Override
     public void setDefaultType(ModelElement value) {
-        appendDepVal(TemplateParameterData.Metadata.DefaultTypeDep(), (SmObjectImpl)value);
+        appendDepVal(((TemplateParameterSmClass)getClassOf()).getDefaultTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("422c1215-be2b-4dcb-9841-51b2f493c316")
+    @objid ("5a75c423-8c7a-448f-9228-fac436bfdb3f")
     @Override
     public Operation getParameterizedOperation() {
-        return (Operation) getDepVal(TemplateParameterData.Metadata.ParameterizedOperationDep());
+        Object obj = getDepVal(((TemplateParameterSmClass)getClassOf()).getParameterizedOperationDep());
+        return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("7c5f5f8f-7507-465d-a2cb-b153019b4c78")
+    @objid ("64dab32c-48d6-4d5f-acef-26f34949649d")
     @Override
     public void setParameterizedOperation(Operation value) {
-        appendDepVal(TemplateParameterData.Metadata.ParameterizedOperationDep(), (SmObjectImpl)value);
+        appendDepVal(((TemplateParameterSmClass)getClassOf()).getParameterizedOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2c39ee61-b433-4d5b-b020-1bbfabadfd67")
+    @objid ("0000331f-36fb-4dc7-acd8-b0e17e474f72")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(TemplateParameterData.Metadata.ParameterizedDep());
+        // Parameterized
+        obj = (SmObjectImpl)this.getDepVal(((TemplateParameterSmClass)getClassOf()).getParameterizedDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(TemplateParameterData.Metadata.ParameterizedOperationDep());
+        // ParameterizedOperation
+        obj = (SmObjectImpl)this.getDepVal(((TemplateParameterSmClass)getClassOf()).getParameterizedOperationDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("107c6264-018a-4eed-b5ee-4922d96e987e")
+    @objid ("50cee98e-4993-46b2-aa8e-f825de714676")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(TemplateParameterData.Metadata.ParameterizedDep());
-        if (obj != null)
-          return new SmDepVal(TemplateParameterData.Metadata.ParameterizedDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(TemplateParameterData.Metadata.ParameterizedOperationDep());
-        if (obj != null)
-          return new SmDepVal(TemplateParameterData.Metadata.ParameterizedOperationDep(), obj);
+        SmDependency dep;
+        
+        // Parameterized
+        dep = ((TemplateParameterSmClass)getClassOf()).getParameterizedDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // ParameterizedOperation
+        dep = ((TemplateParameterSmClass)getClassOf()).getParameterizedOperationDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("33c957c9-8354-4a7f-851f-54104bf5e454")
+    @objid ("976af52e-0324-490e-ad8d-eb116dbdd206")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTemplateParameter(this);

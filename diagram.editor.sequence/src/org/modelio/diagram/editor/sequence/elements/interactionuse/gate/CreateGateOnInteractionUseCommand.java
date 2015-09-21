@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.interactionuse.gate;
 
@@ -29,7 +29,6 @@ import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.gproject.model.IElementConfigurator;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionUse;
@@ -92,13 +91,12 @@ public class CreateGateOnInteractionUseCommand extends Command {
             final IModelFactory modelFactory = modelManager.getModelFactory(this.parentElement);
             newElement = modelFactory.createGate();
         
-            final MDependency effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, newElement);
+            final MDependency effectiveDependency = modelManager.getMetamodel().getMExpert()
+                    .getDefaultCompositionDep(this.parentElement, newElement);
         
             if (effectiveDependency == null) {
-                throw new IllegalStateException("Cannot find a composition dependency to attach " +
-                        newElement.toString() +
-                        " to " +
-                        this.parentElement.toString());
+                throw new IllegalStateException("Cannot find a composition dependency to attach " + newElement.toString() + " to "
+                        + this.parentElement.toString());
             }
         
             this.parentElement.mGet(effectiveDependency).add(newElement);
@@ -112,7 +110,7 @@ public class CreateGateOnInteractionUseCommand extends Command {
             final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
             elementConfigurer.configure(modelManager.getModelFactory(newElement), newElement, getContext().getProperties());
         
-            // Specific steps: 
+            // Specific steps:
             newElement.setEnclosingInteraction(this.parentElement.getEnclosingInteraction());
             newElement.setLineNumber(this.time);
         

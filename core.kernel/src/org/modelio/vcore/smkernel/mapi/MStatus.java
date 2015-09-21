@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.smkernel.mapi;
 
@@ -147,7 +147,7 @@ public interface MStatus {
     /**
      * When a CMS is used (or a similar tool), tells whether the related object
      * needs an update from its CMS repository.
-     * @return<code>true</code> if the object needs an update, else <code>false</code>.
+     * @return <code>true</code> if the object needs an update, else <code>false</code>.
      */
     @objid ("aaf50bf6-d287-11e1-b069-001ec947ccaf")
     boolean isCmsSync();
@@ -155,7 +155,7 @@ public interface MStatus {
     /**
      * When a CMS is used (or a similar tool), tells whether the related object
      * has been locally modified (by reference to its CMS repository).
-     * @return<code>true</code> if the object has been locally modified, else <code>false</code>.
+     * @return <code>true</code> if the object has been locally modified, else <code>false</code>.
      */
     @objid ("aaf50bf8-d287-11e1-b069-001ec947ccaf")
     boolean isCmsModified();
@@ -163,7 +163,7 @@ public interface MStatus {
     /**
      * When a CMS is used (or a similar tool), tells whether the related object
      * is planned for adding to the CMS repository (most often at next commit).
-     * @return<code>true</code> if the object is planned for adding, else <code>false</code>.
+     * @return <code>true</code> if the object is planned for adding, else <code>false</code>.
      */
     @objid ("aaf50bfa-d287-11e1-b069-001ec947ccaf")
     boolean isCmsToAdd();
@@ -171,7 +171,7 @@ public interface MStatus {
     /**
      * When a CMS is used (or a similar tool), tells whether the related object
      * is planned for removing from the CMS repository (most often at next commit).
-     * @return<code>true</code> if the object is planned for removing, else <code>false</code>.
+     * @return <code>true</code> if the object is planned for removing, else <code>false</code>.
      */
     @objid ("462ad777-e2ab-4742-abd1-ee44973ed770")
     boolean isCmsToDelete();
@@ -179,7 +179,7 @@ public interface MStatus {
     /**
      * When a CMS is used (or a similar tool), tells whether the related object
      * is read only at the CMS level.
-     * @return<code>true</code> if the object is read only at the CMS level, else <code>false</code>.
+     * @return <code>true</code> if the object is read only at the CMS level, else <code>false</code>.
      */
     @objid ("aaf50bfc-d287-11e1-b069-001ec947ccaf")
     boolean isCmsReadOnly();
@@ -201,7 +201,7 @@ public interface MStatus {
     /**
      * Tells whether the related object belongs to a Model Component (RAMC),
      * meaning that its definition is partial.
-     * @return<code>true</code> if the object is part of a model component, else <code>false</code>.
+     * @return <code>true</code> if the object is part of a model component, else <code>false</code>.
      */
     @objid ("aaf50c00-d287-11e1-b069-001ec947ccaf")
     boolean isRamc();
@@ -211,14 +211,14 @@ public interface MStatus {
      * <p>
      * Shell objects are objects that are not currently reachable for some reasons,
      * and detailed contents is not available.
-     * @return<code>true</code> if the object is a shell object, else <code>false</code>.
+     * @return <code>true</code> if the object is a shell object, else <code>false</code>.
      */
     @objid ("aaf50c02-d287-11e1-b069-001ec947ccaf")
     boolean isShell();
 
     /**
      * Tells whether the related object is deleted.
-     * @return<code>true</code> if the object is deleted, else <code>false</code>.
+     * @return <code>true</code> if the object is deleted, else <code>false</code>.
      */
     @objid ("aaf50c04-d287-11e1-b069-001ec947ccaf")
     boolean isDeleted();
@@ -229,7 +229,7 @@ public interface MStatus {
      * An object is modifiable if all the following conditions are met:<ul>
      * <li> it is {@link #isWrite() writable}.
      * <li> it is not a {@link #isRamc() model component}.
-     * <li> it is not {@link #isCmsLocked() locked by the CMS}.
+     * <li> it is not {@link #isCmsReadOnly() locked by the CMS}.
      * <li> it is not a {@link #isShell() shell object}.
      * <li> it is not {@link #isDeleted() deleted}.
      * @return <code>true</code> if the element is visible in GUI, else <code>false</code>.

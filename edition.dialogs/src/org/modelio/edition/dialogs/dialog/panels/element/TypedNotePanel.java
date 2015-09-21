@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.dialogs.dialog.panels.element;
 
@@ -28,8 +28,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -39,20 +41,20 @@ import org.eclipse.swt.widgets.Text;
 import org.modelio.core.ui.MimeServices.MimeType;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.edition.dialogs.plugin.EditionDialogs;
-import org.modelio.edition.html.htmleditor.HtmlComposer;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.factory.ModelFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.ui.UIColor;
+import org.modelio.ui.htmleditor.HtmlComposer;
 import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vcore.session.api.model.IMObjectFilter;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * The NoteEditPanel class is an implementation of a generic IPanelProvider designed to edit a Modelio 'Note' attached to a
@@ -78,11 +80,6 @@ public class TypedNotePanel implements IPanelProvider {
         this.controller = new NoteEditController(moduleName, noteTypeName);
     }
 
-/*
-     * (non-Javadoc)
-     *
-     * @see org.modelio.ui.panel.IPanelProvider#createPanel(org.eclipse.swt.widgets.Composite)
-     */
     @objid ("e4da3741-b370-4d13-9c8e-fb5573812d5f")
     @Override
     public Object createPanel(Composite parent) {
@@ -112,22 +109,12 @@ public class TypedNotePanel implements IPanelProvider {
         return this.controller.getModelElement();
     }
 
-/*
-     * (non-Javadoc)
-     *
-     * @see org.modelio.ui.panel.IPanelProvider#getPanel()
-     */
     @objid ("00672583-0eea-4d91-a5e0-ce8e41cc6273")
     @Override
     public Object getPanel() {
         return this.view != null ? this.view.getContainer() : null;
     }
 
-/*
-     * (non-Javadoc)
-     *
-     * @see org.modelio.ui.panel.IPanelProvider#isRelevantFor(java.lang.Object)
-     */
     @objid ("b83f2bd1-d73c-4fb4-ab81-2dfc67ba6f42")
     @Override
     public boolean isRelevantFor(Object obj) {
@@ -155,36 +142,39 @@ public class TypedNotePanel implements IPanelProvider {
     }
 
     @objid ("61b8e22b-cd0d-467e-8e46-b9e7afbb9b05")
+    @SuppressWarnings("synthetic-access")
     private static class NoteEditView {
         @objid ("50f18740-67f7-4e8c-b86c-ffc01590bff6")
         private MimeType mimeMode;
 
-        @objid ("b10d7474-f849-454a-b03d-89ef7e873311")
+        @objid ("43144b95-b081-488d-b41f-4bc5546c3ef4")
         private final Composite container;
+
+        @objid ("6fc48682-a7b1-486f-8161-54df502888c2")
+        private final Composite stack;
+
+        @objid ("139caedd-f498-4684-9d6d-446ee38ebabc")
+        private final Button htmlCheckBox;
+
+        @objid ("19267f60-9816-41c0-913a-417989ca5a44")
+        private final StackLayout stackLayout;
+
+        @objid ("4d889c6b-6c25-434f-86c7-de593b815336")
+        private final Label nameLabel;
+
+        @objid ("4389428e-08f8-4d47-b9dd-cf6b4dd294d6")
+        private final Text text;
 
         @objid ("e00d9446-2971-4f6f-a04d-b54eac58eb2d")
         private final HtmlComposer htmlText;
 
-        @objid ("12a74773-933d-4371-a4f8-81e6b41fa416")
-        private final Composite stack;
-
-        @objid ("e66b841f-18e3-4de8-ba5d-28b03baa4bfa")
-        private final Button htmlCheckBox;
-
-        @objid ("378f461b-7717-4599-98dc-a7869714931f")
-        private final StackLayout stackLayout;
-
         @objid ("77c46e73-124d-4de3-b6b6-cfd5e821786a")
         private final NoteEditController controller;
 
-        @objid ("b3fe381c-9648-4649-94f7-7e1d7ceec2ec")
-        private final Label nameLabel;
-
-        @objid ("4dac20ca-8695-418f-b471-61da5dcea0c2")
-        private final Text text;
-
         /**
          * Widget structure: container=[label, mime mode selector, stack=[plain text,html text]]
+         * @param parent the parent SWT composite
+         * @param controller the view controller
          */
         @objid ("1b906def-0ba0-4ff2-8bb9-92e092caf353")
         public NoteEditView(Composite parent, NoteEditController controller) {
@@ -209,20 +199,14 @@ public class TypedNotePanel implements IPanelProvider {
             this.htmlCheckBox = new Button(this.container, SWT.CHECK);
             this.htmlCheckBox.setText("HTML");
             this.htmlCheckBox.setVisible(false);
-            this.htmlCheckBox.addSelectionListener(new SelectionListener() {
+            this.htmlCheckBox.addSelectionListener(new SelectionAdapter() {
                 @Override
                 public void widgetSelected(SelectionEvent e) {
-                    //System.out.println("NoteEditPanel.createPanel(...).new SelectionListener() {...}.widgetSelected()");
                     if (NoteEditView.this.htmlCheckBox.getSelection()) {
                         NoteEditView.this.controller.onSetNoteMimeType(MimeType.HTML);
                     } else {
                         NoteEditView.this.controller.onSetNoteMimeType(MimeType.PLAIN);
                     }
-                }
-            
-                @Override
-                public void widgetDefaultSelected(SelectionEvent e) {
-                    // nothing to do
                 }
             });
             
@@ -245,6 +229,16 @@ public class TypedNotePanel implements IPanelProvider {
                     }
                 }
             
+            });
+            this.text.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    final Text atext = (Text) e.getSource();
+                    if ((e.stateMask &= SWT.MOD1) != 0 && e.keyCode == 'a') {
+                        // CTRL A
+                        atext.selectAll();
+                    }
+                }
             });
             
             // The HTML text editor
@@ -364,7 +358,7 @@ public class TypedNotePanel implements IPanelProvider {
 
         /**
          * Get the ModelElement whose note is being edited
-         * @return
+         * @return the edited element
          */
         @objid ("7de0a6f7-d232-4874-b36b-91bfd40feee8")
         public ModelElement getModelElement() {
@@ -373,6 +367,7 @@ public class TypedNotePanel implements IPanelProvider {
 
         /**
          * Set the view controlled by this controller
+         * @param view the view
          */
         @objid ("69a29631-e94b-44af-9e46-8484834bc204")
         public void setView(NoteEditView view) {
@@ -380,10 +375,13 @@ public class TypedNotePanel implements IPanelProvider {
         }
 
         /**
-         * Set the ModelElemen whose note is being edited. This method also refreshes the view contents.
-         * @param me
+         * Set the ModelElemen whose note is being edited.
+         * <p>
+         * This method also refreshes the view contents.
+         * @param aModelElement the edited element
          */
         @objid ("e4df6d61-dccb-4c12-87bc-026ba7306348")
+        @SuppressWarnings("synthetic-access")
         public void setModelElement(ModelElement aModelElement) {
             this.me = aModelElement;
             
@@ -411,7 +409,7 @@ public class TypedNotePanel implements IPanelProvider {
             
                 } else if (this.noteModel.noteExists() == false) {
                     // Got a note model but no existing note, creating a note must be possible
-                    this.view.setTitle(ModuleI18NService.getLabel(this.noteModel.model));
+                    this.view.setTitle(ModuleI18NService.getLabel(this.noteModel.noteType));
                     this.view.setReadOnly(this.me.isModifiable());
                     this.view.setMimeType(MimeType.PLAIN);
                     this.view.setText(EditionDialogs.I18N.getString("TypedNotePanel.EnterText"));
@@ -420,7 +418,7 @@ public class TypedNotePanel implements IPanelProvider {
             
                 } else {
                     // Got a note model and an existing note
-                    this.view.setTitle(ModuleI18NService.getLabel(this.noteModel.model));
+                    this.view.setTitle(ModuleI18NService.getLabel(this.noteModel.noteType));
                     this.view.setReadOnly(this.me.isModifiable());
                     this.view.setMimeType(this.noteModel.getNoteMimeType());
                     this.view.setText(this.noteModel.note.getContent());
@@ -483,7 +481,7 @@ public class TypedNotePanel implements IPanelProvider {
         private final ModelElement owner;
 
         @objid ("5feac9ad-732f-42a1-8650-a15ec5655291")
-        private NoteType model;
+        private NoteType noteType;
 
         @objid ("7f6d1323-77b5-486a-be5e-1b1c55affaaa")
         private Note note;
@@ -506,7 +504,7 @@ public class TypedNotePanel implements IPanelProvider {
 
         @objid ("32ac76fe-4d1d-4b3c-8d57-a1e41b0e529a")
         public boolean hasType() {
-            return this.model != null;
+            return this.noteType != null;
         }
 
         @objid ("2e0f4e4c-39ff-4152-82ac-b218b415ddfb")
@@ -519,7 +517,7 @@ public class TypedNotePanel implements IPanelProvider {
             if (hasType()) {
                 try (ITransaction t = CoreSession.getSession(this.owner).getTransactionSupport().createTransaction("Create note")) {
                     final IModelFactory factory = ModelFactory.getFactory(this.owner);
-                    factory.createNote(this.model, this.owner, value);
+                    factory.createNote(this.noteType, this.owner, value);
                     t.commit();
                 } catch (final Exception e) {
                     EditionDialogs.LOG.error(e);
@@ -529,7 +527,7 @@ public class TypedNotePanel implements IPanelProvider {
 
         @objid ("be2925b7-b34c-4ad1-843a-961e13051c98")
         public MimeType getModelMimeType() {
-            final String mimeType = this.model != null ? this.model.getMimeType() : "";
+            final String mimeType = this.noteType != null ? this.noteType.getMimeType() : "";
             return mimeType.contains("html") ? MimeType.HTML : MimeType.PLAIN;
         }
 
@@ -538,7 +536,7 @@ public class TypedNotePanel implements IPanelProvider {
             if (this.note != null) {
                 final String mimeType = this.note.getMimeType() != null && !this.note.getMimeType().isEmpty() ? this.note
                         .getMimeType() : this.note.getModel().getMimeType();
-                        return mimeType.contains("html") ? MimeType.HTML : MimeType.PLAIN;
+                return mimeType.contains("html") ? MimeType.HTML : MimeType.PLAIN;
             }
             return MimeType.PLAIN;
         }
@@ -561,7 +559,7 @@ public class TypedNotePanel implements IPanelProvider {
         @objid ("877f171b-ad60-4e2e-8cbd-80d21efba5cc")
         public void setNoteContent(String value) {
             // If noteType is undefined, nothing can be done.
-            if (this.model == null) {
+            if (this.noteType == null) {
                 return;
             }
             
@@ -588,9 +586,9 @@ public class TypedNotePanel implements IPanelProvider {
 
         @objid ("a87c9da7-462f-4089-85f5-54274050fff0")
         private void init(String moduleName, String noteTypeName) {
-            this.model = resolveNoteModel(this.owner, moduleName, noteTypeName);
-            if (this.model != null) {
-                this.note = getNote(this.owner, this.model);
+            this.noteType = resolveNoteModel(this.owner, moduleName, noteTypeName);
+            if (this.noteType != null) {
+                this.note = getNote(this.owner, this.noteType);
             }
         }
 
@@ -623,18 +621,21 @@ public class TypedNotePanel implements IPanelProvider {
          */
         @objid ("53596f0d-cf36-4586-abb6-df75e8156ba7")
         private NoteType resolveNoteModel(final ModelElement me, final String moduleName, final String noteTypeName) {
-            final IModel m = CoreSession.getSession(me).getModel();
-            final Collection<NoteType> candidates = m.findByAtt(NoteType.class, "Name", noteTypeName, (IMObjectFilter) o -> moduleName.equals(((NoteType) o).getModule().getName()));
+            final CoreSession session = CoreSession.getSession(me);
+            final SmMetamodel mm = session.getMetamodel();
+            final IModel m = session.getModel();
+            final Collection<NoteType> candidates = m.findByAtt(NoteType.class, "Name", noteTypeName,
+                    (IMObjectFilter) o -> moduleName.equals(((NoteType) o).getModule().getName()));
             
             // First loop: check strict metaclass equality
             for (final NoteType nType : candidates) {
                 if (nType.getOwnerReference() != null) {
-                    final MClass referenceClass = Metamodel.getMClass(nType.getOwnerReference().getReferencedClassName());
+                    final MClass referenceClass = mm.getMClass(nType.getOwnerReference().getReferencedClassName());
                     if (me.getMClass() == referenceClass) {
                         return nType;
                     }
                 } else if (nType.getOwnerStereotype() != null) {
-                    final MClass steClass = Metamodel.getMClass(nType.getOwnerStereotype().getBaseClassName());
+                    final MClass steClass = mm.getMClass(nType.getOwnerStereotype().getBaseClassName());
                     if (me.getMClass() == steClass) {
                         return nType;
                     }
@@ -646,12 +647,12 @@ public class TypedNotePanel implements IPanelProvider {
             // Second loop: if first one did not give any result, check metaclass compatibility
             for (final NoteType nType : candidates) {
                 if (nType.getOwnerReference() != null) {
-                    final MClass referenceClass = Metamodel.getMClass(nType.getOwnerReference().getReferencedClassName());
+                    final MClass referenceClass = mm.getMClass(nType.getOwnerReference().getReferencedClassName());
                     if (me.getMClass().hasBase(referenceClass)) {
                         return nType;
                     }
                 } else if (nType.getOwnerStereotype() != null) {
-                    final MClass steClass = Metamodel.getMClass(nType.getOwnerStereotype().getBaseClassName());
+                    final MClass steClass = mm.getMClass(nType.getOwnerStereotype().getBaseClassName());
                     if (me.getMClass().hasBase(steClass)) {
                         return nType;
                     }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,19 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.core;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,9 +34,9 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
-import org.modelio.core.ui.CoreColorRegistry;
-import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
+import org.modelio.ui.CoreColorRegistry;
+import org.modelio.ui.CoreFontRegistry;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -44,8 +46,8 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * <li>style properties ie known StyleKeys defined in the property file.</li>
  * <li>admin properties ie properties whose key does not appear to be a StyleKey</li>
  * </ul>
- * Properties, either style or admin properties, are only available after a load() operation. Each load() call resets
- * the loaded properties, meaning that there is no accumulation of loaded properties when calling load() several times. <br>
+ * Properties, either style or admin properties, are only available after a load() operation. Each load() call resets the loaded
+ * properties, meaning that there is no accumulation of loaded properties when calling load() several times. <br>
  * <p>
  * Color and Font allocation:<br>
  * The loader will allocate Colors and Fonts from the global CoreColorRegistry and CoreFontRegistry.
@@ -85,12 +87,30 @@ public class StyleLoader {
      */
     @objid ("8587fa4f-1926-11e2-92d2-001ec947c8cc")
     public void load(URL url) {
+        try (InputStreamReader reader = new InputStreamReader(url.openStream())) {
+            load(reader);
+        } catch (IOException e) {
+            DiagramStyles.LOG.error(e);
+        }
+    }
+
+    @objid ("d7bf0029-bbd1-4301-bcd3-188be6616c7a")
+    public void load(String definitions) {
+        load(new StringReader(definitions));
+    }
+
+    /**
+     * Load property values from the default settings resource file.
+     * @param source the InputStream to load the style from.
+     */
+    @objid ("0f01ff96-9443-43d4-89fd-8f2ea17d4765")
+    private void load(Reader source) {
         this.styleProperties = new HashMap<>();
         this.adminProperties = new HashMap<>();
         
         final Properties loadedValues = new Properties();
-        try (InputStream inputStream = url.openStream()){
-            loadedValues.load(inputStream);
+        try {
+            loadedValues.load(source);
         } catch (IOException e) {
             DiagramStyles.LOG.error(e);
         }
@@ -115,10 +135,10 @@ public class StyleLoader {
     }
 
     /**
-     * This method tries to extract a value for the StyleKey 'sKey' from the raw properties 'loadedValues' that have
-     * been read from a property file.<br>
-     * When no value can directly be extracted from 'loadedValue' the method tries to analyze 'sKey' as a MetaKey to
-     * guess a reasonable default value (asking the defaults provider if some). If nothing work, it returns null.
+     * This method tries to extract a value for the StyleKey 'sKey' from the raw properties 'loadedValues' that have been read from
+     * a property file.<br>
+     * When no value can directly be extracted from 'loadedValue' the method tries to analyze 'sKey' as a MetaKey to guess a
+     * reasonable default value (asking the defaults provider if some). If nothing work, it returns null.
      * @param loadedValues the raw loaded values from the property file
      * @param sKey the StyleKey for which the method is expected to fetch a value
      * @return the value for 'sKey' or null if none.
@@ -154,18 +174,12 @@ public class StyleLoader {
             try {
                 return StyleLoader.parseData(data, type);
             } catch (RuntimeException e) {
-                throw new IOException("Parsing of '" +
-                                      data +
-                                      "' default value of '" +
-                                      type.getSimpleName() +
-                                      "' typed '" +
-                                      sKey.getId() +
-                                      "' style key failed: " +
-                                      e.toString(), e);
+                throw new IOException("Parsing of '" + data + "' default value of '" + type.getSimpleName() + "' typed '"
+                        + sKey.getId() + "' style key failed: " + e.toString(), e);
             }
         } else {
         
-            // May happen when loading a 'complement' property file, 
+            // May happen when loading a 'complement' property file,
             // ie a property file that do not define all possible values
             return null;
         }
@@ -220,19 +234,18 @@ public class StyleLoader {
         }
         
         if (type == MRef.class) {
-            if (data.trim().isEmpty())
+            if (data.trim().isEmpty()) {
                 return null;
-            else
+            } else {
                 return new MRef(data);
+            }
         }
         
         if (type.isEnum()) {
             return Enum.valueOf((Class<? extends Enum>) type, data.trim());
         }
         
-        
-        
-        DiagramStyles.LOG.warning( "StyleLoader.parseData()  missing converter for '%s'", type.getName());
+        DiagramStyles.LOG.warning("StyleLoader.parseData()  missing converter for '%s'", type.getName());
         return null;
     }
 

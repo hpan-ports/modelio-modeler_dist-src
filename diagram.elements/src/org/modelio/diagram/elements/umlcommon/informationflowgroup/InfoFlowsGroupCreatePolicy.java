@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.umlcommon.informationflowgroup;
 
@@ -33,13 +33,12 @@ import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.policies.DefaultNodeNonResizableEditPolicy;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * Edit policy that allow creation an {@link IInformationFlow information flow} model element on this edit part.
+ * Edit policy that allow creation an {@link InformationFlow information flow} model element on this edit part.
  * <p>
  * Also forbid labels to be dragged.
  * <p>
@@ -53,7 +52,7 @@ public class InfoFlowsGroupCreatePolicy extends DefaultGroupLayoutEditPolicy {
     @objid ("8170e9e3-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected boolean canHandle(MClass metaclass) {
-        return metaclass == Metamodel.getMClass(InformationFlow.class);
+        return metaclass.getJavaInterface() == InformationFlow.class;
     }
 
     @objid ("8170e9ec-1dec-11e2-8cad-001ec947c8cc")
@@ -84,10 +83,9 @@ public class InfoFlowsGroupCreatePolicy extends DefaultGroupLayoutEditPolicy {
                 final EditPart editPart = (EditPart) editPartObj;
                 if (editPart.getModel() instanceof GmModel) {
                     final GmModel gmModel = (GmModel) editPart.getModel();
-                    final String metaclassToCreateName = gmModel.getRepresentedRef().mc;
-                    final MClass metaclassToCreate = Metamodel.getMClass(metaclassToCreateName);
-                    if (canHandle(metaclassToCreate)) {
-                        command.add(new CreateInformationFlowCommand(hostModel, new ModelioCreationContext(metaclassToCreateName,
+                    final MClass metaclassToClone = gmModel.getRelatedMClass();
+                    if (canHandle(metaclassToClone)) {
+                        command.add(new CreateInformationFlowCommand(hostModel, new ModelioCreationContext(metaclassToClone,
                                 null, null), Integer.valueOf(-1)));
         
                     }
@@ -101,11 +99,16 @@ public class InfoFlowsGroupCreatePolicy extends DefaultGroupLayoutEditPolicy {
     @objid ("8170ea12-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getCreateCommand(final CreateRequest req) {
-        final ModelioCreationContext ctx = (ModelioCreationContext) req.getNewObject();
-        final Class<? extends MObject> metaclassToCreate = Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
-        
-        if (metaclassToCreate != InformationFlow.class)
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(req);
+        if (ctx == null) {
             return null;
+        }
+        
+        final Class<? extends MObject> metaclassToCreate = ctx.getMetaclass().getJavaInterface();
+        
+        if (metaclassToCreate != InformationFlow.class) {
+            return null;
+        }
         
         final GmCompositeNode gmGroup = (GmCompositeNode) getHost().getModel();
         return new CreateInformationFlowCommand(gmGroup, ctx, Integer.valueOf(-1));

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -27,7 +27,7 @@ import org.modelio.metamodel.uml.behavior.activityModel.ExpansionKind;
 import org.modelio.metamodel.uml.behavior.activityModel.ExpansionRegion;
 
 @objid ("e8681f17-83f9-4cb4-9e18-a1a46ff9864b")
-public class OExpansionRegion extends OStructuredActivityNode implements IOElement {
+public class OExpansionRegion extends OStructuredActivityNode {
     @objid ("fa90df7b-544b-4c8a-8aea-95a9a0dc6ffd")
     public OExpansionRegion(ExpansionRegion element) {
         super(element);

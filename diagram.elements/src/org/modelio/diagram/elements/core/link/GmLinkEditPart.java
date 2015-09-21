@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link;
 
@@ -155,7 +155,6 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
      * the given class
      */
     @objid ("801bf9a0-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings("rawtypes")
     @Override
     public Object getAdapter(Class adapter) {
         final Object model = getModel();
@@ -183,7 +182,6 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
     }
 
     @objid ("801bf9b1-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings("unchecked")
     @Override
     public List<Object> getModelChildren() {
         final ArrayList<Object> ret = new ArrayList<>(8);
@@ -390,7 +388,7 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
      */
     @objid ("801e5c0f-1dec-11e2-8cad-001ec947c8cc")
     protected ConnectionRouterRegistry getConnectionRouterRegistry() {
-        return (ConnectionRouterRegistry) this.getViewer().getProperty(ConnectionRouterRegistry.ID);
+        return (ConnectionRouterRegistry) getViewer().getProperty(ConnectionRouterRegistry.ID);
     }
 
     /**
@@ -550,7 +548,7 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         super.refreshVisuals();
         
         final GmLink gmLink = getLinkModel();
-        final PolylineConnection conn = (PolylineConnection) this.getFigure();
+        final PolylineConnection conn = (PolylineConnection) getFigure();
         
         // Update the connection router & Refresh route
         updateConnectionRoute(conn);
@@ -573,7 +571,6 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
      * @see org.eclipse.gef.editparts.AbstractEditPart#reorderChild(EditPart, int)
      */
     @objid ("801e5c3e-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings("unchecked")
     @Override
     protected void reorderChild(final EditPart child, final int index) {
         // Save the constraint of the child so that it does not
@@ -608,14 +605,14 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
     @objid ("801e5c48-1dec-11e2-8cad-001ec947c8cc")
     protected final void swapEnd(MObject newEndElement, ReconnectRequest request) {
         // Search all gm representing the new target
-        List<GmModel> models = ((GmLink) this.getModel()).getDiagram()
+        List<GmModel> models = ((GmLink) getModel()).getDiagram()
                 .getAllGMRelatedTo(new MRef(newEndElement));
         // This boolean will be used to note that the searched End was found
         // unmasked at least once.
         boolean foundUnmaskedEnd = false;
         for (GmModel model : models) {
             // For each gm, search the corresponding edit part
-            EditPart editPart = (EditPart) this.getViewer().getEditPartRegistry().get(model);
+            EditPart editPart = (EditPart) getViewer().getEditPartRegistry().get(model);
             if (editPart != null) {
                 foundUnmaskedEnd = true;
                 // See if this edit part accepts the reconnection request
@@ -636,10 +633,10 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         }
         // Now that (hopefully) we managed to unmasked the new end, let's try to
         // reroute ourselves to it!
-        models = ((GmLink) this.getModel()).getDiagram().getAllGMRelatedTo(new MRef(newEndElement));
+        models = ((GmLink) getModel()).getDiagram().getAllGMRelatedTo(new MRef(newEndElement));
         for (GmModel model : models) {
             // For each gm, search the corresponding edit part
-            EditPart editPart = (EditPart) this.getViewer().getEditPartRegistry().get(model);
+            EditPart editPart = (EditPart) getViewer().getEditPartRegistry().get(model);
             if (editPart != null) {
                 // See if this edit part accepts the reconnection request
                 EditPart targetEditPart = editPart.getTargetEditPart(request);
@@ -746,18 +743,18 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         if (request.getType().equals(REQ_RECONNECT_SOURCE)) {
             ((GraphicalEditPart) getRoot().getContents()).getFigure().invalidateTree();
             ((GraphicalEditPart) getRoot().getContents()).getFigure().validate();
-            IFigure sourceFigure = ((GraphicalEditPart) this.getSource()).getFigure();
+            IFigure sourceFigure = ((GraphicalEditPart) getSource()).getFigure();
             dropPoint = sourceFigure.getBounds().getLocation().getTranslated(20, 20);
             sourceFigure.translateToAbsolute(dropPoint);
         } else {
             ((GraphicalEditPart) getRoot().getContents()).getFigure().invalidateTree();
             ((GraphicalEditPart) getRoot().getContents()).getFigure().validate();
-            IFigure targetFigure = ((GraphicalEditPart) this.getTarget()).getFigure();
+            IFigure targetFigure = ((GraphicalEditPart) getTarget()).getFigure();
             dropPoint = targetFigure.getBounds().getLocation().getTranslated(20, 20);
             targetFigure.translateToAbsolute(dropPoint);
         }
         dropRequest.setLocation(dropPoint);
-        GmCompositeNode gmCompositeForUnmasking = ((GmLink) this.getModel()).getDiagram()
+        GmCompositeNode gmCompositeForUnmasking = ((GmLink) getModel()).getDiagram()
                 .getCompositeFor(newEndElement.getClass());
         EditPart compositeEditPartForUnmasking = (EditPart) getViewer().getEditPartRegistry()
                 .get(gmCompositeForUnmasking);
@@ -807,7 +804,7 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         refreshSourceAnchor();
         refreshTargetAnchor();
         
-        final IGmLink gmLink = this.getLinkModel();
+        final IGmLink gmLink = getLinkModel();
         final RoutingMode newRoutingMode = new RoutingMode(gmLink.getPath());
         final RoutingMode oldRoutingMode = getRoutingMode();
         // Change connection router if the rake mode changes or there is no rake and the style changes
@@ -822,7 +819,7 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         
             // Set the new constraint
             IConnectionHelper helper = ConnectionHelperFactory.createFromSerializedData(newRoutingMode.routingStyle,
-                    this.getLinkModel()
+                    getLinkModel()
                     .getPath()
                     .getPathData(),
                     cnx);
@@ -835,7 +832,7 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         
         } else {
             IConnectionHelper helper = ConnectionHelperFactory.createFromSerializedData(newRoutingMode.routingStyle,
-                    this.getLinkModel()
+                    getLinkModel()
                     .getPath()
                     .getPathData(),
                     cnx);

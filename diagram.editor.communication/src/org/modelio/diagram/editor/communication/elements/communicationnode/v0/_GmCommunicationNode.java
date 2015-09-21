@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.communication.elements.communicationnode.v0;
 
@@ -31,7 +31,7 @@ import org.modelio.diagram.editor.communication.elements.communicationnode.GmCom
 import org.modelio.diagram.editor.communication.elements.communicationnode.GmCommunicationNodeHeader;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.header.GmModelElementHeader;
-import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmModelElementLabel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.node.IImageableNode;
@@ -80,7 +80,10 @@ public class _GmCommunicationNode extends GmCompositeNode implements IImageableN
     private GmModelElementHeader header;
 
     @objid ("9ca08bfb-55c1-11e2-9337-002564c97630")
-    private GmModelElementFlatHeader imageModeHeader;
+    private GmModelElementLabel imageModeHeader;
+
+    @objid ("ca8a8556-2902-4e13-b51a-4175d77ff7c0")
+    private static final GmCommunicationNodeUserImageStyleKeys USERIMAGE_KEYS = new GmCommunicationNodeUserImageStyleKeys();
 
     /**
      * Default constructor.
@@ -253,7 +256,7 @@ public class _GmCommunicationNode extends GmCompositeNode implements IImageableN
         this.header = (GmModelElementHeader) this.getChildren().get(0);
         this.communicationNode = (CommunicationNode) resolveRef(getRepresentedRef());
                 
-        this.imageModeHeader = (GmModelElementFlatHeader) this.getChildren().get(1);
+        this.imageModeHeader = (GmModelElementLabel) this.getChildren().get(1);
     }
 
     @objid ("7a682cc1-55b6-11e2-877f-002564c97630")

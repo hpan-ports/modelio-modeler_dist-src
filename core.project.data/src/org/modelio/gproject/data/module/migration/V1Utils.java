@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.data.module.migration;
 
@@ -45,12 +45,13 @@ import org.modelio.gproject.data.module.jaxbv1.JxbModule.JxbProfile;
 import org.modelio.gproject.data.module.jaxbv1.JxbModule;
 
 @objid ("80818a5e-b506-4d84-9c5b-5f78df3f3b6d")
-public class V1Utils {
+class V1Utils {
     @objid ("0fe76891-aa4b-486b-bd5b-95d9962a784a")
     public static Gui getGui(JxbModule module) {
         for (Object obj : module.getParameterOrProfileOrGui()) {
-            if (obj instanceof Gui)
+            if (obj instanceof Gui) {
                 return (Gui) obj;
+            }
         }
         return null;
     }
@@ -81,8 +82,9 @@ public class V1Utils {
     public static List<PropertyPage> getPropertyPages(Gui gui) {
         List<PropertyPage> propertyPages = new ArrayList<>();
         for (Object obj : gui.getPropertyPageOrCommandOrElementCreationCommand()) {
-            if (obj instanceof PropertyPage)
+            if (obj instanceof PropertyPage) {
                 propertyPages.add((PropertyPage) obj);
+            }
         }
         return propertyPages;
     }
@@ -90,8 +92,9 @@ public class V1Utils {
     @objid ("eaed6ff0-1b05-4885-b30b-cff50f880f65")
     public static Contribution getContribution(Command command) {
         for (Object obj : command.getScopeOrHandlerOrContribution()) {
-            if (obj instanceof Contribution)
+            if (obj instanceof Contribution) {
                 return (Contribution) obj;
+            }
         }
         return null;
     }
@@ -99,8 +102,9 @@ public class V1Utils {
     @objid ("b4a22b5e-cfb4-4597-aa80-afbf97814e46")
     public static Contribution getContribution(ElementCreationCommand command) {
         for (Object obj : command.getScopeOrHandlerOrContribution()) {
-            if (obj instanceof Contribution)
+            if (obj instanceof Contribution) {
                 return (Contribution) obj;
+            }
         }
         return null;
     }
@@ -195,8 +199,9 @@ public class V1Utils {
     public static List<JxbProfile> getProfiles(JxbModule module) {
         List<JxbProfile> profiles = new ArrayList<>();
         for (Object obj : module.getParameterOrProfileOrGui()) {
-            if (obj instanceof JxbProfile)
+            if (obj instanceof JxbProfile) {
                 profiles.add((JxbProfile) obj);
+            }
         }
         return profiles;
     }
@@ -205,8 +210,9 @@ public class V1Utils {
     public static List<JxbStereotype> getStereotypes(JxbProfile profile) {
         List<JxbStereotype> stereotypes = new ArrayList<>();
         for (Object obj : profile.getStereotypeOrAnonymousStereotype()) {
-            if (obj instanceof JxbStereotype)
+            if (obj instanceof JxbStereotype) {
                 stereotypes.add((JxbStereotype) obj);
+            }
         }
         return stereotypes;
     }
@@ -215,8 +221,9 @@ public class V1Utils {
     public static List<JxbAnonymousStereotype> getAnonymousStereotypes(JxbProfile profile) {
         List<JxbAnonymousStereotype> stereotypes = new ArrayList<>();
         for (Object obj : profile.getStereotypeOrAnonymousStereotype()) {
-            if (obj instanceof JxbAnonymousStereotype)
+            if (obj instanceof JxbAnonymousStereotype) {
                 stereotypes.add((JxbAnonymousStereotype) obj);
+            }
         }
         return stereotypes;
     }
@@ -226,8 +233,9 @@ public class V1Utils {
         List<CustomizedDiagram> diagrams = new ArrayList<>();
         
         for (Object obj : gui.getPropertyPageOrCommandOrElementCreationCommand()) {
-            if (obj instanceof CustomizedDiagram)
+            if (obj instanceof CustomizedDiagram) {
                 diagrams.add((CustomizedDiagram) obj);
+            }
         }
         return diagrams;
     }
@@ -235,8 +243,9 @@ public class V1Utils {
     @objid ("0aaf765f-226a-4628-b0a5-47af81e757d4")
     public static Palette getDiagramPalette(CustomizedDiagram diagram) {
         for (Object obj : diagram.getPaletteOrStyle()) {
-            if (obj instanceof Palette)
+            if (obj instanceof Palette) {
                 return (Palette) obj;
+            }
         
         }
         return null;
@@ -245,8 +254,9 @@ public class V1Utils {
     @objid ("2f6e8733-85bf-4175-943d-5906fa0354c4")
     public static Style getDiagramStyle(CustomizedDiagram diagram) {
         for (Object obj : diagram.getPaletteOrStyle()) {
-            if (obj instanceof Style)
+            if (obj instanceof Style) {
                 return (Style) obj;
+            }
         
         }
         return null;

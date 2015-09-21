@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.project.ui.views.workspace;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.ClosedWatchServiceException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -53,6 +59,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.app.project.core.services.IProjectService;
@@ -67,6 +74,7 @@ import org.modelio.ui.progress.IModelioProgressService;
  * Workspace tree viewer
  */
 @objid ("00061b02-a110-1fbc-82db-001ec947cd2a")
+@SuppressWarnings("restriction")
 public class WorkspaceTreeView {
     /**
      * The popup menu ID as specified in the .e4xmi file.
@@ -113,6 +121,9 @@ public class WorkspaceTreeView {
 
     @objid ("27ea110d-2497-4128-8180-ed05a4e5406c")
     private TreeViewer viewer;
+
+    @objid ("4682ab0f-f33f-4738-9d48-b0d7bcaef5a9")
+    private WatchService watchSvc;
 
     /**
      * Constructor
@@ -179,6 +190,8 @@ public class WorkspaceTreeView {
                 }
             });
         
+            watchDirectory(path);
+        
         } else {
             AppProjectUi.LOG.error("Invalid workspace path: %s", path.toString());
         }
@@ -198,16 +211,17 @@ public class WorkspaceTreeView {
     @objid ("0037b4e6-f974-1fc8-b42e-001ec947cd2a")
     private void refreshContents() {
         this.cache.refresh();
-        refreshLabels();
+        asyncRefreshTree();
     }
 
     @objid ("003d2ffc-83c8-1fe1-bf4c-001ec947cd2a")
-    private void refreshLabels() {
+    private void asyncRefreshTree() {
         this.viewer.getTree().getDisplay().asyncExec(new Runnable() {
             @Override
             public void run() {
-                if (!getViewer().getTree().isDisposed())
+                if (!getViewer().getTree().isDisposed()) {
                     getViewer().refresh(true);
+                }
             }
         });
     }
@@ -240,12 +254,11 @@ public class WorkspaceTreeView {
      * @param wkspace the changed workspace
      */
     @objid ("00341ae8-6a48-1fcf-b5e2-001ec947cd2a")
-    @Inject
-    @Optional
-    void onWorkspaceContents(@EventTopic(ModelioEventTopics.WORKSPACE_CONTENTS) final Path wkspace) {
-        AppProjectUi.LOG.debug("onWorkspaceContents() ", wkspace.toString());
-        if (isValid())
+    void onWorkspaceContentChange(final Path wkspace) {
+        AppProjectUi.LOG.debug("onWorkspaceContentChange('%s')", wkspace.toString());
+        if (isValid()) {
             refreshContents();
+        }
     }
 
     @objid ("003dc944-83c8-1fe1-bf4c-001ec947cd2a")
@@ -253,7 +266,7 @@ public class WorkspaceTreeView {
     @Optional
     void onProjectOpened(@UIEventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject project, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, MWindow window, final IModelioProgressService progressService, final StatusReporter statusReporter) {
         AppProjectUi.LOG.debug("onProjectOpened() %s", project.getName());
-        refreshLabels();
+        asyncRefreshTree();
         
         // FIXME Misplaced
         IWindowCloseHandler handler = new IWindowCloseHandler() {
@@ -277,8 +290,9 @@ public class WorkspaceTreeView {
         AppProjectUi.LOG.debug("onProjectClosed() %s", project);
         // fire a whole workspace contents refresh (reloading the cache) to
         // ensure that project descriptors are "re-read" from disc
-        if (isValid())
+        if (isValid()) {
             refreshContents();
+        }
     }
 
     /**
@@ -319,6 +333,66 @@ public class WorkspaceTreeView {
     @objid ("a8d55f96-363b-4568-9f42-6848eb42fbc8")
     boolean isValid() {
         return this.viewer != null && this.viewer.getTree() != null && !this.viewer.getTree().isDisposed();
+    }
+
+    /**
+     * Watch the given workspace directory for modifications and refresh the tree viewer in this case.
+     * @param path the workspace directory to watch
+     */
+    @objid ("43c5ad8d-8bd0-4ca4-8154-7311127fd902")
+    private void watchDirectory(final Path path) {
+        try {
+            if (this.watchSvc != null) {
+                this.watchSvc.close();
+            }
+        
+            final int POLL_TIME = 1000; // wait time in milliseconds between 2 polls
+        
+            final WatchService newWatchSvc = path.getFileSystem().newWatchService();
+            this.watchSvc = newWatchSvc;
+        
+            path.register(newWatchSvc, StandardWatchEventKinds.ENTRY_CREATE,
+                    StandardWatchEventKinds.ENTRY_DELETE,
+                    StandardWatchEventKinds.ENTRY_MODIFY);
+        
+            Display display = getViewer().getControl().getDisplay();
+            display.asyncExec( new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        WatchKey wk = newWatchSvc.poll();
+                        if (wk != null) {
+                            wk.pollEvents();
+                            onWorkspaceContentChange(path);
+                            wk.reset();
+                        }
+        
+                        // schedule next poll
+                        display.timerExec(POLL_TIME, this);
+                    } catch (ClosedWatchServiceException e) {
+                        // it's time to stop
+                    }
+                }
+            });
+        
+        } catch (IOException e) {
+            AppProjectUi.LOG.error(e);
+        }
+    }
+
+    /**
+     * E4 destructor
+     */
+    @objid ("e6078d02-21fa-49fe-9a5a-351daa8a55ac")
+    @PreDestroy
+    void onDestroy() {
+        if (this.watchSvc != null) {
+            try {
+                this.watchSvc.close();
+            } catch (IOException e) {
+                AppProjectUi.LOG.debug(e);
+            }
+        }
     }
 
     /**
@@ -368,18 +442,21 @@ public class WorkspaceTreeView {
             
             // scan workspace
             if (Files.isDirectory(aWorkspacePath)) {
-                try (DirectoryStream<Path> dirList = Files.newDirectoryStream(aWorkspacePath);) {
-                    for (Path entry : dirList) {
-                        if (GProjectFactory.isProjectSpace(entry)) {
-                            ProjectDescriptor projectDescriptor = GProjectFactory.readProjectDirectory(entry);
-                            this.cachedProjects.add(projectDescriptor);
-                        }
-                    }
-                } catch (Exception e) {
-                    // Should catch IOException of 'Files.newDirectoryStream'
-                    // but JDK compiler don't allow it.
-                    AppProjectUi.LOG.error(e);
-                }
+            	try (DirectoryStream<Path> dirList = Files.newDirectoryStream(aWorkspacePath);) {
+            		for (Path entry : dirList) {
+            			if (GProjectFactory.isProjectSpace(entry)) {
+            				try {
+            					ProjectDescriptor projectDescriptor = GProjectFactory.readProjectDirectory(entry);
+            					this.cachedProjects.add(projectDescriptor);
+            				} catch (IOException e) {
+            					AppProjectUi.LOG.error("Invalid project found : " + entry);
+            					AppProjectUi.LOG.debug(e);
+            				}
+            			}
+            		}
+            	} catch (Exception e) {
+            		AppProjectUi.LOG.error(e);
+            	}
             }
         }
 

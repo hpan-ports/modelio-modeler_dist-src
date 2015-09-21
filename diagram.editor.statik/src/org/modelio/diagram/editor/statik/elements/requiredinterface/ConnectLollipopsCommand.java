@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.requiredinterface;
 
@@ -37,6 +37,7 @@ import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 
 /**
  * Command that connects a {@link RequiredInterfaceLinkEditPart} to a {@link ProvidedInterfaceLinkEditPart}
@@ -78,9 +79,11 @@ public class ConnectLollipopsCommand extends Command {
         final Port reqPort = req.getRequiring();
         final Port provPort = prov.getProviding();
         
+        final MExpert expert = req.getMClass().getMetamodel().getMExpert();
+        
         // Disconnect required and provided from any existing lollipop
-        MTools.getModelTool().setTarget(req, null,null);
-        MTools.getModelTool().setTarget(prov, null,null);
+        expert.setTarget(req, null,null);
+        expert.setTarget(prov, null,null);
         
         
         // Create the connector
@@ -118,8 +121,9 @@ public class ConnectLollipopsCommand extends Command {
         final GmRequiredInterfaceLink gmReq = (GmRequiredInterfaceLink) this.reqEditPart.getModel();
         final GmProvidedInterfaceLink gmProv = (GmProvidedInterfaceLink) this.provEditPart.getModel();
         
-        if (!MTools.getAuthTool().canModify(gmProv.getDiagram().getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(gmProv.getDiagram().getRelatedElement())) {
             return false;
+        }
         
         final RequiredInterface req = gmReq.getRelatedElement();
         final ProvidedInterface prov = gmProv.getRelatedElement();

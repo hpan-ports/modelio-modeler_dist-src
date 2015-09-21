@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -51,7 +51,8 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("8ecf794f-c068-11e1-8c0a-002564c97630")
 public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAssociationEnd> {
     @objid ("a6756da8-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "NaryAssociation", "AssociationName", "Class", "Role", "Visibility", "MultiplicityMin", "MultiplicityMax", "AccessMode", "IsAbstract", "IsClass", "IsOrdered", "IsUnique" };
+    private static final String[] PROPERTIES = new String[] { "Property", "AssociationName", "Class", "Role", "Visibility",
+            "MultiplicityMin", "MultiplicityMax", "AccessMode", "IsAbstract", "IsClass", "IsOrdered", "IsUnique" };
 
     @objid ("8ecf7954-c068-11e1-8c0a-002564c97630")
     private List<NaryAssociationEnd> displayedRoles;
@@ -116,11 +117,12 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
         this.theNaryAssociation = element.getNaryAssociation();
         if (this.theNaryAssociation != null) {
             final EList<NaryAssociationEnd> roles = this.theNaryAssociation.getNaryEnd();
-            this.displayedRoles = new ArrayList<> (roles.size());
+            this.displayedRoles = new ArrayList<>(roles.size());
             this.displayedRoles.add(this.theEditedElement);
             for (NaryAssociationEnd r : roles) {
-                if (!r.equals(this.theEditedElement))
+                if (!r.equals(this.theEditedElement)) {
                     this.displayedRoles.add(r);
+                }
             }
         }
     }
@@ -180,21 +182,22 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
     @objid ("8ed0ffd5-c068-11e1-8c0a-002564c97630")
     @Override
     public Object getValueAt(int row, int col) {
-        if (row == 1 ) {
+        if (row == 1) {
             // NaryAssociation name row
-            if (col == 0)
+            if (col == 0) {
                 return AssociationEndNPropertyModel.PROPERTIES[row];
-            else if (col == 1) 
+            } else if (col == 1) {
                 return this.theNaryAssociation.getName();
-            else
+            } else {
                 return "";
+            }
         }
         
         switch (col) {
         case 0: // col 0 is the property name
             return AssociationEndNPropertyModel.PROPERTIES[row];
         default:
-            return getPropertyValue(row, this.displayedRoles.get(col-1));
+            return getPropertyValue(row, this.displayedRoles.get(col - 1));
         }
     }
 
@@ -208,7 +211,7 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
             // NaryAssociation name line
             if (col == 1) {
                 return this.theNaryAssociation.isModifiable();
-            } 
+            }
             // else
             return false;
         } else {
@@ -229,8 +232,8 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
         case 0:
             return;
         default:
-            setPropertyValue(row, this.displayedRoles.get(col-1), value);
-        return;
+            setPropertyValue(row, this.displayedRoles.get(col - 1), value);
+            return;
         }
     }
 
@@ -239,10 +242,11 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
         switch (row) {
         case 0: // Title
             Classifier type = NaryAssociationEnd.getOwner();
-            if (type == null) 
+            if (type == null) {
                 return "";
-            else
+            } else {
                 return MessageFormat.format(MetamodelLabels.getString("Title.from"), type.getName());
+            }
         case 1:
             return this.theNaryAssociation.getName();
         case 2:
@@ -260,13 +264,13 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
         case 7:
             return NaryAssociationEnd.getChangeable();
         case 8:
-            return NaryAssociationEnd.isIsAbstract()?Boolean.TRUE:Boolean.FALSE;
+            return NaryAssociationEnd.isIsAbstract() ? Boolean.TRUE : Boolean.FALSE;
         case 9:
-            return NaryAssociationEnd.isIsClass()?Boolean.TRUE:Boolean.FALSE;
+            return NaryAssociationEnd.isIsClass() ? Boolean.TRUE : Boolean.FALSE;
         case 10:
-            return NaryAssociationEnd.isIsOrdered()?Boolean.TRUE:Boolean.FALSE;
+            return NaryAssociationEnd.isIsOrdered() ? Boolean.TRUE : Boolean.FALSE;
         case 11:
-            return NaryAssociationEnd.isIsUnique()?Boolean.TRUE:Boolean.FALSE;
+            return NaryAssociationEnd.isIsUnique() ? Boolean.TRUE : Boolean.FALSE;
         default:
             return null;
         }
@@ -279,7 +283,7 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
             return;
         case 1:
             if (this.theNaryAssociation != null) {
-                this.theNaryAssociation.setName((String)value);
+                this.theNaryAssociation.setName((String) value);
             }
             break;
         case 2:

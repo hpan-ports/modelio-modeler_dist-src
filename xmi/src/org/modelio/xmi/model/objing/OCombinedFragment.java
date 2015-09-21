@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -27,9 +27,6 @@ import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 
 @objid ("6d1a66a8-3ffa-4b45-9d2b-39b046579cb2")
 public class OCombinedFragment extends OInteractionFragment {
-    @objid ("3720a262-0d4b-4688-841d-87c5555f08a2")
-    private CombinedFragment objingElt = null;
-
     @objid ("9ab13606-2687-458c-a678-6b418f74bbdc")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -39,7 +36,6 @@ public class OCombinedFragment extends OInteractionFragment {
     @objid ("e6118095-0945-4849-b9ae-caf4b8020d02")
     public OCombinedFragment(CombinedFragment param) {
         super(param);
-        this.objingElt = param;
     }
 
     @objid ("647d2071-9566-41ba-ae52-d6b41e234fba")
@@ -58,7 +54,7 @@ public class OCombinedFragment extends OInteractionFragment {
 
     @objid ("721d1809-0183-49af-bb62-ed4381fe56cc")
     private void setInteractionOperator(org.eclipse.uml2.uml.CombinedFragment ecoreElt) {
-        switch (this.objingElt.getOperator()) {
+        switch (getObjingElement().getOperator()) {
         case ALTOP:
             ecoreElt
             .setInteractionOperator (org.eclipse.uml2.uml.InteractionOperatorKind.ALT_LITERAL);
@@ -110,6 +106,12 @@ public class OCombinedFragment extends OInteractionFragment {
         default:
             break;
         }
+    }
+
+    @objid ("00308287-7148-4208-a4bd-fe33df276c54")
+    @Override
+    public CombinedFragment getObjingElement() {
+        return (CombinedFragment) super.getObjingElement();
     }
 
 }

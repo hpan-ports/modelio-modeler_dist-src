@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.umlcommon.diagramheader;
 
@@ -27,7 +27,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.widgets.Display;
-import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
+import org.modelio.diagram.elements.common.label.modelelement.ModelElementLabelEditPart;
 import org.modelio.diagram.elements.core.figures.IPenOptionsSupport;
 import org.modelio.diagram.elements.core.figures.IShaper;
 import org.modelio.diagram.elements.core.figures.borders.ShapedBorder;
@@ -41,7 +41,7 @@ import org.modelio.diagram.styles.core.IStyle;
  * @author cmarin
  */
 @objid ("812bc5b2-1dec-11e2-8cad-001ec947c8cc")
-public class DiagramHeaderEditPart extends ModelElementFlatHeaderEditPart {
+public class DiagramHeaderEditPart extends ModelElementLabelEditPart {
     @objid ("812bc5b4-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void refreshFromStyle(final IFigure headerFigure, final IStyle style) {

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.interactionuse;
 
@@ -30,7 +30,6 @@ import org.modelio.diagram.editor.sequence.elements.sequencediagram.GmSequenceDi
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.gproject.model.IElementConfigurator;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionUse;
@@ -87,13 +86,15 @@ public class CreateInteractionUseCommand extends Command {
             final IModelFactory modelFactory = modelManager.getModelFactory(parentElement);
             newElement = (InteractionUse) modelFactory.createElement(this.context.getMetaclass());
         
-            // The new element must be attached to its parent using the composition dependency 
-            // provided by the context. 
+            // The new element must be attached to its parent using the composition dependency
+            // provided by the context.
             // If the context provides a null dependency, use the default dependency recommended by the metamodel
         
-            final MDependency effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(parentElement, newElement);
+            final MDependency effectiveDependency = modelManager.getMetamodel().getMExpert()
+                    .getDefaultCompositionDep(parentElement, newElement);
             if (effectiveDependency == null) {
-                throw new IllegalStateException("Cannot find a composition dependency to attach " + newElement.toString() + " to " + parentElement.toString());
+                throw new IllegalStateException("Cannot find a composition dependency to attach " + newElement.toString() + " to "
+                        + parentElement.toString());
             }
         
             parentElement.mGet(effectiveDependency).add(newElement);
@@ -105,8 +106,8 @@ public class CreateInteractionUseCommand extends Command {
         
             // Configure element from properties
             final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
-            elementConfigurer.configure(modelManager.getModelFactory(newElement), newElement, this.context.getProperties());
-            
+            elementConfigurer.configure(newElement, this.context.getProperties());
+        
             // Set default name
             newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
         

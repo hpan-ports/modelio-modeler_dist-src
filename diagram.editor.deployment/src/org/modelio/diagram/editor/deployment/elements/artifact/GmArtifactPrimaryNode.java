@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.deployment.elements.artifact;
 
@@ -35,7 +35,7 @@ import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.freezone.GmFreeZone;
 import org.modelio.diagram.elements.common.group.GmGroup;
 import org.modelio.diagram.elements.common.header.GmModelElementHeader;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNoStyleCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -281,7 +281,7 @@ public class GmArtifactPrimaryNode extends GmNoStyleCompositeNode implements IIm
         String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -317,9 +317,9 @@ public class GmArtifactPrimaryNode extends GmNoStyleCompositeNode implements IIm
     @objid ("971d6afd-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-                
+        
         final List<GmNodeModel> children = getChildren();
-                
+        
         this.header = (GmModelElementHeader) children.get(0);
         this.attributeGroup = (GmGroup) children.get(1);
         this.methodGroup = (GmGroup) children.get(2);
@@ -327,7 +327,7 @@ public class GmArtifactPrimaryNode extends GmNoStyleCompositeNode implements IIm
         GmFreeZone internalStructureZone = (GmFreeZone) children.get(4);
         GmGroup innerGroup = (GmGroup) children.get(5);
         GmFreeZone innerZone = (GmFreeZone) children.get(6);
-        GmDefaultFlatHeader imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(7);
+        GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(7);
         
         // Migrate inner group/zone
         removeChild(innerGroup);
@@ -381,7 +381,7 @@ public class GmArtifactPrimaryNode extends GmNoStyleCompositeNode implements IIm
         addChild(this.internalStructure);
         
         // Delete image mode label
-        GmDefaultFlatHeader imageModeHeader = (GmDefaultFlatHeader) getFirstChild("ImageHeader");
+        GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) getFirstChild("ImageHeader");
         imageModeHeader.delete();
     }
 

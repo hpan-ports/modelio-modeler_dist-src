@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.ui;
 
@@ -56,17 +56,20 @@ public interface UIColor {
     @objid ("538ae918-32e9-4ea7-af41-f2499091f8eb")
     public static final Color RED = new Color(Display.getCurrent(), 255, 0, 0);
 
+    @objid ("862134df-7759-4869-909f-0ab3e57e5b9b")
+    public static final Color ORANGE = new Color(Display.getCurrent(), 255, 196, 0);
+
     /**
      * KTable even/odd row colors
      */
     @objid ("5b2dbf7e-3a56-44f3-9b1f-18ea5a439ef7")
-    public static final Color TABLE_EVENROW_BG = new Color(Display.getCurrent(), 230, 240, 255);
+    public static final Color TABLE_EVENROW_BG = new Color(Display.getCurrent(), 230, 230, 230);
 
     @objid ("437f9b75-ad58-40f6-a707-0e1ac8bbc4a6")
-    public static final Color TABLE_ODDROW_BG = new Color(Display.getCurrent(), 245, 255, 255);
+    public static final Color TABLE_ODDROW_BG = new Color(Display.getCurrent(), 255, 255, 255);
 
     @objid ("49f5619d-a70a-4f3c-a3df-2faa1b846f4d")
-    public static final Color TABLE_HEADER_BG = new Color(Display.getCurrent(), 212, 208, 200);
+    public static final Color TABLE_HEADER_BG = new Color(Display.getCurrent(), 220, 220, 220);
 
     /**
      * Text Field colors

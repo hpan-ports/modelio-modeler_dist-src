@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.analyst;
 
@@ -65,22 +65,22 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
      * </ul>
      */
     @objid ("c0a489d7-01b3-49a9-90c5-1f773ef29dab")
-    private List<String> properties = new ArrayList<>();
+    private final List<String> properties = new ArrayList<>();
 
     @objid ("0f50849f-58aa-4947-a48a-de08dc00893a")
-    private StringType labelStringType = new StringType(false);
+    private static final StringType labelStringType = new StringType(false);
 
     @objid ("f7aad23e-5022-4cd7-b3ac-4a7807fe3c0f")
-    private StringType stringType = new StringType(true);
+    private static final StringType stringType = new StringType(true);
 
     @objid ("1d470ef1-bcdd-4b1f-a008-b23af285ebcd")
-    private BooleanType booleanType = new BooleanType();
+    private static final BooleanType booleanType = new BooleanType();
 
     @objid ("e97e7fe6-e2e9-47f7-b647-90e22fac2b55")
-    private Map<EnumeratedPropertyType, ListType> listType = new HashMap<>();
+    private final Map<EnumeratedPropertyType, ListType> listType = new HashMap<>();
 
     @objid ("0a282ac8-f270-4d98-8e9f-469c4b708e98")
-    protected IMModelServices modelService;
+    protected final IMModelServices modelService;
 
     @objid ("e342e29e-bc3c-476b-8cd5-a7708ad2dbcb")
     protected final IModel model;
@@ -89,18 +89,18 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
      * The Modelio activation service to use to open the rich note.
      */
     @objid ("308df6d0-79ff-46e3-a12b-247df204acfc")
-    private IActivationService activationService;
+    private final IActivationService activationService;
 
     @objid ("fc570747-81ad-4378-a903-b42282c78f21")
-    private IProjectService projectService;
+    private final IProjectService projectService;
 
     @objid ("d55922bd-aeac-47a9-ba1e-8f7616de37cb")
-    private SingleElementType elementType;
+    private final SingleElementType elementType;
 
     @objid ("06007e66-93e6-4afe-96b2-18786f2bde82")
     protected AbstractAnalystContainerPropertyModel(T editedElement, IMModelServices modelService, IProjectService projectService, IActivationService activationService, IModel model) {
         super(editedElement);
-        this.elementType = new SingleElementType(true, Element.class, projectService.getSession());
+        this.elementType = new SingleElementType(true, Element.class, projectService != null ? projectService.getSession() : null);
         
         this.modelService = modelService;
         this.model = model;
@@ -177,12 +177,12 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
             }
             else if (isPropertyRow(row)) {
                 return getPropertyValue(row - 4);
-            }
-            else
+            } else {
                 return null;
-        }
-        else
+            }
+        } else {
             return null;
+        }
     }
 
     /**
@@ -200,15 +200,15 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         if (col == 0) {
-            return this.labelStringType;
+            return AbstractAnalystContainerPropertyModel.labelStringType;
         }
         else if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
-                return this.labelStringType;
+                return AbstractAnalystContainerPropertyModel.labelStringType;
             }
             else if (row == 1) {
-                return this.stringType;
+                return AbstractAnalystContainerPropertyModel.stringType;
             }
             else if (row == 2) {
                 return getAvailableSets();
@@ -218,12 +218,12 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
             }
             else if (isPropertyRow(row)) {
                 return getPropertyType(row - 4);
-            }
-            else 
+            } else {
                 return null;
-        }
-        else 
+            }
+        } else {
             return null;
+        }
     }
 
     /**
@@ -293,7 +293,7 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
         if (stringValue != null) {
             if (isBooleanProperty) {
                 return new Boolean(stringValue);
-            } else if (isElement) {
+            } else if (isElement && this.projectService != null) {
                 try {
                     return this.projectService.getSession().getModel().findByRef(new MRef(stringValue));
                 } catch (Exception e) {
@@ -306,7 +306,7 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
         
         // No value is already defined for this property, return the default
         // value.
-        if (isElement) {
+        if (isElement && this.projectService != null) {
             try {
                 return this.projectService.getSession().getModel().findByRef(new MRef(property.getDefaultValue()));
             } catch (Exception e) {
@@ -342,19 +342,23 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
         } else {
             // property is not an enumerated, try the known property types
             String propertyName = propertyType.getName();
-            if (propertyName.equals("Boolean")) {
-                return this.booleanType;
-            } else if (propertyName.equals("Element")) {
+            switch (propertyName) {
+            case "Boolean":
+                return AbstractAnalystContainerPropertyModel.booleanType;
+            case "Element":
                 return this.elementType;
-            } else if (propertyName.equals("MultiText")) {
+            case "MultiText":
                 return new MultilineStringType(this.theEditedElement, "Text", true);
-            } else if (propertyName.equals("Text") || propertyName.equals("Integer") || propertyName.equals("Real") || propertyName.equals("Date")) {
-                return this.stringType;
-            } else if (propertyName.equals("RichText")) { //$NON-NLS-1$
+            case "Text":
+            case "Integer":
+            case "Real":
+            case "Date":
+                return AbstractAnalystContainerPropertyModel.stringType;
+            case "RichText":
                 return new ScopeRichTextType(this.theEditedElement, true, this.projectService, this.activationService);
-            } else {
+            default:
                 // Unknown property type, treat as a text
-                return this.stringType;
+                return AbstractAnalystContainerPropertyModel.stringType;
             }
         }
     }

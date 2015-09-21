@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.mda.infra.catalog;
 
@@ -30,7 +30,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.core.ModelioEnv;
 import org.modelio.ui.progress.IModelioProgressService;
 
+/**
+ * E4 handler to open the modules catalog.
+ */
 @objid ("ffa63e83-a8c7-41d1-84e3-3feb029bfd80")
+@SuppressWarnings("javadoc")
 public class OpenCatalogHandler {
     @objid ("37e43d6f-19db-4c68-9d65-89ce0be1bb60")
     @Execute

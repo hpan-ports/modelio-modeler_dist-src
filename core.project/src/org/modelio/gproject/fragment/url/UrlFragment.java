@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.fragment.url;
 
@@ -35,11 +35,13 @@ import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.FragmentType;
 import org.modelio.gproject.data.project.GAuthConf;
 import org.modelio.gproject.data.project.GProperties;
-import org.modelio.gproject.data.project.VersionDescriptors;
+import org.modelio.gproject.data.project.MetamodelDescriptor;
 import org.modelio.gproject.fragment.AbstractFragment;
+import org.modelio.gproject.fragment.FragmentMigrationNeededException;
+import org.modelio.gproject.fragment.VersionHelper;
 import org.modelio.gproject.gproject.GProjectEvent;
 import org.modelio.gproject.plugin.CoreProject;
-import org.modelio.metamodel.Metamodel;
+import org.modelio.metamodel.StandardMetamodel;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.Project;
@@ -47,11 +49,13 @@ import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.net.UriConnections;
 import org.modelio.vbasic.net.UriUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
+import org.modelio.vbasic.version.Version;
+import org.modelio.vbasic.version.VersionedItem;
 import org.modelio.vcore.session.api.IAccessManager;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.impl.permission.BasicAccessManager;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vstore.exml.local.ExmlBase;
 import org.modelio.vstore.exml.resource.UriExmlResourceProvider;
 
@@ -72,7 +76,7 @@ public class UrlFragment extends AbstractFragment {
     private URI repoUrl;
 
     @objid ("e77ded08-03f8-11e2-9ef9-001ec947ccaf")
-    private ExmlBase repository;
+    private IRepository repository;
 
     /**
      * Instantiate an URL based EXML fragment.
@@ -130,9 +134,10 @@ public class UrlFragment extends AbstractFragment {
     @objid ("e77ded00-03f8-11e2-9ef9-001ec947ccaf")
     @Override
     public Collection<MObject> doGetRoots() {
-        Collection<MObject> roots = this.repository.findByClass(SmClass.getClass(Project.class));
-        roots.addAll(this.repository.findByClass(SmClass.getClass(AnalystProject.class)));
-        roots.addAll(this.repository.findByClass(SmClass.getClass(ModuleComponent.class)));
+        SmMetamodel mm = getProjectMetamodel();
+        Collection<MObject> roots = this.repository.findByClass(mm.getMClass(Project.class));
+        roots.addAll(this.repository.findByClass(mm.getMClass(AnalystProject.class)));
+        roots.addAll(this.repository.findByClass(mm.getMClass(ModuleComponent.class)));
         return roots;
     }
 
@@ -153,34 +158,38 @@ public class UrlFragment extends AbstractFragment {
 
     @objid ("9e5e011e-35c0-47c4-ba4f-9b3f87bdb652")
     @Override
-    public VersionDescriptors getMetamodelVersion() throws IOException {
+    public MetamodelDescriptor getRequiredMetamodelDescriptor() throws IOException {
         URI mmuri = UriUtils.asDirectoryUri(this.repoUrl).resolve("admin/").resolve(MMVERSION_FILE_NAME);
         
         try (InputStream is = UriConnections.openInputStream(mmuri, getAuthData());
                 InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8)) {
-            return new VersionDescriptors(in);
+            return VersionHelper.convert(new MetamodelDescriptor(in));
+        
         } catch (FileNotFoundException | NoSuchFileException e) {
             Log.warning("No '"+mmuri+"' metamodel version file. Assume Modelio 3.1 (9020) metamodel version.");
-            return VersionDescriptors.current(9020);
+            return new MetamodelDescriptor(new VersionedItem<Void>(StandardMetamodel.NAME, VersionHelper.convert(9020)));
         }
     }
 
-    @objid ("aa4fba17-786f-454b-afa1-abaf26f4ae6c")
+    @objid ("4c73ae6b-825d-4f39-87e5-83b207113e18")
     @Override
-    protected void checkMmVersion() throws IOException {
-        VersionDescriptors fragmentVersion = getMetamodelVersion();
-        if (! fragmentVersion.isSame(getLastMmVersion())) {
+    protected void checkRequiredMmFragment(VersionedItem<?> neededMmFragment, MetamodelDescriptor currentMmVersions) throws FragmentMigrationNeededException, IOException {
+        if (neededMmFragment.getName().equals(StandardMetamodel.NAME)) {
             // last compatible version 9017
             // first incompatible version 9016
-            final int mmVersion = fragmentVersion.getMmVersion();
-            if (mmVersion < 9017 || mmVersion > Integer.parseInt(Metamodel.VERSION)) {
+        
+            final Version neededVersion = neededMmFragment.getVersion();
+        
+            if (neededVersion.isOlderThan(VersionHelper.convert(9017)) || neededVersion.isNewerThan(new Version(StandardMetamodel.VERSION))) {
                 // too old or more recent than Modelio
-                String msg = CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, getLastMmVersion().toString());
+                String msg = CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), neededVersion, StandardMetamodel.VERSION);
                 throw new IOException(msg);
             } else {
-                String msg = CoreProject.getMessage("AbstractFragment.DifferentMmVersion", getId(), fragmentVersion, getLastMmVersion().toString());
+                String msg = CoreProject.getMessage("AbstractFragment.DifferentMmVersion", getId(), neededVersion, StandardMetamodel.VERSION);
                 getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, msg));
             }
+        } else {
+            super.checkRequiredMmFragment(neededMmFragment, currentMmVersions);
         }
     }
 

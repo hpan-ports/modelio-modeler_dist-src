@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.project.ui.views.infos;
 
@@ -184,6 +184,8 @@ public class ProjectInfoHtmlGenerator {
         replaceAll(source, "$mail_subject", this.projectAdapter.getName().replaceAll(" ", "%20"));
         replaceAll(source, "$project_storage_path", this.projectAdapter.getStoragePathString());
         replaceAll(source, "$project_storage_last_modification_time", this.projectAdapter.getStorageLastModificationTimeString());
+        String remoteLocation = this.projectAdapter.getProjectDescriptor().getRemoteLocation()==null? "" : this.projectAdapter.getProjectDescriptor().getRemoteLocation();
+        replaceAll(source, "$project_remote_location", remoteLocation);
         
         if (contactName==null ||contactName.isEmpty()) {
             replaceAll(source, "$display_sendMail_icon", "none");
@@ -266,7 +268,7 @@ public class ProjectInfoHtmlGenerator {
     private StringBuilder replaceTemplateFixContent(StringBuilder sb) {
         Pattern myPattern = Pattern.compile("\\[\\#([^\\]]*)\\#\\]");
         Matcher m = myPattern.matcher(sb.toString());
-        while (m.find()) {  
+        while (m.find()) {
             String toReplace = m.group(1);
             replaceAll(sb, "[#"+toReplace+"#]", AppProjectUi.I18N.getString(toReplace));
         }
@@ -353,9 +355,9 @@ public class ProjectInfoHtmlGenerator {
             content.append("<td>");
             String fDescription = fragment.getProperties().getValue("FragmentDescription");
             if (fDescription != null && fDescription.length() > 0) {
-                content.append("<textarea class='librarieDescriptorTextarea' rows='3' readonly>");
+                content.append("<div class='librarieDescriptorTextarea'>");
                 content.append(fDescription);
-                content.append("</textarea>");
+                content.append("</div>");
             }
             content.append("</td>");
         

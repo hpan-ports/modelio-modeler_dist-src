@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package com.sun.star.comp.beans;
 
@@ -434,7 +434,7 @@ public class SwtLinuxOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoConnectionException if no connection can be established.
      */
     @objid ("07aac08c-161a-474b-b03b-f69f957c2680")
-    public void loadFromURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws NoConnectionException, com.sun.star.util.CloseVetoException, IOException {
+    public void loadFromURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, NoConnectionException, com.sun.star.util.CloseVetoException {
         dbgPrint("loadFromURL()");
         // try loading
         try {
@@ -571,7 +571,7 @@ public class SwtLinuxOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoConnectionException if no connection is established.
      */
     @objid ("4d89ade2-512a-4946-b619-c42a020b0712")
-    public void loadFromStream(final java.io.InputStream iInStream, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, com.sun.star.util.CloseVetoException, NoConnectionException {
+    public void loadFromStream(final java.io.InputStream iInStream, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, NoConnectionException, com.sun.star.util.CloseVetoException {
         // wrap Java stream into UNO stream
         /*
         com.sun.star.io.XInputStream xStream = 
@@ -621,7 +621,7 @@ public class SwtLinuxOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoConnectionException if no connection is established.
      */
     @objid ("da81b05e-9dbc-47f4-b336-9c61133c9d97")
-    public void loadFromByteArray(final byte[] aInBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws com.sun.star.util.CloseVetoException, IOException, NoConnectionException {
+    public void loadFromByteArray(final byte[] aInBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, NoConnectionException, com.sun.star.util.CloseVetoException {
         // wrap byte arrray into UNO stream
         com.sun.star.io.XInputStream xStream = new com.sun.star.lib.uno.adapter.ByteArrayToXInputStreamAdapter(aInBuffer);
         
@@ -660,7 +660,7 @@ public class SwtLinuxOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("69d5d7f5-c4d2-424c-b73a-924f8f4241d6")
-    public void storeToURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, NoDocumentException, IOException, NoConnectionException {
+    public void storeToURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, IllegalArgumentException, NoConnectionException, NoDocumentException {
         // no document available?
         if (this.aDocument == null)
             throw new NoDocumentException();
@@ -698,7 +698,7 @@ public class SwtLinuxOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("a877a1c5-2b39-4614-ae33-ae1a693ed76f")
-    public java.io.OutputStream storeToStream(final java.io.OutputStream aOutStream, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, NoConnectionException, IllegalArgumentException, NoDocumentException {
+    public java.io.OutputStream storeToStream(final java.io.OutputStream aOutStream, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, IllegalArgumentException, NoConnectionException, NoDocumentException {
         // wrap Java stream into UNO stream
         com.sun.star.lib.uno.adapter.OutputStreamToXOutputStreamAdapter aStream = new com.sun.star.lib.uno.adapter.OutputStreamToXOutputStreamAdapter(aOutStream);
         
@@ -737,7 +737,7 @@ public class SwtLinuxOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("a3832bf6-0f98-4ccc-a296-36c942c77e02")
-    public byte[] storeToByteArray(final byte[] aOutBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, NoDocumentException, NoConnectionException, IOException {
+    public byte[] storeToByteArray(final byte[] aOutBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, IllegalArgumentException, NoConnectionException, NoDocumentException {
         // wrap byte arrray into UNO stream
         com.sun.star.lib.uno.adapter.XOutputStreamToByteArrayAdapter aStream = new com.sun.star.lib.uno.adapter.XOutputStreamToByteArrayAdapter(aOutBuffer);
         
@@ -1190,7 +1190,7 @@ public class SwtLinuxOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("629c335b-ba52-4850-9cdf-fe4bd2d15288")
-    public void storeAsURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws NoConnectionException, NoDocumentException, IOException, IllegalArgumentException {
+    public void storeAsURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, IllegalArgumentException, NoConnectionException, NoDocumentException {
         // no document available?
         if (this.aDocument == null)
             throw new NoDocumentException();
@@ -1250,7 +1250,7 @@ public class SwtLinuxOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("29873458-1712-46df-b96d-655c55c36a51")
-    public void store() throws NoDocumentException, IllegalArgumentException, IOException, NoConnectionException {
+    public void store() throws IOException, IllegalArgumentException, NoConnectionException, NoDocumentException {
         // no document available?
         if (this.aDocument == null)
             throw new NoDocumentException();

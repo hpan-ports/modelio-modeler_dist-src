@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.nsuse;
 
@@ -34,7 +34,6 @@ import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.GProject;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
@@ -60,6 +59,7 @@ import org.modelio.vcore.smkernel.mapi.MDependency;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vcore.smkernel.meta.SmDependency;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Blue links builder.
@@ -98,35 +98,16 @@ public class NSUseUpdater implements ITransactionClosureHandler {
     @objid ("9a73b617-b8c3-4a02-8fde-3f0af66ee94a")
     @Override
     public void commit(ITransaction transaction) {
-        // Analyse the transaction to get the list of object to process
-        //if (Vaudit.LOG.isDebugEnabled()) {
-        //    Vaudit.LOG.debug("--- NSUseUpdater BEGIN ----------------------------------------------------");
-        //    Vaudit.LOG.debug("1 - analysing transaction");
-        //}
-        
         this.actionVisitor.reset();
         ((Transaction) transaction).accept(this.actionVisitor);
         List<MObject> objsToRebuild = new ArrayList<>(this.actionVisitor.getResults());
         
-        //Vaudit.LOG.debug("\tthere are %d objects to process.", objsToRebuild.size());
-        
-        // Build the NSuse
-        //if (Vaudit.LOG.isDebugEnabled())
-        //    Vaudit.LOG.debug("2 - building NamespaceUses");
-        //int i = 1;
         for (MObject o : objsToRebuild) {
-            //if (Vaudit.LOG.isDebugEnabled())
-            //    Vaudit.LOG.debug("\t- processing object %d/%d -> '%s' %s ", i, objsToRebuild.size(), o.getName(), o.getMClass().getName());
             if (o.isValid() && o instanceof Element) {
                 NSUseUtils.dereferenceNSUsesCausedBy((Element) o);
                 this.useBuilder.buildFor((Element) o);
             }
-            //i++;
         }
-        //if (Vaudit.LOG.isDebugEnabled())
-        //    Vaudit.LOG.debug("--- NSUseUpdater END ----\n");
-        
-        // Reset visitors (facilitate garbage)
         this.actionVisitor.reset();
     }
 
@@ -351,7 +332,7 @@ public class NSUseUpdater implements ITransactionClosureHandler {
             i++;
             if (mainMon.isCanceled())
                 throw new InterruptedException();
-            
+        
             if (i % 5 == 0)
                 mon.subTask(Vaudit.I18N.getMessage("NSUseUpdater.RebuildAll.ComputeBL", allObjscount, String.valueOf(i)));
         }
@@ -362,7 +343,7 @@ public class NSUseUpdater implements ITransactionClosureHandler {
 
     @objid ("e3b8f3db-1cd6-47cd-abbe-48b7ae5e9e02")
     private boolean dump(List<MObject> allObjs) {
-        List<SmClass> classes = SmClass.getRegisteredClasses();
+        List<SmClass> classes = this.session.getMetamodel().getRegisteredMClasses();
         int nbClasses = classes.size();
         long[] count = new long[nbClasses];
         
@@ -374,7 +355,7 @@ public class NSUseUpdater implements ITransactionClosureHandler {
         StringBuilder s = new StringBuilder();
         s.append("Project content:\n");
         for (short i = 0; i < nbClasses; i++) {
-            SmClass cls = SmClass.getClass(i);
+            SmClass cls = this.session.getMetamodel().getMClass(i);
             if (!cls.isAbstract()) {
                 s.append(cls.getName());
                 s.append(":");
@@ -395,7 +376,7 @@ public class NSUseUpdater implements ITransactionClosureHandler {
      */
     @objid ("e2ddf265-99ae-4ec0-aac5-4763334e0b23")
     public void cleanNamespaceUses(IModelioProgress amonitor) {
-        final Collection<MObject> nsuses = this.nsUseRepo.findByClass(SmClass.getClass(NamespaceUse.class));
+        final Collection<MObject> nsuses = this.nsUseRepo.findByClass(this.session.getMetamodel().getMClass(NamespaceUse.class));
         final int nbuses = nsuses.size();
         final SubProgress m = SubProgress.convert(amonitor, nbuses);
         int i=0;
@@ -412,7 +393,7 @@ public class NSUseUpdater implements ITransactionClosureHandler {
                 if (!c.isValid())
                     it.remove();
             }
-            
+        
             if (++i % 11 == 1) {
                 m.worked(11);
                 m.subTask(Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.CleaningN", String.valueOf(i), String.valueOf(nbuses)));
@@ -446,52 +427,46 @@ public class NSUseUpdater implements ITransactionClosureHandler {
      */
     @objid ("19ab1276-0b88-4cb8-89ab-1db7dc96af52")
     private Collection<MObject> findAllEditableObjects() {
-        final SmClass MOBJECT_CLASS = SmClass.getClass(MObject.class);
+        final SmClass MOBJECT_CLASS = this.session.getMetamodel().getMClass(MObject.class);
         Collection<MObject> ret = new ArrayList<>();
         
         for (IProjectFragment f : this.gproject.getFragments()) {
             boolean isRamc = true;
             for (MObject obj : f.getRoots()) {
                 isRamc = obj.getStatus().isRamc();
-                if (! isRamc) 
+                if (! isRamc)
                     break;
             }
-            
-            if (! isRamc) 
+        
+            if (! isRamc)
                 ret.addAll(f.getRepository().findByClass(MOBJECT_CLASS));
-            
+        
         }
         return ret;
     }
 
     @objid ("e986ecdc-174d-467b-919e-700848409f13")
     static class ActionVisitor implements IActionVisitor {
-        @objid ("1169c2a0-9067-4183-95de-83c13c944e89")
-        private final MClass Element_MClass = Metamodel.getMClass(Element.class);
-
         @objid ("8b3d271d-421e-422d-8598-cbc4656103e4")
-        private final MClass NamespaceUse_MClass = Metamodel.getMClass(NamespaceUse.class);
-
-        @objid ("e1190042-c3aa-4aae-8144-40d0aa952868")
-        private final MClass NameSpace_MClass = Metamodel.getMClass(NameSpace.class);
+        private final SmClass namespaceUse_MClass;
 
         @objid ("70bbd527-ad2d-4fa4-a45b-e21638ef96b8")
-        private final MDependency NameSpace_user_NamespaceUse = this.NameSpace_MClass.getDependency("UserNsu");
+        private final MDependency nameSpace_user_NamespaceUse;
 
         @objid ("6dd5f822-8a10-451d-9c7c-d4217dbf1715")
-        private final MDependency NameSpace_used_NamespaceUse = this.NameSpace_MClass.getDependency("UsedNsu");
+        private final MDependency nameSpace_used_NamespaceUse;
 
         @objid ("9bab6d0c-50f8-4f3f-a384-7fdab6e0cce9")
-        private final MDependency NamespaceUse_cause_Element = this.NamespaceUse_MClass.getDependency("Cause");
+        private final MDependency namespaceUse_cause_Element;
 
         @objid ("f57158ce-f8e1-45a8-9596-314894d8f75e")
-        private final MDependency NamespaceUse_user_NameSpace = this.NamespaceUse_MClass.getDependency("User");
+        private final MDependency namespaceUse_user_NameSpace;
 
         @objid ("73569436-1acb-4e55-833a-c5d563ea65ea")
-        private final MDependency NamespaceUse_used_NameSpace = this.NamespaceUse_MClass.getDependency("Used");
+        private final MDependency namespaceUse_used_NameSpace;
 
         @objid ("dfaeeeff-68d4-481f-80bd-9f467e743861")
-        private final MDependency Element_causing_NamespaceUse = this.Element_MClass.getDependency("Causing");
+        private final MDependency element_causing_NamespaceUse;
 
         @objid ("d87deada-b134-41a9-a9bd-28c9780c9641")
         private Set<MObject> objsToRebuild = new HashSet<>();
@@ -502,6 +477,20 @@ public class NSUseUpdater implements ITransactionClosureHandler {
         @objid ("cc00abe8-586b-429b-8c51-4d5554ca0007")
         public ActionVisitor(NSUseUpdater updater) {
             this.updater = updater;
+            
+            SmMetamodel metamodel = updater.session.getMetamodel();
+            
+            this.namespaceUse_MClass = metamodel.getMClass(NamespaceUse.class);
+            this.namespaceUse_cause_Element = this.namespaceUse_MClass.getDependency("Cause");
+            this.namespaceUse_user_NameSpace = this.namespaceUse_MClass.getDependency("User");
+            this.namespaceUse_used_NameSpace = this.namespaceUse_MClass.getDependency("Used");
+            
+            MClass nameSpace_MClass = metamodel.getMClass(NameSpace.class);
+            this.nameSpace_user_NamespaceUse = nameSpace_MClass.getDependency("UserNsu");
+            this.nameSpace_used_NamespaceUse = nameSpace_MClass.getDependency("UsedNsu");
+            
+            MClass element_MClass = metamodel.getMClass(Element.class);
+            this.element_causing_NamespaceUse = element_MClass.getDependency("Causing");
         }
 
         @objid ("fbba389e-9ebe-402d-9e28-4de9029dca02")
@@ -557,9 +546,9 @@ public class NSUseUpdater implements ITransactionClosureHandler {
             //            dep.getName(), obj.getName(), obj.getMClass().getName());
             
             // Abort cases: do nothing
-            if (dep == this.NameSpace_user_NamespaceUse ||
-                dep == this.NameSpace_used_NamespaceUse || 
-                dep == this.Element_causing_NamespaceUse) {
+            if (dep == this.nameSpace_user_NamespaceUse ||
+                dep == this.nameSpace_used_NamespaceUse ||
+                dep == this.element_causing_NamespaceUse) {
                 //if (Vaudit.LOG.isDebugEnabled())
                 //    Vaudit.LOG.debug("\t\t\t=>ignore, dep is user/use/cause");
                 return;
@@ -579,27 +568,27 @@ public class NSUseUpdater implements ITransactionClosureHandler {
                 this.objsToRebuild.add(obj);
                 if (value != null && value.isValid()) {
                     // it is a move
-                    
+            
                     //if (Vaudit.LOG.isDebugEnabled())
                     //    Vaudit.LOG.debug("\t\t\t\t=>add object '%s' (%s)", o.getName(), o.getMClass().getName());
                     this.objsToRebuild.addAll(this.updater.onObjectMovedFrom(value, obj));
                 }
             
-            } else if (obj.getMClass() == this.NamespaceUse_MClass) {
+            } else if (obj.getMClass() == this.namespaceUse_MClass) {
                 //if (Vaudit.LOG.isDebugEnabled())
                 //    Vaudit.LOG.debug("\t\t\t=>ignore, the modified object is a nsu");
                 NamespaceUse nsu = (NamespaceUse) obj;
-                if (dep == this.NamespaceUse_cause_Element) {
+                if (dep == this.namespaceUse_cause_Element) {
                     if (nsu.getCause().isEmpty()) {
                         NSUseUtils.dereferenceNSUsesCausedBy(nsu);
                         nsu.delete(); // delete the useless use
                     }
-                } else if (dep == this.NamespaceUse_user_NameSpace) {
+                } else if (dep == this.namespaceUse_user_NameSpace) {
                     if (nsu.getUser() == null) {
                         NSUseUtils.dereferenceNSUsesCausedBy(nsu);
                         nsu.delete();
                     }
-                } else if (dep == this.NamespaceUse_used_NameSpace) {
+                } else if (dep == this.namespaceUse_used_NameSpace) {
                     if (nsu.getUsed() == null) {
                         NSUseUtils.dereferenceNSUsesCausedBy(nsu);
                         nsu.delete();
@@ -625,7 +614,7 @@ public class NSUseUpdater implements ITransactionClosureHandler {
             //            .getMClass().getName());
             
             if ((obj.isDeleted())
-                    || (value != null && value.getMClass() == this.NamespaceUse_MClass || (obj.getMClass() == this.NamespaceUse_MClass))) {
+                    || (value != null && value.getMClass() == this.namespaceUse_MClass || (obj.getMClass() == this.namespaceUse_MClass))) {
                 // do nothing
                 //if (Vaudit.LOG.isDebugEnabled())
                 //    Vaudit.LOG.debug("\t\t\t=>ignore");

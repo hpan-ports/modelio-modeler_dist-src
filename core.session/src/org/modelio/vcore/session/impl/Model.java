@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl;
 
@@ -36,6 +36,7 @@ import org.modelio.vcore.session.api.repository.IRepositorySupport;
 import org.modelio.vcore.session.impl.cache.CacheManager;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 import org.modelio.vcore.smkernel.meta.SmClass;
@@ -54,17 +55,21 @@ public class Model implements IModel {
     @objid ("008c8052-5f00-10c8-842f-001ec947cd2a")
     private final IRepositorySupport repositorySupport;
 
+    @objid ("feaf1ad9-3ecf-457d-9f9f-f1e7a08f0f3d")
+    private MMetamodel metamodel;
+
     @objid ("008c8f7a-5f00-10c8-842f-001ec947cd2a")
-    Model(CacheManager cacheManager, IRepositorySupport repositorySupport) {
+    Model(CacheManager cacheManager, IRepositorySupport repositorySupport, MMetamodel metamodel) {
         this.cacheManager = cacheManager;
         this.repositorySupport = repositorySupport;
+        this.metamodel = metamodel;
     }
 
     @objid ("003a9062-61a6-10c8-842f-001ec947cd2a")
     @SuppressWarnings("unchecked")
     @Override
     public <T extends MObject> Collection<T> findByAtt(Class<T> metaclass, final String att, Object val) {
-        MClass cls = SmClass.getClass(metaclass);
+        MClass cls = this.metamodel.getMClass(metaclass);
         return (Collection<T>) findByAtt(cls, att, val);
     }
 
@@ -89,7 +94,7 @@ public class Model implements IModel {
     @SuppressWarnings("unchecked")
     @Override
     public <T extends MObject> Collection<T> findByClass(Class<T> metaclass) {
-        MClass cls = SmClass.getClass(metaclass);
+        MClass cls = this.metamodel.getMClass(metaclass);
         return (Collection<T>) findByClass(cls);
     }
 
@@ -113,7 +118,7 @@ public class Model implements IModel {
     @SuppressWarnings("unchecked")
     @Override
     public <T extends MObject> T findById(Class<T> metaclass, final UUID siteIdentifier) {
-        MClass cls = SmClass.getClass(metaclass);
+        MClass cls = this.metamodel.getMClass(metaclass);
         return (T) findById(cls, siteIdentifier);
     }
 
@@ -136,7 +141,7 @@ public class Model implements IModel {
     @objid ("008e0a44-5f00-10c8-842f-001ec947cd2a")
     @Override
     public MObject findByRef(MRef ref) throws UnknownMetaclassException {
-        MClass cls = SmClass.getClass(ref.mc);
+        MClass cls = this.metamodel.getMClass(ref.mc);
         if (cls == null) {
             throw new UnknownMetaclassException(ref.mc);
         }

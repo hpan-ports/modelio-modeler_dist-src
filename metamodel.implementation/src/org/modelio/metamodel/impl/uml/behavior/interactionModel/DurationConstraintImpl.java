@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.interactionModel.DurationConstraintData;
+import org.modelio.metamodel.impl.uml.behavior.interactionModel.DurationConstraintData;
 import org.modelio.metamodel.impl.uml.infrastructure.ConstraintImpl;
 import org.modelio.metamodel.uml.behavior.interactionModel.DurationConstraint;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -39,48 +51,54 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0043f6ca-c4bf-1fd8-97fe-001ec947cd2a")
 public class DurationConstraintImpl extends ConstraintImpl implements DurationConstraint {
-    @objid ("04c8119a-e45d-4308-a4f7-5a3fa7b4baa0")
+    @objid ("95daa26c-6d71-4a1d-a5ff-eb9b7448c024")
     @Override
     public String getDurationMin() {
-        return (String) getAttVal(DurationConstraintData.Metadata.DurationMinAtt());
+        return (String) getAttVal(((DurationConstraintSmClass)getClassOf()).getDurationMinAtt());
     }
 
-    @objid ("95cee7aa-6433-4d5e-93bf-b9b461f519a8")
+    @objid ("ec7013c2-ae38-4c38-8814-255dc01f064a")
     @Override
     public void setDurationMin(String value) {
-        setAttVal(DurationConstraintData.Metadata.DurationMinAtt(), value);
+        setAttVal(((DurationConstraintSmClass)getClassOf()).getDurationMinAtt(), value);
     }
 
-    @objid ("dd028a2b-5295-43f0-8825-ea6d81b0d100")
+    @objid ("2c6bd0e0-994f-4238-bc60-e05fceee7559")
     @Override
     public String getDurationMax() {
-        return (String) getAttVal(DurationConstraintData.Metadata.DurationMaxAtt());
+        return (String) getAttVal(((DurationConstraintSmClass)getClassOf()).getDurationMaxAtt());
     }
 
-    @objid ("a616fb02-5b3d-477c-86f8-3880ea30636b")
+    @objid ("4021f7be-ec15-44ab-94b0-ecf79d8dc4fb")
     @Override
     public void setDurationMax(String value) {
-        setAttVal(DurationConstraintData.Metadata.DurationMaxAtt(), value);
+        setAttVal(((DurationConstraintSmClass)getClassOf()).getDurationMaxAtt(), value);
     }
 
-    @objid ("76066658-11b7-4052-9cc9-ae2f4e6e3b2b")
+    @objid ("a941fddb-e067-4142-b166-ab4d036c5834")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("910c5726-ab7e-4f8b-94c0-3eec2af8adc1")
+    @objid ("e151ea87-0fbf-4fdd-a621-c7819fbff5cb")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("4eb8be7f-f3e3-48b2-b2ce-deb650ada734")
+    @objid ("0504ad49-cdc8-43ef-83e3-b65c22ad8cca")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDurationConstraint(this);

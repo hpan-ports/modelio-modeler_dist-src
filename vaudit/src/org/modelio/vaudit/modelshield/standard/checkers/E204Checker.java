@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.behavior.usecaseModel.Actor;
@@ -38,7 +37,6 @@ import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Interface;
-import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
@@ -49,6 +47,7 @@ import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.TypeChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * E204:
@@ -87,32 +86,33 @@ public class E204Checker extends TypeChecker {
 
     @objid ("008efd96-e472-1f69-b3fb-001ec947cd2a")
     @Override
-    public void register(final Plan plan) {
-        plan.registerChecker(this, Metamodel.getMClass(StateMachine.class), TriggerType.Create, null);
-        plan.registerChecker(this, Metamodel.getMClass(StateMachine.class), TriggerType.Create, "Owner");
-        plan.registerChecker(this, Metamodel.getMClass(StateMachine.class), TriggerType.Create, "OwnerOperation");
+    public void register(final Plan plan, SmMetamodel smMetamodel) {
+        addRequiredType(smMetamodel.getMClass(Operation.class));
+        addRequiredType(smMetamodel.getMClass(Artifact.class));
+        addRequiredType(smMetamodel.getMClass(Actor.class));
+        addRequiredType(smMetamodel.getMClass(Class.class));
+        addRequiredType(smMetamodel.getMClass(Collaboration.class));
+        addRequiredType(smMetamodel.getMClass(Component.class));
+        addRequiredType(smMetamodel.getMClass(InformationItem.class));
+        addRequiredType(smMetamodel.getMClass(Interface.class));
+        addRequiredType(smMetamodel.getMClass(Node.class));
+        addRequiredType(smMetamodel.getMClass(Operation.class));
+        addRequiredType(smMetamodel.getMClass(Package.class));
+        addRequiredType(smMetamodel.getMClass(Signal.class));
+        addRequiredType(smMetamodel.getMClass(UseCase.class));
+        
+        addForbiddenType(smMetamodel.getMClass(DataType.class));
+        addForbiddenType(smMetamodel.getMClass(Enumeration.class));
+        addForbiddenType(smMetamodel.getMClass(TemplateParameter.class));
+        
+        plan.registerChecker(this, smMetamodel.getMClass(StateMachine.class), TriggerType.Create, null);
+        plan.registerChecker(this, smMetamodel.getMClass(StateMachine.class), TriggerType.Create, "Owner");
+        plan.registerChecker(this, smMetamodel.getMClass(StateMachine.class), TriggerType.Create, "OwnerOperation");
     }
 
     @objid ("d7428979-d7f6-11e1-a4a6-002564c97630")
     public E204Checker() {
         super(ERRORID);
-        addRequiredType(Metamodel.getMClass(Operation.class));
-        addRequiredType(Metamodel.getMClass(Artifact.class));
-        addRequiredType(Metamodel.getMClass(Actor.class));
-        addRequiredType(Metamodel.getMClass(Class.class));
-        addRequiredType(Metamodel.getMClass(Collaboration.class));
-        addRequiredType(Metamodel.getMClass(Component.class));
-        addRequiredType(Metamodel.getMClass(InformationItem.class));
-        addRequiredType(Metamodel.getMClass(Interface.class));
-        addRequiredType(Metamodel.getMClass(Node.class));
-        addRequiredType(Metamodel.getMClass(Operation.class));
-        addRequiredType(Metamodel.getMClass(Package.class));
-        addRequiredType(Metamodel.getMClass(Signal.class));
-        addRequiredType(Metamodel.getMClass(UseCase.class));
-        
-        addForbiddenType(Metamodel.getMClass(DataType.class));
-        addForbiddenType(Metamodel.getMClass(Enumeration.class));
-        addForbiddenType(Metamodel.getMClass(TemplateParameter.class));
     }
 
     @objid ("d742d799-d7f6-11e1-a4a6-002564c97630")

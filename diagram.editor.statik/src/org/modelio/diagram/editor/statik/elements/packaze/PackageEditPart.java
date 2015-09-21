@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.packaze;
 
@@ -33,11 +33,13 @@ import org.modelio.diagram.elements.common.freezone.GmFreeZoneEditPart;
 import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
 import org.modelio.diagram.elements.core.model.GmAbstractObject;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
+import org.modelio.diagram.elements.core.policies.AutoExpandLayoutEditPolicy;
 import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointRequest;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPolicy;
 import org.modelio.diagram.elements.umlcommon.packaze.PackageFigure;
@@ -61,27 +63,29 @@ public class PackageEditPart extends GmNodeEditPart {
     protected void addChildVisual(EditPart child, int index) {
         IFigure childFigure = ((GraphicalEditPart) child).getFigure();
         
-        if (child instanceof GmFreeZoneEditPart)
+        if (child instanceof GmFreeZoneEditPart) {
             getPackageFigure().setContentsFigure(childFigure);
-        else if (child instanceof ModelElementHeaderEditPart)
+        } else if (child instanceof ModelElementHeaderEditPart) {
             getPackageFigure().setHeaderFigure(childFigure);
-        else
+        } else {
             throw new IllegalArgumentException("Cannot add " +
                                                child.toString() +
                                                " child edit part to PackageEditPart");
+        }
     }
 
     @objid ("362823d7-55b7-11e2-877f-002564c97630")
     @Override
     protected void removeChildVisual(EditPart child) {
-        if (child instanceof GmFreeZoneEditPart)
+        if (child instanceof GmFreeZoneEditPart) {
             getPackageFigure().setContentsFigure(null);
-        else if (child instanceof ModelElementHeaderEditPart)
+        } else if (child instanceof ModelElementHeaderEditPart) {
             getPackageFigure().setHeaderFigure(null);
-        else
+        } else {
             throw new IllegalArgumentException("Cannot remove " +
                                                child.toString() +
                                                " child edit part from PackageEditPart");
+        }
     }
 
     @objid ("362823db-55b7-11e2-877f-002564c97630")
@@ -93,8 +97,11 @@ public class PackageEditPart extends GmNodeEditPart {
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                           new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
+        
         // Add specific policy to handle requests to redraw composition links.
         installEditPolicy("RedrawCompositionLinkEditPolicy", new RedrawCompositionLinkEditPolicy());
+        
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new AutoExpandLayoutEditPolicy());
     }
 
     @objid ("362823de-55b7-11e2-877f-002564c97630")
@@ -104,7 +111,7 @@ public class PackageEditPart extends GmNodeEditPart {
         final PackageFigure figure1 = new PackageFigure();
         
         // set style independent properties
-        figure1.setPreferredSize(180, 140);
+        MinimumSizeLayout.apply(figure1, 180, 140);
         
         // set style dependent properties
         refreshFromStyle(figure1, getModelStyle());

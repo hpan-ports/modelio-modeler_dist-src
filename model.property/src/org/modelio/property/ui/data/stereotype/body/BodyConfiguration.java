@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.stereotype.body;
 
@@ -186,11 +186,11 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
             public void accumulateConfigLabels(LabelStack configLabels, int columnPosition, int rowPosition) {
                 super.accumulateConfigLabels(configLabels, columnPosition, rowPosition);
         
-                final Integer objectAtRow = BodyConfiguration.this.dataModel.getObjectAtRow(rowPosition);
-                final Integer objectAtColumn = BodyConfiguration.this.dataModel.getObjectAtCol(columnPosition);
+                final int objectAtRow = BodyConfiguration.this.dataModel.getObjectAtRow(rowPosition);
+                final int objectAtColumn = BodyConfiguration.this.dataModel.getObjectAtCol(columnPosition);
         
-                final Class<?> type = editor.getValueTypeAt(1+objectAtRow, objectAtColumn);
-                final List<String> possibleValues = editor.getPossibleValues(objectAtColumn, objectAtRow);
+                final Class<?> type = editor.getValueTypeAt(objectAtRow + 1, objectAtColumn);
+                final List<String> possibleValues = editor.getPossibleValues(objectAtRow + 1, objectAtColumn);
                 if (possibleValues != null) { // Enum-like custom type
                     // standard type for rendering
                     String tag = getTypeTag(type);
@@ -220,13 +220,13 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
                     configLabels.addLabel(tag + ".edit");
                 }
         
-                if (editor.isEditable(objectAtRow, objectAtColumn)) {
+                if (editor.isEditable(objectAtRow + 1, objectAtColumn)) {
                     configLabels.addLabel(EDITABLE);
                 }
         
                 // Define a specific style for this cell
                 IPropertyStyle newStyle = new DefaultPropertyStyle();
-                editor.updateStyle(objectAtColumn, objectAtRow, newStyle);
+                editor.updateStyle(objectAtColumn, objectAtRow + 1, newStyle);
         
                 // Background color
                 final Color backgroundColor = newStyle.getBackgroundColor();
@@ -238,8 +238,9 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
                     Style style = new Style();
                     style.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, backgroundColor);
         
-                    BodyConfiguration.this.registry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, style, DisplayMode.NORMAL, label);
-                } else if (rowPosition %2 == 0) {
+                    BodyConfiguration.this.registry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, style,
+                            DisplayMode.NORMAL, label);
+                } else if (rowPosition % 2 == 0) {
                     final String label = "BACKGROUND" + backgroundColor.toString();
                     configLabels.addLabel(label);
         
@@ -247,7 +248,8 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
                     Style style = new Style();
                     style.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, UIColor.TABLE_EVENROW_BG);
         
-                    BodyConfiguration.this.registry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, style, DisplayMode.NORMAL, label);
+                    BodyConfiguration.this.registry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, style,
+                            DisplayMode.NORMAL, label);
                 }
         
                 // Foreground color
@@ -260,7 +262,8 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
                     Style style = new Style();
                     style.setAttributeValue(CellStyleAttributes.FOREGROUND_COLOR, foregroundColor);
         
-                    BodyConfiguration.this.registry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, style, DisplayMode.NORMAL, label);
+                    BodyConfiguration.this.registry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, style,
+                            DisplayMode.NORMAL, label);
                 }
             }
         
@@ -273,7 +276,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         final String tag = getTypeTag(Enum.class, enumeratedPropertyType.getName());
         // Style and painter
         final Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.CENTER);
+        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
         
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
@@ -305,7 +308,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         final String tag = getTypeTag(String.class);
         // Style and painter
         final Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.CENTER);
+        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         
@@ -324,7 +327,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         final String tag = getTypeTag(Boolean.class);
         // Style and painter
         final Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.CENTER);
+        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
         
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
@@ -347,7 +350,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         final String tag = getTypeTag(Integer.class);
         // Style and painter
         final Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.RIGHT);
+        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         
@@ -377,7 +380,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         final String tag = getTypeTag(Short.class);
         // Style and painter
         final Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.RIGHT);
+        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         
@@ -410,7 +413,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         final String tag = getTypeTag(Float.class);
         // Style and painter
         final Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.RIGHT);
+        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         
@@ -440,7 +443,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         final String tag = getTypeTag(Date.class);
         // Style and painter
         final Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.CENTER);
+        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         
@@ -460,7 +463,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         final String tag = getTypeTag(Time.class);
         // Style and painter
         final Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.CENTER);
+        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
         
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
@@ -481,13 +484,15 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         final String tag = getTypeTag(Element.class);
         // Style and painter
         final Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.CENTER);
+        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
-        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new TextIconPainter(true), DisplayMode.NORMAL, tag);
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new TextIconPainter(true), DisplayMode.NORMAL,
+                tag);
         
         // Display converter
-        configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER, new TextIconConverter(new DefaultLabelProvider(Element.class)), DisplayMode.NORMAL, tag);
+        configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER, new TextIconConverter(
+                new DefaultLabelProvider(Element.class)), DisplayMode.NORMAL, tag);
         
         // Editor
         final ElementEditor editor = new ElementEditor(this.projectService.getSession(), this.pickingService);
@@ -501,7 +506,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         final String tag = getTypeTag(Image.class);
         // Style and painter
         final Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.CENTER);
+        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new ImagePainter(), DisplayMode.NORMAL, tag);
@@ -527,7 +532,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         final String tag = getTypeTag(List.class);
         // Style and painter
         final Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.CENTER);
+        cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         

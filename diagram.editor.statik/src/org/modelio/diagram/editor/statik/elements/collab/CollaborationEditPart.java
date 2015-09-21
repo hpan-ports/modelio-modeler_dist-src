@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.collab;
 
@@ -30,6 +30,7 @@ import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.core.figures.ChildFigureLineSeparator;
 import org.modelio.diagram.elements.core.figures.EllipseFigure;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.ToolbarLayoutWithGrab;
 import org.modelio.diagram.elements.core.figures.borders.TLBRBorder;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
@@ -66,7 +67,7 @@ public class CollaborationEditPart extends GmNodeEditPart {
         classFigure.setLinePattern(LinePattern.LINE_DASH);
         
         // Set default size
-        classFigure.setPreferredSize(200, 75);
+        MinimumSizeLayout.apply(classFigure, 200, 75);
         
         // Set style dependent properties
         refreshFromStyle(classFigure, getModelStyle());
@@ -96,8 +97,8 @@ public class CollaborationEditPart extends GmNodeEditPart {
     @objid ("344c10cd-55b7-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        final GmAbstractObject model = (GmAbstractObject) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), model.getLayoutData());
+        final GmAbstractObject model = (GmAbstractObject) getModel();
+        getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
     }
 
     @objid ("344c10d0-55b7-11e2-877f-002564c97630")

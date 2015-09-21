@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -26,11 +26,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.widgets.Display;
+import org.modelio.diagram.elements.common.header.GmModelElementHeader;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
 import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.model.GmModel;
@@ -205,7 +207,8 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
     @objid ("7e169b7b-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public boolean canContain(Class<? extends GmNodeModel> nodeClass) {
-        return !GmElementLabel.class.isAssignableFrom(nodeClass);
+        return ! (GmElementLabel.class.isAssignableFrom(nodeClass)
+                        || GmModelElementHeader.class.isAssignableFrom(nodeClass));
     }
 
     /**
@@ -223,7 +226,7 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
             l.delete();
         }
         
-        for (final IGmDrawingLayer child : this.getDrawingLayers()) {
+        for (final IGmDrawingLayer child : getDrawingLayers()) {
             child.delete();
         }
         
@@ -262,7 +265,7 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
             this.modelChangeHandler = null;
             this.modelManager = null;
             // Do not forget to delete the diagram itself
-            this.delete();
+            delete();
         }
     }
 
@@ -372,7 +375,7 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
     public final boolean isEditable() {
         MObject relatedElement = getRelatedElement();
         return relatedElement != null && !(relatedElement.isShell() || relatedElement.isDeleted())
-                && relatedElement.getStatus().isModifiable();
+                                                                                && relatedElement.getStatus().isModifiable();
     }
 
     @objid ("7e18fde8-1dec-11e2-8cad-001ec947c8cc")
@@ -408,13 +411,12 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
     public void refreshAllFromObModel() {
         final ArrayList<GmModel> toUpdate = new ArrayList<>(GmAbstractDiagram.this.models.size() * 5);
         
-        for (final List<GmModel> list : GmAbstractDiagram.this.models.values()) {
-            toUpdate.addAll(list);
-        }
+        checkElementsToUpdate(toUpdate);
         
         for (final GmModel m : toUpdate) {
-            if (m != this)
+            if (m != this) {
                 m.obElementsUpdated();
+            }
         }
     }
 
@@ -435,8 +437,9 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
             this.links.remove(model);
         }
         
-        if (model instanceof IGmDrawing)
+        if (model instanceof IGmDrawing) {
             this.drawingMap.remove(((IGmDrawing)model).getIdentifier());
+        }
     }
 
     /**
@@ -555,7 +558,7 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
      */
     @objid ("7e1b6025-1dec-11e2-8cad-001ec947c8cc")
     public final void updateLastSaveDate() {
-        this.lastSavedUiDataVersion = ((AbstractDiagram)this.getRelatedElement()).getUiDataVersion();
+        this.lastSavedUiDataVersion = ((AbstractDiagram)getRelatedElement()).getUiDataVersion();
     }
 
     @objid ("7e1b6028-1dec-11e2-8cad-001ec947c8cc")
@@ -600,8 +603,9 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
     @Override
     protected void doSetVisible(final boolean newVisible) {
         // Avoid useless and harmfull clear if no change
-        if (this.visible == newVisible)
+        if (this.visible == newVisible) {
             return;
+        }
         
         this.visible = newVisible;
         
@@ -652,11 +656,13 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
     @SuppressWarnings("unchecked")
     private void read_0(IDiagramReader in) {
         // Clear existing/default layers
-        for (final IGmDrawingLayer child : new ArrayList<>(getDrawingLayers()))
+        for (final IGmDrawingLayer child : new ArrayList<>(getDrawingLayers())) {
             child.delete();
-        if (this.backgroundDrawingLayer!=null)
+        }
+        if (this.backgroundDrawingLayer!=null) {
             this.backgroundDrawingLayer.delete();
-            
+        }
+        
         
         // Call inherited loading
         super.read(in);
@@ -667,9 +673,9 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         getRepresentedRef().mc = newId.mc;
         getRepresentedRef().uuid = newId.uuid;
         
-        // Resume deserialization : 
+        // Resume deserialization :
         //  Read all links. No need to get the result of readListProperty() : links add themselves to this.links
-        in.readListProperty("Links"); 
+        in.readListProperty("Links");
         
         // Read foreground drawing layers
         this.drawingLayers.addAll((Collection<? extends IGmDrawingLayer>) in.readListProperty(PROP_DRAWING_LAYERS));
@@ -679,7 +685,7 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
             final GmDrawingLayer childNode = new GmDrawingLayer(this, newId, GmDrawingLayer.LAYER_ID_TOP);
             this.drawingLayers.add(childNode);
         }
-            
+        
         // Read background layer
         this.backgroundDrawingLayer = (GmDrawingLayer) in.readProperty(PROP_BG_DRAWING_LAYER);
         if (this.backgroundDrawingLayer == null) {
@@ -687,6 +693,44 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         }
         
         firePropertyChange(IGmObject.PROPERTY_CHILDREN, null, this.drawingLayers);
+    }
+
+    /**
+     * Check all diagram elements consistency.
+     * <p>
+     * Look for orphan GmLinks, orphan GmLinks:<ul>
+     * <li> will never have EditPart so will never recover their source and target.
+     * <li> won't be deleted in #clear()
+     * </ul>
+     * The best workaround for now is to delete them now.
+     * @param toUpdate will contains all valid diagram elements
+     */
+    @objid ("6276d328-9c2a-4032-b56d-a4231c638900")
+    private void checkElementsToUpdate(final ArrayList<GmModel> toUpdate) {
+        for (final Entry<MRef, List<GmModel>> entry : GmAbstractDiagram.this.models.entrySet()) {
+            if (entry.getValue().size() > 2) {
+                // Suspicious entry : look for orphan GmLinks
+                // Orphan GmLinks:
+                // - will never have EditPart so will never recover their source and target.
+                // - won't be deleted in #clear()
+                // The best workaround for now is to delete them now
+                for (GmModel gmModel : new ArrayList<>(entry.getValue())) {
+                    if (gmModel instanceof IGmLink) {
+                        IGmLink l = (IGmLink)gmModel;
+                        if (l.getFrom() == null && l.getTo()==null) {
+                            DiagramElements.LOG.warning("refreshAllFromObModel(): Deleting "+l.getClass().getSimpleName()
+                                    +" representing "+l.getRelatedElement()
+                                    +" from "+ l.getFromElement()
+                                    +" to "+l.getToElement()
+                                    +" that has no source nor target in the diagram.");
+                            l.delete();
+                        }
+                    }
+                }
+            }
+        
+            toUpdate.addAll(entry.getValue());
+        }
     }
 
     /**

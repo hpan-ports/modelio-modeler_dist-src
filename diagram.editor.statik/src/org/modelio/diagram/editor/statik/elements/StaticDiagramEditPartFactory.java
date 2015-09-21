@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements;
 
@@ -29,7 +29,6 @@ import org.modelio.diagram.editor.statik.elements.activity.GmActivity;
 import org.modelio.diagram.editor.statik.elements.activity.GmActivityPrimaryNode;
 import org.modelio.diagram.editor.statik.elements.association.AssociationEditPart;
 import org.modelio.diagram.editor.statik.elements.association.GmAssociation;
-import org.modelio.diagram.editor.statik.elements.association.GmAssociationLabel;
 import org.modelio.diagram.editor.statik.elements.association.GmRoleNameLabel;
 import org.modelio.diagram.editor.statik.elements.association.RoleNameEditPart;
 import org.modelio.diagram.editor.statik.elements.associationclass.ClassAssociationLinkEditPart;
@@ -40,10 +39,8 @@ import org.modelio.diagram.editor.statik.elements.attribute.AttributeEditPart;
 import org.modelio.diagram.editor.statik.elements.attribute.GmAttribute;
 import org.modelio.diagram.editor.statik.elements.attributegroup.AttributeGroupEditPart;
 import org.modelio.diagram.editor.statik.elements.attributegroup.GmAttributeGroup;
-import org.modelio.diagram.editor.statik.elements.binding.GmBindingLabel;
 import org.modelio.diagram.editor.statik.elements.bindinglink.BindingLinkEditPart;
 import org.modelio.diagram.editor.statik.elements.bindinglink.GmBindingLink;
-import org.modelio.diagram.editor.statik.elements.bindinglink.GmBindingLinkHeader;
 import org.modelio.diagram.editor.statik.elements.bpmnbehavior.BpmnBehaviorEditPart;
 import org.modelio.diagram.editor.statik.elements.bpmnbehavior.GmBpmnBehavior;
 import org.modelio.diagram.editor.statik.elements.bpmnbehavior.GmBpmnBehaviorPrimaryNode;
@@ -61,12 +58,9 @@ import org.modelio.diagram.editor.statik.elements.collab.GmCollaboration;
 import org.modelio.diagram.editor.statik.elements.collab.GmCollaborationPrimaryNode;
 import org.modelio.diagram.editor.statik.elements.collabuse.CollaborationUseEditPart;
 import org.modelio.diagram.editor.statik.elements.collabuse.GmCollaborationUse;
-import org.modelio.diagram.editor.statik.elements.collabuse.GmCollaborationUseFlatLabel;
-import org.modelio.diagram.editor.statik.elements.collabuse.GmCollaborationUseHeader;
 import org.modelio.diagram.editor.statik.elements.collabuse.GmCollaborationUsePrimaryNode;
 import org.modelio.diagram.editor.statik.elements.collabuselink.CollabUseLinkEditPart;
 import org.modelio.diagram.editor.statik.elements.collabuselink.GmCollabUseLink;
-import org.modelio.diagram.editor.statik.elements.collabuselink.GmCollabUseLinkHeader;
 import org.modelio.diagram.editor.statik.elements.communicationinteraction.CommunicationInteractionEditPart;
 import org.modelio.diagram.editor.statik.elements.communicationinteraction.GmCommunicationInteraction;
 import org.modelio.diagram.editor.statik.elements.communicationinteraction.GmCommunicationInteractionPrimaryNode;
@@ -78,7 +72,6 @@ import org.modelio.diagram.editor.statik.elements.datatype.GmDataType;
 import org.modelio.diagram.editor.statik.elements.datatype.GmDataTypePrimaryNode;
 import org.modelio.diagram.editor.statik.elements.elementimport.ElementImportEditPart;
 import org.modelio.diagram.editor.statik.elements.elementimport.GmElementImport;
-import org.modelio.diagram.editor.statik.elements.elementimport.GmElementImportHeader;
 import org.modelio.diagram.editor.statik.elements.enumeration.GmEnum;
 import org.modelio.diagram.editor.statik.elements.enumeration.GmEnumPrimaryNode;
 import org.modelio.diagram.editor.statik.elements.enumliteral.EnumLitteralGroupEditPart;
@@ -88,19 +81,13 @@ import org.modelio.diagram.editor.statik.elements.generalization.GeneralizationE
 import org.modelio.diagram.editor.statik.elements.generalization.GmGeneralization;
 import org.modelio.diagram.editor.statik.elements.imagenamespacelabel.GmImageNameSpaceLabel;
 import org.modelio.diagram.editor.statik.elements.informationconveyed.ConveyedClassifiersGroupEditPart;
-import org.modelio.diagram.editor.statik.elements.informationconveyed.GmConveyedClassifierLabel;
 import org.modelio.diagram.editor.statik.elements.informationconveyed.GmConveyedClassifiersGroup;
-import org.modelio.diagram.editor.statik.elements.informationconveyed.GmConveyedInformationItemLabel;
 import org.modelio.diagram.editor.statik.elements.informationflowlink.GmInformationFlowLink;
-import org.modelio.diagram.editor.statik.elements.informationflowlink.GmInformationFlowLinkHeader;
 import org.modelio.diagram.editor.statik.elements.informationflowlink.InformationFlowLinkEditPart;
 import org.modelio.diagram.editor.statik.elements.informationitem.GmInformationItem;
-import org.modelio.diagram.editor.statik.elements.informationitem.GmInformationItemHeader;
-import org.modelio.diagram.editor.statik.elements.informationitem.GmInformationItemLabel;
 import org.modelio.diagram.editor.statik.elements.informationitem.GmInformationItemPrimaryNode;
 import org.modelio.diagram.editor.statik.elements.innerclass.GmInnerClass;
 import org.modelio.diagram.editor.statik.elements.innerclass.InnerClassEditPart;
-import org.modelio.diagram.editor.statik.elements.instance.GmImageInstanceLabel;
 import org.modelio.diagram.editor.statik.elements.instance.GmInstance;
 import org.modelio.diagram.editor.statik.elements.instance.GmInstanceLabel;
 import org.modelio.diagram.editor.statik.elements.instance.GmInstancePrimaryNode;
@@ -115,9 +102,7 @@ import org.modelio.diagram.editor.statik.elements.instanceinternalstructure.GmIn
 import org.modelio.diagram.editor.statik.elements.instanceinternalstructure.InstanceInternalStructureGroupEditPart;
 import org.modelio.diagram.editor.statik.elements.instanceinternalstructure.InstanceInternalStructureZoneEditPart;
 import org.modelio.diagram.editor.statik.elements.instancelink.GmInstanceLink;
-import org.modelio.diagram.editor.statik.elements.instancelink.GmLinkLabel;
 import org.modelio.diagram.editor.statik.elements.instancelink.GmLinkRoleCardinalityLabel;
-import org.modelio.diagram.editor.statik.elements.instancelink.GmLinkRoleNameLabel;
 import org.modelio.diagram.editor.statik.elements.instancelink.InstanceLinkEditPart;
 import org.modelio.diagram.editor.statik.elements.interaction.GmInteraction;
 import org.modelio.diagram.editor.statik.elements.interaction.GmInteractionPrimaryNode;
@@ -125,7 +110,6 @@ import org.modelio.diagram.editor.statik.elements.interaction.InteractionEditPar
 import org.modelio.diagram.editor.statik.elements.interfaze.GmInterface;
 import org.modelio.diagram.editor.statik.elements.interfaze.GmInterfacePrimaryNode;
 import org.modelio.diagram.editor.statik.elements.interfaze.InterfaceEditPart;
-import org.modelio.diagram.editor.statik.elements.interfaze.InterfaceFlatHeaderEditPart;
 import org.modelio.diagram.editor.statik.elements.interfaze.SimpleInterfaceEditPart;
 import org.modelio.diagram.editor.statik.elements.internalstructure.GmInternalStructure;
 import org.modelio.diagram.editor.statik.elements.internalstructure.GmInternalStructureGroup;
@@ -136,6 +120,7 @@ import org.modelio.diagram.editor.statik.elements.internalstructure.InternalStru
 import org.modelio.diagram.editor.statik.elements.namespaceheader.GmNamespaceHeader;
 import org.modelio.diagram.editor.statik.elements.namespaceheader.NamespaceHeaderEditPart;
 import org.modelio.diagram.editor.statik.elements.namespacelabel.GmNameSpaceLabel;
+import org.modelio.diagram.editor.statik.elements.namespacelabel.NamespaceLabelEditPart;
 import org.modelio.diagram.editor.statik.elements.namespacinglink.CompositionLinkEditPart;
 import org.modelio.diagram.editor.statik.elements.namespacinglink.GmCompositionLink;
 import org.modelio.diagram.editor.statik.elements.naryassoc.GmNAssocEndLink;
@@ -153,7 +138,6 @@ import org.modelio.diagram.editor.statik.elements.narylink.GmNLinkEndLink;
 import org.modelio.diagram.editor.statik.elements.narylink.GmNLinkNode;
 import org.modelio.diagram.editor.statik.elements.narylink.GmNLinkPrimaryNode;
 import org.modelio.diagram.editor.statik.elements.narylink.GmNaryLinkRoleCardinalityLabel;
-import org.modelio.diagram.editor.statik.elements.narylink.GmNaryLinkRoleNameLabel;
 import org.modelio.diagram.editor.statik.elements.narylink.NLinkEndLinkEditPart;
 import org.modelio.diagram.editor.statik.elements.narylink.NLinkNodeEditPart;
 import org.modelio.diagram.editor.statik.elements.operation.GmOperation;
@@ -161,10 +145,8 @@ import org.modelio.diagram.editor.statik.elements.operation.OperationEditPart;
 import org.modelio.diagram.editor.statik.elements.operationgroup.GmOperationGroup;
 import org.modelio.diagram.editor.statik.elements.operationgroup.OperationGroupEditPart;
 import org.modelio.diagram.editor.statik.elements.packageimport.GmPackageImport;
-import org.modelio.diagram.editor.statik.elements.packageimport.GmPackageImportHeader;
 import org.modelio.diagram.editor.statik.elements.packageimport.PackageImportEditPart;
 import org.modelio.diagram.editor.statik.elements.packagemerge.GmPackageMerge;
-import org.modelio.diagram.editor.statik.elements.packagemerge.GmPackageMergeHeader;
 import org.modelio.diagram.editor.statik.elements.packagemerge.PackageMergeEditPart;
 import org.modelio.diagram.editor.statik.elements.packaze.GmPackage;
 import org.modelio.diagram.editor.statik.elements.packaze.GmPackageBody;
@@ -175,21 +157,17 @@ import org.modelio.diagram.editor.statik.elements.packaze.PackageImageEditPart;
 import org.modelio.diagram.editor.statik.elements.packaze.PackagePortContainerEditPart;
 import org.modelio.diagram.editor.statik.elements.packaze.PackageSimpleEditPart;
 import org.modelio.diagram.editor.statik.elements.ports.GmPort;
-import org.modelio.diagram.editor.statik.elements.ports.GmPortLabel;
 import org.modelio.diagram.editor.statik.elements.ports.GmPortPrimaryNode;
 import org.modelio.diagram.editor.statik.elements.ports.ImagePortEditPart;
 import org.modelio.diagram.editor.statik.elements.ports.PortEditPart;
 import org.modelio.diagram.editor.statik.elements.ports.PortPrimaryNodeEditPart;
-import org.modelio.diagram.editor.statik.elements.providedinterface.GmProvidedInterfaceLabel;
 import org.modelio.diagram.editor.statik.elements.providedinterface.GmProvidedInterfaceLink;
 import org.modelio.diagram.editor.statik.elements.providedinterface.ProvidedInterfaceLinkEditPart;
 import org.modelio.diagram.editor.statik.elements.raisedexception.GmRaisedException;
-import org.modelio.diagram.editor.statik.elements.raisedexception.GmRaisedExceptionHeader;
 import org.modelio.diagram.editor.statik.elements.raisedexception.RaisedExceptionEditPart;
 import org.modelio.diagram.editor.statik.elements.realization.GmInterfaceRealization;
 import org.modelio.diagram.editor.statik.elements.realization.InterfaceRealizationEditPart;
 import org.modelio.diagram.editor.statik.elements.requiredinterface.GmLollipopConnection;
-import org.modelio.diagram.editor.statik.elements.requiredinterface.GmRequiredInterfaceLabel;
 import org.modelio.diagram.editor.statik.elements.requiredinterface.GmRequiredInterfaceLink;
 import org.modelio.diagram.editor.statik.elements.requiredinterface.LollipopConnectionEditPart;
 import org.modelio.diagram.editor.statik.elements.requiredinterface.RequiredInterfaceLinkEditPart;
@@ -205,21 +183,17 @@ import org.modelio.diagram.editor.statik.elements.staticdiagram.StaticDiagramEdi
 import org.modelio.diagram.editor.statik.elements.staticdiagramview.GmStaticDiagramView;
 import org.modelio.diagram.editor.statik.elements.substitution.GmSubstitution;
 import org.modelio.diagram.editor.statik.elements.templatebinding.GmTemplateBinding;
-import org.modelio.diagram.editor.statik.elements.templatebinding.GmTemplateBindingHeader;
 import org.modelio.diagram.editor.statik.elements.templatebinding.TemplateBindingEditPart;
 import org.modelio.diagram.editor.statik.elements.templatecontainer.TemplateContainerEditPart;
 import org.modelio.diagram.editor.statik.elements.templateparameter.GmTemplateSignature;
 import org.modelio.diagram.editor.statik.elements.templateparameter.TemplateSignatureEditPart;
 import org.modelio.diagram.elements.common.groupitem.GroupItemEditPart;
-import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
 import org.modelio.diagram.elements.common.label.base.GmElementLabelEditPart;
-import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
 import org.modelio.diagram.elements.common.portcontainer.PortContainerEditPart;
 import org.modelio.diagram.elements.common.resizablegroup.ResizableGroupEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.umlcommon.dependency.DependencyEditPart;
-import org.modelio.diagram.elements.umlcommon.dependency.GmDependency;
 import org.modelio.diagram.elements.umlcommon.diagramview.DiagramViewEditPart;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 
@@ -312,7 +286,7 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-                       
+            
             if (model.getClass() == GmClass.class) {
                 editPart = new TemplateContainerEditPart();
                 editPart.setModel(model);
@@ -337,7 +311,7 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             if (model.getClass() == GmImageNameSpaceLabel.class) {
-                editPart = new InterfaceFlatHeaderEditPart();
+                editPart = new NamespaceLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -433,23 +407,6 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model.getClass() == GmAssociationLabel.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmLinkLabel.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmPortLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
             
             if (model.getClass() == GmRoleCardinalityLabel.class) {
                 editPart = new GmElementLabelEditPart((GmElementLabel) model);
@@ -529,12 +486,6 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model.getClass() == GmElementImportHeader.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
             // Collaboration & co
             if (model.getClass() == GmCollaboration.class) {
                 editPart = new PortContainerEditPart();
@@ -556,24 +507,6 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
             
             if (model.getClass() == GmCollaborationUsePrimaryNode.class) {
                 editPart = new CollaborationUseEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmCollaborationUseFlatLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmCollaborationUseHeader.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmBindingLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -639,27 +572,10 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model.getClass() == GmImageInstanceLabel.class) {
-                editPart = new GroupItemEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
             
             // Link
             if (model.getClass() == GmInstanceLink.class) {
                 editPart = new InstanceLinkEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmLinkRoleNameLabel.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmNaryLinkRoleNameLabel.class) {
-                editPart = new ModelElementHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -814,21 +730,9 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model.getClass() == GmBindingLinkHeader.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
             // Collaboration use
             if (model.getClass() == GmCollabUseLink.class) {
                 editPart = new CollabUseLinkEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmCollabUseLinkHeader.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -839,11 +743,6 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            if (model.getClass() == GmPackageImportHeader.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
             
             // Package merge
             if (model.getClass() == GmPackageMerge.class) {
@@ -851,20 +750,9 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            if (model.getClass() == GmPackageMergeHeader.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
             // Raised exception
             if (model.getClass() == GmRaisedException.class) {
                 editPart = new RaisedExceptionEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            if (model.getClass() == GmRaisedExceptionHeader.class) {
-                editPart = new ModelElementHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -872,30 +760,6 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
             // Information flow
             if (model.getClass() == GmInformationFlowLink.class) {
                 editPart = new InformationFlowLinkEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmInformationFlowLinkHeader.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmInformationItemLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmConveyedClassifierLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmConveyedInformationItemLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -919,21 +783,9 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model.getClass() == GmInformationItemHeader.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
             // Provided interface
             if (model.getClass() == GmProvidedInterfaceLink.class) {
                 editPart = new ProvidedInterfaceLinkEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmProvidedInterfaceLabel.class) {
-                editPart = new ModelElementHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -945,11 +797,6 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model.getClass() == GmRequiredInterfaceLabel.class) {
-                editPart = new ModelElementHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
             
             // Template parameters
             if (model.getClass() == GmTemplateSignature.class) {
@@ -961,12 +808,6 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
             // Template binding
             if (model.getClass() == GmTemplateBinding.class) {
                 editPart = new TemplateBindingEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmTemplateBindingHeader.class) {
-                editPart = new ModelElementHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }

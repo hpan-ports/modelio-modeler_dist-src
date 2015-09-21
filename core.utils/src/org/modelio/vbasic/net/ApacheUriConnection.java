@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vbasic.net;
 
@@ -128,7 +128,7 @@ public class ApacheUriConnection extends UriConnection {
     }
 
     @objid ("f8e1a3e4-45b3-4065-8838-90de7fe64eaa")
-    private void openConnection() throws IllegalStateException, IOException {
+    private void openConnection() throws IOException, IllegalStateException {
         this.context = HttpClientContext.create();
         
         CredentialsProvider credsProvider = new SystemDefaultCredentialsProvider();
@@ -518,7 +518,7 @@ public class ApacheUriConnection extends UriConnection {
          * @throws javax.net.ssl.SSLException the augmented <i>exception</i>.
          */
         @objid ("1828252d-3495-46a7-b8c9-c13791fe3e05")
-        private void handleSslFailure(String host, SSLException ex, SSLSession session) throws SSLPeerUnverifiedException, SSLException {
+        private void handleSslFailure(String host, SSLException ex, SSLSession session) throws SSLException, SSLPeerUnverifiedException {
             X509Certificate[] chain = (X509Certificate[]) session.getPeerCertificates();
             
             try {

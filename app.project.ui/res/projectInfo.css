@@ -12,7 +12,7 @@ h1 {border-bottom: 1px solid #000; margin-bottom: 10px}
 .horizontal-content {overflow: hidden; margin-bottom: 15px}
 #project-description {padding:5px; float: left; width: 48%; text-align: justify; max-height:140px; overflow:auto;}
 #project-description p {white-space: pre-wrap;}
-#project-infos {/*float: left;*/ margin-left : 50%; height:90px;}
+#project-infos {/*float: left;*/ margin-left : 50%; height:110px;}
 .projectDescription {font-style: italic; color: #333}
 .AccordionTitle, .AccordionContent, .AccordionContainer
 {
@@ -71,7 +71,7 @@ span.sendMail {background: url(./img/mail.png) 0 0 no-repeat; width: 16px; heigh
 .box-infos table td input.readonlyInput {width: 98%;}
 
 .box-infos table td p{overflow: hidden; min-width: 150px}
-.box-infos table tr td:first-child { width: 120px}
+.box-infos table tr td:first-child { width: 130px}
 
 .AccordionContainer {
 	/*background: #fde6e6 url(./img/box-bg.png) 0 0 repeat-x; border: 1px solid #ad0000;*//* red */

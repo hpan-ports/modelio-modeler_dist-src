@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Formats versions used by a repository.
@@ -70,16 +73,18 @@ public class RepositoryVersions {
     }
 
     /**
-     * Constructor for the current version.
+     * Constructor for the given metamodel.
+     * @param mm a metamodel
      */
     @objid ("4c84eefd-4b78-408e-b1df-e5f66598cf19")
-    private RepositoryVersions() {
-        final List<SmClass> registeredClasses = SmClass.getRegisteredClasses();
+    public RepositoryVersions(MMetamodel mm) {
+        final Collection<? extends MClass> registeredClasses = mm.getRegisteredMClasses();
         this.cmsNodesSig = new ArrayList<>();
         
-        for (SmClass c : registeredClasses) {
-            if (c.isCmsNode()) 
+        for (MClass c : registeredClasses) {
+            if (c.isCmsNode()) {
                 this.cmsNodesSig.add(c.getName());
+            }
         }
         Collections.sort(this.cmsNodesSig);
         
@@ -105,26 +110,28 @@ public class RepositoryVersions {
     }
 
     /**
-     * Check whether this version is compatible with the current one.
+     * Check whether this version is compatible with the project one.
+     * @param mm the project metamodel
      * @throws org.modelio.vstore.exml.common.RepositoryVersions.IncompatibleVersionException if the version is not compatible.
      */
     @objid ("8f0136d2-ecb7-42ca-8d52-bcc4a469497e")
-    public void checkCompatible() throws IncompatibleVersionException {
-        checkCompatible(current());
+    public void checkCompatible(SmMetamodel mm) throws IncompatibleVersionException {
+        checkCompatible(new RepositoryVersions(mm));
     }
 
     @objid ("f1446c54-34d5-413f-9e98-817fcc09fc6a")
     private void checkCompatible(RepositoryVersions reference) throws IncompatibleVersionException {
-        if (this.repositoryFormat != reference.repositoryFormat)
+        if (this.repositoryFormat != reference.repositoryFormat) {
             throw new IncompatibleVersionException("Repository format "+this.repositoryFormat+" is incompatible with "+reference.repositoryFormat+ " version.");
+        }
         
         /*if (! this.cmsNodesSig.equals(reference.cmsNodesSig)) {
             ArrayList<String> unknown = new ArrayList<>(this.cmsNodesSig);
             unknown.removeAll(reference.cmsNodesSig);
-            
+        
             ArrayList<String> missing = new ArrayList<>(reference.cmsNodesSig);
             missing.removeAll(this.cmsNodesSig);
-            
+        
             StringBuilder msg = new StringBuilder();
             if (! unknown.isEmpty()) {
                 msg.append("The repository knows unknown CMS node metaclasses: ");
@@ -139,17 +146,9 @@ public class RepositoryVersions {
                 msg.append(missing);
                 msg.append(".");
             }
-            
+        
             throw new IncompatibleVersionException(msg.toString());
         }*/
-    }
-
-    /**
-     * @return the current version.
-     */
-    @objid ("271375a1-f959-4244-8b33-fa09bb00636a")
-    public static RepositoryVersions current() {
-        return new RepositoryVersions();
     }
 
     /**

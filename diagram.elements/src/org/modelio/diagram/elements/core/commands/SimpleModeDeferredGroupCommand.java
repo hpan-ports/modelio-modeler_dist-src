@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.commands;
 
@@ -33,12 +33,13 @@ import org.eclipse.gef.requests.GroupRequest;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
- * Command that that switches the representation mode to {@link RepresentationMode#STRUCTURED STRUCTURED}, then defers a
- * {@link GroupRequest} to a child edit part of the sender.
+ * Command that that switches the representation mode to
+ * {@link org.modelio.diagram.styles.core.StyleKey.RepresentationMode#STRUCTURED STRUCTURED},
+ * then defers a {@link GroupRequest} to a child edit part of the sender.
  * <p>
  * The actual edit part is found by calling {@link GmCompositeNode#getCompositeFor(Class)} for all involved GmModel, then looking
  * for their edit part.
@@ -71,24 +72,28 @@ public class SimpleModeDeferredGroupCommand extends Command {
     @objid ("7f4a2ab3-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public boolean canExecute() {
-        if (!MTools.getAuthTool().canModify(this.gmComposite.getDiagram().getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(this.gmComposite.getDiagram().getRelatedElement())) {
             return false;
+        }
         
         GmCompositeNode target = getGmTarget();
-        if (target == null)
+        if (target == null) {
             return false;
+        }
         
         final MObject parentEl = target.getRelatedElement();
-        if (parentEl == null)
+        if (parentEl == null) {
             return false;
+        }
         
         for (Object o : this.req.getEditParts()) {
             final EditPart part = (EditPart) o;
             final GmModel model = (GmModel) part.getModel();
             final MObject childEl = model.getRelatedElement();
         
-            if (childEl == null || !MTools.getAuthTool().canAdd(parentEl, childEl.getMClass().getName()))
+            if (childEl == null || !MTools.getAuthTool().canAdd(parentEl, childEl.getMClass().getName())) {
                 return false;
+            }
         }
         return true;
     }
@@ -112,23 +117,27 @@ public class SimpleModeDeferredGroupCommand extends Command {
      */
     @objid ("7f4a2abb-1dec-11e2-8cad-001ec947c8cc")
     private GmCompositeNode getGmTarget() {
+        final SmMetamodel mm = this.gmComposite.getDiagram().getModelManager().getModelingSession().getMetamodel();
+        
         GmCompositeNode gmTarget = null;
         
         for (Object o : this.req.getEditParts()) {
             final EditPart part = (EditPart) o;
             final GmModel model = (GmModel) part.getModel();
             final String metaclassName = model.getRepresentedRef().mc;
-            final Class<? extends MObject> metaclass = Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName));
+            final Class<? extends MObject> metaclass = mm.getMClass(metaclassName).getJavaInterface();
         
             final GmCompositeNode cont = this.gmComposite.getCompositeFor(metaclass);
         
-            if (cont == null)
+            if (cont == null) {
                 return null;
+            }
         
-            if (gmTarget == null)
+            if (gmTarget == null) {
                 gmTarget = cont;
-            else if (gmTarget != cont)
+            } else if (gmTarget != cont) {
                 return null;
+            }
         }
         return gmTarget;
     }
@@ -137,17 +146,26 @@ public class SimpleModeDeferredGroupCommand extends Command {
     private Command getCommand() {
         final GmCompositeNode gmTarget = getGmTarget();
         
-        if (gmTarget == null)
+        if (gmTarget == null) {
             return null;
+        }
         
-        if (!gmTarget.isVisible())
+        boolean wasVisible = gmTarget.isVisible();
+        if (!wasVisible) {
             gmTarget.setVisible(true);
+        }
         
-        final EditPart p = (EditPart) this.editPartRegistry.get(gmTarget);
+        final GraphicalEditPart p = (GraphicalEditPart) this.editPartRegistry.get(gmTarget);
         if (p != null) {
             EditPart targetEditPart = p.getTargetEditPart(this.req);
-            if (targetEditPart != null)
+            if (targetEditPart != null) {
+                if (!wasVisible) {
+                    // First layout figures to compute correct coordinates
+                    p.getFigure().getUpdateManager().performValidation();
+                }
+        
                 return targetEditPart.getCommand(this.req);
+            }
         }
         return null;
     }
@@ -155,14 +173,14 @@ public class SimpleModeDeferredGroupCommand extends Command {
     @objid ("7f4a2ac6-1dec-11e2-8cad-001ec947c8cc")
     private void autoSizeNode(final EditPart newEditPart) {
         // Look for an edit part in the parent hierarchy that understands resize requests.
-        final ChangeBoundsRequest req = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
-        req.setEditParts(newEditPart);
-        req.setSizeDelta(new Dimension(-1, -1));
+        final ChangeBoundsRequest resizeReq = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
+        resizeReq.setEditParts(newEditPart);
+        resizeReq.setSizeDelta(new Dimension(-1, -1));
         
         EditPart editPart = newEditPart;
-        while (editPart != null && !editPart.understandsRequest(req)) {
+        while (editPart != null && !editPart.understandsRequest(resizeReq)) {
             editPart = editPart.getParent();
-            req.setEditParts(newEditPart);
+            resizeReq.setEditParts(newEditPart);
         }
         
         if (editPart != null) {

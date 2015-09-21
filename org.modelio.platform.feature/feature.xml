@@ -2,7 +2,7 @@
 <feature
       id="org.modelio.platform.feature"
       label="%featureName"
-      version="4.4.0.v20140925-0400"
+      version="4.4.2.v20150204-1700"
       provider-name="modelio.org">
 
    <copyright>
@@ -47,16 +47,16 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
    <includes
          id="org.eclipse.rcp"
-         version="4.4.0.v20140925-0400"/>
+         version="4.4.2.v20150204-1700"/>
 
    <includes
          id="org.eclipse.equinox.p2.user.ui"
-         version="2.2.0.v20140911-0143"
+         version="2.2.0.v20150129-0838"
          optional="true"/>
 
    <includes
          id="org.eclipse.help"
-         version="2.0.102.v20140925-0400"/>
+         version="2.0.103.v20150204-1700"/>
 
    <plugin
          id="org.apache.ant"
@@ -68,14 +68,14 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          id="org.eclipse.ant.core"
          download-size="104"
          install-size="184"
-         version="3.3.0.v20140518-0042"
+         version="3.3.1.v20150123-1553"
          unpack="false"/>
 
    <plugin
          id="com.jcraft.jsch"
-         download-size="259"
-         install-size="476"
-         version="0.1.50.v201403120620"
+         download-size="273"
+         install-size="500"
+         version="0.1.51.v201410302000"
          unpack="false"/>
 
    <plugin
@@ -200,7 +200,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          id="org.eclipse.debug.ui"
          download-size="2763"
          install-size="5818"
-         version="3.10.1.v20140822-1408"
+         version="3.10.2.v20141014-1039"
          unpack="false"/>
 
    <plugin
@@ -228,7 +228,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          id="org.eclipse.platform"
          download-size="325"
          install-size="813"
-         version="4.4.0.v20140925-0400"/>
+         version="4.4.2.v20150204-1700"/>
 
    <plugin
          id="org.eclipse.search"
@@ -260,9 +260,9 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
    <plugin
          id="org.eclipse.jface.text"
-         download-size="971"
-         install-size="2043"
-         version="3.9.1.v20140827-1810"
+         download-size="976"
+         install-size="2056"
+         version="3.9.2.v20141003-1326"
          unpack="false"/>
 
    <plugin
@@ -296,8 +296,8 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
    <plugin
          id="org.eclipse.ui.intro.universal"
          download-size="1594"
-         install-size="2080"
-         version="3.2.700.v20130904-1701"/>
+         install-size="2081"
+         version="3.2.701.v20150204-1123"/>
 
    <plugin
          id="org.eclipse.ui.cheatsheets"
@@ -366,14 +366,14 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          id="org.eclipse.ui.ide"
          download-size="2470"
          install-size="5027"
-         version="3.10.1.v20140828-0944"
+         version="3.10.2.v20141118-1227"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.ui.ide.application"
-         download-size="70"
-         install-size="137"
-         version="1.0.500.v20140514-2033"
+         download-size="71"
+         install-size="139"
+         version="1.0.501.v20141111-1238"
          unpack="false"/>
 
    <plugin
@@ -596,18 +596,10 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.ui.themes"
-         download-size="43"
-         install-size="125"
-         version="1.0.1.v20140819-1717"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.core.filesystem.java7"
          download-size="14"
          install-size="23"
          version="1.0.0.v20140429-1531"
          fragment="true"
          unpack="false"/>
-
 </feature>

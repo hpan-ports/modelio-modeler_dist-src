@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.generation;
 
@@ -36,8 +36,9 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.Package;
+import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.api.FormatExport;
 import org.modelio.xmi.api.XMIExtension;
 import org.modelio.xmi.model.objing.profile.PExportProfile;
@@ -99,9 +100,6 @@ public class GenerationProperties extends XMIProperties {
     @objid ("5609085f-c469-4da9-8141-1c5d6fadcd2c")
     private List<ModelTree> exportScopeElts;
 
-    @objid ("43a87688-c813-4763-91ea-912432b6f9cd")
-    private Package selectedPackage = null;
-
     @objid ("25e840de-8d54-464a-842e-d551f9e15181")
     private Model ecoreModel = null;
 
@@ -110,6 +108,9 @@ public class GenerationProperties extends XMIProperties {
 
     @objid ("f6cf4db1-9777-4285-9b34-542c1b119ab5")
     private List<ModelElement> stereotypesExported = new ArrayList<>();
+
+    @objid ("9902dc1d-c2c6-46b7-908b-810be0e39eea")
+    private MClass profileMClass;
 
     @objid ("f491dbd5-7dd6-444a-b2f9-999c3c23acc3")
     private GenerationProperties() {
@@ -232,11 +233,6 @@ public class GenerationProperties extends XMIProperties {
         return this.timeDisplayerActivated;
     }
 
-    @objid ("b8734757-bfe3-4979-9b29-7fd2cf641567")
-    public Package getSelectedPackage() {
-        return this.selectedPackage;
-    }
-
     @objid ("91593fe8-1aff-4d65-a5f5-42c277d9ddd4")
     public PartialCreationExportVisitor getPartialCreationExportVisitor() {
         return this.partialCreationExportVisitor;
@@ -253,8 +249,9 @@ public class GenerationProperties extends XMIProperties {
     }
 
     @objid ("e4d5d825-1157-45b8-adf0-8ec5bb65bd53")
-    public void initialize(IMModelServices mmoServices) {
-        this.initializeServices(mmoServices);
+    public void initialize(IMModelServices mmoServices, MMetamodel metamodel) {
+        this.profileMClass = metamodel.getMClass(Profile.class);
+        this.initializeServices(mmoServices, metamodel);
         
         TotalExportMap.getInstance().clear();
         PartialExportMap.getInstance().clear();
@@ -295,7 +292,7 @@ public class GenerationProperties extends XMIProperties {
             if (this.ecoreModel.isProfileApplied(this.sysMLProfile)){
                 this.ecoreModel.unapplyProfile(this.sysMLProfile);
             }
-            this.sysMLProfile = null;   
+            this.sysMLProfile = null;
         }
     }
 
@@ -308,7 +305,7 @@ public class GenerationProperties extends XMIProperties {
     public org.eclipse.uml2.uml.Profile getSysMLProfile() {
         if (this.sysMLProfile == null){
         
-            Profile obSysMLProfile = (Profile) this.mmServices.findById(SmClass.getClass(Profile.class), UUID.fromString("00bc42a4-0000-1968-0000-000000000000"));
+            Profile obSysMLProfile = (Profile) this.mmServices.findById(this.profileMClass, UUID.fromString("00bc42a4-0000-1968-0000-000000000000"));
         
             if (obSysMLProfile != null){
                 this.sysMLProfile = (org.eclipse.uml2.uml.Profile) TotalExportMap.getInstance().get(obSysMLProfile.getUuid().toString());
@@ -336,12 +333,12 @@ public class GenerationProperties extends XMIProperties {
             this.exportedProfiles.remove(profileLast);
             if (indexFirst < this.exportedProfiles.size() -1)
                 this.exportedProfiles.add(indexFirst,  profileFirst);
-            else 
+            else
                 this.exportedProfiles.add(profileFirst);
         
             if (indexLast < this.exportedProfiles.size() -1)
                 this.exportedProfiles.add(indexLast, profileLast);
-            else 
+            else
                 this.exportedProfiles.add(profileLast);
         
         }
@@ -447,7 +444,7 @@ public class GenerationProperties extends XMIProperties {
         this.classTabConvertion.put("InformationFlow",  new ArrayList<String>(){{add("InformationFlow");}});
         this.classTabConvertion.put("InformationItem",  new ArrayList<String>(){{add("InformationItem");}});
         this.classTabConvertion.put("InitialNode",  new ArrayList<String>(){{add("InitialNode");}});
-        this.classTabConvertion.put("InitialPseudoState",  new ArrayList<String>(){{add("PseudoState");}});      
+        this.classTabConvertion.put("InitialPseudoState",  new ArrayList<String>(){{add("PseudoState");}});
         this.classTabConvertion.put("InputPin",  new ArrayList<String>(){{add("InputPin");add("ValuePin");
         add("ExpansionNode");add("ActionInputPin");}});
         this.classTabConvertion.put("Instance",  new ArrayList<String>(){{add("InstanceSpecification"); add("Property");}});

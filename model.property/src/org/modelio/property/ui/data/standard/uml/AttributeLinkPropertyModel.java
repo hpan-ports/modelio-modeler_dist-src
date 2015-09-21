@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -53,12 +53,12 @@ public class AttributeLinkPropertyModel extends AbstractPropertyModel<AttributeL
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a67c91c8-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"AttributeLink", "Name", "Base", "Value"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "Base", "Value" };
 
     @objid ("8ed28694-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -81,7 +81,8 @@ public class AttributeLinkPropertyModel extends AbstractPropertyModel<AttributeL
         
         this.labelStringType = new StringType(false);
         this.stringType = new StringType(true);
-        this.defaultAttributeLinkBaseType = new SingleElementType(true, Attribute.class, CoreSession.getSession(this.theEditedElement));
+        this.defaultAttributeLinkBaseType = new SingleElementType(true, Attribute.class,
+                CoreSession.getSession(this.theEditedElement));
         this.model = model;
     }
 
@@ -140,8 +141,7 @@ public class AttributeLinkPropertyModel extends AbstractPropertyModel<AttributeL
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -220,31 +220,32 @@ public class AttributeLinkPropertyModel extends AbstractPropertyModel<AttributeL
             return this.defaultAttributeLinkBaseType;
         }
         
-        Classifier parentClassifierBase = (Classifier)parentBase;
+        Classifier parentClassifierBase = (Classifier) parentBase;
         
         List<ModelElement> availableAttributes = getAvailableAttributes(parentClassifierBase);
         
-        ModelElementListType type = new ModelElementListType(true, Attribute.class, availableAttributes, CoreSession.getSession(this.theEditedElement));
+        ModelElementListType type = new ModelElementListType(true, Attribute.class, availableAttributes,
+                CoreSession.getSession(this.theEditedElement));
         return type;
     }
 
     @objid ("8ed40d1b-c068-11e1-8c0a-002564c97630")
     private List<ModelElement> getAvailableAttributes(Classifier classifier) {
-        List<ModelElement> attributesList = new ArrayList<>(); 
+        List<ModelElement> attributesList = new ArrayList<>();
         
         if (classifier != null) {
             EList<Attribute> classifierOperations = classifier.getOwnedAttribute();
-            
+        
             for (Feature feature : classifierOperations) {
                 attributesList.add(feature);
             }
-            
+        
             EList<Generalization> generalizations = classifier.getParent();
-            
+        
             for (Generalization generalization : generalizations) {
                 NameSpace parentNameSpace = generalization.getSuperType();
                 if (parentNameSpace instanceof Classifier) {
-                    attributesList.addAll(getAvailableAttributes((Classifier)parentNameSpace));
+                    attributesList.addAll(getAvailableAttributes((Classifier) parentNameSpace));
                 }
             }
         }

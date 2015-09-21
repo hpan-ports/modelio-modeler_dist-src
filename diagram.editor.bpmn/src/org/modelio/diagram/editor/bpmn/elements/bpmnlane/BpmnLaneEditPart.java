@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnlane;
 
@@ -32,9 +32,11 @@ import org.eclipse.gef.requests.GroupRequest;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.core.commands.DeleteInDiagramCommand;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.borders.TLBRBorder;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
+import org.modelio.diagram.elements.core.policies.AutoExpandLayoutEditPolicy;
 import org.modelio.diagram.elements.core.policies.DefaultDeleteNodeEditPolicy;
 import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
 import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointRequest;
@@ -56,17 +58,19 @@ public class BpmnLaneEditPart extends GmNodeEditPart {
         BpmnLaneFigure fig = null;
         if (lane.getLaneSet().getProcess() != null) {
             fig = new BpmnLaneFigure();
-            fig.setPreferredSize(700, 200);
+            fig.setLayoutManager(new BorderLayout());
+            MinimumSizeLayout.apply(fig, 700, 200);
         } else {
             fig = new BpmnSubLaneFigure();
-            //fig.setPreferredSize(700, 200);
+            fig.setLayoutManager(new BorderLayout());
         }
         
-        fig.setLayoutManager(new BorderLayout());
         // set style independent properties
         fig.setOpaque(true);
+        
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
+        
         // return the figure
         return fig;
     }
@@ -80,6 +84,7 @@ public class BpmnLaneEditPart extends GmNodeEditPart {
         // correct composite child with the notable exception of request of
         // creation of a sibling partition being delegated to the containing
         // partition container instead.
+        installEditPolicy(AutoExpandLayoutEditPolicy.class, new AutoExpandLayoutEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new BpmnLaneDelegatingEditPolicy());
         installEditPolicy(EditPolicy.NODE_ROLE, new BpmnLaneLinkEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
@@ -105,8 +110,8 @@ public class BpmnLaneEditPart extends GmNodeEditPart {
     @objid ("6115efb6-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmBpmnLane partitionModel = (GmBpmnLane) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), partitionModel.getLayoutData());
+        GmBpmnLane partitionModel = (GmBpmnLane) getModel();
+        getFigure().getParent().setConstraint(getFigure(), partitionModel.getLayoutData());
     }
 
     @objid ("6115efba-55b6-11e2-877f-002564c97630")
@@ -121,8 +126,9 @@ public class BpmnLaneEditPart extends GmNodeEditPart {
         } else if (index == 1) {
             // body: free zone: go in center and take all available space.
             getContentPane().add(child, BorderLayout.CENTER);
-        } else
+        } else {
             throw new IllegalArgumentException("Unexpected child");
+        }
     }
 
     @objid ("6115efbf-55b6-11e2-877f-002564c97630")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.load;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ScheduledExecutorService;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.session.api.repository.IRepositoryChangeEvent;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
 import org.modelio.vcore.session.impl.storage.IModelRefresher;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Implementation of {@link IModelLoaderProvider}.
@@ -38,13 +40,13 @@ import org.modelio.vcore.session.impl.storage.IModelRefresher;
 @objid ("a55c7527-1a03-11e2-8eb9-001ec947ccaf")
 public class ModelLoaderProvider implements IModelLoaderProvider {
     @objid ("b42ab8d9-a2ba-4f87-bd56-95d820c702d6")
-    private Queue<IModelLoader> loaderPool;
+    private final Queue<IModelLoader> loaderPool;
 
     @objid ("ec10b3aa-88ee-47f4-a299-96858cfffa9e")
-    private ModelLoaderConfiguration loaderConfig;
+    private final ModelLoaderConfiguration loaderConfig;
 
     @objid ("34a3103c-6fc0-434e-b100-a7fed28526aa")
-    private Queue<IModelLoader> refreshPool;
+    private final Queue<IModelLoader> refreshPool;
 
     /**
      * Initialize the model loader provider.
@@ -90,7 +92,19 @@ public class ModelLoaderProvider implements IModelLoaderProvider {
     @objid ("591da55f-6323-4bd6-ad16-d447a8ee0ed1")
     @Override
     public void fireRepositoryChange(IRepositoryChangeEvent event) {
-        this.loaderConfig.getSession().fireRepositoryChange(event);
+        this.loaderConfig.getSession().getRepositorySupport().fireRepositoryChange(event);
+    }
+
+    @objid ("4e669a55-78b0-437c-a8fa-8b83668a4c70")
+    @Override
+    public SmMetamodel getMetamodel() {
+        return this.loaderConfig.getMetamodel();
+    }
+
+    @objid ("feb580e8-ceef-46c8-8ecf-29ed7290958f")
+    @Override
+    public ScheduledExecutorService getSchedulerService() {
+        return this.loaderConfig.getSession().getSchedulerService();
     }
 
 }

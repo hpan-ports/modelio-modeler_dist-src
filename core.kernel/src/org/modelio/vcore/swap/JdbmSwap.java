@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.swap;
 
@@ -42,6 +42,7 @@ import org.modelio.vcore.smkernel.IMetaOf;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.ISwap;
 import org.modelio.vcore.smkernel.SmObjectData;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vcore.utils.jdbm.LongSerializer;
 import org.modelio.vcore.utils.jdbm.UuidSerializer;
 
@@ -66,7 +67,7 @@ public class JdbmSwap implements ISwap {
     private String swapPath;
 
     @objid ("dcb9c2a2-493b-11e2-91c9-001ec947ccaf")
-    private static final Serializer<CacheEntry> dataSerializer = new CacheEntrySerializer();
+    private final Serializer<CacheEntry> dataSerializer;
 
     @objid ("f5f214cc-84b5-11e1-b644-001ec947ccaf")
     private Index<IRepositoryObject> storeIndex = new Index<>();
@@ -86,7 +87,7 @@ public class JdbmSwap implements ISwap {
             this.saveEntry.metaId = this.metaObjectIndex.getId(data.getMetaOf());
             this.saveEntry.storeHandleId = this.storeIndex.getId(data.getRepositoryObject());
         
-            long recid = this.db.insert(this.saveEntry, dataSerializer);
+            long recid = this.db.insert(this.saveEntry, this.dataSerializer);
             this.uidMap.put(data.getUuid(), Long.valueOf(recid));
         
             commitSometimes();
@@ -104,14 +105,14 @@ public class JdbmSwap implements ISwap {
                 return null;
         
             long recid = lrecid.longValue();
-            CacheEntry entry = this.db.fetch(recid, dataSerializer);
+            CacheEntry entry = this.db.fetch(recid, this.dataSerializer);
             if (entry == null)
                 throw new IOException(recid+" record containing "+uuid.toString()+" object not found in swap.");
         
             SmObjectData ret = entry.data;
             ret.setRepositoryObject(this.storeIndex.getObject(entry.storeHandleId));
             ret.setMetaOf(this.metaObjectIndex.getObject(entry.metaId));
-            
+        
         
             this.db.delete(recid);
         
@@ -129,11 +130,13 @@ public class JdbmSwap implements ISwap {
      * Initializes the swap to the given directory.
      * <p>
      * The directory will be deleted on close.
+     * @param metamodel the metamodel
      * @param swapDirectory The swap path. Must be a directory, preferably empty.
      */
     @objid ("f5f214d7-84b5-11e1-b644-001ec947ccaf")
-    public JdbmSwap(final File swapDirectory) {
+    public JdbmSwap(SmMetamodel metamodel, final File swapDirectory) {
         this.swapPath = swapDirectory.getAbsolutePath();
+        this.dataSerializer = new CacheEntrySerializer(metamodel);
         
         try {
             Properties props = new Properties();

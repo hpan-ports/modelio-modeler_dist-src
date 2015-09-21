@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.editingsupport.font;
 
@@ -46,8 +46,13 @@ import org.eclipse.swt.widgets.FontDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
-import org.modelio.core.ui.CoreFontRegistry;
+import org.modelio.ui.CoreFontRegistry;
 
+/**
+ * Cell editor for SWT {@link Font}.
+ * <p>
+ * Opens the SWT font chooser dialog on double click or on clicking the "..." button in the cell.
+ */
 @objid ("85a2342c-1926-11e2-92d2-001ec947c8cc")
 public class FontDialogEditor extends CellEditor {
     /**
@@ -152,13 +157,13 @@ public class FontDialogEditor extends CellEditor {
         Font font = parent.getFont();
         Color bg = parent.getBackground();
         
-        this.editor = new Composite(parent, this.getStyle());
+        this.editor = new Composite(parent, getStyle());
         this.editor.setFont(font);
         this.editor.setBackground(bg);
         this.editor.setLayout(new DialogCellLayout());
         
-        this.contents = this.createContents(this.editor);
-        this.updateContents(this.value);
+        this.contents = createContents(this.editor);
+        updateContents(this.value);
         
         this.button = FontDialogEditor.createButton(this.editor);
         this.button.setFont(font);
@@ -173,55 +178,21 @@ public class FontDialogEditor extends CellEditor {
             }
         });
         
-        this.button.addFocusListener(this.getButtonFocusListener());
+        this.button.addFocusListener(getButtonFocusListener());
         
         this.button.addSelectionListener(new SelectionAdapter() {
-            /* (non-Javadoc)
-             * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-             */
-            @SuppressWarnings("synthetic-access")
             @Override
             public void widgetSelected(SelectionEvent event) {
-                // Remove the button's focus listener since it's guaranteed
-                // to lose focus when the dialog opens
-                FontDialogEditor.this.button.removeFocusListener(FontDialogEditor.this.getButtonFocusListener());
-                Object newValue = FontDialogEditor.this.openDialogBox(FontDialogEditor.this.editor);
-                // Re-add the listener once the dialog closes
-                FontDialogEditor.this.button.addFocusListener(FontDialogEditor.this.getButtonFocusListener());
-                if (newValue != null) {
-                    boolean newValidState = FontDialogEditor.this.isCorrect(newValue);
-                    if (newValidState) {
-                        FontDialogEditor.this.markDirty();
-                        FontDialogEditor.this.doSetValue(CoreFontRegistry.getFont((FontData) newValue));
-                    } else {
-                        // try to insert the current value into the error message.
-                        FontDialogEditor.this.setErrorMessage(MessageFormat.format(FontDialogEditor.this.getErrorMessage(),
-                                                                                   new Object[] { newValue.toString() }));
-                    }
-                    FontDialogEditor.this.fireApplyEditorValue();
-                }
+                onFontButtonClick();
             }
         });
         
-        this.setValueValid(true);
+        setValueValid(true);
         
         this.defaultLabel.addMouseListener(new MouseAdapter() {
-            @SuppressWarnings("synthetic-access")
             @Override
             public void mouseDoubleClick(MouseEvent e) {
-                Object newValue = FontDialogEditor.this.openDialogBox(FontDialogEditor.this.editor);
-                if (newValue != null) {
-                    boolean newValidState = FontDialogEditor.this.isCorrect(newValue);
-                    if (newValidState) {
-                        FontDialogEditor.this.markDirty();
-                        FontDialogEditor.this.doSetValue(newValue);
-                    } else {
-                        // try to insert the current value into the error message.
-                        FontDialogEditor.this.setErrorMessage(MessageFormat.format(FontDialogEditor.this.getErrorMessage(),
-                                                                                   new Object[] { newValue.toString() }));
-                    }
-                    FontDialogEditor.this.fireApplyEditorValue();
-                }
+                onDefaultLabelDoubleClick();
             }
         });
         return this.editor;
@@ -231,7 +202,7 @@ public class FontDialogEditor extends CellEditor {
     @Override
     public void deactivate() {
         if (this.button != null && !this.button.isDisposed()) {
-            this.button.removeFocusListener(this.getButtonFocusListener());
+            this.button.removeFocusListener(getButtonFocusListener());
         }
         
         super.deactivate();
@@ -248,7 +219,7 @@ public class FontDialogEditor extends CellEditor {
     protected void doSetFocus() {
         this.button.setFocus();
         // add a FocusListener to the button
-        this.button.addFocusListener(this.getButtonFocusListener());
+        this.button.addFocusListener(getButtonFocusListener());
     }
 
     /**
@@ -279,7 +250,7 @@ public class FontDialogEditor extends CellEditor {
     @Override
     protected void doSetValue(Object newValue) {
         this.value = (Font) newValue;
-        this.updateContents(newValue);
+        updateContents(this.value);
     }
 
     /**
@@ -303,7 +274,7 @@ public class FontDialogEditor extends CellEditor {
      * dialog
      */
     @objid ("85a496a9-1926-11e2-92d2-001ec947c8cc")
-    protected Object openDialogBox(Control cellEditorWindow) {
+    protected Font openDialogBox(Control cellEditorWindow) {
         final Display display = cellEditorWindow.getDisplay();
         final Shell centerShell = new Shell(cellEditorWindow.getShell(), SWT.NO_TRIM);
         centerShell.setLocation(display.getCursorLocation());
@@ -312,10 +283,23 @@ public class FontDialogEditor extends CellEditor {
         if (this.value != null) {
             ftDialog.setFontList(this.value.getFontData());
         }
-        FontData fData = ftDialog.open();
+        
+        FontData fData = null;
+        
+        // Remove the button's focus listener since it's guaranteed
+        // to lose focus when the dialog opens
+        this.button.removeFocusListener(getButtonFocusListener());
+        try {
+            // Open the dialog
+            fData = ftDialog.open();
+        } finally {
+            // Re-add the listener once the dialog closes
+            this.button.addFocusListener(getButtonFocusListener());
+        }
         
         if (fData != null) {
-            return fData;
+            FontData[] fontList = ftDialog.getFontList();
+            return CoreFontRegistry.getFont(fontList);
         }
         return null;
     }
@@ -333,19 +317,51 @@ public class FontDialogEditor extends CellEditor {
      * @param newValue the new value of this cell editor
      */
     @objid ("85a496af-1926-11e2-92d2-001ec947c8cc")
-    protected void updateContents(Object newValue) {
+    protected void updateContents(Font newValue) {
         if (this.defaultLabel == null) {
             return;
         }
         
         String text = "";//$NON-NLS-1$
         if (newValue != null) {
-            if (newValue instanceof Font)
-                text = FontService.getFontLabel((Font) newValue);
-            else
-                text = newValue.toString();
+            text = FontService.getFontLabel(newValue);
         }
         this.defaultLabel.setText(text);
+    }
+
+    @objid ("7f847b57-29fc-4295-b6cb-43fc17fe258f")
+    void onDefaultLabelDoubleClick() {
+        Font newValue = openDialogBox(this.editor);
+        if (newValue != null) {
+            boolean newValidState = isCorrect(newValue);
+            if (newValidState) {
+                markDirty();
+                doSetValue(newValue);
+            } else {
+                // try to insert the current value into the error message.
+                setErrorMessage(MessageFormat.format(getErrorMessage(),
+                        new Object[] { newValue.toString() }));
+            }
+            fireApplyEditorValue();
+        }
+    }
+
+    @objid ("d7467148-35e1-40b1-80ea-56ef7251272e")
+    void onFontButtonClick() {
+        Font newValue = null;
+           newValue = openDialogBox(this.editor);
+        
+        if (newValue != null) {
+            boolean newValidState = isCorrect(newValue);
+            if (newValidState) {
+                markDirty();
+                doSetValue(newValue);
+            } else {
+                // try to insert the current value into the error message.
+                setErrorMessage(MessageFormat.format(getErrorMessage(), new Object[] { newValue.toString() }));
+            }
+            fireApplyEditorValue();
+        }
     }
 
     /**

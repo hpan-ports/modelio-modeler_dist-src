@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,20 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.interactionuse.primarynode;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutListener.Stub;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
@@ -52,18 +50,17 @@ class FigureUpdater extends Stub {
         
         int top = container.getBounds().y;
         int bottom = container.getBounds().bottom();
+        
         InteractionUse interactionUse = (InteractionUse) ((GmModel) this.editPart.getModel()).getRelatedElement();
         int startLineNumber = interactionUse.getLineNumber();
         int endLineNumber = interactionUse.getEndLineNumber();
+        
         if (top != startLineNumber || bottom != endLineNumber) {
             // Request a resize to match the model!
             ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
-            request.setCenteredResize(false);
-            request.setConstrainedMove(false);
-            request.setConstrainedResize(false);
             request.setEditParts(this.editPart.getParent());
-            request.setMoveDelta(new Point(0, startLineNumber - top));
-            request.setSizeDelta(new Dimension(0, (endLineNumber - startLineNumber) - (bottom - top)));
+            request.getMoveDelta().setY(startLineNumber - top);
+            request.getSizeDelta().setHeight((endLineNumber - startLineNumber) - (bottom - top));
             Command command = this.editPart.getParent().getCommand(request);
             if (command != null && command.canExecute()) {
                 command.execute();

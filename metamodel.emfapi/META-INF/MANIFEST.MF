@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Emfapi
 Bundle-SymbolicName: org.modelio.metamodel.emfapi
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Require-Bundle: org.modelio.core.kernel,
  org.eclipse.emf.ecore
 Bundle-Vendor: modelio.org
@@ -19,9 +19,6 @@ Export-Package: org.modelio.metamodel,
  org.modelio.metamodel.bpmn.resources,
  org.modelio.metamodel.bpmn.rootElements,
  org.modelio.metamodel.diagrams,
- org.modelio.metamodel.experts.links,
- org.modelio.metamodel.experts.meta,
- org.modelio.metamodel.experts.meta.impl,
  org.modelio.metamodel.factory,
  org.modelio.metamodel.mda,
  org.modelio.metamodel.uml.behavior.activityModel,

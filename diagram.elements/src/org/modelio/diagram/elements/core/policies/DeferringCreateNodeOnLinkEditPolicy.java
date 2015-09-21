@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.policies;
 
@@ -38,7 +38,6 @@ import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -53,24 +52,27 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
     @objid ("80c540c4-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected final Command getAddCommand(final Request request) {
-        if (getTargetEditPart(request) == null)
+        if (getTargetEditPart(request) == null) {
             return null;
+        }
         return new DeferredChangeBoundsCommand((ChangeBoundsRequest) request, getHost());
     }
 
     @objid ("80c540cf-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected final Command getCloneCommand(final ChangeBoundsRequest request) {
-        if (getTargetEditPart(request) == null)
+        if (getTargetEditPart(request) == null) {
             return null;
+        }
         return new DeferredChangeBoundsCommand(request, getHost());
     }
 
     @objid ("80c540da-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected final Command getCreateCommand(final CreateRequest createReq) {
-        if (getTargetEditPart(createReq) == null)
+        if (getTargetEditPart(createReq) == null) {
             return null;
+        }
         return new DeferredCreateCommand(createReq, getHost());
     }
 
@@ -79,11 +81,13 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
         final GmLink gmLink = (GmLink) getHost().getModel();
         final GmCompositeNode gmTargetChild = getExtensionFor(gmLink, metaclass, location);
         
-        if (gmTargetChild == null)
+        if (gmTargetChild == null) {
             return null;
+        }
         
-        if (!gmTargetChild.isVisible())
+        if (!gmTargetChild.isVisible()) {
             return getHost();
+        }
         
         final EditPart p = (EditPart) getHost().getViewer().getEditPartRegistry().get(gmTargetChild);
         return p;
@@ -132,8 +136,11 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
     @objid ("80c7a31e-1dec-11e2-8cad-001ec947c8cc")
     private EditPart getCreateTargetEditPart(final CreateRequest createRequest) {
         // Creation request, only one element is involved
-        final String metaclassName = (String) createRequest.getNewObjectType();
-        return getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)), createRequest.getLocation());
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
+        if (ctx != null) {
+            return getEditPartFor(ctx.getMetaclass().getJavaInterface(), createRequest.getLocation());
+        }
+        return null;
     }
 
     @objid ("80c7a328-1dec-11e2-8cad-001ec947c8cc")
@@ -149,13 +156,13 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
             final Object model = part.getModel();
             if (model instanceof GmModel) {
                 final GmModel gm = (GmModel) model;
-                final String metaclassName = gm.getRepresentedRef().mc;
-                final EditPart target = getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)),
+                final EditPart target = getEditPartFor(gm.getRelatedMClass().getJavaInterface(),
                         req.getLocation());
-                if (ret == null)
+                if (ret == null) {
                     ret = target;
-                else if (ret != target)
+                } else if (ret != target) {
                     return null;
+                }
             }
         }
         return ret;
@@ -164,8 +171,9 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
     @objid ("80c7a332-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getMoveChildrenCommand(final Request request) {
-        if (getTargetEditPart(request) == null)
+        if (getTargetEditPart(request) == null) {
             return null;
+        }
         return new DeferredChangeBoundsCommand((ChangeBoundsRequest) request, getHost());
     }
 
@@ -173,8 +181,9 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
     @Override
     protected void decorateChild(final EditPart child) {
         EditPolicy policy = createChildEditPolicy(child);
-        if (policy != null)
+        if (policy != null) {
             child.installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, policy);
+        }
     }
 
     /**
@@ -215,11 +224,13 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
         @objid ("80ca055e-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public boolean canExecute() {
-            if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement()))
+            if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement())) {
                 return false;
+            }
             
-            if (!MTools.getAuthTool().canModify(this.gmLink.getRelatedElement()))
+            if (!MTools.getAuthTool().canModify(this.gmLink.getRelatedElement())) {
                 return false;
+            }
             return true;
         }
 
@@ -227,29 +238,34 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
         @Override
         public void execute() {
             Command cmd = createCommand();
-            if (cmd != null && cmd.canExecute())
+            if (cmd != null && cmd.canExecute()) {
                 cmd.execute();
+            }
         }
 
         @objid ("80ca0566-1dec-11e2-8cad-001ec947c8cc")
         private Command createCommand() {
             final GmCompositeNode gmTarget = getExtensionFor(this.gmLink, getMetaclass(), ((DropRequest) this.req).getLocation());
             
-            if (gmTarget == null)
+            if (gmTarget == null) {
                 return null;
+            }
             
-            if (!gmTarget.isVisible())
+            if (!gmTarget.isVisible()) {
                 gmTarget.setVisible(true);
+            }
             
             final EditPart p = (EditPart) this.editPartRegistry.get(gmTarget);
-            if (p == null)
+            if (p == null) {
                 return null;
+            }
             
             final EditPart targetPart = p.getTargetEditPart(this.req);
-            if (targetPart != null)
+            if (targetPart != null) {
                 return targetPart.getCommand(this.req);
-            else
+            } else {
                 return null;
+            }
         }
 
         /**
@@ -257,8 +273,8 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
          */
         @objid ("80ca056b-1dec-11e2-8cad-001ec947c8cc")
         private Class<? extends MObject> getMetaclass() {
-            ModelioCreationContext ctx = (ModelioCreationContext) ((CreateRequest) this.req).getNewObject();
-            return Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
+            ModelioCreationContext ctx = ModelioCreationContext.fromRequest((CreateRequest) this.req);
+            return ctx.getMetaclass().getJavaInterface();
         }
 
     }
@@ -305,12 +321,14 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
         public void execute() {
             final GmCompositeNode gmTarget = getGmTarget();
             
-            if (!gmTarget.isVisible())
+            if (!gmTarget.isVisible()) {
                 gmTarget.setVisible(true);
+            }
             
             final EditPart p = (EditPart) this.editPartRegistry.get(gmTarget);
-            if (p != null)
+            if (p != null) {
                 p.getTargetEditPart(this.req).getCommand(this.req).execute();
+            }
         }
 
         /**
@@ -325,18 +343,19 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
             for (Object o : this.req.getEditParts()) {
                 final EditPart part = (EditPart) o;
                 final GmModel model = (GmModel) part.getModel();
-                final String metaclassName = model.getRepresentedRef().mc;
-                final Class<? extends MObject> metaclass = Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName));
+                final Class<? extends MObject> metaclass = model.getRelatedMClass().getJavaInterface();
             
                 final GmCompositeNode cont = getExtensionFor(this.gmLink, metaclass, this.req.getLocation());
             
-                if (cont == null)
+                if (cont == null) {
                     return null;
+                }
             
-                if (gmTarget == null)
+                if (gmTarget == null) {
                     gmTarget = cont;
-                else if (gmTarget != cont)
+                } else if (gmTarget != cont) {
                     return null;
+                }
             }
             return gmTarget;
         }

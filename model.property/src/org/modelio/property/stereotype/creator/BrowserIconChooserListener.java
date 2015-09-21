@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.stereotype.creator;
 
@@ -40,7 +40,7 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.property.plugin.ModelProperty;
 
 @objid ("46bfc3c4-0456-4f5d-ad2c-9e8689f6196f")
-public class BrowserIconChooserListener implements SelectionListener {
+class BrowserIconChooserListener implements SelectionListener {
     @objid ("dd796780-20b5-46c1-97d8-7494f9774c97")
     private StereotypeEditionDialog dialog = null;
 
@@ -50,11 +50,6 @@ public class BrowserIconChooserListener implements SelectionListener {
     @objid ("9c627fcf-009c-4807-b94d-426c07d1ac11")
     private IProjectService projectService = null;
 
-    /**
-     * @param dialog
-     * @param modelingSession
-     * @param dataModel
-     */
     @objid ("4a26e38d-a9b7-4e0c-b01e-2a88e490beb9")
     public BrowserIconChooserListener(StereotypeEditionDialog dialog, IProjectService projectService, StereotypeEditionDataModel dataModel) {
         this.dialog = dialog;
@@ -62,31 +57,20 @@ public class BrowserIconChooserListener implements SelectionListener {
         this.projectService = projectService;
     }
 
-    /**
-     * (non-Javadoc)
-     * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
-     */
     @objid ("430dc3cd-7d6f-4d0f-9e7f-d7990e29f34f")
     @Override
     public void widgetDefaultSelected(SelectionEvent e) {
-        selectImage(e);
+        selectImage();
     }
 
-    /**
-     * (non-Javadoc)
-     * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-     */
     @objid ("40d63feb-a7e4-48d7-8753-52d5a157e8df")
     @Override
     public void widgetSelected(SelectionEvent event) {
-        selectImage(event);
+        selectImage();
     }
 
-    /**
-     * @param event
-     */
     @objid ("66354488-52f2-43bd-b3bc-c549c1b29331")
-    private void selectImage(SelectionEvent event) {
+    private void selectImage() {
         FileDialog fileDialog = new FileDialog(this.dialog.getShell(), SWT.OPEN);
         
         String[] filterNames = new String[] { ModelProperty.I18N
@@ -104,10 +88,10 @@ public class BrowserIconChooserListener implements SelectionListener {
         
         if (imagePath != null) {
             File imageFile = new File(imagePath);
-            if (imageFile.exists()) {              
+            if (imageFile.exists()) {
                 this.dataModel.setIconName(imageFile.getName());
                 Path target = this.dataModel.getDefaultTempIconPath();
-                if (target != null) {                    
+                if (target != null) {
                     target.toFile().mkdirs();
                     try {
                         Files.copy(imageFile.toPath(), target, StandardCopyOption.REPLACE_EXISTING);

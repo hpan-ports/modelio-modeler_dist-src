@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,29 +12,43 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.infrastructure.properties;
 
 import java.util.Properties;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
 import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 
+/**
+ * PropertyTable v0.0.9054
+ * 
+ * 
+ * Property table
+ * <p>
+ * A property table has a name and a stores a key/value map.
+ */
 @objid ("00688c1a-ec87-1098-b22e-001ec947cd2a")
 public interface PropertyTable extends Element {
+    @objid ("60a4f474-4e25-4b3c-a642-a0b2e3e31f64")
+    public static final String MNAME = "PropertyTable";
+
     /**
      * Get a property value.
      * @param key a property
@@ -70,34 +84,94 @@ public interface PropertyTable extends Element {
     @objid ("5652fdb3-2826-11e2-bf07-001ec947ccaf")
     Properties toProperties() throws IllegalStateException;
 
-    @objid ("ae814cd4-12f0-49a1-8947-f5819bf89069")
+    /**
+     * Getter for attribute 'PropertyTable.name'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4e5a2065-91fc-496f-8657-b4d7e92c293f")
     String getName();
 
-    @objid ("39e920be-304f-40bf-9b76-0b736a35446d")
+    /**
+     * Setter for attribute 'PropertyTable.name'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("16fc0a94-8670-48c8-bb81-63ae403dec32")
     void setName(String value);
 
-    @objid ("7c58dd68-6e17-4afe-8803-ed4941e708d7")
+    /**
+     * Getter for attribute 'PropertyTable.content'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("d5f148c6-3061-451a-b213-d1ceedb8b1a6")
     String getContent();
 
-    @objid ("d934cef9-3392-44a0-b88e-d2fdbae9268a")
+    /**
+     * Setter for attribute 'PropertyTable.content'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("cc2c6451-581a-46ea-a497-644b624e767e")
     void setContent(String value);
 
-    @objid ("3c9bf617-32ed-48b0-8e48-55be35ea85d0")
+    /**
+     * Getter for relation 'PropertyTable->Owner'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("7eeb44ed-aeb6-4470-b2f5-b2a9f64dc385")
     ModelElement getOwner();
 
-    @objid ("e2671ffd-0e1c-4372-aea0-6af31bb725a1")
+    /**
+     * Setter for relation 'PropertyTable->Owner'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e9cfb59b-8b61-41b7-92a6-b9b52256ee0f")
     void setOwner(ModelElement value);
 
-    @objid ("bfbb8314-0111-4e55-ae03-bdf9d67531e9")
+    /**
+     * Getter for relation 'PropertyTable->OwnerValDef'
+     * 
+     * Metamodel description:
+     * <i>Matrix value definition owning the property table.</i>
+     */
+    @objid ("ff00ac20-67b8-4662-b828-e3501ceb3e35")
     MatrixValueDefinition getOwnerValDef();
 
-    @objid ("dd10b450-5d07-4180-b40c-2aabc7bc472b")
+    /**
+     * Setter for relation 'PropertyTable->OwnerValDef'
+     * 
+     * Metamodel description:
+     * <i>Matrix value definition owning the property table.</i>
+     */
+    @objid ("af9ff0f3-cd19-4444-82b5-01c96c94652a")
     void setOwnerValDef(MatrixValueDefinition value);
 
-    @objid ("1caf8bf0-6460-42fc-98bc-0f19d71f95eb")
+    /**
+     * Getter for relation 'PropertyTable->OwnerQuery'
+     * 
+     * Metamodel description:
+     * <i>Query owner</i>
+     */
+    @objid ("96deeb25-5c51-43db-962c-fb338aeb9f35")
     QueryDefinition getOwnerQuery();
 
-    @objid ("8eba7733-00ae-4871-96fd-4a6b671582ef")
+    /**
+     * Setter for relation 'PropertyTable->OwnerQuery'
+     * 
+     * Metamodel description:
+     * <i>Query owner</i>
+     */
+    @objid ("1d92b57e-f388-46db-ba80-8cf5536add96")
     void setOwnerQuery(QueryDefinition value);
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.policies;
 
@@ -29,9 +29,9 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.GroupRequest;
+import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -155,27 +155,30 @@ public class DelegatingEditPolicy implements EditPolicy {
             final EditPart part = (EditPart) f;
             final Object model = part.getModel();
             if (model instanceof GmModel) {
-                GmModel gm = (GmModel) model;
-                final String metaclassName = gm.getRepresentedRef().mc;
-                final EditPart targetEditPart = getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)));
+                final GmModel gm = (GmModel) model;
+                final EditPart targetEditPart = getEditPartFor(gm.getRelatedMClass().getJavaInterface());
         
                 // No known edit part can handle that metaclass, consider we cannot the request cannot handled.
-                if (targetEditPart == null)
+                if (targetEditPart == null) {
                     return null;
+                }
         
-                if (ret == null)
+                if (ret == null) {
                     // First time, initialize...
                     ret = targetEditPart;
-                else if (ret != targetEditPart)
+                } else if (ret != targetEditPart) {
                     // ... then compare: if change, consider the request cannot handled
                     return null;
+                }
             }
         }
-        if (ret == null)
+        if (ret == null) {
             return null;
+        }
         // else
-        if (ret.equals(getHost()))
+        if (ret.equals(getHost())) {
             return ret;
+        }
         // else
         return ret.getTargetEditPart(request);
     }
@@ -184,16 +187,16 @@ public class DelegatingEditPolicy implements EditPolicy {
     private EditPart getTargetEditPartForCreateRequest(Request request) {
         // Creation request, only one element is involved
         final CreateRequest createReq = (CreateRequest) request;
-        final Object newObjectType = createReq.getNewObjectType();
-        if (newObjectType instanceof String) {
-            final String metaclassName = (String) newObjectType;
-            EditPart targetEditPart = getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)));
-            if (targetEditPart == null)
+        ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createReq);
+        if (ctx != null) {
+            EditPart targetEditPart = getEditPartFor(ctx.getMetaclass().getJavaInterface());
+            if (targetEditPart == null) {
                 return null;
-            else if (targetEditPart.equals(getHost()))
+            } else if (targetEditPart.equals(getHost())) {
                 return targetEditPart;
-            else
+            } else {
                 return targetEditPart.getTargetEditPart(request);
+            }
         } else {
             return null;
         }
@@ -274,8 +277,9 @@ public class DelegatingEditPolicy implements EditPolicy {
         
         final GmCompositeNode gmTargetChild = gmNode.getCompositeFor(metaclass);
         
-        if (gmTargetChild == null || !gmTargetChild.isVisible())
+        if (gmTargetChild == null || !gmTargetChild.isVisible()) {
             return null;
+        }
         
         final EditPart p = (EditPart) getHost().getRoot().getViewer().getEditPartRegistry().get(gmTargetChild);
         return p;

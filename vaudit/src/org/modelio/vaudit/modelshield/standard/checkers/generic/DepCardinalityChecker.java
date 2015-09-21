@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield.standard.checkers.generic;
 
@@ -59,7 +59,7 @@ public abstract class DepCardinalityChecker implements IChecker {
         if (currentCard < this.dep.getMinCardinality()
                 || ((this.dep.getMaxCardinality() > 0) && (currentCard > this.dep.getMaxCardinality()))) {
         
-            report.addEntry(createError(object, dep, currentCard));
+            report.addEntry(createError(object, this.dep, currentCard));
         }
     }
 
@@ -71,7 +71,7 @@ public abstract class DepCardinalityChecker implements IChecker {
 
 /*
      * Derived classes should redefine this method where needed so that a clear report can be provided to the end user.
-     * 
+     *
      * This 'default' implementation produces a rather technical report about SmDep cardinalities which is most often poorly
      * understandable by end users
      */
@@ -80,14 +80,14 @@ public abstract class DepCardinalityChecker implements IChecker {
 
 /*
      * Creates a 'default' Model error
-     * 
+     *
      */
     @objid ("c9c424e2-0798-4dba-8a54-bdd303ed54bf")
     protected final ModelError createDefaultError(final MObject object, MDependency dep, int currentCard) {
         List<Object> objects = new ArrayList<>();
-        objects.add(this.dep.getName());
-        objects.add(this.dep.getMinCardinality());
-        objects.add(this.dep.getMaxCardinality());
+        objects.add(dep.getName());
+        objects.add(dep.getMinCardinality());
+        objects.add(dep.getMaxCardinality());
         objects.add(currentCard);
         return new ModelError(this.errorId, object, objects);
     }

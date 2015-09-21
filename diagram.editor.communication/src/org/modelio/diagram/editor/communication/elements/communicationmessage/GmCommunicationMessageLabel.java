@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,26 +12,23 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.communication.elements.communicationmessage;
 
-import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.model.IEditableText;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
-import org.modelio.diagram.styles.core.MetaKey;
-import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationMessage;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
@@ -41,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * Label representing a {@link ICommunicationMessage}.
  */
 @objid ("7a469b1f-55b6-11e2-877f-002564c97630")
-public class GmCommunicationMessageLabel extends GmModelElementFlatHeader {
+public class GmCommunicationMessageLabel extends GmDefaultModelElementLabel {
     @objid ("7a469b23-55b6-11e2-877f-002564c97630")
     private CommunicationMessage element;
 
@@ -91,18 +88,18 @@ public class GmCommunicationMessageLabel extends GmModelElementFlatHeader {
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-        
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
-                    }
-        
-                    @Override
-                    public void setText(String text) {
-        getRelatedElement().setName(text);
-                    }
-        
-                };
+                                
+                                            @Override
+                                            public String getText() {
+                                        return getRelatedElement().getName();
+                                                    }
+                                
+                                                    @Override
+                                                    public void setText(String text) {
+                                        getRelatedElement().setName(text);
+                                                    }
+                                
+                                                };
     }
 
     @objid ("7a4821bb-55b6-11e2-877f-002564c97630")
@@ -115,18 +112,6 @@ public class GmCommunicationMessageLabel extends GmModelElementFlatHeader {
     @Override
     public CommunicationMessage getRepresentedElement() {
         return this.element;
-    }
-
-    @objid ("7a4821c9-55b6-11e2-877f-002564c97630")
-    @Override
-    public StyleKey getStyleKey(final MetaKey metakey) {
-        return super.getStyleKey(metakey);
-    }
-
-    @objid ("7a4821d4-55b6-11e2-877f-002564c97630")
-    @Override
-    public List<StyleKey> getStyleKeys() {
-        return Collections.emptyList();
     }
 
     @objid ("7a4821dd-55b6-11e2-877f-002564c97630")
@@ -151,7 +136,7 @@ public class GmCommunicationMessageLabel extends GmModelElementFlatHeader {
 
     @objid ("7a49a83e-55b6-11e2-877f-002564c97630")
     @Override
-    protected String computeLabel() {
+    protected String computeMainLabel() {
         return computeSignature(getRelatedElement());
     }
 

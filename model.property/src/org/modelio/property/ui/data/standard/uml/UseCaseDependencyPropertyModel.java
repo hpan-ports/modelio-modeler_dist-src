@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,15 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
@@ -42,12 +43,12 @@ public class UseCaseDependencyPropertyModel extends AbstractPropertyModel<UseCas
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a88496c8-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"UseCaseDependency", "Target", "ExtensionLocation"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Target", "ExtensionLocation" };
 
     @objid ("8f9e4304-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -67,7 +68,8 @@ public class UseCaseDependencyPropertyModel extends AbstractPropertyModel<UseCas
         
         this.labelStringType = new StringType(false);
         this.targetType = new SingleElementType(false, UseCase.class, CoreSession.getSession(this.theEditedElement));
-        this.extensionLocationType = new MultipleElementType(true, theEditedElement, "ExtensionLocation", ExtensionPoint.class, model);
+        this.extensionLocationType = new MultipleElementType(true, theEditedElement, "ExtensionLocation", ExtensionPoint.class,
+                model);
     }
 
     /**
@@ -123,8 +125,7 @@ public class UseCaseDependencyPropertyModel extends AbstractPropertyModel<UseCas
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      */
@@ -170,12 +171,14 @@ public class UseCaseDependencyPropertyModel extends AbstractPropertyModel<UseCas
                 this.theEditedElement.setTarget((UseCase) value);
                 break;
             case 2:
-                for (ExtensionPoint e : this.theEditedElement.getExtensionLocation())
+                for (ExtensionPoint e : new ArrayList<>(this.theEditedElement.getExtensionLocation())) {
                     this.theEditedElement.getExtensionLocation().remove(e);
+                }
         
-                List<ExtensionPoint> l  = (List<ExtensionPoint>) value;
-                for (ExtensionPoint e : l)
+                List<ExtensionPoint> l = (List<ExtensionPoint>) value;
+                for (ExtensionPoint e : l) {
                     this.theEditedElement.getExtensionLocation().add(e);
+                }
                 break;
             default:
                 return;

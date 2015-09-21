@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.persistence;
 
@@ -42,8 +42,8 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
-import org.modelio.core.ui.CoreColorRegistry;
-import org.modelio.core.ui.CoreFontRegistry;
+import org.modelio.ui.CoreColorRegistry;
+import org.modelio.ui.CoreFontRegistry;
 import org.modelio.vcore.smkernel.mapi.MRef;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -171,7 +171,7 @@ public class XmlDiagramReader implements IDiagramReader {
      * @throws java.lang.NullPointerException if <tt>enumType</tt> is null
      */
     @objid ("cb79d322-186f-11e2-92d2-001ec947c8cc")
-    private <T extends  Enum<T>> T convertToEnum(String enumType, String val) throws NullPointerException, IllegalArgumentException, ClassNotFoundException {
+    private <T extends  Enum<T>> T convertToEnum(String enumType, String val) throws ClassNotFoundException, IllegalArgumentException, NullPointerException {
         return XmlDiagramReader.convertToEnum(this.instanceFactory.getEnumClass(enumType), val);
     }
 
@@ -187,7 +187,7 @@ public class XmlDiagramReader implements IDiagramReader {
      */
     @objid ("cb79d32c-186f-11e2-92d2-001ec947c8cc")
     @SuppressWarnings("unchecked")
-    private static <T extends  Enum<T>> T convertToEnum(Class<?> enumType, String val) throws NullPointerException, IllegalArgumentException {
+    private static <T extends  Enum<T>> T convertToEnum(Class<?> enumType, String val) throws IllegalArgumentException, NullPointerException {
         if (val == null)
             return null;
         return Enum.valueOf((Class<T>)enumType, val);
@@ -219,9 +219,9 @@ public class XmlDiagramReader implements IDiagramReader {
     private static Rectangle convertToRectangle(String val) {
         final String[] vals = val.split(";");
         return new Rectangle(Integer.valueOf(vals[0]),
-                             Integer.valueOf(vals[1]),
-                             Integer.valueOf(vals[2]),
-                             Integer.valueOf(vals[3]));
+                                     Integer.valueOf(vals[1]),
+                                     Integer.valueOf(vals[2]),
+                                     Integer.valueOf(vals[3]));
     }
 
     /**

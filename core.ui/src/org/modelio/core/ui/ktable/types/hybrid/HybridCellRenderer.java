@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.ktable.types.hybrid;
 
@@ -39,8 +39,8 @@ import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.ui.UIImages;
 
 /**
- * This renderer displays a single element as its name followed by a 'from' clause. The 'from' clause shows the element
- * owner's name.
+ * This renderer displays a single element as its name followed by a 'from' clause. The 'from' clause shows the element owner's
+ * name.
  * 
  * @author pvlaemyn
  */
@@ -60,7 +60,7 @@ public class HybridCellRenderer extends DefaultCellRenderer {
 
     @objid ("8ddb555b-c068-11e1-8c0a-002564c97630")
     public HybridCellRenderer(int style, boolean displayOwner) {
-        super(style);        
+        super(style);
         this.displayOwner = displayOwner;
         this.indicatorImage = UIImages.INDICATOR;
     }
@@ -93,8 +93,9 @@ public class HybridCellRenderer extends DefaultCellRenderer {
         } else if (content instanceof Element) {
             // TODO CHM metaclass name
             text = ((Element) content).getClass().getSimpleName();
-        } else
+        } else {
             text = content.getClass().getSimpleName();
+        }
         
         int width = SWTX.getCachedStringExtent(gc, text).x + 20;
         
@@ -105,94 +106,44 @@ public class HybridCellRenderer extends DefaultCellRenderer {
     }
 
     /**
-     * A default implementation that paints cells in a way that is more or less Excel-like. Only the cell with focus
-     * looks very different.
-     * @see de.kupzog.ktable.KTableCellRenderer#drawCell(GC, Rectangle, int, int, Object, boolean, boolean, boolean,
-     * KTableModel)
+     * A default implementation that paints cells in a way that is more or less Excel-like. Only the cell with focus looks very
+     * different.
+     * @see de.kupzog.ktable.KTableCellRenderer#drawCell(GC, Rectangle, int, int, Object, boolean, boolean, boolean, KTableModel)
      */
     @objid ("8ddcdbd4-c068-11e1-8c0a-002564c97630")
     @Override
     public void drawCell(GC gc, final Rectangle initialRect, int col, int row, Object content, boolean focus, boolean fixed, boolean clicked, KTableModel model) {
-        Rectangle rect = initialRect;
+        // Rectangle rect = initialRect;
         
-        applyFont(gc);
+        // applyFont(gc);
         
-        String text;
+        String text = getTextForObject(content);
         
-        if (content == null) {
-            text = "null";
-        } else if (content instanceof Operation) {
-            //PAN issue #902
-            Operation operation = (Operation)content;
-            final List<Parameter> parameters = operation.getIO();
-            final int parameterNumber = parameters.size();
-            
-            text = operation.getName();
-            text = text + "(";
-            
-            for (int i = 0; i < parameterNumber; i++) {
-                final Parameter parameter = parameters.get(i);
-                final GeneralClass type = parameter.getType();
-                text = text + (type != null ? type.getName() : CoreUi.I18N.getString("KTable.NoType"));
-                if (i < parameterNumber - 1) {
-                    text = text + ", ";
-                }
-            }
-            text = text + ")";
-           final Parameter returnParam = operation.getReturn();
-           if (returnParam != null) {
-            final GeneralClass type = returnParam.getType();
-            text = text + ":" + (type != null ? type.getName() : CoreUi.I18N.getString("KTable.NoType"));
-        }
-            
-            if (this.displayOwner) {
-                Element owner = (Element) operation.getCompositionOwner();
-                if (owner instanceof ModelElement) {
-                    text = text + CoreUi.I18N.getMessage("ResultsProposalPopup.From", ((ModelElement) owner).getName());
-                }
-            }
-            //PAN
-        } else if (content instanceof ModelElement) {
-            ModelElement me = (ModelElement) content;
-            text = me.getName();
-        
-            if (this.displayOwner) {
-                Element owner = (Element) me.getCompositionOwner();
-                if (owner instanceof ModelElement) {
-                    text = text + CoreUi.I18N.getMessage("ResultsProposalPopup.From", ((ModelElement) owner).getName());
-                }
-            }
-        } else if (content instanceof String) {
-            text = (String) content;
-        } else if (content instanceof Element) {
-            // TODO CHM metaclass name
-            text = ((Element) content).getClass().getSimpleName();
-        } else
-            text = content.getClass().getSimpleName();
-        
-        // draw focus sign:
-        if (focus && (this.m_Style & INDICATION_FOCUS) != 0) {
-            // draw content:
-            rect = drawDefaultSolidCellLine(gc, rect, COLOR_LINE_LIGHTGRAY, COLOR_LINE_LIGHTGRAY);
-            drawCellContent(gc, rect, text, null, getForeground(), COLOR_BGFOCUS);
-            gc.drawFocus(rect.x, rect.y, rect.width, rect.height);
-        
-        } else if (focus && (this.m_Style & INDICATION_FOCUS_ROW) != 0) {
-            rect = drawDefaultSolidCellLine(gc, rect, COLOR_BGROWFOCUS, COLOR_BGROWFOCUS);
-            // draw content:
-            drawCellContent(gc, rect, text, null, COLOR_FGROWFOCUS, COLOR_BGROWFOCUS);
-        
-        } else {
-            rect = drawDefaultSolidCellLine(gc, rect, COLOR_LINE_LIGHTGRAY, COLOR_LINE_LIGHTGRAY);
-            // draw content:
-            drawCellContent(gc, rect, text, null, getForeground(), getBackground());
-        }
-        
-        if ((this.m_Style & INDICATION_COMMENT) != 0)
-            drawCommentSign(gc, rect);
-        
-        drawIndicator(gc, rect);
-        resetFont(gc);
+        // // draw focus sign:
+        // if (focus && (this.m_Style & INDICATION_FOCUS) != 0) {
+        // // draw content:
+        // rect = drawDefaultSolidCellLine(gc, rect, COLOR_LINE_LIGHTGRAY, COLOR_LINE_LIGHTGRAY);
+        // drawCellContent(gc, rect, text, null, getForeground(), COLOR_BGFOCUS);
+        // gc.drawFocus(rect.x, rect.y, rect.width, rect.height);
+        //
+        // } else if (focus && (this.m_Style & INDICATION_FOCUS_ROW) != 0) {
+        // rect = drawDefaultSolidCellLine(gc, rect, COLOR_BGROWFOCUS, COLOR_BGROWFOCUS);
+        // // draw content:
+        // drawCellContent(gc, rect, text, null, COLOR_FGROWFOCUS, COLOR_BGROWFOCUS);
+        //
+        // } else {
+        // rect = drawDefaultSolidCellLine(gc, rect, COLOR_LINE_LIGHTGRAY, COLOR_LINE_LIGHTGRAY);
+        // // draw content:
+        // drawCellContent(gc, rect, text, null, getForeground(), getBackground());
+        // }
+        //
+        // if ((this.m_Style & INDICATION_COMMENT) != 0) {
+        // drawCommentSign(gc, rect);
+        // }
+        //
+        // drawIndicator(gc, rect);
+        // resetFont(gc);
+        super.drawCell(gc, initialRect, col, row, text, focus, fixed, clicked, model);
     }
 
     /**
@@ -200,10 +151,11 @@ public class HybridCellRenderer extends DefaultCellRenderer {
      */
     @objid ("8ddcdbe2-c068-11e1-8c0a-002564c97630")
     public void setCommentIndication(boolean value) {
-        if (value)
+        if (value) {
             this.m_Style = this.m_Style | INDICATION_COMMENT;
-        else
+        } else {
             this.m_Style = this.m_Style & ~INDICATION_COMMENT;
+        }
     }
 
     /**
@@ -236,6 +188,64 @@ public class HybridCellRenderer extends DefaultCellRenderer {
     public Text getM_text() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.m_text;
+    }
+
+    @objid ("d9854e67-8b80-4658-8865-e1809cb1e683")
+    private String getTextForObject(Object content) {
+        String text;
+        
+        if (content == null) {
+            text = "null";
+        } else if (content instanceof Operation) {
+            // PAN issue #902
+            Operation operation = (Operation) content;
+            final List<Parameter> parameters = operation.getIO();
+            final int parameterNumber = parameters.size();
+        
+            text = operation.getName();
+            text = text + "(";
+        
+            for (int i = 0; i < parameterNumber; i++) {
+                final Parameter parameter = parameters.get(i);
+                final GeneralClass type = parameter.getType();
+                text = text + (type != null ? type.getName() : CoreUi.I18N.getString("KTable.NoType"));
+                if (i < parameterNumber - 1) {
+                    text = text + ", ";
+                }
+            }
+            text = text + ")";
+            final Parameter returnParam = operation.getReturn();
+            if (returnParam != null) {
+                final GeneralClass type = returnParam.getType();
+                text = text + ":" + (type != null ? type.getName() : CoreUi.I18N.getString("KTable.NoType"));
+            }
+        
+            if (this.displayOwner) {
+                Element owner = (Element) operation.getCompositionOwner();
+                if (owner instanceof ModelElement) {
+                    text = text + CoreUi.I18N.getMessage("ResultsProposalPopup.From", ((ModelElement) owner).getName());
+                }
+            }
+            // PAN
+        } else if (content instanceof ModelElement) {
+            ModelElement me = (ModelElement) content;
+            text = me.getName();
+        
+            if (this.displayOwner) {
+                Element owner = (Element) me.getCompositionOwner();
+                if (owner instanceof ModelElement) {
+                    text = text + CoreUi.I18N.getMessage("ResultsProposalPopup.From", ((ModelElement) owner).getName());
+                }
+            }
+        } else if (content instanceof String) {
+            text = (String) content;
+        } else if (content instanceof Element) {
+            // TODO CHM metaclass name
+            text = ((Element) content).getClass().getSimpleName();
+        } else {
+            text = content.getClass().getSimpleName();
+        }
+        return text;
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.project.conf.dialog.modules;
 
@@ -32,21 +32,16 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
-import org.modelio.api.module.IParameterModel;
 import org.modelio.app.core.ModelioEnv;
 import org.modelio.app.project.conf.dialog.ProjectModel;
 import org.modelio.app.project.conf.dialog.modules.list.ModulesSection;
 import org.modelio.app.project.conf.dialog.modules.parameters.ParameterSection;
 import org.modelio.gproject.module.GModule;
-import org.modelio.mda.infra.service.IModuleService;
-import org.modelio.mda.infra.service.IRTModule;
-import org.modelio.ui.UIColor;
 
 /**
  * Modules page
@@ -58,9 +53,6 @@ public class ModulesPage {
 
     @objid ("a73dfbfe-33f6-11e2-a514-002564c97630")
     protected ParameterSection parameterSection;
-
-    @objid ("5ce78b08-2d71-4937-8c5e-6f8f5efefbea")
-    protected Text descriptionLabel;
 
     @objid ("420779fc-4a9f-477e-b584-ca069eb5fa27")
     protected IEclipseContext applicationContext;
@@ -95,7 +87,7 @@ public class ModulesPage {
         this.parameterSection = new ParameterSection(this.applicationContext);
         final Section s3 = this.parameterSection.createControls(toolkit, form.getBody());
         s3.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
-             
+        
         // Parameter updater
         this.modulesSection.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
@@ -104,16 +96,16 @@ public class ModulesPage {
                 if (selection instanceof IStructuredSelection) {
                     IStructuredSelection structuredSelection = (IStructuredSelection) selection;
                     if (structuredSelection.isEmpty()) {
-                        ModulesPage.this.parameterSection.setInput(null);                       
+                        ModulesPage.this.parameterSection.setInput(null);
                         // force layout of the new zone
                         boolean expanded = s3.isExpanded();
                         s3.setExpanded(!expanded);
                         s3.setExpanded(expanded);
                     } else if (structuredSelection.size() == 1) {
-                        Object obj = structuredSelection.getFirstElement();                
+                        Object obj = structuredSelection.getFirstElement();
                         if (obj instanceof GModule) {
                             GModule module = (GModule) obj;
-                            ModulesPage.this.parameterSection.setInput(module);                            
+                            ModulesPage.this.parameterSection.setInput(module);
                             // force layout of the new zone
                             boolean expanded = s3.isExpanded();
                             s3.setExpanded(!expanded);
@@ -123,16 +115,6 @@ public class ModulesPage {
                 }
             }
         });
-        
-        this.descriptionLabel = toolkit.createText(mainComposite, "", SWT.WRAP /*| SWT.V_SCROLL*/);
-        this.descriptionLabel.setForeground(UIColor.LABEL_TIP_FG);
-        GridData gd2 = new GridData(SWT.FILL, SWT.FILL, true, false);
-        gd2.heightHint = 60;
-        this.descriptionLabel.setLayoutData(gd2);
-        
-        // Add description updater for each section
-        addModuleSectionDescriptionUpdater();
-        addParameterDescriptionSectionUpdater();
         return mainComposite;
     }
 
@@ -145,76 +127,6 @@ public class ModulesPage {
         this.projectAdapter = projectAdapter;
         // update the different sections
         this.modulesSection.setInput(projectAdapter);
-    }
-
-    /**
-     * Add module section updater
-     * When selection change in the section, the description label text will be updated
-     */
-    @objid ("e235ec46-7cda-4e89-ba56-30f26d1ec351")
-    private void addModuleSectionDescriptionUpdater() {
-        this.modulesSection.addSelectionChangedListener(new ISelectionChangedListener() {
-            
-            @Override
-            public void selectionChanged(SelectionChangedEvent event) {
-                // Reset description
-                ModulesPage.this.descriptionLabel.setText(""); //$NON-NLS-1$
-                
-                ISelection selection = event.getSelection();
-                if (selection instanceof IStructuredSelection) {
-                    IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-                    if (structuredSelection.size() == 1) {
-                        Object obj = structuredSelection.getFirstElement();
-                
-                        if (obj instanceof GModule) {
-                            IModuleService moduleService = ModulesPage.this.applicationContext.get(IModuleService.class);
-                            
-                            // Fill the module's description
-                            GModule module = (GModule) obj;
-                            
-                            IRTModule iModule = moduleService.getIRTModule(module);
-                            if (iModule != null) { 
-                                ModulesPage.this.descriptionLabel.setText(iModule.getDescription());
-                            }
-                        }
-                    }
-                }
-            }
-            
-        });
-    }
-
-    /**
-     * Add parameter section updater
-     * When selection change in the section, the description label text will be updated
-     */
-    @objid ("abaf6b83-2a46-4049-adcb-ff38a18a35ed")
-    private void addParameterDescriptionSectionUpdater() {
-        this.parameterSection.addSelectionChangedListener(new ISelectionChangedListener() {
-        
-            @Override
-            public void selectionChanged(SelectionChangedEvent event) {
-                // Reset description
-                ModulesPage.this.descriptionLabel.setText(""); //$NON-NLS-1$
-                
-                ISelection selection = event.getSelection();
-                if (selection instanceof IStructuredSelection) {
-                    IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-                    if (structuredSelection.size() == 1) {
-                        Object obj = structuredSelection.getFirstElement();
-                
-                        if (obj instanceof IParameterModel) {
-                            // Fill the module's description
-                            IParameterModel param = (IParameterModel) obj;
-                            
-                            ModulesPage.this.descriptionLabel.setText(param.getDescription());
-                        }
-                    }
-                }
-                
-            }
-            
-        });
     }
 
     @objid ("367fb76d-b012-470c-9734-982b47947a4e")

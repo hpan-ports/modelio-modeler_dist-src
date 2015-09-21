@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.module;
 
@@ -30,6 +30,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.GAuthConf;
 import org.modelio.gproject.data.project.GProperties;
+import org.modelio.gproject.data.project.todo.InstallModuleDescriptor;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.fragment.ramcfile.MdaFragment;
 import org.modelio.gproject.gproject.GProject;
@@ -37,7 +38,7 @@ import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.version.Version;
 import org.modelio.vcore.session.api.repository.IRepository;
-import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Represents a module deployed in the project.
@@ -50,7 +51,13 @@ public class GModule {
     @objid ("3e599a93-ec64-11e1-8186-001ec947ccaf")
     public static final long serialVersionUID = 1L;
 
+    /**
+     * Project property to ask Modelio to deploy this module on project open.
+     * 
+     * @deprecated Use {@link InstallModuleDescriptor}.
+     */
     @objid ("01151a68-a0cd-486e-a968-f8dc97d58188")
+    @Deprecated
     public static final String SELECT_ON_OPEN = "select-on-open";
 
     @objid ("2c918456-f2b0-11e1-8543-001ec947ccaf")
@@ -66,19 +73,19 @@ public class GModule {
     private IProjectFragment modelFragment;
 
     @objid ("10c03dd0-f1b3-11e1-993d-001ec947ccaf")
-    private GProperties parameters = new GProperties();
+    private final GProperties parameters;
 
     @objid ("4e3a7c5b-f2bb-11e1-90ff-002564c97630")
     private IModuleHandle moduleHandle;
 
     @objid ("f87f0294-f369-11e1-9173-001ec947ccaf")
-    private final URI originalArchiveUri;
+    private URI originalArchiveUri;
 
     /**
      * Only used to call getSession().beginLoadingSession()
      */
     @objid ("c9d66ceb-3a44-11e2-a6db-001ec947ccaf")
-    private GProject project;
+    private final GProject project;
 
     @objid ("9b095136-1979-42f0-bd0b-a424ba20f29f")
     private GAuthConf auth;
@@ -123,7 +130,8 @@ public class GModule {
             Path ramcPath = getModuleHandle().getModelComponentPath();
             if (ramcPath != null) {
                 this.modelFragment = new MdaFragment(getName(), ramcPath.toUri(), getScope(), new GProperties(), getAuthData());
-            } 
+                this.modelFragment.setProject(getProject());
+            }
         }
         return this.modelFragment;
     }
@@ -138,7 +146,8 @@ public class GModule {
             UUID uid = UUID.fromString(getModuleHandle().getUid());
             IRepository repository = getModelFragment().getRepository();
             if (repository != null) {
-                return (ModuleComponent) repository.findById(SmClass.getClass(ModuleComponent.class), uid);
+                SmMetamodel mm = getProject().getSession().getMetamodel();
+                return (ModuleComponent) repository.findById(mm.getMClass(ModuleComponent.class), uid);
             }
         } catch (IllegalArgumentException e) {
             // Invalid uuid, no module component to return
@@ -248,10 +257,11 @@ public class GModule {
     @objid ("dd1a238d-bb17-47da-b436-e4dd0d822028")
     @Override
     public String toString() {
-        if (getModuleHandle() != null)
+        if (getModuleHandle() != null) {
             return getName()+" v"+getVersion()+" GModule @"+getOriginalArchiveUri();
-        else
+        } else {
             return "GModule @"+getOriginalArchiveUri();
+        }
     }
 
     /**
@@ -279,6 +289,15 @@ public class GModule {
     @objid ("3891d0d6-9a66-4fa4-a459-4092354e877b")
     public void setAuthData(GAuthConf auth) {
         this.auth = auth;
+    }
+
+    /**
+     * Set the original archive URI.
+     * @param originalArchiveUri the original archive URI.
+     */
+    @objid ("3c5da208-d95a-4ff8-ac18-c141075077a4")
+    public void setOriginalArchiveUri(URI originalArchiveUri) {
+        this.originalArchiveUri = originalArchiveUri;
     }
 
 }

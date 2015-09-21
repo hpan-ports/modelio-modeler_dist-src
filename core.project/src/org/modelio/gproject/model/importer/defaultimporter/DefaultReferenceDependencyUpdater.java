@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model.importer.defaultimporter;
 
@@ -33,6 +33,9 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 
+/**
+ * Default implementation for {@link IDependencyUpdater}.
+ */
 @objid ("007b7dc0-d3aa-108f-8d81-001ec947cd2a")
 public class DefaultReferenceDependencyUpdater implements IDependencyUpdater {
     @objid ("bb8f8961-4467-11e2-b513-002564c97630")
@@ -44,6 +47,11 @@ public class DefaultReferenceDependencyUpdater implements IDependencyUpdater {
     @objid ("008c6ed2-e7d6-1090-8d81-001ec947cd2a")
     private final IObjectFinder objectFinder;
 
+    /**
+     * @param brokenDependencyHandler the broken link objects handler
+     * @param objectFinder the object finder
+     * @param localSession the local session
+     */
     @objid ("008c9128-e7d6-1090-8d81-001ec947cd2a")
     public DefaultReferenceDependencyUpdater(IBrokenDependencyHandler brokenDependencyHandler, IObjectFinder objectFinder, ICoreSession localSession) {
         super();

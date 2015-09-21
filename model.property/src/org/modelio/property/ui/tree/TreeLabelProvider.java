@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.tree;
 
@@ -26,7 +26,6 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.core.ui.images.ModuleI18NService;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
@@ -53,7 +52,7 @@ public class TreeLabelProvider extends LabelProvider {
         } else if (element instanceof MClass) {
             return MetamodelImageService.getIcon((MClass) element, null);
         } else if (element instanceof PropertyTableDefinition) {
-            return MetamodelImageService.getIcon(Metamodel.getMClass(PropertyTableDefinition.class), null);
+            return MetamodelImageService.getIcon(((PropertyTableDefinition) element).getMClass(), null);
         }
         return null;
     }
@@ -90,7 +89,9 @@ public class TreeLabelProvider extends LabelProvider {
         
         // Others (Element)
         if (element instanceof MClass) {
-            return ((MClass) element).getName().startsWith("Bpmn") ? "BPMN" : "UML";
+            MClass mClass = (MClass) element;
+            String prefix = mClass.getName().startsWith("Bpmn") ? "BPMN" : "UML";
+            return prefix + " - " + mClass.getName();
         } else {
             return "?" + element.toString();
         }
@@ -117,7 +118,7 @@ public class TreeLabelProvider extends LabelProvider {
      */
     @objid ("8faeec90-c068-11e1-8c0a-002564c97630")
     public TreeLabelProvider() {
-        this.moduleDefaultIcon = ModelProperty.getImageDescriptor("icons/moduleproptable_16.png") .createImage();
+        this.moduleDefaultIcon = ModelProperty.getImageDescriptor("icons/moduleproptable_16.png").createImage();
     }
 
     @objid ("8faeec92-c068-11e1-8c0a-002564c97630")
@@ -135,7 +136,7 @@ public class TreeLabelProvider extends LabelProvider {
     private Image getModuleIcon(ModuleComponent moduleComponent) {
         Image icon = null;
         
-        // If it is valid, get the module image 
+        // If it is valid, get the module image
         if (moduleComponent.isValid()) {
             icon = ModuleI18NService.getModuleImage(moduleComponent);
         }

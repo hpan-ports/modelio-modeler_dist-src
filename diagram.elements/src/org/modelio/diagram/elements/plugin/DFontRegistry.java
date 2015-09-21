@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.plugin;
 
@@ -30,10 +30,10 @@ import org.eclipse.swt.widgets.Display;
 
 @objid ("810cc733-1dec-11e2-8cad-001ec947c8cc")
 public class DFontRegistry {
-    @objid ("f35cf63f-b556-49b5-8f89-22be77e9e03b")
+    @objid ("3f51244a-4237-4f29-8078-8aef3df3a447")
     public Map<String, Font> fonts = new HashMap<>();
 
-    @objid ("ce208a24-7184-4ee8-a412-7d0aa705f6a6")
+    @objid ("762125ed-e2dd-4944-854a-b5b0efdd201a")
     private Display display;
 
     @objid ("810cc739-1dec-11e2-8cad-001ec947c8cc")

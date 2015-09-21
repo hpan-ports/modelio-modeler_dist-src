@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package com.sun.star.comp.beans;
 
@@ -37,19 +37,19 @@ class NativeConnection implements XConnection {
 ;
 
     @objid ("bb746f1b-3675-44d9-8f59-093d1e0b0d5a")
-    public native int read(final byte[][] aReadBytes, final int nBytesToRead) throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+    public native int read(final byte[][] aReadBytes, final int nBytesToRead) throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
 ;
 
     @objid ("0d15416c-c683-44c0-accc-50245cb60076")
-    public native void write(final byte[] aData) throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+    public native void write(final byte[] aData) throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
 ;
 
     @objid ("b90f7e14-7e4d-4ab4-b0fe-d46f54a4c5ba")
-    public native void flush() throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+    public native void flush() throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
 ;
 
     @objid ("7400fe19-b9cf-479a-a694-c02aa1c73b17")
-    public native void close() throws com.sun.star.uno.RuntimeException, com.sun.star.io.IOException;
+    public native void close() throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException;
 ;
 
     @objid ("cc2669b9-aaba-4bc1-9b6b-0070ac294e32")

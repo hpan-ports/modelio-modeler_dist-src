@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.packaze;
 
@@ -31,11 +31,11 @@ import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.gproject.model.IElementConfigurator;
 import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -100,19 +100,18 @@ public class CreateElementCommand extends Command {
             ModelManager modelManager = diagram.getModelManager();
             // Create the MObject...
             final IModelFactory modelFactory = modelManager.getModelFactory(diagram.getRelatedElement());
-            newElement = modelFactory.createElement(this.context.getMetaclass());
+            MClass mclass = this.context.getMetaclass();
+            newElement = modelFactory.createElement(mclass);
+            MExpert mExpert = mclass.getMetamodel().getMExpert();
         
-            // The new element must be attached to its parent using the composition dependency 
-            // provided by the context. 
+            // The new element must be attached to its parent using the composition dependency
+            // provided by the context.
             // If the context provides a null dependency, use the default dependency recommended by the metamodel
-            String effectiveDependencyName = this.context.getDependency();
-            MDependency effectiveDependency = null;
-            if (effectiveDependencyName != null) {
-                effectiveDependency = this.parentElement.getMClass().getDependency(effectiveDependencyName);
-            }
+            MDependency effectiveDependency = this.context.getDependency();
             if (effectiveDependency == null) {
-                effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, newElement);
+                effectiveDependency = mExpert.getDefaultCompositionDep(this.parentElement, newElement);
             }
+        
             // ... and attach it to its parent.
             try {
                 this.parentElement.mGet(effectiveDependency).add(newElement);
@@ -120,8 +119,7 @@ public class CreateElementCommand extends Command {
                 //TODO : use a more accurate Exception...
                 // The dependency indicated in the context cannot be used: try
                 // to find a valid one!
-                MDependency compositionDep = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement,
-                        newElement);
+                MDependency compositionDep = mExpert.getDefaultCompositionDep(this.parentElement, newElement);
                 if (compositionDep != null) {
                     this.parentElement.mGet(compositionDep).add(newElement);
                 } else {
@@ -134,10 +132,10 @@ public class CreateElementCommand extends Command {
             if (this.context.getStereotype() != null && newElement instanceof ModelElement) {
                 ((ModelElement) newElement).getExtension().add(this.context.getStereotype());
             }
-            
+        
             // Set default name
             newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
-            
+        
             // Configure element from properties
             final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
             elementConfigurer.configure(modelManager.getModelFactory(newElement), newElement, this.context.getProperties());
@@ -200,8 +198,9 @@ public class CreateElementCommand extends Command {
     public boolean canExecute() {
         // The diagram must be valid and modifiable.
         final GmAbstractDiagram gmDiagram = this.parentNode.getDiagram();
-        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement())) {
             return false;
+        }
         
         // If it is an actual creation (and not a simple unmasking).
         if (this.context.getElementToUnmask() == null) {
@@ -209,12 +208,13 @@ public class CreateElementCommand extends Command {
         
             // The parent element must be modifiable or
             // both must be CMS nodes.
-            if (!MTools.getAuthTool().canAdd(this.parentElement, this.context.getMetaclass()))
+            if (!MTools.getAuthTool().canAdd(this.parentElement, this.context.getMetaclass().getName())) {
                 return false;
+            }
         
             // Ask metamodel experts
-            final MClass toCreate = Metamodel.getMClass(this.context.getMetaclass());
-            return MTools.getMetaTool().canCompose(this.parentElement, toCreate, null);
+            final MClass toCreate = this.context.getMetaclass();
+            return toCreate.getMetamodel().getMExpert().canCompose(this.parentElement, toCreate, null);
         
         }
         return true;

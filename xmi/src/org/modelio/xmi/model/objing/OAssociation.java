@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -42,16 +42,13 @@ public class OAssociation extends OModelElement {
     @objid ("b553ce60-79f0-4587-b02a-1eb3455aaefb")
     private boolean isIsClassAssociation = true;
 
-    @objid ("b54a1445-3157-4bf0-bdb7-640d37414ada")
-    private Association objingElement = null;
-
     @objid ("0d9493e6-7d92-47ee-b497-536842e79387")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         if (!this.isIsClassAssociation){
-            if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2COMMUNICATIONPATH)){
+            if (getObjingElement().isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2COMMUNICATIONPATH)){
                return UMLFactory.eINSTANCE.createCommunicationPath();
-            }else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EXTENSION)){
+            }else if (getObjingElement().isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EXTENSION)){
                 return UMLFactory.eINSTANCE.createExtension();
             }else{
                 return createEcoreAssociation();
@@ -68,7 +65,7 @@ public class OAssociation extends OModelElement {
         GenerationProperties genProp = GenerationProperties.getInstance();
         // Gets or creates the Ecore org.eclipse.uml2.uml.AssociationClass:
         return  (org.eclipse.uml2.uml.AssociationClass) genProp
-                 .getMappedElement(this.objingElement);
+                         .getMappedElement(getObjingElement());
     }
 
     @objid ("dd4c8de5-7416-4da2-943e-5259c6598182")
@@ -84,24 +81,22 @@ public class OAssociation extends OModelElement {
     @objid ("f72568fa-cb09-47d9-bf66-5fbabcf90299")
     public OAssociation(final Association element) {
         super(element);
-        this.objingElement = element;
-        this.isIsClassAssociation = AbstractObjingModelNavigation.isIsClassAssociation(this.objingElement);
+        this.isIsClassAssociation = AbstractObjingModelNavigation.isIsClassAssociation(element);
     }
 
     @objid ("771b65ef-0beb-4f57-b5d0-f0354cc5d68a")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        if (!AbstractObjingModelNavigation.isOwnedByActor(this.objingElement)) {
+        if (!AbstractObjingModelNavigation.isOwnedByActor(getObjingElement())) {
         
             if (!this.isIsClassAssociation)
                 linkEcoreAssociation((org.eclipse.uml2.uml.Association) ecoreElt);
         }else{
             XMILogs xmiLog = XMILogs.getInstance();
-            String message = Xmi.I18N.getMessage("logFile.warning.unexportedAssociationCauseOwnerTypeActor",
-                                                 this.objingElement.getName());
+            String message = Xmi.I18N.getMessage("logFile.warning.unexportedAssociationCauseOwnerTypeActor", getObjingElement().getName());
             xmiLog.writelnInLog(message);
-            GenerationProperties.getInstance().getReportModel().addWarning(message,  this.objingElement);
-            
+            GenerationProperties.getInstance().getReportModel().addWarning(message,  getObjingElement());
+        
             ecoreElt.destroy();
         }
     }
@@ -117,7 +112,7 @@ public class OAssociation extends OModelElement {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
         org.eclipse.uml2.uml.Classifier ecoreOwner = null;
-        for (AssociationEnd assocEnd : this.objingElement.getEnd()) {
+        for (AssociationEnd assocEnd : getObjingElement().getEnd()) {
             // Links the org.eclipse.uml2.uml.Association to the OwnerClassifier of one of the
             // Properties
             // (sets the owner of the org.eclipse.uml2.uml.Association):
@@ -156,6 +151,12 @@ public class OAssociation extends OModelElement {
                 }
             }
         }
+    }
+
+    @objid ("60ce3c10-8bbd-4feb-be40-c18867eab289")
+    @Override
+    public Association getObjingElement() {
+        return (Association) super.getObjingElement();
     }
 
 }

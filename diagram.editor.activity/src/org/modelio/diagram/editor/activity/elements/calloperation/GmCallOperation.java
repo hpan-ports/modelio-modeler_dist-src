@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.calloperation;
 
@@ -27,7 +27,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.editor.activity.elements.pincontainer.GmPinContainer;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.persistence.IDiagramReader;
@@ -74,6 +73,9 @@ public class GmCallOperation extends GmPinContainer {
     @objid ("2fd9a732-58a2-11e2-9574-002564c97630")
      static final GmCallOperationImageStyleKeys IMAGE_KEYS = new GmCallOperationImageStyleKeys();
 
+    @objid ("47aed15a-e048-4b55-b2ef-14aa985f9008")
+     static final GmCallOperationUserImageStyleKeys USERIMAGE_KEYS = new GmCallOperationUserImageStyleKeys();
+
     /**
      * Constructor.
      * @param diagram the diagram in which the callOperation is unmasked.
@@ -88,7 +90,7 @@ public class GmCallOperation extends GmPinContainer {
         GmCallOperationPrimaryNode mainNode = new GmCallOperationPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         
-        GmDefaultFlatHeader imageModeHeader = new GmCallOperationFlatLabel(diagram, ref);
+        GmCallOperationFlatLabel imageModeHeader = new GmCallOperationFlatLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
         
@@ -106,8 +108,8 @@ public class GmCallOperation extends GmPinContainer {
     @Override
     public boolean canUnmask(MObject el) {
         return ((InputPin.class.isAssignableFrom(el.getClass()) ||
-                 ValuePin.class.isAssignableFrom(el.getClass()) || OutputPin.class.isAssignableFrom(el.getClass())) && el.getCompositionOwner()
-                                                                                                                           .equals(this.element));
+                                                                         ValuePin.class.isAssignableFrom(el.getClass()) || OutputPin.class.isAssignableFrom(el.getClass())) && el.getCompositionOwner()
+                                                                                                                                                                                   .equals(this.element));
     }
 
     @objid ("29d3835d-55b6-11e2-877f-002564c97630")
@@ -119,6 +121,8 @@ public class GmCallOperation extends GmPinContainer {
             switch (mode) {
                 case IMAGE:
                     return IMAGE_KEYS.getStyleKey(metakey);
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKey(metakey);
                 case SIMPLE:
                     return SIMPLE_KEYS.getStyleKey(metakey);
                 case STRUCTURED:
@@ -137,6 +141,8 @@ public class GmCallOperation extends GmPinContainer {
             switch (mode) {
                 case IMAGE:
                     return IMAGE_KEYS.getStyleKeys();
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKeys();
                 case SIMPLE:
                     return SIMPLE_KEYS.getStyleKeys();
                 case STRUCTURED:
@@ -204,9 +210,9 @@ public class GmCallOperation extends GmPinContainer {
     @objid ("29d509f0-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.element = (CallOperationAction) resolveRef(this.getRepresentedRef());
+        this.element = (CallOperationAction) resolveRef(getRepresentedRef());
         
-        GmDefaultFlatHeader imageModeHeader = new GmCallOperationFlatLabel(getDiagram(), getRepresentedRef());
+        GmCallOperationFlatLabel imageModeHeader = new GmCallOperationFlatLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
         
@@ -222,7 +228,7 @@ public class GmCallOperation extends GmPinContainer {
     @objid ("29d509fa-55b6-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-        this.element = (CallOperationAction) resolveRef(this.getRepresentedRef());
+        this.element = (CallOperationAction) resolveRef(getRepresentedRef());
     }
 
     @objid ("29d50a00-55b6-11e2-877f-002564c97630")
@@ -249,7 +255,7 @@ public class GmCallOperation extends GmPinContainer {
     public boolean isSatellite(final GmNodeModel childNode) {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
-                || IMAGE_LABEL_ROLE.equals(role);
+                                                                        || IMAGE_LABEL_ROLE.equals(role);
     }
 
     /**

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -54,8 +54,8 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
      * </ul>
      */
     @objid ("a87cf5a8-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "Transition", "Name", "ReceivedEvents",
-		"Guard", "Effect", "SentEvents", "Post" };
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "ReceivedEvents", "Guard", "Effect",
+            "SentEvents", "Post" };
 
     @objid ("fb3e854d-c5d4-11e1-8f21-002564c97630")
     private StringType labelStringType;
@@ -173,16 +173,16 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
                 return this.stringType;
             case 2:
                 // ReceivedEvents
-                return this.transitionReceivedTypeType; 
+                return this.transitionReceivedTypeType;
             case 3:
                 // Guard
-                return this.stringType; 
+                return this.stringType;
             case 4:
                 // Effect
-                return this.transitionEffectType; 
+                return this.transitionEffectType;
             case 5:
                 // SentEvents
-                return this.transitionSentType; 
+                return this.transitionSentType;
             case 6:
                 // Post
                 return this.stringType;
@@ -273,12 +273,14 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
         @objid ("8f9be16b-c068-11e1-8c0a-002564c97630")
         public static Object getValue(Transition t) {
             String sEffect = t.getEffect();
-            if (sEffect != null && !sEffect.isEmpty())
+            if (sEffect != null && !sEffect.isEmpty()) {
                 return sEffect;
+            }
             
             Operation op = t.getProcessed();
-            if (op != null)
+            if (op != null) {
                 return op;
+            }
             
             Behavior b = t.getBehaviorEffect();
             return b;
@@ -294,20 +296,23 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
             // Erase old value or exit if old value is new value
             String old1 = t.getEffect();
             if (old1 != null && !old1.isEmpty()) {
-                if (old1.equals(value))
+                if (old1.equals(value)) {
                     return;
+                }
                 t.setEffect("");
             } else {
                 Operation old2 = t.getProcessed();
                 if (old2 != null) {
-                    if (old2.equals(value))
+                    if (old2.equals(value)) {
                         return;
+                    }
                     t.setProcessed(null);
                 } else {
                     Behavior old3 = t.getBehaviorEffect();
                     if (old3 != null) {
-                        if (old3.equals(value))
+                        if (old3.equals(value)) {
                             return;
+                        }
                         t.setBehaviorEffect(null);
                     }
                 }
@@ -315,15 +320,16 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
             
             if (value != null) {
                 // Set new value
-                if (String.class.isAssignableFrom(value.getClass()))
+                if (String.class.isAssignableFrom(value.getClass())) {
                     t.setEffect((String) value);
-                else if (Operation.class.isAssignableFrom(value.getClass()))
+                } else if (Operation.class.isAssignableFrom(value.getClass())) {
                     t.setProcessed((Operation) value);
-                else if (Behavior.class.isAssignableFrom(value.getClass()))
+                } else if (Behavior.class.isAssignableFrom(value.getClass())) {
                     t.setBehaviorEffect((Behavior) value);
-                else
-                    throw new IllegalArgumentException("value must be a String, an Operation or a Behavior but not a " +
-                            value.getClass().getCanonicalName());
+                } else {
+                    throw new IllegalArgumentException("value must be a String, an Operation or a Behavior but not a "
+                            + value.getClass().getCanonicalName());
+                }
             }
         }
 
@@ -368,8 +374,9 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
         @objid ("8f9be190-c068-11e1-8c0a-002564c97630")
         public static Object getValue(Transition t) {
             String sEffect = t.getReceivedEvents();
-            if (sEffect != null && !sEffect.isEmpty())
+            if (sEffect != null && !sEffect.isEmpty()) {
                 return sEffect;
+            }
             
             Event op = t.getTrigger();
             return op;
@@ -385,27 +392,30 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
             // Erase old value or exit if old value is new value
             String old1 = t.getReceivedEvents();
             if (old1 != null && !old1.isEmpty()) {
-                if (old1.equals(value))
+                if (old1.equals(value)) {
                     return;
+                }
                 t.setReceivedEvents("");
             } else {
                 Event old2 = t.getTrigger();
                 if (old2 != null) {
-                    if (old2.equals(value))
+                    if (old2.equals(value)) {
                         return;
+                    }
                     t.setTrigger(null);
                 }
             }
             
             if (value != null) {
                 // Set new value
-                if (String.class.isAssignableFrom(value.getClass()))
+                if (String.class.isAssignableFrom(value.getClass())) {
                     t.setReceivedEvents((String) value);
-                else if (Event.class.isAssignableFrom(value.getClass()))
+                } else if (Event.class.isAssignableFrom(value.getClass())) {
                     t.setTrigger((Event) value);
-                else
-                    throw new IllegalArgumentException("value must be a String or a Event but not a " +
-                            value.getClass().getCanonicalName());
+                } else {
+                    throw new IllegalArgumentException("value must be a String or a Event but not a "
+                            + value.getClass().getCanonicalName());
+                }
             }
         }
 
@@ -450,8 +460,9 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
         @objid ("8f9be1b5-c068-11e1-8c0a-002564c97630")
         public static Object getValue(Transition t) {
             String sEffect = t.getSentEvents();
-            if (sEffect != null && !sEffect.isEmpty())
+            if (sEffect != null && !sEffect.isEmpty()) {
                 return sEffect;
+            }
             
             Signal op = t.getEffects();
             return op;
@@ -467,27 +478,30 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
             // Erase old value or exit if old value is new value
             String old1 = t.getSentEvents();
             if (old1 != null && !old1.isEmpty()) {
-                if (old1.equals(value))
+                if (old1.equals(value)) {
                     return;
+                }
                 t.setSentEvents("");
             } else {
                 Signal old2 = t.getEffects();
                 if (old2 != null) {
-                    if (old2.equals(value))
+                    if (old2.equals(value)) {
                         return;
+                    }
                     t.setEffects(null);
                 }
             }
             
             if (value != null) {
                 // Set new value
-                if (String.class.isAssignableFrom(value.getClass()))
+                if (String.class.isAssignableFrom(value.getClass())) {
                     t.setSentEvents((String) value);
-                else if (Signal.class.isAssignableFrom(value.getClass()))
+                } else if (Signal.class.isAssignableFrom(value.getClass())) {
                     t.setEffects((Signal) value);
-                else
-                    throw new IllegalArgumentException("value must be a String or a Signal but not a " +
-                            value.getClass().getCanonicalName());
+                } else {
+                    throw new IllegalArgumentException("value must be a String or a Signal but not a "
+                            + value.getClass().getCanonicalName());
+                }
             }
         }
 

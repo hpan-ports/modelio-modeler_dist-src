@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.util;
 
@@ -44,6 +44,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.xmi.UnresolvedReferenceException;
+import org.modelio.gproject.gproject.GProject;
 import org.modelio.xmi.api.FormatExport;
 import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
@@ -72,8 +73,8 @@ public class XMIFileUtils {
                 in.transferTo (0, in.size (), out);
         
             } catch (Exception e) {
-                Xmi.LOG.error(e);       
-            } 
+                Xmi.LOG.error(e);
+            }
         }
     }
 
@@ -82,7 +83,7 @@ public class XMIFileUtils {
      * @param filePath The file location
      */
     @objid ("9e98fff9-cece-4466-a272-62b11828b02b")
-    public static void changeToUML(final String filePath, final File tempFolder) {
+    public static void changeToUML(final String filePath) {
         File file = new File(filePath);
         
         List<String> oldPatterns = new LinkedList<>();
@@ -163,14 +164,16 @@ public class XMIFileUtils {
         //            newPatterns.add("\"");
         //
         //        }
-             
+        
+        File tempFolder = getTempFolder();
+        
         String tempPath = tempFolder.getAbsolutePath() + java.io.File.separator  + file.getName() + ".temp";
         File tempFile = new File(tempPath);
         if (tempFile.exists()){
             tempFile.delete();
         }
         
-        applyXSLT(file.getAbsolutePath(), tempPath, xslExportFile); 
+        applyXSLT(file.getAbsolutePath(), tempPath, xslExportFile);
         
         if (file.exists()){
             file.delete();
@@ -180,6 +183,10 @@ public class XMIFileUtils {
         
         if (tempFile.exists()){
             tempFile.delete();
+        }
+        
+        if (tempFolder.exists()){
+            tempFolder.delete();
         }
     }
 
@@ -246,12 +253,12 @@ public class XMIFileUtils {
         
                     output.flush();
                 }catch (IOException e) {
-                    Xmi.LOG.error(e);       
+                    Xmi.LOG.error(e);
                 }
         
                 tempFile.delete();
             }catch (IOException e) {
-                Xmi.LOG.error(e);       
+                Xmi.LOG.error(e);
             }
         }
     }
@@ -282,7 +289,7 @@ public class XMIFileUtils {
         
             }catch (Exception e) {
                 XMILogs.getInstance().writelnInLog(Xmi.I18N.getString("fileChooser.dialog.wrongEcoreFormat.description"));
-                Xmi.LOG.error(e);       
+                Xmi.LOG.error(e);
                 return false;
             }
         }
@@ -340,8 +347,8 @@ public class XMIFileUtils {
         
                 while((line = reader.readLine()) != null) {
         
-                    if (line.contains("appliedProfile") && line.contains(" href=\"") 
-                            && line.contains("#") && (!line.contains("pathmap:")) ){               
+                    if (line.contains("appliedProfile") && line.contains(" href=\"")
+                            && line.contains("#") && (!line.contains("pathmap:")) ){
                         result.add(line.split(" href=\"")[1].split("#")[0]);
                     }
         
@@ -350,7 +357,7 @@ public class XMIFileUtils {
                 reader.close();
         
             }catch (IOException e) {
-                Xmi.LOG.error(e);       
+                Xmi.LOG.error(e);
             }
         }
         return result;
@@ -381,17 +388,17 @@ public class XMIFileUtils {
                 for (Pattern pattern : listPatterns){
                     if (pattern.matcher(line).find()){
                         fis.close();
-                        reader.close(); 
+                        reader.close();
                         return true;
                     }
                 }
                 cmpt++;
             }
         
-            reader.close(); 
-            fis.close();            
+            reader.close();
+            fis.close();
         
-        } catch (IOException e) {         
+        } catch (IOException e) {
             Xmi.LOG.error(e);
         }
         return false;
@@ -406,8 +413,8 @@ public class XMIFileUtils {
      */
     @objid ("9f2b114d-2f61-4412-9562-4d879b2bcf71")
     public static void replace(final String oldFilePath, final String newFilePath, final List<String> oldPatterns, final List<String> newPatterns) {
-        String line = "";        
-               
+        String line = "";
+        
         
         try( FileWriter output = new FileWriter(newFilePath);
                 FileInputStream fis = new FileInputStream(oldFilePath);
@@ -428,14 +435,14 @@ public class XMIFileUtils {
         
                 output.write(line + "\n");
             }
-           
+        
             output.flush();
-          
+        
         }catch (FileNotFoundException e) {
             XMILogs.getInstance().writelnInLog(e.getLocalizedMessage());
-            Xmi.LOG.error(e);       
+            Xmi.LOG.error(e);
         }catch (IOException e) {
-            Xmi.LOG.error(e);       
+            Xmi.LOG.error(e);
         }
     }
 
@@ -493,6 +500,18 @@ public class XMIFileUtils {
         } catch (IOException e) {
             Xmi.LOG.error(e);
         }
+    }
+
+    @objid ("91cecbc1-1ac2-4666-84b7-9e916f19a706")
+    private static File getTempFolder() {
+        File tempFolder = new File(GProject.getProject(GenerationProperties.getInstance().getRootElement()).getProjectPath().toString()
+                + java.io.File.separator + "XMI" + java.io.File.separator + "temp");
+        
+        if (! tempFolder.exists()){
+            tempFolder.mkdirs();
+            tempFolder.mkdir();
+        }
+        return tempFolder;
     }
 
 }

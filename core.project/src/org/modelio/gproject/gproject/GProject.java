@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,15 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.gproject;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -29,6 +30,7 @@ import java.net.URISyntaxException;
 import java.nio.file.FileSystemException;
 import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -36,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.DescriptorServices;
@@ -46,6 +49,7 @@ import org.modelio.gproject.data.project.ModuleDescriptor;
 import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.data.project.ProjectDescriptorWriter;
 import org.modelio.gproject.data.project.ProjectType;
+import org.modelio.gproject.data.project.todo.TodoDescriptor;
 import org.modelio.gproject.fragment.Fragments;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.lock.ProjectLock;
@@ -54,6 +58,8 @@ import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.catalog.EmptyModuleCatalog;
+import org.modelio.gproject.plugin.CoreProject;
+import org.modelio.metamodel.impl.StandardMetamodelFragment;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.log.Log;
@@ -67,6 +73,7 @@ import org.modelio.vcore.session.api.repository.IRepositorySupport;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.session.impl.permission.BasicAccessManager;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vstore.jdbm.JdbmRepository;
 
 /**
@@ -100,10 +107,18 @@ public class GProject {
     private String name;
 
     /**
+     * Project directory.
+     * <p>
+     * it is the project.conf location.
+     */
+    @objid ("56304291-4b9c-4a4f-840e-684713b62375")
+    private Path projectPath;
+
+    /**
      * Concatenation of {@link #ownFragments own fragments}and the fragments declared by the modules.
      */
     @objid ("6fe5077e-edc9-11e1-912e-001ec947ccaf")
-    private final List<IProjectFragment> allFragments = new ArrayList<>();
+    private final List<IProjectFragment> allFragments = new CopyOnWriteArrayList<>();
 
     /**
      * Unmodifiable view of {@link #allFragments}. Avoids instantiating a new view for each {@link #getFragments()} call.
@@ -115,7 +130,7 @@ public class GProject {
      * All GProject instances. Used to {@link #getProject(MObject) find the project} of a MObject.
      */
     @objid ("db776f80-1775-11e2-928d-001ec947ccaf")
-    private static final List<GProject> allProjects = new ArrayList<>();
+    private static final List<GProject> allProjects = new CopyOnWriteArrayList<>();
 
     @objid ("f5328bd1-9045-4cb4-b97c-b65927a5a7a3")
     private GAuthConf auth;
@@ -124,7 +139,7 @@ public class GProject {
     private IModuleCatalog moduleCatalog;
 
     @objid ("3a8981a1-0d65-11e2-8e4b-001ec947ccaf")
-    private final List<GModule> modules = new ArrayList<>();
+    private final List<GModule> modules = new CopyOnWriteArrayList<>();
 
     @objid ("617f8be2-08b6-11e2-b193-001ec947ccaf")
     private final GProjectMonitorSupport monitorSupport = new GProjectMonitorSupport();
@@ -133,24 +148,19 @@ public class GProject {
      * Fragments added by registerFragment(...) method.
      */
     @objid ("8af97b41-8ed5-11e1-be7e-001ec947ccaf")
-    private final List<IProjectFragment> ownFragments = new ArrayList<>();
+    private final List<IProjectFragment> ownFragments = new CopyOnWriteArrayList<>();
 
     @objid ("1a7541ce-b47f-440b-8839-f3e6aa30f2be")
     private ProjectLock projectLock;
-
-    /**
-     * Project directory.
-     * <p>
-     * it is the project.conf location.
-     */
-    @objid ("a308aa97-abf1-11e1-8392-001ec947ccaf")
-    private Path projectPath;
 
     @objid ("a308aa99-abf1-11e1-8392-001ec947ccaf")
     private GProperties properties;
 
     @objid ("c1811639-95da-11e1-ac83-001ec947ccaf")
     private ICoreSession session;
+
+    @objid ("f8321d71-4874-4e80-8f2f-b52081487a7e")
+    private TodoDescriptor todo;
 
     /**
      * Close the project and release the resources.
@@ -161,8 +171,9 @@ public class GProject {
             try {
                 // Directly close the repository before unmounting to avoid unloading each object.
                 IRepository rep = f.getRepository();
-                if (rep != null)
+                if (rep != null) {
                     rep.close();
+                }
                 f.unmount();
             } catch (Exception e) {
                 getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(f, e));
@@ -226,12 +237,16 @@ public class GProject {
     /**
      * Get the list of all model fragments.
      * <p>
-     * This list is not modifiable and is modified when a fragment or a module is added or removed.
+     * The returned list is: <ul>
+     * <li>not modifiable
+     * <li>reflect changes when a fragment registered or removed.
+     * <li>thread safe because based on {@link CopyOnWriteArrayList}.
+     * </ul>
      * @return all model fragments.
      */
     @objid ("c1811647-95da-11e1-ac83-001ec947ccaf")
     public List<IProjectFragment> getFragments() {
-        return Collections.unmodifiableList(new ArrayList<>(this.allFragmentsView));
+        return this.allFragmentsView;
     }
 
     /**
@@ -244,11 +259,17 @@ public class GProject {
 
     /**
      * Get the list of all GModules installed in this project.
+     * <p>
+     * The returned list is: <ul>
+     * <li>not modifiable
+     * <li>reflect changes when a fragment registered or removed.
+     * <li>thread safe because based on {@link CopyOnWriteArrayList}.
+     * </ul>
      * @return a GModule list.
      */
     @objid ("aa7d67e4-ec75-11e1-912e-001ec947ccaf")
     public List<GModule> getModules() {
-        return Collections.unmodifiableList(new ArrayList<>(this.modules));
+        return Collections.unmodifiableList(this.modules);
     }
 
     /**
@@ -276,12 +297,16 @@ public class GProject {
      * <p>
      * Fragments provided by modules are excluded from the list.
      * <p>
-     * This list is not modifiable and reflect changes when a fragment registered or removed.
+     * The returned list is: <ul>
+     * <li>not modifiable
+     * <li>reflect changes when a fragment registered or removed.
+     * <li>thread safe because based on {@link CopyOnWriteArrayList}.
+     * </ul>
      * @return registered project fragments.
      */
     @objid ("da6bd643-0e3b-11e2-8e4b-001ec947ccaf")
     public List<IProjectFragment> getOwnFragments() {
-        return Collections.unmodifiableList(new ArrayList<>(this.ownFragments));
+        return Collections.unmodifiableList(this.ownFragments);
     }
 
     /**
@@ -295,16 +320,17 @@ public class GProject {
     public static GProject getProject(MObject obj) {
         CoreSession sess = CoreSession.getSession(obj);
         for (GProject p : allProjects) {
-            if (p.session == sess)
+            if (p.session == sess) {
                 return p;
+            }
         }
         return null;
     }
 
     /**
-     * Get the directory where the project data are managed by Modelio (model, fragments modules and so on).
-     * The internal structure of this directory is left to its users (fragments, modules, CMS tools ...)
-     * User generated data like source code, documentation are never stored there.
+     * Get the directory where the project data are managed by Modelio (model, fragments modules and so on). The internal structure
+     * of this directory is left to its users (fragments, modules, CMS tools ...) User generated data like source code,
+     * documentation are never stored there.
      * @return the path where the 'data' directory resides.
      */
     @objid ("dda545c0-68b9-4753-89a4-66b831195593")
@@ -381,21 +407,12 @@ public class GProject {
      * @param moduleArchivePath the .jmdac archive to deploy
      * @return the instantiated module
      * @throws java.io.IOException in case of failure.
+     * @deprecated use {@link #installModule(IModuleHandle, URI, IModelioProgress)} with a progress monitor
      */
     @objid ("aa7d67ea-ec75-11e1-912e-001ec947ccaf")
+    @Deprecated
     public GModule installModule(IModuleHandle moduleHandle, Path moduleArchivePath) throws IOException {
-        Path localArchiveDir = getModuleDataPath(moduleHandle.getName());
-        Path localArchivePath = getModuleLocalArchivePath(moduleHandle.getName());
-        
-        // Clean the module data directory
-        FileUtils.delete(localArchiveDir);
-        Files.createDirectories(localArchiveDir);
-        
-        // Copy archive in data directory
-        Files.copy(moduleArchivePath, localArchivePath, StandardCopyOption.REPLACE_EXISTING);
-        
-        // Instantiate module
-        return doInstallModule(moduleHandle, moduleArchivePath.toUri());
+        return installModule(moduleHandle, moduleArchivePath.toUri(), new NullProgress());
     }
 
     /**
@@ -410,10 +427,11 @@ public class GProject {
     /**
      * Reconfigure the project properties with the given new descriptor.
      * <p>
-     * The default implementation replaces the project properties.
-     * This method may be redefined to have another behavior.
+     * The default implementation replaces the project properties. This method may be redefined to have another behavior.
      * @param newDesc the new project description
-     * @param monitor a progress monitor
+     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
+     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
      */
     @objid ("bf898e03-a499-4988-bd96-985caaaed03b")
     public void reconfigureProperties(GProperties newDesc, IModelioProgress monitor) {
@@ -425,20 +443,24 @@ public class GProject {
      * <p>
      * The method mounts the fragment but it does not create any data for the fragment.
      * @param fragment the project fragment to register.
-     * @param aMonitor a progress monitor.
+     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
+     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
      * @throws org.modelio.gproject.gproject.FragmentConflictException if a fragment with same identifier or URI is already registered
      */
     @objid ("d1110783-9849-11e1-ac83-001ec947ccaf")
-    public void registerFragment(final IProjectFragment fragment, IModelioProgress aMonitor) throws FragmentConflictException {
+    public void registerFragment(final IProjectFragment fragment, IModelioProgress monitor) throws FragmentConflictException {
         Objects.requireNonNull(fragment);
         
         checkFragmentUnique(this.allFragments, fragment);
+        
+        fragment.setProject(this);
         
         this.ownFragments.add(fragment);
         this.allFragments.add(fragment);
         
         if (isOpen()) {
-            fragment.mount(this, aMonitor);
+            fragment.mount( monitor);
             this.monitorSupport.fireMonitors(GProjectEvent.fragmentAdded(fragment));
         }
     }
@@ -460,7 +482,7 @@ public class GProject {
                     // Delete the fragment itself
                     modelFragment.delete();
                 } catch (IOException e) {
-                    Log.trace("Unable to delete fragemnt " + modelFragment.getId());
+                    Log.warning("Unable to delete '%s' module fragment files: %s ",modelFragment.getId(), FileUtils.getLocalizedMessage(e));
                 }
                 this.allFragments.remove(modelFragment);
                 this.monitorSupport.fireMonitors(GProjectEvent.fragmentRemoved(modelFragment));
@@ -514,11 +536,13 @@ public class GProject {
 
     /**
      * Get a module handle from a descriptor.
-     * @param mon a progress monitor
+     * @param mon the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
+     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
      * @param md the descriptor
      * @return the module handle
-     * @throws java.io.IOException in case of failure getting the module archive
      * @throws java.nio.file.FileSystemException in case of file system error getting the module archive
+     * @throws java.io.IOException in case of failure getting the module archive
      */
     @objid ("538790be-d9c8-4eeb-b2ba-c9c36f4adbaf")
     IModuleHandle getModuleHandle(IModelioProgress mon, final ModuleDescriptor md) throws FileSystemException, IOException {
@@ -529,66 +553,73 @@ public class GProject {
         if (Files.isRegularFile(archive)) {
             moduleHandle = this.moduleCatalog.getModuleHandle(archive, mon);
             // check name and version match: the descriptor may be for a different module version
-            if (! (moduleHandle.getName().equals(md.getName()) && moduleHandle.getVersion().equals(md.getVersion())))
+            if (!(moduleHandle.getName().equals(md.getName()) && moduleHandle.getVersion().equals(md.getVersion()))) {
                 moduleHandle = null;
+            }
         }
         
         if (moduleHandle == null) {
             // try to get the original and copy it to local
             IAuthData authData = new AuthResolver(this).resolve(md);
-            copyJmdacToModuleDir(md.getArchiveLocation(), authData, archive);
-            if (Files.isRegularFile(archive)) {
-                moduleHandle = this.moduleCatalog.getModuleHandle(archive, mon);
+            try {
+                copyJmdacToModuleDir(md.getArchiveLocation(), authData, archive);
+                if (Files.isRegularFile(archive)) {
+                    moduleHandle = this.moduleCatalog.getModuleHandle(archive, mon);
+                }
+            } catch (FileNotFoundException | NoSuchFileException e) {
+                // log and ignore
+                Log.warning("'%s' module '%s' URI is invalid: %s", md.getName(), md.getArchiveLocation(), FileUtils.getLocalizedMessage(e));
             }
-        }        
+        }
         
-        if (moduleHandle == null)
+        if (moduleHandle == null) {
             moduleHandle = this.moduleCatalog.findModule(md.getName(), md.getVersion().toString("V.R.C"), mon);
+        }
         
-        if (moduleHandle == null)
+        if (moduleHandle == null) {
             moduleHandle = new EmptyModuleHandle(md.getName(), md.getVersion());
+        }
         return moduleHandle;
     }
 
+    /**
+     * Load the module defined by the given descriptor.
+     * <p>
+     * @throws IOException
+     * @throws FileSystemException
+     * @param mon a progress monitor
+     * @param md the module descriptor
+     * @return the installed module.
+     */
     @objid ("72d39d62-cc13-465d-acbf-ed4aeb20fa6b")
-    final void loadModuleDescriptor(IModelioProgress mon, final ModuleDescriptor md) {
-        if (md.getArchiveLocation() != null)
-            try {
-                final IModuleHandle moduleHandle = getModuleHandle(mon, md);
-                
-                final GModule module = new GModule(this, md.getArchiveLocation(), moduleHandle, md.getScope(), md.getParameters(), md.isActivated());
-                module.setAuthData(GAuthConf.from(md.getAuthDescriptor()));
-                this.modules.add(module);
-            } catch (IOException e) {
-                getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(e));
-            }
+    private final GModule loadModuleDescriptor(IModelioProgress mon, final ModuleDescriptor md) throws FileSystemException, IOException {
+        final IModuleHandle moduleHandle = getModuleHandle(mon, md);
+        final GModule module = new GModule(this, md.getArchiveLocation(), moduleHandle, md.getScope(), md.getParameters(),
+                md.isActivated());
+        module.setAuthData(GAuthConf.from(md.getAuthDescriptor()));
+        this.modules.add(module);
+        return module;
     }
 
     /**
-     * Open the project represented by the given descriptor.
+     * Open the project.
      * <p>
      * To be called by the project factory only.
-     * @param projectDescriptor a project descriptor.
-     * @param authData authentication data. If not <code>null</code> it overrides the authentication descriptor.
-     * @param aModuleCatalog the modules catalog.
      * @param aProgress a progress monitor
      * @throws java.io.IOException in case of I/O error preventing the project from being open.
+     * @throws java.nio.file.FileSystemException in case of file system I/O error preventing the project from being open.
      */
     @objid ("f7e310ea-0f09-11e2-bd8d-001ec947ccaf")
-    final void open(ProjectDescriptor projectDescriptor, IAuthData authData, IModuleCatalog aModuleCatalog, IModelioProgress aProgress) throws IOException {
-        if (this.session != null)
-            throw new IllegalStateException("'" + this.name + "' project already open.");
+    public void open(IModelioProgress aProgress) throws FileSystemException, IOException {
+        checkNotOpen();
         
-        SubProgress mon = SubProgress.convert(aProgress, 370);
-        
-        // Initialize the project content from the descriptor
-        // Redefined in sub classes
-        initialize(projectDescriptor, authData, aModuleCatalog, mon.newChild(100));
+        SubProgress mon = SubProgress.convert(aProgress, 372);
         
         // Open the core session
         boolean ok = false;
         try {
             this.session = new CoreSession();
+            mountDefaultMetamodel(mon.newChild(2));
             mountDefaultRepositories(mon.newChild(20));
             mountModules(mon.newChild(200));
             mountFragments(mon.newChild(50));
@@ -649,7 +680,7 @@ public class GProject {
             } catch (FileSystemNotFoundException | IllegalArgumentException e) {
                 // continue
             }
-            
+        
             if (fsPath != null && Files.isRegularFile(fsPath)) {
                 // Copy to module directory
                 Files.copy(fsPath, copyTo, StandardCopyOption.REPLACE_EXISTING);
@@ -664,14 +695,13 @@ public class GProject {
             } catch (FileSystemNotFoundException | IllegalArgumentException e) {
                 // continue
             }
-            
-            if (fsPath != null  && Files.isRegularFile(fsPath)) {
+        
+            if (fsPath != null && Files.isRegularFile(fsPath)) {
                 // Copy to module directory
                 Files.copy(fsPath, copyTo, StandardCopyOption.REPLACE_EXISTING);
                 return true;
-            }            
+            }
         }
-        
         
         // Try to open an URL connection & copy into a temp file.
         try {
@@ -689,27 +719,30 @@ public class GProject {
     }
 
     /**
-     * Initialize the project from a project descriptor.
+     * Load the project from a project descriptor.
      * <p>
-     * This method may be redefined in sub classes.
-     * In this case <i>super.initialize(...)</i> should be called at the end.
+     * To be called by the project factory only.
+     * <p>
+     * This method may be redefined in sub classes. In this case <i>super.load(...)</i> must be called.
      * @param projectDescriptor a project descriptor.
-     * @param authData optional authentication data. If non <code>null</code> it overrides
-     * the authentication descriptor.
+     * @param authData optional authentication data. If non <code>null</code> it overrides the authentication descriptor.
      * @param aModuleCatalog the modules catalog.
      * @param aProgress a progress monitor
      * @throws java.io.IOException in case of I/O error preventing the project from being instantiated
      */
     @objid ("f7e310e4-0f09-11e2-bd8d-001ec947ccaf")
-    protected void initialize(ProjectDescriptor projectDescriptor, IAuthData authData, IModuleCatalog aModuleCatalog, IModelioProgress aProgress) throws IOException {
+    protected void load(ProjectDescriptor projectDescriptor, IAuthData authData, IModuleCatalog aModuleCatalog, IModelioProgress aProgress) throws IOException {
         // Initialize fields
         this.name = projectDescriptor.getName();
         this.projectPath = projectDescriptor.getPath();
         this.properties = projectDescriptor.getProperties();
-        if (authData != null)
+        this.todo = projectDescriptor.getTodo();
+        
+        if (authData != null) {
             this.auth = new GAuthConf(authData, DefinitionScope.LOCAL);
-        else
+        } else {
             this.auth = GAuthConf.from(projectDescriptor.getAuthDescriptor());
+        }
         
         if (aModuleCatalog == null) {
             this.moduleCatalog = EmptyModuleCatalog.getInstance();
@@ -735,7 +768,7 @@ public class GProject {
      * @param aProgress a progress monitor.
      */
     @objid ("684350a0-0d5c-11e2-9d8a-001ec947ccaf")
-    protected final void loadDescriptor(final ProjectDescriptor projectDescriptor, IModelioProgress aProgress) {
+    private void loadDescriptor(final ProjectDescriptor projectDescriptor, IModelioProgress aProgress) {
         SubProgress mon = SubProgress.convert(aProgress, projectDescriptor.getFragments().size()
                 + projectDescriptor.getModules().size());
         
@@ -744,7 +777,9 @@ public class GProject {
             if (fd.getType() != null) {
                 IProjectFragment fragment = Fragments.getFactory(fd).instantiate(fd);
                 assert (fragment != null);
-                
+        
+                fragment.setProject(this);
+        
                 this.ownFragments.add(fragment);
                 this.allFragments.add(fragment);
             }
@@ -753,7 +788,13 @@ public class GProject {
         
         // Read modules
         for (final ModuleDescriptor md : projectDescriptor.getModules()) {
-            loadModuleDescriptor(mon.newChild(1), md);
+            try {
+                if (md.isValid()) {
+                    loadModuleDescriptor(mon.newChild(1), md);
+                }
+            } catch (IOException e) {
+                getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(e));
+            }
         }
     }
 
@@ -777,51 +818,20 @@ public class GProject {
         }
     }
 
-    /**
-     * Add a new module in the project.
-     * <p>
-     * If the project is currently opened, the MDA fragment of the module is mounted in the project.
-     * @param moduleHandle the module to deploy
-     * @param moduleArchiveUri the .jmdac archive to deploy
-     * @return the instantiated module
-     */
-    @objid ("323feeaf-c976-49f0-9b7d-03f4e9aee4c8")
-    private GModule doInstallModule(IModuleHandle moduleHandle, URI moduleArchiveUri) {
-        GModule module = new GModule(this, moduleArchiveUri, moduleHandle, DefinitionScope.LOCAL, new GProperties(), true);
-        
-        if (isOpen()) {
-            // Add the module only once it is successfully mount.
-            this.modules.add(module);
-            IProjectFragment modelFragment = module.getModelFragment();
-            if (modelFragment != null) {
-                this.allFragments.add(modelFragment);
-                modelFragment.mount(this, new NullProgress());
-                
-                getMonitorSupport().fireMonitors(GProjectEvent.fragmentAdded(modelFragment));
-            } else {
-                String msg = module.getName()+" "+module.getVersion()+" has no model fragment.";
-                getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(new Exception(msg)));
-            }
-        } else {
-            this.modules.add(module);
-        }
-        return module;
-    }
-
     @objid ("92c047e5-f4d1-4cea-b976-bf3e579b5756")
     private Path getModuleDataPath(String moduleName) {
         return this.projectPath.resolve(DATA_SUBDIR).resolve(MODULES_SUBDIR).resolve(moduleName);
     }
 
     /**
-     * Get the path  where .jmdac file is stored locally in the project.
+     * Get the path where .jmdac file is stored locally in the project.
      * @param moduleName the module name.
      * @return the module .jmdac file path
      * @throws java.io.IOException the the file couldn't be retrieved.
      */
     @objid ("22c7affc-1b68-41c1-921d-87e98f09c710")
     private Path getModuleLocalArchivePath(String moduleName) throws IOException {
-        Path archivePath = getModuleDataPath(moduleName).resolve(moduleName+".jmdac");
+        Path archivePath = getModuleDataPath(moduleName).resolve(moduleName + ".jmdac");
         return archivePath;
     }
 
@@ -834,22 +844,24 @@ public class GProject {
     }
 
     /**
-     * Open the default repository.
-     * Create it if missing or not readable.
+     * Open the default repository. Create it if missing or not readable.
      * @param monitor a progress monitor
      * @throws java.nio.file.FileSystemException in case of fatal I/O failure.
      * @throws java.io.IOException in case of fatal I/O failure.
      */
     @objid ("707deddd-440c-4a01-92d1-1fbeb87a7dd2")
-    private void mountDefaultRepositories(SubProgress monitor) throws IOException, FileSystemException {
-        Path nsUseRepoPath = this.getProjectDataPath().resolve(DATA_SUBDIR).resolve("localmodel");
+    private void mountDefaultRepositories(SubProgress monitor) throws FileSystemException, IOException {
+        monitor.subTask(CoreProject.getMessage("GProject.mountingDefaultRepositories"));
+        
+        Path nsUseRepoPath = getProjectDataPath().resolve(DATA_SUBDIR).resolve("localmodel");
         JdbmRepository nsUseRepo = null;
         
         IRepositorySupport repositorySupport = this.session.getRepositorySupport();
         try {
             monitor.setWorkRemaining(15);
             nsUseRepo = new JdbmRepository(nsUseRepoPath.toFile());
-            repositorySupport.connectRepository(nsUseRepo, IRepositorySupport.REPOSITORY_KEY_LOCAL, new BasicAccessManager(), monitor.newChild(10));
+            repositorySupport.connectRepository(nsUseRepo, IRepositorySupport.REPOSITORY_KEY_LOCAL, new BasicAccessManager(),
+                    monitor.newChild(10));
         
         } catch (final IOException e) {
             // Report the problem
@@ -861,7 +873,8 @@ public class GProject {
         
             // Create a new one
             nsUseRepo = new JdbmRepository(nsUseRepoPath.toFile());
-            repositorySupport.connectRepository(nsUseRepo, IRepositorySupport.REPOSITORY_KEY_LOCAL, new BasicAccessManager(), monitor.newChild(5));
+            repositorySupport.connectRepository(nsUseRepo, IRepositorySupport.REPOSITORY_KEY_LOCAL, new BasicAccessManager(),
+                    monitor.newChild(5));
         }
     }
 
@@ -873,7 +886,7 @@ public class GProject {
             try {
                 checkFragmentUnique(mounted, fragment);
         
-                fragment.mount(this, aMonitor);
+                fragment.mount(aMonitor);
                 mounted.add(fragment);
             } catch (FragmentConflictException e) {
                 fragment.setDown(e);
@@ -883,13 +896,15 @@ public class GProject {
 
     @objid ("3d98b924-f370-11e1-9173-001ec947ccaf")
     private void mountModules(IModelioProgress progress) {
+        progress.subTask(CoreProject.getMessage("GProject.mountingModules"));
         SubProgress m = SubProgress.convert(progress, this.modules.size() * 10);
         for (GModule module : this.modules) {
             IProjectFragment modelFragment = module.getModelFragment();
             if (modelFragment != null) {
+                modelFragment.setProject(this);
                 this.allFragments.add(modelFragment);
             } else {
-                String msg = module.getName()+" "+module.getVersion()+" has no model fragment.";
+                String msg = module.getName() + " " + module.getVersion() + " has no model fragment.";
                 getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(new Exception(msg)));
             }
             m.worked(10);
@@ -898,7 +913,8 @@ public class GProject {
 
     /**
      * Updates the project remote location.
-     * <p><ul>
+     * <p>
+     * <ul>
      * <li>To be called only by {@link GProjectConfigurer}.
      * <li>To be redefined by remote project implementations.
      * </ul>
@@ -921,7 +937,81 @@ public class GProject {
     protected boolean needsReconfiguration(ProjectDescriptor serverDesc) {
         ProjectDescriptor currentDesc = new ProjectWriter(this).writeProject();
         DescriptorServices.removeLocalPart(currentDesc);
-        return ! serverDesc.equals(currentDesc);
+        return !serverDesc.equals(currentDesc);
+    }
+
+    @objid ("eb3f9579-cf26-4307-a682-828aee8db4f6")
+    private void mountDefaultMetamodel(SubProgress monitor) {
+        monitor.subTask(CoreProject.getMessage("GProject.mountingDefaultMetamodel"));
+        StandardMetamodelFragment f = new StandardMetamodelFragment();
+        
+        SmMetamodel mm = this.session.getMetamodel();
+        mm.addMetamodelFragment(f);
+    }
+
+    /**
+     * Check the project is not already opened.
+     * @throws java.lang.IllegalStateException if the project is already opened.
+     */
+    @objid ("5cd9af91-86da-43a9-baab-b538979631dc")
+    protected final void checkNotOpen() throws IllegalStateException {
+        if (this.session != null) {
+            throw new IllegalStateException("'" + this.name + "' project already open.");
+        }
+    }
+
+    /**
+     * @return the actions to make on project open.
+     */
+    @objid ("1f563352-67d9-4f15-b187-1dde9b064043")
+    public TodoDescriptor getTodo() {
+        return this.todo;
+    }
+
+    /**
+     * Add a new module in the project.
+     * <p>
+     * If the project is currently opened, the MDA fragment of the module is mounted in the project.
+     * @param moduleHandle the handle of the module to deploy
+     * @param originalArchiveUri the original URI of .jmdac archive to deploy
+     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
+     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
+     * @return the instantiated module
+     * @throws java.io.IOException in case of failure.
+     */
+    @objid ("ad60fb90-af3f-4ba1-aa7c-f33baf8fe2b0")
+    public GModule installModule(IModuleHandle moduleHandle, URI originalArchiveUri, IModelioProgress monitor) throws IOException {
+        Path localArchiveDir = getModuleDataPath(moduleHandle.getName());
+        Path localArchivePath = getModuleLocalArchivePath(moduleHandle.getName());
+        
+        // Clean the module data directory
+        FileUtils.delete(localArchiveDir);
+        Files.createDirectories(localArchiveDir);
+        
+        // Copy archive in data directory
+        Files.copy(moduleHandle.getArchive(), localArchivePath, StandardCopyOption.REPLACE_EXISTING);
+        
+        // Instantiate module
+        GModule module = new GModule(this, originalArchiveUri, moduleHandle, DefinitionScope.LOCAL, new GProperties(), true);
+        
+        if (isOpen()) {
+            // Add the module only once it is successfully mount.
+            this.modules.add(module);
+            IProjectFragment modelFragment = module.getModelFragment();
+            if (modelFragment != null) {
+                this.allFragments.add(modelFragment);
+                modelFragment.mount(monitor);
+        
+                getMonitorSupport().fireMonitors(GProjectEvent.fragmentAdded(modelFragment));
+            } else {
+                String msg = module.getName() + " " + module.getVersion() + " has no model fragment.";
+                getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(new Exception(msg)));
+            }
+        } else {
+            this.modules.add(module);
+        }
+        return module;
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -30,10 +30,7 @@ import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("bfa780aa-9d83-4aca-8349-d58615c6bb5f")
-public class OEnumeration extends ONameSpace implements IOElement {
-    @objid ("2321587d-7f7e-47ef-8e36-deeae7616987")
-    private Enumeration objingElement = null;
-
+public class OEnumeration extends ONameSpace {
     @objid ("2a0a31ad-1128-41e6-ba7c-94fecde8c9c1")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return  UMLFactory.eINSTANCE.createEnumeration();
@@ -42,23 +39,22 @@ public class OEnumeration extends ONameSpace implements IOElement {
     @objid ("7c804373-49c0-4c26-83be-5b2be0d5389f")
     public OEnumeration(Enumeration element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("70060394-59e3-406d-b356-4b5fd56a0094")
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-                
-        ModelTree objingOwner =  this.objingElement.getOwner();
-        org.eclipse.uml2.uml.Element ecoreOwner = (org.eclipse.uml2.uml.Element) genProp.getMappedElement(objingOwner);
+        
+        ModelTree objingOwner =  getObjingElement().getOwner();
+        org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         
         // In UML2,  org.eclipse.uml2.uml.Signals can't own org.eclipse.uml2.uml.Enumerations.
         if ((ecoreOwner != null) && (ecoreOwner instanceof  org.eclipse.uml2.uml.Signal)){
-            
+        
             AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
-                    objingOwner,  this.objingElement,ecoreElt);
-           
-            ecoreOwner = (org.eclipse.uml2.uml.Element) genProp.getMappedElement(objingOwner.getOwner());
+                    objingOwner,  getObjingElement(),ecoreElt);
+        
+            ecoreOwner = genProp.getMappedElement(objingOwner.getOwner());
         }
         
         if (ecoreOwner != null) {
@@ -84,6 +80,12 @@ public class OEnumeration extends ONameSpace implements IOElement {
     @objid ("8db3fced-f513-4adc-809e-3e113961230b")
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
+    }
+
+    @objid ("529205fe-511c-4e33-80a3-4039932f4208")
+    @Override
+    public Enumeration getObjingElement() {
+        return (Enumeration) super.getObjingElement();
     }
 
 }

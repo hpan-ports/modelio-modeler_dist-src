@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,24 +12,36 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.NaryLinkEndData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.statik.NaryLinkEndData;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.NaryLink;
 import org.modelio.metamodel.uml.statik.NaryLinkEnd;
@@ -43,132 +55,148 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0075d726-17e8-10a1-88a0-001ec947cd2a")
 public class NaryLinkEndImpl extends ModelElementImpl implements NaryLinkEnd {
-    @objid ("0abcc7ab-0684-4e16-a7ad-0060e24a8474")
+    @objid ("d0d6f4d4-0bfb-4893-a7ed-af91ad760217")
     @Override
     public boolean isIsOrdered() {
-        return (Boolean) getAttVal(NaryLinkEndData.Metadata.IsOrderedAtt());
+        return (Boolean) getAttVal(((NaryLinkEndSmClass)getClassOf()).getIsOrderedAtt());
     }
 
-    @objid ("1bf8316f-92fb-49c6-a553-359ce3d13aff")
+    @objid ("1726cb29-f709-42a3-8100-da9c9ca36971")
     @Override
     public void setIsOrdered(boolean value) {
-        setAttVal(NaryLinkEndData.Metadata.IsOrderedAtt(), value);
+        setAttVal(((NaryLinkEndSmClass)getClassOf()).getIsOrderedAtt(), value);
     }
 
-    @objid ("45e28205-d7ea-49b8-9ed2-9e4f94f28d7c")
+    @objid ("3515c7dc-975d-4fa9-92a6-b90222cda108")
     @Override
     public boolean isIsUnique() {
-        return (Boolean) getAttVal(NaryLinkEndData.Metadata.IsUniqueAtt());
+        return (Boolean) getAttVal(((NaryLinkEndSmClass)getClassOf()).getIsUniqueAtt());
     }
 
-    @objid ("4c233a33-63f4-4b8f-b85c-a9e464e543c7")
+    @objid ("2b4fae63-3698-46be-96d6-1d9f26ae021e")
     @Override
     public void setIsUnique(boolean value) {
-        setAttVal(NaryLinkEndData.Metadata.IsUniqueAtt(), value);
+        setAttVal(((NaryLinkEndSmClass)getClassOf()).getIsUniqueAtt(), value);
     }
 
-    @objid ("e9ee0a4b-b1fd-48cf-a630-4315812b1050")
+    @objid ("cc80aa3c-41c1-4d01-891e-c54df49091d5")
     @Override
     public String getMultiplicityMax() {
-        return (String) getAttVal(NaryLinkEndData.Metadata.MultiplicityMaxAtt());
+        return (String) getAttVal(((NaryLinkEndSmClass)getClassOf()).getMultiplicityMaxAtt());
     }
 
-    @objid ("01a1c541-31de-431d-b4d6-27500610b8b1")
+    @objid ("6b8ca3f7-07de-4a6c-9d13-2dc9c3391f4e")
     @Override
     public void setMultiplicityMax(String value) {
-        setAttVal(NaryLinkEndData.Metadata.MultiplicityMaxAtt(), value);
+        setAttVal(((NaryLinkEndSmClass)getClassOf()).getMultiplicityMaxAtt(), value);
     }
 
-    @objid ("46e0f488-2a6d-4a3c-9d9a-d15a54b6586f")
+    @objid ("54a78d20-60b2-4b76-901b-ae635728219b")
     @Override
     public String getMultiplicityMin() {
-        return (String) getAttVal(NaryLinkEndData.Metadata.MultiplicityMinAtt());
+        return (String) getAttVal(((NaryLinkEndSmClass)getClassOf()).getMultiplicityMinAtt());
     }
 
-    @objid ("b5a41037-6bd5-4410-950b-2729b910c3ed")
+    @objid ("3397bf75-6840-4609-92e6-2cd0716fe94f")
     @Override
     public void setMultiplicityMin(String value) {
-        setAttVal(NaryLinkEndData.Metadata.MultiplicityMinAtt(), value);
+        setAttVal(((NaryLinkEndSmClass)getClassOf()).getMultiplicityMinAtt(), value);
     }
 
-    @objid ("79c8a948-8f20-4bc3-af23-3e798c9bae13")
+    @objid ("9e64b891-65c8-4d03-a977-c325e1cc9ee5")
     @Override
     public Instance getSource() {
-        return (Instance) getDepVal(NaryLinkEndData.Metadata.SourceDep());
+        Object obj = getDepVal(((NaryLinkEndSmClass)getClassOf()).getSourceDep());
+        return (obj instanceof Instance)? (Instance)obj : null;
     }
 
-    @objid ("d77e9e64-025f-497f-b353-4b6e245996fb")
+    @objid ("e89d550d-c175-4e4b-9da8-e4a015e4d973")
     @Override
     public void setSource(Instance value) {
-        appendDepVal(NaryLinkEndData.Metadata.SourceDep(), (SmObjectImpl)value);
+        appendDepVal(((NaryLinkEndSmClass)getClassOf()).getSourceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("019b8660-c3ce-4075-ade2-d72f7a45fcd2")
+    @objid ("c0f22786-da13-4581-860a-c29619ad357d")
     @Override
     public NaryLink getNaryLink() {
-        return (NaryLink) getDepVal(NaryLinkEndData.Metadata.NaryLinkDep());
+        Object obj = getDepVal(((NaryLinkEndSmClass)getClassOf()).getNaryLinkDep());
+        return (obj instanceof NaryLink)? (NaryLink)obj : null;
     }
 
-    @objid ("c68a9ece-a182-49dc-af64-5ac4ce93ece7")
+    @objid ("0c67d138-e42a-4cd7-8b66-41ca0b984e11")
     @Override
     public void setNaryLink(NaryLink value) {
-        appendDepVal(NaryLinkEndData.Metadata.NaryLinkDep(), (SmObjectImpl)value);
+        appendDepVal(((NaryLinkEndSmClass)getClassOf()).getNaryLinkDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7c1535cc-b2c5-441f-a66e-ba7d0f8d9dba")
+    @objid ("17ae1f08-da6c-4717-9102-f13c92974ff7")
     @Override
     public RequiredInterface getConsumer() {
-        return (RequiredInterface) getDepVal(NaryLinkEndData.Metadata.ConsumerDep());
+        Object obj = getDepVal(((NaryLinkEndSmClass)getClassOf()).getConsumerDep());
+        return (obj instanceof RequiredInterface)? (RequiredInterface)obj : null;
     }
 
-    @objid ("b6b0718f-43a0-4082-bc33-61c3031147f6")
+    @objid ("724f6cfd-c9b9-455c-bfa6-c6fc14e449b2")
     @Override
     public void setConsumer(RequiredInterface value) {
-        appendDepVal(NaryLinkEndData.Metadata.ConsumerDep(), (SmObjectImpl)value);
+        appendDepVal(((NaryLinkEndSmClass)getClassOf()).getConsumerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e8823189-e4b5-471b-a20e-cc11b8e3e270")
+    @objid ("e08a5207-8b65-4fff-8bec-252b0c2d400b")
     @Override
     public ProvidedInterface getProvider() {
-        return (ProvidedInterface) getDepVal(NaryLinkEndData.Metadata.ProviderDep());
+        Object obj = getDepVal(((NaryLinkEndSmClass)getClassOf()).getProviderDep());
+        return (obj instanceof ProvidedInterface)? (ProvidedInterface)obj : null;
     }
 
-    @objid ("6c018eb6-af8b-4de0-9ec7-132c85f4020d")
+    @objid ("7b938b78-20a7-43a0-a4a7-db8ac16b7fad")
     @Override
     public void setProvider(ProvidedInterface value) {
-        appendDepVal(NaryLinkEndData.Metadata.ProviderDep(), (SmObjectImpl)value);
+        appendDepVal(((NaryLinkEndSmClass)getClassOf()).getProviderDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c1696e7b-36a2-4a1c-b1b3-b0acf9ae3217")
+    @objid ("f3fde6e0-e664-4e21-a6e7-dd398448e662")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(NaryLinkEndData.Metadata.SourceDep());
+        // Source
+        obj = (SmObjectImpl)this.getDepVal(((NaryLinkEndSmClass)getClassOf()).getSourceDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(NaryLinkEndData.Metadata.NaryLinkDep());
+        // NaryLink
+        obj = (SmObjectImpl)this.getDepVal(((NaryLinkEndSmClass)getClassOf()).getNaryLinkDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d7066d8b-3cc1-4c99-a7c7-7220bf1106d4")
+    @objid ("85f87767-ec73-4b72-b2d6-27e0987a5f8e")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(NaryLinkEndData.Metadata.SourceDep());
-        if (obj != null)
-          return new SmDepVal(NaryLinkEndData.Metadata.SourceDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(NaryLinkEndData.Metadata.NaryLinkDep());
-        if (obj != null)
-          return new SmDepVal(NaryLinkEndData.Metadata.NaryLinkDep(), obj);
+        SmDependency dep;
+        
+        // Source
+        dep = ((NaryLinkEndSmClass)getClassOf()).getSourceDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // NaryLink
+        dep = ((NaryLinkEndSmClass)getClassOf()).getNaryLinkDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("b95b9771-dc73-440a-adf8-c33245265cf9")
+    @objid ("f3c1d409-e225-48f0-9b6d-15116735f682")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryLinkEnd(this);

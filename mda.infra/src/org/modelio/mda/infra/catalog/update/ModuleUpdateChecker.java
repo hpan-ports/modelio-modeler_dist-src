@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.mda.infra.catalog.update;
 
@@ -28,20 +28,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.ResourceBundle;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.URIUtil;
-import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.modelio.app.preferences.ScopedPreferenceStore;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.catalog.FileModuleStore;
 import org.modelio.mda.infra.plugin.MdaInfra;
-import org.modelio.ui.i18n.BundledMessages;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.net.UriPathAccess;
 import org.modelio.vbasic.version.Version;
@@ -67,13 +63,13 @@ public class ModuleUpdateChecker {
     @objid ("fa8d7ab2-498f-4eb4-82b0-1ac84bd248ab")
     private List<ModuleUpdateDescriptor> modulesToUpdate;
 
+    /**
+     * Get the configured modules update site from the prefenreces.
+     * @return the modules update URL
+     */
     @objid ("692f7365-842d-48e0-954a-8745f925a09c")
     public static String getConfiguredUpdateSite() {
-        final BundledMessages i18n = new BundledMessages(MdaInfra.LOG, ResourceBundle.getBundle("catalogupdate"));
-        final IPreferenceStore prefs = new ScopedPreferenceStore(InstanceScope.INSTANCE, MdaInfra.PLUGIN_ID);
-        prefs.setDefault(CatalogUpdatePreferencesPage.CATALOG_UPDATE_SITE,
-                i18n.getString("ModuleCatalog.Preference.DefaultUpdateSite"));
-        return prefs.getString(CatalogUpdatePreferencesPage.CATALOG_UPDATE_SITE);
+        return MdaInfra.PREFERENCES.getString(CatalogUpdatePreferencesPage.CATALOG_UPDATE_SITE);
     }
 
     /**
@@ -94,7 +90,7 @@ public class ModuleUpdateChecker {
      * @throws java.net.URISyntaxException if the update URL is invalid
      */
     @objid ("6d21557e-7d7b-452e-9f98-b00472ba923a")
-    public void run() throws URISyntaxException, IOException {
+    public void run() throws IOException, URISyntaxException {
         checkUpdate();
     }
 
@@ -154,6 +150,14 @@ public class ModuleUpdateChecker {
                 }
             }
         } while (keyPrefix != null);
+        
+        // Lexically sort the results
+        this.modulesToUpdate.sort(new Comparator<ModuleUpdateDescriptor>() {
+            @Override
+            public int compare(ModuleUpdateDescriptor m1, ModuleUpdateDescriptor m2) {
+                return m1.getName().compareTo(m2.getName());
+            }
+        });
     }
 
     @objid ("c4de2b63-cadc-4450-af4c-3673fa369971")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -37,6 +37,7 @@ import org.modelio.diagram.elements.core.policies.DefaultElementDropEditPolicy;
 import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
 import org.modelio.metamodel.analyst.AnalystElement;
 import org.modelio.metamodel.analyst.Term;
+import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBehavior;
 import org.modelio.metamodel.uml.behavior.activityModel.Activity;
@@ -82,7 +83,7 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
         final GmAbstractDiagram gmDiagram = (GmAbstractDiagram) host.getModel();
         
         Point dropLocation = p;
-        // Go through composition stack (upward, up to the ObProject if needed) and while finding elements that are unmaskable, 
+        // Go through composition stack (upward, up to the ObProject if needed) and while finding elements that are unmaskable,
         // look if they are already unmasked. If not, unmask them (in reverse order).
         MObject element = toUnmask;
         final Deque<MObject> elementHierarchy = new ArrayDeque<>();
@@ -111,7 +112,7 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
             dropLocation = dropLocation.getCopy();
             dropLocation.x = 0;
             dropLocation.y = 0;
-            // It will then be used as "root" of the hierarchy to unmask 
+            // It will then be used as "root" of the hierarchy to unmask
         }
         while (!elementHierarchy.isEmpty()) {
             parent = child;
@@ -250,23 +251,23 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
             isNary = lastInHierarchy instanceof NaryAssociation || lastInHierarchy instanceof NaryLink;
         }
         return (!isStateMachine &&
-                !isCommunicationInteraction &&
-                !isActivity &&
-                !isInteraction &&
-                !isBpmnProcess &&
-                !isBpmnBehavior &&
-                !isCurrentCmsNode &&
-                !isCurrentInstance &&
-                !isCurrentCollaboration &&
-                !isCurrentEnumeration &&
-                !isInformationItem &&
-                !isRequirement &&
-                !isTerm &&
-                !isNary);
+                                                        !isCommunicationInteraction &&
+                                                        !isActivity &&
+                                                        !isInteraction &&
+                                                        !isBpmnProcess &&
+                                                        !isBpmnBehavior &&
+                                                        !isCurrentCmsNode &&
+                                                        !isCurrentInstance &&
+                                                        !isCurrentCollaboration &&
+                                                        !isCurrentEnumeration &&
+                                                        !isInformationItem &&
+                                                        !isRequirement &&
+                                                        !isTerm &&
+                                                        !isNary);
     }
 
     @objid ("7e11d6cf-1dec-11e2-8cad-001ec947c8cc")
-    protected static MObject getComposition(final MObject element) {
+    protected MObject getComposition(final MObject element) {
         return element.getCompositionOwner();
     }
 

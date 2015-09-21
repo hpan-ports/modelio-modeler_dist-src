@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.objects.BpmnDataInput;
 import org.modelio.metamodel.bpmn.objects.BpmnDataOutput;
 import org.modelio.metamodel.uml.behavior.activityModel.Pin;
@@ -39,114 +43,343 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.PassingMode;
 
+/**
+ * Parameter v0.0.9054
+ * 
+ * 
+ * The main characteristics of a Parameter are its name, passing mode and type. 
+ * 
+ * The return value of an Operation is a specific case managed by a specific Association between Operation and Parameter. 
+ * 
+ * In Modelio, a Parameter belongs to its Operation.
+ */
 @objid ("0017c640-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Parameter extends ModelElement {
-    @objid ("e03421dd-27ed-4c10-87a1-cd43ca2181ac")
+    @objid ("4b0a386e-0bb9-4d82-95f6-323229513a78")
+    public static final String MNAME = "Parameter";
+
+    /**
+     * Getter for attribute 'Parameter.ParameterPassing'
+     * 
+     * Metamodel description:
+     * <i>Defines the passing mode (in, out or inout) of the Parameter.</i>
+     */
+    @objid ("0acaba0e-c7ab-4c02-87b3-0bff557df913")
     PassingMode getParameterPassing();
 
-    @objid ("fc322e39-6379-457a-a862-c86dbc5bcb6e")
+    /**
+     * Setter for attribute 'Parameter.ParameterPassing'
+     * 
+     * Metamodel description:
+     * <i>Defines the passing mode (in, out or inout) of the Parameter.</i>
+     */
+    @objid ("03dcfe5c-211f-4641-ad17-5c69821f02ac")
     void setParameterPassing(PassingMode value);
 
-    @objid ("8e6586bb-3268-4367-8aaa-0ccdce90bd72")
+    /**
+     * Getter for attribute 'Parameter.MultiplicityMin'
+     * 
+     * Metamodel description:
+     * <i>Minimum value of the association's multiplicity. When placed on a target end, the multiplicity specifies the number of target instances that may be associated with a single source instance via the given Association.</i>
+     */
+    @objid ("ea5f3451-0e91-4e0e-9759-832f81955440")
     String getMultiplicityMin();
 
-    @objid ("4c6e2d3e-c8ac-4388-b731-7261deb65ec7")
+    /**
+     * Setter for attribute 'Parameter.MultiplicityMin'
+     * 
+     * Metamodel description:
+     * <i>Minimum value of the association's multiplicity. When placed on a target end, the multiplicity specifies the number of target instances that may be associated with a single source instance via the given Association.</i>
+     */
+    @objid ("b8696e9b-9e72-440c-9f37-c7e5db5f49aa")
     void setMultiplicityMin(String value);
 
-    @objid ("02e7ebc5-726e-4c19-9690-f476d56d808f")
+    /**
+     * Getter for attribute 'Parameter.MultiplicityMax'
+     * 
+     * Metamodel description:
+     * <i>Maximum value of the multiplicity.</i>
+     */
+    @objid ("f55cc589-082b-4fdc-8f4d-3649503ec650")
     String getMultiplicityMax();
 
-    @objid ("bc36744e-6dc3-42ac-a51f-2641dbfe0cda")
+    /**
+     * Setter for attribute 'Parameter.MultiplicityMax'
+     * 
+     * Metamodel description:
+     * <i>Maximum value of the multiplicity.</i>
+     */
+    @objid ("09439074-1585-47db-8a98-55e4514a5228")
     void setMultiplicityMax(String value);
 
-    @objid ("9af7dc05-5c8c-4c36-a2ec-9df9e231c351")
+    /**
+     * Getter for attribute 'Parameter.TypeConstraint'
+     * 
+     * Metamodel description:
+     * <i>Construction parameter of the Parameter's class (for example, the size of a characters string).</i>
+     */
+    @objid ("9907b2e8-7670-4cc3-9b42-4e472d14ca56")
     String getTypeConstraint();
 
-    @objid ("50d1bf1e-0a68-4df6-b7aa-ecc406b4f695")
+    /**
+     * Setter for attribute 'Parameter.TypeConstraint'
+     * 
+     * Metamodel description:
+     * <i>Construction parameter of the Parameter's class (for example, the size of a characters string).</i>
+     */
+    @objid ("1f340f3c-b933-48d9-bcee-5f17a8d41f71")
     void setTypeConstraint(String value);
 
-    @objid ("8a1f7967-9e82-4428-b25d-abc4acb7fefc")
+    /**
+     * Getter for attribute 'Parameter.DefaultValue'
+     * 
+     * Metamodel description:
+     * <i>Default value of the Parameter. When the caller does not specify a value, then the default value is applied.</i>
+     */
+    @objid ("cbf3f7cf-5bf8-41f5-ad53-238736e4dbd0")
     String getDefaultValue();
 
-    @objid ("97bff7e0-0cc0-4cac-b4a3-617b0fc89ae8")
+    /**
+     * Setter for attribute 'Parameter.DefaultValue'
+     * 
+     * Metamodel description:
+     * <i>Default value of the Parameter. When the caller does not specify a value, then the default value is applied.</i>
+     */
+    @objid ("82adddc9-dd61-4367-aa83-cefbdb1b41e6")
     void setDefaultValue(String value);
 
-    @objid ("bdb64230-0427-4547-968a-ee9c3b506782")
+    /**
+     * Getter for attribute 'Parameter.IsOrdered'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6529b30a-eedd-448d-9f14-161b97ed7486")
     boolean isIsOrdered();
 
-    @objid ("d930cfa5-2b3e-4559-a818-feaf02c826fd")
+    /**
+     * Setter for attribute 'Parameter.IsOrdered'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("41027037-4fdb-4446-97e4-fb7479c2cdc7")
     void setIsOrdered(boolean value);
 
-    @objid ("1e04bad3-181b-46e8-8a6c-0acce9b8f80a")
+    /**
+     * Getter for attribute 'Parameter.IsUnique'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("5734727c-9da7-4a64-945c-d187ada2b6de")
     boolean isIsUnique();
 
-    @objid ("c9c60ac0-e705-4c77-9d97-456deea2bc28")
+    /**
+     * Setter for attribute 'Parameter.IsUnique'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("814b5002-a6cf-409b-acbe-3ff14c1c3138")
     void setIsUnique(boolean value);
 
-    @objid ("374f38ec-2502-4c42-aed6-3820a882ee5b")
+    /**
+     * Getter for attribute 'Parameter.IsException'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("60b45e3b-094b-4748-b0cb-a222c8041226")
     boolean isIsException();
 
-    @objid ("16b7a490-3482-469b-b5aa-720dad7beb4b")
+    /**
+     * Setter for attribute 'Parameter.IsException'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("56ec8d6d-4c78-4821-a09a-e2ab1d266545")
     void setIsException(boolean value);
 
-    @objid ("8668e258-6037-4b1c-855f-29e47253d1ce")
+    /**
+     * Getter for attribute 'Parameter.IsStream'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("d6b1d17b-2adb-43bc-bff4-7b82c5b344d8")
     boolean isIsStream();
 
-    @objid ("decbc358-2a21-480f-8e12-1a0a363dd1ec")
+    /**
+     * Setter for attribute 'Parameter.IsStream'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6a281cce-0dae-4c30-b3ea-da95a1a628da")
     void setIsStream(boolean value);
 
-    @objid ("c0e8a497-93d5-4e87-ac68-767386058e87")
+    /**
+     * Getter for attribute 'Parameter.Effect'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f522aa7e-4008-45d0-bdf4-24b87ba5a5a7")
     ParameterEffectKind getEffect();
 
-    @objid ("d068a721-b605-42a4-804b-55a2813573fe")
+    /**
+     * Setter for attribute 'Parameter.Effect'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("938155df-c4ca-40da-9886-62ccdbe1f9ec")
     void setEffect(ParameterEffectKind value);
 
-    @objid ("ed8d55bc-ce7e-4e13-8de1-95c6bc482657")
+    /**
+     * Getter for relation 'Parameter->BpmnRepresentingDataInput'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f1365247-ea4b-4c1f-a64c-4f889dddd1ee")
     EList<BpmnDataInput> getBpmnRepresentingDataInput();
 
-    @objid ("23b2687f-5c7f-4612-854c-428a5faf4c53")
+    /**
+     * Filtered Getter for relation 'Parameter->BpmnRepresentingDataInput'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("45ff5226-3afd-48c3-bf68-5a1e4d048f5b")
     <T extends BpmnDataInput> List<T> getBpmnRepresentingDataInput(java.lang.Class<T> filterClass);
 
-    @objid ("4a7f6694-4c1e-4ed5-9a65-cad915cadf0f")
+    /**
+     * Getter for relation 'Parameter->Type'
+     * 
+     * Metamodel description:
+     * <i>Defines the Class to which the Parameter belongs.</i>
+     */
+    @objid ("7f9fc0f7-2b96-4cdb-8c80-16140e9c8c49")
     GeneralClass getType();
 
-    @objid ("957ec5ef-b58f-4843-8424-c9e281e11433")
+    /**
+     * Setter for relation 'Parameter->Type'
+     * 
+     * Metamodel description:
+     * <i>Defines the Class to which the Parameter belongs.</i>
+     */
+    @objid ("36cb5cd2-f42c-4510-b7ef-ebc1bf04d3be")
     void setType(GeneralClass value);
 
-    @objid ("6823a141-0c12-4526-9b1a-741952b8bbd8")
+    /**
+     * Getter for relation 'Parameter->Composed'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6eb4ef9a-ab98-4516-a8e3-408ad89bb3a2")
     Operation getComposed();
 
-    @objid ("d9f1e387-a1be-458c-bbcb-5344f3fe9397")
+    /**
+     * Setter for relation 'Parameter->Composed'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a59f8912-28cb-4a3f-b5f4-98e8306e033c")
     void setComposed(Operation value);
 
-    @objid ("0beb9024-6faa-42c2-ab40-eea3b1819a9e")
+    /**
+     * Getter for relation 'Parameter->Matching'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("45bbbab2-fce6-4d76-bcd1-7296573ddbe7")
     EList<Pin> getMatching();
 
-    @objid ("436952ab-2678-439a-8756-66f2a48ee049")
+    /**
+     * Filtered Getter for relation 'Parameter->Matching'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("4228509e-7297-4842-bc77-ceb623c275c4")
     <T extends Pin> List<T> getMatching(java.lang.Class<T> filterClass);
 
-    @objid ("401b195c-3379-47f5-82dd-723a4ff1100b")
+    /**
+     * Getter for relation 'Parameter->BpmnRepresentingDataOutput'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("03644d48-f695-4612-8586-fb7500cd1e2e")
     EList<BpmnDataOutput> getBpmnRepresentingDataOutput();
 
-    @objid ("79907e64-e691-4806-ab34-948054920ef0")
+    /**
+     * Filtered Getter for relation 'Parameter->BpmnRepresentingDataOutput'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("71de61e4-78f7-4916-b3e4-a121dff375b3")
     <T extends BpmnDataOutput> List<T> getBpmnRepresentingDataOutput(java.lang.Class<T> filterClass);
 
-    @objid ("be100936-7268-4010-bf67-f7afd07242d9")
+    /**
+     * Getter for relation 'Parameter->SRepresentation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("76090b26-c7c1-4376-8e3b-d04d04a2b0e4")
     EList<Signal> getSRepresentation();
 
-    @objid ("8b34b351-7cc7-437b-9cac-ab0ea64fbb4d")
+    /**
+     * Filtered Getter for relation 'Parameter->SRepresentation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4943bd87-0464-49d6-87f5-6b5e54f72f80")
     <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("3bda932d-a745-444b-8ffc-079fa7098abb")
+    /**
+     * Getter for relation 'Parameter->Returned'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6bc888dc-a4fd-4861-8c31-42eb6e75ba47")
     Operation getReturned();
 
-    @objid ("f179329d-058b-4dbf-9d11-e0ae2262d98b")
+    /**
+     * Setter for relation 'Parameter->Returned'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("d93b3c09-1ab5-4e8c-af2a-068a07afd8e8")
     void setReturned(Operation value);
 
-    @objid ("2d7fe310-8538-4f15-88b4-70bfb480c9b7")
+    /**
+     * Getter for relation 'Parameter->BehaviorParam'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f87bcaad-8792-4c18-be03-33331bbef705")
     EList<BehaviorParameter> getBehaviorParam();
 
-    @objid ("7d75c401-4c76-49bd-97b3-32ac9d7cff10")
+    /**
+     * Filtered Getter for relation 'Parameter->BehaviorParam'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("0f7afc0e-76b9-4c5e-a344-ee40dea74c50")
     <T extends BehaviorParameter> List<T> getBehaviorParam(java.lang.Class<T> filterClass);
 
 }

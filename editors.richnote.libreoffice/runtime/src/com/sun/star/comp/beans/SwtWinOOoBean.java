@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package com.sun.star.comp.beans;
 
@@ -602,7 +602,7 @@ public class SwtWinOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoConnectionException if no connection is established.
      */
     @objid ("7634e8f6-43ea-4a7a-87e5-9d45c0078af0")
-    public void loadFromStream(final java.io.InputStream iInStream, final com.sun.star.beans.PropertyValue[] aArguments) throws NoConnectionException, com.sun.star.util.CloseVetoException, IOException {
+    public void loadFromStream(final java.io.InputStream iInStream, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, NoConnectionException, com.sun.star.util.CloseVetoException {
         // wrap Java stream into UNO stream
         /*
         com.sun.star.io.XInputStream xStream = 
@@ -652,7 +652,7 @@ public class SwtWinOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoConnectionException if no connection is established.
      */
     @objid ("264828f1-d580-4745-a5d2-4618a8f8528e")
-    public void loadFromByteArray(final byte[] aInBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, com.sun.star.util.CloseVetoException, NoConnectionException {
+    public void loadFromByteArray(final byte[] aInBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, NoConnectionException, com.sun.star.util.CloseVetoException {
         // wrap byte arrray into UNO stream
         com.sun.star.io.XInputStream xStream = new com.sun.star.lib.uno.adapter.ByteArrayToXInputStreamAdapter(aInBuffer);
         
@@ -691,7 +691,7 @@ public class SwtWinOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("3f84846c-d297-4443-aeca-9227e87e9960")
-    public void storeToURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws NoDocumentException, NoConnectionException, IOException, IllegalArgumentException {
+    public void storeToURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, IllegalArgumentException, NoConnectionException, NoDocumentException {
         // no document available?
         if (this.aDocument == null)
             throw new NoDocumentException();
@@ -741,7 +741,7 @@ public class SwtWinOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("05e4b0f2-22fe-4a45-aa0f-7fa0892bc11c")
-    public java.io.OutputStream storeToStream(final java.io.OutputStream aOutStream, final com.sun.star.beans.PropertyValue[] aArguments) throws NoConnectionException, IOException, NoDocumentException, IllegalArgumentException {
+    public java.io.OutputStream storeToStream(final java.io.OutputStream aOutStream, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, IllegalArgumentException, NoConnectionException, NoDocumentException {
         // wrap Java stream into UNO stream
         com.sun.star.lib.uno.adapter.OutputStreamToXOutputStreamAdapter aStream = new com.sun.star.lib.uno.adapter.OutputStreamToXOutputStreamAdapter(aOutStream);
         
@@ -780,7 +780,7 @@ public class SwtWinOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("17c7107d-ae7a-4cb6-a33e-09799995fc3c")
-    public byte[] storeToByteArray(final byte[] aOutBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, NoConnectionException, IOException, NoDocumentException {
+    public byte[] storeToByteArray(final byte[] aOutBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, IllegalArgumentException, NoConnectionException, NoDocumentException {
         // wrap byte arrray into UNO stream
         com.sun.star.lib.uno.adapter.XOutputStreamToByteArrayAdapter aStream = new com.sun.star.lib.uno.adapter.XOutputStreamToByteArrayAdapter(aOutBuffer);
         
@@ -1249,7 +1249,7 @@ public class SwtWinOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("f13a1dcc-4fd7-4a4c-ae24-3237f168d033")
-    public void storeAsURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws NoConnectionException, NoDocumentException, IllegalArgumentException, IOException {
+    public void storeAsURL(final String aURL, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, IllegalArgumentException, NoConnectionException, NoDocumentException {
         // no document available?
         if (this.aDocument == null)
             throw new NoDocumentException();
@@ -1309,7 +1309,7 @@ public class SwtWinOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoDocumentException if no document is loaded
      */
     @objid ("e207e54a-ca93-4dc9-bb30-d02b36af0225")
-    public void store() throws NoDocumentException, IllegalArgumentException, IOException, NoConnectionException {
+    public void store() throws IOException, IllegalArgumentException, NoConnectionException, NoDocumentException {
         // no document available?
         if (this.aDocument == null)
             throw new NoDocumentException();
@@ -1351,7 +1351,7 @@ public class SwtWinOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoConnectionException if the connection is not established.
      */
     @objid ("3152d22a-a8f6-43a4-98ba-0a7128af15d4")
-    public synchronized void aquireSystemWindow() throws SystemWindowException, NoConnectionException {
+    public synchronized void aquireSystemWindow() throws NoConnectionException, SystemWindowException {
         try {
             getDisplay().syncExec(new Runnable() {
             

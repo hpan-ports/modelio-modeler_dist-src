@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common;
 
@@ -39,7 +39,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.smkernel.SmObjectImpl;
-import org.modelio.vcore.smkernel.meta.SmClass;
 
 /**
  * EMF {@link Resource} implementation for EXML repository.
@@ -133,7 +132,7 @@ public class EmfResource implements Resource {
     @objid ("a654c212-c064-11e1-b511-001ec947ccaf")
     @Override
     public String getURIFragment(EObject eObject) {
-        if (eObject instanceof SmObjectImpl) { 
+        if (eObject instanceof SmObjectImpl) {
             SmObjectImpl smObj = (SmObjectImpl) eObject;
             return smObj.getClassOf().getName()+","+smObj.getUuid().toString();
         }
@@ -152,7 +151,7 @@ public class EmfResource implements Resource {
         String[] s = uriFragment.split(",");
         if (s.length != 2)
             throw new IllegalArgumentException("Fragment must be encoded as 'Metaclass,UUID'.");
-        return this.repo.findById(SmClass.getClass(s[0]), UUID.fromString(uriFragment));
+        return this.repo.findById(this.repo.getModelLoaderProvider().getMetamodel().getMClass(s[0]), UUID.fromString(uriFragment));
     }
 
     @objid ("a654c20f-c064-11e1-b511-001ec947ccaf")

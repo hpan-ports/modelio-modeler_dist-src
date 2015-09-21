@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -46,9 +46,6 @@ public class OStateMachine extends OModelElement {
     @objid ("cc15c9dd-cded-4bec-8537-9def666ff10e")
      boolean isProtocol = false;
 
-    @objid ("41873413-085b-4d93-be89-875f0ba30cd8")
-    private StateMachine objingElement = null;
-
     @objid ("62baa6b4-a0a7-4fec-be98-7973931d8717")
     private GenerationProperties genProp = GenerationProperties.getInstance();
 
@@ -67,7 +64,6 @@ public class OStateMachine extends OModelElement {
     @objid ("541932f3-9cb0-4aa3-bf9d-d8d821bab04b")
     public OStateMachine(final StateMachine element) {
         super(element);
-        this.objingElement = element;
         if (AbstractObjingModelNavigation.isProtocolStateMachine(element))
             this.isProtocol = true;
         else
@@ -77,15 +73,15 @@ public class OStateMachine extends OModelElement {
     @objid ("3fa12d98-3502-4457-96b2-0319425f528c")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        ModelElement objingOwner = this.objingElement.getOwner();
+        ModelElement objingOwner = getObjingElement().getOwner();
         if (objingOwner == null) {
-            Operation op = this.objingElement.getOwnerOperation();
+            Operation op = getObjingElement().getOwnerOperation();
             objingOwner = op.getOwner();
             String message =  Xmi.I18N.getMessage("logFile.warning.moving.stateMachine",
-                                                  this.objingElement.getName(), op.getName(), objingOwner
+                                                  getObjingElement().getName(), op.getName(), objingOwner
                                                   .getName());
             XMILogs.getInstance().writelnInLog(message);
-            GenerationProperties.getInstance().getReportModel().addWarning(message, this.objingElement);
+            GenerationProperties.getInstance().getReportModel().addWarning(message, getObjingElement());
         }
         org.eclipse.uml2.uml.Element ecoreOwner = this.genProp.getMappedElement(objingOwner);
         if (ecoreOwner != null) {
@@ -122,7 +118,13 @@ public class OStateMachine extends OModelElement {
 
     @objid ("414f7d1a-c63c-446d-b1a4-83dce2e5802e")
     private void setReentrant(org.eclipse.uml2.uml.StateMachine ecoreElt) {
-        ObjingEAnnotation.setReentrant(ecoreElt, this.objingElement.isIsReentrant());
+        ObjingEAnnotation.setReentrant(ecoreElt, getObjingElement().isIsReentrant());
+    }
+
+    @objid ("b11e5a4e-6cc6-4a89-b2c8-9f2e3f13a386")
+    @Override
+    public StateMachine getObjingElement() {
+        return (StateMachine) super.getObjingElement();
     }
 
 }

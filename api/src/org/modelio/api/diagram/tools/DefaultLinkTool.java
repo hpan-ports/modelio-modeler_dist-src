@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.diagram.tools;
 
@@ -101,17 +101,5 @@ public abstract class DefaultLinkTool extends DefaultDiagramTool implements ILin
     @objid ("01e402b4-0000-6bd0-0000-000000000000")
     @Override
     public abstract void actionPerformed(final IDiagramHandle diagramHandle, IDiagramGraphic originNode, IDiagramGraphic targetNode, LinkRouterKind touterType, ILinkPath path);
-
-    /**
-     * Construct a DefaultLinkCommand and initialize it by passing the <code>name</code>, the <code>bitmap path</code>
-     * and the <code>tooltip</code> of the command.
-     * @param name the name of the command.
-     * @param bitmap the absolute path of the command bitmap.
-     * @param tooltip the tooltip text of the command.
-     */
-    @objid ("a3ecf9e9-0ecc-11e2-96c4-002564c97630")
-    public DefaultLinkTool() {
-        super();
-    }
 
 }

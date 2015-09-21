@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.io.IOException;
@@ -33,8 +45,8 @@ import java.util.Collections;
 import java.util.Properties;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.infrastructure.properties.PropertyTableData;
 import org.modelio.metamodel.impl.uml.infrastructure.ElementImpl;
+import org.modelio.metamodel.impl.uml.infrastructure.properties.PropertyTableData;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
 import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
@@ -47,6 +59,7 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00691798-ec87-1098-b22e-001ec947cd2a")
 public class PropertyTableImpl extends ElementImpl implements PropertyTable {
@@ -151,99 +164,116 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
         return props;
     }
 
-    @objid ("3c219d18-0fe6-42af-b28d-d4bed98e7331")
+    @objid ("ce9d65b7-907c-494b-8b3e-92a23428144a")
     @Override
     public String getName() {
-        return (String) getAttVal(PropertyTableData.Metadata.nameAtt());
+        return (String) getAttVal(((PropertyTableSmClass)getClassOf()).getNameAtt());
     }
 
-    @objid ("ea22c767-d6ee-45ac-8842-121a07c155b7")
+    @objid ("ce11f50a-174d-4267-a509-9392c7c153fa")
     @Override
     public void setName(String value) {
-        setAttVal(PropertyTableData.Metadata.nameAtt(), value);
+        setAttVal(((PropertyTableSmClass)getClassOf()).getNameAtt(), value);
     }
 
-    @objid ("c5cc9709-47ac-4e8b-9787-09f08cc32ad1")
+    @objid ("68339012-7c9d-430b-8fd3-e7aa8f435377")
     @Override
     public String getContent() {
-        return (String) getAttVal(PropertyTableData.Metadata.contentAtt());
+        return (String) getAttVal(((PropertyTableSmClass)getClassOf()).getContentAtt());
     }
 
-    @objid ("7b593910-8b89-472d-97fa-03ff36b210d6")
+    @objid ("b5ef0d29-e407-49cb-8094-f7d11cc03d5b")
     @Override
     public void setContent(String value) {
-        setAttVal(PropertyTableData.Metadata.contentAtt(), value);
+        setAttVal(((PropertyTableSmClass)getClassOf()).getContentAtt(), value);
     }
 
-    @objid ("86bcbb59-2059-459a-87d9-0dd1292b4e0b")
+    @objid ("1f7cb3ba-95ad-4b96-8ae8-2385b17b18fa")
     @Override
     public ModelElement getOwner() {
-        return (ModelElement) getDepVal(PropertyTableData.Metadata.OwnerDep());
+        Object obj = getDepVal(((PropertyTableSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof ModelElement)? (ModelElement)obj : null;
     }
 
-    @objid ("e8c23bf6-cfa6-45c5-8b02-119e07808dc3")
+    @objid ("8c141a16-1151-4f52-b5f5-a3e24f234731")
     @Override
     public void setOwner(ModelElement value) {
-        appendDepVal(PropertyTableData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((PropertyTableSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6b10ab0b-065d-4866-8a57-fbe1ca007fdf")
+    @objid ("a7e0c7c6-35e9-4782-a49b-ac43f7cf9cf8")
     @Override
     public MatrixValueDefinition getOwnerValDef() {
-        return (MatrixValueDefinition) getDepVal(PropertyTableData.Metadata.OwnerValDefDep());
+        Object obj = getDepVal(((PropertyTableSmClass)getClassOf()).getOwnerValDefDep());
+        return (obj instanceof MatrixValueDefinition)? (MatrixValueDefinition)obj : null;
     }
 
-    @objid ("9fc8209b-110c-44cd-9090-e2d7baec0e26")
+    @objid ("be9499fd-7cf4-4572-ada6-68f98e4c54a5")
     @Override
     public void setOwnerValDef(MatrixValueDefinition value) {
-        appendDepVal(PropertyTableData.Metadata.OwnerValDefDep(), (SmObjectImpl)value);
+        appendDepVal(((PropertyTableSmClass)getClassOf()).getOwnerValDefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("facac0d9-5d5d-451a-b2d4-783f574e9f5f")
+    @objid ("d3fbd9bd-cab3-4e75-90da-b9e2be708d0f")
     @Override
     public QueryDefinition getOwnerQuery() {
-        return (QueryDefinition) getDepVal(PropertyTableData.Metadata.OwnerQueryDep());
+        Object obj = getDepVal(((PropertyTableSmClass)getClassOf()).getOwnerQueryDep());
+        return (obj instanceof QueryDefinition)? (QueryDefinition)obj : null;
     }
 
-    @objid ("84600269-a7a4-4c3e-b89a-bd0e97f854eb")
+    @objid ("e5e80d52-4a72-4a28-b9cb-402f337ed8a1")
     @Override
     public void setOwnerQuery(QueryDefinition value) {
-        appendDepVal(PropertyTableData.Metadata.OwnerQueryDep(), (SmObjectImpl)value);
+        appendDepVal(((PropertyTableSmClass)getClassOf()).getOwnerQueryDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bdecd2ac-d4bc-45e6-8bf2-920d0a2d1f62")
+    @objid ("7c0052a5-3bd8-4508-b825-d2247d0e5055")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((PropertyTableSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerValDefDep());
+        // OwnerValDef
+        obj = (SmObjectImpl)this.getDepVal(((PropertyTableSmClass)getClassOf()).getOwnerValDefDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerQueryDep());
+        // OwnerQuery
+        obj = (SmObjectImpl)this.getDepVal(((PropertyTableSmClass)getClassOf()).getOwnerQueryDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("1fcce3b9-6220-4638-8c7f-004fdc59ffbb")
+    @objid ("21b24d5d-a35e-4f03-b87e-ae60dfea099e")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(PropertyTableData.Metadata.OwnerDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerValDefDep());
-        if (obj != null)
-          return new SmDepVal(PropertyTableData.Metadata.OwnerValDefDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerQueryDep());
-        if (obj != null)
-          return new SmDepVal(PropertyTableData.Metadata.OwnerQueryDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((PropertyTableSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // OwnerValDef
+        dep = ((PropertyTableSmClass)getClassOf()).getOwnerValDefDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // OwnerQuery
+        dep = ((PropertyTableSmClass)getClassOf()).getOwnerQueryDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("1186563f-4b00-4c69-b37d-a15b1d8d4d3a")
+    @objid ("702772c4-143f-4e01-a36d-267f70c86462")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPropertyTable(this);

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.instance;
 
@@ -33,7 +33,7 @@ import org.modelio.diagram.editor.statik.elements.slot.GmSlotGroup;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.freezone.GmFreeZone;
 import org.modelio.diagram.elements.common.group.GmGroup;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNoStyleCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -67,7 +67,7 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
     private static final int MAJOR_VERSION = 0;
 
     @objid ("a68cdf15-55c2-11e2-9337-002564c97630")
-    private GmDefaultFlatHeader imageModeHeader;
+    private GmDefaultModelElementLabel imageModeHeader;
 
     /**
      * Instance header
@@ -118,7 +118,7 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
         super.addChild(this.internalStructure);
         
         styleChanged(getStyle());
-        this.imageModeHeader = new GmDefaultFlatHeader(diagram, relatedRef);
+        this.imageModeHeader = new GmDefaultModelElementLabel(diagram, relatedRef);
         addChild(this.imageModeHeader);
     }
 
@@ -220,7 +220,7 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
         String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -262,12 +262,12 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
     @objid ("353ba114-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-                
+        
         this.header = (GmInstanceHeader) getFirstChild(Constants.HEADER);
         this.slotGroup = (GmSlotGroup) getFirstChild(Constants.SLOTGROUP);
         GmGroup internalStructureGroup = (GmGroup) getFirstChild(Constants.INTERNALGROUP);
         GmFreeZone internalStructureZone = (GmFreeZone) getFirstChild(Constants.INTERNALZONE);
-        this.imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(4);
+        this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(4);
         
         // Migrate internal structure group/zone
         removeChild(internalStructureGroup);
@@ -287,12 +287,12 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
     @objid ("353d277c-55b7-11e2-877f-002564c97630")
     private void read_1(IDiagramReader in) {
         super.read(in);
-                
+        
         this.header = (GmInstanceHeader) getFirstChild(Constants.HEADER);
         this.slotGroup = (GmSlotGroup) getFirstChild(Constants.SLOTGROUP);
         this.internalStructure = (GmInstanceInternalStructure) getFirstChild(Constants.INTERNALSTRUCTURE);
         
-        this.imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(3);
+        this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(3);
     }
 
     /**

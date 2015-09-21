@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.stateinvariant;
 
@@ -25,15 +25,15 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.commands.Command;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.uml.behavior.interactionModel.StateInvariant;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * Reparent command that is specific to StateInvariant. The ownership change might be graphic only (if not changing
- * lifeline). Also the "times" of starting and ending links are updated.
+ * Reparent command that is specific to StateInvariant. The ownership change might be graphic only (if not changing lifeline). Also
+ * the "times" of starting and ending links are updated.
  * 
  * @author fpoyer
  */
@@ -88,9 +88,11 @@ public class ReparentStateInvariantCommand extends Command {
             return false;
         }
         
+        MMetamodel mm = newParent.getMClass().getMetamodel();
         boolean sameParentInObModel = newParent.equals(oldParent);
-        return sameParentInObModel ||
-                (newParent.getStatus().isModifiable() && MTools.getMetaTool().canCompose(newParent, childElement, ((SmObjectImpl)childElement).getCompositionRelation().dep.getName()));
+        return sameParentInObModel
+                                        || (newParent.getStatus().isModifiable() && mm.getMExpert().canCompose(newParent, childElement,
+                                                ((SmObjectImpl) childElement).getCompositionRelation().dep.getName()));
     }
 
     @objid ("d99a990d-55b6-11e2-877f-002564c97630")
@@ -123,7 +125,8 @@ public class ReparentStateInvariantCommand extends Command {
             } catch (Exception e) {
                 // Maybe new parent is not using the same dependency for composition
                 // Try to find a fitting dependency
-                MDependency defaultCompositionDep = MTools.getMetaTool().getDefaultCompositionDep(newParentElement, childElement);
+                MMetamodel mm = newParentElement.getMClass().getMetamodel();
+                MDependency defaultCompositionDep = mm.getMExpert().getDefaultCompositionDep(newParentElement, childElement);
                 List<MObject> children = newParentElement.mGet(defaultCompositionDep);
                 children.add(childElement);
             }

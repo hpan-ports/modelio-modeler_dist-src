@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.transactions.events;
 
@@ -30,9 +30,7 @@ import java.util.concurrent.TimeUnit;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.session.api.model.change.ChangeCause;
 import org.modelio.vcore.session.api.transactions.ITransactionSupport;
-import org.modelio.vcore.smkernel.SmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
-import org.modelio.vcore.smkernel.meta.SmAttribute;
 
 /**
  * Service that records status change events and fires each 2 seconds
@@ -54,9 +52,6 @@ public class StatusChangeManager {
 
     @objid ("163a7734-6654-41c6-99a9-8c074f7e4c2e")
     private ModelChangeSupport modelChangeSupport;
-
-    @objid ("30560c0f-2d0e-459b-a1be-317157e5e11c")
-    private final SmAttribute STATUS_ATT = SmObjectData.Metadata.statusAtt();
 
     /**
      * Constructor.
@@ -187,7 +182,7 @@ public class StatusChangeManager {
                         execOutsideTransaction();
                     }
                 };
-                
+            
                 this.taskService.schedule(r, 2, TimeUnit.SECONDS);
             }
         }

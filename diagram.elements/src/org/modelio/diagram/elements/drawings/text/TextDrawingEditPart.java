@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.drawings.text;
 
@@ -36,6 +36,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.diagram.elements.common.edition.DirectEditManager2;
 import org.modelio.diagram.elements.common.edition.MultilineTextCellEditor;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.elements.drawings.core.HAlign;
 import org.modelio.diagram.elements.drawings.core.node.NodeDrawingEditPart;
@@ -54,14 +55,11 @@ public class TextDrawingEditPart extends NodeDrawingEditPart {
     protected IFigure createFigure() {
         ResizeableTextFigure f = new ResizeableTextFigure();
         
-        // set style independent properties
-        f.setMinimumSize(new Dimension(50, 50));
-        //f.setContents("test");
-        
         // set style dependent properties
         refreshFromStyle(f, getModelStyle());
         
-        f.setPreferredSize(50,30);
+        // set style independent properties
+        MinimumSizeLayout.apply(f, 50,30);
         f.setOpaque(false);
         
         // return the figure
@@ -128,8 +126,9 @@ public class TextDrawingEditPart extends NodeDrawingEditPart {
         final String propertyName = evt.getPropertyName();
         if (IGmObject.PROPERTY_LABEL.equals(propertyName)) {
             refreshVisuals();
-        } else
+        } else {
             super.propertyChange(evt);
+        }
     }
 
     @objid ("9888ced5-b9da-46db-bc3a-83e9a07c89b0")
@@ -168,7 +167,7 @@ public class TextDrawingEditPart extends NodeDrawingEditPart {
         
                 @Override
                 protected void initCellEditor() {
-                    final MultilineTextCellEditor textEdit = (MultilineTextCellEditor) this.getCellEditor();
+                    final MultilineTextCellEditor textEdit = (MultilineTextCellEditor) getCellEditor();
                     textEdit.setStyle(SWT.CENTER);
                     textEdit.setValue(getModel().getLabel());
         
@@ -179,8 +178,8 @@ public class TextDrawingEditPart extends NodeDrawingEditPart {
         
                     super.initCellEditor();
                 }
-                
-              
+        
+        
             };
         
             manager.show();

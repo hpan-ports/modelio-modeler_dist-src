@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.index.jdbm;
 
@@ -33,6 +33,7 @@ import jdbm.PrimaryHashMap;
 import jdbm.RecordManager;
 import jdbm.SecondaryKeyExtractor;
 import jdbm.helper.StoreReference;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vstore.exml.common.index.IUserNodeIndex;
 import org.modelio.vstore.exml.common.model.ObjId;
 
@@ -47,6 +48,10 @@ public class UserNodeIndex implements IUserNodeIndex {
     @objid ("28578571-ada8-4ded-9f9f-6b40754a8aa0")
     private Map<ObjId , Iterable<ObjId>> foreignInverse;
 
+    /**
+     * key = used object id.
+     * value = collection of user CMS nodes id.
+     */
     @objid ("d55011a2-7f1a-11e1-ba70-001ec947ccaf")
     private PrimaryHashMap<ObjId,StoreReference<Collection<ObjId>>> users;
 
@@ -56,27 +61,37 @@ public class UserNodeIndex implements IUserNodeIndex {
     @objid ("f1c503a7-92d7-11e1-be7e-001ec947ccaf")
     private PrimaryHashMap<ObjId,StoreReference<Collection<ObjId>>> foreignUsers;
 
+    @objid ("fc4e60f9-f2b5-430b-8cd9-9665c295e7c2")
+    private final ObjIdSerializer objIdSerializer;
+
+    @objid ("f1405b41-104f-44c4-b375-4a9f4bcd3673")
+    private final ObjIdCollectionSerializer idCollSerializer;
+
     /**
      * Initialize the index.
+     * @param metamodel
      * @param db the JDBM database.
      */
     @objid ("e1ee6203-5c83-11e1-863f-001ec947ccaf")
-    public UserNodeIndex(final RecordManager db) {
+    public UserNodeIndex(final RecordManager db, SmMetamodel metamodel) {
         this.db = db;
-        this.users = db.hashMap("users", ObjIdSerializer.instance);
-        this.foreignUsers = db.hashMap("foreign", ObjIdSerializer.instance);
+        this.objIdSerializer = new ObjIdSerializer(metamodel);
+        this.idCollSerializer = new ObjIdCollectionSerializer(this.objIdSerializer);
+        this.users = db.hashMap("users", this.objIdSerializer);
+        this.foreignUsers = db.hashMap("foreign", this.objIdSerializer);
         initReverseIndexes();
     }
 
     @objid ("e1ee6204-5c83-11e1-863f-001ec947ccaf")
     @Override
-    public Collection<ObjId> getUsers(final ObjId cmsNodeId) {
+    public Collection<ObjId> getObjectUsers(final ObjId objectId) {
         try {
-            StoreReference<Collection<ObjId>> usersRef = this.users.get(cmsNodeId);
-            if (usersRef == null)
+            StoreReference<Collection<ObjId>> usersRef = this.users.get(objectId);
+            if (usersRef == null) {
                 return Collections.emptyList();
-            else
-                return usersRef.get(this.db, ObjIdCollectionSerializer.instance);
+            } else {
+                return usersRef.get(this.db, this.idCollSerializer);
+            }
         } catch (NullPointerException e) {
             dumpUsers(System.err);
             throw e;
@@ -85,8 +100,8 @@ public class UserNodeIndex implements IUserNodeIndex {
 
     @objid ("e1ee6205-5c83-11e1-863f-001ec947ccaf")
     @Override
-    public void addUsed(final ObjId userNodeId, final ObjId usedNodeId) throws IOException {
-        addTo(this.users, usedNodeId, userNodeId);
+    public void addUsed(final ObjId userNodeId, final ObjId usedObjectId) throws IOException {
+        addTo(this.users, usedObjectId, userNodeId);
     }
 
     @objid ("e1ee6206-5c83-11e1-863f-001ec947ccaf")
@@ -94,14 +109,18 @@ public class UserNodeIndex implements IUserNodeIndex {
     public void remove(final ObjId toRemove) throws IOException {
         //Remove from the used list
         Iterable<ObjId> used = this.usersInverse.get(toRemove);
-        if (used != null) for (ObjId id : used) {
-            removeFrom(this.users, id, toRemove);
+        if (used != null) {
+            for (ObjId id : used) {
+                removeFrom(this.users, id, toRemove);
+            }
         }
         
         //Remove from the foreign used list
         used = this.foreignInverse.get(toRemove);
-        if (used != null) for (ObjId id : used) {
-            removeFrom(this.foreignUsers, id, toRemove);
+        if (used != null) {
+            for (ObjId id : used) {
+                removeFrom(this.foreignUsers, id, toRemove);
+            }
         }
         
         /*StoreReference<Collection<ObjId>> ref = users.remove(toRemove);
@@ -117,26 +136,28 @@ public class UserNodeIndex implements IUserNodeIndex {
             @Override
             public Iterable<ObjId> extractSecondaryKey(ObjId key,
                     StoreReference<Collection<ObjId>> value) {
-                return value.get(UserNodeIndex.this.db, ObjIdCollectionSerializer.instance);
+                return value.get(UserNodeIndex.this.db, UserNodeIndex.this.idCollSerializer);
             }
         };
         
-        this.usersInverse = SecondaryKeyHelper.secondaryHashMapManyToOne("usersInverse", 
-                secKeyExtractor , 
-                this.users, 
-                ObjIdSerializer.instance,
-                ObjIdIterableSerializer.instance);
+        ObjIdIterableSerializer iterableSerializer = new ObjIdIterableSerializer(this.idCollSerializer);
         
-        this.foreignInverse = SecondaryKeyHelper.secondaryHashMapManyToOne("foreignInverse", 
-                secKeyExtractor , 
-                this.foreignUsers, 
-                ObjIdSerializer.instance,
-                ObjIdIterableSerializer.instance);
+        this.usersInverse = SecondaryKeyHelper.secondaryHashMapManyToOne("usersInverse",
+                secKeyExtractor ,
+                this.users,
+                this.objIdSerializer,
+                iterableSerializer);
+        
+        this.foreignInverse = SecondaryKeyHelper.secondaryHashMapManyToOne("foreignInverse",
+                secKeyExtractor ,
+                this.foreignUsers,
+                this.objIdSerializer,
+                iterableSerializer);
     }
 
     @objid ("82d1cc32-5ca7-11e1-863f-001ec947ccaf")
     private Collection<ObjId> load(final StoreReference<Collection<ObjId>> storeReference) {
-        return storeReference.get(this.db, ObjIdCollectionSerializer.instance);
+        return storeReference.get(this.db, this.idCollSerializer);
     }
 
     @objid ("82d1cc3d-5ca7-11e1-863f-001ec947ccaf")
@@ -146,12 +167,12 @@ public class UserNodeIndex implements IUserNodeIndex {
         if (ref == null) {
             l = new ArrayList<>(1);
             l.add(v);
-            ref = new StoreReference<>(this.db, l, ObjIdCollectionSerializer.instance);
+            ref = new StoreReference<>(this.db, l, this.idCollSerializer);
             map.put(k, ref);
         } else {
             l = load(ref);
             l.add(v);
-            this.db.update(ref.getRecId(), l, ObjIdCollectionSerializer.instance);
+            this.db.update(ref.getRecId(), l, this.idCollSerializer);
         }
     }
 
@@ -161,7 +182,7 @@ public class UserNodeIndex implements IUserNodeIndex {
         if (ref != null) {
             Collection<ObjId> l = load(ref);
             l.remove(v);
-            this.db.update(ref.getRecId(), l, ObjIdCollectionSerializer.instance);
+            this.db.update(ref.getRecId(), l, this.idCollSerializer);
         }
     }
 
@@ -170,7 +191,7 @@ public class UserNodeIndex implements IUserNodeIndex {
         out.println("Users CMS nodes index dump:");
         for (Entry<ObjId, StoreReference<Collection<ObjId>>>  en: this.users.entrySet()) {
             out.println(" - "+en.getKey()+" used by:");
-            for (ObjId  user: en.getValue().get(this.db, ObjIdCollectionSerializer.instance)) {
+            for (ObjId  user: en.getValue().get(this.db, this.idCollSerializer)) {
                 out.println("   - "+user);
             }
         }
@@ -181,10 +202,11 @@ public class UserNodeIndex implements IUserNodeIndex {
     public Collection<ObjId> getForeignUsers(final ObjId cmsNodeId) {
         try {
             StoreReference<Collection<ObjId>> usersRef = this.foreignUsers.get(cmsNodeId);
-            if (usersRef == null)
+            if (usersRef == null) {
                 return Collections.emptyList();
-            else
-                return usersRef.get(this.db, ObjIdCollectionSerializer.instance);
+            } else {
+                return usersRef.get(this.db, this.idCollSerializer);
+            }
         } catch (NullPointerException e) {
             dumpForeignUsers(System.err);
             throw e;
@@ -202,7 +224,7 @@ public class UserNodeIndex implements IUserNodeIndex {
         out.println("Foreign user object index dump:");
         for (Entry<ObjId, StoreReference<Collection<ObjId>>>  en: this.foreignUsers.entrySet()) {
             out.println(" - "+en.getKey()+" used by:");
-            for (ObjId  user: en.getValue().get(this.db, ObjIdCollectionSerializer.instance)) {
+            for (ObjId  user: en.getValue().get(this.db, this.idCollSerializer)) {
                 out.println("   - "+user);
             }
         }

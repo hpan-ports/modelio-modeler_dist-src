@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.index;
 
@@ -40,21 +40,21 @@ public interface IUserNodeIndex {
     void remove(final ObjId id) throws IOException;
 
     /**
-     * Add a used node.
+     * Add a used object.
      * @param userNodeId the user CMS node
-     * @param usedNodeId the used CMS node.
+     * @param usedObjectId the used object.
      * @throws java.io.IOException in case of IO failure.
      */
     @objid ("32337f93-5c7b-11e1-863f-001ec947ccaf")
-    void addUsed(final ObjId userNodeId, final ObjId usedNodeId) throws IOException;
+    void addUsed(final ObjId userNodeId, final ObjId usedObjectId) throws IOException;
 
     /**
-     * Get the CMS nodes using the given CMS node.
-     * @param cmsNodeId a CMS node ID.
+     * Get the CMS nodes using the given object.
+     * @param objectId a object ID.
      * @return The ID of all CMS nodes using it.
      */
     @objid ("32337f98-5c7b-11e1-863f-001ec947ccaf")
-    Collection<ObjId> getUsers(final ObjId cmsNodeId);
+    Collection<ObjId> getObjectUsers(final ObjId objectId);
 
     /**
      * Get the CMS nodes using the given foreign object.

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.conditional;
 
@@ -30,8 +30,10 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.modelio.diagram.editor.activity.elements.policies.CreateFlowEditPolicy;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.RoundedBoxFigure;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
+import org.modelio.diagram.elements.core.policies.AutoExpandLayoutEditPolicy;
 import org.modelio.diagram.elements.core.policies.DelegatingEditPolicy;
 import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointRequest;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPolicy;
@@ -62,10 +64,11 @@ public class ConditionalEditPart extends GmNodeEditPart {
         final IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
         
         final int nbChild = getFigure().getChildren().size();
-        if (nbChild < 1)
+        if (nbChild < 1) {
             getFigure().add(child, BorderLayout.TOP, index);
-        else
+        } else {
             getFigure().add(child, BorderLayout.CENTER, index);
+        }
     }
 
     @objid ("2a108c3e-55b6-11e2-877f-002564c97630")
@@ -74,7 +77,8 @@ public class ConditionalEditPart extends GmNodeEditPart {
         super.createEditPolicies();
         
         installEditPolicy(EditPolicy.NODE_ROLE, new CreateFlowEditPolicy());
-        installEditPolicy(EditPolicy.LAYOUT_ROLE, new DelegatingEditPolicy());
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new AutoExpandLayoutEditPolicy());
+        installEditPolicy("delegate", new DelegatingEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
     }
@@ -88,7 +92,7 @@ public class ConditionalEditPart extends GmNodeEditPart {
         fig.setLayoutManager(figureLayout);
         
         // set style independent properties
-        fig.setPreferredSize(120, 90);
+        MinimumSizeLayout.apply(fig, 120, 90);
         
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
@@ -104,8 +108,8 @@ public class ConditionalEditPart extends GmNodeEditPart {
     @objid ("2a108c46-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmConditionalPrimaryNode conditionalModel = (GmConditionalPrimaryNode) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), conditionalModel.getLayoutData());
+        GmConditionalPrimaryNode conditionalModel = (GmConditionalPrimaryNode) getModel();
+        getFigure().getParent().setConstraint(getFigure(), conditionalModel.getLayoutData());
     }
 
     @objid ("2a108c4a-55b6-11e2-877f-002564c97630")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.usecaseModel;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.usecaseModel.UseCaseDependencyData;
+import org.modelio.metamodel.impl.uml.behavior.usecaseModel.UseCaseDependencyData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.behavior.usecaseModel.ExtensionPoint;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
@@ -42,73 +54,86 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00592d06-c4bf-1fd8-97fe-001ec947cd2a")
 public class UseCaseDependencyImpl extends ModelElementImpl implements UseCaseDependency {
-    @objid ("776c6b02-7418-4d73-b180-4a1f777b1f7e")
+    @objid ("d64bc777-c7f3-4259-a961-56990bdf3b99")
     @Override
     public UseCase getOrigin() {
-        return (UseCase) getDepVal(UseCaseDependencyData.Metadata.OriginDep());
+        Object obj = getDepVal(((UseCaseDependencySmClass)getClassOf()).getOriginDep());
+        return (obj instanceof UseCase)? (UseCase)obj : null;
     }
 
-    @objid ("f0ebd80e-1223-4496-94ac-85263bc59f84")
+    @objid ("0850b964-4e48-44e5-bc73-aec2b39194bf")
     @Override
     public void setOrigin(UseCase value) {
-        appendDepVal(UseCaseDependencyData.Metadata.OriginDep(), (SmObjectImpl)value);
+        appendDepVal(((UseCaseDependencySmClass)getClassOf()).getOriginDep(), (SmObjectImpl)value);
     }
 
-    @objid ("87419914-02ff-4324-b03e-31199f4f8796")
+    @objid ("5a6dcce4-0938-4587-886c-4cc6173e3910")
     @Override
     public EList<ExtensionPoint> getExtensionLocation() {
-        return new SmList<>(this, UseCaseDependencyData.Metadata.ExtensionLocationDep());
+        return new SmList<>(this, ((UseCaseDependencySmClass)getClassOf()).getExtensionLocationDep());
     }
 
-    @objid ("27035126-1e72-4a8d-8b56-49f94e7419c6")
+    @objid ("504a41ee-91e8-4f73-9eac-163b7911bcd3")
     @Override
     public <T extends ExtensionPoint> List<T> getExtensionLocation(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ExtensionPoint element : getExtensionLocation()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("20c684f5-4c69-4456-afee-e31dbc4a0393")
+    @objid ("73f323be-17d7-4ae5-9a2e-7f4b79a34180")
     @Override
     public UseCase getTarget() {
-        return (UseCase) getDepVal(UseCaseDependencyData.Metadata.TargetDep());
+        Object obj = getDepVal(((UseCaseDependencySmClass)getClassOf()).getTargetDep());
+        return (obj instanceof UseCase)? (UseCase)obj : null;
     }
 
-    @objid ("820c7729-eee9-4150-8f2c-7c078df6de74")
+    @objid ("9370d7db-5193-4207-a8a1-9b16370812c5")
     @Override
     public void setTarget(UseCase value) {
-        appendDepVal(UseCaseDependencyData.Metadata.TargetDep(), (SmObjectImpl)value);
+        appendDepVal(((UseCaseDependencySmClass)getClassOf()).getTargetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("70d3ec44-5239-441c-95e6-ed42fb040c15")
+    @objid ("6d22f1ff-eaf5-471e-beaa-0ed9c35044ec")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(UseCaseDependencyData.Metadata.OriginDep());
+        // Origin
+        obj = (SmObjectImpl)this.getDepVal(((UseCaseDependencySmClass)getClassOf()).getOriginDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("157543fd-219b-455f-95bb-7ad13bda085d")
+    @objid ("14e8f7b9-010e-4225-9460-9f39d01e0d84")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(UseCaseDependencyData.Metadata.OriginDep());
-        if (obj != null)
-          return new SmDepVal(UseCaseDependencyData.Metadata.OriginDep(), obj);
+        SmDependency dep;
+        
+        // Origin
+        dep = ((UseCaseDependencySmClass)getClassOf()).getOriginDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("2f4bb435-dfda-49b9-b761-dacdadf11be0")
+    @objid ("041d5ba4-5559-4e9c-be45-7b17991f3522")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitUseCaseDependency(this);

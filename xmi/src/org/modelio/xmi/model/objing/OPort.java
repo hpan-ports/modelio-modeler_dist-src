@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -41,30 +41,27 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("0134d964-11a6-486d-aadb-c1cb066669df")
 public class OPort extends OElement implements IOElement {
-    @objid ("849d2f9c-a9cd-40f8-9a36-c695e1f4cfbc")
-    private Port objingElement = null;
-
     @objid ("6477a75f-830a-49b5-b128-4184d791814f")
     private GenerationProperties genProp = GenerationProperties.getInstance();
 
     @objid ("43014f2c-ee75-4c65-a1ff-52355f6a5a6e")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        MObject objOwner = this.objingElement.getCompositionOwner();
+        MObject objOwner = getObjingElement().getCompositionOwner();
         
         if (objOwner instanceof BindableInstance){
-            boolean exist = false; 
-            ModelElement representedFeature = this.objingElement.getRepresentedFeature();
+            boolean exist = false;
+            ModelElement representedFeature = getObjingElement().getRepresentedFeature();
             if (objOwner instanceof Instance){
                 NameSpace base = ((Instance) objOwner).getBase();
-                exist = ((base!= null) && (representedFeature != null) 
+                exist = ((base!= null) && (representedFeature != null)
                         && (representedFeature instanceof Port)
                         && (representedFeature.getCompositionOwner().equals(base)));
             }
         
             if (exist){
-                return this.genProp.getMappedElement(representedFeature);            
-            }else{ 
+                return this.genProp.getMappedElement(representedFeature);
+            }else{
                 if ((representedFeature != null) && (representedFeature instanceof Port)
                         && !(representedFeature.getCompositionOwner() instanceof Instance)){
                     return this.genProp.getMappedElement(representedFeature);
@@ -81,7 +78,6 @@ public class OPort extends OElement implements IOElement {
     @objid ("4066af51-2b58-4921-834b-c004732f1a23")
     public OPort(Port element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("632cea98-f62b-4620-8f2a-f0d770ebdc4d")
@@ -92,12 +88,12 @@ public class OPort extends OElement implements IOElement {
          * (from Instance) // - TemplateParameter (from ModelElement) //
          * org.eclipse.uml2.uml.Type of possible owners of a org.eclipse.uml2.uml.Slot in Uml2: // - InstanceSpecification
          * (from slot) // - org.eclipse.uml2.uml.Element (from org.eclipse.uml2.uml.Element) // - EAnnotation (from
-          EObject) 
+          EObject)
          */
         
-        MObject objingOwner = this.objingElement.getCompositionOwner();
+        MObject objingOwner = getObjingElement().getCompositionOwner();
         
-        if (objingOwner instanceof BindableInstance) { 
+        if (objingOwner instanceof BindableInstance) {
             attachPortToBindableInstance((BindableInstance)objingOwner, ecoreElt);
         }else if (objingOwner instanceof Instance){
             attachPortToInstance((Instance)objingOwner, (org.eclipse.uml2.uml.Slot) ecoreElt);
@@ -111,32 +107,32 @@ public class OPort extends OElement implements IOElement {
         org.eclipse.uml2.uml.Element ecoreOwner =  this.genProp.getMappedElement(objingOwner);
         
         if (objingOwner instanceof NameSpace ){
-            if ( ecoreOwner instanceof  Class) { 
+            if ( ecoreOwner instanceof  Class) {
         
                 if (!( (org.eclipse.uml2.uml.Class) ecoreOwner).getOwnedPorts().contains(ecoreElt))
-                    ( (org.eclipse.uml2.uml.Class) ecoreOwner).getOwnedPorts().add(ecoreElt); 
+                    ( (org.eclipse.uml2.uml.Class) ecoreOwner).getOwnedPorts().add(ecoreElt);
         
             }else if (ecoreOwner instanceof  org.eclipse.uml2.uml.Signal){
         
                 if (!( (org.eclipse.uml2.uml.Signal) ecoreOwner).getOwnedAttributes().contains(ecoreElt))
-                    ( (org.eclipse.uml2.uml.Signal) ecoreOwner).getOwnedAttributes().add(ecoreElt); 
+                    ( (org.eclipse.uml2.uml.Signal) ecoreOwner).getOwnedAttributes().add(ecoreElt);
         
             }else    if (ecoreOwner instanceof Component){
         
                 if (!((org.eclipse.uml2.uml.Component) ecoreOwner).getOwnedAttributes().contains(ecoreElt))
-                    ((org.eclipse.uml2.uml.Component) ecoreOwner).getOwnedAttributes().add(ecoreElt); 
+                    ((org.eclipse.uml2.uml.Component) ecoreOwner).getOwnedAttributes().add(ecoreElt);
         
             }else    if (ecoreOwner instanceof  org.eclipse.uml2.uml.Collaboration){
         
                 if (!( (org.eclipse.uml2.uml.Collaboration) ecoreOwner).getOwnedAttributes().contains(ecoreElt))
-                    ( (org.eclipse.uml2.uml.Collaboration) ecoreOwner).getOwnedAttributes().add(ecoreElt); 
+                    ( (org.eclipse.uml2.uml.Collaboration) ecoreOwner).getOwnedAttributes().add(ecoreElt);
         
         
-            }else { 
+            }else {
                 ecoreElt.destroy();
                 throw new NotFoundException( "No possible mapping for " +
                         ecoreElt.getClass().getSimpleName() + " contained in " +
-                        ecoreOwner.getClass().getSimpleName()); 
+                        ecoreOwner.getClass().getSimpleName());
             }
         }else{
             ecoreElt.destroy();
@@ -156,7 +152,7 @@ public class OPort extends OElement implements IOElement {
         if ((base != null) && (ecoreElt instanceof org.eclipse.uml2.uml.Port)){
             attachPortToClassifier(base, (org.eclipse.uml2.uml.Port)ecoreElt);
         }else{
-            MObject objOwner = AbstractObjingModelNavigation.getBindableInstanceOwner(this.objingElement);
+            MObject objOwner = AbstractObjingModelNavigation.getBindableInstanceOwner(getObjingElement());
             if ( objOwner instanceof Instance)
                 attachPortToInstance((Instance) objOwner, (org.eclipse.uml2.uml.Slot) ecoreElt);
             else{
@@ -168,24 +164,24 @@ public class OPort extends OElement implements IOElement {
     @objid ("1bfc6796-66ec-44a2-9505-947670f0e6a9")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        if (ecoreElt instanceof org.eclipse.uml2.uml.Port){           
-            ((org.eclipse.uml2.uml.Port) ecoreElt).setIsBehavior(this.objingElement.isIsBehavior());
-            ((org.eclipse.uml2.uml.Port) ecoreElt).setIsService(this.objingElement.isIsService());
+        if (ecoreElt instanceof org.eclipse.uml2.uml.Port){
+            ((org.eclipse.uml2.uml.Port) ecoreElt).setIsBehavior(getObjingElement().isIsBehavior());
+            ((org.eclipse.uml2.uml.Port) ecoreElt).setIsService(getObjingElement().isIsService());
         }else if (ecoreElt instanceof org.eclipse.uml2.uml.Slot){
             setDefiningFeature((org.eclipse.uml2.uml.Slot) ecoreElt);
-            ObjingEAnnotation.setBehavior(ecoreElt, this.objingElement.isIsBehavior());
-            ObjingEAnnotation.setService(ecoreElt, this.objingElement.isIsService());
+            ObjingEAnnotation.setBehavior(ecoreElt, getObjingElement().isIsBehavior());
+            ObjingEAnnotation.setService(ecoreElt, getObjingElement().isIsService());
         }
         
         if (this.genProp.isRoundtripEnabled()){
             ObjingEAnnotation.setPort(ecoreElt, true);
-            setOwnerEAnnotation(ecoreElt,this.objingElement.getCompositionOwner());
-            ObjingEAnnotation.setPortDirection(ecoreElt, this.objingElement.getDirection().getLiteral());      }
+            setOwnerEAnnotation(ecoreElt,getObjingElement().getCompositionOwner());
+            ObjingEAnnotation.setPortDirection(ecoreElt, getObjingElement().getDirection().getLiteral());      }
     }
 
     @objid ("d42e4b1d-66d8-4182-9035-3988627a22a0")
     private void setDefiningFeature(org.eclipse.uml2.uml.Slot slot) {
-        Element represented = this.objingElement.getRepresentedFeature();
+        Element represented = getObjingElement().getRepresentedFeature();
         if (represented != null){
         
             Object temp = this.genProp.getMappedElement(represented);
@@ -198,6 +194,12 @@ public class OPort extends OElement implements IOElement {
     @objid ("c2e60dcc-3157-432d-9057-fee6b79e09b7")
     private void setOwnerEAnnotation(org.eclipse.uml2.uml.Element element, MObject owner) {
         ObjingEAnnotation.setOwner(element, String.valueOf(owner.getUuid().toString()));
+    }
+
+    @objid ("78a33388-78df-4e3a-b14f-000c137a9e20")
+    @Override
+    public Port getObjingElement() {
+        return (Port) super.getObjingElement();
     }
 
 }

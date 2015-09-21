@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.ktable.types.hybrid;
 
@@ -62,7 +62,7 @@ public abstract class HybridType extends PropertyType {
     public DefaultCellRenderer getRenderer() {
         HybridCellRenderer hybridRenderer = new HybridCellRenderer(DefaultCellRenderer.INDICATION_FOCUS, true);
         hybridRenderer.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_BLUE));
-        hybridRenderer.setAlignment(SWTX.ALIGN_HORIZONTAL_CENTER | SWTX.ALIGN_VERTICAL_CENTER);
+        hybridRenderer.setAlignment(SWTX.ALIGN_HORIZONTAL_LEFT | SWTX.ALIGN_VERTICAL_CENTER);
         return hybridRenderer;
     }
 
@@ -70,7 +70,8 @@ public abstract class HybridType extends PropertyType {
     @Override
     public KTableCellEditor getEditor(IModelioPickingService pickingService) {
         // Hybrid editor
-        HybridCellEditor hybridElementEditor = new HybridCellEditor(acceptNullValue(), pickingService, this.session, acceptStringValue());
+        HybridCellEditor hybridElementEditor = new HybridCellEditor(acceptNullValue(), pickingService, this.session,
+                acceptStringValue());
         hybridElementEditor.setTargetClasses(getTypes());
         return hybridElementEditor;
     }

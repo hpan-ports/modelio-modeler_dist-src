@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.simple;
 
@@ -26,9 +26,9 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -37,10 +37,12 @@ import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.diagram.elements.common.edition.DirectEditManager2;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
@@ -55,9 +57,6 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Universal editpart for "simple" mode of any ModelElement It provides a simple rectangle figure with a centered label
- * 
- * 
- * @author pvlaemyn
  */
 @objid ("7f240511-1dec-11e2-8cad-001ec947c8cc")
 public class SimpleEditPart extends GmNodeEditPart {
@@ -76,9 +75,7 @@ public class SimpleEditPart extends GmNodeEditPart {
         final SimpleFigure aFigure = new SimpleFigure();
         
         // set style independent properties
-        final Dimension d = new Dimension(100, 50);
-        aFigure.setPreferredSize(d);
-        //        aFigure.setMinimumSize(d);
+        MinimumSizeLayout.apply(aFigure, 100, 50);
         
         // set style dependent properties
         refreshFromStyle(aFigure, getModelStyle());
@@ -110,8 +107,8 @@ public class SimpleEditPart extends GmNodeEditPart {
     @objid ("7f240528-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void refreshVisuals() {
-        final GmNodeModel model = (GmNodeModel) this.getModel();
-        final SimpleFigure aFigure = (SimpleFigure) this.getFigure();
+        final GmNodeModel model = (GmNodeModel) getModel();
+        final SimpleFigure aFigure = (SimpleFigure) getFigure();
         
         aFigure.getParent().setConstraint(aFigure, model.getLayoutData());
         
@@ -132,8 +129,9 @@ public class SimpleEditPart extends GmNodeEditPart {
     @Override
     public void performRequest(Request req) {
         if (RequestConstants.REQ_DIRECT_EDIT.equals(req.getType())) {
-            if (((GmModel) getModel()).getEditableText() == null)
+            if (((GmModel) getModel()).getEditableText() == null) {
                 return;
+            }
             final CellEditorLocator cellEditorLocator = new CellEditorLocator() {
                 @Override
                 public void relocate(CellEditor cellEditor) {
@@ -143,9 +141,14 @@ public class SimpleEditPart extends GmNodeEditPart {
                     label.translateToAbsolute(rect);
                     final Rectangle rect2 = label.getTextBounds().getCopy();
                     label.translateToAbsolute(rect2);
+        
+                    Font font = cellEditor.getControl().getFont();
+                    int minWidth = FigureUtilities.getStringExtents("abcdefghijklmn...", font).width();
+                    int width = Math.max(Math.max(rect2.width, rect.width), minWidth);
+        
                     cellEditor.getControl().setBounds(rect.x,
                                                       rect.y + (rect.height / 2) - (rect2.height / 2),
-                                                      Math.max(rect2.width, rect.width),
+                                                      width,
                                                       rect2.height);
         
                 }
@@ -156,7 +159,7 @@ public class SimpleEditPart extends GmNodeEditPart {
         
                 @Override
                 protected void initCellEditor() {
-                    final TextCellEditor textEdit = (TextCellEditor) this.getCellEditor();
+                    final TextCellEditor textEdit = (TextCellEditor) getCellEditor();
                     textEdit.setStyle(SWT.CENTER);
                     textEdit.setValue(((GmModel) getModel()).getEditableText().getText());
         

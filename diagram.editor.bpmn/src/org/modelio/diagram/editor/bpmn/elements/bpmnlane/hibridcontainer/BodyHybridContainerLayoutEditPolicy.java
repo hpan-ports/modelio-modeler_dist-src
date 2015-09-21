@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnlane.hibridcontainer;
 
@@ -34,8 +34,6 @@ import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.editor.bpmn.elements.bpmnlane.BpmnLaneEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnlane.hibridcontainer.BodyHybridContainerEditPart.Behaviour;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
-import org.modelio.diagram.elements.core.link.CreateBendedConnectionRequest;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 
@@ -131,8 +129,9 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         switch (this.behaviour) {
         case HYBRID: {
             LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-            if (editPolicy != null)
+            if (editPolicy != null) {
                 editPolicy.eraseSourceFeedback(request);
+            }
             break;
         }
         case FREE_ZONE: {
@@ -153,8 +152,9 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         switch (this.behaviour) {
         case HYBRID: {
             LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-            if (editPolicy != null)
+            if (editPolicy != null) {
                 editPolicy.eraseTargetFeedback(request);
+            }
             break;
         }
         case FREE_ZONE: {
@@ -175,8 +175,9 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         switch (this.behaviour) {
         case HYBRID: {
             LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-            if (editPolicy != null)
+            if (editPolicy != null) {
                 command = editPolicy.getCommand(request);
+            }
             break;
         }
         case FREE_ZONE: {
@@ -198,8 +199,9 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         switch (this.behaviour) {
         case HYBRID: {
             LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-            if (editPolicy != null)
+            if (editPolicy != null) {
                 targetEditPart = editPolicy.getTargetEditPart(request);
+            }
             break;
         }
         case FREE_ZONE: {
@@ -228,8 +230,9 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         switch (this.behaviour) {
         case HYBRID: {
             LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-            if (editPolicy != null)
+            if (editPolicy != null) {
                 editPolicy.showSourceFeedback(request);
+            }
             break;
         }
         case FREE_ZONE: {
@@ -249,8 +252,9 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         switch (this.behaviour) {
         case HYBRID: {
             LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-            if (editPolicy != null)
+            if (editPolicy != null) {
                 editPolicy.showTargetFeedback(request);
+            }
             break;
         }
         case FREE_ZONE: {
@@ -270,8 +274,9 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         switch (this.behaviour) {
         case HYBRID: {
             LayoutEditPolicy editPolicy = getPolicyInvolvedWith(request);
-            if (editPolicy != null)
+            if (editPolicy != null) {
                 return editPolicy.understandsRequest(request);
+            }
             // else
             return false;
         }
@@ -297,10 +302,12 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             this.behaviour = value;
             switch (this.behaviour) {
             case HYBRID: {
-                if (previousBehaviour.equals(Behaviour.PARTITION_CONTAINER))
+                if (previousBehaviour.equals(Behaviour.PARTITION_CONTAINER)) {
                     this.freeZonePolicy.activate();
-                if (previousBehaviour.equals(Behaviour.FREE_ZONE))
+                }
+                if (previousBehaviour.equals(Behaviour.FREE_ZONE)) {
                     this.partitionContainerPolicy.activate();
+                }
                 break;
             }
             case FREE_ZONE: {
@@ -333,7 +340,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             return getPolicyInvolvedWith((CreateRequest) request);
         } else if (RequestConstants.REQ_CONNECTION_START.equals(request.getType()) ||
                 RequestConstants.REQ_CONNECTION_END.equals(request.getType())) {
-            return getPolicyInvolvedWith((CreateBendedConnectionRequest) request);
+            return getPolicyInvolvedWith((CreateConnectionRequest) request);
         } else if (RequestConstants.REQ_ADD.equals(request.getType()) ||
                 RequestConstants.REQ_RESIZE_CHILDREN.equals(request.getType()) ||
                 RequestConstants.REQ_MOVE_CHILDREN.equals(request.getType()) ||
@@ -358,28 +365,16 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
      */
     @objid ("6132ed98-55b6-11e2-877f-002564c97630")
     private LayoutEditPolicy getPolicyInvolvedWith(CreateRequest request) {
-        final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-        if (ctx.getMetaclass().equals(Metamodel.getMClass(BpmnLane.class).getName())) {
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(request);
+        if (ctx == null) {
+            return null;
+        } else if(ctx.getJavaClass() == BpmnLane.class) {
             // Anything concerning BpmnLane may only be handled by
             // partitionContainer policy.
-            // Get the specific property "kind" from the tool, to know exactly
-            // what is requested: a partition container, a sibling partition, or
-            // an inner partition.
-            //           LaneToolKind kind = LaneToolKind.valueOf((String) ctx.getProperties().get("kind"));
-            //            switch (kind) {
-            //                case INNER: {
-            // Inner partition we can handle
             return this.partitionContainerPolicy;
-            //                }
-            //                case SIBLING:
-            //                case HORIZONTAL_CONTAINER:
-            //                    return null;
-        
-            //            }
         } else {
             return this.freeZonePolicy;
         }
-        //  return null;
     }
 
     /**
@@ -400,10 +395,11 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         boolean allPartitions = (request.getEditParts().get(0) instanceof BpmnLaneEditPart);
         for (Object editPartObj : request.getEditParts()) {
             // Check for inconsistency
-            if (allPartitions && !(editPartObj instanceof BpmnLaneEditPart))
+            if (allPartitions && !(editPartObj instanceof BpmnLaneEditPart)) {
                 return null;
-            else if (!allPartitions && (editPartObj instanceof BpmnLaneEditPart))
+            } else if (!allPartitions && (editPartObj instanceof BpmnLaneEditPart)) {
                 return null;
+            }
         }
         // Everything of the same type, return corresponding policy.
         return allPartitions ? this.partitionContainerPolicy : this.freeZonePolicy;
@@ -419,7 +415,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     }
 
     @objid ("6132eda8-55b6-11e2-877f-002564c97630")
-    private LayoutEditPolicy getPolicyInvolvedWith(final CreateBendedConnectionRequest request) {
+    private LayoutEditPolicy getPolicyInvolvedWith(final CreateConnectionRequest request) {
         return this.freeZonePolicy;
     }
 

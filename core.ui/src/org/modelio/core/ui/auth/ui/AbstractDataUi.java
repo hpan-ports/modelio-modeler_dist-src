@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.auth.ui;
 
@@ -33,9 +33,9 @@ public abstract class AbstractDataUi implements IAuthDataUi {
 
     @objid ("bca157a0-1317-42db-812a-280cffa5cacc")
     public AbstractDataUi(Composite parent) {
-        top = new Composite(parent, SWT.BORDER);
-        top.setLayout(new FillLayout());
-        createContents(top);
+        this.top = new Composite(parent, SWT.BORDER);
+        this.top.setLayout(new FillLayout());
+        createContents(this.top);
     }
 
     @objid ("8a14c1d2-f663-4d61-b712-8558ecbcf28b")
@@ -44,7 +44,7 @@ public abstract class AbstractDataUi implements IAuthDataUi {
     @objid ("c68c3d85-68c5-4263-9d9c-67ef03dd7d0a")
     @Override
     public Composite getTopComposite() {
-        return top;
+        return this.top;
     }
 
 }

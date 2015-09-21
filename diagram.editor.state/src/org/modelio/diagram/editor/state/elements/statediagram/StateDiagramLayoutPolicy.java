@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.state.elements.statediagram;
 
@@ -31,7 +31,6 @@ import org.modelio.diagram.elements.core.commands.DefaultReparentElementCommand;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DiagramEditLayoutPolicy;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.EntryPointPseudoState;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.ExitPointPseudoState;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;
@@ -68,7 +67,7 @@ class StateDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
         MObject hostElement = getHostElement();
         if (hostElement != null) {
             ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-            if (ctx.getElementToUnmask() == null && Metamodel.getMClass(EntryPointPseudoState.class).getName().equals(ctx.getMetaclass()) || Metamodel.getMClass(ExitPointPseudoState.class).getName().equals(ctx.getMetaclass())) {
+            if (ctx.getElementToUnmask() == null && EntryPointPseudoState.class == ctx.getJavaClass() || ExitPointPseudoState.class == ctx.getJavaClass()) {
                 Object requestConstraint = getConstraintFor(request);
                 return new DefaultCreateElementCommand(((Region) hostElement).getRepresented(),
                         getHostCompositeNode(),

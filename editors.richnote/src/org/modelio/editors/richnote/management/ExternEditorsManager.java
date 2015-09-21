@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.editors.richnote.management;
 
@@ -33,7 +33,7 @@ import java.util.List;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.core.di.extensions.EventTopic;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.editors.richnote.plugin.EditorsRichNote;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -72,8 +72,7 @@ public class ExternEditorsManager {
     @objid ("2ae09786-8c0d-46fb-b001-91d365fc09c1")
     @Inject
     @Optional
-    void onEditElement(@EventTopic(ModelioEventTopics.EDIT_ELEMENT) final MObject target) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+    void onEditElement(@UIEventTopic(ModelioEventTopics.EDIT_ELEMENT) final MObject target) {
         if (target instanceof Artifact) {
             Artifact artifact = (Artifact) target;
         

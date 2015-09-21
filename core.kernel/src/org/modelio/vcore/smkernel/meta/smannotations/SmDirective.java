@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.smkernel.meta.smannotations;
 
@@ -28,10 +28,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  */
 @objid ("000924be-f99c-1f1f-85a5-001ec947cd2a")
 public enum SmDirective {
-    /**
-     * @deprecated don't use anymore
-     */
-    LOADALLINSTANCE,
     /**
      * Tells that a SmClass should be treated as a file when segmenting a repository content.
      */
@@ -44,6 +40,7 @@ public enum SmDirective {
      * Directives from Modelio 2.1 for Element:
      * @deprecated : what's this?
      */
+    @Deprecated
     OBSOLETE,
     /**
      * Tells the target objects must be deleted with the source object.
@@ -66,14 +63,6 @@ public enum SmDirective {
      */
     SMCDPARTOF,
     /**
-     * @deprecated to be deleted
-     */
-    SMCDPURSYM,
-    /**
-     * @deprecated not used anymore I think.
-     */
-    SMCDMODIFYWITHDEP,
-    /**
      * Tells the storage to forget the SmAttribute or the SmDependency.
      */
     SMCDTRANSIENT,
@@ -85,14 +74,6 @@ public enum SmDirective {
      * Tells the SmDependency is ordered.
      */
     SMCDORDERED,
-    /**
-     * @deprecated to be deleted
-     */
-    SYMETRIC,
-    /**
-     * Same as #SMCDTRANSIENT
-     */
-    EINOEXTERNALIZE,
     /**
      * Tells the storage that the SmDependency or SmAttribute should be indexed for using it as key in lookups.
      */

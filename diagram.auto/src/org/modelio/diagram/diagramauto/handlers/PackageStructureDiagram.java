@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,105 +12,107 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.diagramauto.handlers;
 
+import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.e4.core.di.annotations.CanExecute;
-import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.e4.ui.services.IServiceConstants;
-import org.modelio.app.core.IModelioEventService;
-import org.modelio.app.core.IModelioService;
-import org.modelio.app.core.events.ModelioEvent;
-import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.diagram.diagramauto.diagram.creator.ClassStructureCreator;
+import org.modelio.api.module.commands.CommandScope;
 import org.modelio.diagram.diagramauto.diagram.creator.PackageContentStructureCreator;
-import org.modelio.gproject.model.IMModelServices;
+import org.modelio.diagram.diagramauto.plugin.DiagramAuto;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
+import org.modelio.metamodel.factory.ExtensionNotFoundException;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
-import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Package;
-import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.mapi.MStatus;
 
 @objid ("07c0ade8-005e-486e-abdf-25b0868fd7f6")
 public class PackageStructureDiagram extends AbstractHandler {
-    @objid ("19ae65a9-32dc-46c4-a885-d8bc52d11233")
-    @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IMModelServices modelServices, IModelioEventService eventService) {
-        List<MObject> selectedElements = getSelection(selection);
-        
-        try (ITransaction transaction = projectService.getSession().getTransactionSupport()
-                .createTransaction("PackageStructureDiagram");) {
-            PackageContentStructureCreator pcsc = new PackageContentStructureCreator(modelServices);
-            for (MObject selectedElement : selectedElements) {
-                if (selectedElement instanceof Package) {
-                    AbstractDiagram createDiagram = pcsc.createDiagram((ModelElement) selectedElement);
-                    eventService.postAsyncEvent(new IModelioService() {
-                        @Override
-                        public String getName() {
-                            return "PackageStructureDiagram";
-                        }
-                    }, ModelioEvent.EDIT_ELEMENT, createDiagram);
-                }
-            }
-            transaction.commit();
+    @objid ("42ea8325-f2ca-43a2-ad04-06935469512a")
+    @Override
+    public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
+        PackageContentStructureCreator csc = new PackageContentStructureCreator(this.mmServices);
+        AbstractDiagram diagram = csc.createDiagram(diagramContext);
+        diagram.setName(diagramName);
+        try {
+            diagram.putNoteContent("ModelerModule", "description", diagramDescription);
+        } catch (ExtensionNotFoundException e) {
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
+        return diagram;
     }
 
-    @objid ("6b3d0dab-404f-4bb6-890d-e4152caf5cc8")
-    @CanExecute
-    public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IMModelServices modelServices) {
-        ClassStructureCreator pc = new ClassStructureCreator(modelServices);
+    @objid ("ce0c34e7-4fcd-42e4-8b76-5bb77ae19510")
+    @Override
+    public String getDetails() {
+        return DiagramAuto.I18N.getString("CreationWizard.PackageStructure.Details");
+    }
+
+    @objid ("4c6a645e-6558-44ff-9525-ac4b9c1a19ab")
+    @Override
+    public String getInformation() {
+        return DiagramAuto.I18N.getString("CreationWizard.PackageStructure.Information");
+    }
+
+    @objid ("e2a2104d-2d86-44a4-ae5c-38a797ed6795")
+    @Override
+    public String getLabel() {
+        return DiagramAuto.I18N.getString("CreationWizard.PackageStructure.Name");
+    }
+
+    @objid ("954752f3-5d77-49cf-99a4-8f243fef795b")
+    @Override
+    protected String getPreviewImagePath() {
+        return DiagramAuto.I18N.getString("CreationWizard.PackageStructure.PreviewImage");
+    }
+
+    @objid ("ffeeeb49-16a6-4af5-a3d1-910e003fab50")
+    @Override
+    protected String getIconPath() {
+        return DiagramAuto.I18N.getString("CreationWizard.PackageStructure.Icon");
+    }
+
+    @objid ("ec17474e-aa6f-4a18-a46e-3d063f1c66a4")
+    @Override
+    public List<CommandScope> getScopes() {
+        List<CommandScope> allowedScopes = new ArrayList<>();
+        allowedScopes.add(new CommandScope(getMetamodel().getMClass(Package.class), null));
+        return allowedScopes;
+    }
+
+    @objid ("c6b59110-bf24-4c7e-8b11-a30f01e61472")
+    @Override
+    public boolean accept(MObject owner) {
+        if (!super.accept(owner)) {
+            return false;
+        }
         
-        List<MObject> selectedElements = getSelection(selection);
-        for (MObject elt : selectedElements) {
-            if (elt instanceof Package) {
-                MStatus elementStatus = elt.getStatus();
-                if (elt.getMClass().isCmsNode() && elementStatus.isCmsManaged()) {
-                    if (elementStatus.isRamc()) {
-                        return false;
-                    }
-                } else if (!elt.isModifiable()) {
-                    return false;
-                }
+        PackageContentStructureCreator pc = new PackageContentStructureCreator(this.mmServices);
         
-                boolean subpackages = true;
-                for (ModelTree sub : ((Package) elt).getOwnedElement()) {
-                    if (!(sub instanceof Package)) {
-                        subpackages = false;
-                    }
-                }
-        
-                if (subpackages) {
-                    return false;
-                }
-        
-                // Deactivate if no context is found
-                if (pc.getAutoDiagramContext((Package) elt) == null) {
-                    return false;
-                }
-        
-                AbstractDiagram existingdiagramauto = pc.getExistingAutoDiagram((Package) elt);
-        
-                // Unmodifiable diagram means the command is disabled
-                if (existingdiagramauto != null && !existingdiagramauto.getStatus().isModifiable()) {
-                    return false;
-                }
-            } else {
+        if ((owner instanceof Package)) {
+            // Deactivate if no context is found
+            if (pc.getAutoDiagramContext((Package) owner) == null) {
                 return false;
             }
+        
+            AbstractDiagram existingdiagramauto = pc.getExistingAutoDiagram((Package) owner);
+        
+            // Unmodifiable diagram means the command is disabled
+            if (existingdiagramauto != null && !existingdiagramauto.getStatus().isModifiable()) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
         }
-        return !selectedElements.isEmpty();
     }
 
 }

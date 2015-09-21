@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /*
  *
@@ -27,7 +27,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -35,7 +35,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.handlers;
 
@@ -68,7 +68,7 @@ public class ExportProfile {
     @Execute
     public void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IProgressService progressService, IProjectService projectService, IMModelServices modelServices) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        genProp.initialize(modelServices);
+        genProp.initialize(modelServices, projectService.getSession().getMetamodel());
         genProp.setTimeDisplayerActivated(false);
         genProp.setRootElement(this.selectedProfile);
         
@@ -80,7 +80,7 @@ public class ExportProfile {
     @objid ("9421d2b7-89e4-4a45-9c30-8dbda32ff794")
     @CanExecute
     public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
-        if (selection.size() == 1){         
+        if (selection.size() == 1){
             if (selection.getFirstElement() instanceof Profile){
                 this.selectedProfile = (Profile) selection.getFirstElement();
                 final MStatus status =  this.selectedProfile.getStatus();
@@ -99,8 +99,8 @@ public class ExportProfile {
     @objid ("b3ee6b89-33ca-4f8f-83eb-804114fd2826")
     public static boolean isVisible(List<MObject> selectedElements) {
         return ((! selectedElements.isEmpty())
-                        && (selectedElements.size() == 1)
-                             && (selectedElements.get(0) instanceof Profile));
+                                && (selectedElements.size() == 1)
+                                     && (selectedElements.get(0) instanceof Profile));
     }
 
 }

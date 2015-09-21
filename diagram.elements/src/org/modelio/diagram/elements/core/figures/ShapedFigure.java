@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.figures;
 
@@ -30,7 +30,7 @@ import org.eclipse.draw2d.Graphics;
  * @author phv
  */
 @objid ("7fcd4c10-1dec-11e2-8cad-001ec947c8cc")
-public class ShapedFigure extends GradientFigure {
+public class ShapedFigure extends GradientFigure implements IClonableFigure {
     @objid ("7fcd4c12-1dec-11e2-8cad-001ec947c8cc")
     protected IShaper shaper = null;
 
@@ -79,6 +79,22 @@ public class ShapedFigure extends GradientFigure {
             graphics.clipPath(this.shaper.getShapePath(getBounds()));
         }
         super.paintFigure(graphics);
+    }
+
+    /**
+     * Copy constructor.
+     * @param orig the original figure
+     */
+    @objid ("3c379a6e-6344-4ea1-a8c8-c954fa4e5654")
+    public ShapedFigure(ShapedFigure orig) {
+        super(orig);
+        this.shaper = orig.getShaper();
+    }
+
+    @objid ("b39b45b9-d868-4aa0-ac34-ef09367cef85")
+    @Override
+    public ShapedFigure getCopy() {
+        return new ShapedFigure(this);
     }
 
 }

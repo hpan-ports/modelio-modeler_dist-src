@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.editors.service;
 
@@ -34,7 +34,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.modelio.api.editor.EditorType;
 import org.modelio.api.editor.IMDATextEditor;
-import org.modelio.app.core.inputpart.IInputPartService;
+import org.modelio.core.help.inputpart.IInputPartService;
 import org.modelio.editors.texteditors.IDocumentEditor;
 import org.modelio.editors.texteditors.input.IDocumentInput;
 import org.modelio.editors.texteditors.mdd.MDDEditor;

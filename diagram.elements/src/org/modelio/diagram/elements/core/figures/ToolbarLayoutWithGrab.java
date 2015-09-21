@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.figures;
 
@@ -29,12 +29,24 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
- * Same as {@link ToolbarLayout} but the last child grabs the remaining space.
+ * Same as {@link ToolbarLayout} but the last child may grab the remaining space.
+ * <p>
+ * Differences with ToolbarLayout:
+ * <ul>
+ * <li> The last child may grab the remaining space.<br>
+ * This may be disabled since Modelio 3.4 with {@link #setLastChildGrab(boolean)}.<br>
+ * <li> The children width is not respected if greater than container size.<br>
+ * Since Modelio 3.4.
+ * <li> Currently minor alignment is ignored and always TOP_LEFT.
+ * </ul>
  * 
  * @author cmarin
  */
 @objid ("7fcd4c2b-1dec-11e2-8cad-001ec947c8cc")
 public class ToolbarLayoutWithGrab extends ToolbarLayout {
+    @objid ("2fc55df3-f636-4bba-90ba-b7acc12269a8")
+    private boolean lastChildGrab = true;
+
     /**
      * Constructs a vertically oriented ToolbarLayoutWithGrab with child spacing of 0 pixels, matchWidth
      * <code>true</code>, and {@link #ALIGN_TOPLEFT} alignment.
@@ -87,7 +99,7 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
          * Calculate sum of preferred heights of all children(totalHeight).
          * Calculate sum of minimum heights of all children(minHeight). Cache
          * Preferred Sizes and Minimum Sizes of all children.
-         * 
+         *
          * totalHeight is the sum of the preferred heights of all children
          * totalMinHeight is the sum of the minimum heights of all children
          * prefMinSumHeight is the sum of the difference between all children's
@@ -115,7 +127,7 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
          * The total amount that the children must be shrunk is the sum of the
          * preferred Heights of the children minus Max(the available area and
          * the sum of the minimum heights of the children).
-         * 
+         *
          * amntShrinkHeight is the combined amount that the children must shrink
          * amntShrinkCurrentHeight is the amount each child will shrink
          * respectively
@@ -135,12 +147,13 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
             final Rectangle newBounds = new Rectangle(x, y, prefWidth, prefHeight);
         
             child = (IFigure) children.get(i);
-            if (prefMinSumHeight != 0)
+            if (prefMinSumHeight != 0) {
                 amntShrinkCurrentHeight = (prefHeight - minHeight) * amntShrinkHeight / (prefMinSumHeight);
+            }
         
             int width = Math.min(prefWidth, this.transposer.t(child.getMaximumSize()).width);
             if (isStretchMinorAxis()) {
-                // Change: If matchWidth is on, force match even if it means 
+                // Change: If matchWidth is on, force match even if it means
                 // smaller than minimum size of child.
                 //width = this.transposer.t(child.getMaximumSize()).width;
                 width = clientArea.width;
@@ -150,7 +163,7 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
             newBounds.width = width;
             newBounds.height -= amntShrinkCurrentHeight;
         
-            if (i == numChildren - 1) {
+            if (this.lastChildGrab && i == numChildren - 1) {
                 // Last child takes all remaining space
                 newBounds.height = clientArea.bottom() - newBounds.y;
             }
@@ -161,6 +174,17 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
             prefMinSumHeight -= (prefHeight - minHeight);
             y += newBounds.height + getSpacing();
         }
+    }
+
+    /**
+     * Activate or disable last child grabbing the remaining space.
+     * @param grab whether last child grabs the remaining space.
+     * @return this for convenience.
+     */
+    @objid ("dcdd36af-cbe5-404d-8881-2450b2cc7b7d")
+    public ToolbarLayoutWithGrab setLastChildGrab(boolean grab) {
+        this.lastChildGrab = grab;
+        return this;
     }
 
 }

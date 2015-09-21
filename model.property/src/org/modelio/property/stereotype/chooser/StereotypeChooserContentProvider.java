@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.stereotype.chooser;
 
@@ -66,9 +66,9 @@ public class StereotypeChooserContentProvider implements ITreeContentProvider {
             StereotypeChooserModel model = (StereotypeChooserModel) parent;
             this.element = model.getElement();
         
-            List<Stereotype> stereotypes = this.modelService.findStereotypes(".*", this.element.getMClass());
+            List<Stereotype> stereotypes = this.modelService.findStereotypes(".*", ".*", this.element.getMClass());
             for (Stereotype stereotype : stereotypes) {
-                if (!stereotype.isIsHidden()) {
+                if (!stereotype.isIsHidden() && !stereotype.isShell()) {
                     ModuleComponent module = stereotype.getOwner().getOwnerModule();
                     if (module != null) {
                         ret.add(module);
@@ -105,7 +105,7 @@ public class StereotypeChooserContentProvider implements ITreeContentProvider {
             StereotypeChooserModel model = (StereotypeChooserModel) parent;
             this.element = model.getElement();
         
-            List<Stereotype> stereotypes = this.modelService.findStereotypes(".*", this.element.getMClass());
+            List<Stereotype> stereotypes = this.modelService.findStereotypes(".*", ".*", this.element.getMClass());
             for (Stereotype stereotype : stereotypes) {
                 if (!stereotype.isIsHidden()) {
                     ModuleComponent module = stereotype.getOwner().getOwnerModule();

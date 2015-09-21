@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.editor;
 
@@ -31,7 +31,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.ISharedImages;
 import org.modelio.diagram.editor.bpmn.plugin.DiagramEditorBpmn;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
 import org.modelio.metamodel.bpmn.events.BpmnCancelEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnCompensateEventDefinition;
@@ -151,325 +150,325 @@ public class BpmnSharedImages implements ISharedImages {
                                                                                new Path("icons/bpmnexclusivegateway.png"),
                                                                                null));
         
-        declareImage(Metamodel.getMClass(BpmnExclusiveGateway.class).getName(), image);
+        declareImage(BpmnExclusiveGateway.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/bpmnparallelgateway.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnParallelGateway.class).getName(), image);
+        declareImage(BpmnParallelGateway.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/bpmninclusivegateway.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnInclusiveGateway.class).getName(), image);
+        declareImage(BpmnInclusiveGateway.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/bpmneventbasedgateway.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnEventBasedGateway.class).getName(), image);
+        declareImage(BpmnEventBasedGateway.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/bpmncomplexgateway.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnComplexGateway.class).getName(), image);
+        declareImage(BpmnComplexGateway.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path("icons/startevent.png"), null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName(), image);
+        declareImage(BpmnStartEvent.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path("icons/endevent.png"), null));
-        declareImage(Metamodel.getMClass(BpmnEndEvent.class).getName(), image);
+        declareImage(BpmnEndEvent.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/bpmncomplexgateway.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnComplexGateway.class).getName(), image);
+        declareImage(BpmnComplexGateway.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/intermediaryevent_tr.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateThrowEvent.class).getName(), image);
+        declareImage(BpmnIntermediateThrowEvent.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName(), image);
+        declareImage(BpmnIntermediateCatchEvent.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnBoundaryEvent.class).getName(), image);
+        declareImage(BpmnBoundaryEvent.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/message_intermediaryevent_tr.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateThrowEvent.class).getName() +
+        declareImage(BpmnIntermediateThrowEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnMessageEventDefinition.class).getName(), image);
+                     BpmnMessageEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/message_startevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_ni_" + Metamodel.getMClass(BpmnMessageEventDefinition.class).getName(),
+        declareImage(BpmnStartEvent.MNAME + "_ni_" + BpmnMessageEventDefinition.MNAME,
                      image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/startevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_ni", image);
+        declareImage(BpmnStartEvent.MNAME + "_ni", image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/message_endevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnEndEvent.class).getName() + "_" + Metamodel.getMClass(BpmnMessageEventDefinition.class).getName(), image);
+        declareImage(BpmnEndEvent.MNAME + "_" + BpmnMessageEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/message_intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnMessageEventDefinition.class).getName(), image);
+                     BpmnMessageEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/message_intermediaryevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_ni_" +
-                     Metamodel.getMClass(BpmnMessageEventDefinition.class).getName(), image);
+                     BpmnMessageEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/message_startevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_" + Metamodel.getMClass(BpmnMessageEventDefinition.class).getName(), image);
+        declareImage(BpmnStartEvent.MNAME + "_" + BpmnMessageEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/timer_startevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_" + Metamodel.getMClass(BpmnTimerEventDefinition.class).getName(), image);
+        declareImage(BpmnStartEvent.MNAME + "_" + BpmnTimerEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/timer_startevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_ni_" + Metamodel.getMClass(BpmnTimerEventDefinition.class).getName(), image);
+        declareImage(BpmnStartEvent.MNAME + "_ni_" + BpmnTimerEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/timer_intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnTimerEventDefinition.class).getName(), image);
+                     BpmnTimerEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/timer_intermediaryevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_ni_" +
-                     Metamodel.getMClass(BpmnTimerEventDefinition.class).getName(), image);
+                     BpmnTimerEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/error_startevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_" + Metamodel.getMClass(BpmnErrorEventDefinition.class).getName(), image);
+        declareImage(BpmnStartEvent.MNAME + "_" + BpmnErrorEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/error_endevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnEndEvent.class).getName() + "_" + Metamodel.getMClass(BpmnErrorEventDefinition.class).getName(), image);
+        declareImage(BpmnEndEvent.MNAME + "_" + BpmnErrorEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/error_intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnErrorEventDefinition.class).getName(), image);
+                     BpmnErrorEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/escalation_intermediaryevent_tr.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateThrowEvent.class).getName() +
+        declareImage(BpmnIntermediateThrowEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnEscalationEventDefinition.class).getName(), image);
+                     BpmnEscalationEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/escalation_intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnEscalationEventDefinition.class).getName(), image);
+                     BpmnEscalationEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/escalation_intermediaryevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_ni_" +
-                     Metamodel.getMClass(BpmnEscalationEventDefinition.class).getName(), image);
+                     BpmnEscalationEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/escalation_startevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_" + Metamodel.getMClass(BpmnEscalationEventDefinition.class).getName(),
+        declareImage(BpmnStartEvent.MNAME + "_" + BpmnEscalationEventDefinition.MNAME,
                      image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/escalation_startevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_ni_" + Metamodel.getMClass(BpmnEscalationEventDefinition.class).getName(),
+        declareImage(BpmnStartEvent.MNAME + "_ni_" + BpmnEscalationEventDefinition.MNAME,
                      image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/escalation_endevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnEndEvent.class).getName() + "_" + Metamodel.getMClass(BpmnEscalationEventDefinition.class).getName(), image);
+        declareImage(BpmnEndEvent.MNAME + "_" + BpmnEscalationEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/cancel_endevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnEndEvent.class).getName() + "_" + Metamodel.getMClass(BpmnCancelEventDefinition.class).getName(), image);
+        declareImage(BpmnEndEvent.MNAME + "_" + BpmnCancelEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/cancel_intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnCancelEventDefinition.class).getName(), image);
+                     BpmnCancelEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/compensation_intermediaryevent_th.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateThrowEvent.class).getName() +
+        declareImage(BpmnIntermediateThrowEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnCompensateEventDefinition.class).getName(), image);
+                     BpmnCompensateEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/compensation_endevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnEndEvent.class).getName() + "_" + Metamodel.getMClass(BpmnCompensateEventDefinition.class).getName(), image);
+        declareImage(BpmnEndEvent.MNAME + "_" + BpmnCompensateEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/compensation_intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnCompensateEventDefinition.class).getName(), image);
+                     BpmnCompensateEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/compensation_startevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_" + Metamodel.getMClass(BpmnCompensateEventDefinition.class).getName(),
+        declareImage(BpmnStartEvent.MNAME + "_" + BpmnCompensateEventDefinition.MNAME,
                      image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/conditional_startevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_" + Metamodel.getMClass(BpmnConditionalEventDefinition.class).getName(),
+        declareImage(BpmnStartEvent.MNAME + "_" + BpmnConditionalEventDefinition.MNAME,
                      image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/conditional_startevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_ni_" + Metamodel.getMClass(BpmnConditionalEventDefinition.class).getName(),
+        declareImage(BpmnStartEvent.MNAME + "_ni_" + BpmnConditionalEventDefinition.MNAME,
                      image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/conditional_intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnConditionalEventDefinition.class).getName(), image);
+                     BpmnConditionalEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/conditional_intermediaryevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_ni_" +
-                     Metamodel.getMClass(BpmnConditionalEventDefinition.class).getName(), image);
+                     BpmnConditionalEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/link_intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() + "_" + Metamodel.getMClass(BpmnLinkEventDefinition.class).getName(),
+        declareImage(BpmnIntermediateCatchEvent.MNAME + "_" + BpmnLinkEventDefinition.MNAME,
                      image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/link_intermediaryevent_tr.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateThrowEvent.class).getName() + "_" + Metamodel.getMClass(BpmnLinkEventDefinition.class).getName(),
+        declareImage(BpmnIntermediateThrowEvent.MNAME + "_" + BpmnLinkEventDefinition.MNAME,
                      image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/signal_intermediaryevent_tr.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateThrowEvent.class).getName() +
+        declareImage(BpmnIntermediateThrowEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnSignalEventDefinition.class).getName(), image);
+                     BpmnSignalEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/signal_endevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnEndEvent.class).getName() + "_" + Metamodel.getMClass(BpmnSignalEventDefinition.class).getName(), image);
+        declareImage(BpmnEndEvent.MNAME + "_" + BpmnSignalEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/signal_intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_" +
-                     Metamodel.getMClass(BpmnSignalEventDefinition.class).getName(), image);
+                     BpmnSignalEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/signal_intermediaryevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() +
+        declareImage(BpmnIntermediateCatchEvent.MNAME +
                      "_ni_" +
-                     Metamodel.getMClass(BpmnSignalEventDefinition.class).getName(), image);
+                     BpmnSignalEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/signal_startevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_" + Metamodel.getMClass(BpmnSignalEventDefinition.class).getName(), image);
+        declareImage(BpmnStartEvent.MNAME + "_" + BpmnSignalEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/signal_startevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_ni_" + Metamodel.getMClass(BpmnSignalEventDefinition.class).getName(), image);
+        declareImage(BpmnStartEvent.MNAME + "_ni_" + BpmnSignalEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/terminate_endevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnEndEvent.class).getName() + "_" + Metamodel.getMClass(BpmnTerminateEventDefinition.class).getName(), image);
+        declareImage(BpmnEndEvent.MNAME + "_" + BpmnTerminateEventDefinition.MNAME, image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/multiple_startevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_Multiple", image);
+        declareImage(BpmnStartEvent.MNAME + "_Multiple", image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/multiple_startevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnStartEvent.class).getName() + "_ni_Multiple", image);
+        declareImage(BpmnStartEvent.MNAME + "_ni_Multiple", image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/multiple_intermediaryevent_ca.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() + "_Multiple", image);
+        declareImage(BpmnIntermediateCatchEvent.MNAME + "_Multiple", image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/multiple_intermediaryevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() + "_ni_Multiple", image);
+        declareImage(BpmnIntermediateCatchEvent.MNAME + "_ni_Multiple", image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/intermediaryevent_ni.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName() + "_ni", image);
+        declareImage(BpmnIntermediateCatchEvent.MNAME + "_ni", image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/multiple_intermediaryevent_tr.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnIntermediateThrowEvent.class).getName() + "_Multiple", image);
+        declareImage(BpmnIntermediateThrowEvent.MNAME + "_Multiple", image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/multiple_endevent.png"),
                                                                null));
-        declareImage(Metamodel.getMClass(BpmnEndEvent.class).getName() + "_Multiple", image);
+        declareImage(BpmnEndEvent.MNAME + "_Multiple", image);
         
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle,
                                                                new Path("icons/activity_subprocess.png"),

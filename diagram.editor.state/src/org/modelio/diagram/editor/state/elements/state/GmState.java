@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.state.elements.state;
 
@@ -26,7 +26,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.common.portcontainer.PortConstraint.Border;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -75,6 +75,9 @@ public class GmState extends GmPortContainer {
     @objid ("818c0ffc-55c2-11e2-9337-002564c97630")
      static final AbstractStyleKeyProvider IMAGE_KEYS = new GmStateImageStyleKeys();
 
+    @objid ("a4634197-2725-43a5-a322-eb29424f99c2")
+     static final AbstractStyleKeyProvider USERIMAGE_KEYS = new GmStateUserImageStyleKeys();
+
     /**
      * Constructor.
      * @param diagram the diagram in which the element is unmasked.
@@ -89,7 +92,7 @@ public class GmState extends GmPortContainer {
         GmStatePrimaryNode mainNode = new GmStatePrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(diagram, ref);
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
         
@@ -128,8 +131,8 @@ public class GmState extends GmPortContainer {
         
         Class<? extends MObject> type = el.getClass();
         return ConnectionPointReference.class.isAssignableFrom(type) ||
-                EntryPointPseudoState.class.isAssignableFrom(type) ||
-                ExitPointPseudoState.class.isAssignableFrom(type);
+                                                        EntryPointPseudoState.class.isAssignableFrom(type) ||
+                                                        ExitPointPseudoState.class.isAssignableFrom(type);
     }
 
     @objid ("f57de128-55b6-11e2-877f-002564c97630")
@@ -153,6 +156,8 @@ public class GmState extends GmPortContainer {
         switch (getRepresentationMode()) {
         case IMAGE:
             return IMAGE_KEYS.getStyleKeys();
+        case USER_IMAGE:
+            return USERIMAGE_KEYS.getStyleKeys();
         case SIMPLE:
             return SIMPLE_KEYS.getStyleKeys();
         case STRUCTURED:
@@ -293,7 +298,7 @@ public class GmState extends GmPortContainer {
         super.read(in);
         this.element = (State) resolveRef(this.getRepresentedRef());
         
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(getDiagram(), getRepresentedRef());
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
         
@@ -336,7 +341,7 @@ public class GmState extends GmPortContainer {
     public boolean isSatellite(final GmNodeModel childNode) {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
-                || IMAGE_LABEL_ROLE.equals(role);
+                                                        || IMAGE_LABEL_ROLE.equals(role);
     }
 
     /**

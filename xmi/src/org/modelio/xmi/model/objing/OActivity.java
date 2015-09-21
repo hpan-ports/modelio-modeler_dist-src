@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -37,9 +37,6 @@ import org.modelio.xmi.util.XMILogs;
  */
 @objid ("d210b9e8-7a7f-4156-b669-76619c8f81a7")
 public class OActivity extends OModelElement {
-    @objid ("691399ba-2d98-4016-8cdc-21fa42e125ab")
-    private Activity objingElement = null;
-
     @objid ("ebee7d9a-78eb-4118-b233-86c4c6fe4b9d")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -54,19 +51,18 @@ public class OActivity extends OModelElement {
     @objid ("8f3595a6-644b-4b59-932c-1abdae6386d4")
     public OActivity(final Activity element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("16f1b1d2-8423-4627-8ed1-7d21dc73075a")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        org.eclipse.uml2.uml.Element ecoreOwner =  GenerationProperties.getInstance().getMappedElement(this.objingElement.getCompositionOwner());
-               
+        org.eclipse.uml2.uml.Element ecoreOwner =  GenerationProperties.getInstance().getMappedElement(getObjingElement().getCompositionOwner());
+        
         if (ecoreOwner != null) {
             if ( ecoreOwner instanceof org.eclipse.uml2.uml.Namespace)
                  attachToNameSpace(ecoreElt, (org.eclipse.uml2.uml.Namespace) ecoreOwner);
             else if (ecoreOwner instanceof  org.eclipse.uml2.uml.Operation)
-                attachToOperation(ecoreElt,  (org.eclipse.uml2.uml.Operation) ecoreOwner);         
+                attachToOperation(ecoreElt,  (org.eclipse.uml2.uml.Operation) ecoreOwner);
         }
     }
 
@@ -83,7 +79,7 @@ public class OActivity extends OModelElement {
     private void attachToNameSpace(org.eclipse.uml2.uml.Element ecoreElt, org.eclipse.uml2.uml.Namespace ecoreOwner) {
         String ownerId = ObjingEAnnotation.getOwner(ecoreElt);
         if ((ownerId == null) || (ownerId.equals(""))){
-            
+        
         if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
             org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
             ownerIsPkg.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
@@ -111,18 +107,18 @@ public class OActivity extends OModelElement {
 
     @objid ("a2fb1a8f-42c8-4702-bcb3-1a68aeda9228")
     private void attachToOperation(org.eclipse.uml2.uml.Element ecoreElt, org.eclipse.uml2.uml.Operation ecoreOwner) {
-        Classifier objingOpOwner = this.objingElement.getOwnerOperation().getOwner();
+        Classifier objingOpOwner = getObjingElement().getOwnerOperation().getOwner();
         String errorMessage =   Xmi.I18N.getMessage("logFile.warning.moving.activity",
-                                                    this.objingElement.getName(), ecoreOwner.getName(),
+                                                    getObjingElement().getName(), ecoreOwner.getName(),
                                                     objingOpOwner.getName());
         
         XMILogs.getInstance().writelnInLog(errorMessage);
-                        
+        
         GenerationProperties genProp = GenerationProperties.getInstance();
-        genProp.getReportModel().addWarning(errorMessage, this.objingElement);
+        genProp.getReportModel().addWarning(errorMessage, getObjingElement());
         
         org.eclipse.uml2.uml.Element ecoreOpOwner = genProp.getMappedElement(objingOpOwner);
-                
+        
         if (ecoreOpOwner instanceof org.eclipse.uml2.uml.Namespace) {
             attachToNameSpace(ecoreElt, (org.eclipse.uml2.uml.Namespace) ecoreOpOwner);
         } else {
@@ -134,17 +130,23 @@ public class OActivity extends OModelElement {
 
     @objid ("cc473345-326c-44db-9ec7-ad96d559a915")
     private void setReadOnly(org.eclipse.uml2.uml.Activity activity) {
-        activity.setIsReadOnly(this.objingElement.isIsReadOnly());
+        activity.setIsReadOnly(getObjingElement().isIsReadOnly());
     }
 
     @objid ("4bcc53c8-c057-4984-89fe-59ab948bbc98")
     private void setSingleExecution(org.eclipse.uml2.uml.Activity activity) {
-        activity.setIsSingleExecution(this.objingElement.isIsSingleExecution());
+        activity.setIsSingleExecution(getObjingElement().isIsSingleExecution());
     }
 
     @objid ("3cbaa376-52c8-41e9-8e09-5c540c6a8504")
     private void setReentrant(org.eclipse.uml2.uml.Activity activity) {
-        activity.setIsReentrant(this.objingElement.isIsReentrant());
+        activity.setIsReentrant(getObjingElement().isIsReentrant());
+    }
+
+    @objid ("88bf3e00-ad13-4944-b87b-dc67961f3853")
+    @Override
+    public Activity getObjingElement() {
+        return (Activity) super.getObjingElement();
     }
 
 }

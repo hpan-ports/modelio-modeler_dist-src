@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.resizablegroup;
 
@@ -58,6 +58,7 @@ public class ResizableGroupEditPart extends GmNodeEditPart {
     protected void createEditPolicies() {
         super.createEditPolicies();
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new ResizableGroupLayoutEditPolicy());
+        
         // Remove the default DIRECT_EDIT policy: we don't want the container to
         // delegate direct edit requests.
         removeEditPolicy(EditPolicy.DIRECT_EDIT_ROLE);
@@ -68,13 +69,14 @@ public class ResizableGroupEditPart extends GmNodeEditPart {
     protected void refreshVisuals() {
         // Update figure constraint in parent from model
         final IFigure fig = getFigure();
-        final GmResizableGroup partitionContainerModel = (GmResizableGroup) this.getModel();
-        if (partitionContainerModel.getLayoutData() != null)
-            fig.getParent().setConstraint(this.getFigure(), partitionContainerModel.getLayoutData());
+        final GmResizableGroup groupModel = (GmResizableGroup) getModel();
+        if (groupModel.getLayoutData() != null) {
+            fig.getParent().setConstraint(getFigure(), groupModel.getLayoutData());
+        }
         
         // On the other hand, go read the "vertical" property to update the
         // layout.
-        ((ToolbarLayout) fig.getLayoutManager()).setVertical(partitionContainerModel.isVertical());
+        ((ToolbarLayout) fig.getLayoutManager()).setHorizontal(!groupModel.isVertical());
     }
 
     /**

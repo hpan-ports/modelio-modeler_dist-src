@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
@@ -38,6 +37,7 @@ import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityCh
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
 import org.modelio.vcore.smkernel.mapi.MDependency;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * E292:
@@ -62,18 +62,18 @@ public class E292Checker extends DepCardinalityChecker {
 
     @objid ("cdeae854-bd7f-49c0-ba65-52a3592c7332")
     @Override
-    public void register(final Plan plan) {
-        plan.registerChecker(this, Metamodel.getMClass(Requirement.class), TriggerType.AnyTrigger, "AnalystProperties");
-        plan.registerChecker(this, Metamodel.getMClass(RequirementContainer.class), TriggerType.AnyTrigger, "AnalystProperties");
+    public void register(final Plan plan, SmMetamodel smMetamodel) {
+        plan.registerChecker(this, smMetamodel.getMClass(Requirement.class), TriggerType.AnyTrigger, "AnalystProperties");
+        plan.registerChecker(this, smMetamodel.getMClass(RequirementContainer.class), TriggerType.AnyTrigger, "AnalystProperties");
         
-        plan.registerChecker(this, Metamodel.getMClass(Term.class), TriggerType.AnyTrigger, "AnalystProperties");
-        plan.registerChecker(this, Metamodel.getMClass(Dictionary.class), TriggerType.AnyTrigger, "AnalystProperties");
+        plan.registerChecker(this, smMetamodel.getMClass(Term.class), TriggerType.AnyTrigger, "AnalystProperties");
+        plan.registerChecker(this, smMetamodel.getMClass(Dictionary.class), TriggerType.AnyTrigger, "AnalystProperties");
         
-        plan.registerChecker(this, Metamodel.getMClass(Goal.class), TriggerType.AnyTrigger, "AnalystProperties");
-        plan.registerChecker(this, Metamodel.getMClass(GoalContainer.class), TriggerType.AnyTrigger, "AnalystProperties");
+        plan.registerChecker(this, smMetamodel.getMClass(Goal.class), TriggerType.AnyTrigger, "AnalystProperties");
+        plan.registerChecker(this, smMetamodel.getMClass(GoalContainer.class), TriggerType.AnyTrigger, "AnalystProperties");
         
-        plan.registerChecker(this, Metamodel.getMClass(BusinessRule.class), TriggerType.AnyTrigger, "AnalystProperties");
-        plan.registerChecker(this, Metamodel.getMClass(BusinessRuleContainer.class), TriggerType.AnyTrigger, "AnalystProperties");
+        plan.registerChecker(this, smMetamodel.getMClass(BusinessRule.class), TriggerType.AnyTrigger, "AnalystProperties");
+        plan.registerChecker(this, smMetamodel.getMClass(BusinessRuleContainer.class), TriggerType.AnyTrigger, "AnalystProperties");
     }
 
     @objid ("e63ac28b-1d8c-4579-bf52-992878192f3e")

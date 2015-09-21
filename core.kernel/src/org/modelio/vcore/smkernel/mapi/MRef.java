@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.smkernel.mapi;
 
@@ -125,13 +125,29 @@ public class MRef implements Serializable {
         }
         
         final MRef other = (MRef) obj;
-        return this.mc.equals(other.mc) && this.uuid.equals(other.uuid);
+        
+        final boolean mcEquals;
+        int thisIndex = this.mc.indexOf(".");
+        int otherIndex = other.mc.indexOf(".");
+        if ((thisIndex == -1 && otherIndex == -1) || (thisIndex != -1 && otherIndex != -1)) {
+            // Boths metaclasses are 'simple' or 'qualified'
+            mcEquals = this.mc.equals(other.mc);
+        } else {
+            // Check 'simple' metaclasses for both objects
+            String thisSimpleMc = thisIndex > 0 ? this.mc.substring(thisIndex + 1) : this.mc;
+            String otherSimpleMc = otherIndex > 0 ? other.mc.substring(otherIndex + 1) : other.mc;
+            mcEquals = thisSimpleMc.equals(otherSimpleMc);
+        }
+        return mcEquals && this.uuid.equals(other.uuid);
     }
 
     @objid ("dcadb027-13af-11e2-8f8e-001ec947ccaf")
     @Override
     public int hashCode() {
-        return this.mc.hashCode() ^ this.uuid.hashCode();
+        int index = this.mc.indexOf(".");
+        // FIXME always use a metaclass hashCode computed from a 'qualified' name, but it requires a lot of changes.
+        int mcHashCode = index > 0 ? this.mc.substring(index + 1).hashCode() : this.mc.hashCode();
+        return mcHashCode ^ this.uuid.hashCode();
     }
 
     /**

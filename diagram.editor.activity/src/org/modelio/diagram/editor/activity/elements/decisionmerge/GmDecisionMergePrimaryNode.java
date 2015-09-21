@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.decisionmerge;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
- * This class represents the Gm of a {@link IDecisionMergeNode}.
+ * This class represents the Gm of a {@link DecisionMergeNode}.
  */
 @objid ("2a3fd9c4-55b6-11e2-877f-002564c97630")
 public class GmDecisionMergePrimaryNode extends GmNoStyleSimpleNode implements IImageableNode {
@@ -85,18 +85,18 @@ public class GmDecisionMergePrimaryNode extends GmNoStyleSimpleNode implements I
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-        
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
-                    }
-        
-                    @Override
-                    public void setText(String text) {
-        getRelatedElement().setName(text);
-                    }
-        
-                };
+                                
+                                                    @Override
+                                                    public String getText() {
+                                                return getRelatedElement().getName();
+                                                            }
+                                
+                                                            @Override
+                                                            public void setText(String text) {
+                                                getRelatedElement().setName(text);
+                                                            }
+                                
+                                                        };
     }
 
     @objid ("2a416053-55b6-11e2-877f-002564c97630")
@@ -128,7 +128,7 @@ public class GmDecisionMergePrimaryNode extends GmNoStyleSimpleNode implements I
         if (getRelatedElement() != null) {
             firePropertyChange(PROPERTY_LABEL, null, getRelatedElement().getName());
         }
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 

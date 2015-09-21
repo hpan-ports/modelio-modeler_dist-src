@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.module.catalog;
 
@@ -33,16 +33,19 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.data.module.JaxbModelPersistence;
 import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Dependencies.Jxbv2Optional;
 import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Dependencies.Jxbv2Required;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2MetamodelFragments.Jxbv2MetamodelFragment;
 import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Resources.Jxbv2Styles.Jxbv2Style;
 import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Resources;
 import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module;
 import org.modelio.gproject.data.module.jaxbv2.Jxbv2MultiPathes.Jxbv2PathEntry;
-import org.modelio.gproject.module.ModuleId;
+import org.modelio.gproject.module.IMetamodelFragmentHandle;
+import org.modelio.gproject.module.MetamodelFragmentHandle;
 import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vbasic.version.Version;
+import org.modelio.vbasic.version.VersionedItem;
 
 /**
  * Service class to build a {@link FileCatalogModuleHandle} from an extracted module directory.
@@ -66,26 +69,19 @@ class FileCatalogModuleHandleBuilder {
         dynamicModel.setClassPath(loadedModule.getClassPath());
         dynamicModel.setClazz(loadedModule.getClazz());
         dynamicModel.setDependencies(loadedModule.getDependencies());
-        
-        dynamicModel.setResources(new Jxbv2Resources());
-        if (loadedModule.getResources() != null) {
-            dynamicModel.getResources().setDocFiles(loadedModule.getResources().getDocFiles());
-        }
-        
         dynamicModel.setGui(loadedModule.getGui());
         dynamicModel.setId(loadedModule.getId());
         dynamicModel.setImage(loadedModule.getImage());
-        /* dynamicModel.setParameters(loadedModule.getParameters()); */
-        /* dynamicModel.setPropertyTypes(loadedModule.getPropertyTypes()); */
+        dynamicModel.setParameters(loadedModule.getParameters());
         dynamicModel.setSchemaLevel(loadedModule.getSchemaLevel());
         dynamicModel.setUid(loadedModule.getUid());
         dynamicModel.setVersion(loadedModule.getVersion());
-        /* dynamicModel.getProfile().addAll(loadedModule.getProfile()); */
         
-        // Cleaned values
-        dynamicModel.setParameters(null);
+        // Ignored values
+        dynamicModel.setResources(new Jxbv2Resources());
         dynamicModel.setProfiles(null);
         dynamicModel.setPropertyTypes(null);
+        dynamicModel.setMetamodelFragments(null);
         
         // Save simplified xml file
         JaxbModelPersistence.saveJaxbModel(dynamicModel, moduleDynamicModelPath);
@@ -103,10 +99,16 @@ class FileCatalogModuleHandleBuilder {
         infosModel.setClazz(loadedModule.getClazz());
         infosModel.setDependencies(loadedModule.getDependencies());
         infosModel.setClassPath(loadedModule.getClassPath());
+        infosModel.setMetamodelFragments(loadedModule.getMetamodelFragments());
         
         infosModel.setResources(new Jxbv2Resources());
+        // Keep resource files
         if (loadedModule.getResources() != null) {
             infosModel.getResources().setDocFiles(loadedModule.getResources().getDocFiles());
+            infosModel.getResources().setDocTemplates(loadedModule.getResources().getDocTemplates());
+            infosModel.getResources().setStyles(loadedModule.getResources().getStyles());
+            infosModel.getResources().setMacros(loadedModule.getResources().getMacros());
+            infosModel.getResources().setPatterns(loadedModule.getResources().getPatterns());
         }
         
         infosModel.setId(loadedModule.getId());
@@ -115,14 +117,6 @@ class FileCatalogModuleHandleBuilder {
         infosModel.setUid(loadedModule.getUid());
         infosModel.setVersion(loadedModule.getVersion());
         
-        // Keep the style files
-        if (loadedModule.getResources() != null && loadedModule.getResources().getStyles() != null) {
-            final Jxbv2Resources resources = new Jxbv2Resources();
-            resources.setStyles(loadedModule.getResources().getStyles());
-            infosModel.setResources(resources);
-        } else {
-            infosModel.setGui(null);
-        }
         // Cleaned values
         infosModel.setParameters(null);
         infosModel.setPropertyTypes(null);
@@ -139,15 +133,15 @@ class FileCatalogModuleHandleBuilder {
         } catch (IOException e) {
             IOException e2 = new IOException(CoreProject.getMessage(
                     "ModuleCacheManager.FailedExtractStaticModel",
-                    moduleStaticModelPath.getFileName(), 
-                    FileUtils.getLocalizedMessage(e))); //$NON-NLS-1$
+                    moduleStaticModelPath.getFileName(),
+                    FileUtils.getLocalizedMessage(e)));
             e2.initCause(e);
             throw e2;
         }
     }
 
     @objid ("2c95c277-f37d-11e1-a3c7-002564c97630")
-    private static FileCatalogModuleHandle loadModuleInfos(Path moduleCachePath, final Jxbv2Module loadedModule, IModelioProgress monitor) {
+    private static FileCatalogModuleHandle loadModuleInfos(Path moduleCachePath, final Jxbv2Module loadedModule, IModelioProgress monitor) throws IOException {
         String uid = loadedModule.getUid();
         String name = loadedModule.getId();
         String mainClassName = loadedModule.getClazz();
@@ -158,7 +152,7 @@ class FileCatalogModuleHandleBuilder {
             moduleVersion = new Version(moduleVersionString);
         } else {
             // Set a default version...
-            moduleVersion = new Version("0.00.00");
+            moduleVersion = new Version(0,0,0);
         }
         
         String binaryVersionString = loadedModule.getBinaryversion();
@@ -167,21 +161,25 @@ class FileCatalogModuleHandleBuilder {
             binaryVersion = new Version(binaryVersionString);
         } else {
             // Set a default version...
-            binaryVersion = new Version("0.00.00");
+            binaryVersion = new Version(0,0,0);
         }
         
-        List<ModuleId> dependencies = new ArrayList<>();
-        List<ModuleId> weakDependencies = new ArrayList<>();
+        List<VersionedItem<?>> dependencies = new ArrayList<>();
+        List<VersionedItem<?>> weakDependencies = new ArrayList<>();
         List<Path> jarPaths = new ArrayList<>();
         List<Path> docPaths = new ArrayList<>();
         Map<String, Path> stylePaths = new HashMap<>();
+        List<IMetamodelFragmentHandle> metamodelFragments = new ArrayList<>();
         
-        for (Jxbv2Required dep : loadedModule.getDependencies().getRequired()) {
-            dependencies.add(new ModuleId(dep.getName(), new Version(dep.getVersion())));
+        if(loadedModule.getDependencies() != null){
+            for (Jxbv2Required dep : loadedModule.getDependencies().getRequired()) {
+                dependencies.add(new VersionedItem<Void>(dep.getName(), new Version(dep.getVersion())));
+            }
+            for (Jxbv2Optional dep : loadedModule.getDependencies().getOptional()) {
+                weakDependencies.add(new VersionedItem<Void>(dep.getName(), new Version(dep.getVersion())));
+            }
         }
-        for (Jxbv2Optional dep : loadedModule.getDependencies().getOptional()) {
-            weakDependencies.add(new ModuleId(dep.getName(), new Version(dep.getVersion())));
-        }
+        
         
         for (Jxbv2PathEntry pathEntry : loadedModule.getClassPath().getPathEntry()) {
             jarPaths.add(Paths.get(pathEntry.getPath()));
@@ -199,9 +197,24 @@ class FileCatalogModuleHandleBuilder {
             }
         }
         
+        
+        if (loadedModule.getMetamodelFragments() != null ) {
+            for (Jxbv2MetamodelFragment fragEntry : loadedModule.getMetamodelFragments().getMetamodelFragment()) {
+                    MetamodelFragmentHandle f = new MetamodelFragmentHandle(fragEntry.getId(),
+                            readVersion(fragEntry),
+                            fragEntry.getVendor(),
+                            fragEntry.getVendorVersion(),
+                            fragEntry.getClazz());
+        
+                    metamodelFragments.add(f);
+            }
+        
+        }
+        
         monitor.done();
-        return new FileCatalogModuleHandle(moduleCachePath, name, moduleVersion, uid, mainClassName, binaryVersion, dependencies,
-                weakDependencies, docPaths, jarPaths, stylePaths);
+        return new FileCatalogModuleHandle(moduleCachePath, name, moduleVersion, uid, mainClassName,
+                                        binaryVersion, dependencies,
+                                        weakDependencies, docPaths, jarPaths, stylePaths, metamodelFragments);
     }
 
     /**
@@ -263,9 +276,24 @@ class FileCatalogModuleHandleBuilder {
         } catch (IOException e) {
             IOException e2 = new IOException(CoreProject.getMessage(
                     "ModuleCacheManager.ErrorReadingModule",
-                    moduleCachePath.getFileName(), FileUtils.getLocalizedMessage(e))); //$NON-NLS-1$
+                    moduleCachePath.getFileName(), FileUtils.getLocalizedMessage(e)));
             e2.initCause(e);
             throw e2;
+        }
+    }
+
+    @objid ("90f5289c-e966-471d-b494-68f9e12ba9e6")
+    private static Version readVersion(Jxbv2MetamodelFragment fragEntry) throws IOException {
+        try {
+            return new Version(fragEntry.getVersion());
+        } catch (NumberFormatException e) {
+            // invalid version format
+            String msg = CoreProject.getMessage(
+                    "ModuleCacheManager.InvalidMmFragmentVersion",
+                    fragEntry.getId(),fragEntry.getVersion(),
+                    e.getLocalizedMessage());
+        
+            throw new IOException(msg, e);
         }
     }
 

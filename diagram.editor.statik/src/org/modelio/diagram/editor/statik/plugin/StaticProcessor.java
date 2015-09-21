@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.plugin;
 
@@ -88,7 +88,6 @@ import org.modelio.diagram.elements.gmfactory.GmLinkFactory;
 import org.modelio.diagram.elements.gmfactory.GmNodeFactory;
 import org.modelio.diagram.styles.core.FactoryStyle;
 import org.modelio.diagram.styles.core.StyleLoader;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.ClassDiagram;
 import org.modelio.metamodel.diagrams.StaticDiagram;
 import org.osgi.framework.BundleContext;
@@ -103,8 +102,8 @@ public class StaticProcessor {
     private void execute(IDiagramConfigurerRegistry configurerRegistry) {
         // Register a diagram configurer for State diagram
         
-        configurerRegistry.registerDiagramConfigurer(Metamodel.getMClass(ClassDiagram.class).getName(), null, new ClassDiagramConfigurer());
-        configurerRegistry.registerDiagramConfigurer(Metamodel.getMClass(StaticDiagram.class).getName(), null, new StaticDiagramConfigurer());
+        configurerRegistry.registerDiagramConfigurer(ClassDiagram.MNAME, null, new ClassDiagramConfigurer());
+        configurerRegistry.registerDiagramConfigurer(StaticDiagram.MNAME, null, new StaticDiagramConfigurer());
         
         
         // Register our edit part factory

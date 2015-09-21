@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.module.catalog;
 
@@ -41,11 +41,15 @@ import org.modelio.gproject.data.module.JaxbModelPersistence;
 import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Dependencies.Jxbv2Optional;
 import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Dependencies.Jxbv2Required;
 import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Dependencies;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2MetamodelFragments.Jxbv2MetamodelFragment;
 import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module;
 import org.modelio.gproject.data.module.jaxbv2.Jxbv2MultiPathes.Jxbv2PathEntry;
+import org.modelio.gproject.module.IMetamodelFragmentHandle;
 import org.modelio.gproject.module.IModuleHandle;
-import org.modelio.gproject.module.ModuleId;
+import org.modelio.gproject.module.MetamodelFragmentHandle;
+import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.vbasic.version.Version;
+import org.modelio.vbasic.version.VersionedItem;
 
 /**
  * Temporary handler implementation that uses directly a .jmdac archive.
@@ -74,10 +78,10 @@ class JmdacArchiveModuleHandle implements IModuleHandle, Closeable {
     private Version binaryVersion = null;
 
     @objid ("d378f9db-f36d-11e1-9173-001ec947ccaf")
-    private final List<ModuleId> dependencies = new ArrayList<>();
+    private final List<VersionedItem<?>> dependencies = new ArrayList<>();
 
     @objid ("d378f9df-f36d-11e1-9173-001ec947ccaf")
-    private final List<ModuleId> weakDependencies = new ArrayList<>();
+    private final List<VersionedItem<?>> weakDependencies = new ArrayList<>();
 
     @objid ("d378f9e6-f36d-11e1-9173-001ec947ccaf")
     private final List<Path> classpath = new ArrayList<>();
@@ -87,6 +91,9 @@ class JmdacArchiveModuleHandle implements IModuleHandle, Closeable {
 
     @objid ("d9624b74-37da-11e2-8ba4-002564c97630")
     private Path archive;
+
+    @objid ("a1bcee85-e650-495e-af74-b42411254c88")
+    private List<IMetamodelFragmentHandle> metamodelFragments = new ArrayList<>();
 
     @objid ("f88164dd-f369-11e1-9173-001ec947ccaf")
     JmdacArchiveModuleHandle(Path archive) throws IOException {
@@ -115,8 +122,9 @@ class JmdacArchiveModuleHandle implements IModuleHandle, Closeable {
             try (DirectoryStream<Path> content = Files.newDirectoryStream(root)) {
                 for (Path p : content) {
                     Path moduleFile = p.resolve("module.xml");
-                    if (Files.isRegularFile(moduleFile))
+                    if (Files.isRegularFile(moduleFile)) {
                         return p;
+                    }
                 }
             }
         }
@@ -137,7 +145,7 @@ class JmdacArchiveModuleHandle implements IModuleHandle, Closeable {
 
     @objid ("f88164e8-f369-11e1-9173-001ec947ccaf")
     @Override
-    public List<ModuleId> getDependencies() {
+    public List<VersionedItem<?>> getDependencies() {
         return this.dependencies;
     }
 
@@ -203,7 +211,7 @@ class JmdacArchiveModuleHandle implements IModuleHandle, Closeable {
 
     @objid ("f883c72e-f369-11e1-9173-001ec947ccaf")
     @Override
-    public List<ModuleId> getWeakDependencies() {
+    public List<VersionedItem<?>> getWeakDependencies() {
         return this.weakDependencies;
     }
 
@@ -217,14 +225,13 @@ class JmdacArchiveModuleHandle implements IModuleHandle, Closeable {
         this.uid = loadedModule.getUid();
         this.name = loadedModule.getId();
         this.mainClassName = loadedModule.getClazz();
-        // TODO : is this still used ?
-        // this.licenseRequired = Boolean.TRUE.equals(loadedModule.isLicenseRequired());
+        
         String moduleVersion = loadedModule.getVersion();
         if (moduleVersion != null) {
             this.version = new Version(moduleVersion);
         } else {
             // Set a default version...
-            this.version = new Version("0.00.00");
+            this.version = new Version(0,0,0);
         }
         
         String modelioversion = loadedModule.getBinaryversion();
@@ -232,65 +239,50 @@ class JmdacArchiveModuleHandle implements IModuleHandle, Closeable {
             this.binaryVersion = new Version(modelioversion);
         } else {
             // Set a default version...
-            this.binaryVersion = new Version("0.00.00");
+            this.binaryVersion = new Version(0,0,0);
         }
         
         // Dependencies
         Jxbv2Dependencies deps = loadedModule.getDependencies();
         for (Jxbv2Required dep : deps.getRequired()) {
-            this.dependencies.add(new ModuleId(dep.getName(), new Version(dep.getVersion())));
+            this.dependencies.add(new VersionedItem<Void>(dep.getName(), new Version(dep.getVersion())));
         }
         for (Jxbv2Optional dep : deps.getOptional()) {
-            this.weakDependencies.add(new ModuleId(dep.getName(), new Version(dep.getVersion())));
+            this.weakDependencies.add(new VersionedItem<Void>(dep.getName(), new Version(dep.getVersion())));
         }
         
         // Module classpath
         for (Jxbv2PathEntry pathEntry : loadedModule.getClassPath().getPathEntry()) {
             Path p = this.moduleDir.resolve(pathEntry.getPath());
-            if (!Files.exists(p))
+            if (!Files.exists(p)) {
                 throw new NoSuchFileException(p.toString(), p.toUri().toString(), "class path entry invalid.");
+            }
             this.classpath.add(p);
         }
         
         // Module doc path
-        if (loadedModule.getResources() != null && loadedModule.getResources().getDocFiles() != null)
-        for (Jxbv2PathEntry pathEntry : loadedModule.getResources().getDocFiles().getPathEntry()) {
-            Path p = this.moduleDir.resolve(pathEntry.getPath());
-            if (!Files.exists(p))
-                throw new NoSuchFileException(p.toString(), p.toUri().toString(), "document path entry invalid");
-            this.docPath.add(p);
+        if (loadedModule.getResources() != null && loadedModule.getResources().getDocFiles() != null) {
+            for (Jxbv2PathEntry pathEntry : loadedModule.getResources().getDocFiles().getPathEntry()) {
+                Path p = this.moduleDir.resolve(pathEntry.getPath());
+                if (!Files.exists(p)) {
+                    throw new NoSuchFileException(p.toString(), p.toUri().toString(), "document path entry invalid");
+                }
+                this.docPath.add(p);
+            }
         }
         
-        // for (Object child : loadedModule.getParameterOrProfileOrGui()) {
-        // if (child instanceof Dependencies) {
-        // Dependencies deps = (Dependencies) child;
-        // for (Object depChild : deps.getRequiredOrOptionalOrRamc()) {
-        // if (depChild instanceof Required) {
-        // Required dep = (Required) depChild;
-        // this.dependencies.add(new ModuleId(dep.getName(), new Version(dep.getVersion())));
-        // } else if (depChild instanceof Optional) {
-        // Optional dep = (Optional) depChild;
-        // this.weakDependencies.add(new ModuleId(dep.getName(), new Version(dep.getVersion())));
-        // }
-        // }
-        // } else if (child instanceof JxbClasspath) {
-        // JxbClasspath classpathEntries = (JxbClasspath) child;
-        // for (JxbClasspath.Entry classpathEntry : classpathEntries.getEntry()) {
-        // Path p = this.moduleDir.resolve(classpathEntry.getPath());
-        // if (!Files.exists(p))
-        // throw new NoSuchFileException(p.toString(), p.toUri().toString(), "class path entry invalid.");
-        // this.classpath.add(p);
-        // }
-        // } else if (child instanceof JxbDocpath) {
-        // JxbDocpath docpathEntries = (JxbDocpath) child;
-        // for (JxbDocpath.Entry docpathEntry : docpathEntries.getEntry()) {
-        // Path p = this.moduleDir.resolve(docpathEntry.getPath());
-        // if (!Files.exists(p))
-        // throw new NoSuchFileException(p.toString(), p.toUri().toString(), "document path entry invalid");
-        // this.docPath.add(p);
-        // }
-        // }
-        // }
+        // Metamodel fragments
+        if (loadedModule.getMetamodelFragments() != null ) {
+            for (Jxbv2MetamodelFragment fragEntry : loadedModule.getMetamodelFragments().getMetamodelFragment()) {
+                    MetamodelFragmentHandle f = new MetamodelFragmentHandle(fragEntry.getId(),
+                            readVersion(fragEntry),
+                            fragEntry.getVendor(),
+                            fragEntry.getVendorVersion(),
+                            fragEntry.getClazz());
+        
+                    this.metamodelFragments.add(f);
+            }
+        }
     }
 
     @objid ("d37b5d37-f36d-11e1-9173-001ec947ccaf")
@@ -312,6 +304,60 @@ class JmdacArchiveModuleHandle implements IModuleHandle, Closeable {
     @Override
     public Map<String, Path> getStylePaths() {
         return Collections.emptyMap();
+    }
+
+    @objid ("e0883410-16d9-4bdf-b8da-f2b713cbdb16")
+    @Override
+    public List<IMetamodelFragmentHandle> getMetamodelFragments() {
+        return this.metamodelFragments;
+    }
+
+    @objid ("6c53335f-ccc5-44c8-a4cf-089cd81e4dda")
+    private static Version readVersion(Jxbv2MetamodelFragment fragEntry) throws IOException {
+        try {
+            return new Version(fragEntry.getVersion());
+        } catch (NumberFormatException e) {
+            // invalid version format
+            String msg = CoreProject.getMessage(
+                    "ModuleCacheManager.InvalidMmFragmentVersion",
+                    fragEntry.getId(),fragEntry.getVersion(),
+                    e.getLocalizedMessage());
+        
+            throw new IOException(msg, e);
+        }
+    }
+
+    @objid ("40e49d7b-c34d-4f37-ad22-4b2351b9f754")
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((this.archive == null) ? 0 : this.archive.hashCode());
+        return result;
+    }
+
+    @objid ("fbfebf38-14bf-4cc7-a223-aa3a27235cde")
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        JmdacArchiveModuleHandle other = (JmdacArchiveModuleHandle) obj;
+        if (this.archive == null) {
+            if (other.archive != null) {
+                return false;
+            }
+        } else if (!this.archive.equals(other.archive)) {
+            return false;
+        }
+        return true;
     }
 
 }

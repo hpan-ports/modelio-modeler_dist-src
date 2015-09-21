@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.jdbm;
 
@@ -25,6 +25,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +44,6 @@ import org.modelio.vcore.smkernel.SmStatus;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vcore.smkernel.meta.SmDependency;
-import org.modelio.vcore.smkernel.meta.SmMultipleDependency;
-import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 
 /**
  * JDBM {@link Serializer} optimized for {@link SmObjectData}.
@@ -78,26 +77,25 @@ class SmObjectDataSerializer {
         }
         
         for (SmDependency  d: cls.getAllDepDef()) {
-            if (Helper.isPersistent(d))
-                if (d.isMultiple())
-                    writeMultipleDep(out, obj, (SmMultipleDependency)d);
-                else
-                    writeSimpleDep(out, obj, (SmSingleDependency)d);
+            if (Helper.isPersistent(d)) {
+                writeMultipleDep(out, obj, d);
+            }
         }
     }
 
     @objid ("5ff47953-2f25-4c9a-830b-78adb504ee80")
-    public void deserialize(SerializerInput in, SmObjectImpl obj, IModelLoader loader) throws IOException, DuplicateObjectException {
+    public void deserialize(SerializerInput in, SmObjectImpl obj, IModelLoader loader) throws DuplicateObjectException, IOException {
         final String clsName = in.readUTF();
-        final SmClass cls = SmClass.getClass(clsName);
+        final SmClass cls = this.loadHelper.getClass(clsName);
         
         for (SmAttribute att : cls.getAllAttDef()) {
             readAttribute(in, obj, att, loader);
         }
         
         for (SmDependency  d: cls.getAllDepDef()) {
-            if (Helper.isPersistent(d))
+            if (Helper.isPersistent(d)) {
                 readDep(in, obj, d, loader);
+            }
         }
     }
 
@@ -108,9 +106,10 @@ class SmObjectDataSerializer {
         if (type == String.class){
             int len = in.readInt();
             StringBuilder s = new StringBuilder(len);
-            for (int i=0; i < len; i++)
+            for (int i=0; i < len; i++) {
                 s.append(in.readChar());
-            
+            }
+        
             val = s.toString();
         } else if (type == Integer.class) {
             val = in.readInt();
@@ -163,22 +162,9 @@ class SmObjectDataSerializer {
         }
     }
 
-    @objid ("a0c8d4d6-9995-4542-a85b-28dcc400d974")
-    private void writeSimpleDep(final DataOutput out, final SmObjectData obj, final SmSingleDependency d) throws IOException {
-        final SmObjectImpl content = d.getValue(obj);
-        //out.writeUTF(d.getName());
-        
-        if (content == null) {
-            out.writeInt(0);
-        } else {
-            out.writeInt(1);
-            writeRef(out, content);
-        }
-    }
-
     @objid ("1d8b4d73-b9c1-4258-9f98-b9a5e11166cc")
-    private void writeMultipleDep(DataOutput out, SmObjectData obj, SmMultipleDependency md) throws IOException {
-        List<SmObjectImpl> content = md.getValueList(obj);
+    private void writeMultipleDep(DataOutput out, SmObjectData obj, SmDependency md) throws IOException {
+        Collection<SmObjectImpl> content = md.getValueAsCollection(obj);
         
         //out.writeUTF(md.getName());
         out.writeInt(content.size());
@@ -199,8 +185,9 @@ class SmObjectDataSerializer {
         
         for (int i=0; i<size; i++) {
             final SmObjectImpl depVal = readRef(in, loader);
-            if (depVal != null)
+            if (depVal != null) {
                 vals.add(depVal);
+            }
         }
         
         loader.loadDependency(obj, d, vals);
@@ -213,10 +200,11 @@ class SmObjectDataSerializer {
         String clsid = in.readUTF();
         UUID uuid = readUuid(in);
         
-        SmClass cls = SmClass.getClass(clsid);
+        SmClass cls = this.loadHelper.getClass(clsid);
         
-        if (cls == null)
+        if (cls == null) {
             return null;
+        }
         
         SmObjectImpl ret = decodeRef(loader, isLocal, uuid, cls);
         return ret;
@@ -237,7 +225,7 @@ class SmObjectDataSerializer {
     private void writeRef(DataOutput out, SmObjectImpl val) throws IOException {
         // Write islocal
         out.writeBoolean( val.getRepositoryObject().getRepositoryId() == this.rid);
-            
+        
         out.writeUTF(val.getMClass().getName());
         writeUuid(out, val.getUuid());
     }

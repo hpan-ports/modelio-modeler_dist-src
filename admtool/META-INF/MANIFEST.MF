@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: AdmTool
 Bundle-SymbolicName: org.modelio.admtool;singleton:=true
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Bundle-Activator: org.modelio.admtool.plugin.AmdTool
 Bundle-Vendor: modelio.org
 Bundle-Localization: plugin
@@ -19,8 +19,8 @@ Require-Bundle: org.eclipse.ui,
  org.modelio.core.ui,
  org.eclipse.core.expressions,
  org.modelio.model.browser,
- org.modelio.app.preferences,
- org.modelio.app.ui
+ org.modelio.app.ui,
+ org.modelio.core.help
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: icons/,

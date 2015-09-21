@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.editors.richnote.helper;
 
@@ -61,7 +61,7 @@ public class RichNoteFilesGeometry {
     public Path getPath(final ExternDocument doc) {
         String fileName = doc.getPath();
         
-        if (fileName.isEmpty()) 
+        if (fileName.isEmpty())
             return null;
         
         Path f = Paths.get(fileName);
@@ -79,7 +79,7 @@ public class RichNoteFilesGeometry {
     public Path getPath(final Artifact doc) {
         String fileName = doc.getFileName();
         
-        if (fileName.isEmpty()) 
+        if (fileName.isEmpty())
             return null;
         
         Path f = Paths.get(fileName);
@@ -103,7 +103,7 @@ public class RichNoteFilesGeometry {
             // Relative to the project directory
             String docPath = this.project.getProjectPath().relativize(filePath).toString();
             return (PROJECT_KEYWORD+"/"+docPath);
-            
+        
         } else {
             // Store as is
             return (filePath.toString());
@@ -116,7 +116,7 @@ public class RichNoteFilesGeometry {
      * By default a rich note is stored in the runtime/richnotes directory of the project space,
      * in a file with the element UUID as name with the given extension.
      * <p>
-     * The returned path should be stored in the rich note element using {@link ExternDocument#setPath(String)}.
+     * The returned path should be made relative before being stored in the rich note element using {@link ExternDocument#setPath(String)}.
      * @param doc a rich note.
      * @param extension the file extension
      * @return its default path.

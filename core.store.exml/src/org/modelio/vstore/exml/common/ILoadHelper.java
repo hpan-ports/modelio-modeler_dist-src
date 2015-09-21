@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,21 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common;
 
+import java.io.IOException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vstore.exml.common.model.IllegalReferenceException;
 import org.modelio.vstore.exml.common.model.ObjId;
 
@@ -57,15 +59,15 @@ public interface ILoadHelper {
      * Get a reference to an object that may be loaded later.
      * <p>
      * The returned object may come from another repository.
+     * @throws IOException
      * @param modelLoader the model loading API to use.
      * @param id the object ID
-     * @param pid the owner CMS node ID
      * @return the found or created object
      * @throws org.modelio.vcore.model.DuplicateObjectException if another object with the same identifier already exists in another repository
      * @throws org.modelio.vstore.exml.common.model.IllegalReferenceException if 'id' or 'pid' is not a legal reference
      */
     @objid ("679e4b68-2e7b-11e2-8aaa-001ec947ccaf")
-    SmObjectImpl getRefObject(IModelLoader modelLoader, ObjId id, ObjId pid) throws DuplicateObjectException, IllegalReferenceException;
+    SmObjectImpl getRefObject(IModelLoader modelLoader, ObjId id) throws DuplicateObjectException, IOException, IllegalReferenceException;
 
     /**
      * Creates a stub CMS node object that will be loaded later.
@@ -75,7 +77,7 @@ public interface ILoadHelper {
      * @throws org.modelio.vcore.model.DuplicateObjectException if another object with the same identifier already exists in another repository
      */
     @objid ("679e4b6e-2e7b-11e2-8aaa-001ec947ccaf")
-    SmObjectImpl createObject(IModelLoader modelLoader, ObjId id) throws DuplicateObjectException;
+    SmObjectImpl createCmsNodeObject(IModelLoader modelLoader, ObjId id) throws DuplicateObjectException;
 
     /**
      * Find the loaded object with the given identifier.
@@ -83,7 +85,7 @@ public interface ILoadHelper {
      * @return the found object or <code>null</code> if no such object is loaded.
      */
     @objid ("679e4b73-2e7b-11e2-8aaa-001ec947ccaf")
-    SmObjectImpl getObject(final ObjId id);
+    SmObjectImpl getLoadedObject(final ObjId id);
 
     /**
      * Set an attribute value.
@@ -118,14 +120,23 @@ public interface ILoadHelper {
      * Creates a stub object that will be loaded later.
      * <p>
      * No other object with the given identifier must exist in memory.
+     * @param pid the owner CMS node ID
      * @param modelLoader the model loading API to use.
      * @param id the object ID
-     * @param pid the owner CMS node ID
      * @return the created object
      * @throws org.modelio.vcore.model.DuplicateObjectException if another object with the same identifier already exists in another repository
      * @throws org.modelio.vstore.exml.common.model.IllegalReferenceException if 'id' or 'pid' is not a legal reference
+     * @throws java.io.IOException if the index is broken
      */
     @objid ("689117f9-ff79-42c7-9654-36fc82b02f4b")
-    SmObjectImpl createStubObject(IModelLoader modelLoader, ObjId id, ObjId pid) throws IllegalReferenceException, DuplicateObjectException;
+    SmObjectImpl createStubObject(IModelLoader modelLoader, ObjId id) throws DuplicateObjectException, IOException, IllegalReferenceException;
+
+    /**
+     * Get a  metaclass with its name.
+     * @param xclassof a metaclass name
+     * @return the found SmClass or null.
+     */
+    @objid ("c3552de9-01f3-4e9b-be11-938598c28054")
+    SmClass getSmClass(String xclassof);
 
 }

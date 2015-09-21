@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.notes.panelprovider.tree;
 
@@ -26,11 +26,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
-import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.core.ui.images.ElementStyler;
 import org.modelio.core.ui.images.ModuleI18NService;
@@ -50,12 +46,6 @@ import org.modelio.metamodel.uml.infrastructure.Stereotype;
  */
 @objid ("e203c493-ddb7-41a7-9e01-2b4bf61691e8")
 public class NoteViewTreeLabelProvider extends LabelProvider implements IStyledLabelProvider {
-    @objid ("5e3a2841-7c77-4dd3-bba0-5958944993a2")
-     static final Font normalFont = CoreFontRegistry.getFont(Display.getCurrent().getSystemFont().getFontData());
-
-    @objid ("cd5c051c-d436-4083-bf33-b1072ee1c3bb")
-     static final Font italicFont = CoreFontRegistry.getModifiedFont(normalFont, SWT.ITALIC);
-
     @objid ("11414203-df81-4e9b-9ee6-8105651daec5")
     @Override
     public Image getImage(Object element) {
@@ -135,7 +125,8 @@ public class NoteViewTreeLabelProvider extends LabelProvider implements IStyledL
 
     @objid ("5ab80118-b628-4040-b7c2-6d601846c298")
     private boolean isHtmlNote(Note note) {
-        String mimeType = (note.getMimeType() != null && !note.getMimeType().isEmpty()) ? note.getMimeType() : note.getModel()
+        String noteMimeType = note.getMimeType();
+        String mimeType = (noteMimeType != null && !noteMimeType.isEmpty()) ? noteMimeType : note.getModel()
                 .getMimeType();
         return mimeType.contains("html");
     }

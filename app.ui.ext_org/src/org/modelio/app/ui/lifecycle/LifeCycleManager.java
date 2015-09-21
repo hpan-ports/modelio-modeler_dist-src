@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.ui.lifecycle;
 
@@ -50,8 +50,6 @@ import org.modelio.app.core.ModelioEnv;
 import org.modelio.app.core.activation.ActivationService;
 import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.events.ModelioEventService;
-import org.modelio.app.core.inputpart.IInputPartService;
-import org.modelio.app.core.inputpart.InputPartService;
 import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.app.core.navigate.ModelioNavigationService;
 import org.modelio.app.core.picking.IModelioPickingService;
@@ -64,11 +62,11 @@ import org.modelio.app.ui.persp.IModelioUiService;
 import org.modelio.app.ui.plugin.AppUi;
 import org.modelio.app.ui.progress.ModelioProgressService;
 import org.modelio.app.ui.welcome.WelcomeView;
+import org.modelio.core.help.inputpart.IInputPartService;
+import org.modelio.core.help.inputpart.InputPartService;
 import org.modelio.core.help.system.ModelioHelpSystem;
 import org.modelio.gproject.module.catalog.FileModuleStore;
 import org.modelio.log.writers.PluginLogger;
-import org.modelio.metamodel.Metamodel;
-import org.modelio.metamodel.data.MetamodelLoader;
 import org.modelio.ui.progress.IModelioProgressService;
 import org.modelio.vbasic.net.SslManager;
 import org.modelio.vcore.session.impl.cache.MemoryManager;
@@ -103,7 +101,7 @@ public class LifeCycleManager {
         // Get the command line arguments
         final IApplicationContext appContext = context.get(IApplicationContext.class);
         final String args[] = (String[]) appContext.getArguments().get(IApplicationContext.APPLICATION_ARGS);
-        StringBuilder cmdline = new StringBuilder();
+        final StringBuilder cmdline = new StringBuilder();
         for (final String arg : args) {
             cmdline.append(arg);
             cmdline.append(' ');
@@ -137,9 +135,10 @@ public class LifeCycleManager {
         final Path serverCertsDb = modelioEnv.getRuntimeDataPath().resolve("servercerts.db");
         try {
             SslManager.getInstance().setTrustStoreFile(modelioEnv.getRuntimeDataPath().resolve("servercerts.db"));
-        } catch (IOException e1) {
+        } catch (final IOException e1) {
             AppUi.LOG.warning(e1);
-            String message = "Cannot read trusted server certificates from '"+serverCertsDb+"':\n"+e1.getLocalizedMessage();
+            final String message = "Cannot read trusted server certificates from '" + serverCertsDb + "':\n"
+                    + e1.getLocalizedMessage();
             context.get(StatusReporter.class).show(StatusReporter.ERROR, message, e1);
         }
         
@@ -158,25 +157,18 @@ public class LifeCycleManager {
         
         // END EXPERIMENTAL STUFF
         
-        // Loading metamodel
-        AppUi.LOG.info("Loading metamodel...");
-        if (this.splash != null) {
-            this.splash.showMessage(AppUi.I18N.getString("Splash.metamodel"));
-        }
-        MetamodelLoader.Load();
-        AppUi.LOG.info("Metamodel loaded, version  : '%s'", Metamodel.VERSION);
-        
         // Initialize catalog from module store if the local catalog directory does not contain any entry
         final FileModuleStore catalog = new FileModuleStore(modelioEnv.getModuleCatalogPath());
         boolean emptyCatalog;
-        try (DirectoryStream<Path> ds = Files.newDirectoryStream(modelioEnv.getModuleCatalogPath(), new DirectoryStream.Filter<Path>() {
-            @Override
-            public boolean accept(Path entry) throws IOException {
-                return !entry.endsWith("version.dat");
-            }
-        })) {
+        try (DirectoryStream<Path> ds = Files.newDirectoryStream(modelioEnv.getModuleCatalogPath(),
+                new DirectoryStream.Filter<Path>() {
+                    @Override
+                    public boolean accept(Path entry) throws IOException {
+                        return !entry.endsWith("version.dat");
+                    }
+                })) {
             emptyCatalog = !ds.iterator().hasNext();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             AppUi.LOG.warning(e);
             emptyCatalog = false;
         }
@@ -212,19 +204,19 @@ public class LifeCycleManager {
         this.titleUpdater = ContextInjectionFactory.make(ApplicationTitleUpdater.class, context);
         context.set(ApplicationTitleUpdater.class, this.titleUpdater);
         
-        PerspectiveManager pm = ContextInjectionFactory.make(PerspectiveManager.class, context);
+        final PerspectiveManager pm = ContextInjectionFactory.make(PerspectiveManager.class, context);
         context.set(IModelioUiService.class, pm);
         
         // Perspectives initialization, force the Welcome part if first launch
         WelcomeView.setWelcomeHref(WELCOME_HREF);
         final IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(AppUi.PLUGIN_ID);
-        boolean firstLaunch = prefs.getBoolean("FirstLaunch", true);
+        final boolean firstLaunch = prefs.getBoolean("FirstLaunch", true);
         if (firstLaunch) {
             pm.showWelcome(true);
             prefs.putBoolean("FirstLaunch", false);
             try {
                 prefs.sync();
-            } catch (BackingStoreException e) {
+            } catch (final BackingStoreException e) {
                 AppUi.LOG.warning(e);
             }
         } else {
@@ -260,15 +252,11 @@ public class LifeCycleManager {
         }
         
         // Configuring HELP
-        /*if (AppUi.LOG.isDebugEnabled()) {
-            IToc[] tocs = org.eclipse.help.HelpSystem.getTocs();
-            for (IToc toc : tocs) {
-                AppUi.LOG.debug("TOC %s", toc.getLabel());
-                for (ITopic topic : toc.getTopics()) {
-                    AppUi.LOG.debug("  - %s (href=%s)", topic.getLabel(), topic.getHref());
-                }
-            }
-        }*/
+        /*
+         * if (AppUi.LOG.isDebugEnabled()) { IToc[] tocs = org.eclipse.help.HelpSystem.getTocs(); for (IToc toc : tocs) {
+         * AppUi.LOG.debug("TOC %s", toc.getLabel()); for (ITopic topic : toc.getTopics()) { AppUi.LOG.debug("  - %s (href=%s)",
+         * topic.getLabel(), topic.getHref()); } } }
+         */
         context.set(IWorkbenchHelpSystem.class, ModelioHelpSystem.getInstance());
         
         // Switch off the splash screen if needed.
@@ -281,13 +269,13 @@ public class LifeCycleManager {
         // MANTAYORY: keep this code sequence the last one of the method
         final IEventBroker eventBroker = context.get(IEventBroker.class);
         if (eventBroker != null) {
-            EventHandler eventHandler = new EventHandler() {
+            final EventHandler eventHandler = new EventHandler() {
         
                 @SuppressWarnings("synthetic-access")
                 @Override
                 public void handleEvent(Event arg0) {
                     // Unlock the workspace
-                    Location instanceLocation = (Location) context.get(E4Workbench.INSTANCE_LOCATION);
+                    final Location instanceLocation = (Location) context.get(E4Workbench.INSTANCE_LOCATION);
                     if (instanceLocation != null) {
                         instanceLocation.release();
                     }
@@ -318,16 +306,16 @@ public class LifeCycleManager {
 
     @objid ("61c57b6e-4aac-477f-b313-244e7115779a")
     private void deliverMdaStoreModules(FileModuleStore catalog) {
-        Location location = Platform.getInstallLocation();
-        Path moduleStore = new File(location.getURL().getFile()).toPath().resolve("modules");
+        final Location location = Platform.getInstallLocation();
+        final Path moduleStore = new File(location.getURL().getFile()).toPath().resolve("modules");
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(moduleStore, "*.jmdac")) {
-            for (Path jmdacPath : ds) {
+            for (final Path jmdacPath : ds) {
                 // Iterate over the paths in the directory and print
                 // filenames
                 AppUi.LOG.debug("installing module %s in catalog", jmdacPath.getFileName());
                 catalog.getModuleHandle(jmdacPath, null);
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             AppUi.LOG.debug(e);
         }
     }

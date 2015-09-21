@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.model.browser.context;
 
@@ -40,13 +40,18 @@ import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuSeparator;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.modelio.metamodel.bpmn.activities.BpmnCallActivity;
+import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
+import org.modelio.metamodel.bpmn.rootElements.BpmnBehavior;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
+import org.modelio.metamodel.uml.behavior.activityModel.CallBehaviorAction;
+import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.model.browser.plugin.ModelBrowser;
 
 /**
- * ModuleCommandsForModelBrowser manage Modules commands
+ * Dynamically fills the "related diagrams" e4 menu in the model browser.
  */
 @objid ("f4908570-99ce-4b58-a87f-0704ddcc921d")
 class RelatedDiagramsForModelBrowser {
@@ -113,7 +118,7 @@ class RelatedDiagramsForModelBrowser {
         elementCreationMenu.setToBeRendered(true);
         elementCreationMenu.setVisible(true);
         
-        // bound the menu to the contributing plugin 
+        // bound the menu to the contributing plugin
         elementCreationMenu.setContributorURI(contributorId);
         
         // add related diagram items
@@ -124,12 +129,37 @@ class RelatedDiagramsForModelBrowser {
     @objid ("83a6272c-bced-486d-8157-d1164557f54e")
     public static List<AbstractDiagram> getRelatedDiagrams(final ModelElement currentModelElement) {
         final List<AbstractDiagram> relatedDiagrams = new ArrayList<>();
+        
+        // Get diagrams targeted by <<related_diagram>> dependencies.
         for (final Dependency dependency : currentModelElement.getDependsOnDependency()) {
             if (dependency.isStereotyped("ModelerModule", "related_diagram")) {
                 final ModelElement relatedElement = dependency.getDependsOn();
                 if (relatedElement instanceof AbstractDiagram && ! relatedDiagrams.contains(relatedElement)) {
                     relatedDiagrams.add((AbstractDiagram) relatedElement);
                 }
+            }
+        }
+        
+        // Get owned diagrams
+        relatedDiagrams.addAll(currentModelElement.getProduct());
+        
+        // For BpmnBehavior, get diagram owned by their BpmnProcess
+        if (currentModelElement instanceof BpmnBehavior) {
+            BpmnBehavior behavior = (BpmnBehavior) currentModelElement;
+            for (BpmnProcess process : behavior.getRootElement(BpmnProcess.class)) {
+                relatedDiagrams.addAll(getRelatedDiagrams(process));
+            }
+        } else if (currentModelElement instanceof BpmnCallActivity) {
+            BpmnCallActivity callActivity = (BpmnCallActivity) currentModelElement;
+            BpmnProcess process = callActivity.getCalledProcess();
+            if (process != null) {
+                relatedDiagrams.addAll(getRelatedDiagrams(process));
+            }
+        } else if (currentModelElement instanceof CallBehaviorAction) {
+            CallBehaviorAction callBehavior = (CallBehaviorAction) currentModelElement;
+            Behavior behavior = callBehavior.getCalled();
+            if (behavior != null) {
+                relatedDiagrams.addAll(getRelatedDiagrams(behavior));
             }
         }
         return relatedDiagrams;
@@ -156,7 +186,7 @@ class RelatedDiagramsForModelBrowser {
         relatedDiagramItem.setToBeRendered(true);
         relatedDiagramItem.setVisible(true);
         
-        // bound the menu to the contributing plugin 
+        // bound the menu to the contributing plugin
         relatedDiagramItem.setContributorURI(contributorId);
         
         // set the command

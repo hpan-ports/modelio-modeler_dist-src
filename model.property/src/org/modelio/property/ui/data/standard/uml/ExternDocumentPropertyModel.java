@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -37,7 +37,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("8f1a3de1-c068-11e1-8c0a-002564c97630")
 public class ExternDocumentPropertyModel extends AbstractPropertyModel<ExternDocument> {
     @objid ("a714e9c8-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"ExternDocument", "ExternDocumentType"};
+    private static final String[] PROPERTIES = new String[] { "Property", "ExternDocumentType" };
 
     @objid ("8f1a3de9-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -58,17 +58,20 @@ public class ExternDocumentPropertyModel extends AbstractPropertyModel<ExternDoc
         
         final ModelElement context = theEditedElement.getSubject();
         
-        this.externDocumentType = new SingleElementType(false, ExternDocumentType.class, CoreSession.getSession(this.theEditedElement));
+        this.externDocumentType = new SingleElementType(false, ExternDocumentType.class,
+                CoreSession.getSession(this.theEditedElement));
         this.externDocumentType.setElementFilter(new IMObjectFilter() {
         
             @Override
             public boolean accept(final MObject element) {
-                //TODO CHM
-        //                try {
-        //                    return element != null && element.equals(ModelProperty.getInstance().getModelingSession().getModel().getMetamodelExtensions().getExternDocumentType(context.getClass(), element.getName()));
-        //                } catch (DocumentTypeNotFoundException e) {
-        //                    return false;
-        //                }
+                // TODO CHM
+                // try {
+                // return element != null &&
+                // element.equals(ModelProperty.getInstance().getModelingSession().getModel().getMetamodelExtensions().getExternDocumentType(context.getClass(),
+                // element.getName()));
+                // } catch (DocumentTypeNotFoundException e) {
+                // return false;
+                // }
                 return true;
             }
         });
@@ -102,19 +105,19 @@ public class ExternDocumentPropertyModel extends AbstractPropertyModel<ExternDoc
     @Override
     public IPropertyType getTypeAt(final int row, final int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return this.labelStringType;
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return this.labelStringType;
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return this.labelStringType;
-                    case 1:
-                        return this.externDocumentType;
-                    default:
-                        return null;
-                }
+            case 1:
+                return this.externDocumentType;
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -126,19 +129,19 @@ public class ExternDocumentPropertyModel extends AbstractPropertyModel<ExternDoc
     @Override
     public Object getValueAt(final int row, final int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return ExternDocumentPropertyModel.PROPERTIES[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getType();
-                    default:
-                        return null;
-                }
+        case 0: // col 0 is the property key
+            return ExternDocumentPropertyModel.PROPERTIES[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getType();
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -150,20 +153,20 @@ public class ExternDocumentPropertyModel extends AbstractPropertyModel<ExternDoc
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setType((ExternDocumentType) value);
                 return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setType((ExternDocumentType) value);
-                        return;
-                    default:
-                        return;
-                }
             default:
                 return;
+            }
+        default:
+            return;
         }
     }
 

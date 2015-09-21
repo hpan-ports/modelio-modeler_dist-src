@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.emf;
 
@@ -34,9 +34,11 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EAttributeImpl;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.util.EcoreValidator;
+import org.modelio.vcore.smkernel.meta.ISmMetamodelFragment;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vcore.smkernel.meta.SmDependency;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("3e32595d-bba6-11e1-ac85-001ec947ccaf")
@@ -53,6 +55,12 @@ public class ESmPackage extends EPackageImpl {
     @objid ("ad31044f-6a3f-47da-8fa0-c434b44d2bf4")
     private EDataType uuidType = null;
 
+    @objid ("a6e46415-90e1-478b-ab2c-d813841c9d80")
+    private ISmMetamodelFragment mmFragment;
+
+    @objid ("2e4c7b70-c79c-40be-b601-cecd9c16bc45")
+    private SmMetamodel metamodel;
+
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
      * 
@@ -66,11 +74,14 @@ public class ESmPackage extends EPackageImpl {
      * @generated
      */
     @objid ("bbceddbb-bc87-11e1-b576-001ec947ccaf")
-    public static ESmPackage init() {
-        if (isInited) return (ESmPackage)EPackage.Registry.INSTANCE.getEPackage(ESmPackage.eNS_URI);
+    public static ESmPackage init(SmMetamodel metamodel, ISmMetamodelFragment mmFragment) {
+        String fragUri = ESmPackage.eNS_URI + "/" + mmFragment.getProvider()+"/"+mmFragment.getName()+"/"+mmFragment.getVersion();
+        if (isInited) {
+            return (ESmPackage)EPackage.Registry.INSTANCE.getEPackage(fragUri);
+        }
         
         // Obtain or create and register package
-        ESmPackage thePackage = (ESmPackage)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ESmPackage ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ESmPackage());
+        ESmPackage thePackage = (ESmPackage)(EPackage.Registry.INSTANCE.get(fragUri) instanceof ESmPackage ? EPackage.Registry.INSTANCE.get(fragUri) : new ESmPackage(metamodel, mmFragment));
         
         isInited = true;
         
@@ -81,7 +92,7 @@ public class ESmPackage extends EPackageImpl {
         thePackage.initializePackageContents();
         
         // Register package validator
-        EValidator.Registry.INSTANCE.put(thePackage, 
+        EValidator.Registry.INSTANCE.put(thePackage,
                 new EValidator.Descriptor()
         {
             @Override
@@ -94,7 +105,7 @@ public class ESmPackage extends EPackageImpl {
         thePackage.freeze();
         
         // Update the registry and return the package
-        EPackage.Registry.INSTANCE.put(ESmPackage.eNS_URI, thePackage);
+        EPackage.Registry.INSTANCE.put(fragUri, thePackage);
         return thePackage;
     }
 
@@ -117,10 +128,12 @@ public class ESmPackage extends EPackageImpl {
 
     @objid ("bbd14004-bc87-11e1-b576-001ec947ccaf")
     private void createPackageContents() {
-        if (this.isCreated) return;
+        if (this.isCreated) {
+            return;
+        }
         this.isCreated  = true;
         
-        for (SmClass smClass : SmClass.getRegisteredClasses()) {
+        for (SmClass smClass : this.metamodel.getRegisteredMClasses(this.mmFragment)) {
             EClass ec = createEClass(smClass.getId());
             ec.setName(smClass.getName());
             ec.setInstanceClass(smClass.getJavaInterface());
@@ -156,13 +169,13 @@ public class ESmPackage extends EPackageImpl {
                 eStructuralFeatures.add(eatt);
         
             }
-            
+        
             for (SmDependency smdep : smClass.getSelfDepDef()) {
                 ++i;
                 ESmDependency edep = new ESmDependency(smdep);
                 edep.setFeatureID(i);
                 eStructuralFeatures.add(edep);
-                
+        
                 edep.setChangeable(true);
                 edep.setContainerClass(smClass.getJavaInterface());
                 edep.setContainment(smdep.isComponent());
@@ -177,21 +190,22 @@ public class ESmPackage extends EPackageImpl {
                 edep.setUpperBound(smdep.getMax());
                 edep.setVolatile(false);
             }
-            
+        
         }
     }
 
     @objid ("bbd14006-bc87-11e1-b576-001ec947ccaf")
     @SuppressWarnings("static-method")
     private void initializePackageContents() {
-        for (SmClass smClass : SmClass.getRegisteredClasses()) {
+        for (SmClass smClass : this.metamodel.getRegisteredMClasses(this.mmFragment)) {
             EClass eclass = smClass.getEmfAdapter();
         
             // initialize inheritance
             SmClass smParent = smClass.getParent();
-            if (smParent != null)
+            if (smParent != null) {
                 eclass.getESuperTypes().add(smParent.getEmfAdapter());
-            
+            }
+        
             // Finish dependency initialization
             for (SmDependency smdep : smClass.getSelfDepDef()) {
                 ESmDependency edep = (ESmDependency) smdep.getEmfAdapter();
@@ -235,6 +249,16 @@ public class ESmPackage extends EPackageImpl {
             this.uuidType.setInstanceClass(UUID.class);
         }
         return this.uuidType;
+    }
+
+    /**
+     * @param metamodel The metamodel
+     * @param mmFragment The metamodel fragment
+     */
+    @objid ("8eb735f9-df6a-4531-85ae-f3b0121a1565")
+    public ESmPackage(SmMetamodel metamodel, ISmMetamodelFragment mmFragment) {
+        this.metamodel = metamodel;
+        this.mmFragment = mmFragment;
     }
 
 }

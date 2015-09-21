@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.resource;
 
@@ -30,6 +30,7 @@ import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vstore.exml.common.RepositoryVersions;
 import org.modelio.vstore.exml.common.model.ObjId;
 
@@ -65,10 +66,11 @@ public interface IExmlResourceProvider {
 
     /**
      * Create the repository.
+     * @param mMetamodel the initial metamodel
      * @throws java.io.IOException in case of failure
      */
     @objid ("cf2f1775-03e4-11e2-b5bf-001ec947ccaf")
-    void createRepository() throws IOException;
+    void createRepository(MMetamodel mMetamodel) throws IOException;
 
     /**
      * Delete a blob

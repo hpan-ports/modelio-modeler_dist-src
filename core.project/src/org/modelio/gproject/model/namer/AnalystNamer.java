@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model.namer;
 
@@ -60,7 +60,7 @@ class AnalystNamer implements IElementNamer {
      * </ol>
      */
     @objid ("0d07e0e0-80c3-44c4-a061-99749c3cb2a3")
-    private String computeSmartName(String prefix, MObject obj, Set<String> siblings) {
+    private String computeSmartName(String prefix, Set<String> siblings) {
         int index = 0;
         
         for (String s : siblings) {
@@ -104,7 +104,7 @@ class AnalystNamer implements IElementNamer {
         if ((object instanceof AnalystElement)) { // Keep the code rock solid whatever object is passed
             // Compute siblings
             Set<String> siblings = new GetSiblingsVisitor().getSiblings((Element) object);
-            String smartName = computeSmartName(basename, object, siblings);
+            String smartName = computeSmartName(basename, siblings);
             if (smartName != null)
                 return smartName;
         }

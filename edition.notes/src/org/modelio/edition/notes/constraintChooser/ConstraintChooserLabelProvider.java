@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.notes.constraintChooser;
 
@@ -27,7 +27,6 @@ import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.edition.notes.plugin.EditionNotes;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -50,7 +49,7 @@ public class ConstraintChooserLabelProvider extends LabelProvider {
                 return image;
             }
         }
-        return MetamodelImageService.getIcon(Metamodel.getMClass(Constraint.class));
+        return MetamodelImageService.getIcon(Constraint.MNAME);
     }
 
     @objid ("26d79ef5-186f-11e2-bc4e-002564c97630")
@@ -58,12 +57,16 @@ public class ConstraintChooserLabelProvider extends LabelProvider {
     public String getText(Object element) {
         if (element instanceof ModuleComponent) {
             ModuleComponent moduleComponent = (ModuleComponent) element;
-            return moduleComponent.getName(); // TODO get label
+            String label = ModuleI18NService.getLabel(moduleComponent);
+            if (label != null && !label.isEmpty()) {
+                return label;
+            }
+            return moduleComponent.getName();
         } else if (element instanceof Stereotype) {
-            StringBuffer constraintTypeLabel = new StringBuffer();
+            StringBuilder constraintTypeLabel = new StringBuilder();
             Stereotype stereotype = (Stereotype) element;
             String label = ModuleI18NService.getLabel(stereotype);
-            if (!"".equals(label)) {
+            if (label != null && !label.isEmpty()) {
                 constraintTypeLabel.append(label);
             } else {
                 constraintTypeLabel.append(stereotype.getName());

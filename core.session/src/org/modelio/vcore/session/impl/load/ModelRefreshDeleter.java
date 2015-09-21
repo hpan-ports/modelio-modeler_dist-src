@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.load;
 
@@ -29,8 +29,6 @@ import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vcore.smkernel.meta.SmDependency;
-import org.modelio.vcore.smkernel.meta.SmMultipleDependency;
-import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 
 /**
  * Helper class that deletes model objects.
@@ -86,14 +84,14 @@ class ModelRefreshDeleter {
                     }
                 }
             }
-            
+        
             // Set all objects as deleted
             for (SmObjectImpl obj : toDelete) {
                 this.loader.doDeleteObject(obj);
             }
         
             success = true;
-            
+        
         } finally {
             if (!success) {
                 // Transaction will be rollbacked except objects state,
@@ -112,16 +110,10 @@ class ModelRefreshDeleter {
         final SmClass cls = obj.getClassOf();
         for (final SmDependency dep : cls.getAllDepDef()) {
             if (dep.isComposition() || dep.isSharedComposition()) {
-                if (dep instanceof SmSingleDependency) {
-                    SmObjectImpl c = ((SmSingleDependency)dep).getValue(obj.getData());
-                    if (c != null && !toDelete.contains(c)) {
+                Collection<SmObjectImpl> valueList = dep.getValueAsCollection(obj.getData());
+                for (SmObjectImpl c : valueList) {
+                    if (!toDelete.contains(c)) {
                         getAllComponents(c, toDelete);
-                    }
-                } else {
-                    for (SmObjectImpl c : ((SmMultipleDependency)dep).getValueList(obj.getData())) {
-                        if (!toDelete.contains(c)) {
-                            getAllComponents(c, toDelete);
-                        }
                     }
                 }
             }

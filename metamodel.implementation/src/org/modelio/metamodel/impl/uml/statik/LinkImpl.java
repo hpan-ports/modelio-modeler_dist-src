@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,33 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 9024, by Modeliosoft
+ Generator version: 3.0.01.9022
+ Generated on: 28 janv. 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 9024, by Modeliosoft
+ Generator version: 3.2.07.9022
+ Generated on: Mar 9, 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -29,8 +46,8 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.LinkData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.statik.LinkData;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.Link;
@@ -43,13 +60,14 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("01170c7c-f6f1-4d69-b50e-5f5e0b067212")
 public class LinkImpl extends ModelElementImpl implements Link {
     @objid ("8a613814-6158-4adc-a1ab-5dac81598ce7")
     @Override
     public SmObjectImpl getCompositionOwner() {
-        for (SmObjectImpl obj : this.getDepValList(LinkData.Metadata.LinkEndDep())) {
+        for (SmObjectImpl obj : this.getDepValList(((LinkSmClass) getClassOf()).getLinkEndDep())) {
             return obj;
         }
         return super.getCompositionOwner();
@@ -58,55 +76,61 @@ public class LinkImpl extends ModelElementImpl implements Link {
     @objid ("4fb95fb2-6b47-4648-9ee9-8381d233fe17")
     @Override
     public SmDepVal getCompositionRelation() {
-        for (SmObjectImpl obj : this.getDepValList(LinkData.Metadata.LinkEndDep())) 
-          return new SmDepVal(LinkData.Metadata.LinkEndDep(), obj);
+        for (SmObjectImpl obj : this.getDepValList(((LinkSmClass) getClassOf()).getLinkEndDep())) {
+            return new SmDepVal(((LinkSmClass) getClassOf()).getLinkEndDep(), obj);
+        }
         return super.getCompositionRelation();
     }
 
-    @objid ("be5d02eb-ccdb-436f-8b04-1a2dfa69364c")
+    @objid ("9d89d8f5-7e87-44bf-951d-d3935268603c")
     @Override
     public Association getModel() {
-        return (Association) getDepVal(LinkData.Metadata.ModelDep());
+        Object obj = getDepVal(((LinkSmClass)getClassOf()).getModelDep());
+        return (obj instanceof Association)? (Association)obj : null;
     }
 
-    @objid ("98f20deb-8085-4ae6-b199-f1e51817511e")
+    @objid ("455f054b-82b5-46d1-9684-6a48383dd2c4")
     @Override
     public void setModel(Association value) {
-        appendDepVal(LinkData.Metadata.ModelDep(), (SmObjectImpl)value);
+        appendDepVal(((LinkSmClass)getClassOf()).getModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a115d9d4-4691-4056-9790-16dab52a795f")
+    @objid ("996b4520-116b-4fad-8e24-900ea538fbf3")
     @Override
     public EList<LinkEnd> getLinkEnd() {
-        return new SmList<>(this, LinkData.Metadata.LinkEndDep());
+        return new SmList<>(this, ((LinkSmClass)getClassOf()).getLinkEndDep());
     }
 
-    @objid ("a1145674-b1d7-4d93-9063-a790d7a2cb59")
+    @objid ("7eee8010-6700-4241-853f-278d2e218a48")
     @Override
     public <T extends LinkEnd> List<T> getLinkEnd(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final LinkEnd element : getLinkEnd()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("355d9f56-18e5-4f3e-9b4f-6c87a6602dae")
+    @objid ("7034f75d-b3ad-4285-86c0-66f2dc90e8a4")
     @Override
     public CommunicationChannel getSent() {
-        return (CommunicationChannel) getDepVal(LinkData.Metadata.SentDep());
+        Object obj = getDepVal(((LinkSmClass)getClassOf()).getSentDep());
+        return (obj instanceof CommunicationChannel)? (CommunicationChannel)obj : null;
     }
 
-    @objid ("b198b917-22a8-4640-85ce-d1d62df674ab")
+    @objid ("9163e6dd-bf73-4bdc-acd7-97a101aa8b36")
     @Override
     public void setSent(CommunicationChannel value) {
-        appendDepVal(LinkData.Metadata.SentDep(), (SmObjectImpl)value);
+        appendDepVal(((LinkSmClass)getClassOf()).getSentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c702a3d6-5959-4435-bef9-cc59125fd255")
+    @objid ("d33ffc6c-cda7-4d8c-91d9-0767ea3ca258")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitLink(this);

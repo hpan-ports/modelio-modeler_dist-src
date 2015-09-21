@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -61,7 +61,7 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
      * </ul>
      */
     @objid ("a6c3fb08-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "NaryConnectorEnd", "LinkName", "Base", "ConnectorRepresentedFeature",
+    private static final String[] PROPERTIES = new String[] { "Property", "LinkName", "Base", "ConnectorRepresentedFeature",
             "Linked", "Name", "ConnectorEndRepresentedFeature", "MultiplicityMin", "MultiplicityMax", "IsOrdered", "IsUnique" };
 
     @objid ("8ef41864-c068-11e1-8c0a-002564c97630")
@@ -264,6 +264,9 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
     @objid ("8ef59ef2-c068-11e1-8c0a-002564c97630")
     public ConnectorEndNPropertyModel(NaryConnectorEnd theConnectorEnd) {
         super(theConnectorEnd);
+        
+        ICoreSession session = CoreSession.getSession(this.theEditedElement);
+        
         this.theLink = theConnectorEnd.getNaryLink();
         
         // Order the displayed roles as following:
@@ -284,7 +287,6 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
         this.stringType = new StringType(true);
         this.booleanType = new BooleanType();
         
-        ICoreSession session = CoreSession.getSession(this.theEditedElement);
         this.assocType = new SingleElementType(true, NaryAssociation.class, session);
         this.linkedType = new SingleElementType(false, Instance.class, session);
         
@@ -292,13 +294,13 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
         connectorRepresentedFeatureValues.add(Attribute.class);
         connectorRepresentedFeatureValues.add(NaryAssociation.class);
         connectorRepresentedFeatureValues.add(NaryLink.class);
-        this.connectorRepresentedFeatureType = new SingleElementType(true, connectorRepresentedFeatureValues);
+        this.connectorRepresentedFeatureType = new SingleElementType(true, connectorRepresentedFeatureValues, session);
         
         List<java.lang.Class<? extends MObject>> connectorEndRepresentedFeatureValues = new ArrayList<>();
         connectorEndRepresentedFeatureValues.add(Attribute.class);
         connectorEndRepresentedFeatureValues.add(AssociationEnd.class);
         connectorEndRepresentedFeatureValues.add(NaryConnectorEnd.class);
-        this.connectorEndRepresentedFeatureType = new SingleElementType(true, connectorEndRepresentedFeatureValues);
+        this.connectorEndRepresentedFeatureType = new SingleElementType(true, connectorEndRepresentedFeatureValues, session);
         
         List<String> cardinalityMinValues = new ArrayList<>();
         cardinalityMinValues.add("0");

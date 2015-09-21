@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
@@ -30,6 +29,7 @@ import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityCh
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
 import org.modelio.vcore.smkernel.mapi.MDependency;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * E238:
@@ -48,12 +48,12 @@ public class E238Checker extends DepCardinalityChecker {
 
     @objid ("009238a8-e472-1f69-b3fb-001ec947cd2a")
     @Override
-    public void register(final Plan plan) {
+    public void register(final Plan plan, SmMetamodel smMetamodel) {
         // trigger=create, metaclass=CombinedFragment, feature=null
-        plan.registerChecker(this, Metamodel.getMClass(CombinedFragment.class), TriggerType.Create, null);
+        plan.registerChecker(this, smMetamodel.getMClass(CombinedFragment.class), TriggerType.Create, null);
         
         // trigger=create, metaclass=CombinedFragment, feature=Operand
-        plan.registerChecker(this, Metamodel.getMClass(CombinedFragment.class), TriggerType.Update, DEPNAME);
+        plan.registerChecker(this, smMetamodel.getMClass(CombinedFragment.class), TriggerType.Update, DEPNAME);
     }
 
     @objid ("00636f32-9e33-1f6c-bf9a-001ec947cd2a")

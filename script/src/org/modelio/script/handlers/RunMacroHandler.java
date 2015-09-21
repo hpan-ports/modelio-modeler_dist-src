@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.script.handlers;
 
@@ -60,36 +60,34 @@ public class RunMacroHandler {
                 }
             }
         }
-        if (part.getContext() == null) {
-            // Create script view if it is not created yet in order to run the script
-            if (!partService.isPartVisible(part)) {
-                partService.showPart(part, PartState.CREATE);
+        if (part !=null) {
+            if (part.getContext() == null) {
+                // Create script view if it is not created yet in order to run the script
+                if (!partService.isPartVisible(part)) {
+                    partService.showPart(part, PartState.CREATE);
+                }
             }
-        }
-        else {
-            //Force the activation of the script view
-            if (part !=null)
+            else {
+                //Force the activation of the script view
                 partService.showPart(part, PartState.ACTIVATE);
+            }
+        
+            // Activate the part to give it focus
+            partService.activate(part);
+        
+            ScriptView scriptView = (ScriptView) part.getObject();
+        
+            final IScriptRunner scriptRunner = scriptView.getScriptRunner();
+        
+            scriptView.getOutputWriter();
+            ScriptViewSelectionGetter selectionGetter = scriptView.getSelectionGetter();
+            scriptRunner.runFile(Paths.get(file), selectionGetter.getSelection(), selectionGetter.getSelectedElements());
         }
-        
-        // Activate the part to give it focus
-        partService.activate(part);
-        
-        ScriptView scriptView = (ScriptView) part.getObject();
-        
-        final IScriptRunner scriptRunner = scriptView.getScriptRunner();
-        
-        scriptView.getOutputWriter();
-        ScriptViewSelectionGetter selectionGetter = scriptView.getSelectionGetter();
-        scriptRunner.runFile(Paths.get(file), selectionGetter.getSelection(), selectionGetter.getSelectedElements());
     }
 
     @objid ("69b79019-f73d-45ac-8d85-fed5b5cbd2ad")
     @CanExecute
-    public boolean isEnable(EPartService partService) {
-        /* MPart part = partService.findPart(ScriptView.PARTID);
-        return part != null;*/
-        //The method execute() must show the macro view in all cases
+    public boolean isEnable() {
         return true;
     }
 

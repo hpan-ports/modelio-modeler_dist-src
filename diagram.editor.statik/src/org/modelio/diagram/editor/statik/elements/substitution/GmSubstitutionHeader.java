@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.substitution;
 
-import java.util.Collections;
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
-import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -36,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * @author cmarin
  */
 @objid ("0c4d1283-443b-475e-945f-a1bf59e82e16")
-public class GmSubstitutionHeader extends GmDefaultModelElementHeader {
+public class GmSubstitutionHeader extends GmDefaultModelElementLabel {
     /**
      * Current version of this Gm. Defaults to 0.
      */
@@ -61,18 +57,6 @@ public class GmSubstitutionHeader extends GmDefaultModelElementHeader {
      */
     @objid ("49ace891-9dca-4580-9b52-a3836522241c")
     public GmSubstitutionHeader() {
-    }
-
-    @objid ("671be1dd-a584-42ac-9807-5619fd508da0")
-    @Override
-    public List<Stereotype> filterStereotypes(List<Stereotype> stereotypes) {
-        return stereotypes;
-    }
-
-    @objid ("062614ad-7656-4e54-b537-28ff8b18227e")
-    @Override
-    public List<StyleKey> getStyleKeys() {
-        return Collections.emptyList();
     }
 
     @objid ("aaca4d01-f82f-41cb-a730-37e05ea9c1f3")

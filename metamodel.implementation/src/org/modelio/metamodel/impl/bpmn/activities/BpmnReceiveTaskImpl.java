@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -31,7 +43,7 @@ import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.activities.BpmnReceiveTask;
 import org.modelio.metamodel.bpmn.bpmnService.BpmnOperation;
 import org.modelio.metamodel.bpmn.flows.BpmnMessage;
-import org.modelio.metamodel.data.bpmn.activities.BpmnReceiveTaskData;
+import org.modelio.metamodel.impl.bpmn.activities.BpmnReceiveTaskData;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
@@ -41,84 +53,93 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0081a92a-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnReceiveTaskImpl extends BpmnTaskImpl implements BpmnReceiveTask {
-    @objid ("e6ad0053-bf0f-4750-b0e1-c5a9489e9706")
+    @objid ("a64813d1-5deb-4395-a3d3-1de809a8c1a0")
     @Override
     public String getImplementation() {
-        return (String) getAttVal(BpmnReceiveTaskData.Metadata.ImplementationAtt());
+        return (String) getAttVal(((BpmnReceiveTaskSmClass)getClassOf()).getImplementationAtt());
     }
 
-    @objid ("5ca16231-e7e1-43a8-a576-7fd22b560c9d")
+    @objid ("e362a60c-640a-42ca-b5ea-a9ce4a4c3c89")
     @Override
     public void setImplementation(String value) {
-        setAttVal(BpmnReceiveTaskData.Metadata.ImplementationAtt(), value);
+        setAttVal(((BpmnReceiveTaskSmClass)getClassOf()).getImplementationAtt(), value);
     }
 
-    @objid ("b045f588-b565-44ee-895e-acf303614d86")
+    @objid ("457f315f-7fac-4470-bb82-d5a497798e03")
     @Override
     public boolean isInstanciate() {
-        return (Boolean) getAttVal(BpmnReceiveTaskData.Metadata.InstanciateAtt());
+        return (Boolean) getAttVal(((BpmnReceiveTaskSmClass)getClassOf()).getInstanciateAtt());
     }
 
-    @objid ("cb600191-328c-4af2-9dc7-eccfad80f78a")
+    @objid ("e3627a88-ee00-417d-b51b-80974e1b0836")
     @Override
     public void setInstanciate(boolean value) {
-        setAttVal(BpmnReceiveTaskData.Metadata.InstanciateAtt(), value);
+        setAttVal(((BpmnReceiveTaskSmClass)getClassOf()).getInstanciateAtt(), value);
     }
 
-    @objid ("d60e8ffd-0f85-4e69-8881-828feb8e2221")
+    @objid ("cfc8d165-c29f-4280-a5d1-ac1fef966870")
     @Override
     public BpmnMessage getMessageRef() {
-        return (BpmnMessage) getDepVal(BpmnReceiveTaskData.Metadata.MessageRefDep());
+        Object obj = getDepVal(((BpmnReceiveTaskSmClass)getClassOf()).getMessageRefDep());
+        return (obj instanceof BpmnMessage)? (BpmnMessage)obj : null;
     }
 
-    @objid ("c11d9d56-330d-491a-a6fb-f4fbbd5a7c93")
+    @objid ("1a7f7efa-8ae5-43f0-97ac-930c482e2739")
     @Override
     public void setMessageRef(BpmnMessage value) {
-        appendDepVal(BpmnReceiveTaskData.Metadata.MessageRefDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnReceiveTaskSmClass)getClassOf()).getMessageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bbc755dd-4feb-43d4-9154-3f96aa0bc8e4")
+    @objid ("acc554e2-a720-43ea-8434-10657367b39a")
     @Override
     public BpmnOperation getOperationRef() {
-        return (BpmnOperation) getDepVal(BpmnReceiveTaskData.Metadata.OperationRefDep());
+        Object obj = getDepVal(((BpmnReceiveTaskSmClass)getClassOf()).getOperationRefDep());
+        return (obj instanceof BpmnOperation)? (BpmnOperation)obj : null;
     }
 
-    @objid ("8ee1fb19-ca0f-4db8-bac3-b2eff641b69f")
+    @objid ("95935af0-836b-40ea-9ba3-4cf4be6d48fd")
     @Override
     public void setOperationRef(BpmnOperation value) {
-        appendDepVal(BpmnReceiveTaskData.Metadata.OperationRefDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnReceiveTaskSmClass)getClassOf()).getOperationRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("709fdf99-6355-46b0-a540-91783331172e")
+    @objid ("6051d563-cbf5-4631-befb-a7cd92ea7452")
     @Override
     public Operation getCalledOperation() {
-        return (Operation) getDepVal(BpmnReceiveTaskData.Metadata.CalledOperationDep());
+        Object obj = getDepVal(((BpmnReceiveTaskSmClass)getClassOf()).getCalledOperationDep());
+        return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("7336134e-e753-4d9c-bc64-45d18946c285")
+    @objid ("ea417b12-e1b1-41f1-bbb6-8a971d45b8b4")
     @Override
     public void setCalledOperation(Operation value) {
-        appendDepVal(BpmnReceiveTaskData.Metadata.CalledOperationDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnReceiveTaskSmClass)getClassOf()).getCalledOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0ec12461-5d65-4ed1-b75a-1a8030a87905")
+    @objid ("ab29a01c-6562-4710-b3ab-754e471b3ded")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("347a4fde-9e94-4ab8-af08-c38455c3767e")
+    @objid ("3558c059-0495-477a-a086-dc375e5b65b4")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("b5290c56-73e3-4c33-87e4-b8d4668d739e")
+    @objid ("be8c14d2-97d4-400b-8e94-39e2a366aa74")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnReceiveTask(this);

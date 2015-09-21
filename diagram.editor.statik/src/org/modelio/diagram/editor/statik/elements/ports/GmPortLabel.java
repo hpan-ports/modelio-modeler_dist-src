@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,29 +12,20 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.ports;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
-import org.modelio.diagram.elements.core.model.IEditableText;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
-import org.modelio.diagram.styles.core.IStyle;
-import org.modelio.diagram.styles.core.MetaKey;
-import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
-import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -44,7 +35,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * @author fpoyer
  */
 @objid ("36439b18-55b7-11e2-877f-002564c97630")
-public class GmPortLabel extends GmModelElementFlatHeader {
+public class GmPortLabel extends GmDefaultModelElementLabel {
     /**
      * Current version of this Gm. Defaults to 0.
      */
@@ -61,63 +52,9 @@ public class GmPortLabel extends GmModelElementFlatHeader {
     public GmPortLabel() {
     }
 
-    @objid ("36439b24-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<Stereotype> filterStereotypes(final List<Stereotype> stereotypes) {
-        // Check the current representation mode
-        final StyleKey key = getStyleKey(MetaKey.REPMODE);
-        if (key != null) {
-            // For image mode, filter the first image stereotype
-            if (getStyle().getProperty(key) == RepresentationMode.IMAGE) {
-                for (Stereotype stereo : stereotypes) {
-                    if (!stereo.getIcon().isEmpty()) {
-                        List<Stereotype> ret = new ArrayList<>(stereotypes);
-                        ret.remove(stereo);
-                        return ret;
-                    }
-                }
-            }
-        }
-        return stereotypes;
-    }
-
-    @objid ("36439b33-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<TaggedValue> filterTags(final List<TaggedValue> taggedValues) {
-        return taggedValues;
-    }
-
-    @objid ("364521a3-55b7-11e2-877f-002564c97630")
-    @Override
-    public IEditableText getEditableText() {
-        if (getRelatedElement() == null)
-            return null;
-        return new IEditableText() {
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
-                    }
-                
-                    @Override
-                    public void setText(String text) {
-        getRelatedElement().setName(text);
-                    }
-                };
-    }
-
-    @objid ("364521aa-55b7-11e2-877f-002564c97630")
-    @Override
-    public boolean isVisible() {
-        final StyleKey key = getParent().getStyleKey(MetaKey.SHOWLABEL);
-        if (key == null)
-            return true;
-        else
-            return getStyle().getProperty(key);
-    }
-
     @objid ("364521ae-55b7-11e2-877f-002564c97630")
     @Override
-    protected String computeLabel() {
+    protected String computeMainLabel() {
         String mlabel = null;
         String baseName = null;
         
@@ -149,23 +86,6 @@ public class GmPortLabel extends GmModelElementFlatHeader {
             s.append(baseName);
         }
         return s.toString();
-    }
-
-    @objid ("364521b3-55b7-11e2-877f-002564c97630")
-    @Override
-    public void styleChanged(final IStyle changedStyle) {
-        fireVisibilityChanged();
-        super.styleChanged(changedStyle);
-    }
-
-    @objid ("364521ba-55b7-11e2-877f-002564c97630")
-    @Override
-    public void styleChanged(final StyleKey property, final Object newValue) {
-        final StyleKey key = getParent().getStyleKey(MetaKey.SHOWLABEL);
-        if (key != null && key.equals(property))
-            fireVisibilityChanged();
-        else
-            super.styleChanged(property, newValue);
     }
 
     /**

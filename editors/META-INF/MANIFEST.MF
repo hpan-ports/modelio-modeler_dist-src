@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Text Editors
 Bundle-SymbolicName: org.modelio.editors.texteditors;singleton:=true
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: res/,
@@ -23,7 +23,7 @@ Require-Bundle: org.eclipse.jface,
  org.modelio.api,
  org.modelio.metamodel.emfapi,
  org.eclipse.e4.core.contexts,
- org.modelio.app.core,
+ org.modelio.core.help,
  org.eclipse.e4.ui.model.workbench
 Service-Component: OSGI-INF/documentInputProviderFunction.xml
 Export-Package: org.modelio.editors.service

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.notes.panelprovider;
 
@@ -84,12 +84,6 @@ public class NotesPanelProvider implements IPanelProvider {
     @objid ("9bfa727e-bb60-4a0d-858a-b6eceebc3f4b")
     private NotesPanelController controller;
 
-    /**
-     * The GUI view
-     */
-    @objid ("3225ab83-6032-4d2d-80e8-e4133417ec16")
-    private NotesPanelView view;
-
     @objid ("1da1ad58-1162-44f5-8c57-9e79adc0e3b7")
     private IMModelServices modelServices;
 
@@ -97,30 +91,28 @@ public class NotesPanelProvider implements IPanelProvider {
     private ICoreSession session;
 
     /**
-     * Constructor.
+     * The GUI view
+     */
+    @objid ("3225ab83-6032-4d2d-80e8-e4133417ec16")
+    private NotesPanelView view;
+
+    /**
+     * Constructor to be used if you want to use Eclipse E4 injection service.
+     * @see #NotesPanelProvider(EContextService, IActivationService)
      */
     @objid ("0e8d446f-569f-4968-8a2e-87edfb1f527e")
     public NotesPanelProvider() {
     }
 
     /**
-     * Activate the 'double-click' activation by setting 'activationService' to a not null value.<br/>
-     * De-activate the 'double-click' activation by setting 'activationService' to a null value.
-     * @param activationService the activation service or null
+     * Constructor to use if you don't use Eclipse E4 injection.
+     * @param contextService the E4 context service, null allowed.
+     * @param theActivationService Activate the 'double-click' activation by setting 'activationService' to a not <i>null</i> value.<br/>
+     * De-activate the 'double-click' activation by setting 'activationService' to a <i>null</i> value.
      */
-    @objid ("2f41c272-9cf6-4699-948b-786aadaa030e")
-    public void setActivationService(IActivationService activationService) {
-        this.activationService = activationService;
-        this.controller.setActivationService(activationService);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @objid ("fca2f79d-eafe-45f4-a5ed-d4a5776d5b2c")
-    @Override
-    public Composite getPanel() {
-        return this.view.getComposite();
+    @objid ("afd40f98-1ad0-46c2-be26-db55f91d28c2")
+    public NotesPanelProvider(EContextService contextService, @Optional IActivationService theActivationService) {
+        postConstruct(contextService, theActivationService);
     }
 
     /**
@@ -136,10 +128,95 @@ public class NotesPanelProvider implements IPanelProvider {
         return this.view.getComposite();
     }
 
+    @objid ("861d08ac-ba1a-45f6-9556-f0dd460ae7ef")
+    @Override
+    public void dispose() {
+        this.controller.dispose();
+        this.controller = null;
+    }
+
+    @objid ("2e4521ff-e581-4d98-845e-9d5402f616d2")
+    @Override
+    public String getHelpTopic() {
+        return null;
+    }
+
     @objid ("bb7e1a75-4bd6-441d-8705-da8d5499d63f")
     @Override
     public ModelElement getInput() {
         return this.controller.getInput();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @objid ("fca2f79d-eafe-45f4-a5ed-d4a5776d5b2c")
+    @Override
+    public Composite getPanel() {
+        return this.view.getComposite();
+    }
+
+    /**
+     * @return the selected notes/tags/stereotypes ...
+     */
+    @objid ("60b95b64-f852-44a9-8233-9af68f8e744c")
+    public List<ModelElement> getSelectedNotes() {
+        return this.view.getSelectedNotes();
+    }
+
+    /**
+     * @return the notes panel tree viewer.
+     */
+    @objid ("5b61359c-a02c-4547-aadc-8b0907cfd0ff")
+    public TreeViewer getTreeViewer() {
+        return this.view.getTreeViewer();
+    }
+
+    @objid ("53fc7f80-b354-440d-9a7c-a507e9fe3de8")
+    @Override
+    public boolean isRelevantFor(Object obj) {
+        return true;
+    }
+
+    /**
+     * Called by E4 event broker : Navigates to the given note, constrain or rich note.
+     * <p>
+     * Other elements are ignored.
+     * @param target the element to set as input
+     */
+    @objid ("7806c658-7cea-4bed-b493-f50aabbdb666")
+    @Optional
+    @Inject
+    public void navigateTo(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final Element target) {
+        if (!this.getPanel().isDisposed()) {
+            if (target instanceof Note || target instanceof Constraint || target instanceof ExternDocument) {
+                setInput(target);
+            }
+        }
+    }
+
+    /**
+     * Activate the 'double-click' activation by setting 'activationService' to a not <i>null</i> value.<br/>
+     * De-activate the 'double-click' activation by setting 'activationService' to a <i>null</i> value.
+     * @param activationService the activation service or null
+     */
+    @objid ("2f41c272-9cf6-4699-948b-786aadaa030e")
+    public void setActivationService(IActivationService activationService) {
+        if (this.controller==null)
+            throw new IllegalStateException(); // call postConstruct() or use other constructor
+        
+        this.activationService = activationService;
+        this.controller.setActivationService(activationService);
+    }
+
+    /**
+     * Give the focus to the panel
+     */
+    @objid ("c480222e-5cb1-4231-a9af-5cd043b0a60e")
+    public void setFocus() {
+        if (this.view != null) {
+            this.view.getComposite().setFocus();
+        }
     }
 
     /**
@@ -163,16 +240,13 @@ public class NotesPanelProvider implements IPanelProvider {
         }
     }
 
-    @objid ("53fc7f80-b354-440d-9a7c-a507e9fe3de8")
-    @Override
-    public boolean isRelevantFor(Object obj) {
-        return true;
-    }
-
-    @objid ("2e4521ff-e581-4d98-845e-9d5402f616d2")
-    @Override
-    public String getHelpTopic() {
-        return null;
+    /**
+     * Select the given annotation element.
+     * @param select the annotation to select
+     */
+    @objid ("ec2d1ce6-37fd-4a68-b4ec-afbeacefe999")
+    public void setSelected(ModelElement select) {
+        this.controller.setInputs(getInput(), select);
     }
 
     /**
@@ -189,7 +263,7 @@ public class NotesPanelProvider implements IPanelProvider {
     }
 
     /**
-     * @param project
+     * @param project the edited project
      */
     @objid ("891e9a63-b807-4914-bf0a-887f7045de2b")
     private void activatePanel(GProject project) {
@@ -211,75 +285,6 @@ public class NotesPanelProvider implements IPanelProvider {
         
         this.modelServices = null;
         this.session = null;
-    }
-
-    @objid ("c5e13f6d-796a-4316-ab95-f351482998e9")
-    @Deprecated
-    private void __setProject(GProject project) {
-        if (project != null) {
-            activatePanel(project);
-        } else {
-            deactivatePanel();
-        }
-    }
-
-    /**
-     * Called by E4 event broker : Navigates to the given note, constrain or rich note.
-     * <p>
-     * Other elements are ignored.
-     * @param target the element to set as input
-     */
-    @objid ("7806c658-7cea-4bed-b493-f50aabbdb666")
-    @Optional
-    @Inject
-    public void navigateTo(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final Element target) {
-        if (!this.getPanel().isDisposed()) {
-            if (target instanceof Note || target instanceof Constraint || target instanceof ExternDocument) {
-                setInput(target);
-            }
-        }
-    }
-
-    /**
-     * Give the focus to the panel
-     */
-    @objid ("c480222e-5cb1-4231-a9af-5cd043b0a60e")
-    public void setFocus() {
-        if (this.view != null) {
-            this.view.getComposite().setFocus();
-        }
-    }
-
-    /**
-     * @return the notes panel tree viewer.
-     */
-    @objid ("5b61359c-a02c-4547-aadc-8b0907cfd0ff")
-    public TreeViewer getTreeViewer() {
-        return this.view.getTreeViewer();
-    }
-
-    /**
-     * @return the selected notes/tags/stereotypes ...
-     */
-    @objid ("60b95b64-f852-44a9-8233-9af68f8e744c")
-    public List<ModelElement> getSelectedNotes() {
-        return this.view.getSelectedNotes();
-    }
-
-    /**
-     * Select the given annotation element.
-     * @param select the annotation to select
-     */
-    @objid ("ec2d1ce6-37fd-4a68-b4ec-afbeacefe999")
-    public void setSelected(ModelElement select) {
-        this.controller.setInputs(getInput(), select);
-    }
-
-    @objid ("861d08ac-ba1a-45f6-9556-f0dd460ae7ef")
-    @Override
-    public void dispose() {
-        this.controller.dispose();
-        this.controller = null;
     }
 
 }

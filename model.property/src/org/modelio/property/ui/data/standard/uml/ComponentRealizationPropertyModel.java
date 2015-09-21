@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -43,12 +43,12 @@ public class ComponentRealizationPropertyModel extends AbstractPropertyModel<Com
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("bbc2e3fc-613e-4650-978a-8714f32299ce")
-    private static final String[] PROPERTIES = new String[] {"ComponentRealization", "Name", "Abstraction", "RealizingClassifier"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "Abstraction", "RealizingClassifier" };
 
     @objid ("1bf19b67-b851-4f17-a898-650bed39cc03")
     private StringType labelStringType;
@@ -112,16 +112,16 @@ public class ComponentRealizationPropertyModel extends AbstractPropertyModel<Com
             return ComponentRealizationPropertyModel.PROPERTIES[row];
         case 1: // col 1 is the property value
             switch (row) {
-                case 0: // Header
-                    return "Value";
-                case 1:
-                    return this.theEditedElement.getName();
-                case 2:
-                    return this.theEditedElement.getAbstraction();
-                case 3 :
-                    return this.theEditedElement.getRealizingClassifier();
-                default:
-                    return null;
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return this.theEditedElement.getAbstraction();
+            case 3:
+                return this.theEditedElement.getRealizingClassifier();
+            default:
+                return null;
             }
         default:
             return null;
@@ -131,8 +131,7 @@ public class ComponentRealizationPropertyModel extends AbstractPropertyModel<Com
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -147,16 +146,16 @@ public class ComponentRealizationPropertyModel extends AbstractPropertyModel<Com
             return this.labelStringType;
         case 1: // col 1 is the property value type
             switch (row) {
-                case 0: // Header
-                    return this.labelStringType;
-                case 1:
-                    return this.stringType;
-                case 2:
-                    return this.abstractionType;
-                case 3 :
-                    return this.realizerType;
-                default:
-                    return null;
+            case 0: // Header
+                return this.labelStringType;
+            case 1:
+                return this.stringType;
+            case 2:
+                return this.abstractionType;
+            case 3:
+                return this.realizerType;
+            default:
+                return null;
             }
         default:
             return null;
@@ -179,21 +178,21 @@ public class ComponentRealizationPropertyModel extends AbstractPropertyModel<Com
             return;
         case 1: // col 1 is the property value
             switch (row) {
-                case 0:
-                    return; // Header cannot be modified
-                case 1:
-                    this.theEditedElement.setName((String) value);
-                    break;
-                case 2:
-                    this.theEditedElement.setAbstraction((Component) value);
-                    break;
-                case 3 :
-                    this.theEditedElement.setRealizingClassifier((Classifier) value);
-                    break;
-                default:
-                    return;
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                this.theEditedElement.setAbstraction((Component) value);
+                break;
+            case 3:
+                this.theEditedElement.setRealizingClassifier((Classifier) value);
+                break;
+            default:
+                return;
             }
-              break;
+            break;
         default:
             return;
         }

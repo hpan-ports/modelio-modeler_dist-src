@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.api.impl.model;
 
 import java.util.List;
@@ -9,6 +30,7 @@ import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 /**
@@ -24,6 +46,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
  * <li>Tag types ({@link TagType})</li>
  * <li>Note types ({@link NoteType})</li>
  * <li>RichNote types ({@link ExternDocumentType})</li>
+ * <li>PropertyDefinitions ({@link PropertyDefinition})</li>
  * </ul>
  */
 @objid ("6409a672-168b-4358-9ee1-08bfbdb44335")
@@ -190,6 +213,18 @@ public class MetamodelExtensions implements IMetamodelExtensions {
     @Override
     public String getLabel(ExternDocumentType docType) {
         return ModuleI18NService.getLabel(docType);
+    }
+
+    @objid ("be72b2a5-b041-4d83-984a-9d04a2d87a5a")
+    @Override
+    public String getLabel(PropertyDefinition pdef) {
+        return ModuleI18NService.getLabel(pdef);
+    }
+
+    @objid ("dd400467-a0ce-4c9c-9c82-6049ed06e9a1")
+    @Override
+    public String getDescription(PropertyDefinition pdef) {
+        return ModuleI18NService.getDescription(pdef);
     }
 
 }

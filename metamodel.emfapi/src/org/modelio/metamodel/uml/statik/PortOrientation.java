@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.metamodel.uml.statik;
 
@@ -25,10 +25,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.Enumerator;
 
+/**
+ * PortOrientation v0.0.9054
+ * 
+ * 
+ * null
+ */
 @objid ("00741616-7948-1fe9-b4b9-001ec947cd2a")
-public enum PortOrientation implements Enumerator {
+public enum PortOrientation {
     NONE (0, "None", "None"),
     IN (1, "In", "In"),
     OUT (2, "Out", "Out"),

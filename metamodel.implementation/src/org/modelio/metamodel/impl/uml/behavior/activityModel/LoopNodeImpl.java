@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.activityModel.LoopNodeData;
+import org.modelio.metamodel.impl.uml.behavior.activityModel.LoopNodeData;
 import org.modelio.metamodel.uml.behavior.activityModel.LoopNode;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
@@ -38,60 +50,66 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00376270-c4bf-1fd8-97fe-001ec947cd2a")
 public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode {
-    @objid ("26d5f405-9646-468b-b6f4-967550b92d47")
+    @objid ("7c31a9b4-c42b-4bca-8431-88389281f7a2")
     @Override
     public boolean isIsTestedFirst() {
-        return (Boolean) getAttVal(LoopNodeData.Metadata.IsTestedFirstAtt());
+        return (Boolean) getAttVal(((LoopNodeSmClass)getClassOf()).getIsTestedFirstAtt());
     }
 
-    @objid ("2cc98624-78b1-436f-8d80-d7bfe11d2648")
+    @objid ("043acd95-ed55-4611-a386-44344fb81e92")
     @Override
     public void setIsTestedFirst(boolean value) {
-        setAttVal(LoopNodeData.Metadata.IsTestedFirstAtt(), value);
+        setAttVal(((LoopNodeSmClass)getClassOf()).getIsTestedFirstAtt(), value);
     }
 
-    @objid ("cc476195-638e-4b60-aca1-f9e2ab64d317")
+    @objid ("e06e759e-e410-4e0e-a4f4-237cb3fb125f")
     @Override
     public String getSetup() {
-        return (String) getAttVal(LoopNodeData.Metadata.SetupAtt());
+        return (String) getAttVal(((LoopNodeSmClass)getClassOf()).getSetupAtt());
     }
 
-    @objid ("16958910-8255-42f5-b140-93e10a8c1b54")
+    @objid ("0c034fb4-0f3c-4a2f-b5db-e7bb3d77d6f6")
     @Override
     public void setSetup(String value) {
-        setAttVal(LoopNodeData.Metadata.SetupAtt(), value);
+        setAttVal(((LoopNodeSmClass)getClassOf()).getSetupAtt(), value);
     }
 
-    @objid ("ce5716fa-742b-4f9b-8268-3da5dc0215f8")
+    @objid ("42cefc8c-922b-4f36-97f6-9db3e4ea0116")
     @Override
     public String getTest() {
-        return (String) getAttVal(LoopNodeData.Metadata.TestAtt());
+        return (String) getAttVal(((LoopNodeSmClass)getClassOf()).getTestAtt());
     }
 
-    @objid ("9350a31d-8607-4d0a-abe2-0d44b0edcf09")
+    @objid ("eeccd4c7-d9ec-4094-aebc-d910d7546668")
     @Override
     public void setTest(String value) {
-        setAttVal(LoopNodeData.Metadata.TestAtt(), value);
+        setAttVal(((LoopNodeSmClass)getClassOf()).getTestAtt(), value);
     }
 
-    @objid ("a7acdb9e-864c-4bf7-a216-b1d648360f7e")
+    @objid ("020169fe-eae9-48df-ac3d-831dc970fac1")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("ee81b85e-204a-45e3-ace8-69809fd80f3d")
+    @objid ("c201b1e0-fcc2-47e3-aaac-a8ae9e2d7c11")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("fd7aff4e-3faa-4a6c-9094-3e6243c32db5")
+    @objid ("157e1b3d-a1af-45a9-bc63-6793185a92ce")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitLoopNode(this);

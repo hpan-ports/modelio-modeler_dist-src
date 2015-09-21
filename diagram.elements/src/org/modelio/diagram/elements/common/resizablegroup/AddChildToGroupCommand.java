@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.resizablegroup;
 
@@ -34,6 +34,7 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -69,8 +70,9 @@ public class AddChildToGroupCommand extends Command {
     public AddChildToGroupCommand(EditPart parentEditPart, ModelioCreationContext context, GmNodeModel insertAfter, int newConstraint) {
         this.parentNode = (GmCompositeNode) parentEditPart.getModel();
         this.parentElement = this.parentNode.getRelatedElement();
-        if (this.parentElement instanceof AbstractDiagram)
+        if (this.parentElement instanceof AbstractDiagram) {
             this.parentElement = ((AbstractDiagram) this.parentElement).getOrigin();
+        }
         this.context = context;
         this.insertAfter = insertAfter;
         this.newConstraint = newConstraint;
@@ -97,26 +99,26 @@ public class AddChildToGroupCommand extends Command {
     private void executeCreation(final GmAbstractDiagram diagram) {
         MObject newElement;
         ModelManager modelManager = diagram.getModelManager();
+        MExpert mExpert = modelManager.getMetamodel().getMExpert();
+        
         // Create the Element...
         final IModelFactory modelFactory = modelManager.getModelFactory(this.parentElement);
         newElement = modelFactory.createElement(this.context.getMetaclass());
         
         // ... and attach it to its parent.
         try {
-            MDependency dependency;
-            String dependencyName = this.context.getDependency();
-            if (dependencyName == null) {
+            MDependency dependency = this.context.getDependency();
+        
+            if (dependency == null) {
                 // No dependency provided by context, fetch the default one.
-                dependency = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, newElement);
-            } else {
-                dependency = this.parentElement.getMClass().getDependency(dependencyName);
+                dependency = mExpert.getDefaultCompositionDep(this.parentElement, newElement);
             }
             this.parentElement.mGet(dependency).add(newElement);
         } catch (Exception e) {
             // FIXME: use a finer type of exception.
             // The dependency indicated in the context cannot be used: try
             // to find a valid one!
-            MDependency compositionDep = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, newElement);
+            MDependency compositionDep = mExpert.getDefaultCompositionDep(this.parentElement, newElement);
             if (compositionDep != null) {
                 this.parentElement.mGet(compositionDep).add(newElement);
             } else {
@@ -151,6 +153,7 @@ public class AddChildToGroupCommand extends Command {
         // Show the new element in the diagram (ie create its Gm )
         GmCompositeNode newChild = (GmCompositeNode) diagram.unmask(this.parentNode, newElement,
                 Integer.valueOf(this.newConstraint));
+        
         // Put it at the correct place
         this.parentNode.moveChild(newChild, this.parentNode.getChildren().indexOf(this.insertAfter));
         return newChild;
@@ -160,13 +163,15 @@ public class AddChildToGroupCommand extends Command {
     @Override
     public boolean canExecute() {
         final GmAbstractDiagram diagram = this.parentNode.getDiagram();
-        if (!MTools.getAuthTool().canModify(diagram.getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(diagram.getRelatedElement())) {
             return false;
+        }
         
-        if (this.context.getElementToUnmask() == null)
-            return MTools.getAuthTool().canAdd(this.parentElement, this.context.getMetaclass());
-        else
+        if (this.context.getElementToUnmask() == null) {
+            return MTools.getAuthTool().canAdd(this.parentElement, this.context.getMetaclass().getName());
+        } else {
             return true;
+        }
     }
 
 }

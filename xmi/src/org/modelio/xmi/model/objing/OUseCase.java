@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -33,7 +33,7 @@ import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("9e606c2c-544c-40b9-a407-ad5480254afe")
-public class OUseCase extends ONameSpace implements IOElement {
+public class OUseCase extends ONameSpace {
     @objid ("9924bdf0-be35-4056-b066-b04582be7064")
     private UseCase objingElement;
 
@@ -45,14 +45,14 @@ public class OUseCase extends ONameSpace implements IOElement {
     @objid ("06093897-1d76-4940-8c71-6ac27236e6ba")
     public OUseCase(UseCase param) {
         super(param);
-        objingElement = param;
+        this.objingElement = param;
     }
 
     @objid ("8c20f1e4-2d8e-41f5-aa73-27529d8e48bd")
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        ModelTree objingOwner = objingElement.getOwner();
-        org.eclipse.uml2.uml.Element ecoreOwner = (org.eclipse.uml2.uml.Element) genProp.getMappedElement(objingOwner);
+        ModelTree objingOwner = this.objingElement.getOwner();
+        org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
                 
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof Package) {
@@ -79,7 +79,7 @@ public class OUseCase extends ONameSpace implements IOElement {
 
     @objid ("b1b76ccc-99c2-4a97-8288-556236dff079")
     private void setSubject(org.eclipse.uml2.uml.UseCase ecoreElt) {
-        org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingElement.getOwner());
+        org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(this.objingElement.getOwner());
         if (ecoreOwner instanceof org.eclipse.uml2.uml.Classifier)
             ecoreElt.getSubjects().add( (org.eclipse.uml2.uml.Classifier)  ecoreOwner);
     }

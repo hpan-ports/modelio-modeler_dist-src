@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,25 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.operation;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.SWT;
-import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.diagram.elements.common.groupitem.GroupItemEditPart;
-import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderFigure;
+import org.modelio.diagram.elements.common.header.GmModelElementHeader;
+import org.modelio.diagram.elements.common.header.IHeaderFigure;
+import org.modelio.diagram.elements.core.figures.labelum.ZwspBreakWithIndentTextLayouter;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.ui.CoreFontRegistry;
 
 /**
  * EditPart for {@link GmOperation}.
@@ -51,11 +53,14 @@ public class OperationEditPart extends GroupItemEditPart {
     @Override
     protected void refreshFromStyle(final IFigure fig, final IStyle style) {
         super.refreshFromStyle(fig, style);
-        refreshStaticAbstract((ModelElementFlatHeaderFigure) fig);
+        
+        refreshStaticAbstract((IHeaderFigure) fig);
+        
+        refreshWrapping((IHeaderFigure) fig, style);
     }
 
     @objid ("35fbe3bc-55b7-11e2-877f-002564c97630")
-    private void refreshStaticAbstract(final ModelElementFlatHeaderFigure fig) {
+    private void refreshStaticAbstract(final IHeaderFigure fig) {
         GmOperation gm = (GmOperation) getModel();
         Operation el = gm.getRelatedElement();
         
@@ -64,8 +69,26 @@ public class OperationEditPart extends GroupItemEditPart {
         
         // italic abstract
         if (el.isIsAbstract()) {
-            fig.setTextFont(CoreFontRegistry.getModifiedFont(fig.getTextFont(), SWT.ITALIC));
+            fig.setTextFont(CoreFontRegistry.getModifiedFont(fig.getTextFont(), SWT.ITALIC, 1));
         }
+    }
+
+    @objid ("40f07382-4af6-4b97-a0f6-2d3a06a33411")
+    @Override
+    protected boolean refreshWrapping(IHeaderFigure fig, IStyle style) {
+        boolean changed = super.refreshWrapping(fig, style);
+        
+        boolean wrap = fig.isWrapped();
+        if (wrap && !(fig.getMainLabelFigure().getTextLayouter() instanceof ZwspBreakWithIndentTextLayouter)) {
+            fig.getMainLabelFigure().setTextLayouter(ZwspBreakWithIndentTextLayouter.INSTANCE);
+        }
+        return changed;
+    }
+
+    @objid ("9687f6ff-8198-4b85-84da-de59ce6572e3")
+    @Override
+    protected boolean isFlat(GmModelElementHeader gm) {
+        return true;
     }
 
 }

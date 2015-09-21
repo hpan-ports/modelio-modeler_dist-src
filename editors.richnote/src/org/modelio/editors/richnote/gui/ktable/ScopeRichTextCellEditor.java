@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.editors.richnote.gui.ktable;
 
@@ -166,26 +166,26 @@ public class ScopeRichTextCellEditor extends KTableCellEditor {
             ExternDocument richNote = (ExternDocument) this.m_Model.getContentAt(this.m_Col, this.m_Row);
             if (richNote == null) {
                 String mimeType = getSelectedMimeType();
-                
+        
                 RichNoteFormat format = RichNoteFormatRegistry.getInstance().getDocumentFormatForMime(mimeType);
                 if (format == null) {
-                    MessageDialog.openError(Display.getDefault().getActiveShell(), 
+                    MessageDialog.openError(Display.getDefault().getActiveShell(),
                                             EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.InvalidMimeType"),
                                             EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.InvalidMimeTypeDetails", mimeType));
                 } else if ( !format.isUsable() || format.getSupportLevel()!=SupportLevel.Primary) {
-                    MessageDialog.openError(Display.getDefault().getActiveShell(), 
+                    MessageDialog.openError(Display.getDefault().getActiveShell(),
                             EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.InvalidMimeType"),
                             EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.UnsupportedFormatDetails", format.getLabel()));
                 } else {
                     richNote = createExternDoc(this.editedElement, docTypeName, mimeType);
-                } 
-                 
+                }
+        
             }
         
             if (richNote != null) {
                 // Store the note in the model
                 setContent(richNote.toString());
-                
+        
                 // Must call the fire after the closeEditor for focus issues...
                 this.activationService.activateMObject(richNote);
             } else {
@@ -208,32 +208,33 @@ public class ScopeRichTextCellEditor extends KTableCellEditor {
             IModelFactory f = modelSvc.getModelFactory();
         
             ExternDocumentType docType = modelSvc.getExternDocumentType(MODELER_MODULE, docTypeName, element.getMClass());
-            if (docType == null)
+            if (docType == null) {
                 throw new FileNotFoundException("'"+docTypeName+"' rich note type not found in '"+MODELER_MODULE+"' module.");
-            
+            }
+        
             externDoc = f.createExternDocument(docType, element, mimeType);
             externDoc.setName(element.getName());
-            
+        
             RichNoteCreator.createRichNote(externDoc);
         
             transaction.commit();
         } catch (ElementNotUniqueException e) {
             // many rich note types with same name
             EditorsRichNote.LOG.error(e);
-            MessageDialog.openError(Display.getDefault().getActiveShell(), 
-                    EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.CannotCreateRichNote"), 
+            MessageDialog.openError(Display.getDefault().getActiveShell(),
+                    EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.CannotCreateRichNote"),
                                     e.getLocalizedMessage());
         } catch (UnknownServiceException e) {
             // no default content could be found.
             EditorsRichNote.LOG.error(e);
-            MessageDialog.openError(Display.getDefault().getActiveShell(), 
-                    EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.CannotCreateRichNote"), 
+            MessageDialog.openError(Display.getDefault().getActiveShell(),
+                    EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.CannotCreateRichNote"),
                                     e.getLocalizedMessage());
         } catch (IOException e) {
             // error trying to create the file.
             EditorsRichNote.LOG.error(e);
-            MessageDialog.openError(Display.getDefault().getActiveShell(), 
-                    EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.CannotCreateRichNote"), 
+            MessageDialog.openError(Display.getDefault().getActiveShell(),
+                    EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.CannotCreateRichNote"),
                     FileUtils.getLocalizedMessage(e));
         }
         return externDoc;
@@ -275,10 +276,12 @@ public class ScopeRichTextCellEditor extends KTableCellEditor {
 
     @objid ("8dc77f16-c068-11e1-8c0a-002564c97630")
     private String getSelectedMimeType() {
-        IPreferenceStore preferenceStore = this.projectService.getProjectPreferences(ProjectPreferencesKeys.NODE_ID);
-        final String mimeType = preferenceStore.getString(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY);
-        if (mimeType != null && !mimeType.isEmpty()) {
-            return mimeType;
+        if (this.projectService != null) {
+            IPreferenceStore preferenceStore = this.projectService.getProjectPreferences(ProjectPreferencesKeys.NODE_ID);
+            final String mimeType = preferenceStore.getString(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY);
+            if (mimeType != null && !mimeType.isEmpty()) {
+                return mimeType;
+            }
         }
         
         // Use a default value

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Implementation
 Bundle-SymbolicName: org.modelio.metamodel.implementation
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Require-Bundle: org.modelio.core.kernel,
  org.eclipse.emf.ecore,
  org.modelio.metamodel.emfapi,
@@ -10,6 +10,6 @@ Require-Bundle: org.modelio.core.kernel,
  org.modelio.core.session,
  org.modelio.core.utils
 Bundle-Vendor: modelio.org
-Export-Package: org.modelio.metamodel.data,
- org.modelio.metamodel.factory,
+Export-Package: org.modelio.metamodel.factory,
+ org.modelio.metamodel.impl,
  org.modelio.metamodel.impl.uml.infrastructure

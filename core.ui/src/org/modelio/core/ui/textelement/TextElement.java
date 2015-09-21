@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.textelement;
 
@@ -60,7 +60,6 @@ import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.core.picking.IPickingClient;
 import org.modelio.app.core.picking.IPickingSession;
 import org.modelio.core.ui.plugin.CoreUi;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.model.search.engine.searchers.model.ModelSearchCriteria;
@@ -693,14 +692,14 @@ public class TextElement {
         public boolean hover(MObject target) {
             // does 'target' match textElement criteria
             return (target != null) && (metaclassMatch(target))
-                    && ((this.textElement.filter != null) ? this.textElement.filter.accept(target) : true);
+                                && ((this.textElement.filter != null) ? this.textElement.filter.accept(target) : true);
         }
 
         @objid ("25ac46b7-a742-41f2-a67b-2f57b1e2f149")
         private boolean metaclassMatch(MObject obj) {
-            final Class<? extends MObject> cls = Metamodel.getJavaInterface(obj.getMClass());
+            final Class<? extends MObject> cls = obj.getMClass().getJavaInterface();
             for (final MClass mc : this.textElement.metaclasses) {
-                if (Metamodel.getJavaInterface(mc).isAssignableFrom(cls)) {
+                if (mc.getJavaInterface().isAssignableFrom(cls)) {
                     return true;
                 }
             }

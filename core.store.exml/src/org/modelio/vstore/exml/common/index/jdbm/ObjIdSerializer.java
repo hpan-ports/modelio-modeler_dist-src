@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.index.jdbm;
 
@@ -28,33 +28,46 @@ import jdbm.Serializer;
 import jdbm.SerializerInput;
 import jdbm.SerializerOutput;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vstore.exml.common.model.ObjId;
 
 @objid ("ea207749-5c87-11e1-863f-001ec947ccaf")
 class ObjIdSerializer implements Serializer<ObjId> {
-    @objid ("d55738a2-7f1a-11e1-ba70-001ec947ccaf")
-    public static final Serializer<ObjId> instance = new ObjIdSerializer();
+    @objid ("d0890115-bda2-4974-8016-f1af625ce20d")
+    private final SmMetamodel metamodel;
 
     @objid ("82d690e7-5ca7-11e1-863f-001ec947ccaf")
     @Override
     public void serialize(final SerializerOutput out, final ObjId obj) throws IOException {
-        assert (obj.name != null);
+        //assert (obj.name != null);
         assert (obj.id != null);
         assert (obj.classof != null);
         
         UuidSerializer.instance.serialize(out, obj.id);
-        out.writeUTF(obj.name); // uncomment for debug
-        out.writeUTF(obj.classof.getName());
+        //out.writeUTF(obj.name); // for debug
+        
+        if (obj.classof.getOrigin().isExtension()) {
+            out.writeUTF(obj.classof.getQualifiedName());
+        } else {
+            out.writeUTF(obj.classof.getName());
+        }
     }
 
     @objid ("82d690ee-5ca7-11e1-863f-001ec947ccaf")
     @Override
-    public ObjId deserialize(final SerializerInput in) throws IOException, ClassNotFoundException {
+    public ObjId deserialize(final SerializerInput in) throws ClassNotFoundException, IOException {
         UUID id = UuidSerializer.instance.deserialize(in);
-        String name = in.readUTF(); // uncomment for debug
-        //String name = "";  // comment for debug
+        //String name = in.readUTF();
         String cname = in.readUTF();
-        return new ObjId(SmClass.getClass(cname), name, id);
+        SmClass mc = this.metamodel.getMClass(cname);
+        return new ObjId(mc, "", id);
+    }
+
+    @objid ("2dbb8cb6-68be-4077-bb6f-b4281bf44fb2")
+    public ObjIdSerializer(SmMetamodel metamodel) {
+        assert (metamodel != null);
+        
+        this.metamodel = metamodel;
     }
 
 }

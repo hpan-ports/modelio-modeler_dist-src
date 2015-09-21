@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -34,7 +34,7 @@ public class ODictionary extends OElement implements IOElement {
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         String metaClassName = this.getClass().getSimpleName();
         metaClassName = metaClassName.substring(1);
-                
+        
         XMILogs.getInstance().writelnInLog(
                 Xmi.I18N.getMessage("logFile.warning.elementNotMapped",
                         metaClassName));
@@ -48,7 +48,7 @@ public class ODictionary extends OElement implements IOElement {
 
     @objid ("7b0120c5-63e6-4a0d-ac20-41c449145d7d")
     public List<String> getEcoreClassName() {
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
     @objid ("78ee27e7-a909-4bd8-80eb-44d2c4d863dc")

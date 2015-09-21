@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,22 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.namespaceheader;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.SWT;
-import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
 import org.modelio.diagram.elements.core.figures.IPenOptionsSupport;
 import org.modelio.diagram.styles.core.IStyle;
+import org.modelio.ui.CoreFontRegistry;
 
 /**
  * Edit part of classifier header.
@@ -42,7 +42,7 @@ public class NamespaceHeaderEditPart extends ModelElementHeaderEditPart {
         GmNamespaceHeader model = (GmNamespaceHeader) getModel();
         if (model.isAbstract()) {
             IPenOptionsSupport headerFigure = (IPenOptionsSupport) fig;
-            headerFigure.setTextFont(CoreFontRegistry.getModifiedFont(headerFigure.getTextFont(), SWT.ITALIC));
+            headerFigure.setTextFont(CoreFontRegistry.getModifiedFont(headerFigure.getTextFont(), SWT.ITALIC, 1));
         }
     }
 

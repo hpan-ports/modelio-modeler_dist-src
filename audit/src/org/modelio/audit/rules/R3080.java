@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.rules;
 
@@ -34,7 +34,6 @@ import org.modelio.audit.engine.impl.AuditTrigger;
 import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.plugin.Audit;
 import org.modelio.audit.service.AuditSeverity;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
 import org.modelio.metamodel.bpmn.activities.BpmnBusinessRuleTask;
@@ -90,49 +89,49 @@ public class R3080 extends AbstractRule {
     @objid ("2fae90a6-0b34-4ed4-8409-7352bcdfa09b")
     @Override
     public void autoRegister(final IAuditPlan plan) {
-        plan.registerRule(Metamodel.getMClass(BpmnSequenceFlow.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(BpmnSequenceFlow.MNAME, this, AuditTrigger.CREATE |
                           AuditTrigger.MOVE |
                           AuditTrigger.UPDATE);
         
         //BpmnFlowNode.Activity.Activity
-        plan.registerRule(Metamodel.getMClass(BpmnCallActivity.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnCallActivity.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         
         //BpmnFlowNode.Activity.Task
-        plan.registerRule(Metamodel.getMClass(BpmnTask.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnSendTask.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnReceiveTask.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnServiceTask.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnUserTask.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnManualTask.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnScriptTask.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnBusinessRuleTask.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(BpmnTask.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnSendTask.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnReceiveTask.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnServiceTask.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnUserTask.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnManualTask.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnScriptTask.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnBusinessRuleTask.MNAME, this, AuditTrigger.CREATE |
                           AuditTrigger.UPDATE);
         
         //BpmnFlowNode.Activity.SubProcess
-        plan.registerRule(Metamodel.getMClass(BpmnSubProcess.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnAdHocSubProcess.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnTransaction.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnSubProcess.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnAdHocSubProcess.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnTransaction.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         
         //BpmnFlowNode.Event.CatchEvent
         //Except BoundaryEvent, which are not concerned by the rule.
         //Except ImplicitThrowEvent which is not implemented by Modelio.
-        plan.registerRule(Metamodel.getMClass(BpmnStartEvent.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnIntermediateCatchEvent.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(BpmnStartEvent.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnIntermediateCatchEvent.MNAME, this, AuditTrigger.CREATE |
                           AuditTrigger.UPDATE);
         
         //BpmnFlowNode.Event.ThrowEvent
-        plan.registerRule(Metamodel.getMClass(BpmnEndEvent.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnIntermediateThrowEvent.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(BpmnEndEvent.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnIntermediateThrowEvent.MNAME, this, AuditTrigger.CREATE |
                           AuditTrigger.UPDATE);
         
         //BpmnFlowNode.Gateway
-        plan.registerRule(Metamodel.getMClass(BpmnParallelGateway.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnEventBasedGateway.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(BpmnParallelGateway.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnEventBasedGateway.MNAME, this, AuditTrigger.CREATE |
                           AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnComplexGateway.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnInclusiveGateway.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(BpmnComplexGateway.MNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
+        plan.registerRule(BpmnInclusiveGateway.MNAME, this, AuditTrigger.CREATE |
                           AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(BpmnExclusiveGateway.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(BpmnExclusiveGateway.MNAME, this, AuditTrigger.CREATE |
                           AuditTrigger.UPDATE);
     }
 

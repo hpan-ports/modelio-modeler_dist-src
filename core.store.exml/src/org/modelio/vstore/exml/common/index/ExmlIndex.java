@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.index;
 
@@ -34,6 +34,7 @@ import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vcore.session.api.repository.StorageErrorSupport;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vstore.exml.common.index.builder.IndexBuilder;
 import org.modelio.vstore.exml.common.index.builder.InvalidExmlException;
 import org.modelio.vstore.exml.common.model.ObjId;
@@ -72,10 +73,16 @@ public class ExmlIndex {
      * and child lost their parent when the parent index was recomputed.
      * <li> 9: 06/12/2013 : found  & fixed bugs in indexes refresh on Modelio 3.0.1.
      * Force index rebuild to avoid shell objects in the model.
+     * <li> 10: 20/03/2015 - Modelio 3.4 Raiju with multiple metamodels : {@link ObjId#hashCode()} does not
+     * return same result than Modelio 3.3
+     * <li> 11: 08/06/2015 - Modelio 3.4 Raiju : REFOBJ tags don't provide the CMS node anymore.
+     * Consequence : the users index record uses from a CMS node to individual objects instead of CMS nodes.
+     * <li> 12: 11/06/2015 - Modelio 3.4 Raiju : ObjId hash code must not depend on metamodel fragment version,
+     * use only the metaclass name..
      * </ul>
      */
     @objid ("7dc0cd99-1877-11e2-9dfc-001ec947ccaf")
-    private static final int INDEX_FORMAT_VERSION = 9;
+    private static final int INDEX_FORMAT_VERSION = 12;
 
     @objid ("40d51080-1878-11e2-9dfc-001ec947ccaf")
     private static final String VERSION_OBJ_NAME = "version_of_index";
@@ -124,19 +131,25 @@ public class ExmlIndex {
      */
     @objid ("d5c90dd1-6231-11e1-b31a-001ec947ccaf")
     public void buildIndexes(IModelioProgress aMonitor) throws IOException {
-        SubProgress monitor = SubProgress.convert(aMonitor, "Building indexes", 300);
+        SubProgress monitor = SubProgress.convert(aMonitor, "Building indexes", 320);
         boolean problemsFound = false;
         
         Collection<ExmlResource> allResources = this.resProvider.getAllResources(monitor.newChild(100));
-        monitor.setWorkRemaining(allResources.size());
+        int nbResources = allResources.size();
+        monitor.setWorkRemaining(nbResources);
         
+        int i = 0;
         for (ExmlResource f : allResources) {
             try (InputStream is = f.read()) {
                 InputSource src = new InputSource(is);
                 src.setPublicId(f.getPublicLocation());
                 this.builder.run(src);
-                
+        
                 commitSometimes();
+                if (i++ % 10 == 0) {
+                    monitor.subTask( VStoreExml.getMessage("AbstractExmlRepository.mon.buildingIndexes.i",this.resProvider.getName(), i, nbResources));
+                }
+        
                 monitor.worked(1);
             } catch (InvalidExmlException e) {
                 problemsFound = true;
@@ -146,10 +159,16 @@ public class ExmlIndex {
         
         // Update index stamp if no problem found.
         // in the other case the indexes will be rebuilt on next repository opening.
-        if (!problemsFound)
+        if (!problemsFound) {
             setStoredVersion();
         
+            commitDb();
+        
+            compress(monitor.newChild(20));
+        }
+        
         commitDb();
+        
         
         monitor.done();
     }
@@ -177,19 +196,21 @@ public class ExmlIndex {
     @objid ("6905f779-4b8b-11e2-91c9-001ec947ccaf")
     public void checkUptodate() throws IOException, IndexOutdatedException {
         try {
-            // Check index is here
-            if (this.cmsNodeIndex.isEmpty())
-                throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexMissing", this.resProvider.getName()));
-            
             // Check index format
             checkIndexFormat();
-            
+        
+            // Check index is here
+            if (this.cmsNodeIndex.isEmpty()) {
+                throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexMissing", this.resProvider.getName()));
+            }
+        
             // Check index stamp
-            if( !(getStoredStamp().equals(this.resProvider.getStamp())))
-                throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexNotSynchro", 
+            if( !(getStoredStamp().equals(this.resProvider.getStamp()))) {
+                throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexNotSynchro",
                         this.resProvider.getName(),
                         getStoredStamp(),
                         this.resProvider.getStamp()));
+            }
         } catch (IOError e) {
             throw (IOException) e.getCause();
         }
@@ -229,11 +250,11 @@ public class ExmlIndex {
     @SuppressWarnings("resource")
     public CloseOnFail getCloseOnFail() {
         return new CloseOnFail(new Closeable() {
-            @Override
-            public void close() throws IOException {
-                ExmlIndex.this.close();
-            }
-        });
+                                                    @Override
+                                                    public void close() throws IOException {
+                                                        ExmlIndex.this.close();
+                                                    }
+                                                });
     }
 
     /**
@@ -255,21 +276,23 @@ public class ExmlIndex {
     /**
      * Open the indexes and rebuild them if necessary.
      * @param aMonitor a progress monitor to report index building and opening.
+     * @param metamodel the metamodel
      * @throws java.io.IOException if unable to open and unable to recreate indexes.
      */
     @objid ("f778d0ce-d023-11e1-bf59-001ec947ccaf")
-    public void open(IModelioProgress aMonitor) throws IOException {
-        if (this.db != null)
+    public void open(IModelioProgress aMonitor, SmMetamodel metamodel) throws IOException {
+        if (this.db != null) {
             throw new IllegalStateException("Indexes are already open.");
+        }
         
         this.resProvider.buildIndexes(aMonitor);
         
         this.db = RecordManagerFactory.createRecordManager(this.resProvider.getIndexAccessPath()+"/index");
         
         try (CloseOnFail shield = getCloseOnFail()) {
-            this.cmsNodeIndex = new org.modelio.vstore.exml.common.index.jdbm.CmsNodeIndex(this.db);
-            this.userNodeIndex = new org.modelio.vstore.exml.common.index.jdbm.UserNodeIndex(this.db);
-            this.builder = new IndexBuilder(getCmsNodeIndex(), getUserNodeIndex());
+            this.cmsNodeIndex = new org.modelio.vstore.exml.common.index.jdbm.CmsNodeIndex(this.db, metamodel);
+            this.userNodeIndex = new org.modelio.vstore.exml.common.index.jdbm.UserNodeIndex(this.db, metamodel);
+            this.builder = new IndexBuilder(metamodel, getCmsNodeIndex(), getUserNodeIndex());
         
             shield.success();
         }
@@ -300,7 +323,7 @@ public class ExmlIndex {
         //Clean the indexes from all references of the given CMS node and all its content.
         getCmsNodeIndex().removeObj(cmsNodeId);
         getUserNodeIndex().remove(cmsNodeId);
-              
+        
         // Update indexes
         ExmlResource resource = this.resProvider.getResource(cmsNodeId);
         try (InputStream is = resource.read()) {
@@ -319,16 +342,20 @@ public class ExmlIndex {
     @objid ("7dc0cd93-1877-11e2-9dfc-001ec947ccaf")
     private void checkIndexFormat() throws IndexOutdatedException, IOException {
         int storedVersion = getStoredVersion();
-        if ( INDEX_FORMAT_VERSION > storedVersion)
-            throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexFormatOld", 
+        if (storedVersion == 0) {
+            throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexMissing", this.resProvider.getName()));
+        
+        } else if ( INDEX_FORMAT_VERSION > storedVersion) {
+            throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexFormatOld",
                     this.resProvider.getName(),
                     storedVersion,
                     INDEX_FORMAT_VERSION));
-        else if ( INDEX_FORMAT_VERSION < storedVersion)
-            throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexFormatNew", 
+        } else if ( INDEX_FORMAT_VERSION < storedVersion) {
+            throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexFormatNew",
                     this.resProvider.getName(),
                     storedVersion,
                     INDEX_FORMAT_VERSION));
+        }
     }
 
     /**
@@ -352,20 +379,22 @@ public class ExmlIndex {
     @objid ("7dc0cd9c-1877-11e2-9dfc-001ec947ccaf")
     private int getStoredVersion() throws IOException {
         long id = this.db.getNamedObject(VERSION_OBJ_NAME);
-        if (id == 0)
+        if (id == 0) {
             return 0;
-        else
+        } else {
             return (Integer) this.db.fetch(id);
+        }
     }
 
     @objid ("b878a549-e62a-472d-a363-745026388a29")
     private void setStamp() throws IOException {
         String stamp = this.resProvider.getStamp();
         long id = this.db.getNamedObject(STAMP_OBJ_NAME);
-        if (id != 0)
+        if (id != 0) {
             this.db.update(id, stamp);
-        else
+        } else {
             this.db.setNamedObject(STAMP_OBJ_NAME, this.db.insert(stamp));
+        }
         
         this.db.commit();
     }
@@ -378,10 +407,11 @@ public class ExmlIndex {
     @objid ("964bbe53-b4c1-4b2e-94f5-c478909b5928")
     private String getStoredStamp() throws IOException {
         long id = this.db.getNamedObject(STAMP_OBJ_NAME);
-        if (id == 0)
+        if (id == 0) {
             return "";
-        else
+        } else {
             return (String) this.db.fetch(id);
+        }
     }
 
     /**
@@ -391,10 +421,11 @@ public class ExmlIndex {
     @objid ("7dc0cda0-1877-11e2-9dfc-001ec947ccaf")
     private void setStoredVersion() throws IOException {
         long id = this.db.getNamedObject(VERSION_OBJ_NAME);
-        if (id != 0)
+        if (id != 0) {
             this.db.update(id, INDEX_FORMAT_VERSION);
-        else
+        } else {
             this.db.setNamedObject(VERSION_OBJ_NAME, this.db.insert(INDEX_FORMAT_VERSION));
+        }
     }
 
     /**

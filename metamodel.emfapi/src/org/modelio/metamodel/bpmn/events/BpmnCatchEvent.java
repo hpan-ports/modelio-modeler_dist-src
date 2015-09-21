@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,43 +12,93 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.bpmn.events;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.objects.BpmnDataAssociation;
 import org.modelio.metamodel.bpmn.objects.BpmnDataOutput;
 
+/**
+ * BpmnCatchEvent v0.0.9054
+ * 
+ * 
+ * Events catching some sort of signal or condition (message, condition, timer, etc.).
+ * Initial events are always catch events. Intermediate events may catch events.
+ */
 @objid ("00889ec4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnCatchEvent extends BpmnEvent {
-    @objid ("5d481d46-f8ee-4b5f-a52b-f983acb3176f")
+    @objid ("4fd3baf7-0529-4c55-a49b-a369b8552c06")
+    public static final String MNAME = "BpmnCatchEvent";
+
+    /**
+     * Getter for attribute 'BpmnCatchEvent.ParallelMultiple'
+     * 
+     * Metamodel description:
+     * <i>This means that there are multiple triggers required before the events triggers outcoming sequence flows. All of the types of triggers that are listed in the catcht Event MUST be triggered before the processing continues.  </i>
+     */
+    @objid ("f766d48c-09c3-4b6b-9ec0-9b41578658c0")
     boolean isParallelMultiple();
 
-    @objid ("4cb3c3c3-db43-48d2-b5ca-6dfeaf417984")
+    /**
+     * Setter for attribute 'BpmnCatchEvent.ParallelMultiple'
+     * 
+     * Metamodel description:
+     * <i>This means that there are multiple triggers required before the events triggers outcoming sequence flows. All of the types of triggers that are listed in the catcht Event MUST be triggered before the processing continues.  </i>
+     */
+    @objid ("1fbebb06-39a4-4901-b12c-5a341b53e83c")
     void setParallelMultiple(boolean value);
 
-    @objid ("da97c59a-8bdb-4f22-a99c-dab8b0ae311a")
+    /**
+     * Getter for relation 'BpmnCatchEvent->DataOutputAssociation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a1ee1736-0577-4c27-a350-519d0de5652c")
     EList<BpmnDataAssociation> getDataOutputAssociation();
 
-    @objid ("f28374be-abd0-4813-b8a0-798a9e6ff22b")
+    /**
+     * Filtered Getter for relation 'BpmnCatchEvent->DataOutputAssociation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1f9adc5f-1005-41ec-b701-5a95a3c6cebc")
     <T extends BpmnDataAssociation> List<T> getDataOutputAssociation(java.lang.Class<T> filterClass);
 
-    @objid ("507eba1c-18ad-4b78-a3a2-347e5bfaae8e")
+    /**
+     * Getter for relation 'BpmnCatchEvent->DataOutput'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("34120552-1fc0-4eb3-83eb-77232ac8eb58")
     BpmnDataOutput getDataOutput();
 
-    @objid ("0b60d411-8c2e-442e-abbc-895f32f573c9")
+    /**
+     * Setter for relation 'BpmnCatchEvent->DataOutput'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("54dd3253-8b53-4775-a2f5-dbef7236c558")
     void setDataOutput(BpmnDataOutput value);
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.executionspecification;
 
@@ -86,7 +86,7 @@ public class GmExecutionSpecification extends GmCompositeNode {
     @Override
     public boolean canUnmask(MObject el) {
         return canCreate(el.getClass()) &&
-               ((InteractionFragment) el).getCovered().get(0).equals(getRelatedElement().getCovered());
+                                       ((InteractionFragment) el).getCovered().get(0).equals(getRelatedElement().getCovered());
     }
 
     @objid ("d8eca5bc-55b6-11e2-877f-002564c97630")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.project.conf.dialog.libraries.local.property;
 
@@ -30,11 +30,11 @@ import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.graphics.TextStyle;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
-import org.modelio.gproject.data.ramc.IModelComponentInfos.VersionedItem;
 import org.modelio.gproject.data.ramc.IModelComponentInfos;
 import org.modelio.gproject.fragment.ramcfile.RamcFileFragment;
 import org.modelio.ui.UIColor;
 import org.modelio.vbasic.version.Version;
+import org.modelio.vbasic.version.VersionedItem;
 
 @objid ("e15ff7d2-94b8-41d3-815f-6c8856770801")
 class DependenciesLabelProvider extends StyledCellLabelProvider {
@@ -61,7 +61,7 @@ class DependenciesLabelProvider extends StyledCellLabelProvider {
         Object element = cell.getElement();
         StyledString text = new StyledString();
         if (element instanceof VersionedItem) {
-            text = getStyledText((VersionedItem) element);
+            text = getStyledText((VersionedItem<?>) element);
         }
         cell.setText(text.getString());
         cell.setStyleRanges(text.getStyleRanges());
@@ -69,7 +69,7 @@ class DependenciesLabelProvider extends StyledCellLabelProvider {
     }
 
     @objid ("7cc0f797-ec1e-48ac-82d3-ff7605d5dc8e")
-    private StyledString getStyledText(VersionedItem item) {
+    private StyledString getStyledText(VersionedItem<?> item) {
         Version version = item.getVersion();
         String text;
         if (version == null) {
@@ -82,7 +82,7 @@ class DependenciesLabelProvider extends StyledCellLabelProvider {
     }
 
     @objid ("6435d80e-387d-45a5-9cd7-36a9fa52158b")
-    private boolean isValidVersioned(VersionedItem item) {
+    private boolean isValidVersioned(VersionedItem<?> item) {
         for (RamcFileFragment fragment : this.fragments) {
             try {
                 IModelComponentInfos infos = fragment.getInformations();

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.interfaze;
 
@@ -69,6 +69,9 @@ public class GmInterface extends GmTemplateContainer {
 
     @objid ("5ea55e56-5bd5-11e2-9e33-00137282c51b")
     private static final InterfaceImageStyleKeys IMAGE_KEYS = new InterfaceImageStyleKeys();
+
+    @objid ("8bfa4bf8-19d6-418c-bfc2-078906775eb1")
+    private static final InterfaceUserImageStyleKeys USERIMAGE_KEYS = new InterfaceUserImageStyleKeys();
 
     /**
      * Empty constructor needed for deserialization.
@@ -138,6 +141,8 @@ public class GmInterface extends GmTemplateContainer {
         switch ((RepresentationMode) getStyle().getProperty(GmInterface.STRUCTURED_KEYS.getStyleKey(MetaKey.REPMODE))) {
         case IMAGE:
             return IMAGE_KEYS.getStyleKeys();
+        case USER_IMAGE:
+            return USERIMAGE_KEYS.getStyleKeys();
         case SIMPLE:
             return SIMPLE_KEYS.getStyleKeys();
         case STRUCTURED:
@@ -273,7 +278,7 @@ public class GmInterface extends GmTemplateContainer {
     @Override
     public boolean isSatellite(final GmNodeModel childNode) {
         return GmPortContainer.SATELLITE_ROLE.equals(childNode.getRoleInComposition()) ||
-                "body content as satellite".equals(childNode.getRoleInComposition());
+                                                "body content as satellite".equals(childNode.getRoleInComposition());
     }
 
 }

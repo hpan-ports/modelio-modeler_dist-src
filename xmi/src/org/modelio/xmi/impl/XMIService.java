@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.impl;
 
@@ -33,6 +33,7 @@ import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.session.api.transactions.ITransaction;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.api.ExportConfiguration;
 import org.modelio.xmi.api.FormatExport;
@@ -86,7 +87,7 @@ public class XMIService implements IXMIService {
                 this.exportService.createEcoreModel(resource, null);
         
                 if (!configuration.getVersionExport().equals(FormatExport.EMF300))
-                    XMIFileUtils.changeToUML(xmiFilePath, genProp.getTempFolder());
+                    XMIFileUtils.changeToUML(xmiFilePath);
         
                 Xmi.LOG.error(Xmi.I18N.getString("info.export.result_done"));
             }
@@ -104,12 +105,12 @@ public class XMIService implements IXMIService {
 
     @objid ("3bef3178-045c-4eb1-84ab-13ac13fa4462")
     @Override
-    public void exportXMIFile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices mmService) throws Exception {
+    public void exportXMIFile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices mmService, MMetamodel metamodel) throws Exception {
         if (configuration.getEntryPoint() == null) {
             Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getString("error.nullGivenParameter"));
         } else {
             if (configuration.getXmiFile() != null) {
-                initExportService(configuration.getEntryPoint(), mmService);
+                initExportService(configuration.getEntryPoint(), mmService, metamodel);
                 GenerationProperties.getInstance().setFilePath(configuration.getXmiFile());
                 exportModel(configuration);
             } else {
@@ -147,9 +148,9 @@ public class XMIService implements IXMIService {
     }
 
     @objid ("52d1a467-d5d9-4bff-ad95-1813be619061")
-    private void initExportService(Package entryPoint, IMModelServices mmService) {
+    private void initExportService(Package entryPoint, IMModelServices mmService, MMetamodel metamodel) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        genProp.initialize(mmService);
+        genProp.initialize(mmService, metamodel);
         genProp.setTimeDisplayerActivated(false);
         genProp.setRootElement(entryPoint);
         
@@ -167,7 +168,7 @@ public class XMIService implements IXMIService {
     @objid ("2aee3059-41b4-4fb3-b908-cb359d33485d")
     @Override
     public void importXMIModel(final ImportConfiguration configuration, IProgressMonitor monitor, IMModelServices mmService) {
-        if ((configuration.getXmiFile() != null) 
+        if ((configuration.getXmiFile() != null)
                 && (configuration.getXmiFile().isFile())) {
             initImportService(mmService);
             ReverseProperties.getInstance().setUMLRoot((Package)configuration.getOwner());
@@ -195,14 +196,14 @@ public class XMIService implements IXMIService {
 
     @objid ("9794308c-aca2-4f51-9bfb-8ae030ae70d8")
     @Override
-    public void exportXMIProfile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices mmService) throws Exception {
+    public void exportXMIProfile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices mmService, MMetamodel metamodel) throws Exception {
         if (configuration.getEntryPoint() == null || !(configuration.getEntryPoint() instanceof Profile)) {
             Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getString("error.nullGivenParameter"));
         } else {
             if (configuration.getXmiFile() != null) {
-                initExportService(configuration.getEntryPoint(), mmService);
+                initExportService(configuration.getEntryPoint(), mmService, metamodel);
                 GenerationProperties.getInstance().setFilePath(configuration.getXmiFile());
-                exportProfile(configuration);        
+                exportProfile(configuration);
             } else {
                 Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getString("error.invalidFilePath"));
             }
@@ -215,10 +216,10 @@ public class XMIService implements IXMIService {
         String xmiFilePath = configuration.getXmiFile().getAbsolutePath() ;
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        try {      
+        try {
         
             genProp.setRootElement(configuration.getEntryPoint());
-            genProp.setRoundtripEnabled(configuration.exportedAnotation());          
+            genProp.setRoundtripEnabled(configuration.exportedAnotation());
         
             Resource resource = this.exportService.createResource(xmiFilePath);
         
@@ -226,7 +227,7 @@ public class XMIService implements IXMIService {
                 this.exportService.createEcoreProfile(resource, null);
         
                 if (!configuration.getVersionExport().equals(FormatExport.EMF300))
-                    XMIFileUtils.changeToUML(xmiFilePath, genProp.getTempFolder());
+                    XMIFileUtils.changeToUML(xmiFilePath);
         
                 Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getString("info.export.result_done"));
             }

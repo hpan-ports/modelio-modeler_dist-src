@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -41,21 +41,21 @@ import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("f4b8a21b-124a-4f0d-aaa9-c96fa4d384c5")
-public class OOperation extends OFeature implements IOElement {
+public class OOperation extends OFeature {
     @objid ("d2002cc7-3fcf-447f-abb3-2695b982b0fe")
     private Operation objingElement;
 
     @objid ("902d7e02-49ec-4a50-accc-b61f0dea55fa")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        MObject objingOwner = objingElement.getCompositionOwner();
+        MObject objingOwner = this.objingElement.getCompositionOwner();
         if (((ModelElement) getObjingElement()).isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2RECEPTION)){
             if (objingOwner instanceof Actor
                     || objingOwner instanceof UseCase
                     || objingOwner instanceof Signal) {
         
                 AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
-                        objingOwner, objingElement);
+                        objingOwner, this.objingElement);
                 return null;
         
             }
@@ -71,7 +71,7 @@ public class OOperation extends OFeature implements IOElement {
                     || objingOwner instanceof Signal) {
         
                 AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
-                        objingOwner, objingElement);
+                        objingOwner, this.objingElement);
                 return null;
         
             }
@@ -82,7 +82,7 @@ public class OOperation extends OFeature implements IOElement {
     @objid ("d72b6f62-e293-4da1-a9fd-2f66b7e06721")
     public OOperation(Operation element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("78642492-e39e-40ba-b293-04924640ed44")
@@ -123,23 +123,23 @@ public class OOperation extends OFeature implements IOElement {
 
     @objid ("71cee9c8-de1f-497c-940c-a0eb78f830fd")
     private void setAbstract(org.eclipse.uml2.uml.BehavioralFeature ecoreElt) {
-        ecoreElt.setIsAbstract(objingElement.isIsAbstract());
+        ecoreElt.setIsAbstract(this.objingElement.isIsAbstract());
     }
 
     @objid ("bee7f6e9-a037-497b-8641-6ea0c0924068")
     private void setFinal(org.eclipse.uml2.uml.BehavioralFeature ecoreElt) {
-        ecoreElt.setIsLeaf(objingElement.isFinal());
+        ecoreElt.setIsLeaf(this.objingElement.isFinal());
     }
 
     @objid ("2136e415-ae63-4a24-9803-6c2179949e5b")
     private void setIsClass(org.eclipse.uml2.uml.BehavioralFeature ecoreElt) {
-        ecoreElt.setIsStatic(objingElement.isIsClass());
+        ecoreElt.setIsStatic(this.objingElement.isIsClass());
     }
 
     @objid ("9acfa321-eb40-4969-9325-159decfe5393")
     private void setPassingMode(org.eclipse.uml2.uml.BehavioralFeature ecoreElt) {
         boolean isQuery = false;
-        switch (objingElement.getPassing()) {
+        switch (this.objingElement.getPassing()) {
         case METHODIN:
             isQuery = true;
             break;
@@ -157,7 +157,7 @@ public class OOperation extends OFeature implements IOElement {
         // Since concurrency is represented as a boolean in Ijing, the mapping
         // is true for the
         // CONCURRENT value, and false else (SEQUENTIAL by default):
-        if (objingElement.isConcurrency())
+        if (this.objingElement.isConcurrency())
             ecoreElt.setConcurrency(org.eclipse.uml2.uml.CallConcurrencyKind.CONCURRENT_LITERAL);
         else
             ecoreElt.setConcurrency(org.eclipse.uml2.uml.CallConcurrencyKind.SEQUENTIAL_LITERAL);
@@ -165,7 +165,7 @@ public class OOperation extends OFeature implements IOElement {
 
     @objid ("7a3ec367-89fc-4c51-adcc-2b19223fe02f")
     private void setMethod(org.eclipse.uml2.uml.BehavioralFeature ecoreElt) {
-        for (Dependency depend : objingElement.getDependsOnDependency()){
+        for (Dependency depend : this.objingElement.getDependsOnDependency()){
             if (depend.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2METHODREFERENCE)){
                 org.eclipse.uml2.uml.Element behavior = GenerationProperties.getInstance().getMappedElement(depend.getDependsOn());
                 if ((behavior != null) && (behavior instanceof org.eclipse.uml2.uml. Behavior)){
@@ -178,7 +178,7 @@ public class OOperation extends OFeature implements IOElement {
     @objid ("92b8e080-75ed-4469-962b-bd5755dccf4f")
     private void attachReception(org.eclipse.uml2.uml.Reception ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        ModelTree objingOwner = objingElement.getOwner();
+        ModelTree objingOwner = this.objingElement.getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
@@ -189,7 +189,7 @@ public class OOperation extends OFeature implements IOElement {
                     || objingOwner instanceof UseCase
                     || objingOwner instanceof Signal) {
                 AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
-                        objingOwner, objingElement, ecoreElt);
+                        objingOwner, this.objingElement, ecoreElt);
             } else if (ecoreOwner != null) {
                 if (ecoreOwner instanceof Component) {
                     Component ownerIsComponent = (org.eclipse.uml2.uml.Component) ecoreOwner;
@@ -220,7 +220,7 @@ public class OOperation extends OFeature implements IOElement {
     @objid ("662cca46-ca10-47d9-a094-4539902becc5")
     private void attachOperation(org.eclipse.uml2.uml.Operation ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        ModelTree objingOwner = objingElement.getOwner();
+        ModelTree objingOwner = this.objingElement.getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
@@ -241,7 +241,7 @@ public class OOperation extends OFeature implements IOElement {
                  * if (objingEA != null) objingEA.getContents().add(ecoreElt); }
                  */
                 AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
-                        objingOwner, objingElement, ecoreElt);
+                        objingOwner, this.objingElement, ecoreElt);
         
             } else if (ecoreOwner != null) {
                 if (ecoreOwner instanceof Component) {
@@ -288,7 +288,7 @@ public class OOperation extends OFeature implements IOElement {
 
     @objid ("ad2867a4-3aad-483f-9d42-451068e9cf9a")
     private void setRedefined(org.eclipse.uml2.uml.Operation ecoreElt) {
-        for (Operation redefines : objingElement.getRedefinition()){
+        for (Operation redefines : this.objingElement.getRedefinition()){
             org.eclipse.uml2.uml.Element ecoreOperation = GenerationProperties.getInstance().getMappedElement(redefines);
             if (ecoreOperation instanceof  org.eclipse.uml2.uml.Operation){
                 ecoreElt.getRedefinedOperations().add( (org.eclipse.uml2.uml.Operation)ecoreOperation);
@@ -299,7 +299,7 @@ public class OOperation extends OFeature implements IOElement {
     @objid ("5c78c6ea-fab2-4477-a4dd-4af33c3709c1")
     private void attachTemplateSignature(org.eclipse.uml2.uml.TemplateSignature ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        ModelTree objingOwner = objingElement.getOwner();
+        ModelTree objingOwner = this.objingElement.getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         if (ecoreOwner instanceof org.eclipse.uml2.uml.TemplateableElement)
             ecoreElt.setTemplate((org.eclipse.uml2.uml.TemplateableElement)ecoreOwner);

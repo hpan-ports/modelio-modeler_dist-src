@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.analyst;
 
 import java.util.ArrayList;
@@ -32,7 +44,7 @@ import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.analyst.AnalystElement;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
-import org.modelio.metamodel.data.analyst.BusinessRuleData;
+import org.modelio.metamodel.impl.analyst.BusinessRuleData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -41,6 +53,7 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("ae140aec-516f-4136-b9e7-def1d1a327ec")
 public class BusinessRuleImpl extends AnalystElementImpl implements BusinessRule {
@@ -56,113 +69,134 @@ public class BusinessRuleImpl extends AnalystElementImpl implements BusinessRule
         return getArchivedRuleVersion();
     }
 
-    @objid ("4578efc5-dfdb-4abd-97cb-32a695d548c9")
+    @objid ("4ffa5596-2801-4546-bf9d-aa4afe2b2d51")
     @Override
     public EList<BusinessRule> getSubRule() {
-        return new SmList<>(this, BusinessRuleData.Metadata.SubRuleDep());
+        return new SmList<>(this, ((BusinessRuleSmClass)getClassOf()).getSubRuleDep());
     }
 
-    @objid ("ee76e524-1d2a-4737-92d6-7901dd728ba3")
+    @objid ("d4772f49-f077-47fc-a673-57ced7de497d")
     @Override
     public <T extends BusinessRule> List<T> getSubRule(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BusinessRule element : getSubRule()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("97fe18ce-284d-440e-a4ca-77e713f41b88")
+    @objid ("c28068a6-02c2-4551-9229-8bb76391c8a0")
     @Override
     public BusinessRuleContainer getOwnerContainer() {
-        return (BusinessRuleContainer) getDepVal(BusinessRuleData.Metadata.OwnerContainerDep());
+        Object obj = getDepVal(((BusinessRuleSmClass)getClassOf()).getOwnerContainerDep());
+        return (obj instanceof BusinessRuleContainer)? (BusinessRuleContainer)obj : null;
     }
 
-    @objid ("53417367-e5e4-41c3-90f1-c39a2c6c9030")
+    @objid ("794b1cd9-b4b6-4acf-ab35-bae752f644f2")
     @Override
     public void setOwnerContainer(BusinessRuleContainer value) {
-        appendDepVal(BusinessRuleData.Metadata.OwnerContainerDep(), (SmObjectImpl)value);
+        appendDepVal(((BusinessRuleSmClass)getClassOf()).getOwnerContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("96eb8cb3-3091-4caa-90f6-06ca1015c800")
+    @objid ("796d7a63-dfb1-4ae6-83d4-e15a256550a2")
     @Override
     public BusinessRule getParentRule() {
-        return (BusinessRule) getDepVal(BusinessRuleData.Metadata.ParentRuleDep());
+        Object obj = getDepVal(((BusinessRuleSmClass)getClassOf()).getParentRuleDep());
+        return (obj instanceof BusinessRule)? (BusinessRule)obj : null;
     }
 
-    @objid ("e5e1e253-e99d-4c01-9761-145567237bb5")
+    @objid ("2a9b2f47-535c-457c-8992-bf8e9e8f5569")
     @Override
     public void setParentRule(BusinessRule value) {
-        appendDepVal(BusinessRuleData.Metadata.ParentRuleDep(), (SmObjectImpl)value);
+        appendDepVal(((BusinessRuleSmClass)getClassOf()).getParentRuleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("41648014-f406-4629-8c36-8cec8143f264")
+    @objid ("10215222-d212-4a6f-8e4f-e346467b8a03")
     @Override
     public BusinessRule getLastRuleVersion() {
-        return (BusinessRule) getDepVal(BusinessRuleData.Metadata.LastRuleVersionDep());
+        Object obj = getDepVal(((BusinessRuleSmClass)getClassOf()).getLastRuleVersionDep());
+        return (obj instanceof BusinessRule)? (BusinessRule)obj : null;
     }
 
-    @objid ("b305888f-6d4f-4d9e-81a2-45b3ec1125d1")
+    @objid ("cca60892-4469-47be-a8bf-c9e17eaad1df")
     @Override
     public void setLastRuleVersion(BusinessRule value) {
-        appendDepVal(BusinessRuleData.Metadata.LastRuleVersionDep(), (SmObjectImpl)value);
+        appendDepVal(((BusinessRuleSmClass)getClassOf()).getLastRuleVersionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d29fc69a-86ba-4a85-a4af-679250b9fbbf")
+    @objid ("9f3b26ee-38d6-44a3-aecd-6579edcf00da")
     @Override
     public EList<BusinessRule> getArchivedRuleVersion() {
-        return new SmList<>(this, BusinessRuleData.Metadata.ArchivedRuleVersionDep());
+        return new SmList<>(this, ((BusinessRuleSmClass)getClassOf()).getArchivedRuleVersionDep());
     }
 
-    @objid ("b0345edb-ffab-420c-849d-8912ace8385e")
+    @objid ("85213bc4-7f82-4aa7-8c77-e14f652b55cd")
     @Override
     public <T extends BusinessRule> List<T> getArchivedRuleVersion(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BusinessRule element : getArchivedRuleVersion()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e61787b1-2de0-45d0-9a53-4e2bc1dc3340")
+    @objid ("cd37ac86-2e02-45ac-91bd-eebde25a03c4")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BusinessRuleData.Metadata.OwnerContainerDep());
+        // OwnerContainer
+        obj = (SmObjectImpl)this.getDepVal(((BusinessRuleSmClass)getClassOf()).getOwnerContainerDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(BusinessRuleData.Metadata.ParentRuleDep());
+        // ParentRule
+        obj = (SmObjectImpl)this.getDepVal(((BusinessRuleSmClass)getClassOf()).getParentRuleDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(BusinessRuleData.Metadata.LastRuleVersionDep());
+        // LastRuleVersion
+        obj = (SmObjectImpl)this.getDepVal(((BusinessRuleSmClass)getClassOf()).getLastRuleVersionDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("dd1b562d-12c5-4585-9271-fb3cd6a32c0d")
+    @objid ("fac1af4e-40a2-439f-96ab-9705d7b4507b")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BusinessRuleData.Metadata.OwnerContainerDep());
-        if (obj != null)
-          return new SmDepVal(BusinessRuleData.Metadata.OwnerContainerDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(BusinessRuleData.Metadata.ParentRuleDep());
-        if (obj != null)
-          return new SmDepVal(BusinessRuleData.Metadata.ParentRuleDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(BusinessRuleData.Metadata.LastRuleVersionDep());
-        if (obj != null)
-          return new SmDepVal(BusinessRuleData.Metadata.LastRuleVersionDep(), obj);
+        SmDependency dep;
+        
+        // OwnerContainer
+        dep = ((BusinessRuleSmClass)getClassOf()).getOwnerContainerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // ParentRule
+        dep = ((BusinessRuleSmClass)getClassOf()).getParentRuleDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // LastRuleVersion
+        dep = ((BusinessRuleSmClass)getClassOf()).getLastRuleVersionDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("35a0ae85-a6db-48d8-abeb-196c604d39cd")
+    @objid ("3dfb7ba5-5f59-4145-be37-c17ccd56f843")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBusinessRule(this);

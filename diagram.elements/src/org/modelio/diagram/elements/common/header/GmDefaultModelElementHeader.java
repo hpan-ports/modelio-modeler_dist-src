@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.header;
 
@@ -75,7 +75,10 @@ public class GmDefaultModelElementHeader extends GmModelElementHeader {
     }
 
     /**
-     * Create a proxy style that points to the parent element style.
+     * Create a proxy style that points to the diagram style.
+     * <p>
+     * The created proxy style will be modified when the owner is set to make it point
+     * to the owner model style.
      */
     @objid ("7e608449-1dec-11e2-8cad-001ec947c8cc")
     @Override
@@ -135,12 +138,6 @@ public class GmDefaultModelElementHeader extends GmModelElementHeader {
         return taggedValues;
     }
 
-    @objid ("7e62e693-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public RepresentationMode getRepresentationMode() {
-        return RepresentationMode.STRUCTURED;
-    }
-
     @objid ("7e62e698-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public StyleKey getStyleKey(MetaKey metakey) {
@@ -148,12 +145,6 @@ public class GmDefaultModelElementHeader extends GmModelElementHeader {
             return getParent().getStyleKey(metakey);
         else
             return null;
-    }
-
-    @objid ("7e62e69d-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public List<StyleKey> getStyleKeys() {
-        return Collections.emptyList();
     }
 
     @objid ("7e62e6a4-1dec-11e2-8cad-001ec947c8cc")
@@ -196,6 +187,15 @@ public class GmDefaultModelElementHeader extends GmModelElementHeader {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("7e62e69d-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    public List<StyleKey> getStyleKeys() {
+        if (getParent() == null)
+            return Collections.emptyList();
+        else
+            return getParent().getStyleKeys();
     }
 
 }

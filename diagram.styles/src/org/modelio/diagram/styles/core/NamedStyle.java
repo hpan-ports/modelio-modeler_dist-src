@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.core;
 
@@ -31,8 +31,8 @@ import org.modelio.diagram.persistence.IDiagramWriter;
 /**
  * A named style is a special style that is global to the project (or more).
  * <p>
- * This style can be referenced and used in many diagrams. The named style name is used as identifier to find it among
- * shared styles.
+ * This style can be referenced and used in many diagrams. The named style name is used as identifier to find it among shared
+ * styles.
  * 
  * @author phv
  */
@@ -47,6 +47,9 @@ public class NamedStyle extends Style {
     @objid ("27710c41-1927-11e2-92d2-001ec947c8cc")
     public static final String BASESTYLE_ADMINKEY = "basestyle";
 
+    @objid ("ebbb69aa-b991-495e-b1c8-2eceb7ceba9b")
+    public static final String PROVIDER_ADMINKEY = "provider";
+
     @mdl.prop
     @objid ("27710c46-1927-11e2-92d2-001ec947c8cc")
     private String name;
@@ -56,6 +59,15 @@ public class NamedStyle extends Style {
         // Automatically generated method. Please do not modify this code.
         return this.name;
     }
+
+    @mdl.propsetter
+    public void setName(String value) {
+        // Automatically generated method. Please do not modify this code.
+        this.name = value;
+    }
+
+    @objid ("bebaf5d6-c89d-4783-9fb8-c544954445a8")
+    private String provider;
 
     /**
      * Creates a named style.
@@ -82,7 +94,7 @@ public class NamedStyle extends Style {
     @objid ("856b5e2a-1926-11e2-92d2-001ec947c8cc")
     @Override
     public boolean isExternal(IDiagramWriter out) {
-        //TODO: return false in the case we want to save the style 
+        // TODO: return false in the case we want to save the style
         // somewhere else than in a diagram.
         return true;
     }
@@ -97,7 +109,7 @@ public class NamedStyle extends Style {
     @Override
     public void write(IDiagramWriter out) {
         if (this.isExternal(out)) {
-            // The call to super is not correct here as a named style 
+            // The call to super is not correct here as a named style
             // is indeed an external reference and should not be explicitely serialized.
             //
             // Instead write the name of the style as external reference
@@ -111,6 +123,16 @@ public class NamedStyle extends Style {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("550c4734-facf-43fd-bcd9-03679f263a75")
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    @objid ("4df6e36d-b545-48c7-8505-df1866f702d9")
+    public String getProvider() {
+        return this.provider;
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield;
 
@@ -26,15 +26,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.core.services.statusreporter.StatusReporter;
-import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.ui.progress.IModelioProgressService;
@@ -49,18 +45,15 @@ import org.modelio.vcore.smkernel.IllegalModelManipulationException;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * ModelShield provides the functionalities to check a single
- * {@link MObject model object} or
- * a whole {@link Transaction transaction}. It handles a list of
- * {@link IProtectionAgent agents} and a list of {@link IErrorReportListener
- * error reports listeners}.
+ * ModelShield provides the functionalities to check a single {@link MObject model object} or a whole {@link Transaction
+ * transaction}. It handles a list of {@link IProtectionAgent agents} and a list of {@link IErrorReportListener error reports
+ * listeners}.
  */
 @objid ("002807ec-0000-0007-0000-000000000000")
 @Creatable
 public class ModelShield {
     /**
-     * {@link IllegalModelManipulationException} error code when ModelShield
-     * find model errors.
+     * {@link IllegalModelManipulationException} error code when ModelShield find model errors.
      */
     @objid ("3822ff21-4627-4f22-a9df-eb6f89805345")
     public static final int MODELSHIELD_ERROR = -1;
@@ -171,28 +164,24 @@ public class ModelShield {
         // removed @Optional @Named(IServiceConstants.ACTIVE_SHELL) final Shell parentShell
         if (openedProject != null) {
             // Create the core agent
-            if (this.agents.isEmpty()) {
-                addAgent(new CoreProtectionAgent());
-            }
+            addAgent(new CoreProtectionAgent(openedProject.getSession().getMetamodel()));
         
             // Register the transaction validator
             ICoreSession coreSession = openedProject.getSession();
             coreSession.getTransactionSupport().setTransactionValidator(new ModelShieldTransactionValidator(this));
-            
+        
             // Create a default diagnostic listener
             if (this.diagnosticListeners.isEmpty()) {
-                
+        
                 addDiagnosticListener(new IErrorReportListener() {
                     @Override
                     public void onCommitDiagnostic(final IErrorReport errors) {
-                        ErrorReportDialog.open(
-                                Vaudit.I18N.getString("CoreAudit.report.title"),
-                                Vaudit.I18N.getString("CoreAudit.report.message"),
-                                errors);
+                        ErrorReportDialog.open(Vaudit.I18N.getString("CoreAudit.report.title"),
+                                Vaudit.I18N.getString("CoreAudit.report.message"), errors);
                     }
                 });
             }
-            
+        
             // Initialize the namespace uses (blue links) repository
             // Register the namespace uses (blue links) builder
             new NSUseInitializer(openedProject, statusReporter, progressService).init();
@@ -209,9 +198,10 @@ public class ModelShield {
     @Inject
     void onProjectClosing(@EventTopic(ModelioEventTopics.PROJECT_CLOSING) final GProject closedProject) {
         if (closedProject != null) {
+            this.agents.clear();
             closedProject.getSession().getTransactionSupport().setTransactionValidator(null);
             closedProject.getSession().getTransactionSupport().setClosureHandler(null);
-            
+        
         }
     }
 

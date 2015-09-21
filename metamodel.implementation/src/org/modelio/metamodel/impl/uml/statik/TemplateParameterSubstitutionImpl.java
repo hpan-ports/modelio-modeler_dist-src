@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,24 +12,36 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.TemplateParameterSubstitutionData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.statik.TemplateParameterSubstitutionData;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.TemplateBinding;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
@@ -42,78 +54,90 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("001e4902-c4bf-1fd8-97fe-001ec947cd2a")
 public class TemplateParameterSubstitutionImpl extends ModelElementImpl implements TemplateParameterSubstitution {
-    @objid ("0caadf28-cd22-4aaf-8552-cac12d7d83e0")
+    @objid ("21e085dd-14cf-41da-92c7-4fe881be4608")
     @Override
     public String getValue() {
-        return (String) getAttVal(TemplateParameterSubstitutionData.Metadata.ValueAtt());
+        return (String) getAttVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getValueAtt());
     }
 
-    @objid ("bf5f903a-9015-4aec-a58b-6c14bc235bb0")
+    @objid ("1b765880-078c-4265-b916-1cf5a00cdcff")
     @Override
     public void setValue(String value) {
-        setAttVal(TemplateParameterSubstitutionData.Metadata.ValueAtt(), value);
+        setAttVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getValueAtt(), value);
     }
 
-    @objid ("b8ea3748-96f0-43c6-b83d-1c606951d5a1")
+    @objid ("7392a9e1-61ff-40f7-971d-a8ace1e7396e")
     @Override
     public TemplateBinding getOwner() {
-        return (TemplateBinding) getDepVal(TemplateParameterSubstitutionData.Metadata.OwnerDep());
+        Object obj = getDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof TemplateBinding)? (TemplateBinding)obj : null;
     }
 
-    @objid ("0c824d22-4224-481c-b7b0-74019a704c67")
+    @objid ("f1f93d5f-d13b-4c21-a545-9203733ebcf5")
     @Override
     public void setOwner(TemplateBinding value) {
-        appendDepVal(TemplateParameterSubstitutionData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fffd53f3-d406-41fe-bbb7-f3a0b35fee5f")
+    @objid ("a36d1ef6-f7ab-4c24-a75a-6fda52c417b0")
     @Override
     public ModelElement getActual() {
-        return (ModelElement) getDepVal(TemplateParameterSubstitutionData.Metadata.ActualDep());
+        Object obj = getDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getActualDep());
+        return (obj instanceof ModelElement)? (ModelElement)obj : null;
     }
 
-    @objid ("845d09f1-1766-4ad1-b439-88d03b3d851b")
+    @objid ("8f8813b6-0cde-4a56-a6ea-21e5a6697e37")
     @Override
     public void setActual(ModelElement value) {
-        appendDepVal(TemplateParameterSubstitutionData.Metadata.ActualDep(), (SmObjectImpl)value);
+        appendDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getActualDep(), (SmObjectImpl)value);
     }
 
-    @objid ("329d9260-dd43-492f-af9c-f7e0e6d9bded")
+    @objid ("819e2424-6bd6-416b-99e6-11dbf4d5e152")
     @Override
     public TemplateParameter getFormalParameter() {
-        return (TemplateParameter) getDepVal(TemplateParameterSubstitutionData.Metadata.FormalParameterDep());
+        Object obj = getDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getFormalParameterDep());
+        return (obj instanceof TemplateParameter)? (TemplateParameter)obj : null;
     }
 
-    @objid ("8d174b84-db74-4d7f-830f-9a2e007fbccd")
+    @objid ("69e72884-f68b-427e-8d19-3d9cf36591fe")
     @Override
     public void setFormalParameter(TemplateParameter value) {
-        appendDepVal(TemplateParameterSubstitutionData.Metadata.FormalParameterDep(), (SmObjectImpl)value);
+        appendDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getFormalParameterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("185074fb-edcb-4d17-8a29-27a3d3513a86")
+    @objid ("05c49e7a-abda-42d0-9203-72fb15895688")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(TemplateParameterSubstitutionData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("5b3ad2ec-8264-453e-b523-38268a25bae4")
+    @objid ("302fa047-a7ac-4f1a-8ca2-68d3bf3efb90")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(TemplateParameterSubstitutionData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(TemplateParameterSubstitutionData.Metadata.OwnerDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((TemplateParameterSubstitutionSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("08f4181d-4e6c-46cb-b4fa-2ac9f791eacd")
+    @objid ("7a5a9e3c-7fea-4b29-9cd7-fc371db95e96")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTemplateParameterSubstitution(this);

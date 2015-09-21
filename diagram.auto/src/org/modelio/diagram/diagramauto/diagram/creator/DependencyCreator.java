@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.diagramauto.diagram.creator;
 
@@ -36,6 +36,7 @@ import org.modelio.diagram.diagramauto.diagram.layout.FourGroupStructuralLayout;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
+import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.NameSpace;
@@ -77,7 +78,11 @@ public class DependencyCreator extends AbstractDiagramCreator {
     @objid ("867e48da-87e9-474b-ba3e-5d24cf9739b5")
     @Override
     public ModelElement getAutoDiagramContext(final ModelElement main) {
-        return (ModelElement) main.getCompositionOwner();
+        MObject owner = main.getCompositionOwner();
+        if (owner instanceof Project) {
+            return null;
+        }
+        return (ModelElement) owner;
     }
 
     @objid ("a0d02b05-a85b-4782-9fe7-c3ecf4d2235c")

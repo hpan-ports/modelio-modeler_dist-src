@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.log.plugin;
 
@@ -51,6 +51,8 @@ public class Log implements BundleActivator {
         
         this.logbackListener = new LogBackListener();
         service.addLogListener(this.logbackListener);
+        
+        plugKernelLogToEclipseLog();
     }
 
     @objid ("005028aa-4447-1fe3-9845-001ec947cd2a")
@@ -63,6 +65,17 @@ public class Log implements BundleActivator {
         if (this.logbackListener != null) {
             service.removeLogListener(this.logbackListener);
         }
+    }
+
+    @objid ("5d0016a8-64f0-493c-9f8f-0158238c4637")
+    private void plugKernelLogToEclipseLog() {
+        // Set Modelio kernel logger
+        org.modelio.vbasic.log.Log.setLogger(new KernelLogger());
+        
+        // Log enabled log levels
+        org.modelio.vbasic.log.Log.error("Kernel log test : error enabled.");
+        org.modelio.vbasic.log.Log.warning("Kernel log test : warning enabled.");
+        org.modelio.vbasic.log.Log.trace("Kernel log test : trace enabled.");
     }
 
 }

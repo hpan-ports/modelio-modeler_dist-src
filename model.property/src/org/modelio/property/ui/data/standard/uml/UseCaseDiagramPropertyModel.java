@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -35,6 +35,8 @@ import org.modelio.metamodel.uml.statik.Component;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
+import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -49,12 +51,12 @@ public class UseCaseDiagramPropertyModel extends AbstractPropertyModel<UseCaseDi
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a887a408-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"UseCaseDiagram", "Name", "Context"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "Context" };
 
     @objid ("8fa0a438-c068-11e1-8c0a-002564c97630")
     private SingleElementType contextType = null;
@@ -94,29 +96,28 @@ public class UseCaseDiagramPropertyModel extends AbstractPropertyModel<UseCaseDi
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return UseCaseDiagramPropertyModel.PROPERTIES[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getName();
-                    case 2:
-                        return this.theEditedElement.getOrigin();
-                    default:
-                        return null;
-                }
+        case 0: // col 0 is the property key
+            return UseCaseDiagramPropertyModel.PROPERTIES[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return this.theEditedElement.getOrigin();
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -127,21 +128,21 @@ public class UseCaseDiagramPropertyModel extends AbstractPropertyModel<UseCaseDi
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return this.stringType;
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return this.stringType;
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return this.stringType;
-                    case 1:
-                        return this.stringType;
-                    case 2:
-                        return this.contextType;
-                    default:
-                        return null;
-                }
+            case 1:
+                return this.stringType;
+            case 2:
+                return this.contextType;
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -157,24 +158,24 @@ public class UseCaseDiagramPropertyModel extends AbstractPropertyModel<UseCaseDi
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
-                return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setName((String) value);
-                        break;
-                    case 2:
-                        this.theEditedElement.setOrigin((ModelElement) value);
-                        break;
-                    default:
-                        return;
-                }
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                this.theEditedElement.setOrigin((ModelElement) value);
                 break;
             default:
                 return;
+            }
+            break;
+        default:
+            return;
         }
     }
 
@@ -185,6 +186,8 @@ public class UseCaseDiagramPropertyModel extends AbstractPropertyModel<UseCaseDi
     public UseCaseDiagramPropertyModel(final UseCaseDiagram theEditedElement) {
         super(theEditedElement);
         
+        ICoreSession session = CoreSession.getSession(this.theEditedElement);
+        
         this.stringType = new StringType(false);
         
         List<java.lang.Class<? extends MObject>> allowedMetaclasses = new ArrayList<>();
@@ -194,7 +197,7 @@ public class UseCaseDiagramPropertyModel extends AbstractPropertyModel<UseCaseDi
         allowedMetaclasses.add(Component.class);
         allowedMetaclasses.add(UseCase.class);
         
-        this.contextType = new SingleElementType(true, allowedMetaclasses);
+        this.contextType = new SingleElementType(true, allowedMetaclasses, session);
     }
 
 }

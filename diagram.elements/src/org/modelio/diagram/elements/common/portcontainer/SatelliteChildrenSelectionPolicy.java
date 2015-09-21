@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.portcontainer;
 
@@ -47,9 +47,6 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
     @objid ("7f0041e9-1dec-11e2-8cad-001ec947c8cc")
     private int state = -1;
 
-    @objid ("f87fbced-18a3-493b-9bac-df7ca82a19c7")
-    private List<PolylineConnection> focuslinks = new ArrayList<>();
-
     @objid ("6792d65c-f7ae-4b14-8f11-718fab1e7489")
     private EditPartListener selectionListener;
 
@@ -61,6 +58,9 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
      */
     @objid ("6b293b6b-1db8-4ed0-8476-1dbcf674b58a")
     private EditPart mainEditPart;
+
+    @objid ("1bbdb8ff-0814-476d-b4cf-9bbcb12ecd8c")
+    private List<PolylineConnection> focuslinks = new ArrayList<>();
 
     /**
      * Extends activate to hook the appropriate listener and to initialize the visual changes for representing

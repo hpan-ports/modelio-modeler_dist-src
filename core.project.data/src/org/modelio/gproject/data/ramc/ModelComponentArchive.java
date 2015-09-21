@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.data.ramc;
 
@@ -58,6 +58,7 @@ import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vbasic.version.Version;
+import org.modelio.vbasic.version.VersionedItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -92,10 +93,11 @@ public class ModelComponentArchive {
      */
     @objid ("6ac583a6-47e2-4b4c-a723-1c5c871a22f7")
     public ModelComponentArchive(Path path, boolean isArchive) {
-        if (isArchive)
+        if (isArchive) {
             this.archive = path;
-        else
+        } else {
             this.dir = path;
+        }
     }
 
     /**
@@ -106,10 +108,11 @@ public class ModelComponentArchive {
      */
     @objid ("8feb26cf-8636-4145-9ac7-052ac70b09d8")
     public void installExportedFiles(Path deploymentPath, IModelioProgress monitor) throws IOException {
-        if (this.archive != null)
+        if (this.archive != null) {
             new ExportedFilesDeployer().deployfromArchive(this.archive, deploymentPath, monitor);
-        else
+        } else {
             new ExportedFilesDeployer().deployFromDirectory(this.dir, deploymentPath, monitor);
+        }
     }
 
     /**
@@ -157,10 +160,11 @@ public class ModelComponentArchive {
     @objid ("20253825-c258-4295-8cbb-a32fd82dabeb")
     public IModelComponentInfos getInfos() throws IOException {
         if (this.manifest == null) {
-            if (this.archive != null)
+            if (this.archive != null) {
                 this.manifest = ManifestReader.readArchive(this.archive);
-            else
+            } else {
                 this.manifest = ManifestReader.readDirectory(this.dir);
+            }
         }
         return this.manifest;
     }
@@ -193,6 +197,13 @@ public class ModelComponentArchive {
      */
     @objid ("0821054e-cc30-11e1-87f1-001ec947ccaf")
     private static class ManifestReader {
+        /**
+         * The Standard Modelio metamodel name. Must be modified if the
+         * default Modelio metamodel name changes.
+         */
+        @objid ("ab6a3cc1-818e-414a-867e-ec6b0e1fc7fa")
+        private static final String STD_METAMODEL = "Standard";
+
         @objid ("7414e0ee-cc3e-11e1-87f1-001ec947ccaf")
         public static ModelComponentInfos readArchive(Path ramcPath) throws IOException {
             try (FileSystem fs = createZipFileSystem(ramcPath)) {
@@ -235,11 +246,9 @@ public class ModelComponentArchive {
                     int version = Integer.parseInt(ramcElement.getAttribute("version"));
                     int release = Integer.parseInt(ramcElement.getAttribute("release"));
                     int clevel = Integer.parseInt(ramcElement.getAttribute("clevel"));
-                    String sMmVersion = ramcElement.getAttribute("metamodel");
-                    
-                    int mmVersion = (sMmVersion!=null && !sMmVersion.isEmpty()) ? Integer.parseInt(sMmVersion) : 0;
+                    updateRequiredModelioMmVersion(ramcElement, modelComponentInfos);
             
-                    modelComponentInfos.setVersion(new Version(version, release, clevel, mmVersion));
+                    modelComponentInfos.setVersion(new Version(version, release, clevel));
             
                     NodeList childNodes = xmlDoc.getDocumentElement().getChildNodes();
             
@@ -253,10 +262,13 @@ public class ModelComponentArchive {
                                 modelComponentInfos.setDescription(el.getTextContent().trim());
                                 break;
                             case "dependencies":
-                                updateDependencies(el, modelComponentInfos);
+                                updateRamcDependencies(el, modelComponentInfos);
                                 break;
                             case "contributors":
                                 updateContributors(el, modelComponentInfos);
+                                break;
+                            case "metamodels":
+                                updateMetamodelDependencies(el, modelComponentInfos);
                                 break;
                             case "file":
                                 readFile(el, modelComponentInfos);
@@ -278,12 +290,12 @@ public class ModelComponentArchive {
             } catch (ParserConfigurationException e) {
                 throw new IOException("Cannot initialize Xml parser:"+e.getLocalizedMessage(), e); //$NON-NLS-1$
             } catch (SAXException e) {
-                throw new IOException(e.getLocalizedMessage(), e); 
+                throw new IOException(e.getLocalizedMessage(), e);
             }
         }
 
         @objid ("a01e6614-cc36-11e1-87f1-001ec947ccaf")
-        private static void updateDependencies(Element dependenciesNode, ModelComponentInfos ret) {
+        private static void updateRamcDependencies(Element dependenciesNode, ModelComponentInfos ret) {
             NodeList dependencyNodes = dependenciesNode.getChildNodes();
             
             for (int i = 0; i < dependencyNodes.getLength(); i++) {
@@ -295,9 +307,8 @@ public class ModelComponentArchive {
                     Version dependencyVersion = new Version(dependencyElement.getAttribute("version"));
                     String id = dependencyElement.getAttribute("id");
             
-                    IModelComponentInfos.VersionedItem adapter = new IModelComponentInfos.VersionedItem(dependencyName, id,
-                            dependencyVersion);
-                    ret.addDependency(adapter);
+                    VersionedItem<String> adapter = new VersionedItem<>(dependencyName, dependencyVersion, id);
+                    ret.addRequiredRamc(adapter);
                 }
             }
         }
@@ -314,7 +325,7 @@ public class ModelComponentArchive {
                     String mdacName = contributorElement.getAttribute("name");
                     Version mdacVersion = new Version(contributorElement.getAttribute("version"));
             
-                    IModelComponentInfos.VersionedItem adapter = new IModelComponentInfos.VersionedItem(mdacName, mdacVersion);
+                    VersionedItem<Void> adapter = new VersionedItem<>(mdacName, mdacVersion);
             
                     ret.addModule(adapter);
                 }
@@ -341,19 +352,13 @@ public class ModelComponentArchive {
         @objid ("a01e661c-cc36-11e1-87f1-001ec947ccaf")
         private static boolean checkManifestVersion(String manifestVersion) {
             // FIXME : should only check Version 2.0
-            Version requiredVersion1 = new Version(1, 0, 0, 0);
-            Version requiredVersion = new Version(2, 0, 0, 0);
             
             if (manifestVersion == null || manifestVersion.equals("")) {
                 return false;
             }
             
             Version version = new Version(manifestVersion);
-            
-            if (!version.equals(requiredVersion1) && !version.equals(requiredVersion)) {
-                return false;
-            }
-            return true;
+            return (version.getMajorVersion() <= 3);
         }
 
         @objid ("7414e0e7-cc3e-11e1-87f1-001ec947ccaf")
@@ -385,6 +390,40 @@ public class ModelComponentArchive {
         public static ModelComponentInfos readDirectory(Path ramcDir) throws IOException {
             Path metaPath = ramcDir.resolve(METADATAS_XML);
             return readMetadataFile(metaPath);
+        }
+
+        /**
+         * Convert from old way to specify metamodel version to new one
+         * @param ramcElement
+         * @param ret
+         */
+        @objid ("f870bdd5-862a-4cc8-931b-b686be230954")
+        private static void updateRequiredModelioMmVersion(Element ramcElement, ModelComponentInfos ret) {
+            String sMmVersion = ramcElement.getAttribute("metamodel");
+            
+            if (sMmVersion!=null && !sMmVersion.isEmpty()) {
+                int mmVersion = Integer.parseInt(sMmVersion) ;
+                VersionedItem<Void> adapter = new VersionedItem<>(STD_METAMODEL, new Version(0,0,mmVersion));
+                ret.addRequiredMetamodelFragment(adapter);
+            }
+        }
+
+        @objid ("d1fde1c4-fcf4-4e6e-b5fe-26c73e4012d9")
+        private static void updateMetamodelDependencies(Element dependenciesNode, ModelComponentInfos ret) {
+            NodeList dependencyNodes = dependenciesNode.getChildNodes();
+            
+            for (int i = 0; i < dependencyNodes.getLength(); i++) {
+                Node dependencyNode = dependencyNodes.item(i);
+                if (dependencyNode instanceof Element) {
+                    Element dependencyElement = (Element) dependencyNode;
+            
+                    String dependencyName = dependencyElement.getAttribute("name");
+                    Version dependencyVersion = new Version(dependencyElement.getAttribute("version"));
+            
+                    VersionedItem<Void> adapter = new VersionedItem<>(dependencyName, dependencyVersion);
+                    ret.addRequiredMetamodelFragment(adapter);
+                }
+            }
         }
 
     }
@@ -514,7 +553,7 @@ public class ModelComponentArchive {
                 progress.subTask("Deleting file " + fileToDelete.toString());
                 // System.out.printf("  - delete file %s\n",
                 // fileToDelete.toString());
-                
+            
                 if (fileToDelete.startsWith(deploymentPath)) {
                     dirToClean.add(fileToDelete.getParent());
                 }
@@ -579,8 +618,9 @@ public class ModelComponentArchive {
         @objid ("c0870711-6fc2-497c-9dbe-620f8b269ee5")
         @Override
         public void close() throws IOException {
-            if (this.path != null)
+            if (this.path != null) {
                 FileUtils.delete(this.path);
+            }
         }
 
     }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vbasic.net;
 
@@ -85,7 +85,7 @@ public class UriPathAccess implements AutoCloseable {
      * @throws java.nio.file.FileSystemException in case of file system failure
      */
     @objid ("6f37298c-2604-40e0-ac5d-74c915898b42")
-    public Path getPath() throws IOException, FileSystemException {
+    public Path getPath() throws FileSystemException, IOException {
         if (this.path == null) 
             lookup();
         return this.path;
@@ -116,7 +116,7 @@ public class UriPathAccess implements AutoCloseable {
     }
 
     @objid ("4fb461c0-e355-401b-9bf1-e18b5aec58c7")
-    private void lookup() throws IOException, FileSystemException {
+    private void lookup() throws FileSystemException, IOException {
         try {
             this.path = Paths.get(this.uri);
         } catch (FileSystemNotFoundException | IllegalArgumentException e) {

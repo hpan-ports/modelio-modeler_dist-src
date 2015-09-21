@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.api.services;
 
@@ -146,7 +146,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
      */
     @objid ("8fb92ab3-249d-45a9-a0dd-c3461c867301")
     @Override
-    public void setPath(ILinkPath linkPath) throws InvalidSourcePointException, InvalidDestinationPointException, InvalidPointsPathException {
+    public void setPath(ILinkPath linkPath) throws InvalidDestinationPointException, InvalidPointsPathException, InvalidSourcePointException {
         final List<Point> points = new ArrayList<>(linkPath.getPoints());
         if (points.size() < 2) {
             throw new InvalidPointsPathException("You must have at least a source and a destination point");

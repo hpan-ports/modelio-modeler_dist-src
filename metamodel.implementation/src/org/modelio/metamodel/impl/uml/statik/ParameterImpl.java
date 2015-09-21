@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -31,8 +43,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.objects.BpmnDataInput;
 import org.modelio.metamodel.bpmn.objects.BpmnDataOutput;
-import org.modelio.metamodel.data.uml.statik.ParameterData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.statik.ParameterData;
 import org.modelio.metamodel.uml.behavior.activityModel.Pin;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.ParameterEffectKind;
@@ -49,287 +61,312 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00180e5c-c4bf-1fd8-97fe-001ec947cd2a")
 public class ParameterImpl extends ModelElementImpl implements Parameter {
-    @objid ("3f750bf0-ff16-4c42-a6b6-2b8b8efeb9f3")
+    @objid ("55ca4946-3e99-4b8b-bbe8-24dc806031a9")
     @Override
     public PassingMode getParameterPassing() {
-        return (PassingMode) getAttVal(ParameterData.Metadata.ParameterPassingAtt());
+        return (PassingMode) getAttVal(((ParameterSmClass)getClassOf()).getParameterPassingAtt());
     }
 
-    @objid ("a81a1452-c5f9-4f2d-a879-9dc7e058c663")
+    @objid ("45306ec5-f9a7-4d8c-b17a-87b56f701cb6")
     @Override
     public void setParameterPassing(PassingMode value) {
-        setAttVal(ParameterData.Metadata.ParameterPassingAtt(), value);
+        setAttVal(((ParameterSmClass)getClassOf()).getParameterPassingAtt(), value);
     }
 
-    @objid ("8986d169-bc77-487b-bf2d-b052d6371057")
+    @objid ("98595d2e-e967-451f-9145-953c41a5df7c")
     @Override
     public String getMultiplicityMin() {
-        return (String) getAttVal(ParameterData.Metadata.MultiplicityMinAtt());
+        return (String) getAttVal(((ParameterSmClass)getClassOf()).getMultiplicityMinAtt());
     }
 
-    @objid ("7400b0a6-e774-4f34-8067-d791cdf0f864")
+    @objid ("d1118c01-7779-47e2-bc7d-591b5ce494cf")
     @Override
     public void setMultiplicityMin(String value) {
-        setAttVal(ParameterData.Metadata.MultiplicityMinAtt(), value);
+        setAttVal(((ParameterSmClass)getClassOf()).getMultiplicityMinAtt(), value);
     }
 
-    @objid ("026ce79f-a17f-4c01-b6c2-80fa5fa8abe2")
+    @objid ("a11a4fae-26b2-4fb4-8e65-5c7c101f9854")
     @Override
     public String getMultiplicityMax() {
-        return (String) getAttVal(ParameterData.Metadata.MultiplicityMaxAtt());
+        return (String) getAttVal(((ParameterSmClass)getClassOf()).getMultiplicityMaxAtt());
     }
 
-    @objid ("5269fa03-7926-4729-b03c-f7a1aa0726c5")
+    @objid ("287da818-94f0-4eae-aef9-ab2b2be509cf")
     @Override
     public void setMultiplicityMax(String value) {
-        setAttVal(ParameterData.Metadata.MultiplicityMaxAtt(), value);
+        setAttVal(((ParameterSmClass)getClassOf()).getMultiplicityMaxAtt(), value);
     }
 
-    @objid ("45f39e56-5dfd-4eee-be03-5c21b3c384ef")
+    @objid ("7e7fcda6-c514-4390-943d-b5e1d800896e")
     @Override
     public String getTypeConstraint() {
-        return (String) getAttVal(ParameterData.Metadata.TypeConstraintAtt());
+        return (String) getAttVal(((ParameterSmClass)getClassOf()).getTypeConstraintAtt());
     }
 
-    @objid ("842195b5-a7ba-42be-9cd7-27a262b92b79")
+    @objid ("b70a9cf1-cf2b-43d8-b14d-a2456e006da4")
     @Override
     public void setTypeConstraint(String value) {
-        setAttVal(ParameterData.Metadata.TypeConstraintAtt(), value);
+        setAttVal(((ParameterSmClass)getClassOf()).getTypeConstraintAtt(), value);
     }
 
-    @objid ("a0c831a1-19aa-4654-a32e-371ffa6ae01a")
+    @objid ("7892decc-9d87-4061-b77b-ea8ec6a3dcbf")
     @Override
     public String getDefaultValue() {
-        return (String) getAttVal(ParameterData.Metadata.DefaultValueAtt());
+        return (String) getAttVal(((ParameterSmClass)getClassOf()).getDefaultValueAtt());
     }
 
-    @objid ("141284d8-8d2b-4c0c-aff0-df834bc04e73")
+    @objid ("30079f64-7237-413d-8f69-43e19accaef9")
     @Override
     public void setDefaultValue(String value) {
-        setAttVal(ParameterData.Metadata.DefaultValueAtt(), value);
+        setAttVal(((ParameterSmClass)getClassOf()).getDefaultValueAtt(), value);
     }
 
-    @objid ("ec2c7ad2-04fa-46e1-afe9-5bcb6101ae07")
+    @objid ("32a6673c-3aaf-4496-8870-0651b427e644")
     @Override
     public boolean isIsOrdered() {
-        return (Boolean) getAttVal(ParameterData.Metadata.IsOrderedAtt());
+        return (Boolean) getAttVal(((ParameterSmClass)getClassOf()).getIsOrderedAtt());
     }
 
-    @objid ("9da7b361-60ec-4e17-af87-43b2ba8ae72d")
+    @objid ("012e1828-eab5-4348-bebe-7c71e9aae50b")
     @Override
     public void setIsOrdered(boolean value) {
-        setAttVal(ParameterData.Metadata.IsOrderedAtt(), value);
+        setAttVal(((ParameterSmClass)getClassOf()).getIsOrderedAtt(), value);
     }
 
-    @objid ("be66f4db-f2df-47d1-b89f-3de82b3c4a4f")
+    @objid ("a5743075-05ce-4edf-aeb0-f9201877d3d4")
     @Override
     public boolean isIsUnique() {
-        return (Boolean) getAttVal(ParameterData.Metadata.IsUniqueAtt());
+        return (Boolean) getAttVal(((ParameterSmClass)getClassOf()).getIsUniqueAtt());
     }
 
-    @objid ("72733003-35c0-4259-b976-d6c148cf0d73")
+    @objid ("1de64e76-2452-4221-8303-b379bfec2a23")
     @Override
     public void setIsUnique(boolean value) {
-        setAttVal(ParameterData.Metadata.IsUniqueAtt(), value);
+        setAttVal(((ParameterSmClass)getClassOf()).getIsUniqueAtt(), value);
     }
 
-    @objid ("2871e85e-d913-458f-a088-fb089df97fed")
+    @objid ("82486f37-d54b-4bb2-8dca-d56df4983302")
     @Override
     public boolean isIsException() {
-        return (Boolean) getAttVal(ParameterData.Metadata.IsExceptionAtt());
+        return (Boolean) getAttVal(((ParameterSmClass)getClassOf()).getIsExceptionAtt());
     }
 
-    @objid ("d4ce5aca-9f0e-4065-8af4-90a3b35a8f8d")
+    @objid ("ee99f4d6-e00b-45f2-9c52-49dd27abfeec")
     @Override
     public void setIsException(boolean value) {
-        setAttVal(ParameterData.Metadata.IsExceptionAtt(), value);
+        setAttVal(((ParameterSmClass)getClassOf()).getIsExceptionAtt(), value);
     }
 
-    @objid ("44856212-dfaf-480d-b552-f34b357256d1")
+    @objid ("8fd54566-b9ed-4e58-84c8-6c71f45e9aae")
     @Override
     public boolean isIsStream() {
-        return (Boolean) getAttVal(ParameterData.Metadata.IsStreamAtt());
+        return (Boolean) getAttVal(((ParameterSmClass)getClassOf()).getIsStreamAtt());
     }
 
-    @objid ("9aed095e-1dde-4791-ab8e-4cabb3d8daf5")
+    @objid ("d120984a-758e-423f-a032-2b43d30451b8")
     @Override
     public void setIsStream(boolean value) {
-        setAttVal(ParameterData.Metadata.IsStreamAtt(), value);
+        setAttVal(((ParameterSmClass)getClassOf()).getIsStreamAtt(), value);
     }
 
-    @objid ("d77e8829-4969-42b0-ab38-72d8cc6bb18e")
+    @objid ("ce4ad59a-229f-4fed-b5ea-8767ccb24fec")
     @Override
     public ParameterEffectKind getEffect() {
-        return (ParameterEffectKind) getAttVal(ParameterData.Metadata.EffectAtt());
+        return (ParameterEffectKind) getAttVal(((ParameterSmClass)getClassOf()).getEffectAtt());
     }
 
-    @objid ("b2f214ce-e1d7-4a3f-aa5d-c0b9fea049be")
+    @objid ("13fb83ba-046d-4919-a8ae-e0cce94b47a7")
     @Override
     public void setEffect(ParameterEffectKind value) {
-        setAttVal(ParameterData.Metadata.EffectAtt(), value);
+        setAttVal(((ParameterSmClass)getClassOf()).getEffectAtt(), value);
     }
 
-    @objid ("c111661f-7c0c-432f-9c26-4edddbaa7185")
+    @objid ("447133a4-ead0-4723-bb1f-1a2369e1979f")
     @Override
     public EList<BpmnDataInput> getBpmnRepresentingDataInput() {
-        return new SmList<>(this, ParameterData.Metadata.BpmnRepresentingDataInputDep());
+        return new SmList<>(this, ((ParameterSmClass)getClassOf()).getBpmnRepresentingDataInputDep());
     }
 
-    @objid ("c570baa2-bc34-4536-a203-b9ff7aed6a1f")
+    @objid ("cabc859a-c624-4f91-8e49-7f8661b35103")
     @Override
     public <T extends BpmnDataInput> List<T> getBpmnRepresentingDataInput(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnDataInput element : getBpmnRepresentingDataInput()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("357e4874-38ef-4389-9b61-b7032940a267")
+    @objid ("37adaa53-c2a2-44c7-af70-5cbb3b554b8e")
     @Override
     public GeneralClass getType() {
-        return (GeneralClass) getDepVal(ParameterData.Metadata.TypeDep());
+        Object obj = getDepVal(((ParameterSmClass)getClassOf()).getTypeDep());
+        return (obj instanceof GeneralClass)? (GeneralClass)obj : null;
     }
 
-    @objid ("469059f1-2962-410a-9ed2-394bc43cd980")
+    @objid ("cde7918a-2db1-4c34-bbb5-8d331001db24")
     @Override
     public void setType(GeneralClass value) {
-        appendDepVal(ParameterData.Metadata.TypeDep(), (SmObjectImpl)value);
+        appendDepVal(((ParameterSmClass)getClassOf()).getTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("729a46cd-511d-4fb2-8868-098bc8deb06d")
+    @objid ("f7e383e4-9ae8-4e7e-9a5e-00dbaac12f4e")
     @Override
     public Operation getComposed() {
-        return (Operation) getDepVal(ParameterData.Metadata.ComposedDep());
+        Object obj = getDepVal(((ParameterSmClass)getClassOf()).getComposedDep());
+        return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("5de313e4-4560-4882-aae8-c343637cd772")
+    @objid ("027293c9-7612-4b57-b952-bfff2ca815b2")
     @Override
     public void setComposed(Operation value) {
-        appendDepVal(ParameterData.Metadata.ComposedDep(), (SmObjectImpl)value);
+        appendDepVal(((ParameterSmClass)getClassOf()).getComposedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("43361e93-b54b-4105-a7a1-b22d293d8b99")
+    @objid ("40d9b73f-898c-4c33-b69d-cf9acad3a2b6")
     @Override
     public EList<Pin> getMatching() {
-        return new SmList<>(this, ParameterData.Metadata.MatchingDep());
+        return new SmList<>(this, ((ParameterSmClass)getClassOf()).getMatchingDep());
     }
 
-    @objid ("b5d49563-15b3-4a71-a13a-888d474a1059")
+    @objid ("8149dbfe-30e0-4afd-9f18-0de316133650")
     @Override
     public <T extends Pin> List<T> getMatching(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Pin element : getMatching()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7683d32a-4833-4512-b263-c46fa0bd9135")
+    @objid ("8f971808-8e25-4e65-a372-3ef4e724d24c")
     @Override
     public EList<BpmnDataOutput> getBpmnRepresentingDataOutput() {
-        return new SmList<>(this, ParameterData.Metadata.BpmnRepresentingDataOutputDep());
+        return new SmList<>(this, ((ParameterSmClass)getClassOf()).getBpmnRepresentingDataOutputDep());
     }
 
-    @objid ("3eb56876-4e91-4fe9-9f26-3b89f9f19481")
+    @objid ("2e1675e0-b86c-4a67-adbe-04f93285ff34")
     @Override
     public <T extends BpmnDataOutput> List<T> getBpmnRepresentingDataOutput(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnDataOutput element : getBpmnRepresentingDataOutput()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4eeecdd8-90ef-43a1-8edf-00ed6f19148f")
+    @objid ("715aceea-1142-46b1-9292-8426c7f0ceaf")
     @Override
     public EList<Signal> getSRepresentation() {
-        return new SmList<>(this, ParameterData.Metadata.SRepresentationDep());
+        return new SmList<>(this, ((ParameterSmClass)getClassOf()).getSRepresentationDep());
     }
 
-    @objid ("9f21b10a-b53b-441e-b764-0c0b49a1ae4a")
+    @objid ("b454b5f8-b3eb-4d0c-b399-a4d288a58370")
     @Override
     public <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Signal element : getSRepresentation()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b498f535-bb78-4cf0-8c80-2b2e91d3c751")
+    @objid ("ae1b6d57-c4ac-463f-9bdc-8aca5dd2d513")
     @Override
     public Operation getReturned() {
-        return (Operation) getDepVal(ParameterData.Metadata.ReturnedDep());
+        Object obj = getDepVal(((ParameterSmClass)getClassOf()).getReturnedDep());
+        return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("a75c12cc-ac16-4e92-9186-e979118ea86e")
+    @objid ("ac75c468-f495-4ba2-9ad8-f2ec215902b1")
     @Override
     public void setReturned(Operation value) {
-        appendDepVal(ParameterData.Metadata.ReturnedDep(), (SmObjectImpl)value);
+        appendDepVal(((ParameterSmClass)getClassOf()).getReturnedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("deaa8d35-c062-4b75-be6d-576aefa8dfdc")
+    @objid ("42a99b05-c0dc-44fa-9850-4aabbc139a86")
     @Override
     public EList<BehaviorParameter> getBehaviorParam() {
-        return new SmList<>(this, ParameterData.Metadata.BehaviorParamDep());
+        return new SmList<>(this, ((ParameterSmClass)getClassOf()).getBehaviorParamDep());
     }
 
-    @objid ("c4dd3b0e-e580-4d13-9eb3-da1f3cff9212")
+    @objid ("63119d8a-2007-4e13-bdf2-018c9ccc9d49")
     @Override
     public <T extends BehaviorParameter> List<T> getBehaviorParam(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BehaviorParameter element : getBehaviorParam()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6a6439bf-4a28-4041-a41b-372a7461c31e")
+    @objid ("310b27cd-89e3-4c5d-be4b-8c3942b32287")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ParameterData.Metadata.ComposedDep());
+        // Composed
+        obj = (SmObjectImpl)this.getDepVal(((ParameterSmClass)getClassOf()).getComposedDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(ParameterData.Metadata.ReturnedDep());
+        // Returned
+        obj = (SmObjectImpl)this.getDepVal(((ParameterSmClass)getClassOf()).getReturnedDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d45bf49c-7c73-4634-877e-ac1433b0dc38")
+    @objid ("39e18f6c-48b8-48a3-aa9d-7a580ea72f65")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ParameterData.Metadata.ComposedDep());
-        if (obj != null)
-          return new SmDepVal(ParameterData.Metadata.ComposedDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(ParameterData.Metadata.ReturnedDep());
-        if (obj != null)
-          return new SmDepVal(ParameterData.Metadata.ReturnedDep(), obj);
+        SmDependency dep;
+        
+        // Composed
+        dep = ((ParameterSmClass)getClassOf()).getComposedDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // Returned
+        dep = ((ParameterSmClass)getClassOf()).getReturnedDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("77d05863-7871-488a-a01f-a5c2587d97e1")
+    @objid ("6c53dbfc-c973-4a51-a12f-38261bff0465")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitParameter(this);

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,31 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 0.0.9024, by Modeliosoft
+ Generator version: 3.2.10.9023
+ Generated on: Mar 19, 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
@@ -50,157 +59,162 @@ import org.modelio.metamodel.uml.statik.NaryConnector;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 
+/**
+ * ModelElement v0.0.9054
+ * 
+ * 
+ * A ModelElement describes every element that can exist in a model. Only low-level Elements are not ModelElements. 
+ * 
+ * ModelElements can be extended by Stereotypes and TaggedValues, can have Notes, can be the origin or target of Dependencies, and can have Constraints.
+ */
 @objid ("00886f12-c4be-1fd8-97fe-001ec947cd2a")
 public interface ModelElement extends Element {
+    @objid ("2c8aa68e-c719-4305-8a48-c6c51ca2e744")
+    public static final String MNAME = "ModelElement";
+
     /**
-     * Checks if a model element has the stereotype specified by the
-     * (moduleName, stereotypeName) pair.
+     * Checks if a model element has the stereotype specified by the (moduleName, stereotypeName) pair.
      * @param moduleName
      * - the name of the module providing the type. Cannot be null.
      * @param stereotypeName The stereotype to find. Cannot be null.
-     * @return true if the element has the given stereotype or a stereotype
-     * derived from the given one.
+     * @return true if the element has the given stereotype or a stereotype derived from the given one.
      */
     @objid ("dcfe9255-d804-11e1-b25c-001ec947ccaf")
     boolean isStereotyped(String modulePattern, String stereotypeName);
 
+    /**
+     * Get the stereotype specified by the (moduleName, stereotypeName) pair from this model element.
+     * @return the specified stereotype or <code>null</code>.
+     * @since Modelio 3.4
+     * @param moduleName - the name of the module providing the type. Cannot be null.
+     * @param stereotypeName The stereotype to find. Cannot be <code>null</code>.
+     */
     @objid ("4601cf60-e004-4047-a69c-5b34dad34860")
     void addStereotype(String moduleName, String stereotypeName) throws ExtensionNotFoundException;
 
     /**
-     * This method removes the stereotype the stereotype specified by the
-     * (moduleName, stereotypeName) pair. If several instances of the stereotype
-     * are present, they are all removed.
+     * This method removes the stereotype the stereotype specified by the (moduleName, stereotypeName) pair. If several instances of
+     * the stereotype are present, they are all removed.
      * @param type
-     * - the stereotype name. Cannot be null.
-     * @param moduleName - the name of the module providing the type. Cannot be null.
+     * - the stereotype name. Cannot be <code>null</code>.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
      */
     @objid ("f26ff6c2-a983-47c2-bf20-913c7e441ed8")
     void removeStereotypes(String moduleName, String stereotypeName);
 
+    @objid ("6c25b162-5c2e-479b-919b-f3a142d61e18")
+    Stereotype getStereotype(String moduleName, String stereotypeName);
+
     /**
-     * This method returns 'true' if the element has a tagged value of the type
-     * indicated by the (moduleName, tagTypeName) pair.
-     * @param moduleName - the name of the module providing the type. Cannot be null.
-     * @param tagTypeName - The tagged value type name. Cannot be null.
-     * @return 'true' if the element has a tagged value with the corresponding
-     * type.
+     * This method returns 'true' if the element has a tagged value of the type indicated by the (moduleName, tagTypeName) pair.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
+     * @param tagTypeName - The tagged value type name. Cannot be <code>null</code>.
+     * @return 'true' if the element has a tagged value with the corresponding type.
      */
     @objid ("dcfe9251-d804-11e1-b25c-001ec947ccaf")
     boolean isTagged(String moduleName, String tagTypeName);
 
     /**
-     * This method returns the (first) tagged value of the type indicated by the
-     * (moduleName, tagTypeName) pair.
-     * @param moduleName - the name of the module providing the type. Cannot be null.
-     * @param tagTypeName - The tagged value type name. Cannot be null.
-     * @return The tag or null if it can't be found
+     * This method returns the (first) tagged value of the type indicated by the (moduleName, tagTypeName) pair.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
+     * @param tagTypeName - The tagged value type name. Cannot be <code>null</code>.
+     * @return The tag or <code>null</code> if it can't be found
      */
     @objid ("dcfe9263-d804-11e1-b25c-001ec947ccaf")
     TaggedValue getTag(String moduleName, String tagTypeName);
 
     /**
-     * This method returns the first parameter value of the first tagged value
-     * of the type indicated by the (moduleName, tagTypeName) pair.
-     * @param moduleName - the name of the module providing the type. Cannot be null.
-     * @param tagTypeName - The tagged value type name. Cannot be null.
-     * @return null if no tag can be found or there are no parameters, otherwise
-     * the first parameter value.
+     * This method returns the first parameter value of the first tagged value of the type indicated by the (moduleName,
+     * tagTypeName) pair.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
+     * @param tagTypeName - The tagged value type name. Cannot be <code>null</code>.
+     * @return <code>null</code> if no tag can be found or there are no parameters, otherwise the first parameter value.
      */
     @objid ("dcfe925f-d804-11e1-b25c-001ec947ccaf")
     String getTagValue(String moduleName, String tagTypeName);
 
     /**
-     * This method returns the parameter values of the first tagged value of the
-     * type indicated by the (moduleName, tagTypeName) pair.
-     * @param moduleName - the name of the module providing the type. Cannot be null.
-     * @param tagTypeName - The tagged value type name. Cannot be null.
-     * @return null if no tag can be found otherwise the (possibly empty)
-     * parameter list
+     * This method returns the parameter values of the first tagged value of the type indicated by the (moduleName, tagTypeName)
+     * pair.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
+     * @param tagTypeName - The tagged value type name. Cannot be <code>null</code>.
+     * @return <code>null</code> if no tag can be found otherwise the (possibly empty) parameter list
      */
     @objid ("dcfe9259-d804-11e1-b25c-001ec947ccaf")
     List<String> getTagValues(String moduleName, String tagTypeName);
 
     /**
-     * This method sets the parameter of the tagged value of the type indicated
-     * by the (moduleName, tagTypeName) pair.
+     * This method sets the parameter of the tagged value of the type indicated by the (moduleName, tagTypeName) pair.
      * 
      * The tagged value and the parameter are created if they don't exist.<br/>
      * 
-     * If values is <tt>null</tt> or empty the existing tag is deleted.
+     * If values is <code>null</code> or empty the existing tag is deleted.
      * @param values
-     * - the values to store on the tag parameters. If value is
-     * <tt>null</tt> the tag is deleted.
+     * - the values to store on the tag parameters. If value is <code>null</code> the tag is deleted.
      * @throws ElementNotUniqueException
      * @throws ExtensionNotFoundException
-     * @param moduleName - the name of the module providing the type. Cannot be null.
-     * @param tagTypeName - The tagged value type name. Cannot be null.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
+     * @param tagTypeName - The tagged value type name. Cannot be <code>null</code>.
      */
     @objid ("5caef430-b9e6-4b7c-900c-b7deb17a8197")
     void putTagValue(String moduleName, String tagTypeName, String value) throws ExtensionNotFoundException;
 
     /**
-     * This method sets the parameters of the tagged value of the type indicated
-     * by the (moduleName, tagTypeName) pair.
+     * This method sets the parameters of the tagged value of the type indicated by the (moduleName, tagTypeName) pair.
      * 
      * The tagged value and the parameter are created if they don't exist.<br/>
-     * If values is <tt>null</tt> or empty list the existing tag is deleted.
+     * If values is <code>null</code> or empty list the existing tag is deleted.
      * @throws ElementNotUniqueException
      * @throws ExtensionNotFoundException
-     * @param moduleName - the name of the module providing the type. Cannot be null.
-     * @param tagTypeName - The tagged value type name. Cannot be null.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
+     * @param tagTypeName - The tagged value type name. Cannot be <code>null</code>.
      */
     @objid ("d59462b8-4bf4-4878-a82a-8eede2c93613")
     void putTagValues(String moduleName, String tagTypeName, List<String> values) throws ExtensionNotFoundException;
 
     /**
-     * This method deletes all the tagged values of the type indicated by the
-     * (moduleName, tagTypeName) pair.
-     * @param moduleName - the name of the module providing the type. Cannot be null.
-     * @param tagTypeName - The tagged value type name. Cannot be null.
+     * This method deletes all the tagged values of the type indicated by the (moduleName, tagTypeName) pair.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
+     * @param tagTypeName - The tagged value type name. Cannot be <code>null</code>.
      */
     @objid ("00ecbac8-6298-4f80-825f-8975409d150d")
     void removeTags(String moduleName, String tagTypeName);
 
     /**
-     * This operation returns the first note of the type indicated by the
-     * (moduleName, noteTypeName) pair.
-     * @param moduleName - the name of the module providing the type. Cannot be null.
-     * @param noteTypeName - the note type name. Cannot be null.
-     * @return The note or null if the note can't be found.
+     * This operation returns the first note of the type indicated by the (moduleName, noteTypeName) pair.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
+     * @param noteTypeName - the note type name. Cannot be <code>null</code>.
+     * @return The note or <code>null</code> if the note can't be found.
      */
     @objid ("dd00f4b1-d804-11e1-b25c-001ec947ccaf")
     Note getNote(String moduleName, String noteTypeName);
 
     /**
-     * This method returns the content of the first note of the type indicated
-     * by the (moduleName, noteTypeName) pair.
-     * @param moduleName - the name of the module providing the type. Cannot be null.
-     * @param noteTypeName - the note type name. Cannot be null.
-     * @return The note or null if the note can't be found.
+     * This method returns the content of the first note of the type indicated by the (moduleName, noteTypeName) pair.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
+     * @param noteTypeName - the note type name. Cannot be <code>null</code>.
+     * @return The note or <code>null</code> if the note can't be found.
      */
     @objid ("dcfe9267-d804-11e1-b25c-001ec947ccaf")
     String getNoteContent(String moduleName, String noteTypeName);
 
     /**
-     * This method  sets the content of the first note of the type
-     * indicated by the (moduleName, noteTypeName) pair.
+     * This method sets the content of the first note of the type indicated by the (moduleName, noteTypeName) pair.
      * 
      * If no note with the given type is found one is created.
      * @throws ElementNotUniqueException
      * @throws ExtensionNotFoundException
-     * @param moduleName - the name of the module providing the type. Cannot be null.
-     * @param noteTypeName - the note type name. Cannot be null.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
+     * @param noteTypeName - the note type name. Cannot be <code>null</code>.
      * @param content - the note content
      */
     @objid ("73b0ebfc-5dab-4ecb-b39e-3dd5a188916f")
     void putNoteContent(String moduleName, String noteTypeName, String content) throws ExtensionNotFoundException;
 
     /**
-     * This method deletes all the notes having this noteType of the type
-     * indicated by the (moduleName, noteTypeName) pair.
-     * @param moduleName - the name of the module providing the type. Cannot be null.
-     * @param noteTypeName - the note type name. Cannot be null.
+     * This method deletes all the notes having this noteType of the type indicated by the (moduleName, noteTypeName) pair.
+     * @param moduleName - the name of the module providing the type. Cannot be <code>null</code>.
+     * @param noteTypeName - the note type name. Cannot be <code>null</code>.
      */
     @objid ("1ce053ff-3366-465d-a318-fba170933dff")
     void removeNotes(String moduleName, String noteTypeName);
@@ -208,14 +222,30 @@ public interface ModelElement extends Element {
     /**
      * Get a property value.
      * <p>
-     * Return <code>null</code> if no {@link PropertyTable} with the given name
-     * exist or it does not contain the given property.
+     * Return <code>null</code> if no {@link PropertyTable} with the given name exists or it does not contain the given property.
+     * </p>
      * @param tableName The table name. The table may not exist.
      * @param key a property name
      * @return The property value or <code>null</code>.
      */
     @objid ("45c55b29-2831-11e2-bf07-001ec947ccaf")
     String getProperty(String tableName, String key);
+
+    /**
+     * Get a property value.
+     * <p>
+     * Return <code>null</code> if no {@link TypedPropertyTable} for the stereotype exists or it does not contain the given
+     * property.
+     * </p>
+     * @throws ExtensionNotFoundException
+     * @param moduleName - the name of the module providing stereotype. Cannot be <code>null</code>.
+     * @param stereotypeName - the name of the stereotype providing the table type. Cannot be <code>null</code>.
+     * @param key a property name
+     * @return The property value or <code>null</code>.
+     * @since Modelio 3.4
+     */
+    @objid ("a102d222-688b-45ac-bc95-5d68fc907403")
+    String getProperty(String moduleName, String stereotypeName, String key) throws ExtensionNotFoundException;
 
     /**
      * Get the first found {@link PropertyTable} that has the given name.
@@ -225,160 +255,488 @@ public interface ModelElement extends Element {
     @objid ("45c55b2e-2831-11e2-bf07-001ec947ccaf")
     PropertyTable getProperties(String name);
 
+    /**
+     * Set a property value.
+     * <p>
+     * Update the value of a property in a stereotype's {@link TypedPropertyTable}. If missing, the table itself is created.
+     * </p>
+     * @throws ExtensionNotFoundException
+     * @param moduleName - the name of the module providing stereotype. Cannot be <code>null</code>.
+     * @param stereotypeName - the name of the stereotype providing the table type. Cannot be <code>null</code>.
+     * @param key a property name
+     * @param value the property value.
+     * @since Modelio 3.4
+     */
+    @objid ("5bd36280-3dc5-4bdd-9e7c-c5b1fc16e7f1")
+    void setProperty(String moduleName, String stereotypeName, String key, String value) throws ExtensionNotFoundException;
+
+    /**
+     * Set a property value.
+     * <p>
+     * Update the value of a property in a {@link PropertyTable}. If missing, the table itself is created.
+     * </p>
+     * @param tableName The table name. The table may not exist.
+     * @param key a property name
+     * @param value the property value.
+     * @since Modelio 3.4
+     */
+    @objid ("adf13e7a-b7eb-4f56-bb54-02a378df1260")
+    void setProperty(String tableName, String key, String value);
+
     @objid ("762030c9-3782-4956-bb25-f0dc4d749404")
     String getLocalProperty(String key);
 
     @objid ("2aaaa3c2-dc0c-495d-8060-07b6eb14dc6b")
     void setLocalProperty(String key, String value);
 
-    @objid ("b436660b-7728-4c10-ae78-aa5e4f496ff4")
+    /**
+     * Getter for attribute 'ModelElement.Name'
+     * 
+     * Metamodel description:
+     * <i>Name of the element.</i>
+     */
+    @objid ("8e76e052-76bc-4390-9ce8-06f0abd04021")
     String getName();
 
-    @objid ("2869ce11-ca1e-40dd-9653-dfb1b46ecab2")
+    /**
+     * Setter for attribute 'ModelElement.Name'
+     * 
+     * Metamodel description:
+     * <i>Name of the element.</i>
+     */
+    @objid ("1c5bd56c-c494-42bb-8169-e35bd45d8621")
     void setName(String value);
 
-    @objid ("40b8b60f-8cfe-41e3-9546-396318001c42")
+    /**
+     * Getter for relation 'ModelElement->LocalProperties'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("79ef1d35-976d-4e0a-81f7-27fa3b51e4e1")
     LocalPropertyTable getLocalProperties();
 
-    @objid ("a310fa87-9118-46dd-9f9c-19193ed82a03")
+    /**
+     * Setter for relation 'ModelElement->LocalProperties'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("b8167bb4-d1f9-4225-b364-a140237c8692")
     void setLocalProperties(LocalPropertyTable value);
 
-    @objid ("cb405c53-082f-4236-bdb9-d24ee7b51a1c")
+    /**
+     * Getter for relation 'ModelElement->TemplateSubstitution'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6bdcc249-c8e7-4424-bdad-9833026bf9f1")
     EList<TemplateParameterSubstitution> getTemplateSubstitution();
 
-    @objid ("37bbda14-d132-46cc-b1ff-261a0fd1c7a6")
+    /**
+     * Filtered Getter for relation 'ModelElement->TemplateSubstitution'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6e8f9fe6-ae13-4f78-bcc5-60d15fa804c0")
     <T extends TemplateParameterSubstitution> List<T> getTemplateSubstitution(java.lang.Class<T> filterClass);
 
-    @objid ("18730137-6d48-4004-b422-8e9f8292a9fd")
+    /**
+     * Getter for relation 'ModelElement->BpmnLaneRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("adb45392-a4b4-45e2-9f87-9c32133b8540")
     EList<BpmnLane> getBpmnLaneRefs();
 
-    @objid ("45ce6b75-1546-4df7-8c6e-e7da4ad09023")
+    /**
+     * Filtered Getter for relation 'ModelElement->BpmnLaneRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("8c517179-c2ae-4608-946f-9e56ae986ac0")
     <T extends BpmnLane> List<T> getBpmnLaneRefs(java.lang.Class<T> filterClass);
 
-    @objid ("7333d82e-17af-408b-b812-958688381619")
+    /**
+     * Getter for relation 'ModelElement->Extension'
+     * 
+     * Metamodel description:
+     * <i>Stereotype metaclassifying the ModelElement.</i>
+     */
+    @objid ("113d1fbb-3489-446a-b0df-b427a9313c4e")
     EList<Stereotype> getExtension();
 
-    @objid ("23dfef6c-bb32-4cba-972a-26018391b86f")
+    /**
+     * Filtered Getter for relation 'ModelElement->Extension'
+     * 
+     * Metamodel description:
+     * <i>Stereotype metaclassifying the ModelElement.</i>
+     */
+    @objid ("754e13f1-b4e1-4ca0-8cdd-8287bf399a4f")
     <T extends Stereotype> List<T> getExtension(java.lang.Class<T> filterClass);
 
-    @objid ("2a055741-2ff1-4ee4-8b9b-d5a289a33ff9")
+    /**
+     * Getter for relation 'ModelElement->DependsOnDependency'
+     * 
+     * Metamodel description:
+     * <i>Designates a Dependency that relates to a supplier ModelElement.</i>
+     */
+    @objid ("de25abba-fc1b-440d-8920-363fe379499b")
     EList<Dependency> getDependsOnDependency();
 
-    @objid ("57853737-5fcb-4683-a480-0bc13ff26c2a")
+    /**
+     * Filtered Getter for relation 'ModelElement->DependsOnDependency'
+     * 
+     * Metamodel description:
+     * <i>Designates a Dependency that relates to a supplier ModelElement.</i>
+     */
+    @objid ("0efb7fa8-f3c3-460f-9d15-357841bbac22")
     <T extends Dependency> List<T> getDependsOnDependency(java.lang.Class<T> filterClass);
 
-    @objid ("a7009c79-48ad-4479-90d0-152e3566c1c0")
+    /**
+     * Getter for relation 'ModelElement->DefaultParametering'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1e2e2333-9658-4153-ab55-8c6ad63645b9")
     EList<TemplateParameter> getDefaultParametering();
 
-    @objid ("d32b1657-6fba-4015-a5da-3e7f6ab5f84e")
+    /**
+     * Filtered Getter for relation 'ModelElement->DefaultParametering'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("751c33d9-ec4a-43ff-941d-682b0b750f6c")
     <T extends TemplateParameter> List<T> getDefaultParametering(java.lang.Class<T> filterClass);
 
-    @objid ("9c71a0c4-b162-4ebf-a1b0-d7db710dd394")
+    /**
+     * Getter for relation 'ModelElement->Represents'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("16a2af08-0258-4f1f-9e5b-8a5be7a3e1d5")
     EList<Binding> getRepresents();
 
-    @objid ("4faa0050-0f98-4f89-85d4-e099b949b943")
+    /**
+     * Filtered Getter for relation 'ModelElement->Represents'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("2da54a54-3009-4975-babc-0ce69120bf8e")
     <T extends Binding> List<T> getRepresents(java.lang.Class<T> filterClass);
 
-    @objid ("2108af58-4aaf-4a16-b69d-82964f050766")
+    /**
+     * Getter for relation 'ModelElement->Document'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("913f2be0-ba7a-4044-80f5-162356a8c2d4")
     EList<ExternDocument> getDocument();
 
-    @objid ("56e35c83-7d04-4277-90d0-980472102a64")
+    /**
+     * Filtered Getter for relation 'ModelElement->Document'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("db31cd5b-9d65-4293-8125-bd16699abb4b")
     <T extends ExternDocument> List<T> getDocument(java.lang.Class<T> filterClass);
 
-    @objid ("d801e325-f08a-4692-a097-2c67f5909c47")
+    /**
+     * Getter for relation 'ModelElement->Tag'
+     * 
+     * Metamodel description:
+     * <i>TaggedValues annotating the ModelElement.</i>
+     */
+    @objid ("385ff6e6-f3b5-4c2e-870b-6e9726a6432d")
     EList<TaggedValue> getTag();
 
-    @objid ("0a51fcdf-f6cf-4093-bf53-ed3ef571f828")
+    /**
+     * Filtered Getter for relation 'ModelElement->Tag'
+     * 
+     * Metamodel description:
+     * <i>TaggedValues annotating the ModelElement.</i>
+     */
+    @objid ("2295792c-5a74-4e42-abf7-1ee25411365a")
     <T extends TaggedValue> List<T> getTag(java.lang.Class<T> filterClass);
 
-    @objid ("ea055aee-50f7-4c4c-b4df-4a8c0d2274df")
+    /**
+     * Getter for relation 'ModelElement->OwnerTemplateParameter'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f9f402a3-4423-498f-a087-130f5a25028d")
     TemplateParameter getOwnerTemplateParameter();
 
-    @objid ("405e3a27-b8b3-4bc0-bdef-b0bc2bfa7e47")
+    /**
+     * Setter for relation 'ModelElement->OwnerTemplateParameter'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("429063b1-15d2-4844-af2c-73b3cffaaa67")
     void setOwnerTemplateParameter(TemplateParameter value);
 
-    @objid ("5ff7c86f-34bd-4385-aae7-4a31e7ba921e")
+    /**
+     * Getter for relation 'ModelElement->ImpactedDependency'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("cde63548-15fc-4ea8-ba3a-4d21925793d2")
     EList<Dependency> getImpactedDependency();
 
-    @objid ("182f8cca-2191-4b3d-8463-019354ba2aec")
+    /**
+     * Filtered Getter for relation 'ModelElement->ImpactedDependency'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("0baee7bf-adb3-4561-b216-b79c37c8b8a7")
     <T extends Dependency> List<T> getImpactedDependency(java.lang.Class<T> filterClass);
 
-    @objid ("fcc5d7ee-8b3e-4d60-b984-ca06577a4f8a")
+    /**
+     * Getter for relation 'ModelElement->RepresentingEnd'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f9d9f593-7a9a-4369-9f47-f979986a0417")
     EList<ConnectorEnd> getRepresentingEnd();
 
-    @objid ("7dad6c7f-8a25-494e-8771-1c13375920e0")
+    /**
+     * Filtered Getter for relation 'ModelElement->RepresentingEnd'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("725525b7-6f36-465b-9b98-dc14bd951f71")
     <T extends ConnectorEnd> List<T> getRepresentingEnd(java.lang.Class<T> filterClass);
 
-    @objid ("b896df77-7a7e-403f-bac6-a733ea769b1f")
+    /**
+     * Getter for relation 'ModelElement->RepresentingPartition'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f56d38e9-c059-46e8-94bf-2b186595f77e")
     EList<ActivityPartition> getRepresentingPartition();
 
-    @objid ("d2a4ade3-a6bc-42f0-8642-312e206bff37")
+    /**
+     * Filtered Getter for relation 'ModelElement->RepresentingPartition'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("b1ec3ebf-146e-4b37-9c1f-ca0319eaad6a")
     <T extends ActivityPartition> List<T> getRepresentingPartition(java.lang.Class<T> filterClass);
 
-    @objid ("d500551a-0b2b-4c01-af3c-3ec5b34273e2")
+    /**
+     * Getter for relation 'ModelElement->ConstraintDefinition'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4f8c2ec0-f07d-4aa5-83fa-ef5ad226fc5b")
     EList<Constraint> getConstraintDefinition();
 
-    @objid ("cd69fb55-02e9-47e9-a18b-87b0606ff37e")
+    /**
+     * Filtered Getter for relation 'ModelElement->ConstraintDefinition'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a678dd51-ab5f-41e6-9f83-56ec7a9dd482")
     <T extends Constraint> List<T> getConstraintDefinition(java.lang.Class<T> filterClass);
 
-    @objid ("7c1ee358-177f-47d3-87ac-d950d288ed2c")
+    /**
+     * Getter for relation 'ModelElement->TypingParameter'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("62903bad-7014-43b7-a285-e559e443d211")
     EList<TemplateParameter> getTypingParameter();
 
-    @objid ("995da77f-2067-4b11-8fef-d8d34a7ef3b6")
+    /**
+     * Filtered Getter for relation 'ModelElement->TypingParameter'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("070fbb21-b4ca-4e75-a7ae-84650ed3882e")
     <T extends TemplateParameter> List<T> getTypingParameter(java.lang.Class<T> filterClass);
 
-    @objid ("0e0d65a5-e11f-45b4-a682-c4e9e2b1503f")
+    /**
+     * Getter for relation 'ModelElement->Manifesting'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("3b787ad0-2806-4a91-a3e0-fa5274a0baed")
     EList<Manifestation> getManifesting();
 
-    @objid ("462be12c-5df8-4f76-a19c-bc611ce8c98f")
+    /**
+     * Filtered Getter for relation 'ModelElement->Manifesting'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("0228044d-fa25-46bd-b92c-b4a0b6d0f9c7")
     <T extends Manifestation> List<T> getManifesting(java.lang.Class<T> filterClass);
 
-    @objid ("9310aff2-c13f-470a-b7b5-0a2115cbf68c")
+    /**
+     * Getter for relation 'ModelElement->Properties'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("c3df7b21-0c45-4fff-9f46-c187b34e09c1")
     EList<PropertyTable> getProperties();
 
-    @objid ("7a3520b3-5cbd-4d00-a90a-f210f5fb909c")
+    /**
+     * Filtered Getter for relation 'ModelElement->Properties'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("7371e86f-ae7c-46e9-a77e-de9cb06668f1")
     <T extends PropertyTable> List<T> getProperties(java.lang.Class<T> filterClass);
 
-    @objid ("2722554c-6447-4e47-a449-4ca777b32c7a")
+    /**
+     * Getter for relation 'ModelElement->Product'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f426d354-aa1b-4174-b21b-192fff6f9753")
     EList<AbstractDiagram> getProduct();
 
-    @objid ("35b4de2d-59ff-4a94-86eb-385975ddff7b")
+    /**
+     * Filtered Getter for relation 'ModelElement->Product'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e770e29c-d2bc-40e5-8ebb-7eb0d49ecbed")
     <T extends AbstractDiagram> List<T> getProduct(java.lang.Class<T> filterClass);
 
-    @objid ("81168c42-cc26-442f-8ae1-c3f919b9811b")
+    /**
+     * Getter for relation 'ModelElement->RepresentingInstance'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("d23973ec-7de7-4aa6-97c2-8abd50fbe71e")
     EList<BindableInstance> getRepresentingInstance();
 
-    @objid ("5d819082-ed68-4339-8d44-61d837f11c5b")
+    /**
+     * Filtered Getter for relation 'ModelElement->RepresentingInstance'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("95a0e0f5-b50b-4a62-bbc9-565adf9af669")
     <T extends BindableInstance> List<T> getRepresentingInstance(java.lang.Class<T> filterClass);
 
-    @objid ("426a037d-807c-4e12-b8b3-4051b0ba750e")
+    /**
+     * Getter for relation 'ModelElement->ReceivedInfo'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("bf1c27a2-3659-44f5-9120-ffc4169c7d79")
     EList<InformationFlow> getReceivedInfo();
 
-    @objid ("ebf72a0e-9fff-4a1c-b86c-c77404b764ab")
+    /**
+     * Filtered Getter for relation 'ModelElement->ReceivedInfo'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("addf371a-3293-4c5e-8cf9-7cdbf35620f5")
     <T extends InformationFlow> List<T> getReceivedInfo(java.lang.Class<T> filterClass);
 
-    @objid ("4da90262-02b2-444e-aa6f-bbf52151153f")
+    /**
+     * Getter for relation 'ModelElement->SentInfo'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4229029b-5829-4ee1-97d9-4a6c45b96e98")
     EList<InformationFlow> getSentInfo();
 
-    @objid ("3d0bf5d9-536d-4a69-a80e-b15445ace867")
+    /**
+     * Filtered Getter for relation 'ModelElement->SentInfo'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("8fa48ca3-e611-47d8-9e51-548fa4fc9334")
     <T extends InformationFlow> List<T> getSentInfo(java.lang.Class<T> filterClass);
 
-    @objid ("a809b54e-ec8c-43dc-9b8b-666c3df8fb7d")
+    /**
+     * Getter for relation 'ModelElement->Descriptor'
+     * 
+     * Metamodel description:
+     * <i>Notes (documentation, code, and so on) describing the ModelElement.</i>
+     */
+    @objid ("e350275f-ac5a-4beb-b332-3e004c973c03")
     EList<Note> getDescriptor();
 
-    @objid ("0f9c7449-d039-47c3-ad88-a1deed86f66f")
+    /**
+     * Filtered Getter for relation 'ModelElement->Descriptor'
+     * 
+     * Metamodel description:
+     * <i>Notes (documentation, code, and so on) describing the ModelElement.</i>
+     */
+    @objid ("63988e56-47e8-406d-8385-14ac74878259")
     <T extends Note> List<T> getDescriptor(java.lang.Class<T> filterClass);
 
-    @objid ("166f8a86-21fc-4671-a8de-913af2616678")
+    /**
+     * Getter for relation 'ModelElement->RepresentingConnector'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("b0570a19-1213-4fca-88eb-014a7b64866b")
     EList<NaryConnector> getRepresentingConnector();
 
-    @objid ("21f95d4c-89cf-44f8-839a-6dd7d977a226")
+    /**
+     * Filtered Getter for relation 'ModelElement->RepresentingConnector'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("b9964470-e269-4bc1-a3a2-1642aa588e20")
     <T extends NaryConnector> List<T> getRepresentingConnector(java.lang.Class<T> filterClass);
 
-    @objid ("870aaa79-a3e9-4688-808e-03b76a63e002")
+    /**
+     * Getter for relation 'ModelElement->Matrix'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("abd85d20-250f-4788-9826-6be8ff37cd10")
     EList<MatrixDefinition> getMatrix();
 
-    @objid ("7b6963f6-ad54-441c-ab1d-2d67a73c64d3")
+    /**
+     * Filtered Getter for relation 'ModelElement->Matrix'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("619139ee-8fef-42f0-8fe2-94e4798ea2fe")
     <T extends MatrixDefinition> List<T> getMatrix(java.lang.Class<T> filterClass);
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.nattable.editors;
 
@@ -38,7 +38,6 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.modelio.core.ui.images.MetamodelImageService;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -110,19 +109,19 @@ public class ElementPainter extends AbstractCellPainter {
         
         if (underline) {
             // start x of line = start x of text
-            final int x = bounds.x + CellStyleUtil.getHorizontalAlignmentPadding(cellStyle, bounds, contentWidth + spacing);
-            // y = start y of text
-            final int y = bounds.y + CellStyleUtil.getVerticalAlignmentPadding(cellStyle, bounds, contentHeight + spacing);
+                    final int x = bounds.x + CellStyleUtil.getHorizontalAlignmentPadding(cellStyle, bounds, contentWidth + spacing);
+                    // y = start y of text
+                    final int y = bounds.y + CellStyleUtil.getVerticalAlignmentPadding(cellStyle, bounds, contentHeight + spacing);
         
-            // check and draw underline and strikethrough separately so it is
-            // possible to combine both
-            if (underline) {
-                // y = start y of text + font height
-                // - half of the font descent so the underline is between the
-                // baseline and the bottom
-                final int underlineY = y + fontHeight - (gc.getFontMetrics().getDescent() / 2);
-                gc.drawLine(x, underlineY, x + gc.textExtent(text).x, underlineY);
-            }
+                    // check and draw underline and strikethrough separately so it is
+                    // possible to combine both
+                    if (underline) {
+                        // y = start y of text + font height
+                        // - half of the font descent so the underline is between the
+                        // baseline and the bottom
+                        final int underlineY = y + fontHeight - (gc.getFontMetrics().getDescent() / 2);
+                        gc.drawLine(x, underlineY, x + gc.textExtent(text).x, underlineY);
+                    }
         }
         gc.setClipping(originalClipping);
     }
@@ -170,9 +169,7 @@ public class ElementPainter extends AbstractCellPainter {
         final MRef mref = (MRef) cell.getDataValue();
         if (mref != null) {
             if (mref.mc != null) {
-                if (Metamodel.getMClass(mref.mc) != null) {
-                    return MetamodelImageService.getIcon(Metamodel.getMClass(mref.mc));
-                }
+                return MetamodelImageService.getIcon(mref.mc);
             }
         }
         return null;

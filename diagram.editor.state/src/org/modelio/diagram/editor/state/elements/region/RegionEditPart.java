@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.state.elements.region;
 
@@ -28,6 +28,7 @@ import org.eclipse.gef.EditPolicy;
 import org.modelio.diagram.elements.common.freezone.FreeZoneLayout;
 import org.modelio.diagram.elements.common.freezone.GmFreeZoneEditPart;
 import org.modelio.diagram.elements.core.figures.GradientFigure;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.model.GmAbstractObject;
 import org.modelio.diagram.styles.core.IStyle;
 
@@ -54,7 +55,8 @@ public class RegionEditPart extends GmFreeZoneEditPart {
         // Style independent properties
         fig.setOpaque(true);
         fig.setBorder(new MarginBorder(3, 2, 3, 2));
-        fig.setPreferredSize(50, 50);
+        MinimumSizeLayout.apply(fig, 50, 50);
+        
         
         // Set style dependent properties
         refreshFromStyle(fig, getModelStyle());

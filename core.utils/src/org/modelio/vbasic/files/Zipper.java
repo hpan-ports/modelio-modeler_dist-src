@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vbasic.files;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
@@ -110,7 +108,7 @@ public class Zipper {
         
             monitor.beginTask(null, nTotal);
             monitor.setTaskName((title == null) ? ("Creating  " + this.archive) : title);
-            
+        
             for (Path path : pathes) {
                 compressContent(path, null, null, null, monitor);
             }
@@ -149,20 +147,20 @@ public class Zipper {
                     ret[0]++;
                     return super.visitFile(file, attrs);
                 }
-                
+        
                 @Override
                 public FileVisitResult preVisitDirectory(Path dir,
                         BasicFileAttributes attrs) throws IOException {
                     ret[0]++;
-                    
+        
                     return super.preVisitDirectory(dir, attrs);
                 }
-                
+        
             };
-            
+        
             Files.walkFileTree(path, visitor );
-            
-            
+        
+        
         }
         return ret [0];
     }
@@ -185,35 +183,70 @@ public class Zipper {
             @Override
             public FileVisitResult visitFile(Path file,
                     BasicFileAttributes attrs) throws IOException {
-                if (monitor.isCanceled()) 
+                if (monitor.isCanceled())
                     return FileVisitResult.TERMINATE;
                 if (skipFileMatchers != null && !skipFileMatchers.isEmpty()) {
                     for (PathMatcher skipFileMatcher : skipFileMatchers) {
-                        if (skipFileMatcher.matches(file.toAbsolutePath())) {                        
+                        if (skipFileMatcher.matches(file.toAbsolutePath())) {
                             return FileVisitResult.SKIP_SIBLINGS;
                         }
                     }
                 }
                 compressFile(Zipper.this.out, file, monitor);
                 monitor.worked(1);
-                
+        
                 return FileVisitResult.CONTINUE;
             }
-            
+        
             @Override
             public FileVisitResult preVisitDirectory(Path dir,
                     BasicFileAttributes attrs) throws IOException {
-                if (monitor.isCanceled()) 
+                if (monitor.isCanceled())
                     return FileVisitResult.TERMINATE;
         
                 if (skipDirectoryMatchers != null && !skipDirectoryMatchers.isEmpty()) {
                     for (PathMatcher skipDirectoryMatcher : skipDirectoryMatchers) {
-                        if (skipDirectoryMatcher.matches(dir.toAbsolutePath())) {                        
+                        if (skipDirectoryMatcher.matches(dir.toAbsolutePath())) {
                             return FileVisitResult.SKIP_SUBTREE;
                         }
                     }
                 }
+        
+                addDirectoryEntry( dir);
+        
                 return super.preVisitDirectory(dir, attrs);
+            }
+        
+            private void addDirectoryEntry( Path dir) throws IOException {
+                // Compute directory path in the zip archive
+                String zipPath = computeZipPath(dir);
+        
+                // set as directory
+                zipPath = zipPath + "/";
+        
+                // Create zip entry
+                ZipEntry entry = new ZipEntry(unAccent(zipPath));
+                entry.setTime(Files.getLastModifiedTime(dir).toMillis());
+                //java8:entry.setLastModifiedTime(Files.getLastModifiedTime(dir));
+        
+                Zipper.this.out.putNextEntry(entry);
+            }
+        
+            /**
+             * Compute directory path in the zip archive
+             * @param dir the directory path
+             * @return the final path in the zip file
+             */
+            private String computeZipPath(Path dir) {
+                Path relativePath = srcPath.relativize(dir);
+                if (relativePath == null)
+                    relativePath = srcPath;
+        
+                String zipPath = relativePath.toString().replace("\\", "/");
+                if (intoDir != null)
+                    zipPath = intoDir + "/" + zipPath ;
+        
+                return zipPath;
             }
         
             @Override
@@ -221,52 +254,35 @@ public class Zipper {
                     throws IOException {
                 monitor.worked(1);
         
-                if (exc==null && monitor.isCanceled()) 
+                if (exc==null && monitor.isCanceled())
                     return FileVisitResult.TERMINATE;
-                
+        
                 return super.postVisitDirectory(dir, exc);
             }
-            
-            protected void compressFile(ZipOutputStream zipOutput, Path f, IModelioProgress mon) throws IOException {
         
-                mon.subTask(f.toString());
+            private void compressFile(ZipOutputStream zipOutput, Path f, IModelioProgress mon) throws IOException {
+                //mon.subTask(f.toString());
         
-                byte data[] = new byte[BUFFER];
+                // Compute directory path in the zip archive
+                String zipPath = computeZipPath(f);
         
-                try (InputStream fi = Files.newInputStream(f);
-                        BufferedInputStream buffi = new BufferedInputStream(fi, BUFFER)) {
+                // Create zip entry
+                ZipEntry entry = new ZipEntry(unAccent(zipPath));
+                entry.setTime(Files.getLastModifiedTime(f).toMillis());
+                //java 8: entry.setLastModifiedTime(Files.getLastModifiedTime(f));
+                zipOutput.putNextEntry(entry);
         
-                    // Compute file path in the zip archive
-                    Path relativePath = srcPath.relativize(f);
-                    if (relativePath == null)
-                        relativePath = srcPath;
-                    
-                    String zipPath = relativePath.toString().replace("\\", "/");
-                    if (intoDir != null)
-                        zipPath = intoDir + "/" + zipPath;
+                // write file data in the zip stream
+                Files.copy(f, zipOutput);
         
-                    // Create zip entry
-                    ZipEntry entry = new ZipEntry(unAccent(zipPath));
-                    entry.setTime(Files.getLastModifiedTime(f).toMillis());
-                    zipOutput.putNextEntry(entry);
-                    
-                    // write file data in the zip stream
-                    int count;
-                    while ((count = buffi.read(data, 0, BUFFER)) != -1) {
-                        zipOutput.write(data, 0, count);
-                    }
-                    
-                    // Close the current entry
-                    zipOutput.closeEntry();
-                    buffi.close();
-        
-                }
-            }            
+                // Close the current entry
+                zipOutput.closeEntry();
+            }
         };
         
         Files.walkFileTree(srcPath, visitor );
         
-        if (monitor.isCanceled()) 
+        if (monitor.isCanceled())
             this.aborted = true;
     }
 
@@ -324,11 +340,11 @@ public class Zipper {
         if (monitor == null)
             monitor = emptyProgress();
         
-        try (ZipOutputStream zipOutput = openZip(this.archive)) { 
+        try (ZipOutputStream zipOutput = openZip(this.archive)) {
         
             monitor.beginTask(null, nTotal);
             monitor.setTaskName((title == null) ? ("Creating  " + this.archive) : title);
-            
+        
             for (Path path : pathes) {
                 compressContent(path, path.getFileName().toString(), skipDirectoryMatchers, skipFileMatchers, monitor);
             }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,15 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.versioned.load.sax.local;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -77,7 +78,6 @@ final class LocalDataModel implements ExmlTags {
 
     /**
      * initialize the loader
-     * @param loadCache the cache of this repository already loaded objects
      * @param loadHelper a load helper
      */
     @objid ("b5c32c01-3fbb-11e2-87cb-001ec947ccaf")
@@ -99,21 +99,15 @@ final class LocalDataModel implements ExmlTags {
     }
 
     @objid ("b5c32b8b-3fbb-11e2-87cb-001ec947ccaf")
-    void addDepId(final ObjId refid) throws DuplicateObjectException, IllegalReferenceException {
+    void addDepId(final ObjId refid) throws DuplicateObjectException, IOException, IllegalReferenceException {
         if (refid != null) {
-            SmObjectImpl obj = this.loadHelper.getObject(refid);
-            if (obj == null)
-                obj = this.loadHelper.getRefObject(this.modelLoader,refid, refid);
+            SmObjectImpl obj = this.loadHelper.getLoadedObject(refid);
+            if (obj == null) {
+                obj = this.loadHelper.getRefObject(this.modelLoader,refid);
+            }
         
             this.currentDepNode.add (obj);
         }
-    }
-
-    @objid ("b5c32c09-3fbb-11e2-87cb-001ec947ccaf")
-    static SmClass convertObsoleteClass(String xclassof) {
-        if ("Module".equals(xclassof))
-            return SmClass.getClass("ModuleComponent");
-        return null;
     }
 
     @objid ("b5c58ddd-3fbb-11e2-87cb-001ec947ccaf")
@@ -144,8 +138,9 @@ final class LocalDataModel implements ExmlTags {
 
     @objid ("b5c58dd8-3fbb-11e2-87cb-001ec947ccaf")
     final ObjId beginObject(ObjId objid) {
-        if (this.nodes == EMPTY_NODES)
+        if (this.nodes == EMPTY_NODES) {
             this.nodes = new ArrayList<>(5);
+        }
         
         this.currentNode = new ObjectNode(objid);
         this.nodes.add(this.currentNode);
@@ -195,8 +190,9 @@ final class LocalDataModel implements ExmlTags {
         for (ObjectNode  objNode: this.nodes) {
             if (objNode.is(obj.getUuid())) {
                 for (DepNode depNode : objNode.getDeps()) {
-                    if (depNode.dep == dep)
+                    if (depNode.dep == dep) {
                         return depNode.getContent();
+                    }
                 }
                 return null;
             }
@@ -217,6 +213,11 @@ final class LocalDataModel implements ExmlTags {
             }
         }
         return Collections.emptyList();
+    }
+
+    @objid ("41ffedab-5171-44ff-b116-6d284ffa14d3")
+    public SmClass getSmClass(String xclassof) {
+        return this.loadHelper.getSmClass(xclassof);
     }
 
     @objid ("b5c32c12-3fbb-11e2-87cb-001ec947ccaf")
@@ -255,8 +256,9 @@ final class LocalDataModel implements ExmlTags {
         @objid ("ddd9931c-407a-11e2-87cb-001ec947ccaf")
         public Collection<SmObjectImpl> getDependencyContent(SmDependency dep) {
             for (DepNode  d: this.deps) {
-                if (d.dep == dep)
+                if (d.dep == dep) {
                     return d.getContent();
+                }
             }
             return null;
         }

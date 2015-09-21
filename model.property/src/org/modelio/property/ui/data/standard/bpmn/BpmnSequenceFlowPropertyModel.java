@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.bpmn;
 
@@ -62,8 +62,8 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
      * </ul>
      */
     @objid ("a61fbc34-c068-11e1-8c0a-002564c97630")
-    private static final String[] properties = new String[] { "SequenceFlow",
-        "Name", "Default Flow", "Guard", "Immediate", "DataObject" };
+    private static final String[] properties = new String[] { "Property", "Name", "Default Flow", "Guard", "Immediate",
+            "DataObject" };
 
     @objid ("aa1cd378-d004-11e1-9020-002564c97630")
     private IMModelServices modelService;
@@ -114,41 +114,38 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return BpmnSequenceFlowPropertyModel.properties[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getName();
-                    case 2:
-                        return this.theEditedElement.getDefaultFrom() != null || 
-                        this.theEditedElement.getDefaultOfExclusive() != null || 
-                        this.theEditedElement.getDefaultOfInclusive() != null || 
-                        this.theEditedElement.getDefaultOfComplex() != null;
-                    case 3:
-                        return this.theEditedElement.getConditionExpression();
-                    case 4:
-                        return this.theEditedElement.isIsImmediate()
-                        ? Boolean.TRUE : Boolean.FALSE;
-                    case 5:
-                        final List<BpmnDataObject> element = new ArrayList<>();
-                        for (final BpmnSequenceFlowDataAssociation assoc : this.theEditedElement.getConnector()) {
-                            for (final BpmnDataAssociation dataassoc : assoc.getDataAssociation()) {
-                                final BpmnItemAwareElement ita = dataassoc.getTargetRef();
-                                if (ita != null &&
-                                        ita instanceof BpmnDataObject) {
-                                    element.add((BpmnDataObject) ita);
-                                }
-                            }
+        case 0: // col 0 is the property key
+            return BpmnSequenceFlowPropertyModel.properties[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return this.theEditedElement.getDefaultFrom() != null || this.theEditedElement.getDefaultOfExclusive() != null
+                        || this.theEditedElement.getDefaultOfInclusive() != null
+                        || this.theEditedElement.getDefaultOfComplex() != null;
+            case 3:
+                return this.theEditedElement.getConditionExpression();
+            case 4:
+                return this.theEditedElement.isIsImmediate() ? Boolean.TRUE : Boolean.FALSE;
+            case 5:
+                final List<BpmnDataObject> element = new ArrayList<>();
+                for (final BpmnSequenceFlowDataAssociation assoc : this.theEditedElement.getConnector()) {
+                    for (final BpmnDataAssociation dataassoc : assoc.getDataAssociation()) {
+                        final BpmnItemAwareElement ita = dataassoc.getTargetRef();
+                        if (ita != null && ita instanceof BpmnDataObject) {
+                            element.add((BpmnDataObject) ita);
                         }
-                        return element;
-                    default:
-                        return null;
+                    }
                 }
+                return element;
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -166,31 +163,27 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return new StringType(false);
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return new StringType(false);
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return new StringType(false);
-                    case 1:
-                        return new StringType(true);
-                    case 2:
-                        return new BooleanType();
-                    case 3:
-                        return new StringType(true);
-                    case 4:
-                        return new BooleanType();
-                    case 5:
-                        return new MultipleElementType(true,
-                                                       this.theEditedElement,
-                                                       "DataObject",
-                                                       BpmnDataObject.class,
-                                                       this.model);
-                    default:
-                        return null;
-                }
+            case 1:
+                return new StringType(true);
+            case 2:
+                return new BooleanType();
+            case 3:
+                return new StringType(true);
+            case 4:
+                return new BooleanType();
+            case 5:
+                return new MultipleElementType(true, this.theEditedElement, "DataObject", BpmnDataObject.class, this.model);
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -207,79 +200,78 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
     @SuppressWarnings("unchecked")
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
-                return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setName((String) value);
-                        break;
-                    case 2:
-                        if((Boolean)value){
-                            if (this.theEditedElement.getSourceRef() instanceof BpmnActivity) {
-                                this.theEditedElement.setDefaultFrom((BpmnActivity) this.theEditedElement.getSourceRef());
-                            } else if (this.theEditedElement.getSourceRef() instanceof BpmnExclusiveGateway) {
-                                this.theEditedElement.setDefaultOfExclusive((BpmnExclusiveGateway) this.theEditedElement.getSourceRef());
-                            } else if (this.theEditedElement.getSourceRef() instanceof BpmnInclusiveGateway) {
-                                this.theEditedElement.setDefaultOfInclusive((BpmnInclusiveGateway) this.theEditedElement.getSourceRef());
-                            } else if (this.theEditedElement.getSourceRef() instanceof BpmnComplexGateway) {
-                                this.theEditedElement.setDefaultOfComplex((BpmnComplexGateway) this.theEditedElement.getSourceRef());
-                            } 
-                        }else{
-                            this.theEditedElement.setDefaultFrom(null);
-                            this.theEditedElement.setDefaultOfExclusive(null);
-                            this.theEditedElement.setDefaultOfInclusive(null);
-                            this.theEditedElement.setDefaultOfComplex(null);
-                        }
-        
-                        break;
-                    case 3:
-                        this.theEditedElement.setConditionExpression((String) value);
-                        break;
-                    case 4:
-                        this.theEditedElement.setIsImmediate((Boolean) value);
-                        break;
-                    case 5:
-                        final List<BpmnDataObject> element = new ArrayList<>();
-                        for (final BpmnSequenceFlowDataAssociation assoc : this.theEditedElement.getConnector()) {
-                            for (final BpmnDataAssociation dataassoc : assoc.getDataAssociation()) {
-                                final BpmnItemAwareElement ita = dataassoc.getTargetRef();
-                                if (ita != null &&
-                                        ita instanceof BpmnDataObject) {
-                                    element.add((BpmnDataObject) ita);
-                                }
-                            }
-                        }
-        
-                        final List<BpmnDataObject> newcontent = (List<BpmnDataObject>) value;
-                        for (final BpmnDataObject s : element) {
-                            if (!newcontent.contains(s)) {
-                                removeDataObject(s);
-                            }
-                        }
-        
-                        for (final BpmnDataObject s : newcontent) {
-                            if (!element.contains(s)) {
-                                addDataObject(this.modelService, s);
-                            }
-                        }
-        
-                        break;
-                    default:
-                        return;
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                if ((Boolean) value) {
+                    if (this.theEditedElement.getSourceRef() instanceof BpmnActivity) {
+                        this.theEditedElement.setDefaultFrom((BpmnActivity) this.theEditedElement.getSourceRef());
+                    } else if (this.theEditedElement.getSourceRef() instanceof BpmnExclusiveGateway) {
+                        this.theEditedElement.setDefaultOfExclusive((BpmnExclusiveGateway) this.theEditedElement.getSourceRef());
+                    } else if (this.theEditedElement.getSourceRef() instanceof BpmnInclusiveGateway) {
+                        this.theEditedElement.setDefaultOfInclusive((BpmnInclusiveGateway) this.theEditedElement.getSourceRef());
+                    } else if (this.theEditedElement.getSourceRef() instanceof BpmnComplexGateway) {
+                        this.theEditedElement.setDefaultOfComplex((BpmnComplexGateway) this.theEditedElement.getSourceRef());
+                    }
+                } else {
+                    this.theEditedElement.setDefaultFrom(null);
+                    this.theEditedElement.setDefaultOfExclusive(null);
+                    this.theEditedElement.setDefaultOfInclusive(null);
+                    this.theEditedElement.setDefaultOfComplex(null);
                 }
+        
+                break;
+            case 3:
+                this.theEditedElement.setConditionExpression((String) value);
+                break;
+            case 4:
+                this.theEditedElement.setIsImmediate((Boolean) value);
+                break;
+            case 5:
+                final List<BpmnDataObject> element = new ArrayList<>();
+                for (final BpmnSequenceFlowDataAssociation assoc : this.theEditedElement.getConnector()) {
+                    for (final BpmnDataAssociation dataassoc : assoc.getDataAssociation()) {
+                        final BpmnItemAwareElement ita = dataassoc.getTargetRef();
+                        if (ita != null && ita instanceof BpmnDataObject) {
+                            element.add((BpmnDataObject) ita);
+                        }
+                    }
+                }
+        
+                final List<BpmnDataObject> newcontent = (List<BpmnDataObject>) value;
+                for (final BpmnDataObject s : element) {
+                    if (!newcontent.contains(s)) {
+                        removeDataObject(s);
+                    }
+                }
+        
+                for (final BpmnDataObject s : newcontent) {
+                    if (!element.contains(s)) {
+                        addDataObject(this.modelService, s);
+                    }
+                }
+        
                 break;
             default:
                 return;
+            }
+            break;
+        default:
+            return;
         }
     }
 
     @objid ("8e587467-c068-11e1-8c0a-002564c97630")
     private void addDataObject(IMModelServices mmService, final BpmnDataObject dataobject) {
         final IModelFactory modelFactory = mmService.getModelFactory();
-            
+        
         final BpmnFlowNode source = this.theEditedElement.getSourceRef();
         final BpmnFlowNode target = this.theEditedElement.getTargetRef();
         

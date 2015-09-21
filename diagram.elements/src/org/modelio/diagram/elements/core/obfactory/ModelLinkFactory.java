@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.obfactory;
 
@@ -89,6 +89,7 @@ import org.modelio.metamodel.uml.statik.PackageMerge;
 import org.modelio.metamodel.uml.statik.RaisedException;
 import org.modelio.metamodel.uml.statik.TemplateBinding;
 import org.modelio.metamodel.visitors.DefaultModelVisitor;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -119,7 +120,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
      */
     @objid ("80ab06b6-1dec-11e2-8cad-001ec947c8cc")
     @Override
-    public MObject createLink(String metaclass, MObject source, MObject target) throws IllegalArgumentException, ClassCastException {
+    public MObject createLink(MClass metaclass, MObject source, MObject target) throws ClassCastException, IllegalArgumentException {
         IModelFactory modelFactory = this.modelServices.getModelFactory();
         final MObject ret = modelFactory.createElement(metaclass);
         return (MObject) ret.accept(new ImplVisitor(modelFactory, source, target, null));
@@ -298,14 +299,14 @@ public class ModelLinkFactory implements IModelLinkFactory {
                 if (this.target instanceof AssociationEnd) {
                     theAssoc.setAssociationPart(((AssociationEnd) this.target).getAssociation());
                 } else if (this.target instanceof NaryAssociation) {
-                    theAssoc.setNaryAssociationPart((NaryAssociation) this.target);    
+                    theAssoc.setNaryAssociationPart((NaryAssociation) this.target);
                 }
                 theAssoc.setClassPart((Class) this.source);
             } else {
                 if (this.source instanceof AssociationEnd) {
                     theAssoc.setAssociationPart(((AssociationEnd) this.source).getAssociation());
                 } else if (this.source instanceof NaryAssociation) {
-                    theAssoc.setNaryAssociationPart((NaryAssociation) this.source);    
+                    theAssoc.setNaryAssociationPart((NaryAssociation) this.source);
                 }
                 theAssoc.setClassPart((Class) this.target);
             }
@@ -315,10 +316,11 @@ public class ModelLinkFactory implements IModelLinkFactory {
         @objid ("80ad690f-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public Object visitCollaborationUse(final CollaborationUse theCollaborationUse) {
-            if (this.source instanceof NameSpace)
+            if (this.source instanceof NameSpace) {
                 theCollaborationUse.setNRepresented((NameSpace) this.source);
-            else
+            } else {
                 theCollaborationUse.setORepresented((Operation) this.source);
+            }
             
             theCollaborationUse.setType((Collaboration) this.target);
             return theCollaborationUse;
@@ -359,10 +361,11 @@ public class ModelLinkFactory implements IModelLinkFactory {
         public Object visitElementImport(ElementImport theElementImport) {
             theElementImport.setImportedElement((NameSpace) this.target);
             
-            if (this.source instanceof NameSpace)
+            if (this.source instanceof NameSpace) {
                 theElementImport.setImportingNameSpace((NameSpace) this.source);
-            else
+            } else {
                 theElementImport.setImportingOperation((Operation) this.source);
+            }
             return theElementImport;
         }
 
@@ -429,10 +432,11 @@ public class ModelLinkFactory implements IModelLinkFactory {
         public Object visitPackageImport(PackageImport thePackageImport) {
             thePackageImport.setImportedPackage((Package) this.target);
             
-            if (this.source instanceof NameSpace)
+            if (this.source instanceof NameSpace) {
                 thePackageImport.setImportingNameSpace((NameSpace) this.source);
-            else
+            } else {
                 thePackageImport.setImportingOperation((Operation) this.source);
+            }
             return thePackageImport;
         }
 
@@ -455,15 +459,17 @@ public class ModelLinkFactory implements IModelLinkFactory {
         @objid ("80afcb76-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public Object visitTemplateBinding(final TemplateBinding theTemplateBinding) {
-            if (this.source instanceof NameSpace)
+            if (this.source instanceof NameSpace) {
                 theTemplateBinding.setBoundElement((NameSpace) this.source);
-            else
+            } else {
                 theTemplateBinding.setBoundOperation((Operation) this.source);
+            }
             
-            if (this.target instanceof NameSpace)
+            if (this.target instanceof NameSpace) {
                 theTemplateBinding.setInstanciatedTemplate((NameSpace) this.target);
-            else
+            } else {
                 theTemplateBinding.setInstanciatedTemplateOperation((Operation) this.target);
+            }
             return theTemplateBinding;
         }
 
@@ -529,8 +535,9 @@ public class ModelLinkFactory implements IModelLinkFactory {
             } while (i < max);
             
             // Reaching this point means aSource == aTarget
-            if (ret != null)
+            if (ret != null) {
                 return (NameSpace) ret;
+            }
             
             // Should never reach this point.
             throw new IllegalArgumentException("No common namespace between " + aSource + " and " + aTarget);
@@ -619,10 +626,11 @@ public class ModelLinkFactory implements IModelLinkFactory {
                 // Binding link from the represented feature to the role.
             
                 final CollaborationUse collabUse;
-                if (owner != null)
+                if (owner != null) {
                     collabUse = (CollaborationUse) owner;
-                else
+                } else {
                     collabUse = getCollabUse(source, target);
+                }
             
                 if (target instanceof BindableInstance) {
                     theBinding.setRepresentedFeature((ModelElement) source);
@@ -650,8 +658,9 @@ public class ModelLinkFactory implements IModelLinkFactory {
             final Collection<CollaborationUse> uses = getCollabUsesOf(feature);
             
             for (CollaborationUse u : uses) {
-                if (collab.equals(u.getType()))
+                if (collab.equals(u.getType())) {
                     return u;
+                }
             }
             
             throw new IllegalArgumentException("No matching collaboration use found.");
@@ -667,12 +676,13 @@ public class ModelLinkFactory implements IModelLinkFactory {
         private Collection<CollaborationUse> getCollabUsesOf(final MObject feature) throws IllegalArgumentException {
             MObject container = feature.getCompositionOwner();
             while (container != null) {
-                if (container instanceof NameSpace)
+                if (container instanceof NameSpace) {
                     return ((NameSpace) container).getOwnedCollaborationUse();
-                else if (container instanceof Operation)
+                } else if (container instanceof Operation) {
                     return ((Operation) container).getOwnedCollaborationUse();
-                else
+                } else {
                     container = container.getCompositionOwner();
+                }
             }
             throw new IllegalArgumentException("No collaboration use found for " + feature + " represented feature.");
         }
@@ -687,12 +697,13 @@ public class ModelLinkFactory implements IModelLinkFactory {
         private Collaboration getCollaborationOf(final MObject role) throws IllegalArgumentException {
             MObject container = role.getCompositionOwner();
             while (container != null) {
-                if (container instanceof Collaboration)
+                if (container instanceof Collaboration) {
                     return (Collaboration) container;
-                else if (container instanceof NameSpace)
+                } else if (container instanceof NameSpace) {
                     container = null;
-                else
+                } else {
                     container = container.getCompositionOwner();
+                }
             }
             
             throw new IllegalArgumentException(role + " is not in a collaboration");

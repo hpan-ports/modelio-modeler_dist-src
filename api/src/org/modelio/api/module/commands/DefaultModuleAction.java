@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.module.commands;
 
@@ -30,7 +30,7 @@ import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * Default implementation of the IModuleAction interface.
+ * Default implementation of the {@link IModuleAction} interface.
  */
 @objid ("00d00158-0001-5da9-0000-000000000000")
 public class DefaultModuleAction implements IModuleAction {
@@ -64,6 +64,18 @@ public class DefaultModuleAction implements IModuleAction {
     @objid ("31bb2105-0ecd-11e2-96c4-002564c97630")
     private IModuleCommandHandler handler;
 
+    /**
+     * @param module the module
+     * @param name the action name
+     * @param label the label
+     * @param tooltip the tooltip
+     * @param bitmapPath the icon
+     * @param slotPattern the sub menu path
+     * @param slotImagePaths the slot images path
+     * @param needReadWriteObject whether the target must be writeable
+     * @param editTheModel whether the command modifies the model
+     * @param command the command handler
+     */
     @objid ("fa237f2f-5b7b-11e0-a93a-002564c97630")
     public DefaultModuleAction(final IModule module, final String name, final String label, final String tooltip, final String bitmapPath, final String slotPattern, final String slotImagePaths, final boolean needReadWriteObject, final boolean editTheModel, final IModuleCommandHandler command) {
         this.module = module;
@@ -72,12 +84,8 @@ public class DefaultModuleAction implements IModuleAction {
         this.tooltip = tooltip;
         this.bitmapPath = bitmapPath;
         if (!slotPattern.isEmpty()) {
-            for (String slot : slotPattern.split("\\|")) {
-                this.slots.add(slot);
-            }
-            for (String slotImagePath : slotImagePaths.split("\\|")) {
-                this.slotImagePaths.add(slotImagePath);
-            }
+            parseSlotPattern(slotPattern);
+            parseSlotImagePaths(slotImagePaths);
         }
         this.needReadWriteObject = needReadWriteObject;
         this.editTheModel = editTheModel;
@@ -172,8 +180,9 @@ public class DefaultModuleAction implements IModuleAction {
     @Override
     public final boolean isActiveFor(MObject[] selectedElements, boolean readOnlyTool) {
         // Test concerning the readOnly status
-        if (this.editTheModel && readOnlyTool)
+        if (this.editTheModel && readOnlyTool) {
             return false;
+        }
         
         // Test concerning the object itself
         if (this.needReadWriteObject) {
@@ -210,6 +219,26 @@ public class DefaultModuleAction implements IModuleAction {
             }
         }
         return false;
+    }
+
+    @objid ("cfeb825d-7236-4f52-922a-28a381b247a4")
+    @Override
+    public void parseSlotPattern(String slotPattern) {
+        if (!slotPattern.isEmpty()) {
+            for (String slot : slotPattern.split("\\|")) {
+                this.slots.add(this.module.getLabel(slot));
+            }
+        }
+    }
+
+    @objid ("080e6eb0-a308-4574-9773-6f03b0e9126c")
+    @Override
+    public void parseSlotImagePaths(String slotImagePaths) {
+        if (!slotImagePaths.isEmpty()) {
+            for (String slotImagePath : slotImagePaths.split("\\|")) {
+                this.slotImagePaths.add(this.module.getLabel(slotImagePath));
+            }
+        }
     }
 
 }

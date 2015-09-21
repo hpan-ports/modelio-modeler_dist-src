@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.script.macro.catalogdialog;
 
@@ -42,13 +42,13 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.core.ui.dialog.ModelioDialog;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.script.macro.IMacroService.Scope;
 import org.modelio.script.macro.IMacroService;
 import org.modelio.script.macro.catalog.Catalog;
 import org.modelio.script.macro.catalog.Macro;
 import org.modelio.script.plugin.Script;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -93,8 +93,9 @@ public class CatalogDialog extends ModelioDialog {
         this.provider.addCatalog((macroService.getCatalog(IMacroService.Scope.MODELIO)));
         this.provider.addCatalog((macroService.getCatalog(Scope.WORSPACE)));
         Catalog projectCatalog = macroService.getCatalog(Scope.PROJECT);
-        if (projectCatalog != null)
+        if (projectCatalog != null) {
             this.provider.addCatalog((projectCatalog));
+        }
     }
 
     @objid ("006a9da2-c497-106a-bf4f-001ec947cd2a")
@@ -111,19 +112,17 @@ public class CatalogDialog extends ModelioDialog {
         catalogPanel.setText(Script.I18N.getString("CatalogDialog.CatalogGroup"));
         catalogPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         
-        
         this.treeviewer = new TreeViewer(catalogPanel, SWT.NONE);
         this.treeviewer.setContentProvider(this.provider);
         this.treeviewer.setLabelProvider(new CatalogLabelProvider());
         this.treeviewer.addSelectionChangedListener(new TreeSelectionChangedListener());
         
-        
         // Catalog buttons
         Composite catalogToolbar = new Composite(catalogPanel, SWT.NONE);
         GridDataFactory.defaultsFor(catalogToolbar).align(SWT.END, SWT.BEGINNING) // align
-                                                                                    // on
-                                                                                    // the
-                                                                                    // right
+                                                                                  // on
+                                                                                  // the
+                                                                                  // right
                 .grab(false, false).applyTo(catalogToolbar);
         
         // Add macro from file button
@@ -197,8 +196,7 @@ public class CatalogDialog extends ModelioDialog {
     }
 
     /**
-     * Update the buttons and their enabled/disabled status when the tree
-     * selection changes
+     * Update the buttons and their enabled/disabled status when the tree selection changes
      */
     @objid ("006966ee-c497-106a-bf4f-001ec947cd2a")
     private class TreeSelectionChangedListener implements ISelectionChangedListener {
@@ -252,18 +250,22 @@ public class CatalogDialog extends ModelioDialog {
             boolean runnable = true;
             if (!(macro.getMetaclasses().isEmpty())) {
                 if (!CatalogDialog.this.selectedElements.isEmpty()) {
+                    MObject firstElement = CatalogDialog.this.selectedElements.iterator().next();
+                    MMetamodel metamodel = firstElement.getMClass().getMetamodel();
+            
                     runnable = (macro.getMetaclasses().size() > 0);
                     for (String acceptMClassName : macro.getMetaclasses()) {
-                        MClass mClass = Metamodel.getMClass(acceptMClassName);
-                        Class<? extends MObject> clazz = Metamodel.getJavaInterface(mClass);
+                        MClass mClass = metamodel.getMClass(acceptMClassName);
+                        Class<? extends MObject> clazz = mClass.getJavaInterface();
                         for (MObject selected : CatalogDialog.this.selectedElements) {
                             if (!clazz.isAssignableFrom(selected.getClass())) {
                                 runnable = false;
                                 break;
                             }
                         }
-                        if (!runnable)
+                        if (!runnable) {
                             break;
+                        }
                     }
                 }
             }

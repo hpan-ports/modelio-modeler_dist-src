@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.module;
 
@@ -26,8 +26,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vbasic.version.Version;
+import org.modelio.vbasic.version.VersionedItem;
 
 /**
  * Stub class for modules for which no archive is available.
@@ -53,7 +53,7 @@ public class EmptyModuleHandle implements IModuleHandle {
 
     @objid ("cbf0c07a-2f2b-11e2-8f16-002564c97630")
     @Override
-    public List<ModuleId> getWeakDependencies() {
+    public List<VersionedItem<?>> getWeakDependencies() {
         return Collections.emptyList();
     }
 
@@ -119,14 +119,14 @@ public class EmptyModuleHandle implements IModuleHandle {
 
     @objid ("cbf321dc-2f2b-11e2-8f16-002564c97630")
     @Override
-    public List<ModuleId> getDependencies() {
+    public List<VersionedItem<?>> getDependencies() {
         return Collections.emptyList();
     }
 
     @objid ("cbf321e3-2f2b-11e2-8f16-002564c97630")
     @Override
     public Version getBinaryVersion() {
-        return new Version (Metamodel.VERSION);
+        return new Version (0,0,0);
     }
 
     @objid ("d960c4d6-37da-11e2-8ba4-002564c97630")
@@ -139,6 +139,12 @@ public class EmptyModuleHandle implements IModuleHandle {
     @Override
     public Map<String, Path> getStylePaths() {
         return Collections.emptyMap();
+    }
+
+    @objid ("8c2204a5-5b4c-4836-af95-97a2b29a960a")
+    @Override
+    public List<IMetamodelFragmentHandle> getMetamodelFragments() {
+        return Collections.emptyList();
     }
 
 }

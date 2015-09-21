@@ -1,7 +1,7 @@
 <configuration debug="true">
 
   <appender name="LOGFILE" class="ch.qos.logback.core.FileAppender">
-    <file>${user.home}/.modelio/3.3/modelio.log</file>
+    <file>${user.home}/.modelio/3.4/modelio.log</file>
     <encoder>
       <pattern>%date{ISO8601} %-5level %-16.16logger{16} - %message%n%ex{full}</pattern>
     </encoder>
@@ -15,7 +15,7 @@
     </encoder>
   </appender>
 
-  <root level="DEBUG">
+  <root level="TRACE">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="LOGFILE" />
   </root>

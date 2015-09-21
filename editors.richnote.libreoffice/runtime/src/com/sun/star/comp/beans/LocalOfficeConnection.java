@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package com.sun.star.comp.beans;
 
@@ -350,7 +350,7 @@ public class LocalOfficeConnection implements OfficeConnection {
      * access to the bridge which has to be disposed when Applet.stop is called.
      */
     @objid ("fc389dd5-57e1-48b4-939d-948f9127f026")
-    private Object resolve(final XComponentContext xLocalContext, final String dcp) throws com.sun.star.lang.IllegalArgumentException, com.sun.star.connection.ConnectionSetupException, com.sun.star.connection.NoConnectException {
+    private Object resolve(final XComponentContext xLocalContext, final String dcp) throws com.sun.star.connection.ConnectionSetupException, com.sun.star.connection.NoConnectException, com.sun.star.lang.IllegalArgumentException {
         String conDcp = null;
         String protDcp = null;
         String rootOid = null;

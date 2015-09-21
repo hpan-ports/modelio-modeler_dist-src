@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.stereotype.columnheader;
 
@@ -34,6 +34,7 @@ import org.eclipse.nebula.widgets.nattable.layer.DataLayer;
 import org.eclipse.nebula.widgets.nattable.layer.ILayer;
 import org.eclipse.nebula.widgets.nattable.layer.cell.ColumnOverrideLabelAccumulator;
 import org.eclipse.nebula.widgets.nattable.painter.cell.ICellPainter;
+import org.eclipse.nebula.widgets.nattable.painter.cell.TextPainter;
 import org.eclipse.nebula.widgets.nattable.painter.cell.decorator.BeveledBorderDecorator;
 import org.eclipse.nebula.widgets.nattable.resize.action.AutoResizeColumnAction;
 import org.eclipse.nebula.widgets.nattable.resize.action.ColumnResizeCursorAction;
@@ -49,10 +50,9 @@ import org.eclipse.nebula.widgets.nattable.ui.binding.UiBindingRegistry;
 import org.eclipse.nebula.widgets.nattable.ui.matcher.MouseEventMatcher;
 import org.eclipse.nebula.widgets.nattable.util.GUIHelper;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.FontData;
 import org.modelio.core.ui.nattable.editors.TextIconConverter;
-import org.modelio.core.ui.nattable.editors.TextIconPainter;
 import org.modelio.property.ui.data.stereotype.data.TableDataModel;
+import org.modelio.ui.UIColor;
 
 /**
  * Configuration for the column headers of property table editor. The configuration is dynamically computed from the properties of
@@ -132,21 +132,22 @@ public class ColumnHeaderConfiguration implements IConfiguration {
     @objid ("a9ebda4c-03ab-49af-8d88-0ac5057ef908")
     private void configureRegistryForHSTRING(IConfigRegistry configRegistry) {
         // Cell Painter
-        final ICellPainter horizontalTextPainter = new BeveledBorderDecorator(new TextIconPainter());
+        final ICellPainter horizontalTextPainter = new BeveledBorderDecorator(new TextPainter(false /* wrapText */,
+                true /* paintBg */, 2 /* spacing */, true /* calculate */));
         
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, horizontalTextPainter, DisplayMode.NORMAL,
                 HSTRING);
         
         // Cell style
         final Style hCellStyle = new Style();
-        hCellStyle.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, GUIHelper.COLOR_WIDGET_BACKGROUND);
-        hCellStyle.setAttributeValue(CellStyleAttributes.FOREGROUND_COLOR, GUIHelper.COLOR_WIDGET_FOREGROUND);
+        hCellStyle.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, UIColor.TABLE_HEADER_BG);
+        hCellStyle.setAttributeValue(CellStyleAttributes.FOREGROUND_COLOR, UIColor.BLACK);
         hCellStyle.setAttributeValue(CellStyleAttributes.GRADIENT_BACKGROUND_COLOR, GUIHelper.COLOR_WHITE);
         hCellStyle.setAttributeValue(CellStyleAttributes.GRADIENT_FOREGROUND_COLOR, GUIHelper.getColor(136, 212, 215));
         hCellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.CENTER);
         hCellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.MIDDLE);
         hCellStyle.setAttributeValue(CellStyleAttributes.BORDER_STYLE, null);
-        hCellStyle.setAttributeValue(CellStyleAttributes.FONT, GUIHelper.getFont(new FontData("Verdana", 10, SWT.NORMAL)));
+        hCellStyle.setAttributeValue(CellStyleAttributes.FONT, GUIHelper.DEFAULT_FONT);
         
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, hCellStyle, DisplayMode.NORMAL, HSTRING);
         

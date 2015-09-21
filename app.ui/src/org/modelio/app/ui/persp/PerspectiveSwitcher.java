@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.ui.persp;
 
@@ -146,129 +146,142 @@ public class PerspectiveSwitcher {
 
     @objid ("4845f972-da76-43a8-8f7c-7ce8d793abd2")
     private EventHandler selectionHandler = new EventHandler() {
-		@Override
-		public void handleEvent(Event event) {
-			if (PerspectiveSwitcher.this.psTB.isDisposed()) {
-				return;
-			}
-			MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
-			if (PerspectiveSwitcher.this.psME == null || !(changedElement instanceof MPerspectiveStack))
-				return;
-			MWindow perspWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(changedElement);
-			MWindow switcherWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(PerspectiveSwitcher.this.psME);
-			if (perspWin != switcherWin)
-				return;
-			MPerspectiveStack perspStack = (MPerspectiveStack) changedElement;
-			if (!perspStack.isToBeRendered())
-				return;
-			MPerspective selElement = perspStack.getSelectedElement();
-			for (ToolItem ti : PerspectiveSwitcher.this.psTB.getItems()) {
-				ti.setSelection(ti.getData() == selElement);
-			}
-		}
-	};
+        @Override
+        public void handleEvent(Event event) {
+            if (PerspectiveSwitcher.this.psTB.isDisposed()) {
+                return;
+            }
+            MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
+            if (PerspectiveSwitcher.this.psME == null || !(changedElement instanceof MPerspectiveStack)) {
+                return;
+            }
+            MWindow perspWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(changedElement);
+            MWindow switcherWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(PerspectiveSwitcher.this.psME);
+            if (perspWin != switcherWin) {
+                return;
+            }
+            MPerspectiveStack perspStack = (MPerspectiveStack) changedElement;
+            if (!perspStack.isToBeRendered()) {
+                return;
+            }
+            MPerspective selElement = perspStack.getSelectedElement();
+            for (ToolItem ti : PerspectiveSwitcher.this.psTB.getItems()) {
+                ti.setSelection(ti.getData() == selElement);
+            }
+        }
+    };
 
     @objid ("c431b0d1-eeec-433b-be41-bc69ba92c5e6")
     private EventHandler toBeRenderedHandler = new EventHandler() {
-		@Override
-		public void handleEvent(Event event) {
-			if (PerspectiveSwitcher.this.psTB.isDisposed()) {
-				return;
-			}
-			MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
-			if (PerspectiveSwitcher.this.psME == null || !(changedElement instanceof MPerspective))
-				return;
-			MWindow perspWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(changedElement);
-			MWindow switcherWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(PerspectiveSwitcher.this.psME);
-			if (perspWin != switcherWin)
-				return;
-			MPerspective persp = (MPerspective) changedElement;
-			if (!persp.getParent().isToBeRendered())
-				return;
-			if (changedElement.isToBeRendered()) {
-				addPerspectiveItem(persp);
-			} else {
-				removePerspectiveItem(persp);
-			}
-		}
-	};
+        @Override
+        public void handleEvent(Event event) {
+            if (PerspectiveSwitcher.this.psTB.isDisposed()) {
+                return;
+            }
+            MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
+            if (PerspectiveSwitcher.this.psME == null || !(changedElement instanceof MPerspective)) {
+                return;
+            }
+            MWindow perspWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(changedElement);
+            MWindow switcherWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(PerspectiveSwitcher.this.psME);
+            if (perspWin != switcherWin) {
+                return;
+            }
+            MPerspective persp = (MPerspective) changedElement;
+            if (!persp.getParent().isToBeRendered()) {
+                return;
+            }
+            if (changedElement.isToBeRendered()) {
+                addPerspectiveItem(persp);
+            } else {
+                removePerspectiveItem(persp);
+            }
+        }
+    };
 
     @objid ("983aca84-316e-4891-8bc7-60bb680261dc")
     private EventHandler labelHandler = new EventHandler() {
-		@Override
-		public void handleEvent(Event event) {
-			if (PerspectiveSwitcher.this.psTB.isDisposed()) {
-				return;
-			}
-			MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
-			if (PerspectiveSwitcher.this.psME == null || !(changedElement instanceof MPerspective))
-				return;
-			String attName = (String) event.getProperty(UIEvents.EventTags.ATTNAME);
-			Object newValue = event.getProperty(UIEvents.EventTags.NEW_VALUE);
-			MWindow perspWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(changedElement);
-			MWindow switcherWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(PerspectiveSwitcher.this.psME);
-			if (perspWin != switcherWin)
-				return;
-			MPerspective perspective = (MPerspective) changedElement;
-			if (!perspective.isToBeRendered())
-				return;
-			for (ToolItem ti : PerspectiveSwitcher.this.psTB.getItems()) {
-				if (ti.getData() == perspective) {
-					updateToolItem(ti, attName, newValue);
-				}
-			}
-			// update the layout
-			PerspectiveSwitcher.this.psTB.pack();
-			PerspectiveSwitcher.this.psTB.getShell().layout(new Control[] { PerspectiveSwitcher.this.psTB }, SWT.DEFER);
-		}
-		private void updateToolItem(ToolItem ti, String attName, Object newValue) {
-			boolean showText = PrefUtil.getAPIPreferenceStore().getBoolean(
-					IWorkbenchPreferenceConstants.SHOW_TEXT_ON_PERSPECTIVE_BAR);
-			if (showText && UIEvents.UILabel.LABEL.equals(attName)) {
-				String newName = (String) newValue;
-				ti.setText(newName);
-			} else if (UIEvents.UILabel.TOOLTIP.equals(attName)) {
-				String newTTip = (String) newValue;
-				ti.setToolTipText(newTTip);
-			}
-		}
-	};
+        @Override
+        public void handleEvent(Event event) {
+            if (PerspectiveSwitcher.this.psTB.isDisposed()) {
+                return;
+            }
+            MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
+            if (PerspectiveSwitcher.this.psME == null || !(changedElement instanceof MPerspective)) {
+                return;
+            }
+            String attName = (String) event.getProperty(UIEvents.EventTags.ATTNAME);
+            Object newValue = event.getProperty(UIEvents.EventTags.NEW_VALUE);
+            MWindow perspWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(changedElement);
+            MWindow switcherWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(PerspectiveSwitcher.this.psME);
+            if (perspWin != switcherWin) {
+                return;
+            }
+            MPerspective perspective = (MPerspective) changedElement;
+            if (!perspective.isToBeRendered()) {
+                return;
+            }
+            for (ToolItem ti : PerspectiveSwitcher.this.psTB.getItems()) {
+                if (ti.getData() == perspective) {
+                    updateToolItem(ti, attName, newValue);
+                }
+            }
+            // update the layout
+            PerspectiveSwitcher.this.psTB.pack();
+            PerspectiveSwitcher.this.psTB.getShell().layout(new Control[] { PerspectiveSwitcher.this.psTB }, SWT.DEFER);
+        }
+        private void updateToolItem(ToolItem ti, String attName, Object newValue) {
+            boolean showText = PrefUtil.getAPIPreferenceStore().getBoolean(
+                    IWorkbenchPreferenceConstants.SHOW_TEXT_ON_PERSPECTIVE_BAR);
+            if (showText && UIEvents.UILabel.LABEL.equals(attName)) {
+                String newName = (String) newValue;
+                ti.setText(newName);
+            } else if (UIEvents.UILabel.TOOLTIP.equals(attName)) {
+                String newTTip = (String) newValue;
+                ti.setToolTipText(newTTip);
+            }
+        }
+    };
 
     @objid ("4538cf36-48d0-447f-b780-d12c64279fad")
     private EventHandler childrenHandler = new EventHandler() {
-		@Override
-		public void handleEvent(Event event) {
-			if (PerspectiveSwitcher.this.psTB.isDisposed()) {
-				return;
-			}
-			Object changedObj = event.getProperty(UIEvents.EventTags.ELEMENT);
-			String eventType = (String) event.getProperty(UIEvents.EventTags.TYPE);
-			if (changedObj instanceof MWindow && UIEvents.EventTypes.ADD.equals(eventType)) {
-				MUIElement added = (MUIElement) event.getProperty(UIEvents.EventTags.NEW_VALUE);
-				if (added instanceof MPerspectiveStack) {
-				}
-			}
-			if (PerspectiveSwitcher.this.psME == null || !(changedObj instanceof MPerspectiveStack))
-				return;
-			MWindow perspWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor((MUIElement) changedObj);
-			MWindow switcherWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(PerspectiveSwitcher.this.psME);
-			if (perspWin != switcherWin)
-				return;
-			if (UIEvents.EventTypes.ADD.equals(eventType)) {
-				MPerspective added = (MPerspective) event.getProperty(UIEvents.EventTags.NEW_VALUE);
-				// Adding invisible elements is a NO-OP
-				if (!added.isToBeRendered())
-					return;
-				addPerspectiveItem(added);
-			} else if (UIEvents.EventTypes.REMOVE.equals(eventType)) {
-				MPerspective removed = (MPerspective) event.getProperty(UIEvents.EventTags.OLD_VALUE);
-				// Removing invisible elements is a NO-OP
-				if (!removed.isToBeRendered())
-					return;
-				removePerspectiveItem(removed);
-			}
-		}
-	};
+        @Override
+        public void handleEvent(Event event) {
+            if (PerspectiveSwitcher.this.psTB.isDisposed()) {
+                return;
+            }
+            Object changedObj = event.getProperty(UIEvents.EventTags.ELEMENT);
+            String eventType = (String) event.getProperty(UIEvents.EventTags.TYPE);
+            if (changedObj instanceof MWindow && UIEvents.EventTypes.ADD.equals(eventType)) {
+                MUIElement added = (MUIElement) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+                if (added instanceof MPerspectiveStack) {
+                }
+            }
+            if (PerspectiveSwitcher.this.psME == null || !(changedObj instanceof MPerspectiveStack)) {
+                return;
+            }
+            MWindow perspWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor((MUIElement) changedObj);
+            MWindow switcherWin = PerspectiveSwitcher.this.modelService.getTopLevelWindowFor(PerspectiveSwitcher.this.psME);
+            if (perspWin != switcherWin) {
+                return;
+            }
+            if (UIEvents.EventTypes.ADD.equals(eventType)) {
+                MPerspective added = (MPerspective) event.getProperty(UIEvents.EventTags.NEW_VALUE);
+                // Adding invisible elements is a NO-OP
+                if (!added.isToBeRendered()) {
+                    return;
+                }
+                addPerspectiveItem(added);
+            } else if (UIEvents.EventTypes.REMOVE.equals(eventType)) {
+                MPerspective removed = (MPerspective) event.getProperty(UIEvents.EventTags.OLD_VALUE);
+                // Removing invisible elements is a NO-OP
+                if (!removed.isToBeRendered()) {
+                    return;
+                }
+                removePerspectiveItem(removed);
+            }
+        }
+    };
 
     @objid ("bf5a465f-d409-4d19-92d7-36f34a61a34c")
     @PostConstruct
@@ -405,8 +418,9 @@ public class PerspectiveSwitcher {
             // Create an item for each perspective that should show up
             for (MPerspective persp : stack.getChildren()) {
                 if (persp.isToBeRendered()) {
-                    if (persp.getTags().contains("user"))
+                    if (persp.getTags().contains("user")) {
                         addPerspectiveItem(persp);
+                    }
                 }
             }
         }
@@ -424,8 +438,9 @@ public class PerspectiveSwitcher {
     @objid ("d6d98beb-5d47-41f3-bfd4-584f34127d17")
     MPerspectiveStack getPerspectiveStack() {
         List<MPerspectiveStack> psList = this.modelService.findElements(this.window, null, MPerspectiveStack.class, null);
-        if (psList.size() > 0)
+        if (psList.size() > 0) {
             return psList.get(0);
+        }
         return null;
     }
 
@@ -495,8 +510,7 @@ public class PerspectiveSwitcher {
     @objid ("a402bb8d-5b50-4b3e-9d66-e1503d6d7252")
     private void selectPerspective() {
         // let the handler perform the work to consolidate all the code
-        ParameterizedCommand command = this.commandService.createCommand(IWorkbenchCommandConstants.PERSPECTIVES_SHOW_PERSPECTIVE,
-                Collections.EMPTY_MAP);
+        ParameterizedCommand command = this.commandService.createCommand(IWorkbenchCommandConstants.PERSPECTIVES_SHOW_PERSPECTIVE, Collections.emptyMap());
         this.handlerService.executeHandler(command);
     }
 
@@ -551,8 +565,9 @@ public class PerspectiveSwitcher {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 MPerspective persp = (MPerspective) menu.getData();
-                if (persp != null)
+                if (persp != null) {
                     closePerspective(persp);
+                }
             }
         });
     }
@@ -578,8 +593,9 @@ public class PerspectiveSwitcher {
         saveAsMenuItem.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
-                if (PerspectiveSwitcher.this.psTB.isDisposed())
+                if (PerspectiveSwitcher.this.psTB.isDisposed()) {
                     return;
+                }
                 IHandlerService handlerService = (IHandlerService) workbenchWindow.getService(IHandlerService.class);
                 IStatus status = Status.OK_STATUS;
                 try {
@@ -592,8 +608,9 @@ public class PerspectiveSwitcher {
                     status = new Status(IStatus.ERROR, PlatformUI.PLUGIN_ID, e.getMessage(), e);
                 } catch (NotHandledException e) {
                 }
-                if (!status.isOK())
+                if (!status.isOK()) {
                     StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
+                }
             }
         });
     }
@@ -607,8 +624,9 @@ public class PerspectiveSwitcher {
         resetMenuItem.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
-                if (PerspectiveSwitcher.this.psTB.isDisposed())
+                if (PerspectiveSwitcher.this.psTB.isDisposed()) {
                     return;
+                }
                 IHandlerService handlerService = (IHandlerService) workbenchWindow.getService(IHandlerService.class);
                 IStatus status = Status.OK_STATUS;
                 try {
@@ -621,8 +639,9 @@ public class PerspectiveSwitcher {
                     status = new Status(IStatus.ERROR, PlatformUI.PLUGIN_ID, e.getMessage(), e);
                 } catch (NotHandledException e) {
                 }
-                if (!status.isOK())
+                if (!status.isOK()) {
                     StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
+                }
             }
         });
     }
@@ -656,10 +675,11 @@ public class PerspectiveSwitcher {
                 if (IWorkbenchPreferenceConstants.SHOW_TEXT_ON_PERSPECTIVE_BAR.equals(propertyChangeEvent.getProperty())) {
                     Object newValue = propertyChangeEvent.getNewValue();
                     boolean showText = true; // default
-                    if (newValue instanceof Boolean)
+                    if (newValue instanceof Boolean) {
                         showText = ((Boolean) newValue).booleanValue();
-                    else if ("false".equals(newValue)) //$NON-NLS-1$
+                    } else if ("false".equals(newValue)) {
                         showText = false;
+                    }
                     changeShowText(showText);
                 }
             }
@@ -672,10 +692,11 @@ public class PerspectiveSwitcher {
         ToolItem[] items = this.psTB.getItems();
         for (int i = 0; i < items.length; i++) {
             MPerspective persp = (MPerspective) items[i].getData();
-            if (persp != null)
+            if (persp != null) {
                 if (showText) {
-                    if (persp.getLabel() != null)
+                    if (persp.getLabel() != null) {
                         items[i].setText(persp.getLocalizedLabel());
+                    }
                     items[i].setToolTipText(persp.getLocalizedTooltip());
                 } else {
                     Image image = items[i].getImage();
@@ -684,6 +705,7 @@ public class PerspectiveSwitcher {
                         items[i].setToolTipText(persp.getLocalizedLabel());
                     }
                 }
+            }
         }
         // update fix the layout
         this.psTB.pack();
@@ -704,12 +726,14 @@ public class PerspectiveSwitcher {
 
     @objid ("cf770f75-d6fa-43bc-9bdc-636e7258c258")
     protected ToolItem getItemFor(final MPerspective persp) {
-        if (this.psTB == null)
+        if (this.psTB == null) {
             return null;
+        }
         
         for (ToolItem ti : this.psTB.getItems()) {
-            if (ti.getData() == persp)
+            if (ti.getData() == persp) {
                 return ti;
+            }
         }
         return null;
     }
@@ -718,8 +742,9 @@ public class PerspectiveSwitcher {
     void paint(final PaintEvent e) {
         GC gc = e.gc;
         Point size = this.comp.getSize();
-        if (this.curveColor == null)
+        if (this.curveColor == null) {
             this.curveColor = e.display.getSystemColor(SWT.COLOR_BLACK);
+        }
         int h = size.y;
         int[] simpleCurve = new int[] { 0, h - 1, 1, h - 1, 2, h - 2, 2, 1, 3, 0 };
         // draw border
@@ -747,8 +772,9 @@ public class PerspectiveSwitcher {
         r.intersect(clipping);
         gc.setClipping(r);
         Image b = this.toolParent.getBackgroundImage();
-        if (b != null && !b.isDisposed())
+        if (b != null && !b.isDisposed()) {
             gc.drawImage(b, 0, 0);
+        }
         
         r.dispose();
         clipping.dispose();
@@ -811,8 +837,9 @@ public class PerspectiveSwitcher {
         gc.drawPolyline(line2);
         gc.dispose();
         this.comp.setBackgroundImage(this.backgroundImage);
-        if (oldBackgroundImage != null)
+        if (oldBackgroundImage != null) {
             oldBackgroundImage.dispose();
+        }
     }
 
     @objid ("70e536ac-9a01-44c2-aa61-f49624d223e8")

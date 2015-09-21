@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler- modeler maven plugin</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Modelio-Maven-Plugin-User-Guide"></a>
+<h1 >Modelio Maven Plugin User Guide<a href="#Modelio-Maven-Plugin-User-Guide" class="wiki-anchor">&para;</a></h1>
+
+<p>The Modelio Maven Plugin allows the Modelio tool to be automated on a specified project, and provides some Modelio module related features.</p>
+
+<p>The Modelio Maven Plugin gets the parameter values that will be used from the plugin configuration specified in the pom.</p>
+
+<a name="Goal-overview"></a>
+<h2 >Goal overview<a href="#Goal-overview" class="wiki-anchor">&para;</a></h2>
+
+<p>The Modelio MavenPlugin has six goals, divided into two categories:</p>
+
+<ul>
+<li>Modelio related goals:
+
+<ul>
+<li><a href="Create-project.html" class="wiki-page.html">create-project</a> creates a new Modelio project.</li>
+<li><a href="Generate-modelio-javadoc.html" class="wiki-page.html">generate-modelio-javadoc</a> generates the Javadoc files for the Modelio project. It executes the &ldquo;Generate Javadoc&rdquo; command from Java Designer.</li>
+<li><a href="Generate-modelio-sources.html" class="wiki-page">generate-modelio-sources</a> generates Java sources from a Modelio project with <a href="http://forge.modelio.org/projects/javadesigner-documentation/wiki.html">Java Designer</a>.</li>
+<li><a href="Update-modelio-model.html" class="wiki-page.html">update-modelio-model</a> updates the model with SVN Teamwork Manager in a Modelio project.</li>
+</ul>
+</li>
+<li>Module related goals:
+
+<ul>
+<li><a href="Module-configuration.html" class="wiki-page">module-configuration</a> updates the content of the module.xml file, in a <a href="http://forge.modelio.org/projects/modelio3-moduledevelopersmanuals-devguide/wiki.html">module development project</a>.</li>
+<li><a href="Module-validation.html" class="wiki-page">module-validation</a> checks the content of the module.xml file, in a <a href="http://forge.modelio.org/projects/modelio3-moduledevelopersmanuals-devguide/wiki.html">module development project</a>.</li>
+</ul>
+</li>
+</ul>
+
+
+<a name="Usage"></a>
+<h2 >Usage<a href="#Usage" class="wiki-anchor">&para;</a></h2>
+
+<p>The Modelio Maven Plugin uses the Modelio tool. The following examples describe the basic usage of the Plugin.</p>
+
+<p>To update your Modelio project from SVN, and then generate the Java sources and Javadoc:</p>
+
+<pre><code>
+&lt;project&gt;...
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.modelio&lt;/groupId&gt;
+        &lt;artifactId&gt;modelio-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.0.0.00&lt;/version&gt;
+        &lt;executions&gt;
+
+          &lt;execution&gt;
+            &lt;id&gt;GenerateJavaSources&lt;/id&gt;
+            &lt;phase&gt;generate-sources&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;generate-modelio-sources&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+          &lt;execution&gt;
+            &lt;id&gt;GenerateJavadoc&lt;/id&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;generate-modelio-javadoc&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+        &lt;configuration&gt;
+          &lt;modelioDir&gt;H:\modelio-install\&lt;/modelioDir&gt;
+          &lt;workspaceDir&gt;H:\modelio-workspace&lt;/workspaceDir&gt;
+          &lt;projectName&gt;TestProject&lt;/projectName&gt;
+          &lt;updateBeforeGeneration&gt;true&lt;/updateBeforeGeneration&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    ...
+  &lt;/build&gt;
+  ...
+&lt;/project&gt;
+</code></pre>
+
+
+<p>In a module development project, complete and validate the module.xml file:</p>
+
+<pre><code>
+&lt;project&gt;...
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.modelio&lt;/groupId&gt;
+        &lt;artifactId&gt;modelio-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.0.0.00&lt;/version&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;ModuleValidation&lt;/id&gt;
+            &lt;phase&gt;validate&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;module-validation&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+          &lt;execution&gt;
+            &lt;id&gt;ResourceManagement&lt;/id&gt;
+            &lt;phase&gt;generate-resources&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;module-configuration&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+        &lt;configuration&gt;
+          &lt;moduleFile&gt;${project.basedir}/src/main/conf/module.xml&lt;/moduleFile&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+    ...
+  &lt;/build&gt;
+  ...
+&lt;/project&gt;
+</code></pre>
+
+
+<a name="Where-to-find-this-plugin"></a>
+<h2 >Where to find this plugin<a href="#Where-to-find-this-plugin" class="wiki-anchor">&para;</a></h2>
+
+<p>In your pom.xml file, add the following code to use the Modelio repository:</p>
+
+<pre><code>
+&lt;project&gt;
+  ...
+  &lt;pluginRepositories&gt;
+    &lt;pluginRepository&gt;
+      &lt;id&gt;modelio&lt;/id&gt;
+      &lt;url&gt;http://repository.modelio.org&lt;/url&gt;
+    &lt;/pluginRepository&gt;
+    ...
+  &lt;/pluginRepositories&gt;
+  ...
+&lt;/project&gt;
+</code></pre>
+
+
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

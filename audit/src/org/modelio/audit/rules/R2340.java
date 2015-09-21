@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.rules;
 
@@ -35,7 +35,6 @@ import org.modelio.audit.engine.impl.AuditTrigger;
 import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.plugin.Audit;
 import org.modelio.audit.service.AuditSeverity;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Class;
@@ -76,23 +75,23 @@ public class R2340 extends AbstractRule {
     @objid ("5fb7abce-4f86-4f0f-9072-a905a512c973")
     @Override
     public void autoRegister(IAuditPlan plan) {
-        plan.registerRule(Metamodel.getMClass(Operation.class).getName(), this, AuditTrigger.UPDATE | AuditTrigger.MOVE);
+        plan.registerRule(Operation.MNAME, this, AuditTrigger.UPDATE | AuditTrigger.MOVE);
         
-        plan.registerRule(Metamodel.getMClass(Generalization.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(Generalization.MNAME, this, AuditTrigger.CREATE |
                           AuditTrigger.UPDATE |
                           AuditTrigger.MOVE);
-        plan.registerRule(Metamodel.getMClass(InterfaceRealization.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(InterfaceRealization.MNAME, this, AuditTrigger.CREATE |
                           AuditTrigger.UPDATE |
                           AuditTrigger.MOVE);
         //Classifier
         
         //Classifier.GeneralClass
-        plan.registerRule(Metamodel.getMClass(Interface.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Class.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Signal.class).getName(), this, AuditTrigger.UPDATE);
+        plan.registerRule(Interface.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Class.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Signal.MNAME, this, AuditTrigger.UPDATE);
         
         //Classifier.GeneralClass.Class
-        plan.registerRule(Metamodel.getMClass(Component.class).getName(), this, AuditTrigger.UPDATE);
+        plan.registerRule(Component.MNAME, this, AuditTrigger.UPDATE);
     }
 
     /**

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,27 +12,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.attribute;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
-import org.modelio.diagram.elements.core.model.IEditableText;
-import org.modelio.diagram.elements.core.node.GmCompositeNode;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
+import org.modelio.diagram.elements.common.label.modelelement.GmModelElementLabel;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -40,10 +37,10 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 /**
  * Represents an {@link Attribute} label.
  * <p>
- * Extends {@link GmModelElementFlatHeader}.
+ * Extends {@link GmModelElementLabel}.
  */
 @objid ("33fe3ef9-55b7-11e2-877f-002564c97630")
-public class GmAttribute extends GmModelElementFlatHeader {
+public class GmAttribute extends GmDefaultModelElementLabel {
     @objid ("33fe3efd-55b7-11e2-877f-002564c97630")
     private Attribute element;
 
@@ -77,36 +74,6 @@ public class GmAttribute extends GmModelElementFlatHeader {
         super(diagram, ref);
         this.element = el;
         init();
-    }
-
-    @objid ("33ffc585-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<Stereotype> filterStereotypes(List<Stereotype> stereotypes) {
-        return stereotypes;
-    }
-
-    @objid ("33ffc593-55b7-11e2-877f-002564c97630")
-    @Override
-    public List<TaggedValue> filterTags(List<TaggedValue> taggedValues) {
-        return taggedValues;
-    }
-
-    @objid ("33ffc5a1-55b7-11e2-877f-002564c97630")
-    @Override
-    public IEditableText getEditableText() {
-        return new IEditableText() {
-        
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
-                    }
-        
-                    @Override
-                    public void setText(String text) {
-        getRelatedElement().setName(text);
-                    }
-        
-                };
     }
 
     @objid ("33ffc5a8-55b7-11e2-877f-002564c97630")
@@ -162,22 +129,8 @@ public class GmAttribute extends GmModelElementFlatHeader {
 
     @objid ("34014c27-55b7-11e2-877f-002564c97630")
     @Override
-    protected String computeLabel() {
+    protected String computeMainLabel() {
         return computeSignature(getRelatedElement());
-    }
-
-    /**
-     * Redefined to set its own style cascading from the new parent node style.
-     */
-    @objid ("34014c2c-55b7-11e2-877f-002564c97630")
-    @Override
-    protected void setParent(GmCompositeNode parent) {
-        if (getParent() != parent) {
-            super.setParent(parent);
-        
-            if (parent != null)
-                getStyle().setCascadedStyle(parent.getStyle());
-        }
     }
 
     @objid ("34014c33-55b7-11e2-877f-002564c97630")
@@ -285,6 +238,15 @@ public class GmAttribute extends GmModelElementFlatHeader {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    /**
+     * {@link GmAttribute} is a flat label.
+     */
+    @objid ("b4cb39ed-6d43-489b-980f-ac36c6185267")
+    @Override
+    public boolean isFlat() {
+        return true;
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.load;
 
@@ -29,8 +29,8 @@ import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.session.api.IAccessManager;
+import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.repository.IRepository;
-import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.session.impl.cache.CacheManager;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.smkernel.IMetaOf;
@@ -58,14 +58,11 @@ class ModelLoader implements IModelLoader {
     @objid ("00482c0e-4fda-1f32-b43f-001ec947cd2a")
     private final byte rid;
 
-    @objid ("332badcb-0250-4199-bae6-31586bd76683")
-    private final IMetaOf metaOf;
+    @objid ("9effc52a-7498-40c4-836f-f2888c098c7c")
+    private final IAccessManager accessManager;
 
-    @objid ("211865fb-f3b5-48d0-9b88-ec564db06f8b")
-    private final CoreSession session;
-
-    @objid ("afbe581e-1ef6-4aec-b981-8279d6a1fc19")
-    private final IRepository shellRepository;
+    @objid ("1b6d5b0b-e9d6-444b-a000-035fd3ee701f")
+    private final IModelLoader accessManagerModelLoader;
 
     @objid ("15f1eb7f-ea0b-4445-9940-f54704e7c4ce")
     protected final CacheManager cacheManager;
@@ -73,23 +70,32 @@ class ModelLoader implements IModelLoader {
     @objid ("14564e84-dc91-4737-9b53-f8738de1e89c")
     private final DependencyLoader depLoader = new DependencyLoader();
 
-    @objid ("9effc52a-7498-40c4-836f-f2888c098c7c")
-    private final IAccessManager accessManager;
+    /**
+     * Object data being loaded.
+     * <p>
+     * Used just to keep a pointer to data being loaded until they are added
+     * to the cache manager so that they are not garbaged.
+     */
+    @objid ("400a67a0-35b1-40f9-961d-20b1b7cc0920")
+    private Collection<ISmObjectData> loadedData = new ArrayList<>();
 
     @objid ("33e6ddbe-7c62-45b5-85c7-6bd5f45f14e3")
     private final ModelLoaderMetaObject loadingMetaOf;
 
-    @objid ("1b6d5b0b-e9d6-444b-a000-035fd3ee701f")
-    private final IModelLoader accessManagerModelLoader;
-
-    @objid ("ba42cfc7-82a8-438b-a4b0-e6d0d89001c5")
-    private Collection<SmObjectImpl> toInitialize = new HashSet<>();
-
-    @objid ("400a67a0-35b1-40f9-961d-20b1b7cc0920")
-    private Collection<ISmObjectData> loadedData = new ArrayList<>();
+    @objid ("332badcb-0250-4199-bae6-31586bd76683")
+    private final IMetaOf metaOf;
 
     @objid ("4a4b689e-8cbb-4b66-b372-68fff49a990e")
     private final Collection<IModelLoader> pool;
+
+    @objid ("211865fb-f3b5-48d0-9b88-ec564db06f8b")
+    private final ICoreSession session;
+
+    @objid ("afbe581e-1ef6-4aec-b981-8279d6a1fc19")
+    private final IRepository shellRepository;
+
+    @objid ("ba42cfc7-82a8-438b-a4b0-e6d0d89001c5")
+    private Collection<SmObjectImpl> toInitialize = new HashSet<>();
 
     @objid ("00483fd2-4fda-1f32-b43f-001ec947cd2a")
     public ModelLoader(ModelLoaderConfiguration loaderConfig, Collection<IModelLoader> pool) {
@@ -97,12 +103,18 @@ class ModelLoader implements IModelLoader {
         this.kid = loaderConfig.getKid();
         this.rid = loaderConfig.getRid();
         this.session = loaderConfig.getSession();
-        this.metaOf = this.session.getMetaObject();
+        this.metaOf = loaderConfig.getMetaObject();
         this.shellRepository = loaderConfig.getShellRepository();
         this.cacheManager = loaderConfig.getCacheManager();
         this.accessManager = loaderConfig.getAccessManager();
         this.loadingMetaOf = new ModelLoaderMetaObject();
         this.accessManagerModelLoader = new AccessManagerModelLoader(this);
+    }
+
+    @objid ("e857c9bf-d56e-4f72-bdd4-7e3dad3e82b0")
+    @Override
+    public void begin() {
+        this.loadingMetaOf.beginLoading();
     }
 
     @objid ("f6c04912-3948-11e2-920a-001ec947ccaf")
@@ -137,7 +149,7 @@ class ModelLoader implements IModelLoader {
             data = classof.getObjectFactory().createData();
             ret = classof.getObjectFactory().createImpl();
             ret.initData(data);
-        } 
+        }
         
         // set the meta object to the loading meta object
         data.setMetaOf(this.loadingMetaOf);
@@ -149,8 +161,20 @@ class ModelLoader implements IModelLoader {
         SmStatusFactory.resetRStatus(data);
         SmStatusFactory.resetPStatus(data);
         
-        if (!shellFound)
-            this.cacheManager.addToCache(ret);
+        if (!shellFound) {
+            try {
+                this.cacheManager.addToCache(ret);
+            } catch (DuplicateObjectException e) {
+                // Set the object as shell, add it to the objects list
+                // (so that the caller may choose to load it more)
+                // Do not remember the data because it is a duplicate one,
+                // we don't want to screw up the data cache.
+                data.setRFlags(IRStatus.SHELL, 0, 0);
+                addObjToInitialize(ret);
+                // and rethrow the error.
+                throw e;
+            }
+        }
         
         addObjToInitialize(ret);
         addLoadedData(data);
@@ -176,7 +200,7 @@ class ModelLoader implements IModelLoader {
         } else {
             // Instantiate object
             ret = metaclass.getObjectFactory().createImpl();
-        } 
+        }
         
         long liveId = SmLiveId.make(this.kid, this.rid, metaclass.getId());
         ret.initData(d); // change the data to the loaded one
@@ -187,8 +211,9 @@ class ModelLoader implements IModelLoader {
         // Reinitialize status with default values
         SmStatusFactory.resetRStatus(d);
         
-        if (!shellFound)
+        if (!shellFound) {
             this.cacheManager.addToCache(ret);
+        }
         
         addLoadedData(d);
         addObjToInitialize(ret);
@@ -220,9 +245,15 @@ class ModelLoader implements IModelLoader {
         
         ISmObjectData data = obj.getData();
         addLoadedData(data);
-        att.setValue(data, newValue);
         
-        if (att == SmObjectData.Metadata.statusAtt()) {
+        try {
+            att.setValue(data, newValue);
+        } catch (RuntimeException | LinkageError e) {
+            setRStatus(obj, IRStatus.SHELL, 0, 0);
+            throw e;
+        }
+        
+        if (att == obj.getClassOf().statusAtt()) {
             addObjToInitialize(obj);
         }
     }
@@ -231,7 +262,12 @@ class ModelLoader implements IModelLoader {
     @Override
     public void loadDependency(SmObjectImpl obj, SmDependency dep, List<SmObjectImpl> newContent) {
         addLoadedData(obj.getData());
-        this.depLoader.execute(obj, dep, newContent);
+        try {
+            this.depLoader.execute(obj, dep, newContent);
+        } catch (RuntimeException | LinkageError e) {
+            setRStatus(obj, IRStatus.SHELL, 0, 0);
+            throw e;
+        }
     }
 
     @objid ("bda29931-92d7-11e1-81e9-001ec947ccaf")
@@ -297,7 +333,7 @@ class ModelLoader implements IModelLoader {
         ISmObjectData data = obj.getData();
         data.setPFlags(trueFlags, falseFlags, undefFlags);
         addLoadedData(data);
-        addObjToInitialize(obj);
+        //addObjToInitialize(obj);
     }
 
     @objid ("9420091e-1732-453c-a7bc-14d06e0c2e52")
@@ -306,20 +342,7 @@ class ModelLoader implements IModelLoader {
         ISmObjectData data = obj.getData();
         data.setRFlags(trueFlags, falseFlags, undefFlags);
         addLoadedData(data);
-        addObjToInitialize(obj);
-    }
-
-    @objid ("d285df1c-1ebc-11e2-99fc-001ec947ccaf")
-    protected final CoreSession getSession() {
-        return this.session;
-    }
-
-    @objid ("3fe3101f-1661-4863-8df8-e001452f72b8")
-    protected void addLoadedData(ISmObjectData data) {
-        if (data.hasAllStatus(IRStatus.LOADING) != StatusState.TRUE) {
-            this.loadedData.add(data);
-            data.setRFlags(IRStatus.LOADING, StatusState.TRUE);
-        }
+        //addObjToInitialize(obj);
     }
 
     @objid ("d7ed84ef-e8f1-4b4e-896a-a910c4f83cb2")
@@ -329,6 +352,56 @@ class ModelLoader implements IModelLoader {
         
         // Reset the audit flags, they are not persistent right now
         setRStatus(obj, IRStatus.MASK_AUDIT, StatusState.FALSE);
+        
+        // Set fake metaclass objects as shell
+        if (obj.getMClass().isFake()) {
+            setRStatus(obj, IRStatus.SHELL, StatusState.TRUE);
+        }
+    }
+
+    @objid ("3fe3101f-1661-4863-8df8-e001452f72b8")
+    protected void addLoadedData(ISmObjectData data) {
+        if (data.hasAllStatus(IRStatus.LOADING) != StatusState.TRUE) {
+            // - Keep pointer to data to avoid garbaging
+            // - Set loading flag
+            // - Reset shell flag
+            this.loadedData.add(data);
+            data.setRFlags(IRStatus.LOADING, IRStatus.SHELL, 0);
+        }
+    }
+
+    @objid ("ddde6f85-63af-497e-9ac6-9bf59a7ab025")
+    protected void doClose() {
+        if (!this.toInitialize.isEmpty()) {
+            // Initialize objects rights
+            for (SmObjectImpl obj : this.toInitialize) {
+                initStatus(obj);
+        
+                // Set the meta object
+                obj.getData().setMetaOf(this.metaOf);
+            }
+        
+            // Put loaded data to cache
+            for (ISmObjectData  d: this.loadedData) {
+                this.cacheManager.putDataToCache(d);
+                d.setRFlags(IRStatus.LOADING, StatusState.FALSE);
+            }
+        
+            // Clear list
+        
+            if (this.toInitialize.size() < 15) {
+                this.toInitialize.clear();
+                this.loadedData.clear();
+            } else {
+                this.toInitialize = new HashSet<>(10);
+                this.loadedData = new ArrayList<>(10);
+            }
+        }
+    }
+
+    @objid ("d285df1c-1ebc-11e2-99fc-001ec947ccaf")
+    protected final ICoreSession getSession() {
+        return this.session;
     }
 
     @objid ("33430ab9-4097-11e2-87cb-001ec947ccaf")
@@ -342,40 +415,6 @@ class ModelLoader implements IModelLoader {
         data.setRFlags(flags, newState);
         addLoadedData(data);
         addObjToInitialize(obj);
-    }
-
-    @objid ("ddde6f85-63af-497e-9ac6-9bf59a7ab025")
-    protected void doClose() {
-        if (!this.toInitialize.isEmpty()) {
-            // Initialize objects rights
-            for (SmObjectImpl obj : this.toInitialize) {
-                initStatus(obj);
-        
-                // Set the meta object
-                obj.getData().setMetaOf(this.metaOf);
-            }
-            
-            // Put loaded data to cache
-            for (ISmObjectData  d: this.loadedData) {
-                this.cacheManager.putDataToCache(d);
-                d.setRFlags(IRStatus.LOADING, StatusState.FALSE);
-            }
-        
-            // Clear list
-            if (this.toInitialize.size() < 15) {
-                this.toInitialize.clear();
-                this.loadedData.clear();
-            } else {
-                this.toInitialize = new HashSet<>(10);
-                this.loadedData = new ArrayList<>(10);
-            }
-        }
-    }
-
-    @objid ("e857c9bf-d56e-4f72-bdd4-7e3dad3e82b0")
-    @Override
-    public void begin() {
-        this.loadingMetaOf.beginLoading();
     }
 
 }

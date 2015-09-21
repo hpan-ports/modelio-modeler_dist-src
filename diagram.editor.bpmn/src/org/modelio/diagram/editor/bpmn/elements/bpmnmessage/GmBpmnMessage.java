@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnmessage;
 
@@ -28,6 +28,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.editor.bpmn.elements.bpmndataobject.GmBpmnDataImageStyleKeys;
 import org.modelio.diagram.editor.bpmn.elements.bpmndataobject.GmBpmnDataObjectStyleKeys;
 import org.modelio.diagram.editor.bpmn.elements.bpmndataobject.GmBpmnDataSimpleStyleKeys;
+import org.modelio.diagram.editor.bpmn.elements.bpmndataobject.GmBpmnDataUserImageStyleKeys;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.core.model.GmModel;
@@ -69,6 +70,9 @@ public class GmBpmnMessage extends GmPortContainer {
     @objid ("615c2075-55b6-11e2-877f-002564c97630")
     public static final GmBpmnDataSimpleStyleKeys SIMPLE_KEYS = new GmBpmnDataSimpleStyleKeys();
 
+    @objid ("09576c4c-ee0c-4962-bf9d-5aecbbff0449")
+    public static final GmBpmnDataUserImageStyleKeys USERIMAGE_KEYS = new GmBpmnDataUserImageStyleKeys();
+
     /**
      * Constructor to use only for deserialization.
      */
@@ -94,6 +98,8 @@ public class GmBpmnMessage extends GmPortContainer {
         switch (getPrimaryNode().getRepresentationMode()) {
         case IMAGE:
             return IMAGE_KEYS.getStyleKey(metakey);
+        case USER_IMAGE:
+            return USERIMAGE_KEYS.getStyleKey(metakey);
         case SIMPLE:
             return SIMPLE_KEYS.getStyleKey(metakey);
         case STRUCTURED:
@@ -109,6 +115,8 @@ public class GmBpmnMessage extends GmPortContainer {
         switch (getPrimaryNode().getRepresentationMode()) {
         case IMAGE:
             return IMAGE_KEYS.getStyleKeys();
+        case USER_IMAGE:
+            return USERIMAGE_KEYS.getStyleKeys();
         case SIMPLE:
             return SIMPLE_KEYS.getStyleKeys();
         case STRUCTURED:

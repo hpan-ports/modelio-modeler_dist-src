@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.ArrayList;
@@ -30,7 +42,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.objects.BpmnDataState;
 import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
-import org.modelio.metamodel.data.bpmn.objects.BpmnDataStateData;
+import org.modelio.metamodel.impl.bpmn.objects.BpmnDataStateData;
 import org.modelio.metamodel.impl.bpmn.rootElements.BpmnBaseElementImpl;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -41,54 +53,65 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00087bf4-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnDataStateImpl extends BpmnBaseElementImpl implements BpmnDataState {
-    @objid ("cba66877-bea8-42d6-9cbb-1177f4d9b7c1")
+    @objid ("2dd7feaf-5751-4353-b0d4-5d4a7da184bc")
     @Override
     public BpmnItemAwareElement getItem() {
-        return (BpmnItemAwareElement) getDepVal(BpmnDataStateData.Metadata.ItemDep());
+        Object obj = getDepVal(((BpmnDataStateSmClass)getClassOf()).getItemDep());
+        return (obj instanceof BpmnItemAwareElement)? (BpmnItemAwareElement)obj : null;
     }
 
-    @objid ("508ed418-41b9-4f6c-b0ce-f749092ddd05")
+    @objid ("3fe26d42-10ff-458d-b60c-f3f76c0294ee")
     @Override
     public void setItem(BpmnItemAwareElement value) {
-        appendDepVal(BpmnDataStateData.Metadata.ItemDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnDataStateSmClass)getClassOf()).getItemDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6b6ef0de-6a1d-489b-8762-2db9041262d1")
+    @objid ("0f7a0e9c-f612-478a-b505-a435bcb4ba4c")
     @Override
     public State getUmlState() {
-        return (State) getDepVal(BpmnDataStateData.Metadata.UmlStateDep());
+        Object obj = getDepVal(((BpmnDataStateSmClass)getClassOf()).getUmlStateDep());
+        return (obj instanceof State)? (State)obj : null;
     }
 
-    @objid ("1ab16ca4-ec87-457f-a632-05fbd6b70c54")
+    @objid ("ba6a0273-0021-47c0-8bdc-13b36494d182")
     @Override
     public void setUmlState(State value) {
-        appendDepVal(BpmnDataStateData.Metadata.UmlStateDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnDataStateSmClass)getClassOf()).getUmlStateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ea7e6d1a-6573-44ec-9428-78d7bf3823f8")
+    @objid ("e606747b-e716-46f8-bb92-3e28a0199156")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnDataStateData.Metadata.ItemDep());
+        // Item
+        obj = (SmObjectImpl)this.getDepVal(((BpmnDataStateSmClass)getClassOf()).getItemDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0b9e0bc9-1b80-4961-a353-d328750d9ed7")
+    @objid ("3e362b5a-61bc-4589-8075-ad52098f365b")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(BpmnDataStateData.Metadata.ItemDep());
-        if (obj != null)
-          return new SmDepVal(BpmnDataStateData.Metadata.ItemDep(), obj);
+        SmDependency dep;
+        
+        // Item
+        dep = ((BpmnDataStateSmClass)getClassOf()).getItemDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("3f94b096-6ab8-4a7e-9a44-d15c6a6debac")
+    @objid ("c1e06140-61f1-4207-befb-d6f55e5facaa")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnDataState(this);

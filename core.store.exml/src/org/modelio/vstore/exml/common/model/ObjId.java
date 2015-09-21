@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,36 +12,30 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.model;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.SmObjectImpl;
-import org.modelio.vcore.smkernel.mapi.MRef;
 import org.modelio.vcore.smkernel.meta.SmClass;
 
 /**
  * Represents an object identifier.
  */
 @objid ("fd26ba09-5986-11e1-991a-001ec947ccaf")
-public final class ObjId implements Serializable {
+public final class ObjId {
     /**
      * Object name.
      */
     @objid ("fd1f92d1-5986-11e1-991a-001ec947ccaf")
     public String name;
-
-    @objid ("e8195f72-55ba-11e2-81b0-001ec947ccaf")
-    private static final long serialVersionUID = 1111222233334444555L;
 
     /**
      * Object identifier.
@@ -101,7 +95,9 @@ public final class ObjId implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.classof == null) ? 0 : this.classof.hashCode());
+        // Use only the metaclass name to compute hash code so that changes to the metamodel version
+        // on the metamodel fragment don't change the hash code.
+        result = prime * result + ((this.classof == null) ? 0 : this.classof.getName().hashCode());
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         return result;
     }
@@ -109,25 +105,32 @@ public final class ObjId implements Serializable {
     @objid ("d5bf8482-6231-11e1-b31a-001ec947ccaf")
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         
         ObjId other = (ObjId) obj;
         if (this.classof == null) {
-            if (other.classof != null)
+            if (other.classof != null) {
                 return false;
-        } else if (!this.classof.equals(other.classof))
+            }
+        } else if (!this.classof.equals(other.classof)) {
             return false;
+        }
         
         if (this.id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!this.id.equals(other.id))
+            }
+        } else if (!this.id.equals(other.id)) {
             return false;
+        }
         return true;
     }
 
@@ -135,20 +138,6 @@ public final class ObjId implements Serializable {
     @Override
     public String toString() {
         return "'"+this.name+"' {"+this.id+"} "+this.classof.getName()+" ObjId";
-    }
-
-    @objid ("e81bc1b3-55ba-11e2-81b0-001ec947ccaf")
-    private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-        out.writeObject(this.id);
-        out.writeObject(this.name);
-        out.writeObject(this.classof.getName());
-    }
-
-    @objid ("e81bc1b7-55ba-11e2-81b0-001ec947ccaf")
-    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-        this.id = (UUID) in.readObject();
-        this.name = (String) in.readObject();
-        this.classof = SmClass.getClass((String) in.readObject());
     }
 
     /**
@@ -165,14 +154,19 @@ public final class ObjId implements Serializable {
     }
 
     /**
-     * Constructor from a MRef.
-     * @param r a MRef.
+     * Reinitialize this reference from another reference.
+     * <p>
+     * Avoids allocating billions unique usage MRefs.
+     * @param classof the metaclass
+     * @param name the object name
+     * @param id the object identifier.
      */
     @objid ("46271ae4-b0c9-4a20-926d-e8b6dd596f3a")
-    public void init(MRef r) {
-        this.classof = SmClass.getClass(r.mc);
-        this.name = r.name;
-        this.id = r.uuid;
+    @SuppressWarnings("hiding")
+    public void init(SmClass classof, final String name, final UUID id) {
+        this.classof = classof;
+        this.name = name;
+        this.id = id;
     }
 
 }

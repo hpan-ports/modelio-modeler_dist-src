@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.handlers.move;
 
@@ -68,11 +68,11 @@ public class MoveStereotypeUpHandler {
             return false;
         }
         
-        final List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
+        final List<Object> selectedElements = propertyPanel.getSelectedTypeItems();
         if (selectedElements.isEmpty()) {
             return false;
         }
-        for (final ModelElement element : selectedElements) {
+        for (final Object element : selectedElements) {
             if (!(element instanceof Stereotype)) {
                 return false;
             }
@@ -91,7 +91,7 @@ public class MoveStereotypeUpHandler {
         
         final ModelPropertyPanelProvider propertyPanel = ((PropertyView) part.getObject()).getPanel();
         
-        final List<ModelElement> selectedElements = propertyPanel.getSelectedTypeItems();
+        final List<Object> selectedElements = propertyPanel.getSelectedTypeItems();
         
         final ModelElement parentElement = (ModelElement) propertyPanel.getInput();
         
@@ -100,14 +100,16 @@ public class MoveStereotypeUpHandler {
         
             final List<Stereotype> listToReorder = parentElement.getExtension();
         
-            for (final ModelElement element : selectedElements) {
+            for (final Object element : selectedElements) {
+                Stereotype stereotype = (Stereotype)element;
         
-                final int index = getIndexUp((Stereotype)element, listToReorder);
+                // Retrieve the new index of the element
+                final int index = getIndexUp(stereotype, listToReorder);
         
                 if (index != -1) {
                     nbToMove++;
                     listToReorder.remove(element);
-                    listToReorder.add(index, (Stereotype)element);
+                    listToReorder.add(index, stereotype);
                 } else {
                     break;
                 }

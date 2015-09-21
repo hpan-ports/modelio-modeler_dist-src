@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.interactionModel.ExecutionOccurenceSpecificationData;
+import org.modelio.metamodel.impl.uml.behavior.interactionModel.ExecutionOccurenceSpecificationData;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecification;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -39,48 +51,56 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00447406-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExecutionOccurenceSpecificationImpl extends MessageEndImpl implements ExecutionOccurenceSpecification {
-    @objid ("19939210-6142-4296-a1c3-5d18c2e62a98")
+    @objid ("661a9921-73f3-4813-976c-b6151dd1a8b5")
     @Override
     public ExecutionSpecification getFinished() {
-        return (ExecutionSpecification) getDepVal(ExecutionOccurenceSpecificationData.Metadata.FinishedDep());
+        Object obj = getDepVal(((ExecutionOccurenceSpecificationSmClass)getClassOf()).getFinishedDep());
+        return (obj instanceof ExecutionSpecification)? (ExecutionSpecification)obj : null;
     }
 
-    @objid ("ed3b4e3d-b8a5-42ab-8dfd-d95886c07c2e")
+    @objid ("d4938633-0489-4a40-afc5-f0faf466d58b")
     @Override
     public void setFinished(ExecutionSpecification value) {
-        appendDepVal(ExecutionOccurenceSpecificationData.Metadata.FinishedDep(), (SmObjectImpl)value);
+        appendDepVal(((ExecutionOccurenceSpecificationSmClass)getClassOf()).getFinishedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5f3eff37-30c8-44a6-a1b5-9a4507645123")
+    @objid ("2ca35fbb-bd7c-48c3-9ad7-3830a213efbd")
     @Override
     public ExecutionSpecification getStarted() {
-        return (ExecutionSpecification) getDepVal(ExecutionOccurenceSpecificationData.Metadata.StartedDep());
+        Object obj = getDepVal(((ExecutionOccurenceSpecificationSmClass)getClassOf()).getStartedDep());
+        return (obj instanceof ExecutionSpecification)? (ExecutionSpecification)obj : null;
     }
 
-    @objid ("d4869738-1991-4f30-9c30-91d25bef785d")
+    @objid ("5245b279-62af-42fd-9e35-4b01706b3714")
     @Override
     public void setStarted(ExecutionSpecification value) {
-        appendDepVal(ExecutionOccurenceSpecificationData.Metadata.StartedDep(), (SmObjectImpl)value);
+        appendDepVal(((ExecutionOccurenceSpecificationSmClass)getClassOf()).getStartedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8837aa5c-92bf-4f0d-9e97-cfbaf5be7d3b")
+    @objid ("57c8f281-fe3e-41ae-b301-ecfa5141d7f1")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2a614e63-e0a0-47ad-8d03-83b6ae34f0ff")
+    @objid ("83755071-9066-4076-880d-d659ca19c0a5")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("ba0b6450-f764-491a-bf3f-09d856060b73")
+    @objid ("262bc2a3-6103-46fc-87e6-f844047df54d")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExecutionOccurenceSpecification(this);

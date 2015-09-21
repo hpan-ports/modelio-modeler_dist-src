@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.flows.BpmnMessage;
 import org.modelio.metamodel.bpmn.objects.BpmnDataState;
 import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
@@ -40,72 +44,217 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.InternalTransition;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 
+/**
+ * State v0.0.9054
+ * 
+ * 
+ * A State represents a period of time during which an object waits for an Event or some Events to occur, or a period of time during which an object performs some ongoing activity. 
+ * 
+ * States are interconnected by Transitions. 
+ * 
+ * In Modelio, States belong either to another State, or to a StateMachine if they are the root.
+ */
 @objid ("0053788e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface State extends StateVertex {
-    @objid ("efb93eca-9b20-41b6-9c67-c6cd64ad1077")
+    @objid ("785fad5b-98ef-4bc7-9760-a0f5c65df7b8")
+    public static final String MNAME = "State";
+
+    /**
+     * Getter for relation 'State->ExitPoint'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("8805a634-02aa-4ff0-a5c3-2294d0cd7b41")
     EList<ExitPointPseudoState> getExitPoint();
 
-    @objid ("21c8bc33-3df1-469f-893d-47e32da7e105")
+    /**
+     * Filtered Getter for relation 'State->ExitPoint'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("fd8c7f06-d830-4196-b5a3-5e28a19d765e")
     <T extends ExitPointPseudoState> List<T> getExitPoint(java.lang.Class<T> filterClass);
 
-    @objid ("a853ad92-7971-46ab-b4e5-ff4821233baa")
+    /**
+     * Getter for relation 'State->BpmnDataStateRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("ef1a952c-856d-4309-a390-3e41c3630ab5")
     EList<BpmnDataState> getBpmnDataStateRefs();
 
-    @objid ("38ddb5d2-f596-4e8a-a656-de4579065b5a")
+    /**
+     * Filtered Getter for relation 'State->BpmnDataStateRefs'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("92fba525-4dd0-42f0-bafb-8ab4c66d5c37")
     <T extends BpmnDataState> List<T> getBpmnDataStateRefs(java.lang.Class<T> filterClass);
 
-    @objid ("3f8b019f-24c0-4ed3-b841-47a3d86f6cd4")
+    /**
+     * Getter for relation 'State->Deffered'
+     * 
+     * Metamodel description:
+     * <i>A list of Events the effect of whose occurrence during the State is postponed until the owner enters a State in which they are not deferred, at which time they may trigger Transitions as if they had just occurred.</i>
+     */
+    @objid ("2684770f-9b06-4b78-827d-0844696614c2")
     EList<Event> getDeffered();
 
-    @objid ("606e0ff4-09c2-4b97-ac46-c68282a1bb69")
+    /**
+     * Filtered Getter for relation 'State->Deffered'
+     * 
+     * Metamodel description:
+     * <i>A list of Events the effect of whose occurrence during the State is postponed until the owner enters a State in which they are not deferred, at which time they may trigger Transitions as if they had just occurred.</i>
+     */
+    @objid ("51558138-7d02-4236-b340-9f2098eee714")
     <T extends Event> List<T> getDeffered(java.lang.Class<T> filterClass);
 
-    @objid ("4805f1ce-df04-454e-8760-bdaefa649af4")
+    /**
+     * Getter for relation 'State->Internal'
+     * 
+     * Metamodel description:
+     * <i>Transitions that occur entirely within the State. If one of their triggers is satisfied then the action is performed without changing State. This means that the entry or exit condition of the State will not be invoked. These Transitions apply even if the StateMachine is in a nested region and they leave it in the same State.</i>
+     */
+    @objid ("4e27e5ed-627d-4f63-9969-ececcba9b28d")
     EList<InternalTransition> getInternal();
 
-    @objid ("104eb439-ab73-49a7-8a15-7e7e96838e2c")
+    /**
+     * Filtered Getter for relation 'State->Internal'
+     * 
+     * Metamodel description:
+     * <i>Transitions that occur entirely within the State. If one of their triggers is satisfied then the action is performed without changing State. This means that the entry or exit condition of the State will not be invoked. These Transitions apply even if the StateMachine is in a nested region and they leave it in the same State.</i>
+     */
+    @objid ("6b9cf33f-a735-41b5-b0ea-c18bdde0398b")
     <T extends InternalTransition> List<T> getInternal(java.lang.Class<T> filterClass);
 
-    @objid ("ca4ff8dc-70ce-4004-ae96-f7c96cdaf120")
+    /**
+     * Getter for relation 'State->EntryPoint'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("6293b36a-0273-411f-a856-9965f63a1819")
     EList<EntryPointPseudoState> getEntryPoint();
 
-    @objid ("edf3bfb8-5293-4fa9-8de4-a5f577d11da3")
+    /**
+     * Filtered Getter for relation 'State->EntryPoint'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("0d7b11c4-4163-4328-9cda-96c77abacb80")
     <T extends EntryPointPseudoState> List<T> getEntryPoint(java.lang.Class<T> filterClass);
 
-    @objid ("466ccfc0-9604-44eb-84fc-db304106d248")
+    /**
+     * Getter for relation 'State->OwnedRegion'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("6fcd4432-8a03-49a4-8f11-a68c71f7a9bf")
     EList<Region> getOwnedRegion();
 
-    @objid ("ac567ae4-5130-47a4-bc4f-f492fe4e83b1")
+    /**
+     * Filtered Getter for relation 'State->OwnedRegion'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("54910bcf-3110-4105-a695-46b1ddd6d559")
     <T extends Region> List<T> getOwnedRegion(java.lang.Class<T> filterClass);
 
-    @objid ("b8d6a9fc-f555-44b6-b3d0-20ca2f9ad8c3")
+    /**
+     * Getter for relation 'State->RequiredStateOfBpmnMessage'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e6e96d0c-d3a9-453f-96a1-7563c6b837ba")
     EList<BpmnMessage> getRequiredStateOfBpmnMessage();
 
-    @objid ("2009fe10-bc93-4fc3-aeaf-ce5551e8b098")
+    /**
+     * Filtered Getter for relation 'State->RequiredStateOfBpmnMessage'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("42372499-2f4b-4fe8-a903-18f8f6e661d5")
     <T extends BpmnMessage> List<T> getRequiredStateOfBpmnMessage(java.lang.Class<T> filterClass);
 
-    @objid ("6eba57f3-116d-4876-a124-43ddacb1e141")
+    /**
+     * Getter for relation 'State->RequiredStateOf'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("b452d3db-ae64-4e5c-aa70-96ca2d476a10")
     EList<ObjectNode> getRequiredStateOf();
 
-    @objid ("50b1a001-c34a-416b-a4b5-6a4c853b9774")
+    /**
+     * Filtered Getter for relation 'State->RequiredStateOf'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a5cd37b7-0475-44bb-a113-e1626624a20b")
     <T extends ObjectNode> List<T> getRequiredStateOf(java.lang.Class<T> filterClass);
 
-    @objid ("a818d137-009e-4503-a314-eb737a955c60")
+    /**
+     * Getter for relation 'State->Connection'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("1478e81d-8734-4e8d-ac30-68bbb81bc52a")
     EList<ConnectionPointReference> getConnection();
 
-    @objid ("d781280c-04ac-4ed9-b42c-5d65871544e6")
+    /**
+     * Filtered Getter for relation 'State->Connection'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("bce28a18-24e2-4520-bfb8-25f608b515f4")
     <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass);
 
-    @objid ("da865350-c655-47be-b7c6-78b8a9c2debd")
+    /**
+     * Getter for relation 'State->SubMachine'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("9ea796f4-7a2c-42f8-86e6-cdc35f7ac156")
     StateMachine getSubMachine();
 
-    @objid ("c029e528-b49d-4808-a126-04538074a34c")
+    /**
+     * Setter for relation 'State->SubMachine'
+     * 
+     * Metamodel description:
+     * <i></i>
+     */
+    @objid ("1afaa223-7323-4d76-861f-ae28866b242c")
     void setSubMachine(StateMachine value);
 
-    @objid ("0c7defe2-0a3a-469a-a468-c0379991db6c")
+    /**
+     * Getter for relation 'State->RequiredStateOfBpmnItem'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4840e0ed-dd5d-4c1d-9bbf-18d6ae7f15ac")
     EList<BpmnItemAwareElement> getRequiredStateOfBpmnItem();
 
-    @objid ("30c393bc-f494-46cc-b16c-4d12245203d5")
+    /**
+     * Filtered Getter for relation 'State->RequiredStateOfBpmnItem'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("b1e670db-0782-4e95-8d42-952a24180bed")
     <T extends BpmnItemAwareElement> List<T> getRequiredStateOfBpmnItem(java.lang.Class<T> filterClass);
 
 }

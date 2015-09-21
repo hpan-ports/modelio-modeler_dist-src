@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vbasic.version;
 
@@ -26,27 +26,22 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 /**
  * Version identifier for Modelio and modules.
  * <p>
- * Version identifiers have four components:
+ * Version identifiers have three components:
  * <ul>
  * <li>Major version
  * <li>Minor version
  * <li>Build version
- * <li>Metamodel version (optional, zero  = not specified)
  * </ul>
  * <p>
- * Two Versions are considered equal if the only difference between them
- * is one of their metamodel version being zero.
+ * Two Versions are considered equal if all components are equal.
  */
 @objid ("063d7a23-c9cc-11e1-8052-001ec947ccaf")
-public class Version {
+public class Version implements Comparable<Version> {
     @objid ("063d79e6-c9cc-11e1-8052-001ec947ccaf")
     private int buildVersion;
 
     @objid ("063d7a2d-c9cc-11e1-8052-001ec947ccaf")
     private int majorVersion;
-
-    @objid ("063d7a2e-c9cc-11e1-8052-001ec947ccaf")
-    private int metamodelVersion;
 
     @objid ("063d7a2f-c9cc-11e1-8052-001ec947ccaf")
     private int minorVersion;
@@ -57,18 +52,16 @@ public class Version {
      * @param major the first component of the version.
      * @param minor the second component of the version.
      * @param build the third component of the version.
-     * @param mmVersion the last component of the version.
      */
     @objid ("063d7a20-c9cc-11e1-8052-001ec947ccaf")
-    public Version(int major, int minor, int build, int mmVersion) {
+    public Version(int major, int minor, int build) {
         this.majorVersion = major;
         this.minorVersion = minor;
         this.buildVersion = build;
-        this.metamodelVersion = mmVersion;
     }
 
     /**
-     * Instanciate a new Version from a String. The standard format is
+     * Instantiate a new Version from a String. The standard format is
      * <b>Major.Minor.Build.Metamodel</b>.
      * @param versionString The String to parse to create the version.
      * @throws java.lang.NumberFormatException thrown when the parameter doesn't have a valid format.
@@ -81,23 +74,21 @@ public class Version {
         
         if (versionNumbers.length > 0 && versionNumbers[0].length() != 0) {
             this.majorVersion = Integer.parseInt(versionNumbers[0]);
-        } else
+        } else {
             this.majorVersion = 0;
+        }
         
         if (versionNumbers.length > 1 && versionNumbers[1].length() != 0) {
             this.minorVersion = Integer.parseInt(versionNumbers[1]);
-        } else
+        } else {
             this.minorVersion = 0;
+        }
         
         if (versionNumbers.length > 2 && versionNumbers[2].length() != 0) {
             this.buildVersion = parseRevision(versionNumbers[2]);
-        } else
+        } else {
             this.buildVersion = 0;
-        
-        if (versionNumbers.length > 3 && versionNumbers[3].length() != 0) {
-            this.metamodelVersion = Integer.parseInt(versionNumbers[3]);
-        } else
-            this.metamodelVersion = 0;
+        }
     }
 
     /**
@@ -121,8 +112,7 @@ public class Version {
             Version other = (Version) anObject;
             return (this.majorVersion == other.majorVersion
                     && this.minorVersion == other.minorVersion
-                    && this.buildVersion == other.buildVersion 
-                    && (this.metamodelVersion == other.metamodelVersion || this.metamodelVersion==0 || other.metamodelVersion==0));
+                    && this.buildVersion == other.buildVersion);
         }
         return false;
     }
@@ -146,19 +136,6 @@ public class Version {
     }
 
     /**
-     * Get the metamodel number of this version.
-     * <p>
-     * Zero means not specified.
-     * <p>
-     * Two Versions are considered equal if the only difference is one of their metamodel version being <i>zero</i>.
-     * @return the metamodel number of this version or zero.
-     */
-    @objid ("063d7a28-c9cc-11e1-8052-001ec947ccaf")
-    public int getMetamodelVersion() {
-        return this.metamodelVersion;
-    }
-
-    /**
      * Get the minor number of this version.
      * @return the minor number of this version.
      */
@@ -176,30 +153,28 @@ public class Version {
      */
     @objid ("063d7a2a-c9cc-11e1-8052-001ec947ccaf")
     public boolean isNewerThan(Version other) {
-        if (this.majorVersion < other.majorVersion)
+        if (this.majorVersion < other.majorVersion) {
             return false;
-        if (this.majorVersion > other.majorVersion)
+        }
+        if (this.majorVersion > other.majorVersion) {
             return true;
+        }
         
         // Major are the same, test minor number
-        if (this.minorVersion < other.minorVersion)
+        if (this.minorVersion < other.minorVersion) {
             return false;
-        if (this.minorVersion > other.minorVersion)
+        }
+        if (this.minorVersion > other.minorVersion) {
             return true;
+        }
         
         // Major and minor are the same, test build number
-        if (this.buildVersion < other.buildVersion)
+        if (this.buildVersion < other.buildVersion) {
             return false;
-        if (this.buildVersion > other.buildVersion)
+        }
+        if (this.buildVersion > other.buildVersion) {
             return true;
-        
-        // Major, minor and build are the same, test mm version
-        if (this.metamodelVersion == 0 || other.metamodelVersion == 0)
-            return false;
-        if (this.metamodelVersion < other.metamodelVersion)
-            return false;
-        if (this.metamodelVersion > other.metamodelVersion)
-            return true;
+        }
         return false;
     }
 
@@ -212,30 +187,28 @@ public class Version {
      */
     @objid ("063d7a2b-c9cc-11e1-8052-001ec947ccaf")
     public boolean isOlderThan(Version other) {
-        if (this.majorVersion > other.majorVersion)
+        if (this.majorVersion > other.majorVersion) {
             return false;
-        if (this.majorVersion < other.majorVersion)
+        }
+        if (this.majorVersion < other.majorVersion) {
             return true;
+        }
         
         // Major are the same, test minor number
-        if (this.minorVersion > other.minorVersion)
+        if (this.minorVersion > other.minorVersion) {
             return false;
-        if (this.minorVersion < other.minorVersion)
+        }
+        if (this.minorVersion < other.minorVersion) {
             return true;
+        }
         
         // Major and minor are the same, test build number
-        if (this.buildVersion > other.buildVersion)
+        if (this.buildVersion > other.buildVersion) {
             return false;
-        if (this.buildVersion < other.buildVersion)
+        }
+        if (this.buildVersion < other.buildVersion) {
             return true;
-        
-        // Major, minor and build are the same, test mm version
-        if (this.metamodelVersion == 0 || other.metamodelVersion == 0)
-            return false;
-        if (this.metamodelVersion > other.metamodelVersion)
-            return false;
-        if (this.metamodelVersion < other.metamodelVersion)
-            return true;
+        }
         return false;
     }
 
@@ -261,8 +234,6 @@ public class Version {
         stringBuf.append(this.minorVersion);
         stringBuf.append('.');
         stringBuf.append(String.format("%02d", this.buildVersion));
-        stringBuf.append('.');
-        stringBuf.append(this.metamodelVersion);
         return stringBuf.toString();
     }
 
@@ -301,20 +272,16 @@ public class Version {
      * The format is: VRCM where:
      * </P>
      * <UL>
-     * <LI>V means 'prints the major version number' (one or more
-     * digits)</LI>
-     * <LI>R means 'prints the minor version number (one or more
-     * digits)</LI>
-     * <LI>C means 'print the correction level (0-padded to 2 digits)
-     * </LI>
-     * <LI>M means 'print the metamodel version (4 digits)</LI>
+     * <LI>V means 'prints the major version number' (one or more digits)</LI>
+     * <LI>R means 'prints the minor version number (one or more digits)</LI>
+     * <LI>C means 'print the correction level (0-padded to 2 digits) </LI>
      * <LI>other chars are just inserted in the resulting string. There is no way of escaping characters VRC and M
      * </UL>
      * 
      * example: if version is 3.0.01.9013
      * 
      * version.toString("V.R") will produce 3.0
-     * version.toString("V.R.C-M") will produce 3.0.01-9013
+     * version.toString("V.R-C") will produce 3.0-01
      * @return the formatted string representation of the version.
      */
     @objid ("5de000a8-66df-4b8a-9095-015af24b6505")
@@ -332,15 +299,40 @@ public class Version {
             case 'C':
                 buf.append(String.format("%02d", this.buildVersion));
                 break;
-            case 'M':
-                buf.append(this.metamodelVersion);
-                break;
             default:
                 buf.append(c);
                 break;
             }
         }
         return buf.toString();
+    }
+
+    @objid ("d17c35e0-e40b-485d-bee0-f543d66f872a")
+    @Override
+    public int compareTo(Version other) {
+        if (this.majorVersion > other.majorVersion) {
+            return 1;
+        }
+        if (this.majorVersion < other.majorVersion) {
+            return -1;
+        }
+        
+        // Major are the same, test minor number
+        if (this.minorVersion > other.minorVersion) {
+            return 1;
+        }
+        if (this.minorVersion < other.minorVersion) {
+            return -1;
+        }
+        
+        // Major and minor are the same, test build number
+        if (this.buildVersion > other.buildVersion) {
+            return 1;
+        }
+        if (this.buildVersion < other.buildVersion) {
+            return -1;
+        }
+        return 0;
     }
 
 }

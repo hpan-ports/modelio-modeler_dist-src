@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -50,12 +50,12 @@ public class SignalPropertyModel extends AbstractPropertyModel<Signal> {
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a8323108-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "Signal", "Name", "Base", "IsEvent", "IsException" };
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "Base", "IsEvent", "IsException" };
 
     @objid ("fb0c2acf-c5d4-11e1-8f21-002564c97630")
     private StringType labelStringType;
@@ -125,9 +125,9 @@ public class SignalPropertyModel extends AbstractPropertyModel<Signal> {
             case 2:
                 return SignalBaseType.getValue(this.theEditedElement);
             case 3:
-                return this.theEditedElement.isIsEvent()?Boolean.TRUE:Boolean.FALSE;
+                return this.theEditedElement.isIsEvent() ? Boolean.TRUE : Boolean.FALSE;
             case 4:
-                return this.theEditedElement.isIsException()?Boolean.TRUE:Boolean.FALSE;
+                return this.theEditedElement.isIsException() ? Boolean.TRUE : Boolean.FALSE;
             default:
                 return null;
             }
@@ -139,8 +139,7 @@ public class SignalPropertyModel extends AbstractPropertyModel<Signal> {
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -206,7 +205,7 @@ public class SignalPropertyModel extends AbstractPropertyModel<Signal> {
             default:
                 return;
             }
-              break;
+            break;
         default:
             return;
         }
@@ -239,20 +238,21 @@ public class SignalPropertyModel extends AbstractPropertyModel<Signal> {
         @objid ("8f7f50c6-c068-11e1-8c0a-002564c97630")
         public static ModelElement getValue(Signal theEditedElement) {
             ModelElement ret = theEditedElement.getPBase();
-            if (ret != null)
+            if (ret != null) {
                 return ret;
-                        
+            }
+            
             ret = theEditedElement.getOBase();
-            if (ret != null)
+            if (ret != null) {
                 return ret;
-                        
+            }
+            
             ret = theEditedElement.getBase();
             return ret;
         }
 
         /**
-         * Set the ObjectNode represented elements.
-         * This method set the right dependency and clears the otheEditedElement.
+         * Set the ObjectNode represented elements. This method set the right dependency and clears the otheEditedElement.
          * @param theEditedElement the instance node
          * @param value the new represented element
          */
@@ -261,33 +261,37 @@ public class SignalPropertyModel extends AbstractPropertyModel<Signal> {
             // Erase old value or exit if old value is new value
             Parameter old1 = theEditedElement.getPBase();
             if (old1 != null) {
-                if (old1.equals(value))
+                if (old1.equals(value)) {
                     return;
+                }
                 theEditedElement.setPBase(null);
             } else {
                 Operation old2 = theEditedElement.getOBase();
                 if (old2 != null) {
-                    if (old2.equals(value))
+                    if (old2.equals(value)) {
                         return;
+                    }
                     theEditedElement.setOBase(null);
                 } else {
                     GeneralClass old3 = theEditedElement.getBase();
                     if (old3 != null) {
-                        if (old3.equals(value))
+                        if (old3.equals(value)) {
                             return;
+                        }
                         theEditedElement.setBase(null);
                     }
                 }
             }
-                        
+            
             if (value != null) {
                 // Set new value
-                if (Parameter.class.isAssignableFrom(value.getClass()))
+                if (Parameter.class.isAssignableFrom(value.getClass())) {
                     theEditedElement.setPBase((Parameter) value);
-                else if (Operation.class.isAssignableFrom(value.getClass()))
+                } else if (Operation.class.isAssignableFrom(value.getClass())) {
                     theEditedElement.setOBase((Operation) value);
-                else if (GeneralClass.class.isAssignableFrom(value.getClass()))
+                } else if (GeneralClass.class.isAssignableFrom(value.getClass())) {
                     theEditedElement.setBase((GeneralClass) value);
+                }
             }
         }
 

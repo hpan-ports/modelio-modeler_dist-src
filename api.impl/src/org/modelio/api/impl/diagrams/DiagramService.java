@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.api.impl.diagrams;
 
 import java.io.File;
@@ -21,13 +42,13 @@ import org.modelio.api.diagram.tools.IMultiLinkTool;
 import org.modelio.api.impl.plugin.ApiImpl;
 import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
 import org.modelio.app.project.core.services.IProjectService;
+import org.modelio.creation.wizard.dialog.CreationContributorManager;
 import org.modelio.diagram.api.services.DiagramHandle;
 import org.modelio.diagram.api.style.StyleHandle;
 import org.modelio.diagram.api.tools.AttacherBoxToolEntry;
 import org.modelio.diagram.api.tools.BoxToolEntry;
 import org.modelio.diagram.api.tools.LinkToolEntry;
 import org.modelio.diagram.api.tools.MultiLinkToolEntry;
-import org.modelio.diagram.creation.wizard.diagramcreation.DiagramContributorManager;
 import org.modelio.diagram.diagramauto.services.AutoDiagramFactory;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
 import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
@@ -69,19 +90,17 @@ public class DiagramService implements IDiagramService {
     private IMModelServices modelServices;
 
     @objid ("cdf51ce4-90d3-4dd4-8d2f-56c608180dcf")
-    private ModelManager manager;
+    private IEclipseContext eclipseContext;
 
     @objid ("9bfbae09-a357-4378-9d3b-344201600ee3")
     public DiagramService(IEclipseContext eclipseContext) {
-        this.toolService = eclipseContext.get(ToolRegistry.class); 
+        this.toolService = eclipseContext.get(ToolRegistry.class);
         this.configurerRegistry = eclipseContext.get(IDiagramConfigurerRegistry.class);
         this.projectService = eclipseContext.get(IProjectService.class);
         this.editorManager = eclipseContext.get(DiagramEditorsManager.class);
         this.modelServices = eclipseContext.get(IMModelServices.class);
         this.contextService = eclipseContext.get(EContextService.class);
-        
-        
-        this.manager = new ModelManager(eclipseContext);
+        this.eclipseContext = eclipseContext;
     }
 
     @objid ("dae02bd5-bd0f-4f94-a242-eadf7c91c9c3")
@@ -93,7 +112,7 @@ public class DiagramService implements IDiagramService {
     @objid ("b07e3fe3-4d06-491d-82ae-fd3323b95708")
     @Override
     public IDiagramHandle getDiagramHandle(final AbstractDiagram diagram) {
-        return DiagramHandle.create(this.manager, diagram,this.projectService,this.editorManager);
+        return DiagramHandle.create(new ModelManager(this.eclipseContext), diagram,this.projectService,this.editorManager);
     }
 
     @objid ("79f4c2e5-e6ab-486f-9932-cefb07847c57")
@@ -125,7 +144,7 @@ public class DiagramService implements IDiagramService {
     @objid ("44495430-822a-489b-b9db-73cc479da9bc")
     @Override
     public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IBoxTool handler) {
-        ModelioCreationContext context = new ModelioCreationContext(metaclass.getName(), dependency,stereotype);
+        ModelioCreationContext context = new ModelioCreationContext(metaclass, metaclass.getDependency(dependency),stereotype);
         ToolEntry toolentry = new BoxToolEntry(handler.getLabel(),
                                                handler.getTooltip(),
                                                context,
@@ -139,7 +158,7 @@ public class DiagramService implements IDiagramService {
     @objid ("fa62b9f3-6337-4d22-86f2-9f9ba8609924")
     @Override
     public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IAttachedBoxTool handler) {
-        ModelioCreationContext context = new ModelioCreationContext(metaclass.getName(),dependency,stereotype);
+        ModelioCreationContext context = new ModelioCreationContext(metaclass, metaclass.getDependency(dependency), stereotype);
         ToolEntry toolEntry = new AttacherBoxToolEntry(handler.getLabel(),
                                                        handler.getTooltip(),
                                                        context,
@@ -153,7 +172,7 @@ public class DiagramService implements IDiagramService {
     @objid ("0b119cd3-c21d-490d-8b8a-74108e7ca749")
     @Override
     public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final ILinkTool handler) {
-        ModelioLinkCreationContext context = new ModelioLinkCreationContext(metaclass.getName(), stereotype);
+        ModelioLinkCreationContext context = new ModelioLinkCreationContext(metaclass, stereotype);
         
         // Create and register tool entry
         ToolEntry toolEntry = new LinkToolEntry(handler.getLabel(),
@@ -169,7 +188,7 @@ public class DiagramService implements IDiagramService {
     @objid ("ee9cae64-147a-4719-962c-6fec284027b7")
     @Override
     public void registerCustomizedTool(final String id, MClass metaclass, final Stereotype stereotype, final String dependency, final IMultiLinkTool handler) {
-        ModelioLinkCreationContext context = new ModelioLinkCreationContext(metaclass.getName(),stereotype);
+        ModelioLinkCreationContext context = new ModelioLinkCreationContext(metaclass, stereotype);
         
         // Create and register tool entry
         ToolEntry toolEntry = new MultiLinkToolEntry(handler.getLabel(),
@@ -227,13 +246,13 @@ public class DiagramService implements IDiagramService {
     @objid ("99c060ea-2cfe-4a58-a343-c7d676f8010d")
     @Override
     public void registerDiagramContributor(ContributorCategory category, IDiagramWizardContributor contributor) {
-        DiagramContributorManager.getInstance().addContributor(category, contributor);
+        CreationContributorManager.getInstance().addContributor(category, contributor);
     }
 
     @objid ("e88b676d-6308-4f9f-a238-6536ebb0457c")
     @Override
     public void unregisterDiagramContributor(ContributorCategory category, IDiagramWizardContributor contributor) {
-        DiagramContributorManager.getInstance().removeContributor(category, contributor);
+        CreationContributorManager.getInstance().removeContributor(category, contributor);
     }
 
     @objid ("2fec08c1-afb4-4499-af8d-856137f91fe2")

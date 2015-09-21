@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.fragment.exml.migration;
 
@@ -33,11 +33,16 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.data.project.VersionDescriptors;
+import org.modelio.gproject.data.project.MetamodelDescriptor;
+import org.modelio.gproject.fragment.FragmentAuthenticationException;
 import org.modelio.gproject.fragment.exml.ExmlFragment;
+import org.modelio.gproject.fragment.migration.IFragmentMigrator;
+import org.modelio.gproject.fragment.migration.IMigrationReporter;
+import org.modelio.gproject.fragment.migration.MigrationFailedException;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.plugin.CoreProject;
-import org.modelio.vbasic.log.Log;
+import org.modelio.metamodel.impl.StandardMetamodelFragment;
+import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vcore.session.api.IAccessManager;
@@ -61,7 +66,7 @@ import org.modelio.vstore.exml.resource.IExmlRepositoryGeometry;
  * with the new metamodel.
  */
 @objid ("66e166d5-3a56-4cba-b236-ac250903adb2")
-public class RepositoryRegeneratorMigrator {
+public class RepositoryRegeneratorMigrator implements IFragmentMigrator {
     @objid ("06ebc232-b9d0-486d-adea-c2aea4e7887f")
     private ExmlFragment exmlFragment;
 
@@ -69,13 +74,16 @@ public class RepositoryRegeneratorMigrator {
     private Path mmVersionPath;
 
     @objid ("61bf34dd-9900-4b75-931c-4553fea0fe44")
-    private VersionDescriptors targetVersion;
+    private MetamodelDescriptor targetVersion;
 
     @objid ("9588c1b0-d421-4708-ba62-d3ea4a9ab67d")
     private AbstractExmlRepository exmlRepository;
 
     @objid ("93018865-616d-4974-9e53-fcfa38be5662")
     private IExmlRepositoryGeometry exmlGeometry;
+
+    @objid ("ae7a7a5e-6323-4f4d-ac32-81e23ad7a647")
+    private IMigrationReporter reporter;
 
     /**
      * @param svnFragment the fragment to migrate
@@ -84,29 +92,28 @@ public class RepositoryRegeneratorMigrator {
      * @param targetVersion the version the fragment must be migrated to.
      */
     @objid ("adb25c49-d5a1-49ef-847b-ca1bcae129bb")
-    public RepositoryRegeneratorMigrator(ExmlFragment svnFragment, GProject project, Path mmVersionPath, VersionDescriptors targetVersion) {
+    public RepositoryRegeneratorMigrator(ExmlFragment svnFragment, GProject project, Path mmVersionPath, MetamodelDescriptor targetVersion) {
         this.exmlFragment = svnFragment;
         this.mmVersionPath = mmVersionPath;
         this.targetVersion = targetVersion;
     }
 
-    /**
-     * Run the migration
-     * @param monitor a progress monitor
-     * @throws java.io.IOException on failure.
-     */
     @objid ("abba6034-f742-4c2e-8e9a-42e4921a8e78")
-    public void run(IModelioProgress monitor) throws IOException {
+    @Override
+    public void run(IModelioProgress monitor, IMigrationReporter areporter) throws FragmentAuthenticationException, MigrationFailedException {
+        this.reporter = areporter;
+        
         String taskName = CoreProject.getMessage("RepositoryRegeneratorMigrator.mon.migration", this.exmlFragment.getId());
         SubProgress mon = SubProgress.convert(monitor, taskName , 10);
         mon.subTask(taskName);
+        this.reporter.getLogger().println(taskName);
         
         CoreSession tempSession = null;
         
         try {
-            Log.trace("RRMI6: "+taskName);
             tempSession = new CoreSession();
-            
+            tempSession.getMetamodel().addMetamodelFragment(new StandardMetamodelFragment());
+        
             // instantiate the repository
             this.exmlFragment.doMountInitRepository(mon.newChild(1));
         
@@ -114,58 +121,56 @@ public class RepositoryRegeneratorMigrator {
             IAccessManager accessManager = new BasicAccessManager();
             this.exmlRepository = (AbstractExmlRepository) this.exmlFragment.getRepository();
             tempSession.connectRepository(this.exmlRepository, accessManager, monitor);
-            
+        
             this.exmlGeometry = new ExmlRepositoryGeometry(this.exmlFragment.getDataDirectory().toFile());
-            
-            
         
             // The repository may have already be migrated by another user,
             if (!checkAlreadyMigrated()) {
-                Log.trace("RRMI1: "+this.exmlFragment.getId()+" not migrated on server.");
-                
+                this.reporter.getLogger().println("'"+this.exmlFragment.getId()+"' model not already migrated.");
+        
              // Record status snapshot for comparisons
         
                 // 2) Rebuild indexes from scratch to handle updates and by precaution
-                Log.trace("RRMI3: rebuilding "+this.exmlFragment.getId()+" indexes");
+                this.reporter.getLogger().println("Rebuilding '"+this.exmlFragment.getId()+"' model indexes.");
                 rebuildIndexes(mon.newChild(1));
-                
+        
                 // 3) get lock on the whole repository
                 Collection<File> filesToLock = getAllFiles();
         
         
                 // 3) read all the model and write it back
                 rewriteModel(tempSession, filesToLock, mon.newChild(1));
-                Log.trace("RRMI8: "+this.exmlFragment.getId()+" model rewritten");
+                this.reporter.getLogger().println("'"+this.exmlFragment.getId()+"' model rewritten.");
         
                 writeMmVersion();
         
                 // 4) save & commit
             } else {
-                Log.trace("RRMI2: "+this.exmlFragment.getId()+" already migrated on server.");
+                this.reporter.getLogger().println("Model already migrated.");
                 mon.setWorkRemaining(1);
             }
-            
+        
             // 5) Indexes must be rebuilt
-            Log.trace("RRMI9: rebuilding "+this.exmlFragment.getId()+" indexes");
+            this.reporter.getLogger().println("Rebuilding '"+this.exmlFragment.getId()+"' indexes");
             rebuildIndexes(mon.newChild(1));
-            
-            
+        
+            this.reporter.getLogger().println("'"+this.exmlFragment.getId()+"' migration sucessful.");
+        
         } catch (RuntimeException e) {
-            Log.error(e);
-            throw new IOException(CoreProject.getMessage("RepositoryRegeneratorMigrator.MigrationFailed",
+            e.printStackTrace(this.reporter.getLogger());
+            throw new MigrationFailedException(CoreProject.getMessage("RepositoryRegeneratorMigrator.MigrationFailed",
                     this.exmlFragment.getId(),
                     e.toString()), e);
         } catch ( IOException e) {
-            Log.error(e);
-            throw new IOException(CoreProject.getMessage("RepositoryRegeneratorMigrator.MigrationFailed",
+            e.printStackTrace(this.reporter.getLogger());
+            throw new MigrationFailedException(CoreProject.getMessage("RepositoryRegeneratorMigrator.MigrationFailed",
                     this.exmlFragment.getId(),
-                    e.getLocalizedMessage()), e);
+                    FileUtils.getLocalizedMessage(e)), e);
         } finally {
-            if (tempSession != null)
+            if (tempSession != null) {
                 tempSession.close();
+            }
         }
-        
-        Log.trace("RRMI9: "+this.exmlFragment.getId()+" migration sucessful.");
     }
 
     /**
@@ -179,33 +184,35 @@ public class RepositoryRegeneratorMigrator {
     protected void rewriteModel(CoreSession tempSession, Collection<File> files, IModelioProgress monitor) throws IOException {
         IRepository tempRepo = tempSession.getRepositorySupport().getRepository(IRepositorySupport.REPOSITORY_KEY_SCRATCH);
         SubProgress mon = SubProgress.convert(monitor, files.size() * 2);
-        mon.subTask(CoreProject.getMessage("RepositoryRegeneratorMigrator.mon.rewriteModel", 
+        mon.subTask(CoreProject.getMessage("RepositoryRegeneratorMigrator.mon.rewriteModel",
                 this.exmlFragment.getId(), files.size()));
         
         try (ITransaction t = tempSession.getTransactionSupport().createTransaction("migration")){
             final IExmlRepositoryGeometry geometry = new ExmlRepositoryGeometry(this.exmlFragment.getDataDirectory().toFile());
-            
+        
             for (File file : files) {
                 if (geometry.isModelFile(file)) {
                     MRef ref = geometry.getObRef(file);
                     MObject obj = tempSession.getModel().findByRef(ref);
-                    
+        
                     if (obj != null) {
                         setToBeSaved(obj, tempRepo);
                     } else {
                         obj = tempSession.getModel().findByRef(ref);
-                        Log.warning("RRMW1: failed loading "+file+": "+ref+" not found in model.");
+                        this.reporter.getLogger().println("WARNING: failed loading "+file+": "+ref+" not found in model.");
                     }
                 }
                 mon.worked(1);
-            }        
+            }
         
             mon.setWorkRemaining(2);
-            
+        
             t.commit();
             mon.worked(1);
-            
-            mon.subTask(CoreProject.getMessage("RepositoryRegeneratorMigrator.mon.savingModel", this.exmlFragment.getId()));
+        
+            String message = CoreProject.getMessage("RepositoryRegeneratorMigrator.mon.savingModel", this.exmlFragment.getId());
+            mon.subTask(message);
+            this.reporter.getLogger().println(message);
             tempSession.save(mon.newChild(1));
         }
     }
@@ -249,13 +256,13 @@ public class RepositoryRegeneratorMigrator {
         // Check and fix version file if modified
         File versionFile = this.mmVersionPath.toFile();
         if (!versionFile.isFile() ) {
-            Log.trace("RRMI13: no mm version file for "+this.exmlFragment.getId()+" fragment.");
+            this.reporter.getLogger().println("No mm version file for "+this.exmlFragment.getId()+" fragment.");
             return false;
         }
         
         
         // Compare file content with last MM version
-        return this.exmlFragment.getMetamodelVersion().isSame(getTargetMmVersion());
+        return this.exmlFragment.getRequiredMetamodelDescriptor().isSame(getTargetMmVersion());
     }
 
     /**
@@ -270,7 +277,7 @@ public class RepositoryRegeneratorMigrator {
     }
 
     @objid ("974d4cf7-1c98-49a1-9260-ca4819cae387")
-    private VersionDescriptors getTargetMmVersion() throws NumberFormatException {
+    private MetamodelDescriptor getTargetMmVersion() throws NumberFormatException {
         return this.targetVersion;
     }
 
@@ -285,13 +292,14 @@ public class RepositoryRegeneratorMigrator {
         
         // IRStatus.REPO_DIRTY flag is not used by ExmlRepository.
         // use it to avoid composition cycles without recording visited elements.
-        if ((smNode.getSmStatusFlags() & IRStatus.REPO_DIRTY) == IRStatus.REPO_DIRTY)
+        if ((smNode.getSmStatusFlags() & IRStatus.REPO_DIRTY) == IRStatus.REPO_DIRTY) {
             return;
+        }
         smNode.setRStatus(IRStatus.REPO_DIRTY, 0, 0);
         
         if (cmsNode.getMClass().isCmsNode()) {
             // dummy modification to force save
-            String name = cmsNode.getName(); 
+            String name = cmsNode.getName();
             cmsNode.setName("");
             cmsNode.setName(name);
         }
@@ -301,19 +309,19 @@ public class RepositoryRegeneratorMigrator {
         for(MObject child : cmsNode.getCompositionChildren()) {
             SmObjectImpl smChild = (SmObjectImpl) child;
             smNode.getSmStatusFlags();
-            
+        
         
             if (child.isShell()) {
               // log and skip
-              Log.warning(child+" shell object found inside "+cmsNode);
+                this.reporter.getLogger().println("WARN: "+child+" shell object found inside "+cmsNode);
             } else if (child.getMClass().isCmsNode()) {
                 MRef childRef = new MRef(child);
                 if (isNewNode(childRef)) {
-                    
+        
                     // detach and attach the object to the repository, to instantiate a new handler
                     tempRepo.addObject(smChild);
                     smNode.getRepositoryObject().attach(smChild);
-                    
+        
                     // propagate handler
                     IRepositoryObject newHandle = smChild.getRepositoryObject();
                     for (SmObjectImpl c2 : ExmlUtils.getLoadedCmsNodeContent(smChild))
@@ -345,7 +353,7 @@ public class RepositoryRegeneratorMigrator {
         if (this.exmlGeometry.getExmlFile(ref).isFile()) {
             return false;
         } else {
-            Log.trace("RRMI17: "+ref+" has no file or non versioned.");
+            this.reporter.getLogger().println("  "+ref+" has no file or non versioned.");
             return true;
         }
     }

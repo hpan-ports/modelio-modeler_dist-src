@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.stereotype.creator;
 
@@ -40,7 +40,7 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.property.plugin.ModelProperty;
 
 @objid ("f19caca9-8c4d-4e40-b701-52383eab1b7e")
-public class DiagramImageChooserListener implements SelectionListener {
+class DiagramImageChooserListener implements SelectionListener {
     @objid ("082941b4-163c-46bd-bf56-5cf012aacd82")
     private StereotypeEditionDialog dialog = null;
 
@@ -51,9 +51,9 @@ public class DiagramImageChooserListener implements SelectionListener {
     private IProjectService projectService = null;
 
     /**
-     * @param dialog
-     * @param modelingSession
-     * @param dataModel
+     * @param dialog the dialog
+     * @param projectService the project service
+     * @param dataModel the dialog data model
      */
     @objid ("b93bbdcf-2459-48f9-9328-e5c5daaccbc9")
     public DiagramImageChooserListener(StereotypeEditionDialog dialog, IProjectService projectService, StereotypeEditionDataModel dataModel) {
@@ -108,7 +108,7 @@ public class DiagramImageChooserListener implements SelectionListener {
             if (imageFile.exists()) {
                 this.dataModel.setImageName(imageFile.getName());
                 Path target = this.dataModel.getDefaultTempImagePath();
-                if (target != null) {                    
+                if (target != null) {
                     target.toFile().mkdirs();
                     try {
                         Files.copy(imageFile.toPath(), target , StandardCopyOption.REPLACE_EXISTING);

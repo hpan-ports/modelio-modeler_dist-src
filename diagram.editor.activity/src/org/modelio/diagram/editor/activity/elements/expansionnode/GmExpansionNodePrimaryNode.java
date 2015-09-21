@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.expansionnode;
 
@@ -25,7 +25,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.core.figures.IOrientableShaper.Orientation;
 import org.modelio.diagram.elements.core.model.IEditableText;
 import org.modelio.diagram.elements.core.node.GmNoStyleSimpleNode;
 import org.modelio.diagram.elements.core.node.IImageableNode;
@@ -45,9 +44,6 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 public class GmExpansionNodePrimaryNode extends GmNoStyleSimpleNode implements IImageableNode {
     @objid ("2a56bd13-55b6-11e2-877f-002564c97630")
     private MObject element = null;
-
-    @objid ("2a56bd16-55b6-11e2-877f-002564c97630")
-    private Orientation orientation = Orientation.WestEast;
 
     /**
      * Current version of this Gm. Defaults to 0.
@@ -95,17 +91,17 @@ public class GmExpansionNodePrimaryNode extends GmNoStyleSimpleNode implements I
     public IEditableText getEditableText() {
         return new IEditableText() {
         
-            @Override
-            public String getText() {
-        return getRelatedElement().getName();
-                    }
+                                                    @Override
+                                                    public String getText() {
+                                                return getRelatedElement().getName();
+                                                            }
         
-                    @Override
-                    public void setText(String text) {
-        getRelatedElement().setName(text);
-                    }
+                                                            @Override
+                                                            public void setText(String text) {
+                                                getRelatedElement().setName(text);
+                                                            }
         
-                };
+                                                        };
     }
 
     /**
@@ -116,14 +112,6 @@ public class GmExpansionNodePrimaryNode extends GmNoStyleSimpleNode implements I
     @Override
     public Image getImage() {
         return ElementImageService.getImage(getRelatedElement());
-    }
-
-    /**
-     * @return the current orientation of the node.
-     */
-    @objid ("2a5843a7-55b6-11e2-877f-002564c97630")
-    public Orientation getOrientation() {
-        return this.orientation;
     }
 
     @objid ("2a5843ae-55b6-11e2-877f-002564c97630")
@@ -177,7 +165,6 @@ public class GmExpansionNodePrimaryNode extends GmNoStyleSimpleNode implements I
     @Override
     public void write(final IDiagramWriter out) {
         super.write(out);
-        out.writeProperty("orientation", this.orientation);
         
         // Write version of this Gm if different of 0.
         if (this.minorVersion != 0) {
@@ -191,24 +178,14 @@ public class GmExpansionNodePrimaryNode extends GmNoStyleSimpleNode implements I
         if (getRelatedElement() != null) {
             firePropertyChange(PROPERTY_LABEL, null, getRelatedElement().getName());
         }
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-    }
-
-    /**
-     * Sets the orientation of the node.
-     * @param orientation the new orientation.
-     */
-    @objid ("2a59ca3a-55b6-11e2-877f-002564c97630")
-    public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
     }
 
     @objid ("2a59ca40-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.element = resolveRef(this.getRepresentedRef());
-        this.orientation = (Orientation) in.readProperty("orientation");
+        this.element = resolveRef(getRepresentedRef());
     }
 
     @objid ("2a59ca45-55b6-11e2-877f-002564c97630")

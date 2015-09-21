@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.portbordered;
 
@@ -37,11 +37,11 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 @objid ("7ee14356-1dec-11e2-8cad-001ec947c8cc")
 class PortContainerFigure extends Figure {
-    @objid ("a8d4571a-7e72-4a8d-bfa4-6d41b4460364")
-     Rectangle overallBounds = null;
-
     @objid ("9d2b48ae-975d-4710-b410-c554cfb87578")
      FigureListener portListener = null;
+
+    @objid ("66423199-f162-46e9-845f-ab4e651ca12f")
+     Rectangle overallBounds = null;
 
     @objid ("7ee1435f-1dec-11e2-8cad-001ec947c8cc")
     public PortContainerFigure() {

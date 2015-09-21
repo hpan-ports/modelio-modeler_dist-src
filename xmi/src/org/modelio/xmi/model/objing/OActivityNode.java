@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -30,7 +30,6 @@ import org.modelio.metamodel.uml.behavior.activityModel.ConditionalNode;
 import org.modelio.metamodel.uml.behavior.activityModel.StructuredActivityNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
@@ -82,7 +81,7 @@ public class OActivityNode extends OModelElement {
         
             // Setting composition relation
             Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                    .getEnclosingElement(getObjingElement(), SmClass.getClass(Activity.class));
+                    .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
             if (enclosingActivity != null) {
                 org.eclipse.uml2.uml.Element ecoreActivity =  GenerationProperties.getInstance()
                         .getMappedElement(enclosingActivity);
@@ -120,14 +119,14 @@ public class OActivityNode extends OModelElement {
             // A  org.eclipse.uml2.uml.CentralBufferNode can't have any org.eclipse.uml2.uml.Pin in Objing => use of the
             // "body" role:
             if (ecoreElt instanceof org.eclipse.uml2.uml.ExecutableNode){
-                owner.getBodies().add( (org.eclipse.uml2.uml.ExecutableNode) ecoreElt);             
+                owner.getBodies().add( (org.eclipse.uml2.uml.ExecutableNode) ecoreElt);
             }else{
-            
+        
                  XMILogs xmilogs = XMILogs.getInstance();
                  ActivityNode objElt = (ActivityNode) getObjingElement();
                  String message = Xmi.I18N.getMessage("logFile.warning.export.unsupportedRelation.wrongEcoreType",
                          "test",
-                         objingOwnerClause.getName(), 
+                         objingOwnerClause.getName(),
                          objingOwnerClause.getClass().getSimpleName(),
                          "ExecutableNode");
                  xmilogs.writelnInLog(message);
@@ -140,19 +139,18 @@ public class OActivityNode extends OModelElement {
             if (objingConditional != null) {
                 org.eclipse.uml2.uml.Element ecoreConditional =  GenerationProperties.getInstance()
                         .getMappedElement(objingConditional);
-                
+        
                 if (ecoreConditional instanceof org.eclipse.uml2.uml.StructuredActivityNode) {
                     ((org.eclipse.uml2.uml.StructuredActivityNode) ecoreConditional).getNodes().add(
                             (org.eclipse.uml2.uml.ActivityNode) ecoreElt);
-         
+        
                     return;
                 }
             }
         }
         
         // Setting composition relation (in  org.eclipse.uml2.uml.Activity):
-        Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
-                .getEnclosingElement(getObjingElement(), SmClass.getClass(Activity.class));
+        Activity enclosingActivity = (Activity) AbstractObjingModelNavigation.getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
         if (enclosingActivity != null) {
             org.eclipse.uml2.uml.Element ecoreActivity =  GenerationProperties.getInstance()
                     .getMappedElement(enclosingActivity);
@@ -160,7 +158,7 @@ public class OActivityNode extends OModelElement {
                 attachToActivity(ecoreElt, ecoreActivity);
                 XMILogs xmilogs = XMILogs.getInstance();
                 Element objElt = getObjingElement();
-                String message = Xmi.I18N.getMessage("logFile.warning.unsupportedExport", 
+                String message = Xmi.I18N.getMessage("logFile.warning.unsupportedExport",
                         objElt.getName(), objElt.getClass().getSimpleName());
                 String  description = Xmi.I18N.getMessage("logFile.warning.notOwner", objElt.getName());
                 xmilogs.writelnInLog(message);

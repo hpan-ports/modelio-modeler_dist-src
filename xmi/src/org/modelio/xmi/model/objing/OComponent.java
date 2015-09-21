@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -34,9 +34,6 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 public class OComponent extends ONameSpace {
     @objid ("a25f99b7-8502-4fdd-a5b4-9e0bc4eeb028")
     private boolean isIsClassAssociation = true;
-
-    @objid ("3f31b828-437d-4877-bb27-a26f9ee0c0a9")
-    private Component objingElement = null;
 
     @objid ("3419fdca-1959-4fcf-ac8c-9d1fe6c41b29")
     @Override
@@ -60,14 +57,13 @@ public class OComponent extends ONameSpace {
     @objid ("fad32a46-6dae-49db-91ee-3e9d15ffe754")
     private org.eclipse.uml2.uml.Element getOrCreateEcoreAssociationClass() {
         return GenerationProperties.getInstance()
-                         .getMappedElement(this.objingElement);
+                                 .getMappedElement(getObjingElement());
     }
 
     @objid ("7689f272-1341-4ada-b9ef-1bd0186f6e08")
     public OComponent(Component element) {
         super(element);
-        this.objingElement = element;
-        if (AbstractObjingModelNavigation.isIsClassAssociation(this.objingElement))
+        if (AbstractObjingModelNavigation.isIsClassAssociation(element))
             this.isIsClassAssociation = true;
         else
             this.isIsClassAssociation = false;
@@ -89,29 +85,29 @@ public class OComponent extends ONameSpace {
 
     @objid ("24c044c8-9d99-4ec0-803a-6fd840f9a1a0")
     private void setPrimitiveEAnnotation(org.eclipse.uml2.uml.Component ecoreElt) {
-        ObjingEAnnotation.setPrimitive(ecoreElt, this.objingElement.isIsElementary());
+        ObjingEAnnotation.setPrimitive(ecoreElt, getObjingElement().isIsElementary());
     }
 
     @objid ("17d992af-512a-4557-9b6a-44f97ae133de")
     private void setLeaf(org.eclipse.uml2.uml.Component ecoreElt) {
-        ecoreElt.setIsLeaf(this.objingElement.isIsLeaf());
+        ecoreElt.setIsLeaf(getObjingElement().isIsLeaf());
     }
 
     @objid ("c054f16b-aa84-44e3-a673-22ff142bac91")
     private void setMainEAnnotation(org.eclipse.uml2.uml.Component ecoreElt) {
-        ObjingEAnnotation.setMain(ecoreElt, this.objingElement.isIsMain());
+        ObjingEAnnotation.setMain(ecoreElt, getObjingElement().isIsMain());
     }
 
     @objid ("f0ce5ee3-5fd6-476d-a966-2dcb8931d355")
     private void setActive(org.eclipse.uml2.uml.Component ecoreElt) {
-        ecoreElt.setIsActive(this.objingElement.isIsActive());
+        ecoreElt.setIsActive(getObjingElement().isIsActive());
     }
 
     @objid ("5393c9a2-3bd5-4e56-9f4f-ce31f51acf4f")
     private void linkEcoreComponent(org.eclipse.uml2.uml.Component ecoreElt) {
-        ModelTree objingOwner = this.objingElement.getOwner();
+        ModelTree objingOwner = getObjingElement().getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner =  GenerationProperties.getInstance().getMappedElement(objingOwner);
-                
+        
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                 org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
@@ -137,6 +133,12 @@ public class OComponent extends ONameSpace {
         setLeaf(ecoreElt);
         setMainEAnnotation(ecoreElt);
         setActive(ecoreElt);
+    }
+
+    @objid ("cbb92038-3ce0-466d-a13e-ea50e536a05c")
+    @Override
+    public Component getObjingElement() {
+        return (Component) super.getObjingElement();
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,15 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.jdbm;
 
+import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.modelio.vcore.model.DuplicateObjectException;
@@ -31,7 +32,6 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.StatusState;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmDependency;
-import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 
 @objid ("78c589ac-293d-4f22-ae29-b9a25f107fc1")
 class JdbmStorageHandler implements IRepositoryObject {
@@ -79,13 +79,14 @@ class JdbmStorageHandler implements IRepositoryObject {
     @objid ("f6cdc8e1-4dec-4a73-aa2e-4dae5f45ba21")
     @Override
     public boolean isDepLoaded(SmObjectImpl obj, SmDependency dep) {
-        if (isPersistent(dep))
+        if (isPersistent(dep)) {
             return obj.getData().hasAllStatus(IRStatus.REPO_LOADED) == StatusState.TRUE;
-        else {
-            // Shortcut for 0..1 dependency inverse : 
+        } else {
+            // Shortcut for 0..1 dependency inverse :
             // if the dependency is filled then it was loaded from the other side
-            if (! dep.isMultiple() && ((SmSingleDependency)dep).getValue(obj.getData()) != null)
+            if (! dep.isMultiple() && dep.getValue(obj.getData()) != null) {
                 return true;
+            }
         
             return obj.getData().hasAllStatus(IRStatus.REPO_USERS_LOADED) == StatusState.TRUE;
         }
@@ -110,9 +111,9 @@ class JdbmStorageHandler implements IRepositoryObject {
             synchronized(this.repo) {
                 // Redo the test in case of the object was being loaded
                 if (!isDepLoaded(obj, dep)) {
-                    if (isPersistent(dep))
+                    if (isPersistent(dep)) {
                         this.repo.loadObj(obj);
-                    else {
+                    } else {
                         this.repo.loadDynamicDep(obj, dep);
                         obj.getData().setRFlags(IRStatus.REPO_USERS_LOADED, 0, 0);
                     }
@@ -157,14 +158,14 @@ class JdbmStorageHandler implements IRepositoryObject {
     @Override
     public void attach(SmObjectImpl obj) {
         ISmObjectData data = obj.getData();
-                
+        
         // Set as loaded and modified
         data.setRFlags(IRStatus.REPO_LOADED, StatusState.TRUE);
         setDirty(obj);
-                
+        
         // Attach repository object
         data.setRepositoryObject(this);
-                
+        
         try {
             this.repo.getLoadCache().addToCache(obj);
         } catch (DuplicateObjectException e) {
@@ -174,8 +175,8 @@ class JdbmStorageHandler implements IRepositoryObject {
 
     @objid ("e585d2b9-298a-4e84-94a6-4801d2f1abf5")
     @Override
-    public void unload(SmObjectImpl obj) {
-        this.repo.unloadObject(obj);
+    public Collection<SmObjectImpl> unload(SmObjectImpl obj) {
+        return this.repo.unloadObject(obj);
     }
 
     @objid ("673ac912-ec60-4bfb-bc2d-c2dedd4072c2")
@@ -187,6 +188,18 @@ class JdbmStorageHandler implements IRepositoryObject {
     @objid ("8c2f236b-8d28-4c72-b748-a6c762522330")
     public boolean isDirty(ISmObjectData data) {
         return data.hasAllStatus(IRStatus.REPO_DIRTY) == StatusState.TRUE;
+    }
+
+    @objid ("ae8cb865-89f8-4447-8fbd-cb3765d12279")
+    @Override
+    public void attachCreatedObj(SmObjectImpl obj) {
+        attach(obj);
+    }
+
+    @objid ("acd35965-a2d4-4529-b7dd-cd50df3bd2a8")
+    @Override
+    public void setToReload(SmObjectImpl obj) {
+        obj.getData().setRFlags(0, IRStatus.REPO_LOADED, 0);
     }
 
 }

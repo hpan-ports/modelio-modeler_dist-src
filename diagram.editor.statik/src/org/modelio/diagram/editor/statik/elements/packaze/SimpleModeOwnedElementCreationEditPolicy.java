@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.packaze;
 
@@ -49,8 +49,6 @@ import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy;
-import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -83,7 +81,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
         if (REQ_MOVE.equals(request.getType()) ||
                 REQ_ADD.equals(request.getType()) ||
                 REQ_CLONE.equals(request.getType())) {
-            // Special case: MOVE and ADD request can be tricky: depending on the "previous loop" of the tool sending 
+            // Special case: MOVE and ADD request can be tricky: depending on the "previous loop" of the tool sending
             // the request, an ADD request can be send for a simple graphic move, and a MOVE request can be sent for an
             // actual graphic re-parenting. Let's analyse the request a bit to determine how to handle it.
             final ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
@@ -91,7 +89,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
                 // This is a simple graphic move inside this container, it should be accepted.
                 return getHost();
             } else {
-                // This is a clone or a graphic re-parenting: it probably involves Ob model changes and such, so 
+                // This is a clone or a graphic re-parenting: it probably involves Ob model changes and such, so
                 // further analysis is needed to decide.
                 return getTargetEditPart(changeBoundsRequest);
             }
@@ -117,7 +115,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
         
             // create the highlight figure if it does not exists
             if (this.highlight == null) {
-                // create a highlight figure 
+                // create a highlight figure
                 this.highlight = FigureUtilities2.createHighlightFigure(getFeedbackLayer(),
                         getHostFigure(),
                         hightlightType);
@@ -138,13 +136,14 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
      * @return true if this policy can handle the metaclass.
      */
     @objid ("362cb7d7-55b7-11e2-877f-002564c97630")
-    protected boolean canHandle(final Class<? extends MObject> metaclass) {
+    protected boolean canHandle(MClass metaclass) {
         final MObject hostElement = getHostElement();
         if (hostElement == null) {
             return false;
         }
-        return MTools.getMetaTool().canCompose(hostElement.getMClass(), Metamodel.getMClass(metaclass), null) &&
-                ((GmCompositeNode) getHost().getModel()).canCreate(metaclass);
+        MClass hostMClass = hostElement.getMClass();
+        return hostMClass.getMetamodel().getMExpert().canCompose(hostMClass, metaclass, null) &&
+                                                ((GmCompositeNode) getHost().getModel()).canCreate(metaclass.getJavaInterface());
     }
 
     @objid ("362cb7e0-55b7-11e2-877f-002564c97630")
@@ -152,7 +151,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
     protected Command createAddCommand(final ChangeBoundsRequest request, final EditPart child, final Object constraint) {
         GmNodeModel childModel = (GmNodeModel) child.getModel();
         GmNodeModel hostModel = (GmNodeModel) getHost().getModel();
-        if (hostModel.canCreate(Metamodel.getJavaInterface(Metamodel.getMClass(childModel.getRepresentedRef().mc)))) {
+        if (hostModel.canCreate(childModel.getRelatedMClass().getJavaInterface())) {
             return new ReparentElementCommand(getHostElement(),
                     getHostCompositeNode().getParentNode(),
                     childModel,
@@ -200,10 +199,10 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
             for (final Object editPartObj : request.getEditParts()) {
                 final EditPart editPart = (EditPart) editPartObj;
                 if (editPart.getModel() instanceof GmModel) {
-                    final GmModel gmModel = (GmModel) editPart.getModel();
+                    GmModel gmModel = (GmModel) editPart.getModel();
+                    MClass hostMClass = getHostElement().getMClass();
         
-        
-                    if(MTools.getMetaTool().canCompose(getHostElement().getMClass(), gmModel.getRelatedElement().getMClass(), null)){
+                    if(hostMClass.getMetamodel().getMExpert().canCompose(hostMClass, gmModel.getRelatedElement().getMClass(), null)){
                         final Object requestConstraint = getConstraintFor(request,
                                 (GraphicalEditPart) editPart);
                         command.add(new DefaultCloneElementCommand(hostModel,
@@ -235,11 +234,11 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
                 return new SimpleModeDeferredCreateCommand(request, getHost());
             }
         } else if (hostElement != null) {
-            final MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
+            final MClass metaclassToCreate = ctx.getMetaclass();
             final MClass hostMetaclass = hostElement.getMClass();
         
-            if (gmParentNode.canCreate(Metamodel.getJavaInterface(metaclassToCreate))) {
-                if (MTools.getMetaTool().canCompose(hostMetaclass, metaclassToCreate, null)) {
+            if (gmParentNode.canCreate(metaclassToCreate.getJavaInterface())) {
+                if (hostMetaclass.getMetamodel().getMExpert().canCompose(hostMetaclass, metaclassToCreate, null)) {
                     final Object requestConstraint = getConstraintFor(request);
                     //TODO remove hostElement arg?
                     return new CreateElementCommand(hostElement, gmParentNode, ctx, requestConstraint);
@@ -288,21 +287,19 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
      */
     @objid ("362e3e78-55b7-11e2-877f-002564c97630")
     private EditPart getTargetEditPart(final CreateRequest createRequest) {
-        if (createRequest.getNewObject() instanceof ModelioCreationContext) {
-            final ModelioCreationContext ctx = (ModelioCreationContext) createRequest.getNewObject();
-        
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
+        if (ctx != null) {
             if (ctx.getElementToUnmask() != null) {
                 if (getHostCompositeNode().canUnmask(ctx.getElementToUnmask())) {
                     return getHost();
                 }
             }
         
-            Class<? extends MObject> metaclassToCreate = Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
-            if (canHandle(metaclassToCreate)) {
+            if (canHandle(ctx.getMetaclass())) {
                 return getHost();
             }
         
-            return getEditPartFor(metaclassToCreate);
+            return getEditPartFor(ctx.getMetaclass().getJavaInterface());
         
         }
         return null;
@@ -327,16 +324,17 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
             final EditPart editPart = (EditPart) editPartObj;
             if (editPart.getModel() instanceof GmModel) {
                 final GmModel gmModel = (GmModel) editPart.getModel();
-                final String metaclassName = gmModel.getRepresentedRef().mc;
+                final MClass gmMClass = gmModel.getRelatedMClass();
+        
                 // If there is at least 1 element that this policy cannot
                 // handle, do not handle the request at all!
                 EditPart target = null;
-                if (canHandle(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName))) ||
+                if (canHandle(gmMClass) ||
                         (editPart instanceof ConnectionEditPart)) {
                     target = getHost();
                 }
                 if (target == null) {
-                    target = getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)));
+                    target = getEditPartFor(gmMClass.getJavaInterface());
                 }
                 if (ret == null) {
                     ret = target;
@@ -355,7 +353,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
         if (REQ_CLONE.equals(changeBoundsRequest.getType())) {
             return false;
         }
-        // The request is actually a move request (not taking its type into account) if the primary selection's 
+        // The request is actually a move request (not taking its type into account) if the primary selection's
         // parent edit part is the host.
         for (final Object o : changeBoundsRequest.getEditParts()) {
             final EditPart editPart = (EditPart) o;
@@ -372,7 +370,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
     @objid ("362fc4ec-55b7-11e2-877f-002564c97630")
     protected Rectangle getEffectiveBounds(final IFigure figure) {
         return (figure instanceof HandleBounds) ? ((HandleBounds) figure).getHandleBounds().getCopy()
-                : figure.getBounds().getCopy();
+                                                : figure.getBounds().getCopy();
     }
 
     @objid ("362fc4f2-55b7-11e2-877f-002564c97630")

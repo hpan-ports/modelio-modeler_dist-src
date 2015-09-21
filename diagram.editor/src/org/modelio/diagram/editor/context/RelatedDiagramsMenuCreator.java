@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.context;
 
@@ -38,10 +38,18 @@ import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.diagram.editor.plugin.DiagramEditor;
+import org.modelio.metamodel.bpmn.activities.BpmnCallActivity;
+import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
+import org.modelio.metamodel.bpmn.rootElements.BpmnBehavior;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
+import org.modelio.metamodel.uml.behavior.activityModel.CallBehaviorAction;
+import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
+/**
+ * Dynamically fills the "related diagrams" e4 menu in diagrams.
+ */
 @objid ("95357df5-2744-4db4-80b5-2b6ab4372fa8")
 public class RelatedDiagramsMenuCreator {
     @objid ("1e4df3dd-6b6a-4407-a61c-b233f2e20f40")
@@ -51,7 +59,7 @@ public class RelatedDiagramsMenuCreator {
     @objid ("7d2a7cc3-0159-4dae-872d-2c2d24daac1a")
     @AboutToShow
     public void aboutToShow(List<MMenuElement> items) {
-        // Get current selection                   
+        // Get current selection
         final ModelElement selectedElement = getSelectedElement();
         
         if (selectedElement != null) {
@@ -61,7 +69,7 @@ public class RelatedDiagramsMenuCreator {
                 // No diagrams to relate to
                 return;
             }
-            
+        
             // Add the related diagrams menu
             items.add(createMenu(relatedDiagrams));
         }
@@ -81,7 +89,7 @@ public class RelatedDiagramsMenuCreator {
         elementCreationMenu.setToBeRendered(true);
         elementCreationMenu.setVisible(true);
         
-        // bound the menu to the contributing plugin 
+        // bound the menu to the contributing plugin
         elementCreationMenu.setContributorURI(contributorId);
         
         // add related diagram items
@@ -92,12 +100,37 @@ public class RelatedDiagramsMenuCreator {
     @objid ("ba85750a-0458-4469-9c32-1a3edb84116c")
     public List<AbstractDiagram> getRelatedDiagrams(final ModelElement currentModelElement) {
         final List<AbstractDiagram> relatedDiagrams = new ArrayList<>();
+        
+        // Get diagrams targeted by <<related_diagram>> dependencies.
         for (final Dependency dependency : currentModelElement.getDependsOnDependency()) {
             if (dependency.isStereotyped("ModelerModule", "related_diagram")) {
                 final ModelElement relatedElement = dependency.getDependsOn();
                 if (relatedElement instanceof AbstractDiagram && ! relatedDiagrams.contains(relatedElement)) {
                     relatedDiagrams.add((AbstractDiagram) relatedElement);
                 }
+            }
+        }
+        
+        // Get owned diagrams
+        relatedDiagrams.addAll(currentModelElement.getProduct());
+        
+        // For BpmnBehavior, get diagram owned by their BpmnProcess
+        if (currentModelElement instanceof BpmnBehavior) {
+            BpmnBehavior behavior = (BpmnBehavior) currentModelElement;
+            for (BpmnProcess process : behavior.getRootElement(BpmnProcess.class)) {
+                relatedDiagrams.addAll(getRelatedDiagrams(process));
+            }
+        } else if (currentModelElement instanceof BpmnCallActivity) {
+            BpmnCallActivity callActivity = (BpmnCallActivity) currentModelElement;
+            BpmnProcess process = callActivity.getCalledProcess();
+            if (process != null) {
+                relatedDiagrams.addAll(getRelatedDiagrams(process));
+            }
+        } else if (currentModelElement instanceof CallBehaviorAction) {
+            CallBehaviorAction callBehavior = (CallBehaviorAction) currentModelElement;
+            Behavior behavior = callBehavior.getCalled();
+            if (behavior != null) {
+                relatedDiagrams.addAll(getRelatedDiagrams(behavior));
             }
         }
         return relatedDiagrams;
@@ -124,7 +157,7 @@ public class RelatedDiagramsMenuCreator {
         relatedDiagramItem.setToBeRendered(true);
         relatedDiagramItem.setVisible(true);
         
-        // bound the menu to the contributing plugin 
+        // bound the menu to the contributing plugin
         relatedDiagramItem.setContributorURI(contributorId);
         
         // set the command

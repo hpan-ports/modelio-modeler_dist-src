@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -57,15 +57,13 @@ public class ValuePinPropertyModel extends AbstractPropertyModel<ValuePin> {
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li>for the first row the value is the table header label (usually the
-     * metaclass name)
-     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles
-     * names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a88c37e8-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "ValuePin", "Name", "Type", "Value", "UpperBound",
-        "IsExpansion", "Matched", "IsControlType", "InState", "Represented" };
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "Type", "Value", "UpperBound", "IsExpansion",
+            "Matched", "IsControlType", "InState", "Represented" };
 
     @objid ("fb4dc784-c5d4-11e1-8f21-002564c97630")
     private StringType labelStringType;
@@ -138,8 +136,7 @@ public class ValuePinPropertyModel extends AbstractPropertyModel<ValuePin> {
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -286,21 +283,23 @@ public class ValuePinPropertyModel extends AbstractPropertyModel<ValuePin> {
     @objid ("8fa305c2-c068-11e1-8c0a-002564c97630")
     private ModelElement getRepresented(ObjectNode elt) {
         ModelElement ret = elt.getRepresented();
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         ret = elt.getRepresentedAttribute();
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         ret = elt.getRepresentedRole();
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         ret = elt.getRepresentedRealParameter();
         return ret;
     }
 
     /**
-     * Set the InstanceNode represented elements. This method set the right
-     * dependency and clears the otheEditedElement.
+     * Set the InstanceNode represented elements. This method set the right dependency and clears the otheEditedElement.
      * @param theEditedElement the instance node
      * @param value the new represented element
      */
@@ -309,26 +308,30 @@ public class ValuePinPropertyModel extends AbstractPropertyModel<ValuePin> {
         // Erase old value or exit if old value is new value
         Instance old1 = theEditedElement.getRepresented();
         if (old1 != null) {
-            if (old1.equals(value))
+            if (old1.equals(value)) {
                 return;
+            }
             theEditedElement.setRepresented(null);
         } else {
             Attribute old2 = theEditedElement.getRepresentedAttribute();
             if (old2 != null) {
-                if (old2.equals(value))
+                if (old2.equals(value)) {
                     return;
+                }
                 theEditedElement.setRepresentedAttribute(null);
             } else {
                 AssociationEnd old3 = theEditedElement.getRepresentedRole();
                 if (old3 != null) {
-                    if (old3.equals(value))
+                    if (old3.equals(value)) {
                         return;
+                    }
                     theEditedElement.setRepresentedRole(null);
                 } else {
                     BehaviorParameter old4 = theEditedElement.getRepresentedRealParameter();
                     if (old4 != null) {
-                        if (old4.equals(value))
+                        if (old4.equals(value)) {
                             return;
+                        }
                         theEditedElement.setRepresentedRealParameter(null);
                     }
                 }
@@ -337,14 +340,15 @@ public class ValuePinPropertyModel extends AbstractPropertyModel<ValuePin> {
         
         if (value != null) {
             // Set new value
-            if (Instance.class.isAssignableFrom(value.getClass()))
+            if (Instance.class.isAssignableFrom(value.getClass())) {
                 theEditedElement.setRepresented((Instance) value);
-            else if (Attribute.class.isAssignableFrom(value.getClass()))
+            } else if (Attribute.class.isAssignableFrom(value.getClass())) {
                 theEditedElement.setRepresentedAttribute((Attribute) value);
-            else if (AssociationEnd.class.isAssignableFrom(value.getClass()))
+            } else if (AssociationEnd.class.isAssignableFrom(value.getClass())) {
                 theEditedElement.setRepresentedRole((AssociationEnd) value);
-            else if (BehaviorParameter.class.isAssignableFrom(value.getClass()))
+            } else if (BehaviorParameter.class.isAssignableFrom(value.getClass())) {
                 theEditedElement.setRepresentedRealParameter((BehaviorParameter) value);
+            }
         }
     }
 

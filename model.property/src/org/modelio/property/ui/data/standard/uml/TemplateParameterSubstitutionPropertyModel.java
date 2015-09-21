@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -47,12 +47,12 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a873cde8-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "TemplateParameterSubstitution", "Value" };
+    private static final String[] PROPERTIES = new String[] { "Property", "Value" };
 
     @objid ("fb355d93-c5d4-11e1-8f21-002564c97630")
     private StringType labelStringType;
@@ -124,8 +124,7 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -181,7 +180,7 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
             default:
                 return;
             }
-              break;
+            break;
         default:
             return;
         }
@@ -201,6 +200,7 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
 
     /**
      * Represents the 'Actual' and 'Value' properties on TemplateParameterSubstitution
+     * 
      * @see com.modeliosoft.objecteering.joni.model.TemplateParameterSubstitution.Actual
      * @see com.modeliosoft.objecteering.joni.model.TemplateParameterSubstitution
      */
@@ -225,12 +225,14 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
         @objid ("8f94bd81-c068-11e1-8c0a-002564c97630")
         public List<Class<? extends MObject>> getTypes(TemplateParameterSubstitution el) {
             TemplateParameter param = el.getFormalParameter();
-            if (param == null)
+            if (param == null) {
                 return this.stdTypes;
-                        
+            }
+            
             ModelElement paramType = param.getType();
-            if (paramType == null)
+            if (paramType == null) {
                 return this.stdTypes;
+            }
             List<Class<? extends MObject>> ret = new ArrayList<>();
             ret.add(paramType.getClass());
             return ret;
@@ -239,22 +241,25 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
         @objid ("8f94bd8c-c068-11e1-8c0a-002564c97630")
         public static Object getValue(TemplateParameterSubstitution el) {
             ModelElement r1 = el.getActual();
-            if (r1 != null)
+            if (r1 != null) {
                 return r1;
+            }
             return el.getValue();
         }
 
         @objid ("8f971e88-c068-11e1-8c0a-002564c97630")
         public static void setValue(TemplateParameterSubstitution el, Object value) {
             if (value != null && value.getClass() == String.class) {
-                if (el.getActual() != null)
+                if (el.getActual() != null) {
                     el.setActual(null);
+                }
                 el.setValue((String) value);
             } else {
-                if (!el.getValue().isEmpty())
+                if (!el.getValue().isEmpty()) {
                     el.setValue("");
+                }
                 el.setActual((ModelElement) value);
-                        
+            
             }
         }
 

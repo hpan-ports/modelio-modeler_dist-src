@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.model.browser.handlers.bpmn;
 
@@ -28,7 +28,6 @@ import org.eclipse.swt.widgets.Display;
 import org.modelio.app.core.IModelioEventService;
 import org.modelio.app.core.IModelioService;
 import org.modelio.app.core.events.ModelioEvent;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.bpmnDiagrams.BpmnProcessCollaborationDiagram;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnCollaboration;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
@@ -52,7 +51,7 @@ public class CreateBpmnProcessHandler extends CreateElementHandler {
     @objid ("4e57e2a9-ccde-11e1-97e5-001ec947c8cc")
     @Override
     protected void postCreationStep(Element createdElement) {
-        IModelFactory mmFactory = this.mmServices.getModelFactory(createdElement);
+        IModelFactory mmFactory = this.mmServices.getModelFactory();
         
         BpmnProcess process = (BpmnProcess) createdElement;
         BpmnBehavior behavior = process.getOwner();
@@ -74,7 +73,7 @@ public class CreateBpmnProcessHandler extends CreateElementHandler {
         if (owner instanceof BpmnBehavior) {
             return (BpmnBehavior) owner;
         } else {
-            IModelFactory mmFactory = this.mmServices.getModelFactory(owner);
+            IModelFactory mmFactory = this.mmServices.getModelFactory();
             BpmnBehavior behavior = mmFactory.createBpmnBehavior();
         
             if (owner instanceof NameSpace) {
@@ -114,7 +113,7 @@ public class CreateBpmnProcessHandler extends CreateElementHandler {
         BpmnBehavior effectiveOwner = getEffectiveOwner(owner);
         MDependency effectiveDep = effectiveOwner.getMClass().getDependency("RootElement");
         
-        final MClass mClass = Metamodel.getMClass(BpmnProcess.class);
+        final MClass mClass = owner.getMClass().getMetamodel().getMClass(BpmnProcess.class);
         return super.doCreate(effectiveOwner, mClass, effectiveDep, stereotype);
     }
 

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.script.view;
 
@@ -47,6 +47,7 @@ import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.Point;
+import org.modelio.script.plugin.Script;
 
 /**
  * Manages drag & drop on a TextViewer.
@@ -159,7 +160,7 @@ class TextViewerDragDropManager {
         
             /**
              * Returns true if only text files are dragged.
-             * 
+             *
              * @param event
              *            the drag event
              * @return true if only text files are dragged, false in the other
@@ -244,7 +245,7 @@ class TextViewerDragDropManager {
              * reading the first 512 bytes and ensuring that they are all
              * ASCII characters of the kind you'd expect to find in source
              * files.
-             * 
+             *
              */
             private boolean isTextFile(String file) {
                 boolean isTextFile = false;
@@ -346,12 +347,10 @@ class TextViewerDragDropManager {
                 try {
                     TextViewerDragDropManager.this.textViewer.getDocument().replace(modelOffset, 0, text);
                 } catch (BadLocationException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    Script.LOG.error(e);
                 }
         
                 TextViewerDragDropManager.this.textWidget.setSelectionRange(newSelection.x, text.length());
-        
             }
         };
         

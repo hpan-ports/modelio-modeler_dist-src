@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -30,15 +30,15 @@ import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("9b31f892-cc73-4864-b253-575d5bd7820f")
-public class ONode extends ONameSpace implements IOElement {
+public class ONode extends ONameSpace {
     @objid ("a37ba665-e0de-4913-b948-96a338291a73")
      Node objingElement;
 
     @objid ("1999f5cd-c118-4906-b2c7-d27d741f908d")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2DEVICE))
+        if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2DEVICE))
             return UMLFactory.eINSTANCE.createDevice();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EXECUTIONENVIRONMENT))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EXECUTIONENVIRONMENT))
             return UMLFactory.eINSTANCE.createExecutionEnvironment();
         else
             return UMLFactory.eINSTANCE.createNode();
@@ -47,15 +47,15 @@ public class ONode extends ONameSpace implements IOElement {
     @objid ("aa73f205-92b7-44c1-8b78-138d5107feeb")
     public ONode(Node param) {
         super(param);
-        objingElement = param;
+        this.objingElement = param;
     }
 
     @objid ("fc9f98bf-cce2-4261-a841-04c940c93735")
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        ModelTree objingOwner = objingElement.getOwner();
-        org.eclipse.uml2.uml.Element ecoreOwner = (org.eclipse.uml2.uml.Element) genProp.getMappedElement(objingOwner);
+        ModelTree objingOwner = this.objingElement.getOwner();
+        org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {

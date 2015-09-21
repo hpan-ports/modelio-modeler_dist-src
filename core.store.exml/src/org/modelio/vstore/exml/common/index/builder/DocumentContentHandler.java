@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common.index.builder;
 
@@ -27,6 +27,7 @@ import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vstore.exml.common.index.ICmsNodeIndex;
 import org.modelio.vstore.exml.common.index.IUserNodeIndex;
 import org.modelio.vstore.exml.common.model.ObjId;
@@ -68,9 +69,6 @@ class DocumentContentHandler extends DefaultHandler {
     @objid ("fd21f6e1-5986-11e1-991a-001ec947ccaf")
     private REFOBJState refObjState;
 
-    @objid ("fd21f6e0-5986-11e1-991a-001ec947ccaf")
-    private OBJECT2State object2State;
-
     @objid ("fd21f6de-5986-11e1-991a-001ec947ccaf")
     private DocumentState documentState;
 
@@ -80,27 +78,30 @@ class DocumentContentHandler extends DefaultHandler {
     @objid ("fd21f67b-5986-11e1-991a-001ec947ccaf")
     private Locator locator;
 
+    @objid ("1a2c0381-90ae-4d48-9d05-a442a8a7438a")
+    private SmMetamodel metamodel;
+
+    @objid ("686ff554-9939-4b1f-a36a-86f23936e088")
+    private LINKState linkState;
+
     @objid ("fd21f716-5986-11e1-991a-001ec947ccaf")
-    public DocumentContentHandler(ICmsNodeIndex parentIndex, IUserNodeIndex userIndex) {
+    public DocumentContentHandler(SmMetamodel metamodel, ICmsNodeIndex parentIndex, IUserNodeIndex userIndex) {
+        this.metamodel = metamodel;
         this.cmsNodeIndex = parentIndex;
         this.userNodeIndex = userIndex;
         
         this.extIdState = new EXTIDState();
         this.objectState = new OBJECTState();
-        this.object2State = new OBJECT2State();
         this.refObjState = new REFOBJState();
+        this.linkState = new LINKState();
         
         this.documentState = new DocumentState();
-        this.extIdState = new EXTIDState();
-        this.object2State = new OBJECT2State();
-        this.objectState = new OBJECTState();
-        this.refObjState = new REFOBJState();
         
         this.documentState.setStateHandler(this);
         this.extIdState.setStateHandler(this);
-        this.object2State.setStateHandler(this);
         this.objectState.setStateHandler(this);
         this.refObjState.setStateHandler(this);
+        this.linkState.setStateHandler(this);
         
         this.currentState = (this.documentState);
         this.errorEncountered = false;
@@ -109,7 +110,7 @@ class DocumentContentHandler extends DefaultHandler {
     @objid ("fd21f715-5986-11e1-991a-001ec947ccaf")
     public void addContainedObject(final String className, final String uid, final String name) throws IOException {
         final UUID tuuid = UUID.fromString(uid);
-        final SmClass smClass = SmClass.getClass(className);
+        final SmClass smClass = this.metamodel.getMClass(className);
         
         if (smClass != null) {
             ObjId childId = new ObjId(smClass, name, tuuid);
@@ -119,9 +120,9 @@ class DocumentContentHandler extends DefaultHandler {
     }
 
     @objid ("fd21f714-5986-11e1-991a-001ec947ccaf")
-    public void addUsedCmsNode(final String className, final String uid, final String name) throws IOException {
+    public void addUsedRef(final String className, final String uid, final String name) throws IOException {
         final UUID tuuid = UUID.fromString(uid);
-        final SmClass smClass = SmClass.getClass(className);
+        final SmClass smClass = this.metamodel.getMClass(className);
         if (smClass != null) {
             ObjId usedId = new ObjId(smClass, name, tuuid);
         
@@ -156,11 +157,6 @@ class DocumentContentHandler extends DefaultHandler {
         this.extIdState.enterState(attributes);
     }
 
-    @objid ("fd21f70b-5986-11e1-991a-001ec947ccaf")
-    public void enterOBJECT2State() {
-        this.currentState = this.object2State;
-    }
-
     @objid ("fd21f70a-5986-11e1-991a-001ec947ccaf")
     public void enterOBJECTState() {
         this.currentState = this.objectState;
@@ -190,7 +186,7 @@ class DocumentContentHandler extends DefaultHandler {
     @objid ("fd21f6f6-5986-11e1-991a-001ec947ccaf")
     public void setCmsNode(final String className, final String uid, final String name) throws IOException {
         UUID tuuid = UUID.fromString(uid);
-        this.cmsNodeId = new ObjId(SmClass.getClass(className), name, tuuid);
+        this.cmsNodeId = new ObjId(this.metamodel.getMClass(className), name, tuuid);
         this.cmsNodeIndex.addCmsNode(this.cmsNodeId);
     }
 
@@ -211,7 +207,7 @@ class DocumentContentHandler extends DefaultHandler {
             this.parentSet = true;
         
             UUID tuuid = UUID.fromString(uid);
-            SmClass smClass = SmClass.getClass(className);
+            SmClass smClass = this.metamodel.getMClass(className);
         
             if (smClass != null) {
                 this.cmsNodeIndex.setParent(this.cmsNodeId, new ObjId(smClass, name, tuuid));
@@ -232,8 +228,9 @@ class DocumentContentHandler extends DefaultHandler {
     @objid ("fd21f6e5-5986-11e1-991a-001ec947ccaf")
     void throwError(final Exception e) throws SAXParseException {
         String msg = e.getLocalizedMessage();
-        if (msg==null || msg.isEmpty())
+        if (msg==null || msg.isEmpty()) {
             msg = e.toString();
+        }
         
         throw new SAXParseException(msg, getLocator(), e);
     }
@@ -247,7 +244,7 @@ class DocumentContentHandler extends DefaultHandler {
     @objid ("f06b505b-92d7-11e1-be7e-001ec947ccaf")
     public void addForeignObject(final String className, final String uid, final String name) throws IOException {
         final UUID tuuid = UUID.fromString(uid);
-        final SmClass smClass = SmClass.getClass(className);
+        final SmClass smClass = this.metamodel.getMClass(className);
         if (smClass != null) {
             ObjId usedId = new ObjId(smClass, name, tuuid);
         
@@ -267,6 +264,16 @@ class DocumentContentHandler extends DefaultHandler {
         this.cmsNodeId = null;
         this.errorEncountered = false;
         this.parentSet = false;
+    }
+
+    @objid ("56e05097-6d1e-4c2c-b20d-844e7cbd08f9")
+    public void enterLINKState() {
+        this.currentState = this.linkState;
+    }
+
+    @objid ("b5c0b734-c5dc-4025-a9a2-7a4ee1b33a32")
+    public ObjId getCmsNode() {
+        return this.cmsNodeId;
     }
 
 }

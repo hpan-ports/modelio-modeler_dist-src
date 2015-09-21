@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,20 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.partition.header;
 
-import java.util.ArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -33,13 +31,14 @@ import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Text;
-import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.diagram.elements.common.edition.DirectEditManager2;
-import org.modelio.diagram.elements.common.header.OldModelElementHeaderEditPart;
+import org.modelio.diagram.elements.common.header.IHeaderFigure;
+import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
+import org.modelio.diagram.elements.core.figures.labelum.LabelumFigure;
+import org.modelio.diagram.elements.core.figures.rotated.RotatedFigureContainer;
 import org.modelio.diagram.elements.core.model.GmModel;
-import org.modelio.diagram.styles.core.StyleKey.ShowStereotypeMode;
 
 /**
  * Specialisation of the ModelElementHeaderEditPart that allows selection while delegating the actual selection feedback
@@ -48,54 +47,17 @@ import org.modelio.diagram.styles.core.StyleKey.ShowStereotypeMode;
  * @author fpoyer
  */
 @objid ("2b096b29-55b6-11e2-877f-002564c97630")
-public class PartitionHeaderEditPart extends OldModelElementHeaderEditPart {
+public class PartitionHeaderEditPart extends ModelElementHeaderEditPart {
     @objid ("2b09923b-55b6-11e2-877f-002564c97630")
     @Override
     protected IFigure createFigure() {
         final GmPartitionHeader gm = (GmPartitionHeader) getModel();
-        if (!gm.isVertical()) {
+        if (gm.isVertical())
+            return super.createFigure();
+        else {
             // Create an horizontal version of the HeaderFigure
-            return createHorizontalHeaderFigure(gm);
+            return new RotatedFigureContainer(super.createFigure(), 90);
         }
-        // else
-        return super.createFigure();
-    }
-
-    /**
-     * @return
-     */
-    @objid ("2b09b94a-55b6-11e2-877f-002564c97630")
-    private PartitionHeaderFigure createHorizontalHeaderFigure(GmPartitionHeader gm) {
-        final PartitionHeaderFigure headerFigure = new PartitionHeaderFigure();
-        // headerFigure.setSize(300, 100);
-        
-        // Set style independent properties
-        headerFigure.setLineWidth(0);
-        
-        // Main label
-        headerFigure.setMainLabel(gm.getMainLabel());
-        
-        // Stereotypes
-        ShowStereotypeMode mode = getStereotypeMode(gm);
-        refreshStereotypes(headerFigure, mode);
-        
-        // Keyword
-        if (gm.isShowMetaclassKeyword()) {
-            headerFigure.setKeywordLabel("<<" + gm.getRelatedElement().getMClass().getName() + ">>");
-        } else {
-            headerFigure.setKeywordLabel(null);
-        }
-        
-        // Metaclass icon
-        ArrayList<Image> icons = new ArrayList<>();
-        if (gm.isShowMetaclassIcon()) {
-            icons.add(ElementImageService.getIcon(gm.getRelatedElement()));
-        }
-        headerFigure.setLeftIcons(icons);
-        
-        // Set style dependent properties
-        refreshFromStyle(headerFigure, getModelStyle());
-        return headerFigure;
     }
 
     @objid ("2b09e059-55b6-11e2-877f-002564c97630")
@@ -103,21 +65,25 @@ public class PartitionHeaderEditPart extends OldModelElementHeaderEditPart {
     public void performRequest(Request req) {
         final GmPartitionHeader gm = (GmPartitionHeader) getModel();
         if (req.getType() == RequestConstants.REQ_DIRECT_EDIT && !gm.isVertical()) {
+            // Horizontal partition : rotate the editor
             final CellEditorLocator cellEditorLocator = new CellEditorLocator() {
                 @Override
                 public void relocate(CellEditor cellEditor) {
-                    Label label = getMainLabelFigure();
-                    final Rectangle rect = label.getBounds().getCopy();
-                    rect.setSize(rect.getSize().getTransposed());
-                    final Rectangle rect2 = label.getBounds();
-                    rect2.setSize(rect2.getSize().getTransposed());
+                    LabelumFigure label = getMainLabelFigure();
         
-                    label.translateToAbsolute(rect);
+                    final Rectangle relRect = label.getBounds().getCopy();
+                    //relRect.setSize(relRect.height(), relRect.width());
         
-                    cellEditor.getControl().setBounds(rect.x,
-                                                      rect.y + (rect.height / 2) - rect2.height / 2,
-                                                      Math.max(rect2.width, rect.width),
-                                                      rect2.height);
+                    final Rectangle absRect = relRect.getCopy();
+                    label.translateToAbsolute(absRect);
+        
+                    Point prefSize = cellEditor.getControl().computeSize(-1, -1);
+                    absRect.union(absRect.x, absRect.y, prefSize.x, prefSize.y);
+        
+                    cellEditor.getControl().setBounds(absRect.x,
+                                                      absRect.y + (absRect.height / 2) - relRect.height / 2,
+                                                      Math.max(relRect.width, absRect.width),
+                                                      relRect.height);
         
                 }
         
@@ -149,6 +115,17 @@ public class PartitionHeaderEditPart extends OldModelElementHeaderEditPart {
         } else {
             super.performRequest(req);
         }
+    }
+
+    @objid ("29560b9e-1d75-4806-878d-3213bcec408d")
+    @Override
+    protected IHeaderFigure getHeaderFigure(IFigure aFigure) {
+        if (aFigure instanceof IHeaderFigure)
+            return (IHeaderFigure) aFigure;
+        else if (aFigure.getChildren().isEmpty())
+            return null;
+        else
+            return getHeaderFigure((IFigure) aFigure.getChildren().get(0));
     }
 
 }

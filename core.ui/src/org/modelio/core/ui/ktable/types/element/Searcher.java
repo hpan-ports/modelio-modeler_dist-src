@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.ktable.types.element;
 
@@ -29,7 +29,6 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.session.api.model.IMObjectFilter;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
 
 /**
  * A Searcher is used to search for elements in an opened modeling session.
@@ -43,15 +42,15 @@ class Searcher {
     private IMObjectFilter elementFilter = null;
 
     @objid ("7893f2ae-c202-11e1-80f8-001ec947ccaf")
-    private IModel session = null;
+    private IModel model = null;
 
     @objid ("aea195cd-c202-11e1-80f8-001ec947ccaf")
     private Class<? extends MObject> targetClass;
 
     @objid ("8dc471e7-c068-11e1-8c0a-002564c97630")
     @SuppressWarnings("unchecked")
-    public Searcher(IModel session, Class<? extends MObject> targetClass, IMObjectFilter elementFilter) {
-        this.session = session;
+    public Searcher(IModel model, Class<? extends MObject> targetClass, IMObjectFilter elementFilter) {
+        this.model = model;
         
         if (targetClass==null)
             throw new IllegalArgumentException("Target class cannot be NULL");
@@ -70,7 +69,7 @@ class Searcher {
 
     @objid ("8dc471f5-c068-11e1-8c0a-002564c97630")
     public List<MObject> search() {
-        List<MObject> rawResults = new ArrayList<> (this.session.findByClass(SmClass.getClass(this.targetClass.getSimpleName()), IModel.NODELETED));
+        List<MObject> rawResults = new ArrayList<> (this.model.findByClass(this.targetClass, IModel.NODELETED));
         List<MObject> filteredResults = new ArrayList<>();
         Pattern p = Pattern.compile(this.expression);
         

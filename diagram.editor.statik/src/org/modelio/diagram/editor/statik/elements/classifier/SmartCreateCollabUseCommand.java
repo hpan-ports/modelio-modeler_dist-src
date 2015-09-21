@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.classifier;
 
@@ -36,6 +36,7 @@ import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -55,7 +56,7 @@ public class SmartCreateCollabUseCommand extends Command {
     @objid ("5b56fb91-5bd5-11e2-9e33-00137282c51b")
     private EditPart parentEditPart;
 
-    @objid ("13b8a296-eb6a-41d2-a813-aef4f3dc36ca")
+    @objid ("bd866e8b-5077-463d-9f98-dd89b832661d")
     private Point location;
 
     /**
@@ -78,8 +79,9 @@ public class SmartCreateCollabUseCommand extends Command {
         final GmModel gmModel = (GmModel) this.parentEditPart.getModel();
         final GmAbstractDiagram gmDiagram = gmModel.getDiagram();
         
-        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement())) {
             return false;
+        }
         return (this.parentElement != null && this.parentElement.isValid() && this.parentElement.isModifiable());
     }
 
@@ -100,8 +102,8 @@ public class SmartCreateCollabUseCommand extends Command {
         }
         
         // Attach to parent
-        
-        final MDependency effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement,
+        final MExpert mExpert = this.parentElement.getMClass().getMetamodel().getMExpert();
+        final MDependency effectiveDependency = mExpert.getDefaultCompositionDep(this.parentElement,
                 collabUseNode);
         
         if (effectiveDependency == null) {
@@ -128,8 +130,9 @@ public class SmartCreateCollabUseCommand extends Command {
         
         final Command cmd = this.parentEditPart.getTargetEditPart(creationRequest)
                 .getCommand(creationRequest);
-        if (cmd != null && cmd.canExecute())
+        if (cmd != null && cmd.canExecute()) {
             cmd.execute();
+        }
     }
 
 }

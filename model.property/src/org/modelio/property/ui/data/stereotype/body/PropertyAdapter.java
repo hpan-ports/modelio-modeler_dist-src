@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,20 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.stereotype.body;
 
 import java.util.Date;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
-import org.modelio.metamodel.uml.infrastructure.properties.PropertyEnumerationLitteral;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -98,6 +96,14 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("72832eec-5fdc-4fa8-b362-93b67b4b090d")
 public class PropertyAdapter {
+    /**
+     * Convert a property value from a string.
+     * <p>
+     * Used to read a persisted string value.
+     * @param pdef the property definition.
+     * @param value the read string value
+     * @return the property value.
+     */
     @objid ("be2b5bc6-7eb6-44af-9ec7-a4e5cca3b5a5")
     public static Object convertToObject(PropertyDefinition pdef, String value) {
         // If there is no base type, can only return the string
@@ -110,6 +116,7 @@ public class PropertyAdapter {
         case BOOLEAN:
             return new Boolean(value);
         case ENUMERATE:
+            /*
             final EnumeratedPropertyType type = (EnumeratedPropertyType) pdef.getType();
             for (final PropertyEnumerationLitteral v : type.getLitteral()) {
                 if (v.getName().equals(value)) {
@@ -117,6 +124,8 @@ public class PropertyAdapter {
                 }
             }
             return null;
+            */
+            return value;
         case FLOAT:
             if (value == null || value.isEmpty()) {
                 return new Float("0.0");
@@ -177,10 +186,15 @@ public class PropertyAdapter {
         }
     }
 
+    /**
+     * Get the property type as a java class.
+     * @param pdef the property definition.
+     * @return the property type as a java class.
+     */
     @objid ("92050935-8245-4501-9593-97ad9c462ffc")
     public static Class<?> getType(PropertyDefinition pdef) {
         // If there is no base type, can only return the string
-        if (pdef.getType().getBaseType() == null) {
+        if (pdef.getType()==null || pdef.getType().getBaseType() == null) {
             return String.class;
         }
         
@@ -189,7 +203,8 @@ public class PropertyAdapter {
         case BOOLEAN:
             return Boolean.class;
         case ENUMERATE:
-            return Enum.class;
+            return String.class;
+            //return Enum.class;
         case FLOAT:
             return Float.class;
         case UNSIGNED:
@@ -208,6 +223,14 @@ public class PropertyAdapter {
         }
     }
 
+    /**
+     * Convert the property value to string.
+     * <p>
+     * Used to persist the property value into a string.
+     * @param pdef the property definition
+     * @param value the property value
+     * @return the value converted to string.
+     */
     @objid ("4de3822d-8c34-4047-91d6-e3bd2366fa95")
     public static String convertToString(PropertyDefinition pdef, Object value) {
         if (value == null) {
@@ -218,7 +241,8 @@ public class PropertyAdapter {
         case BOOLEAN:
             return Boolean.toString((Boolean) value);
         case ENUMERATE:
-            return ((PropertyEnumerationLitteral) value).getName();
+            //return ((PropertyEnumerationLitteral) value).getName();
+            return value.toString();
         case INTEGER:
             return value.toString();
         case STRING:

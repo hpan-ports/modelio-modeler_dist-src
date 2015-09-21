@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.partitioncontainer;
 
@@ -34,12 +34,12 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.gproject.model.IElementConfigurator;
 import org.modelio.gproject.model.IElementNamer;
 import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -84,8 +84,9 @@ public class CreatePartitionInPartitionContainerCommand extends Command {
         this.editPartRegistry = parentEditPart.getViewer().getEditPartRegistry();
         this.parentNode = (GmCompositeNode) parentEditPart.getModel();
         this.parentElement = this.parentNode.getRelatedElement();
-        if (this.parentElement instanceof AbstractDiagram)
+        if (this.parentElement instanceof AbstractDiagram) {
             this.parentElement = ((AbstractDiagram) this.parentElement).getOrigin();
+        }
         this.context = context;
         this.insertAfter = insertAfter;
         this.newConstraint = newConstraint;
@@ -111,8 +112,7 @@ public class CreatePartitionInPartitionContainerCommand extends Command {
         // The request to unmask a partition might concern a sub partition
         // that is not directly under the host: determine the direct
         // subpartition of parentElement.
-        while (partitionToUnmask.getSuperPartition() != null &&
-               !partitionToUnmask.getSuperPartition().equals(this.parentElement)) {
+        while (partitionToUnmask.getSuperPartition() != null && !partitionToUnmask.getSuperPartition().equals(this.parentElement)) {
             partitionToUnmask = partitionToUnmask.getSuperPartition();
         }
         GmCompositeNode newChild = unmaskAdditionalChild(diagram, partitionToUnmask);
@@ -123,8 +123,8 @@ public class CreatePartitionInPartitionContainerCommand extends Command {
             // Now we should have a GmPartitionContainer, find the corresponding
             // edit part, and delegate the unmasking of subsequent children to
             // it.
-            assert (newChild != null) : "CreatePartitionInPartitionContainerCommand#executeUnmask: could not find a valid Gm for partition: " +
-                                        partitionToUnmask.getName();
+            assert (newChild != null) : "CreatePartitionInPartitionContainerCommand#executeUnmask: could not find a valid Gm for partition: "
+                    + partitionToUnmask.getName();
             GmCompositeNode newChildBody = newChild.getCompositeFor(ActivityPartition.class);
             EditPart newChildBodyEditPart = (EditPart) this.editPartRegistry.get(newChildBody);
             Command command = newChildBodyEditPart.getCommand(this.originalRequest);
@@ -144,18 +144,16 @@ public class CreatePartitionInPartitionContainerCommand extends Command {
         final IModelFactory modelFactory = diagram.getModelManager().getModelFactory(diagram.getRelatedElement());
         newElement = (ActivityPartition) modelFactory.createElement(this.context.getMetaclass());
         
+        MExpert mExpert = newElement.getMClass().getMetamodel().getMExpert();
+        
         // The new element must be attached to its parent using the composition dependency
         // provided by the context.
         // If the context provides a null dependency, use the default dependency recommended by the metamodel
-        String effectiveDependencyName = this.context.getDependency();
-        MDependency effectiveDependency = null;
-        if (effectiveDependencyName != null) {
-            effectiveDependency = this.parentElement.getMClass().getDependency(effectiveDependencyName);
-        }
+        MDependency effectiveDependency = this.context.getDependency();
         if (effectiveDependency == null) {
-            effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, newElement);
+            effectiveDependency = mExpert.getDefaultCompositionDep(this.parentElement, newElement);
         }
-         
+        
         // ... and attach it to its parent.
         try {
             this.parentElement.mGet(effectiveDependency).add(newElement);
@@ -163,7 +161,7 @@ public class CreatePartitionInPartitionContainerCommand extends Command {
             // FIXME: use a finer type of exception.
             // The dependency indicated in the context cannot be used: try
             // to find a valid one!
-            MDependency compositionDep = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, newElement);
+            MDependency compositionDep = mExpert.getDefaultCompositionDep(this.parentElement, newElement);
             if (compositionDep != null) {
                 this.parentElement.mGet(compositionDep).add(newElement);
             } else {
@@ -210,18 +208,16 @@ public class CreatePartitionInPartitionContainerCommand extends Command {
         final IModelFactory modelFactory = diagram.getModelManager().getModelFactory(diagram.getRelatedElement());
         ActivityPartition newElement2 = (ActivityPartition) modelFactory.createElement(this.context.getMetaclass());
         
-             // The new element must be attached to its parent using the composition dependency
+        MExpert mExpert = newElement.getMClass().getMetamodel().getMExpert();
+        
+        // The new element must be attached to its parent using the composition dependency
         // provided by the context.
         // If the context provides a null dependency, use the default dependency recommended by the metamodel
-        String effectiveDependencyName = this.context.getDependency();
-        MDependency effectiveDependency = null;
-        if (effectiveDependencyName != null) {
-            effectiveDependency = this.parentElement.getMClass().getDependency(effectiveDependencyName);
-        }
+        MDependency effectiveDependency = this.context.getDependency();
         if (effectiveDependency == null) {
-            effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, newElement);
+            effectiveDependency = mExpert.getDefaultCompositionDep(this.parentElement, newElement);
         }
-         
+        
         // ... and attach it to its parent.
         try {
             this.parentElement.mGet(effectiveDependency).add(newElement2);
@@ -229,7 +225,7 @@ public class CreatePartitionInPartitionContainerCommand extends Command {
             // FIXME: use a finer type of exception.
             // The dependency indicated in the context cannot be used: try
             // to find a valid one!
-            MDependency compositionDep = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, newElement);
+            MDependency compositionDep = mExpert.getDefaultCompositionDep(this.parentElement, newElement);
             if (compositionDep != null) {
                 this.parentElement.mGet(compositionDep).add(newElement2);
             } else {
@@ -266,16 +262,13 @@ public class CreatePartitionInPartitionContainerCommand extends Command {
         for (GmNodeModel child : this.parentNode.getChildren(GmPartitionContainer.SUB_PARTITION)) {
             Integer childConstraint = (Integer) child.getLayoutData();
             if (childConstraint.intValue() != -1) {
-                childConstraint = Integer.valueOf(childConstraint.intValue() *
-                                                  nbOfChildren /
-                                                  (nbOfChildren + 1));
+                childConstraint = Integer.valueOf(childConstraint.intValue() * nbOfChildren / (nbOfChildren + 1));
                 child.setLayoutData(childConstraint);
             }
         }
         // Show the new element in the diagram (ie create its Gm )
-        GmCompositeNode newChild = (GmCompositeNode) diagram.unmask(this.parentNode,
-                                                                    newElement,
-                                                                    Integer.valueOf(this.newConstraint));
+        GmCompositeNode newChild = (GmCompositeNode) diagram.unmask(this.parentNode, newElement,
+                Integer.valueOf(this.newConstraint));
         // Put it at the correct place
         this.parentNode.moveChild(newChild, this.parentNode.getChildren().indexOf(this.insertAfter));
         return newChild;
@@ -284,15 +277,16 @@ public class CreatePartitionInPartitionContainerCommand extends Command {
     @objid ("2b1fd959-55b6-11e2-877f-002564c97630")
     @Override
     public boolean canExecute() {
-        if (!MTools.getAuthTool().canModify(this.parentNode.getDiagram().getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(this.parentNode.getDiagram().getRelatedElement())) {
             return false;
+        }
         
         final ActivityPartition newElement = (ActivityPartition) this.context.getElementToUnmask();
         
         if (newElement != null) {
             return true;
         } else {
-            return MTools.getAuthTool().canAdd(this.parentElement, Metamodel.getMClass(ActivityPartition.class).getName());
+            return MTools.getAuthTool().canAdd(this.parentElement, ActivityPartition.MNAME);
         }
     }
 

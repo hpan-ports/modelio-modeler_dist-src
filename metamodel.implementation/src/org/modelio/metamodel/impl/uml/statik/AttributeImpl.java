@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -30,7 +42,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
-import org.modelio.metamodel.data.uml.statik.AttributeData;
+import org.modelio.metamodel.impl.uml.statik.AttributeData;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
@@ -45,165 +57,186 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00981c78-c4be-1fd8-97fe-001ec947cd2a")
 public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
-    @objid ("da1e12c4-2400-41df-aa32-849e6e3cb239")
+    @objid ("43e2bcef-a537-496d-9261-16f9747f96bf")
     @Override
     public String getTypeConstraint() {
-        return (String) getAttVal(AttributeData.Metadata.TypeConstraintAtt());
+        return (String) getAttVal(((AttributeSmClass)getClassOf()).getTypeConstraintAtt());
     }
 
-    @objid ("0bf4f826-30ad-48e5-93d4-d2ac49aa0531")
+    @objid ("96efe48e-8bcb-429f-9907-650143af0e65")
     @Override
     public void setTypeConstraint(String value) {
-        setAttVal(AttributeData.Metadata.TypeConstraintAtt(), value);
+        setAttVal(((AttributeSmClass)getClassOf()).getTypeConstraintAtt(), value);
     }
 
-    @objid ("86f7cf61-c1e0-4284-b0f5-051c00e228d3")
+    @objid ("002ef30e-f959-4b43-b84a-e8b7ca0a8d75")
     @Override
     public String getValue() {
-        return (String) getAttVal(AttributeData.Metadata.ValueAtt());
+        return (String) getAttVal(((AttributeSmClass)getClassOf()).getValueAtt());
     }
 
-    @objid ("69f30b78-7552-4495-a42b-cb33219e24ec")
+    @objid ("e16846fe-63c8-4484-8b6d-25e3679091c5")
     @Override
     public void setValue(String value) {
-        setAttVal(AttributeData.Metadata.ValueAtt(), value);
+        setAttVal(((AttributeSmClass)getClassOf()).getValueAtt(), value);
     }
 
-    @objid ("69b49df0-f978-46cc-a0a8-a4d3ee601cdd")
+    @objid ("98e1dd91-2da9-4eed-ac4b-cd7da4e4569a")
     @Override
     public boolean isTargetIsClass() {
-        return (Boolean) getAttVal(AttributeData.Metadata.TargetIsClassAtt());
+        return (Boolean) getAttVal(((AttributeSmClass)getClassOf()).getTargetIsClassAtt());
     }
 
-    @objid ("1bd44a05-bab4-46b1-87a0-9565de3cba0e")
+    @objid ("348e9458-34ab-442c-a27a-541e1fddc621")
     @Override
     public void setTargetIsClass(boolean value) {
-        setAttVal(AttributeData.Metadata.TargetIsClassAtt(), value);
+        setAttVal(((AttributeSmClass)getClassOf()).getTargetIsClassAtt(), value);
     }
 
-    @objid ("238fd923-7a04-4a14-8ca8-606581001c04")
+    @objid ("678c88f5-a5ff-440a-905a-26edcd009bab")
     @Override
     public GeneralClass getType() {
-        return (GeneralClass) getDepVal(AttributeData.Metadata.TypeDep());
+        Object obj = getDepVal(((AttributeSmClass)getClassOf()).getTypeDep());
+        return (obj instanceof GeneralClass)? (GeneralClass)obj : null;
     }
 
-    @objid ("4f179a41-aa40-44e1-8854-b46b8b9753d4")
+    @objid ("5fcbe71e-f74c-4080-bf92-98a0fd00162a")
     @Override
     public void setType(GeneralClass value) {
-        appendDepVal(AttributeData.Metadata.TypeDep(), (SmObjectImpl)value);
+        appendDepVal(((AttributeSmClass)getClassOf()).getTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e4f69e4b-04a9-4365-848b-fb21958328b6")
+    @objid ("1a8b4091-aaa8-4119-9f40-73686e3b55d2")
     @Override
     public Classifier getOwner() {
-        return (Classifier) getDepVal(AttributeData.Metadata.OwnerDep());
+        Object obj = getDepVal(((AttributeSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof Classifier)? (Classifier)obj : null;
     }
 
-    @objid ("b574f112-90ca-49ed-98a2-48e2a77e1071")
+    @objid ("af0a6c8b-f4e5-43d8-b421-e4799f801487")
     @Override
     public void setOwner(Classifier value) {
-        appendDepVal(AttributeData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((AttributeSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f60c9c2e-0050-440c-93c1-f456a90788f3")
+    @objid ("017f8605-424d-4d78-9c23-6901c795481e")
     @Override
     public EList<AttributeLink> getOccurence() {
-        return new SmList<>(this, AttributeData.Metadata.OccurenceDep());
+        return new SmList<>(this, ((AttributeSmClass)getClassOf()).getOccurenceDep());
     }
 
-    @objid ("3b200625-b3ae-451e-bf34-2a4f885e1294")
+    @objid ("20c5b31e-2c1a-4363-81f8-a983cebffe4e")
     @Override
     public <T extends AttributeLink> List<T> getOccurence(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final AttributeLink element : getOccurence()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f1300038-a78a-4e6d-a7af-5bd0d79f9bb5")
+    @objid ("bfe2b68e-caf0-48de-bfc6-5ebc0fb9b537")
     @Override
     public EList<BpmnItemAwareElement> getRepresentingItem() {
-        return new SmList<>(this, AttributeData.Metadata.RepresentingItemDep());
+        return new SmList<>(this, ((AttributeSmClass)getClassOf()).getRepresentingItemDep());
     }
 
-    @objid ("f47e74f2-1d4a-4a85-974e-bca3e8f9eddf")
+    @objid ("ccc92c78-d1e9-42cd-9040-5d1d3d0cef2d")
     @Override
     public <T extends BpmnItemAwareElement> List<T> getRepresentingItem(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnItemAwareElement element : getRepresentingItem()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("79c9702e-35f2-4478-8eda-3b60df18ce98")
+    @objid ("2d598f98-7b50-4b76-ba08-cc7fef05726f")
     @Override
     public EList<ObjectNode> getRepresentingObjectNode() {
-        return new SmList<>(this, AttributeData.Metadata.RepresentingObjectNodeDep());
+        return new SmList<>(this, ((AttributeSmClass)getClassOf()).getRepresentingObjectNodeDep());
     }
 
-    @objid ("74660996-e1c7-4675-bafe-96c6dd8462fe")
+    @objid ("e3d5cd67-a7b2-49fb-9e41-070b2f22159d")
     @Override
     public <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ObjectNode element : getRepresentingObjectNode()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2fddfeb0-3905-4b6e-841b-83a927b11fc3")
+    @objid ("9af0016e-5d17-48b7-8533-153a96769654")
     @Override
     public AssociationEnd getQualified() {
-        return (AssociationEnd) getDepVal(AttributeData.Metadata.QualifiedDep());
+        Object obj = getDepVal(((AttributeSmClass)getClassOf()).getQualifiedDep());
+        return (obj instanceof AssociationEnd)? (AssociationEnd)obj : null;
     }
 
-    @objid ("5a5e21fc-252d-467e-939c-f9a2256dc2fb")
+    @objid ("644faccf-a6f8-4f71-9629-c8862a02d116")
     @Override
     public void setQualified(AssociationEnd value) {
-        appendDepVal(AttributeData.Metadata.QualifiedDep(), (SmObjectImpl)value);
+        appendDepVal(((AttributeSmClass)getClassOf()).getQualifiedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("33776c03-054e-43ae-8713-ff1e3d77c16c")
+    @objid ("cec34340-933b-4c82-905c-da8d938847ed")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(AttributeData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((AttributeSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(AttributeData.Metadata.QualifiedDep());
+        // Qualified
+        obj = (SmObjectImpl)this.getDepVal(((AttributeSmClass)getClassOf()).getQualifiedDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("c3955fa3-b263-4bb8-a7ef-264f88ae9334")
+    @objid ("e42986a7-6596-443a-8ac4-337080939dde")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(AttributeData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(AttributeData.Metadata.OwnerDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(AttributeData.Metadata.QualifiedDep());
-        if (obj != null)
-          return new SmDepVal(AttributeData.Metadata.QualifiedDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((AttributeSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // Qualified
+        dep = ((AttributeSmClass)getClassOf()).getQualifiedDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("5cdbea34-6f71-4dea-8259-d769ec1b14a8")
+    @objid ("88aaa1e7-31e8-4ad1-becf-adaa36714fea")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAttribute(this);

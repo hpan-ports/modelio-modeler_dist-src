@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.editors.richnote.management;
 
@@ -32,13 +32,14 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.modelio.app.core.events.ModelioEventTopics;
-import org.modelio.app.core.inputpart.IInputPartService;
+import org.modelio.core.help.inputpart.IInputPartService;
 import org.modelio.editors.richnote.api.IRichNoteEditorProvider;
 import org.modelio.editors.richnote.api.RichNoteFormat;
 import org.modelio.editors.richnote.api.RichNoteFormatRegistry;
@@ -68,8 +69,7 @@ public class RichNoteEditorsManager {
     @objid ("6ea7da69-37d3-437c-add9-c79ee434bf2f")
     @Inject
     @Optional
-    boolean onEditElement(@EventTopic(ModelioEventTopics.EDIT_ELEMENT) final MObject target, final IInputPartService inputPartService, final EPartService partService) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+    boolean onEditElement(@UIEventTopic(ModelioEventTopics.EDIT_ELEMENT) final MObject target, final IInputPartService inputPartService, final EPartService partService) {
         RichNoteFormat format = null;
         
         if (target == null) {
@@ -82,11 +82,7 @@ public class RichNoteEditorsManager {
         final IRichNoteEditor editor = session.getEditorRegistry().getEditor(target);
         if (editor != null) {
             // bring the editor to top
-            Display.getDefault().asyncExec(new Runnable() {
-                @Override
-                public void run() {
-                    partService.activate(editor.getMPart());
-                }});
+            partService.activate(editor.getMPart());
             return true;
         }
         
@@ -102,13 +98,11 @@ public class RichNoteEditorsManager {
                     @Override
                     public void run() {
                         final String inputUri = new MRef(target).toString();
-                        
-                        inputPartService.showInputPart(editorProvider.getEditorId(target), inputUri, PartState.ACTIVATE);
         
-                        //RichNoteEditorsManager.this.put(target, openedPart);
+                        inputPartService.showInputPart(editorProvider.getEditorId(target), inputUri, PartState.ACTIVATE);
                     }
-                });        
-            } else { 
+                });
+            } else {
                 reportFormatNotUsable(format);
             }
         }
@@ -117,8 +111,8 @@ public class RichNoteEditorsManager {
 
     @objid ("9f0f33d4-5603-41b5-b4a4-3047b673823a")
     private void reportFormatNotUsable(final RichNoteFormat format) {
-        String message = EditorsRichNote.I18N.getMessage("DocumentFormatNotEditable", 
-                format.getLabel(), 
+        String message = EditorsRichNote.I18N.getMessage("DocumentFormatNotEditable",
+                format.getLabel(),
                 format.getMimeType());
         Status status = new Status(IStatus.INFO, EditorsRichNote.PLUGIN_ID, message);
         
@@ -145,12 +139,12 @@ public class RichNoteEditorsManager {
         
         // Close all opened diagram editors.
         Collection<RichNoteToken> allEditors = new ArrayList<>(richNotesSession.getEditorRegistry().getAllEditors());
-        for (RichNoteToken token : allEditors) {            
+        for (RichNoteToken token : allEditors) {
             // close the editor.
             MPart mpart = token.editor.getMPart();
             if (mpart != null)
                 partService.hidePart(mpart, true);
-            
+        
             token.editor.disposeResources();
         }
         
@@ -160,17 +154,9 @@ public class RichNoteEditorsManager {
     @objid ("b00da0fc-bce8-4481-abaf-822606c57aef")
     @Inject
     @Optional
-    void onProjectClosed(@EventTopic(ModelioEventTopics.PROJECT_CLOSING) final GProject project, final EPartService partService) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        Display.getDefault().syncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                // close all diagram editors when closing the project
-                closeAll(project, partService);
-                
-            }
-        });
+    void onProjectClosed(@UIEventTopic(ModelioEventTopics.PROJECT_CLOSING) final GProject project, final EPartService partService) {
+        // close all diagram editors when closing the project
+        closeAll(project, partService);
     }
 
     @objid ("4408ac9a-bd17-4985-b950-42c08044997b")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.templateparameter;
 
@@ -25,9 +25,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.graphics.Color;
-import org.modelio.diagram.elements.common.label.base.GmElementLabel;
-import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
-import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderFigure;
+import org.modelio.diagram.elements.common.header.FlatHeaderFigure;
+import org.modelio.diagram.elements.common.label.modelelement.ModelElementLabelEditPart;
 import org.modelio.diagram.elements.core.figures.borders.ZoomableLineBorder;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.MetaKey;
@@ -37,7 +36,7 @@ import org.modelio.diagram.styles.core.StyleKey.FillMode;
  * Edit part for {@link GmTemplateSignature}.
  */
 @objid ("36e9ed53-55b7-11e2-877f-002564c97630")
-public class TemplateSignatureEditPart extends ModelElementFlatHeaderEditPart {
+public class TemplateSignatureEditPart extends ModelElementLabelEditPart {
     @objid ("36e9ed57-55b7-11e2-877f-002564c97630")
     @Override
     protected IFigure createFigure() {
@@ -69,7 +68,7 @@ public class TemplateSignatureEditPart extends ModelElementFlatHeaderEditPart {
         super.refreshFromStyle(fig, style);
         
         final TemplateSignatureFigure theFig = (TemplateSignatureFigure) fig;
-        final GmElementLabel gmModel = (GmElementLabel) getModel();
+        final GmTemplateSignature gmModel = (GmTemplateSignature) getModel();
         
         if (gmModel.getStyleKey(MetaKey.LINECOLOR) != null)
             theFig.setLineColor(style.getColor(gmModel.getStyleKey(MetaKey.LINECOLOR)));
@@ -108,7 +107,7 @@ public class TemplateSignatureEditPart extends ModelElementFlatHeaderEditPart {
      * It is a model element header with a dashed border.
      */
     @objid ("36eb73c5-55b7-11e2-877f-002564c97630")
-    public static class TemplateSignatureFigure extends ModelElementFlatHeaderFigure {
+    public static class TemplateSignatureFigure extends FlatHeaderFigure {
         @objid ("36eb73ca-55b7-11e2-877f-002564c97630")
         @Override
         public void setLineColor(final Color lineColor) {

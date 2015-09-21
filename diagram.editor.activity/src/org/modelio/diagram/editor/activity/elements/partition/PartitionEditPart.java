@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.partition;
 
@@ -37,6 +37,7 @@ import org.modelio.diagram.elements.core.commands.DeleteInDiagramCommand;
 import org.modelio.diagram.elements.core.figures.borders.TLBRBorder;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
+import org.modelio.diagram.elements.core.policies.AutoExpandLayoutEditPolicy;
 import org.modelio.diagram.elements.core.policies.DefaultDeleteNodeEditPolicy;
 import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
 import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointRequest;
@@ -76,13 +77,18 @@ public class PartitionEditPart extends GmNodeEditPart {
         installEditPolicy(EditPolicy.NODE_ROLE, new CreateFlowEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                           new LinkedNodeStartCreationEditPolicy());
+        
+        installEditPolicy(AutoExpandLayoutEditPolicy.class, new AutoExpandLayoutEditPolicy());
+        
         // Delegates "standard" requests like CREATE, ADD, CLONE and MOVE to the
         // correct composite child with the notable exception of request of
         // creation of a sibling partition being delegated to the containing
         // partition container instead.
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new PartitionDelegatingEditPolicy());
+        
         // Override the default DROP policy
         installEditPolicy(ModelElementDropRequest.TYPE, new DropDelegatingEditPolicy());
+        
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new DefaultDeleteNodeEditPolicy() {
             @Override
             protected Command getDeleteCommand(GroupRequest request) {
@@ -92,6 +98,7 @@ public class PartitionEditPart extends GmNodeEditPart {
                 return ret;
             }
         });
+        
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
     }
 
@@ -102,8 +109,8 @@ public class PartitionEditPart extends GmNodeEditPart {
     @objid ("2b18fb8c-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmPartition partitionModel = (GmPartition) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), partitionModel.getLayoutData());
+        GmPartition partitionModel = (GmPartition) getModel();
+        getFigure().getParent().setConstraint(getFigure(), partitionModel.getLayoutData());
     }
 
     @objid ("2b19229a-55b6-11e2-877f-002564c97630")
@@ -124,8 +131,9 @@ public class PartitionEditPart extends GmNodeEditPart {
         } else if (index == 1) {
             // body: free zone: go in center and take all available space.
             getContentPane().add(child, BorderLayout.CENTER);
-        } else
+        } else {
             throw new IllegalArgumentException("Unexpected child");
+        }
     }
 
     @objid ("2b1949a9-55b6-11e2-877f-002564c97630")

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.timeevent;
 
@@ -70,6 +70,9 @@ public class GmTimeEvent extends GmPinContainer {
     @objid ("31a775bc-58a2-11e2-9574-002564c97630")
     private static final GmTimeEventImageStyleKeys IMAGE_KEYS = new GmTimeEventImageStyleKeys();
 
+    @objid ("57e43fc0-5177-4aff-8cb2-e04cb2e74223")
+    private static final GmTimeEventUserImageStyleKeys USERIMAGE_KEYS = new GmTimeEventUserImageStyleKeys();
+
     /**
      * Constructor.
      * @param diagram the diagram in which the timeEvent is unmasked.
@@ -101,8 +104,8 @@ public class GmTimeEvent extends GmPinContainer {
     @Override
     public boolean canUnmask(MObject el) {
         return ((InputPin.class.isAssignableFrom(el.getClass()) ||
-                ValuePin.class.isAssignableFrom(el.getClass()) || OutputPin.class.isAssignableFrom(el.getClass())) && el.getCompositionOwner()
-                .equals(this.element));
+                                                        ValuePin.class.isAssignableFrom(el.getClass()) || OutputPin.class.isAssignableFrom(el.getClass())) && el.getCompositionOwner()
+                                                        .equals(this.element));
     }
 
     @objid ("2b5f053a-55b6-11e2-877f-002564c97630")
@@ -114,6 +117,8 @@ public class GmTimeEvent extends GmPinContainer {
             switch (mode) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKey(metakey);
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKey(metakey);
             case SIMPLE:
                 return SIMPLE_KEYS.getStyleKey(metakey);
             case STRUCTURED:
@@ -132,6 +137,8 @@ public class GmTimeEvent extends GmPinContainer {
             switch (mode) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKeys();
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKeys();
             case SIMPLE:
                 return SIMPLE_KEYS.getStyleKeys();
             case STRUCTURED:
@@ -195,7 +202,7 @@ public class GmTimeEvent extends GmPinContainer {
     @objid ("2b5f056a-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.element = (AcceptTimeEventAction) resolveRef(this.getRepresentedRef());
+        this.element = (AcceptTimeEventAction) resolveRef(getRepresentedRef());
     }
 
     @objid ("2b5f056f-55b6-11e2-877f-002564c97630")

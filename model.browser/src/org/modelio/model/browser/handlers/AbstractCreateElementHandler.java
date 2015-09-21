@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.model.browser.handlers;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -32,6 +31,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.app.project.core.services.IProjectService;
+import org.modelio.core.ui.SelectionHelper;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -42,7 +42,6 @@ import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MDependency;
-import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003688c8-8902-1006-9c1d-001ec947cd2a")
 public abstract class AbstractCreateElementHandler {
@@ -56,6 +55,7 @@ public abstract class AbstractCreateElementHandler {
     protected IMModelServices mmServices;
 
     @objid ("9ec61c0b-ccde-11e1-97e5-001ec947c8cc")
+    @SuppressWarnings("javadoc")
     @CanExecute
     public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Named("metaclass") final String metaclassName, @Named("dependency") final String dependencyName, @Optional @Named("stereotype") final String stereotypeName) {
         // Sanity checks
@@ -69,7 +69,7 @@ public abstract class AbstractCreateElementHandler {
             return false;
         }
         
-        Element selectedOwner = getSelectedElement(selection, metaclass);
+        Element selectedOwner = getNewElementOwner(selection, metaclass);
         if (selectedOwner == null) {
             return false;
         }
@@ -82,7 +82,7 @@ public abstract class AbstractCreateElementHandler {
         
         // Find stereotype
         Stereotype stereotype = null;
-        if (stereotypeName!= null && !stereotypeName.isEmpty()) {            
+        if (stereotypeName!= null && !stereotypeName.isEmpty()) {
             try {
                 stereotype = this.mmServices.getStereotype("ModelerModule", stereotypeName, metaclass);
             } catch (ElementNotUniqueException e) {
@@ -95,6 +95,7 @@ public abstract class AbstractCreateElementHandler {
     }
 
     @objid ("0065e154-9025-1006-9c1d-001ec947cd2a")
+    @SuppressWarnings("javadoc")
     @Execute
     public final void execute(final MPart part, @Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Named("metaclass") final String metaclassName, @Named("dependency") final String dependencyName, @Optional @Named("stereotype") final String stereotypeName) {
         // Sanity checks
@@ -108,7 +109,7 @@ public abstract class AbstractCreateElementHandler {
             return;
         }
         
-        Element selectedOwner = getSelectedElement(selection, metaclass);
+        Element selectedOwner = getNewElementOwner(selection, metaclass);
         if (selectedOwner == null) {
             return;
         }
@@ -123,7 +124,7 @@ public abstract class AbstractCreateElementHandler {
         Stereotype stereotype = null;
         
         final ICoreSession session = this.projectService.getSession();
-        if (stereotypeName!= null && !stereotypeName.isEmpty()) {            
+        if (stereotypeName!= null && !stereotypeName.isEmpty()) {
             try {
                 stereotype = this.mmServices.getStereotype("ModelerModule", stereotypeName, metaclass);
             } catch (ElementNotUniqueException e) {
@@ -165,23 +166,27 @@ public abstract class AbstractCreateElementHandler {
 
     @objid ("006716aa-9025-1006-9c1d-001ec947cd2a")
     protected MClass getMetaclass(final String metaclassName) {
-        MClass metaclass = SmClass.getClass(metaclassName);
+        MClass metaclass = this.projectService.getSession().getMetamodel().getMClass(metaclassName);
         assert (metaclass != null) : "Unknown metaclass: " + metaclassName;
         return metaclass;
     }
 
+    /**
+     * Get the element under which the handler must create the asked element.
+     * May return <code>null</code> in which case the command is not available.
+     * <p>
+     * Default implementation returns the selected element. May be redefined by sub classes.
+     * @param selection the E4 selection. By default only {@link Element} and {@link IStructuredSelection} are supported.
+     * @param metaclass the metaclass of the element to create
+     * @return the element that must be the owner of the created element
+     */
     @objid ("9ec61c13-ccde-11e1-97e5-001ec947c8cc")
-    protected Element getSelectedElement(final Object selection, final MClass metaclass) {
+    protected Element getNewElementOwner(final Object selection, final MClass metaclass) {
         Element selectedElement = null;
         if (selection instanceof Element) {
             selectedElement = (Element) selection;
         } else if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
-            Object first = ((IStructuredSelection) selection).getFirstElement();
-            if (first instanceof Element) {
-                selectedElement = (Element) first;
-            } else if (first instanceof IAdaptable) {
-                selectedElement = (Element) ((IAdaptable) first).getAdapter(Element.class);
-            }
+            return SelectionHelper.getFirst(((IStructuredSelection) selection), Element.class);
         }
         return selectedElement;
     }

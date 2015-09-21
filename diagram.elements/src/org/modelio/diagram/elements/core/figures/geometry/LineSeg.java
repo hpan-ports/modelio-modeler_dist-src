@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.figures.geometry;
 
@@ -238,13 +238,12 @@ public class LineSeg implements Cloneable, java.io.Serializable, Translatable {
         long d1 = Math.round(getOrigin().getDistance(new Point(xCoord, yCoord)));
         long d2 = Math.round(getTerminus().getDistance(new Point(xCoord, yCoord)));
         return (d1 < d2 ? d1 : d2);
-        
         /*
-         * There are 2 general forms to equations of a line: 1. y = mx + c, where c = y1 - m(x1), and 2. ax + by + c = 0
-         * We know m and c, so putting first version in the form of the second version, we get: mx - y + c = 0 So, for
-         * form 2, a = m, b = -1, and c = y1 - m(x1). Distance from point (x, y) to line (using form 2) is: |ax + by +
-         * c| / sqrt(a^2 + b^2) or |mx - y + y1 - m(x1)| / sqrt(m^2 + 1)
-         */
+                                 * There are 2 general forms to equations of a line: 1. y = mx + c, where c = y1 - m(x1), and 2. ax + by + c = 0
+                                 * We know m and c, so putting first version in the form of the second version, we get: mx - y + c = 0 So, for
+                                 * form 2, a = m, b = -1, and c = y1 - m(x1). Distance from point (x, y) to line (using form 2) is: |ax + by +
+                                 * c| / sqrt(a^2 + b^2) or |mx - y + y1 - m(x1)| / sqrt(m^2 + 1)
+                                 */
     }
 
     @objid ("7f85c582-1dec-11e2-8cad-001ec947c8cc")
@@ -267,9 +266,9 @@ public class LineSeg implements Cloneable, java.io.Serializable, Translatable {
         PrecisionPoint preciseOrigin = new PrecisionPoint(this.origin);
         PrecisionPoint preciseTerminus = new PrecisionPoint(this.terminus);
         return getLineEquation(preciseOrigin.preciseX,
-                               preciseOrigin.preciseY,
-                               preciseTerminus.preciseX,
-                               preciseTerminus.preciseY);
+                                                       preciseOrigin.preciseY,
+                                                       preciseTerminus.preciseX,
+                                                       preciseTerminus.preciseY);
     }
 
     /**

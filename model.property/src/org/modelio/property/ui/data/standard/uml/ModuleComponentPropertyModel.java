@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -33,7 +33,7 @@ import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 @objid ("8f4af2ae-c068-11e1-8c0a-002564c97630")
 public class ModuleComponentPropertyModel extends AbstractPropertyModel<ModuleComponent> {
     @objid ("a7872bd4-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "Module", "Name" };
+    private static final String[] PROPERTIES = new String[] { "Property", "Name" };
 
     @objid ("8f4af2b7-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -69,19 +69,19 @@ public class ModuleComponentPropertyModel extends AbstractPropertyModel<ModuleCo
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return this.labelStringType;
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return this.labelStringType;
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return this.labelStringType;
-                    case 1:
-                        return this.stringType;
-                    default:
-                        return null;
-                }
+            case 1:
+                return this.stringType;
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -89,19 +89,19 @@ public class ModuleComponentPropertyModel extends AbstractPropertyModel<ModuleCo
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return ModuleComponentPropertyModel.PROPERTIES[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getName();
-                    default:
-                        return null;
-                }
+        case 0: // col 0 is the property key
+            return ModuleComponentPropertyModel.PROPERTIES[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -127,20 +127,20 @@ public class ModuleComponentPropertyModel extends AbstractPropertyModel<ModuleCo
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
                 return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setName((String) value);
-                        return;
-                    default:
-                        return;
-                }
             default:
                 return;
+            }
+        default:
+            return;
         }
     }
 

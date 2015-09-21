@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.dialogs.dialog;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -40,13 +39,16 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.core.ui.dialog.ModelioDialog;
+import org.modelio.edition.dialogs.PanelDescriptor;
 import org.modelio.edition.dialogs.plugin.EditionDialogs;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.ui.panel.IPanelProvider;
+import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
 import org.modelio.vcore.session.api.model.change.IModelChangeListener;
+import org.modelio.vcore.session.api.model.change.IStatusChangeEvent;
+import org.modelio.vcore.session.api.model.change.IStatusChangeListener;
 
 /**
  * Modelio Dialog box displaying the properties of a model element for edition.
@@ -55,8 +57,8 @@ import org.modelio.vcore.session.api.model.change.IModelChangeListener;
  * <ul>
  * <li>a specialized {@link IPanelProvider} instance to actually gather the UML properties and tagged values tables of the edited
  * element and to display/edit them. The specialized {@link IPanelProvider} implementation class is obtained from the
- * {@link PanelContributions}. The specialized panel can be thought as an edition wizard providing advanced viewing and edition of an
- * object.</li>
+ * {@link PanelDescriptor}. The specialized panel can be thought as an edition wizard providing advanced viewing and edition of
+ * an object.</li>
  * <li>a notes & constraints panel displaying the notes and constrains held by the edited element</li>
  * <li>a generic UML/MDA view of the edited element where UML properties and MDA annotations are displayed in a generic way (table
  * of properties)</li>
@@ -65,12 +67,12 @@ import org.modelio.vcore.session.api.model.change.IModelChangeListener;
  * </ul>
  * 
  * 
- * The dialog installs itself as a {@link IModelChangeListener} whose strategy consists in re-setting the input of the element
- * panel each time a model change event occurs. It also deals with deleted object by closing the dialog and invalid object by
- * setting the input of the element panel to null.
+ * The dialog installs itself as a {@link IModelChangeListener} whose strategy consists in re-setting the input of the element panel
+ * each time a model change event occurs. It also deals with deleted object by closing the dialog and invalid object by setting the
+ * input of the element panel to null.
  */
 @objid ("61e20035-5087-4ab7-9840-43bcce555ecd")
-public class EditElementDialog extends ModelioDialog implements IModelChangeListener {
+public class EditElementDialog extends ModelioDialog implements IModelChangeListener, IStatusChangeListener {
     @objid ("a9732f13-8026-47a3-8457-b7c257c8ffdf")
     private static final String HELP_TOPIC = EditionDialogs.I18N.getString("EditElementDialog.HELP_TOPIC");
 
@@ -83,23 +85,25 @@ public class EditElementDialog extends ModelioDialog implements IModelChangeList
     @objid ("12733530-6b5e-4fa4-85ea-7f0df9a3ce2a")
     private List<IPanelProvider> tabbedPanels = new ArrayList<>();
 
-    @objid ("3ed17cf5-8e42-494b-a628-1b6af0a5ad54")
-    private IEclipseContext eclipseContext;
+    @objid ("108bc72c-92a3-44bb-8471-baf7ed789b5b")
+    private List<PanelDescriptor> panelDescriptors;
 
-    @objid ("ca4f8d45-8615-4ec5-9282-426a3847f4e5")
-    private Class<? extends IPanelProvider> panelClass;
+    @objid ("07a9e0a7-6a31-4e38-98f1-844b797c5888")
+    private ICoreSession coreSession;
 
-    @objid ("3fbc3f5a-c81a-4d4f-81c1-c532a03581c0")
+    @objid ("69fbd83b-5aee-476e-a638-5b9b1d6ff3c3")
     private TabFolder tabFolder;
 
     /**
      * @param parentShell the parent SWT shell
-     * @param eclipseContext the Eclipse 4 context to use and inject into panels/
+     * @param panelDescriptors the dialog panel descriptors
+     * @param coreSession the modeling session
      */
     @objid ("e11d9728-db21-4462-8460-cd4e87f90d44")
-    public EditElementDialog(Shell parentShell, IEclipseContext eclipseContext) {
+    public EditElementDialog(Shell parentShell, List<PanelDescriptor> panelDescriptors, ICoreSession coreSession) {
         super(parentShell);
-        this.eclipseContext = eclipseContext;
+        this.coreSession = coreSession;
+        this.panelDescriptors = panelDescriptors;
     }
 
     @objid ("d3781c49-5caf-42d9-a418-c31d718ba520")
@@ -115,12 +119,12 @@ public class EditElementDialog extends ModelioDialog implements IModelChangeList
         gd.grabExcessVerticalSpace = true;
         this.tabFolder.setLayoutData(gd);
         
-        // Collect and add panels
-        PanelContributions c = new PanelContributions(this.eclipseContext);
-        for (PanelDescriptor desc : c.getPanels(this.editedElement)) {
+        // Create the panels
+        for (PanelDescriptor desc : this.panelDescriptors) {
             IPanelProvider panel = desc.getPanel();
-            if (panel != null && panel.isRelevantFor(this.editedElement))
+            if (panel != null) {
                 createTabbedPanel(this.tabFolder, panel, desc.getPanelLabel());
+            }
         }
         
         // Set the input
@@ -137,10 +141,19 @@ public class EditElementDialog extends ModelioDialog implements IModelChangeList
         });
         
         // Plug model change listener ( the listener is un-plugged in the close() method)
-        IProjectService ps = this.eclipseContext.get(IProjectService.class);
-        if (ps != null) {
-            ps.getSession().getModelChangeSupport().addModelChangeListener(this);
+        if (this.coreSession != null) {
+            this.coreSession.getModelChangeSupport().addModelChangeListener(this);
+            this.coreSession.getModelChangeSupport().addStatusChangeListener(this);
         }
+        
+        // Un-plug model change listener on Shell disposal
+        parent.getShell().addDisposeListener((e) -> {
+            if (this.coreSession != null) {
+                this.coreSession.getModelChangeSupport().removeModelChangeListener(this);
+                this.coreSession.getModelChangeSupport().removeStatusChangeListener(this);
+                this.coreSession = null;
+            }
+        });
         return this.tabFolder;
     }
 
@@ -169,7 +182,7 @@ public class EditElementDialog extends ModelioDialog implements IModelChangeList
         closeButton.addSelectionListener(new SelectionListener() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                EditElementDialog.this.close(); 
+                EditElementDialog.this.close();
             }
         
             @Override
@@ -194,22 +207,6 @@ public class EditElementDialog extends ModelioDialog implements IModelChangeList
         this.editedElement = editedElement;
     }
 
-    @objid ("04e0c3f9-d024-11e1-9020-002564c97630")
-    @Override
-    public boolean close() {
-        // Un-plug model change listener
-        IProjectService ps = this.eclipseContext.get(IProjectService.class);
-        if (ps != null) {
-            ps.getSession().getModelChangeSupport().removeModelChangeListener(this);
-        }
-        
-        for (IPanelProvider panel : this.tabbedPanels) {
-            panel.setInput(null);
-            panel.dispose();
-        }
-        return super.close();
-    }
-
     /**
      * Return the selected tab help topic or the dialog topic if no help is defined for the active panel.
      */
@@ -221,8 +218,9 @@ public class EditElementDialog extends ModelioDialog implements IModelChangeList
             int tabIdx = this.tabFolder.getSelectionIndex();
             if (tabIdx != -1) {
                 String topic = this.tabbedPanels.get(tabIdx).getHelpTopic();
-                if (topic != null && !topic.isEmpty())
+                if (topic != null && !topic.isEmpty()) {
                     return topic;
+                }
             }
         }
         
@@ -233,34 +231,60 @@ public class EditElementDialog extends ModelioDialog implements IModelChangeList
     @objid ("81119e6d-3446-4d79-8566-c5fe980e241f")
     @Override
     public void modelChanged(IModelChangeEvent event) {
-        // Deal with deleted and invalid elements
-        if (this.editedElement != null) {
-            if (this.editedElement.isDeleted()) {
-                close();
-                return;
-            }
-            if (!this.editedElement.isValid()) {
-                for (IPanelProvider panel : this.tabbedPanels) {
-                    panel.setInput(null);
+        getShell().getDisplay().syncExec(() -> {
+            // Deal with deleted and invalid elements
+            if (this.editedElement != null) {
+                if (this.editedElement.isDeleted()) {
+                    close();
+                    return;
                 }
-                return;
+                if (!this.editedElement.isValid()) {
+                    for (IPanelProvider panel : this.tabbedPanels) {
+                        panel.setInput(null);
+                    }
+                    return;
+                }
             }
-        }
-        // Simplest strategy here : setInput on element Panel
-        for (IPanelProvider panel : this.tabbedPanels) {
-            panel.setInput(this.editedElement);
-        }
+            // Simplest strategy here : setInput on element Panel
+            for (IPanelProvider panel : this.tabbedPanels) {
+                panel.setInput(this.editedElement);
+            }
+        });
     }
 
     @objid ("fe6a8847-a680-4d31-9b16-3bbbc2354a0f")
-    private IPanelProvider createTabbedPanel(TabFolder tabFolder, IPanelProvider panel, String label) {
-        TabItem tabItem = new TabItem(tabFolder, SWT.NULL);
+    private IPanelProvider createTabbedPanel(TabFolder aTabFolder, IPanelProvider panel, String label) {
+        TabItem tabItem = new TabItem(aTabFolder, SWT.NULL);
         tabItem.setText(label);
-        Control top = (Control) panel.createPanel(tabFolder);
+        Control top = (Control) panel.createPanel(aTabFolder);
         tabItem.setControl(top);
         
         this.tabbedPanels.add(panel);
         return panel;
+    }
+
+    @objid ("b3cf7cfc-844c-4b19-b82c-6c561580b543")
+    @Override
+    public void statusChanged(IStatusChangeEvent event) {
+        getShell().getDisplay().syncExec(() -> {
+            // Deal with deleted and invalid elements
+            if (this.editedElement != null) {
+                if (this.editedElement.isDeleted()) {
+                    close();
+                    return;
+                }
+                if (!this.editedElement.isValid()) {
+                    for (IPanelProvider panel : this.tabbedPanels) {
+                        panel.setInput(null);
+                    }
+                    return;
+                }
+            }
+            // Simplest strategy here : setInput on element Panel
+            for (IPanelProvider panel : this.tabbedPanels) {
+                panel.setInput(this.editedElement);
+            }
+        });
     }
 
 }

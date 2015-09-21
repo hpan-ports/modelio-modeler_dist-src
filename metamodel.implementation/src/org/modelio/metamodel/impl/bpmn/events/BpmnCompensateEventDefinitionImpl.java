@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -30,7 +42,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.events.BpmnCompensateEventDefinition;
-import org.modelio.metamodel.data.bpmn.events.BpmnCompensateEventDefinitionData;
+import org.modelio.metamodel.impl.bpmn.events.BpmnCompensateEventDefinitionData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -39,36 +51,43 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00897772-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnCompensateEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnCompensateEventDefinition {
-    @objid ("32e3b7b5-dbc5-48f8-9fc8-e0a25955a110")
+    @objid ("ea175f50-7078-469f-bf27-c7fff66e78a1")
     @Override
     public BpmnActivity getActivityRef() {
-        return (BpmnActivity) getDepVal(BpmnCompensateEventDefinitionData.Metadata.ActivityRefDep());
+        Object obj = getDepVal(((BpmnCompensateEventDefinitionSmClass)getClassOf()).getActivityRefDep());
+        return (obj instanceof BpmnActivity)? (BpmnActivity)obj : null;
     }
 
-    @objid ("43731350-be12-496c-8ac5-e80667e3a710")
+    @objid ("b2dc36e6-1497-401f-ae18-5aae7a7a02b8")
     @Override
     public void setActivityRef(BpmnActivity value) {
-        appendDepVal(BpmnCompensateEventDefinitionData.Metadata.ActivityRefDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnCompensateEventDefinitionSmClass)getClassOf()).getActivityRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f01c473e-79ca-4a23-aa09-623ea9294b39")
+    @objid ("d9f76005-64af-4b1d-ad0f-b73eb4a46d89")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d3d3e0ca-ba92-4efc-b944-c5e33822820e")
+    @objid ("7ddb90de-bec1-4a02-92c3-2d32947c1e21")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("46daba36-f3fc-42d9-8645-51e252b89627")
+    @objid ("714b08fd-57c1-4748-bc41-d99afbcc5c1e")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnCompensateEventDefinition(this);

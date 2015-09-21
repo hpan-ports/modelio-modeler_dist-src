@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -37,9 +37,6 @@ import org.modelio.xmi.util.XMILogs;
 
 @objid ("c3ab695e-7613-4fbd-8392-585a72f02060")
 public class ONaryLink extends OModelElement {
-    @objid ("7e574516-73b9-4299-8067-ee4382a442fc")
-    private NaryLink objingElement = null;
-
     @objid ("514d2777-5334-40c1-8826-eaef7f045f76")
     private Element linkOwner = null;
 
@@ -56,16 +53,15 @@ public class ONaryLink extends OModelElement {
         }
         
         XMILogs xmilogs = XMILogs.getInstance();
-        xmilogs.writelnInLog(Xmi.I18N.getMessage("logFile.warning.unsupportedExport", 
-                this.objingElement.getName(), 
-                this.objingElement.getClass().getName()));
+        xmilogs.writelnInLog(Xmi.I18N.getMessage("logFile.warning.unsupportedExport",
+                getObjingElement().getName(),
+                getObjingElement().getClass().getName()));
         return null;
     }
 
     @objid ("47a76052-6166-4d85-bb81-b773971cff5e")
     public ONaryLink(NaryLink element) {
         super(element);
-        this.objingElement = element;
         this.linkOwner = AbstractObjingModelNavigation.getNaryLinkOwner(element);
         this.connectorOwner = AbstractObjingModelNavigation.getNaryConnectorOwner(element);
     }
@@ -98,14 +94,14 @@ public class ONaryLink extends OModelElement {
 
     @objid ("a353bbd5-474d-4eff-9db5-fe92a7906e55")
     private void setName(InstanceSpecification connector) {
-        String eltName = this.objingElement.getName();
+        String eltName = getObjingElement().getName();
         if (AbstractObjingModelNavigation.isNotNullOrEmpty(eltName))
             connector.setName(eltName);
     }
 
     @objid ("e4b0dc1b-6411-4bdf-a7b9-bc1f461b7d6d")
     private void setBase(InstanceSpecification connector) {
-        NaryAssociation base = this.objingElement.getModel();
+        NaryAssociation base = getObjingElement().getModel();
         
         if (base != null){
             org.eclipse.uml2.uml.Element type = GenerationProperties.getInstance().getMappedElement(base);
@@ -153,7 +149,7 @@ public class ONaryLink extends OModelElement {
                         "logFile.exception.stringConverter.haveNotOwner",
                         ecoreElt.getClass().toString());
                 logs.writelnInLog(message);
-                GenerationProperties.getInstance().getReportModel().addWarning(message, this.objingElement);
+                GenerationProperties.getInstance().getReportModel().addWarning(message, getObjingElement());
             }
         }
     }
@@ -166,7 +162,7 @@ public class ONaryLink extends OModelElement {
 
     @objid ("b9895ce4-98c1-4517-b818-2e437526cc6e")
     private void setBase(org.eclipse.uml2.uml.Connector ecoreElt) {
-        Element temp = this.objingElement.getModel();
+        Element temp = getObjingElement().getModel();
         if (temp != null){
             org.eclipse.uml2.uml.Element ecoreType = GenerationProperties.getInstance().getMappedElement(temp);
             if (ecoreType instanceof org.eclipse.uml2.uml.Association)
@@ -178,6 +174,12 @@ public class ONaryLink extends OModelElement {
     @objid ("37e5e691-2c49-4b7c-8b0f-eb9c019a8986")
     private void setKind(org.eclipse.uml2.uml.Connector ecoreElt) {
         ecoreElt.setKind(org.eclipse.uml2.uml.ConnectorKind.DELEGATION_LITERAL);
+    }
+
+    @objid ("4db3b72d-321e-48fd-a3a4-fa43e4349e93")
+    @Override
+    public NaryLink getObjingElement() {
+        return (NaryLink) super.getObjingElement();
     }
 
 }

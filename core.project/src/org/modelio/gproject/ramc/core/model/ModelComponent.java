@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.ramc.core.model;
 
@@ -213,8 +213,9 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
     @Override
     public int compareTo(ModelComponent model) {
         int result = this.name.compareTo(model.name);
-        if (result == 0)
+        if (result == 0) {
             result = this.version.toString().compareTo(model.version.toString());
+        }
         return result;
     }
 
@@ -264,7 +265,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     }
                 }
             }
-            return new Version(0, 0, 0, 0);
+            return new Version(0, 0, 0);
         }
 
         @objid ("4fe182f0-adce-4503-915d-2a6bfd28048d")
@@ -301,10 +302,10 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                 if (type != null && type.getName().equals(TAG_TYPE)) {
                     int nParameters = taggedvalue.getActual().size();
                     TagParameter[] parameters = taggedvalue.getActual().toArray(new TagParameter[nParameters]);
-                    
+            
                     if (nParameters>0 && (nParameters & 1) == 1) {
                         // one param missing
-                        String message = CoreProject.getMessage("ModelComponent.BadModelComponentFiles", 
+                        String message = CoreProject.getMessage("ModelComponent.BadModelComponentFiles",
                                 ramc.getName(),
                                 TAG_TYPE,
                                 Arrays.deepToString(parameters));
@@ -335,7 +336,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                 if (isValidManifestedElement(me)) {
                     elements.add(me);
                 }
-                
+            
             }
             return elements;
         }
@@ -377,8 +378,9 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     IModelFactory factory = ModelFactory.getFactory(ramc);
                     note = factory.createNote(MODELER_MODULE, "description", ramc, "");
                 }
-                if (note != null)
+                if (note != null) {
                     note.setContent(description);
+                }
             } catch (ExtensionNotFoundException e) {
                 //Log.error("Note type 'ModelerModule#description' not found or not unique");
             }
@@ -386,7 +388,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
 
         @objid ("cbaff0fc-a306-4773-a34a-759dc93e1f26")
         public static void setVersion(Artifact ramc, Version version) {
-            String v = String.format("%d.%d.%02d.%04d", version.getMajorVersion(), version.getMinorVersion(), version.getBuildVersion(), version.getMetamodelVersion());
+            String v = String.format("%d.%d.%02d", version.getMajorVersion(), version.getMinorVersion(), version.getBuildVersion());
             
             try {
                 TaggedValue taggedValue = ramc.getTag(MODELER_MODULE, "ModelComponentVersion");
@@ -441,8 +443,9 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
         public static void setManifestedElements(Artifact ramc, Set<Element> manifestedElements) {
             // Remove existing ones
             for (Manifestation manifestation : new ArrayList<>(ramc.getUtilized())) {
-                if (isValidManifestedElement(manifestation.getUtilizedElement()))
+                if (isValidManifestedElement(manifestation.getUtilizedElement())) {
                     manifestation.delete();
+                }
             }
             
             // Add new ones

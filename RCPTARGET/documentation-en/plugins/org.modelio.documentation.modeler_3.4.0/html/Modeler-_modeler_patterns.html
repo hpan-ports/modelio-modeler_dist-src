@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler- modeler patterns</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Model-patterns"></a>
+<h1 >Model patterns<a href="#Model-patterns" class="wiki-anchor">&para;</a></h1>
+
+<p>Model patterns are a powerful modeling feature of the Modelio modeler.</p>
+
+<p>A pattern is a model fragment which can be reproduced infinitely in various environments, like an ink stamp duplicating an image at will. A pattern can also have parameters, in order to comply to specific contexts during its application, just like a date-stamp you can update everyday.</p>
+
+<p>In practice, there are two important phases in the lifecycle of a pattern:</p>
+
+<ul>
+<li>The creation phase, which consist of:
+
+<ul>
+<li>preparing the model example that will be reproduced during the application of the pattern</li>
+<li>preparing the pattern parameters, i.e. defining variation points for the pattern application</li>
+</ul>
+</li>
+<li>The application phase which consist of using the pattern in a specific part of the model, setting its parameters if necessary, before executing the pattern and creating the corresponding model.</li>
+</ul>
+
+
+<p>One of the main benefits of a pattern is that after a single creation, it can be applied N times, making its ROI proportional to N.</p>
+
+<p>Modelio offers the following pattern-related features:</p>
+
+<ul>
+<li><strong>Pattern creation</strong>
+
+<ul>
+<li>Modeling of a UML model pattern, or extraction of a pattern from an existing model.</li>
+<li>Definition of pattern parameters.</li>
+</ul>
+</li>
+<li><strong>Publication planning</strong>
+
+<ul>
+<li>Definition of the pattern packaging (name, version, labels, GUI, etc.)</li>
+<li>Exporting and sharing patterns between projects</li>
+</ul>
+</li>
+<li><strong>Pattern use</strong>
+
+<ul>
+<li>Setting and applying patterns</li>
+</ul>
+</li>
+</ul>
+
+
+<a name="Creating-a-pattern"></a>
+<h2 >Creating a pattern<a href="#Creating-a-pattern" class="wiki-anchor">&para;</a></h2>
+
+<p>A pattern can be created in two different ways:</p>
+
+<ol>
+<li>From scratch.</li>
+<li>From an existing model.</li>
+</ol>
+
+
+<a name="Creating-a-pattern-from-scratch"></a>
+<h3 >Creating a pattern from scratch<a href="#Creating-a-pattern-from-scratch" class="wiki-anchor">&para;</a></h3>
+
+<p>To create a pattern from scratch, proceed as follows:</p>
+
+<ol>
+<li>From the model browser, run the command &ldquo;Patterns/Create a Pattern/ Create an empty Pattern&rdquo;</li>
+<li>Under the created Pattern element, build the desired content of the pattern in the form of a classic UML model (model elements, diagrams, etc.). That model will be the content of the new pattern.</li>
+</ol>
+
+
+<p><img src="Modeler-_modeler_patterns_CreateEmptyPattern2.png" alt="2" /></p>
+
+<p>The above picture shows a pattern named <em>Observer</em>, built over the JDK classes Observable/Observer. It shows the pattern content, the classes <em>View</em> and <em>Model</em>, as well as their methods. Note that the diagram will be part of the pattern and will be procuced during its appplication.</p>
+
+<p>The main advantage of this process is that it lets you create the whole model. Note that having to build the whole model can be a drawback too.<br/>
+For example, if the above &lsquo;Observer&rsquo; pattern is meant to generate java code, as seems to indicate the generalization diagram, all the annotations and Java notes which are necessary to generate the code still have to be introduced, which can be quite tedious.<br/>
+It may happen that the desired content of the pattern is already available in complete and annotated models that you have at hand. Using those models as the basis for the building of a pattern is the second method.</p>
+
+<a name="Creating-a-pattern-from-an-existing-UML-model"></a>
+<h3 >Creating a pattern from an existing UML model<a href="#Creating-a-pattern-from-an-existing-UML-model" class="wiki-anchor">&para;</a></h3>
+
+<p>Creating a pattern from an existing UML model is an easy task.
+It consists of identifying the parts of the existing model which represent the function you want to use as your pattern content, and converting them into a copy that will then become the pattern itself. The original model <strong>will remain unchanged</strong>.</p>
+
+<p>To create a pattern from an existing UML model, proceed as follows:</p>
+
+<ol>
+<li>Select the element you want to use as the root of the model to use as a content for your pattern.</li>
+<li>Run the command &ldquo;Pattern Designer /  Create a pattern from the model&rdquo;</li>
+</ol>
+
+
+<p>The command will create a new pattern based on the copy of the selected UML model, as shown in the picture below:</p>
+
+<p><img src="Modeler-_modeler_patterns_CreatePatternFromModel1.png" alt="3" /></p>
+
+<p>In this example, the pattern creation command executed on the Java class <strong>Manager</strong>, let the original model unchanged, but made a copy (1) and converted it into a pattern (2).</p>
+
+<a name="Defining-parameters-for-a-pattern"></a>
+<h2 >Defining parameters for a pattern<a href="#Defining-parameters-for-a-pattern" class="wiki-anchor">&para;</a></h2>
+
+<p>Once the pattern has been created, it can be used, but it will reproduce strictly the same model as the one it is based on.<br/>
+Although this is already an interesting feature, it would be even better if the &lsquo;Observer&rsquo; pattern would let you, for example, to rename the &lsquo;View&rsquo; class in order to specialize it.</p>
+
+<p>To do so, Modelio lets you define parameters, used to adapt the produced UML model to the current context when it is applied.</p>
+
+<p>There are two kinds of parameters:</p>
+
+<ul>
+<li>The string type parameters,</li>
+<li>and the model element type parameters.</li>
+</ul>
+
+
+<a name="Defining-a-string-type-parameter"></a>
+<h3 >Defining a string type parameter<a href="#Defining-a-string-type-parameter" class="wiki-anchor">&para;</a></h3>
+
+<p>Any string defined in the UML model can be converted into a pattern parameter.
+For example, the name of a model element, the content of a code note, or an element property, can all become a <em>String</em> type parameter.
+To define a <em>String</em> type parameter, replace the string with $(paramter&rsquo;s name). Any alphanumeric combination can be used as a parameter&rsquo;s name.</p>
+
+<p>Example: Creation of the parameters $(View) and $(ModelName)</p>
+
+<p><img src="Modeler-_modeler_patterns_PatternStringParameter.png" alt="4" /></p>
+
+<p>Modifiers can be added to the parameters:</p>
+
+<ul>
+<li>upper : Upper case string. Ex: $(view, upper)</li>
+<li>lower : Lower case string. Ex: $(view, lower)</li>
+<li>cfirst : String&rsquo;s first letter in Upper case. Ex : $(view,cfirst)</li>
+<li>lfirst : String&rsquo;s first letter in Lower case. Ex : $(view, lfirst)</li>
+</ul>
+
+
+<a name="Defining-a-model-element-type-parameter"></a>
+<h3 >Defining a model element type parameter<a href="#Defining-a-model-element-type-parameter" class="wiki-anchor">&para;</a></h3>
+
+<p>Model element can also become pattern parameters. Those parameters have to be instantiated with a model element of the same kind during the application of the pattern.</p>
+
+<p>Model element type parameter  are automatically set when an element belonging to the pattern has a reference (attribute type, generalization link, etc.) to an element that is not part of the pattern. The latter can&rsquo;t belong to a model component (the parameter would then become a Constant)</p>
+
+<p>Example : Creation of a clas linked to another via a composition.</p>
+
+<p><img src="Modeler-_modeler_patterns_PatternElementParameter.png" alt="5" /></p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

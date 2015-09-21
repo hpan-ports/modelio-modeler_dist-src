@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.internalstructure;
 
@@ -25,24 +25,18 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.modelio.diagram.elements.core.figures.RectangularFigure;
 import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
+import org.modelio.diagram.elements.core.policies.AutoExpandLayoutEditPolicy;
 
 /**
  * {@link GmInternalStructure} edit part.
  */
 @objid ("35942168-55b7-11e2-877f-002564c97630")
 public class InternalStructureEditPart extends GmNodeEditPart {
-    /**
-     * c'tor.
-     */
-    @objid ("3594216c-55b7-11e2-877f-002564c97630")
-    public InternalStructureEditPart() {
-        super();
-    }
-
     @objid ("3594216f-55b7-11e2-877f-002564c97630")
     @Override
     protected IFigure createFigure() {
@@ -90,6 +84,14 @@ public class InternalStructureEditPart extends GmNodeEditPart {
         if (model.getLayoutData() != null) {
             getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
         }
+    }
+
+    @objid ("9dd05912-c68e-4c47-95a7-daf1b03a1d59")
+    @Override
+    protected void createEditPolicies() {
+        super.createEditPolicies();
+        
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new AutoExpandLayoutEditPolicy());
     }
 
 }

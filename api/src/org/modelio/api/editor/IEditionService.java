@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.editor;
 
@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.api.diagram.ContributorCategory;
+import org.modelio.api.ui.contributor.IWizardContributor;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
@@ -177,5 +179,23 @@ public interface IEditionService {
      */
     @objid ("01f9c416-fad2-49e5-89a0-d2bb8321b001")
     void openEditor(final ExternDocument document);
+
+    /**
+     * Register creation wizard contributor
+     * @param contributor
+     * @param category of the diagram contributor
+     * @since 3.4
+     */
+    @objid ("f910f910-27b2-4606-819a-ddc374b91819")
+    void registerDiagramContributor(ContributorCategory category, IWizardContributor contributor);
+
+    /**
+     * Unregister creation wizard contributor
+     * @param contributor
+     * @param category of the diagram contributor
+     * @since 3.4
+     */
+    @objid ("8f349def-4bbb-4dd2-8836-0fd20f159bc0")
+    void unregisterDiagramContributor(ContributorCategory category, IWizardContributor contributor);
 
 }

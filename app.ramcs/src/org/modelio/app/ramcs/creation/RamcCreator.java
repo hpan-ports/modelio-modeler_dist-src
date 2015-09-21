@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.ramcs.creation;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.app.ramcs.plugin.AppRamcs;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.factory.ModelFactory;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -44,14 +43,14 @@ public class RamcCreator {
         CoreSession session = CoreSession.getSession(rootPackage);
         IModelFactory factory = ModelFactory.getFactory(session);
         rootPackage.getCompositionChildren();
-        List<Stereotype> stereotypes = factory.findStereotype("ModelerModule", "ModelComponentArchive", Metamodel.getMClass(Artifact.class));
+        List<Stereotype> stereotypes = factory.findStereotype("ModelerModule", "ModelComponentArchive", session.getMetamodel().getMClass(Artifact.class));
         Stereotype mca = stereotypes.isEmpty()? null : stereotypes.get(0);
         Artifact artifact = null;
         try (ITransaction t = session.getTransactionSupport().createTransaction("Create a model component")) {
-            
+        
             artifact = factory.createArtifact(computeDefaultName(rootPackage), rootPackage, mca);
             t.commit();
-            
+        
         }
         return  artifact;
     }
@@ -60,7 +59,7 @@ public class RamcCreator {
     private static String computeDefaultName(Package rootPackage) {
         String baseName = AppRamcs.I18N.getString("NewRamcDefaultName");
         int index = 1;
-        boolean exist = rootPackage.getCompositionChildren().size()>0;       
+        boolean exist = rootPackage.getCompositionChildren().size()>0;
         while (exist) {
             for (MObject child : rootPackage.getCompositionChildren()) {
                 if (child.getName().equals(baseName + index)) {

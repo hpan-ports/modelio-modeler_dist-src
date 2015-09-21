@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -30,7 +30,6 @@ import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 
@@ -51,13 +50,13 @@ public class OMessage extends OModelElement {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         // we need to take the interaction on the send event
-        Interaction interaction = (Interaction) AbstractObjingModelNavigation.getEnclosingElement(getObjingElement(), 
-                SmClass.getClass(Interaction.class));
+        Interaction interaction = (Interaction) AbstractObjingModelNavigation.getEnclosingElement(getObjingElement(),
+                getObjingElement().getMClass().getMetamodel().getMClass(Interaction.class));
         
         
         Object ecoreInteraction =  GenerationProperties.getInstance().getMappedElement(interaction);
         
-        if ((ecoreInteraction != null) && (ecoreInteraction instanceof org.eclipse.uml2.uml.Interaction)) 
+        if ((ecoreInteraction != null) && (ecoreInteraction instanceof org.eclipse.uml2.uml.Interaction))
             ((org.eclipse.uml2.uml.Message) ecoreElt).setInteraction((org.eclipse.uml2.uml.Interaction)ecoreInteraction);
     }
 
@@ -114,9 +113,9 @@ public class OMessage extends OModelElement {
         MessageEnd end1 = objMessage.getReceiveEvent();
         MessageEnd end2 = objMessage.getSendEvent();
         
-        if ((end1 != null ) 
-                && (end2 != null) 
-                && (end1.getCovered().size() > 0) 
+        if ((end1 != null )
+                && (end2 != null)
+                && (end1.getCovered().size() > 0)
                 &&  (end2.getCovered().size() > 0)) {
         
             Lifeline lifeline1 = end1.getCovered().get(0);

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,26 +12,45 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 0.0.9024, by Modeliosoft
+ Generator version: 3.2.10.9023
+ Generated on: Mar 19, 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 0.0.9025, by Modeliosoft
+ Generator version: 3.3.00
+ Generated on: Jun 10, 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+ Metamodel: Standard, version 0.0.9025, by Modeliosoft
+ Generator version: 3.3.01
+ Generated on: Jun 10, 2015
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.analyst.PropertyContainer;
-import org.modelio.metamodel.data.uml.infrastructure.properties.PropertyTableDefinitionData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.infrastructure.properties.PropertyTableDefinitionData;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
@@ -45,116 +64,156 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0067251e-ec87-1098-b22e-001ec947cd2a")
 public class PropertyTableDefinitionImpl extends ModelElementImpl implements PropertyTableDefinition {
-    @objid ("7b8e850f-49a5-46fe-8074-4574a3b23b72")
+    @objid ("3c15be4c-a379-4451-bbb3-d2fd764d4819")
+    private Map<String, PropertyDefinition> pDefsCache = new HashMap<>();
+
+    @objid ("53e1d3c8-db3c-41a7-bd71-983865f30672")
+    @Override
+    public PropertyDefinition getOwned(String propName) {
+        PropertyDefinition pDef = this.pDefsCache.get(propName);
+        if (pDef == null) {
+            for (PropertyDefinition p : getOwned()) {
+                if (p.getName().equals(propName)) {
+                    pDef = p;
+                    this.pDefsCache.put(propName, p);
+                }
+            }
+        }
+        return pDef;
+    }
+
+    @objid ("f2617622-c5ee-4f53-8176-b00dfc4895e1")
     @Override
     public PropertyContainer getOwner() {
-        return (PropertyContainer) getDepVal(PropertyTableDefinitionData.Metadata.OwnerDep());
+        Object obj = getDepVal(((PropertyTableDefinitionSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof PropertyContainer)? (PropertyContainer)obj : null;
     }
 
-    @objid ("0099916f-e9c2-4057-84ec-b20a97e1e74c")
+    @objid ("c631aa0b-0ac4-4b70-80d2-deb5bee15398")
     @Override
     public void setOwner(PropertyContainer value) {
-        appendDepVal(PropertyTableDefinitionData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((PropertyTableDefinitionSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("378ee51e-2582-4960-9a75-4c1fee7bdc1b")
+    @objid ("d600de64-5c65-4e4f-8f3f-ec9ec8b1f571")
     @Override
     public EList<TypedPropertyTable> getTypedTable() {
-        return new SmList<>(this, PropertyTableDefinitionData.Metadata.TypedTableDep());
+        return new SmList<>(this, ((PropertyTableDefinitionSmClass)getClassOf()).getTypedTableDep());
     }
 
-    @objid ("83873cd6-dc45-43e8-9cdf-8289842a9915")
+    @objid ("772baf98-b078-44e0-a576-658e89bc0550")
     @Override
     public <T extends TypedPropertyTable> List<T> getTypedTable(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final TypedPropertyTable element : getTypedTable()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("0a13e7d3-8293-4d9d-bf6a-4904c0f0a109")
+    @objid ("03b00de1-9968-4211-a28a-b4c3f1035743")
     @Override
     public MetaclassReference getOwnerReference() {
-        return (MetaclassReference) getDepVal(PropertyTableDefinitionData.Metadata.OwnerReferenceDep());
+        Object obj = getDepVal(((PropertyTableDefinitionSmClass)getClassOf()).getOwnerReferenceDep());
+        return (obj instanceof MetaclassReference)? (MetaclassReference)obj : null;
     }
 
-    @objid ("26afeff2-1830-4235-8e0c-664ffac9678d")
+    @objid ("c0fab002-01fb-46f6-a1ef-3512696e0916")
     @Override
     public void setOwnerReference(MetaclassReference value) {
-        appendDepVal(PropertyTableDefinitionData.Metadata.OwnerReferenceDep(), (SmObjectImpl)value);
+        appendDepVal(((PropertyTableDefinitionSmClass)getClassOf()).getOwnerReferenceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("238cf80e-a23e-4d2e-81ea-300521b44760")
+    @objid ("96facd90-5629-41bd-bd88-1c7ca642b30d")
     @Override
     public Stereotype getOwnerStereotype() {
-        return (Stereotype) getDepVal(PropertyTableDefinitionData.Metadata.OwnerStereotypeDep());
+        Object obj = getDepVal(((PropertyTableDefinitionSmClass)getClassOf()).getOwnerStereotypeDep());
+        return (obj instanceof Stereotype)? (Stereotype)obj : null;
     }
 
-    @objid ("e1715175-8be8-4509-9a30-f8a0ea2578c8")
+    @objid ("3fdc25b5-634f-495a-9a7d-10693f235186")
     @Override
     public void setOwnerStereotype(Stereotype value) {
-        appendDepVal(PropertyTableDefinitionData.Metadata.OwnerStereotypeDep(), (SmObjectImpl)value);
+        appendDepVal(((PropertyTableDefinitionSmClass)getClassOf()).getOwnerStereotypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("254d1df0-f8d2-4722-bdea-24a9704f4384")
+    @objid ("e68facb3-ad01-4537-aaaa-2c0085f9d0b0")
     @Override
     public EList<PropertyDefinition> getOwned() {
-        return new SmList<>(this, PropertyTableDefinitionData.Metadata.OwnedDep());
+        return new SmList<>(this, ((PropertyTableDefinitionSmClass)getClassOf()).getOwnedDep());
     }
 
-    @objid ("1b276bde-45c9-498d-b2bc-da2c50b72e04")
+    @objid ("39ea14c4-6f42-44a8-85d4-f06a9ef7e1d3")
     @Override
     public <T extends PropertyDefinition> List<T> getOwned(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final PropertyDefinition element : getOwned()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("fc08ccbf-6af0-419b-b8e2-ae0a7a4ebb6c")
+    @objid ("7e62f3ed-f509-4294-902f-6db6ab106eb2")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableDefinitionData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((PropertyTableDefinitionSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableDefinitionData.Metadata.OwnerReferenceDep());
+        // OwnerReference
+        obj = (SmObjectImpl)this.getDepVal(((PropertyTableDefinitionSmClass)getClassOf()).getOwnerReferenceDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableDefinitionData.Metadata.OwnerStereotypeDep());
+        // OwnerStereotype
+        obj = (SmObjectImpl)this.getDepVal(((PropertyTableDefinitionSmClass)getClassOf()).getOwnerStereotypeDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("4ae76d81-2bc2-416d-8002-ad73bd6f5951")
+    @objid ("69504468-0041-4cb7-b40f-73c48b08508e")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableDefinitionData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(PropertyTableDefinitionData.Metadata.OwnerDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableDefinitionData.Metadata.OwnerReferenceDep());
-        if (obj != null)
-          return new SmDepVal(PropertyTableDefinitionData.Metadata.OwnerReferenceDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableDefinitionData.Metadata.OwnerStereotypeDep());
-        if (obj != null)
-          return new SmDepVal(PropertyTableDefinitionData.Metadata.OwnerStereotypeDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((PropertyTableDefinitionSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // OwnerReference
+        dep = ((PropertyTableDefinitionSmClass)getClassOf()).getOwnerReferenceDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // OwnerStereotype
+        dep = ((PropertyTableDefinitionSmClass)getClassOf()).getOwnerStereotypeDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("021924d5-e0fe-4ff3-a58d-e7c56f97fc16")
+    @objid ("99933121-e60e-43b3-b42c-b2eb9efa9478")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPropertyTableDefinition(this);

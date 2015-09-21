@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.project.ui.openproject;
 
@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.nio.file.AccessDeniedException;
-import java.nio.file.FileSystemException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -56,7 +55,7 @@ import org.modelio.gproject.gproject.GProjectAuthenticationException;
 import org.modelio.gproject.gproject.GProjectFactory;
 import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.ModuleSorter;
-import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IModuleManagementService;
 import org.modelio.ui.progress.IModelioProgressService;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.auth.NoneAuthData;
@@ -73,7 +72,7 @@ public class OpenProjectHandler {
     @objid ("f3f5681b-ade9-42e4-a0ce-455fde687a0e")
     @Inject
     @Optional
-     IModuleService moduleService;
+     IModuleManagementService moduleService;
 
     @objid ("00470518-cc35-1ff2-a7f4-001ec947cd2a")
     @CanExecute
@@ -86,8 +85,9 @@ public class OpenProjectHandler {
             return false;
         }
         
-        if (projects.get(0).getLockInfo() != null)
+        if (projects.get(0).getLockInfo() != null) {
             return false;
+        }
         return true;
     }
 
@@ -133,7 +133,7 @@ public class OpenProjectHandler {
                         AppProjectUi.LOG.warning(e);
                     }
                 }
-                
+        
                 private void checkOpenProjectAuth(final GProject openedProject) {
                     shell.getDisplay().asyncExec(new Runnable() {
                         @SuppressWarnings("synthetic-access")
@@ -142,9 +142,9 @@ public class OpenProjectHandler {
                             doCheckOpenProjectAuth(shell, openedProject);
                         }
                     });
-                    
+        
                 }
-                
+        
             };
         
             try {
@@ -163,6 +163,11 @@ public class OpenProjectHandler {
                     AppProjectUi.LOG.debug(e);
                     MessageDialog.openError(shell, AppProjectUi.I18N.getString("Error"), FileUtils.getLocalizedMessage(cause));
                     more = false;
+                } catch (SecurityException cause) {
+                    AppProjectUi.LOG.error(cause.getLocalizedMessage());
+                    AppProjectUi.LOG.debug(e);
+                    MessageDialog.openError(shell, AppProjectUi.I18N.getString("Error"), cause.getLocalizedMessage());
+                    more = false;
                 } catch (Throwable cause) {
                     AppProjectUi.LOG.error(e);
                     MessageDialog.openError(shell, AppProjectUi.I18N.getString("Error"), cause.toString());
@@ -180,8 +185,9 @@ public class OpenProjectHandler {
         IAuthData authData = authToCheck;
         
         if (authData == null || !authData.isComplete()) {
-            if (authData == null)
+            if (authData == null) {
                 authData = new UserPasswordAuthData();
+            }
         
             do {
                 authData = promptAuthentication(shell, authData, name, null);
@@ -207,10 +213,12 @@ public class OpenProjectHandler {
             if (needsAuthPrompt(authData, f.getUri())) {
                 label = AppProjectUi.I18N.getMessage("OpenProjectHandler.Auth.FragmentLabel", f.getId());
                 IAuthData newAuthData = checkPartAuth(shell, authData, label);
-                if (newAuthData == null)
+                if (newAuthData == null) {
                     return null;
-                if (authData != newAuthData)
+                }
+                if (authData != newAuthData) {
                     f.getAuthDescriptor().setData(newAuthData);
+                }
             }
         }
         
@@ -219,10 +227,12 @@ public class OpenProjectHandler {
             if (needsAuthPrompt(authData, f.getArchiveLocation())) {
                 label = AppProjectUi.I18N.getMessage("OpenProjectHandler.Auth.ModuleLabel", f.getName(), f.getVersion().toString());
                 IAuthData newAuthData = checkPartAuth(shell, authData, label);
-                if (newAuthData == null)
+                if (newAuthData == null) {
                     return null;
-                if (authData != newAuthData)
+                }
+                if (authData != newAuthData) {
                     f.getAuthDescriptor().setData(newAuthData);
+                }
             }
         }
         return projAuthData;
@@ -243,22 +253,25 @@ public class OpenProjectHandler {
         for (IProjectFragment f : openedProject.getFragments()) {
             while (needsAuth(f)) {
                 IAuthData authData = f.getAuthConfiguration().getAuthData();
-                if (authData == null)
+                if (authData == null) {
                     authData = new NoneAuthData();
+                }
         
                 label = AppProjectUi.I18N.getMessage("OpenProjectHandler.Auth.FragmentLabel", f.getId());
         
                 IAuthData newAuthData = promptAuthentication(shell, authData, label, getError(f));
-                
+        
                 // Check for user abort
-                if (newAuthData == null)
-                    break; 
-                
-                if (authData != newAuthData)
+                if (newAuthData == null) {
+                    break;
+                }
+        
+                if (authData != newAuthData) {
                     f.getAuthConfiguration().setAuthData(newAuthData);
-                
+                }
+        
                 IModelioProgress aMonitor = null; //TODO
-                f.mount(openedProject, aMonitor);
+                f.mount(aMonitor);
             }
         }
         
@@ -278,12 +291,14 @@ public class OpenProjectHandler {
                 IAuthData newAuthData = promptAuthentication(shell, authData, label, getError(f));
         
                 // Check for user abort
-                if (newAuthData == null)
+                if (newAuthData == null) {
                     break;
-                
-                if (authData != newAuthData)
+                }
+        
+                if (authData != newAuthData) {
                     f.getAuthData().setAuthData(newAuthData);
-             
+                }
+        
                 try {
                     this.moduleService.activateModule(f);
                 } catch (ModuleException e) {
@@ -307,12 +322,13 @@ public class OpenProjectHandler {
 
     @objid ("82fd3377-f3b9-450e-a7c9-d8aac938521d")
     private static String getErrorMessage(final Throwable e) {
-        if (e == null)
+        if (e == null) {
             return null;
-        else if (e instanceof IOException)
-            return FileUtils.getLocalizedMessage((FileSystemException) e);
-        else
+        } else if (e instanceof IOException) {
+            return FileUtils.getLocalizedMessage((IOException) e);
+        } else {
             return e.getLocalizedMessage();
+        }
     }
 
     @objid ("0e09003a-88a6-403e-88c8-92584d18c49b")
@@ -338,11 +354,12 @@ public class OpenProjectHandler {
     @objid ("4588b5fc-47d4-41d9-b185-892929816229")
     private boolean needsAuth(IProjectFragment f) {
         Throwable downError = f.getDownError();
-        if (downError instanceof FragmentAuthenticationException || downError instanceof AccessDeniedException)
+        if (downError instanceof FragmentAuthenticationException || downError instanceof AccessDeniedException) {
             return (f.getAuthConfiguration().getScope() != DefinitionScope.SHARED &&
                     ! InheritedAuthData.SCHEME_ID.equals(f.getAuthConfiguration().getSchemeId()));
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -353,9 +370,10 @@ public class OpenProjectHandler {
      */
     @objid ("41451476-d25e-478b-abff-d6c9699fe875")
     private boolean needsAuthPrompt(GModule f) {
-        if (f.getAuthData().getScope() == DefinitionScope.SHARED 
-                || InheritedAuthData.SCHEME_ID.equals(f.getAuthData().getSchemeId())) 
+        if (f.getAuthData().getScope() == DefinitionScope.SHARED
+                || InheritedAuthData.SCHEME_ID.equals(f.getAuthData().getSchemeId())) {
             return false;
+        }
         
         IProjectFragment moduleFrag = f.getModelFragment();
         Throwable downError = moduleFrag!= null ? moduleFrag.getDownError() : null;
@@ -364,17 +382,22 @@ public class OpenProjectHandler {
 
     @objid ("469a1cea-08a6-4fe6-9abe-4a3f5f3691cc")
     private boolean needsAuthPrompt(IAuthData authData, URI uri) {
-        if (authData != null )
+        if (authData != null) {
             return false;
+        }
         
         final String scheme = uri.getScheme();
         
-        if (scheme==null || scheme.isEmpty())
-            return false; // relative path : no auth
-        if (scheme.startsWith("svn"))
-            return true; // svn, svn+http, svn+*** : auth needed
-        if (scheme.equals("file"))
-            return false; // file : no auth
+        if (scheme == null || scheme.isEmpty()) {
+            // relative path : no auth
+            return false;
+        } else if (scheme.startsWith("svn")) {
+            // svn, svn+http, svn+*** : auth needed
+            return true;
+        } else if (scheme.equals("file")) {
+            // file : no auth
+            return false;
+        }
         
         // all other cases : auth needed
         return true;

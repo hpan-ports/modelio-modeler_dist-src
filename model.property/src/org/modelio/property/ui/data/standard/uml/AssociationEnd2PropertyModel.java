@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -51,8 +51,9 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("8ecdf296-c068-11e1-8c0a-002564c97630")
 public class AssociationEnd2PropertyModel extends AbstractPropertyModel<AssociationEnd> {
     @objid ("a6730c4c-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "Association", "AssociationName", "IsNavigable", "RoleName", "RoleTarget", "AssociationType", "MultiplicityMin", "MultiplicityMax",
-		"Visibility", "IsModifiable", "AccessMode", "IsAbstract", "IsClass", "IsOrdered", "IsUnique" };
+    private static final String[] PROPERTIES = new String[] { "Property", "AssociationName", "IsNavigable", "RoleName",
+            "RoleTarget", "AssociationType", "MultiplicityMin", "MultiplicityMax", "Visibility", "IsModifiable", "AccessMode",
+            "IsAbstract", "IsClass", "IsOrdered", "IsUnique" };
 
     @objid ("8ecdf29e-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -116,16 +117,13 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
     public Object getValueAt(int row, int col) {
         switch (col) {
         case 0: // col 0 is the property name
-            if (row == 0) {
-                return MessageFormat.format(MetamodelLabels.getString("Title.Association"), this.theEditedElement.getName());
-            }
-            // else
+        
             return AssociationEnd2PropertyModel.PROPERTIES[row];
         case 1:
             return getPropertyValue(row, this.theEditedElement.getOpposite());
         case 2:
             if (row == 1) {
-                return "";      // Association name display only in the second column
+                return ""; // Association name display only in the second column
             }
             return getPropertyValue(row, this.theEditedElement);
         default:
@@ -166,8 +164,8 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         // Non editable case
-        if ((col == 1 && row > 7 && !this.theEditedElement.getOpposite().isNavigable()) ||
-                (col == 2 && row > 7 && !this.theEditedElement.isNavigable())) {
+        if ((col == 1 && row > 7 && !this.theEditedElement.getOpposite().isNavigable())
+                || (col == 2 && row > 7 && !this.theEditedElement.isNavigable())) {
             return this.ghostType;
         }
         
@@ -227,7 +225,7 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
             return this.theEditedElement.getOpposite().isModifiable();
         } else if (col == 2) {
             if (row == 1) {
-                return false;      // Association name is only editable in the second column
+                return false; // Association name is only editable in the second column
             }
             return this.theEditedElement.isModifiable();
         }
@@ -243,7 +241,8 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
         
         switch (row) {
         case 0: // Title
-            Classifier type = associationEnd.getTarget() != null? associationEnd.getTarget():associationEnd.getOpposite().getSource();
+            Classifier type = associationEnd.getTarget() != null ? associationEnd.getTarget() : associationEnd.getOpposite()
+                    .getSource();
             if (type != null) {
                 if (associationEnd == this.theEditedElement) {
                     return MessageFormat.format(MetamodelLabels.getString("Title.to"), type.getName());
@@ -254,10 +253,11 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
             return "";
         case 1:
             final Association association = associationEnd.getAssociation();
-            if (association != null)
+            if (association != null) {
                 return association.getName();
-            else
+            } else {
                 return "<null>";
+            }
         case 2:
             return associationEnd.isNavigable();
         case 3:
@@ -343,7 +343,7 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
 
     @objid ("8ecf793c-c068-11e1-8c0a-002564c97630")
     protected static class ClassifierTypeFilter implements IMObjectFilter {
-//private PredefinedTypes predefinedTypes = null;
+// private PredefinedTypes predefinedTypes = null;
         @objid ("8ecf793d-c068-11e1-8c0a-002564c97630")
         public ClassifierTypeFilter() {
             /*

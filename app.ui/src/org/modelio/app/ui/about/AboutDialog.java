@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.ui.about;
 
@@ -27,7 +27,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.equinox.log.ExtendedLogService;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TrayDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -45,10 +44,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.core.ModelioEnv;
 import org.modelio.app.ui.plugin.AppUi;
-import org.modelio.log.writers.PluginLogger;
 import org.modelio.ui.i18n.BundledMessages;
 import org.modelio.vbasic.version.Version;
-import org.osgi.framework.ServiceReference;
 
 @objid ("00449c9c-cc35-1ff2-a7f4-001ec947cd2a")
 public class AboutDialog extends TrayDialog {
@@ -59,7 +56,7 @@ public class AboutDialog extends TrayDialog {
     private final ModelioEnv modelioEnv;
 
     @objid ("18ffe803-6087-4633-8eda-b6d4fa64f431")
-    private static BundledMessages aboutI18N;
+    private BundledMessages aboutI18N;
 
     /**
      * Creates the dialog.
@@ -70,7 +67,7 @@ public class AboutDialog extends TrayDialog {
     public AboutDialog(final Shell parentShell, ModelioEnv modelioEnv) {
         super(parentShell);
         this.modelioEnv = modelioEnv;
-        aboutI18N = new BundledMessages (AppUi.LOG, ResourceBundle.getBundle("appui-about"));
+        this.aboutI18N = new BundledMessages(AppUi.LOG, ResourceBundle.getBundle("appui-about"));
     }
 
     @objid ("0047082e-cc35-1ff2-a7f4-001ec947cd2a")
@@ -131,14 +128,12 @@ public class AboutDialog extends TrayDialog {
         
         aboutText.setLayoutData(textData);
         
-        final String welcome = this.aboutI18N.getString("About.Welcome");
         final String copyright = this.aboutI18N.getString("About.Copyright");
         final String appName = this.aboutI18N.getString("About.Application");
         final String tagline = this.aboutI18N.getString("About.TagLine");
         
-        // TODO: Version was a modelio class ...
-        // TODO AppInfos ?
         final Version version = this.modelioEnv.getVersion();
+        final String buildID = ModelioEnv.MODELIO_BUILDID;
         
         final StringBuffer text = new StringBuffer(appName + "\n");
         text.append(tagline);
@@ -152,17 +147,17 @@ public class AboutDialog extends TrayDialog {
         text.append(version.getBuildVersion());
         text.append("\n");
         
-        org.osgi.framework.Version productBuildId = Platform.getProduct().getDefiningBundle().getVersion();
+        
         text.append(this.aboutI18N.getString("About.ProductBuildId"));
         text.append(" ");
-        text.append(productBuildId.getQualifier());
+        text.append(buildID);
         text.append("\n");
         
-        text.append(this.aboutI18N.getString("About.MetamodelVersion"));
-        text.append(" ");
-        text.append(version.getMetamodelVersion());
-        text.append("\n");
-               
+        // text.append(this.aboutI18N.getString("About.MetamodelVersion"));
+        // text.append(" ");
+        // text.append(version.getMetamodelVersion());
+        // text.append("\n");
+        
         text.append(this.aboutI18N.getString("About.System"));
         text.append(" ");
         text.append(Platform.getOS());

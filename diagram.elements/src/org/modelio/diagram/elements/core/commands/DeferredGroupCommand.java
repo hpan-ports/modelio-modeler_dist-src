@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,24 +12,25 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.commands;
 
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.GroupRequest;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Command that defers a {@link GroupRequest} to a child edit part of the sender.
@@ -45,7 +46,7 @@ public class DeferredGroupCommand extends Command {
     private Map<?,?> editPartRegistry;
 
     @objid ("7f3e3ef7-1dec-11e2-8cad-001ec947c8cc")
-    private GmCompositeNode gmClass;
+    private GmCompositeNode gmComposite;
 
     @objid ("e098a421-421a-4d5d-9601-b96162beb35b")
     private GroupRequest req;
@@ -58,7 +59,7 @@ public class DeferredGroupCommand extends Command {
     @objid ("7f3e3efc-1dec-11e2-8cad-001ec947c8cc")
     public DeferredGroupCommand(GroupRequest req, EditPart sender) {
         this.req = req;
-        this.gmClass = (GmCompositeNode) sender.getModel();
+        this.gmComposite = (GmCompositeNode) sender.getModel();
         this.editPartRegistry = sender.getViewer().getEditPartRegistry();
     }
 
@@ -73,12 +74,26 @@ public class DeferredGroupCommand extends Command {
     public void execute() {
         final GmCompositeNode gmTarget = getGmTarget();
         
-        if (!gmTarget.isVisible())
+        boolean wasVisible = gmTarget.isVisible();
+        if (!wasVisible) {
             gmTarget.setVisible(true);
+        }
         
-        final EditPart p = (EditPart) this.editPartRegistry.get(gmTarget);
-        if (p != null)
-            p.getTargetEditPart(this.req).getCommand(this.req).execute();
+        final GraphicalEditPart p = (GraphicalEditPart) this.editPartRegistry.get(gmTarget);
+        if (p != null) {
+            EditPart targetEditPart = p.getTargetEditPart(this.req);
+            if (targetEditPart != null) {
+                if (!wasVisible) {
+                    // First layout figures to compute correct coordinates
+                    p.getFigure().getUpdateManager().performValidation();
+                }
+        
+                Command cmd = targetEditPart.getCommand(this.req);
+                if (cmd != null) {
+                    cmd.execute();
+                }
+            }
+        }
     }
 
     /**
@@ -88,23 +103,27 @@ public class DeferredGroupCommand extends Command {
      */
     @objid ("7f3e3f0d-1dec-11e2-8cad-001ec947c8cc")
     private GmCompositeNode getGmTarget() {
+        final SmMetamodel mm = this.gmComposite.getDiagram().getModelManager().getModelingSession().getMetamodel();
+        
         GmCompositeNode gmTarget = null;
         
         for (Object o : this.req.getEditParts()) {
             final EditPart part = (EditPart) o;
             final GmModel model = (GmModel) part.getModel();
             final String metaclassName = model.getRepresentedRef().mc;
-            final Class<? extends MObject> metaclass = Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName));
+            final Class<? extends MObject> metaclass = mm.getMClass(metaclassName).getJavaInterface();
         
-            final GmCompositeNode cont = this.gmClass.getCompositeFor(metaclass);
+            final GmCompositeNode cont = this.gmComposite.getCompositeFor(metaclass);
         
-            if (cont == null)
+            if (cont == null) {
                 return null;
+            }
         
-            if (gmTarget == null)
+            if (gmTarget == null) {
                 gmTarget = cont;
-            else if (gmTarget != cont)
+            } else if (gmTarget != cont) {
                 return null;
+            }
         }
         return gmTarget;
     }

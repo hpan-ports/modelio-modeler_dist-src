@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property;
 
@@ -49,7 +49,6 @@ import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.core.picking.IPickingSession;
 import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.core.ui.ktable.types.element.ElementEditionDialog;
 import org.modelio.core.ui.ktable.types.text.EditionDialog;
 import org.modelio.core.ui.ktable.types.textlist.StringListEditionDialog;
 import org.modelio.gproject.gproject.GProject;
@@ -138,7 +137,8 @@ public class PropertyView {
         
         // Sometimes, the view is instantiated only after the project is opened
         if (aProjectService != null && aProjectService.getOpenedProject() != null) {
-            onProjectOpened(aProjectService.getOpenedProject(), modelServices, modelioPickingService, modelioActivationService, theMenuService, propertyPart);
+            onProjectOpened(aProjectService.getOpenedProject(), modelServices, modelioPickingService, modelioActivationService,
+                    theMenuService, propertyPart);
             if (selection != null) {
                 update(selection);
             }
@@ -157,14 +157,16 @@ public class PropertyView {
             if (this.project != null) {
                 // Create the view content
                 this.view = new ModelPropertyPanelProvider();
-                this.view.activateEdition(this.projectService, this.project.getSession(), this.modelService, this.pickingService, this.activationService);
+                this.view.activateEdition(this.projectService, this.project.getSession(), this.modelService, this.pickingService,
+                        this.activationService);
                 this.view.createPanel(this.parentComposite);
                 this.parentComposite.layout();
                 Display.getDefault().asyncExec(new Runnable() {
         
                     @Override
                     public void run() {
-                        PropertyView.this.menuService.registerContextMenu(PropertyView.this.view.getTreeViewer().getTree(), POPUPID);
+                        PropertyView.this.menuService
+                        .registerContextMenu(PropertyView.this.view.getTreeViewer().getTree(), POPUPID);
                     }
                 });
                 configurePanelByPreferences();
@@ -210,7 +212,8 @@ public class PropertyView {
         
         // Activate edition on the view
         if (this.view != null) {
-            this.view.activateEdition(this.projectService, this.project != null ? this.project.getSession() : null, this.modelService, this.pickingService, this.activationService);
+            this.view.activateEdition(this.projectService, this.project != null ? this.project.getSession() : null,
+                    this.modelService, this.pickingService, this.activationService);
         }
         
         if (this.project != null) {
@@ -237,7 +240,6 @@ public class PropertyView {
         
         // close static editors
         EditionDialog.closeInstance();
-        ElementEditionDialog.closeInstance();
         StringListEditionDialog.closeInstance();
         
         this.project = null;
@@ -287,19 +289,20 @@ public class PropertyView {
             this.configurator = new PropertyViewConfigurator(this.projectService, this.myPart);
         
             // Add a property change listener for future updates
-            this.projectService.getProjectPreferences(this.myPart.getElementId()).addPropertyChangeListener(new IPropertyChangeListener() {
+            this.projectService.getProjectPreferences(this.myPart.getElementId()).addPropertyChangeListener(
+                    new IPropertyChangeListener() {
         
-                @Override
-                public void propertyChange(PropertyChangeEvent event) {
-                    Display.getDefault().asyncExec(new Runnable() {
-                        
                         @Override
-                        public void run() {
-                            configurePanelByPreferences();
+                        public void propertyChange(PropertyChangeEvent event) {
+                            Display.getDefault().asyncExec(new Runnable() {
+        
+                                @Override
+                                public void run() {
+                                    configurePanelByPreferences();
+                                }
+                            });
                         }
                     });
-                }
-            });
         }
         if (this.view != null) {
             this.configurator.loadConfiguration(this.view);
@@ -363,10 +366,10 @@ public class PropertyView {
         @Override
         public void objectCopied(MObject from, IRepository fromRepo, MObject to, IRepository toRepo) {
             if (from instanceof Stereotype) {
-                IBlobInfo toInfo = new BlobInfo(getIconKey(to), "icon for "+to.getName());
+                IBlobInfo toInfo = new BlobInfo(getIconKey(to), "icon for " + to.getName());
                 BlobCopier.copy(getIconKey(from), fromRepo, toInfo, toRepo);
-                  
-                toInfo = new BlobInfo(getImageKey(to), "image for "+to.getName());
+            
+                toInfo = new BlobInfo(getImageKey(to), "image for " + to.getName());
                 BlobCopier.copy(getImageKey(from), fromRepo, toInfo, toRepo);
             }
         }
@@ -378,7 +381,7 @@ public class PropertyView {
                 if (obj instanceof Stereotype) {
                     String blobKey = getIconKey(obj);
                     BlobCopier.move(blobKey, fromRepo, destRepo);
-                    
+            
                     blobKey = getImageKey(obj);
                     BlobCopier.move(blobKey, fromRepo, destRepo);
                 }
@@ -454,8 +457,11 @@ public class PropertyView {
 
         @objid ("482cbe6b-f840-4c26-9d47-3fec0ab95da1")
         private IPreferenceStore getPreferenceStore() {
-            final IPreferenceStore prefs = this.projectService.getProjectPreferences(this.part.getElementId());
-            return prefs;
+            if (this.projectService.getOpenedProject() != null) {
+                return this.projectService.getProjectPreferences(this.part.getElementId());
+            } else {
+                return null;
+            }
         }
 
     }

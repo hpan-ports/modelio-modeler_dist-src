@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link.extensions;
 
@@ -34,7 +34,7 @@ import org.modelio.diagram.persistence.IDiagramWriter;
  * @author cmarin
  */
 @objid ("8001bfd2-1dec-11e2-8cad-001ec947c8cc")
-public class GmConnectionEndpoinLocator implements IGmLocator {
+public class GmConnectionEndpoinLocator extends GmAbstractLocator {
     /**
      * If <i>isEnd</i> is <code>true</code>, the location is relative to the Connection's end (or target) point. If
      * <i>isEnd</i> is <code>false</code> , the location is relative to the Connection's start (or source) point.
@@ -88,6 +88,8 @@ public class GmConnectionEndpoinLocator implements IGmLocator {
     @objid ("8001bfef-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void read(IDiagramReader in) {
+        super.read(in);
+        
         this.uDistance = (Integer) in.readProperty("u");
         this.vDistance = (Integer) in.readProperty("v");
         this.end = (Boolean) in.readProperty("end");
@@ -126,6 +128,8 @@ public class GmConnectionEndpoinLocator implements IGmLocator {
     @objid ("8001bfff-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
+        super.write(out);
+        
         out.writeProperty("u", this.uDistance);
         out.writeProperty("v", this.vDistance);
         out.writeProperty("end", this.end);
@@ -135,6 +139,35 @@ public class GmConnectionEndpoinLocator implements IGmLocator {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    /**
+     * Copy constructor.
+     * @param source the locator to copy.
+     */
+    @objid ("0cfbb86a-3f6d-4f9f-8214-66d2704a1a99")
+    public GmConnectionEndpoinLocator(GmConnectionEndpoinLocator source) {
+        super(source);
+        
+        this.end = source.end;
+        this.uDistance = source.uDistance;
+        this.vDistance = source.vDistance;
+    }
+
+    /**
+     * Default constructor.
+     * <p>
+     * The figure will be located at the connection source.
+     */
+    @objid ("4c3c3f06-de5b-4694-8061-4a44b7bf9e8c")
+    public GmConnectionEndpoinLocator() {
+        super();
+    }
+
+    @objid ("bf9fa64a-38c0-480a-becf-603132e228f6")
+    @Override
+    public IGmLocator copy() {
+        return new GmConnectionEndpoinLocator(this);
     }
 
 }

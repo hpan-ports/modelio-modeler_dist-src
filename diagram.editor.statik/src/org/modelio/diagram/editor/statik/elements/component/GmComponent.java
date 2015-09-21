@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.component;
 
@@ -71,6 +71,9 @@ public class GmComponent extends GmTemplateContainer {
 
     @objid ("a647e6ed-55c2-11e2-9337-002564c97630")
     private Class element;
+
+    @objid ("69dc5a23-b9a8-4134-85f9-b013db1589de")
+    private static final ComponentUserImageStyleKeys USERIMAGE_KEYS = new ComponentUserImageStyleKeys();
 
     /**
      * Empty constructor needed for deserialisation.
@@ -139,6 +142,8 @@ public class GmComponent extends GmTemplateContainer {
         switch (getMainNode().getRepresentationMode()) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKeys();
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKeys();
             case SIMPLE:
                 return SIMPLE_KEYS.getStyleKeys();
             case STRUCTURED:
@@ -287,7 +292,7 @@ public class GmComponent extends GmTemplateContainer {
     @Override
     public boolean isSatellite(final GmNodeModel childNode) {
         return "body content as satellite".equals(childNode.getRoleInComposition()) ||
-                GmPortContainer.SATELLITE_ROLE.equals(childNode.getRoleInComposition());
+                                                GmPortContainer.SATELLITE_ROLE.equals(childNode.getRoleInComposition());
     }
 
 }

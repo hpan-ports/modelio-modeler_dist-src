@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.rules;
 
@@ -38,7 +38,6 @@ import org.modelio.audit.engine.impl.AuditTrigger;
 import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.plugin.Audit;
 import org.modelio.audit.service.AuditSeverity;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.OpaqueBehavior;
@@ -92,37 +91,37 @@ public class R2170 extends AbstractRule {
     @Override
     public void autoRegister(IAuditPlan plan) {
         //Namespaces
-        plan.registerRule(Metamodel.getMClass(Package.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Collaboration.class).getName(), this, AuditTrigger.UPDATE);
+        plan.registerRule(Package.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Collaboration.MNAME, this, AuditTrigger.UPDATE);
         
         //Namespaces.Classifiers
-        plan.registerRule(Metamodel.getMClass(InformationItem.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Artifact.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(TemplateParameter.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Actor.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Class.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(DataType.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Enumeration.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Interface.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Signal.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(UseCase.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Node.class).getName(), this, AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Component.class).getName(), this, AuditTrigger.UPDATE);
+        plan.registerRule(InformationItem.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Artifact.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(TemplateParameter.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Actor.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Class.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(DataType.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Enumeration.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Interface.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Signal.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(UseCase.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Node.MNAME, this, AuditTrigger.UPDATE);
+        plan.registerRule(Component.MNAME, this, AuditTrigger.UPDATE);
         
         // Behavior
-        plan.registerRule(Metamodel.getMClass(Activity.class).getName(), this, AuditTrigger.UPDATE |
+        plan.registerRule(Activity.MNAME, this, AuditTrigger.UPDATE |
                                                          AuditTrigger.MOVE |
                                                          AuditTrigger.CREATE);
-        plan.registerRule(Metamodel.getMClass(CommunicationInteraction.class).getName(), this, AuditTrigger.UPDATE |
+        plan.registerRule(CommunicationInteraction.MNAME, this, AuditTrigger.UPDATE |
                                                                          AuditTrigger.MOVE |
                                                                          AuditTrigger.CREATE);
-        plan.registerRule(Metamodel.getMClass(Interaction.class).getName(), this, AuditTrigger.UPDATE |
+        plan.registerRule(Interaction.MNAME, this, AuditTrigger.UPDATE |
                                                             AuditTrigger.MOVE |
                                                             AuditTrigger.CREATE);
-        plan.registerRule(Metamodel.getMClass(StateMachine.class).getName(), this, AuditTrigger.UPDATE |
+        plan.registerRule(StateMachine.MNAME, this, AuditTrigger.UPDATE |
                                                              AuditTrigger.MOVE |
                                                              AuditTrigger.CREATE);
-        plan.registerRule(Metamodel.getMClass(OpaqueBehavior.class).getName(), this, AuditTrigger.UPDATE |
+        plan.registerRule(OpaqueBehavior.MNAME, this, AuditTrigger.UPDATE |
                                                                AuditTrigger.MOVE |
                                                                AuditTrigger.CREATE);
     }

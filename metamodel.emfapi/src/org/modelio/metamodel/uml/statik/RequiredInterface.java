@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,52 +12,110 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.Port;
 
+/**
+ * RequiredInterface v0.0.9054
+ */
 @objid ("001b5224-c4bf-1fd8-97fe-001ec947cd2a")
 public interface RequiredInterface extends ModelElement {
-    @objid ("239bfc8a-bed4-47a6-b1f9-9215bc3f8a93")
+    @objid ("d490737f-4d3a-40d4-adc6-b11b2fe2e4ec")
+    public static final String MNAME = "RequiredInterface";
+
+    /**
+     * Getter for relation 'RequiredInterface->RequiredElement'
+     * 
+     * Metamodel description:
+     * <i>Interface required by the Port.</i>
+     */
+    @objid ("2d27bf21-fb5a-4fef-bc92-d7a09206c324")
     EList<Interface> getRequiredElement();
 
-    @objid ("58713459-c7e1-4f49-9ffb-09595ff19366")
+    /**
+     * Filtered Getter for relation 'RequiredInterface->RequiredElement'
+     * 
+     * Metamodel description:
+     * <i>Interface required by the Port.</i>
+     */
+    @objid ("8104f5d5-782c-4060-9318-d5e088fb3f4c")
     <T extends Interface> List<T> getRequiredElement(java.lang.Class<T> filterClass);
 
-    @objid ("1eba319a-c1e3-4a00-a606-38f8c0368b1d")
+    /**
+     * Getter for relation 'RequiredInterface->Provider'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("bd70e00f-ec2c-48c6-80aa-8b76d0ffbc10")
     EList<LinkEnd> getProvider();
 
-    @objid ("3c664efc-7bb0-4d60-9745-7fa03069acd0")
+    /**
+     * Filtered Getter for relation 'RequiredInterface->Provider'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("11956d60-c8a0-48e5-8b91-658dc5fee75b")
     <T extends LinkEnd> List<T> getProvider(java.lang.Class<T> filterClass);
 
-    @objid ("92d0c139-4014-4276-b27b-69bb121fac42")
+    /**
+     * Getter for relation 'RequiredInterface->Requiring'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1d018953-2a1d-49f5-989b-9c6c36560857")
     Port getRequiring();
 
-    @objid ("c9164e02-863e-405a-a35f-d17b7035f069")
+    /**
+     * Setter for relation 'RequiredInterface->Requiring'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("66b83340-2970-4551-a1ef-d4244b7e627f")
     void setRequiring(Port value);
 
-    @objid ("7c288326-8f4f-4244-9a10-c1f19507ed66")
+    /**
+     * Getter for relation 'RequiredInterface->NaryProvider'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("2d6df3f1-b8c7-4333-97e0-3febe7612f76")
     EList<NaryLinkEnd> getNaryProvider();
 
-    @objid ("ececd50c-d27e-4097-bcde-9fbf5d2d0cb2")
+    /**
+     * Filtered Getter for relation 'RequiredInterface->NaryProvider'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("9d64330c-5c04-451c-89b8-700ef9271b6f")
     <T extends NaryLinkEnd> List<T> getNaryProvider(java.lang.Class<T> filterClass);
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.stereotype.creator;
 
@@ -31,7 +31,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("8e0f5ebf-9654-4eb2-8d3b-07a18b258d23")
-public class LocalProfileCreator {
+class LocalProfileCreator {
     @objid ("d76525b2-615b-4b2d-a292-93f1ea7430fb")
     private CoreSession session;
 
@@ -69,10 +69,10 @@ public class LocalProfileCreator {
 
     @objid ("f161478d-4264-460a-9217-8e20f2d0f039")
     private Profile getProfileToCreateStereotype(ModuleComponent module) {
-        if (!module.getOwnedProfile().isEmpty()) {            
+        if (!module.getOwnedProfile().isEmpty()) {
             // Get LocalProfile if have
             for (Profile profile : module.getOwnedProfile()) {
-                if (("LocalProfile").equals(profile.getName())) {                
+                if (("LocalProfile").equals(profile.getName())) {
                     return profile;
                 }
             }
@@ -85,7 +85,7 @@ public class LocalProfileCreator {
     private Profile createLocalProfile(IProjectFragment fragment, ModuleComponent localModule) {
         Profile ownerProfile;
         // Create the local profile:
-        Profile profile = (Profile) this.session.getSmFactory().createObject(SmClass.getClass(Profile.class), fragment.getRepository());
+        Profile profile = (Profile) this.session.getSmFactory().createObject((SmClass) localModule.getMClass().getMetamodel().getMClass(Profile.class), fragment.getRepository());
         profile.setName("LocalProfile");
         localModule.getOwnedProfile().add(profile);
         ownerProfile = profile;

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -32,9 +32,6 @@ public class OCollaborationUse extends OModelElement {
     @objid ("3f21b35a-1943-4e5f-9f07-bd5971d1e4c9")
      GenerationProperties genProp = GenerationProperties.getInstance();
 
-    @objid ("4996648d-c196-4296-a8e8-27b35e465833")
-    private CollaborationUse objingElt = null;
-
     @objid ("b91c7a38-b497-4c49-8dc7-dae6c36db6b9")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -44,14 +41,13 @@ public class OCollaborationUse extends OModelElement {
     @objid ("a7eeba05-7a99-4d30-a095-0c9a49f03d9d")
     public OCollaborationUse(CollaborationUse param) {
         super(param);
-        this.objingElt = param;
     }
 
     @objid ("aa255297-255a-45e4-af29-941b1d611464")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        org.eclipse.uml2.uml.Element ecoreOwner = this.genProp.getMappedElement(this.objingElt.getCompositionOwner());
-                
+        org.eclipse.uml2.uml.Element ecoreOwner = this.genProp.getMappedElement(getObjingElement().getCompositionOwner());
+        
         if (ecoreOwner instanceof org.eclipse.uml2.uml.Classifier)
             ( (org.eclipse.uml2.uml.Classifier)ecoreOwner).getCollaborationUses().add( (org.eclipse.uml2.uml.CollaborationUse) ecoreElt);
     }
@@ -65,13 +61,19 @@ public class OCollaborationUse extends OModelElement {
 
     @objid ("582c18a3-de18-4ee8-8998-62b479c153af")
     private void setType(org.eclipse.uml2.uml.CollaborationUse ecoreElt) {
-        Element objType = this.objingElt.getType();
+        Element objType = getObjingElement().getType();
         if (objType != null) {
             org.eclipse.uml2.uml.Element ecoreType = this.genProp.getMappedElement(objType);
-               
+        
             if (ecoreType instanceof  org.eclipse.uml2.uml.Collaboration)
                 ecoreElt.setType( (org.eclipse.uml2.uml.Collaboration)ecoreType);
         }
+    }
+
+    @objid ("240ee581-2f9a-43e4-aa27-2b4a086098a6")
+    @Override
+    public CollaborationUse getObjingElement() {
+        return (CollaborationUse) super.getObjingElement();
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -29,7 +29,7 @@ import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("173252a2-c8e1-4227-8746-14427f4e1fc0")
-public class ONameSpace extends OModelElement implements IOElement {
+public class ONameSpace extends OModelElement {
     @objid ("6d8eff4a-29d1-4ce9-aad8-26b13a005a2f")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return null;
@@ -61,7 +61,7 @@ public class ONameSpace extends OModelElement implements IOElement {
 
     @objid ("1c425a1a-6fe1-4ee2-9e00-17910b04dbb1")
     private void setAbstractEAnnotation(final org.eclipse.uml2.uml.Element ecoreElt) {
-        Element objElement = getObjingElement(); 
+        Element objElement = getObjingElement();
         if (objElement instanceof NameSpace)
             ObjingEAnnotation.setAbstract(ecoreElt, ((NameSpace)objElement ).isIsAbstract());
     }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,21 +12,23 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.editingsupport.text;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.graphics.Image;
+import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.diagram.styles.viewer.StyleViewer;
+import org.modelio.diagram.styles.viewer.StyleEditPanelUIData;
 
 /**
  * Provide checkbox label
@@ -34,10 +36,10 @@ import org.modelio.diagram.styles.viewer.StyleViewer;
 @objid ("85b7a95c-1926-11e2-92d2-001ec947c8cc")
 public class TextLabelProvider extends ColumnLabelProvider {
     @objid ("85b7a95e-1926-11e2-92d2-001ec947c8cc")
-    private StyleViewer viewer;
+    private TreeViewer viewer;
 
     @objid ("85b7a95f-1926-11e2-92d2-001ec947c8cc")
-    public TextLabelProvider(StyleViewer viewer) {
+    public TextLabelProvider(TreeViewer viewer) {
         this.viewer = viewer;
     }
 
@@ -57,7 +59,12 @@ public class TextLabelProvider extends ColumnLabelProvider {
     @Override
     public String getText(Object element) {
         StyleKey skey = (StyleKey) element;
-        return this.viewer.getEditedStyle().getProperty(skey).toString();
+        return this.getEditedStyle().getProperty(skey).toString();
+    }
+
+    @objid ("72f9f45b-648c-4589-8fbe-4197bf8fc78c")
+    private IStyle getEditedStyle() {
+        return ((StyleEditPanelUIData) this.viewer.getInput()).getStyleData();
     }
 
 }

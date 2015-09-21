@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.clazz;
 
@@ -70,6 +70,9 @@ public class GmClass extends GmTemplateContainer {
 
     @objid ("5b6c70b5-5bd5-11e2-9e33-00137282c51b")
     private static final GmClassSimpleStyleKeys SIMPLE_KEYS = new GmClassSimpleStyleKeys();
+
+    @objid ("8de70d8a-a5a2-494f-8ae1-188c83eea3ab")
+    private static final GmClassUserImageStyleKeys USERIMAGE_KEYS = new GmClassUserImageStyleKeys();
 
     /**
      * Empty constructor needed for deserialisation.
@@ -136,6 +139,8 @@ public class GmClass extends GmTemplateContainer {
         switch (getMainNode().getRepresentationMode()) {
         case IMAGE:
             return IMAGE_KEYS.getStyleKeys();
+        case USER_IMAGE:
+            return USERIMAGE_KEYS.getStyleKeys();
         case SIMPLE:
             return SIMPLE_KEYS.getStyleKeys();
         case STRUCTURED:
@@ -286,7 +291,7 @@ public class GmClass extends GmTemplateContainer {
     @Override
     public boolean isSatellite(final GmNodeModel childNode) {
         return "body content as satellite".equals(childNode.getRoleInComposition())
-                || GmPortContainer.SATELLITE_ROLE.equals(childNode.getRoleInComposition());
+                                                        || GmPortContainer.SATELLITE_ROLE.equals(childNode.getRoleInComposition());
     }
 
 }

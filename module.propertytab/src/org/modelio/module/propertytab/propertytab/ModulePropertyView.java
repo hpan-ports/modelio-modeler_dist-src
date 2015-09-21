@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.module.propertytab.propertytab;
 
@@ -42,7 +42,7 @@ import org.modelio.api.module.propertiesPage.IModulePropertyPage;
 import org.modelio.api.module.propertiesPage.IModulePropertyPanel;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IModuleManagementService;
 import org.modelio.mda.infra.service.IRTModule;
 import org.modelio.module.propertytab.plugin.ModulePropertyTab;
 import org.modelio.ui.panel.IPanelProvider;
@@ -55,7 +55,7 @@ public class ModulePropertyView {
 
     @objid ("c884f1b1-1eba-11e2-9382-bc305ba4815c")
     @PostConstruct
-    public void createControls(final Composite parentComposite, IProjectService project, IModuleService modules, MPart part, IEclipseContext eclipseContext, @Optional IModelioPickingService pickingService, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+    public void createControls(final Composite parentComposite, IProjectService project, IModuleManagementService modules, MPart part, IEclipseContext eclipseContext, @Optional IModelioPickingService pickingService, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         // Create the view content
         // Two cases: either the module provided
         // - a table-based page as an IModulePropertyPage instance
@@ -125,7 +125,7 @@ public class ModulePropertyView {
      * PropertyPage at index 2
      */
     @objid ("c8858df4-1eba-11e2-9382-bc305ba4815c")
-    private IModulePropertyPanel getModulePropertyPanel(IModuleService modules, MPart part) {
+    private IModulePropertyPanel getModulePropertyPanel(IModuleManagementService modules, MPart part) {
         for (IRTModule module : modules.getModuleRegistry().getStartedModules()) {
             if (module.getName().equals(part.getTags().get(1))) {
                 for (IModulePropertyPanel page : module.getPropertyPanels()) {

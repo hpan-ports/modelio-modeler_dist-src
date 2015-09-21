@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.stereotype.creator;
 
@@ -26,6 +26,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -43,7 +44,6 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -54,14 +54,23 @@ import org.eclipse.swt.widgets.Text;
 import org.modelio.api.ui.IModelioDialog;
 import org.modelio.api.ui.ModelioDialog;
 import org.modelio.app.project.core.services.IProjectService;
+import org.modelio.core.ui.selectmetaclass.IMetaclassSelectorFilter;
+import org.modelio.core.ui.selectmetaclass.MetaclassSelector;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.metamodel.Metamodel;
+import org.modelio.metamodel.mda.ModuleComponent;
+import org.modelio.metamodel.mda.ModuleParameter;
+import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.infrastructure.NoteType;
+import org.modelio.metamodel.uml.infrastructure.Profile;
+import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.property.plugin.ModelProperty;
 import org.modelio.ui.UIColor;
 import org.modelio.ui.UIImages;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.osgi.framework.Bundle;
 
 /**
@@ -108,9 +117,8 @@ public class StereotypeEditionDialog extends ModelioDialog {
     @objid ("6325b274-28f5-45c5-b68d-425f6b411663")
     protected Label diagramImageImage = null;
 
-    @objid ("01b6fe33-e0bc-4e56-8a78-5023e283304b")
-    protected Combo metaclassCombo = null;
-
+//@objid ("01b6fe33-e0bc-4e56-8a78-5023e283304b")
+//protected Combo metaclassCombo = null;
     @objid ("05872e95-7aed-495f-8b4c-b446494dfdb6")
     private Font sizeFontAdvice = null;
 
@@ -135,12 +143,16 @@ public class StereotypeEditionDialog extends ModelioDialog {
     @objid ("60331a28-f81a-49fa-8495-788509b8a2a7")
     private Image imagePlaceholderImage;
 
+    @objid ("1029a22b-b9ba-4203-8fd7-329ff6a1acc0")
+    private MetaclassSelector mclassSelector;
+
     /**
      * Default constructor.
      * @param aProjectService
      * @param elements
      * @param parentShell the parent shell.
      * @param dataModel the data model.
+     * @param mmServices model manipulation services
      */
     @objid ("bf8a3af5-5f7c-454c-a3a1-d703cdebc5af")
     public StereotypeEditionDialog(Shell parentShell, StereotypeEditionDataModel dataModel, IProjectService aProjectService, IMModelServices mmServices, List<ModelElement> elements) {
@@ -219,8 +231,8 @@ public class StereotypeEditionDialog extends ModelioDialog {
         refresh();
         getShell().setSize(600, 450);
         // The shell has to be centered
-        int x = (this.getShell().getSize().x / 2);
-        int y = (this.getShell().getSize().y / 2);
+        int x = (getShell().getSize().x / 2);
+        int y = (getShell().getSize().y / 2);
         getShell().setLocation(x, y);
         getShell().setMinimumSize(550, 450);
     }
@@ -252,14 +264,14 @@ public class StereotypeEditionDialog extends ModelioDialog {
     public boolean close() {
         if (this.stereotypeValidator != null) {
             this.stereotypeNameText.removeModifyListener(this.stereotypeValidator);
-            this.metaclassCombo.removeModifyListener(this.stereotypeValidator);
+            this.mclassSelector.getControl().removeModifyListener(this.stereotypeValidator);
             this.stereotypeValidator = null;
-        }        
+        }
         if (this.applyStereotypeListener != null) {
             this.applyStereotypeCheckbox.removeSelectionListener(this.applyStereotypeListener);
             this.applyStereotypeListener = null;
         }
-        if (this.explorerIconImage != null) {            
+        if (this.explorerIconImage != null) {
             Image explorerIcon = this.explorerIconImage.getImage();
             if (explorerIcon != null && !explorerIcon.isDisposed() ) {
                 explorerIcon.dispose();
@@ -269,7 +281,7 @@ public class StereotypeEditionDialog extends ModelioDialog {
             this.explorerIconButton.removeSelectionListener(this.explorerIconChooser);
             this.explorerIconButton = null;
         }
-        if (this.diagramImageImage != null) {            
+        if (this.diagramImageImage != null) {
             Image diagramImage = this.diagramImageImage.getImage();
             if (diagramImage != null && !diagramImage.isDisposed() ) {
                 diagramImage.dispose();
@@ -334,7 +346,7 @@ public class StereotypeEditionDialog extends ModelioDialog {
         gd_diagramImageText.heightHint = 100;
         gd_diagramImageText.widthHint = 100;
         this.diagramImageImage.setLayoutData(gd_diagramImageText);
-          
+        
         Composite buttonArea = new Composite(diagramImageArea, SWT.NONE);
         buttonArea.setLayout(new GridLayout());
         buttonArea.setLayoutData(new GridData());
@@ -355,14 +367,16 @@ public class StereotypeEditionDialog extends ModelioDialog {
         this.deleteDiagramImageButton.setEnabled(false);
         this.deleteDiagramImageButton.setLayoutData(gd_diagramImageButton);
         this.deleteDiagramImageButton.addSelectionListener(new SelectionListener() {
-            
+        
             @Override
             public void widgetSelected(SelectionEvent e) {
                 String diagramImagePath = StereotypeEditionDialog.this.dataModel.getDiagramImage();
-                if (!diagramImagePath.isEmpty()) {                    
+                if (!diagramImagePath.isEmpty()) {
                     Image diagramImage = StereotypeEditionDialog.this.imageRegistry.get(diagramImagePath);
                     if (diagramImage != null) {
-                        if (!diagramImage.isDisposed()) diagramImage.dispose();
+                        if (!diagramImage.isDisposed()) {
+                            diagramImage.dispose();
+                        }
                         diagramImage = null;
                         StereotypeEditionDialog.this.imageRegistry.remove(diagramImagePath);
                     }
@@ -371,7 +385,7 @@ public class StereotypeEditionDialog extends ModelioDialog {
                     refresh();
                 }
             }
-            
+        
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // Nothing
@@ -425,7 +439,7 @@ public class StereotypeEditionDialog extends ModelioDialog {
         Composite buttonArea = new Composite(explorerIconArea, SWT.NONE);
         buttonArea.setLayout(new GridLayout());
         buttonArea.setLayoutData(new GridData());
-         
+        
         this.explorerIconButton = new Button(buttonArea, SWT.NONE);
         this.explorerIconButton.setImage(UIImages.FILECHOOSE);
         this.explorerIconButton.setToolTipText(ModelProperty.I18N
@@ -441,14 +455,16 @@ public class StereotypeEditionDialog extends ModelioDialog {
         this.deleteExplorerIconButton.setEnabled(false);
         this.deleteExplorerIconButton.setImage(UIImages.DELETE);
         this.deleteExplorerIconButton.addSelectionListener(new SelectionListener() {
-            
+        
             @Override
             public void widgetSelected(SelectionEvent e) {
                 String explorerIconPath = StereotypeEditionDialog.this.dataModel.getExplorerIcon();
-                if (!explorerIconPath.isEmpty()) {                    
+                if (!explorerIconPath.isEmpty()) {
                     Image explorerIcon = StereotypeEditionDialog.this.imageRegistry.get(explorerIconPath);
                     if (explorerIcon != null) {
-                        if (!explorerIcon.isDisposed()) explorerIcon.dispose();
+                        if (!explorerIcon.isDisposed()) {
+                            explorerIcon.dispose();
+                        }
                         explorerIcon = null;
                         StereotypeEditionDialog.this.imageRegistry.remove(explorerIconPath);
                     }
@@ -457,7 +473,7 @@ public class StereotypeEditionDialog extends ModelioDialog {
                     refresh();
                 }
             }
-            
+        
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // Nothing
@@ -484,26 +500,36 @@ public class StereotypeEditionDialog extends ModelioDialog {
         GridData gd_metaclassLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
         metaclassLabel.setLayoutData(gd_metaclassLabel);
         
-        this.metaclassCombo = new Combo(area, SWT.BORDER);
-        List<MClass> mClasses = Metamodel.getMClass("ModelElement").getSub(true);
+        // Compute allowed metaclasses
+        SmMetamodel metamodel = this.projectService.getSession().getMetamodel();
+        List<MClass> mClasses = metamodel.getMClass(ModelElement.class).getSub(true);
         List<String> metaclasses = new ArrayList<>();
         for (MClass mc : mClasses) {
             metaclasses.add(mc.getName());
         }
         Collections.sort(metaclasses);
-        metaclasses.remove("Module");
-        metaclasses.remove("Profile");
-        metaclasses.remove("Project");
-        metaclasses.remove("TagType");
-        metaclasses.remove("NoteType");
-        metaclasses.remove("Stereotype");
-        metaclasses.remove("ConfigParam");
         
-        this.metaclassCombo.setItems(metaclasses.toArray(new String[metaclasses.size()]));
-        this.metaclassCombo.setText(this.dataModel.getMetaclassName());
-        this.metaclassCombo.addModifyListener(this.stereotypeValidator);
+        metaclasses.add(ModelElement.MNAME);
+        metaclasses.removeAll(Arrays.asList(ModuleComponent.MNAME,
+                Profile.MNAME,
+                Project.MNAME,
+                TagType.MNAME,
+                NoteType.MNAME,
+                Stereotype.MNAME,
+                ModuleParameter.MNAME));
+        
+        // Create the metaclass selector
+        IMetaclassSelectorFilter mclassFilter = new IMetaclassSelectorFilter() {
+            @Override
+            public boolean accept(MClass mClass) {
+                return metaclasses.contains(mClass.getName());
+            }
+        };
+        this.mclassSelector = new MetaclassSelector(area, SWT.BORDER, metamodel, mclassFilter);
+        this.mclassSelector.getControl().setText(this.dataModel.getMetaclassName());
         GridData gd_metaclassCombo = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
-        this.metaclassCombo.setLayoutData(gd_metaclassCombo);
+        this.mclassSelector.getControl().setLayoutData(gd_metaclassCombo);
+        this.mclassSelector.getControl().addModifyListener(this.stereotypeValidator);
     }
 
     /**
@@ -530,10 +556,13 @@ public class StereotypeEditionDialog extends ModelioDialog {
         this.stereotypeNameText.setLayoutData(gd_stereotypeNameText);
     }
 
+    /**
+     * Refresh the dialog from the data model.
+     */
     @objid ("cb5d2344-5cfd-4402-afce-9d909b424291")
     public void refresh() {
         this.stereotypeNameText.setText(this.dataModel.getStereotypeName());
-        this.metaclassCombo.setText(this.dataModel.getMetaclassName());
+        this.mclassSelector.getControl().setText(this.dataModel.getMetaclassName());
         
         GProject openedProject = this.projectService.getOpenedProject();
         if (openedProject != null) {
@@ -541,7 +570,9 @@ public class StereotypeEditionDialog extends ModelioDialog {
             if (explorerIconPath != null && !explorerIconPath.equals("")) {
                 Image explorerIcon = this.imageRegistry.get(explorerIconPath);
                 if (explorerIcon != null) {
-                    if (!explorerIcon.isDisposed()) explorerIcon.dispose();
+                    if (!explorerIcon.isDisposed()) {
+                        explorerIcon.dispose();
+                    }
                     explorerIcon = null;
                     this.imageRegistry.remove(explorerIconPath);
                 }
@@ -561,18 +592,20 @@ public class StereotypeEditionDialog extends ModelioDialog {
                 } catch (MalformedURLException e) {
                     ModelProperty.LOG.error(e);
                 }
-                explorerIcon = this.imageRegistry.get(explorerIconPath);           
+                explorerIcon = this.imageRegistry.get(explorerIconPath);
                 this.explorerIconImage.setImage(explorerIcon);
             } else {
                 this.explorerIconImage.setImage(this.iconPlaceholderImage);
                 this.deleteExplorerIconButton.setEnabled(false);
             }
-            
+        
             String diagramImagePath = this.dataModel.getDiagramImage();
             if (diagramImagePath != null && !diagramImagePath.equals("")) {
                 Image diagramImage = this.imageRegistry.get(diagramImagePath);
                 if (diagramImage != null) {
-                    if (!diagramImage.isDisposed()) diagramImage.dispose();
+                    if (!diagramImage.isDisposed()) {
+                        diagramImage.dispose();
+                    }
                     diagramImage = null;
                     this.imageRegistry.remove(diagramImagePath);
                 }
@@ -597,7 +630,7 @@ public class StereotypeEditionDialog extends ModelioDialog {
             } else {
                 this.diagramImageImage.setImage(this.imagePlaceholderImage);
                 this.deleteDiagramImageButton.setEnabled(false);
-            } 
+            }
         }
     }
 
@@ -662,35 +695,17 @@ public class StereotypeEditionDialog extends ModelioDialog {
         return explorerIconData.scaledTo(100, h);
     }
 
-    /**
-     * Change metaclass text field color according to the provided boolean.
-     * <p>
-     * <ul>
-     * <li>invalidate == true -> text will be red.</li>
-     * <li>invalidate == false -> text will be green.</li>
-     * </ul>
-     * @param invalidate whether or not the note type name filed will be invalidated
-     */
-    @objid ("27411de0-4d3e-4ef5-b04e-c0622280a6ff")
-    public void invalidateMetaclassNameText(boolean invalidate) {
-        if (invalidate) {
-            this.metaclassCombo.setForeground(this.metaclassCombo.getDisplay().getSystemColor(SWT.COLOR_RED));
-        } else {
-            this.metaclassCombo.setForeground(this.metaclassCombo.getDisplay().getSystemColor(SWT.COLOR_DARK_GREEN));
-        }
-    }
-
     @objid ("7e154813-e084-475a-afcc-a27d2c554936")
     @Override
     protected void cancelPressed() {
         deleteTempFileIfExist(this.dataModel.getDefaultTempIconPath());
-        deleteTempFileIfExist(this.dataModel.getDefaultTempImagePath());  
+        deleteTempFileIfExist(this.dataModel.getDefaultTempImagePath());
         super.cancelPressed();
     }
 
     @objid ("629dcb27-4478-47a2-b89b-1c326d107cb9")
     protected void deleteTempFileIfExist(Path filePath) {
-        if (filePath != null) {            
+        if (filePath != null) {
             File file = filePath.toFile();
             if (file.exists()) {
                 file.delete();
@@ -706,12 +721,21 @@ public class StereotypeEditionDialog extends ModelioDialog {
         URL url = null;
         try {
             url = new URL(s);
-            path = FileLocator.toFileURL(url).getPath();           
+            path = FileLocator.toFileURL(url).getPath();
         } catch (Exception e) {
             ModelProperty.LOG.debug("File path %s is not found!", s);
             ModelProperty.LOG.error(e);
         }
         return path;
+    }
+
+    /**
+     * Get the metaclass name displayed in the metaclass field.
+     * @return the displayed metaclass name.
+     */
+    @objid ("ead828f1-3e3d-4a84-a311-1cc55204ccf4")
+    String getBaseClassName() {
+        return this.mclassSelector.getControl().getText();
     }
 
 }

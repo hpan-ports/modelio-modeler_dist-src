@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.policies;
 
@@ -75,11 +75,13 @@ public class BpmnLaneReparentElementCommand extends Command {
     @Override
     public boolean canExecute() {
         final MObject childElement = this.reparentedChild.getRelatedElement();
-        if (this.newParentElement == null || childElement == null)
+        if (this.newParentElement == null || childElement == null) {
             return false;
+        }
         if (!this.newParentElement.getStatus().isModifiable() ||
-            !childElement.getStatus().isModifiable())
+            !childElement.getStatus().isModifiable()) {
             return false;
+        }
         if (this.newParentElement instanceof BpmnLaneSet &&
             this.newParentElement.getCompositionOwner() instanceof BpmnProcess) {
             return false;
@@ -97,8 +99,9 @@ public class BpmnLaneReparentElementCommand extends Command {
         // {@link MObject#getCompositionOwner() composition owner},
         assert (childElement != null) : "cannot reparent: child element is null";
         
-        if (newParentElem.equals(childElement.getLaneSet().getCompositionOwner()))
+        if (newParentElem.equals(childElement.getLaneSet().getCompositionOwner())) {
             return;
+        }
         
         BpmnLaneSet laneset = childElement.getLaneSet();
         if (laneset != null) {
@@ -125,10 +128,10 @@ public class BpmnLaneReparentElementCommand extends Command {
                 final IModelFactory modelFactory = modelManager.getModelFactory(this.newParent.getRelatedElement());
                 BpmnLaneSet newElement = modelFactory.createElement(BpmnLaneSet.class);
                 parentLane.setChildLaneSet(newElement);
-                
+        
                 // Set default name
                 newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
-                
+        
                 this.newParent = (GmCompositeNode) diagram.unmask(this.newParent,
                                                                   newElement,
                                                                   this.newLayoutData);
@@ -143,14 +146,14 @@ public class BpmnLaneReparentElementCommand extends Command {
             final IModelFactory modelFactory = modelManager.getModelFactory(this.newParent.getRelatedElement());
             BpmnLaneSet newElement = modelFactory.createElement(BpmnLaneSet.class);
             process.getLaneSet().add(newElement);
-            
+        
             // Set default name
             newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
-            
+        
             newParentElem = newElement;
-            
-            // Camculate width of reparented element      
-            for(GmNodeModel children : newParent.getChildren()){
+        
+            // Camculate width of reparented element
+            for(GmNodeModel children : this.newParent.getChildren()){
                 if(children instanceof GmBpmnLane){
                     Rectangle chlayout = (Rectangle)((GmBpmnLane)children).getLayoutData();
                     ((Rectangle)this.newLayoutData).width = chlayout.width;

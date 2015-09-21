@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.ui.panel;
 
@@ -79,5 +79,15 @@ public interface IPanelProvider {
      */
     @objid ("cd48774a-28cd-4aa9-8dab-153b57c19c7c")
     void dispose();
+
+    @objid ("4a35ded0-1621-4c7c-bce6-80fdfb713f53")
+    default void addListener(IPanelListener l) {
+        throw new UnsupportedOperationException();
+    }
+
+    @objid ("3555a49d-e26d-452f-bddb-d9efce53fa81")
+    default void removeListener(IPanelListener l) {
+        throw new UnsupportedOperationException();
+    }
 
 }

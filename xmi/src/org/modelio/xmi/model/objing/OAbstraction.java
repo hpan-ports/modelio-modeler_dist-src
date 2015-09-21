@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -31,9 +31,6 @@ import org.modelio.metamodel.uml.infrastructure.Abstraction;
  */
 @objid ("903a61ac-4eea-4b5e-9eb3-498f77941080")
 public class OAbstraction extends ODependency {
-    @objid ("8d82c3d1-f54f-453a-baca-497c3e20cd2c")
-    private Abstraction objingElement = null;
-
     @objid ("1136ab0a-4e4d-4ab7-a7dc-79fb7a8410e9")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -47,7 +44,6 @@ public class OAbstraction extends ODependency {
     @objid ("8bcfee2b-9d02-42f1-a25a-da258e9d3eb5")
     public OAbstraction(Abstraction abstraction) {
         super(abstraction);
-        this.objingElement = abstraction;
     }
 
     @objid ("283ebf7b-2edc-4f7b-af65-52eb7ee86073")
@@ -66,7 +62,7 @@ public class OAbstraction extends ODependency {
     @objid ("f6c938be-41c4-46b1-8a86-7f0f5274d832")
     private void setAbstractionMapping(org.eclipse.uml2.uml.Abstraction ecoreAbstraction) {
         org.eclipse.uml2.uml.OpaqueExpression expr = UMLFactory.eINSTANCE.createOpaqueExpression();
-        String abstractionName = this.objingElement.getName();
+        String abstractionName = getObjingElement().getName();
         String mappingName = "";
         
         if (!"".equals(abstractionName))
@@ -75,8 +71,14 @@ public class OAbstraction extends ODependency {
         mappingName += "Mapping";
         
         expr.setName(mappingName);
-        expr.getBodies().add(this.objingElement.getMapping());
+        expr.getBodies().add(getObjingElement().getMapping());
         ecoreAbstraction.setMapping(expr);
+    }
+
+    @objid ("0dab13ac-784d-4dc0-b279-3df9234cca97")
+    @Override
+    public Abstraction getObjingElement() {
+        return (Abstraction) super.getObjingElement();
     }
 
 }

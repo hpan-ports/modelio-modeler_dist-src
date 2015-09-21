@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,52 +12,117 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Binding;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Operation;
 
+/**
+ * CollaborationUse v0.0.9054
+ * 
+ * 
+ * (UML 2.0) A CollaborationUse (or collaboration occurrence) represents one particular use of a Collaboration to explain the relationships between the properties of a Classifier. A CollaborationUse indicates a set of roles and Connectors that cooperate within the Classifier according to a given Collaboration, indicated by the type of the collaboration occurrence. 
+ * 
+ * There may be multiple uses of a given Collaboration within a Classifier, each involving a different set of roles and Connectors. A given role or Connector may be involved in multiple occurrences of the same or different Collaborations. Associated Bindings map Features of the Collaboration type to Features in the Classifier. These Bindings indicate which role in the Classifier plays which role in the Collaboration.
+ * 
+ * In Modelio, a CollaborationUse can belong to a NameSpace (Classifier or Collaboration) or to an Operation.
+ */
 @objid ("00047d6a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CollaborationUse extends ModelElement {
-    @objid ("79fec5bd-1887-4a61-8e9c-967fbbd0d973")
+    @objid ("2f7e3920-141a-4280-a644-28055bf7d834")
+    public static final String MNAME = "CollaborationUse";
+
+    /**
+     * Getter for relation 'CollaborationUse->Type'
+     * 
+     * Metamodel description:
+     * <i>Defines the Collaboration whose CollaborationUse is an occurrence.</i>
+     */
+    @objid ("d2a7955d-2098-4a38-abf7-33871cc84b5e")
     Collaboration getType();
 
-    @objid ("7e087b4d-3a4c-4cdc-94da-7630a343f5e5")
+    /**
+     * Setter for relation 'CollaborationUse->Type'
+     * 
+     * Metamodel description:
+     * <i>Defines the Collaboration whose CollaborationUse is an occurrence.</i>
+     */
+    @objid ("6094c317-40ec-4025-8420-3f0c6f7dfe50")
     void setType(Collaboration value);
 
-    @objid ("f10665c8-e8ff-4d16-b522-57d8938fadea")
+    /**
+     * Getter for relation 'CollaborationUse->NRepresented'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("10af0c09-1e0f-40f2-86e0-4bf3a41dab26")
     NameSpace getNRepresented();
 
-    @objid ("f5d92f5d-f6da-4c49-9388-7c16c78cfa1a")
+    /**
+     * Setter for relation 'CollaborationUse->NRepresented'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6f06080e-2f73-4250-80f9-62da53cb4b14")
     void setNRepresented(NameSpace value);
 
-    @objid ("2fe85e6b-3ac4-4c8b-b002-6ad26943a6fa")
+    /**
+     * Getter for relation 'CollaborationUse->ORepresented'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f3d62ef1-db62-414f-a7f9-86f541f764c0")
     Operation getORepresented();
 
-    @objid ("7fdf945a-add8-4629-9151-27128390234e")
+    /**
+     * Setter for relation 'CollaborationUse->ORepresented'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1ee9eb83-5f32-4c67-bee7-c98dca28ad35")
     void setORepresented(Operation value);
 
-    @objid ("10db6e61-953c-4d00-98b0-9003f4de8b9e")
+    /**
+     * Getter for relation 'CollaborationUse->RoleBinding'
+     * 
+     * Metamodel description:
+     * <i>The CollaborationUse owns the Binding links that bind elements of the Type Collaboration to elements accessible from the owner NameSpace of the CollaborationUse.</i>
+     */
+    @objid ("b1b191aa-994b-4bc7-b48b-6ddb8b4a6986")
     EList<Binding> getRoleBinding();
 
-    @objid ("f2fe4a3f-eb8b-41b5-91e5-17e4c5217997")
+    /**
+     * Filtered Getter for relation 'CollaborationUse->RoleBinding'
+     * 
+     * Metamodel description:
+     * <i>The CollaborationUse owns the Binding links that bind elements of the Type Collaboration to elements accessible from the owner NameSpace of the CollaborationUse.</i>
+     */
+    @objid ("9e39bce4-145d-4afc-a55a-746f7eecef5b")
     <T extends Binding> List<T> getRoleBinding(java.lang.Class<T> filterClass);
 
 }

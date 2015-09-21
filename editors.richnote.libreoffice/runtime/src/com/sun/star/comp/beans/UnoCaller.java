@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package com.sun.star.comp.beans;
 
@@ -149,7 +149,7 @@ public class UnoCaller<T> implements XCallback {
     }
 
     @objid ("5cd863d7-1ecf-4385-859d-827c72a7a54a")
-    private static <T> T GetCallback(final XComponentContext xContext, final UnoCaller<T> aExecutor, boolean refreshDisplay) throws com.sun.star.uno.RuntimeException, InvocationTargetException {
+    private static <T> T GetCallback(final XComponentContext xContext, final UnoCaller<T> aExecutor, boolean refreshDisplay) throws InvocationTargetException, com.sun.star.uno.RuntimeException {
         if ( aExecutor != null )
         {
             XMultiComponentFactory xFactory = xContext.getServiceManager();
@@ -258,7 +258,7 @@ public class UnoCaller<T> implements XCallback {
      * @throws java.lang.reflect.InvocationTargetException if the task thrown an exception, it is encapsulated in this exception.
      */
     @objid ("7e9f7fb6-e456-4870-bd73-a1fedc0a3344")
-    public static <T> T call(final XComponentContext xContext, final Callable<T> r, boolean refreshDisplay) throws com.sun.star.uno.RuntimeException, InvocationTargetException {
+    public static <T> T call(final XComponentContext xContext, final Callable<T> r, boolean refreshDisplay) throws InvocationTargetException, com.sun.star.uno.RuntimeException {
         UnoCaller<T> aExecutor = new UnoCaller<T>(r);
         return GetCallback( xContext, aExecutor, refreshDisplay);
     }

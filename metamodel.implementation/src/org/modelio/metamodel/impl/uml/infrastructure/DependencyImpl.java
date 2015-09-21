@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.infrastructure.DependencyData;
+import org.modelio.metamodel.impl.uml.infrastructure.DependencyData;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -39,78 +51,89 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00860ba0-c4be-1fd8-97fe-001ec947cd2a")
 public class DependencyImpl extends ModelElementImpl implements Dependency {
-    @objid ("ef684d90-a5b2-4590-8d46-199612678aa2")
+    @objid ("e2e3b6bf-c9b2-4125-ab72-169b3abe30f4")
     @Override
     public String getDependsOnId() {
-        return (String) getAttVal(DependencyData.Metadata.DependsOnIdAtt());
+        return (String) getAttVal(((DependencySmClass)getClassOf()).getDependsOnIdAtt());
     }
 
-    @objid ("61b9d70c-7a5a-4f43-bdb0-04a1da55638d")
+    @objid ("87d17114-abbd-46b3-9dc1-c7be64bd2aee")
     @Override
     public void setDependsOnId(String value) {
-        setAttVal(DependencyData.Metadata.DependsOnIdAtt(), value);
+        setAttVal(((DependencySmClass)getClassOf()).getDependsOnIdAtt(), value);
     }
 
-    @objid ("615404e0-22aa-4a10-bb15-ffab3600f244")
+    @objid ("25d6f2e1-5e18-4db1-8423-06e9a5b6126d")
     @Override
     public String getDependsOnName() {
-        return (String) getAttVal(DependencyData.Metadata.DependsOnNameAtt());
+        return (String) getAttVal(((DependencySmClass)getClassOf()).getDependsOnNameAtt());
     }
 
-    @objid ("f6989549-7d74-409f-8b00-6985c8be5a57")
+    @objid ("1cf3d7eb-7f53-436b-9ec9-0e2ef10dba26")
     @Override
     public void setDependsOnName(String value) {
-        setAttVal(DependencyData.Metadata.DependsOnNameAtt(), value);
+        setAttVal(((DependencySmClass)getClassOf()).getDependsOnNameAtt(), value);
     }
 
-    @objid ("8b5f4b2e-84c4-43fc-b49b-e5f876dadc9a")
+    @objid ("32a90a33-70c8-4c47-b193-79e024027540")
     @Override
     public ModelElement getDependsOn() {
-        return (ModelElement) getDepVal(DependencyData.Metadata.DependsOnDep());
+        Object obj = getDepVal(((DependencySmClass)getClassOf()).getDependsOnDep());
+        return (obj instanceof ModelElement)? (ModelElement)obj : null;
     }
 
-    @objid ("bc21a5d1-dcc2-4be2-a1e4-7f420756988e")
+    @objid ("46c2786a-99d5-43f2-ac49-a5b878a51528")
     @Override
     public void setDependsOn(ModelElement value) {
-        appendDepVal(DependencyData.Metadata.DependsOnDep(), (SmObjectImpl)value);
+        appendDepVal(((DependencySmClass)getClassOf()).getDependsOnDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ef6e1ce5-23c5-4eed-bacf-c280ab2a1d1a")
+    @objid ("4575dccb-6515-454a-9b85-311ecc0028f9")
     @Override
     public ModelElement getImpacted() {
-        return (ModelElement) getDepVal(DependencyData.Metadata.ImpactedDep());
+        Object obj = getDepVal(((DependencySmClass)getClassOf()).getImpactedDep());
+        return (obj instanceof ModelElement)? (ModelElement)obj : null;
     }
 
-    @objid ("cb932c4d-504e-4d6e-b6f5-513c1ff07c55")
+    @objid ("001c09db-ea6a-4709-a865-02102467437d")
     @Override
     public void setImpacted(ModelElement value) {
-        appendDepVal(DependencyData.Metadata.ImpactedDep(), (SmObjectImpl)value);
+        appendDepVal(((DependencySmClass)getClassOf()).getImpactedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d1fb8357-f9fc-42f7-a025-3f88b6f9153a")
+    @objid ("66770f8d-92fa-43c3-bdcb-7fb472fb4477")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(DependencyData.Metadata.ImpactedDep());
+        // Impacted
+        obj = (SmObjectImpl)this.getDepVal(((DependencySmClass)getClassOf()).getImpactedDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("4c36c294-bd08-4aca-99a1-47af595d01b6")
+    @objid ("102b421a-7657-484c-9fd8-cc19681d336a")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(DependencyData.Metadata.ImpactedDep());
-        if (obj != null)
-          return new SmDepVal(DependencyData.Metadata.ImpactedDep(), obj);
+        SmDependency dep;
+        
+        // Impacted
+        dep = ((DependencySmClass)getClassOf()).getImpactedDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("88c5a58c-b23c-4a0d-940c-a3b84f9121a7")
+    @objid ("e66c44ee-e574-446d-b3fc-d27bb16907a6")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDependency(this);

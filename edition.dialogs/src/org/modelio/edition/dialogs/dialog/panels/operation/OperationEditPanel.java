@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.dialogs.dialog.panels.operation;
 
@@ -47,11 +47,11 @@ public class OperationEditPanel implements IPanelProvider {
     @objid ("bd6f3a6b-03ef-4024-ac19-828df21a3fe0")
     public static final String HELP_TOPIC = EditionDialogs.I18N.getString("EditElementDialog.Operation.HELP_TOPIC");
 
+    @objid ("d8d89701-7f20-42f8-8bb8-d4143289762f")
+    private Composite area;
+
     @objid ("11b19b3a-4a9d-4e18-ab22-d232ea749425")
     private Operation op;
-
-    @objid ("b0a18bdd-1af0-45c8-9a31-fc838adf0165")
-    private Composite area;
 
     @objid ("f3d009e3-c56a-4f57-8600-0eca228013f3")
     private IOperationPropertyModel model = null;

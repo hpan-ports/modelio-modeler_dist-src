@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.executionspecification;
 
@@ -26,18 +26,18 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.commands.Command;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
-import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecification;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
- * Reparent command that is specific to Execution. The ownership change might be graphic only (if not changing
- * lifeline). Also the "times" of starting and ending links are updated.
+ * Reparent command that is specific to Execution. The ownership change might be graphic only (if not changing lifeline). Also the
+ * "times" of starting and ending links are updated.
  * 
  * @author fpoyer
  */
@@ -100,9 +100,12 @@ public class ReparentExecutionSpecificationCommand extends Command {
             return false;
         }
         
+        MMetamodel mm = childElement.getMClass().getMetamodel();
+        
         boolean sameParentInObModel = newParent.equals(oldParent);
-        return sameParentInObModel ||
-               (oldParent.getStatus().isModifiable() && newParent.getStatus().isModifiable() && MTools.getMetaTool().canCompose(newParent, childElement, ((SmObjectImpl)childElement).getCompositionRelation().dep.getName()));
+        return sameParentInObModel
+                                        || (oldParent.getStatus().isModifiable() && newParent.getStatus().isModifiable() && mm.getMExpert().canCompose(
+                                                newParent, childElement, ((SmObjectImpl) childElement).getCompositionRelation().dep.getName()));
     }
 
     @objid ("d8f13998-55b6-11e2-877f-002564c97630")
@@ -136,6 +139,8 @@ public class ReparentExecutionSpecificationCommand extends Command {
             oldParent.removeChild(finishGm);
         }
         if (!sameParentInObModel) {
+            MMetamodel mm = childElement.getMClass().getMetamodel();
+        
             // attach the underlying {@link MObject element} to its new {@link
             // MObject#getCompositionOwner() composition owner},
             try {
@@ -147,7 +152,7 @@ public class ReparentExecutionSpecificationCommand extends Command {
             } catch (Exception e) {
                 // Maybe new parent is not using the same dependency for composition
                 // Try to find a fitting dependency
-                MDependency defaultCompositionDep = MTools.getMetaTool().getDefaultCompositionDep(newParentElement, childElement);
+                MDependency defaultCompositionDep = mm.getMExpert().getDefaultCompositionDep(newParentElement, childElement);
                 List<MObject> children = newParentElement.mGet(defaultCompositionDep);
                 children.add(childElement);
                 children.add(childElement.getStart());

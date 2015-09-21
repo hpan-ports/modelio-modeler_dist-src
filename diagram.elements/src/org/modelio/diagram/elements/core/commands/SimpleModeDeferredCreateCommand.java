@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.commands;
 
@@ -31,12 +31,12 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * Command that switches the representation mode to {@link RepresentationMode#STRUCTURED STRUCTURED}, then defers a
- * {@link CreateRequest} to a child edit part of the sender.
+ * Command that switches the representation mode to
+ * {@link org.modelio.diagram.styles.core.StyleKey.RepresentationMode#STRUCTURED STRUCTURED},
+ * then defers a {@link CreateRequest} to a child edit part of the sender.
  * <p>
  * The actual edit part is found by calling {@link GmCompositeNode#getCompositeFor(Class)} on the sender, then looking for its edit
  * part.
@@ -71,7 +71,7 @@ public class SimpleModeDeferredCreateCommand extends Command {
     public boolean canExecute() {
         final GmCompositeNode gmTarget = getTargetNode();
         if (gmTarget != null) {
-            final ModelioCreationContext ctx = (ModelioCreationContext) this.req.getNewObject();
+            final ModelioCreationContext ctx = ModelioCreationContext.fromRequest(this.req);
             return new DefaultCreateElementCommand(gmTarget, ctx, this.req.getLocation()).canExecute();
         } else {
             return false;
@@ -103,16 +103,24 @@ public class SimpleModeDeferredCreateCommand extends Command {
     private Command getCommand() {
         final GmCompositeNode gmTarget = getTargetNode();
         
-        if (gmTarget == null)
+        if (gmTarget == null) {
             return null;
+        }
         
-        if (!gmTarget.isVisible())
+        boolean wasVisible = gmTarget.isVisible();
+        if (!wasVisible) {
             gmTarget.setVisible(true);
+        }
         
-        final EditPart p = (EditPart) this.editPartRegistry.get(gmTarget);
+        final GraphicalEditPart p = (GraphicalEditPart) this.editPartRegistry.get(gmTarget);
         if (p != null) {
             EditPart targetEditPart = p.getTargetEditPart(this.req);
             if (targetEditPart != null) {
+                if (!wasVisible) {
+                    // First layout figures to compute correct coordinates
+                    p.getFigure().getUpdateManager().performValidation();
+                }
+        
                 return targetEditPart.getCommand(this.req);
             }
         }
@@ -126,8 +134,8 @@ public class SimpleModeDeferredCreateCommand extends Command {
      */
     @objid ("7f47c88c-1dec-11e2-8cad-001ec947c8cc")
     private GmCompositeNode getTargetNode() throws IllegalArgumentException {
-        final String metaclassName = (String) this.req.getNewObjectType();
-        final Class<? extends MObject> metaclass = Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName));
+        ModelioCreationContext ctx = ModelioCreationContext.fromRequest(this.req);
+        final Class<? extends MObject> metaclass = ctx.getMetaclass().getJavaInterface();
         
         final GmCompositeNode gmTarget = this.gmComposite.getCompositeFor(metaclass);
         return gmTarget;

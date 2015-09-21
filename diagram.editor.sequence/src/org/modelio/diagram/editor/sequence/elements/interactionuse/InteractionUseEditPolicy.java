@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.interactionuse;
 
@@ -30,7 +30,6 @@ import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.editor.sequence.elements.interactionuse.gate.CreateGateOnInteractionUseCommand;
 import org.modelio.diagram.elements.common.portcontainer.PortContainerEditPolicy;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionUse;
 
@@ -47,7 +46,7 @@ public class InteractionUseEditPolicy extends PortContainerEditPolicy {
         InteractionUse hostElement = (InteractionUse) getHostElement();
         if (hostElement != null) {
             ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-            if (ctx.getElementToUnmask() == null && Metamodel.getMClass(Gate.class).getName().equals(ctx.getMetaclass())) {
+            if (ctx.getElementToUnmask() == null && Gate.class == ctx.getJavaClass()) {
                 Object requestConstraint = getConstraintFor(request);
                 Point tmp = Point.SINGLETON;
                 tmp.setLocation(request.getLocation());

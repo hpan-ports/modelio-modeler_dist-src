@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.componentRealization;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -32,13 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * @author cmarin
  */
 @objid ("13723c48-8637-49e0-8313-976276576f62")
-public class GmComponentRealizationHeader extends GmDefaultModelElementHeader {
-    /**
-     * Current version of this Gm. Defaults to 0.
-     */
-    @objid ("09612fa2-bea0-463b-8e4c-1dc51304cda9")
-    private final int minorVersion = 0;
-
+public class GmComponentRealizationHeader extends GmDefaultModelElementLabel {
     @objid ("33f4f62d-e513-4dee-90e0-5fddee18a5ca")
     private static final int MAJOR_VERSION = 0;
 

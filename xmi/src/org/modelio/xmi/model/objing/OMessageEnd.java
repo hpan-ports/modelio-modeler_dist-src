@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -33,7 +33,6 @@ import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Operation;
-import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 
@@ -94,7 +93,7 @@ public class OMessageEnd extends OOccurrenceSpecification {
                 } else if (objingElement.equals(message.getReceiveEvent())){
         
                     ecoreMessage.setReceiveEvent(ecoreMessOccSpec);
-                    ecoreMessOccSpec.setMessage(ecoreMessage);              
+                    ecoreMessOccSpec.setMessage(ecoreMessage);
                 }
         
                 if (message.getSortOfMessage().equals(MessageSort.CREATE_MESSAGE_LITERAL)
@@ -102,21 +101,21 @@ public class OMessageEnd extends OOccurrenceSpecification {
                         && ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification){
         
                     event = UMLFactory.eINSTANCE.createCreationEvent();
-                   
+        
                 }
         
                 // We set a SentEvent  org.eclipse.uml2.uml.Operation
                 if (objinOperation != null
                         && ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification) {
                     event = UMLFactory.eINSTANCE.createSendOperationEvent();
-                    ((SendOperationEvent) event).setOperation((org.eclipse.uml2.uml.Operation) GenerationProperties.getInstance().getMappedElement(objinOperation)); 
+                    ((SendOperationEvent) event).setOperation((org.eclipse.uml2.uml.Operation) GenerationProperties.getInstance().getMappedElement(objinOperation));
                 }
         
                 if ((objingSignal != null)
                         && (ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)) {
                     event = UMLFactory.eINSTANCE.createSendSignalEvent();
-                    ((SendSignalEvent) event).setSignal((org.eclipse.uml2.uml.Signal) GenerationProperties.getInstance().getMappedElement(objingSignal)); 
-                    
+                    ((SendSignalEvent) event).setSignal((org.eclipse.uml2.uml.Signal) GenerationProperties.getInstance().getMappedElement(objingSignal));
+        
                 }
         
                 if (event != null) {
@@ -133,7 +132,7 @@ public class OMessageEnd extends OOccurrenceSpecification {
         
         if (thePackage == null) {
         
-            Interaction objingInteraction = (Interaction) AbstractObjingModelNavigation.getEnclosingElement(getObjingElement(), SmClass.getClass(Interaction.class));
+            Interaction objingInteraction = (Interaction) AbstractObjingModelNavigation.getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Interaction.class));
         
             if (objingInteraction != null) {
         

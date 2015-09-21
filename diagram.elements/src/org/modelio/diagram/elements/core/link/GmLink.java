@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link;
 
@@ -565,8 +565,9 @@ public abstract class GmLink extends GmModel implements IGmLink {
      * @param layoutData The extension layout constraint.
      */
     @objid ("80173519-1dec-11e2-8cad-001ec947c8cc")
-    public final void setLayoutConstraint(GmNodeModel extension, IGmLocator layoutData) {
-        this.extensions.put(extension, layoutData);
+    @Override
+    public final void setLayoutConstraint(IGmObject extension, IGmLocator layoutData) {
+        this.extensions.put((GmNodeModel) extension, layoutData);
         firePropertyChange(PROPERTY_LAYOUTDATA, extension, layoutData);
     }
 
@@ -685,7 +686,15 @@ public abstract class GmLink extends GmModel implements IGmLink {
     public void write(IDiagramWriter out) {
         super.write(out);
         
-        assert (this.from != null && this.to != null) : "this.from == null || this.to == null";
+        //assert (this.from != null && this.to != null) : "this.from == null || this.to == null";
+        if (this.from == null || this.to == null) {
+            String msg = ("This "+getClass().getSimpleName()
+                    +" representing "+getRelatedElement()
+                    +" from "+ getFromElement()
+                    +" to "+getToElement()
+                    +" that has <"+this.from+"> as source and <"+this.to+"> as target in the diagram.");
+            throw new IllegalStateException(msg);
+        }
         
         out.writeProperty("Source", this.from);
         out.writeProperty("Dest", this.to);

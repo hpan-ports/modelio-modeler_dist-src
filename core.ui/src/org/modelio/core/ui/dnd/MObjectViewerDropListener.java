@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.dnd;
 
@@ -52,6 +52,7 @@ import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.session.api.transactions.ITransactionSupport;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 import org.modelio.vcore.smkernel.mapi.MStatus;
@@ -120,7 +121,7 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
         
             return isValidDrop((MObject) target, dropedElements, operation == DND.DROP_MOVE);
         } else {
-            // On linux, the event data is not filled until the 'drop'. Try getting the selection from LocalSelectionTransfer. 
+            // On linux, the event data is not filled until the 'drop'. Try getting the selection from LocalSelectionTransfer.
             return isValidDrop((MObject) target, getLocalDraggedElements(), operation == DND.DROP_MOVE);
         }
     }
@@ -198,7 +199,7 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
                 return false;
             } else {
                 // 'ordinary' model element, treat the D&D as a composition owner change
-                dep = MTools.getMetaTool().getDefaultCompositionDep(targetElement, element);
+                dep = targetElement.getMClass().getMetamodel().getMExpert().getDefaultCompositionDep(targetElement, element);
                 if (dep == null) {
                     return false;
                 }
@@ -211,14 +212,14 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
             // If the current DND detail is a "move", make sure that the dragged elements are all modifiable and that
             // their respective parent are also modifiable.
             if (isMove) {
-                if (!status.isModifiable()) 
+                if (!status.isModifiable())
                     return false;
         
                 final MObject parentElement = element.getCompositionOwner();
                 if (parentElement == null)
                     return false;
-                
-                if (!parentElement.getStatus().isModifiable() && !isFreeCmsNode) 
+        
+                if (!parentElement.getStatus().isModifiable() && !isFreeCmsNode)
                     return false;
             }
         }
@@ -322,7 +323,8 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
      */
     @objid ("f7230fe2-2f94-43d8-8566-601c3f397fab")
     private boolean canBeParentOf(final MObject parent, final MObject child) {
-        return MTools.getMetaTool().canCompose(parent, child, null) || MTools.getLinkTool().canSource(child, parent);
+        MExpert mExpert = parent.getMClass().getMetamodel().getMExpert();
+        return mExpert.canCompose(parent, child, null) || mExpert.canSource(child, parent);
     }
 
     @objid ("4a13f923-01bd-49ce-813e-c00b98ddc0fa")
@@ -330,10 +332,10 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
         List<MObject> copyResult = null;
         try {
             copyResult = MTools.getModelTool().copyElements(elementsToCopy, targetElement);
-            
+        
             // Select the result
             getViewer().setSelection(new StructuredSelection(copyResult));
-            
+        
             return true;
         } catch (final Exception e) {
             // Show an error box
@@ -348,7 +350,7 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
             MTools.getModelTool().moveElements(elementsToMove, targetElement, null);
             // Select the result
             getViewer().setSelection(new StructuredSelection(elementsToMove));
-            
+        
             return true;
         } catch (final Exception e) {
             // Show an error box

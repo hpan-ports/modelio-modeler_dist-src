@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.state.elements.state;
 
@@ -29,11 +29,12 @@ import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.elements.core.commands.DeferredCreateCommand;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
+import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.policies.DeferringCreateNodePolicy;
-import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MExpert;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 
 /**
  * Create node edit policy that creates a region before creating a state vertex if there is none.
@@ -45,17 +46,23 @@ public class StateCreateNodeEditPolicy extends DeferringCreateNodePolicy {
     protected EditPart getCreateTargetEditPart(CreateRequest createRequest) {
         // First call inherited behavior.
         EditPart ret = super.getCreateTargetEditPart(createRequest);
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         
         // Inherited failed, return host if the asked element
         // can be created under a region.
         if (createRequest.getNewObject() instanceof ModelioCreationContext) {
             final ModelioCreationContext ctx = (ModelioCreationContext) createRequest.getNewObject();
-            MClass toCreate = Metamodel.getMClass(ctx.getMetaclass());
-            MClass owner = Metamodel.getMClass(Region.class);
-            if (MTools.getMetaTool().canCompose(owner, toCreate, null))
+            MClass toCreate = ctx.getMetaclass();
+            MMetamodel mm = toCreate.getMetamodel();
+            MExpert mExpert = mm.getMExpert();
+        
+            MClass owner = mm.getMClass(Region.class);
+        
+            if (mExpert.canCompose(owner, toCreate, null)) {
                 return getHost();
+            }
         }
         return null;
     }
@@ -65,18 +72,24 @@ public class StateCreateNodeEditPolicy extends DeferringCreateNodePolicy {
     protected Command getCreateCommand(CreateRequest createRequest) {
         // First try inherited behavior.
         EditPart editPart = super.getCreateTargetEditPart(createRequest);
-        if (editPart == getHost())
+        if (editPart == getHost()) {
             return super.getCreateCommand(createRequest);
+        }
+        
+        GmModel gmModel = (GmModel) getHost().getModel();
+        MMetamodel mm = gmModel.getDiagram().getModelManager().getMetamodel();
+        MClass regionMClass = mm.getMClass(Region.class);
         
         // Inherited didn't work. Build a Command that:
         // - creates a region and unmask it
         // - validates all figures
         // - creates the asked element and unmask it under the region
         if (!stateHasRegion() && createRequest.getNewObject() instanceof ModelioCreationContext) {
+        
             // First request to create a new region
-            final ModelioCreationContext regionCtx = new ModelioCreationContext(Metamodel.getMClass(Region.class).getName(),
-                    "OwnedRegion",
-                    null);
+            final ModelioCreationContext regionCtx = new ModelioCreationContext(regionMClass,
+                    regionMClass.getDependency("OwnedRegion"), null);
+        
             final CreateRequest createRegionReq = new CreateRequest();
             createRegionReq.setFactory(regionCtx);
             createRegionReq.setLocation(createRequest.getLocation());

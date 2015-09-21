@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.app.project.conf.dialog.projectinfo;
 
@@ -44,9 +44,8 @@ import org.modelio.app.project.conf.dialog.ProjectModel;
 import org.modelio.app.project.conf.dialog.common.ModuleHelper;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.gproject.module.GModule;
-import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.mda.infra.service.IModuleManagementService;
 import org.modelio.mda.infra.service.IRTModule;
-import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.ui.UIColor;
 
 /**
@@ -67,12 +66,12 @@ class ModulesSection {
     private TableViewer modulesTable;
 
     @objid ("16c4108e-59de-4178-940e-17e636a490c4")
-    protected IModuleService moduleService;
+    protected IModuleManagementService moduleService;
 
     @objid ("a745c460-33f6-11e2-a514-002564c97630")
     public ModulesSection(IEclipseContext application) {
         this.applicationContext = application;
-        this.moduleService = this.applicationContext.get(IModuleService.class);
+        this.moduleService = this.applicationContext.get(IModuleManagementService.class);
     }
 
     @objid ("a745c463-33f6-11e2-a514-002564c97630")
@@ -149,13 +148,10 @@ class ModulesSection {
             @Override
             public String getText(Object element) {
                 if (element instanceof GModule) {
-                    IModuleService mService = ModulesSection.this.applicationContext.get(IModuleService.class);
-                    ModuleComponent moduleElement = ((GModule) element).getModuleElement();
-                    if (moduleElement != null) {
-                        IRTModule iModule = mService.getIRTModule(moduleElement);
-                        if (iModule != null) {
-                            return AppProjectConf.I18N.getString("ModulesSection." + iModule.getState().name()); //$NON-NLS-1$
-                        }
+                    IModuleManagementService mService = ModulesSection.this.applicationContext.get(IModuleManagementService.class);
+                    IRTModule iModule = mService.getIRTModule((GModule) element);
+                    if (iModule != null) {
+                        return AppProjectConf.I18N.getString("ModulesSection." + iModule.getState().name()); //$NON-NLS-1$
                     }
                 }
                 return AppProjectConf.I18N.getString("ModulesSection.Broken"); //$NON-NLS-1$

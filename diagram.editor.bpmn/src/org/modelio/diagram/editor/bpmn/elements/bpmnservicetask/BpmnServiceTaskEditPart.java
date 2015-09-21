@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnservicetask;
 
@@ -29,6 +29,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.RoundedBoxFigure;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
@@ -49,7 +50,7 @@ public class BpmnServiceTaskEditPart extends GmNodeEditPart {
         fig.setLayoutManager(new BorderLayout());
         
         // set style independent properties
-        fig.setPreferredSize(90, 46);
+        MinimumSizeLayout.apply(fig, 90, 46);
         fig.setRadius(5);
         
         // set style dependent properties
@@ -63,7 +64,7 @@ public class BpmnServiceTaskEditPart extends GmNodeEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        //installEditPolicy(EditPolicy.NODE_ROLE, new CreateFlowEditPolicy()); 
+        //installEditPolicy(EditPolicy.NODE_ROLE, new CreateFlowEditPolicy());
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                           new LinkedNodeStartCreationEditPolicy());
@@ -73,21 +74,22 @@ public class BpmnServiceTaskEditPart extends GmNodeEditPart {
     @objid ("61a55e66-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmBpmnServiceTaskPrimaryNode calloperationModel = (GmBpmnServiceTaskPrimaryNode) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), calloperationModel.getLayoutData());
+        GmBpmnServiceTaskPrimaryNode calloperationModel = (GmBpmnServiceTaskPrimaryNode) getModel();
+        getFigure().getParent().setConstraint(getFigure(), calloperationModel.getLayoutData());
     }
 
     @objid ("61a55e69-55b6-11e2-877f-002564c97630")
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
-        if (index == 0)
-            this.getFigure().add(child, BorderLayout.TOP, index);
+        if (index == 0) {
+            getFigure().add(child, BorderLayout.TOP, index);
+        }
         if (index == 1) {
-            this.getFigure().add(child, BorderLayout.CENTER, index);
+            getFigure().add(child, BorderLayout.CENTER, index);
         }
         if (index == 2) {
-            this.getFigure().add(child, BorderLayout.BOTTOM, index);
+            getFigure().add(child, BorderLayout.BOTTOM, index);
         }
     }
 

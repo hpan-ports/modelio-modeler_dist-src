@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler- modeler handy tools command line options</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Command-line-options"></a>
+<h1 >Command line options<a href="#Command-line-options" class="wiki-anchor">&para;</a></h1>
+
+<p>Modelio comes with several command line options:</p>
+
+<p><strong>-workspace</strong> <em>workspacePath</em> <br/>
+Indicates the workspace to use.</p>
+
+<p><strong>-project</strong> <em>projectName</em><br/>
+Indicates which project to open. Must not be used at the same time as &ldquo;-create&rdquo;.</p>
+
+<p><strong>-create</strong> <em>projectName</em><br/>
+Creates a project with this name in the workspace. Must not be used at the same time as &ldquo;-project&rdquo;.</p>
+
+<p><strong>-template</strong> <em>templateName</em><br/>
+Indicates the project type to use when creating a new project. Must be used with the &ldquo;-create&rdquo; option.</p>
+
+<p><strong>-batch</strong> <em>scriptFile</em> <br/>
+Indicates a Jython script to launch automatically after opening a project. Modelio will close automatically after script execution. Must be used with &ldquo;-project&rdquo; or &ldquo;-create&rdquo;.</p>
+
+<p><strong>-param</strong> <em>key=val</em> <br/>
+Set the <code>key</code> variable with the <code>val</code> value. This variable is available in jython script.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

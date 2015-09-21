@@ -1,20 +1,20 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ * 
  *       http://www.apache.org/licenses/LICENSE-2.0
- *        
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.api.ui;
 
@@ -23,19 +23,10 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * The UIColor values are named upon a more or less formal set of rules.
- * Here is the rules summary:
- * - 'color-named' colors are named from the color they represent, for example BLACK, WHITE and so on
- * - 'functional-colors' are named from their intended context and usage
- * For 'functional-colors' the name has the form: XXX_YYY_ZZ where:
- * + XXX stands for the SWT widget or category of widget the color applies to.
- * + YYY stands for the functional context of the color
- * + ZZ is either BG for background, FG for foreground
- * Example:
- * TEXT_WRITABLE_BG  => background color of a writable SWT Text widget
- * TABLE_EVENROW_BG  => background color of the even rows of a table
+ * Deprecated: use org.modelio.ui.UIColor instead
  */
 @objid ("976613ad-9135-11dd-bf4c-001ec947cd2a")
+@Deprecated
 public interface UIColor {
     @objid ("dffc56d2-120f-11e2-b5c6-002564c97630")
     public static final Color BLACK = new Color(Display.getCurrent(), 0, 0, 0);

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.freezone;
 
@@ -83,15 +83,15 @@ public class BpmnCloneFlowElementCommand extends Command {
         List<MObject> elements = new ArrayList<>(1);
         elements.add(newElement);
         
-        MObject owner = findBaseOwner(parentElement.getLaneSet());
+        MObject owner = findBaseOwner(this.parentElement.getLaneSet());
         
         if(owner instanceof BpmnProcess){
             newElement.setContainer((BpmnProcess)owner);
         }else if(owner instanceof BpmnSubProcess){
             newElement.setSubProcess((BpmnSubProcess)owner);
         }
-         
-        newElement.getLane().add(parentElement);
+        
+        newElement.getLane().add(this.parentElement);
         
         // Show the new element in the diagram (ie create its Gm )
         diagram.unmask(this.parentNode, newElement, this.constraint);
@@ -140,13 +140,15 @@ public class BpmnCloneFlowElementCommand extends Command {
     public boolean canExecute() {
         // The diagram must be valid and modifiable.
         final GmAbstractDiagram gmDiagram = this.parentNode.getDiagram();
-        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement())) {
             return false;
+        }
         
         // The parent element must be modifiable or
         // both must be CMS nodes.
-        if (!MTools.getAuthTool().canAdd(this.parentElement, this.elementToClone.getMClass().getName()))
+        if (!MTools.getAuthTool().canAdd(this.parentElement, this.elementToClone.getMClass().getName())) {
             return false;
+        }
         return true;
     }
 

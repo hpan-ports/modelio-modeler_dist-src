@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.classifier;
 
@@ -46,6 +46,7 @@ import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -91,8 +92,9 @@ public class SmartCreatePartCommand extends Command {
     public boolean canExecute() {
         final GmModel gmModel = (GmModel) this.parentEditPart.getModel();
         final GmAbstractDiagram gmDiagram = gmModel.getDiagram();
-        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement())) {
             return false;
+        }
         return (this.parentElement != null && this.parentElement.isValid() && this.parentElement.isModifiable());
     }
 
@@ -107,7 +109,8 @@ public class SmartCreatePartCommand extends Command {
         BindableInstance instanceNode = factory.createBindableInstance();
         
         // Attach to parent
-        final MDependency effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement,instanceNode);
+        MExpert expert = this.parentElement.getMClass().getMetamodel().getMExpert();
+        MDependency effectiveDependency = expert.getDefaultCompositionDep(this.parentElement,instanceNode);
         
         if (effectiveDependency == null) {
             throw new IllegalStateException("Cannot find a composition dependency to attach " +
@@ -145,8 +148,9 @@ public class SmartCreatePartCommand extends Command {
             // Translate point to unmask port on the right
             this.location.translate(100, 10);
             Command cmd = UnmaskHelper.getUnmaskCommand(this.viewer, ports, this.location);
-            if (cmd != null && cmd.canExecute())
+            if (cmd != null && cmd.canExecute()) {
                 cmd.execute();
+            }
         }
     }
 
@@ -184,8 +188,9 @@ public class SmartCreatePartCommand extends Command {
         
         final Command cmd = this.parentEditPart.getTargetEditPart(creationRequest)
                 .getCommand(creationRequest);
-        if (cmd != null && cmd.canExecute())
+        if (cmd != null && cmd.canExecute()) {
             cmd.execute();
+        }
     }
 
 }

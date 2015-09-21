@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.resource;
 
@@ -28,7 +28,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.files.FileUtils;
-import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 
 /**
  * EXML repository creator.
@@ -38,9 +39,13 @@ class ExmlRepositoryCreator {
     @objid ("0396e17b-6132-11e1-a535-001ec947ccaf")
     private Path repositoryPath;
 
+    @objid ("0e971ab1-3fd4-41b2-9cfd-26d516b0c69b")
+    private MMetamodel metamodel;
+
     @objid ("03bd06db-6132-11e1-a535-001ec947ccaf")
-    public ExmlRepositoryCreator(final Path path) {
+    public ExmlRepositoryCreator(final Path path, MMetamodel metamodel2) {
         this.repositoryPath = path;
+        this.metamodel = metamodel2;
     }
 
     /**
@@ -57,7 +62,7 @@ class ExmlRepositoryCreator {
         Files.createDirectories(this.repositoryPath.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME));
         
         // Create directory for each CMS node metaclass
-        for (final SmClass cmsNodeClass : getCmsNodeClasses())
+        for (final MClass cmsNodeClass : getCmsNodeClasses())
         {
             Files.createDirectories(modelDir.resolve(cmsNodeClass.getName()));
         }
@@ -83,9 +88,9 @@ class ExmlRepositoryCreator {
      * @return CMS node metaclasses.
      */
     @objid ("04022a9b-6132-11e1-a535-001ec947ccaf")
-    private static Collection<SmClass> getCmsNodeClasses() {
-        Collection<SmClass> ret = new ArrayList<>(40);
-        for (SmClass c : SmClass.getRegisteredClasses()) {
+    private Collection<MClass> getCmsNodeClasses() {
+        Collection<MClass> ret = new ArrayList<>(40);
+        for (MClass c : this.metamodel.getRegisteredMClasses()) {
             if (c.isCmsNode()) {
                 ret.add(c);
             }

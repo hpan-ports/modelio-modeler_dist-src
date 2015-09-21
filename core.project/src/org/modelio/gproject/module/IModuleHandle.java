@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.module;
 
@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.version.Version;
+import org.modelio.vbasic.version.VersionedItem;
 
 /**
  * Structure representing a module physical contents.
@@ -42,7 +43,7 @@ public interface IModuleHandle {
      * @return the needed modules.
      */
     @objid ("f071bcea-f2bb-11e1-90ff-002564c97630")
-    List<ModuleId> getDependencies();
+    List<VersionedItem<?>> getDependencies();
 
     @objid ("b4804c2b-f2b7-11e1-90ff-002564c97630")
     List<Path> getDocPaths();
@@ -99,7 +100,7 @@ public interface IModuleHandle {
      * @return the module weak dependencies.
      */
     @objid ("f071bcee-f2bb-11e1-90ff-002564c97630")
-    List<ModuleId> getWeakDependencies();
+    List<VersionedItem<?>> getWeakDependencies();
 
     /**
      * @return the module archive path.
@@ -109,5 +110,12 @@ public interface IModuleHandle {
 
     @objid ("018ae444-ca2b-491c-98ec-21a43f5f13db")
     Map<String, Path> getStylePaths();
+
+    /**
+     * Get the provided metamodel fragments.
+     * @return the metamodel fragment descriptors.
+     */
+    @objid ("263eb14e-5138-4e21-946a-9f854c8b0913")
+    List<IMetamodelFragmentHandle> getMetamodelFragments();
 
 }

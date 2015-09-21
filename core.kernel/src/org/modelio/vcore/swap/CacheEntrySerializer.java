@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,20 +12,20 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.swap;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -34,6 +34,7 @@ import jdbm.SerializerInput;
 import jdbm.SerializerOutput;
 import org.modelio.vcore.smkernel.IPStatus;
 import org.modelio.vcore.smkernel.IRStatus;
+import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.SmLiveId;
 import org.modelio.vcore.smkernel.SmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
@@ -41,7 +42,7 @@ import org.modelio.vcore.smkernel.SmStatusFactory;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vcore.smkernel.meta.SmDependency;
-import org.modelio.vcore.smkernel.meta.SmMultipleDependency;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 
 /**
@@ -51,6 +52,9 @@ import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
     @objid ("7e405960-4a00-11e2-91c9-001ec947ccaf")
     private static Map<Class<?>,Object[]> enumContent = new HashMap<>();
+
+    @objid ("c108316e-4137-424c-be29-76e07e7d46d5")
+    private SmMetamodel metamodel;
 
     @objid ("dcbe8783-493b-11e2-91c9-001ec947ccaf")
     @Override
@@ -70,10 +74,11 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
         }
         
         for (SmDependency  d: cls.getAllDepDef()) {
-            if (d.isMultiple())
-                writeMultipleDep(out, obj, (SmMultipleDependency)d);
-            else
+            if (d.isMultiple()) {
+                writeMultipleDep(out, obj, d);
+            } else {
                 writeSimpleDep(out, obj, (SmSingleDependency)d);
+            }
         }
     }
 
@@ -89,15 +94,11 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
         final UUID uuid = readUuid(in);
         
         final short clsid = SmLiveId.getClassId(liveId);
-        final SmClass cls = SmClass.getClass(clsid);
+        final SmClass cls = this.metamodel.getMClass(clsid);
         
         final SmObjectData data = (SmObjectData) cls.getObjectFactory().createData();
         data.init(uuid, liveId);
         ret.data = data;
-        
-        final SmObjectImpl tmpObj = cls.getObjectFactory().createImpl();
-        tmpObj.init(uuid, liveId);
-        tmpObj.initData(data);
         
         SmStatusFactory.deserializeStatuses(data, in.readLong());
         
@@ -106,10 +107,11 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
         }
         
         for (SmDependency  d: cls.getAllDepDef()) {
-            if (d.isMultiple())
-                readMultipleDep(in, tmpObj, (SmMultipleDependency)d);
-            else
+            if (d.isMultiple()) {
+                readMultipleDep(in, data, d);
+            } else {
                 readSimpleDep(in, data, (SmSingleDependency)d);
+            }
         }
         return ret;
     }
@@ -120,9 +122,10 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
         if (type == String.class){
             int len = in.readInt();
             StringBuilder s = new StringBuilder(len);
-            for (int i=0; i < len; i++)
+            for (int i=0; i < len; i++) {
                 s.append(in.readChar());
-            
+            }
+        
             att.setValue(data, s.toString());
         } else if (type == Integer.class) {
             att.setValue(data, in.readInt());
@@ -186,17 +189,18 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
     }
 
     @objid ("dcc0e9b5-493b-11e2-91c9-001ec947ccaf")
-    private static void readSimpleDep(DataInput in, SmObjectData data, SmSingleDependency d) throws IOException {
+    private void readSimpleDep(DataInput in, SmObjectData data, SmSingleDependency d) throws IOException {
         byte flag = in.readByte();
-        if (flag == 1)
+        if (flag == 1) {
             d.setValue(data, readRef(in));
-        else
+        } else {
             assert (flag == 0) : (d.getName()+" flag is " + flag);
+        }
     }
 
     @objid ("dcc0e9bc-493b-11e2-91c9-001ec947ccaf")
-    private static void writeMultipleDep(DataOutput out, SmObjectData obj, SmMultipleDependency md) throws IOException {
-        List<SmObjectImpl> content = md.getValueList(obj);
+    private static void writeMultipleDep(DataOutput out, SmObjectData obj, SmDependency md) throws IOException {
+        Collection<SmObjectImpl> content = md.getValueAsCollection(obj);
         
         out.writeInt(content.size());
         
@@ -206,7 +210,7 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
     }
 
     @objid ("dcc0e9c3-493b-11e2-91c9-001ec947ccaf")
-    private static void readMultipleDep(DataInput in, SmObjectImpl obj, SmMultipleDependency d) throws IOException {
+    private void readMultipleDep(DataInput in, ISmObjectData obj, SmDependency d) throws IOException {
         final int size = in.readInt();
         
         for (int i=0; i<size; i++) {
@@ -216,12 +220,12 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
     }
 
     @objid ("dcc0e9ca-493b-11e2-91c9-001ec947ccaf")
-    private static SmObjectImpl readRef(DataInput in) throws IOException {
+    private SmObjectImpl readRef(DataInput in) throws IOException {
         long liveId = in.readLong();
         UUID uuid = readUuid(in);
         
         short clsid = SmLiveId.getClassId(liveId);
-        SmClass cls = SmClass.getClass(clsid);
+        SmClass cls = this.metamodel.getMClass(clsid);
         
         SmObjectImpl obj = cls.getObjectFactory().createImpl();
         obj.init(uuid, liveId);
@@ -264,6 +268,11 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
     private static void writeUuid(DataOutput out, final UUID uuid) throws IOException {
         out.writeLong(uuid.getMostSignificantBits());
         out.writeLong(uuid.getLeastSignificantBits());
+    }
+
+    @objid ("7e212a92-3f65-41ef-b379-68dd4d8670f8")
+    public CacheEntrySerializer(SmMetamodel metamodel) {
+        this.metamodel = metamodel;
     }
 
 }

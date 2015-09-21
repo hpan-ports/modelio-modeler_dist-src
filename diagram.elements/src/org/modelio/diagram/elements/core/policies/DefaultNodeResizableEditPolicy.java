@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.policies;
 
@@ -119,54 +119,63 @@ public class DefaultNodeResizableEditPolicy extends ResizableEditPolicy {
     private List<AbstractHandle> doCreateSelectionHandles() {
         List<AbstractHandle> list = new ArrayList<>();
         int directions = getResizeDirections();
+        GraphicalEditPart host = (GraphicalEditPart) getHost();
         if (directions == 0)
-            NonResizableHandleKit.addHandles((GraphicalEditPart) getHost(), list, getHost().getDragTracker(null), getHostFigure()
+            NonResizableHandleKit.addHandles(host, list, getHost().getDragTracker(null), getHostFigure()
                     .getCursor());
-        else if (directions != -1) {
-            ResizableHandleKit.addMoveHandle((GraphicalEditPart) getHost(), list, getHost().getDragTracker(null), getHostFigure()
+        else if (directions == -1) {
+            ResizableHandleKit.addHandles(host, list);
+        } else {
+            ResizableHandleKit.addMoveHandle(host, list, getHost().getDragTracker(null), getHostFigure()
                     .getCursor());
             if ((directions & PositionConstants.EAST) != 0)
-                ResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.EAST);
+                ResizableHandleKit.addHandle(host, list, PositionConstants.EAST);
             else
-                NonResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.EAST, getHost()
+                NonResizableHandleKit.addHandle(host, list, PositionConstants.EAST, getHost()
                         .getDragTracker(null), getHostFigure().getCursor());
+        
             if ((directions & PositionConstants.SOUTH_EAST) == PositionConstants.SOUTH_EAST)
-                ResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.SOUTH_EAST);
+                ResizableHandleKit.addHandle(host, list, PositionConstants.SOUTH_EAST);
             else
-                NonResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.SOUTH_EAST, getHost()
+                NonResizableHandleKit.addHandle(host, list, PositionConstants.SOUTH_EAST, getHost()
                         .getDragTracker(null), getHostFigure().getCursor());
+        
             if ((directions & PositionConstants.SOUTH) != 0)
-                ResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.SOUTH);
+                ResizableHandleKit.addHandle(host, list, PositionConstants.SOUTH);
             else
-                NonResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.SOUTH, getHost()
+                NonResizableHandleKit.addHandle(host, list, PositionConstants.SOUTH, getHost()
                         .getDragTracker(null), getHostFigure().getCursor());
+        
             if ((directions & PositionConstants.SOUTH_WEST) == PositionConstants.SOUTH_WEST)
-                ResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.SOUTH_WEST);
+                ResizableHandleKit.addHandle(host, list, PositionConstants.SOUTH_WEST);
             else
-                NonResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.SOUTH_WEST, getHost()
+                NonResizableHandleKit.addHandle(host, list, PositionConstants.SOUTH_WEST, getHost()
                         .getDragTracker(null), getHostFigure().getCursor());
+        
             if ((directions & PositionConstants.WEST) != 0)
-                ResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.WEST);
+                ResizableHandleKit.addHandle(host, list, PositionConstants.WEST);
             else
-                NonResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.WEST, getHost()
+                NonResizableHandleKit.addHandle(host, list, PositionConstants.WEST, getHost()
                         .getDragTracker(null), getHostFigure().getCursor());
+        
             if ((directions & PositionConstants.NORTH_WEST) == PositionConstants.NORTH_WEST)
-                ResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.NORTH_WEST);
+                ResizableHandleKit.addHandle(host, list, PositionConstants.NORTH_WEST);
             else
-                NonResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.NORTH_WEST, getHost()
+                NonResizableHandleKit.addHandle(host, list, PositionConstants.NORTH_WEST, getHost()
                         .getDragTracker(null), getHostFigure().getCursor());
+        
             if ((directions & PositionConstants.NORTH) != 0)
-                ResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.NORTH);
+                ResizableHandleKit.addHandle(host, list, PositionConstants.NORTH);
             else
-                NonResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.NORTH, getHost()
+                NonResizableHandleKit.addHandle(host, list, PositionConstants.NORTH, getHost()
                         .getDragTracker(null), getHostFigure().getCursor());
+        
             if ((directions & PositionConstants.NORTH_EAST) == PositionConstants.NORTH_EAST)
-                ResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.NORTH_EAST);
+                ResizableHandleKit.addHandle(host, list, PositionConstants.NORTH_EAST);
             else
-                NonResizableHandleKit.addHandle((GraphicalEditPart) getHost(), list, PositionConstants.NORTH_EAST, getHost()
+                NonResizableHandleKit.addHandle(host, list, PositionConstants.NORTH_EAST, getHost()
                         .getDragTracker(null), getHostFigure().getCursor());
-        } else
-            ResizableHandleKit.addHandles((GraphicalEditPart) getHost(), list);
+        }
         return list;
     }
 

@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.api.impl.model;
 
 import java.util.ArrayList;
@@ -24,7 +45,6 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefiniti
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.smkernel.mapi.MObject;
-import org.modelio.vcore.smkernel.meta.SmClass;
 
 /**
  * This class represents the root model of requirement classes.
@@ -408,7 +428,7 @@ public class AnalystModel implements IAnalystModel {
     private List<AnalystProject> getAnalystProject() {
         List<AnalystProject> ret = new ArrayList<>();
         
-        Collection<? extends MObject> findByClass = this.model.findByClass(SmClass.getClass(AnalystProject.class), IModel.ISVALID);
+        Collection<? extends MObject> findByClass = this.model.findByClass(AnalystProject.class, IModel.ISVALID);
         for (MObject project : findByClass) {
             ret.add((AnalystProject) project);
         }

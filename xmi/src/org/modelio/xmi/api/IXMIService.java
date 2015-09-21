@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,19 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.api;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.modelio.gproject.model.IMModelServices;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 
 /**
  * This interface represents the service provided by XMI plugin.
@@ -37,7 +38,7 @@ public interface IXMIService {
      * @throws java.lang.Exception : the first Exception occurring during the export
      */
     @objid ("9b2c5761-cdb7-488a-9667-2d1599fee930")
-    void exportXMIFile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices modelServices) throws Exception;
+    void exportXMIFile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices modelServices, MMetamodel metamodel) throws Exception;
 
     /**
      * This service imports the Model saved in the given XMI file.
@@ -64,6 +65,6 @@ public interface IXMIService {
      * @throws java.lang.Exception : the first Exception occurring during the export
      */
     @objid ("c3c622fa-9a80-49d3-b4e4-8975feaeb086")
-    void exportXMIProfile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices modelServices) throws Exception;
+    void exportXMIProfile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices modelServices, MMetamodel metamodel) throws Exception;
 
 }

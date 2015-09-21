@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,100 +12,260 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.mda;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.mda.ModuleParameter;
 import org.modelio.metamodel.mda.ModuleState;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 import org.modelio.metamodel.uml.statik.Component;
 
+/**
+ * ModuleComponent v0.0.9054
+ * 
+ * 
+ * Module Modelio specific metaclass.
+ * 
+ * Represents a Modelio module.
+ * It inherits from Component, its nearest looking like UML representation.
+ */
 @objid ("006567e2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ModuleComponent extends Component {
-    @objid ("958df359-23fc-44b3-8029-542c31478270")
+    @objid ("3582a187-d839-43d5-af72-6616630ed6d3")
+    public static final String MNAME = "ModuleComponent";
+
+    /**
+     * Getter for attribute 'ModuleComponent.LicenseKey'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("49d60b79-57f1-4f7e-9990-f2d13d8c5f0d")
     int getLicenseKey();
 
-    @objid ("abaca3fb-1b70-4d92-af08-2f0240bd022f")
+    /**
+     * Setter for attribute 'ModuleComponent.LicenseKey'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("bb0e2d68-2b4e-49b4-a76f-920e805155fb")
     void setLicenseKey(int value);
 
-    @objid ("5fc54222-cf4c-4afa-b07a-963175f88d80")
+    /**
+     * Getter for attribute 'ModuleComponent.MajVersion'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1e14eb41-8f1a-4dac-afe9-574d7ca5ea66")
     int getMajVersion();
 
-    @objid ("d40c275f-fbb2-4ed7-9264-64ba8e7c62f4")
+    /**
+     * Setter for attribute 'ModuleComponent.MajVersion'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("603ad250-b66e-4027-af73-db8f7f85af5c")
     void setMajVersion(int value);
 
-    @objid ("087e28c2-40ea-4074-8dc0-28048ca39e29")
+    /**
+     * Getter for attribute 'ModuleComponent.MinVersion'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("946b6e63-8b6a-41bd-a640-386e201711c8")
     int getMinVersion();
 
-    @objid ("26988a92-4d47-4e09-9dcd-6e390f5e8c67")
+    /**
+     * Setter for attribute 'ModuleComponent.MinVersion'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1cd90011-d916-407e-913d-2eed87b214ff")
     void setMinVersion(int value);
 
-    @objid ("0c64cb2d-4cc1-4e9f-9371-1d0c88894b91")
+    /**
+     * Getter for attribute 'ModuleComponent.MinMinVersion'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4fbbf5ad-4cfb-4d81-a657-32b4c9905ee7")
     String getMinMinVersion();
 
-    @objid ("96eb2767-bf93-432a-aa69-65a1fe288ef0")
+    /**
+     * Setter for attribute 'ModuleComponent.MinMinVersion'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4c149960-bb04-4dc2-9d73-84bc8687f019")
     void setMinMinVersion(String value);
 
-    @objid ("44c477fd-2655-466b-a3f8-ee813cd79028")
+    /**
+     * Getter for attribute 'ModuleComponent.MinBinVersionCompatibility'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("9b7b08ea-6a55-4a7e-95b5-a6e5cfa3b0b2")
     String getMinBinVersionCompatibility();
 
-    @objid ("e62b9b94-2e0b-48b3-bfe7-945a001f3b0f")
+    /**
+     * Setter for attribute 'ModuleComponent.MinBinVersionCompatibility'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("743f4d07-da34-4062-9371-69160088f724")
     void setMinBinVersionCompatibility(String value);
 
-    @objid ("8325e142-5fa9-4cfa-97ac-8a64753925bc")
+    /**
+     * Getter for attribute 'ModuleComponent.JavaClassName'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("8540b6a6-900c-4850-9c4b-2355486dee71")
     String getJavaClassName();
 
-    @objid ("708b8e79-b615-4944-a246-28f494eb4968")
+    /**
+     * Setter for attribute 'ModuleComponent.JavaClassName'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("33213313-ab3d-4b19-86af-fb3302e6f1dd")
     void setJavaClassName(String value);
 
-    @objid ("489ffaee-73e4-4c6b-825d-d8aaeb5932ef")
+    /**
+     * Getter for attribute 'ModuleComponent.State'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1910d601-d484-4b3b-b591-2bf73292fe28")
     ModuleState getState();
 
-    @objid ("301cd720-497e-4e2e-a906-fc024a78b793")
+    /**
+     * Setter for attribute 'ModuleComponent.State'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("506f6dd5-0fca-4b2f-8823-27ccc023b98b")
     void setState(ModuleState value);
 
-    @objid ("864f4347-ca46-4118-9e58-7ab225fbefd6")
+    /**
+     * Getter for relation 'ModuleComponent->DefinedPropertyType'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("67e744c1-cbd7-4994-90ab-41dfd9f74804")
     EList<PropertyType> getDefinedPropertyType();
 
-    @objid ("ce73e353-8f4f-4eee-a087-8eaa03cdc3f6")
+    /**
+     * Filtered Getter for relation 'ModuleComponent->DefinedPropertyType'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("80053ea3-3ca2-44aa-9ed8-23b759c00846")
     <T extends PropertyType> List<T> getDefinedPropertyType(java.lang.Class<T> filterClass);
 
-    @objid ("d90385c7-677b-4e8f-9dfe-854a5878e327")
+    /**
+     * Getter for relation 'ModuleComponent->OwnedProfile'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("7d3a0064-3674-4534-929c-bf18b353dda2")
     EList<Profile> getOwnedProfile();
 
-    @objid ("e2b3b996-0b9d-4b8b-be0b-28d8a2295c83")
+    /**
+     * Filtered Getter for relation 'ModuleComponent->OwnedProfile'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e8f58664-02f8-4016-822a-a4a97ef30a42")
     <T extends Profile> List<T> getOwnedProfile(java.lang.Class<T> filterClass);
 
-    @objid ("947ab089-b9cf-4fa0-b0f0-833ed6bccf38")
+    /**
+     * Getter for relation 'ModuleComponent->ModuleParameter'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("9fae2874-3fa4-4d37-993d-b2e656c67545")
     EList<ModuleParameter> getModuleParameter();
 
-    @objid ("a7ebb509-b4ea-44b0-b68d-0847cd3e692d")
+    /**
+     * Filtered Getter for relation 'ModuleComponent->ModuleParameter'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("036b2c08-fe72-4e2c-8785-d6cc103dfec0")
     <T extends ModuleParameter> List<T> getModuleParameter(java.lang.Class<T> filterClass);
 
-    @objid ("9d3ac775-2ffc-4fa6-9c0a-43429e78653f")
+    /**
+     * Getter for relation 'ModuleComponent->DependsOn'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("7e3c07b3-352d-4201-bab1-22b350dd7712")
     EList<ModuleComponent> getDependsOn();
 
-    @objid ("f46d81f2-a541-4ce7-ba24-d09d4f861837")
+    /**
+     * Filtered Getter for relation 'ModuleComponent->DependsOn'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("65ce3d35-eaf1-4f17-86d4-ec72c6f08777")
     <T extends ModuleComponent> List<T> getDependsOn(java.lang.Class<T> filterClass);
 
-    @objid ("ef55e5af-6d51-478b-a4b4-abc6f8c19753")
+    /**
+     * Getter for relation 'ModuleComponent->Impacted'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("88d94bcc-cd0f-465a-805d-a3887723019d")
     EList<ModuleComponent> getImpacted();
 
-    @objid ("b4aff6e4-f807-442f-aa0c-62dfd023cfb6")
+    /**
+     * Filtered Getter for relation 'ModuleComponent->Impacted'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("cd09a106-9594-4f52-bf6a-fdde8fd934d2")
     <T extends ModuleComponent> List<T> getImpacted(java.lang.Class<T> filterClass);
 
 }

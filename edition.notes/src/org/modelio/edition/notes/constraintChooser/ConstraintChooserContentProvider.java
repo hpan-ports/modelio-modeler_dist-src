@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.edition.notes.constraintChooser;
 
@@ -27,12 +27,12 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 
 /**
  * Default content provider for the constraint chooser dialog.
@@ -66,21 +66,17 @@ public class ConstraintChooserContentProvider implements ITreeContentProvider {
         Set<Object> ret = new HashSet<>();
         
         if (parent instanceof ConstraintChooserModel) {
-            for (Stereotype stereotype : this.modelService.findStereotypes(".*", Metamodel.getMClass(Constraint.class))) {
-                if (!stereotype.isIsHidden()) {
-                    ModuleComponent moduleComponent = stereotype.getOwner().getOwnerModule();
-                    ret.add(moduleComponent);
-                }
-            }
-            ret.add(Constraint.class);
+            ConstraintChooserModel m = (ConstraintChooserModel) parent;
+            return m.getRoots().toArray();
         } else if (parent instanceof ModuleComponent) {
             ModuleComponent moduleComponent = (ModuleComponent) parent;
             for (Profile profile : moduleComponent.getOwnedProfile()) {
                 for (Stereotype stereotype : profile.getDefinedStereotype()) {
                     if (!stereotype.isIsHidden()) {
                         String referencedClassName = stereotype.getBaseClassName();
+                        MMetamodel Metamodel = stereotype.getMClass().getMetamodel();
                         MClass referencedMClass = Metamodel.getMClass(referencedClassName);
-                        if (Metamodel.getJavaInterface(referencedMClass).isAssignableFrom(Constraint.class)) {
+                        if (referencedMClass.getJavaInterface().isAssignableFrom(Constraint.class)) {
                             ret.add(stereotype);
                         }
                     }

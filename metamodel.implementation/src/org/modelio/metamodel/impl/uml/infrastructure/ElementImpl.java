@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -29,8 +41,8 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.infrastructure.ElementData;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
+import org.modelio.metamodel.impl.uml.infrastructure.ElementData;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
@@ -42,6 +54,7 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0086b028-c4be-1fd8-97fe-001ec947cd2a")
 public abstract class ElementImpl extends SmObjectImpl implements Element {
@@ -50,78 +63,89 @@ public abstract class ElementImpl extends SmObjectImpl implements Element {
         // do nothing. Element has no name
     }
 
-    @objid ("a17eedf6-ee12-43ec-8470-cf9543449395")
+    @objid ("f5e784ac-fc46-4ccd-8fef-b1deb3a7af83")
     @Override
     public EList<AbstractDiagram> getDiagramElement() {
-        return new SmList<>(this, ElementData.Metadata.DiagramElementDep());
+        return new SmList<>(this, ((ElementSmClass)getClassOf()).getDiagramElementDep());
     }
 
-    @objid ("6c9bbc14-c589-4da3-926b-b67ee5f82c78")
+    @objid ("0dce3a7c-a3ae-41f6-b82a-c7df2607efe8")
     @Override
     public <T extends AbstractDiagram> List<T> getDiagramElement(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final AbstractDiagram element : getDiagramElement()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9df4f540-8f7a-4ece-bf7c-ca1b9358be07")
+    @objid ("ea8f93eb-bd74-4e12-8079-9048d465d815")
     @Override
     public EList<NamespaceUse> getCausing() {
-        return new SmList<>(this, ElementData.Metadata.CausingDep());
+        return new SmList<>(this, ((ElementSmClass)getClassOf()).getCausingDep());
     }
 
-    @objid ("97002613-a825-4a4d-a28b-b685c6bd8a10")
+    @objid ("84b6d3e1-2257-4432-876b-df3050c0811d")
     @Override
     public <T extends NamespaceUse> List<T> getCausing(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final NamespaceUse element : getCausing()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("46ba8cb8-fda0-4be5-83da-b37304929cde")
+    @objid ("1170073d-9c08-4e8f-bb76-ea8e7b217212")
     @Override
     public EList<QueryDefinition> getAddedToQuery() {
-        return new SmList<>(this, ElementData.Metadata.AddedToQueryDep());
+        return new SmList<>(this, ((ElementSmClass)getClassOf()).getAddedToQueryDep());
     }
 
-    @objid ("f39553a2-4c19-41c8-a751-585d98c34783")
+    @objid ("d5b5ea55-e460-4a95-842d-0cb95e9b8e03")
     @Override
     public <T extends QueryDefinition> List<T> getAddedToQuery(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final QueryDefinition element : getAddedToQuery()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e49f10cd-d2fe-42a9-8b8b-189b8d211222")
+    @objid ("b5ab1e3d-065b-4b2b-99a9-b915a5de92e1")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return null;
     }
 
-    @objid ("4639eb65-cf1a-4f4c-842a-bfe3e2524889")
+    @objid ("a03b246a-4c87-4287-b8bc-698ebdb3dc49")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return null;
     }
 
-    @objid ("1dcbfeb6-351a-410b-9dff-c085167567f2")
+    @objid ("ac7fe25f-34ab-424b-893b-6d560fe862ff")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitElement(this);

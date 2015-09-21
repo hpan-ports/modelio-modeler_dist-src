@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.module.propertytab.propertytab;
 
@@ -37,7 +37,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.core.di.extensions.EventTopic;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.commands.MCommandsFactory;
@@ -59,7 +59,6 @@ import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.swt.widgets.Display;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
 import org.modelio.api.module.propertiesPage.IModulePropertyPanel;
@@ -100,111 +99,100 @@ public class ModulePropertyViewHandler {
     @objid ("c8865142-1eba-11e2-9382-bc305ba4815c")
     @Inject
     @Optional
-    void onModuleStarted(@EventTopic(ModelioEventTopics.MODULE_STARTED) final IRTModule module, final MApplication application, final EModelService modelService) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        Display.getDefault().asyncExec(() -> {
-            for (IModulePropertyPanel propertyPage : module.getPropertyPanels()) {
-                MPart part = MBasicFactory.INSTANCE.createPart();
-                part.setElementId(module + "_" + propertyPage.getName());
-                part.setContributorURI(PLATFORM_PREFIX
-                        + FrameworkUtil.getBundle(ModulePropertyViewHandler.class).getSymbolicName());
-                part.setContributionURI(BUNDLE_PREFIX + FrameworkUtil.getBundle(ModulePropertyView.class).getSymbolicName()
-                        + URI_SEPARATOR + ModulePropertyView.class.getName());
+    void onModuleStarted(@UIEventTopic(ModelioEventTopics.MODULE_STARTED) final IRTModule module, final MApplication application, final EModelService modelService) {
+        for (IModulePropertyPanel propertyPage : module.getPropertyPanels()) {
+            MPart part = MBasicFactory.INSTANCE.createPart();
+            part.setElementId(module + "_" + propertyPage.getName());
+            part.setContributorURI(PLATFORM_PREFIX
+                    + FrameworkUtil.getBundle(ModulePropertyViewHandler.class).getSymbolicName());
+            part.setContributionURI(BUNDLE_PREFIX + FrameworkUtil.getBundle(ModulePropertyView.class).getSymbolicName()
+                    + URI_SEPARATOR + ModulePropertyView.class.getName());
         
-                part.getTags().add(DYNAMIC_MODULE_VIEW_TAG);
-                part.getTags().add(module.getName());
-                part.getTags().add(propertyPage.getName());
+            part.getTags().add(DYNAMIC_MODULE_VIEW_TAG);
+            part.getTags().add(module.getName());
+            part.getTags().add(propertyPage.getName());
         
-                part.setLabel(propertyPage.getLabel());
-                part.setIconURI(getModuleImagePath(module));
+            part.setLabel(propertyPage.getLabel());
+            part.setIconURI(getModuleImagePath(module));
         
-                // Insert the module actions with ActionLocation.propertypage
-                List<IModuleAction> actions = module.getActions(ActionLocation.property);
-                if (actions != null && !actions.isEmpty()) {
-                    MToolBar toolbar = MMenuFactory.INSTANCE.createToolBar();
-                    toolbar.setVisible(true);
-                    toolbar.setToBeRendered(true);
-                    for (IModuleAction action : actions) {
-                        // MCommand
-                        MCommand command = ModuleCommandsRegistry.getCommand(module, action);
-                        // MHandler
-                        final MHandler handler = createAndActivateHandler(part, command, module, action);
+            // Insert the module actions with ActionLocation.propertypage
+            List<IModuleAction> actions = module.getActions(ActionLocation.property);
+            if (actions != null && !actions.isEmpty()) {
+                MToolBar toolbar = MMenuFactory.INSTANCE.createToolBar();
+                toolbar.setVisible(true);
+                toolbar.setToBeRendered(true);
+                for (IModuleAction action : actions) {
+                    // MCommand
+                    MCommand command = ModuleCommandsRegistry.getCommand(module, action);
+                    // MHandler
+                    final MHandler handler = createAndActivateHandler(part, command, module, action);
         
-                        // MHandledItem
-                        MHandledToolItem item = createAndInsertItem(toolbar, action);
-                        // Bind to command
-                        item.setCommand(command);
+                    // MHandledItem
+                    MHandledToolItem item = createAndInsertItem(toolbar, action);
+                    // Bind to command
+                    item.setCommand(command);
         
-                        Expression visWhen = new IsVisibleExpression(handler.getObject(), item);
-                        MCoreExpression isVisibleWhenExpression = MUiFactory.INSTANCE.createCoreExpression();
-                        isVisibleWhenExpression.setCoreExpressionId("programmatic.value");
-                        isVisibleWhenExpression.setCoreExpression(visWhen);
+                    Expression visWhen = new IsVisibleExpression(handler.getObject(), item);
+                    MCoreExpression isVisibleWhenExpression = MUiFactory.INSTANCE.createCoreExpression();
+                    isVisibleWhenExpression.setCoreExpressionId("programmatic.value");
+                    isVisibleWhenExpression.setCoreExpression(visWhen);
         
-                        item.setVisibleWhen(isVisibleWhenExpression);
-                    }
-                    part.setToolbar(toolbar);
+                    item.setVisibleWhen(isVisibleWhenExpression);
                 }
+                part.setToolbar(toolbar);
+            }
         
-                // Add the shared part to the window
-                List<MTrimmedWindow> trimmedWindow = modelService.findElements(application, "org.modelio.app.ui.trimmed",
-                        MTrimmedWindow.class, null);
-                trimmedWindow.get(0).getSharedElements().add(part);
+            // Add the shared part to the window
+            List<MTrimmedWindow> trimmedWindow = modelService.findElements(application, "org.modelio.app.ui.trimmed",
+                    MTrimmedWindow.class, null);
+            trimmedWindow.get(0).getSharedElements().add(part);
         
-                // Add a placeholder where the view needs to be added in the different perspectives
-                List<MPerspectiveStack> perspectiveStacks = modelService.findElements(application,
-                        "org.modelio.app.ui.stack.perspectives", MPerspectiveStack.class, null);
-                List<MPerspective> perspectives = modelService.findElements(perspectiveStacks.get(0), null, MPerspective.class,
-                        null);
-                for (MPerspective perspective : perspectives) {
-                    List<String> tagsToMatch = new ArrayList<>();
-                    tagsToMatch.add(MODULE_STACK_TAG);
-                    List<MPartStack> partStack = modelService.findElements(perspective, null, MPartStack.class, tagsToMatch);
-                    if (partStack.size() > 0) {
-                        final MPartStack mPartStack = partStack.get(0);
+            // Add a placeholder where the view needs to be added in the different perspectives
+            List<MPerspectiveStack> perspectiveStacks = modelService.findElements(application,
+                    "org.modelio.app.ui.stack.perspectives", MPerspectiveStack.class, null);
+            List<MPerspective> perspectives = modelService.findElements(perspectiveStacks.get(0), null, MPerspective.class,
+                    null);
+            for (MPerspective perspective : perspectives) {
+                List<String> tagsToMatch = new ArrayList<>();
+                tagsToMatch.add(MODULE_STACK_TAG);
+                List<MPartStack> partStack = modelService.findElements(perspective, null, MPartStack.class, tagsToMatch);
+                if (partStack.size() > 0) {
+                    final MPartStack mPartStack = partStack.get(0);
         
-                        final MPlaceholder placeholder = MAdvancedFactory.INSTANCE.createPlaceholder();
-                        placeholder.setRef(part);
+                    final MPlaceholder placeholder = MAdvancedFactory.INSTANCE.createPlaceholder();
+                    placeholder.setRef(part);
         
-                        mPartStack.getChildren().add(placeholder);
-                        // FIXME reactivate part selection when perspective switch is ok...
-                        // if (perspective.getParent().getSelectedElement().equals(perspective)) {
-                        //    mPartStack.setSelectedElement(placeholder);
-                        // }
-                    }
+                    mPartStack.getChildren().add(placeholder);
                 }
             }
-        });
+        }
     }
 
     @objid ("c8867855-1eba-11e2-9382-bc305ba4815c")
     @Inject
     @Optional
-    void onModuleStopped(@EventTopic(ModelioEventTopics.MODULE_STOPPED) final IRTModule module, final MApplication application, final EModelService modelService) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        Display.getDefault().asyncExec(() -> {
-            // Add the shared part to the window
-            List<MTrimmedWindow> trimmedWindow = modelService.findElements(application, "org.modelio.app.ui.trimmed",
-                    MTrimmedWindow.class, null);
+    void onModuleStopped(@UIEventTopic(ModelioEventTopics.MODULE_STOPPED) final IRTModule module, final MApplication application, final EModelService modelService) {
+        // Add the shared part to the window
+        List<MTrimmedWindow> trimmedWindow = modelService.findElements(application, "org.modelio.app.ui.trimmed",
+                MTrimmedWindow.class, null);
         
-            final List<MUIElement> sharedElements = trimmedWindow.get(0).getSharedElements();
-            for (MUIElement element : new ArrayList<>(sharedElements)) {
-                List<String> tags = element.getTags();
-                if (tags.contains(DYNAMIC_MODULE_VIEW_TAG) && tags.contains(module.getName())) {
-                    final MPart mPart = (MPart) element;
-                    element.setToBeRendered(false);
-                    sharedElements.remove(mPart);
-                    mPart.setObject(null);
+        final List<MUIElement> sharedElements = trimmedWindow.get(0).getSharedElements();
+        for (MUIElement element : new ArrayList<>(sharedElements)) {
+            List<String> tags = element.getTags();
+            if (tags.contains(DYNAMIC_MODULE_VIEW_TAG) && tags.contains(module.getName())) {
+                final MPart mPart = (MPart) element;
+                element.setToBeRendered(false);
+                sharedElements.remove(mPart);
+                mPart.setObject(null);
         
-                    for (MPlaceholder placeholder : modelService.findElements(application, null, MPlaceholder.class, null)) {
-                        if (mPart.equals(placeholder.getRef())) {
-                            placeholder.setParent(null);
-                            placeholder.setRenderer(false);
-                        }
+                for (MPlaceholder placeholder : modelService.findElements(application, null, MPlaceholder.class, null)) {
+                    if (mPart.equals(placeholder.getRef())) {
+                        placeholder.setParent(null);
+                        placeholder.setRenderer(false);
                     }
                 }
             }
-        
-        });
+        }
     }
 
     @objid ("c886c673-1eba-11e2-9382-bc305ba4815c")

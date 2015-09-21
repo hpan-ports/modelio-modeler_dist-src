@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.audit.rules;
 
@@ -38,7 +38,6 @@ import org.modelio.audit.engine.impl.AuditTrigger;
 import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.plugin.Audit;
 import org.modelio.audit.service.AuditSeverity;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystItem;
 import org.modelio.metamodel.analyst.Dictionary;
 import org.modelio.metamodel.analyst.Term;
@@ -73,10 +72,10 @@ public class R2010 extends AbstractRule {
     @objid ("b7134d2d-3220-45cd-b101-bf6b2cada27a")
     @Override
     public void autoRegister(IAuditPlan plan) {
-        plan.registerRule(Metamodel.getMClass(Dictionary.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(Dictionary.MNAME, this, AuditTrigger.CREATE |
                                                            AuditTrigger.MOVE |
                                                            AuditTrigger.UPDATE);
-        plan.registerRule(Metamodel.getMClass(Term.class).getName(), this, AuditTrigger.CREATE |
+        plan.registerRule(Term.MNAME, this, AuditTrigger.CREATE |
                                                      AuditTrigger.MOVE |
                                                      AuditTrigger.UPDATE);
     }

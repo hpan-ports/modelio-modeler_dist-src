@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -29,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.activityModel.StructuredActivityNodeData;
+import org.modelio.metamodel.impl.uml.behavior.activityModel.StructuredActivityNodeData;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.StructuredActivityNode;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -40,55 +52,63 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("003e347e-c4bf-1fd8-97fe-001ec947cd2a")
 public class StructuredActivityNodeImpl extends ActivityActionImpl implements StructuredActivityNode {
-    @objid ("22513855-8bb5-4239-935d-50586f29c3dd")
+    @objid ("17cca269-14c9-4bd8-a712-d85f3b6d7d60")
     @Override
     public boolean isMustIsolate() {
-        return (Boolean) getAttVal(StructuredActivityNodeData.Metadata.MustIsolateAtt());
+        return (Boolean) getAttVal(((StructuredActivityNodeSmClass)getClassOf()).getMustIsolateAtt());
     }
 
-    @objid ("cc5a85cb-1bbf-4734-ae56-af8bb3394c0a")
+    @objid ("bf065671-db32-4fe1-b793-8ce4c363064c")
     @Override
     public void setMustIsolate(boolean value) {
-        setAttVal(StructuredActivityNodeData.Metadata.MustIsolateAtt(), value);
+        setAttVal(((StructuredActivityNodeSmClass)getClassOf()).getMustIsolateAtt(), value);
     }
 
-    @objid ("93b55822-517c-4319-b92b-d4e1516ff2af")
+    @objid ("8530c0b0-4acd-4631-ba0c-5366d379ffbd")
     @Override
     public EList<ActivityNode> getBody() {
-        return new SmList<>(this, StructuredActivityNodeData.Metadata.BodyDep());
+        return new SmList<>(this, ((StructuredActivityNodeSmClass)getClassOf()).getBodyDep());
     }
 
-    @objid ("7fd5e5d4-0366-4bdd-9527-564662e7f053")
+    @objid ("b51b4784-d3a9-4181-aead-27ab69074eaa")
     @Override
     public <T extends ActivityNode> List<T> getBody(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ActivityNode element : getBody()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("86b47240-97ee-4635-84a0-aa772c72ab77")
+    @objid ("530f9560-a90b-43a3-a7a9-78ac47e67b90")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("f93bbb03-fcf2-46f1-9d05-588418672f93")
+    @objid ("4d196d96-be44-4ccd-835a-4b9c49a3fab2")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("c1f3032f-1f00-46f9-9545-9acdfbabbea4")
+    @objid ("30b19e65-3e58-451b-9ee5-0997e431f2b0")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStructuredActivityNode(this);

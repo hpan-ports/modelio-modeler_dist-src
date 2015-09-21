@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.bpmn;
 
@@ -49,7 +49,7 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
      * </ul>
      */
     @objid ("a6032ba8-c068-11e1-8c0a-002564c97630")
-    private static final String[] properties = new String[] { "Operation", "Name","InputMessgae","OutputMessage","Operation" };
+    private static final String[] properties = new String[] { "Property", "Name", "InputMessgae", "OutputMessage", "Operation" };
 
     @objid ("16bf3005-16da-11e2-aa0d-002564c97630")
     private IModel model;
@@ -95,25 +95,25 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return BpmnOperationPropertyModel.properties[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getName();
-                    case 2:
-                        return this.theEditedElement.getInMessageRef();
-                    case 3:
-                        return this.theEditedElement.getOutMessageRef();
-                    case 4:
-                        return this.theEditedElement.getImplementationRef();
-                    default:
-                        return null;
-                }
+        case 0: // col 0 is the property key
+            return BpmnOperationPropertyModel.properties[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return this.theEditedElement.getInMessageRef();
+            case 3:
+                return this.theEditedElement.getOutMessageRef();
+            case 4:
+                return this.theEditedElement.getImplementationRef();
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -131,25 +131,25 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return new StringType(false);
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return new StringType(false);
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return new StringType(false);
-                    case 1:
-                        return new StringType(true);
-                    case 2:
-                        return new SingleElementType(true, BpmnMessage.class, CoreSession.getSession(this.theEditedElement));
-                    case 3:
-                        return new SingleElementType(true, BpmnMessage.class, CoreSession.getSession(this.theEditedElement));
-                    case 4:
-                        return new SingleElementType(true, Operation.class, CoreSession.getSession(this.theEditedElement));
-                    default:
-                        return null;
-                }
+            case 1:
+                return new StringType(true);
+            case 2:
+                return new SingleElementType(true, BpmnMessage.class, CoreSession.getSession(this.theEditedElement));
+            case 3:
+                return new SingleElementType(true, BpmnMessage.class, CoreSession.getSession(this.theEditedElement));
+            case 4:
+                return new SingleElementType(true, Operation.class, CoreSession.getSession(this.theEditedElement));
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -165,30 +165,30 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
-                return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setName((String) value);
-                        break;
-                    case 2:
-                        this.theEditedElement.setInMessageRef((BpmnMessage) value);
-                        break;
-                    case 3:
-                        this.theEditedElement.setOutMessageRef((BpmnMessage) value);
-                        break;
-                    case 4:
-                        this.theEditedElement.setImplementationRef((Operation) value);
-                        break;
-                    default:
-                        return;
-                }
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                this.theEditedElement.setInMessageRef((BpmnMessage) value);
+                break;
+            case 3:
+                this.theEditedElement.setOutMessageRef((BpmnMessage) value);
+                break;
+            case 4:
+                this.theEditedElement.setImplementationRef((Operation) value);
                 break;
             default:
                 return;
+            }
+            break;
+        default:
+            return;
         }
     }
 

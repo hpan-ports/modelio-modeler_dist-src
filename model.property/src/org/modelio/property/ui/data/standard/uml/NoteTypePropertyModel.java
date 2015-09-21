@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -33,7 +33,7 @@ import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 @objid ("8f4fb58d-c068-11e1-8c0a-002564c97630")
 public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
     @objid ("a7a87f0b-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"NoteType", "Name", "Label", "IsHidden", "MimeType"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "Label", "IsHidden", "MimeType" };
 
     @objid ("8f4fb58e-c068-11e1-8c0a-002564c97630")
     private BooleanType booleanType = null;
@@ -132,7 +132,7 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
             case 2:
                 return this.theEditedElement.getLabelKey();
             case 3:
-                return this.theEditedElement.isIsHidden()?Boolean.TRUE:Boolean.FALSE;
+                return this.theEditedElement.isIsHidden() ? Boolean.TRUE : Boolean.FALSE;
             case 4:
                 return this.theEditedElement.getMimeType();
             default:
@@ -158,10 +158,10 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
             case 0:
                 return; // Header cannot be modified
             case 1:
-                this.theEditedElement.setName((String)value);
+                this.theEditedElement.setName((String) value);
                 return;
             case 2:
-                this.theEditedElement.setLabelKey((String)value);
+                this.theEditedElement.setLabelKey((String) value);
                 return;
             case 3:
                 this.theEditedElement.setIsHidden(((Boolean) value).booleanValue());

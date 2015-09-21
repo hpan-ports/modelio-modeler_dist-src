@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
@@ -32,6 +31,7 @@ import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityCh
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
 import org.modelio.vcore.smkernel.mapi.MDependency;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * E237;
@@ -51,12 +51,12 @@ public class E237Checker extends DepCardinalityChecker {
 
     @objid ("0937548e-edff-11e1-9e29-002564c97630")
     @Override
-    public void register(final Plan plan) {
+    public void register(final Plan plan, SmMetamodel smMetamodel) {
         // trigger=create, metaclass=Note, feature=null
-        plan.registerChecker(this, Metamodel.getMClass(ExternDocument.class), TriggerType.Create, null);
+        plan.registerChecker(this, smMetamodel.getMClass(ExternDocument.class), TriggerType.Create, null);
         
         // trigger=create, metaclass=Note, feature=Model
-        plan.registerChecker(this, Metamodel.getMClass(ExternDocument.class), TriggerType.Update, DEPNAME);
+        plan.registerChecker(this, smMetamodel.getMClass(ExternDocument.class), TriggerType.Update, DEPNAME);
     }
 
     @objid ("09375493-edff-11e1-9e29-002564c97630")

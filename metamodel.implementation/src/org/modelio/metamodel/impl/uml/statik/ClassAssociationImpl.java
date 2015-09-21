@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,24 +12,36 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.ClassAssociationData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.statik.ClassAssociationData;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
@@ -42,72 +54,87 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0002efae-c4bf-1fd8-97fe-001ec947cd2a")
 public class ClassAssociationImpl extends ModelElementImpl implements ClassAssociation {
-    @objid ("4c4bcffb-f53d-46cc-85ea-3f46465abc84")
+    @objid ("a1bd9d2b-6a2f-42de-af42-230da042539b")
     @Override
     public NaryAssociation getNaryAssociationPart() {
-        return (NaryAssociation) getDepVal(ClassAssociationData.Metadata.NaryAssociationPartDep());
+        Object obj = getDepVal(((ClassAssociationSmClass)getClassOf()).getNaryAssociationPartDep());
+        return (obj instanceof NaryAssociation)? (NaryAssociation)obj : null;
     }
 
-    @objid ("6cb1fee5-f59f-4e07-9c3f-8731da7d8856")
+    @objid ("e475478f-9b56-416f-8bce-e3b4212a1ac5")
     @Override
     public void setNaryAssociationPart(NaryAssociation value) {
-        appendDepVal(ClassAssociationData.Metadata.NaryAssociationPartDep(), (SmObjectImpl)value);
+        appendDepVal(((ClassAssociationSmClass)getClassOf()).getNaryAssociationPartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("facb3ff0-4d28-451c-852a-cf366bc8d573")
+    @objid ("5c82332b-3b59-4930-8094-8e753d3cba6e")
     @Override
     public Class getClassPart() {
-        return (Class) getDepVal(ClassAssociationData.Metadata.ClassPartDep());
+        Object obj = getDepVal(((ClassAssociationSmClass)getClassOf()).getClassPartDep());
+        return (obj instanceof Class)? (Class)obj : null;
     }
 
-    @objid ("b65c6385-a5bb-4525-a0a7-3b1f237ba0ce")
+    @objid ("78015c34-4cae-42f8-a4a0-21295c4342d3")
     @Override
     public void setClassPart(Class value) {
-        appendDepVal(ClassAssociationData.Metadata.ClassPartDep(), (SmObjectImpl)value);
+        appendDepVal(((ClassAssociationSmClass)getClassOf()).getClassPartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b5249c72-ca76-4418-ac89-95a610e5ea13")
+    @objid ("1dfbd3e0-7674-499a-8309-5079c2a068b1")
     @Override
     public Association getAssociationPart() {
-        return (Association) getDepVal(ClassAssociationData.Metadata.AssociationPartDep());
+        Object obj = getDepVal(((ClassAssociationSmClass)getClassOf()).getAssociationPartDep());
+        return (obj instanceof Association)? (Association)obj : null;
     }
 
-    @objid ("0361ba5a-b339-4fc1-a11e-bff473015dce")
+    @objid ("01c946fc-c616-4397-9a25-690bcb5d4f69")
     @Override
     public void setAssociationPart(Association value) {
-        appendDepVal(ClassAssociationData.Metadata.AssociationPartDep(), (SmObjectImpl)value);
+        appendDepVal(((ClassAssociationSmClass)getClassOf()).getAssociationPartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0ff972fc-a504-418c-abb0-1eaeb1c5a838")
+    @objid ("61c5e049-1520-475f-a3d9-0a9805bbef80")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ClassAssociationData.Metadata.NaryAssociationPartDep());
+        // NaryAssociationPart
+        obj = (SmObjectImpl)this.getDepVal(((ClassAssociationSmClass)getClassOf()).getNaryAssociationPartDep());
         if (obj != null)
           return obj;
-        obj = (SmObjectImpl)this.getDepVal(ClassAssociationData.Metadata.AssociationPartDep());
+        // AssociationPart
+        obj = (SmObjectImpl)this.getDepVal(((ClassAssociationSmClass)getClassOf()).getAssociationPartDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2667c355-f5c8-4d72-97d4-f803ddccd504")
+    @objid ("7f6a877f-b93d-4b55-b0ec-c1700b359f10")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ClassAssociationData.Metadata.NaryAssociationPartDep());
-        if (obj != null)
-          return new SmDepVal(ClassAssociationData.Metadata.NaryAssociationPartDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(ClassAssociationData.Metadata.AssociationPartDep());
-        if (obj != null)
-          return new SmDepVal(ClassAssociationData.Metadata.AssociationPartDep(), obj);
+        SmDependency dep;
+        
+        // NaryAssociationPart
+        dep = ((ClassAssociationSmClass)getClassOf()).getNaryAssociationPartDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
+        // AssociationPart
+        dep = ((ClassAssociationSmClass)getClassOf()).getAssociationPartDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("39fbf663-85c5-4fdf-816d-99f3059d4d64")
+    @objid ("390289aa-b688-4c96-bbd9-dde90364acfe")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitClassAssociation(this);

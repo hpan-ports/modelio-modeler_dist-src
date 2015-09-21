@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -42,9 +42,6 @@ import org.modelio.xmi.util.XMILogs;
  */
 @objid ("39c24184-4fa7-4f86-8bec-22b1fb2609f4")
 public class OSignal extends ONameSpace {
-    @objid ("2870802c-d318-46bd-b400-3795ec2d3e0f")
-    private Signal objingElement = null;
-
     @objid ("d65ac531-975e-4af2-af16-c8a98432549c")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -57,13 +54,12 @@ public class OSignal extends ONameSpace {
     @objid ("7644b6bd-a2eb-4ac1-b605-a89bd006c25f")
     public OSignal(final Signal param) {
         super(param);
-        this.objingElement = param;
     }
 
     @objid ("fe8458f7-3e52-4ac3-be7f-69588ae3209d")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        MObject objingOwner = this.objingElement.getCompositionOwner();
+        MObject objingOwner = getObjingElement().getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
@@ -118,54 +114,60 @@ public class OSignal extends ONameSpace {
         
         
             }else{
-                
+        
                 XMILogs xmilogs = XMILogs.getInstance();
                 String ecoreClassName = ecoreBase.getClass().getSimpleName();
-                
-                String message = Xmi.I18N.getMessage("logFile.warning.export.unsupportedRelation.wrongEcoreType.title", "Base");                
+        
+                String message = Xmi.I18N.getMessage("logFile.warning.export.unsupportedRelation.wrongEcoreType.title", "Base");
         
                 String description = Xmi.I18N.getMessage("logFile.warning.export.unsupportedRelation.wrongEcoreType.description",
-                        "Base", 
-                        this.objingElement.getName(), 
+                        "Base",
+                        getObjingElement().getName(),
                         "Classifier or org.eclipse.uml2.uml.Reception",
                         ecoreClassName.substring(0, ecoreClassName.length() - 4));
         
                 xmilogs.writelnInLog(description);
-                GenerationProperties.getInstance().getReportModel().addWarning(message, this.objingElement, description);
-                
+                GenerationProperties.getInstance().getReportModel().addWarning(message, getObjingElement(), description);
+        
             }
         }
     }
 
     @objid ("64ca1160-77bd-4b96-9010-351096c1a43a")
     private void setPBaseEAnnotation(final org.eclipse.uml2.uml.Signal ecoreElt) {
-        ModelElement temp = this.objingElement.getPBase();
+        ModelElement temp = getObjingElement().getPBase();
         if (temp != null)
             setBase(temp, ecoreElt);
     }
 
     @objid ("f7d87123-b60d-473d-b148-83c5c80d306d")
     private void setOBaseEAnnotation(final org.eclipse.uml2.uml.Signal ecoreElt) {
-        ModelElement temp = this.objingElement.getOBase();
+        ModelElement temp = getObjingElement().getOBase();
         if (temp != null)
             setBase(temp, ecoreElt);
     }
 
     @objid ("e406a2f3-16aa-4929-8e2f-03bad04d0e14")
     private void setBaseEAnnotation(final org.eclipse.uml2.uml.Signal ecoreElt) {
-        ModelElement temp = this.objingElement.getBase();
+        ModelElement temp = getObjingElement().getBase();
         if (temp != null)
             setBase(temp, ecoreElt);
     }
 
     @objid ("106d9024-1ed4-40d0-908a-66e7adb1d859")
     private void setIsEventEAnnotation(org.eclipse.uml2.uml.Signal signal) {
-        ObjingEAnnotation.setEvent(signal, this.objingElement.isIsEvent());
+        ObjingEAnnotation.setEvent(signal, getObjingElement().isIsEvent());
     }
 
     @objid ("f4179288-f9a7-4968-8bf8-7fd918235021")
     private void setIsExceptionEAnnotation(org.eclipse.uml2.uml.Signal signal) {
-        ObjingEAnnotation.setException(signal, this.objingElement.isIsEvent());
+        ObjingEAnnotation.setException(signal, getObjingElement().isIsEvent());
+    }
+
+    @objid ("f00cb485-50dc-428c-b33a-563b547adf79")
+    @Override
+    public Signal getObjingElement() {
+        return (Signal) super.getObjingElement();
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -55,9 +55,8 @@ public class PortPropertyModel extends AbstractPropertyModel<Port> {
      * </ul>
      */
     @objid ("a7de44a9-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "Port", "Name", "Base", "Value",
-            "MultiplicityMin", "MultiplicityMax", "IsBehavior", "IsService", "IsConstant",
-            "RepresentedFeature", "IsConjugated", "Direction" };
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "Base", "Value", "MultiplicityMin",
+            "MultiplicityMax", "IsBehavior", "IsService", "IsConstant", "RepresentedFeature", "IsConjugated", "Direction" };
 
     @objid ("8f605ef0-c068-11e1-8c0a-002564c97630")
     private StringType stringType = new StringType(false);
@@ -143,39 +142,39 @@ public class PortPropertyModel extends AbstractPropertyModel<Port> {
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return PortPropertyModel.PROPERTIES[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getName();
-                    case 2:
-                        return this.theEditedElement.getBase();
-                    case 3:
-                        return this.theEditedElement.getValue();
-                    case 4:
-                        return this.theEditedElement.getMultiplicityMin();
-                    case 5:
-                        return this.theEditedElement.getMultiplicityMax();
-                    case 6:
-                        return this.theEditedElement.isIsBehavior() ? Boolean.TRUE : Boolean.FALSE;
-                    case 7:
-                        return this.theEditedElement.isIsService() ? Boolean.TRUE : Boolean.FALSE;
-                    case 8:
-                        return this.theEditedElement.isIsConstant() ? Boolean.TRUE : Boolean.FALSE;
-                    case 9:
-                        return this.theEditedElement.getRepresentedFeature();
-                    case 10:
-                        return this.theEditedElement.isIsConjugated() ? Boolean.TRUE : Boolean.FALSE;
-                    case 11:
-                        return this.theEditedElement.getDirection();
-                    default:
-                        return null;
-                }
+        case 0: // col 0 is the property key
+            return PortPropertyModel.PROPERTIES[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return this.theEditedElement.getBase();
+            case 3:
+                return this.theEditedElement.getValue();
+            case 4:
+                return this.theEditedElement.getMultiplicityMin();
+            case 5:
+                return this.theEditedElement.getMultiplicityMax();
+            case 6:
+                return this.theEditedElement.isIsBehavior() ? Boolean.TRUE : Boolean.FALSE;
+            case 7:
+                return this.theEditedElement.isIsService() ? Boolean.TRUE : Boolean.FALSE;
+            case 8:
+                return this.theEditedElement.isIsConstant() ? Boolean.TRUE : Boolean.FALSE;
+            case 9:
+                return this.theEditedElement.getRepresentedFeature();
+            case 10:
+                return this.theEditedElement.isIsConjugated() ? Boolean.TRUE : Boolean.FALSE;
+            case 11:
+                return this.theEditedElement.getDirection();
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -193,39 +192,39 @@ public class PortPropertyModel extends AbstractPropertyModel<Port> {
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return this.labelStringType;
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return this.labelStringType;
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return this.labelStringType;
-                    case 1:
-                        return this.stringType;
-                    case 2:
-                        return this.namespaceType;
-                    case 3:
-                        return this.stringType;
-                    case 4:
-                        return this.cardinalityMinType;
-                    case 5:
-                        return this.cardinalityMaxType;
-                    case 6:
-                        return this.booleanType;
-                    case 7:
-                        return this.booleanType;
-                    case 8:
-                        return this.booleanType;
-                    case 9:
-                        return this.modelElementType;
-                    case 10:
-                        return this.booleanType;
-                    case 11:
-                        return this.directionType;
-                    default:
-                        return null;
-                }
+            case 1:
+                return this.stringType;
+            case 2:
+                return this.namespaceType;
+            case 3:
+                return this.stringType;
+            case 4:
+                return this.cardinalityMinType;
+            case 5:
+                return this.cardinalityMaxType;
+            case 6:
+                return this.booleanType;
+            case 7:
+                return this.booleanType;
+            case 8:
+                return this.booleanType;
+            case 9:
+                return this.modelElementType;
+            case 10:
+                return this.booleanType;
+            case 11:
+                return this.directionType;
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -241,51 +240,51 @@ public class PortPropertyModel extends AbstractPropertyModel<Port> {
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
-                return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setName((String) value);
-                        break;
-                    case 2:
-                        this.theEditedElement.setBase((NameSpace) value);
-                        break;
-                    case 3:
-                        this.theEditedElement.setValue((String) value);
-                        break;
-                    case 4:
-                        this.theEditedElement.setMultiplicityMin((String) value);
-                        break;
-                    case 5:
-                        this.theEditedElement.setMultiplicityMax((String) value);
-                        break;
-                    case 6:
-                        this.theEditedElement.setIsBehavior(((Boolean) value).booleanValue());
-                        break;
-                    case 7:
-                        this.theEditedElement.setIsService(((Boolean) value).booleanValue());
-                        break;
-                    case 8:
-                        this.theEditedElement.setIsConstant(((Boolean) value).booleanValue());
-                        break;
-                    case 9:
-                        this.theEditedElement.setRepresentedFeature((ModelElement) value);
-                        break;
-                    case 10:
-                        this.theEditedElement.setIsConjugated(((Boolean) value).booleanValue());
-                        break;
-                    case 11:
-                        this.theEditedElement.setDirection((PortOrientation) value);
-                        break;
-                    default:
-                        return;
-                }
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                this.theEditedElement.setBase((NameSpace) value);
+                break;
+            case 3:
+                this.theEditedElement.setValue((String) value);
+                break;
+            case 4:
+                this.theEditedElement.setMultiplicityMin((String) value);
+                break;
+            case 5:
+                this.theEditedElement.setMultiplicityMax((String) value);
+                break;
+            case 6:
+                this.theEditedElement.setIsBehavior(((Boolean) value).booleanValue());
+                break;
+            case 7:
+                this.theEditedElement.setIsService(((Boolean) value).booleanValue());
+                break;
+            case 8:
+                this.theEditedElement.setIsConstant(((Boolean) value).booleanValue());
+                break;
+            case 9:
+                this.theEditedElement.setRepresentedFeature((ModelElement) value);
+                break;
+            case 10:
+                this.theEditedElement.setIsConjugated(((Boolean) value).booleanValue());
+                break;
+            case 11:
+                this.theEditedElement.setDirection((PortOrientation) value);
                 break;
             default:
                 return;
+            }
+            break;
+        default:
+            return;
         }
     }
 

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.usecase.elements.actor;
 
@@ -27,7 +27,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -61,6 +61,9 @@ public class GmActor extends GmPortContainer {
     @objid ("7b7f2484-5eff-11e2-b9cc-001ec947c8cc")
     private static final GmActorImageStyleKeys IMAGE_KEYS = new GmActorImageStyleKeys();
 
+    @objid ("b476c24a-1b66-4193-8b9a-28e75437d643")
+    private static final GmActorUserImageStyleKeys USERIMAGE_KEYS = new GmActorUserImageStyleKeys();
+
     @objid ("5e3659e6-55b7-11e2-877f-002564c97630")
     public GmActor() {
         // Nothing specific to do.
@@ -76,7 +79,7 @@ public class GmActor extends GmPortContainer {
         
         this.element = el;
         
-        final GmDefaultFlatHeader actorLabel = new GmDefaultFlatHeader(diagram, ref);
+        final GmDefaultModelElementLabel actorLabel = new GmDefaultModelElementLabel(diagram, ref);
         actorLabel.setRoleInComposition(SATELLITE_ROLE);
         actorLabel.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
         
@@ -122,6 +125,8 @@ public class GmActor extends GmPortContainer {
         switch (getRepresentationMode()) {
             case IMAGE:
                 return IMAGE_KEYS.getStyleKeys();
+            case USER_IMAGE:
+                return USERIMAGE_KEYS.getStyleKeys();
             case SIMPLE:
                 return SIMPLE_KEYS.getStyleKeys();
             case STRUCTURED:

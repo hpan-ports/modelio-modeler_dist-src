@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.umlcommon.diagramholder;
 
@@ -39,6 +39,7 @@ import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeEndReconnectEditPolicy;
 import org.modelio.diagram.elements.core.commands.DefaultCreateElementCommand;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmObject;
@@ -47,7 +48,6 @@ import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.policies.DefaultElementDirectEditPolicy;
 import org.modelio.diagram.styles.core.IStyle;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
@@ -67,8 +67,9 @@ public class DiagramHolderEditPart extends GmNodeEditPart {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IGmObject.PROPERTY_LABEL)) {
             refreshVisuals();
-        } else
+        } else {
             super.propertyChange(evt);
+        }
     }
 
     @objid ("81308a6d-1dec-11e2-8cad-001ec947c8cc")
@@ -89,7 +90,7 @@ public class DiagramHolderEditPart extends GmNodeEditPart {
         final DiagramHolderFigure fig = new DiagramHolderFigure();
         
         // set style independent properties
-        fig.setPreferredSize(200, 150);
+        MinimumSizeLayout.apply(fig, 200, 150);
         fig.setOpaque(true);
         
         // set style dependent properties
@@ -151,8 +152,9 @@ public class DiagramHolderEditPart extends GmNodeEditPart {
         
             IActivationService service = gm.getDiagram().getModelManager().getActivationService();
             service.activateMObject(relatedDiagram);
+        } else {
+            super.performRequest(req);
         }
-        super.performRequest(req);
     }
 
     /**
@@ -174,16 +176,18 @@ public class DiagramHolderEditPart extends GmNodeEditPart {
          */
         @objid ("8132ecdc-1dec-11e2-8cad-001ec947c8cc")
         public ForwardDragEditPolicy(final EditPart to) {
-            if (to == null)
+            if (to == null) {
                 throw new IllegalArgumentException("to is null.");
+            }
             
             this.to = to;
         }
 
         @objid ("8132ece3-1dec-11e2-8cad-001ec947c8cc")
         private EditPolicy getToPolicy() {
-            if (this.toPolicy == null)
+            if (this.toPolicy == null) {
                 this.toPolicy = this.to.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+            }
             return this.toPolicy;
         }
 
@@ -191,62 +195,69 @@ public class DiagramHolderEditPart extends GmNodeEditPart {
         @Override
         public EditPart getTargetEditPart(final Request request) {
             EditPolicy p = getToPolicy();
-            if (p == null)
+            if (p == null) {
                 return null;
-            else
+            } else {
                 return p.getTargetEditPart(request);
+            }
         }
 
         @objid ("8132ecf3-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public void showSourceFeedback(final Request request) {
             final EditPolicy p = getToPolicy();
-            if (p != null)
+            if (p != null) {
                 p.showSourceFeedback(request);
+            }
         }
 
         @objid ("8132ecfa-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public void showTargetFeedback(final Request request) {
             final EditPolicy p = getToPolicy();
-            if (p != null)
+            if (p != null) {
                 p.showTargetFeedback(request);
+            }
         }
 
         @objid ("8132ed01-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public void eraseSourceFeedback(final Request request) {
             final EditPolicy p = getToPolicy();
-            if (p != null)
+            if (p != null) {
                 p.eraseSourceFeedback(request);
+            }
         }
 
         @objid ("8132ed08-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public void eraseTargetFeedback(final Request request) {
             final EditPolicy p = getToPolicy();
-            if (p != null)
+            if (p != null) {
                 p.eraseTargetFeedback(request);
+            }
         }
 
         @objid ("8132ed0f-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public Command getCommand(final Request request) {
             EditPolicy p = getToPolicy();
-            if (p == null)
+            if (p == null) {
                 return null;
-            else
+            } else {
                 return p.getCommand(request);
+            }
         }
 
         @objid ("81354f19-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public boolean understandsRequest(final Request req) {
             final EditPolicy p = getToPolicy();
-            if (p == null)
+            if (p == null) {
                 return false;
-            else
+            } else {
                 return p.understandsRequest(req);
+            }
         }
 
     }
@@ -284,11 +295,11 @@ public class DiagramHolderEditPart extends GmNodeEditPart {
         protected Command getCreateCommand(final CreateRequest request) {
             final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
             
-            final Class<? extends MObject> metaclassToCreate = Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
+            final Class<? extends MObject> metaclassToCreate = ctx.getMetaclass().getJavaInterface();
             final MObject hostElement = getHostElement();
             
             if (AbstractDiagram.class.isAssignableFrom(metaclassToCreate)) {
-                return new SetHolderContentCommand(hostElement, (GmCompositeNode) this.getHost().getModel(), ctx);
+                return new SetHolderContentCommand(hostElement, (GmCompositeNode) getHost().getModel(), ctx);
             }
             return null;
         }
@@ -305,8 +316,9 @@ public class DiagramHolderEditPart extends GmNodeEditPart {
          */
         @objid ("81354f4b-1dec-11e2-8cad-001ec947c8cc")
         protected MObject getHostElement() {
-            if (this.getHost().getModel() instanceof GmModel)
-                return ((GmModel) this.getHost().getModel()).getRelatedElement();
+            if (getHost().getModel() instanceof GmModel) {
+                return ((GmModel) getHost().getModel()).getRelatedElement();
+            }
             return null;
         }
 
@@ -331,25 +343,25 @@ public class DiagramHolderEditPart extends GmNodeEditPart {
         @objid ("81354f5c-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public void execute() {
-            final GmAbstractDiagram diagram = this.getParentNode().getDiagram();
+            final GmAbstractDiagram diagram = getParentNode().getDiagram();
             
             Dependency dep = (Dependency) getParentElement();
-            AbstractDiagram newElement = (AbstractDiagram) this.getContext().getElementToUnmask();
+            AbstractDiagram newElement = (AbstractDiagram) getContext().getElementToUnmask();
             
             if (newElement == null) {
                 ModelManager modelManager = diagram.getModelManager();
                 // Create the Element...
                 final IModelFactory modelFactory = modelManager.getModelFactory(getParentElement());
-                newElement = (AbstractDiagram) modelFactory.createElement(this.getContext().getMetaclass());
+                newElement = (AbstractDiagram) modelFactory.createElement(getContext().getMetaclass());
             
                 // Set the diagram context to the related element
                 dep.getImpacted().getProduct().add(newElement);
             
                 // Attach the stereotype if needed.
-                if (this.getContext().getStereotype() != null) {
-                    newElement.getExtension().add(this.getContext().getStereotype());
+                if (getContext().getStereotype() != null) {
+                    newElement.getExtension().add(getContext().getStereotype());
                 }
-                
+            
                 // Set default name
                 newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
             }

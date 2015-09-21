@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: App Model Import
 Bundle-SymbolicName: org.modelio.app.model.import;singleton:=true
 Bundle-Localization: plugin
-Bundle-Version: 3.3.0.qualifier
+Bundle-Version: 3.4.0.qualifier
 Bundle-Activator: org.modelio.app.model.imp.plugin.AppModelImport
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface,

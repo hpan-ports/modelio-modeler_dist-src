@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.gate;
 
@@ -26,7 +26,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.persistence.IDiagramReader;
@@ -66,6 +66,9 @@ public class GmGate extends GmPortContainer {
     @objid ("9979e159-dc9d-49ce-81f5-2456b42ac4d9")
     private Gate gate;
 
+    @objid ("c968c519-c25f-4ad5-8cf6-e5e8165be06a")
+     static final GmGateUserImageStyleKeys USERIMAGE_KEYS = new GmGateUserImageStyleKeys();
+
     /**
      * Empty c'tor for deserialisation.
      */
@@ -89,7 +92,7 @@ public class GmGate extends GmPortContainer {
         addChild(mainNode);
         
         this.gate = gate;
-        GmDefaultFlatHeader header = new GmDefaultFlatHeader(diagram, relatedRef);
+        GmDefaultModelElementLabel header = new GmDefaultModelElementLabel(diagram, relatedRef);
         header.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         header.setLayoutData(PositionConstants.SOUTH);
         addChild(header);
@@ -122,6 +125,8 @@ public class GmGate extends GmPortContainer {
             switch (mode) {
                 case IMAGE:
                     return IMAGE_KEYS.getStyleKey(metakey);
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKey(metakey);
                 case SIMPLE:
                     return SIMPLE_KEYS.getStyleKey(metakey);
                 case STRUCTURED:
@@ -140,6 +145,8 @@ public class GmGate extends GmPortContainer {
             switch (mode) {
                 case IMAGE:
                     return IMAGE_KEYS.getStyleKeys();
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKeys();
                 case SIMPLE:
                     return SIMPLE_KEYS.getStyleKeys();
                 case STRUCTURED:

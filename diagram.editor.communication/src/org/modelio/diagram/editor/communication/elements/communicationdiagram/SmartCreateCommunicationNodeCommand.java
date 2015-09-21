@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.communication.elements.communicationdiagram;
 
@@ -94,7 +94,7 @@ public class SmartCreateCommunicationNodeCommand extends Command {
         if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement()))
             return false;
         return (this.parentElement != null && this.parentElement.isValid() && this.parentElement.getStatus()
-                .isModifiable());
+                                        .isModifiable());
     }
 
     @objid ("7a2e311d-55b6-11e2-877f-002564c97630")

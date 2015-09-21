@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.script.macro.catalog;
 
@@ -41,6 +41,7 @@ import javax.xml.stream.XMLStreamWriter;
 import com.modeliosoft.modelio.javadesigner.annotations.mdl;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.script.plugin.Script;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -81,11 +82,15 @@ public class Catalog {
     @objid ("008f953a-b6e0-106a-bf4f-001ec947cd2a")
     private Path path = null;
 
+    @objid ("1c39a86e-d6a6-4c37-91e2-0010831e1f98")
+    private MMetamodel metamodel;
+
     @objid ("008f9b3e-b6e0-106a-bf4f-001ec947cd2a")
-    public Catalog(String name, Path aPath, Boolean readOnly) {
+    public Catalog(String name, Path aPath, Boolean readOnly, MMetamodel metamodel) {
         this.name = name;
         this.path = aPath;
         this.isReadOnly = readOnly;
+        this.metamodel = metamodel;
         
         CatalogReader reader = new CatalogReader();
         try {
@@ -175,7 +180,7 @@ public class Catalog {
             } else {
                 File dir = null;
                 for (dir = aPath.getParentFile(); dir != null && !dir.isDirectory(); dir = dir.getParentFile()) {
-                    //;
+                    // ;
                 }
                 return dir == null || dir.canWrite();
         
@@ -204,6 +209,19 @@ public class Catalog {
     @objid ("00269ada-fb5e-106b-bf4f-001ec947cd2a")
     public void removeMacro(Macro macro) {
         this.macros.remove(macro);
+    }
+
+    /**
+     * Return the current metamodel. Might be <code>null</code> if no project is opened.
+     */
+    @objid ("fe43557b-6db7-49fd-9cc2-1757cee981a7")
+    public MMetamodel getMetamodel() {
+        return this.metamodel;
+    }
+
+    @objid ("dfe7f87c-080a-4b9b-a4e0-60b11b414f7c")
+    public void setMetamodel(MMetamodel metamodel) {
+        this.metamodel = metamodel;
     }
 
     @objid ("0010ac98-e6fb-106a-bf4f-001ec947cd2a")
@@ -265,7 +283,7 @@ public class Catalog {
             Macro macro = new Macro(cat);
             macro.setName(domElement.getAttribute("name"));
             
-            macro.setScriptPath( this.path.resolve(Paths.get(domElement.getAttribute("path"))));
+            macro.setScriptPath(this.path.resolve(Paths.get(domElement.getAttribute("path"))));
             
             macro.setShowInContextualMenu(Boolean.parseBoolean(domElement.getAttribute("show-menu")));
             macro.setShowInToolbar(Boolean.parseBoolean(domElement.getAttribute("show-toolbar")));
@@ -308,7 +326,7 @@ public class Catalog {
         }
 
         @objid ("0002e770-eae6-106a-bf4f-001ec947cd2a")
-        public void writeCatalog(Catalog aCatalog) throws XMLStreamException, IOException {
+        public void writeCatalog(Catalog aCatalog) throws IOException, XMLStreamException {
             this.catalog = aCatalog;
             
             Path catalogFile = this.catalog.getPath().resolve(".catalog");
@@ -371,9 +389,9 @@ public class Catalog {
         @objid ("0002e8b0-eae6-106a-bf4f-001ec947cd2a")
         private String getIconRelativePath(Macro macro) {
             Path iconPath = macro.getIconPath();
-            if (iconPath == null)
+            if (iconPath == null) {
                 return "";
-            else {
+            } else {
                 return this.catalog.getPath().relativize(iconPath).toString();
             }
         }

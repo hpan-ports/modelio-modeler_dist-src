@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.policies;
 
@@ -30,6 +30,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editparts.AbstractEditPart;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.editor.bpmn.elements.bpmnlane.BpmnLaneEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnlanesetcontainer.CreateBpmnLaneSetContainerCommand;
@@ -41,7 +42,6 @@ import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DiagramEditLayoutPolicy;
 import org.modelio.diagram.elements.drawings.core.GmDrawing;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnSubProcess;
 import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
@@ -60,11 +60,9 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
     @objid ("6219560e-55b6-11e2-877f-002564c97630")
     @Override
     protected Command getCreateCommand(CreateRequest request) {
-        if (request.getNewObjectType().equals("BpmnLaneSet")) {
+        ModelioCreationContext ctx = ModelioCreationContext.lookRequest(request);
+        if (ctx != null && ctx.getJavaClass() == BpmnLaneSet.class) {
             MObject hostElement = getHostElement();
-        
-            ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-        
             MObject elementToUnmask = ctx.getElementToUnmask();
         
             if (elementToUnmask != null) {
@@ -74,16 +72,17 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
                 } else {
                     return null;
                 }
-            }
-            CompoundCommand compCommand = new CompoundCommand();
+            } else {
+                CompoundCommand compCommand = new CompoundCommand();
         
-            Object requestConstraint = getConstraintFor(request);
-            List<BpmnLaneEditPart> childrens = findMovableChildrens();
-            for (Command command : createMoveCommands(childrens, null, (Rectangle) requestConstraint)) {
-                compCommand.add(command);
+                Object requestConstraint = getConstraintFor(request);
+                List<BpmnLaneEditPart> childrens = findMovableChildrens();
+                for (Command command : createMoveCommands(childrens, null, (Rectangle) requestConstraint)) {
+                    compCommand.add(command);
+                }
+                compCommand.add(new CreateBpmnLaneSetContainerCommand(hostElement, getHostCompositeNode(), ctx, requestConstraint));
+                return compCommand;
             }
-            compCommand.add(new CreateBpmnLaneSetContainerCommand(hostElement, getHostCompositeNode(), ctx, requestConstraint));
-            return compCommand;
         }
         return super.getCreateCommand(request);
     }
@@ -93,12 +92,13 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
     public EditPart getTargetEditPart(Request request) {
         if (REQ_CREATE.equals(request.getType())) {
             CreateRequest createRequest = (CreateRequest) request;
-            if (createRequest.getNewObject() instanceof ModelioCreationContext) {
-                final ModelioCreationContext ctx = (ModelioCreationContext) createRequest.getNewObject();
+            final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
+            if (ctx != null) {
                 MObject element = ctx.getElementToUnmask();
                 if (element instanceof BpmnLaneSet) {
-                    if (canHandle(Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()))))
+                    if (canHandle(ctx.getJavaClass())) {
                         return getHost();
+                    }
                 }
         
             }
@@ -132,7 +132,7 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
 
     @objid ("621adc8a-55b6-11e2-877f-002564c97630")
     @Override
-    protected Command createAddCommand(final EditPart child, final Object constraint) {
+    protected Command createAddCommand(ChangeBoundsRequest request, final EditPart child, final Object constraint) {
         GmNodeModel gmmodel = (GmNodeModel) child.getModel();
         MObject element = gmmodel.getRelatedElement();
         if (element instanceof BpmnBoundaryEvent) {
@@ -151,7 +151,7 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
 
     @objid ("c570ee6b-3811-45ee-aaeb-bffc7c0e11e4")
     @Override
-    protected Command createChangeConstraintCommand(EditPart movedEditPart, Object constraint) {
+    protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart movedEditPart, Object constraint) {
         // if child is a 'node' it usually can be resized and/or moved
         if (movedEditPart instanceof GmNodeEditPart || movedEditPart.getModel() instanceof GmDrawing) {
             Rectangle constrRect = (Rectangle) constraint;
@@ -161,8 +161,6 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
                 CompoundCommand compCommand = new CompoundCommand();
                 BpmnLaneEditPart movedLane = (BpmnLaneEditPart) movedEditPart;
                 Rectangle delta = calculateDelta(movedLane.getFigure().getBounds(), constrRect);
-        
-                Rectangle newPos = null;
         
                 List<BpmnLaneEditPart> childrens = findMovableChildrens();
                 if (delta.height != 0 || delta.width != 0) {
@@ -223,7 +221,7 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
         
                 // resize children
                 List<BpmnLaneEditPart> childrens = findLaneChildrens(editpart);
-                
+        
                 for(BpmnLaneEditPart children : childrens){
                     children.setLayoutConstraint(children, children.getFigure(),children.getFigure().getBounds().height);
                 }
@@ -292,18 +290,23 @@ public class BpmnDiagramLayoutEditPolicy extends DiagramEditLayoutPolicy {
     @objid ("56514315-29ad-4282-b64e-48afdf4efa8c")
     @Override
     protected Object getConstraintFor(CreateRequest request) {
+        ModelioCreationContext ctx = ModelioCreationContext.fromRequest(request);
         Object constraint = super.getConstraintFor(request);
-        if (constraint instanceof Rectangle && (((ModelioCreationContext) request.getNewObject()).getMetaclass().equals("BpmnLane") || ((ModelioCreationContext) request.getNewObject()).getMetaclass().equals("BpmnLaneSet"))) {
+        if (constraint instanceof Rectangle && (
+                ctx.getJavaClass() == BpmnLane.class ||
+                ctx.getJavaClass() == BpmnLaneSet.class)) {
         
-            if (((Rectangle) constraint).height == -1) {
-                ((Rectangle) constraint).height = 200;
+            Rectangle rectConstraint = (Rectangle) constraint;
+        
+            if (rectConstraint.height == -1) {
+                rectConstraint.height = 200;
             }
         
             for (EditPart children : new ArrayList<EditPart>(getHost().getChildren())) {
                 if (children instanceof BpmnLaneEditPart) {
                     Rectangle childrenPos = ((BpmnLaneEditPart) children).getFigure().getBounds();
-                    ((Rectangle) constraint).x = childrenPos.x;
-                    ((Rectangle) constraint).width = childrenPos.width;
+                    rectConstraint.x = childrenPos.x;
+                    rectConstraint.width = childrenPos.width;
                 }
             }
         

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,21 +12,23 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.editingsupport.color;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.diagram.styles.viewer.StyleViewer;
+import org.modelio.diagram.styles.viewer.StyleEditPanelUIData;
 
 /**
  * provide an image
@@ -34,44 +36,44 @@ import org.modelio.diagram.styles.viewer.StyleViewer;
 @objid ("859183d7-1926-11e2-92d2-001ec947c8cc")
 public class ColorLabelProvider extends ColumnLabelProvider {
     @objid ("859183d9-1926-11e2-92d2-001ec947c8cc")
-    private StyleViewer viewer;
+    private TreeViewer viewer;
 
     @objid ("859183da-1926-11e2-92d2-001ec947c8cc")
     @Override
     public Image getImage(Object element) {
-        //        StyleKey skey = (StyleKey) element;
+        // StyleKey skey = (StyleKey) element;
         //
-        //        Color color = this.data.getColor(skey);
+        // Color color = this.data.getColor(skey);
         //
-        //        // draw the preview color
-        //        Image img = new Image(Display.getCurrent(), 15, 15);
-        //        //img.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_BLUE));
+        // // draw the preview color
+        // Image img = new Image(Display.getCurrent(), 15, 15);
+        // //img.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_BLUE));
         //
-        //        GC gc = new GC(img);
-        //        gc.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
-        //        gc.setBackground(color);
-        //        gc.fillRectangle(0, 0, 15, 15);
-        //        gc.dispose();
+        // GC gc = new GC(img);
+        // gc.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
+        // gc.setBackground(color);
+        // gc.fillRectangle(0, 0, 15, 15);
+        // gc.dispose();
         //
-        //        ImageData imgData = img.getImageData();
-        //        imgData.transparentPixel = imgData.palette.getPixel(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE).getRGB());
-        //        Image newImg = new Image(Display.getCurrent(), imgData);
-        //        img.dispose();
-        //        return newImg;
+        // ImageData imgData = img.getImageData();
+        // imgData.transparentPixel = imgData.palette.getPixel(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE).getRGB());
+        // Image newImg = new Image(Display.getCurrent(), imgData);
+        // img.dispose();
+        // return newImg;
         return null;
     }
 
     @objid ("859183e0-1926-11e2-92d2-001ec947c8cc")
-    public ColorLabelProvider(StyleViewer viewer) {
+    public ColorLabelProvider(TreeViewer viewer) {
         this.viewer = viewer;
     }
 
     @objid ("859183e3-1926-11e2-92d2-001ec947c8cc")
     @Override
     public String getText(Object element) {
-        //        StyleKey skey = (StyleKey) element;
-        //        Color color = this.data.getColor(skey);
-        //        return color.getRGB().toString();
+        // StyleKey skey = (StyleKey) element;
+        // Color color = this.data.getColor(skey);
+        // return color.getRGB().toString();
         return null;
     }
 
@@ -79,8 +81,13 @@ public class ColorLabelProvider extends ColumnLabelProvider {
     @Override
     public Color getBackground(Object element) {
         StyleKey skey = (StyleKey) element;
-        Color color = this.viewer.getEditedStyle().getColor(skey);
+        Color color = this.getEditedStyle().getColor(skey);
         return color;
+    }
+
+    @objid ("b23cbf97-14a5-4f6b-a1a7-108216e91986")
+    private IStyle getEditedStyle() {
+        return ((StyleEditPanelUIData) this.viewer.getInput()).getStyleData();
     }
 
 }

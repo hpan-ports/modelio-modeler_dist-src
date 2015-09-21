@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.communicationModel;
 
 import java.util.ArrayList;
@@ -29,8 +41,8 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.communicationModel.CommunicationInteractionData;
 import org.modelio.metamodel.impl.uml.behavior.commonBehaviors.BehaviorImpl;
+import org.modelio.metamodel.impl.uml.behavior.communicationModel.CommunicationInteractionData;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationInteraction;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -41,43 +53,51 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("005a3822-c4bf-1fd8-97fe-001ec947cd2a")
 public class CommunicationInteractionImpl extends BehaviorImpl implements CommunicationInteraction {
-    @objid ("2c0f8a85-e2a2-42c3-a99f-85e7cb14adb2")
+    @objid ("92983488-09cb-4b53-83c3-a152dde8044a")
     @Override
     public EList<CommunicationNode> getOwned() {
-        return new SmList<>(this, CommunicationInteractionData.Metadata.OwnedDep());
+        return new SmList<>(this, ((CommunicationInteractionSmClass)getClassOf()).getOwnedDep());
     }
 
-    @objid ("b69316d8-a9b8-4ac6-b21b-1b04083061c6")
+    @objid ("2810693a-cc15-478d-a415-f2aaac3b6133")
     @Override
     public <T extends CommunicationNode> List<T> getOwned(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final CommunicationNode element : getOwned()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("aca6dfed-0d76-46a6-a537-de5afc229d29")
+    @objid ("d0600bab-024b-457f-ab9e-9cc8c5cb81ef")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0ec76a00-dfdd-4ee9-a9e0-fc85b9df5d48")
+    @objid ("07788dfe-0524-4d58-8a8e-9d232df13821")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("d459d6e6-b1be-457f-a3c3-ec0f82215b31")
+    @objid ("63109300-e3ab-4d8b-919c-76442fd51ed1")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCommunicationInteraction(this);

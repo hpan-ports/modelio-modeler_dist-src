@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.expansionregion;
 
@@ -29,7 +29,7 @@ import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.diagram.editor.activity.elements.activitynodeheader.GmActivityNodeHeader;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.freezone.GmBodyFreeZone;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNoStyleCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -105,9 +105,9 @@ public class GmExpansionRegionPrimaryNode extends GmNoStyleCompositeNode impleme
     @Override
     public boolean canCreate(Class<? extends MObject> type) {
         return ActivityNode.class.isAssignableFrom(type) &&
-               !ExpansionNode.class.isAssignableFrom(type) &&
-               !Pin.class.isAssignableFrom(type) &&
-               !ActivityParameterNode.class.isAssignableFrom(type);
+                                                       !ExpansionNode.class.isAssignableFrom(type) &&
+                                                       !Pin.class.isAssignableFrom(type) &&
+                                                       !ActivityParameterNode.class.isAssignableFrom(type);
     }
 
     @objid ("2a6478a7-55b6-11e2-877f-002564c97630")
@@ -115,11 +115,11 @@ public class GmExpansionRegionPrimaryNode extends GmNoStyleCompositeNode impleme
     public boolean canUnmask(MObject el) {
         Class<? extends MObject> type = el.getClass();
         return ActivityNode.class.isAssignableFrom(type) &&
-               !ExpansionNode.class.isAssignableFrom(type) &&
-               !Pin.class.isAssignableFrom(type) &&
-               !ActivityParameterNode.class.isAssignableFrom(type) &&
-               this.getRelatedElement() != null &&
-               this.getRelatedElement().equals(el.getCompositionOwner());
+                                                       !ExpansionNode.class.isAssignableFrom(type) &&
+                                                       !Pin.class.isAssignableFrom(type) &&
+                                                       !ActivityParameterNode.class.isAssignableFrom(type) &&
+                                                       this.getRelatedElement() != null &&
+                                                       this.getRelatedElement().equals(el.getCompositionOwner());
     }
 
     @objid ("2a6478af-55b6-11e2-877f-002564c97630")
@@ -184,7 +184,7 @@ public class GmExpansionRegionPrimaryNode extends GmNoStyleCompositeNode impleme
         String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -222,8 +222,8 @@ public class GmExpansionRegionPrimaryNode extends GmNoStyleCompositeNode impleme
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
         this.innerZone = (GmBodyFreeZone) this.getChildren().get(1);
-                
-        GmDefaultFlatHeader imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(2);
+        
+        GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(2);
         imageModeHeader.delete();
     }
 

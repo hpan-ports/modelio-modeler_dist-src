@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,75 +12,188 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 
+/**
+ * TemplateParameter v0.0.9054
+ * 
+ * 
+ * NameSpaces and Operations can be templated by TemplateParameters. 
+ * 
+ * Concerning NameSpaces, this particularly applies for Classes, Packages and Collaborations. 
+ * 
+ * In Modelio, TemplateParameters belong to their parameterized NameSpace or Operation.
+ */
 @objid ("001d18e8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface TemplateParameter extends GeneralClass {
-    @objid ("cc111467-5441-435b-964b-f8b1335975d2")
+    @objid ("b4c59131-90c0-4c1f-ac00-02711fdc71cb")
+    public static final String MNAME = "TemplateParameter";
+
+    /**
+     * Getter for attribute 'TemplateParameter.DefaultValue'
+     * 
+     * Metamodel description:
+     * <i>Default parameter value, when the IsValueParameter is true.</i>
+     */
+    @objid ("188cf679-3e95-45eb-ace0-53aa12b3d004")
     String getDefaultValue();
 
-    @objid ("e55e9c3e-c98e-4d42-b402-02eb14ae77a4")
+    /**
+     * Setter for attribute 'TemplateParameter.DefaultValue'
+     * 
+     * Metamodel description:
+     * <i>Default parameter value, when the IsValueParameter is true.</i>
+     */
+    @objid ("21aa2e9c-ec34-4bc4-bb78-93638201e277")
     void setDefaultValue(String value);
 
-    @objid ("6fb076f9-4789-4b2e-994a-d78d47d67468")
+    /**
+     * Getter for attribute 'TemplateParameter.IsValueParameter'
+     * 
+     * Metamodel description:
+     * <i>Expresses if the parameter is a value, which is in this case "DefaultValue".</i>
+     */
+    @objid ("668c0774-68f4-4018-aca7-d230386612c9")
     boolean isIsValueParameter();
 
-    @objid ("42f7aa56-d952-40e4-8c7e-fb7201258924")
+    /**
+     * Setter for attribute 'TemplateParameter.IsValueParameter'
+     * 
+     * Metamodel description:
+     * <i>Expresses if the parameter is a value, which is in this case "DefaultValue".</i>
+     */
+    @objid ("4c78d93c-7397-4bc6-90a5-ca3c20b0836c")
     void setIsValueParameter(boolean value);
 
-    @objid ("aa18c7c0-4b1f-4cbd-990c-6a03ab9601d2")
+    /**
+     * Getter for relation 'TemplateParameter->ParameterSubstitution'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1e1f488f-f0c3-470a-884d-2c626dede39e")
     EList<TemplateParameterSubstitution> getParameterSubstitution();
 
-    @objid ("4d33abdd-2679-4732-86b6-4cbb22a40e9d")
+    /**
+     * Filtered Getter for relation 'TemplateParameter->ParameterSubstitution'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("789a798e-7c39-4e54-8b82-6dbcc25bbe28")
     <T extends TemplateParameterSubstitution> List<T> getParameterSubstitution(java.lang.Class<T> filterClass);
 
-    @objid ("95304d75-8318-4bb2-b74e-2a15be7b665b")
+    /**
+     * Getter for relation 'TemplateParameter->Type'
+     * 
+     * Metamodel description:
+     * <i>Default parameter type, when IsValueParameter is false.</i>
+     */
+    @objid ("d265f634-8931-4645-85a9-c66acc416042")
     ModelElement getType();
 
-    @objid ("179cd842-11e4-4d85-b9f5-9387ff89f369")
+    /**
+     * Setter for relation 'TemplateParameter->Type'
+     * 
+     * Metamodel description:
+     * <i>Default parameter type, when IsValueParameter is false.</i>
+     */
+    @objid ("d160db6c-f2de-4216-9f71-f8e2bdd53304")
     void setType(ModelElement value);
 
-    @objid ("36e47a88-a021-4fa6-ad58-3ae5e05abb59")
+    /**
+     * Getter for relation 'TemplateParameter->Parameterized'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6a626708-cacf-4b2b-83b5-413d8a6af8ba")
     NameSpace getParameterized();
 
-    @objid ("e4c70bb7-4e3b-4d4f-a7dd-48f605d40fc9")
+    /**
+     * Setter for relation 'TemplateParameter->Parameterized'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("011f46d4-ad20-4f59-aa81-0cf02d565cb2")
     void setParameterized(NameSpace value);
 
-    @objid ("1c8bd550-3b39-41c3-a5c9-41de0c2d8d7a")
+    /**
+     * Getter for relation 'TemplateParameter->OwnedParameterElement'
+     * 
+     * Metamodel description:
+     * <i>A TemplateParameter references a ParameterableElement that is exposed as a formal template parameter in the container template. This parameterizable element is meaningful only within the template, or other templates that may have access to its content (for example, if the template supports specialization). The exposed parameterizable element may not be used in other parts of the model. A TemplateParameter may own the exposed ParameterableElement in situations where that element is only referenced from within the template.</i>
+     */
+    @objid ("0ce79fa8-d69d-43df-a4bc-7b844ca52b90")
     ModelElement getOwnedParameterElement();
 
-    @objid ("a8e48ee5-fff9-4329-b69a-45b6ff6c7cc4")
+    /**
+     * Setter for relation 'TemplateParameter->OwnedParameterElement'
+     * 
+     * Metamodel description:
+     * <i>A TemplateParameter references a ParameterableElement that is exposed as a formal template parameter in the container template. This parameterizable element is meaningful only within the template, or other templates that may have access to its content (for example, if the template supports specialization). The exposed parameterizable element may not be used in other parts of the model. A TemplateParameter may own the exposed ParameterableElement in situations where that element is only referenced from within the template.</i>
+     */
+    @objid ("125713e9-0fec-4545-a737-6d5fa6c0558a")
     void setOwnedParameterElement(ModelElement value);
 
-    @objid ("f5786495-38e5-4a11-a102-147888461a02")
+    /**
+     * Getter for relation 'TemplateParameter->DefaultType'
+     * 
+     * Metamodel description:
+     * <i>Value that the parameter takes if no specific value is specified.</i>
+     */
+    @objid ("0f2227f5-34b9-47b7-a5fa-6b2a001d6ed7")
     ModelElement getDefaultType();
 
-    @objid ("da3d2d9f-4351-49b3-8683-29b3b48cf162")
+    /**
+     * Setter for relation 'TemplateParameter->DefaultType'
+     * 
+     * Metamodel description:
+     * <i>Value that the parameter takes if no specific value is specified.</i>
+     */
+    @objid ("307d9bb0-457a-4cf8-81ff-10e9ff8d3ce8")
     void setDefaultType(ModelElement value);
 
-    @objid ("86fcd05e-7fe1-4a76-a2d1-0ef477b92902")
+    /**
+     * Getter for relation 'TemplateParameter->ParameterizedOperation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("58a8608d-c560-4267-88f8-7e0280f66712")
     Operation getParameterizedOperation();
 
-    @objid ("49b8f8e0-af7c-4be9-a35b-298f2bdab226")
+    /**
+     * Setter for relation 'TemplateParameter->ParameterizedOperation'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("7cf5ba5b-9458-45dc-90a8-d742e123f986")
     void setParameterizedOperation(Operation value);
 
 }

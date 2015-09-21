@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -43,9 +43,6 @@ import org.modelio.xmi.util.XMILogs;
  */
 @objid ("c8a0e3f2-5976-43df-b26b-6e774aa67b88")
 public class OInteraction extends OModelElement {
-    @objid ("54565fcb-8a41-48fb-ab74-a46419b5d058")
-    private Interaction objingElement = null;
-
     @objid ("32c6211a-e8ee-4f19-a4ae-2d2b97ef2135")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -56,8 +53,8 @@ public class OInteraction extends OModelElement {
     private void fixingForSAFRAN() {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        org.eclipse.uml2.uml.Interaction ecoreElt = (org.eclipse.uml2.uml.Interaction) genProp.getMappedElement(this.objingElement);
-        List<org.eclipse.uml2.uml.Message> messageList = new ArrayList<org.eclipse.uml2.uml.Message>();
+        org.eclipse.uml2.uml.Interaction ecoreElt = (org.eclipse.uml2.uml.Interaction) genProp.getMappedElement(getObjingElement());
+        List<org.eclipse.uml2.uml.Message> messageList = new ArrayList<>();
         
         for (Object fragment : ecoreElt.getMessages()){
             messageList.add((org.eclipse.uml2.uml.Message) fragment);
@@ -138,23 +135,22 @@ public class OInteraction extends OModelElement {
     @objid ("24b33337-f5d2-4e64-82d1-7b0783ff0d83")
     public OInteraction(final Interaction element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("424f9442-d174-400b-9092-a1e95318f9eb")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        ModelElement objingOwner = this.objingElement.getOwner();
+        ModelElement objingOwner = getObjingElement().getOwner();
         
         if (objingOwner == null) {
-            Operation op = this.objingElement.getOwnerOperation();
+            Operation op = getObjingElement().getOwnerOperation();
             objingOwner = op.getOwner();
             String message = Xmi.I18N.getMessage("logFile.warning.moving.interaction",
-                                                 this. objingElement.getName(), op.getName(), objingOwner
+                                                 getObjingElement().getName(), op.getName(), objingOwner
                                                  .getName());
             XMILogs.getInstance().writelnInLog(message);
         
-            GenerationProperties.getInstance().getReportModel().addWarning(message, this.objingElement);
+            GenerationProperties.getInstance().getReportModel().addWarning(message, getObjingElement());
         }
         
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
@@ -194,14 +190,14 @@ public class OInteraction extends OModelElement {
 
     @objid ("a6771db5-d380-4ed4-a34c-294518381aa4")
     private void setReentrant(org.eclipse.uml2.uml.Interaction interaction) {
-        interaction.setIsReentrant(this.objingElement.isIsReentrant());
+        interaction.setIsReentrant(getObjingElement().isIsReentrant());
     }
 
     @objid ("dec20d11-dc73-44f5-84af-dde2cd6959f4")
     private void setDiagramName(org.eclipse.uml2.uml.Element ecoreElt) {
         String diagramName = "";
         
-        for (AbstractDiagram diagram : this.objingElement.getProduct()){
+        for (AbstractDiagram diagram : getObjingElement().getProduct()){
             if (diagram instanceof SequenceDiagram){
                 diagramName = diagram.getName();
                 break;
@@ -211,6 +207,12 @@ public class OInteraction extends OModelElement {
         if (!diagramName.equals("")){
             ObjingEAnnotation.setDiagramName(ecoreElt, diagramName);
         }
+    }
+
+    @objid ("89b10c38-64b2-41fc-a182-c716d337f57b")
+    @Override
+    public Interaction getObjingElement() {
+        return (Interaction) super.getObjingElement();
     }
 
 }

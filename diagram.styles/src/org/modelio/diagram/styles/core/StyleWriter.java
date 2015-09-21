@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.styles.core;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -52,48 +53,16 @@ public class StyleWriter {
     @objid ("8587fa84-1926-11e2-92d2-001ec947c8cc")
     private Map<StyleKey, Object> styleProperties;
 
-    @objid ("8587fa88-1926-11e2-92d2-001ec947c8cc")
-    private Path file;
-
-    /**
-     * Constructor.
-     * @param file the file to save into.
-     */
-    @objid ("8587fa8d-1926-11e2-92d2-001ec947c8cc")
-    public StyleWriter(Path file) {
-        this.file = file;
-    }
-
-    /**
-     * Save a style to the file.
-     * @param style the style to save.
-     */
-    @objid ("8587fa91-1926-11e2-92d2-001ec947c8cc")
-    public void save(NamedStyle style) {
-        final Properties properties = new Properties();
-        
-        // Write admin properties
-        properties.put("stylename", style.getName());
-        if (style.getCascadedStyle() instanceof NamedStyle) {
-            properties.put("basestyle", ((NamedStyle) style.getCascadedStyle()).getName());
-        }
-        
-        // Write style properties
-        for (StyleKey skey : style.getLocalKeys()) {
-            String key = skey.getId();
-            String value = StyleWriter.formatValue(skey, style.getProperty(skey));
-            properties.put(key, value);
-        }
-        
-        // Write the output file
+    @objid ("efd071f7-3524-48a6-a060-d75f2a3e7a44")
+    public String saveAsString(NamedStyle style) {
+        final Properties properties = generateProperties(style);
+        StringWriter sw = new StringWriter();
         try {
-            Files.createDirectories(this.file.getParent());
-            try (OutputStream outputStream = Files.newOutputStream(this.file)) {
-                properties.store(outputStream, "");
-            }
+            properties.store(sw, "");
         } catch (IOException e) {
             DiagramStyles.LOG.error(e);
         }
+        return sw.toString();
     }
 
     /**
@@ -121,19 +90,56 @@ public class StyleWriter {
             return (String) value;
         }
         if (type == MRef.class) {
-            if (value == null)
+            if (value == null) {
                 return "";
-            else
-                return ((MRef)value).toString();
+            } else {
+                return ((MRef) value).toString();
+            }
         }
         
         if (type.isEnum()) {
             return value.toString();
         }
         
-        DiagramStyles.LOG.warning("StyleWriter.formatValue(): missing converter for type '%s'",
-                type.getName());
+        DiagramStyles.LOG.warning("StyleWriter.formatValue(): missing converter for type '%s'", type.getName());
         return "not supported type " + type;
+    }
+
+    @objid ("a6dd9bbe-8e55-4c5a-89da-811fc11c8e57")
+    private Properties generateProperties(NamedStyle style) {
+        final Properties properties = new Properties();
+        
+        // Write admin properties
+        properties.put("stylename", style.getName());
+        if (style.getCascadedStyle() instanceof NamedStyle) {
+            properties.put("basestyle", ((NamedStyle) style.getCascadedStyle()).getName());
+        }
+        
+        // Write style properties
+        for (StyleKey skey : style.getLocalKeys()) {
+            String key = skey.getId();
+            String value = StyleWriter.formatValue(skey, style.getProperty(skey));
+            properties.put(key, value);
+        }
+        return properties;
+    }
+
+    /**
+     * @param style the style to save.
+     */
+    @objid ("b636bc76-53dd-47e0-8f1e-87a5b88781a7")
+    public void saveAsFile(NamedStyle style, Path aFile) {
+        final Properties properties = generateProperties(style);
+        
+        // Write the output file
+        try {
+            Files.createDirectories(aFile.getParent());
+            try (OutputStream outputStream = Files.newOutputStream(aFile)) {
+                properties.store(outputStream, "");
+            }
+        } catch (IOException e) {
+            DiagramStyles.LOG.error(e);
+        }
     }
 
 }

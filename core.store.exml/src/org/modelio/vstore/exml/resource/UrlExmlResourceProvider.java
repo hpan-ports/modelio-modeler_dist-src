@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.resource;
 
@@ -48,6 +48,7 @@ import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.repository.BlobServices;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vstore.exml.common.index.IndexOutdatedException;
 import org.modelio.vstore.exml.common.model.ObjId;
 
@@ -98,8 +99,9 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
             return "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userInfo.getBytes());
         } else if (url.getUserInfo() != null) {
             return "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(url.getUserInfo().getBytes());
-        } else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -121,10 +123,11 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
         
             this.localIndexDir = localDir.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME);
             this.localIndexStampPath = localDir.resolve(IStampGeometry.LOCAL_INDEX_STAMP_FILE);
-            
-            if (url.getUserInfo() != null || (user != null && !user.isEmpty()))
+        
+            if (url.getUserInfo() != null || (user != null && !user.isEmpty())) {
                 this.auth = computeHttpAuth(url, user, passwd);
-            
+            }
+        
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException(e);
         }
@@ -139,13 +142,14 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
             Log.trace(e);
         
             String msg = "Retrieving '"+getName()+"' indexes from '"+this.url+"' ...";
-            
+        
             Log.trace(msg);
             monitor.subTask(msg);
-            
+        
             boolean isLocalDir = Files.isDirectory(this.localIndexDir);
-            if (isLocalDir)
+            if (isLocalDir) {
                 FileUtils.delete(this.localIndexDir);
+            }
         
             Files.createDirectories(this.localIndexDir);
         
@@ -165,7 +169,7 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
                     Files.copy(is, target, StandardCopyOption.REPLACE_EXISTING );
                 }
             }
-            
+        
             Files.write(this.localIndexStampPath, getStamp().getBytes(StandardCharsets.UTF_8));
         }
     }
@@ -184,7 +188,7 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
 
     @objid ("cf2cb52c-03e4-11e2-b5bf-001ec947ccaf")
     @Override
-    public void createRepository() throws IOException {
+    public void createRepository(MMetamodel metamodel) throws IOException {
         throw new AccessDeniedException(this.url.toString());
     }
 
@@ -285,15 +289,17 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
     @objid ("16848dbd-38de-4942-8b63-2e57a7a484c0")
     private void checkLocalIndex() throws IndexOutdatedException {
         boolean islocalDir = Files.isDirectory(this.localIndexDir);
-        if (! islocalDir)
-            throw new IndexOutdatedException(this.getName()+" indexes not yet copied in '"+this.localIndexDir+"'.");
+        if (! islocalDir) {
+            throw new IndexOutdatedException(getName()+" indexes not yet copied in '"+this.localIndexDir+"'.");
+        }
         
         try {
             String localStamp = readLocalStamp();
-            if (! localStamp.equals(getStamp()))
+            if (! localStamp.equals(getStamp())) {
                 throw new IndexOutdatedException(getName()+" local index stamp outdated:\n"+
                         " - local index stamp: "+localStamp+"\n"+
                         " - remote repository stamp: "+getStamp());
+            }
         } catch (java.nio.file.NoSuchFileException e) {
             throw new IndexOutdatedException("No '"+this.localIndexStampPath+"' stamp file yet.");
         } catch (IOException e) {
@@ -304,7 +310,7 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
     @objid ("9790233f-12de-11e2-816a-001ec947ccaf")
     private URL getLocalUrl(ObjId id) {
         try {
-            return new URL(this.modelUrl.toString()+"/"+ id.classof.getName()+"/"+id.id+IExmlRepositoryGeometry.EXT_LOCAL_EXML);
+            return new URL(this.modelUrl.toString()+"/"+  getMetaclassDirectoryName(id)+"/"+id.id+IExmlRepositoryGeometry.EXT_LOCAL_EXML);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -313,7 +319,7 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
     @objid ("cf2cb4ff-03e4-11e2-b5bf-001ec947ccaf")
     private URL getUrl(ObjId id) {
         try {
-            return new URL(this.modelUrl.toString()+"/"+ id.classof.getName()+"/"+id.id+IExmlRepositoryGeometry.EXT_EXML);
+            return new URL(this.modelUrl.toString()+"/"+  getMetaclassDirectoryName(id)+"/"+id.id+IExmlRepositoryGeometry.EXT_EXML);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -322,8 +328,9 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
     @objid ("e5315907-37d7-11e2-920a-001ec947ccaf")
     private URLConnection openURL(URL anUrl) throws IOException {
         URLConnection connection = anUrl.openConnection();
-        if (this.auth != null && connection instanceof HttpURLConnection)
+        if (this.auth != null && connection instanceof HttpURLConnection) {
             connection.setRequestProperty("Authorization", this.auth);
+        }
         return connection;
     }
 
@@ -378,6 +385,11 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
     @Override
     public boolean isBrowsable() {
         return false;
+    }
+
+    @objid ("d168b4bc-1933-43f8-b8b2-c0d92db07f58")
+    protected String getMetaclassDirectoryName(ObjId id) {
+        return ExmlRepositoryGeometry.getMetaclassDirectoryName(id.classof);
     }
 
     /**
@@ -439,8 +451,9 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
         @objid ("e533bb61-37d7-11e2-920a-001ec947ccaf")
         private URLConnection openURL() throws IOException {
             URLConnection connection = this.url.openConnection();
-            if (this.auth != null && connection instanceof HttpURLConnection)
+            if (this.auth != null && connection instanceof HttpURLConnection) {
                 connection.setRequestProperty("Authorization", this.auth);
+            }
             return connection;
         }
 

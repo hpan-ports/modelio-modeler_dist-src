@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.text;
 
@@ -41,10 +41,10 @@ import org.modelio.diagram.elements.core.figures.ToolbarLayoutWithGrab;
  */
 @objid ("7f2d8e82-1dec-11e2-8cad-001ec947c8cc")
 public class MultilineTextFigure extends GradientFigure {
-    @objid ("eae8d9e4-7cb2-43e4-b66e-dfc83f7ea925")
+    @objid ("ca204544-6245-4556-873e-6b6571368d85")
     private FlowPage contents;
 
-    @objid ("e08b429c-2896-478d-83d8-1034d963315e")
+    @objid ("3b45cfc8-2e70-4a2d-a2c4-e1c040010891")
     private TextFlow contentsText;
 
     /**
@@ -56,7 +56,7 @@ public class MultilineTextFigure extends GradientFigure {
         setLayoutManager(new MultilineTextLayout());
         
         // In the scroll: the note text, a FlowPage + a TextFlow
-        // 
+        //
         this.contents = new FlowPage();
         this.contentsText = new TextFlow();
         this.contentsText.setText(text);
@@ -145,8 +145,9 @@ public class MultilineTextFigure extends GradientFigure {
             // Should not resize automatically the note.
             // super.calculatePreferredSize() returns the ideal size and it is not wanted
             Dimension ret = container.getSize();
-            if (ret.width == 0)
+            if (ret.width == 0) {
                 ret.width = -1;
+            }
             return calculateMinSize(container, Math.max(wHint, ret.width), Math.max(ret.height, hHint));
         }
 
@@ -174,13 +175,7 @@ public class MultilineTextFigure extends GradientFigure {
         private Dimension calculateMinSize(final IFigure container, final int wHint, final int hHint) {
             Dimension ret = super.calculateMinimumSize(container, wHint, hHint);
             
-            //if (ret.width < 60)
-            //    ret.width = 60;
-            
-            if (ret.height < 60)
-                ret.height = 60;
-            
-            if (ret.width / ret.height > 4) {
+            if (ret.height > 0 && ret.width / ret.height > 4) {
                 ret = super.calculateMinimumSize(container, ret.height * 4, hHint);
             }
             return ret;
@@ -197,13 +192,7 @@ public class MultilineTextFigure extends GradientFigure {
         private Dimension calculateIdealSize(final IFigure container, final int wHint, final int hHint) {
             Dimension ret = super.calculatePreferredSize(container, wHint, hHint);
             
-            if (ret.height < 60)
-                ret.height = 60;
-            
-            if (ret.width < 40)
-                ret.width = 40;
-            
-            if (ret.width / ret.height > 4) {
+            if (ret.height > 0 && ret.width / ret.height > 4) {
                 ret = super.calculatePreferredSize(container, ret.height * 4, hHint);
             }
             return ret;

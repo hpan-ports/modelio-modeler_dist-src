@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl;
 
@@ -38,7 +38,6 @@ import org.modelio.vcore.smkernel.StatusState;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 import org.modelio.vcore.smkernel.meta.SmMultipleDependency;
-import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 
 /**
  * The StdMetaObject is the meta object used for 'normal' objects in the kernel.
@@ -50,6 +49,9 @@ import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 @objid ("002a4eb4-19b6-1f18-8b7a-001ec947cd2a")
 @SuppressWarnings("static-method")
 public class StdMetaObject implements IMetaOf {
+    @objid ("d81508f1-4a13-47dd-964d-9b14c4b5e805")
+    private final IAccessHandle accessHandle;
+
     @objid ("2d12186b-0e0e-4142-a77b-56ba071cd356")
     private final ActionHandle actionHandle;
 
@@ -59,14 +61,11 @@ public class StdMetaObject implements IMetaOf {
     @objid ("29cbb59a-d8ba-4d56-a4f6-0573dbc8836c")
     private final DeletedMetaObject deletedMetaObject;
 
-    @objid ("d81508f1-4a13-47dd-964d-9b14c4b5e805")
-    private final IAccessHandle accessHandle;
+    @objid ("59af4bf6-3656-4647-b02e-086a01d0e24a")
+    private StatusChangeManager statusChangeManager;
 
     @objid ("b438e78f-a2b8-4b28-9105-3537dcfdc2e9")
     private final IStorageHandle storageHandle;
-
-    @objid ("59af4bf6-3656-4647-b02e-086a01d0e24a")
-    private StatusChangeManager statusChangeManager;
 
     /**
      * Initialize the meta object.
@@ -109,7 +108,7 @@ public class StdMetaObject implements IMetaOf {
             dep.assertValueType(obj, dep_val);
         
             // Do the job on the SmObjectImpl
-            jobDone = dep.add(obj, dep_val);
+            jobDone = dep.add(data, dep_val);
         
             if (!jobDone) {
                 return false;
@@ -129,7 +128,7 @@ public class StdMetaObject implements IMetaOf {
             if (!success) {
                 // Cleanup
                 if (jobDone) {
-                    dep.remove(obj, dep_val);
+                    dep.remove(data, dep_val);
                 }
                 if (storageDone && oldValStore != null) {
                     this.storageHandle.undoAppendDepVal(obj, dep, dep_val, oldValStore);
@@ -162,7 +161,7 @@ public class StdMetaObject implements IMetaOf {
             dep.assertValueType(obj, dep_val);
         
             // Do the job on the SmObjectImpl
-            dep.insert(obj, dep_val, index);
+            dep.insert(data, dep_val, index);
             jobDone = true;
         
             // Storage handling
@@ -179,7 +178,7 @@ public class StdMetaObject implements IMetaOf {
             if (!success) {
                 // Cleanup
                 if (jobDone) {
-                    dep.remove(obj, dep_val);
+                    dep.remove(data, dep_val);
                 }
                 if (storageDone && oldValStore != null) {
                     this.storageHandle.undoAppendDepVal(obj, dep, dep_val, oldValStore);
@@ -202,12 +201,12 @@ public class StdMetaObject implements IMetaOf {
         final ISmObjectData data = obj.getData();
         
         try {
-            // Ensure that the obj/att/dep is loaded
+            // Ensure that the obj/att/dep is loaded : nothing to do
         
-            // Do the job on the SmObjectImpl
+            // Do the job on the SmObjectImpl : nothing to do
         
             // Storage handling
-            data.getRepositoryObject().attach(obj);
+            data.getRepositoryObject().attachCreatedObj(obj);
             // storageDone = true;
         
             // Memory model handling
@@ -221,8 +220,6 @@ public class StdMetaObject implements IMetaOf {
         
         } finally {
             if (!success) {
-                // TODO Cleanup
-        
                 // Don't remove from storage now, it will be done by the cache
                 // manager when emptying the deleted objects list.
                 // if (storageDone) obj.getStorage().deleteObject(obj);
@@ -242,12 +239,13 @@ public class StdMetaObject implements IMetaOf {
         if (data.hasAnyStatus(IRStatus.DELETED) == StatusState.TRUE) {
             // if object is already deleted ignore it
             return;
-        } 
+        }
         
         // Cannot delete an object that cannot be modified...
         // Exception : shell objects can be deleted
-        if (! obj.isShell())
+        if (! obj.isShell()) {
             this.accessHandle.checkAccess(obj);
+        }
         
         boolean jobDone = false;
         boolean cacheDone = false;
@@ -281,7 +279,6 @@ public class StdMetaObject implements IMetaOf {
                 }
         
                 if (jobDone) {
-                    assert (false) : "Action handle failed unexpectedly";
                     data.setRFlags(IRStatus.DELETED, StatusState.FALSE);
                     data.setMetaOf(this);
                 }
@@ -307,7 +304,7 @@ public class StdMetaObject implements IMetaOf {
             this.accessHandle.checkAccessFor(obj, dep, dep_val);
         
             // Do the job on the SmObjectImpl
-            jobDone = dep.remove(obj, dep_val);
+            jobDone = dep.remove(data, dep_val);
             if (!jobDone) {
                 return false;
             }
@@ -326,7 +323,7 @@ public class StdMetaObject implements IMetaOf {
             if (!success) {
                 // Cleanup
                 if (jobDone) {
-                    dep.add(obj, dep_val);
+                    dep.add(data, dep_val);
                 }
                 if (storageDone) {
                     data.getRepositoryObject().depValAppended(obj, dep, dep_val);
@@ -353,11 +350,47 @@ public class StdMetaObject implements IMetaOf {
         final ISmObjectData data = obj.getData();
         
         this.storageHandle.loadDep(obj, data, dep);
+        return dep.getValue(data);
+    }
+
+    @objid ("1dde1136-edcd-4775-a2fb-88aa1480302a")
+    @Override
+    public void importObject(SmObjectImpl obj) {
+        // boolean storageDone = false;
+        boolean cacheDone = false;
         
-        if (dep.isMultiple()) {
-            return ((SmMultipleDependency) dep).getValueList(data);
-        } else {
-            return ((SmSingleDependency) dep).getValue(data);
+        boolean success = false;
+        
+        final ISmObjectData data = obj.getData();
+        
+        try {
+            // Ensure that the obj/att/dep is loaded : nothing to do
+        
+            // Do the job on the SmObjectImpl : nothing to do
+        
+            // Storage handling
+            data.getRepositoryObject().attach(obj);
+            // storageDone = true;
+        
+            // Memory model handling
+            this.cacheHandle.createObject(obj);
+            cacheDone = true;
+        
+            // Action handling
+            this.actionHandle.createObject(obj);
+        
+            success = true;
+        
+        } finally {
+            if (!success) {
+                // Don't remove from storage now, it will be done by the cache
+                // manager when emptying the deleted objects list.
+                // if (storageDone) obj.getStorage().deleteObject(obj);
+        
+                if (cacheDone) {
+                    this.cacheHandle.deleteObject(obj);
+                }
+            }
         }
     }
 
@@ -377,7 +410,7 @@ public class StdMetaObject implements IMetaOf {
             this.accessHandle.checkAccessFor(obj, dep, moving_ref);
         
             // Do the job on the SmObjectImpl
-            dep.moveRef(obj, moving_ref, offset);
+            dep.moveRef(data, moving_ref, offset);
             jobDone = true;
         
             // Storage handling
@@ -397,13 +430,19 @@ public class StdMetaObject implements IMetaOf {
             if (!success) {
                 // Cleanup
                 if (jobDone) {
-                    dep.moveRef(obj, moving_ref, -offset);
+                    dep.moveRef(data, moving_ref, -offset);
                 }
                 if (storageDone) {
                     data.getRepositoryObject().depValMoved(obj, dep, moving_ref);
                 }
             }
         }
+    }
+
+    @objid ("633ad50f-2b0a-44d7-be7f-b25642be2a39")
+    @Override
+    public void objStatusChanged(SmObjectImpl obj, long oldStatus, long newStatus) {
+        this.statusChangeManager.objStatusChanged(obj, oldStatus);
     }
 
     @objid ("002a472a-19b6-1f18-8b7a-001ec947cd2a")
@@ -508,6 +547,55 @@ public class StdMetaObject implements IMetaOf {
         }
     }
 
+    @objid ("0004df4e-702c-1f21-85a5-001ec947cd2a")
+    @Override
+    public boolean setObjDepVal(final SmObjectImpl obj, final SmDependency dep, final SmObjectImpl dep_val, final int index) {
+        boolean jobDone = false;
+        boolean storageDone = false;
+        boolean success = false;
+        
+        final ISmObjectData data = obj.getData();
+        
+        try {
+            // Ensure that the obj/att/dep is loaded
+            this.storageHandle.loadDep(obj, data, dep);
+        
+            this.accessHandle.checkAccessFor(obj, dep, dep_val);
+        
+            // Do the job on the SmObjectImpl
+            if (dep.isMultiple()) {
+                dep.assertValueType(obj, dep_val);
+                final List<SmObjectImpl> list = ((SmMultipleDependency) dep).getValueList(data);
+                list.set(index, dep_val);
+            } else {
+                throw new IllegalArgumentException(dep + " is a simple dependency.");
+            }
+            jobDone = true;
+        
+            // Storage handling
+            data.getRepositoryObject().depValAppended(obj, dep, dep_val);
+            storageDone = true;
+        
+            // Action handling
+            this.actionHandle.appendObjDepValIndex(obj, dep, dep_val, index);
+        
+            success = true;
+            return true;
+        
+        } finally {
+            if (!success) {
+                // Cleanup
+                if (jobDone) {
+                    dep.remove(data, dep_val);
+                }
+                if (storageDone) {
+                    data.getRepositoryObject().depValErased(obj, dep, dep_val);
+                }
+            }
+        
+        }
+    }
+
     @objid ("002a48f6-19b6-1f18-8b7a-001ec947cd2a")
     @Override
     public void silentActionRemove(SmObjectImpl obj) {
@@ -553,64 +641,9 @@ public class StdMetaObject implements IMetaOf {
         }
     }
 
-    @objid ("0004df4e-702c-1f21-85a5-001ec947cd2a")
-    @Override
-    public boolean setObjDepVal(final SmObjectImpl obj, final SmDependency dep, final SmObjectImpl dep_val, final int index) {
-        boolean jobDone = false;
-        boolean storageDone = false;
-        boolean success = false;
-        
-        final ISmObjectData data = obj.getData();
-        
-        try {
-            // Ensure that the obj/att/dep is loaded
-            this.storageHandle.loadDep(obj, data, dep);
-        
-            this.accessHandle.checkAccessFor(obj, dep, dep_val);
-        
-            // Do the job on the SmObjectImpl
-            if (dep.isMultiple()) {
-                dep.assertValueType(obj, dep_val);
-                final List<SmObjectImpl> list = ((SmMultipleDependency) dep).getValueList(data);
-                list.set(index, dep_val);
-            } else {
-                throw new IllegalArgumentException(dep + " is a simple dependency.");
-            }
-            jobDone = true;
-        
-            // Storage handling
-            data.getRepositoryObject().depValAppended(obj, dep, dep_val);
-            storageDone = true;
-        
-            // Action handling
-            this.actionHandle.appendObjDepValIndex(obj, dep, dep_val, index);
-        
-            success = true;
-            return true;
-        
-        } finally {
-            if (!success) {
-                // Cleanup
-                if (jobDone) {
-                    dep.remove(obj, dep_val);
-                }
-                if (storageDone) {
-                    data.getRepositoryObject().depValErased(obj, dep, dep_val);
-                }
-            }
-        
-        }
-    }
-
     @objid ("c8dbff94-0de3-498d-af2e-60792a001f8f")
     private static void setAsValid(final ISmObjectData data) {
         data.setRFlags(IRStatus.DELETED | IRStatus.BEINGDELETED, StatusState.FALSE);
-    }
-
-    @objid ("633ad50f-2b0a-44d7-be7f-b25642be2a39")
-    @Override
-    public void objStatusChanged(SmObjectImpl obj, long oldStatus, long newStatus) {
-        this.statusChangeManager.objStatusChanged(obj, oldStatus);
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.script.macro.catalogdialog;
 
@@ -47,7 +47,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.core.ui.images.MetamodelImageService;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.script.macro.catalog.Catalog;
 import org.modelio.script.macro.catalog.Macro;
 import org.modelio.script.plugin.Script;
@@ -128,7 +127,9 @@ public class MacroDialog extends ModelioDialog {
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
     }
 
-/* (non-Javadoc)
+/*
+     * (non-Javadoc)
+     * 
      * @see org.modelio.core.ui.dialog.IModelioDialog#createContentArea(org.eclipse.swt.widgets.Composite)
      */
     @objid ("0069a3ca-c497-106a-bf4f-001ec947cd2a")
@@ -228,15 +229,15 @@ public class MacroDialog extends ModelioDialog {
     @objid ("006a07a2-c497-106a-bf4f-001ec947cd2a")
     @Override
     protected void okPressed() {
-        if (validateScriptPanel()) {           
-            if (this.editedMacro == null) {     // Create a new macro
+        if (validateScriptPanel()) {
+            if (this.editedMacro == null) { // Create a new macro
                 this.editedMacro = new Macro(this.catalog);
                 updateMacroFromFields();
-                this.catalog.addMacro(this.editedMacro);               
-            } else {    // Edit a macro
+                this.catalog.addMacro(this.editedMacro);
+            } else { // Edit a macro
                 updateMacroFromFields();
-            }            
-            super.okPressed();        
+            }
+            super.okPressed();
         }
     }
 
@@ -248,7 +249,7 @@ public class MacroDialog extends ModelioDialog {
     void addMetaclass(String s) {
         TableItem i = new TableItem(this.metaclassList, 0);
         i.setText(s);
-        i.setImage(MetamodelImageService.getIcon(Metamodel.getMClass(s)));
+        i.setImage(MetamodelImageService.getIcon(s));
     }
 
     /**
@@ -384,13 +385,13 @@ public class MacroDialog extends ModelioDialog {
 
     @objid ("6a04233f-e2dd-4587-9070-fb1151cf4c45")
     private String getFilePathOf(String fileName) {
-        String path="";
+        String path = "";
         Bundle bundle = Platform.getBundle(Script.PLUGIN_ID);
-        String s = "platform:/plugin/"+bundle.getSymbolicName()+"/"+fileName;   // To avoid the space in the bundle path
+        String s = "platform:/plugin/" + bundle.getSymbolicName() + "/" + fileName; // To avoid the space in the bundle path
         URL url = null;
         try {
             url = new URL(s);
-            path = FileLocator.toFileURL(url).getPath();           
+            path = FileLocator.toFileURL(url).getPath();
         } catch (Exception e) {
             Script.LOG.debug("File path %s is not found!", s);
             Script.LOG.error(e);
@@ -429,7 +430,8 @@ public class MacroDialog extends ModelioDialog {
         @Override
         public void mouseUp(MouseEvent e) {
             final Collection<String> initValues = getApplicableMetaclasses();
-            final MetaclassChooserDialog dlg = new MetaclassChooserDialog(getShell(), initValues);
+            final MetaclassChooserDialog dlg = new MetaclassChooserDialog(getShell(), initValues,
+                    MacroDialog.this.catalog.getMetamodel());
             
             int res = dlg.open();
             

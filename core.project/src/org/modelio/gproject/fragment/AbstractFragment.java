@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.fragment;
 
@@ -31,24 +31,26 @@ import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.FragmentDescriptor;
 import org.modelio.gproject.data.project.GAuthConf;
 import org.modelio.gproject.data.project.GProperties;
-import org.modelio.gproject.data.project.InheritedAuthData;
-import org.modelio.gproject.data.project.VersionDescriptors;
+import org.modelio.gproject.data.project.MetamodelDescriptor;
+import org.modelio.gproject.fragment.migration.IFragmentMigrator;
 import org.modelio.gproject.gproject.AuthResolver;
 import org.modelio.gproject.gproject.FragmentConflictException;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectEvent;
 import org.modelio.gproject.gproject.GProjectEventType;
 import org.modelio.gproject.plugin.CoreProject;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.net.UriAuthenticationException;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
+import org.modelio.vbasic.version.Version;
+import org.modelio.vbasic.version.VersionedItem;
 import org.modelio.vcore.session.api.IAccessManager;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.api.repository.IRepositoryErrorListener;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Abstract implementation of a project fragment.
@@ -77,7 +79,7 @@ public abstract class AbstractFragment implements IProjectFragment {
     /**
      * File name of the file containing the metamodel versions.
      * <p>
-     * To be used by {@link #getMetamodelVersion()} in most cases.
+     * To be used by {@link #getRequiredMetamodelDescriptor()} in most cases.
      */
     @objid ("56ffb25b-35a1-40b0-aead-be40f853cf28")
     protected static final String MMVERSION_FILE_NAME = "mmversion.dat";
@@ -136,13 +138,15 @@ public abstract class AbstractFragment implements IProjectFragment {
      */
     @objid ("6a73421e-d66d-11e1-9f03-001ec947ccaf")
     private final void setState(FragmentState newState) {
-        if (newState != FragmentState.DOWN)
+        if (newState != FragmentState.DOWN) {
             this.downError = null;
+        }
         
         if (newState != this.state) {
             this.state = newState;
-            if (getProject() != null)
+            if (getProject() != null) {
                 getProject().getMonitorSupport().fireMonitors(GProjectEvent.fragmentStateChanged(this));
+            }
         }
     }
 
@@ -164,9 +168,9 @@ public abstract class AbstractFragment implements IProjectFragment {
     @objid ("b422a1e8-0baa-11e2-bed6-001ec947ccaf")
     public final Path getDataDirectory() {
         return this.gproject.getProjectDataPath()
-                                                .resolve(GProject.DATA_SUBDIR)
-                                                .resolve(FRAGMENTS_SUBDIR)
-                                                .resolve(this.encodedDirName);
+                                        .resolve(GProject.DATA_SUBDIR)
+                                        .resolve(FRAGMENTS_SUBDIR)
+                                        .resolve(this.encodedDirName);
     }
 
     /**
@@ -179,8 +183,8 @@ public abstract class AbstractFragment implements IProjectFragment {
     @objid ("b422a1ed-0baa-11e2-bed6-001ec947ccaf")
     public final Path getRuntimeDirectory() {
         return this.gproject.getProjectRuntimePath()
-                                                .resolve(FRAGMENTS_SUBDIR)
-                                                .resolve(this.encodedDirName);
+                                        .resolve(FRAGMENTS_SUBDIR)
+                                        .resolve(this.encodedDirName);
     }
 
     /**
@@ -257,28 +261,27 @@ public abstract class AbstractFragment implements IProjectFragment {
      */
     @objid ("8ed62b2b-07f4-11e2-b193-001ec947ccaf")
     @Override
-    public final void mount(GProject aProject, IModelioProgress aMonitor) {
+    public final void mount(IModelioProgress aMonitor) {
         if (this.state != FragmentState.INITIAL && this.state != FragmentState.DOWN) {
             throw new IllegalStateException("The '" + getId() + "' fragment is already mount: "+this.state);
         }
         
-        this.gproject = aProject;
         setState(FragmentState.MOUNTING);
         
         try {
             SubProgress mon = SubProgress.convert(aMonitor, 100);
             IRepository repository = doMountInitRepository(mon);
-            
+        
             checkMmVersion();
-            
+        
             mon.setWorkRemaining(100);
             repository.getErrorSupport().addErrorListener(getRepositoryErrorSupport());
             IAccessManager accessManager = doInitAccessManager();
-            aProject.getSession().getRepositorySupport().connectRepository(repository, getId(), accessManager, mon);
-            
+            this.gproject.getSession().getRepositorySupport().connectRepository(repository, getId(), accessManager, mon);
+        
             mon.setWorkRemaining(100);
             doMountPostConnect(mon);
-            
+        
             setState(FragmentState.UP_FULL);
         } catch (RuntimeException e) {
             setDown(e);
@@ -287,15 +290,16 @@ public abstract class AbstractFragment implements IProjectFragment {
         } catch (IOException | FragmentMigrationNeededException | FragmentAuthenticationException e) {
             setDown(e);
         } finally {
-            if (this.state == FragmentState.MOUNTING)
+            if (this.state == FragmentState.MOUNTING) {
                 setState(FragmentState.INITIAL);
+            }
         }
     }
 
     @objid ("8ed62b30-07f4-11e2-b193-001ec947ccaf")
     @Override
     public final void unmount() {
-        IRepository repository = getRepository(); 
+        IRepository repository = getRepository();
         if (repository != null && repository.isOpen()) {
             this.gproject.getSession().getRepositorySupport().disconnectRepository(repository);
         }
@@ -324,7 +328,7 @@ public abstract class AbstractFragment implements IProjectFragment {
         if (! Objects.equals(getUri(), fd.getUri())) {
             // URI changed : forget this fragment and register a new one
             getProject().unregisterFragment(this);
-            
+        
             IProjectFragment fragment = Fragments.getFactory(fd).instantiate(fd);
             try {
                 getProject().registerFragment(fragment, aMonitor);
@@ -343,12 +347,12 @@ public abstract class AbstractFragment implements IProjectFragment {
         } else {
             // Same URI : unmount, update properties and remount
             unmount();
-            
+        
             this.definitionScope = fd.getScope();
             this.properties = new GProperties(fd.getProperties());
             this.authConf.reconfigure(fd.getAuthDescriptor());
-            
-            mount(getProject(), aMonitor);
+        
+            mount(aMonitor);
         }
     }
 
@@ -482,27 +486,28 @@ public abstract class AbstractFragment implements IProjectFragment {
                 // The new error suppresses the old
                 error.addSuppressed(this.downError);
                 this.downError = error;
-                
+        
                 // notifies the error change
-                if (getProject() != null)
+                if (getProject() != null) {
                     getProject().getMonitorSupport().fireMonitors(GProjectEvent.FragmentDownEvent(this));
+                }
             }
         } else {
             this.downError = error;
-            
+        
             // Disconnect the repository
             // and set all loaded objects as shell.
-            IRepository repository = getRepository(); 
+            IRepository repository = getRepository();
             try {
                 if (repository != null && repository.isOpen()) {
                     this.gproject.getSession().getRepositorySupport().disconnectRepository(repository);
                 }
-            
+        
                 doUnmountPostProcess();
             } catch (IOException | RuntimeException e) {
                 this.downError.addSuppressed(e);
-            } 
-            
+            }
+        
         }
         
         // Change the states and fires a GProjectEvent
@@ -510,7 +515,7 @@ public abstract class AbstractFragment implements IProjectFragment {
     }
 
     /**
-     * Check the metamodel version against Modelio metamodel version.
+     * Check the required metamodels versions against current Modelio metamodel versions.
      * <p>
      * Returns normally if the fragment may be directly open else throws an exception.
      * @throws java.io.IOException if the metamodel version does not allow the fragment to be open.
@@ -518,42 +523,24 @@ public abstract class AbstractFragment implements IProjectFragment {
      */
     @objid ("86471d8d-0b51-4f7c-b692-423a07a2286f")
     protected void checkMmVersion() throws FragmentMigrationNeededException, IOException {
-        VersionDescriptors fragmentVersion = getMetamodelVersion();
-        VersionDescriptors lastMmVersion = getLastMmVersion();
+        MetamodelDescriptor neededMm = getRequiredMetamodelDescriptor();
+        MetamodelDescriptor currentMm = getCurrentMmDescriptor();
         
-        if (! fragmentVersion.isSame(lastMmVersion)) {
-            final int mmVersion = fragmentVersion.getMmVersion();
-            
-            if (mmVersion > lastMmVersion.getMmVersion())
-                throw new IOException(CoreProject.getMessage("AbstractFragment.FutureMmVersion", getId(), fragmentVersion, lastMmVersion));
-            else
-                throw new IOException(CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, lastMmVersion));
-            
+        if (! neededMm.isSame(currentMm)) {
+            for (VersionedItem<?> neededFrag : neededMm) {
+                checkRequiredMmFragment(neededFrag, currentMm);
+            }
         }
     }
 
     /**
+     * Get the current Modelio metamodel version descriptor
      * Get the last available metamodel version descriptor.
      * @return the last metamodel version.
      */
     @objid ("420b51fd-a248-4d22-8d40-f342f7a3d024")
-    protected static final VersionDescriptors getLastMmVersion() {
-        return VersionDescriptors.current(Integer.valueOf(Metamodel.VERSION));
-    }
-
-    /**
-     * The default implementation does nothing if version is compatible and
-     * fails with the same exception as {@link #checkMmVersion()} in the other case.
-     * @throws org.modelio.gproject.fragment.FragmentAuthenticationException in case of authentication failure
-     */
-    @objid ("954fce26-f09f-4b64-91b1-34f9705187b5")
-    @Override
-    public void migrate(GProject project, IModelioProgress aMonitor) throws FragmentAuthenticationException, IOException {
-        try {
-            checkMmVersion();
-        } catch (FragmentMigrationNeededException e) {
-            throw new IOException(e.getLocalizedMessage(), e);
-        }
+    protected final MetamodelDescriptor getCurrentMmDescriptor() {
+        return VersionHelper.getDescriptors(getProjectMetamodel());
     }
 
     /**
@@ -562,9 +549,62 @@ public abstract class AbstractFragment implements IProjectFragment {
     @objid ("8a5d8144-811a-44f4-9a96-6903e6f96c22")
     @Override
     public String toString() {
-        final String stateStr = (getState()==FragmentState.DOWN) ? (getState() + ": " + getDownError()) 
+        final String stateStr = (getState()==FragmentState.DOWN) ? (getState() + ": " + getDownError())
                 :   (getState().toString());
         return "'"+getId()+"' "+getType().toString()+" fragment ("+stateStr+")";
+    }
+
+    /**
+     * Convenience method to get the project metamodel.
+     * @return the project metamodel.
+     */
+    @objid ("881fb52d-a77f-4193-b7d4-42ac2ff91099")
+    protected final SmMetamodel getProjectMetamodel() {
+        return getProject().getSession().getMetamodel();
+    }
+
+    /**
+     * Check the required metamodel version against current Modelio metamodel versions.
+     * <p>
+     * Returns normally if the fragment may be directly open else throws an exception.
+     * @param currentMetamodel
+     * @param neededMmFragment
+     * @throws org.modelio.gproject.fragment.FragmentMigrationNeededException if the fragment needs to be migrated before opening.
+     * @throws java.io.IOException if the metamodel version does not allow the fragment to be open.
+     */
+    @objid ("1fcff866-4738-4355-a82d-bdb2eebacd62")
+    protected void checkRequiredMmFragment(VersionedItem<?> neededMmFragment, MetamodelDescriptor currentMetamodel) throws FragmentMigrationNeededException, IOException {
+        Version curVersion = currentMetamodel.getVersion(neededMmFragment.getName());
+        if (curVersion == null) {
+            throw new IOException(CoreProject.getMessage("AbstractFragment.MissingMetamodelFragment", getId(), neededMmFragment, curVersion));
+        } else if (neededMmFragment.getVersion().isNewerThan(curVersion) ) {
+            throw new IOException(CoreProject.getMessage("AbstractFragment.FutureMmVersion", getId(), neededMmFragment, curVersion));
+        } else if (! VersionHelper.isBuildCompatible(neededMmFragment, currentMetamodel)) {
+            throw new IOException(CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), neededMmFragment, curVersion));
+        }
+    }
+
+    @objid ("c6a3ba78-c756-4ef8-b425-3a6be6375c4a")
+    @Override
+    public void setProject(GProject project) {
+        this.gproject = project;
+    }
+
+    /**
+     * The default implementation does nothing if version is compatible and
+     * fails with the same exception as {@link #checkMmVersion()} in the other case.
+     */
+    @objid ("afda8e70-6541-408a-ac66-c2bbd43a4105")
+    @Override
+    public IFragmentMigrator getMigrator(MetamodelDescriptor targetMetamodel) throws IOException {
+        try {
+            checkMmVersion();
+        
+            // no migration needed
+            return null;
+        } catch (FragmentMigrationNeededException e) {
+            throw new IOException(e.getLocalizedMessage(), e);
+        }
     }
 
     /**

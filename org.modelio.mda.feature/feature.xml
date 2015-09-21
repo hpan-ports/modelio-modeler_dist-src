@@ -2,7 +2,7 @@
 <feature
       id="org.modelio.mda.feature"
       label="MDA"
-      version="3.3.0.qualifier"
+      version="3.4.0.qualifier"
       provider-name="modelio.org">
 
    <copyright>
@@ -96,7 +96,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
       <import plugin="org.modelio.diagram.styles"/>
       <import plugin="org.modelio.diagram.diagramauto"/>
       <import plugin="org.modelio.diagram.api"/>
-      <import plugin="org.modelio.diagram.creation.wizard"/>
+      <import plugin="org.modelio.creation.wizard"/>
       <import plugin="org.modelio.script.engine"/>
    </requires>
 

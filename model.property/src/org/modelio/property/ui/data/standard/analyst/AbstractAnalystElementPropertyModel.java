@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.analyst;
 
@@ -89,7 +89,7 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
     @objid ("920ba5a8-b649-4339-b059-c83a2dd16b7b")
     public AbstractAnalystElementPropertyModel(T theEditedElement, IMModelServices modelService, IProjectService projectService, IActivationService activationService) {
         super(theEditedElement);
-        this.elementType = new SingleElementType(true, Element.class, projectService.getSession());
+        this.elementType = new SingleElementType(true, Element.class, projectService != null ? projectService.getSession() : null);
         
         this.modelService = modelService;
         this.activationService = activationService;
@@ -185,7 +185,7 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
     public IPropertyType getTypeAt(int row, int col) {
         if (col == 0) {
             return this.labelStringType;
-        } 
+        }
         else if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
@@ -246,16 +246,16 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
             return false;
         } else if (3 <= row && row < this.properties.size()) {
             int propertyIndex = row - 3;
-            
+        
             PropertyDefinition property = this.theEditedElement.getDefaultProperties().getType().getOwned().get(propertyIndex);
             if (!property.isIsEditable()) {
                 return false;
             }
-            
+        
             // Rich text properties are always considered "editable", the editor itself will be read only if necessary.
             if (property.getType().getName().equals("RichText")) {
                 return true;
-            } 
+            }
         }
         return this.theEditedElement.isModifiable();
     }

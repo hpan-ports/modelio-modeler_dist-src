@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -40,7 +40,7 @@ public class OPackageMerge extends OElement implements IOElement {
     @objid ("895906fa-ac90-4b32-a6a8-d26cf35d77c2")
     public OPackageMerge(PackageMerge element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("94749249-9679-4613-8b11-8ba2c96e297d")
@@ -48,8 +48,8 @@ public class OPackageMerge extends OElement implements IOElement {
         GenerationProperties genProp = GenerationProperties.getInstance();
         org.eclipse.uml2.uml.PackageMerge ecorePkgMerge = (org.eclipse.uml2.uml.PackageMerge) ecoreElt;
                 
-        org.modelio.metamodel.uml.statik.Package objingMergedPackage = objingElement.getMergedPackage();
-        org.modelio.metamodel.uml.statik.Package objingReceivingPackage = objingElement.getReceivingPackage();
+        org.modelio.metamodel.uml.statik.Package objingMergedPackage = this.objingElement.getMergedPackage();
+        org.modelio.metamodel.uml.statik.Package objingReceivingPackage = this.objingElement.getReceivingPackage();
                 
         if (objingMergedPackage != null && objingReceivingPackage != null) {
             // Gets or creates the ecore merged Package:

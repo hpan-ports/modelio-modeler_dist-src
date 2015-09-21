@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor;
 
@@ -28,6 +28,7 @@ import java.net.URL;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FreeformLayer;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.ScalableFreeformLayeredPane;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -39,8 +40,11 @@ import org.eclipse.swt.graphics.Color;
 import org.modelio.diagram.elements.common.abstractdiagram.AbstractDiagramEditPart;
 
 /**
- * Extended ScalabableFreeformRootEditPart that adds an additional background layer used to either display a color or an
- * image. This editpart also deals with GridLayer2 additional configuration properties.
+ * Extended {@link ScalableFreeformRootEditPart} that: <ul>
+ * <li> adds an additional background layer used to either display a color or an image.
+ * <li> deals with {@link GridLayer2} additional configuration properties.
+ * <li> subclass {@link ScalableFreeformLayeredPane} to better handle zommed text.
+ * </ul>
  */
 @objid ("668fd320-33f7-11e2-95fe-001ec947c8cc")
 public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart {
@@ -169,11 +173,23 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
     @objid ("6692353b-33f7-11e2-95fe-001ec947c8cc")
     @Override
     protected ScalableFreeformLayeredPane createScaledLayers() {
-        ScalableFreeformLayeredPane layers = super.createScaledLayers();
+        // instantiate our better layer pane
+        ScalableFreeformLayeredPane layers = new ScalableFreeformLayeredPane2();
+        
+        // create children the same way as super() 
+        layers.add(createGridLayer(), GRID_LAYER);
+        layers.add(getPrintableLayers(), PRINTABLE_LAYERS);
+        layers.add(new FeedbackLayer(), SCALED_FEEDBACK_LAYER);
+        
+        // Add our background layer at bottom
         layers.add(this.createBackgroundLayer(), "BACKGROUND_LAYER", 0);
         return layers;
     }
 
+    /**
+     * Creates the background layer.
+     * @return the background layer
+     */
     @objid ("66923541-33f7-11e2-95fe-001ec947c8cc")
     protected FreeformLayer createBackgroundLayer() {
         FreeformLayer l = new BackgroundLayer();
@@ -194,6 +210,46 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
     public Point getCreationLocationTip() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.creationLocationTip;
+    }
+
+    @objid ("630d79cb-659e-445f-91d4-0b080a08acc2")
+    protected static class FeedbackLayer extends FreeformLayer {
+        @objid ("c944089e-ca8a-4eec-bc14-d158801741ca")
+        FeedbackLayer() {
+            setEnabled(false);
+        }
+
+    }
+
+    /**
+     * Same as {@link ScalableFreeformLayeredPane} but don't use a ScaledGraphics
+     * to paint the area, this class sucks at zooming texts.
+     * 
+     * @author cmarin
+     */
+    @objid ("e693d18f-7c7a-470a-b770-d77888ee9e1e")
+    protected static class ScalableFreeformLayeredPane2 extends ScalableFreeformLayeredPane {
+        @objid ("f17e9bdc-a044-46c4-9bdb-702ee870fbe8")
+        @Override
+        protected void paintClientArea(Graphics graphics) {
+            if (getChildren().isEmpty()) {
+                return;
+            } else if (getScale() == 1.0) {
+                super.paintClientArea(graphics);
+            } else {
+                boolean optimizeClip = getBorder() == null || getBorder().isOpaque();
+                if (!optimizeClip)
+                    graphics.clipRect(getBounds().getShrinked(getInsets()));
+                
+                graphics.scale(getScale());
+            
+                graphics.pushState();
+                paintChildren(graphics);
+                graphics.popState();
+                graphics.restoreState();
+            }
+        }
+
     }
 
 }

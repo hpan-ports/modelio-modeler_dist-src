@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.interactionModel.GeneralOrderingData;
+import org.modelio.metamodel.impl.uml.behavior.interactionModel.GeneralOrderingData;
 import org.modelio.metamodel.impl.uml.infrastructure.ElementImpl;
 import org.modelio.metamodel.uml.behavior.interactionModel.GeneralOrdering;
 import org.modelio.metamodel.uml.behavior.interactionModel.OccurrenceSpecification;
@@ -40,54 +52,65 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("004610d6-c4bf-1fd8-97fe-001ec947cd2a")
 public class GeneralOrderingImpl extends ElementImpl implements GeneralOrdering {
-    @objid ("0a03d0d0-7b30-4986-b254-b651e56cc868")
+    @objid ("9956c81f-6fdd-45b2-9a14-fbf65ee85d7d")
     @Override
     public OccurrenceSpecification getBefore() {
-        return (OccurrenceSpecification) getDepVal(GeneralOrderingData.Metadata.BeforeDep());
+        Object obj = getDepVal(((GeneralOrderingSmClass)getClassOf()).getBeforeDep());
+        return (obj instanceof OccurrenceSpecification)? (OccurrenceSpecification)obj : null;
     }
 
-    @objid ("860ba67d-0deb-4e4a-b20e-0e7d112209a4")
+    @objid ("e80d17da-b1b5-4dcc-b654-0da0e47968d9")
     @Override
     public void setBefore(OccurrenceSpecification value) {
-        appendDepVal(GeneralOrderingData.Metadata.BeforeDep(), (SmObjectImpl)value);
+        appendDepVal(((GeneralOrderingSmClass)getClassOf()).getBeforeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3681a83b-7500-4aa3-96a1-7932f17078c0")
+    @objid ("d35a340c-e871-4102-b1ba-2c67983c94dd")
     @Override
     public OccurrenceSpecification getAfter() {
-        return (OccurrenceSpecification) getDepVal(GeneralOrderingData.Metadata.AfterDep());
+        Object obj = getDepVal(((GeneralOrderingSmClass)getClassOf()).getAfterDep());
+        return (obj instanceof OccurrenceSpecification)? (OccurrenceSpecification)obj : null;
     }
 
-    @objid ("cfcf6d87-048c-47ce-9544-6d7af3fdf19c")
+    @objid ("8c0c454e-b784-4738-8740-f2c48c55ebb6")
     @Override
     public void setAfter(OccurrenceSpecification value) {
-        appendDepVal(GeneralOrderingData.Metadata.AfterDep(), (SmObjectImpl)value);
+        appendDepVal(((GeneralOrderingSmClass)getClassOf()).getAfterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f545804f-8fae-4a77-9e4c-30582c632d26")
+    @objid ("df1b7435-cd86-4c33-b546-3be45a19809b")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(GeneralOrderingData.Metadata.BeforeDep());
+        // Before
+        obj = (SmObjectImpl)this.getDepVal(((GeneralOrderingSmClass)getClassOf()).getBeforeDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("40fe1e91-5401-4ff8-9838-c012c5446e13")
+    @objid ("e470691f-06c7-4a0f-9b7d-3eaca680ca2c")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(GeneralOrderingData.Metadata.BeforeDep());
-        if (obj != null)
-          return new SmDepVal(GeneralOrderingData.Metadata.BeforeDep(), obj);
+        SmDependency dep;
+        
+        // Before
+        dep = ((GeneralOrderingSmClass)getClassOf()).getBeforeDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("8216f29e-359c-4e0a-b7af-82c059633432")
+    @objid ("5634d76b-c851-41b6-8f16-1f7d55d31aff")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGeneralOrdering(this);

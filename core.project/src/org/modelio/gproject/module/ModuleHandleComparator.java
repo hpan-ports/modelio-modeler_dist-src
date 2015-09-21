@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.module;
 
 import java.util.Comparator;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.module.ModuleId;
+import org.modelio.vbasic.version.VersionedItem;
 
 /**
  * Sort modules so that required modules are before requiring ones.
@@ -54,13 +54,13 @@ public class ModuleHandleComparator implements Comparator<IModuleHandle> {
 
     @objid ("b2fc43da-1cc4-4744-bf9f-b8c42bbbcd0b")
     private boolean dependsOn(IModuleHandle module1, IModuleHandle module2) {
-        for (ModuleId requiredRef : module2.getDependencies()) {
+        for (VersionedItem<?> requiredRef : module2.getDependencies()) {
             if (module1 != null && module1.getName().equals(requiredRef.getName()) && !module1.getVersion().isOlderThan(requiredRef.getVersion())) {
                 return true;
             }
         }
         
-        for (ModuleId weakRef : module2.getWeakDependencies()) {
+        for (VersionedItem<?> weakRef : module2.getWeakDependencies()) {
             if (module1 != null && module1.getName().equals(weakRef.getName()) && !module1.getVersion().isOlderThan(weakRef.getVersion())) {
                 return true;
             }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.util;
 
@@ -36,16 +36,16 @@ public class OwnedOutputPinVisitor {
 
     @objid ("524078a9-ce2c-4a77-a143-f911ea554a99")
     public OwnedOutputPinVisitor() {
-        getter = new OutputPinGetter();
-        outputPinList = null;
+        this.getter = new OutputPinGetter();
+        this.outputPinList = null;
     }
 
     @objid ("0d4d0f6a-a92a-43fd-8842-c7bf1675ae5e")
     public List<OutputPin> getOutputPinList(org.eclipse.uml2.uml.Element owner) {
-        if (outputPinList != null)
-            outputPinList = null;
-        getter.accept(owner);
-        return outputPinList;
+        if (this.outputPinList != null)
+            this.outputPinList = null;
+        this.getter.accept(owner);
+        return this.outputPinList;
     }
 
     @objid ("f2a188eb-f9fc-4bb8-b4c7-e2600c209b2a")
@@ -64,28 +64,28 @@ public class OwnedOutputPinVisitor {
         @objid ("e7da062f-f3e5-42d8-9a42-739d46b610be")
         @Override
         public Object caseAcceptEventAction(org.eclipse.uml2.uml.AcceptEventAction owner) {
-            outputPinList = owner.getResults();
+            OwnedOutputPinVisitor.this.outputPinList = owner.getResults();
             return 42;
         }
 
         @objid ("69169643-1f21-4ed8-8878-185f4366d985")
         @Override
         public Object caseAction(org.eclipse.uml2.uml.Action owner) {
-            outputPinList = owner.getOutputs();
+            OwnedOutputPinVisitor.this.outputPinList = owner.getOutputs();
             return 42;
         }
 
         @objid ("6a18385c-af9a-4e25-a73e-550342e528d1")
         @Override
         public Object caseCallAction(org.eclipse.uml2.uml.CallAction owner) {
-            outputPinList = owner.getResults();
+            OwnedOutputPinVisitor.this.outputPinList = owner.getResults();
             return 42;
         }
 
         @objid ("b1e6c533-71bc-4932-b146-22fa4161d47f")
         @Override
         public Object caseConditionalNode(org.eclipse.uml2.uml.ConditionalNode owner) {
-            outputPinList = owner.getResults();
+            OwnedOutputPinVisitor.this.outputPinList = owner.getResults();
             return 42;
         }
 
@@ -104,14 +104,14 @@ public class OwnedOutputPinVisitor {
         @objid ("5dc8a239-992a-4547-a3a3-354848037f6c")
         @Override
         public Object caseLoopNode(org.eclipse.uml2.uml.LoopNode owner) {
-            outputPinList = owner.getResults();
+            OwnedOutputPinVisitor.this.outputPinList = owner.getResults();
             return 42;
         }
 
         @objid ("892807ff-d243-4fdd-ae6f-628c256dda91")
         @Override
         public Object caseOpaqueAction(org.eclipse.uml2.uml.OpaqueAction owner) {
-            outputPinList = owner.getOutputValues();
+            OwnedOutputPinVisitor.this.outputPinList = owner.getOutputValues();
             return 42;
         }
 
@@ -172,7 +172,7 @@ public class OwnedOutputPinVisitor {
         @objid ("903500f2-f08d-430c-a35b-7a37c18e55b4")
         @Override
         public Object caseStructuredActivityNode(org.eclipse.uml2.uml.StructuredActivityNode owner) {
-            outputPinList = owner.getOutputs();
+            OwnedOutputPinVisitor.this.outputPinList = owner.getOutputs();
             return 42;
         }
 
@@ -185,7 +185,7 @@ public class OwnedOutputPinVisitor {
         @objid ("6bada75f-bf2f-4458-88de-d295b401d179")
         @Override
         public Object caseUnmarshallAction(org.eclipse.uml2.uml.UnmarshallAction owner) {
-            outputPinList = owner.getResults();
+            OwnedOutputPinVisitor.this.outputPinList = owner.getResults();
             return 42;
         }
 

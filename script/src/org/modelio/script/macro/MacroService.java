@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.script.macro;
 
@@ -50,6 +50,7 @@ import org.modelio.script.macro.catalog.Catalog;
 import org.modelio.script.macro.catalog.Macro;
 import org.modelio.script.plugin.Script;
 import org.modelio.vbasic.files.FileUtils;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.osgi.framework.Bundle;
 
@@ -72,13 +73,13 @@ public class MacroService implements IMacroService {
         File modelioMacroCatalog = modelioMacroCatalogPath.toFile();
         if (!modelioMacroCatalog.exists()) {
             createModelioMacroCatalogFile(modelioMacroCatalogPath);
-        } else {          
-            if (modelioMacroCatalog.isDirectory() && modelioMacroCatalog.list().length==0) {            
+        } else {
+            if (modelioMacroCatalog.isDirectory() && modelioMacroCatalog.list().length == 0) {
                 createModelioMacroCatalogFile(modelioMacroCatalogPath);
             }
         }
-        this.modelioCatalog = new Catalog("Modelio", env.getMacroCatalogPath(), true);  // The modelio catalog is readonly
-        this.workspaceCatalog = new Catalog("Workspace", projectService.getWorkspace().resolve("macros"), false);
+        this.modelioCatalog = new Catalog("Modelio", env.getMacroCatalogPath(), true, null); // The modelio catalog is readonly
+        this.workspaceCatalog = new Catalog("Workspace", projectService.getWorkspace().resolve("macros"), false, null);
     }
 
     @objid ("33adeb7e-96fa-46dd-ab8d-2e4fb15ca60b")
@@ -86,7 +87,9 @@ public class MacroService implements IMacroService {
     @Optional
     void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject project) {
         if (project != null) {
-            this.projectCatalog = new Catalog(project.getName(), project.getProjectDataPath().resolve("macros"), false);
+            MMetamodel metamodel = project.getSession().getMetamodel();
+            this.projectCatalog = new Catalog(project.getName(), project.getProjectDataPath().resolve("macros"), false, metamodel);
+            this.workspaceCatalog.setMetamodel(metamodel);
         }
     }
 
@@ -95,6 +98,7 @@ public class MacroService implements IMacroService {
     @Optional
     void onProjectClosed(@SuppressWarnings("unused") @EventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject project) {
         this.projectCatalog = null;
+        this.workspaceCatalog.setMetamodel(null);
     }
 
     @objid ("8525c402-ad5e-492d-9850-f5db8331cd71")
@@ -103,8 +107,9 @@ public class MacroService implements IMacroService {
         List<Macro> macros = new ArrayList<>();
         macros.addAll(this.modelioCatalog.getMacros());
         macros.addAll(this.workspaceCatalog.getMacros());
-        if (this.projectCatalog != null)
+        if (this.projectCatalog != null) {
             macros.addAll(this.projectCatalog.getMacros());
+        }
         return macros;
     }
 
@@ -113,8 +118,9 @@ public class MacroService implements IMacroService {
     public List<Macro> getMacros(Collection<MObject> elements) {
         List<Macro> macros = new ArrayList<>();
         for (Macro m : getMacros()) {
-            if (m.isRunnableOn(elements))
+            if (m.isRunnableOn(elements)) {
                 macros.add(m);
+            }
         }
         return macros;
     }
@@ -123,14 +129,14 @@ public class MacroService implements IMacroService {
     @Override
     public List<Macro> getMacros(Scope scope) {
         switch (scope) {
-            case MODELIO:
-                return this.modelioCatalog.getMacros();
-            case WORSPACE:
-                return this.workspaceCatalog.getMacros();
-            case PROJECT:
-                return (this.projectCatalog != null) ? this.projectCatalog.getMacros() : new ArrayList<Macro>();
-            default:
-                return Collections.emptyList();
+        case MODELIO:
+            return this.modelioCatalog.getMacros();
+        case WORSPACE:
+            return this.workspaceCatalog.getMacros();
+        case PROJECT:
+            return (this.projectCatalog != null) ? this.projectCatalog.getMacros() : new ArrayList<>();
+        default:
+            return Collections.emptyList();
         }
     }
 
@@ -138,18 +144,19 @@ public class MacroService implements IMacroService {
     @Override
     public void addMacro(Macro macro, Scope scope) {
         switch (scope) {
-            case MODELIO:
-                this.modelioCatalog.addMacro(macro);
-                break;
-            case WORSPACE:
-                this.workspaceCatalog.addMacro(macro);
-                break;
-            case PROJECT:
-                if (this.projectCatalog != null)
-                    this.projectCatalog.addMacro(macro);
-                break;
-            default:
-                break;
+        case MODELIO:
+            this.modelioCatalog.addMacro(macro);
+            break;
+        case WORSPACE:
+            this.workspaceCatalog.addMacro(macro);
+            break;
+        case PROJECT:
+            if (this.projectCatalog != null) {
+                this.projectCatalog.addMacro(macro);
+            }
+            break;
+        default:
+            break;
         }
     }
 
@@ -157,18 +164,19 @@ public class MacroService implements IMacroService {
     @Override
     public void removeMacro(Macro macro, Scope scope) {
         switch (scope) {
-            case MODELIO:
-                this.modelioCatalog.removeMacro(macro);
-                break;
-            case WORSPACE:
-                this.workspaceCatalog.removeMacro(macro);
-                break;
-            case PROJECT:
-                if (this.projectCatalog != null)
-                    this.projectCatalog.removeMacro(macro);
-                break;
-            default:
-                break;
+        case MODELIO:
+            this.modelioCatalog.removeMacro(macro);
+            break;
+        case WORSPACE:
+            this.workspaceCatalog.removeMacro(macro);
+            break;
+        case PROJECT:
+            if (this.projectCatalog != null) {
+                this.projectCatalog.removeMacro(macro);
+            }
+            break;
+        default:
+            break;
         }
     }
 
@@ -207,9 +215,9 @@ public class MacroService implements IMacroService {
 
     @objid ("b1ee3aed-56a0-4a1b-9ac6-322ddcf66b17")
     private String getFilePathOf(String fileName) {
-        String path="";
+        String path = "";
         Bundle bundle = Platform.getBundle(Script.PLUGIN_ID);
-        String s = "platform:/plugin/"+bundle.getSymbolicName()+"/"+fileName;   // To avoid the space in the bundle path
+        String s = "platform:/plugin/" + bundle.getSymbolicName() + "/" + fileName; // To avoid the space in the bundle path
         URL url = null;
         try {
             url = new URL(s);
@@ -244,7 +252,7 @@ public class MacroService implements IMacroService {
         public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
             Path targetPath = this.toPath.resolve(this.fromPath.relativize(dir));
             
-            if(!Files.exists(targetPath)){
+            if (!Files.exists(targetPath)) {
             
                 Files.createDirectory(targetPath);
             

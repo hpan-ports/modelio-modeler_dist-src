@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.model.browser.handlers.copy;
 
@@ -41,7 +41,6 @@ import org.modelio.core.ui.copy.PasteElementObject;
 import org.modelio.core.ui.copy.PasteElementTransfer;
 import org.modelio.core.ui.copy.TransferItem;
 import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.statik.Operation;
@@ -50,8 +49,10 @@ import org.modelio.model.browser.plugin.ModelBrowser;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.api.transactions.ITransaction;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Pastes the elements from the clipboard.
@@ -65,6 +66,7 @@ public class PasteElementHandler {
     /**
      * Available only when the selection contains only one modifiable element.
      * @param selection the current modelio selection.
+     * @param currentDisplay the current SWT display
      * @return true if the handler can be executed.
      */
     @objid ("c87aa77e-2500-11e2-ba1c-002564c97630")
@@ -89,6 +91,8 @@ public class PasteElementHandler {
         }
         
         final ICoreSession session = this.projectService.getSession();
+        SmMetamodel metamodel = session.getMetamodel();
+        MExpert expert = metamodel.getMExpert();
         
         final List<TransferItem> items = pastedObject.getTransferedItems();
         final List<TransferItem> pastedStereotypeItems = getStereotypesItemsToCopy(items);
@@ -101,17 +105,19 @@ public class PasteElementHandler {
         for (MObject pasted : pastedElements) {
             switch(pastedObject.getPasteType()) {
             case CUT:
-                if (!MTools.getAuthTool().canAddTo(pasted, destElement)) 
+                if (!MTools.getAuthTool().canAddTo(pasted, destElement)) {
                     return false;
-                if (!MTools.getMetaTool().canCompose(destElement, pasted, null)) {
+                }
+                if (!expert.canCompose(destElement, pasted, null)) {
                     return false;
                 }
                 break;
             case COPY:
             default:
-                if (!MTools.getAuthTool().canAdd(destElement, pasted.getMClass().getName())) 
+                if (!MTools.getAuthTool().canAdd(destElement, pasted.getMClass().getName())) {
                     return false;
-                if (!MTools.getMetaTool().canCompose(destElement, pasted, null)) {
+                }
+                if (!expert.canCompose(destElement, pasted, null)) {
                     return false;
                 }
                 break;
@@ -122,7 +128,7 @@ public class PasteElementHandler {
             if (((ModelElement)destElement).getExtension().contains(stereotype)) {
                 return false;
             }
-            if (!(destElement.getMClass()).hasBase(Metamodel.getMClass(stereotype.getBaseClassName()))) {
+            if (!(destElement.getMClass()).hasBase(metamodel.getMClass(stereotype.getBaseClassName()))) {
                 return false;
             }
         }
@@ -225,7 +231,7 @@ public class PasteElementHandler {
         
                 try (ITransaction transaction = session.getTransactionSupport().createTransaction("Cut")) {
                     for (TransferItem item : items) {
-                        if (!item.getTransferedElementRef().mc.equals("Stereotype")) {                            
+                        if (!item.getTransferedElementRef().mc.equals("Stereotype")) {
                             MRef oldParentRef = item.getOldParentRef();
                             MObject oldParent = session.getModel().findByRef(oldParentRef);
                             if (!pastedElements.isEmpty()) {
@@ -275,7 +281,7 @@ public class PasteElementHandler {
             MRef transferedElementRef = item.getTransferedElementRef();
         
             MObject transferedElement = session.getModel().findByRef(transferedElementRef, IModel.NODELETED);
-            if (!item.getTransferedElementRef().mc.equals("Stereotype")) {
+            if (!item.getTransferedElementRef().mc.equals("Stereotype") && transferedElement != null) {
                 elementsToCopy.add(transferedElement);
             }
         }
@@ -315,7 +321,7 @@ public class PasteElementHandler {
      */
     @objid ("c87c2e12-2500-11e2-ba1c-002564c97630")
     private static boolean canBeParentOf(final MObject owner, final MObject composed) {
-        return MTools.getMetaTool().canCompose(owner, composed, null);
+        return owner.getMClass().getMetamodel().getMExpert().canCompose(owner, composed, null);
     }
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.common;
 
@@ -55,7 +55,7 @@ public class MaintenanceOperations implements IMaintenanceOperations {
         indexes.deleteIndexes();
         
         mon.subTask("Rebuilding "+this.repo.getResProvider().getName()+" indexes ...");
-        indexes.open(mon.newChild(30));
+        indexes.open(mon.newChild(30), this.repo.getModelLoaderProvider().getMetamodel());
         indexes.buildIndexes(mon.newChild(150));
     }
 
@@ -77,6 +77,12 @@ public class MaintenanceOperations implements IMaintenanceOperations {
         
         monitor.subTask("Deleting "+this.repo.getResProvider().getName()+" indexes ...");
         indexes.deleteIndexes();
+    }
+
+    @objid ("c6a635c3-97a3-4bba-ba9a-1f04c119d974")
+    @Override
+    public void writeFormatVersion() throws IOException {
+        this.repo.saveRepositoryVersion(this.repo.getModelLoaderProvider().getMetamodel());
     }
 
 }

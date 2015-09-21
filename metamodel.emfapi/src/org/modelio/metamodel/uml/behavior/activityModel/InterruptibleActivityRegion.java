@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,30 +12,55 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
 
+/**
+ * InterruptibleActivityRegion v0.0.9054
+ * 
+ * 
+ * An interruptible region contains activity nodes. When a token leaves an interruptible region via edges designated by the region as interrupting edges, all tokens and behaviors in the region are terminated.
+ */
 @objid ("00366bf4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InterruptibleActivityRegion extends ActivityGroup {
-    @objid ("5818238c-5eae-4e9c-819e-5776bf9f3901")
+    @objid ("83a2dee3-bf5d-4744-8f4d-6c5a0df1e707")
+    public static final String MNAME = "InterruptibleActivityRegion";
+
+    /**
+     * Getter for relation 'InterruptibleActivityRegion->InterruptingEdge'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("5d0b04bd-7066-44be-922b-b9ff6060ae98")
     EList<ActivityEdge> getInterruptingEdge();
 
-    @objid ("c4a96235-42e6-4a5f-a074-cab8f53dbb4d")
+    /**
+     * Filtered Getter for relation 'InterruptibleActivityRegion->InterruptingEdge'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e017df1b-7592-40b7-8da4-2b8e4658e4e9")
     <T extends ActivityEdge> List<T> getInterruptingEdge(java.lang.Class<T> filterClass);
 
 }

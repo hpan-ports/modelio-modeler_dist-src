@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.tools.multipoint;
 
@@ -48,7 +48,6 @@ public class MultiPointCreationTool extends TargetingTool {
      * has been identified, and the user is still to determine the target.
      */
     @objid ("80f28d5e-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings("static-access")
     protected static final int STATE_MULTIPOINT_STARTED = TargetingTool.MAX_STATE << 1;
 
     /**
@@ -140,8 +139,9 @@ public class MultiPointCreationTool extends TargetingTool {
     protected Cursor calculateCursor() {
         // TODO handle the 4 states: invalid, valid start, valid middle, valid end.
         if (isInState(STATE_INITIAL)) {
-            if (getCurrentCommand() != null)
+            if (getCurrentCommand() != null) {
                 return getDefaultCursor();
+            }
         }
         return super.calculateCursor();
     }
@@ -164,8 +164,9 @@ public class MultiPointCreationTool extends TargetingTool {
 
     @objid ("80f7521b-1dec-11e2-8cad-001ec947c8cc")
     protected void eraseSourceFeedback() {
-        if (!isShowingSourceFeedback())
+        if (!isShowingSourceFeedback()) {
             return;
+        }
         setFlag(FLAG_SOURCE_FEEDBACK, false);
         for (EditPart connectionSource : this.connectionSources) {
             connectionSource.eraseSourceFeedback(getSourceRequest());
@@ -182,7 +183,7 @@ public class MultiPointCreationTool extends TargetingTool {
     @objid ("80f75222-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected String getDebugName() {
-        return "MultiPoint Creation Tool";//$NON-NLS-1$
+        return "MultiPoint Creation Tool"; //$NON-NLS-1$
     }
 
     @objid ("80f75227-1dec-11e2-8cad-001ec947c8cc")
@@ -190,7 +191,9 @@ public class MultiPointCreationTool extends TargetingTool {
     protected String getDebugNameForState(final int s) {
         // TODO: more states than this.
         if (s == STATE_MULTIPOINT_STARTED || s == STATE_ACCESSIBLE_DRAG_IN_PROGRESS)
+         {
             return "Multi Point Started";//$NON-NLS-1$
+        }
         return super.getDebugNameForState(s);
     }
 
@@ -238,7 +241,7 @@ public class MultiPointCreationTool extends TargetingTool {
         }
         
         if (isInState(STATE_INITIAL | STATE_MULTIPOINT_STARTED) && button == 1) {
-            // Update location and set type to either REQ_MULTIPOINT_FIRST or REQ_MULTIPOINT_ADDITIONAL 
+            // Update location and set type to either REQ_MULTIPOINT_FIRST or REQ_MULTIPOINT_ADDITIONAL
             updateTargetRequest();
             // Look up a target edit part. If none found, switch request type to REQ_MULTIPOINT_FINAL and look up again
             updateTargetUnderMouse();
@@ -277,8 +280,9 @@ public class MultiPointCreationTool extends TargetingTool {
     @objid ("80f9b458-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected boolean handleButtonUp(final int button) {
-        if (isInState(STATE_TERMINAL | STATE_INVALID))
+        if (isInState(STATE_TERMINAL | STATE_INVALID)) {
             handleFinished();
+        }
         return true;
     }
 
@@ -286,10 +290,11 @@ public class MultiPointCreationTool extends TargetingTool {
     @Override
     protected boolean handleCommandStackChanged() {
         if (!isInState(STATE_INITIAL)) {
-            if (getCurrentInput().isMouseButtonDown(1))
+            if (getCurrentInput().isMouseButtonDown(1)) {
                 setState(STATE_INVALID);
-            else
+            } else {
                 setState(STATE_INITIAL);
+            }
             handleInvalidInput();
             return true;
         }
@@ -314,16 +319,18 @@ public class MultiPointCreationTool extends TargetingTool {
     @objid ("80f9b46a-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected boolean handleDrag() {
-        if (isInState(STATE_MULTIPOINT_STARTED))
+        if (isInState(STATE_MULTIPOINT_STARTED)) {
             return handleMove();
+        }
         return false;
     }
 
     @objid ("80f9b46f-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected boolean handleDragInProgress() {
-        if (isInState(STATE_ACCESSIBLE_DRAG_IN_PROGRESS))
+        if (isInState(STATE_ACCESSIBLE_DRAG_IN_PROGRESS)) {
             return handleMove();
+        }
         return false;
     }
 
@@ -349,8 +356,9 @@ public class MultiPointCreationTool extends TargetingTool {
     @objid ("80f9b47e-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected boolean handleHover() {
-        if (isInState(STATE_MULTIPOINT_STARTED))
+        if (isInState(STATE_MULTIPOINT_STARTED)) {
             updateAutoexposeHelper();
+        }
         return true;
     }
 
@@ -365,8 +373,9 @@ public class MultiPointCreationTool extends TargetingTool {
     @objid ("80f9b488-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected boolean handleMove() {
-        if (isInState(STATE_MULTIPOINT_STARTED) && this.viewer != getCurrentViewer())
+        if (isInState(STATE_MULTIPOINT_STARTED) && this.viewer != getCurrentViewer()) {
             return false;
+        }
         if (isInState(STATE_INITIAL | STATE_MULTIPOINT_STARTED | STATE_ACCESSIBLE_DRAG_IN_PROGRESS)) {
             updateTargetRequest();
             updateTargetUnderMouse();
@@ -433,7 +442,7 @@ public class MultiPointCreationTool extends TargetingTool {
                                                                          getExclusionSet(),
                                                                          getTargetingConditional());
             if (editPart == null || editPart.getTargetEditPart(getTargetRequest()) == null) {
-                // We didn't find a candidate accepting the request in its current state (either REQ_MULTIPOINT_FIRST 
+                // We didn't find a candidate accepting the request in its current state (either REQ_MULTIPOINT_FIRST
                 // or REQ_MULTIPOINT_ADDITIONAL), so let's try to find one that will accept REQ_MULTIPOINT_FINAL.
                 getTargetRequest().setType(CreateMultiPointRequest.REQ_MULTIPOINT_LAST);
                 editPart = getCurrentViewer().findObjectAtExcluding(getLocation(),

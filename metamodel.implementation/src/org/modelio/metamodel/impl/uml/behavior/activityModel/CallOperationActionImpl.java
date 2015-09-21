@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.activityModel.CallOperationActionData;
+import org.modelio.metamodel.impl.uml.behavior.activityModel.CallOperationActionData;
 import org.modelio.metamodel.uml.behavior.activityModel.CallOperationAction;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -39,36 +51,43 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002bb01a-c4bf-1fd8-97fe-001ec947cd2a")
 public class CallOperationActionImpl extends CallActionImpl implements CallOperationAction {
-    @objid ("dbc2fcc6-c616-4a21-b9db-3ff8760729c8")
+    @objid ("e9fb793c-6ef2-414d-a6b3-90687bbcabe0")
     @Override
     public Operation getCalled() {
-        return (Operation) getDepVal(CallOperationActionData.Metadata.CalledDep());
+        Object obj = getDepVal(((CallOperationActionSmClass)getClassOf()).getCalledDep());
+        return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("a9d47f32-668b-43b7-9f18-8fcf436ce281")
+    @objid ("9e168ca6-8b72-4992-8d57-513162bdcd36")
     @Override
     public void setCalled(Operation value) {
-        appendDepVal(CallOperationActionData.Metadata.CalledDep(), (SmObjectImpl)value);
+        appendDepVal(((CallOperationActionSmClass)getClassOf()).getCalledDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4da3583a-df55-4f69-8b34-e3e9b4710894")
+    @objid ("586f4152-650c-4991-8242-3e21fa6bb391")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0483891e-a888-43de-a1fc-c31d94df6500")
+    @objid ("cca48132-87bf-41d5-bf7b-79288fe2b85e")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("1e4b0f3d-0b2c-4b13-899d-811faa5a6ee2")
+    @objid ("0054f7d0-10b8-4f86-b11c-b1f91e8feb66")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCallOperationAction(this);

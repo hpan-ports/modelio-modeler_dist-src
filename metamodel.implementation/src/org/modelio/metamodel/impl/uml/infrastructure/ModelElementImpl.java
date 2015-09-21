@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.security.InvalidParameterException;
@@ -31,11 +33,11 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
-import org.modelio.metamodel.data.uml.infrastructure.ModelElementData;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.factory.ModelFactory;
+import org.modelio.metamodel.impl.uml.infrastructure.ModelElementData;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
@@ -51,6 +53,7 @@ import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.infrastructure.matrix.MatrixDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.LocalPropertyTable;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyTable;
+import org.modelio.metamodel.uml.infrastructure.properties.TypedPropertyTable;
 import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.Binding;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
@@ -66,6 +69,7 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0088a34c-c4be-1fd8-97fe-001ec947cd2a")
 public abstract class ModelElementImpl extends ElementImpl implements ModelElement {
@@ -78,19 +82,7 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         if (stereotypeName == null) {
             throw new IllegalArgumentException("isStereotyped(): stereotype name cannot be null");
         }
-        
-        for (Stereotype s : getExtension()) {
-            if (inheritsFrom(s, stereotypeName)) {
-                if (s.getModule() == null) {
-                    if (moduleName == null) {
-                        return true;
-                    }
-                } else if (s.getModule().getName().equals(moduleName)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return getStereotype(moduleName, stereotypeName) != null;
     }
 
     @objid ("80f3dc16-cdd8-48b6-90e7-0a9e55768ac2")
@@ -98,13 +90,21 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     public final void addStereotype(String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         IModelFactory factory = ModelFactory.getFactory(this);
         
+        // Since Modelio 3.4, stereotypeName might contain "module#stereotype"
+        if (stereotypeName.contains("#")) {
+            String stereotype = stereotypeName;
+            moduleName = stereotype.substring(0, stereotype.indexOf("#"));
+            stereotypeName = stereotype.substring(stereotype.indexOf("#") + 1, stereotype.length());
+        }
+        
         List<Stereotype> stereotypes = factory.findStereotype(moduleName, stereotypeName, getMClass());
         if (stereotypes.size() == 0) {
             throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
         } else if (stereotypes.size() == 1) {
             EList<Stereotype> existingStereotypes = getExtension();
-            if (!existingStereotypes.contains(stereotypes.get(0)))
+            if (!existingStereotypes.contains(stereotypes.get(0))) {
                 existingStereotypes.add(stereotypes.get(0));
+            }
         } else {
             throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
         }
@@ -117,6 +117,13 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     @Override
     public void removeStereotypes(String moduleName, String stereotypeName) {
         List<Stereotype> toRemove = new ArrayList<>();
+        
+        // Since Modelio 3.4, stereotypeName might contain "module#stereotype"
+        if (stereotypeName.contains("#")) {
+            String stereotype = stereotypeName;
+            moduleName = stereotype.substring(0, stereotype.indexOf("#"));
+            stereotypeName = stereotype.substring(stereotype.indexOf("#") + 1, stereotype.length());
+        }
         
         for (Stereotype stereotype : getExtension()) {
             if (stereotype.getName().equals(stereotypeName)) {
@@ -131,6 +138,33 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         }
         
         getExtension().removeAll(toRemove);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @objid ("04b55263-aadd-4e21-9bf9-4a467f2b8a83")
+    @Override
+    public Stereotype getStereotype(String moduleName, String stereotypeName) {
+        // Since Modelio 3.4, stereotypeName might contain "module#stereotype"
+        if (stereotypeName.contains("#")) {
+            String stereotype = stereotypeName;
+            moduleName = stereotype.substring(0, stereotype.indexOf("#"));
+            stereotypeName = stereotype.substring(stereotype.indexOf("#") + 1, stereotype.length());
+        }
+        
+        for (Stereotype s : getExtension()) {
+            if (inheritsFrom(s, stereotypeName)) {
+                if (s.getModule() == null) {
+                    if (moduleName == null) {
+                        return s;
+                    }
+                } else if (s.getModule().getName().equals(moduleName)) {
+                    return s;
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -217,8 +251,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         
         if (value == null) {
             // Delete the tag if no more value
-            if (tag != null)
+            if (tag != null) {
                 tag.delete();
+            }
             return;
         }
         
@@ -259,8 +294,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         
         if (values == null || values.isEmpty()) {
             // Delete the tag if no more value
-            if (tag != null)
+            if (tag != null) {
                 tag.delete();
+            }
             return;
         }
         
@@ -398,8 +434,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     @Override
     public final PropertyTable getProperties(String name) {
         for (PropertyTable t : getProperties()) {
-            if (t.getName().equals(name))
+            if (t.getName().equals(name)) {
                 return t;
+            }
         }
         return null;
     }
@@ -411,19 +448,88 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     @Override
     public final String getProperty(String tableName, String key) {
         PropertyTable props = getProperties(tableName);
-        if (props == null)
+        if (props == null) {
             return null;
-        else
+        } else {
             return props.getProperty(key);
+        }
     }
 
     /**
-     * Answer to the question: is 'stereotype' a child of the stereotype named
-     * by 'stereotypeName' Companion method of the public isStereoyped() method
+     * {@inheritDoc}
+     */
+    @objid ("1d48ff5f-be07-4379-a570-386efed731a9")
+    @Override
+    public String getProperty(String moduleName, String stereotypeName, String key) throws ExtensionNotFoundException {
+        if (stereotypeName == null) {
+            throw new IllegalArgumentException("setProperty(): stereotype name cannot be null");
+        }
+        
+        Stereotype s = getStereotype(moduleName, stereotypeName);
+        if (s == null) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        }
+        
+        String tableName = s.getUuid().toString();
+        PropertyTable props = getProperties(tableName);
+        if (props == null) {
+            return null;
+        } else {
+            return props.getProperty(key);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @objid ("6f56b93d-1506-457e-932f-0b5c13dc205e")
+    @Override
+    public void setProperty(String tableName, String key, String value) {
+        PropertyTable props = getProperties(tableName);
+        if (props == null) {
+            IModelFactory factory = ModelFactory.getFactory(this);
+            props = factory.createPropertyTable();
+            props.setName(tableName);
+            props.setOwner(this);
+        }
+        
+        props.setProperty(key, value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @objid ("d7bb4f95-2012-4a9e-9606-8db9208f9d84")
+    @Override
+    public void setProperty(String moduleName, String stereotypeName, String key, String value) throws ExtensionNotFoundException {
+        if (stereotypeName == null) {
+            throw new IllegalArgumentException("setProperty(): stereotype name cannot be null");
+        }
+        
+        Stereotype s = getStereotype(moduleName, stereotypeName);
+        if (s == null) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        }
+        
+        String tableName = s.getUuid().toString();
+        PropertyTable props = getProperties(tableName);
+        if (props == null) {
+            IModelFactory factory = ModelFactory.getFactory(this);
+            props = factory.createTypedPropertyTable();
+            props.setName(tableName);
+            props.setOwner(this);
+            ((TypedPropertyTable) props).setType(s.getDefinedTable());
+        }
+        
+        props.setProperty(key, value);
+    }
+
+    /**
+     * Answer to the question: is 'stereotype' a child of the stereotype named by 'stereotypeName' Companion method of the public
+     * isStereoyped() method
      * @param stereotype a stereotype
      * @param stereotypeName the name of another stereotype.
-     * @return <code>true</code> if 'stereotype' a child of the stereotype named
-     * by 'stereotypeName' else <code>false</code>.
+     * @return <code>true</code> if 'stereotype' a child of the stereotype named by 'stereotypeName' else <code>false</code>.
      */
     @objid ("2bb117ce-82e7-424a-9352-c37a231c95c5")
     private static boolean inheritsFrom(Stereotype stereotype, String stereotypeName) {
@@ -464,481 +570,535 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         table.setProperty(key, value);
     }
 
-    @objid ("ea434d89-8911-4679-9e31-6c176f050dec")
+    @objid ("7dc378d8-3a48-4702-9bc8-6c5d43730b65")
     @Override
     public String getName() {
-        return (String) getAttVal(ModelElementData.Metadata.NameAtt());
+        return (String) getAttVal(((ModelElementSmClass)getClassOf()).getNameAtt());
     }
 
-    @objid ("4e6bb111-577f-41b6-b7c5-83d1422f7568")
+    @objid ("f728976c-3604-4995-afb5-79549b76877d")
     @Override
     public void setName(String value) {
-        setAttVal(ModelElementData.Metadata.NameAtt(), value);
+        setAttVal(((ModelElementSmClass)getClassOf()).getNameAtt(), value);
     }
 
-    @objid ("fd40fc5f-2cb5-4310-b676-5c3245d39b6c")
+    @objid ("26f36b17-8f8b-4631-a982-d01d079c8e6b")
     @Override
     public LocalPropertyTable getLocalProperties() {
-        return (LocalPropertyTable) getDepVal(ModelElementData.Metadata.LocalPropertiesDep());
+        Object obj = getDepVal(((ModelElementSmClass)getClassOf()).getLocalPropertiesDep());
+        return (obj instanceof LocalPropertyTable)? (LocalPropertyTable)obj : null;
     }
 
-    @objid ("3a47e111-a0e9-487d-a583-28704f6c1e7b")
+    @objid ("5ca06b8b-4d8a-47d3-8b9a-8562b303bec9")
     @Override
     public void setLocalProperties(LocalPropertyTable value) {
-        appendDepVal(ModelElementData.Metadata.LocalPropertiesDep(), (SmObjectImpl)value);
+        appendDepVal(((ModelElementSmClass)getClassOf()).getLocalPropertiesDep(), (SmObjectImpl)value);
     }
 
-    @objid ("40bca87a-c399-496b-82d9-47e5a6eff3a0")
+    @objid ("92a436cb-802c-4034-b517-3bc10c4c3506")
     @Override
     public EList<TemplateParameterSubstitution> getTemplateSubstitution() {
-        return new SmList<>(this, ModelElementData.Metadata.TemplateSubstitutionDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getTemplateSubstitutionDep());
     }
 
-    @objid ("478df7dd-3d3d-4da6-ad16-138edb238ba2")
+    @objid ("a52c4d85-b260-473c-978a-ee08f06c91b2")
     @Override
     public <T extends TemplateParameterSubstitution> List<T> getTemplateSubstitution(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final TemplateParameterSubstitution element : getTemplateSubstitution()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c8c0d219-2b61-4b97-803a-22c0f80c75ea")
+    @objid ("b4b1f9e9-9f02-417a-9608-b1ebe41666e5")
     @Override
     public EList<BpmnLane> getBpmnLaneRefs() {
-        return new SmList<>(this, ModelElementData.Metadata.BpmnLaneRefsDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getBpmnLaneRefsDep());
     }
 
-    @objid ("9979d0c7-f352-49de-bb8a-825a10f3c2ec")
+    @objid ("06fbe0fb-fcd2-45e6-83f9-ff527d160ed3")
     @Override
     public <T extends BpmnLane> List<T> getBpmnLaneRefs(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BpmnLane element : getBpmnLaneRefs()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9bf5de47-0f00-4e9c-91c1-b19792d5cfbc")
+    @objid ("e4da483a-f13e-4a5f-8d41-dca02787236b")
     @Override
     public EList<Stereotype> getExtension() {
-        return new SmList<>(this, ModelElementData.Metadata.ExtensionDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getExtensionDep());
     }
 
-    @objid ("dfdec230-3c45-4165-9303-f918bc75ef26")
+    @objid ("629896c7-828d-4bcf-848c-178e113e4125")
     @Override
     public <T extends Stereotype> List<T> getExtension(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Stereotype element : getExtension()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("716b3f19-18ef-44ff-8c65-06e9cacf4dcc")
+    @objid ("9a6bf8da-a7d7-4bb3-b7cb-ecf03610235e")
     @Override
     public EList<Dependency> getDependsOnDependency() {
-        return new SmList<>(this, ModelElementData.Metadata.DependsOnDependencyDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getDependsOnDependencyDep());
     }
 
-    @objid ("087e8ba1-685c-46b6-92ea-05797dec0fbe")
+    @objid ("e2985980-2874-4aea-96da-a7f23887132a")
     @Override
     public <T extends Dependency> List<T> getDependsOnDependency(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Dependency element : getDependsOnDependency()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1321308b-cf74-4675-b1e0-ffa50f4f31ee")
+    @objid ("b9f882e2-60ab-4f0a-88fa-4c561c41d9bd")
     @Override
     public EList<TemplateParameter> getDefaultParametering() {
-        return new SmList<>(this, ModelElementData.Metadata.DefaultParameteringDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getDefaultParameteringDep());
     }
 
-    @objid ("bc42dae6-e192-4bfa-9bf2-7dda1dd1d74b")
+    @objid ("f314524a-e254-44bd-a302-9cad9d2edab7")
     @Override
     public <T extends TemplateParameter> List<T> getDefaultParametering(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final TemplateParameter element : getDefaultParametering()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("48e80b34-5e79-4162-b615-2a14c9d91a06")
+    @objid ("1f6f67a6-f466-400a-8be0-bc2c9eabf459")
     @Override
     public EList<Binding> getRepresents() {
-        return new SmList<>(this, ModelElementData.Metadata.RepresentsDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getRepresentsDep());
     }
 
-    @objid ("00037625-fa3e-4e2f-bc61-f90c95bd9bca")
+    @objid ("799eca06-0b3c-4205-91e8-61245c7c1dca")
     @Override
     public <T extends Binding> List<T> getRepresents(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Binding element : getRepresents()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("237d74ba-1bf0-49ec-b55a-6c12b59bf2bd")
+    @objid ("690ec9e7-e554-487e-b34f-20a88293bc24")
     @Override
     public EList<ExternDocument> getDocument() {
-        return new SmList<>(this, ModelElementData.Metadata.DocumentDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getDocumentDep());
     }
 
-    @objid ("2987ac26-2045-4430-9287-1a250b96c455")
+    @objid ("78a7e4c3-c76e-4d23-834f-3b85d16e2fdc")
     @Override
     public <T extends ExternDocument> List<T> getDocument(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ExternDocument element : getDocument()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("af3ae4a1-8cc4-4b6b-807b-18ade349f428")
+    @objid ("7f25d173-4e32-4fbc-8a01-a66c0b42a393")
     @Override
     public EList<TaggedValue> getTag() {
-        return new SmList<>(this, ModelElementData.Metadata.TagDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getTagDep());
     }
 
-    @objid ("6bc7fabe-e8e4-4e67-925b-0d803c5f4870")
+    @objid ("2f37125c-d4a3-4083-846c-eb00a70f963c")
     @Override
     public <T extends TaggedValue> List<T> getTag(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final TaggedValue element : getTag()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8d403f60-445c-4449-842b-6adae2f1749e")
+    @objid ("6bbd2525-837a-46f7-bfa7-d117fc335772")
     @Override
     public TemplateParameter getOwnerTemplateParameter() {
-        return (TemplateParameter) getDepVal(ModelElementData.Metadata.OwnerTemplateParameterDep());
+        Object obj = getDepVal(((ModelElementSmClass)getClassOf()).getOwnerTemplateParameterDep());
+        return (obj instanceof TemplateParameter)? (TemplateParameter)obj : null;
     }
 
-    @objid ("a818a2ba-29e6-4a67-9a4d-5162fb92164c")
+    @objid ("ff5210b0-4672-48c7-bc1e-1b8be0d6a96f")
     @Override
     public void setOwnerTemplateParameter(TemplateParameter value) {
-        appendDepVal(ModelElementData.Metadata.OwnerTemplateParameterDep(), (SmObjectImpl)value);
+        appendDepVal(((ModelElementSmClass)getClassOf()).getOwnerTemplateParameterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0a4c632b-62aa-4904-9316-4a300dfd72dc")
+    @objid ("ef183c79-608b-4b86-bb0d-fef5accd532d")
     @Override
     public EList<Dependency> getImpactedDependency() {
-        return new SmList<>(this, ModelElementData.Metadata.ImpactedDependencyDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getImpactedDependencyDep());
     }
 
-    @objid ("06b08c5f-5f95-46f2-afcf-e316dbe4b52c")
+    @objid ("272b5283-f2ab-4515-8ce9-0e9612efedf0")
     @Override
     public <T extends Dependency> List<T> getImpactedDependency(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Dependency element : getImpactedDependency()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e2101598-e39d-45ca-9584-78bde919b4f8")
+    @objid ("4b3e314b-199f-4b5c-b9df-e2d99456086a")
     @Override
     public EList<ConnectorEnd> getRepresentingEnd() {
-        return new SmList<>(this, ModelElementData.Metadata.RepresentingEndDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getRepresentingEndDep());
     }
 
-    @objid ("e9ea67f0-3565-47f2-aeee-e3ab8ccf009e")
+    @objid ("4be9a95f-9715-43e2-9ca0-ae91011dff68")
     @Override
     public <T extends ConnectorEnd> List<T> getRepresentingEnd(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ConnectorEnd element : getRepresentingEnd()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2078732b-9968-4ddf-935b-f1d32001a673")
+    @objid ("25febdc1-1463-4293-9402-67c269c581ef")
     @Override
     public EList<ActivityPartition> getRepresentingPartition() {
-        return new SmList<>(this, ModelElementData.Metadata.RepresentingPartitionDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getRepresentingPartitionDep());
     }
 
-    @objid ("867827c1-6b54-4cd8-ba7a-4b94565ce1a1")
+    @objid ("5e1bb8cc-5a86-43bd-b7ca-051f1549f61a")
     @Override
     public <T extends ActivityPartition> List<T> getRepresentingPartition(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final ActivityPartition element : getRepresentingPartition()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2256aa2a-48b8-4e3f-87d6-85403c79efa9")
+    @objid ("e3cae485-a429-4b89-90d6-55bce52545de")
     @Override
     public EList<Constraint> getConstraintDefinition() {
-        return new SmList<>(this, ModelElementData.Metadata.ConstraintDefinitionDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getConstraintDefinitionDep());
     }
 
-    @objid ("1e25edf9-0f7d-4e27-8952-852bb50e2e47")
+    @objid ("bc8c62ff-c95c-433d-850e-cf91d40b2f57")
     @Override
     public <T extends Constraint> List<T> getConstraintDefinition(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Constraint element : getConstraintDefinition()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("adb787ef-aacc-47ab-b94e-e8de4df351ec")
+    @objid ("c2756416-e4d0-4a7b-a3a2-1298c1a5015b")
     @Override
     public EList<TemplateParameter> getTypingParameter() {
-        return new SmList<>(this, ModelElementData.Metadata.TypingParameterDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getTypingParameterDep());
     }
 
-    @objid ("32df91dc-74b3-4ef4-901e-0a94c274ed72")
+    @objid ("cf54daa5-8bba-4f02-b9c5-10fd85c64d16")
     @Override
     public <T extends TemplateParameter> List<T> getTypingParameter(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final TemplateParameter element : getTypingParameter()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("473008bf-fd89-4df9-8d2a-94b7f6a5d631")
+    @objid ("9685fcd7-07bc-45ee-97ce-ef6bb7c25b90")
     @Override
     public EList<Manifestation> getManifesting() {
-        return new SmList<>(this, ModelElementData.Metadata.ManifestingDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getManifestingDep());
     }
 
-    @objid ("9245c6de-9aac-4c92-9f39-90969ee1c71c")
+    @objid ("1a490532-15df-4ca2-be56-6743ab5344cc")
     @Override
     public <T extends Manifestation> List<T> getManifesting(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Manifestation element : getManifesting()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6e3efda4-7ec3-428b-a845-ac5ae3f54a3f")
+    @objid ("a3822653-c17a-4f10-b956-9dedc2a067b0")
     @Override
     public EList<PropertyTable> getProperties() {
-        return new SmList<>(this, ModelElementData.Metadata.PropertiesDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getPropertiesDep());
     }
 
-    @objid ("67bbd6fb-a959-4488-b71a-1dc9e57e0288")
+    @objid ("75c929b3-7e57-4466-86e0-dc8d66a7a383")
     @Override
     public <T extends PropertyTable> List<T> getProperties(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final PropertyTable element : getProperties()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("249d6b5c-c6ea-4cee-a43a-8af8cb316216")
+    @objid ("ba3afa3a-c223-4764-a094-e17d572f2392")
     @Override
     public EList<AbstractDiagram> getProduct() {
-        return new SmList<>(this, ModelElementData.Metadata.ProductDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getProductDep());
     }
 
-    @objid ("098c8a11-bba2-4e48-9b04-8b0e87c2b185")
+    @objid ("714921a6-b004-4301-8e14-e24da958eaa4")
     @Override
     public <T extends AbstractDiagram> List<T> getProduct(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final AbstractDiagram element : getProduct()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f8dcc9bf-cdf0-4d52-8074-143102e73958")
+    @objid ("a290f546-f310-4cfe-ad0c-526693198c9a")
     @Override
     public EList<BindableInstance> getRepresentingInstance() {
-        return new SmList<>(this, ModelElementData.Metadata.RepresentingInstanceDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getRepresentingInstanceDep());
     }
 
-    @objid ("ea10f27f-3817-4982-99ae-448ce1c0ad8d")
+    @objid ("5f8dd2c7-fbcb-4be6-9cbd-3d931649aa19")
     @Override
     public <T extends BindableInstance> List<T> getRepresentingInstance(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final BindableInstance element : getRepresentingInstance()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("bc53bf3b-2145-4256-a34e-8c7ecc5d379d")
+    @objid ("2889e3d4-6bb1-4e71-ad98-a198f0848008")
     @Override
     public EList<InformationFlow> getReceivedInfo() {
-        return new SmList<>(this, ModelElementData.Metadata.ReceivedInfoDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getReceivedInfoDep());
     }
 
-    @objid ("c8afc383-0980-435c-8c8d-11dd010369b0")
+    @objid ("26f575fa-ad51-4220-a745-39126dd4740c")
     @Override
     public <T extends InformationFlow> List<T> getReceivedInfo(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final InformationFlow element : getReceivedInfo()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("bc24456f-d3dc-48f0-9ecd-3400dda9d3ed")
+    @objid ("23460a14-5e64-4889-8625-0e7abd51e4ca")
     @Override
     public EList<InformationFlow> getSentInfo() {
-        return new SmList<>(this, ModelElementData.Metadata.SentInfoDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getSentInfoDep());
     }
 
-    @objid ("30963f2b-7b29-440e-99e5-59c80393708e")
+    @objid ("136448bd-791d-44b5-b6dd-38b80462a168")
     @Override
     public <T extends InformationFlow> List<T> getSentInfo(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final InformationFlow element : getSentInfo()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("0087f209-e5ca-4540-b8c3-e368c15a6b4d")
+    @objid ("27e8dd23-1e86-4a9a-a1f5-5fdb5368ff99")
     @Override
     public EList<Note> getDescriptor() {
-        return new SmList<>(this, ModelElementData.Metadata.DescriptorDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getDescriptorDep());
     }
 
-    @objid ("ce0f12ba-5c35-4d8c-bfab-614dc3cbf652")
+    @objid ("0f5569c5-ed59-49db-b189-2ab125f1e15e")
     @Override
     public <T extends Note> List<T> getDescriptor(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final Note element : getDescriptor()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7a37b243-db00-457f-b66d-bfefef340946")
+    @objid ("f1efd50b-b77d-4318-8218-dc23b361d76d")
     @Override
     public EList<NaryConnector> getRepresentingConnector() {
-        return new SmList<>(this, ModelElementData.Metadata.RepresentingConnectorDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getRepresentingConnectorDep());
     }
 
-    @objid ("72d057fc-d710-4b96-b0a3-e589e90ac14f")
+    @objid ("3ebb8765-5b75-4109-a99e-8c86fd6a3ca1")
     @Override
     public <T extends NaryConnector> List<T> getRepresentingConnector(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final NaryConnector element : getRepresentingConnector()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("54949dc7-4845-408c-a2e1-223539d3847d")
+    @objid ("c9d3f5a4-cfea-4358-aa63-a6956d0bc209")
     @Override
     public EList<MatrixDefinition> getMatrix() {
-        return new SmList<>(this, ModelElementData.Metadata.MatrixDep());
+        return new SmList<>(this, ((ModelElementSmClass)getClassOf()).getMatrixDep());
     }
 
-    @objid ("3661bf5f-2f05-4770-8466-9ae4c4d687b8")
+    @objid ("4d2495fe-064f-4f1c-990f-22b2e0b209ba")
     @Override
     public <T extends MatrixDefinition> List<T> getMatrix(java.lang.Class<T> filterClass) {
+        if (filterClass == null) {
+          throw new IllegalArgumentException();
+        }
         final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
         for (final MatrixDefinition element : getMatrix()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
+        	if (filterClass.isInstance(element)) {
+        		results.add(filterClass.cast(element));
+        	}
         }
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cea1b6a5-e26a-44ae-aa64-65a8d40c81be")
+    @objid ("708fddf6-5c18-4031-ba2e-25855891b81f")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ModelElementData.Metadata.OwnerTemplateParameterDep());
+        // OwnerTemplateParameter
+        obj = (SmObjectImpl)this.getDepVal(((ModelElementSmClass)getClassOf()).getOwnerTemplateParameterDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("99ba7219-0e0f-401d-aad6-d420583d1e3b")
+    @objid ("4e8e3da6-ee38-4ee8-a1e7-35d00b35a531")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ModelElementData.Metadata.OwnerTemplateParameterDep());
-        if (obj != null)
-          return new SmDepVal(ModelElementData.Metadata.OwnerTemplateParameterDep(), obj);
+        SmDependency dep;
+        
+        // OwnerTemplateParameter
+        dep = ((ModelElementSmClass)getClassOf()).getOwnerTemplateParameterDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("527db626-190b-454d-bfaf-ebb9e9837f61")
+    @objid ("acaf643c-688a-4002-983a-97f61f31bc62")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitModelElement(this);

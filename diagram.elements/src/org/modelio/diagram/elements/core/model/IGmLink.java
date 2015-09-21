@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.model;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.extensions.IGmLocator;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -59,7 +58,7 @@ public interface IGmLink extends IGmLinkable, IGmLinkObject {
     /**
      * Update the link destination.
      * <p>
-     * This method is intended to be called only by {@link IGmLinkable#addEndingLink(GmLink)}. It does not fire change
+     * This method is intended to be called only by {@link IGmLinkable#addEndingLink(IGmLink)}. It does not fire change
      * event.
      * @param to The new destination
      */
@@ -79,5 +78,13 @@ public interface IGmLink extends IGmLinkable, IGmLinkObject {
      */
     @objid ("6f7d10c3-0c8d-4be2-9e40-8fb85ea88517")
     IGmLocator getLayoutContraint(IGmObject extension);
+
+    /**
+     * Change the given extension location.
+     * @param extension The link extension.
+     * @param layoutData The extension layout constraint.
+     */
+    @objid ("61dcef26-2a62-46b7-88e3-508c0bf3f74c")
+    void setLayoutConstraint(IGmObject extension, IGmLocator layoutData);
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.policies;
 
@@ -34,7 +34,9 @@ import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("621c6360-55b6-11e2-877f-002564c97630")
@@ -61,12 +63,14 @@ public class CreateBpmnFlowElementCommand extends DefaultCreateElementCommand {
         
             // Create the Element...
             final IModelFactory modelFactory = modelManager.getModelFactory(diagram.getRelatedElement());
-            newElement = modelFactory.createElement(this.getContext().getMetaclass());
+            MClass mc = this.getContext().getMetaclass();
+            newElement = modelFactory.createElement(mc);
         
             // The new element must be attached to its parent using the composition dependency
             // provided by the context.
             // If the context provides a null dependency, use the default dependency recommended by the metamodel
-            MDependency effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(this.getParentElement(), newElement);
+            MExpert expert = mc.getMetamodel().getMExpert();
+            MDependency effectiveDependency = expert.getDefaultCompositionDep(this.getParentElement(), newElement);
             // Attach to parent
             if (effectiveDependency == null)
                 throw new IllegalStateException("Cannot find a composition dependency to attach " +

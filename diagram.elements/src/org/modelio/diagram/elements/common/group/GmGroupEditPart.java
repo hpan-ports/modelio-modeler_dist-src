@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.group;
 
@@ -25,6 +25,7 @@ import java.beans.PropertyChangeEvent;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
+import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -48,8 +49,9 @@ public class GmGroupEditPart extends GmNodeEditPart {
     @Override
     public IFigure getContentPane() {
         GroupFigure f = (GroupFigure) getFigure();
-        if (f == null)
+        if (f == null) {
             return null;
+        }
         return f.getContenPane();
     }
 
@@ -79,7 +81,10 @@ public class GmGroupEditPart extends GmNodeEditPart {
         super.createEditPolicies();
         
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new DefaultGroupLayoutEditPolicy());
-        installEditPolicy(AutoFitToContentEditPolicy.ROLE, new AutoFitToContentEditPolicy());
+        
+        // Allow group to self resize vertically, and horizontally if it is a link extension.
+        boolean isInLink = getParent().getModel() instanceof IGmLink;
+        installEditPolicy(AutoFitToContentEditPolicy.ROLE, new AutoFitToContentEditPolicy(isInLink, true));
     }
 
     @objid ("7e595d30-1dec-11e2-8cad-001ec947c8cc")
@@ -116,8 +121,9 @@ public class GmGroupEditPart extends GmNodeEditPart {
         final GmGroup gmGroup = (GmGroup) getModel();
         final boolean newVisible = gmGroup.isVisible();
         
-        if (oldVisible == newVisible)
+        if (oldVisible == newVisible) {
             return oldVisible;
+        }
         
         if (newVisible) {
             aFigure.setVisible(true);

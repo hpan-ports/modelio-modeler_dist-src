@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -43,9 +43,6 @@ import org.modelio.xmi.util.XMILogs;
  */
 @objid ("a668b0c1-ab70-4c10-b8d0-7e50a7f787cb")
 public class OBehaviorParameter extends OElement implements IOElement {
-    @objid ("aa5b5bc3-76c8-42db-868b-ff3f669ec1dc")
-    private BehaviorParameter objingElement = null;
-
     @objid ("55c37cdb-a296-424a-8ef4-b04e4db87452")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -59,13 +56,12 @@ public class OBehaviorParameter extends OElement implements IOElement {
     @objid ("ead147ad-15d4-4f7b-aa27-910f34ebaa1b")
     public OBehaviorParameter(final BehaviorParameter element) {
         super(element);
-        this.objingElement = element;
     }
 
     @objid ("174c36e0-a115-42db-b512-41b2aa57fc91")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        MObject objingParent = this.objingElement.getCompositionOwner();
+        MObject objingParent = getObjingElement().getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreParent = GenerationProperties.getInstance().getMappedElement(objingParent);
         
         if ((ecoreParent != null) && ( ecoreParent instanceof org.eclipse.uml2.uml. Behavior)) {
@@ -86,7 +82,7 @@ public class OBehaviorParameter extends OElement implements IOElement {
 
     @objid ("1c18dd74-49f6-4318-b09f-90f1d6c87724")
     private void setEffect(org.eclipse.uml2.uml.Parameter ecoreElt) {
-        switch (this.objingElement.getEffect().getValue())
+        switch (getObjingElement().getEffect().getValue())
         {
         case ParameterEffectKind.CREATE :
             ecoreElt.setEffect(org.eclipse.uml2.uml.ParameterEffectKind.CREATE_LITERAL);
@@ -107,17 +103,17 @@ public class OBehaviorParameter extends OElement implements IOElement {
 
     @objid ("dd0b3c7c-4d5e-47bc-aef6-fcbaf9a0a997")
     private void setStream(org.eclipse.uml2.uml.Parameter ecoreElt) {
-        ecoreElt.setIsStream(this.objingElement.isIsStream());
+        ecoreElt.setIsStream(getObjingElement().isIsStream());
     }
 
     @objid ("ba6c4830-0d93-4198-96f1-41484f934d93")
     private void setException(org.eclipse.uml2.uml.Parameter ecoreElt) {
-        ecoreElt.setIsException(this.objingElement.isIsException());
+        ecoreElt.setIsException(getObjingElement().isIsException());
     }
 
     @objid ("c793c47f-e4c5-471d-9533-f74e7153b441")
     private void setMin(org.eclipse.uml2.uml.Parameter ecoreElt) {
-        String objingMultMin = this.objingElement.getMultiplicityMin();
+        String objingMultMin = getObjingElement().getMultiplicityMin();
         
         // If objingMultMin is "" then we don't set a lower multiplicity for the
         // UML2 element.
@@ -140,7 +136,7 @@ public class OBehaviorParameter extends OElement implements IOElement {
                             "String", "\"" + objingMultMin + "\"", "Integer",
                             contextualMsg);
                     logs.writelnInLog(message);
-                    GenerationProperties.getInstance().getReportModel().addInfo(message, this.objingElement);
+                    GenerationProperties.getInstance().getReportModel().addInfo(message, getObjingElement());
                 }
             }
         }
@@ -148,7 +144,7 @@ public class OBehaviorParameter extends OElement implements IOElement {
 
     @objid ("c3dad748-2c43-4553-b0cf-c108a0ac25d8")
     private void setMax(org.eclipse.uml2.uml.Parameter ecoreElt) {
-        String objingMultMax = this.objingElement.getMultiplicityMax();
+        String objingMultMax = getObjingElement().getMultiplicityMax();
         
         // If objingMultMax is "" then we don't set an upper multiplicity for
         // the UML2 element.
@@ -171,7 +167,7 @@ public class OBehaviorParameter extends OElement implements IOElement {
                             "String", "\"" + objingMultMax + "\"", "Integer",
                             contextualMsg);
                     logs.writelnInLog(message);
-                    GenerationProperties.getInstance().getReportModel().addInfo(message, this.objingElement);
+                    GenerationProperties.getInstance().getReportModel().addInfo(message, getObjingElement());
                 }
             }
         }
@@ -182,7 +178,7 @@ public class OBehaviorParameter extends OElement implements IOElement {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
         // Getting type of the org.eclipse.uml2.uml.Parameter:
-        GeneralClass objingType = this.objingElement.getType();
+        GeneralClass objingType = getObjingElement().getType();
         if (objingType != null) {
             if (ModelioPrimitiveTypeMapper.isPredefinedType(objingType)) {
                 ModelioPrimitiveTypeMapper.setEcorePredefinedType(ecoreElt, (DataType) objingType);
@@ -206,6 +202,12 @@ public class OBehaviorParameter extends OElement implements IOElement {
     @objid ("bcb46fac-b71f-48fb-83b1-1165afb33c5c")
     private void setType(org.eclipse.uml2.uml.Parameter ecoreParam, org.eclipse.uml2.uml.Type type) {
         ecoreParam.setType(type);
+    }
+
+    @objid ("a3651a1a-1de8-42b2-874b-1fd81bf858f5")
+    @Override
+    public BehaviorParameter getObjingElement() {
+        return (BehaviorParameter) super.getObjingElement();
     }
 
 }

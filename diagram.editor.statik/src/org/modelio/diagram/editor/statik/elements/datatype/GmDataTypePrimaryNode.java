@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.datatype;
 
@@ -36,7 +36,7 @@ import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.freezone.GmFreeZone;
 import org.modelio.diagram.elements.common.group.GmGroup;
 import org.modelio.diagram.elements.common.header.GmModelElementHeader;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNoStyleCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -154,9 +154,9 @@ public class GmDataTypePrimaryNode extends GmNoStyleCompositeNode implements IIm
     @Override
     public boolean canCreate(Class<? extends MObject> type) {
         return Attribute.class.isAssignableFrom(type) ||
-               Operation.class.isAssignableFrom(type) ||
-               NameSpace.class.isAssignableFrom(type) ||
-               (Instance.class.isAssignableFrom(type) && !Port.class.isAssignableFrom(type));
+                                               Operation.class.isAssignableFrom(type) ||
+                                               NameSpace.class.isAssignableFrom(type) ||
+                                               (Instance.class.isAssignableFrom(type) && !Port.class.isAssignableFrom(type));
     }
 
     @objid ("34c31589-55b7-11e2-877f-002564c97630")
@@ -267,7 +267,7 @@ public class GmDataTypePrimaryNode extends GmNoStyleCompositeNode implements IIm
         String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -359,13 +359,13 @@ public class GmDataTypePrimaryNode extends GmNoStyleCompositeNode implements IIm
         GmGroup internalStructureGroup = (GmGroup) children.get(3);
         GmFreeZone internalStructureZone = (GmFreeZone) children.get(4);
         
-        GmDefaultFlatHeader imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(5);
+        GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(5);
         imageModeHeader.delete();
         
         // Migrate internal structure group/zone
         removeChild(internalStructureGroup);
         removeChild(internalStructureZone);
-                
+        
         this.internalStructure = new GmInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
         
         // Add roles
@@ -407,7 +407,7 @@ public class GmDataTypePrimaryNode extends GmNoStyleCompositeNode implements IIm
         
         this.internalStructure = new GmInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
         this.internalStructure.setRoleInComposition(INTERNAL);
-                
+        
         // Add roles
         this.header.setRoleInComposition(HEADER);
         this.attributeGroup.setRoleInComposition(ATTRIBUTE_GROUP);
@@ -433,7 +433,7 @@ public class GmDataTypePrimaryNode extends GmNoStyleCompositeNode implements IIm
         this.methodGroup = (GmGroup) group.getChildren().get(1);
         GmGroup internalStructureGroup = (GmGroup) group.getChildren().get(2);
         GmFreeZone internalStructureZone = (GmFreeZone) group.getChildren().get(3);
-                       
+        
         // Add roles
         this.header.setRoleInComposition(HEADER);
         this.attributeGroup.setRoleInComposition(ATTRIBUTE_GROUP);

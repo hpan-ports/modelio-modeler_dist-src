@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.images;
 
@@ -108,6 +108,9 @@ public final class ElementDecoratedStyledLabelProvider extends StyledCellLabelPr
 
     @objid ("a6111546-c975-45ad-b21d-5a0974352a01")
     private static final Image userReadOnly = loadImage("USER_READONLY.png");
+
+    @objid ("b30d85ae-df44-4b81-bb66-0abad317fdb6")
+    private static final Image cmsToDelete = loadImage("CMS_TODELETE.png");
 
 // ------------------------------------------------------------------------------------
     /**
@@ -271,8 +274,11 @@ public final class ElementDecoratedStyledLabelProvider extends StyledCellLabelPr
         
         if (status.isCmsManaged()) {
         
+            
             if (status.isCmsConflict()) {
                 return cmsConflict;
+            } else if (status.isCmsToDelete()) {
+                return cmsToDelete;
             }
         
             if (status.isCmsModified() || status.isDirty()) {

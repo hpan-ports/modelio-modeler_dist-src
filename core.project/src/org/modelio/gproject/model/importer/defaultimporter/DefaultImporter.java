@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.model.importer.defaultimporter;
 
@@ -36,7 +36,6 @@ import org.modelio.gproject.model.importer.core.IDependencyGetter;
 import org.modelio.gproject.model.importer.core.IDependencyUpdater;
 import org.modelio.gproject.model.importer.core.IImportFilter;
 import org.modelio.gproject.model.importer.core.IObjectFinder;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
@@ -190,7 +189,7 @@ public class DefaultImporter extends AbstractImporter {
     @Override
     protected void prepare(final ICoreSession localSession, final SmObjectImpl localRoot, final ICoreSession refSession, List<SmObjectImpl> refRoots) {
         if (this.importFilter == null) {
-            this.importFilter = new IgnoreRamcsImportFilter();
+            this.importFilter = new ImportAllFilter();
         }
         if (this.objectFinder == null) {
             this.objectFinder = new DefaultObjectFinder();
@@ -349,8 +348,7 @@ public class DefaultImporter extends AbstractImporter {
             protected ImportCompositionInitializer(final SmObjectImpl aParent, ICoreSession destSession) {
                 super(aParent);
                 // FIXME get analyst project
-                this.reqProject = (AnalystProject) destSession.getModel().findByClass(Metamodel.getMClass(AnalystProject.class)).iterator()
-                        .next();
+                this.reqProject = destSession.getModel().findByClass(AnalystProject.class).iterator().next();
             }
 
             @objid ("00872152-e548-108f-8d81-001ec947cd2a")

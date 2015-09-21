@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -50,13 +50,12 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a76115d1-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "InternalTransition", "ReceivedEvents", "Guard",
-			"Effect", "SentEvents", "Post" };
+    private static final String[] PROPERTIES = new String[] { "Property", "ReceivedEvents", "Guard", "Effect", "SentEvents", "Post" };
 
     @objid ("fa939fbc-c5d4-11e1-8f21-002564c97630")
     private StringType labelStringType;
@@ -129,13 +128,13 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
             case 1:
                 // Received event
                 String s = this.theEditedElement.getReceivedEvents();
-                if (s.equals("Entry"))
+                if (s.equals("Entry")) {
                     return ReceivedEventType.ENTRY;
-                else if (s.equals("Do"))
+                } else if (s.equals("Do")) {
                     return ReceivedEventType.DO;
-                else if (s.equals("Exit"))
+                } else if (s.equals("Exit")) {
                     return ReceivedEventType.EXIT;
-                else {
+                } else {
                     return ReceivedEventType.DO;
                 }
             case 2:
@@ -157,8 +156,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -226,7 +224,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
                 default:
                     break;
                 }
-                
+        
                 break;
             case 2:
                 this.theEditedElement.setGuard((String) value);
@@ -243,7 +241,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
             default:
                 return;
             }
-              break;
+            break;
         default:
             return;
         }
@@ -252,10 +250,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
     /**
      * Represents the Transition effects.
      * 
-     * Merges the following Transition features:
-     * - Effect : string
-     * - Processed : Operation
-     * - BehaviorEffect : Behavior
+     * Merges the following Transition features: - Effect : string - Processed : Operation - BehaviorEffect : Behavior
      * 
      * @author cmarin
      */
@@ -286,13 +281,15 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
         @objid ("8f35b538-c068-11e1-8c0a-002564c97630")
         public static Object getValue(Transition t) {
             String sEffect = t.getEffect();
-            if (sEffect != null && !sEffect.isEmpty())
+            if (sEffect != null && !sEffect.isEmpty()) {
                 return sEffect;
-                        
+            }
+            
             Operation op = t.getProcessed();
-            if (op != null)
+            if (op != null) {
                 return op;
-                        
+            }
+            
             Behavior b = t.getBehaviorEffect();
             return b;
         }
@@ -307,36 +304,40 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
             // Erase old value or exit if old value is new value
             String old1 = t.getEffect();
             if (old1 != null && !old1.isEmpty()) {
-                if (old1.equals(value))
+                if (old1.equals(value)) {
                     return;
+                }
                 t.setEffect("");
             } else {
                 Operation old2 = t.getProcessed();
                 if (old2 != null) {
-                    if (old2.equals(value))
+                    if (old2.equals(value)) {
                         return;
+                    }
                     t.setProcessed(null);
                 } else {
                     Behavior old3 = t.getBehaviorEffect();
                     if (old3 != null) {
-                        if (old3.equals(value))
+                        if (old3.equals(value)) {
                             return;
+                        }
                         t.setBehaviorEffect(null);
                     }
                 }
             }
-                        
+            
             if (value != null) {
                 // Set new value
-                if (String.class.isAssignableFrom(value.getClass()))
+                if (String.class.isAssignableFrom(value.getClass())) {
                     t.setEffect((String) value);
-                else if (Operation.class.isAssignableFrom(value.getClass()))
+                } else if (Operation.class.isAssignableFrom(value.getClass())) {
                     t.setProcessed((Operation) value);
-                else if (Behavior.class.isAssignableFrom(value.getClass()))
+                } else if (Behavior.class.isAssignableFrom(value.getClass())) {
                     t.setBehaviorEffect((Behavior) value);
-                else
+                } else {
                     throw new IllegalArgumentException("value must be a String, an Operation or a Behavior but not a "
                             + value.getClass().getCanonicalName());
+                }
             }
         }
 
@@ -351,9 +352,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
     /**
      * Represents the Transition sent signals.
      * 
-     * Merges the following Transition features:
-     * - SentEvents : string
-     * - Effects : Signal
+     * Merges the following Transition features: - SentEvents : string - Effects : Signal
      * 
      * @author cmarin
      */
@@ -383,9 +382,10 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
         @objid ("8f373bb5-c068-11e1-8c0a-002564c97630")
         public static Object getValue(Transition t) {
             String sEffect = t.getSentEvents();
-            if (sEffect != null && !sEffect.isEmpty())
+            if (sEffect != null && !sEffect.isEmpty()) {
                 return sEffect;
-                        
+            }
+            
             Signal op = t.getEffects();
             return op;
         }
@@ -400,27 +400,30 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
             // Erase old value or exit if old value is new value
             String old1 = t.getSentEvents();
             if (old1 != null && !old1.isEmpty()) {
-                if (old1.equals(value))
+                if (old1.equals(value)) {
                     return;
+                }
                 t.setSentEvents("");
             } else {
                 Signal old2 = t.getEffects();
                 if (old2 != null) {
-                    if (old2.equals(value))
+                    if (old2.equals(value)) {
                         return;
+                    }
                     t.setEffects(null);
                 }
             }
-                        
+            
             if (value != null) {
                 // Set new value
-                if (String.class.isAssignableFrom(value.getClass()))
+                if (String.class.isAssignableFrom(value.getClass())) {
                     t.setSentEvents((String) value);
-                else if (Signal.class.isAssignableFrom(value.getClass()))
+                } else if (Signal.class.isAssignableFrom(value.getClass())) {
                     t.setEffects((Signal) value);
-                else
+                } else {
                     throw new IllegalArgumentException("value must be a String or a Signal but not a "
                             + value.getClass().getCanonicalName());
+                }
             }
         }
 
@@ -434,6 +437,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
 
     /**
      * Predefined events for InternalTransition.ReceivedEvents
+     * 
      * @author cmarin
      */
     @objid ("8f373bc4-c068-11e1-8c0a-002564c97630")

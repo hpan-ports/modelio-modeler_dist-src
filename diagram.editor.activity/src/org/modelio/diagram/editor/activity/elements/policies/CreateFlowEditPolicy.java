@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.policies;
 
@@ -29,10 +29,10 @@ import org.modelio.diagram.elements.core.link.DefaultCreateLinkCommand;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
 import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
 import org.modelio.metamodel.uml.behavior.activityModel.ControlFlow;
 import org.modelio.metamodel.uml.behavior.activityModel.ControlNode;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -64,13 +64,11 @@ public class CreateFlowEditPolicy extends DefaultCreateLinkEditPolicy {
             MObject targetElement = targetNodeModel.getRelatedElement();
         
             // Fix the context in any case
-            if (sourceElement != null &&
-                (sourceElement instanceof ControlNode || sourceElement instanceof ActivityAction) &&
-                targetElement != null &&
-                (targetElement instanceof ControlNode || targetElement instanceof ActivityAction)) {
+            if (sourceElement != null && (sourceElement instanceof ControlNode || sourceElement instanceof ActivityAction)
+                    && targetElement != null && (targetElement instanceof ControlNode || targetElement instanceof ActivityAction)) {
                 // use a modified context
-                ModelioLinkCreationContext newContext = new ModelioLinkCreationContext(Metamodel.getMClass(ControlFlow.class).getName(),
-                                                                                       context.getStereotype());
+                MMetamodel mm = targetElement.getMClass().getMetamodel();
+                ModelioLinkCreationContext newContext = new ModelioLinkCreationContext(mm.getMClass(ControlFlow.class), context.getStereotype());
                 newContext.setProperties(context.getProperties());
                 startCommand.setContext(newContext);
             } else {

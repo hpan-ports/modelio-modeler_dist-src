@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link;
 
@@ -25,6 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.commands.Command;
 import org.modelio.diagram.elements.core.model.IGmLinkable;
 import org.modelio.gproject.model.api.MTools;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -58,18 +59,20 @@ public class DefaultReconnectTargetCommand extends Command {
     @Override
     public boolean canExecute() {
         // The diagram must be modifiable
-        if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement())) {
             return false;
+        }
         
         // If the target changes, the source and the link elements must be modifiable
         IGmLinkable oldTargetNode = this.gmLink.getTo();
         if (oldTargetNode == null) {
             return true;
         }
-        if (this.newTargetNode.getRepresentedRef().equals(oldTargetNode.getRepresentedRef()))
+        if (this.newTargetNode.getRepresentedRef().equals(oldTargetNode.getRepresentedRef())) {
             return true;
-        else
+        } else {
             return isModifableElement(oldTargetNode) && isModifableElement(this.gmLink);
+        }
     }
 
     @objid ("7ff10f6c-1dec-11e2-8cad-001ec947c8cc")
@@ -98,16 +101,17 @@ public class DefaultReconnectTargetCommand extends Command {
         if (oldTargetNode != this.newTargetNode) {
             final MObject link = this.gmLink.getRelatedElement();
             final MObject newDest = this.newTargetNode.getRelatedElement();
+            final MExpert expert = link.getMClass().getMetamodel().getMExpert();
         
             if (oldTargetNode != null) {
                 final MObject oldDest = oldTargetNode.getRelatedElement();
                 if (!newDest.equals(oldDest)) {
                     // Update Ob model
-                    MTools.getModelTool().setTarget(link, oldDest, newDest);
+                    expert.setTarget(link, oldDest, newDest);
                 }
                 oldTargetNode.removeEndingLink(this.gmLink);
             } else {
-                MTools.getModelTool().setTarget(link, null, newDest);
+                expert.setTarget(link, null, newDest);
             }
         
             // Update gm model

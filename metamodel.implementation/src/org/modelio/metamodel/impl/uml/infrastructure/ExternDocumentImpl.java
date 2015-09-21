@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.infrastructure.ExternDocumentData;
+import org.modelio.metamodel.impl.uml.infrastructure.ExternDocumentData;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -40,90 +52,101 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00927aac-c4be-1fd8-97fe-001ec947cd2a")
 public class ExternDocumentImpl extends ModelElementImpl implements ExternDocument {
-    @objid ("46708779-de3c-4d77-8168-0d21c5dd3a93")
+    @objid ("fba22e3c-f551-429b-aa97-88fed3fe7bbb")
     @Override
     public String getMimeType() {
-        return (String) getAttVal(ExternDocumentData.Metadata.MimeTypeAtt());
+        return (String) getAttVal(((ExternDocumentSmClass)getClassOf()).getMimeTypeAtt());
     }
 
-    @objid ("ce0b202f-7003-4218-bbe3-1bdafbab9a80")
+    @objid ("e4c2e35f-4a21-4016-aca1-97d511d6c115")
     @Override
     public void setMimeType(String value) {
-        setAttVal(ExternDocumentData.Metadata.MimeTypeAtt(), value);
+        setAttVal(((ExternDocumentSmClass)getClassOf()).getMimeTypeAtt(), value);
     }
 
-    @objid ("dbac70c9-273a-465f-ba85-cea303d0e64d")
+    @objid ("ba3c6aad-21cf-4769-a82d-f6048c14881e")
     @Override
     public String getPath() {
-        return (String) getAttVal(ExternDocumentData.Metadata.PathAtt());
+        return (String) getAttVal(((ExternDocumentSmClass)getClassOf()).getPathAtt());
     }
 
-    @objid ("0c940293-605f-413a-851f-ee9d81944d16")
+    @objid ("1761fa18-04e3-4a6a-8811-7c625a1fbc6a")
     @Override
     public void setPath(String value) {
-        setAttVal(ExternDocumentData.Metadata.PathAtt(), value);
+        setAttVal(((ExternDocumentSmClass)getClassOf()).getPathAtt(), value);
     }
 
-    @objid ("08db4542-c1e9-44e8-875b-9330d8aff7f4")
+    @objid ("b4093d95-dc32-4ad6-899c-0eb6c920aeb2")
     @Override
     public String getAbstract() {
-        return (String) getAttVal(ExternDocumentData.Metadata.AbstractAtt());
+        return (String) getAttVal(((ExternDocumentSmClass)getClassOf()).getAbstractAtt());
     }
 
-    @objid ("6b8d1dd1-7618-4bc8-8c34-368f75ae230b")
+    @objid ("69501d11-9824-48f7-991d-cff58c6f052d")
     @Override
     public void setAbstract(String value) {
-        setAttVal(ExternDocumentData.Metadata.AbstractAtt(), value);
+        setAttVal(((ExternDocumentSmClass)getClassOf()).getAbstractAtt(), value);
     }
 
-    @objid ("91c53a9c-57d0-41b7-b3d4-f7d73469e4e7")
+    @objid ("cfbeee3c-0902-42c4-b86f-552e93beafad")
     @Override
     public ExternDocumentType getType() {
-        return (ExternDocumentType) getDepVal(ExternDocumentData.Metadata.TypeDep());
+        Object obj = getDepVal(((ExternDocumentSmClass)getClassOf()).getTypeDep());
+        return (obj instanceof ExternDocumentType)? (ExternDocumentType)obj : null;
     }
 
-    @objid ("b8bb73bb-ff96-45a8-bcef-a38921908c9a")
+    @objid ("22677063-4d53-4ce7-9003-350cb8cfbfb4")
     @Override
     public void setType(ExternDocumentType value) {
-        appendDepVal(ExternDocumentData.Metadata.TypeDep(), (SmObjectImpl)value);
+        appendDepVal(((ExternDocumentSmClass)getClassOf()).getTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1296de3c-eaf6-4fef-a9d6-f7d4700fcb8e")
+    @objid ("83bacceb-9449-46e9-9609-51062936157d")
     @Override
     public ModelElement getSubject() {
-        return (ModelElement) getDepVal(ExternDocumentData.Metadata.SubjectDep());
+        Object obj = getDepVal(((ExternDocumentSmClass)getClassOf()).getSubjectDep());
+        return (obj instanceof ModelElement)? (ModelElement)obj : null;
     }
 
-    @objid ("a8ba554d-e3ca-46bb-8c86-8f20c7a9ffc1")
+    @objid ("e0f59ff7-cb87-4a14-8b71-d52ddf0f9c7f")
     @Override
     public void setSubject(ModelElement value) {
-        appendDepVal(ExternDocumentData.Metadata.SubjectDep(), (SmObjectImpl)value);
+        appendDepVal(((ExternDocumentSmClass)getClassOf()).getSubjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fc8931f4-f65e-414b-a079-758fb8fccc20")
+    @objid ("88196930-d784-4386-a98f-66d34f1464f3")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ExternDocumentData.Metadata.SubjectDep());
+        // Subject
+        obj = (SmObjectImpl)this.getDepVal(((ExternDocumentSmClass)getClassOf()).getSubjectDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("985dd27d-07ef-4436-96fa-fccaf1e7fe43")
+    @objid ("b06abcd3-5559-4b9b-bfe7-4fb4d4fa9f45")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ExternDocumentData.Metadata.SubjectDep());
-        if (obj != null)
-          return new SmDepVal(ExternDocumentData.Metadata.SubjectDep(), obj);
+        SmDependency dep;
+        
+        // Subject
+        dep = ((ExternDocumentSmClass)getClassOf()).getSubjectDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("30a2467d-05fa-4c98-8d3f-ad5310bf855e")
+    @objid ("0d1ea1a2-e25c-41ca-8aa5-75085113a417")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExternDocument(this);

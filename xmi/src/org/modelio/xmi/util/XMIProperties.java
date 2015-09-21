@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.util;
 
@@ -29,7 +29,8 @@ import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.infrastructure.ModelTree;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.gui.report.ReportModel;
 
@@ -54,7 +55,7 @@ public abstract class XMIProperties {
     protected ModelioTypes modelioTypes = null;
 
     @objid ("524e3a84-b9bf-47fb-b74b-7106e4c9e56d")
-    protected ModelElement rootElement = null;
+    protected ModelTree rootElement = null;
 
     @objid ("a87e964c-5d14-4380-8388-7e11a1f969f3")
     protected File tempFolder = null;
@@ -70,12 +71,12 @@ public abstract class XMIProperties {
     }
 
     @objid ("c1f84218-ce6b-4d82-8215-2941c765af7d")
-    public ModelElement getRootElement() {
+    public ModelTree getRootElement() {
         return this.rootElement;
     }
 
     @objid ("74a92716-a159-4732-9f4b-84e69066144c")
-    public void setRootElement(final ModelElement newRoot) {
+    public void setRootElement(final ModelTree newRoot) {
         this.rootElement = newRoot;
     }
 
@@ -132,9 +133,9 @@ public abstract class XMIProperties {
     }
 
     @objid ("22434256-88b8-4eb4-91d4-827716bca6b0")
-    protected void initializeServices(final IMModelServices mmoServices) {
+    protected void initializeServices(final IMModelServices mmoServices, MMetamodel metamodel) {
         this.mmServices = mmoServices;
-        this.modelioTypes = new ModelioTypes(mmoServices);
+        this.modelioTypes = new ModelioTypes(mmoServices, metamodel);
     }
 
     /**
@@ -153,7 +154,7 @@ public abstract class XMIProperties {
             switch (fragment.getType()) {
             case EXML:
             case EXML_SVN:
-                ret.addAll(fragment.getRoots());              
+                ret.addAll(fragment.getRoots());
                 break;
             default:
                 // do nothing
@@ -186,7 +187,7 @@ public abstract class XMIProperties {
             return this.tempFolder;
         }else{
         
-            this.tempFolder = new File(GProject.getProject(this.rootElement).getProjectPath().toString() 
+            this.tempFolder = new File(GProject.getProject(this.rootElement).getProjectPath().toString()
                     + java.io.File.separator + "XMI" + java.io.File.separator + "temp");
         
             if (! this.tempFolder.exists()){

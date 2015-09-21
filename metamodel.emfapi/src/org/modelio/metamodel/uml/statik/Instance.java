@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
@@ -39,96 +43,300 @@ import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 
+/**
+ * Instance v0.0.9054
+ * 
+ * 
+ * In Modelio, Instances represent both the UML 2.0 Instance specification, and the UML 2.0 Part within structured Classifiers. The distinction is made through the definition context.  If the context is a namespacing context (such as Package or Class), then it corresponds to the UML 2.0 instance specification. If the context of the instance is an instantiation context, such as typically in the case of Collaborations, then it corresponds to Parts. Parts and Ports are handled as instances in Modelio, whereas UML 2.0 handles them as properties.  
+ * 
+ * An Instance is connected to zero or several Classifiers, which declare its structure and behavior. It has a set of attribute values (Slot in UML, and AttributeLink in Modelio) and is connected to a set of Links, where both sets match the definitions of its Classifiers/NameSpaces (if there are any). The two sets implement the current state of the Instance.  
+ * 
+ * In Modelio, an Instance belongs to its NameSpace (Class, Package, Collaboration, and so on), or to another Instance (Cluster association).  
+ * 
+ * There exist three important cases of configuration for instances in Modelio:  
+ * 1 - The Instance belongs to a Package. This corresponds to the UML 2.0 notion of InstanceSpecification.  
+ * 2 - The Instance belongs to a Collaboration (it is a Part, and its links are Connectors). 
+ * 3 - The Instance belongs to a Classifier. In this case, it is a Part or a Port of the Classifier.  
+ * 
+ * (UML 2.0 semantics): When an Instance of the containing Classifier is created, a set of Instances corresponding to its properties may be created either immediately or at some later time, depending on the multiplicity. These Instances are Instances of the Classifier typing the property. 
+ * 
+ * A Part specifies that a set of Instances may exist.  This set of Instances is a subset of the total set of Instances specified by the Classifier typing the Part. A Part of a Classifier declares that an Instance of this Classifier may contain a set of Instances by composition. All such Instances are destroyed when the container Classifier Instance is destroyed.  
+ * 
+ * In Modelio, an Instance belongs to another Instance (embedded or clustered Instances) or belongs to a NameSpace (Package, Class, Collaboration).
+ */
 @objid ("000d46d4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Instance extends ModelElement {
-    @objid ("6ad3022f-26fe-48bc-8b99-77ecafde6783")
+    @objid ("28beba8c-20f9-4565-adbc-8019b76b1bb5")
+    public static final String MNAME = "Instance";
+
+    /**
+     * Getter for attribute 'Instance.IsConstant'
+     * 
+     * Metamodel description:
+     * <i>Determines whether it is a constant.</i>
+     */
+    @objid ("66549f98-805c-4783-8763-e9b5cf78d27d")
     boolean isIsConstant();
 
-    @objid ("9fecc8fd-0595-4de6-b064-dda40da85054")
+    /**
+     * Setter for attribute 'Instance.IsConstant'
+     * 
+     * Metamodel description:
+     * <i>Determines whether it is a constant.</i>
+     */
+    @objid ("bedaa7a5-2cf6-4755-a65e-eef571474ef3")
     void setIsConstant(boolean value);
 
-    @objid ("e9fc928f-6801-4776-99a6-42f3ede8f1b4")
+    /**
+     * Getter for attribute 'Instance.MultiplicityMin'
+     * 
+     * Metamodel description:
+     * <i>Minimum number of Instances that can exist. In the case where the Instance belongs to a Collaboration (typically in the case of internalStructure) this represents the number of instances at the time of creation of the container NameSpace or Classifier.</i>
+     */
+    @objid ("ab809b4b-7a03-4cd4-97f6-8dfa42bee744")
     String getMultiplicityMin();
 
-    @objid ("16ee5613-1382-40b1-a95e-0990fb4c886d")
+    /**
+     * Setter for attribute 'Instance.MultiplicityMin'
+     * 
+     * Metamodel description:
+     * <i>Minimum number of Instances that can exist. In the case where the Instance belongs to a Collaboration (typically in the case of internalStructure) this represents the number of instances at the time of creation of the container NameSpace or Classifier.</i>
+     */
+    @objid ("cc49dc01-2488-44a5-80f2-c3abef64c8e9")
     void setMultiplicityMin(String value);
 
-    @objid ("57837fe6-5c91-4fa1-bb7d-31192dda8e1b")
+    /**
+     * Getter for attribute 'Instance.MultiplicityMax'
+     * 
+     * Metamodel description:
+     * <i>Maximum number of Instances that can exist in the context of the owner NameSpace.</i>
+     */
+    @objid ("5af13dbf-e0da-43e4-bed9-8c8e14a84974")
     String getMultiplicityMax();
 
-    @objid ("78501c63-67d6-49de-91b3-1712d6488c60")
+    /**
+     * Setter for attribute 'Instance.MultiplicityMax'
+     * 
+     * Metamodel description:
+     * <i>Maximum number of Instances that can exist in the context of the owner NameSpace.</i>
+     */
+    @objid ("95b906aa-3ac2-49f3-8552-5a5453c7d698")
     void setMultiplicityMax(String value);
 
-    @objid ("8e30755e-c168-4f05-af26-78a7cf3ad809")
+    /**
+     * Getter for attribute 'Instance.Value'
+     * 
+     * Metamodel description:
+     * <i>Current value of the Instance. This can be an expression, used instead of the set of values of the AttributeLinks of the instance.</i>
+     */
+    @objid ("cd88509a-0eaf-40d2-89b6-11ed7c84d963")
     String getValue();
 
-    @objid ("4e1ef86e-2506-4c4c-ab39-8cfc5b06394d")
+    /**
+     * Setter for attribute 'Instance.Value'
+     * 
+     * Metamodel description:
+     * <i>Current value of the Instance. This can be an expression, used instead of the set of values of the AttributeLinks of the instance.</i>
+     */
+    @objid ("2e4727c8-e6a9-4d6c-b877-c5a97f28d55d")
     void setValue(String value);
 
-    @objid ("420e7a63-06d7-4a68-90de-12e93b8fb904")
+    /**
+     * Getter for relation 'Instance->RepresentedCommunicationNode'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("ce692436-4cb0-4079-acce-2471c8a09067")
     EList<CommunicationNode> getRepresentedCommunicationNode();
 
-    @objid ("710743c5-534c-48ea-a267-1169481ece38")
+    /**
+     * Filtered Getter for relation 'Instance->RepresentedCommunicationNode'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("94aee2b0-ea30-4d48-83f6-284874149a35")
     <T extends CommunicationNode> List<T> getRepresentedCommunicationNode(java.lang.Class<T> filterClass);
 
-    @objid ("372b730e-97fe-4afe-bee7-e64a8415bf24")
+    /**
+     * Getter for relation 'Instance->RepresentingItem'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4e05d5ce-d6ba-4c9f-9a2b-1de43a0233d0")
     EList<BpmnItemAwareElement> getRepresentingItem();
 
-    @objid ("c318b7f4-faa5-4c03-80c3-a4ad4287dfd1")
+    /**
+     * Filtered Getter for relation 'Instance->RepresentingItem'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("cdd49992-2dbf-480f-9efe-55ab6cc49127")
     <T extends BpmnItemAwareElement> List<T> getRepresentingItem(java.lang.Class<T> filterClass);
 
-    @objid ("cdc82f5d-ece3-4fde-8be7-e39ed4e066ce")
+    /**
+     * Getter for relation 'Instance->OwnedEnd'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e0e2cc41-2d0b-4bc1-bd97-61be61dd9144")
     EList<LinkEnd> getOwnedEnd();
 
-    @objid ("4aae413f-3469-446e-b5c8-c2bb75d53fe3")
+    /**
+     * Filtered Getter for relation 'Instance->OwnedEnd'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4954586f-419e-4132-9278-10a7796bb254")
     <T extends LinkEnd> List<T> getOwnedEnd(java.lang.Class<T> filterClass);
 
-    @objid ("bc3a0310-6783-4950-8c61-f99a3b8e6666")
+    /**
+     * Getter for relation 'Instance->Base'
+     * 
+     * Metamodel description:
+     * <i>Defines the Classifier as the model of the Instance or Role.</i>
+     */
+    @objid ("e304540c-7577-4566-8cc8-69e914fa6009")
     NameSpace getBase();
 
-    @objid ("c8d4d103-4289-4794-af88-bbcea5eddf88")
+    /**
+     * Setter for relation 'Instance->Base'
+     * 
+     * Metamodel description:
+     * <i>Defines the Classifier as the model of the Instance or Role.</i>
+     */
+    @objid ("b020d3e1-3604-4919-93b3-4953c757d544")
     void setBase(NameSpace value);
 
-    @objid ("c4d9a8db-c0fb-424e-9640-f4270092eb4f")
+    /**
+     * Getter for relation 'Instance->RepresentingObjectNode'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("304cf8cd-dfa5-4507-b1e0-f4c18cba80ec")
     EList<ObjectNode> getRepresentingObjectNode();
 
-    @objid ("0245dd31-ce68-4513-b152-59191a9f4a91")
+    /**
+     * Filtered Getter for relation 'Instance->RepresentingObjectNode'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("835543c5-155e-40a8-b2b3-57529fed1aac")
     <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass);
 
-    @objid ("616fb36c-5f46-4b7f-aabc-5b843995672f")
+    /**
+     * Getter for relation 'Instance->Owner'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("d58f8ded-1548-438e-b474-6642b5622310")
     NameSpace getOwner();
 
-    @objid ("97f25ac8-c057-4033-9037-97c981d5b048")
+    /**
+     * Setter for relation 'Instance->Owner'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("cfcdf2d9-0d24-4dd3-8dae-71eb8e3572f9")
     void setOwner(NameSpace value);
 
-    @objid ("b4ff098e-ad70-4dac-9a54-315935049e87")
+    /**
+     * Getter for relation 'Instance->OwnedNaryEnd'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("edfb002e-2fdc-4269-ad03-1df25e34a1ba")
     EList<NaryLinkEnd> getOwnedNaryEnd();
 
-    @objid ("fb9aaa0a-687f-4d65-8cb6-2c15b390e0f5")
+    /**
+     * Filtered Getter for relation 'Instance->OwnedNaryEnd'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("ec2f3a89-a78a-43cc-85f5-54046f9c9429")
     <T extends NaryLinkEnd> List<T> getOwnedNaryEnd(java.lang.Class<T> filterClass);
 
-    @objid ("3211f2e9-ed40-4f5b-b476-6c4c2cb9904c")
+    /**
+     * Getter for relation 'Instance->RepresentedLifeLine'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("bfe9f399-92ac-4d24-ae60-463de9cadd50")
     EList<Lifeline> getRepresentedLifeLine();
 
-    @objid ("50f1d625-d9cb-434e-a7bc-bdb384f2aa98")
+    /**
+     * Filtered Getter for relation 'Instance->RepresentedLifeLine'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("87ae1098-4652-47c2-8b8b-e1574c600038")
     <T extends Lifeline> List<T> getRepresentedLifeLine(java.lang.Class<T> filterClass);
 
-    @objid ("b26c3af7-19d6-4735-9b7b-40eeb422314f")
+    /**
+     * Getter for relation 'Instance->Slot'
+     * 
+     * Metamodel description:
+     * <i>Occurrences of attributes for the current object (Instance or Role).</i>
+     */
+    @objid ("94d31e39-404c-41fa-8f62-4d61baeb9a9c")
     EList<AttributeLink> getSlot();
 
-    @objid ("25ec6173-a0b5-431a-97c6-cf081e39393c")
+    /**
+     * Filtered Getter for relation 'Instance->Slot'
+     * 
+     * Metamodel description:
+     * <i>Occurrences of attributes for the current object (Instance or Role).</i>
+     */
+    @objid ("8b944703-589c-4ce5-800f-50f62d74b8a1")
     <T extends AttributeLink> List<T> getSlot(java.lang.Class<T> filterClass);
 
-    @objid ("214299a0-5a3f-4af1-9890-91c92eb9ffb5")
+    /**
+     * Getter for relation 'Instance->Part'
+     * 
+     * Metamodel description:
+     * <i>Instances can be embedded. This can represent cluster. In Modelio, this is used to represent ComponentInstance supported by NodeInstances, or Objects in ComponentInstances or NodeInstances.</i>
+     */
+    @objid ("3b3bde33-4da0-4fb5-b815-bb22f35893aa")
     EList<BindableInstance> getPart();
 
-    @objid ("9dd6f109-bf00-4e4d-9d32-216bef28c342")
+    /**
+     * Filtered Getter for relation 'Instance->Part'
+     * 
+     * Metamodel description:
+     * <i>Instances can be embedded. This can represent cluster. In Modelio, this is used to represent ComponentInstance supported by NodeInstances, or Objects in ComponentInstances or NodeInstances.</i>
+     */
+    @objid ("24f0b566-9960-4e4f-9828-babe53ee49b3")
     <T extends BindableInstance> List<T> getPart(java.lang.Class<T> filterClass);
 
-    @objid ("bffdba71-b2b8-42e4-b304-be8c49ee1a5e")
+    /**
+     * Getter for relation 'Instance->TargetingEnd'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e6785478-0887-48b0-bc76-0006cf7956c5")
     EList<LinkEnd> getTargetingEnd();
 
-    @objid ("37a8c9e6-177f-4d1f-8f37-a706e2191357")
+    /**
+     * Filtered Getter for relation 'Instance->TargetingEnd'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("67e5c8d5-8286-4220-95d2-4d09ab8f3b00")
     <T extends LinkEnd> List<T> getTargetingEnd(java.lang.Class<T> filterClass);
 
 }

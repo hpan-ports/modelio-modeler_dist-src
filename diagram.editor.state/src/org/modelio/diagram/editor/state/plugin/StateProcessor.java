@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.state.plugin;
 
@@ -55,7 +55,6 @@ import org.modelio.diagram.elements.gmfactory.GmLinkFactory;
 import org.modelio.diagram.elements.gmfactory.GmNodeFactory;
 import org.modelio.diagram.styles.core.FactoryStyle;
 import org.modelio.diagram.styles.core.StyleLoader;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.StateMachineDiagram;
 import org.osgi.framework.BundleContext;
 
@@ -69,7 +68,7 @@ public class StateProcessor {
     private void execute(ToolRegistry toolregistry, IDiagramConfigurerRegistry configurerRegistry) {
         // Register a diagram configurer for State diagram
         
-        configurerRegistry.registerDiagramConfigurer(Metamodel.getMClass(StateMachineDiagram.class).getName(), null, new StateDiagramConfigurer());
+        configurerRegistry.registerDiagramConfigurer(StateMachineDiagram.MNAME, null, new StateDiagramConfigurer());
         
         // Register our edit part factory
         declareFactories();

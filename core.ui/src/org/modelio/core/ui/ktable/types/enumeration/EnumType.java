@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.core.ui.ktable.types.enumeration;
 
@@ -36,22 +36,21 @@ import org.modelio.core.ui.MetamodelLabels;
 import org.modelio.core.ui.ktable.types.PropertyType;
 
 /**
- * EnumType for UML metamodel enumeration ONLY !
- * Deals with I18N !
+ * EnumType for UML metamodel enumeration ONLY ! Deals with I18N !
  */
 @objid ("8dea977b-c068-11e1-8c0a-002564c97630")
 public class EnumType extends PropertyType {
     @objid ("8dea977c-c068-11e1-8c0a-002564c97630")
-    private Class<? extends Enum<? >> theEnumeration = null;
+    private Class<? extends Enum<?>> theEnumeration = null;
 
     @objid ("8dea977f-c068-11e1-8c0a-002564c97630")
-    public EnumType(Class<? extends Enum<? >> theEnumeration) {
+    public EnumType(Class<? extends Enum<?>> theEnumeration) {
         super(false);
         this.theEnumeration = theEnumeration;
     }
 
     @objid ("8dea9785-c068-11e1-8c0a-002564c97630")
-    public Class<? extends Enum<? >> getTheEnumeration() {
+    public Class<? extends Enum<?>> getTheEnumeration() {
         return this.theEnumeration;
     }
 
@@ -66,18 +65,15 @@ public class EnumType extends PropertyType {
     public DefaultCellRenderer getRenderer() {
         final TextCellRenderer renderer = new TextCellRenderer(DefaultCellRenderer.INDICATION_FOCUS) {
         
-        
-        
-        
             @Override
             public void drawCell(GC gc, Rectangle rect, int col, int row, Object content, boolean focus, boolean fixed,
-                                 boolean clicked, KTableModel model) {
+                    boolean clicked, KTableModel model) {
                 super.drawCell(gc, rect, col, row, MetamodelLabels.getString(content.toString()), focus, fixed, clicked, model);
             }
         
         };
         renderer.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_BLUE));
-        renderer.setAlignment(SWTX.ALIGN_HORIZONTAL_CENTER | SWTX.ALIGN_VERTICAL_CENTER);
+        renderer.setAlignment(SWTX.ALIGN_HORIZONTAL_LEFT | SWTX.ALIGN_VERTICAL_CENTER);
         return renderer;
     }
 

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,22 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
@@ -37,8 +41,23 @@ import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 
+/**
+ * AssociationEnd v0.0.9054
+ * 
+ * 
+ * An AssociationEnd is an endpoint of an Association, which connects the Association to a Classifier. Each AssociationEnd is part of one Association. 
+ * 
+ * When the Association is navigable, this link is considered to be a property of the connected Class. It is thus a Feature in the same way as Attributes or Operations. 
+ * 
+ * An Association is linked to several Classes via AssociationEnds, which determine roles, multiplicities and navigabilities. The connected Classifier is defined by the usual composition link from Classifier to Feature. 
+ * 
+ * In Modelio, an AssociationEnd is a Feature of a Class.
+ */
 @objid ("00974ea6-c4be-1fd8-97fe-001ec947cd2a")
 public interface AssociationEnd extends StructuralFeature {
+    @objid ("153b6b60-dec1-4bda-ac68-cfc6de4db7a2")
+    public static final String MNAME = "AssociationEnd";
+
     /**
      * Get the 'graphical owner' related to this end.
      * The owner is the current source or the opposite end's target according to the navigability.
@@ -76,76 +95,220 @@ public interface AssociationEnd extends StructuralFeature {
     @objid ("44b82fff-5b39-4aaa-ac0d-ddb26b837ecd")
     boolean isNavigable();
 
-    @objid ("5c3902e7-09ac-4102-a31c-0d8c7045e9f8")
+    /**
+     * Getter for attribute 'AssociationEnd.Aggregation'
+     * 
+     * Metamodel description:
+     * <i>This attribute is used to distinguish between normal Associations (KindIsAssociation), shared aggregation (KindIsAggregation) and strong aggregations (KindIsComposition)</i>
+     */
+    @objid ("ace14938-601c-4027-a968-20a1610900b5")
     AggregationKind getAggregation();
 
-    @objid ("f0402181-df0f-4fc6-8c19-a2d64cd02b16")
+    /**
+     * Setter for attribute 'AssociationEnd.Aggregation'
+     * 
+     * Metamodel description:
+     * <i>This attribute is used to distinguish between normal Associations (KindIsAssociation), shared aggregation (KindIsAggregation) and strong aggregations (KindIsComposition)</i>
+     */
+    @objid ("6da045b3-33bf-44ea-8619-fb35fc6a123c")
     void setAggregation(AggregationKind value);
 
-    @objid ("ae423f6d-10d7-4bb1-82f4-4d547602942b")
+    /**
+     * Getter for attribute 'AssociationEnd.IsChangeable'
+     * 
+     * Metamodel description:
+     * <i>When placed on a target end, specifies whether an instance of the Association may be modified from the source end.</i>
+     */
+    @objid ("d03ae292-a7d6-4ada-8f7f-d7aeb8c651cb")
     boolean isIsChangeable();
 
-    @objid ("636dc4d8-44c3-49b3-9a34-8d06f61d5cd6")
+    /**
+     * Setter for attribute 'AssociationEnd.IsChangeable'
+     * 
+     * Metamodel description:
+     * <i>When placed on a target end, specifies whether an instance of the Association may be modified from the source end.</i>
+     */
+    @objid ("40c9206f-36bc-436b-84cd-ea50dd6667f9")
     void setIsChangeable(boolean value);
 
-    @objid ("8e0ff414-7553-41ee-b337-767e499d781e")
+    /**
+     * Getter for relation 'AssociationEnd->Target'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("dc96ba23-912d-4099-ab5f-1f1fbd6aeb29")
     Classifier getTarget();
 
-    @objid ("9fecd59a-7b58-4b0c-9743-ec8337f553e9")
+    /**
+     * Setter for relation 'AssociationEnd->Target'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("7569e9be-960a-457a-b3ae-bde4f9d07c01")
     void setTarget(Classifier value);
 
-    @objid ("81451826-2a3d-414d-aa15-4cc8471362b2")
+    /**
+     * Getter for relation 'AssociationEnd->OppositeOwner'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e432e7e3-05f0-4286-8ade-4e2e3637f12d")
     AssociationEnd getOppositeOwner();
 
-    @objid ("509fb17c-a3be-474d-9b19-d7c893971699")
+    /**
+     * Setter for relation 'AssociationEnd->OppositeOwner'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("2612c14d-a2e2-4d68-8ed4-97b2f81a25c8")
     void setOppositeOwner(AssociationEnd value);
 
-    @objid ("24d97813-33cd-425d-8a07-1397d74b9aae")
+    /**
+     * Getter for relation 'AssociationEnd->Source'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("cc5f42d6-cdc6-4aa5-88c6-f281aa90f2ef")
     Classifier getSource();
 
-    @objid ("5861baed-0d69-413e-9c08-469640bd78a3")
+    /**
+     * Setter for relation 'AssociationEnd->Source'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("46e061d1-790a-4a2a-bd2e-d72a851cc8ca")
     void setSource(Classifier value);
 
-    @objid ("a94e5e71-8458-48e9-bd6f-c356520eba65")
+    /**
+     * Getter for relation 'AssociationEnd->Occurence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("0d3fd12e-e3ae-49d9-b2b4-985a61de193a")
     EList<LinkEnd> getOccurence();
 
-    @objid ("9a18839a-f8d5-49ec-b562-3a723d328660")
+    /**
+     * Filtered Getter for relation 'AssociationEnd->Occurence'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e8118212-9c8b-466f-9f64-3bc8f1029a63")
     <T extends LinkEnd> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("d4bcc96f-72d6-48d0-b4bf-ddd3b041dae7")
+    /**
+     * Getter for relation 'AssociationEnd->Sent'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("9bc26694-0a2c-4e6e-997f-46818376d956")
     EList<InformationFlow> getSent();
 
-    @objid ("3361c0e5-4b58-446f-ab39-3fe39a976446")
+    /**
+     * Filtered Getter for relation 'AssociationEnd->Sent'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("abb7a2a1-af04-4227-8986-5b37d3b49c65")
     <T extends InformationFlow> List<T> getSent(java.lang.Class<T> filterClass);
 
-    @objid ("3d673164-6de6-4c2a-931c-ebbf07229e11")
+    /**
+     * Getter for relation 'AssociationEnd->Qualifier'
+     * 
+     * Metamodel description:
+     * <i>Defines a Qualifier on the AssociationEnd. </i>
+     */
+    @objid ("204e8e27-b201-47d3-9d26-1c208ea32e9f")
     EList<Attribute> getQualifier();
 
-    @objid ("5f230190-aa97-4c13-ae4e-3edd2e0271b7")
+    /**
+     * Filtered Getter for relation 'AssociationEnd->Qualifier'
+     * 
+     * Metamodel description:
+     * <i>Defines a Qualifier on the AssociationEnd. </i>
+     */
+    @objid ("76acc2db-9557-435b-aeb0-adb5665dfc92")
     <T extends Attribute> List<T> getQualifier(java.lang.Class<T> filterClass);
 
-    @objid ("3d2e726f-3c5a-4b29-8884-292353621b04")
+    /**
+     * Getter for relation 'AssociationEnd->Opposite'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("4b26922d-ddbf-434c-87fa-b013fb8e921e")
     AssociationEnd getOpposite();
 
-    @objid ("fb97d03b-0df2-4478-b18c-9b19eb9b2ee2")
+    /**
+     * Setter for relation 'AssociationEnd->Opposite'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("c751845b-3cd4-470b-8284-bc73ea685c80")
     void setOpposite(AssociationEnd value);
 
-    @objid ("58e0c036-61e0-49e5-81c2-b8813a861167")
+    /**
+     * Getter for relation 'AssociationEnd->RepresentingObjectNode'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("109b2ef7-388d-4a64-b23b-aaf27cc486dd")
     EList<ObjectNode> getRepresentingObjectNode();
 
-    @objid ("2ba1d1e6-7daa-44c4-a941-02b0ae8ffd40")
+    /**
+     * Filtered Getter for relation 'AssociationEnd->RepresentingObjectNode'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("50eb8548-7303-45dd-9b25-b51f87338ca1")
     <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass);
 
-    @objid ("52e71142-afe7-4915-94e0-e1292cac3c05")
+    /**
+     * Getter for relation 'AssociationEnd->Association'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("7421ab75-c8db-4841-832b-6df4485b94ad")
     Association getAssociation();
 
-    @objid ("cf8f3ff9-2ee6-4e80-8315-0350ae08d91d")
+    /**
+     * Setter for relation 'AssociationEnd->Association'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("e8754136-d7cc-4ae4-a969-e6447a26f164")
     void setAssociation(Association value);
 
-    @objid ("15b4119d-f6ad-4b4f-8793-98557f59f0bc")
+    /**
+     * Getter for relation 'AssociationEnd->RepresentingItem'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6731fe7e-d37a-4570-8add-6b406100471b")
     EList<BpmnItemAwareElement> getRepresentingItem();
 
-    @objid ("1db448ef-dc04-4bd6-81b1-7340ae497333")
+    /**
+     * Filtered Getter for relation 'AssociationEnd->RepresentingItem'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a377b462-72b9-4c25-a314-a4c6fb598d10")
     <T extends BpmnItemAwareElement> List<T> getRepresentingItem(java.lang.Class<T> filterClass);
 
 }

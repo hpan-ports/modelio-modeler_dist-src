@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnlane;
 
@@ -30,7 +30,6 @@ import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.policies.DelegatingEditPolicy;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 
 /**
@@ -62,11 +61,13 @@ public class BpmnLaneDelegatingEditPolicy extends DelegatingEditPolicy {
             // not CREATE.
             return super.getTargetEditPart(request);
         }
+        
         // Only care about request for partitions, super can handle the rest.
-        final ModelioCreationContext ctx = (ModelioCreationContext) ((CreateRequest) request).getNewObject();
-        if (!ctx.getMetaclass().equals(Metamodel.getMClass(ActivityPartition.class).getName())) {
+        final ModelioCreationContext ctx = ModelioCreationContext.lookRequest((CreateRequest) request);
+        if (ctx == null || ctx.getJavaClass() != ActivityPartition.class) {
             return super.getTargetEditPart(request);
         }
+        
         // Get the specific property "kind" from the tool, to know exactly what
         // is requested: a partition container, a sibling partition, or an inner
         // partition.
@@ -76,7 +77,7 @@ public class BpmnLaneDelegatingEditPolicy extends DelegatingEditPolicy {
             // handled by this policy.
             return null;
         }
-        // else
+        
         LaneToolKind kind = LaneToolKind.valueOf(kindProperty);
         switch (kind) {
         case SIBLING: {

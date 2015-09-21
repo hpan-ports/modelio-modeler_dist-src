@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.link.extensions;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -37,7 +36,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author cmarin
  */
 @objid ("7ff83692-1dec-11e2-8cad-001ec947c8cc")
-public class FractionalConnectionLocator implements Locator {
+public class FractionalConnectionLocator implements IResizableFigureLocator {
     /**
      * Distance from the starting point of the line as a fraction of the line length
      */
@@ -67,6 +66,18 @@ public class FractionalConnectionLocator implements Locator {
      */
     @objid ("7ffa98b4-1dec-11e2-8cad-001ec947c8cc")
     private boolean towardTarget;
+
+    /**
+     * Width constraint. -1 = no constraint.
+     */
+    @objid ("7c5339df-962a-4c1d-adc8-adeb2480b093")
+    private int widthConstraint = -1;
+
+    /**
+     * Height constraint. -1 = no constraint.
+     */
+    @objid ("78daa96c-6695-471c-af4c-b4606a272c1e")
+    private int heightConstraint = -1;
 
     /**
      * Preallocated local variable used in getReferenceSegment()
@@ -122,8 +133,9 @@ public class FractionalConnectionLocator implements Locator {
     public FractionalConnectionLocator(Connection c, final double fraction) {
         this.connection = c;
         
-        if (fraction > 1.0 || fraction < 0.0)
+        if (fraction > 1.0 || fraction < 0.0) {
             throw new IllegalArgumentException("fraction must be 0.0 < f < 1.0");
+        }
         
         this.fraction = fraction;
     }
@@ -181,10 +193,11 @@ public class FractionalConnectionLocator implements Locator {
         
             if (nextLength >= remainingLength) {
                 pointOn(remainingLength, P1, P2, center);
-                if (this.towardTarget)
+                if (this.towardTarget) {
                     previous.setLocation(P1);
-                else
+                } else {
                     previous.setLocation(P2);
+                }
                 return;
             } else {
                 remainingLength -= nextLength;
@@ -248,10 +261,10 @@ public class FractionalConnectionLocator implements Locator {
             rot.setLocation(center);
             rot.setReferencePoint(fromPoint);
         } else {
-            final Dimension prefSize = target.getPreferredSize();
+            final Dimension prefSize = computeFigureSize(target);
             conn.translateToAbsolute(center);
             target.translateToRelative(center);
-            target.setBounds(getNewBounds(prefSize, center));
+            target.setBounds(computeNewBounds(prefSize, center));
         }
     }
 
@@ -291,8 +304,9 @@ public class FractionalConnectionLocator implements Locator {
      */
     @objid ("7ffcfb29-1dec-11e2-8cad-001ec947c8cc")
     public final float slope(final Point start, final Point end) {
-        if (end.x == start.x)
+        if (end.x == start.x) {
             return BIGSLOPE;
+        }
         return (float) (end.y - start.y) / (float) (end.x - start.x);
     }
 
@@ -303,7 +317,7 @@ public class FractionalConnectionLocator implements Locator {
      * @return The new bounds
      */
     @objid ("7ffcfb36-1dec-11e2-8cad-001ec947c8cc")
-    protected Rectangle getNewBounds(final Dimension size, final Point center) {
+    protected Rectangle computeNewBounds(final Dimension size, final Point center) {
         final Rectangle bounds = new Rectangle(center, size);
         
         bounds.x -= bounds.width / 2;
@@ -414,17 +428,77 @@ public class FractionalConnectionLocator implements Locator {
         ptResult.x = ((startX > otherX) ? startX - dx : startX + dx);
         ptResult.y = ((startY > otherY) ? startY - dy : startY + dy);
         boolean in_line;
-        if (startX > otherX)
+        if (startX > otherX) {
             in_line = ptResult.x >= otherX;
-        else
+        } else {
             in_line = ptResult.x <= otherX;
+        }
         if (in_line) {
-            if (startY > otherY)
+            if (startY > otherY) {
                 in_line = ptResult.y >= otherY;
-            else
+            } else {
                 in_line = ptResult.y <= otherY;
+            }
         }
         return in_line;
+    }
+
+    /**
+     * Calculate the figure size from this locator
+     * @param target the figure to relocate.
+     * @return the figure size to set.
+     */
+    @objid ("cc9ba26e-76b9-4773-b907-a8dd3513a4aa")
+    protected Dimension computeFigureSize(final IFigure target) {
+        return target.getPreferredSize(getWidthConstraint(), getHeightConstraint());
+    }
+
+    /**
+     * Get the width constraint.
+     * <p>
+     * -1 means no constraint.
+     * @return the width constraint.
+     */
+    @objid ("8248410c-a9b7-40df-b4c1-ea0f289561ce")
+    @Override
+    public int getWidthConstraint() {
+        return this.widthConstraint;
+    }
+
+    /**
+     * Set the width constraint.
+     * <p>
+     * -1 means no constraint.
+     * @param fixedWidth the width constraint.
+     */
+    @objid ("772ac200-1d89-4269-b999-19f0642351fd")
+    @Override
+    public void setWidthConstraint(int fixedWidth) {
+        this.widthConstraint = fixedWidth;
+    }
+
+    /**
+     * Get the height constraint.
+     * <p>
+     * -1 means no constraint.
+     * @return the height constraint.
+     */
+    @objid ("9c1fb88e-f941-474d-8035-924f514299d9")
+    @Override
+    public int getHeightConstraint() {
+        return this.heightConstraint;
+    }
+
+    /**
+     * Set the height constraint.
+     * <p>
+     * -1 means no constraint.
+     * @param fixedHeight the height constraint.
+     */
+    @objid ("a984229c-c551-499f-94ea-1c7480f770b7")
+    @Override
+    public void setHeightConstraint(int fixedHeight) {
+        this.heightConstraint = fixedHeight;
     }
 
 }

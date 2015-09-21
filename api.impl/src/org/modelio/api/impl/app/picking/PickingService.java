@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.api.impl.app.picking;
 
 import java.util.ArrayList;
@@ -16,7 +37,7 @@ public class PickingService implements IPickingService {
     private List<PickingClientProxy> registeredClientProxies = new ArrayList<>();
 
     @objid ("54e21a7d-7930-4854-90bd-07b7d92c0ae4")
-    private IModelioPickingService modelioPickin;
+    private IModelioPickingService modelioPicking;
 
     @objid ("49787dd9-de57-4b26-ad1a-c05a25471db6")
     private static org.modelio.app.core.picking.IPickingSession currentSession;
@@ -45,9 +66,9 @@ public class PickingService implements IPickingService {
     @objid ("ac998525-dd5e-4241-9c61-836225629b23")
     @Override
     public IPickingSession startPickingSession(final IPickingClient client) {
-        if (currentSession == null) {
+        if (PickingService.currentSession == null) {
             PickingClientProxy proxyClient = new PickingClientProxy(client);
-            currentSession = this.modelioPickin.startPicking(proxyClient);
+            PickingService.currentSession = this.modelioPicking.startPicking(proxyClient);
         }
         return new PickingSessionProxy(currentSession);
     }
@@ -57,8 +78,9 @@ public class PickingService implements IPickingService {
     public void endPickingSession(final IPickingSession session) {
         if (session != null) {
             PickingSessionProxy sessionProxy = (PickingSessionProxy) session;
-            if (sessionProxy.getSession() != null)
-                this.modelioPickin.stopPicking(sessionProxy.getSession());
+            if (sessionProxy.getSession() != null) {
+                this.modelioPicking.stopPicking(sessionProxy.getSession());
+            }
             PickingService.currentSession = null;
         }
     }
@@ -70,7 +92,7 @@ public class PickingService implements IPickingService {
 
     @objid ("6868bba4-8c76-4e28-a3a9-3a6fc8702a3b")
     public PickingService(IModelioPickingService modelioPickin) {
-        this.modelioPickin = modelioPickin;
+        this.modelioPicking = modelioPickin;
     }
 
     @objid ("459bfb4d-5b42-44c6-af4f-196971a528fc")

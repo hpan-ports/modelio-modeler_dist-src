@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.gproject.data.project;
 
@@ -36,6 +36,11 @@ import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.gproject.data.project.todo.InstallModuleDescriptor;
+import org.modelio.gproject.data.project.todo.RemoveModuleDescriptor;
+import org.modelio.gproject.data.project.todo.TodoActionDescriptor;
+import org.modelio.gproject.data.project.todo.TodoDescriptor;
+import org.modelio.gproject.data.project.todo.UpdateModuleDescriptor;
 import org.modelio.vbasic.xml.CloseableXMLStreamWriter;
 
 /**
@@ -148,7 +153,7 @@ public class ProjectDescriptorWriter {
             writeScope(f.getScope());
         }
         
-        writeAuth(f.getAuthDescriptor());        
+        writeAuth(f.getAuthDescriptor());
         writeProperties(f.getProperties());
         
         this.out.writeEndElement();
@@ -165,7 +170,7 @@ public class ProjectDescriptorWriter {
             GProperties.Entry e = gProperties.getProperty(key);
             this.out.writeEmptyElement("prop");
             this.out.writeAttribute("name", e.getName());
-            this.out.writeAttribute("value", e.getValue());
+            this.out.writeAttribute("value", nullToEmpty(e.getValue()));
             writeScope(e.getScope());
         }
         this.out.writeEndElement();
@@ -202,12 +207,109 @@ public class ProjectDescriptorWriter {
         
         writeProperties(projectDescriptor.getProperties());
         
+        writeTodo(projectDescriptor.getTodo());
+        
         this.out.writeEndElement();
     }
 
     @objid ("9eabebb5-d8c3-4d0f-9f9b-2eb328b1aede")
     private void writeModuleDescriptor(final ModuleDescriptor m) throws XMLStreamException {
-        this.out.writeStartElement("module");
+        writeModuleDescriptor(m, "module");
+    }
+
+    @objid ("7c9416d8-feb7-46ee-9345-440ccb7388b1")
+    private void writeScope(DefinitionScope scope) throws XMLStreamException {
+        if (this.withScope && scope != null) {
+            this.out.writeAttribute("scope", scope.name());
+        }
+    }
+
+    @objid ("6bd0cd88-3d3a-4ac7-9e58-548c9b66f8cf")
+    private URI getRelativeUri(URI uri) {
+        if (uri == null) {
+            return null;
+        } else if (this.projectPath == null) {
+            return uri;
+        } else {
+            return this.projectPath.toUri().relativize(uri);
+        }
+    }
+
+    @objid ("f65ec1a6-b5db-46bb-b639-3abcda192552")
+    private void writeAuth(AuthDescriptor auth) throws XMLStreamException {
+        if (auth != null && auth.getScheme() != null) {
+            this.out.writeStartElement("auth");
+            this.out.writeAttribute("scheme", auth.getScheme());
+            writeScope(auth.getScope());
+        
+            for (Entry<String, String> e : auth.getData().serialize().entrySet()) {
+                this.out.writeEmptyElement("prop");
+                this.out.writeAttribute("name", e.getKey());
+                this.out.writeAttribute("value", nullToEmpty(e.getValue()));
+            }
+        
+            this.out.writeEndElement();
+        } else {
+            this.out.writeStartElement("auth");
+            this.out.writeAttribute("scheme", AuthDescriptor.AUTH_TYPE_ASK);
+            writeScope(DefinitionScope.LOCAL);
+            this.out.writeEndElement();
+        }
+    }
+
+    @objid ("4334917b-dd35-4da8-b51c-66a7bef1ca8b")
+    private boolean writeProjectPath(final ProjectDescriptor projectDescriptor) {
+        if (projectDescriptor.getPath()==null || this.projectPath == null) {
+            return false;
+        }
+        return ! projectDescriptor.getPath().startsWith(this.projectPath);
+    }
+
+    @objid ("d7ddcf32-7e69-4214-943f-2a65b232ee75")
+    private void writeTodo(TodoDescriptor todo) throws XMLStreamException {
+        this.out.writeStartElement("todo");
+        
+        for (TodoActionDescriptor action : todo.getActions()) {
+            if (action instanceof InstallModuleDescriptor) {
+                writeToDoInstallAction((InstallModuleDescriptor)action);
+            } else if (action instanceof UpdateModuleDescriptor) {
+                writeToDoUpdateAction((UpdateModuleDescriptor)action);
+            } else if (action instanceof RemoveModuleDescriptor) {
+                writeToDoRemoveAction((RemoveModuleDescriptor)action);
+            }
+        }
+        
+        this.out.writeEndElement();
+    }
+
+    @objid ("366159b0-c76c-46f1-b791-3f247e72d067")
+    private void writeToDoRemoveAction(RemoveModuleDescriptor action) throws XMLStreamException {
+        this.out.writeStartElement("remove_module");
+        this.out.writeAttribute("old_module", action.getModuleName());
+        this.out.writeEndElement();
+    }
+
+    @objid ("ac8af55a-9115-4c20-916d-e21b191d916d")
+    private void writeToDoUpdateAction(UpdateModuleDescriptor action) throws XMLStreamException {
+        this.out.writeStartElement("update_module");
+        this.out.writeAttribute("old_module", action.getOldModuleName());
+        
+        writeModuleDescriptor(action.getNewModuleDescriptor(), "new_module");
+        this.out.writeEndElement();
+    }
+
+    @objid ("52cd96f6-51a0-47b4-a741-cffeccbd2ac4")
+    private void writeToDoInstallAction(InstallModuleDescriptor action) throws XMLStreamException {
+        if (action.getModuleDescriptor() != null) { // shield against unbelievable
+            this.out.writeStartElement("install_module");
+            writeModuleDescriptor(action.getModuleDescriptor(), "new_module");
+            this.out.writeEndElement();
+        }
+    }
+
+    @objid ("54ed463d-6149-4f5d-9fe4-d2bbca75a63e")
+    private void writeModuleDescriptor(final ModuleDescriptor m, String tagName) throws XMLStreamException {
+        this.out.writeStartElement(tagName);
         this.out.writeAttribute("name", m.getName());
         if (m.getScope() != null) {
             this.out.writeAttribute("version", m.getVersion().toString());
@@ -222,49 +324,19 @@ public class ProjectDescriptorWriter {
         this.out.writeEndElement();
     }
 
-    @objid ("7c9416d8-feb7-46ee-9345-440ccb7388b1")
-    private void writeScope(DefinitionScope scope) throws XMLStreamException {
-        if (this.withScope && scope != null)
-            this.out.writeAttribute("scope", scope.name());
-    }
-
-    @objid ("6bd0cd88-3d3a-4ac7-9e58-548c9b66f8cf")
-    private URI getRelativeUri(URI uri) {
-        if (uri == null)
-            return null;
-        else if (this.projectPath == null)
-            return uri;
-        else
-            return this.projectPath.toUri().relativize(uri);
-    }
-
-    @objid ("f65ec1a6-b5db-46bb-b639-3abcda192552")
-    private void writeAuth(AuthDescriptor auth) throws XMLStreamException {
-        if (auth != null && auth.getScheme() != null) {
-            this.out.writeStartElement("auth");
-            this.out.writeAttribute("scheme", auth.getScheme());
-            writeScope(auth.getScope());
-            
-            for (Entry<String, String> e : auth.getData().serialize().entrySet()) {
-                this.out.writeEmptyElement("prop");
-                this.out.writeAttribute("name", e.getKey());
-                this.out.writeAttribute("value", e.getValue());
-            }
-            
-            this.out.writeEndElement();
+    /**
+     * Workaround Oracle database changing empty strings to NULL pointer.
+     * @param value the string value to check
+     * @return the value if not <i>null</i>. Empty string if <i>null</i>.
+     */
+    @objid ("00a9d660-24ec-48db-9822-8e7c9ece2154")
+    private String nullToEmpty(String value) {
+        if (value == null) {
+            // Workaround Oracle database changing empty strings to NULL pointer.
+            return "";
         } else {
-            this.out.writeStartElement("auth");
-            this.out.writeAttribute("scheme", AuthDescriptor.AUTH_TYPE_ASK);
-            writeScope(DefinitionScope.LOCAL);
-            this.out.writeEndElement();
+            return value;
         }
-    }
-
-    @objid ("4334917b-dd35-4da8-b51c-66a7bef1ca8b")
-    private boolean writeProjectPath(final ProjectDescriptor projectDescriptor) {
-        if (projectDescriptor.getPath()==null || this.projectPath == null)
-            return false;
-        return ! projectDescriptor.getPath().startsWith(this.projectPath);
     }
 
     /**

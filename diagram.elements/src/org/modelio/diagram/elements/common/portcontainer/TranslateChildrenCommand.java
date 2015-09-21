@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.portcontainer;
 
@@ -30,6 +30,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
+import org.modelio.diagram.elements.plugin.DiagramElements;
 
 /**
  * <p>
@@ -42,16 +43,16 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
  */
 @objid ("7f050695-1dec-11e2-8cad-001ec947c8cc")
 public class TranslateChildrenCommand extends Command {
-    @objid ("e7bc11cc-a4d0-4627-a66a-c8529d900314")
-    private Point moveDelta;
-
     @objid ("203d7de4-1640-4738-b817-55a77d459ca4")
     private GraphicalEditPart container;
 
-    @objid ("40f2b453-fbc0-46e7-8136-33587fdd5a75")
+    @objid ("215d89c3-3c21-48a1-90ce-4db4e0256c04")
+    private Point moveDelta;
+
+    @objid ("c09238b9-90a0-4de1-83ed-f21e08bc37aa")
     private static final PrecisionRectangle tempRect = new PrecisionRectangle();
 
-    @objid ("20652e22-59c6-4890-aee8-b2aacab2f8c1")
+    @objid ("9ab51266-ca86-4ee8-985d-079bf027daa1")
     private static final PrecisionPoint tempPoint = new PrecisionPoint();
 
     /**
@@ -69,6 +70,7 @@ public class TranslateChildrenCommand extends Command {
     @Override
     public void execute() {
         for (Object childObj : this.container.getChildren()) {
+            DiagramElements.LOG.debug("  %s: translating %s by %s", getClass().getSimpleName(), childObj, this.moveDelta);
             EditPart childEditPart = (EditPart) childObj;
             GmNodeModel childModel = (GmNodeModel) childEditPart.getModel();
             if (this.container.getModel().equals(childModel.getParent())) {

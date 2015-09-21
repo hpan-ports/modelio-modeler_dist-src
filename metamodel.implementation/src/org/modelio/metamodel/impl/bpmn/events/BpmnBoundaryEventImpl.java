@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,16 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -30,7 +42,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
-import org.modelio.metamodel.data.bpmn.events.BpmnBoundaryEventData;
+import org.modelio.metamodel.impl.bpmn.events.BpmnBoundaryEventData;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -39,48 +51,55 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("008790d8-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnBoundaryEventImpl extends BpmnCatchEventImpl implements BpmnBoundaryEvent {
-    @objid ("2b77ed4f-162d-49d8-a5e1-ee1693ae352d")
+    @objid ("b353ab57-5077-47b9-95c2-9c67ec7034fe")
     @Override
     public boolean isCancelActivity() {
-        return (Boolean) getAttVal(BpmnBoundaryEventData.Metadata.CancelActivityAtt());
+        return (Boolean) getAttVal(((BpmnBoundaryEventSmClass)getClassOf()).getCancelActivityAtt());
     }
 
-    @objid ("92a630b6-9f76-467c-95b7-8c4e7d9b2784")
+    @objid ("c66cf20d-2c73-48fb-a299-a2c04ff2bf65")
     @Override
     public void setCancelActivity(boolean value) {
-        setAttVal(BpmnBoundaryEventData.Metadata.CancelActivityAtt(), value);
+        setAttVal(((BpmnBoundaryEventSmClass)getClassOf()).getCancelActivityAtt(), value);
     }
 
-    @objid ("2d394892-cf71-4d9a-b6bc-15e54317c561")
+    @objid ("91958135-7b21-4bdb-94a9-1ac3639801f1")
     @Override
     public BpmnActivity getAttachedToRef() {
-        return (BpmnActivity) getDepVal(BpmnBoundaryEventData.Metadata.AttachedToRefDep());
+        Object obj = getDepVal(((BpmnBoundaryEventSmClass)getClassOf()).getAttachedToRefDep());
+        return (obj instanceof BpmnActivity)? (BpmnActivity)obj : null;
     }
 
-    @objid ("17476b53-6a85-436e-9fdb-b219791c1d27")
+    @objid ("98ab957e-66a6-45d9-a277-b2ad312d941b")
     @Override
     public void setAttachedToRef(BpmnActivity value) {
-        appendDepVal(BpmnBoundaryEventData.Metadata.AttachedToRefDep(), (SmObjectImpl)value);
+        appendDepVal(((BpmnBoundaryEventSmClass)getClassOf()).getAttachedToRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c5ac5db9-6fb6-4466-b3b5-b95df1dd506d")
+    @objid ("b321e3aa-a3f9-4ac8-b389-a26db44b0292")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("566137ea-b13e-4958-9119-498d9180f778")
+    @objid ("40bdad56-c656-4eeb-a810-cccd2bd7715c")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("87674f40-9568-48ff-8ee3-ec884a869118")
+    @objid ("197a41e9-05e1-4823-8bfe-df0f67b51522")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnBoundaryEvent(this);

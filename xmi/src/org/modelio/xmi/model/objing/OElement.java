@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -72,16 +72,16 @@ public class OElement {
         this.objingElt = element;
         
         if (element instanceof ModelElement){
-                
+        
             ModelElement modelElement = (ModelElement) element;
-                    
+        
             for( Stereotype obStereotype : modelElement.getExtension()){
                 if (AbstractObjingModelNavigation.mustBeExported(obStereotype)) {
                     exportStereotypeProfile(obStereotype);
                     GenerationProperties.getInstance().addStereotypeExported(modelElement);
                 }
             }
-                
+        
             for( TaggedValue obTaggedValue : modelElement.getTag()){
                 MetaclassReference reference = obTaggedValue.getDefinition().getOwnerReference();
                 if ((reference != null) && (AbstractObjingModelNavigation.mustBeExported(reference)) ){
@@ -108,7 +108,7 @@ public class OElement {
      */
     @objid ("6091063d-cff7-427a-89d0-f879f55cfedd")
     public List<String> getEcoreClassName() {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         result.add("Element");
         return result;
     }
@@ -118,7 +118,7 @@ public class OElement {
         Object ecoreProfile =  GenerationProperties.getInstance().getMappedElement(profile);
         
         if (ecoreProfile == null){
-            ProfileExportVisitorImpl profileVisitor = new ProfileExportVisitorImpl();       
+            ProfileExportVisitorImpl profileVisitor = new ProfileExportVisitorImpl();
             PExportProfile pprofile = new PExportProfile(ProfileUtils.getProfileRoot(profile));
             profileVisitor.visit(pprofile);
         }

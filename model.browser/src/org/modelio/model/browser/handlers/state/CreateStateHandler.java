@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,17 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.model.browser.handlers.state;
 
+import java.util.Arrays;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.DeepHistoryPseudoState;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.EntryPointPseudoState;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.ExitPointPseudoState;
@@ -39,6 +40,9 @@ import org.modelio.vcore.smkernel.mapi.MDependency;
 
 @objid ("899ecbe9-c9d8-11e1-b479-001ec947c8cc")
 public class CreateStateHandler extends CreateElementHandler {
+    @objid ("43bcdea8-649e-4002-8a33-b9ca7a2d3729")
+    private static final List<Class<?>> allowedMetaclasses = Arrays.asList(EntryPointPseudoState.class, ExitPointPseudoState.class,  ShallowHistoryPseudoState.class, DeepHistoryPseudoState.class);
+
     @objid ("4e4bf6eb-ccde-11e1-97e5-001ec947c8cc")
     private static StateMachine getEnclosingStateMachine(State s) {
         State state = s;
@@ -59,10 +63,7 @@ public class CreateStateHandler extends CreateElementHandler {
 
     @objid ("4e4bf6f0-ccde-11e1-97e5-001ec947c8cc")
     private boolean isAllowed(MClass metaclass) {
-        return !((Metamodel.getMClass(EntryPointPseudoState.class) != metaclass) 
-                                && (Metamodel.getMClass(ExitPointPseudoState.class) != metaclass)
-                                && (Metamodel.getMClass(ShallowHistoryPseudoState.class) != metaclass) 
-                                && (Metamodel.getMClass(DeepHistoryPseudoState.class) != metaclass));
+        return allowedMetaclasses.contains(metaclass.getJavaInterface());
     }
 
     @objid ("00535e6c-d035-1006-9c1d-001ec947cd2a")

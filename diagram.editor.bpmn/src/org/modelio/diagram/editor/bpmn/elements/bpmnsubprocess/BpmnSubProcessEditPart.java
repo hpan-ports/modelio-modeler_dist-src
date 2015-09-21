@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnsubprocess;
 
@@ -32,6 +32,7 @@ import org.modelio.diagram.editor.bpmn.elements.bpmnnodefooter.GmBpmnNodeFooter;
 import org.modelio.diagram.editor.bpmn.elements.style.GmBpmnSubProcessStructuredStyleKeys;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.figures.RoundedBoxFigure;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -54,7 +55,7 @@ public class BpmnSubProcessEditPart extends GmNodeEditPart {
         fig.setLayoutManager(new BorderLayout());
         
         // set style independent properties
-        fig.setPreferredSize(100, 50);
+        MinimumSizeLayout.apply(fig, 100, 50);
         fig.setRadius(5);
         
         // Required for CallActivity reprsentation
@@ -83,13 +84,13 @@ public class BpmnSubProcessEditPart extends GmNodeEditPart {
     @objid ("61c25c46-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmBpmnSubProcessPrimaryNode model = (GmBpmnSubProcessPrimaryNode) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), model.getLayoutData());
+        GmBpmnSubProcessPrimaryNode model = (GmBpmnSubProcessPrimaryNode) getModel();
+        getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
         
         if (model.getRelatedElement().isTriggeredByEvent()) {
-            ((RoundedBoxFigure) this.getFigure()).setLinePattern(LinePattern.LINE_DOT);
+            ((RoundedBoxFigure) getFigure()).setLinePattern(LinePattern.LINE_DOT);
         } else {
-            ((RoundedBoxFigure) this.getFigure()).setLinePattern(LinePattern.LINE_SOLID);
+            ((RoundedBoxFigure) getFigure()).setLinePattern(LinePattern.LINE_SOLID);
         }
     }
 
@@ -97,13 +98,14 @@ public class BpmnSubProcessEditPart extends GmNodeEditPart {
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
-        if (((GmNodeModel) childEditPart.getModel()).getRoleInComposition().equals("HEADER"))
-            this.getFigure().add(child, BorderLayout.TOP, index);
+        if (((GmNodeModel) childEditPart.getModel()).getRoleInComposition().equals("HEADER")) {
+            getFigure().add(child, BorderLayout.TOP, index);
+        }
         if (((GmNodeModel) childEditPart.getModel()).getRoleInComposition().equals("BODY")) {
-            this.getFigure().add(child, BorderLayout.CENTER, index);
+            getFigure().add(child, BorderLayout.CENTER, index);
         }
         if (((GmNodeModel) childEditPart.getModel()).getRoleInComposition().equals("FOOTER")) {
-            this.getFigure().add(child, BorderLayout.BOTTOM, index);
+            getFigure().add(child, BorderLayout.BOTTOM, index);
         }
     }
 
@@ -122,7 +124,7 @@ public class BpmnSubProcessEditPart extends GmNodeEditPart {
             }
         }
         
-        GmBpmnSubProcessPrimaryNode model = (GmBpmnSubProcessPrimaryNode) this.getModel();
+        GmBpmnSubProcessPrimaryNode model = (GmBpmnSubProcessPrimaryNode) getModel();
         Boolean showcontent = getModelStyle().getProperty(GmBpmnSubProcessStructuredStyleKeys.SHOWCONTENT);
         GmBpmnNodeFooter gmBpmnNodeFooter = (GmBpmnNodeFooter) model.getFirstChild("FOOTER");
         if (gmBpmnNodeFooter != null) {

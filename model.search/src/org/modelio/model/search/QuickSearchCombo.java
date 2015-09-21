@@ -1,11 +1,33 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.model.search;
 
 import java.util.List;
+import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.core.di.extensions.EventTopic;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -16,8 +38,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.gproject.gproject.GProject;
@@ -28,8 +48,9 @@ import org.modelio.model.search.engine.searchers.model.ModelSearchCriteria;
 import org.modelio.model.search.engine.searchers.model.ModelSearchEngine;
 import org.modelio.model.search.plugin.ModelSearch;
 import org.modelio.model.search.searchers.model.ModelSearchPanel;
-import org.modelio.ui.UIColor;
 import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.session.api.model.IModel;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Provide a custom toolbar field (based on a combo) to provide the quick search
@@ -99,6 +120,10 @@ public class QuickSearchCombo {
             // a project
         }
         
+        if (searchForUuid(expression)) {
+            return;
+        }
+        
         final ICoreSession session = this.project.getSession();
         final ModelSearchEngine searchEngine = new ModelSearchEngine();
         final ModelSearchCriteria searchCriteria = new ModelSearchCriteria();
@@ -119,10 +144,10 @@ public class QuickSearchCombo {
             break;
         default:
             // Several matching elements => propose for choice.
-            final SearchDialog dlg = SearchDialog.getInstance(this.searchCombo.getShell(), session, found, this.navigationService);
+            final SearchDialog dlg = SearchDialog.getInstance(this.searchCombo.getShell(), session, this.navigationService);
             dlg.setBlockOnOpen(false);
             dlg.open();
-            dlg.initCriteria(ModelSearchPanel.class, searchCriteria, found);
+            dlg.setDisplayedContent(ModelSearchPanel.class, searchCriteria, found);
             break;
         }
     }
@@ -148,10 +173,10 @@ public class QuickSearchCombo {
         case 0:
         default:
             // No Element found or several matching elements => propose for choice.
-            final SearchDialog dlg = SearchDialog.getInstance(this.searchCombo.getShell(), session, found, this.navigationService);
+            final SearchDialog dlg = SearchDialog.getInstance(this.searchCombo.getShell(), session, this.navigationService);
             dlg.setBlockOnOpen(false);
             dlg.open();
-            dlg.initCriteria(ModelSearchPanel.class, searchCriteria, found);
+            dlg.setDisplayedContent(ModelSearchPanel.class, searchCriteria, found);
             break;
         }
     }
@@ -159,38 +184,41 @@ public class QuickSearchCombo {
     @objid ("0010cade-c59e-10ab-8258-001ec947cd2a")
     @Inject
     @Optional
-    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject) {
-        // @UIEventTopic doesn't seems to be working here...
+    void onProjectOpened(@UIEventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject) {
         ModelSearch.LOG.debug("onProjectOpened() %s", openedProject.getName());
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                QuickSearchCombo.this.searchCombo.setEnabled(true);
-                QuickSearchCombo.this.searchCombo.removeAll();
-                QuickSearchCombo.this.project = openedProject;
-            }
-        });
+        QuickSearchCombo.this.searchCombo.setEnabled(true);
+        QuickSearchCombo.this.searchCombo.removeAll();
+        QuickSearchCombo.this.project = openedProject;
     }
 
     @objid ("00110512-c59e-10ab-8258-001ec947cd2a")
     @Inject
     @Optional
-    void onProjectClosed(@EventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject closedProject) {
-        // @UIEventTopic doesn't seems to be working here...
+    void onProjectClosed(@UIEventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject closedProject) {
         ModelSearch.LOG.debug("onProjectClosed() %s", closedProject);
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                if (! QuickSearchCombo.this.searchCombo.isDisposed()) {
-                    QuickSearchCombo.this.searchCombo.setEnabled(false);
-                    QuickSearchCombo.this.searchCombo.removeAll();
-                    SearchDialog.closeInstance();
-                }
-                QuickSearchCombo.this.project = null;
+        if (! QuickSearchCombo.this.searchCombo.isDisposed()) {
+            QuickSearchCombo.this.searchCombo.setEnabled(false);
+            QuickSearchCombo.this.searchCombo.removeAll();
+            SearchDialog.closeInstance();
+        }
+        QuickSearchCombo.this.project = null;
+    }
+
+    @objid ("f8221b89-cfbd-479e-99f9-b7a73aaf1730")
+    private boolean searchForUuid(String expression) {
+        try {
+            final ICoreSession session = this.project.getSession();
+            UUID uid = UUID.fromString(expression);
+            MObject found = session.getModel().findById(MObject.class, uid, IModel.NODELETED);
+            if (found != null) {
+                this.navigationService.fireNavigate(found);
+                return true;
             }
-        });
+        
+        } catch (IllegalArgumentException e) {
+            // ignore and return false
+        }
+        return false;
     }
 
     @objid ("00106d8c-c59e-10ab-8258-001ec947cd2a")

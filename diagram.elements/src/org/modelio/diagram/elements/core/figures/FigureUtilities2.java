@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.figures;
 
@@ -34,7 +34,10 @@ import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.modelio.diagram.elements.plugin.DiagramElements;
+import org.modelio.ui.CoreFontRegistry;
 
 /**
  * Utility class to make: - ghost shapes. - highlight figures for link or box
@@ -45,6 +48,35 @@ import org.modelio.diagram.elements.plugin.DiagramElements;
 public class FigureUtilities2 extends FigureUtilities {
     @objid ("7f79d9da-1dec-11e2-8cad-001ec947c8cc")
     private static Color ghostLineColor = ColorConstants.darkGray; // new Color(null, 31, 31, 31);
+
+    @objid ("7f79d9e9-1dec-11e2-8cad-001ec947c8cc")
+    public static IFigure createHighlightFigure(final IFigure feedbackLayer, final IFigure refFigure, final HighlightType type) {
+        IFigure highLightFigure = null;
+        
+        if (refFigure instanceof PolylineConnection) {
+            highLightFigure = createHighlightLink(feedbackLayer, (PolylineConnection) refFigure, type);
+        } else {
+            highLightFigure = createHighlightBox(feedbackLayer, refFigure, type);
+        }
+        
+        // decorate depending on type
+        updateHighlightType(highLightFigure, type);
+        return highLightFigure;
+    }
+
+    /**
+     * Get the same font as the given one but smaller.
+     * @param baseFont the base font
+     * @return the smaller font
+     */
+    @objid ("5fa20ee9-c8fb-4c28-b0b5-35579e3da0d7")
+    public static Font getSmallerFont(Font baseFont) {
+        FontData[] fontData = baseFont.getFontData();
+        for (FontData data : fontData) {
+            data.setHeight(getSmallerFontHeight(data.getHeight()));
+        }
+        return CoreFontRegistry.getFont(fontData);
+    }
 
     /**
      * Produces a ghosting effect on the shape <i>s</i>.
@@ -69,49 +101,6 @@ public class FigureUtilities2 extends FigureUtilities {
         s.setLineStyle(SWT.LINE_DOT);
         s.setLineWidth(2);
         return s;
-    }
-
-    @objid ("7f79d9e9-1dec-11e2-8cad-001ec947c8cc")
-    public static IFigure createHighlightFigure(final IFigure feedbackLayer, final IFigure refFigure, final HighlightType type) {
-        IFigure highLightFigure = null;
-        
-        if (refFigure instanceof PolylineConnection) {
-            highLightFigure = createHighlightLink(feedbackLayer, (PolylineConnection) refFigure, type);
-        } else {
-            highLightFigure = createHighlightBox(feedbackLayer, refFigure, type);
-        }
-        
-        // decorate depending on type
-        updateHighlightType(highLightFigure, type);
-        return highLightFigure;
-    }
-
-    @objid ("7f79d9f9-1dec-11e2-8cad-001ec947c8cc")
-    private static IFigure createHighlightLink(final IFigure feedbackLayer, final PolylineConnection refConnection, final HighlightType type) {
-        PolylineConnection highlightFigure = new PolylineConnection();
-        highlightFigure.setSourceAnchor(refConnection.getSourceAnchor());
-        highlightFigure.setTargetAnchor(refConnection.getTargetAnchor());
-        highlightFigure.setConnectionRouter(refConnection.getConnectionRouter());
-        
-        if (refConnection.getRoutingConstraint() instanceof ArrayList<?>) {
-            ArrayList<AbsoluteBendpoint> newRoutingConstraint = new ArrayList<>();
-            for (Object o : (ArrayList<?>) refConnection.getRoutingConstraint()) {
-                if (o instanceof AbsoluteBendpoint) {
-                    AbsoluteBendpoint point = new AbsoluteBendpoint((AbsoluteBendpoint) o);
-                    refConnection.translateToAbsolute(point);
-                    feedbackLayer.translateToRelative(point);
-                    newRoutingConstraint.add(point);
-                }
-            }
-            highlightFigure.setRoutingConstraint(newRoutingConstraint);
-        
-        } else {
-            highlightFigure.setRoutingConstraint(refConnection.getRoutingConstraint());
-        }
-        
-        highlightFigure.setLineWidth(refConnection.getLineWidth() + 2);
-        highlightFigure.setLineStyle(refConnection.getLineStyle());
-        return highlightFigure;
     }
 
     @objid ("7f7c3c1b-1dec-11e2-8cad-001ec947c8cc")
@@ -172,6 +161,66 @@ public class FigureUtilities2 extends FigureUtilities {
         highlightFigure.setBounds(bounds);
         highlightFigure.setFill(true);
         return highlightFigure;
+    }
+
+    @objid ("7f79d9f9-1dec-11e2-8cad-001ec947c8cc")
+    private static IFigure createHighlightLink(final IFigure feedbackLayer, final PolylineConnection refConnection, final HighlightType type) {
+        PolylineConnection highlightFigure = new PolylineConnection();
+        highlightFigure.setSourceAnchor(refConnection.getSourceAnchor());
+        highlightFigure.setTargetAnchor(refConnection.getTargetAnchor());
+        highlightFigure.setConnectionRouter(refConnection.getConnectionRouter());
+        
+        if (refConnection.getRoutingConstraint() instanceof ArrayList<?>) {
+            ArrayList<AbsoluteBendpoint> newRoutingConstraint = new ArrayList<>();
+            for (Object o : (ArrayList<?>) refConnection.getRoutingConstraint()) {
+                if (o instanceof AbsoluteBendpoint) {
+                    AbsoluteBendpoint point = new AbsoluteBendpoint((AbsoluteBendpoint) o);
+                    refConnection.translateToAbsolute(point);
+                    feedbackLayer.translateToRelative(point);
+                    newRoutingConstraint.add(point);
+                }
+            }
+            highlightFigure.setRoutingConstraint(newRoutingConstraint);
+        
+        } else {
+            highlightFigure.setRoutingConstraint(refConnection.getRoutingConstraint());
+        }
+        
+        highlightFigure.setLineWidth(refConnection.getLineWidth() + 2);
+        highlightFigure.setLineStyle(refConnection.getLineStyle());
+        return highlightFigure;
+    }
+
+    @objid ("c1c215e4-c0f3-4a65-b4af-83a69bd74c56")
+    private static int getSmallerFontHeight(int height) {
+        switch (height) {
+        case 8:
+            return 7;
+        
+        case 9:
+            return 7;
+        
+        case 10:
+            return 8;
+        
+        case 11:
+            return 8;
+        
+        case 12:
+            return 9;
+        
+        case 13:
+            return 10;
+        
+        case 14:
+            return 10;
+        
+        default:
+            if (height < 8)
+                return height;
+            else
+                return height * 10 / 14;
+        }
     }
 
     @objid ("7f7c3c33-1dec-11e2-8cad-001ec947c8cc")

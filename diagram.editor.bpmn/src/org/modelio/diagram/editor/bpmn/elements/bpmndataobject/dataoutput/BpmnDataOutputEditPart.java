@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.bpmn.elements.bpmndataobject.dataoutput;
 
@@ -38,6 +38,7 @@ import org.modelio.diagram.editor.bpmn.plugin.DiagramEditorBpmn;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.core.figures.ColorizableImageFigure;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmObject;
@@ -72,8 +73,9 @@ public class BpmnDataOutputEditPart extends GmNodeEditPart {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IGmObject.PROPERTY_LABEL)) {
             refreshVisuals();
-        } else
+        } else {
             super.propertyChange(evt);
+        }
     }
 
     /**
@@ -98,9 +100,10 @@ public class BpmnDataOutputEditPart extends GmNodeEditPart {
     protected IFigure createFigure() {
         // create the figure
         BpmnDataFigure figure1 = new BpmnDataFigure();
-        //figure1.setLayoutManager(new BorderLayout());
+        
         // set style independent properties
-        figure1.setPreferredSize(40, 55);
+        MinimumSizeLayout.apply(figure1, 40, 55);
+        
         figure1.setOpaque(true);
         List<Image> images = new ArrayList<>();
         images.add(DiagramEditorBpmn.getImageRegistry().getImage(BpmnSharedImages.OUTPUT));
@@ -139,8 +142,9 @@ public class BpmnDataOutputEditPart extends GmNodeEditPart {
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
-        if (index == 0)
-            this.getFigure().add(child, BorderLayout.CENTER, index);
+        if (index == 0) {
+            getFigure().add(child, BorderLayout.CENTER, index);
+        }
     }
 
     @objid ("60c389ef-55b6-11e2-877f-002564c97630")

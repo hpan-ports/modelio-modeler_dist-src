@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.linkednode;
 
@@ -29,16 +29,16 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
+import org.modelio.api.module.IMdaExpert;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.figures.FigureUtilities2;
 import org.modelio.diagram.elements.core.helpers.AnchorModelHelper;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.umlcommon.externdocument.CreateExternDocumentCommand;
-import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -59,26 +59,39 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
     @Override
     public EditPart getTargetEditPart(Request request) {
         if (REQ_LINKEDNODE_START.equals(request.getType())) {
-            ModelioCreationContext context = (ModelioCreationContext) ((CreateConnectionRequest) request).getNewObject();
+            ModelioCreationContext context = ModelioCreationContext.lookRequest((CreateConnectionRequest) request);
+            if (context == null) {
+                return null;
+            }
+        
             Stereotype linkStereotype = context.getStereotype();
-            MClass linkMetaclass = Metamodel.getMClass(context.getMetaclass());
-            MObject sourceElement = ((GmModel) getHost().getModel()).getRelatedElement();
+            MClass linkMetaclass = context.getMetaclass();
+            GmModel gmModel = (GmModel) getHost().getModel();
+            MObject sourceElement = gmModel.getRelatedElement();
+            IMdaExpert mdaExpert = gmModel.getDiagram().getModelManager().getMdaExpert();
+        
             // If source element cannot be found, or if creation expert doesn't allow AND this instance is not "opaque" (see javadoc
             // on private attribute isOpaque for details), return null.
-            if (sourceElement == null)
+            if (sourceElement == null) {
                 return null;
+            }
         
-            if (MTools.getMetaTool().canCompose(sourceElement, linkMetaclass, null))
-                return getHost();
+            MExpert expert = linkMetaclass.getMetamodel().getMExpert();
         
-            if (MTools.getLinkTool().canSource(linkStereotype, linkMetaclass, sourceElement.getMClass()))
+            if (expert.canCompose(sourceElement, linkMetaclass, null)) {
                 return getHost();
+            }
+        
+            if (mdaExpert.canSource(linkStereotype, linkMetaclass, sourceElement.getMClass())) {
+                return getHost();
+            }
         
             return null;
         } else if (REQ_RECONNECT_SOURCE.equals(request.getType())) {
             ReconnectRequest r = (ReconnectRequest) request;
-            if (r.getConnectionEditPart().getModel() instanceof IGmNodeLink)
+            if (r.getConnectionEditPart().getModel() instanceof IGmNodeLink) {
                 return getHost();
+            }
         }
         return null;
     }
@@ -108,10 +121,10 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
     @objid ("7ebfe28f-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
-        final ModelioCreationContext context = (ModelioCreationContext) request.getNewObject();
+        ModelioCreationContext context = ModelioCreationContext.fromRequest(request);
         
         CreateLinkedNodeCommand cmd = null;
-        if (Metamodel.getMClass(ExternDocument.class).getName().equals(context.getMetaclass())) {
+        if (ExternDocument.class == context.getJavaClass()) {
             cmd = new CreateExternDocumentCommand(context);
         } else {
             cmd = new CreateLinkedNodeCommand(context);
@@ -129,7 +142,6 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
      * Highlight the node under the mouse when starting a linked node creation.
      */
     @objid ("7ebfe299-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings("unchecked")
     @Override
     protected void showTargetConnectionFeedback(final DropRequest dropRequest) {
         final Request request = (Request) dropRequest;
@@ -170,8 +182,9 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
     @objid ("7ebfe2a1-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected boolean isHandled(final Request request) {
-        if (REQ_LINKEDNODE_START.equals(request.getType()))
+        if (REQ_LINKEDNODE_START.equals(request.getType())) {
             return true;
+        }
         if (REQ_RECONNECT_SOURCE.equals(request.getType())) {
             ReconnectRequest r = (ReconnectRequest) request;
             return r.getConnectionEditPart().getModel() instanceof IGmNodeLink;

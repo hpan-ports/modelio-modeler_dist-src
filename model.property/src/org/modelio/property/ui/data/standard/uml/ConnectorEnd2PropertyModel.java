@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -31,16 +31,13 @@ import org.modelio.core.ui.ktable.types.bool.BooleanType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.ghost.GhostType;
 import org.modelio.core.ui.ktable.types.list.EditableListType;
-import org.modelio.core.ui.ktable.types.modelelement.ModelElementListType;
 import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
-import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.LinkEnd;
-import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.NaryLink;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
@@ -65,9 +62,8 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
      * </ul>
      */
     @objid ("a6c199a5-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "ConnectorEnd", "LinkName", "Base",
-            "Linked", "Name", "ConnectorEndRepresentedFeature", "MultiplicityMin", "MultiplicityMax", "IsNavigable", "IsOrdered",
-            "IsUnique" };
+    private static final String[] PROPERTIES = new String[] { "Property", "LinkName", "Base", "Linked", "Name",
+            "ConnectorEndRepresentedFeature", "MultiplicityMin", "MultiplicityMax", "IsNavigable", "IsOrdered", "IsUnique" };
 
     @objid ("8ef291a3-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -140,8 +136,8 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         // Non editable case
-        if ((col == 1 && row > 8 && !this.theEditedElement.getOpposite().isNavigable()) ||
-                (col == 2 && row > 8 && !this.theEditedElement.isNavigable())) {
+        if ((col == 1 && row > 8 && !this.theEditedElement.getOpposite().isNavigable())
+                || (col == 2 && row > 8 && !this.theEditedElement.isNavigable())) {
             return this.ghostType;
         }
         switch (col) {
@@ -160,10 +156,10 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         case 2:
             switch (row) {
             case 0: // Title
-                return this.labelStringType;       
+                return this.labelStringType;
             case 1:
                 // Link name
-                return this.stringType;       
+                return this.stringType;
             case 2: // Link base Association
                 return getBaseAssociationType(this.theEditedElement);
             case 3: // LinkEnd Type
@@ -193,17 +189,17 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
     @objid ("8ef291c3-c068-11e1-8c0a-002564c97630")
     @Override
     public void setValueAt(int row, int col, Object value) {
-        switch (col) {       
-            case 0:
-                return;       
-            case 1:
-                setPropertyValue(row, this.theEditedElement.getOpposite(), value);
-                break;
-            case 2:
-                setPropertyValue(row, this.theEditedElement, value);
-                return;
-            default:
-                return;
+        switch (col) {
+        case 0:
+            return;
+        case 1:
+            setPropertyValue(row, this.theEditedElement.getOpposite(), value);
+            break;
+        case 2:
+            setPropertyValue(row, this.theEditedElement, value);
+            return;
+        default:
+            return;
         }
     }
 
@@ -216,7 +212,9 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         } else if (col == 1) {
             return this.theEditedElement.getOpposite().isModifiable();
         } else if (col == 2) {
-            if (row == 1 || row == 2) return false;
+            if (row == 1 || row == 2) {
+                return false;
+            }
             return this.theEditedElement.isModifiable();
         }
         return true;
@@ -230,12 +228,13 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
     public ConnectorEnd2PropertyModel(ConnectorEnd theConnectorEnd) {
         super(theConnectorEnd);
         
+        ICoreSession session = CoreSession.getSession(this.theEditedElement);
+        
         this.labelStringType = new StringType(false);
         this.stringType = new StringType(true);
         this.booleanType = new BooleanType();
         this.ghostType = new GhostType();
         
-        ICoreSession session = CoreSession.getSession(this.theEditedElement);
         this.linkedType = new SingleElementType(false, Instance.class, session);
         
         List<java.lang.Class<? extends MObject>> connectorRepresentedFeatureValues = new ArrayList<>();
@@ -247,7 +246,7 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         connectorEndRepresentedFeatureValues.add(Attribute.class);
         connectorEndRepresentedFeatureValues.add(AssociationEnd.class);
         connectorEndRepresentedFeatureValues.add(LinkEnd.class);
-        this.connectorEndRepresentedFeatureType = new SingleElementType(true, connectorEndRepresentedFeatureValues);
+        this.connectorEndRepresentedFeatureType = new SingleElementType(true, connectorEndRepresentedFeatureValues, session);
         
         List<String> cardinalityMinValues = new ArrayList<>();
         cardinalityMinValues.add("0");
@@ -285,13 +284,13 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
     @objid ("8ef41837-c068-11e1-8c0a-002564c97630")
     private Object getPropertyValue(int row, LinkEnd aLinkEnd) {
         // Default value for non editable cells
-        if (row > 8 && ! aLinkEnd.isNavigable()) {
+        if (row > 8 && !aLinkEnd.isNavigable()) {
             return "N/A";
         }
-            
+        
         switch (row) {
         case 0: // Title
-            Instance type = aLinkEnd.getTarget()!=null ? aLinkEnd.getTarget() : aLinkEnd.getOpposite().getSource();
+            Instance type = aLinkEnd.getTarget() != null ? aLinkEnd.getTarget() : aLinkEnd.getOpposite().getSource();
             if (type != null) {
                 if (aLinkEnd == this.theEditedElement) {
                     return MessageFormat.format(MetamodelLabels.getString("Title.to"), type.getName());
@@ -299,7 +298,7 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
                     return MessageFormat.format(MetamodelLabels.getString("Title.from"), type.getName());
                 }
             }
-            return "";        
+            return "";
         case 1:
             // Link name
             return aLinkEnd.getLink().getName();
@@ -334,12 +333,18 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
             return;
         case 1:
             linkEnd.getLink().setName(String.valueOf(value));
-            break;        
+            break;
         case 2:
-            final AssociationEnd model = (AssociationEnd) value;
-            linkEnd.setModel(model);
-            linkEnd.getOpposite().setModel(model.getOpposite());
-            linkEnd.getLink().setModel(model.getAssociation());
+            if (value == null) {
+                linkEnd.setModel(null);
+                linkEnd.getOpposite().setModel(null);
+                linkEnd.getLink().setModel(null);
+            } else {
+                final AssociationEnd model = (AssociationEnd) value;
+                linkEnd.setModel(model);
+                linkEnd.getOpposite().setModel(model.getOpposite());
+                linkEnd.getLink().setModel(model.getAssociation());
+            }
             break;
         case 3:
             linkEnd.setTarget((Instance) value, true);
@@ -372,32 +377,7 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
 
     @objid ("bfc3ba25-8d46-45b3-ac73-9cc11c2c5c5f")
     private IPropertyType getBaseAssociationType(LinkEnd editedEnd) {
-        List<ModelElement> availableEnds = new ArrayList<>();
-        
-        Instance source = editedEnd.getOwner();
-        Instance target = editedEnd.getOpposite().getOwner();
-        NameSpace sourceBase = source.getBase();
-        NameSpace targetBase = target.getBase();
-        if (sourceBase != null && sourceBase instanceof Classifier && targetBase != null && targetBase instanceof Classifier) {
-            for (AssociationEnd end : ((Classifier)sourceBase).getOwnedEnd()) {
-                if (end.getOpposite().getOwner().equals(targetBase)) {
-                    if (!availableEnds.contains(end)) {
-                        availableEnds.add(end);
-                    }
-                }
-            }
-        
-            for (AssociationEnd end : ((Classifier)sourceBase).getTargetingEnd()) {
-                if (end.getOwner().equals(targetBase)) {
-                    if (!availableEnds.contains(end.getOpposite())) {
-                        availableEnds.add(end.getOpposite());
-                    }
-                }
-            }
-        }
-        
-        ModelElementListType type = new ModelElementListType(true, AssociationEnd.class, availableEnds, CoreSession.getSession(this.theEditedElement));
-        return type;
+        return LinkUtils.getBaseAssociationType(editedEnd);
     }
 
 }

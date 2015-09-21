@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.activitynodeheader;
 
@@ -38,16 +38,12 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
- * Represents the classifier header.
+ * Represents the activity node header.
  * <p>
- * Contains for the moment the class name.<br>
- * Will contain in the future:<br>
- * - its visibility <br>
- * - tagged values <br>
- * - &lt;&lt;stereotypes names>> <br>
- * - a stereotype icons bar <br>
+ * @deprecated use {@link org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader}
  */
 @objid ("29b06ae5-55b6-11e2-877f-002564c97630")
+@Deprecated
 public class GmActivityNodeHeader extends GmModelElementHeader {
     /**
      * Current version of this Gm. Defaults to 0.
@@ -66,7 +62,7 @@ public class GmActivityNodeHeader extends GmModelElementHeader {
     @objid ("29b06aee-55b6-11e2-877f-002564c97630")
     public GmActivityNodeHeader(GmAbstractDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
-        this.setStackedStereotypes(true);
+        setStackedStereotypes(true);
     }
 
     /**
@@ -118,8 +114,9 @@ public class GmActivityNodeHeader extends GmModelElementHeader {
     @objid ("29b1f196-55b6-11e2-877f-002564c97630")
     @Override
     public StyleKey getStyleKey(MetaKey metakey) {
-        if (getParent() == null)
+        if (getParent() == null) {
             return null;
+        }
         return getParent().getStyleKey(metakey);
     }
 
@@ -138,8 +135,9 @@ public class GmActivityNodeHeader extends GmModelElementHeader {
     @objid ("29b1f1ab-55b6-11e2-877f-002564c97630")
     @Override
     public RepresentationMode getRepresentationMode() {
-        if (getParent() == null)
+        if (getParent() == null) {
             return RepresentationMode.STRUCTURED;
+        }
         return getParent().getRepresentationMode();
     }
 

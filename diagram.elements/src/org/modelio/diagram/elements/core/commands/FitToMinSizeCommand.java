@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.core.commands;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.RequestConstants;
@@ -62,8 +61,9 @@ public class FitToMinSizeCommand extends Command {
     public void execute() {
         final Command resizeCommand = getResizeCommand();
         
-        if (resizeCommand != null && resizeCommand.canExecute())
+        if (resizeCommand != null && resizeCommand.canExecute()) {
             resizeCommand.execute();
+        }
     }
 
     /**
@@ -74,18 +74,19 @@ public class FitToMinSizeCommand extends Command {
     private Command getResizeCommand() {
         final IFigure fig = this.editPart.getFigure();
         
-        final Dimension oldSize = getEffectiveBounds(fig).getSize();
-        fig.translateToAbsolute(oldSize);
+        //fig.getUpdateManager().performValidation();
         
-        Dimension newSize = getMinimumSize(fig);
+        Dimension oldSize = getEffectiveBounds(fig).getSize();
+        Dimension newSize = getMinimumSize(fig).getCopy();
+        fig.translateToAbsolute(oldSize);
         fig.translateToAbsolute(newSize);
-        if (oldSize.equals(newSize))
-            return null;
+        if (oldSize.equals(newSize)) {
+            return NoopCommand.INSTANCE;
+        }
         
         final ChangeBoundsRequest req = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
         req.setEditParts(this.editPart);
         req.setSizeDelta(newSize.getCopy().shrink(oldSize));
-        req.setMoveDelta(new Point(0, 0));
         return this.editPart.getCommand(req);
     }
 
@@ -98,8 +99,8 @@ public class FitToMinSizeCommand extends Command {
 
     @objid ("7f4303c5-1dec-11e2-8cad-001ec947c8cc")
     private Dimension getMinimumSize(final IFigure figure) {
-        // For PortContainers, we must take the main node minimum size to avoid side effects during the setSize
         if (this.editPart.getModel() instanceof GmPortContainer) {
+            // For PortContainers, we must take the main node minimum size to avoid side effects during the setSize
             GmPortContainer gpc = (GmPortContainer) this.editPart.getModel();
             GmNodeModel mainNode = gpc.getMainNode();
         
@@ -120,7 +121,7 @@ public class FitToMinSizeCommand extends Command {
     @objid ("7f4303cf-1dec-11e2-8cad-001ec947c8cc")
     protected Rectangle getEffectiveBounds(final IFigure figure) {
         return (figure instanceof HandleBounds) ? ((HandleBounds) figure).getHandleBounds().getCopy()
-                : figure.getBounds().getCopy();
+                                                        : figure.getBounds().getCopy();
     }
 
 }

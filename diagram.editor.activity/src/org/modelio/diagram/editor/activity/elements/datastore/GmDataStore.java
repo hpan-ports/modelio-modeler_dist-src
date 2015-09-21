@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.datastore;
 
@@ -27,7 +27,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.editor.activity.elements.datastore.v0._GmDataStore;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -69,6 +69,9 @@ public class GmDataStore extends GmPortContainer {
     @objid ("305c93e4-58a2-11e2-9574-002564c97630")
      static GmDataStoreImageStyleKeys IMAGEKEYS = new GmDataStoreImageStyleKeys();
 
+    @objid ("3c1c799a-d2f4-40f8-85c9-eb5c9dd12571")
+     static GmDataStoreUserImageStyleKeys USERIMAGE_KEYS = new GmDataStoreUserImageStyleKeys();
+
     /**
      * Default constructor.
      * @param diagram the diagram in which this gm is unmasked.
@@ -83,7 +86,7 @@ public class GmDataStore extends GmPortContainer {
         GmDataStorePrimaryNode primary = new GmDataStorePrimaryNode(diagram, ref);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(diagram, ref);
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
@@ -107,12 +110,14 @@ public class GmDataStore extends GmPortContainer {
     @Override
     public StyleKey getStyleKey(MetaKey metakey) {
         StyleKey ret = STRUCTKEYS.getStyleKey(metakey);
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         
         ret = SIMPLEKEYS.getStyleKey(metakey);
-        if (ret != null)
+        if (ret != null) {
             return ret;
+        }
         
         ret = IMAGEKEYS.getStyleKey(metakey);
         return ret;
@@ -130,6 +135,8 @@ public class GmDataStore extends GmPortContainer {
                     return STRUCTKEYS.getStyleKeys();
                 case IMAGE:
                     return IMAGEKEYS.getStyleKeys();
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKeys();
                 default:
                     return Collections.emptyList();
             }
@@ -177,6 +184,7 @@ public class GmDataStore extends GmPortContainer {
                     ret.remove(imageModeHeader);
                     break;
                 case IMAGE:
+                case USER_IMAGE:
                 default:
                     break;
         
@@ -205,7 +213,7 @@ public class GmDataStore extends GmPortContainer {
     @objid ("2a276fcf-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.element = (DataStoreNode) resolveRef(this.getRepresentedRef());
+        this.element = (DataStoreNode) resolveRef(getRepresentedRef());
     }
 
     @objid ("2a276fd4-55b6-11e2-877f-002564c97630")
@@ -279,7 +287,7 @@ public class GmDataStore extends GmPortContainer {
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
         
-        GmDefaultFlatHeader imageModeHeader = new GmDefaultFlatHeader(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
+        GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);

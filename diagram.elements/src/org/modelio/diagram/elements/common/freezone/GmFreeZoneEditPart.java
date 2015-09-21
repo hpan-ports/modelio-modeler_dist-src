@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.common.freezone;
 
@@ -52,7 +52,7 @@ public class GmFreeZoneEditPart extends GmNodeEditPart {
     @objid ("7e3f236d-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // If the visibility of the zone changes, it will be notified by a 
+        // If the visibility of the zone changes, it will be notified by a
         // PROPERTY_LAYOUTDATA event.
         if (evt.getPropertyName() == IGmObject.PROPERTY_LAYOUTDATA) {
             updateVisibility(getFigure());
@@ -64,8 +64,12 @@ public class GmFreeZoneEditPart extends GmNodeEditPart {
     @objid ("7e3f2371-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
-        updateVisibility(getFigure());
+        // Update visibility
+        IFigure freeZoneFig = getFigure();
         
+        updateVisibility(freeZoneFig);
+        
+        // Call super
         super.addChildVisual(childEditPart, index);
     }
 
@@ -74,8 +78,9 @@ public class GmFreeZoneEditPart extends GmNodeEditPart {
     protected void createEditPolicies() {
         super.createEditPolicies();
         
-        final DefaultFreeZoneLayoutEditPolicy layoutEditPolicy = new DefaultFreeZoneLayoutEditPolicy();
-        installEditPolicy(EditPolicy.LAYOUT_ROLE, layoutEditPolicy);
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new DefaultFreeZoneLayoutEditPolicy());
+        
+        installEditPolicy(TranslateChildrenOnResizeEditPolicy.class, new TranslateChildrenOnResizeEditPolicy());
     }
 
     @objid ("7e3f237b-1dec-11e2-8cad-001ec947c8cc")
@@ -89,6 +94,27 @@ public class GmFreeZoneEditPart extends GmNodeEditPart {
         groupFigure.setBorder(new MarginBorder(3, 2, 3, 2));
         final FreeZoneLayout layout = new FreeZoneLayout();
         groupFigure.setLayoutManager(layout);
+        
+        /*
+        // debug free zone position
+        GmFreeZoneEditPart thisEp = this;
+        groupFigure.addFigureListener(new FigureListener() {
+            private Rectangle oldBounds;
+            @Override
+            public void figureMoved(IFigure source) {
+                Rectangle newBounds = source.getBounds();
+                if (this.oldBounds == null ) {
+                    this.oldBounds = newBounds.getCopy();
+                } else if (! this.oldBounds.equals(newBounds)) {
+                    if (this.oldBounds.x() > newBounds.x()) {
+                        DiagramElements.LOG.debug("   GmFreeZoneEditPart.FigureListener: %s LEFT moved from %s to %s", thisEp, this.oldBounds, newBounds);
+                    } else {
+                        DiagramElements.LOG.debug("   GmFreeZoneEditPart.FigureListener: %s moved from %s to %s", thisEp, this.oldBounds, newBounds);
+                    }
+                    this.oldBounds.setBounds(newBounds);
+                }
+            }
+        });*/
         
         // Set style dependent properties
         refreshFromStyle(groupFigure, getModelStyle());
@@ -114,8 +140,10 @@ public class GmFreeZoneEditPart extends GmNodeEditPart {
     @objid ("7e3f238e-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void removeChildVisual(EditPart childEditPart) {
+        // call super
         super.removeChildVisual(childEditPart);
         
+        // update visibility
         updateVisibility(getFigure());
     }
 
@@ -129,8 +157,9 @@ public class GmFreeZoneEditPart extends GmNodeEditPart {
         final boolean oldVisible = (aFigure.isVisible());
         final boolean newVisible = gmZone.isVisible();
         
-        if (oldVisible == newVisible)
+        if (oldVisible == newVisible) {
             return;
+        }
         
         aFigure.setVisible(newVisible);
     }
@@ -146,12 +175,11 @@ public class GmFreeZoneEditPart extends GmNodeEditPart {
      * to a SnapToGrid only if the style defines SNAPTOGRID = true
      */
     @objid ("7e4185aa-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings("rawtypes")
     @Override
     public Object getAdapter(final Class type) {
         if (type == SnapToHelper.class) {
             // Fetch the stylekey value on the style of the diagram (this is a property of the diagram, and relying on cascaded styles is not a good idea).
-            boolean snap = ((GmAbstractObject) this.getModel()).getDiagram()
+            boolean snap = ((GmAbstractObject) getModel()).getDiagram()
                                                                .getStyle()
                                                                .getBoolean(GmAbstractDiagramStyleKeys.SNAPTOGRID);
             if (snap) {

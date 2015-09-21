@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.infrastructure.AbstractionData;
+import org.modelio.metamodel.impl.uml.infrastructure.AbstractionData;
 import org.modelio.metamodel.uml.infrastructure.Abstraction;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
@@ -38,36 +50,42 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0084cc0e-c4be-1fd8-97fe-001ec947cd2a")
 public class AbstractionImpl extends DependencyImpl implements Abstraction {
-    @objid ("3552217d-ddb1-40de-ad9f-fe6e43e4e85d")
+    @objid ("280ace03-907e-4407-b258-46b30a5e2fc1")
     @Override
     public String getMapping() {
-        return (String) getAttVal(AbstractionData.Metadata.MappingAtt());
+        return (String) getAttVal(((AbstractionSmClass)getClassOf()).getMappingAtt());
     }
 
-    @objid ("6310b790-c046-428b-bdfd-96d72cd418b4")
+    @objid ("04ad8452-c1bb-47b1-92d3-d05d3834e95a")
     @Override
     public void setMapping(String value) {
-        setAttVal(AbstractionData.Metadata.MappingAtt(), value);
+        setAttVal(((AbstractionSmClass)getClassOf()).getMappingAtt(), value);
     }
 
-    @objid ("ef3fde1a-e535-4ab1-9aa6-d5c5695907c7")
+    @objid ("97ce3b49-8d04-446c-91e6-a77c1f7aad96")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7bd5a5f2-a0ab-4d0e-907d-cd8b34e74445")
+    @objid ("daff5a86-7092-412a-b70e-9007a61b45e7")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("1714d3c8-f0c8-4dcd-99d5-894a54db209f")
+    @objid ("1054f2de-9820-4872-8b57-2e63c6146ab2")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAbstraction(this);

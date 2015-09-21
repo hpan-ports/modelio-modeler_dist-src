@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.usecase.elements.usecase;
 
@@ -30,6 +30,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.modelio.diagram.editor.statik.elements.policies.SmartGeneralizationEditPolicy;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
 import org.modelio.diagram.elements.core.model.GmAbstractObject;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.policies.DeferringCreateNodePolicy;
@@ -49,7 +50,7 @@ public class UseCaseEditPart extends GmNodeEditPart {
         classFigure.setOpaque(true);
         
         // Set default size
-        classFigure.setPreferredSize(200, 75);
+        MinimumSizeLayout.apply(classFigure, 200, 75);
         
         // Set style dependent properties
         refreshFromStyle(classFigure, getModelStyle());
@@ -78,18 +79,19 @@ public class UseCaseEditPart extends GmNodeEditPart {
     @objid ("5e6bc1c2-55b7-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
-        GmAbstractObject model = (GmAbstractObject) this.getModel();
-        this.getFigure().getParent().setConstraint(this.getFigure(), model.getLayoutData());
+        GmAbstractObject model = (GmAbstractObject) getModel();
+        getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
     }
 
     @objid ("5e6bc1c5-55b7-11e2-877f-002564c97630")
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
         final IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
-        if (index == 0)
+        if (index == 0) {
             getFigure().add(child, BorderLayout.TOP, index);
-        else
+        } else {
             getFigure().add(child, BorderLayout.CENTER, index);
+        }
     }
 
     @objid ("5e6bc1ca-55b7-11e2-877f-002564c97630")

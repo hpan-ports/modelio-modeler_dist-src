@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements.sequencediagram;
 
@@ -47,7 +47,6 @@ import org.modelio.diagram.elements.core.commands.NodeChangeLayoutCommand;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy;
 import org.modelio.diagram.elements.core.policies.DiagramEditLayoutPolicy;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
@@ -96,7 +95,7 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
     @Override
     protected Command getCreateCommand(final CreateRequest request) {
         ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-        if (Metamodel.getMClass(InteractionUse.class).getName().equals(ctx.getMetaclass())) {
+        if (InteractionUse.class == ctx.getJavaClass()) {
             List<GmLifeline> coveredLifelines = new ArrayList<>();
             // Find the list of covered lifelines...
             Rectangle requestRect = (Rectangle) getConstraintFor(request);
@@ -105,7 +104,7 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
                                                    ctx,
                                                    requestRect,
                                                    coveredLifelines);
-        } else if (Metamodel.getMClass(CombinedFragment.class).getName().equals(ctx.getMetaclass())) {
+        } else if (CombinedFragment.class == ctx.getJavaClass()) {
             List<GmLifeline> coveredLifelines = new ArrayList<>();
             // Find the list of covered lifelines...
             Rectangle requestRect = (Rectangle) getConstraintFor(request);
@@ -114,7 +113,7 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
                                                      ctx,
                                                      requestRect,
                                                      coveredLifelines);
-        } else if (Metamodel.getMClass(Gate.class).getName().equals(ctx.getMetaclass())) {
+        } else if (Gate.class == ctx.getJavaClass()) {
             Rectangle requestRect = (Rectangle) getConstraintFor(request);
         
             return new CreateGateCommand((Interaction) getHostElement(),
@@ -122,7 +121,7 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
                                          ctx,
                                          requestRect,
                                          requestRect.getLocation().y);
-        } else if (Metamodel.getMClass(PartDecomposition.class).getName().equals(ctx.getMetaclass())) {
+        } else if (PartDecomposition.class == ctx.getJavaClass()) {
             Rectangle requestRect = (Rectangle) getConstraintFor(request);
         
             return new CreatePartDecompositionCommand((Interaction) getHostElement(),
@@ -187,25 +186,6 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
         command.setModel(childEditPart.getModel());
         command.setConstraint(placementConstraint);
         return command;
-        //        Rectangle rect = (Rectangle) constraint;
-        //        GmInteractionUse model = (GmInteractionUse) childEditPart.getModel();
-        //        InteractionUse interactionUse = model.getRelatedElement();
-        //        InteractionUsePlacementConstraint placementConstraint = (InteractionUsePlacementConstraint) ((IPlacementConstraintProvider) childEditPart).createPlacementConstraint((GmModel) childEditPart.getModel(),
-        //                                                                                                                                                                             rect.x,
-        //                                                                                                                                                                             rect.y,
-        //                                                                                                                                                                             rect.width,
-        //                                                                                                                                                                             rect.height);
-        //        int startTime = interactionUse.getLineNumber() + request.getMoveDelta().y;
-        //        int finishTime = interactionUse.getEndLineNumber() + request.getMoveDelta().y + request.getSizeDelta().height;
-        //        //        NodeChangeLayoutCommand command = new NodeChangeLayoutCommand();
-        //        //        command.setModel(childEditPart.getModel());
-        //        //        command.setConstraint(placementConstraint);
-        //        MoveResizeInteractionUseCommand command = new MoveResizeInteractionUseCommand();
-        //        command.setGmInteractionUse(model);
-        //        command.setNewConstraint(placementConstraint);
-        //        command.setStartTime(startTime);
-        //        command.setFinishTime(finishTime);
-        //        return command;
     }
 
     @objid ("d97f21c3-55b6-11e2-877f-002564c97630")

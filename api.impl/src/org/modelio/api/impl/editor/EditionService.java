@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.api.impl.editor;
 
 import java.io.File;
@@ -10,14 +31,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.api.diagram.ContributorCategory;
 import org.modelio.api.editor.EditorType;
 import org.modelio.api.editor.IEditionService;
 import org.modelio.api.editor.IExternDocumentChangeListener;
 import org.modelio.api.editor.IMDATextEditor;
+import org.modelio.api.ui.contributor.IWizardContributor;
 import org.modelio.app.core.IModelioEventService;
 import org.modelio.app.core.IModelioService;
 import org.modelio.app.core.events.ModelioEvent;
 import org.modelio.core.ui.MimeServices;
+import org.modelio.creation.wizard.dialog.CreationContributorManager;
 import org.modelio.editors.richnote.api.RichNoteCreator;
 import org.modelio.editors.richnote.api.RichNoteFormat;
 import org.modelio.editors.richnote.api.RichNoteFormatRegistry;
@@ -175,6 +199,18 @@ public class EditionService implements IEditionService {
                 return "openEditor : ExternDocument";
             }
         }, ModelioEvent.EDIT_ELEMENT, document);
+    }
+
+    @objid ("f40d704b-dcfa-4275-aa70-feb7c391cb8b")
+    @Override
+    public void registerDiagramContributor(ContributorCategory category, IWizardContributor contributor) {
+        CreationContributorManager.getInstance().addContributor(category, contributor);
+    }
+
+    @objid ("ee7ee03c-8aed-4c77-8734-918f9dea9570")
+    @Override
+    public void unregisterDiagramContributor(ContributorCategory category, IWizardContributor contributor) {
+        CreationContributorManager.getInstance().removeContributor(category, contributor);
     }
 
 }

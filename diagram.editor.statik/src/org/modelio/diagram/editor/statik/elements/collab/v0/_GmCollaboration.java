@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.collab.v0;
 
@@ -30,6 +30,7 @@ import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.diagram.editor.statik.elements.collab.CollaborationImageStyleKeys;
 import org.modelio.diagram.editor.statik.elements.collab.CollaborationSimpleStyleKeys;
 import org.modelio.diagram.editor.statik.elements.collab.CollaborationStructuredStyleKeys;
+import org.modelio.diagram.editor.statik.elements.collab.CollaborationUserImageStyleKeys;
 import org.modelio.diagram.editor.statik.elements.innerclass.GmInnerClass;
 import org.modelio.diagram.editor.statik.elements.internalstructure.GmInternalStructureGroup;
 import org.modelio.diagram.editor.statik.elements.internalstructure.GmInternalStructureZone;
@@ -38,7 +39,7 @@ import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.freezone.GmFreeZone;
 import org.modelio.diagram.elements.common.group.GmGroup;
 import org.modelio.diagram.elements.common.header.GmModelElementHeader;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmDefaultModelElementLabel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.node.IImageableNode;
@@ -121,7 +122,10 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
     private GmGroup internalStructureGroup;
 
     @objid ("a61a2015-55c2-11e2-9337-002564c97630")
-    private GmDefaultFlatHeader imageModeHeader;
+    private GmDefaultModelElementLabel imageModeHeader;
+
+    @objid ("071f06fb-6841-4902-bd8a-f203c616be08")
+    private static final CollaborationUserImageStyleKeys USERIMAGE_KEYS = new CollaborationUserImageStyleKeys();
 
     /**
      * Default constructor.
@@ -146,7 +150,7 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
         this.innerElements = new GmInnerClass(diagram, ref);
         this.innerElements.setRoleInComposition(INNER);
         
-        this.imageModeHeader = new GmDefaultFlatHeader(diagram, ref);
+        this.imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         this.imageModeHeader.setRoleInComposition(IMAGE_HEADER);
         
         super.addChild(this.header);
@@ -290,7 +294,7 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
     @objid ("346a9555-55b7-11e2-877f-002564c97630")
     @Override
     public void refreshFromObModel() {
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -345,7 +349,7 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
         this.internalStructureZone = (GmFreeZone) children.get(2);
         GmGroup innerGroup = (GmGroup) children.get(3);
         GmFreeZone innerZone = (GmFreeZone) children.get(4);
-        this.imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(5);
+        this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(5);
         
         // Migrate inner group/zone
         removeChild(innerGroup);
@@ -383,7 +387,7 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
         this.internalStructureGroup = (GmGroup) getFirstChild(INTERNAL_GROUP);
         this.internalStructureZone = (GmFreeZone) getFirstChild(INTERNAL_ZONE);
         this.innerElements = (GmInnerClass) getFirstChild(INNER);
-        this.imageModeHeader = (GmDefaultFlatHeader) getFirstChild(IMAGE_HEADER);
+        this.imageModeHeader = (GmDefaultModelElementLabel) getFirstChild(IMAGE_HEADER);
     }
 
     @objid ("346c1bdf-55b7-11e2-877f-002564c97630")

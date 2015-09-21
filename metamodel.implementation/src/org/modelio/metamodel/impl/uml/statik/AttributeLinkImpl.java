@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,24 +12,36 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.AttributeLinkData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
+import org.modelio.metamodel.impl.uml.statik.AttributeLinkData;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.AttributeLink;
 import org.modelio.metamodel.uml.statik.Instance;
@@ -41,66 +53,77 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00003354-c4bf-1fd8-97fe-001ec947cd2a")
 public class AttributeLinkImpl extends ModelElementImpl implements AttributeLink {
-    @objid ("dc344482-f8ec-46be-9f28-9607d1577858")
+    @objid ("bf6a4583-af09-4948-bd38-66626c6111ca")
     @Override
     public String getValue() {
-        return (String) getAttVal(AttributeLinkData.Metadata.ValueAtt());
+        return (String) getAttVal(((AttributeLinkSmClass)getClassOf()).getValueAtt());
     }
 
-    @objid ("4df8fb95-3a37-4644-9e54-e454f299fb6e")
+    @objid ("1c9d0b4a-86a8-45d7-9af9-a7a6e97cb3a5")
     @Override
     public void setValue(String value) {
-        setAttVal(AttributeLinkData.Metadata.ValueAtt(), value);
+        setAttVal(((AttributeLinkSmClass)getClassOf()).getValueAtt(), value);
     }
 
-    @objid ("6d8e1221-6a5e-4800-8d86-1d2f49daf0a6")
+    @objid ("6952c0ec-a62f-4e56-89c7-bd4836fd2011")
     @Override
     public Instance getAttributed() {
-        return (Instance) getDepVal(AttributeLinkData.Metadata.AttributedDep());
+        Object obj = getDepVal(((AttributeLinkSmClass)getClassOf()).getAttributedDep());
+        return (obj instanceof Instance)? (Instance)obj : null;
     }
 
-    @objid ("1596b433-cab2-4c12-8843-e2030b25a5de")
+    @objid ("f25b91b2-099a-4901-96fc-3ee04f570c30")
     @Override
     public void setAttributed(Instance value) {
-        appendDepVal(AttributeLinkData.Metadata.AttributedDep(), (SmObjectImpl)value);
+        appendDepVal(((AttributeLinkSmClass)getClassOf()).getAttributedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("50d04ca2-1fc8-43f7-a3ef-30ea7224a48a")
+    @objid ("904268a4-68a8-49f6-a68a-6e2343e650c7")
     @Override
     public Attribute getBase() {
-        return (Attribute) getDepVal(AttributeLinkData.Metadata.BaseDep());
+        Object obj = getDepVal(((AttributeLinkSmClass)getClassOf()).getBaseDep());
+        return (obj instanceof Attribute)? (Attribute)obj : null;
     }
 
-    @objid ("548c98ab-3967-4c39-8586-9b26e8b64f0e")
+    @objid ("f86ff634-423f-4ae2-b33d-374f5b2872c8")
     @Override
     public void setBase(Attribute value) {
-        appendDepVal(AttributeLinkData.Metadata.BaseDep(), (SmObjectImpl)value);
+        appendDepVal(((AttributeLinkSmClass)getClassOf()).getBaseDep(), (SmObjectImpl)value);
     }
 
-    @objid ("82968127-3c9c-4208-9403-b8bcdcdd1ab9")
+    @objid ("80106975-c7ce-42c4-a458-2d2352ebbcc2")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(AttributeLinkData.Metadata.AttributedDep());
+        // Attributed
+        obj = (SmObjectImpl)this.getDepVal(((AttributeLinkSmClass)getClassOf()).getAttributedDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("8c09a987-a9f4-479e-9b35-79b8874bf9cc")
+    @objid ("70df56b2-4d30-4c06-9a62-2c0e7585b5ac")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(AttributeLinkData.Metadata.AttributedDep());
-        if (obj != null)
-          return new SmDepVal(AttributeLinkData.Metadata.AttributedDep(), obj);
+        SmDependency dep;
+        
+        // Attributed
+        dep = ((AttributeLinkSmClass)getClassOf()).getAttributedDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("ba27189a-5eb2-428a-8502-ed8c8703d3e5")
+    @objid ("6e8cf1fb-4f04-40a3-af83-b986f72fa19a")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAttributeLink(this);

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,19 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.transmuter;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
 import org.modelio.metamodel.bpmn.activities.BpmnBusinessRuleTask;
 import org.modelio.metamodel.bpmn.activities.BpmnCallActivity;
@@ -106,7 +105,7 @@ public class TransmuterRegistry {
     public ITransmuter getTransmuter(final MObject element, final String metaclass) {
         String key = getKey(element.getMClass().getName(), metaclass);
         Class<? extends ITransmuter> transmuter = this.registry.get(key);
-        if(transmuter != null){
+        if (transmuter != null) {
             try {
                 Constructor<?> constructeur = transmuter.getConstructor(new Class[] { MObject.class, String.class });
                 return (ITransmuter) constructeur.newInstance(new Object[] { element, metaclass });
@@ -119,7 +118,7 @@ public class TransmuterRegistry {
 
     @objid ("84813209-5c05-11e2-a156-00137282c51b")
     private String getKey(final Class<? extends MObject> origine, final Class<? extends MObject> transmuted) {
-        return getKey(getMetaclassName(origine),getMetaclassName(transmuted));
+        return getKey(origine.getSimpleName(), transmuted.getSimpleName());
     }
 
     @objid ("8483944d-5c05-11e2-a156-00137282c51b")
@@ -323,7 +322,7 @@ public class TransmuterRegistry {
      */
     @objid ("84839457-5c05-11e2-a156-00137282c51b")
     public ITransmuter getTransmuter(final MObject element, final Class<? extends MObject> metaclass) {
-        return getTransmuter(element,getMetaclassName(metaclass));
+        return getTransmuter(element, metaclass.getSimpleName());
     }
 
     @objid ("84839462-5c05-11e2-a156-00137282c51b")
@@ -332,11 +331,6 @@ public class TransmuterRegistry {
         key = key.concat("_");
         key = key.concat(transmuted);
         return key;
-    }
-
-    @objid ("8483946a-5c05-11e2-a156-00137282c51b")
-    private String getMetaclassName(final Class<? extends MObject> metaclass) {
-        return Metamodel.getMClass(metaclass).getName();
     }
 
 }

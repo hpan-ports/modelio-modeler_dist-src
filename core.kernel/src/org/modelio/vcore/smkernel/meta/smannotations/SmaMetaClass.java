@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.smkernel.meta.smannotations;
 
@@ -38,6 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * @author phv
  */
 @objid ("000922c0-f99c-1f1f-85a5-001ec947cd2a")
+@Deprecated
 @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
 public @interface SmaMetaClass  {
     /**
@@ -66,7 +67,7 @@ public @interface SmaMetaClass  {
 
     /**
      * The interface implemented by all elements of this metaclass.
-     * @return
+     * @return the java interface
      */
     @objid ("00514064-eb1c-1f22-8c06-001ec947cd2a")
     Class<? extends MObject> mmClass();

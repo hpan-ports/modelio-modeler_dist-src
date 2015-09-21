@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.statik.elements.staticdiagram;
 
@@ -99,14 +99,14 @@ public class GmStaticDiagram extends GmAbstractDiagram {
     @Override
     public boolean canCreate(Class<? extends MObject> type) {
         return ((NameSpace.class.isAssignableFrom(type) && !TemplateParameter.class.isAssignableFrom(type)) ||
-                Instance.class.isAssignableFrom(type) ||
-                Constraint.class.isAssignableFrom(type) ||
-                Note.class.isAssignableFrom(type) ||
-                ProvidedInterface.class.isAssignableFrom(type) ||
-                NaryAssociation.class.isAssignableFrom(type) ||
-                AnalystElement.class.isAssignableFrom(type) ||
-                AnalystContainer.class.isAssignableFrom(type) ||
-                Behavior.class.isAssignableFrom(type) || BpmnProcess.class.isAssignableFrom(type));
+                                        Instance.class.isAssignableFrom(type) ||
+                                        Constraint.class.isAssignableFrom(type) ||
+                                        Note.class.isAssignableFrom(type) ||
+                                        ProvidedInterface.class.isAssignableFrom(type) ||
+                                        NaryAssociation.class.isAssignableFrom(type) ||
+                                        AnalystElement.class.isAssignableFrom(type) ||
+                                        AnalystContainer.class.isAssignableFrom(type) ||
+                                        Behavior.class.isAssignableFrom(type) || BpmnProcess.class.isAssignableFrom(type));
     }
 
     @objid ("36b2febd-55b7-11e2-877f-002564c97630")
@@ -114,10 +114,10 @@ public class GmStaticDiagram extends GmAbstractDiagram {
     public boolean canUnmask(MObject el) {
         // Static diagram can unmask almost anything, except for elements from state, activity and interaction
         return !(el instanceof StateVertex ||
-                el instanceof Transition ||
-                el instanceof ActivityNode ||
-                el instanceof ActivityEdge ||
-                el instanceof InteractionFragment || el instanceof Message  || el instanceof BpmnMessage);
+                                        el instanceof Transition ||
+                                        el instanceof ActivityNode ||
+                                        el instanceof ActivityEdge ||
+                                        el instanceof InteractionFragment || el instanceof Message  || el instanceof BpmnMessage);
     }
 
     @objid ("36b4853f-55b7-11e2-877f-002564c97630")

@@ -1,3 +1,24 @@
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
+ * This file is part of Modelio.
+ * 
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
+
+
 package org.modelio.model.search.engine.searchers.model;
 
 import java.util.ArrayList;
@@ -6,11 +27,10 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import com.modeliosoft.modelio.javadesigner.annotations.mdl;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.Metamodel;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.model.search.engine.ISearchCriteria;
 import org.modelio.vcore.session.api.model.IMObjectFilter;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("1a9d1962-724e-4515-8968-0963140b4b70")
 public class ModelSearchCriteria implements ISearchCriteria {
@@ -79,7 +99,7 @@ public class ModelSearchCriteria implements ISearchCriteria {
     }
 
     @objid ("f8beebe2-8966-4d67-9cde-a5d1497533a4")
-    private final List<MClass> metaclasses = new ArrayList<>();
+    private final List<Class<? extends MObject>> metaclasses = new ArrayList<>();
 
     @mdl.prop
     @objid ("9e7bea95-3871-4427-8c1e-298a2c03990f")
@@ -99,9 +119,7 @@ public class ModelSearchCriteria implements ISearchCriteria {
 
     @objid ("e69b5b62-d496-493a-8597-3524dfe50050")
     public void addMetaclass(MClass metaclass) {
-        if (metaclass != null) {
-            this.metaclasses.add(metaclass);
-        }
+        this.metaclasses.add(metaclass.getJavaInterface());
     }
 
     @objid ("460e1645-7275-4455-8bd2-83d3229b2e11")
@@ -114,7 +132,7 @@ public class ModelSearchCriteria implements ISearchCriteria {
     }
 
     @objid ("46b5f8e4-a1dc-4156-b6d9-75d7dccdcd3c")
-    public List<MClass> getMetaclasses() {
+    public List<Class<? extends MObject>> getMetaclasses() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.metaclasses;
     }
@@ -130,11 +148,8 @@ public class ModelSearchCriteria implements ISearchCriteria {
     }
 
     @objid ("070a9c97-c843-4075-adac-9b8e9eddae5e")
-    public void addMetaclass(Class<? extends Element> metaclass) {
-        final MClass mc = Metamodel.getMClass(metaclass);
-        if (mc != null) {
-            this.metaclasses.add(mc);
-        }
+    public void addMetaclass(Class<? extends MObject> metaclass) {
+        this.metaclasses.add(metaclass);
     }
 
 }

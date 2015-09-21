@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui;
 
@@ -56,7 +56,7 @@ public class EditPropertiesDialog extends ModelioDialog {
     private ISelectionChangedListener browserSelectionListener;
 
     @objid ("b0a647b4-1790-4d97-8e5c-5b5080ac916e")
-    public ModelPropertyPanelProvider propertyPanel;
+    private ModelPropertyPanelProvider propertyPanel;
 
     @objid ("c19c0510-8165-4036-b0f7-13fb445e3283")
     private final IProjectService projectService;
@@ -119,6 +119,14 @@ public class EditPropertiesDialog extends ModelioDialog {
         return shform;
     }
 
+    /**
+     * Default constructor building an instance of {@link EditPropertiesDialog}.
+     * @param projectService the project service.
+     * @param modelService the model service.
+     * @param pickingService the picking service.
+     * @param activationService the activation service.
+     * @param parentShell the parent shell, or <code>null</code> to create a top-level shell
+     */
     @objid ("bb8a8c1c-4ad4-4d4d-a559-42821fc7c82f")
     public EditPropertiesDialog(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, IActivationService activationService, Shell parentShell) {
         super(parentShell);
@@ -130,7 +138,7 @@ public class EditPropertiesDialog extends ModelioDialog {
 
     @objid ("28287d4a-6941-4896-8ddf-0c8415c7dcb9")
     public Element getEditedElement() {
-        return editedElement;
+        return this.editedElement;
     }
 
     @objid ("d244f2f1-e5fb-4437-845e-7d405b05b4c5")
@@ -141,7 +149,7 @@ public class EditPropertiesDialog extends ModelioDialog {
     @objid ("150dc9ef-37fa-43dc-a8ee-61b1de036c00")
     @Override
     public void addButtonsInButtonBar(Composite parent) {
-        // TODO Auto-generated method stub
+        // No buttons to add
     }
 
     @objid ("71bfee22-df63-4672-a7cc-4be8a23a019c")

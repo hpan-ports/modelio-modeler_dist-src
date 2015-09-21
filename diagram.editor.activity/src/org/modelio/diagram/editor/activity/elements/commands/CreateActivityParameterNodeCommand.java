@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.commands;
 
@@ -35,6 +35,7 @@ import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityParameterNode;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
 import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -81,14 +82,14 @@ public class CreateActivityParameterNodeCommand extends Command {
         // Create the node
         final ActivityParameterNode el = factory.createActivityParameterNode();
         
+        MExpert mExpert = this.parentElement.getMClass().getMetamodel().getMExpert();
         // Attach to its parent
-        final MDependency effectiveDependency = MTools.getMetaTool().getDefaultCompositionDep(this.parentElement, el);
+        final MDependency effectiveDependency = mExpert.getDefaultCompositionDep(this.parentElement, el);
         
-        if (effectiveDependency == null)
-            throw new IllegalStateException("Cannot find a composition dependency to attach " +
-                                            el.toString() +
-                                            " to " +
-                                            this.parentElement.toString());
+        if (effectiveDependency == null) {
+            throw new IllegalStateException("Cannot find a composition dependency to attach " + el.toString() + " to "
+                    + this.parentElement.toString());
+        }
         
         this.parentElement.mGet(effectiveDependency).add(el);
         
@@ -113,21 +114,20 @@ public class CreateActivityParameterNodeCommand extends Command {
         creationRequest.setSize(new Dimension(-1, -1));
         creationRequest.setFactory(gmCreationContext);
         
-        final Command cmd = this.parentEditPart.getTargetEditPart(creationRequest)
-                                               .getCommand(creationRequest);
-        if (cmd != null && cmd.canExecute())
+        final Command cmd = this.parentEditPart.getTargetEditPart(creationRequest).getCommand(creationRequest);
+        if (cmd != null && cmd.canExecute()) {
             cmd.execute();
+        }
     }
 
     @objid ("2a0bf874-55b6-11e2-877f-002564c97630")
     @Override
     public boolean canExecute() {
         final GmModel gmModel = (GmModel) this.parentEditPart.getModel();
-        if (!MTools.getAuthTool().canModify(gmModel.getDiagram().getRelatedElement()))
+        if (!MTools.getAuthTool().canModify(gmModel.getDiagram().getRelatedElement())) {
             return false;
-        return this.parentElement != null &&
-               this.parentElement.isValid() &&
-               this.parentElement.getStatus().isModifiable();
+        }
+        return this.parentElement != null && this.parentElement.isValid() && this.parentElement.getStatus().isModifiable();
     }
 
 }

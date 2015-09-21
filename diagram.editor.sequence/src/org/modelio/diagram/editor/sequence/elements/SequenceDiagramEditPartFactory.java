@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.sequence.elements;
 
@@ -52,7 +52,6 @@ import org.modelio.diagram.editor.sequence.elements.interactionuse.gate.GateOnIn
 import org.modelio.diagram.editor.sequence.elements.interactionuse.gate.GateOnInteractionUsePrimaryNodeEditPart;
 import org.modelio.diagram.editor.sequence.elements.interactionuse.gate.GmGateOnInteractionUse;
 import org.modelio.diagram.editor.sequence.elements.interactionuse.gate.GmGateOnInteractionUsePrimaryNode;
-import org.modelio.diagram.editor.sequence.elements.interactionuse.primarynode.GmInteractionUseHeader;
 import org.modelio.diagram.editor.sequence.elements.interactionuse.primarynode.GmInteractionUsePrimaryNode;
 import org.modelio.diagram.editor.sequence.elements.interactionuse.primarynode.InteractionUsePrimaryNodeEditPart;
 import org.modelio.diagram.editor.sequence.elements.lifeline.GmLifeline;
@@ -74,9 +73,8 @@ import org.modelio.diagram.editor.sequence.elements.sequencediagramview.GmSequen
 import org.modelio.diagram.editor.sequence.elements.stateinvariant.GmStateInvariant;
 import org.modelio.diagram.editor.sequence.elements.stateinvariant.GmStateInvariantBodyText;
 import org.modelio.diagram.editor.sequence.elements.stateinvariant.StateInvariantEditPart;
-import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
-import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
+import org.modelio.diagram.elements.common.label.modelelement.ModelElementLabelEditPart;
 import org.modelio.diagram.elements.common.text.GmElementTextEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.umlcommon.diagramview.DiagramViewEditPart;
@@ -211,7 +209,7 @@ public final class SequenceDiagramEditPartFactory implements EditPartFactory {
             }
             
             if (model.getClass() == GmMessageHeader.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
+                editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -240,12 +238,6 @@ public final class SequenceDiagramEditPartFactory implements EditPartFactory {
             
             if (model.getClass() == org.modelio.diagram.editor.sequence.elements.interactionuse.primarynode.GmOperatorLabel.class) {
                 editPart = new OperatorEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmInteractionUseHeader.class) {
-                editPart = new ModelElementHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.cache;
 
@@ -32,6 +32,7 @@ import org.modelio.vcore.model.MObjectCache;
 import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.ISmObjectDataCache;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Cache for already loaded objects in a modeling session.
@@ -48,10 +49,11 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
 
     /**
      * Creates a new cache.
+     * @param metamodel
      */
     @objid ("9c73fcee-354d-11e2-985b-001ec947ccaf")
-    public CacheManager() {
-        super();
+    public CacheManager(SmMetamodel metamodel) {
+        super(metamodel);
         this.deletedObjects = new ArrayList<>();
         this.dataCache = new ConcurrentHashMap<>(1000, 0.85f, 1);
         
@@ -92,8 +94,9 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
      */
     @objid ("9c73fcf1-354d-11e2-985b-001ec947ccaf")
     public void clearDeletedObjects() {
-        for (SmObjectImpl  deleted: this.deletedObjects)
+        for (SmObjectImpl  deleted: this.deletedObjects) {
             removeFromCache(deleted);
+        }
         
         this.deletedObjects.clear();
     }
@@ -107,6 +110,12 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
         return this.deletedObjects;
     }
 
+    /**
+     * Remove a model object and its {@link ISmObjectData data} from the cache.
+     * <p>
+     * <b>Note:</b> The Modelio memory model will make this call result in the object {@link ISmObjectData data} being
+     * inaccessible (because referenced by weak references) then garbaged definitively from the VM.
+     */
     @objid ("9c73fcf6-354d-11e2-985b-001ec947ccaf")
     @Override
     public void removeFromCache(SmObjectImpl obj) {
@@ -115,7 +124,7 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
     }
 
     /**
-     * Remove a deleted object.
+     * Remove an object from the deleted objects list.
      * @param obj a not deleted anymore object.
      */
     @objid ("9c73fcf7-354d-11e2-985b-001ec947ccaf")

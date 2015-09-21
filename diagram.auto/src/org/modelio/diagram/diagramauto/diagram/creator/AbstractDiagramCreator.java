@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.diagramauto.diagram.creator;
 
@@ -28,7 +28,6 @@ import org.modelio.api.modelio.Modelio;
 import org.modelio.diagram.diagramauto.plugin.DiagramAuto;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.ClassDiagram;
 import org.modelio.metamodel.diagrams.DiagramSet;
@@ -61,6 +60,12 @@ public abstract class AbstractDiagramCreator implements IDiagramCreator {
                 return null;
             }
         
+            // update diagram kind
+            String kind = diagram.getProperty("AutoDiagram", "Kind");
+            if (!getAutoDiagramName().equals(kind)) {
+                diagram.setProperty("AutoDiagram", "Kind", getAutoDiagramName());
+            }
+        
             // get the diagram handle to work with
             try (IDiagramHandle dh = Modelio.getInstance().getDiagramService().getDiagramHandle(diagram)) {
                 dh.setBatchMode(true);
@@ -91,8 +96,17 @@ public abstract class AbstractDiagramCreator implements IDiagramCreator {
         ModelElement context = getAutoDiagramContext(main);
         if (context != null) {
             for (AbstractDiagram diagram : context.getProduct()) {
-                if (diagram.getName().equals(main.getName() + " (" + getAutoDiagramName() + ")")) {
-                    return diagram;
+                if (diagram.isStereotyped("ModelerModule", "AutoDiagram")) {
+                    // Match by type property
+                    String kind = diagram.getProperty("AutoDiagram", "Kind");
+                    if (getAutoDiagramName().equals(kind)) {
+                        return diagram;
+                    }
+        
+                    // Match by name
+                    if (diagram.getName().equals(main.getName() + " (" + getAutoDiagramName() + ")")) {
+                        return diagram;
+                    }
                 }
             }
         }
@@ -132,7 +146,7 @@ public abstract class AbstractDiagramCreator implements IDiagramCreator {
             autoSet.getSub().add(autogroup);
         }
         
-        Stereotype stereotype = this.modelServices.findStereotypes("AutoDiagram", Metamodel.getMClass(ClassDiagram.class)).get(0);
+        Stereotype stereotype = this.modelServices.findStereotypes("ModelerModule", "AutoDiagram", ClassDiagram.MNAME).get(0);
         AbstractDiagram diagram = this.modelServices.getModelFactory().createClassDiagram();
         diagram.setName(main.getName() + " (" + getAutoDiagramName() + ")");
         diagram.getExtension().add(stereotype);

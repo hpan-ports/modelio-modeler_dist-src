@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,67 +12,164 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
 import org.modelio.metamodel.uml.statik.KindOfAccess;
 
+/**
+ * StructuralFeature v0.0.9054
+ * 
+ * 
+ * null
+ */
 @objid ("001ee9c0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StructuralFeature extends Feature {
-    @objid ("5c007b44-2632-4868-840b-d491586cbda1")
+    @objid ("e983ee75-1f66-4458-a77a-27c129fb7be0")
+    public static final String MNAME = "StructuralFeature";
+
+    /**
+     * Getter for attribute 'StructuralFeature.Changeable'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("0b33ced5-e4c2-4fc4-a5e0-9a8dde8ad74a")
     KindOfAccess getChangeable();
 
-    @objid ("1850534b-597b-49c6-ae32-77e0abd59a00")
+    /**
+     * Setter for attribute 'StructuralFeature.Changeable'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("315053c6-9565-4dc2-967a-91505e785b98")
     void setChangeable(KindOfAccess value);
 
-    @objid ("3883030f-481f-4b20-b8f9-1ea6062d7627")
+    /**
+     * Getter for attribute 'StructuralFeature.IsDerived'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("6bdb3f7c-7440-4495-aa16-e27135a10d8c")
     boolean isIsDerived();
 
-    @objid ("c5121bb7-edc4-4cc2-9256-c879239417eb")
+    /**
+     * Setter for attribute 'StructuralFeature.IsDerived'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("eaffa5f8-b1af-49ed-9842-dd73de052cb0")
     void setIsDerived(boolean value);
 
-    @objid ("d003601a-14c7-4c8f-b320-a80e699b56fa")
+    /**
+     * Getter for attribute 'StructuralFeature.IsOrdered'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a640b888-9cf0-4a10-8920-90222cd2e9be")
     boolean isIsOrdered();
 
-    @objid ("b2875ff3-cf0a-4bc0-adaf-f2ad7c83f911")
+    /**
+     * Setter for attribute 'StructuralFeature.IsOrdered'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("68520d9e-7ada-4c6d-8c5c-ce3b4976d14f")
     void setIsOrdered(boolean value);
 
-    @objid ("7752694c-104c-45b0-8b3f-389ae08c3376")
+    /**
+     * Getter for attribute 'StructuralFeature.IsUnique'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("29431597-4cd9-48f6-a889-77c4f792635d")
     boolean isIsUnique();
 
-    @objid ("f9c8c422-5048-4165-b45e-de020606f94b")
+    /**
+     * Setter for attribute 'StructuralFeature.IsUnique'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("2e556bbf-049a-4391-a019-ee21d9968f8d")
     void setIsUnique(boolean value);
 
-    @objid ("9858277e-9b8a-4651-860f-74dcbcb6ea25")
+    /**
+     * Getter for attribute 'StructuralFeature.MultiplicityMin'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("39c97d20-3438-408b-b401-52b1cbb1c06d")
     String getMultiplicityMin();
 
-    @objid ("716c7f44-fed0-4ddd-92e0-33e2a5d0083e")
+    /**
+     * Setter for attribute 'StructuralFeature.MultiplicityMin'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("63eefac5-ab12-4181-9585-69b0b600a787")
     void setMultiplicityMin(String value);
 
-    @objid ("1c68101a-1822-45dc-a125-1008ddca4b63")
+    /**
+     * Getter for attribute 'StructuralFeature.MultiplicityMax'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("cc82705d-a7ea-4c61-9146-9db7e700eaf7")
     String getMultiplicityMax();
 
-    @objid ("e7a000d6-b84a-4824-a50c-1228bc253f0e")
+    /**
+     * Setter for attribute 'StructuralFeature.MultiplicityMax'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("1417505f-997f-4f04-8c47-bf296cacc705")
     void setMultiplicityMax(String value);
 
-    @objid ("530eb615-34fd-4c19-b338-6ded862cf9cd")
+    /**
+     * Getter for relation 'StructuralFeature->RealizedInformationFlow'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f028403a-5944-439c-b980-f004da5c1c91")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("519c8b26-5b39-4635-8cc4-2ab376b44470")
+    /**
+     * Filtered Getter for relation 'StructuralFeature->RealizedInformationFlow'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("94e85ef9-2760-4ce2-ab7c-487093e9ae82")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
 }

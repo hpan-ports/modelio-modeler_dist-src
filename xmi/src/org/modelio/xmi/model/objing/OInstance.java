@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -52,24 +52,21 @@ import org.modelio.xmi.util.XMILogs;
  */
 @objid ("b23f9e0a-4246-4328-ab70-4ac3244dfc0d")
 public class OInstance extends OModelElement {
-    @objid ("4b9ac946-ccbf-4564-a3f0-5edaa89fa44e")
-    private Instance objingElement = null;
-
     @objid ("f5eecbd6-9526-474f-b0bf-fbc49609e25c")
     private MObject root = null;
 
     @objid ("e8538978-5a72-4e7d-87a0-6aee43ed02c0")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (! (this.objingElement instanceof BindableInstance)){
-            if (this.objingElement.getCompositionOwner() instanceof Package)
+        if (! (getObjingElement() instanceof BindableInstance)){
+            if (getObjingElement().getCompositionOwner() instanceof Package)
                 return UMLFactory.eINSTANCE.createInstanceSpecification();
         
             if (this.root instanceof Instance){
                 return UMLFactory.eINSTANCE.createSlot();
             }
         
-            Property part =  UMLFactory.eINSTANCE.createProperty();        
+            Property part =  UMLFactory.eINSTANCE.createProperty();
             part.setIsComposite(true);
             return part;
         }
@@ -82,24 +79,23 @@ public class OInstance extends OModelElement {
     @objid ("e5ed492d-d9d3-474e-8e91-43107e5e7c26")
     public OInstance(final Instance element) {
         super(element);
-        this.objingElement = element;
-        this.root = AbstractObjingModelNavigation.getBindableInstanceOwner(this.objingElement);
+        this.root = AbstractObjingModelNavigation.getBindableInstanceOwner(getObjingElement());
     }
 
     @objid ("c0f8acdb-1551-4aea-a6b4-b1a613685d4d")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         if (ecoreElt instanceof InstanceSpecification)
-            
+        
             attachInstanceSpecification((InstanceSpecification)ecoreElt);
         
-        else if (! (this.objingElement instanceof Port)){
-            
+        else if (! (getObjingElement() instanceof Port)){
+        
             if (ecoreElt instanceof org.eclipse.uml2.uml.Slot){
                 attachSlot((org.eclipse.uml2.uml.Slot)ecoreElt);
             }else if (ecoreElt instanceof Property ){
                 attachProperty((Property)ecoreElt);
-            }else 
+            }else
                 ecoreElt.destroy();
         }
     }
@@ -123,7 +119,7 @@ public class OInstance extends OModelElement {
 
     @objid ("35eca0e5-c66a-40b7-9d0f-24f327c070f5")
     private void setClassifier(InstanceSpecification ecoreElement) {
-        NameSpace objingRepresented = this.objingElement.getBase();
+        NameSpace objingRepresented = getObjingElement().getBase();
         
         if (objingRepresented != null) {
             GenerationProperties genProp = GenerationProperties.getInstance();
@@ -132,56 +128,56 @@ public class OInstance extends OModelElement {
         
             if (ecoreRepresented instanceof org.eclipse.uml2.uml.Classifier) {
                 ecoreElement.getClassifiers().add( (org.eclipse.uml2.uml.Classifier)ecoreRepresented);
-            }else if ((objingRepresented instanceof GeneralClass) 
+            }else if ((objingRepresented instanceof GeneralClass)
                     && (ModelioPrimitiveTypeMapper.isPredefinedType((GeneralClass)objingRepresented))
                     && genProp.isRoundtripEnabled()){
                 ObjingEAnnotation.setType(ecoreElement, objingRepresented.getName());
             }else{
                 XMILogs xmilogs = XMILogs.getInstance();
                 String ecoreClassName = ecoreRepresented.getClass().getSimpleName();
-                
+        
                 String message = Xmi.I18N.getMessage("logFile.warning.export.unsupportedRelation.wrongEcoreType.title", "Classifier");
-                
+        
                 String description = Xmi.I18N.getMessage("logFile.warning.export.unsupportedRelation.wrongEcoreType.description",
                         "Classifier",
-                        this.objingElement.getName(), 
+                        getObjingElement().getName(),
                         "Classifier or GeneralClass",
                         ecoreClassName.substring(0, ecoreClassName.length() - 4));
                 xmilogs.writelnInLog(message);
-                genProp.getReportModel().addWarning(message, this.objingElement, description);
+                genProp.getReportModel().addWarning(message, getObjingElement(), description);
             }
         }
     }
 
     @objid ("4640e40a-4e47-4631-b9f8-67a2e6f1ef6b")
     private void setIsConstant(org.eclipse.uml2.uml.Element ecoreElt) {
-        ObjingEAnnotation.setConstant(ecoreElt, this.objingElement.isIsConstant());
+        ObjingEAnnotation.setConstant(ecoreElt, getObjingElement().isIsConstant());
     }
 
     @objid ("af9f72e1-31da-40a9-9c14-8e915eb9f1d0")
     private void setMultiMax(org.eclipse.uml2.uml.Element ecoreElt) {
-        ObjingEAnnotation.setMultiMax(ecoreElt, this.objingElement.getMultiplicityMax());
+        ObjingEAnnotation.setMultiMax(ecoreElt, getObjingElement().getMultiplicityMax());
     }
 
     @objid ("db55ab50-6ed1-4df9-bd75-b63210303541")
     private void setValue(org.eclipse.uml2.uml.Element ecoreElt) {
-        String value = this.objingElement.getValue();
+        String value = getObjingElement().getValue();
         if ((value != null ) && (!value.equals(""))){
-            NameSpace base  = this.objingElement.getBase();
+            NameSpace base  = getObjingElement().getBase();
             if (ecoreElt instanceof InstanceSpecification){
                 InstanceSpecification spec = (InstanceSpecification) ecoreElt;
-                addValueSpecification(base, this.objingElement.getValue(), spec);
+                addValueSpecification(base, getObjingElement().getValue(), spec);
             }else
-                ObjingEAnnotation.setValue(ecoreElt, this.objingElement.getValue());
+                ObjingEAnnotation.setValue(ecoreElt, getObjingElement().getValue());
         }
     }
 
     @objid ("0c0580b2-a91c-4ee7-bfcf-82e257cd1405")
     private void addValueSpecification(final NameSpace objType, Object value, final InstanceSpecification spec) {
-        if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
+        if (AbstractObjingModelNavigation.haveInstanceValue(getObjingElement())){
             InstanceValue instValue = UMLFactory.eINSTANCE.createInstanceValue();
             InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                    AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
+                    AbstractObjingModelNavigation.getInstanceValue(getObjingElement()));
             instValue.setInstance(inst);
             spec.setSpecification(instValue);
         }else {
@@ -192,7 +188,7 @@ public class OInstance extends OModelElement {
                 if (temp instanceof org.eclipse.uml2.uml.Type)
                     type =  (org.eclipse.uml2.uml.Type) temp;
             }
-                
+        
             if ((objType != null) && (type != null)){
                  org.eclipse.uml2.uml.ValueSpecification result = null;
         
@@ -214,14 +210,14 @@ public class OInstance extends OModelElement {
                         XMILogs logs = XMILogs.getInstance();
                         String contextualMsg = Xmi.I18N.getMessage(
                                 "logFile.exception.stringConverter.defaultValue",
-                                this.objingElement.getName(),
+                                getObjingElement().getName(),
                                 "AttributeLink" );
         
                         String message = Xmi.I18N.getMessage("logFile.exception.stringConverter.defaultMsg",
                                 "String", "\"" + value + "\"",
                                 "Integer", contextualMsg);
                         logs.writelnInLog(message);
-                        GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement,  message);
+                        GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement(),  message);
         
                     }
         
@@ -249,7 +245,7 @@ public class OInstance extends OModelElement {
                         XMILogs logs = XMILogs.getInstance();
                         String contextualMsg = Xmi.I18N.getMessage(
                                 "logFile.exception.stringConverter.defaultValue",
-                                this.objingElement.getName(),
+                                getObjingElement().getName(),
                                 "AttributeLink" );
         
                         String message = Xmi.I18N.getMessage(
@@ -257,7 +253,7 @@ public class OInstance extends OModelElement {
                                 "String", "\"" + value + "\"",
                                 "Boolean", contextualMsg);
                         logs.writelnInLog(message);
-                        GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement,  message);
+                        GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement(),  message);
                     }
                 }
         
@@ -282,12 +278,12 @@ public class OInstance extends OModelElement {
 
     @objid ("4ed60b23-73d9-48b4-ae90-67e159ac2cb7")
     private void setMultiMin(org.eclipse.uml2.uml.Element ecoreElt) {
-        ObjingEAnnotation.setMultiMin(ecoreElt, this.objingElement.getMultiplicityMin());
+        ObjingEAnnotation.setMultiMin(ecoreElt, getObjingElement().getMultiplicityMin());
     }
 
     @objid ("e3e762ab-7139-49c0-b509-82c75f09f552")
     private void attachProperty(Property ecoreElt) {
-        MObject objOwner = this.objingElement.getCompositionOwner();
+        MObject objOwner = getObjingElement().getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = null;
         
         if (objOwner instanceof BindableInstance){
@@ -296,7 +292,7 @@ public class OInstance extends OModelElement {
         
         ecoreOwner = GenerationProperties.getInstance().getMappedElement(this.root);
         
-        if (ecoreOwner instanceof org.eclipse.uml2.uml.StructuredClassifier)    
+        if (ecoreOwner instanceof org.eclipse.uml2.uml.StructuredClassifier)
             ((org.eclipse.uml2.uml.StructuredClassifier)ecoreOwner).getOwnedAttributes().add(ecoreElt);
         else if (ecoreOwner instanceof  org.eclipse.uml2.uml.Collaboration)
             ( (org.eclipse.uml2.uml.Collaboration)ecoreOwner).getCollaborationRoles().add(ecoreElt);
@@ -311,7 +307,7 @@ public class OInstance extends OModelElement {
 
     @objid ("c823fb66-7c49-4c76-9402-d1f50c8b9329")
     private void attachSlot(org.eclipse.uml2.uml.Slot ecoreElt) {
-        MObject objingOwner = this.objingElement.getCompositionOwner();
+        MObject objingOwner = getObjingElement().getCompositionOwner();
         
         if (objingOwner instanceof BindableInstance){
             setOwnerEAnnotation(ecoreElt, objingOwner);
@@ -320,7 +316,7 @@ public class OInstance extends OModelElement {
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
-            if (ecoreOwner instanceof InstanceSpecification) {    
+            if (ecoreOwner instanceof InstanceSpecification) {
                 ((InstanceSpecification) ecoreOwner).getSlots().add(ecoreElt);
             }else{
                 ecoreElt.destroy();
@@ -329,11 +325,11 @@ public class OInstance extends OModelElement {
                         "logFile.exception.stringConverter.haveNotOwner",
                         ecoreElt.getClass().toString());
                 logs.writelnInLog(message);
-                GenerationProperties.getInstance().getReportModel().addWarning(message, this.objingElement);
+                GenerationProperties.getInstance().getReportModel().addWarning(message, getObjingElement());
             }
         
         
-            if (( GenerationProperties.getInstance().isRoundtripEnabled()) && (!(this.objingElement instanceof Port)))
+            if (( GenerationProperties.getInstance().isRoundtripEnabled()) && (!(getObjingElement() instanceof Port)))
                 ObjingEAnnotation.setBindableInstance(ecoreElt, true);
         }
     }
@@ -342,7 +338,7 @@ public class OInstance extends OModelElement {
     private void attachInstanceSpecification(InstanceSpecification ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        MObject objingOwner = this.objingElement.getCompositionOwner();
+        MObject objingOwner = getObjingElement().getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
@@ -362,12 +358,12 @@ public class OInstance extends OModelElement {
                     XMILogs logs = XMILogs.getInstance();
                     String message = Xmi.I18N.getMessage(
                             "logFile.warning.ownerChange",
-                            this.objingElement.getName(),
-                            this.objingElement.getClass().getSimpleName().substring(2),
+                            getObjingElement().getName(),
+                            getObjingElement().getClass().getSimpleName().substring(2),
                             ((ModelTree) objingOwner).getName(),
                             ownerIsPkg.getName());
                     logs.writelnInLog(message);
-                    genProp.getReportModel().addWarning(message, this.objingElement);
+                    genProp.getReportModel().addWarning(message, getObjingElement());
                 }
             }else{
                 XMILogs logs = XMILogs.getInstance();
@@ -375,7 +371,7 @@ public class OInstance extends OModelElement {
                         "logFile.exception.stringConverter.haveNotOwner",
                         ecoreElt.getClass().toString());
                 logs.writelnInLog(message);
-                genProp.getReportModel().addWarning(message, this.objingElement);
+                genProp.getReportModel().addWarning(message, getObjingElement());
             }
         
         }
@@ -390,7 +386,7 @@ public class OInstance extends OModelElement {
         if (genProp.isRoundtripEnabled()){
             setIsConstant(ecoreElt);
             setMultiMax(ecoreElt);
-            setMultiMin(ecoreElt);            
+            setMultiMin(ecoreElt);
         }
         
         setValue(ecoreElt);
@@ -398,13 +394,13 @@ public class OInstance extends OModelElement {
 
     @objid ("46f5f19d-aed5-446a-8a90-2825d83a70d0")
     protected void setName(org.eclipse.uml2.uml.NamedElement ecoreElt) {
-        if (AbstractObjingModelNavigation.isNotNullOrEmpty(this.objingElement.getName()))
-            ecoreElt.setName(this.objingElement.getName());
+        if (AbstractObjingModelNavigation.isNotNullOrEmpty(getObjingElement().getName()))
+            ecoreElt.setName(getObjingElement().getName());
     }
 
     @objid ("c1ea47c7-a515-401a-880a-1824d2aa4e50")
     protected void setBase(Property ecoreElt) {
-        Element base = this.objingElement.getBase();
+        Element base = getObjingElement().getBase();
         if ( base != null) {
             org.eclipse.uml2.uml.Element type =  GenerationProperties.getInstance().getMappedElement(base);
         
@@ -412,10 +408,10 @@ public class OInstance extends OModelElement {
                 ecoreElt.setType( (org.eclipse.uml2.uml.Type)type);
             else{
                 XMILogs xmiLogs = XMILogs.getInstance();
-                String message = Xmi.I18N.getMessage("logFile.warning.unsupportedTypeExport", 
-                        this.objingElement.getName(), this.objingElement.getClass().getSimpleName());
+                String message = Xmi.I18N.getMessage("logFile.warning.unsupportedTypeExport",
+                        getObjingElement().getName(), getObjingElement().getClass().getSimpleName());
                 xmiLogs.writelnInLog(message);
-                GenerationProperties.getInstance().getReportModel().addWarning(message, this.objingElement);
+                GenerationProperties.getInstance().getReportModel().addWarning(message, getObjingElement());
             }
         
         }
@@ -423,7 +419,7 @@ public class OInstance extends OModelElement {
 
     @objid ("f63b2083-f503-44ef-bdc6-58750dc85db4")
     protected void setMin(Property ecoreProp) {
-        String objingMultMin = this.objingElement.getMultiplicityMin();
+        String objingMultMin = getObjingElement().getMultiplicityMin();
         
         // If objingMultMin is "" then we don't set a lower multiplicity for the
         // UML2 element.
@@ -434,7 +430,7 @@ public class OInstance extends OModelElement {
             else {
                 StringConverter.setFilterEnabled(true);
                 Integer min = StringConverter.getInteger(objingMultMin);
-                if (min != null){ 
+                if (min != null){
                     if (min != 1)
                         ecoreProp.setLower(min);
                 }else {
@@ -450,7 +446,7 @@ public class OInstance extends OModelElement {
                             contextualMsg);
         
                     logs.writelnInLog(message);
-                    GenerationProperties.getInstance().getReportModel().addInfo(message, this.objingElement);
+                    GenerationProperties.getInstance().getReportModel().addInfo(message, getObjingElement());
                 }
             }
         }
@@ -458,7 +454,7 @@ public class OInstance extends OModelElement {
 
     @objid ("70135b94-0fc0-4609-a64a-aa4183dc797a")
     protected void setMax(Property ecoreProp) {
-        String objingMultMax = this.objingElement.getMultiplicityMax();
+        String objingMultMax = getObjingElement().getMultiplicityMax();
         
         // If objingMultMax is "" then we don't set an upper multiplicity for
         // the UML2 element.
@@ -469,7 +465,7 @@ public class OInstance extends OModelElement {
             else {
                 StringConverter.setFilterEnabled(true);
                 Integer max = StringConverter.getInteger(objingMultMax);
-                if (max != null){ 
+                if (max != null){
                     if (max != 1)
                         ecoreProp.setUpper(max);
                 }else {
@@ -482,7 +478,7 @@ public class OInstance extends OModelElement {
                             "String", "\"" + objingMultMax + "\"", "Integer",
                             contextualMsg);
                     logs.writelnInLog(message);
-                    GenerationProperties.getInstance().getReportModel().addInfo(message, this.objingElement);
+                    GenerationProperties.getInstance().getReportModel().addInfo(message, getObjingElement());
                 }
             }
         }
@@ -490,27 +486,27 @@ public class OInstance extends OModelElement {
 
     @objid ("72fb917d-e4d8-4218-a521-7d65b7adb59e")
     protected void setEAnnotationName(org.eclipse.uml2.uml.Slot ecoreElt) {
-        ObjingEAnnotation.setName(ecoreElt, this.objingElement.getName());
+        ObjingEAnnotation.setName(ecoreElt, getObjingElement().getName());
     }
 
     @objid ("0df5bc73-6086-4e2f-821c-c4e1796f2225")
     protected void setExpressionOfValue(final Property ecoreProp) {
-        if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
+        if (AbstractObjingModelNavigation.haveInstanceValue(getObjingElement())){
             InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
             InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                    AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
+                    AbstractObjingModelNavigation.getInstanceValue(getObjingElement()));
             value.setInstance(inst);
             ecoreProp.setDefaultValue(value);
         
         }else{
-            String objingDefaultValue = this.objingElement.getValue();
-            NameSpace objingType = this.objingElement.getBase();
+            String objingDefaultValue = getObjingElement().getValue();
+            NameSpace objingType = getObjingElement().getBase();
         
             // If objingValue is "" then we don't set a default value for the UML2
-            if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
+            if (AbstractObjingModelNavigation.haveInstanceValue(getObjingElement())){
                 InstanceValue instValue = UMLFactory.eINSTANCE.createInstanceValue();
                 InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                        AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
+                        AbstractObjingModelNavigation.getInstanceValue(getObjingElement()));
                 instValue.setInstance(inst);
                 ecoreProp.setDefaultValue(instValue);
             }else {
@@ -522,7 +518,7 @@ public class OInstance extends OModelElement {
                         IUMLTypes umlTypes = Modelio.getInstance()
                                 .getModelingSession().getModel().getUmlTypes();
         
-                        if ((AbstractObjingModelNavigation.OBJING_NULL_VALUE != null) 
+                        if ((AbstractObjingModelNavigation.OBJING_NULL_VALUE != null)
                                 && (AbstractObjingModelNavigation.OBJING_NULL_VALUE.equals(objingDefaultValue.toLowerCase())))
         
                             ecoreProp.setNullDefaultValue();
@@ -538,7 +534,7 @@ public class OInstance extends OModelElement {
                                 XMILogs logs = XMILogs.getInstance();
                                 String contextualMsg = Xmi.I18N.getMessage(
                                         "logFile.exception.stringConverter.defaultValue",
-                                        this.objingElement.getName(),
+                                        getObjingElement().getName(),
                                         "Attribute" );
         
                                 String message = Xmi.I18N.getMessage(
@@ -546,7 +542,7 @@ public class OInstance extends OModelElement {
                                         "String", "\"" + objingDefaultValue + "\"",
                                         "Boolean");
                                 logs.writelnInLog(message);
-                                GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement,  message);
+                                GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement(),  message);
         
                                 org.eclipse.uml2.uml.Expression value = UMLFactory.eINSTANCE.createExpression();
                                 value.setSymbol(objingDefaultValue);
@@ -569,14 +565,14 @@ public class OInstance extends OModelElement {
                                 XMILogs logs = XMILogs.getInstance();
                                 String contextualMsg = Xmi.I18N.getMessage(
                                         "logFile.exception.stringConverter.defaultValue",
-                                        this.objingElement.getName(),
+                                        getObjingElement().getName(),
                                         "Attribute" );
         
                                 String message = Xmi.I18N.getMessage("logFile.exception.stringConverter.defaultMsg",
                                         "String", "\"" + objingDefaultValue + "\"",
                                         "Integer");
                                 logs.writelnInLog(message);
-                                GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement,  message);
+                                GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement(),  message);
         
                                 org.eclipse.uml2.uml.Expression value = UMLFactory.eINSTANCE.createExpression();
                                 value.setSymbol(objingDefaultValue);
@@ -608,10 +604,10 @@ public class OInstance extends OModelElement {
                             }else{
                                 XMILogs logs = XMILogs.getInstance();
                                 String contextualMsg = Xmi.I18N.getMessage(
-                                        "logFile.warning.wrongLiteral", objingDefaultValue,  objingType.getName());                                
+                                        "logFile.warning.wrongLiteral", objingDefaultValue,  objingType.getName());
         
                                 logs.writelnInLog(contextualMsg);
-                                GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement);
+                                GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement());
         
                                  org.eclipse.uml2.uml.OpaqueExpression value = UMLFactory.eINSTANCE.createOpaqueExpression();
                                 value.getBodies().add(objingDefaultValue);
@@ -637,18 +633,18 @@ public class OInstance extends OModelElement {
 
     @objid ("7949fbae-7031-4173-b13a-fa0017f614fc")
     protected void setValue(final org.eclipse.uml2.uml.Slot ecoreElt) {
-        if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
+        if (AbstractObjingModelNavigation.haveInstanceValue(getObjingElement())){
             InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
             InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                    AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
+                    AbstractObjingModelNavigation.getInstanceValue(getObjingElement()));
             value.setInstance(inst);
             ecoreElt.getValues().add(value);
         
         }else{
-            String value = this.objingElement.getValue();
+            String value = getObjingElement().getValue();
             if ((value != null ) && (!value.equals(""))){
-                NameSpace base  = this.objingElement.getBase();
-                setValueSpecification(base, this.objingElement.getValue(), ecoreElt);
+                NameSpace base  = getObjingElement().getBase();
+                setValueSpecification(base, getObjingElement().getValue(), ecoreElt);
             }
         }
     }
@@ -683,14 +679,14 @@ public class OInstance extends OModelElement {
                     XMILogs logs = XMILogs.getInstance();
                     String contextualMsg = Xmi.I18N.getMessage(
                             "logFile.exception.stringConverter.defaultValue",
-                            this.objingElement.getName(),
+                            getObjingElement().getName(),
                             "AttributeLink" );
         
                     String message = Xmi.I18N.getMessage("logFile.exception.stringConverter.defaultMsg",
                             "String", "\"" + value + "\"",
                             "Integer", contextualMsg);
                     logs.writelnInLog(message);
-                    GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement,  message);
+                    GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement(),  message);
         
                 }
         
@@ -718,7 +714,7 @@ public class OInstance extends OModelElement {
                     XMILogs logs = XMILogs.getInstance();
                     String contextualMsg = Xmi.I18N.getMessage(
                             "logFile.exception.stringConverter.defaultValue",
-                            this.objingElement.getName(),
+                            getObjingElement().getName(),
                             "AttributeLink");
         
                     String message = Xmi.I18N.getMessage(
@@ -726,7 +722,7 @@ public class OInstance extends OModelElement {
                             "String", "\"" + value + "\"",
                             "Boolean", contextualMsg);
                     logs.writelnInLog(message);
-                    GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, this.objingElement,  message);
+                    GenerationProperties.getInstance().getReportModel().addInfo(contextualMsg, getObjingElement(),  message);
                 }
             }
         
@@ -746,6 +742,12 @@ public class OInstance extends OModelElement {
              org.eclipse.uml2.uml.ValueSpecification result = slot.createValue(null, type, opaqueExpr.eClass());
             ((org.eclipse.uml2.uml.OpaqueExpression)result).getBodies().add(value.toString());
         }
+    }
+
+    @objid ("7b8861b0-ec79-448d-9c13-5b7654f098a8")
+    @Override
+    public Instance getObjingElement() {
+        return (Instance) super.getObjingElement();
     }
 
 }

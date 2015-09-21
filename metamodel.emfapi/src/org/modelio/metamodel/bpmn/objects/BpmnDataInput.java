@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,50 +12,115 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
 /*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.bpmn.objects;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnMultiInstanceLoopCharacteristics;
 import org.modelio.metamodel.bpmn.events.BpmnThrowEvent;
 import org.modelio.metamodel.uml.statik.Parameter;
 
+/**
+ * BpmnDataInput v0.0.9054
+ * 
+ * 
+ * Activities and Processes often required data in order to execute. In addition they may produce data during or as a result of execution. Data requirements are captured as Data Inputs
+ * DataInput elements may appear in a Process diagram to show the inputs to
+ * the Process as whole, which are passed along as the inputs of Activities by DataAssociations.
+ * 
+ * Ownership:
+ * A DtaInput is owned by a process, or by an activity.
+ */
 @objid ("00065874-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnDataInput extends BpmnItemAwareElement {
-    @objid ("215e5423-25da-42f6-bcce-f384b0cfc0a8")
+    @objid ("0fff9113-c9a1-4340-9a5f-933839daec47")
+    public static final String MNAME = "BpmnDataInput";
+
+    /**
+     * Getter for relation 'BpmnDataInput->RepresentedParameter'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("f509fe85-f6d9-47e0-95d3-40e326683c01")
     Parameter getRepresentedParameter();
 
-    @objid ("049b5f62-1b09-4e6e-800e-5ce3bec82178")
+    /**
+     * Setter for relation 'BpmnDataInput->RepresentedParameter'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("9cd5d5b3-c1d1-4391-8b39-a89b0d428220")
     void setRepresentedParameter(Parameter value);
 
-    @objid ("366cbc61-3a35-4bf5-8020-a951ded2fae0")
+    /**
+     * Getter for relation 'BpmnDataInput->OwnerLoopCharacteristics'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("26099856-5631-4671-92eb-f0931323ddb8")
     BpmnMultiInstanceLoopCharacteristics getOwnerLoopCharacteristics();
 
-    @objid ("3fa320b7-12df-4222-96b4-7c21bb59555f")
+    /**
+     * Setter for relation 'BpmnDataInput->OwnerLoopCharacteristics'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a238d8f5-fdf8-4c92-9661-ccd4f0db8708")
     void setOwnerLoopCharacteristics(BpmnMultiInstanceLoopCharacteristics value);
 
-    @objid ("0e60bbe5-bb38-468e-917c-32ffef986f09")
+    /**
+     * Getter for relation 'BpmnDataInput->OwnerActivity'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("01b1f5aa-bcb9-4d89-9df1-d5a873bec245")
     BpmnActivity getOwnerActivity();
 
-    @objid ("78401c03-4ba3-4347-b824-f92330a869c5")
+    /**
+     * Setter for relation 'BpmnDataInput->OwnerActivity'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("a09eb58d-21a8-49da-8a8b-d258b7b7d8b7")
     void setOwnerActivity(BpmnActivity value);
 
-    @objid ("339c3689-705d-4096-ad0a-689870038381")
+    /**
+     * Getter for relation 'BpmnDataInput->OwnerThrowEvent'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("0ecd49a3-3d6d-4262-9b9f-741f4bb48a2f")
     BpmnThrowEvent getOwnerThrowEvent();
 
-    @objid ("162f7318-d478-4a46-9f4a-30586d624f7a")
+    /**
+     * Setter for relation 'BpmnDataInput->OwnerThrowEvent'
+     * 
+     * Metamodel description:
+     * <i>null</i>
+     */
+    @objid ("bb413ab3-4595-4a67-aedf-a28abef4637d")
     void setOwnerThrowEvent(BpmnThrowEvent value);
 
 }

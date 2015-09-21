@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.partitioncontainer;
 
@@ -53,21 +53,22 @@ import org.modelio.diagram.editor.activity.elements.partition.PartitionEditPart;
 import org.modelio.diagram.editor.activity.elements.partition.PartitionToolKind;
 import org.modelio.diagram.elements.core.commands.DefaultReparentElementCommand;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
+import org.modelio.diagram.elements.core.helpers.RequestHelper;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy;
-import org.modelio.gproject.model.api.MTools;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MExpert;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * An EditPolicy for use with {@link PartitionContainerLayout}. This EditPolicy knows how to map an <x,y> coordinate on
- * the layout container to the appropriate index for the operation being performed. It also shows target feedback
- * consisting of an insertion line at the appropriate location.
+ * An EditPolicy for use with {@link PartitionContainerLayout}. This EditPolicy knows how to map an <x,y> coordinate on the layout
+ * container to the appropriate index for the operation being performed. It also shows target feedback consisting of an insertion
+ * line at the appropriate location.
  * 
  * 
  * @author fpoyer
@@ -89,40 +90,35 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
         // partition.
         PartitionToolKind kind = PartitionToolKind.valueOf((String) ctx.getProperties().get("kind"));
         switch (kind) {
-            case INNER:
-                // If asking to create INNER, we can be in 2 different cases:
-                // either it is requested that we actually unmask an existing
-                // partition, or that we really create 2 inner partitions.
-                if (ctx.getElementToUnmask() == null &&
-                    !getHostCompositeNode().getChildren(GmPartitionContainer.SUB_PARTITION).isEmpty()) {
-                    // We can only provide a command to "split" this container
-                    // into 2 new sub partitions if it doesn't already have sub
-                    // partitions.
-                    // Otherwise, the use of the "create sibling partition" on
-                    // one of the existing children is the way to go.
-                    return null;
-                }
-                // Controlled fall through: if the request to create an
-                // inner is accepted, then it is treated in exactly the same way
-                // as a request to create a sibling.
-                //$FALL-THROUGH$
-            case SIBLING: {
-                EditPart insertAfter = getInsertionReference(request);
-                GmNodeModel insertAfterModel = insertAfter != null ? (GmNodeModel) insertAfter.getModel()
-                        : null;
-                getHostFigure().getUpdateManager().performValidation();
-                return new CreatePartitionInPartitionContainerCommand(request,
-                                                                      getHost(),
-                                                                      ctx,
-                                                                      insertAfterModel,
-                                                                      -1);
-            }
-            case HORIZONTAL_CONTAINER:
-            case VERTICAL_CONTAINER: {
-                // Partition container creation is only processed by the diagram
-                // background.
+        case INNER:
+            // If asking to create INNER, we can be in 2 different cases:
+            // either it is requested that we actually unmask an existing
+            // partition, or that we really create 2 inner partitions.
+            if (ctx.getElementToUnmask() == null
+                    && !getHostCompositeNode().getChildren(GmPartitionContainer.SUB_PARTITION).isEmpty()) {
+                // We can only provide a command to "split" this container
+                // into 2 new sub partitions if it doesn't already have sub
+                // partitions.
+                // Otherwise, the use of the "create sibling partition" on
+                // one of the existing children is the way to go.
                 return null;
             }
+            // Controlled fall through: if the request to create an
+            // inner is accepted, then it is treated in exactly the same way
+            // as a request to create a sibling.
+            //$FALL-THROUGH$
+        case SIBLING: {
+            EditPart insertAfter = getInsertionReference(request);
+            GmNodeModel insertAfterModel = insertAfter != null ? (GmNodeModel) insertAfter.getModel() : null;
+            getHostFigure().getUpdateManager().performValidation();
+            return new CreatePartitionInPartitionContainerCommand(request, getHost(), ctx, insertAfterModel, -1);
+        }
+        case HORIZONTAL_CONTAINER:
+        case VERTICAL_CONTAINER: {
+            // Partition container creation is only processed by the diagram
+            // background.
+            return null;
+        }
         }
         return null;
     }
@@ -133,11 +129,11 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
         // if child is a 'node' it usually can be resized and/or moved
         if (child instanceof GmNodeEditPart) {
             GmNodeModel reference = null;
-            if (after != null)
+            if (after != null) {
                 reference = (GmNodeModel) after.getModel();
-            ReorderChildrenCommand command = new ReorderChildrenCommand(getHostCompositeNode(),
-                                                                        (GmNodeModel) child.getModel(),
-                                                                        reference);
+            }
+            ReorderChildrenCommand command = new ReorderChildrenCommand(getHostCompositeNode(), (GmNodeModel) child.getModel(),
+                    reference);
             return command;
         }
         return null;
@@ -147,20 +143,19 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
     @Override
     protected Command createAddCommand(EditPart child, EditPart after) {
         // First reparent, then put at the correct place.
-        // TODO: could probably be done better with a single dedicated
-        // command...
+        // TODO: could probably be done better with a single dedicated command...
         GmNodeModel reference = null;
-        if (after != null)
+        if (after != null) {
             reference = (GmNodeModel) after.getModel();
+        }
+        
+        GmNodeModel childModel = (GmNodeModel) child.getModel();
         
         CompoundCommand compound = new CompoundCommand();
-        compound.add(new DefaultReparentElementCommand(getHostElement(),
-                                                       getHostCompositeNode(),
-                                                       (GmNodeModel) child.getModel(),
-                                                       ((GmNodeModel) child.getModel()).getLayoutData()));
-        compound.add(new ReorderChildrenCommand(getHostCompositeNode(),
-                                                (GmNodeModel) child.getModel(),
-                                                reference));
+        
+        compound.add(new DefaultReparentElementCommand(getHostElement(), getHostCompositeNode(), childModel,
+                childModel.getLayoutData()));
+        compound.add(new ReorderChildrenCommand(getHostCompositeNode(), childModel, reference));
         return compound;
     }
 
@@ -169,7 +164,7 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
      */
     @objid ("2b2fb7da-55b6-11e2-877f-002564c97630")
     private GmCompositeNode getHostCompositeNode() {
-        return (GmCompositeNode) this.getHost().getModel();
+        return (GmCompositeNode) getHost().getModel();
     }
 
     /**
@@ -196,9 +191,7 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
             // return getTargetEditPart(createRequest);
             return null;
         }
-        if (REQ_ADD.equals(request.getType()) ||
-            REQ_CLONE.equals(request.getType()) ||
-            REQ_MOVE.equals(request.getType())) {
+        if (REQ_ADD.equals(request.getType()) || REQ_CLONE.equals(request.getType()) || REQ_MOVE.equals(request.getType())) {
             ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
             return getTargetEditPart(changeBoundsRequest);
         }
@@ -208,8 +201,8 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
     /**
      * Return the host edit part if this policy can handle all edit parts involved in the request.
      * @param changeBoundsRequest the request, can be CLONE or ADD.
-     * @return the host editpart if all editparts involved in the request can be handled by this policy,
-     * <code>null</code> otherwise.
+     * @return the host editpart if all editparts involved in the request can be handled by this policy, <code>null</code>
+     * otherwise.
      */
     @objid ("2b32c520-55b6-11e2-877f-002564c97630")
     private EditPart getTargetEditPart(ChangeBoundsRequest changeBoundsRequest) {
@@ -219,12 +212,15 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
             final EditPart editPart = (EditPart) editPartObj;
             if (editPart.getModel() instanceof GmModel) {
                 final GmModel gmModel = (GmModel) editPart.getModel();
+        
                 final String metaclassName = gmModel.getRepresentedRef().mc;
         
-                if (!this.canHandle(Metamodel.getMClass(metaclassName)) &&
-                    !(editPart instanceof ConnectionEditPart))
+                if (!canHandle(metaclassName) && !(editPart instanceof ConnectionEditPart)) {
                     return null;
-        
+                }
+            } else {
+                // Probably a drawing
+                return null;
             }
         }
         // This policy can handle all elements of this request: handle it!
@@ -232,19 +228,24 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
     }
 
     /**
-     * Returns whether this edit policy can handle this metaclass (either through simple or smart behavior). Default
-     * behavior is to accept any metaclass that can be child (in the CreationExpert's understanding) of the host's
-     * metaclass This method should be overridden by subclasses to add specific the behavior.
+     * Returns whether this edit policy can handle this metaclass (either through simple or smart behavior). Default behavior is to
+     * accept any metaclass that can be child (in the CreationExpert's understanding) of the host's metaclass This method should be
+     * overridden by subclasses to add specific the behavior.
      * @param metaclass the metaclass to handle.
      * @return true if this policy can handle the metaclass.
      */
     @objid ("2b32c526-55b6-11e2-877f-002564c97630")
-    protected boolean canHandle(MClass metaclass) {
+    protected boolean canHandle(String metaclass) {
         MObject hostElement = getHostElement();
         if (hostElement == null) {
             return false;
         }
-        return (MTools.getMetaTool().canCompose(hostElement, metaclass, null) && ((GmCompositeNode) getHost().getModel()).canCreate(Metamodel.getJavaInterface(metaclass)));
+        MMetamodel mm = hostElement.getMClass().getMetamodel();
+        MExpert mExpert = mm.getMExpert();
+        MClass mc = mm.getMClass(metaclass);
+        return (mc != null)
+                                        && (mExpert.canCompose(hostElement, mc, null) && ((GmCompositeNode) getHost().getModel()).canCreate(mc
+                                                .getJavaInterface()));
     }
 
     @objid ("2b32c52e-55b6-11e2-877f-002564c97630")
@@ -270,8 +271,9 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
     @objid ("2b32c537-55b6-11e2-877f-002564c97630")
     protected int getFeedbackIndexFor(Request request) {
         List<?> children = getHost().getChildren();
-        if (children.isEmpty())
+        if (children.isEmpty()) {
             return -1;
+        }
         
         Transposer transposer = new Transposer();
         transposer.setEnabled(!isHorizontal());
@@ -286,16 +288,14 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
             Rectangle rect = transposer.t(getAbsoluteBounds(((GraphicalEditPart) child)));
             if (rect.y > rowBottom) {
                 /*
-                 * We are in a new row, so if we don't have a candidate but yet
-                 * are within the previous row, then the current entry becomes
-                 * the candidate. This is because we know we must be to the
-                 * right of center of the last Figure in the previous row, so
-                 * this Figure (which is at the start of a new row) is the
-                 * candidate.
+                 * We are in a new row, so if we don't have a candidate but yet are within the previous row, then the current entry
+                 * becomes the candidate. This is because we know we must be to the right of center of the last Figure in the
+                 * previous row, so this Figure (which is at the start of a new row) is the candidate.
                  */
                 if (p.y <= rowBottom) {
-                    if (candidate == -1)
+                    if (candidate == -1) {
                         candidate = i;
+                    }
                     break;
                 }
                 // else
@@ -305,19 +305,18 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
             rowBottom = Math.max(rowBottom, rect.bottom());
             if (candidate == -1) {
                 /*
-                 * See if we have a possible candidate. It is a candidate if the
-                 * cursor is left of the center of this candidate.
+                 * See if we have a possible candidate. It is a candidate if the cursor is left of the center of this candidate.
                  */
-                if (p.x <= rect.x + (rect.width / 2))
+                if (p.x <= rect.x + (rect.width / 2)) {
                     candidate = i;
+                }
             }
             if (candidate != -1) {
                 // We have a candidate, see if the rowBottom has grown to
                 // include the mouse Y.
                 if (p.y <= rowBottom) {
                     /*
-                     * Now we have determined that the cursor.Y is above the
-                     * bottom of the current row of figures. Stop now, to
+                     * Now we have determined that the cursor.Y is above the bottom of the current row of figures. Stop now, to
                      * prevent the next row from being searched
                      */
                     break;
@@ -334,8 +333,9 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
         
         if (request.getType().equals(RequestConstants.REQ_CREATE)) {
             int i = getFeedbackIndexFor(request);
-            if (i == -1)
+            if (i == -1) {
                 return null;
+            }
             return (EditPart) children.get(i);
         }
         
@@ -344,8 +344,9 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
             List<?> selection = getHost().getViewer().getSelectedEditParts();
             do {
                 EditPart editpart = (EditPart) children.get(index);
-                if (!selection.contains(editpart))
+                if (!selection.contains(editpart)) {
                     return editpart;
+                }
             } while (++index < children.size());
         }
         return null; // Not found, add at the end.
@@ -388,21 +389,21 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
      * @see LayoutEditPolicy#showLayoutTargetFeedback(Request)
      */
     @objid ("2b32c552-55b6-11e2-877f-002564c97630")
-    @SuppressWarnings("unchecked")
     @Override
     protected void showLayoutTargetFeedback(Request request) {
         // Show nothing if we cannot issue an executable command.
         Command command = getCommand(request);
-        if (!RequestConstants.REQ_MOVE.equals(request.getType()) &&
-            (command == null || !command.canExecute()))
+        if (!RequestConstants.REQ_MOVE.equals(request.getType()) && (command == null || !command.canExecute())) {
             return;
+        }
         List<Object> partitionChildren = new ArrayList<>(getHost().getChildren());
         // Better safe than sorry: keep only the partitions!
         for (Object child : getHost().getChildren()) {
-            if (!(child instanceof PartitionEditPart))
+            if (!(child instanceof PartitionEditPart)) {
                 partitionChildren.remove(child);
+            }
         }
-        if (partitionChildren.size() == 0) {
+        if (partitionChildren.isEmpty()) {
             // if this is a request for the creation of the first INNER
             // partitions, show a line in the middle of the container.
             Polyline fb = getLineFeedback();
@@ -421,6 +422,7 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
             fb.setPoint(p2, 3);
             return;
         }
+        
         // Otherwise, show a line where the partition would be inserted.
         Polyline fb = getLineFeedback();
         Transposer transposer = new Transposer();
@@ -438,13 +440,12 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
             EditPart editPart = (EditPart) partitionChildren.get(epIndex);
             r = transposer.t(getAbsoluteBounds((GraphicalEditPart) editPart));
             Point p = transposer.t(getLocationFromRequest(request));
-            if (p.x <= r.x + (r.width / 2))
+            if (p.x <= r.x + (r.width / 2)) {
                 before = true;
-            else {
+            } else {
                 /*
-                 * We are not to the left of this Figure, so the emphasis line
-                 * needs to be to the right of the previous Figure, which must
-                 * be on the previous row.
+                 * We are not to the left of this Figure, so the emphasis line needs to be to the right of the previous Figure,
+                 * which must be on the previous row.
                  */
                 before = false;
                 epIndex--;
@@ -455,11 +456,9 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
         int x = Integer.MIN_VALUE;
         if (before) {
             /*
-             * Want the line to be halfway between the end of the previous and
-             * the beginning of this one. If at the begining of a line, then
-             * start halfway between the left edge of the parent and the
-             * beginning of the box, but no more than 5 pixels (it would be too
-             * far and be confusing otherwise).
+             * Want the line to be halfway between the end of the previous and the beginning of this one. If at the begining of a
+             * line, then start halfway between the left edge of the parent and the beginning of the box, but no more than 5 pixels
+             * (it would be too far and be confusing otherwise).
              */
             if (epIndex > 0) {
                 // Need to determine if a line break.
@@ -476,21 +475,22 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
                 // It is a line break.
                 Rectangle parentBox = transposer.t(getAbsoluteBounds((GraphicalEditPart) getHost()));
                 x = r.x - 5;
-                if (x < parentBox.x)
+                if (x < parentBox.x) {
                     x = parentBox.x + (r.x - parentBox.x) / 2;
+                }
             }
         } else {
             /*
-             * We only have before==false if we are at the end of a line, so go
-             * halfway between the right edge and the right edge of the parent,
-             * but no more than 5 pixels.
+             * We only have before==false if we are at the end of a line, so go halfway between the right edge and the right edge of
+             * the parent, but no more than 5 pixels.
              */
             Rectangle parentBox = transposer.t(getAbsoluteBounds((GraphicalEditPart) getHost()));
             int rRight = r.x + r.width;
             int pRight = parentBox.x + parentBox.width;
             x = rRight + 5;
-            if (x > pRight)
+            if (x > pRight) {
                 x = rRight + (pRight - rRight) / 2;
+            }
         }
         Point header1 = new Point(x - 10, r.y - 4);
         header1 = transposer.t(header1);
@@ -518,16 +518,17 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
         if (child instanceof GmNodeEditPart) {
             GmNodeEditPart childNode = (GmNodeEditPart) child;
             SelectionEditPolicy childPolicy = childNode.getPreferredDragRolePolicy(REQ_RESIZE);
-            if (childPolicy != null)
+            if (childPolicy != null) {
                 return childPolicy;
+            }
         }
         // default
         return new DefaultNodeResizableEditPolicy();
     }
 
     /**
-     * A translation is interpreted here as a change in order of the children. This method obtains the proper index, and
-     * then calls {@link #createMoveChildCommand(EditPart, EditPart)}.
+     * A translation is interpreted here as a change in order of the children. This method obtains the proper index, and then calls
+     * {@link #createMoveChildCommand(EditPart, EditPart)}.
      * @see LayoutEditPolicy#getMoveChildrenCommand(Request)
      */
     @objid ("2b344bc0-55b6-11e2-877f-002564c97630")
@@ -546,9 +547,9 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
     }
 
     /**
-     * Overridden to prevent sizes from becoming too small, and to prevent preferred sizes from getting lost. If the
-     * Request is a MOVE, the existing width and height are preserved. During RESIZE, the new width and height have a
-     * lower bound determined by {@link #getMinimumSizeFor(GraphicalEditPart)}.
+     * Overridden to prevent sizes from becoming too small, and to prevent preferred sizes from getting lost. If the Request is a
+     * MOVE, the existing width and height are preserved. During RESIZE, the new width and height have a lower bound determined by
+     * {@link #getMinimumSizeFor(GraphicalEditPart)}.
      * @param request the ChangeBoundsRequest.
      * @param child the child EditPart for which the constraint should be generated.
      * @return the rectangle being the desired bounds of the child.
@@ -562,30 +563,35 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
         child.getFigure().translateToRelative(rect);
         rect.translate(getLayoutContainer().getClientArea().getLocation().getNegated());
         
-        if (request.getSizeDelta().width == 0 && request.getSizeDelta().height == 0) {
+        if (request.getSizeDelta().equals(0, 0)) {
+            // It is a move
             Rectangle cons = getCurrentConstraintFor(child);
-            if (cons != null) // Bug 86473 allows for unintended use of this
+            if (cons != null) {
                 // method
                 rect.setSize(cons.width, cons.height);
-        } else { // resize
+            }
+        } else {
+            // It is a resize
             Dimension minSize = getMinimumSizeFor(child);
             if (rect.width < minSize.width) {
                 rect.width = minSize.width;
-                if (rect.x > (original.right() - minSize.width))
+                if (rect.x > (original.right() - minSize.width)) {
                     rect.x = original.right() - minSize.width;
+                }
             }
             if (rect.height < minSize.height) {
                 rect.height = minSize.height;
-                if (rect.y > (original.bottom() - minSize.height))
+                if (rect.y > (original.bottom() - minSize.height)) {
                     rect.y = original.bottom() - minSize.height;
+                }
             }
         }
         return getConstraintFor(rect);
     }
 
     /**
-     * Returns a Rectangle at the given Point with width and height of -1. Layout uses width or height equal to '-1' to
-     * mean use the figure's preferred size.
+     * Returns a Rectangle at the given Point with width and height of -1. Layout uses width or height equal to '-1' to mean use the
+     * figure's preferred size.
      * @param p the input Point
      * @return a Rectangle
      */
@@ -617,8 +623,7 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
 
     /**
      * Determines the <em>minimum</em> size that the specified child can be resized to. Called from
-     * {@link #getConstraintFor(ChangeBoundsRequest, GraphicalEditPart)}. By default, a small <code>Dimension</code> is
-     * returned.
+     * {@link #getConstraintFor(ChangeBoundsRequest, GraphicalEditPart)}. By default, a small <code>Dimension</code> is returned.
      * @param child the child
      * @return the minumum size
      */
@@ -630,8 +635,9 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
     @objid ("2b344be6-55b6-11e2-877f-002564c97630")
     @Override
     public Command getCommand(Request request) {
-        if (REQ_RESIZE_CHILDREN.equals(request.getType()))
+        if (REQ_RESIZE_CHILDREN.equals(request.getType())) {
             return getResizeChildrenCommand((ChangeBoundsRequest) request);
+        }
         // else
         return super.getCommand(request);
     }
@@ -648,17 +654,15 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
         // either the leftmost or the rightmost), in that particular case then
         // resize the container.
         CompoundCommand compound = new CompoundCommand();
-        ResizePartitionsCommand command = new ResizePartitionsCommand((GmPartitionContainer) this.getHost()
-                                                                                                 .getModel());
-        List<?> resizedEditParts = request.getEditParts();
         Map<GmNodeModel, Integer> newConstraints = new HashMap<>();
-        // int newHeight = -1;
-        for (int i = 0; i < resizedEditParts.size(); i++) {
-            GraphicalEditPart resizedChild = (GraphicalEditPart) resizedEditParts.get(i);
+        
+        for (GraphicalEditPart resizedChild : (List<GraphicalEditPart>) request.getEditParts()) {
             Dimension constraint = getConstraintFor(request, resizedChild).getSize();
+        
             newConstraints.put((GmNodeModel) resizedChild.getModel(),
-                               isHorizontal() ? Integer.valueOf(constraint.width)
-                                       : Integer.valueOf(constraint.height));
+                    isHorizontal() ? Integer.valueOf(constraint.width) : Integer.valueOf(constraint.height));
+        
+            /*
             // Get the impacted neighbour:
             GraphicalEditPart impactedNeighbour = getImpactedNeighbour(resizedChild, request);
             if (impactedNeighbour != null) {
@@ -670,8 +674,15 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
                 // resulting command to the returned command.
                 getResizeContainerCommand(request, compound);
             }
+            */
+        
+            Dimension constraintDelta = constraint.getShrinked(resizedChild.getFigure().getSize());
+            resizedChild.getFigure().translateToAbsolute(constraintDelta);
+        
+            getResizeContainerCommand(request, compound, constraintDelta);
         }
-        // command.setCommonHeight(newHeight);
+        
+        ResizePartitionsCommand command = new ResizePartitionsCommand((GmPartitionContainer) getHost().getModel());
         command.setNewConstraints(newConstraints);
         compound.add(command);
         return compound;
@@ -679,11 +690,11 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
 
     /**
      * Generates a draw2d constraint for the given <code>CreateRequest</code>. If the CreateRequest has a size,
-     * {@link #getConstraintFor(Rectangle)} is called with a Rectangle of that size and the result is returned. This is
-     * used during size-on-drop creation. Otherwise, {@link #getConstraintFor(Point)} is returned.
+     * {@link #getConstraintFor(Rectangle)} is called with a Rectangle of that size and the result is returned. This is used during
+     * size-on-drop creation. Otherwise, {@link #getConstraintFor(Point)} is returned.
      * <P>
-     * The CreateRequest's location is relative the Viewer. The location is made layout-relative before calling one of
-     * the methods mentioned above.
+     * The CreateRequest's location is relative the Viewer. The location is made layout-relative before calling one of the methods
+     * mentioned above.
      * @param request the CreateRequest
      * @return a draw2d constraint
      */
@@ -698,8 +709,9 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
         figure.translateFromParent(where);
         where.translate(getLayoutContainer().getClientArea().getLocation().getNegated());
         
-        if (size == null || size.isEmpty())
+        if (size == null || size.isEmpty()) {
             return getConstraintFor(where);
+        }
         // else
         size = size.getCopy();
         figure.translateToRelative(size);
@@ -709,56 +721,12 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
 
     @objid ("2b35d263-55b6-11e2-877f-002564c97630")
     private GraphicalEditPart getImpactedNeighbour(GraphicalEditPart resizedChild, ChangeBoundsRequest request) {
-        // Previous child is initially "null", indicating there is no neighbour
-        // on the left of first child.
-        GraphicalEditPart previousChild = null;
-        List<GraphicalEditPart> nextChildren = new ArrayList<>(getHost().getChildren()
-                                                                                         .size());
-        for (Object childObj : getHost().getChildren()) {
-            nextChildren.add((GraphicalEditPart) childObj);
+        int idx = getImpactedNeighbourIndex(resizedChild, request);
+        if (idx == -1) {
+            return null;
+        } else {
+            return (GraphicalEditPart) getHost().getChildren().get(idx);
         }
-        nextChildren.removeAll(request.getEditParts());
-        // Add "null" at the end, indicating there is no neighbour on the right
-        // of last child.
-        nextChildren.add(null);
-        
-        for (Object childObj : getHost().getChildren()) {
-            GraphicalEditPart child = (GraphicalEditPart) childObj;
-            if (child.equals(resizedChild)) {
-                // Depending on the resize direction, return either previous or
-                // next child, or null.
-                // If movement to the right, return next child
-                if (((request.getResizeDirection() & PositionConstants.EAST) != 0) ||
-                    ((request.getResizeDirection() & PositionConstants.SOUTH) != 0)) {
-                    // Watch out: first element if the nextChildren list might
-                    // be the current child, in which case just skip over it.
-                    if (child.equals(nextChildren.get(0))) {
-                        return nextChildren.get(1);
-                    }
-                    // else
-                    return nextChildren.get(0);
-                }
-                // If movement to the left, return previous child
-                if (((request.getResizeDirection() & PositionConstants.WEST) != 0) ||
-                    ((request.getResizeDirection() & PositionConstants.NORTH) != 0)) {
-                    return previousChild;
-                }
-                // else
-                return null;
-        
-            }
-            // Update the nextChildren list by removing current child (note that
-            // first element of nextChildren may NOT be current child, since we
-            // already removed all resized children from it) and add it as the
-            // previous child for next loop.
-            if (child.equals(nextChildren.get(0))) {
-                nextChildren.remove(0);
-                previousChild = child;
-            }
-        
-        }
-        // Not found, something is wrong here
-        throw new IllegalArgumentException("argument edit part is not a child of current container");
     }
 
     @objid ("2b35d268-55b6-11e2-877f-002564c97630")
@@ -779,18 +747,20 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
     }
 
     @objid ("2b35d26f-55b6-11e2-877f-002564c97630")
-    protected void getResizeContainerCommand(final ChangeBoundsRequest request, final CompoundCommand compound) {
-        ChangeBoundsRequest resizeContainerRequest = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
+    protected void getResizeContainerCommand(final ChangeBoundsRequest request, final CompoundCommand compound, Dimension constraintDelta) {
+        ChangeBoundsRequest resizeContainerRequest = RequestHelper.deepCopy(request);
+        resizeContainerRequest.setType(RequestConstants.REQ_RESIZE);
         resizeContainerRequest.setEditParts(getHost());
-        resizeContainerRequest.setLocation(request.getLocation());
-        resizeContainerRequest.setResizeDirection(request.getResizeDirection());
-        Dimension sizeDelta = request.getSizeDelta().getCopy();
+        resizeContainerRequest.getSizeDelta().setSize(constraintDelta);
+        Point moveDelta = resizeContainerRequest.getMoveDelta();
+        moveDelta.setLocation(
+                (int) Math.signum(moveDelta.x) *  Math.abs(constraintDelta.width),
+                (int) Math.signum(moveDelta.y) *  Math.abs(constraintDelta.height));
         // Only ask to be resized in the "major" axis.
-        //        if (isHorizontal())
-        //            sizeDelta.height = 0;
-        //        else
-        //            sizeDelta.width = 0;
-        resizeContainerRequest.setSizeDelta(sizeDelta);
+        // if (isHorizontal())
+        // sizeDelta.height = 0;
+        // else
+        // sizeDelta.width = 0;
         
         Command parentCommand = getHost().getCommand(resizeContainerRequest);
         compound.add(parentCommand);
@@ -798,19 +768,55 @@ public class PartitionContainerLayoutEditPolicy extends OrderedLayoutEditPolicy 
 
     @objid ("2b35d275-55b6-11e2-877f-002564c97630")
     protected void addResizedNeighbourConstraint(final ChangeBoundsRequest request, final Map<GmNodeModel, Integer> newConstraints, final GraphicalEditPart impactedNeighbour) {
-        // Resize neighbour to compensate for size change of
-        // resizedChild.
+        // Resize neighbour to compensate for size change of resizedChild.
         ChangeBoundsRequest inverseRequest = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
         inverseRequest.setEditParts(impactedNeighbour);
-        inverseRequest.setLocation(request.getLocation());
         inverseRequest.setSizeDelta(request.getSizeDelta().getNegated());
         // TODO: reverse direction?
         inverseRequest.setResizeDirection(request.getResizeDirection());
         
         Dimension neighbourConstraint = getConstraintFor(inverseRequest, impactedNeighbour).getSize();
+        
         newConstraints.put((GmNodeModel) impactedNeighbour.getModel(),
-                           isHorizontal() ? Integer.valueOf(neighbourConstraint.width)
-                                   : Integer.valueOf(neighbourConstraint.height));
+                isHorizontal() ?
+                        Integer.valueOf(neighbourConstraint.width) :
+                        Integer.valueOf(neighbourConstraint.height));
+    }
+
+    @objid ("6a594794-4552-45f3-b598-4899df6f8bed")
+    private int getImpactedNeighbourIndex(GraphicalEditPart resizedChild, ChangeBoundsRequest request) {
+        List hostChildren = getHost().getChildren();
+        
+        int childIndex = hostChildren.indexOf(resizedChild);
+        int neighbourIndex = childIndex;
+        
+        if (childIndex == -1) {
+            // Not found, something is wrong here
+            throw new IllegalArgumentException(String.format("%s is not a child of %s container",resizedChild, getHost()));
+        }
+        
+        // Depending on the resize direction, return either previous or
+        // next child, or null.
+        int resizeDir = request.getResizeDirection();
+        if ((resizeDir & (PositionConstants.EAST | PositionConstants.SOUTH)) != 0) {
+            // If movement to the right, return next child
+            neighbourIndex++;
+        }
+        if ((resizeDir & (PositionConstants.WEST | PositionConstants.NORTH)) != 0) {
+            // If movement to the left, return previous child
+            neighbourIndex--;
+        }
+        
+        // case for both directions:
+        if (neighbourIndex == childIndex) {
+            neighbourIndex++;
+        }
+        
+        if (neighbourIndex < 0 || neighbourIndex >= hostChildren.size()) {
+            return -1;
+        } else {
+            return neighbourIndex;
+        }
     }
 
 }

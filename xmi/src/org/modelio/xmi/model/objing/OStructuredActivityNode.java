@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -28,10 +28,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 
 @objid ("2388b0d9-4df1-48fc-a15c-b82ecd8c97f8")
-public class OStructuredActivityNode extends OActivityNode implements IOElement {
-    @objid ("3549cfa7-e79c-4257-8e51-6ccc40c50f5c")
-    private StructuredActivityNode objingElement;
-
+public class OStructuredActivityNode extends OActivityNode {
     @objid ("967f38c3-031f-4eba-b1a7-b1c60d07784f")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         if (((ModelElement)getObjingElement()).isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2SEQUENCENODE))
@@ -43,7 +40,6 @@ public class OStructuredActivityNode extends OActivityNode implements IOElement 
     @objid ("e11526d0-f90f-40cf-b529-2d26f1212ad7")
     public OStructuredActivityNode(StructuredActivityNode element) {
         super(element);
-        objingElement = element;
     }
 
     @objid ("8837d912-4356-49e5-834a-6e85a4a80e98")
@@ -59,7 +55,13 @@ public class OStructuredActivityNode extends OActivityNode implements IOElement 
 
     @objid ("f6d1fb15-a574-4d7e-97c3-11f718df0859")
     private void setMustIsolate(org.eclipse.uml2.uml.StructuredActivityNode node) {
-        node.setMustIsolate(objingElement.isMustIsolate());
+        node.setMustIsolate(getObjingElement().isMustIsolate());
+    }
+
+    @objid ("69148909-c984-440a-92f5-53378aa46f6e")
+    @Override
+    public StructuredActivityNode getObjingElement() {
+        return (StructuredActivityNode) super.getObjingElement();
     }
 
 }

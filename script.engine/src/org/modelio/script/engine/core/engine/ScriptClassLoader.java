@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.script.engine.core.engine;
 
@@ -132,27 +132,20 @@ public class ScriptClassLoader extends URLClassLoader {
     @objid ("0076dcfc-bf95-1069-96f6-001ec947cd2a")
     @Override
     protected Class<? extends Object> findClass(String name) throws ClassNotFoundException {
-        try {
-            // Jython seems to look for non existing classes a lot, this optimization (hack?) should make execution a lot faster... 
-            if (name.endsWith("__path__")) {
-                throw new ClassNotFoundException(name);
-            }
-            
-            for (ClassLoader parent : this.parents) {
-                try {
-                    return parent.loadClass(name);
-                } catch (ClassNotFoundException e) {
-                    // nothing: search next
-                }
-            }
-            return super.findClass(name);
-        } catch (Exception e) {
-            ScriptEnginePlugin.LOG.debug(e.getClass().getSimpleName() + " while looking for a class. classpath=");
-            for (URL url : getURLs()) {
-                ScriptEnginePlugin.LOG.debug(" - " + url.toString());
-            }
-            throw e;
+        // Jython seems to look for non existing classes a lot, this optimization (hack?) should make execution a lot faster...
+        // examples : "java.lang.__path__" , "org.modelio.api.modelio.__path__"
+        if (name.endsWith("__path__")) {
+            throw new ClassNotFoundException(name);
         }
+        
+        for (ClassLoader parent : this.parents) {
+            try {
+                return parent.loadClass(name);
+            } catch (ClassNotFoundException e) {
+                // nothing: search next
+            }
+        }
+        return super.findClass(name);
     }
 
     @objid ("03b33fe6-0d6f-11e2-a9b2-001ec947ccaf")
@@ -173,7 +166,7 @@ public class ScriptClassLoader extends URLClassLoader {
             public void run() {
                 IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(CLASSLOADERS_EXTENSION_ID);
                 for (IConfigurationElement elt : config) {
-                    if (elt.getName().equals(JYTHONAPIPROVIDER)) { 
+                    if (elt.getName().equals(JYTHONAPIPROVIDER)) {
                         try {
                             Object provider = elt.createExecutableExtension(CLASSLOADERPROVIDER);
                             if (provider instanceof IClassLoaderProvider) {

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -33,9 +33,6 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("810daf79-5f94-4121-9b33-a585296e1dd9")
 public class OInterruptibleActivityRegion extends OElement implements IOElement {
-    @objid ("d146aa07-32d0-44cd-97ff-4dbd9104f97d")
-    private InterruptibleActivityRegion objingElement = null;
-
     @objid ("79742d82-b22d-4d3d-a2fc-ed124577b854")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createInterruptibleActivityRegion();
@@ -44,14 +41,13 @@ public class OInterruptibleActivityRegion extends OElement implements IOElement 
     @objid ("f6d07530-e479-400d-b821-c62a2e249879")
     public OInterruptibleActivityRegion(InterruptibleActivityRegion element) {
         super(element);
-        objingElement = element;
     }
 
     @objid ("fe82fb20-7d90-4c18-9c50-2a6463c945a2")
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        MObject objingOwner = this.objingElement.getCompositionOwner();
+        MObject objingOwner = getObjingElement().getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
-                
+        
         if (ecoreOwner != null && objingOwner instanceof Activity)
             attachToActivity(ecoreElt, ecoreOwner);
     }
@@ -76,7 +72,7 @@ public class OInterruptibleActivityRegion extends OElement implements IOElement 
 
     @objid ("1d547986-144d-48fe-aa22-ff9a2fd5c66a")
     private void setInterrupts(org.eclipse.uml2.uml.InterruptibleActivityRegion region) {
-        for (ActivityEdge objingEdge : objingElement.getInterruptingEdge()) {
+        for (ActivityEdge objingEdge : getObjingElement().getInterruptingEdge()) {
             org.eclipse.uml2.uml.Element ecoreEdge = GenerationProperties.getInstance().getMappedElement(objingEdge);
             if (ecoreEdge instanceof  org.eclipse.uml2.uml.ActivityEdge) {
                 region.getInterruptingEdges().add((org.eclipse.uml2.uml.ActivityEdge)ecoreEdge);
@@ -86,7 +82,13 @@ public class OInterruptibleActivityRegion extends OElement implements IOElement 
 
     @objid ("f14cc6ac-90a3-47c7-adc5-71168b05e9e7")
     private void setName(org.eclipse.uml2.uml.InterruptibleActivityRegion region) {
-        ObjingEAnnotation.setName(region, objingElement.getName());
+        ObjingEAnnotation.setName(region, getObjingElement().getName());
+    }
+
+    @objid ("ed984f32-228f-42a9-9170-e00a3ac31d79")
+    @Override
+    public InterruptibleActivityRegion getObjingElement() {
+        return (InterruptibleActivityRegion) super.getObjingElement();
     }
 
 }

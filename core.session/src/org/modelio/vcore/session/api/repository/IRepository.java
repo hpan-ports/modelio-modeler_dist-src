@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.api.repository;
 
@@ -45,12 +45,17 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 @objid ("0039a4b8-eb1c-1f22-8c06-001ec947cd2a")
 public interface IRepository {
     /**
-     * Close the repository.
+     * Add a fresh new object to this repository.
      * <p>
-     * All objects owned by the repository are then invalid and should not be used anymore.
+     * The object is guaranteed to be new in the whole world/universe.
+     * <p>
+     * Should have a behavior similar to {@link #addObject(SmObjectImpl)}.
+     * Many implementations should simply call {@link #addObject(SmObjectImpl)}.
+     * @see #addObject(SmObjectImpl)
+     * @param newObject the fresh new object to add.
      */
-    @objid ("00755da0-fd1a-1f27-a7da-001ec947cd2a")
-    void close();
+    @objid ("272e52df-73d4-4c28-ba91-1426dea16c9c")
+    void addCreatedObject(final SmObjectImpl newObject);
 
     /**
      * Add an object to this repository.
@@ -64,6 +69,14 @@ public interface IRepository {
      */
     @objid ("00409bc4-eb1c-1f22-8c06-001ec947cd2a")
     void addObject(final SmObjectImpl newObject);
+
+    /**
+     * Close the repository.
+     * <p>
+     * All objects owned by the repository are then invalid and should not be used anymore.
+     */
+    @objid ("00755da0-fd1a-1f27-a7da-001ec947cd2a")
+    void close();
 
     /**
      * Find model objects by attribute.
@@ -95,6 +108,13 @@ public interface IRepository {
     SmObjectImpl findById(final SmClass cls, final UUID siteIdentifier);
 
     /**
+     * Get an access to all the objects already loaded by the repository.
+     * @return all the repository content.
+     */
+    @objid ("75438db1-0884-11e2-b33c-001ec947ccaf")
+    Collection<SmObjectImpl> getAllLoadedObjects();
+
+    /**
      * Get an access to all the objects stored in the repository.
      * @return all the repository content.
      */
@@ -102,11 +122,14 @@ public interface IRepository {
     Iterable<SmObjectImpl> getAllObjects();
 
     /**
-     * Get an access to all the objects already loaded by the repository.
-     * @return all the repository content.
+     * Get the helper used to handle error reporting.
+     * <p>
+     * This support is used to add/remove error handlers and to fire them
+     * when a storage error occurs.
+     * @return the error support.
      */
-    @objid ("75438db1-0884-11e2-b33c-001ec947ccaf")
-    Collection<SmObjectImpl> getAllLoadedObjects();
+    @objid ("0d225406-d66d-11e1-adbb-001ec947ccaf")
+    StorageErrorSupport getErrorSupport();
 
     /**
      * @return the repository live id.
@@ -122,6 +145,13 @@ public interface IRepository {
      */
     @objid ("00752182-fd1a-1f27-a7da-001ec947cd2a")
     void init(final byte rid);
+
+    /**
+     * Tells whether the repository needs to be saved.
+     * @return <code>true</code> if the repository needs to be saved, <code>false</code> if no element was modified.
+     */
+    @objid ("effa34c2-f802-4b49-82a4-30854f48355c")
+    boolean isDirty();
 
     /**
      * @return <code>true</code> if the repository is open.
@@ -172,40 +202,6 @@ public interface IRepository {
     void open(final IModelLoaderProvider modelLoader, IModelioProgress monitor) throws IOException;
 
     /**
-     * Save the repository.
-     * @param monitor a progress monitor
-     * @throws java.io.IOException in case of failure
-     */
-    @objid ("0040a98e-eb1c-1f22-8c06-001ec947cd2a")
-    void save(IModelioProgress monitor) throws IOException;
-
-    /**
-     * Get the helper used to handle error reporting.
-     * <p>
-     * This support is used to add/remove error handlers and to fire them
-     * when a storage error occurs.
-     * @return the error support.
-     */
-    @objid ("0d225406-d66d-11e1-adbb-001ec947ccaf")
-    StorageErrorSupport getErrorSupport();
-
-    /**
-     * Tells whether the repository needs to be saved.
-     * @return <code>true</code> if the repository needs to be saved, <code>false</code> if no element was modified.
-     */
-    @objid ("effa34c2-f802-4b49-82a4-30854f48355c")
-    boolean isDirty();
-
-    /**
-     * Write a blob.
-     * @param info the blob informations. The main field is the blob key.
-     * @return a stream to write the blob content to.
-     * @throws java.io.IOException in case of copy failure.
-     */
-    @objid ("505c5af9-17bf-4568-9463-50ae89e03385")
-    OutputStream writeBlob(IBlobInfo info) throws IOException;
-
-    /**
      * Read a blob
      * <p>
      * Returns <code>null</code> if there is no blob with such key.
@@ -215,6 +211,17 @@ public interface IRepository {
      */
     @objid ("9825e3f6-0f4f-47d3-9067-acd01885cb75")
     InputStream readBlob(String key) throws IOException;
+
+    /**
+     * Read a blob informations.
+     * <p>
+     * Returns <code>null</code> if there is no blob with such key.
+     * @param key a blob key
+     * @return the blob informations or <code>null</code>.
+     * @throws java.io.IOException in case of I/O error
+     */
+    @objid ("a86ac8a0-f22f-42ce-aec4-70cc8b200d2d")
+    IBlobInfo readBlobInfo(String key) throws IOException;
 
     /**
      * Remove a blob from the repository.
@@ -228,14 +235,20 @@ public interface IRepository {
     void removeBlob(String key) throws IOException;
 
     /**
-     * Read a blob informations.
-     * <p>
-     * Returns <code>null</code> if there is no blob with such key.
-     * @param key a blob key
-     * @return the blob informations or <code>null</code>.
-     * @throws java.io.IOException in case of I/O error
+     * Save the repository.
+     * @param monitor a progress monitor
+     * @throws java.io.IOException in case of failure
      */
-    @objid ("a86ac8a0-f22f-42ce-aec4-70cc8b200d2d")
-    IBlobInfo readBlobInfo(String key) throws IOException;
+    @objid ("0040a98e-eb1c-1f22-8c06-001ec947cd2a")
+    void save(IModelioProgress monitor) throws IOException;
+
+    /**
+     * Write a blob.
+     * @param info the blob informations. The main field is the blob key.
+     * @return a stream to write the blob content to.
+     * @throws java.io.IOException in case of copy failure.
+     */
+    @objid ("505c5af9-17bf-4568-9463-50ae89e03385")
+    OutputStream writeBlob(IBlobInfo info) throws IOException;
 
 }

@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.context;
 
@@ -55,9 +55,17 @@ import org.osgi.framework.Bundle;
 
 /**
  * Abstract class used to fill a dynamic element creation menu from an XML configuration file.
- * <p>Relies on the {@link AboutToShow} injection annotation from Eclipse 4.3 to show {@link MHandledMenuItem} when an element is selected.</p>
- * <p>{@link #getBundle()} and {@link #getI18nBundle()} methods must be redefined by extending classes.</p>
- * <p>{@link #getCreatePopupXmlFile()} can be redefined to specify a different XML configuration file. Default location is <b>bundle/res/diagram-create-popups.xml<b/></p>
+ * <p>
+ * Relies on the {@link AboutToShow} injection annotation from Eclipse 4.3 to show {@link MHandledMenuItem} when an element is
+ * selected.
+ * </p>
+ * <p>
+ * {@link #getBundle()} and {@link #getI18nBundle()} methods must be redefined by extending classes.
+ * </p>
+ * <p>
+ * {@link #getCreatePopupXmlFile()} can be redefined to specify a different XML configuration file. Default location is
+ * <b>bundle/res/diagram-create-popups.xml<b/>
+ * </p>
  */
 @objid ("768ee972-0927-4756-8e70-8a144f934e1b")
 public abstract class AbstractCreationPopupProvider {
@@ -67,16 +75,18 @@ public abstract class AbstractCreationPopupProvider {
 
     /**
      * A map containing all valid creation popup configurations according to the selected metaclass.
-     * <p>N.B. storing MMenuElement instead of CreationPopupEntryDescriptor might seem like a good idea, but
-     * they can't be displayed anymore after the first popup show... Something in the platform is probably disposed,
-     * making a new instantiation mandatory.</p>.
+     * <p>
+     * N.B. storing MMenuElement instead of CreationPopupEntryDescriptor might seem like a good idea, but they can't be displayed
+     * anymore after the first popup show... Something in the platform is probably disposed, making a new instantiation mandatory.
+     * </p>
+     * .
      */
     @objid ("ee5518d5-91cb-451f-923e-78230faf7ce8")
-    private Map<MClass, List<CreationPopupEntryDescriptor>> popupEntries = null;
+    private Map<String, List<CreationPopupEntryDescriptor>> popupEntries = null;
 
     /**
-     * A local MCommand cache, to minimize navigation in the e4 model.
-     * Most of the time, creation popup entries use "org.modelio.app.ui.command.create.element".
+     * A local MCommand cache, to minimize navigation in the e4 model. Most of the time, creation popup entries use
+     * "org.modelio.app.ui.command.create.element".
      */
     @objid ("b073cb7c-ade6-43d1-8846-87fd7ad637d0")
     private Map<String, MCommand> commandCache = new HashMap<>();
@@ -105,8 +115,7 @@ public abstract class AbstractCreationPopupProvider {
     }
 
     /**
-     * Fills a dynamic creation menu with selection-compatible contributions before display.
-     * <br/>
+     * Fills a dynamic creation menu with selection-compatible contributions before display. <br/>
      * Called by the rcp platform through injection.
      * @param items the item list to fill.
      */
@@ -120,7 +129,7 @@ public abstract class AbstractCreationPopupProvider {
         
         // Add the creation menu with selection-compatible commands
         List<CreationPopupEntryDescriptor> entries = getPopupEntries(getSelectedElement());
-        if (entries.size() > 0) {
+        if (! entries.isEmpty()) {
             // create a new handled item
             MMenu elementCreationMenu = MMenuFactory.INSTANCE.createMenu();
             elementCreationMenu.setLabel(getMenuLabel());
@@ -131,15 +140,15 @@ public abstract class AbstractCreationPopupProvider {
             elementCreationMenu.setToBeRendered(true);
             elementCreationMenu.setVisible(true);
         
-            // bound the menu to the contributing plugin 
+            // bound the menu to the contributing plugin
             elementCreationMenu.setContributorURI(getContributorId(getBundle()));
         
             // add creation items
             elementCreationMenu.getChildren().addAll(createMenuItems(entries));
-            
-            // bind the new menu to the popup 
+        
+            // bind the new menu to the popup
             items.add(elementCreationMenu);
-            
+        
             // Add a separator
             MMenuSeparator separator = MMenuFactory.INSTANCE.createMenuSeparator();
             items.add(separator);
@@ -158,8 +167,10 @@ public abstract class AbstractCreationPopupProvider {
      */
     @objid ("35396dea-7520-42f8-849d-d2f3aa58f2f5")
     protected MObject getSelectedElement() {
-        // Get the active selection from the application, to avoid context-related issues when opening the same diagram several times...
-        IStructuredSelection selection = (IStructuredSelection) this.application.getContext().get(IServiceConstants.ACTIVE_SELECTION);
+        // Get the active selection from the application, to avoid context-related issues when opening the same diagram several
+        // times...
+        IStructuredSelection selection = (IStructuredSelection) this.application.getContext().get(
+                IServiceConstants.ACTIVE_SELECTION);
         if (selection.size() != 1) {
             return null;
         }
@@ -198,14 +209,26 @@ public abstract class AbstractCreationPopupProvider {
 
     @objid ("85b9d5b8-498c-4fb3-9d89-d1fb14b0fdac")
     private List<CreationPopupEntryDescriptor> getPopupEntries(MObject obj) {
-        MClass sourceMetaclass = obj != null ? obj.getMClass() : null;
-        
-        List<CreationPopupEntryDescriptor> validCommands = this.popupEntries.get(sourceMetaclass);
-        if (validCommands == null) {
+        if (obj == null) {
             return Collections.emptyList();
-        } else {
-            return validCommands;
         }
+        
+        MClass mclass = obj.getMClass();
+        
+        List<CreationPopupEntryDescriptor> validCommands = new ArrayList<>();
+        
+        // Find commands with short metaclass name
+        List<CreationPopupEntryDescriptor> cmds = this.popupEntries.get(mclass.getName());
+        if (cmds != null) {
+            validCommands.addAll(cmds);
+        }
+        
+        // Find commands with qualified metaclass name
+        cmds = this.popupEntries.get(mclass.getQualifiedName());
+        if (cmds != null) {
+            validCommands.addAll(cmds);
+        }
+        return validCommands;
     }
 
     /**
@@ -267,7 +290,7 @@ public abstract class AbstractCreationPopupProvider {
         item.setToBeRendered(true);
         item.setVisible(true);
         
-        // bound the item to the contributing plugin 
+        // bound the item to the contributing plugin
         item.setContributorURI(getContributorId(getBundle()));
         
         // add creation parameters

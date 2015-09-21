@@ -52,6 +52,10 @@
         <tags>popup:org.modelio.popupmenu.cms</tags>
         <tags>popup:org.modelio.diagram.editor.popup</tags>
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_eqStMoD9EeKKLZZAYaz6Sg" elementId="org.modelio.diagram.editor.state.menu.createelement" contributionURI="bundleclass://org.modelio.diagram.editor.state/org.modelio.diagram.editor.state.editor.StateCreationPopupProvider"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_hasNAF3PEeOkitveFL8EOA" elementId="org.modelio.popupmenu.cms"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_fJssQB7NEeO9r6b_vtRk6A" elementId="diagram.editor.state.menuseparator.3"/>
+        <children xsi:type="menu:DynamicMenuContribution" xmi:id="_1yYbgNdfEeK1QOP0kMMjeA" elementId="org.modelio.diagram.editor.state.menu.module" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.context.ModuleMenuCreator"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_j1s7UB5hEeWNGttPULvSww" elementId="diagram.editor.state.menuseparator.4"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xx4t9IWDEeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.state.handledmenuitem.AddStereotype" label="%AddStereotype.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/addstereotype.png" tooltip="%AddStereotype.tooltip" command="_weIAAIWDEeK8HPFXYIuaeQ"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_kbaS8MR3EeK8YvcDBW3yZQ" elementId="org.modelio.diagram.editor.state.handledmenuitem.rename" label="%RenameElement.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/rename.png" tooltip="%RenameElement.tooltip" command="_Qc6lMMRsEeKzIKCziwJO6Q"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_fC6HwB7NEeO9r6b_vtRk6A" elementId="diagram.editor.state.menuseparator.0"/>
@@ -78,9 +82,6 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xx5VEIWDEeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.state.handledmenuitem.redrawlink" label="%RedrawLink.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/redrawlink.png" tooltip="%RedrawLink.tooltip" command="_wJJOgIWDEeK8HPFXYIuaeQ">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_K_k6MO0mEeKWx8-qQ2OLqA" coreExpressionId="org.modelio.diagram.editor.corexp.is-gmlink.id"/>
         </children>
-        <children xsi:type="menu:MenuSeparator" xmi:id="_fJssQB7NEeO9r6b_vtRk6A" elementId="diagram.editor.state.menuseparator.3"/>
-        <children xsi:type="menu:MenuSeparator" xmi:id="_hasNAF3PEeOkitveFL8EOA" elementId="org.modelio.popupmenu.cms"/>
-        <children xsi:type="menu:DynamicMenuContribution" xmi:id="_1yYbgNdfEeK1QOP0kMMjeA" elementId="org.modelio.diagram.editor.state.menu.module" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.context.ModuleMenuCreator"/>
       </menus>
       <toolbar xmi:id="_LUEbIGR8EeKpoNjm4nPb8Q" elementId="diagram.editor.state.toolbar.0">
         <children xsi:type="menu:HandledToolItem" xmi:id="_UZXLsGR8EeKpoNjm4nPb8Q" elementId="org.modelio.diagram.state.handledtoolitem.ZoomIn" label="%ZoomIn" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/zoom_in.png" tooltip="%ZoomIn" command="_dX-5gGF8EeKZr6syzOEatQ"/>

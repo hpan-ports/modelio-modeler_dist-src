@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -61,12 +61,12 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
      * <p>
      * This array contains the first column values:
      * <ul>
-     * <li> for the first row the value is the table header label (usually the metaclass name)
-     * <li> for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
+     * <li>for the first row the value is the table header label (usually the metaclass name)
+     * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
     @objid ("a782690d-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"Message", "Name", "Invoked", "Argument", "SignalSignature"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Name", "Invoked", "Argument", "SignalSignature" };
 
     @objid ("8f48913f-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -154,8 +154,7 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
     /**
      * Return the type of the element displayed at the specified row and column.
      * <p>
-     * This type will be used to choose an editor and a renderer for each cell
-     * of the properties table.
+     * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
      * @param row the row number
@@ -256,17 +255,18 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
             return this.defaultInvokedType;
         }
         
-        Classifier classifier = (Classifier)ns;
+        Classifier classifier = (Classifier) ns;
         
         List<ModelElement> availableOperations = getAvailableOperations(classifier);
         
-        ModelElementListType type = new ModelElementListType(true, Operation.class, availableOperations, CoreSession.getSession(this.theEditedElement));
+        ModelElementListType type = new ModelElementListType(true, Operation.class, availableOperations,
+                CoreSession.getSession(this.theEditedElement));
         return type;
     }
 
     @objid ("8f489169-c068-11e1-8c0a-002564c97630")
     private List<ModelElement> getAvailableOperations(Classifier classifier) {
-        List<ModelElement> operationsList = new ArrayList<>(); 
+        List<ModelElement> operationsList = new ArrayList<>();
         
         if (classifier != null) {
             // Get operations from the classifier itself:
@@ -278,7 +278,7 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
             for (Generalization generalization : classifier.getParent()) {
                 NameSpace parentNameSpace = generalization.getSuperType();
                 if (parentNameSpace instanceof Classifier) {
-                    operationsList.addAll(getAvailableOperations((Classifier)parentNameSpace));
+                    operationsList.addAll(getAvailableOperations((Classifier) parentNameSpace));
                 }
             }
         
@@ -292,10 +292,10 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
             for (BindableInstance bindableInstance : classifier.getInternalStructure()) {
                 NameSpace biNs = bindableInstance.getBase();
                 if (biNs instanceof Classifier && !biNs.equals(classifier)) {
-                    operationsList.addAll(getAvailableOperations((Classifier)biNs));
+                    operationsList.addAll(getAvailableOperations((Classifier) biNs));
                 }
                 if (bindableInstance instanceof Port) {
-                    Port port = (Port)bindableInstance;
+                    Port port = (Port) bindableInstance;
                     EList<ProvidedInterface> providedInterfaces = port.getProvided();
                     for (ProvidedInterface providedInterface : providedInterfaces) {
                         EList<Interface> interfaces = providedInterface.getProvidedElement();

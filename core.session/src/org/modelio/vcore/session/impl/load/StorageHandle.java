@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vcore.session.impl.load;
 
@@ -39,7 +39,6 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 import org.modelio.vcore.smkernel.meta.SmMultipleDependency;
-import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 
 /**
  * Helper class for storage.
@@ -57,6 +56,9 @@ public class StorageHandle implements IStorageHandle {
     @objid ("cf9ebf4c-2bf4-42ed-bdcb-c611df1d2bb8")
     private final IBlobSupport blobSupport;
 
+    @objid ("1dac7121-5ceb-4042-b6d6-f9f6739ef515")
+    private final IRepository newBornRepo;
+
     /**
      * initialize the storage helper.
      * @param repoSupport a view of all connected repositories.
@@ -66,14 +68,9 @@ public class StorageHandle implements IStorageHandle {
     public StorageHandle(IRepositorySupport repoSupport, IBlobSupport blobSupport) {
         this.repoSupport = repoSupport;
         this.blobSupport = blobSupport;
+        this.newBornRepo = this.repoSupport.getRepository(IRepositorySupport.REPOSITORY_KEY_SCRATCH);
     }
 
-    /**
-     * Load an attribute value
-     * @param obj a model object
-     * @param att the model attribute to load
-     * @param data the model object data
-     */
     @objid ("1fe03509-3a2d-11e2-bf6c-001ec947ccaf")
     @Override
     public void loadAtt(SmObjectImpl obj, SmAttribute att, ISmObjectData data) {
@@ -82,12 +79,6 @@ public class StorageHandle implements IStorageHandle {
         }
     }
 
-    /**
-     * Force loading a model dependency
-     * @param obj a model object
-     * @param dep a model dependency
-     * @param data the model object data to fill
-     */
     @objid ("1fe03510-3a2d-11e2-bf6c-001ec947ccaf")
     @Override
     public void forceLoadDep(SmObjectImpl obj, SmDependency dep, ISmObjectData data) {
@@ -98,25 +89,13 @@ public class StorageHandle implements IStorageHandle {
     private void loadNonStoredDep(final SmObjectImpl obj, final SmDependency dep) {
         obj.getRepositoryObject().loadDep(obj, dep);
         
-        // Threading note: we assume here that no repository will be added/removed during iteration
-        this.repoSupport.getRepositoriesLock().lock();
-        try {
-            for (IRepository r : this.repoSupport.getRepositoriesView()) {
-                if (!r.isStored(obj)) {
-                    r.loadDynamicDep(obj, dep);
-                }
+        for (IRepository r : this.repoSupport.getRepositories()) {
+            if (r.isOpen() && !r.isStored(obj)) {
+                r.loadDynamicDep(obj, dep);
             }
-        } finally {
-            this.repoSupport.getRepositoriesLock().unlock();
         }
     }
 
-    /**
-     * Ensure the given dependency is loaded for the given object.
-     * @param obj An object
-     * @param data The object data, to avoid calling {@link SmObjectImpl#getData()}.
-     * @param dep the dependency to load.
-     */
     @objid ("1fe2974f-3a2d-11e2-bf6c-001ec947ccaf")
     @Override
     public void loadDep(final SmObjectImpl obj, final ISmObjectData data, final SmDependency dep) {
@@ -133,13 +112,6 @@ public class StorageHandle implements IStorageHandle {
         }
     }
 
-    /**
-     * @param obj a model object
-     * @param dep a model dependency
-     * @param dep_val the searched model object
-     * @param data the model object data (for perf optimization)
-     * @return the searched object index if found or -1
-     */
     @objid ("1fe29759-3a2d-11e2-bf6c-001ec947ccaf")
     @Override
     public int loadDepIndexOf(SmObjectImpl obj, SmDependency dep, SmObjectImpl dep_val, ISmObjectData data) {
@@ -154,8 +126,7 @@ public class StorageHandle implements IStorageHandle {
             }
         } else {
             oldIndex = 0;
-            SmSingleDependency sdep = (SmSingleDependency) dep;
-            if (sdep.getValue(data) == null) {
+            if (dep.getValue(data) == null) {
                 forceLoadDep(obj, dep, data);
             }
         }
@@ -196,7 +167,7 @@ public class StorageHandle implements IStorageHandle {
         // Process
         final HashSet<SmObjectImpl> moved = new HashSet<>();
         IRepository fromRepo = this.repoSupport.getRepository(toMove);
-        doMoveToRepository(toMove, destRepoHandle, moved);
+        doMoveToRepository(toMove, destRepoHandle, moved, fromRepo==this.newBornRepo);
         
         // Move related blobs
         IRepository destRepo = this.repoSupport.getRepository(toMove);
@@ -278,26 +249,33 @@ public class StorageHandle implements IStorageHandle {
      * @param toMove the object to fix
      * @param destRepoHandle the destination repository object.
      * @param moved will contain all objects moved by this method. Shield against composition cycles.
+     * @param fromNewBorn whether objects are moved from the new born objects repository
      */
     @objid ("4ceae771-81db-477f-be01-3ecc22595dc3")
-    private static void doMoveToRepository(SmObjectImpl toMove, IRepositoryObject destRepoHandle, Collection<SmObjectImpl> moved) {
+    private static void doMoveToRepository(SmObjectImpl toMove, IRepositoryObject destRepoHandle, Collection<SmObjectImpl> moved, boolean fromNewBorn) {
         // Composition graph cycle shield
-        if (moved.contains(toMove))
+        if (moved.contains(toMove)) {
             return ;
+        }
         
         moved.add(toMove);
         
         // Get composition children when we can still load them
         List<SmObjectImpl> children = toMove.getCompositionChildren();
-            
+        
         // Move to repository if different
         IRepositoryObject oldRepoHandle = toMove.getRepositoryObject();
         byte destRepoId = destRepoHandle.getRepositoryId();
         if (oldRepoHandle.getRepositoryId() != destRepoId) {
             // Change repository
             oldRepoHandle.detach(toMove);
-            destRepoHandle.attach(toMove);
-            
+        
+            if (fromNewBorn) {
+                destRepoHandle.attachCreatedObj(toMove);
+            } else {
+                destRepoHandle.attach(toMove);
+            }
+        
             // Update live ids
             long oldLiveId = toMove.getLiveId();
             long newLiveId = SmLiveId.make(SmLiveId.getKid(oldLiveId), destRepoId, SmLiveId.getClassId(oldLiveId));
@@ -307,7 +285,7 @@ public class StorageHandle implements IStorageHandle {
         // Recurse to children
         IRepositoryObject newRepoHandle = toMove.getRepositoryObject();
         for (SmObjectImpl child : children) {
-            doMoveToRepository(child, newRepoHandle, moved);
+            doMoveToRepository(child, newRepoHandle, moved, fromNewBorn);
         }
     }
 

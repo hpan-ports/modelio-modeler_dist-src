@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.jdbm.index;
 
@@ -35,6 +35,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import jdbm.PrimaryHashMap;
 import jdbm.RecordManager;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MRef;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vcore.smkernel.meta.SmDependency;
@@ -59,6 +60,9 @@ public class JdbmIndex {
     @objid ("0dd54394-3dd5-416c-a0cc-833b03df6fd2")
     private Map<MRef , Collection<MRef>> uses;
 
+    @objid ("ed6f78d7-536c-446b-8b93-4a266ba144a3")
+    private RecordManager db;
+
     /**
      * global object index.
      * The key is a model object and the value the CMS node
@@ -69,23 +73,18 @@ public class JdbmIndex {
 
     /**
      * Initialize the index.
-     * @param db the JDBM database string the index.
+     * @param db the JDBM database storing the index.
      * @throws java.io.IOException in case of I/O error
      */
     @objid ("96390c9e-2b45-4baf-9495-3bd0c689ece1")
     public JdbmIndex(final RecordManager db) throws IOException {
-        try {        
-            this.objectsIndex = new HashMap<>(SmClass.getRegisteredClasses().size());
-            for (SmClass cls : SmClass.getRegisteredClasses()) {
-                PrimaryHashMap<UUID, Boolean> idx = db.hashMap("idx.class."+cls.getName(), 
-                        UuidSerializer.instance, null);
-                this.objectsIndex.put(cls.getName(), idx);
-            }
-        
+        this.db = db;
+        try {
+            this.objectsIndex = new HashMap<>();
             this.users = db.hashMap("idx.users", MRefSerializer.instance, MRefCollectionSerializer.instance);
             this.uses = db.hashMap("idx.uses", MRefSerializer.instance, MRefCollectionSerializer.instance);
         
-            
+        
             //dumpIndex(db);
         } catch (IOError e) {
             throw new IOException(e);
@@ -100,7 +99,7 @@ public class JdbmIndex {
      */
     @objid ("8bd10374-024a-40b6-8b43-5c5cc8815ba6")
     public Collection<UUID> getByMClass(final SmClass cls) throws IOError {
-        return this.objectsIndex.get(cls.getName()).keySet();
+        return getObjectIndex(cls).keySet();
     }
 
     /**
@@ -110,11 +109,11 @@ public class JdbmIndex {
      */
     @objid ("1ad1908d-044c-494c-84b3-a3c010e4183c")
     public void removeObj(final MRef id) throws IOError {
-        this.objectsIndex.get(id.mc).remove(id.uuid);
+        getObjectIndex(id.mc).remove(id.uuid);
     }
 
     @objid ("ab154943-ed63-493c-b128-1a27e253eee5")
-    private void addTo(Map<MRef, Collection<MRef>> map, MRef k, Collection<MRef> newUsers) throws IOError {
+    private static void addTo(Map<MRef, Collection<MRef>> map, MRef k, Collection<MRef> newUsers) throws IOError {
         Collection<MRef> ref = map.get(k);
         if (ref == null) {
             map.put(k, newUsers);
@@ -163,7 +162,7 @@ public class JdbmIndex {
     @objid ("c322d839-3a93-423e-8146-0b5118ff9ce9")
     public void removeCrossRefs(final MRef toRemove) throws IOError {
         Collection<MRef> objUses = this.uses.get(toRemove);
-        if (objUses != null) { 
+        if (objUses != null) {
             for (MRef usedObj : objUses) {
                 Collection<MRef> usedUsers = this.users.get(usedObj);
                 if (usedUsers != null) {
@@ -187,7 +186,7 @@ public class JdbmIndex {
      */
     @objid ("8acceaec-3e0d-4432-b9ca-93a60e07e55c")
     public void addToMain(SmObjectImpl obj) throws IOError {
-        Map<UUID, Boolean> ref = this.objectsIndex.get(obj.getMClass().getName());
+        Map<UUID, Boolean> ref = getObjectIndex(obj.getMClass());
         ref.put(obj.getUuid(), Boolean.TRUE);
     }
 
@@ -205,7 +204,7 @@ public class JdbmIndex {
         
             Collection<MRef> newUsers = new ArrayList<>();
             Collection<MRef> newUses = new ArrayList<>();
-            
+        
             //Foreign references
             for (SmDependency dep : obj.getClassOf().getAllDepDef()) {
                 if (Helper.isPersistent(dep)) {
@@ -213,7 +212,7 @@ public class JdbmIndex {
                         // one way navigable
                         for (SmObjectImpl val : obj.getDepValList(dep)) {
                             MRef valRef = new MRef(val);
-                            
+        
                             addTo(this.users, valRef, objRef);
                             newUses.add(valRef);
                         }
@@ -227,7 +226,7 @@ public class JdbmIndex {
                     }
                 }
             }
-            
+        
             addTo(this.users, objRef, newUsers);
             addTo(this.uses, objRef, newUses);
         
@@ -237,7 +236,7 @@ public class JdbmIndex {
     }
 
     @objid ("ebe7c88b-b02c-41b8-9dbe-f6df11c9454f")
-    private void addTo(final Map<MRef, Collection<MRef>> map, final MRef k, final MRef v) throws IOError {
+    private static void addTo(final Map<MRef, Collection<MRef>> map, final MRef k, final MRef v) throws IOError {
         Collection<MRef> l = map.get(k);
         if (l == null) {
             l = new ArrayList<>(1);
@@ -247,6 +246,34 @@ public class JdbmIndex {
             l.add(v);
             map.put(k, l);
         }
+    }
+
+    /**
+     * Get the object index for the given metaclass.
+     * @param mClass a metaclass
+     * @return the class objects index
+     */
+    @objid ("f76fc982-d043-43c2-8efc-8670fcf7dd5f")
+    protected Map<UUID, Boolean> getObjectIndex(final MClass mClass) {
+        String clsName = mClass.getName();
+        return getObjectIndex(clsName);
+    }
+
+    /**
+     * Get the object index for the given metaclass.
+     * @param className a metaclass name
+     * @return the class objects index
+     */
+    @objid ("cfe5238a-a279-4b06-9c0e-abe4aaaf8303")
+    protected Map<UUID, Boolean> getObjectIndex(String className) {
+        Map<UUID, Boolean> idx = this.objectsIndex.get(className);
+        if (idx == null) {
+            //FIXME handle class name collision in different metamodels
+            idx = this.db.hashMap("idx.class."+className,
+                    UuidSerializer.instance, null);
+        
+        }
+        return idx;
     }
 
 }

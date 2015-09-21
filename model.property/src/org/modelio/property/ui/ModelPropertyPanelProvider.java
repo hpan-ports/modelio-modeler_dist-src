@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui;
 
@@ -42,7 +42,6 @@ import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.property.ui.data.ContentPanel;
 import org.modelio.property.ui.data.DataPanelInput;
 import org.modelio.property.ui.tree.TreePanel;
@@ -121,7 +120,7 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
     private SashForm shform = null;
 
     @objid ("82d0ce97-d239-4a5b-a7ff-56a1616f28f4")
-     Composite theViewParent = null;
+    private Composite theViewParent = null;
 
     /**
      * Instantiate a new Model Property panel. The property view is read only.
@@ -154,14 +153,6 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
         
         this.layoutChangeListener = new LayoutChangeListener();
         enableAutoLayout();
-        
-        // TODO CHM Activate the context for NoteView :
-        // IContextService contextService = (IContextService)
-        // getViewSite().getService(IContextService.class);
-        // contextService.activateContext("com.modeliosoft.modelio.bindings.context.AnnotationViewID");
-        
-        // TODO CHM set tooltip
-        // setTitleToolTip(ModelProperty.I18N.getString("NotesTabTooltip"));
         
         this.treeSelectionListener = new SelectionChangedListener(this);
         this.treePanel.getTreeViewer().addSelectionChangedListener(this.treeSelectionListener);
@@ -277,8 +268,7 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
      * @return the selected elements.
      */
     @objid ("8faa29b8-c068-11e1-8c0a-002564c97630")
-    @SuppressWarnings("unchecked")
-    public List<ModelElement> getSelectedTypeItems() {
+    public List<Object> getSelectedTypeItems() {
         ISelection selection = this.treePanel.getTreeViewer().getSelection();
         if (selection instanceof IStructuredSelection) {
             return ((IStructuredSelection) selection).toList();
@@ -299,11 +289,10 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
         
         if (this.currentElement != null && this.currentElement.isValid()) {
             TreePanelInput newInput = createTreeInput(false);
-            DataPanelInput dataInput = createDataInput();
         
             final Element currTypeItem = getCurrentTypeItem();
-            if (currTypeItem != null && 
-                    ((SmObjectImpl) currTypeItem).isValid() && 
+            if (currTypeItem != null &&
+                    ((SmObjectImpl) currTypeItem).isValid() &&
                     currTypeItem!=this.currentElement) {
                 newInput.setPreselectedTypingElement(currTypeItem);
             } else {
@@ -318,17 +307,9 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
         } else {
             this.currentElement = null;
             TreePanelInput newInput = createTreeInput(true);
-            
+        
             this.treePanel.setInput(newInput);
         }
-    }
-
-    /**
-     * Passing the focus request to the viewer's control.
-     */
-    @objid ("8faa2986-c068-11e1-8c0a-002564c97630")
-    private void setFocus() {
-        this.treePanel.setFocus();
     }
 
     /**
@@ -363,7 +344,7 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
         this.pickingService = newPickingService;
         this.activationService = newActivationService;
         
-        if (newModelingSession != null) {            
+        if (newModelingSession != null) {
             if (this.modelingSession != null && this.modelChangeListener != null) {
                 final IModelChangeSupport modelChangeSupport = this.modelingSession.getModelChangeSupport();
                 if (modelChangeSupport != null) {
@@ -376,8 +357,9 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
             this.modelingSession.getModelChangeSupport().addModelChangeListener(this.modelChangeListener);
         } else {
             if (this.modelingSession != null) {
-                if (this.modelChangeListener != null)
+                if (this.modelChangeListener != null) {
                     this.modelingSession.getModelChangeSupport().removeModelChangeListener(this.modelChangeListener);
+                }
                 this.modelChangeListener = null;
                 this.modelingSession = null;
             }
@@ -521,6 +503,9 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
         @objid ("40a40e48-5737-414b-aef8-f7d297d4b41b")
         protected ModelPropertyPanelProvider propertyView;
 
+        /**
+         * Default constructor building an instance of ModelChangeListener.
+         */
         @objid ("2f218374-4aa8-4748-b76f-0e9f13e897ee")
         public ModelChangeListener(final ModelPropertyPanelProvider propertyView) {
             this.propertyView = propertyView;

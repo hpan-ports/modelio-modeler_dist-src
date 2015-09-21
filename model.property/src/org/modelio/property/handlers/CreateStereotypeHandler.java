@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.handlers;
 
@@ -74,8 +74,8 @@ public class CreateStereotypeHandler {
         }
         Profile profile = null;
         profile = getSelectedProfile(selection);
-        if (profile == null) {            
-            IProjectFragment fragment = getSelectedFragment(selection); 
+        if (profile == null) {
+            IProjectFragment fragment = getSelectedFragment(selection);
             if (fragment == null) {
                 return false;
             }
@@ -112,7 +112,7 @@ public class CreateStereotypeHandler {
         Profile profile = null;
         profile = getSelectedProfile(selection);
         List<ModelElement> elements = new ArrayList<>();
-        IProjectFragment fragment = getSelectedFragment(selection); 
+        IProjectFragment fragment = getSelectedFragment(selection);
         if (profile == null) {
             elements = getSelectedModelElements(selection);
             ModuleComponent module = getFirstModule(fragment);
@@ -123,11 +123,7 @@ public class CreateStereotypeHandler {
         if (newStecreotype != null) selectAndEditInBrowser(part, newStecreotype);
     }
 
-    /**
-     * @return
-     */
     @objid ("f9939d89-2000-40dd-875e-889b2cc8d533")
-    @SuppressWarnings("unchecked")
     private List<ModelElement> getSelectedModelElements(IStructuredSelection selection) {
         List<ModelElement> selectedElements = new ArrayList<>();
         List<Object> selectedObjects = selection.toList();
@@ -145,13 +141,13 @@ public class CreateStereotypeHandler {
         if (selection.size() == 1) {
             Object selectedObject = selection.getFirstElement();
             if (selectedObject instanceof IProjectFragment) {
-                if (((IProjectFragment) selectedObject).getType()== FragmentType.EXML 
+                if (((IProjectFragment) selectedObject).getType()== FragmentType.EXML
                         || ((IProjectFragment) selectedObject).getType()== FragmentType.EXML_SVN) {
                     fragment = (IProjectFragment) selectedObject;
                 }
             } else if (selectedObject instanceof ModelElement && ((ModelElement) selectedObject).isModifiable()) {
                 fragment = this.projectService.getOpenedProject().getFragment((ModelElement) selectedObject);
-            }            
+            }
         }
         return fragment;
     }
@@ -168,10 +164,10 @@ public class CreateStereotypeHandler {
 
     @objid ("1a6c8283-8c2f-4064-aade-fccc429e9dcc")
     private Profile getProfileToCreateStereotype(ModuleComponent module) {
-        if (!module.getOwnedProfile().isEmpty()) {            
+        if (!module.getOwnedProfile().isEmpty()) {
             // Get LocalProfile if have
             for (Profile profile : module.getOwnedProfile()) {
-                if (("LocalProfile").equals(profile.getName())) {                
+                if (("LocalProfile").equals(profile.getName())) {
                     return profile;
                 }
             }

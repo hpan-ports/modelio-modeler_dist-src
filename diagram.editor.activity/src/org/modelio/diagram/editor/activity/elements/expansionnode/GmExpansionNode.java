@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.expansionnode;
 
@@ -66,6 +66,9 @@ public class GmExpansionNode extends GmPortContainer {
     @objid ("30a8c085-58a2-11e2-9574-002564c97630")
      static final GmExpansionNodeStructuredStyleKeys STRUCTURED_KEYS = new GmExpansionNodeStructuredStyleKeys();
 
+    @objid ("f28dba26-7305-4da3-8f8d-ff853b58ba0b")
+    private static final GmExpansionNodeUserImageStyleKeys USERIMAGE_KEYS = new GmExpansionNodeUserImageStyleKeys();
+
     /**
      * Constructor.
      * @param diagram the diagram in which the expansionNode is unmasked.
@@ -76,7 +79,7 @@ public class GmExpansionNode extends GmPortContainer {
     public GmExpansionNode(GmAbstractDiagram diagram, ExpansionNode el, MRef ref) {
         super(diagram, ref);
         
-        GmExpansionNodePrimaryNode mainNode = new GmExpansionNodePrimaryNode(diagram, el, ref); 
+        GmExpansionNodePrimaryNode mainNode = new GmExpansionNodePrimaryNode(diagram, el, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         this.addChild(mainNode);
         
@@ -122,6 +125,8 @@ public class GmExpansionNode extends GmPortContainer {
             switch (mode) {
                 case IMAGE:
                     return IMAGE_KEYS.getStyleKey(metakey);
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKey(metakey);
                 case SIMPLE:
                     return SIMPLE_KEYS.getStyleKey(metakey);
                 case STRUCTURED:
@@ -140,6 +145,8 @@ public class GmExpansionNode extends GmPortContainer {
             switch (mode) {
                 case IMAGE:
                     return IMAGE_KEYS.getStyleKeys();
+                case USER_IMAGE:
+                    return USERIMAGE_KEYS.getStyleKeys();
                 case SIMPLE:
                     return SIMPLE_KEYS.getStyleKeys();
                 case STRUCTURED:
@@ -189,7 +196,7 @@ public class GmExpansionNode extends GmPortContainer {
     @objid ("2a553666-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.element = (ExpansionNode) resolveRef(this.getRepresentedRef());
+        this.element = (ExpansionNode) resolveRef(getRepresentedRef());
     }
 
     @objid ("2a55366b-55b6-11e2-877f-002564c97630")

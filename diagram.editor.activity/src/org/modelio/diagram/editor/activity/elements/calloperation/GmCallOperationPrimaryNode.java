@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.editor.activity.elements.calloperation;
 
@@ -26,9 +26,8 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.ElementImageService;
-import org.modelio.diagram.editor.activity.elements.activitynodeheader.GmActivityNodeHeader;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.header.GmModelElementHeader;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNoStyleCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -59,7 +58,7 @@ public class GmCallOperationPrimaryNode extends GmNoStyleCompositeNode implement
      * Header
      */
     @objid ("29db2462-55b6-11e2-877f-002564c97630")
-    private GmActivityNodeHeader header;
+    private GmModelElementHeader header;
 
     /**
      * Default constructor.
@@ -98,8 +97,9 @@ public class GmCallOperationPrimaryNode extends GmNoStyleCompositeNode implement
     @objid ("29db2485-55b6-11e2-877f-002564c97630")
     @Override
     public GmCompositeNode getCompositeFor(Class<? extends MObject> metaclass) {
-        if (canCreate(metaclass))
+        if (canCreate(metaclass)) {
             return this;
+        }
         //else
         return null;
     }
@@ -146,7 +146,7 @@ public class GmCallOperationPrimaryNode extends GmNoStyleCompositeNode implement
     public List<GmNodeModel> getVisibleChildren() {
         // Returned result depends on current representation mode:
         List<GmNodeModel> ret;
-        switch (this.getRepresentationMode()) {
+        switch (getRepresentationMode()) {
             case IMAGE: {
                 ret = Collections.emptyList();
                 break;
@@ -163,7 +163,7 @@ public class GmCallOperationPrimaryNode extends GmNoStyleCompositeNode implement
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
     }
 
@@ -182,9 +182,9 @@ public class GmCallOperationPrimaryNode extends GmNoStyleCompositeNode implement
     private void read_0(IDiagramReader in) {
         super.read(in);
         int i = 0;
-                
-        this.header = (GmActivityNodeHeader) this.getChildren().get(i++);
-        GmDefaultFlatHeader imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(i++);
+        
+        this.header = (GmModelElementHeader) this.getChildren().get(i++);
+        GmNodeModel imageModeHeader = this.getChildren().get(i++);
         imageModeHeader.delete();
     }
 
@@ -198,8 +198,8 @@ public class GmCallOperationPrimaryNode extends GmNoStyleCompositeNode implement
     private void read_1(final IDiagramReader in) {
         super.read(in);
         int i = 0;
-                
-        this.header = (GmActivityNodeHeader) this.getChildren().get(i++);
+        
+        this.header = (GmModelElementHeader) this.getChildren().get(i++);
     }
 
 }

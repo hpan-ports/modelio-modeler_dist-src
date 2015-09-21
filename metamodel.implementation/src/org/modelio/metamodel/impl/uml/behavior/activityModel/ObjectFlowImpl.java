@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,35 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.behavior.activityModel.ObjectFlowData;
+import org.modelio.metamodel.impl.uml.behavior.activityModel.ObjectFlowData;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectFlow;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectFlowEffectKind;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -39,84 +51,90 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0038c502-c4bf-1fd8-97fe-001ec947cd2a")
 public class ObjectFlowImpl extends ActivityEdgeImpl implements ObjectFlow {
-    @objid ("d4cbdf01-5d04-4b33-961a-268f0f8b98de")
+    @objid ("1c3cbeb2-ba98-4a7d-aab2-9c20cacdcba2")
     @Override
     public String getTransformationBehavior() {
-        return (String) getAttVal(ObjectFlowData.Metadata.TransformationBehaviorAtt());
+        return (String) getAttVal(((ObjectFlowSmClass)getClassOf()).getTransformationBehaviorAtt());
     }
 
-    @objid ("40b0f01a-df79-4b40-b364-24f79b478823")
+    @objid ("5259b23a-1c09-4615-a812-ebcf616dea98")
     @Override
     public void setTransformationBehavior(String value) {
-        setAttVal(ObjectFlowData.Metadata.TransformationBehaviorAtt(), value);
+        setAttVal(((ObjectFlowSmClass)getClassOf()).getTransformationBehaviorAtt(), value);
     }
 
-    @objid ("02ad19fa-898f-4286-89bb-bd7016804686")
+    @objid ("d905dce0-5200-48d2-847a-b39762f869d9")
     @Override
     public String getSelectionBehavior() {
-        return (String) getAttVal(ObjectFlowData.Metadata.SelectionBehaviorAtt());
+        return (String) getAttVal(((ObjectFlowSmClass)getClassOf()).getSelectionBehaviorAtt());
     }
 
-    @objid ("dad70e97-22a1-483d-aaf6-7cbd548117c8")
+    @objid ("2978786b-fa63-4ae7-8591-0112da83f17c")
     @Override
     public void setSelectionBehavior(String value) {
-        setAttVal(ObjectFlowData.Metadata.SelectionBehaviorAtt(), value);
+        setAttVal(((ObjectFlowSmClass)getClassOf()).getSelectionBehaviorAtt(), value);
     }
 
-    @objid ("f0e7c670-7aa0-4461-be36-8f9698a6724d")
+    @objid ("b1b233de-2c59-4976-9fe9-48f730b05175")
     @Override
     public boolean isIsMultiCast() {
-        return (Boolean) getAttVal(ObjectFlowData.Metadata.IsMultiCastAtt());
+        return (Boolean) getAttVal(((ObjectFlowSmClass)getClassOf()).getIsMultiCastAtt());
     }
 
-    @objid ("a9b4d49a-dea6-4c0f-874d-40288fac110a")
+    @objid ("f85ff315-250c-4fb7-8bb3-2080eefdf058")
     @Override
     public void setIsMultiCast(boolean value) {
-        setAttVal(ObjectFlowData.Metadata.IsMultiCastAtt(), value);
+        setAttVal(((ObjectFlowSmClass)getClassOf()).getIsMultiCastAtt(), value);
     }
 
-    @objid ("ba32bf4f-35d9-4f6c-8fe9-fb7206baf2f3")
+    @objid ("5de19d70-d793-4798-8a51-37aa94d340a0")
     @Override
     public boolean isIsMultiReceive() {
-        return (Boolean) getAttVal(ObjectFlowData.Metadata.IsMultiReceiveAtt());
+        return (Boolean) getAttVal(((ObjectFlowSmClass)getClassOf()).getIsMultiReceiveAtt());
     }
 
-    @objid ("17d71286-259c-4d30-8f1d-61c8149f29cc")
+    @objid ("237c7324-f615-4487-a734-213a4110a36e")
     @Override
     public void setIsMultiReceive(boolean value) {
-        setAttVal(ObjectFlowData.Metadata.IsMultiReceiveAtt(), value);
+        setAttVal(((ObjectFlowSmClass)getClassOf()).getIsMultiReceiveAtt(), value);
     }
 
-    @objid ("5719d4ba-a145-4c5d-88a2-28dca828c689")
+    @objid ("51360140-36b0-4220-aebf-2c580839a4db")
     @Override
     public ObjectFlowEffectKind getEffect() {
-        return (ObjectFlowEffectKind) getAttVal(ObjectFlowData.Metadata.EffectAtt());
+        return (ObjectFlowEffectKind) getAttVal(((ObjectFlowSmClass)getClassOf()).getEffectAtt());
     }
 
-    @objid ("725564cd-fb11-4d26-bcec-0e51f6ceca63")
+    @objid ("f27eb2ae-20c5-4e56-b765-e7d2b2e26334")
     @Override
     public void setEffect(ObjectFlowEffectKind value) {
-        setAttVal(ObjectFlowData.Metadata.EffectAtt(), value);
+        setAttVal(((ObjectFlowSmClass)getClassOf()).getEffectAtt(), value);
     }
 
-    @objid ("457ffbbc-636b-4ae6-abcc-f9d083509aa4")
+    @objid ("4eae0cb9-6b1c-4d52-a691-d9edd271d68b")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("b42e739b-bb56-486c-96a5-bf841c221bfd")
+    @objid ("00c4e7c0-831e-426f-bb6f-e4ba56027c32")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
+        SmDependency dep;
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("beb37f36-50a2-459f-85cc-64b79c85f873")
+    @objid ("e27647c7-f635-4cf2-89c9-cdf255c34047")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitObjectFlow(this);

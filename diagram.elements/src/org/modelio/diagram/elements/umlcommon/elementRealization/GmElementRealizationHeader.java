@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.diagram.elements.umlcommon.elementRealization;
 
@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.StyleKey;
@@ -38,12 +38,12 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * @author cmarin
  */
 @objid ("b32f9733-4171-4873-ada9-98f03f2f8168")
-public class GmElementRealizationHeader extends GmDefaultFlatHeader {
+public class GmElementRealizationHeader extends GmDefaultModelElementHeader {
     /**
      * Current version of this Gm. Defaults to 0.
      */
     @objid ("d3f0330c-a84b-423a-9840-5f21a2201a28")
-    private final int minorVersion = 0;
+    private static final int minorVersion = 0;
 
     @objid ("066b0614-25a6-4ba2-8c7b-0866678012f2")
     private static final int MAJOR_VERSION = 0;
@@ -79,7 +79,7 @@ public class GmElementRealizationHeader extends GmDefaultFlatHeader {
 
     @objid ("eafefd5b-3f92-430c-8389-cc105cd796c1")
     @Override
-    protected String computeLabel() {
+    protected String computeMainLabel() {
         if (getRelatedElement() != null)
             return "<<use>> " + (getRelatedElement().getName());
         else
@@ -108,12 +108,13 @@ public class GmElementRealizationHeader extends GmDefaultFlatHeader {
 
     @objid ("c0959b6c-3668-4218-b009-85599a2d864b")
     @Override
+    @SuppressWarnings({"all"})
     public void write(IDiagramWriter out) {
         super.write(out);
         
         // Write version of this Gm if different of 0.
-        if (this.minorVersion != 0) {
-            out.writeProperty("GmUsageHeader." + MINOR_VERSION_PROPERTY, Integer.valueOf(this.minorVersion));
+        if (GmElementRealizationHeader.minorVersion != 0) {
+            out.writeProperty("GmUsageHeader." + MINOR_VERSION_PROPERTY, Integer.valueOf(GmElementRealizationHeader.minorVersion));
         }
     }
 

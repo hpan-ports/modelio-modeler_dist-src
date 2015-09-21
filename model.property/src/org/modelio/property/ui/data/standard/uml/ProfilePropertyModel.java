@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.property.ui.data.standard.uml;
 
@@ -33,7 +33,7 @@ import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 @objid ("8f605f20-c068-11e1-8c0a-002564c97630")
 public class ProfilePropertyModel extends AbstractPropertyModel<Profile> {
     @objid ("a7e2d886-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] {"Profile", "Name"};
+    private static final String[] PROPERTIES = new String[] { "Property", "Name" };
 
     @objid ("8f605f29-c068-11e1-8c0a-002564c97630")
     private StringType labelStringType = null;
@@ -129,7 +129,7 @@ public class ProfilePropertyModel extends AbstractPropertyModel<Profile> {
             case 0:
                 return; // Header cannot be modified
             case 1:
-                this.theEditedElement.setName((String)value);
+                this.theEditedElement.setName((String) value);
                 return;
             default:
                 return;

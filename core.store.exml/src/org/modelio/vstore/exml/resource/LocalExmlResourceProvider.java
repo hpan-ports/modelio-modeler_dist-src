@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.vstore.exml.resource;
 
@@ -43,7 +43,7 @@ import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.repository.BlobServices;
-import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vstore.exml.common.model.ObjId;
 
 /**
@@ -54,34 +54,49 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
     @objid ("7294666b-cc33-4f49-b9cd-ce4fc0771fc4")
     private String name;
 
-    @objid ("cf50780d-03e4-11e2-b5bf-001ec947ccaf")
-    protected Path repositoryPath;
-
-    @objid ("cf50780e-03e4-11e2-b5bf-001ec947ccaf")
-    private Path modelPath;
-
-    @objid ("56431bde-0482-4788-a969-e8537a140013")
-    private Path stampPath;
+    @objid ("4070fd54-8e58-4e10-a53a-bb99f8bdd6ca")
+    private final Path blobsDir;
 
     @objid ("cd668a26-2eec-4c30-918c-878a84635f6e")
-    private Path indexPath;
+    private final Path indexPath;
 
-    @objid ("4070fd54-8e58-4e10-a53a-bb99f8bdd6ca")
-    private Path blobsDir;
+    @objid ("cf50780e-03e4-11e2-b5bf-001ec947ccaf")
+    private final Path modelPath;
+
+    @objid ("cf50780d-03e4-11e2-b5bf-001ec947ccaf")
+    protected final Path repositoryPath;
+
+    @objid ("56431bde-0482-4788-a969-e8537a140013")
+    private final Path stampPath;
 
     @objid ("1b898bae-c8f8-4a31-bed0-666f507ebd51")
-    private Path versionPath;
+    private final Path versionPath;
 
     /**
      * Initialize the resource provider.
      * @param repositoryPath a path on the local file system.
      * @param runtimePath a path on the local file system containing repository data
      * that may be discarded. This directory will usually contain the EXML indexes.
+     * 
+     * @deprecated use {@link #LocalExmlResourceProvider(Path, Path, String)}
      */
     @objid ("4a42dd38-085f-49f2-85c6-5b9eb651c672")
+    @Deprecated
     public LocalExmlResourceProvider(Path repositoryPath, Path runtimePath) {
+        this (repositoryPath, runtimePath, repositoryPath.toString());
+    }
+
+    /**
+     * Initialize the resource provider.
+     * @param repositoryPath a path on the local file system.
+     * @param runtimePath a path on the local file system containing repository data
+     * that may be discarded. This directory will usually contain the EXML indexes.
+     * @param name the resource name, returned by {@link #getName()}
+     */
+    @objid ("be505de5-4462-4451-9764-fb11edf3c768")
+    public LocalExmlResourceProvider(Path repositoryPath, Path runtimePath, String name) {
         this.repositoryPath = repositoryPath;
-        this.name = repositoryPath.getFileName().toString();
+        this.name = name;
         this.modelPath = repositoryPath.resolve(IExmlRepositoryGeometry.MODEL_DIRNAME);
         this.stampPath = repositoryPath.resolve(IStampGeometry.STAMP_DIR_NAME).resolve(IStampGeometry.STAMP_FILE_NAME);
         this.indexPath = runtimePath.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME);
@@ -115,30 +130,35 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
 
     @objid ("cf52da71-03e4-11e2-b5bf-001ec947ccaf")
     @Override
-    public void createRepository() throws IOException {
-        ExmlRepositoryCreator c = new ExmlRepositoryCreator(this.repositoryPath);
+    public void createRepository(MMetamodel metamodel) throws IOException {
+        ExmlRepositoryCreator c = new ExmlRepositoryCreator(this.repositoryPath, metamodel);
         c.createRepositoryStructure();
+    }
+
+    @objid ("6b5b4d3c-b54d-41d0-9e48-692819572d84")
+    @Override
+    public void deleteBlob(String blob) throws IOException {
+        Path blobPath = getBlobPath(blob);
+        Files.deleteIfExists(blobPath);
     }
 
     @objid ("cf50782e-03e4-11e2-b5bf-001ec947ccaf")
     @Override
     public Collection<ExmlResource> getAllResources(IModelioProgress aMonitor) throws IOException {
-        List<SmClass> mClasses = SmClass.getRegisteredClasses();
         List<ExmlResource> toBuild = new ArrayList<>();
-        SubProgress monitor = SubProgress.convert(aMonitor, "Getting all repository content...", 100+mClasses.size());
+        SubProgress monitor = SubProgress.convert(aMonitor, "Getting all repository content...", 5);
         
-        for (SmClass cls : mClasses) {
-            if (cls.isCmsNode()) {
-                Path dir  = this.modelPath.resolve(cls.getName());
-                if (Files.isDirectory(dir)) {
-                    try(DirectoryStream<Path> dirStream = Files.newDirectoryStream(dir, "*.exml");) {
-                        for (Path  f: dirStream) {
-                            toBuild.add(new LocalResource(f));
-                        }
+        
+        try(DirectoryStream<Path> classDs = Files.newDirectoryStream(this.modelPath);){
+            for (Path dir : classDs) {
+                try(DirectoryStream<Path> dirStream = Files.newDirectoryStream(dir, "*.exml");) {
+                    for (Path  f: dirStream) {
+                        toBuild.add(new LocalResource(f));
                     }
                 }
+                monitor.worked(1);
+                monitor.setWorkRemaining(5);
             }
-            monitor.worked(1);
         }
         return Collections.unmodifiableCollection(toBuild);
     }
@@ -155,16 +175,16 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
         return new LocalResource(getLocalCmsNodePath(cmsNodeId));
     }
 
-    @objid ("cf52da74-03e4-11e2-b5bf-001ec947ccaf")
-    @Override
-    public URI getURI() {
-        return this.repositoryPath.toUri();
-    }
-
     @objid ("ab62866f-ec6c-415f-b3dd-d8e662af28c9")
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @objid ("786673ff-0dab-4036-86a6-c2128d89e7a5")
+    @Override
+    public ExmlResource getRepositoryVersionResource() {
+        return new LocalResource(this.versionPath);
     }
 
     @objid ("cf507812-03e4-11e2-b5bf-001ec947ccaf")
@@ -189,10 +209,54 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
         }
     }
 
+    @objid ("cf52da74-03e4-11e2-b5bf-001ec947ccaf")
+    @Override
+    public URI getURI() {
+        return this.repositoryPath.toUri();
+    }
+
+    @objid ("c1ed907d-0941-4154-92f4-875605f2f2c2")
+    @Override
+    public boolean isBrowsable() {
+        return true;
+    }
+
     @objid ("5a5f0ba1-0724-11e2-9eb7-001ec947ccaf")
     @Override
     public boolean isWriteable() {
         return true;
+    }
+
+    @objid ("f2563538-b840-4440-8388-b7cdba6ed411")
+    @Override
+    public InputStream readBlob(String key) throws IOException {
+        Path blobPath = getBlobPath(key);
+        if (Files.isRegularFile(blobPath)) {
+            InputStream is = Files.newInputStream(blobPath);
+            try (CloseOnFail c = new CloseOnFail(is)) {
+                @SuppressWarnings("unused")
+                IBlobInfo unused = BlobServices.readBlobInfo(is);
+        
+                c.success();
+            }
+        
+            return is;
+        } else {
+            return null;
+        }
+    }
+
+    @objid ("231035bc-875e-470e-881f-47cd59c026b0")
+    @Override
+    public IBlobInfo readBlobInfo(String key) throws IOException {
+        Path blobPath = getBlobPath(key);
+        if (Files.isRegularFile(blobPath)) {
+            try (InputStream is = Files.newInputStream(blobPath)) {
+                return BlobServices.readBlobInfo(is);
+            }
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -210,37 +274,6 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
         return "'"+this.name+"' local repository @"+this.repositoryPath;
     }
 
-    @objid ("5c8a68d4-53b4-4224-bf82-ca99692d14e9")
-    @Override
-    public void writeStamp() throws IOException {
-        Path stampDir = this.stampPath.getParent();
-        
-        if (!stampDir.getFileSystem().isReadOnly()) {
-            byte[] bytes = UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8);
-            
-            Files.createDirectories(stampDir);
-            Files.write(this.stampPath, bytes);
-        }
-    }
-
-    @objid ("f2563538-b840-4440-8388-b7cdba6ed411")
-    @Override
-    public InputStream readBlob(String key) throws IOException {
-        Path blobPath = getBlobPath(key);
-        if (Files.isRegularFile(blobPath)) {
-            InputStream is = Files.newInputStream(blobPath);
-            try (CloseOnFail c = new CloseOnFail(is)) {
-                @SuppressWarnings("unused")
-                IBlobInfo unused = BlobServices.readBlobInfo(is);
-                
-                c.success();
-            }
-            
-            return is;
-        } else
-            return null;
-    }
-
     @objid ("813597e2-3ee0-4bab-906e-f1e77abb901e")
     @Override
     public OutputStream writeBlob(IBlobInfo info) throws IOException {
@@ -256,16 +289,22 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
         return os;
     }
 
-    @objid ("cf507818-03e4-11e2-b5bf-001ec947ccaf")
-    private Path getCmsNodePath(ObjId id) {
-        return this.modelPath.resolve(id.classof.getName())
-                .resolve(id.id.toString()+IExmlRepositoryGeometry.EXT_EXML);
+    @objid ("5c8a68d4-53b4-4224-bf82-ca99692d14e9")
+    @Override
+    public void writeStamp() throws IOException {
+        Path stampDir = this.stampPath.getParent();
+        
+        if (!stampDir.getFileSystem().isReadOnly()) {
+            byte[] bytes = UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8);
+        
+            Files.createDirectories(stampDir);
+            Files.write(this.stampPath, bytes);
+        }
     }
 
-    @objid ("978dc0ec-12de-11e2-816a-001ec947ccaf")
-    private Path getLocalCmsNodePath(ObjId id) {
-        return this.modelPath.resolve(id.classof.getName())
-                .resolve(id.id.toString()+IExmlRepositoryGeometry.EXT_LOCAL_EXML);
+    @objid ("99e5552a-9751-4d74-86f8-4bfeed4b763d")
+    protected String getMetaclassDirectoryName(ObjId id) {
+        return ExmlRepositoryGeometry.getMetaclassDirectoryName(id.classof);
     }
 
     @objid ("74941219-10a3-4c05-8a40-a9b36b7542d6")
@@ -273,35 +312,16 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
         return this.repositoryPath.resolve(BlobGeometry.getBlobPath(key));
     }
 
-    @objid ("6b5b4d3c-b54d-41d0-9e48-692819572d84")
-    @Override
-    public void deleteBlob(String blob) throws IOException {
-        Path blobPath = getBlobPath(blob);
-        Files.deleteIfExists(blobPath);
+    @objid ("cf507818-03e4-11e2-b5bf-001ec947ccaf")
+    private Path getCmsNodePath(ObjId id) {
+        return this.modelPath.resolve(getMetaclassDirectoryName(id))
+                                                .resolve(id.id.toString()+IExmlRepositoryGeometry.EXT_EXML);
     }
 
-    @objid ("231035bc-875e-470e-881f-47cd59c026b0")
-    @Override
-    public IBlobInfo readBlobInfo(String key) throws IOException {
-        Path blobPath = getBlobPath(key);
-        if (Files.isRegularFile(blobPath)) {
-            try (InputStream is = Files.newInputStream(blobPath)) {
-                return BlobServices.readBlobInfo(is);
-            }
-        } else
-            return null;
-    }
-
-    @objid ("786673ff-0dab-4036-86a6-c2128d89e7a5")
-    @Override
-    public ExmlResource getRepositoryVersionResource() {
-        return new LocalResource(this.versionPath);
-    }
-
-    @objid ("c1ed907d-0941-4154-92f4-875605f2f2c2")
-    @Override
-    public boolean isBrowsable() {
-        return true;
+    @objid ("978dc0ec-12de-11e2-816a-001ec947ccaf")
+    private Path getLocalCmsNodePath(ObjId id) {
+        return this.modelPath.resolve(getMetaclassDirectoryName(id))
+                                                .resolve(id.id.toString()+IExmlRepositoryGeometry.EXT_LOCAL_EXML);
     }
 
     /**
@@ -320,10 +340,11 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
         @objid ("cf52da64-03e4-11e2-b5bf-001ec947ccaf")
         @Override
         public InputStream read() throws IOException {
-            if (! Files.isRegularFile(this.p))
+            if (! Files.isRegularFile(this.p)) {
                 return null;
-            else
+            } else {
                 return Files.newInputStream(this.p);
+            }
         }
 
         @objid ("cf52da69-03e4-11e2-b5bf-001ec947ccaf")

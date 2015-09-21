@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.xmi.model.objing;
 
@@ -28,7 +28,7 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.generation.GenerationProperties;
 
 @objid ("b486c4d4-43e3-4991-bfba-ed1a865d4d27")
-public class ORegion extends OModelElement implements IOElement {
+public class ORegion extends OModelElement {
     @objid ("47610a03-e3db-484c-8de9-b3fdb8b64422")
     private GenerationProperties genProp = GenerationProperties.getInstance();
 
@@ -43,17 +43,17 @@ public class ORegion extends OModelElement implements IOElement {
     @objid ("1539874b-01d0-468c-84f6-dae1e6f9f4e6")
     public ORegion(Region element) {
         super(element);       
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("d607c2a4-f614-4d1a-9468-f93f060df8ef")
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        Element objingOwner = objingElement.getParent();
+        Element objingOwner = this.objingElement.getParent();
         
         if (objingOwner == null)
-            objingOwner = objingElement.getRepresented();
+            objingOwner = this.objingElement.getRepresented();
                 
-        org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
+        org.eclipse.uml2.uml.Element ecoreOwner = this.genProp.getMappedElement(objingOwner);
         
         if (ecoreOwner instanceof org.eclipse.uml2.uml.State) {
             ((org.eclipse.uml2.uml.State) ecoreOwner).getRegions().add( (org.eclipse.uml2.uml.Region) ecoreElt);

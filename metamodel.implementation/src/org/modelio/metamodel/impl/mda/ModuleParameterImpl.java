@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,28 +12,40 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
 
-/* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9022              */
-/*   SemGen version   : 2.0.07.9012       */
+
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.0.01.9022
+     Generated on: 28 janv. 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 9024, by Modeliosoft
+     Generator version: 3.2.07.9022
+     Generated on: Mar 10, 2015
+*/
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Standard, version 0.0.9026, by Modeliosoft
+     Generator version: 3.4.00
+     Generated on: Jun 23, 2015
+*/
 package org.modelio.metamodel.impl.mda;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.mda.ModuleParameterData;
+import org.modelio.metamodel.impl.mda.ModuleParameterData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.ModuleParameter;
 import org.modelio.metamodel.mda.ModuleParameterType;
-import org.modelio.metamodel.uml.statik.GeneralClass;
+import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -42,126 +54,149 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00650bb2-c4bf-1fd8-97fe-001ec947cd2a")
 public class ModuleParameterImpl extends ModelElementImpl implements ModuleParameter {
-    @objid ("9f1708e9-7f5f-4553-854f-dcb9b82d22d0")
+    @objid ("38a01379-9661-4b3d-b976-4d03a9ba9167")
     @Override
-    public String getSetName() {
-        return (String) getAttVal(ModuleParameterData.Metadata.SetNameAtt());
+    public String getGroupName() {
+        return (String) getAttVal(((ModuleParameterSmClass)getClassOf()).getGroupNameAtt());
     }
 
-    @objid ("b4482c35-2c71-4e78-9876-88b64d84ba7a")
+    @objid ("b6a5fc2b-3263-4ae3-9ea5-06456839d7d8")
     @Override
-    public void setSetName(String value) {
-        setAttVal(ModuleParameterData.Metadata.SetNameAtt(), value);
+    public void setGroupName(String value) {
+        setAttVal(((ModuleParameterSmClass)getClassOf()).getGroupNameAtt(), value);
     }
 
-    @objid ("cfe7b5c6-f402-41bb-9b5e-de3e1791d466")
+    @objid ("bd20e243-eb11-42d6-b14b-011dd5f45a1e")
     @Override
-    public ModuleParameterType getAssociatedType() {
-        return (ModuleParameterType) getAttVal(ModuleParameterData.Metadata.AssociatedTypeAtt());
+    public ModuleParameterType getType() {
+        return (ModuleParameterType) getAttVal(((ModuleParameterSmClass)getClassOf()).getTypeAtt());
     }
 
-    @objid ("f7b20303-f930-478c-baf1-ec4e78c8af05")
+    @objid ("783c28a4-3c30-4de9-8963-9b49c5d0085f")
     @Override
-    public void setAssociatedType(ModuleParameterType value) {
-        setAttVal(ModuleParameterData.Metadata.AssociatedTypeAtt(), value);
+    public void setType(ModuleParameterType value) {
+        setAttVal(((ModuleParameterSmClass)getClassOf()).getTypeAtt(), value);
     }
 
-    @objid ("9a38cfbf-3a49-40f0-8e8c-e38e328b1892")
+    @objid ("86ddcc7b-8bb6-4267-b644-e03ed8f0ba52")
     @Override
     public boolean isIsUserRead() {
-        return (Boolean) getAttVal(ModuleParameterData.Metadata.IsUserReadAtt());
+        return (Boolean) getAttVal(((ModuleParameterSmClass)getClassOf()).getIsUserReadAtt());
     }
 
-    @objid ("02a914c7-a1cc-4f86-bfc5-885dc2cd4bb7")
+    @objid ("a0993f37-48ca-4019-80e0-a2fdb9c71f18")
     @Override
     public void setIsUserRead(boolean value) {
-        setAttVal(ModuleParameterData.Metadata.IsUserReadAtt(), value);
+        setAttVal(((ModuleParameterSmClass)getClassOf()).getIsUserReadAtt(), value);
     }
 
-    @objid ("ea927c9c-d0ca-4826-861f-e5c0dede8973")
+    @objid ("099b9a39-de76-4248-a4fc-0e94c7e88eb0")
     @Override
     public boolean isIsUserWrite() {
-        return (Boolean) getAttVal(ModuleParameterData.Metadata.IsUserWriteAtt());
+        return (Boolean) getAttVal(((ModuleParameterSmClass)getClassOf()).getIsUserWriteAtt());
     }
 
-    @objid ("40cbaf04-22de-431e-9d30-ca1ab800e46d")
+    @objid ("8f419c44-a4cc-46f9-98dd-6913068520a8")
     @Override
     public void setIsUserWrite(boolean value) {
-        setAttVal(ModuleParameterData.Metadata.IsUserWriteAtt(), value);
+        setAttVal(((ModuleParameterSmClass)getClassOf()).getIsUserWriteAtt(), value);
     }
 
-    @objid ("297f069a-6d3f-40b1-9dca-d1ea85c43e96")
+    @objid ("3ad361ae-10f4-4903-b453-e828b4114618")
     @Override
     public boolean isIsApiRead() {
-        return (Boolean) getAttVal(ModuleParameterData.Metadata.IsApiReadAtt());
+        return (Boolean) getAttVal(((ModuleParameterSmClass)getClassOf()).getIsApiReadAtt());
     }
 
-    @objid ("77cce948-36ab-422c-91f9-b8f4f3cd3139")
+    @objid ("329a53ce-2bc1-4767-ba24-ce5a6de94466")
     @Override
     public void setIsApiRead(boolean value) {
-        setAttVal(ModuleParameterData.Metadata.IsApiReadAtt(), value);
+        setAttVal(((ModuleParameterSmClass)getClassOf()).getIsApiReadAtt(), value);
     }
 
-    @objid ("4a04a562-fe7a-42d9-80f7-e52aa1a30a98")
+    @objid ("244e24ae-03df-48ca-b558-46f1757939e1")
     @Override
     public boolean isIsApiWrite() {
-        return (Boolean) getAttVal(ModuleParameterData.Metadata.IsApiWriteAtt());
+        return (Boolean) getAttVal(((ModuleParameterSmClass)getClassOf()).getIsApiWriteAtt());
     }
 
-    @objid ("98c04fd4-88c0-4ec9-a89a-dfdbdda4a2c7")
+    @objid ("d5f7912c-c0b9-45c6-96d6-d5939b4627a2")
     @Override
     public void setIsApiWrite(boolean value) {
-        setAttVal(ModuleParameterData.Metadata.IsApiWriteAtt(), value);
+        setAttVal(((ModuleParameterSmClass)getClassOf()).getIsApiWriteAtt(), value);
     }
 
-    @objid ("f4896866-edbe-468a-86c7-c48e1bfe541b")
+    @objid ("0d9b98eb-1e2c-4ed8-aa12-e9a276271ff6")
     @Override
-    public GeneralClass getType() {
-        return (GeneralClass) getDepVal(ModuleParameterData.Metadata.TypeDep());
+    public String getDefaultValue() {
+        return (String) getAttVal(((ModuleParameterSmClass)getClassOf()).getDefaultValueAtt());
     }
 
-    @objid ("d98100fc-6779-4a0d-8f87-ff0025429075")
+    @objid ("873a202b-5bc0-453c-9c46-f36d5be0f887")
     @Override
-    public void setType(GeneralClass value) {
-        appendDepVal(ModuleParameterData.Metadata.TypeDep(), (SmObjectImpl)value);
+    public void setDefaultValue(String value) {
+        setAttVal(((ModuleParameterSmClass)getClassOf()).getDefaultValueAtt(), value);
     }
 
-    @objid ("f7a77d15-dc15-474e-8032-76fb030e0a5b")
+    @objid ("33405ddf-f02f-4bc5-ae81-4c2932b2b812")
     @Override
     public ModuleComponent getOwner() {
-        return (ModuleComponent) getDepVal(ModuleParameterData.Metadata.OwnerDep());
+        Object obj = getDepVal(((ModuleParameterSmClass)getClassOf()).getOwnerDep());
+        return (obj instanceof ModuleComponent)? (ModuleComponent)obj : null;
     }
 
-    @objid ("c0889d92-4fcf-45e4-b28a-4892c9780afc")
+    @objid ("c78167cf-5ecc-4d05-8d92-36a2e2bccdde")
     @Override
     public void setOwner(ModuleComponent value) {
-        appendDepVal(ModuleParameterData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(((ModuleParameterSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("74eab3c9-2662-42d1-8848-5fc6923e30d7")
+    @objid ("6452c8bb-8058-423d-ac5b-7588751a99b9")
+    @Override
+    public Enumeration getEnumType() {
+        Object obj = getDepVal(((ModuleParameterSmClass)getClassOf()).getEnumTypeDep());
+        return (obj instanceof Enumeration)? (Enumeration)obj : null;
+    }
+
+    @objid ("7f98f05a-ee2d-46b1-af0c-4645b7f171f7")
+    @Override
+    public void setEnumType(Enumeration value) {
+        appendDepVal(((ModuleParameterSmClass)getClassOf()).getEnumTypeDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("9f8c7661-fe54-4630-851b-1f330abee8e5")
     @Override
     public SmObjectImpl getCompositionOwner() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ModuleParameterData.Metadata.OwnerDep());
+        // Owner
+        obj = (SmObjectImpl)this.getDepVal(((ModuleParameterSmClass)getClassOf()).getOwnerDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("34885438-8690-4610-912b-80f24030ee5d")
+    @objid ("bd891f5e-c65c-4302-9edb-5b52b903683e")
     @Override
     public SmDepVal getCompositionRelation() {
+        // Generated implementation
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(ModuleParameterData.Metadata.OwnerDep());
-        if (obj != null)
-          return new SmDepVal(ModuleParameterData.Metadata.OwnerDep(), obj);
+        SmDependency dep;
+        
+        // Owner
+        dep = ((ModuleParameterSmClass)getClassOf()).getOwnerDep();
+        obj = (SmObjectImpl)this.getDepVal(dep);
+        if (obj != null) return new SmDepVal(dep, obj);
+        
         return super.getCompositionRelation();
     }
 
-    @objid ("33128768-a71e-476c-8275-9c6f50d413df")
+    @objid ("bbc66f92-bb2f-415d-a2eb-16bf6a4730ae")
+    @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitModuleParameter(this);

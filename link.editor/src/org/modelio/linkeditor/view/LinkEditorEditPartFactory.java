@@ -1,8 +1,8 @@
-/*
- * Copyright 2013 Modeliosoft
- *
+/* 
+ * Copyright 2013-2015 Modeliosoft
+ * 
  * This file is part of Modelio.
- *
+ * 
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -12,20 +12,20 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
  * 
- */  
-                                    
+ */
+
 
 package org.modelio.linkeditor.view;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.graph.Edge;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.linkeditor.view.background.BackgroundEditPart;
 import org.modelio.linkeditor.view.background.BackgroundModel;
 import org.modelio.linkeditor.view.edge.EdgeEditPart;
@@ -42,14 +42,14 @@ import org.modelio.linkeditor.view.node.NodeEditPart;
 @objid ("1ba1eb56-5e33-11e2-b81d-002564c97630")
 class LinkEditorEditPartFactory implements EditPartFactory {
     @objid ("d4995d77-5efd-11e2-a8be-00137282c51b")
-    private final IMModelServices modelServices;
+    private final IEclipseContext context;
 
     @objid ("1ba1eb5a-5e33-11e2-b81d-002564c97630")
     @Override
     public EditPart createEditPart(final EditPart context, final Object model) {
         EditPart editPart;
         if (model instanceof BackgroundModel) {
-            editPart = new BackgroundEditPart(this.modelServices);
+            editPart = new BackgroundEditPart(this.context);
             editPart.setModel(model);
             return editPart;
         }
@@ -75,8 +75,8 @@ class LinkEditorEditPartFactory implements EditPartFactory {
     }
 
     @objid ("d4995d79-5efd-11e2-a8be-00137282c51b")
-    public LinkEditorEditPartFactory(IMModelServices modelServices) {
-        this.modelServices = modelServices;
+    public LinkEditorEditPartFactory(IEclipseContext context) {
+        this.context = context;
     }
 
 }
