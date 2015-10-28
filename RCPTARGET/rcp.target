@@ -8,6 +8,7 @@
 		<location path="${project_loc:/RCPTARGET}/eclipse" type="Directory"/>
 		<location path="${project_loc:/RCPTARGET}/emf" type="Directory"/>
 		<location path="${project_loc:/RCPTARGET}/gef" type="Directory"/>
+		<location path="${project_loc:/RCPTARGET}/jdbm" type="Directory"/>
 		<location path="${project_loc:/RCPTARGET}/ktable" type="Directory"/>
 		<location path="${project_loc:/RCPTARGET}/nebula" type="Directory"/>
 		<location path="${project_loc:/RCPTARGET}/nebula-incubator" type="Directory"/>
